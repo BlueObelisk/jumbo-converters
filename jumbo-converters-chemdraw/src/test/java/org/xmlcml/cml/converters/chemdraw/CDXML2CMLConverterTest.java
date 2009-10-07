@@ -23,7 +23,7 @@ public class CDXML2CMLConverterTest  {
       ce.setOutputSuffix("cml");
       ce.setLocalDirName("cdx/cdxml");
       ce.setConverterInstance(new CDXML2CMLConverter());
-      ce.runBasicConverterTest();
+      ce.run();
 	}
 
 
