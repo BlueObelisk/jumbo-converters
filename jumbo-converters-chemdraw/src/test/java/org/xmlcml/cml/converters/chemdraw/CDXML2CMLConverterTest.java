@@ -3,7 +3,7 @@ package org.xmlcml.cml.converters.chemdraw;
 import java.io.IOException;
 
 import org.junit.Test;
-import org.xmlcml.cml.converters.testutils.ConverterExercise;
+import org.xmlcml.cml.converters.testutils.RegressionSuite;
 
 public class CDXML2CMLConverterTest  {
 	public final String getLocalDirName() {
@@ -18,7 +18,7 @@ public class CDXML2CMLConverterTest  {
 	
 	@Test
 	public void testConverter() throws IOException {
-      ConverterExercise ce = new ConverterExercise();
+      RegressionSuite ce = new RegressionSuite();
       ce.setInputSuffix("cdxml");
       ce.setOutputSuffix("cml");
       ce.setLocalDirName("cdx/cdxml");
