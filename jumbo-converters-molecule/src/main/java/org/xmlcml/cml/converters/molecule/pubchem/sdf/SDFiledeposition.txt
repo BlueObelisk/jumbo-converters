@@ -1,0 +1,106 @@
+PUBCHEM_EXT_DATASOURCE_REGID
+Depositor’s Unique External Registry ID. This external registry ID or name is provided by you, the depositor. It is your primary key to a substance and must be unique across all data deposited by you, the data source. If you provide an External Registry ID that is not unique to your depositions, it will be treated as an update request that will replace the existing substance record in PubChem with the data you provide in the SD record.
+Only a single registry ID is allowed in a single line of data for this SD field. The expected format must be visible ASCII text without control characters. Rich Text Format (RTF), HTML codes, e.g., "<I>", and HTML4 special characters, e.g., "&#959;", are strongly discouraged. External Registry IDs with disallowed characters may prevent proper deposition of the Substance.
+Please Note: This is the only required SD field.
+PUBCHEM_PUBLICATION_DATE
+PubChem Publication Date. Date deposited data is to be made available on the public PubChem data system. While we will attempt to honor this release date to the best of our abilities, we may disallow deposition of substances with release dates greater than two months.
+Only a single date is to be provided on a single line of text. The expected format is modeled after the international standard date notation ISO 8601 and must be one of the following:
+Complete date:
+YYYY-MM-DD (e.g., 1997-07-16)
+Complete date plus hours and minutes:
+YYYY-MM-DDThh:mmTZD (e.g., 1997-07-16T19:20+01:00)
+where:
+YYYY = four-digit year
+MM = two-digit month (01=January, etc.)
+DD = two-digit day of month (01 through 31)
+hh = two digits of hour (00 through 23) (am/pm NOT allowed)
+mm = two digits of minute (00 through 59)
+TZD = time zone designator (Z or +hh:mm or -hh:mm)
+There are two independent ways of handling time zone offsets:
+[1] Times are expressed in UTC (Coordinated Universal Time), with a special UTC designator ("Z").
+[2] Times are expressed in local time, together with a time zone offset in hours and minutes. A time zone offset of "+hh:mm" indicates that the date/time uses a local time zone which is "hh" hours and "mm" minutes ahead of UTC. A time zone offset of "-hh:mm" indicates that the date/time uses a local time zone which is "hh" hours and "mm" minutes behind UTC.
+Examples:
+1994-11-05T08:15-05:00
+corresponds to November 5, 1994, 8:15 am, US Eastern Standard Time
+1994-11-05T13:15:30Z
+corresponds to the same instant in time as the prior example
+PubChem Substance Deposition using SD File Format
+V1.5.0 http://pubchem.ncbi.nlm.nih.gov
+Page 3 of 9 7/24/2009 8:32:08 AM
+PubChem Deposition Allowed SD Fields (cont.)
+PUBCHEM_EXT_DATASOURCE_INCHI
+InChI string to be used to represent the chemical structure for the Substance being deposited. This is an alternate mechanism for providing a structural description of a Substance and will be ignored if a chemical structure with atoms is also provided in the SD file format CTAB section in the same SDF record deposited.
+Only a single InChI string is allowed for a given Substance. The expected format is a single line of text containing a valid InChI string. This InChI can be standard or non-standard.
+PUBCHEM_DEPOSITOR_RECORD_DATE
+Depositor’s Record Date. This optional field allows you, the depositor, to specify a public searchable internal creation or modification date of your substance record. This is not intended to be used as a deposition or export date; rather it is intended to be the date the substance was last changed in your internal database (maps to Entrez index field "SourceReleaseDate"). Please note that PubChem automatically provides (within Entrez) a date when the record is added or updated (Entrez index field "DepositDate").
+Only a single date is to be provided on a single line of text. The expected format is identical to the PUBCHEM_PUBLICATION_DATE field.
+PUBCHEM_EXT_DATASOURCE_URL
+Depositor’s External Source/Database Universal Resource Locator (URL). An URL may be provided to link back to your, the depositor’s, web site from within PubChem. This URL will be associated with your external source/database name for the Substance deposited.
+Only a single external source/database URL is allowed for a given Substance. The expected format is a single line of text containing the URL exactly as it is required for use in the PubChem web pages.
+PUBCHEM_EXT_SUBSTANCE_URL
+Depositor’s External Substance Universal Resource Locator (URL). An URL may be provided to link back to your, the depositor’s, web site in PubChem. This URL will be associated with your external registry ID/name.
+Only a single external registry ID/name URL is allowed for a given Substance. The expected format is a single line of text containing the URL exactly as it is required for use in the PubChem web pages.
+PubChem Substance Deposition using SD File Format
+V1.5.0 http://pubchem.ncbi.nlm.nih.gov
+Page 4 of 9 7/24/2009 8:32:08 AM
+PubChem Deposition Allowed SD Fields (cont.)
+PUBCHEM_SUBSTANCE_COMMENT
+Substance Comments. Comments are your, the depositor’s, textual annotations about the Substance. Comments may be used to provide beneficial information about a Substance record that can be found through exact or keyword text searches. We reserve the right to suppress or eliminate unsuitable or excessive comments.
+Multiple Comments are allowed for a Substance. The expected format must be printable ASCII characters. HTML4 special characters will be automatically removed. URL’s via HTML "<A>...</A>" may be used.
+PUBCHEM_SUBSTANCE_SYNONYM
+Substance Synonyms. Synonyms allow alternate ways to identify, link, and locate the provided Substance. Synonyms may include common names, systematic names, and trade names. Synonyms help provide a way for users to find your Substance record through exact or keyword text searches.
+Providing useful and multiple synonyms for a substance will increase the chance that your substance will be located by users of PubChem. By you providing synonyms and a valid chemical structure, you will additionally help integrate your substance with other Entrez databases.
+Multiple Synonyms are allowed for a Substance. The expected format must be ASCII text without control characters. HTML codes and HTML4 special characters will be removed. Only a single Synonym is expected per line.
+PUBCHEM_GENERIC_REGISTRY_NAME
+Substance Generic Registry Name/ID. Generic registry names are typically assigned by an outside organization. This must be a valid Registry Name or ID.
+Multiple Registry Names or IDs are allowed for a Substance. The expected format is either an unsigned number or a series of three unsigned numbers delimited by a "-" character. Only a single Registry Name or ID is allowed per line.
+
+
+Example of SD fields
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+Development Therapeutics Program NCI/NIH
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+2'-Ethoxy-3-hydroxy-2-naphthanilide
+2-Naphthalenecarboxamide, N- (2-ethoxyphenyl)-3-hydroxy-
+2-Naphtho-o-phenetidide, 3-hydroxy-
+Acco Naf-Sol AS-phenyl
+Acco Naphthol AS-phenyl
+Acna Naphthol OF
+Amanil Naphthol AS-phenyl
+Amarthol AS-phenyl
+Azotol OF
+C.I. 37558
+C.I. Azoic Coupling Component 14
+Daito Grounder phenyl
+Hiltonaphthol AS-phenyl
+Kambothol ASPH
+Naphtanilide phenyl
+Naphtanilide phenyl Supra
+Naphtazol OP
+Naphthanil OP
+Naphthol AS-OP
+Naphthol AS-PH
+Naphthol AS-RO
+Naphthol AS-phenyl
+Naphthol AS-phenyl Supra
+Naphtoelan phenyl
+Naphtol AS-phenyl
+Tulathol AS-phenyl
+92-74-0
+NSC50681
+
+> <PUBCHEM_GENERIC_REGISTRY_NAME>
+92-74-0
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+http://dtp.nci.nih.gov/
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+http://dtp.nci.nih.gov/dtpstandard/servlet/dwindex?searchtype=NSC&outputformat=html&searchlist=50681
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+50681
+
+$$$$
