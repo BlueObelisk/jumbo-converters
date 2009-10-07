@@ -21,6 +21,8 @@ public class CDXML2CMLConverterTest  {
       ConverterExercise ce = new ConverterExercise();
       ce.setInputSuffix("cdxml");
       ce.setOutputSuffix("cml");
+      ce.setLocalDirName("cdx/cdxml");
+      ce.setConverterInstance(new CDXML2CMLConverter());
       ce.runBasicConverterTest();
 	}
 

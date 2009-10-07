@@ -16,7 +16,9 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.xmlcml.cml.base.CMLConstants;
+import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.testutil.TestUtils;
+import org.xmlcml.cml.converters.Type;
 
 public abstract class ConverterExercise {
 	
@@ -33,8 +35,11 @@ public abstract class ConverterExercise {
 	private String auxiliaryFileName;
 	private boolean verbose = false;
 	private boolean quiet = false;
-	
+   private Type inputType;
+   private Type outputType;
+	private AbstractConverter converterInstance;
 	private String testDir;
+   private String testRoot;
 		
 	public void setVerbose(boolean verbose) {
 		this.verbose = verbose;
@@ -251,7 +256,6 @@ public abstract class ConverterExercise {
     * (rather than streams) and without command line operation. 
     */
 	public void runBasicConverterTest() {
-
 		getStartDirName();
 		getOutputDirName();
 		inputSuffix = getInputSuffix();
