@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.testutil.TestUtils;
 import org.xmlcml.cml.converters.Type;
 
@@ -43,7 +44,7 @@ public class RegressionSuite {
    private boolean quiet = false;
    private Type inputType;
    private Type outputType;
-   private AbstractConverter converterInstance;
+   private Converter converter;
    private String testDir;
    private String testRoot;
 //
@@ -266,11 +267,29 @@ public class RegressionSuite {
       inputSuffix = getInputSuffix();
       outputSuffix = getOutputSuffix();
       File od = clean(getOutputDir());
-      for (File f : getStartDir().listFiles((FileFilter) new SuffixFileFilter(
-              inputSuffix))) {
-         File outputFile = outputFileFor(f);
-         converterInstance.convert(f, outputFile);
+      final File startDir = getStartDir();
+      if (!startDir.exists()) {
+         throw new RuntimeException(
+                 "Cannot run regression test of " +
+                 converter.getClass() + "; inputs directory " +
+                 startDir + " does not exist");
       }
+      File[] fs = startDir.listFiles((FileFilter) new SuffixFileFilter(
+              inputSuffix));
+      if ((fs == null) ? true : (fs.length == 0)) {
+         throw new RuntimeException("No test files found for regression test of " + converter.
+                 getClass());
+      }
+      for (File input : fs) {
+         final File output = outputFileFor(input);
+         final File reference = referenceFileFor(input);
+         converter.convert(input, output);
+         compare(reference, output);
+      }
+   }
+
+   public void setConverter(Converter c) {
+      this.converter = c;
    }
 
    public File outputFileFor(File input) {
@@ -327,6 +346,10 @@ public class RegressionSuite {
 
    public String getInputSuffix() {
       return inputSuffix;
+   }
+
+   public void setInputSuffix(String suffix) {
+      this.inputSuffix = suffix;
    }
 
    public String getOutputSuffix() {

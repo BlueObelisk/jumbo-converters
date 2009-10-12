@@ -1,18 +1,25 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.xmlcml.cml.converters.testutils;
 
 import java.io.File;
+import java.io.IOException;
+import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.Assert;
+import org.xmlcml.cml.converters.AbstractConverter;
+import org.mockito.stubbing.Answer;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.Mock;
+import static org.mockito.Mockito.*;
 
 /**
  *
  * @author ojd20
  */
 public class RegressionSuiteTest {
+
+   private static final Logger LOG = Logger.getLogger(RegressionSuiteTest.class.
+           getName());
 
    @Test
    public void testFilesCalculatedProperly() {
@@ -38,6 +45,68 @@ public class RegressionSuiteTest {
       Assert.assertEquals(absPath("src/test/resources/cdx/ref/foo.cml"),
                           absPath(rs.referenceFileFor(
               inputFile)));
+   }
+
+   @Test
+   public void testConversionsAndComparisonsPerformed() {
+      RegressionSuite rs = new RegressionSuite();
+      rs.setLocalDirName("regressionSuite");
+      rs.setOutputSuffix("cml");
+      rs.setInputSuffix("cdx");
+      AbstractConverter c = mock(AbstractConverter.class);
+      rs.setConverter(c);
+      final File inputFile = new File(
+              "src/test/resources/regressionSuite/in/foo.cdx");
+      final File outputFile = new File("target/test/regressionSuite/out/foo.cml");
+      doAnswer(copyFile(inputFile, outputFile)).when(c).convert(
+              eq(inputFile),
+              eq(outputFile));
+      rs.run();
+      verify(c).convert(
+              inputFile,
+              outputFile);
+   }
+
+   @Test
+   public void testConversionsAndComparisonsPerformedFails() {
+      RegressionSuite rs = new RegressionSuite();
+      rs.setLocalDirName("regressionSuite2");
+      rs.setOutputSuffix("txt");
+      rs.setInputSuffix("txt");
+      AbstractConverter c = mock(AbstractConverter.class);
+      rs.setConverter(c);
+      final File inputFile = new File(
+              "src/test/resources/regressionSuite2/in/foo.cdx");
+      final File outputFile = new File(
+              "target/test/regressionSuite2/out/foo.cml");
+      doAnswer(copyFile(inputFile, outputFile)).when(c).convert(
+              eq(inputFile),
+              eq(outputFile));
+      boolean success = false;
+      try {
+         rs.run();
+      } catch (AssertionError e) {
+         LOG.debug("Files didn't match");
+         success = true;
+      }
+      if (!success) {
+         Assert.fail("Files shouldn't have matched!");
+      }
+   }
+
+   private Answer copyFile(final File inputFile, final File outputFile) {
+      return new Answer() {
+
+         public Object answer(InvocationOnMock invocation) {
+            try {
+               FileUtils.copyFile(
+                       inputFile, outputFile);
+            } catch (IOException ex) {
+               throw new RuntimeException(ex);
+            }
+            return null;
+         }
+      };
    }
 
    private String absPath(String path) {
