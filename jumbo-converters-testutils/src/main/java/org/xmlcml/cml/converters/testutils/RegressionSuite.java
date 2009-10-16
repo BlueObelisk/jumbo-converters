@@ -31,6 +31,16 @@ public class RegressionSuite {
    private String outputSuffix;
    private Converter converter;
 
+   public static RegressionSuite build(String localDirName, String inputSuffix,
+           String outputSuffix, Converter converter) {
+      RegressionSuite rs = new RegressionSuite();
+      rs.setLocalDirName(localDirName);
+      rs.setInputSuffix(inputSuffix);
+      rs.setOutputSuffix(outputSuffix);
+      rs.setConverter(converter);
+      return rs;
+   }
+
    private void compare(File refFile, File outFile) {
       LOG.debug("comparing " + refFile + " ... " + outFile);
       // try XML
@@ -131,7 +141,7 @@ public class RegressionSuite {
       File[] fs = startDir.listFiles((FileFilter) new SuffixFileFilter(
               inputSuffix));
       if ((fs == null) ? true : (fs.length == 0)) {
-         throw new RuntimeException("No test files found for regression test of " + converter.
+         throw new RuntimeException("No test files found in " + startDir + " matching *." + inputSuffix + " for regression test of " + converter.
                  getClass());
       }
       for (File input : fs) {
