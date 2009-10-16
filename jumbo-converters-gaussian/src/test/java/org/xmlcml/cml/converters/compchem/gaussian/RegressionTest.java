@@ -34,4 +34,16 @@ public class RegressionTest {
       RegressionSuite.build("compchem/gaussian/gaussian/log", "g03", "cml",
                             new GaussianLog2CMLConverter());
    }
+
+   @Test
+   public void cmlFreq2gauIn() {
+      RegressionSuite.build("compchem/gaussian/input/freq", "cml", "gau.in",
+                            new CML2GaussianInputConverter());
+   }
+
+   @Test
+   public void cmlNmr2gauIn() {
+      RegressionSuite.build("compchem/gaussian/input/nmr", "cml", "gau.in",
+                            new GaussianLog2CMLConverter());
+   }
 }
