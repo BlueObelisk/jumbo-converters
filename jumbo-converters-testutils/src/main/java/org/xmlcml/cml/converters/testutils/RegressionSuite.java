@@ -62,9 +62,11 @@ public class RegressionSuite {
                      compareRDF(refElement, outElement);
                   } else {
                      // ordinary XML
-                     TestUtils.assertEqualsIncludingFloat("compare XML files",
-                                                          refElement, outElement,
-                                                          true, 0.00001);
+                     TestUtils.assertEqualsIncludingFloat(
+                             "Comparing XML files: " + outFile +
+                             " against " + refFile,
+                             refElement, outElement,
+                             true, 0.00001);
                   }
                } catch (Exception e) {
                   LOG.warn("Cannot compare non-xml files");
