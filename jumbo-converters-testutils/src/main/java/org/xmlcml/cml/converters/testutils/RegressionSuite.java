@@ -169,7 +169,10 @@ public class RegressionSuite {
 
    private File transformedExtensionInDir(File input, File outDir) {
       String inputName = input.getName();
-      String baseName = FilenameUtils.removeExtension(inputName);
+      String baseName = (getInputSuffix() == null) ? FilenameUtils.
+              removeExtension(inputName)
+              : inputName.substring(0,
+                                    inputName.length() - getInputSuffix().length() - 1);
       return new File(outDir, new StringBuilder(baseName).append(".").append(
               getOutputSuffix()).toString());
    }

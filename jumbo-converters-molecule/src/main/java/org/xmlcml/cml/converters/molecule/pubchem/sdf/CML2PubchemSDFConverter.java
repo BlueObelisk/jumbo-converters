@@ -3,24 +3,25 @@ package org.xmlcml.cml.converters.molecule.pubchem.sdf;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.molecule.mdl.CML2SDFConverter;
-import org.xmlcml.cml.converters.molecule.mdl.MDLConverter;
 import org.xmlcml.cml.converters.molecule.mdl.MDLConverter.CoordType;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
 
+/**
+ *
+ * TODO some really grotty hardcoding of URLs in here.
+ *
+ * @author pm286
+ * @author ojd20
+ */
 public class CML2PubchemSDFConverter extends CML2SDFConverter implements
 		Converter {
 	
 	private static final Logger LOG = Logger.getLogger(CML2PubchemSDFConverter.class);
-	static {
-		LOG.setLevel(Level.INFO);
-	}
 
 	public final static String CRYSTALEYE_SITE = "http://wwmm.ch.cam.ac.uk/crystaleye/summary";
 	
@@ -99,9 +100,5 @@ public class CML2PubchemSDFConverter extends CML2SDFConverter implements
 		return "acta/e/2009/03-00/data";
 	}
 	
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
 
 }

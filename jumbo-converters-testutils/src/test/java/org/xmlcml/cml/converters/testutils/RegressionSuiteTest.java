@@ -45,6 +45,28 @@ public class RegressionSuiteTest {
       Assert.assertEquals(absPath("src/test/resources/cdx/ref/foo.cml"),
                           absPath(rs.referenceFileFor(
               inputFile)));
+      rs.setInputSuffix("cdx");
+      Assert.assertEquals(absPath("target/test/cdx/out/foo.cml"),
+                          absPath(rs.outputFileFor(
+              inputFile)));
+      Assert.assertEquals(absPath("src/test/resources/cdx/ref/foo.cml"),
+                          absPath(rs.referenceFileFor(
+              inputFile)));
+   }
+
+   @Test
+   public void outputAndReferenceFileCalculatedProperlyWithDoubleSuffixInput() {
+      RegressionSuite rs = new RegressionSuite();
+      rs.setLocalDirName("foo");
+      rs.setInputSuffix("cml.xml");
+      rs.setOutputSuffix("bar");
+      final File inputFile = new File("src/test/resources/foo/in/baz.cml.xml");
+      Assert.assertEquals(absPath("target/test/foo/out/baz.bar"),
+                          absPath(rs.outputFileFor(
+              inputFile)));
+      Assert.assertEquals(absPath("src/test/resources/foo/ref/baz.bar"),
+                          absPath(rs.referenceFileFor(
+              inputFile)));
    }
 
    @Test

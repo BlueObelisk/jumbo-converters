@@ -25,9 +25,6 @@ public class Command {
 
    private static final Logger LOG = Logger.getLogger(Command.class);
 
-   static {
-      LOG.setLevel(Level.INFO);
-   }
    private List<String> xPathList;
 
    /**
