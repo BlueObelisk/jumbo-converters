@@ -1,0 +1,47 @@
+<cml xmlns="http://www.xml-cml.org/schema">
+  <module title="Optimisation and calculation of frequencies" role="job">
+    <module role="directives">
+      <parameter dictRef="ccml:verbosity">
+        <scalar>FULL</scalar>
+      </parameter>
+      <parameter dictRef="ccml:processorCount">
+        <scalar dataType="xsd:integer">8</scalar>
+      </parameter>
+      <parameter dictRef="ccml:maximumMemory">
+        <scalar dataType="xsd:integer" units="units:megaword">500</scalar>
+      </parameter>
+      <parameter dictRef="ccml:nosymmetry"/>
+    </module>
+    <module role="qm">
+      <parameter dictRef="ccml:method">
+        <scalar>UB971</scalar>
+      </parameter>
+      <parameter dictRef="ccml:basis">
+        <scalar>6-311+G</scalar>
+      </parameter>
+      <parameter dictRef="ccml:diffuseFunctions">
+        <scalar>d,p</scalar>
+      </parameter>
+    </module>
+    <module role="operations">
+      <parameter dictRef="ccml:optimization">
+        <scalar convention="cmlx:gaussian">tight</scalar>
+        <parameter dictRef="ccml:maxcycle">
+          <scalar dataType="xsd:integer">200</scalar>
+        </parameter>
+        <parameter dictRef="ccml:newestmfc"/>
+      </parameter>
+      <parameter dictRef="ccml:gfinput"/>
+      <parameter dictRef="ccml:population">
+        <scalar>regular</scalar>
+      </parameter>
+      <parameter dictRef="ccml:frequency"/>
+      <parameter dictRef="ccml:integral">
+        <parameter dictRef="ccml:grid">
+          <scalar>ultrafine</scalar>
+        </parameter>
+      </parameter>
+    </module>
+  </module>
+  
+</cml>

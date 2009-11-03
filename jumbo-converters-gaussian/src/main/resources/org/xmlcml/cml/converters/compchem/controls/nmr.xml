@@ -1,0 +1,123 @@
+<cml xmlns="http://www.xml-cml.org/schema">
+
+  <module role="global">
+    <module role="directives">
+      <parameter dictRef="ccml:maximumMemory">
+        <scalar dataType="xsd:integer" units="units:megaword">500</scalar>
+      </parameter>
+      <parameter dictRef="ccml:processorCount">
+        <scalar dataType="xsd:integer">8</scalar>
+      </parameter>
+    </module>
+  </module>
+  
+  <module title="initial cheap optimization" role="job">
+    <module role="directives">
+      <parameter dictRef="ccml:verbosity">
+        <scalar>FULL</scalar>
+      </parameter>
+    </module>
+    <module role="qm">
+      <parameter dictRef="ccml:method">
+        <scalar>RHF</scalar>
+      </parameter>
+      <parameter dictRef="ccml:basis">
+        <scalar>STO-3G</scalar>
+      </parameter>
+    </module>
+    <module role="operations">
+      <parameter dictRef="ccml:optimization">
+        <scalar convention="cmlx:gaussian">loose</scalar>
+      </parameter>
+    </module>
+  </module>
+  
+  <module title="final optimization" role="job">
+    <molecule ref="#checkpoint"/>
+    <module role="directives">
+      <parameter dictRef="ccml:verbosity">
+        <scalar>NORMAL</scalar>
+      </parameter>
+    </module>
+    <module role="qm">
+      <parameter dictRef="ccml:method">
+        <scalar>rmpw1pw91</scalar>
+      </parameter>
+      <parameter dictRef="ccml:basis">
+        <scalar>6-31g</scalar>
+      </parameter>
+      <parameter dictRef="ccml:diffuseFunctions">
+        <scalar>d,p</scalar>
+      </parameter>
+    </module>
+    <module role="operations">
+      <parameter dictRef="ccml:optimization"/>
+      <parameter dictRef="ccml:frequency"/>
+    </module>
+  </module>
+    
+  <module title="Calculating  GIAO-shifts" role="job">
+    <molecule ref="#checkpoint"/>
+    <module role="directives">
+      <parameter dictRef="ccml:verbosity">
+        <scalar>BRIEF</scalar>
+      </parameter>
+    </module>
+<!--  guess=read??? -->
+    <module role="qm">
+      <parameter dictRef="ccml:method">
+        <scalar>rmpw1pw91</scalar>
+      </parameter>
+      <parameter dictRef="ccml:basis">
+        <scalar>6-31g</scalar>
+        <parameter dictRef="ccml:extrabasis">
+<!--
+C     0
+SP     1     1.00
+             0.05             1.00000000             1.00000000
+****
+-->
+         
+          <scalar dictRef="ccml:elementType">C</scalar>
+          <scalar dictRef="ccml:atom1">0</scalar>
+          <scalar dictRef="ccml:atom2">SP</scalar>
+          <scalar dictRef="ccml:atom3">1</scalar>
+          <scalar dictRef="ccml:atom4">1.00</scalar>
+          <scalar dictRef="ccml:atom5">0.05</scalar>
+          <scalar dictRef="ccml:atom6">1.00000000</scalar>
+          <scalar dictRef="ccml:atom7">1.00000000</scalar>
+        </parameter>
+        <parameter dictRef="ccml:atombasis">
+<!--
+O     0
+SP     1     1.00
+             0.070000              1.0000000              1.0000000
+****
+-->
+         
+          <scalar dictRef="ccml:elementType">O</scalar>
+          <scalar dictRef="ccml:atom1">0</scalar>
+          <scalar dictRef="ccml:atom2">SP</scalar>
+          <scalar dictRef="ccml:atom3">1</scalar>
+          <scalar dictRef="ccml:atom4">1.00</scalar>
+          <scalar dictRef="ccml:atom5">0.07</scalar>
+          <scalar dictRef="ccml:atom6">1.00000000</scalar>
+          <scalar dictRef="ccml:atom7">1.00000000</scalar>
+        </parameter>
+      </parameter>
+      <parameter dictRef="ccml:diffuseFunctions">
+        <scalar>d,p</scalar>
+      </parameter>
+    </module>
+    <module role="operations">
+      <parameter dictRef="ccml:optimization"/>
+      <parameter dictRef="ccml:nmr"/>
+      <parameter dictRef="ccml:scrf">
+        <parameter dictRef="gaussian:cpcm"/>
+        <parameter dictRef="ccml:solvent">
+          <scalar>water</scalar>
+        </parameter>
+      </parameter>
+    </module>
+  </module>
+</cml>

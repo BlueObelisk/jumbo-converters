@@ -18,18 +18,18 @@ import org.xmlcml.cml.converters.Type;
  */
 public class CML2OWLRDFConverter extends AbstractConverter {
 	private static Logger LOG = Logger.getLogger(CML2RDFConverter.class);
-	static {
-		LOG.setLevel(Level.INFO);
-	}
 	
-	public final static String[] typicalArgsForConverterCommand = {
-		"-sd", "src/test/resources/cml",
-		"-odir", "../temp",
-		"-is", "cml",
-		"-os", "mol",
-		"-converter", "org.xmlcml.cml.converters.molecule.mdl.CML2OWLRDFConverter"
-	};
-	
+   private String ontologyResource = "dic.owl";
+
+   public String getOntologyResource() {
+      return ontologyResource;
+   }
+
+   public void setOntologyResource(String ontologyResource) {
+      this.ontologyResource = ontologyResource;
+   }
+   
+
 	public Type getInputType() {
 		return Type.CML;
 	}
@@ -45,20 +45,11 @@ public class CML2OWLRDFConverter extends AbstractConverter {
 	 * @param in
 	 *            input stream
 	 */
+   @Override
 	public Element convertToXML(Element xml) {
 		CMLElement cml = ensureCML(xml);
-		String relativeURINameForOntology = getCommand().getAuxfileName();
-		if (relativeURINameForOntology == null) {
-			throw new RuntimeException("Ontology must be specified in auxFile");
-		}
-		CML2OWLRDF cml2owlrdf = new CML2OWLRDF(relativeURINameForOntology);
+		CML2OWLRDF cml2owlrdf = new CML2OWLRDF(ontologyResource);
 		Element rdf = cml2owlrdf.convertCMLElement(cml);
 		return rdf;
 	}
-
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }

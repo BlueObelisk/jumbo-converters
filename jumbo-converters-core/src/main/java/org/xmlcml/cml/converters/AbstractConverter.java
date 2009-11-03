@@ -65,9 +65,8 @@ public abstract class AbstractConverter implements Converter {
     * @see org.xmlcml.cml.converters.ant.ConverterVersionUpdate ConverterVersionUpdate
     */
    public int getConverterVersion() {
-     return 0;
+      return 0;
    }
-   
    /**
     *
     */
@@ -97,18 +96,18 @@ public abstract class AbstractConverter implements Converter {
     *
     */
    private Builder builder = new Builder();
-
    /** auxiliary file as XML */
    protected Element auxElement;
-   
    protected Command command;
 
    public Command getCommand() {
       return command;
    }
+
    public void setCommand(Command c) {
       command = c;
    }
+
    /**
     * Default constructor used to create a new {@link AbstractConverter}.
     */
@@ -159,7 +158,8 @@ public abstract class AbstractConverter implements Converter {
    private void checkInputIs(ObjectType t) {
       if (getInputType().getObjectType() != t) {
          throw new UnsupportedOperationException(
-                 "Implementation does not claim to support " + t + " input:" + " call a convertToXXX(" + getInputType().getObjectType() + ") method");
+                 "Implementation does not claim to support " + t + " input:" + " call a convertToXXX(" + getInputType().
+                 getObjectType() + ") method");
       }
    }
 
@@ -216,7 +216,8 @@ public abstract class AbstractConverter implements Converter {
    private void checkOutputIs(ObjectType t) {
       if (getOutputType().getObjectType() != t) {
          throw new UnsupportedOperationException(
-                 "Implementation does not claim to support " + t + " output:" + " call a convertTo" + getOutputType().getObjectType() + "(XXX) method");
+                 "Implementation does not claim to support " + t + " output:" + " call a convertTo" + getOutputType().
+                 getObjectType() + "(XXX) method");
       }
    }
 
@@ -557,7 +558,8 @@ public abstract class AbstractConverter implements Converter {
    public static Element marshallToXML(Builder builder, InputStream in) {
       String inS = null;
       try {
-         BufferedReader br = new BufferedReader(new InputStreamReader(in));
+         BufferedReader br = new BufferedReader(new InputStreamReader(in,
+                                                                      "UTF-8"));
          StringBuilder sb = new StringBuilder();
          while (true) {
             String line = br.readLine();
@@ -587,7 +589,8 @@ public abstract class AbstractConverter implements Converter {
       return element;
    }
 
-   private static Element parseString(Builder builder, String inS, DTDProblem dtdProblem) {
+   private static Element parseString(Builder builder, String inS,
+           DTDProblem dtdProblem) {
       Document doc = null;
       try {
          doc = builder.build(new StringReader(inS));
@@ -597,7 +600,8 @@ public abstract class AbstractConverter implements Converter {
          // there is a tricky bug in XOM Xerces for certain files that contain DOCTYPE
          // and references within the DTD itself
          if (e.getMessage().indexOf("Missing scheme in absolute URI reference") != -1) {
-            throw new RuntimeException("XOM/Xerces bug - remove the DOCTYPE and try rerunning", e);
+            throw new RuntimeException(
+                    "XOM/Xerces bug - remove the DOCTYPE and try rerunning", e);
          }
          throw new RuntimeException(e);
       } catch (FileNotFoundException fnf) {
@@ -641,15 +645,16 @@ public abstract class AbstractConverter implements Converter {
       } else {
          try {
             Serializer serializer = new Serializer(out, "UTF-8");
-            // The following three lines pretty-print XML files.
+//            serializer.setMaxLength(0);
             serializer.setIndent(2);
-
             Document doc = new Document((Element) xml.copy());
             serializer.write(doc);
          } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException("Failed while attempting to serialize XML ", e);
+            throw new RuntimeException(
+                    "Failed while attempting to serialize XML ", e);
          } catch (IOException e) {
-            throw new RuntimeException("Failed while attempting to serialize XML ", e);
+            throw new RuntimeException(
+                    "Failed while attempting to serialize XML ", e);
          }
       }
 
@@ -682,7 +687,8 @@ public abstract class AbstractConverter implements Converter {
       List<String> stringList = new ArrayList<String>();
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       if (element == null) {
-         throw new RuntimeException("Null element in marshallToText; your conversion may have failed");
+         throw new RuntimeException(
+                 "Null element in marshallToText; your conversion may have failed");
       }
       try {
          Serializer serializer = new Serializer(baos, "UTF-8");
@@ -710,11 +716,13 @@ public abstract class AbstractConverter implements Converter {
     * @param encoding the encoding to use, e.g. "UTF-8" or "ISO-8859-1"
     * @return a {@link List} of {@link String}s
     */
-   public static List<String> marshallToText(Document doc, int indent, String encoding) {
+   public static List<String> marshallToText(Document doc, int indent,
+           String encoding) {
       List<String> stringList = new ArrayList<String>();
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       if (doc == null) {
-         throw new RuntimeException("Null element in marshallToText; your conversion may have failed");
+         throw new RuntimeException(
+                 "Null element in marshallToText; your conversion may have failed");
       }
       try {
          Serializer serializer = new Serializer(baos, encoding);
@@ -849,7 +857,8 @@ public abstract class AbstractConverter implements Converter {
     * @param e the {@link Exception} that caused the problem
     */
    protected void runtimeException(String message, Exception e) {
-      this.getConverterLog().addToLog(Level.ERROR, message + " " + e.getLocalizedMessage());
+      this.getConverterLog().addToLog(Level.ERROR, message + " " + e.
+              getLocalizedMessage());
       throw new RuntimeException(message, e);
    }
 
@@ -975,12 +984,15 @@ public abstract class AbstractConverter implements Converter {
       if (auxFileName != null) {
          File auxFile = new File(auxFileName);
          if (!auxFile.exists()) {
-            throw new RuntimeException("Cannot find auxiliary file: " + auxFile.getAbsolutePath());
+            throw new RuntimeException("Cannot find auxiliary file: " + auxFile.
+                    getAbsolutePath());
          }
          try {
-            auxElement = new CMLBuilder().build(new FileInputStream(auxFile)).getRootElement();
+            auxElement = new CMLBuilder().build(new FileInputStream(auxFile)).
+                    getRootElement();
          } catch (Exception e) {
-            throw new RuntimeException("Cannot read auxiliary file: " + auxFileName, e);
+            throw new RuntimeException(
+                    "Cannot read auxiliary file: " + auxFileName, e);
          }
       }
       return auxElement;
@@ -991,7 +1003,8 @@ public abstract class AbstractConverter implements Converter {
     * this stub throws RuntimeException
     */
    public void processDirectory(File directory) {
-      throw new RuntimeException("Must override processDirectory for: " + this.getClass());
+      throw new RuntimeException("Must override processDirectory for: " + this.
+              getClass());
    }
 
    public void setMetadataCml(CMLElement metadataCml) {
@@ -1005,7 +1018,8 @@ public abstract class AbstractConverter implements Converter {
 
    public boolean isCMLLiteOutput() {
       getAuxElement();
-      boolean outputCMLLite = (auxElement != null) ? "cml:lite".equals(auxElement.getAttributeValue("output")) : false;
+      boolean outputCMLLite = (auxElement != null) ? "cml:lite".equals(auxElement.
+              getAttributeValue("output")) : false;
       return outputCMLLite;
    }
 }

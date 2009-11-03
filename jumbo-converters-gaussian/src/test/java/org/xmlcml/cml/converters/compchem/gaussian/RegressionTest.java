@@ -1,5 +1,6 @@
 package org.xmlcml.cml.converters.compchem.gaussian;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xmlcml.cml.converters.compchem.gaussian.input.CML2GaussianInputConverter;
 import org.xmlcml.cml.converters.compchem.gaussian.log.GaussianLog2CMLConverter;
@@ -24,26 +25,21 @@ public class RegressionTest {
    }
 
    @Test
-   public void gauIn2CML() {
-      RegressionSuite.build("compchem/gaussian/in", "cml", "gau.in",
-                            new CML2GaussianInputConverter());
-   }
-
-   @Test
+   @Ignore("Largely deprecated")
    public void gauLog2CML() {
       RegressionSuite.build("compchem/gaussian/gaussian/log", "g03", "cml",
-                            new GaussianLog2CMLConverter());
+                            new GaussianLog2CMLConverter()).run();
    }
 
    @Test
    public void cmlFreq2gauIn() {
       RegressionSuite.build("compchem/gaussian/input/freq", "cml", "gau.in",
-                            new CML2GaussianInputConverter());
+                            new CML2GaussianInputConverter()).run();
    }
 
    @Test
    public void cmlNmr2gauIn() {
       RegressionSuite.build("compchem/gaussian/input/nmr", "cml", "gau.in",
-                            new GaussianLog2CMLConverter());
+                            new GaussianLog2CMLConverter()).run();
    }
 }

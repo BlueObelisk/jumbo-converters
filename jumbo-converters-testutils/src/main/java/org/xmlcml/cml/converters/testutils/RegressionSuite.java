@@ -59,7 +59,7 @@ public class RegressionSuite {
                   if (refElement.getLocalName().equals("RDF") &&
                           refElement.getNamespaceURI().equals(
                           "http://www.w3.org/1999/02/22-rdf-syntax-ns#")) {
-                     compareRDF(refElement, outElement);
+                     compareRDF(refElement, outElement, refFile, outFile);
                   } else {
                      // ordinary XML
                      TestUtils.assertEqualsIncludingFloat(
@@ -94,8 +94,8 @@ public class RegressionSuite {
     * @param ref
     * @param test
     */
-   private void compareRDF(Element ref, Element test) {
-      Assert.assertEquals("RDF children",
+   private void compareRDF(Element ref, Element test, File refF, File testF) {
+      Assert.assertEquals("RDF children not the same between "+ refF +" and "+ testF,
                           ref.getChildElements().size(),
                           test.getChildElements().size());
    }

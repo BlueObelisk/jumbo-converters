@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xml:base="http://www.xml-cml.org/schema" xmlns:schema="http://www.xml-cml.org/schema#" xmlns="http://www.xml-cml.org/schema#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:owl2="http://www.w3.org/2006/12/owl2#">
+<rdf:RDF xml:base="http://www.xml-cml.org/schema" xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:owl2="http://www.w3.org/2006/12/owl2#" xmlns:schema="http://www.xml-cml.org/schema#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns="http://www.xml-cml.org/schema#">
   <owl:Ontology rdf:about=""/>
   <!-- /////////////////////////////////////////////////////////////////////////////////////// // // Object Properties // /////////////////////////////////////////////////////////////////////////////////////// -->
   <!-- http://www.xml-cml.org/schema#hasEntry -->
@@ -15,14 +15,14 @@
     <rdfs:subClassOf rdf:resource="#element"/>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:onProperty rdf:resource="#hasID"/>
-        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <owl:onProperty rdf:resource="#hasEntry"/>
+        <owl:someValuesFrom rdf:resource="#Entry"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:onProperty rdf:resource="#hasEntry"/>
-        <owl:someValuesFrom rdf:resource="#Entry"/>
+        <owl:onProperty rdf:resource="#hasID"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
       </owl:Restriction>
     </rdfs:subClassOf>
   </owl:Class>
@@ -534,6 +534,19 @@
     </rdfs:subClassOf>
     <rdfs:comment xml:lang="en">def: needs a definition</rdfs:comment>
     <rdfs:comment xml:lang="en">desc: needs a description</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema/cmlx#cv -->
+  <owl:Class rdf:about="/cmlx#cv">
+    <rdfs:label>cv</rdfs:label>
+    <rdfs:subClassOf rdf:resource="/cmlx#property"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">def: molar heat capacity at constant volume</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: Cv is calculated from the paretition function in link ??</rdfs:comment>
   </owl:Class>
   <!-- http://www.xml-cml.org/schema/cmlx#date -->
   <owl:Class rdf:about="/cmlx#date">
