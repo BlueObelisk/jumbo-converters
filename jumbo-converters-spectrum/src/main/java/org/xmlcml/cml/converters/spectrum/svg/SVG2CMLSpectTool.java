@@ -32,15 +32,14 @@ import org.xmlcml.cml.graphics.SVGText;
 import org.xmlcml.euclid.Real2;
 import org.xmlcml.euclid.Real2Range;
 import org.xmlcml.euclid.Axis.Axis2;
+
+
 /**
  * @author pm286
  */
 public class SVG2CMLSpectTool extends GraphicsConverterTool {
 
     public static Logger LOG = Logger.getLogger(SVG2CMLSpectTool.class);
-    static {
-    	LOG.setLevel(Level.DEBUG);
-    }
     
 	public enum Directory {
 		END,
@@ -79,11 +78,10 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 	private double SUPERSCRIPT_FACTOR = -0.5;
 
     
-	public SVG2CMLSpectTool(Element svgElement, String fileId, Command command) {
+	public SVG2CMLSpectTool(Element svgElement, String fileId) {
 	    init();
 	    this.fileId = fileId;
 	    this.svgElement = svgElement;
-	    this.command = command;
 	}
     
     public CMLCml getCML() {

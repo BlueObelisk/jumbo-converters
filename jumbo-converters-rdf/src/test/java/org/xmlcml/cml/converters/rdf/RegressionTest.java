@@ -12,19 +12,21 @@ import org.xmlcml.cml.converters.testutils.RegressionSuite;
  */
 public class RegressionTest {
 
-   
    @Test
    public void cml2owlrdf() {
-      RegressionSuite.build("rdf/cml2owlrdf", "cml", "rdf", new CML2OWLRDFConverter());
+      RegressionSuite.build("rdf/cml2owlrdf", "cml", "rdf",
+                            new CML2OWLRDFConverter()).run();
    }
 
    @Test
    public void cml2rdf() {
-      RegressionSuite.build("rdf/cml2rdf","cml", "rdf", new CML2RDFConverter());
+      RegressionSuite.build("rdf/cml2rdf", "cml", "rdf", new CML2RDFConverter()).
+              run();
    }
 
    @Test
    public void cml2owl() {
-      RegressionSuite.build("rdf/cml2owl","xml", "owl", new CML2OWLConverter());
+      RegressionSuite.build("rdf/cml2owl", "xml", "owl", new CML2OWLConverter()).
+              run();
    }
 }
