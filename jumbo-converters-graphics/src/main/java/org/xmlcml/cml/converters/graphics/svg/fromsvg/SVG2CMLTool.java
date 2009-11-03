@@ -18,7 +18,6 @@ import nu.xom.ParentNode;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLUtil;
-import org.xmlcml.cml.converters.Command;
 import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemG;
 import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemLine;
 import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemPath;
@@ -136,13 +135,11 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 	private double deltax0;
 	private double deltaxx;
 	private int npict;
-	private Command command;
 
-    public SVG2CMLTool(Element svgElement, String fileId, Command command) {
+    public SVG2CMLTool(Element svgElement, String fileId) {
 	    init();
 	    this.fileId = fileId;
 	    this.svgElement = svgElement;
-	    this.command = command;
 	}
 		  
     
@@ -170,7 +167,8 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 		maxdeltax = 590.;
 		npict = 0;
 	}
-		  
+
+   @Override
     public void processSVG() {
 		row = (rowMap == null) ? null : rowMap.get(fileId);
 		if (row != null) {
@@ -180,13 +178,13 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 		} else {
 			LOG.debug(fileId+": no row.............................");
 		}
-		SVGSVG svg = (SVGSVG) SVGElement.createSVG(svgElement);
-		svgChem = new SVGChemSVG(svg);
+		SVGSVG newsvg = (SVGSVG) SVGElement.createSVG(svgElement);
+		svgChem = new SVGChemSVG(newsvg);
 		processAfterParsing();
 		
 		boolean debug = true;
 		if (debug) {
-			CMLUtil.debug(svg, "SVG");
+			CMLUtil.debug(newsvg, "SVG");
 		}
     }
     
@@ -320,7 +318,6 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 	}
 	
 	private Real2Range createOrAdjustBoundingBox(String title) {
-		command.debug("BOX TITLE: "+title);
 		Real2Range range2 = new Real2Range();
 		List<SVGChemLine> lineList = SVGChemLine.getLineList(svgChem);
 		for (SVGChemLine line : lineList) {
@@ -358,33 +355,6 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 		return range2;
 	}
 
-    @SuppressWarnings("unused")
-	private void debugLines() {
-		List<SVGChemLine> lineList = SVGChemLine.getLineList(svgChem);
-		for (SVGChemLine line : lineList) {
-			LOG.debug(">line> "+line.getDebug());
-		}
-		LOG.debug("====== line =====");
-	}
-    
-    @SuppressWarnings("unused")
-	private void debugText() {
-		List<SVGChemText> textList = SVGChemText.getTextList(svgChem);
-		for (SVGChemText text : textList) {
-			LOG.debug(">> "+text.getText()+"/"+text.getXY());
-		}
-		LOG.debug("===========");
-	}
-    
-	@SuppressWarnings("unused")
-	private CMLAtom tryExtendedBond(SVGChemLine line) {
-		int end = (line.getAtoms()[0] == null)  ? 0 : 1;
-		CMLAtom atom1 = getAtomCloseToNormalLengthBond(line, 1-end);
-		LOG.trace("AAA "+atom1);
-		return atom1;
-	}
-
-
     private void extractAtomsFromTextAddToListAndNumber() {
     	List<SVGChemText> textList = SVGChemText.getTextList(svgChem);
     	for (SVGChemText text : textList) {
@@ -396,15 +366,6 @@ public class SVG2CMLTool extends GraphicsConverterTool {
     	}
 		addBoundingBoxAndDisplay("atoms and number");
     }
-
-//    private void checkBondParents() {
-//    	List<SVGChemLine> lineList = SVGChemLine.getLineList(svgChem);
-//    	for (SVGChemLine line : lineList) {
-//    		if (line.getParent() == null) {
-//    			throw new RuntimeException("BADDDDDDDDDDDDDDDDDDDDDDDDDDD");
-//    		}
-//    	}
-//    }
     
     private void closeShortGapsBetweenLinesAndGroups() {
     	binLines();
@@ -438,9 +399,9 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 		Real2 lineXY = line.getXY(serial);
 		if (lineXY.getDistance(atomXY) < 5.0) {
 			line.setXY(atomXY, serial);
-			String svg = line.getSvgClass();
-			if (svg != null) {
-				svg = svg.replace("unjoined", "");
+			String newsvg = line.getSvgClass();
+			if (newsvg != null) {
+				newsvg = newsvg.replace("unjoined", "");
 				line.setSvgClass(ss.trim());
 			}
 		}
@@ -593,7 +554,7 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 		if (xy2.getDistance(line.getXY(end)) < 1.1) {
 			line.getAtoms()[end] = atom;			
 			added = true;
-			CMLAtom atom1 = getAtomCloseToNormalLengthBond(line, 1-end);
+			CMLAtom atom1 = getAtomCloseToNormalLengthBond(line);
 			if (atom1 == null) {
 //				LOG.debug("could not find a near atom; creating terminal Carbon");
 				makeAndAddNewTerminalCarbon(line, end);
@@ -607,7 +568,7 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 		return added;
 	}
 	
-	private CMLAtom getAtomCloseToNormalLengthBond(SVGChemLine line, int end) {
+	private CMLAtom getAtomCloseToNormalLengthBond(SVGChemLine line) {
 		Line2 line2 = line.getEuclidLine();
 		Vector2 vector2 = line2.getVector();
 		Real2 bondVector = vector2.getUnitVector().multiplyBy(averageLength);
@@ -690,7 +651,6 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 //			List<Line2> distinctLineList = path.extractDistinctEdges(eps, deltaTheta);
 			List<Real2> distinctPointList = path.extractDistinctPoints(eps, deltaTheta);
 			path.debug("PATH");
-			command.debug("POINTS "+distinctPointList.size());
 			if (path.isZeroLength(0.1)) {
 //				path.detach();
 //				pathList.remove(path);
@@ -770,9 +730,9 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 				// add line to graphics tree
 				path.getParent().appendChild(bondLine);
 				lineList.add(bondLine);
-				command.debug("Bond LINES "+lineList.size());
+				LOG.debug("Bond LINES "+lineList.size());
 			} else {
-				command.info("OMITTED OVERLAPPING BOND");
+				LOG.info("OMITTED OVERLAPPING BOND");
 			}
 		}
 		if (bondLine != null) {
@@ -804,7 +764,7 @@ public class SVG2CMLTool extends GraphicsConverterTool {
     		try {
     			chemPath.convertTwoPointPathToLine();
     		} catch (Exception e) {
-    			command.warn("Skipped "+e);
+    			LOG.warn("Skipped "+e);
     		}
     	}
 		addBoundingBoxAndDisplay("points2Lines");
@@ -984,7 +944,7 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 				if (multiplex.size() > 1) {
 					SVGChemLine multipleLine = multiplex.getMultipleBond();
 					if (multipleLine == null) {
-						command.warn("Null  multipleLine");
+						LOG.warn("Null  multipleLine");
 					} else {
 						if (multipleLine.getParent() == null) {
 							parent.appendChild(multipleLine);
@@ -1153,6 +1113,7 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 		return atomList;
 	}
 
+   @Override
 	public SVGChemSVG getSvgChem() {
 		return svgChem;
 	}
@@ -1169,6 +1130,7 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 		this.givenFormula = givenFormula;
 	}
 
+   @Override
 	public String getFileId() {
 		return fileId;
 	}

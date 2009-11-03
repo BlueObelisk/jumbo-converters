@@ -57,7 +57,7 @@ public class SVG2CMLConverter extends AbstractConverter {
 	 */
 	public Element convertToXML(Element xml) {
 		CMLCml cml = null;
-		SVG2CMLTool svg2CmlTool = new SVG2CMLTool(xml, fileId, this.getCommand());
+		SVG2CMLTool svg2CmlTool = new SVG2CMLTool(xml, fileId);
 		svg2CmlTool.processSVG();
 		cml = svg2CmlTool.getCML();
 		SVGSVG svg = svg2CmlTool.getSvgChem();

@@ -1,10 +1,3 @@
-/*
- * Molecule2Png - should be trivially convertible to JPEG etc.
- * NOT gif, due to strange legal pedantry over software patents...
- * 
- * Peter Corbett, 9/12/2005
- */
-
 package org.xmlcml.cml.converters.graphics.png;
 
 import java.awt.Color;

@@ -23,7 +23,7 @@ import org.xmlcml.euclid.Util;
  *
  */
 public abstract class GraphicsConverterTool {
-	@SuppressWarnings("unused")
+
 	private static Logger LOG = Logger.getLogger(GraphicsConverterTool.class);
 
     static Logger logger = Logger.getLogger(GraphicsConverterTool.class);
@@ -45,7 +45,6 @@ public abstract class GraphicsConverterTool {
 	private double fontWidthAdjustmentFactor = 1.1;
 	protected String fileId;
 	protected Element svgElement;
-	protected Command command;
 	protected SVGChemSVG svgChem;
 
 	protected SVGSVG svg;
@@ -73,27 +72,6 @@ public abstract class GraphicsConverterTool {
 	}
 	
 	protected abstract void processAfterParsing();
-
-	// only to extract fontwidths from Java
-//	static JFrame frame = null;
-//	static {
-//		if (frame == null) {
-//			JFrame frame = new JFrame();
-//			frame.setSize(300, 300);
-//			frame.setVisible(true);
-//			JXPanel panel = new JXPanel();
-//			frame.getContentPane().add(panel);
-//			
-//		}
-//	};
-	
-//	public static void main(String[] args) {
-//		JFrame frame = new JFrame();
-//		frame.setSize(300, 300);
-//		frame.setVisible(true);
-//		JXPanel panel = new JXPanel();
-//		frame.getContentPane().add(panel);
-//	}
 
 }
 class JXPanel extends JPanel {
