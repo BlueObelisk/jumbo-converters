@@ -9,7 +9,6 @@ public class PDF2SVGConverterTest {
 
    @Test
    public void testConverter() throws IOException {
-      RegressionSuite.build("pdf/pdf2svg", "pdf", "svg", new PDF2SVGConverter()).
-              run();
+      RegressionSuite.run("pdf/pdf2svg", "pdf", "svg", new PDF2SVGConverter());
    }
 }

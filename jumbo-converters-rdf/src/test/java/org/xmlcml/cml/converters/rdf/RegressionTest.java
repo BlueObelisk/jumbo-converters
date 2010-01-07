@@ -14,19 +14,17 @@ public class RegressionTest {
 
    @Test
    public void cml2owlrdf() {
-      RegressionSuite.build("rdf/cml2owlrdf", "cml", "rdf",
-                            new CML2OWLRDFConverter()).run();
+      RegressionSuite.run("rdf/cml2owlrdf", "cml", "rdf",
+                          new CML2OWLRDFConverter());
    }
 
    @Test
    public void cml2rdf() {
-      RegressionSuite.build("rdf/cml2rdf", "cml", "rdf", new CML2RDFConverter()).
-              run();
+      RegressionSuite.run("rdf/cml2rdf", "cml", "rdf", new CML2RDFConverter());
    }
 
    @Test
    public void cml2owl() {
-      RegressionSuite.build("rdf/cml2owl", "xml", "owl", new CML2OWLConverter()).
-              run();
+      RegressionSuite.run("rdf/cml2owl", "xml", "owl", new CML2OWLConverter());
    }
 }

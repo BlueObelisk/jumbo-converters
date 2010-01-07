@@ -17,14 +17,14 @@ public class RegressionTest {
    @Test
 //   @Ignore("Ignorable whitespace in mixed content causing problems agains")
    public void cif2cifxml() {
-      RegressionSuite.build("cif/cif", "cif", "cif.xml",
-                            new CIF2CIFXMLConverter()).run();
+      RegressionSuite.run("cif/cif", "cif", "cif.xml",
+                            new CIF2CIFXMLConverter());
    }
 
    @Test
 //   @Ignore("Ignorable whitespace in mixed content causing problems agains")
    public void cifxml2cml() {
-      RegressionSuite.build("cif/cifxml", "xml", "cml",
-                            new CIFXML2CMLConverter()).run();
+      RegressionSuite.run("cif/cifxml", "xml", "cml",
+                            new CIFXML2CMLConverter());
    }
 }

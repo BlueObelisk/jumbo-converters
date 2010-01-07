@@ -8,14 +8,14 @@ public class CML2SVGConverterTest {
 
    @Test
    public void testConverter() {
-      RegressionSuite.build("graphics/cml2svg", "cml", "svg",
-                            new CML2SVGConverter()).run();
+      RegressionSuite.run("graphics/cml2svg", "cml", "svg",
+                          new CML2SVGConverter());
    }
 
    @Test
    @Ignore("Test output for mol.cml is nothing like the ref - large problem")
    public void test2CMLConverter() {
-      RegressionSuite.build("graphics/svg2cml", "svg", "cml",
-                            new SVG2CMLConverter()).run();
+      RegressionSuite.run("graphics/svg2cml", "svg", "cml",
+                          new SVG2CMLConverter());
    }
 }

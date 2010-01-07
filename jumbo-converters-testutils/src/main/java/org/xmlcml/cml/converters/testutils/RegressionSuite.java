@@ -31,14 +31,14 @@ public class RegressionSuite {
    private String outputSuffix;
    private Converter converter;
 
-   public static RegressionSuite build(String localDirName, String inputSuffix,
+   public static void run(String localDirName, String inputSuffix,
            String outputSuffix, Converter converter) {
       RegressionSuite rs = new RegressionSuite();
       rs.setLocalDirName(localDirName);
       rs.setInputSuffix(inputSuffix);
       rs.setOutputSuffix(outputSuffix);
       rs.setConverter(converter);
-      return rs;
+      rs.run();
    }
 
    private void compare(File refFile, File outFile) {

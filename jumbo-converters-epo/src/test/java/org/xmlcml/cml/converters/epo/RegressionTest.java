@@ -12,7 +12,7 @@ public class RegressionTest {
    " whitespace in mixed content in the output that the comparisons aren't " +
    "taking account of")
    public void epoDocConverter() {
-      RegressionSuite.build("documents/epo", "xml", "seg.xml",
-                            new EPO2XMLConverter()).run();
+      RegressionSuite.run("documents/epo", "xml", "seg.xml",
+                          new EPO2XMLConverter());
    }
 }

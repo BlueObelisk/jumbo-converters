@@ -21,37 +21,38 @@ public class RegressionTest {
 
    @Test
    public void cml2mdl() {
-      RegressionSuite.build("molecule/mdl/cml2mdl", "cml", "mol",
-                            new CML2MDLConverter()).run();
+      RegressionSuite.run("molecule/mdl/cml2mdl", "cml", "mol",
+                          new CML2MDLConverter());
    }
 
    @Test
    public void mdl2cml() {
-      RegressionSuite.build("molecule/mdl/mdl2cml", "mol", "cml",
-                            new MDL2CMLConverter()).run();
+      RegressionSuite.run("molecule/mdl/mdl2cml", "mol", "cml",
+                          new MDL2CMLConverter());
    }
 
    @Test
    public void xyz2cml() {
-      RegressionSuite.build("molecule/xyz/xyz2cml", "xyz", "cml",
-                            new XYZ2CMLConverter()).run();
+      RegressionSuite.run("molecule/xyz/xyz2cml", "xyz", "cml",
+                          new XYZ2CMLConverter());
    }
 
    @Test
    public void cml2xyz() {
-      RegressionSuite.build("molecule/xyz/cml2xyz", "cml", "xyz",
-                            new CML2XYZConverter()).run();
+      RegressionSuite.run("molecule/xyz/cml2xyz", "cml", "xyz",
+                          new CML2XYZConverter());
    }
 
    @Test
    public void cml2pubchem() {
-      RegressionSuite.build("molecule/pubchem/sdf", "cml.xml", "sdf",
-                            new CML2PubchemSDFConverter()).run();
+      RegressionSuite.run("molecule/pubchem/sdf", "cml.xml", "sdf",
+                          new CML2PubchemSDFConverter());
    }
 
    @Test
    public void pubchemxml2cml() {
-      RegressionSuite.build("molecule/pubchem", "xml", "cml",
-                            new PubchemXML2CMLConverter("molecule/pubchem/config/config.xml")).run();
+      RegressionSuite.run("molecule/pubchem", "xml", "cml",
+                          new PubchemXML2CMLConverter(
+              "molecule/pubchem/config/config.xml"));
    }
 }

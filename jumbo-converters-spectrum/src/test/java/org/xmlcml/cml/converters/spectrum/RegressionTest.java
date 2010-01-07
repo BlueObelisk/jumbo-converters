@@ -19,25 +19,25 @@ public class RegressionTest {
 
    @Test
    public void cml2jdx() {
-      RegressionSuite.build("spectrum/cml2jdx", "cml", "jdx",
-                            new CMLSpect2JDXConverter()).run();
+      RegressionSuite.run("spectrum/cml2jdx", "cml", "jdx",
+                            new CMLSpect2JDXConverter());
    }
 
    @Test
    public void jdx2cml() {
-      RegressionSuite.build("spectrum/jdx2cml", "jdx", "cml",
-                            new JDX2CMLConverter()).run();
+      RegressionSuite.run("spectrum/jdx2cml", "jdx", "cml",
+                            new JDX2CMLConverter());
    }
 
    @Test
    public void cmlspect2SVG() {
-      RegressionSuite.build("graphics/cmlspect2svg", "cml", "svg",
-                            new CMLSpect2SVGConverter()).run();
+      RegressionSuite.run("graphics/cmlspect2svg", "cml", "svg",
+                            new CMLSpect2SVGConverter());
    }
 
    @Test
    public void svg2cmlspect() {
-      RegressionSuite.build("graphics/svg2cmlspect", "svg", "cml",
-                            new SVG2CMLSpectConverter()).run();
+      RegressionSuite.run("graphics/svg2cmlspect", "svg", "cml",
+                            new SVG2CMLSpectConverter());
    }
 }

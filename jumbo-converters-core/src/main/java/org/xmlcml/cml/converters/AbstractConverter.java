@@ -108,28 +108,28 @@ public abstract class AbstractConverter implements Converter {
       command = c;
    }
 
-   /**
-    * Default constructor used to create a new {@link AbstractConverter}.
-    */
-   protected AbstractConverter() {
-      init();
-   }
+	/**
+	 * Default constructor used to create a new {@link AbstractConverter}.
+	 */
+	protected AbstractConverter() {
+		init();
+	}
 
-   /**
-    * Initialize the {@link AbstractConverter}.
-    *
-    * @return
-    */
-   protected void init() {
-//		cmlSelector = getDefaultSelector();
-      converterLog = new ConverterLog();
-   }
+	/**
+	 * Initialize the {@link AbstractConverter}.
+	 * 
+	 * @return
+	 */
+	protected void init() {
+		// cmlSelector = getDefaultSelector();
+		converterLog = new ConverterLog();
+	}
 
-   /**
-    *
-    *
-    * @return
-    */
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
    public boolean canHandleInput(File f) {
       return getInputType().getExtensions().contains(
               FilenameUtils.getExtension(f.getName()));
@@ -139,7 +139,7 @@ public abstract class AbstractConverter implements Converter {
     *
     * @param in
     */
-   private void checkInputFile(File in) {
+   private void checkInputFileReadable(File in) {
       if (in == null) {
          throw new IllegalArgumentException("null input");
       }
@@ -150,11 +150,12 @@ public abstract class AbstractConverter implements Converter {
       fileId = FilenameUtils.getBaseName(in.getAbsolutePath());
    }
 
-   /**
-    *
-    *
-    * @param t	the type of object
-    */
+	/**
+	 * 
+	 * 
+	 * @param t
+	 *            the type of object
+	 */
    private void checkInputIs(ObjectType t) {
       if (getInputType().getObjectType() != t) {
          throw new UnsupportedOperationException(
@@ -173,10 +174,12 @@ public abstract class AbstractConverter implements Converter {
       }
    }
 
-   /**
-    *
-    * @param out
-    */
+	/**
+	 * 
+	 * @param out
+	 *            TODO clean this up - dodgy exception handling opportunity for
+	 *            commons-io
+	 */
    private void checkOutputFile(File out) {
       if (out == null) {
          throw new IllegalArgumentException("output file null");
@@ -322,7 +325,7 @@ public abstract class AbstractConverter implements Converter {
     */
    public void convert(File in, File out) {
       checkState();
-      checkInputFile(in);
+      checkInputFileReadable(in);
       checkOutputFile(out);
       String inputExtension = FilenameUtils.getExtension(in.getName());
       if (!getInputType().getExtensions().contains(inputExtension)) {
@@ -349,7 +352,7 @@ public abstract class AbstractConverter implements Converter {
    }
 
    public void convert(File in, OutputStream out) {
-      checkInputFile(in);
+      checkInputFileReadable(in);
       FileInputStream fin = null;
       try {
          fin = new FileInputStream(in);
@@ -492,7 +495,7 @@ public abstract class AbstractConverter implements Converter {
    }
 
    public Element convertToXML(File in) {
-      checkInputFile(in);
+      checkInputFileReadable(in);
       FileInputStream fin = null;
       try {
          fin = new FileInputStream(in);
@@ -750,7 +753,7 @@ public abstract class AbstractConverter implements Converter {
     *
     */
    public byte[] convertToBytes(File in) {
-      checkInputFile(in);
+      checkInputFileReadable(in);
       FileInputStream fin = null;
       try {
          fin = new FileInputStream(in);
@@ -799,7 +802,7 @@ public abstract class AbstractConverter implements Converter {
    }
 
    public List<String> convertToText(File in) {
-      checkInputFile(in);
+      checkInputFileReadable(in);
       FileInputStream fin = null;
       try {
          fin = new FileInputStream(in);
