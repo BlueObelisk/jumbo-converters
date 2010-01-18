@@ -1,0 +1,1712 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xml:base="http://www.xml-cml.org/schema" xmlns:schema="http://www.xml-cml.org/schema#" xmlns="http://www.xml-cml.org/schema#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:owl2="http://www.w3.org/2006/12/owl2#" xmlns:iucr="http://www.xml-cml.org/iucr#">
+  <owl:Ontology rdf:about=""/>
+  <!-- /////////////////////////////////////////////////////////////////////////////////////// // // Object Properties // /////////////////////////////////////////////////////////////////////////////////////// -->
+  <!-- http://www.xml-cml.org/schema#hasCmlChild -->
+  <owl:ObjectProperty rdf:about="#hasCmlChild"/>
+  <!-- http://www.xml-cml.org/schema#hasEntry -->
+  <owl:ObjectProperty rdf:about="#hasEntry"/>
+  <!-- http://www.xml-cml.org/schema#hasUnits -->
+  <owl:ObjectProperty rdf:about="#hasUnits"/>
+  <!-- /////////////////////////////////////////////////////////////////////////////////////// // // Data properties // /////////////////////////////////////////////////////////////////////////////////////// -->
+  <!-- http://www.xml-cml.org/schema#hasConcise_att -->
+  <owl:DatatypeProperty rdf:about="#hasConcise_att"/>
+  <!-- http://www.xml-cml.org/schema#hasCount_att -->
+  <owl:DatatypeProperty rdf:about="#hasCount_att"/>
+  <!-- http://www.xml-cml.org/schema#hasDictref_att -->
+  <owl:DatatypeProperty rdf:about="#hasDictref_att"/>
+  <!-- http://www.xml-cml.org/schema#hasErrorvalue_att -->
+  <owl:DatatypeProperty rdf:about="#hasErrorvalue_att"/>
+  <!-- http://www.xml-cml.org/schema#hasID -->
+  <owl:DatatypeProperty rdf:about="#hasID"/>
+  <!-- http://www.xml-cml.org/schema#hasId -->
+  <owl:DatatypeProperty rdf:about="#hasId"/>
+  <!-- http://www.xml-cml.org/schema#hasInline_att -->
+  <owl:DatatypeProperty rdf:about="#hasInline_att"/>
+  <!-- http://www.xml-cml.org/schema#hasTitle_att -->
+  <owl:DatatypeProperty rdf:about="#hasTitle_att"/>
+  <!-- http://www.xml-cml.org/schema#hasUnits -->
+  <owl:DatatypeProperty rdf:about="#hasUnits"/>
+  <!-- http://www.xml-cml.org/schema#hasValue -->
+  <owl:DatatypeProperty rdf:about="#hasValue"/>
+  <!-- /////////////////////////////////////////////////////////////////////////////////////// // // Classes // /////////////////////////////////////////////////////////////////////////////////////// -->
+  <!-- http://www.xml-cml.org/iucr#_audit_creation_method -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_audit_creation_method">
+    <rdfs:label>_audit_creation_method</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#audit"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A description of how data were entered into the data block.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_cell_measurement_reflns_used -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_cell_measurement_reflns_used">
+    <rdfs:label>_cell_measurement_reflns_used</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#cell"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The total number of reflections used to determine the unit cell. These reflections may be specified as _cell_measurement_refln_ data items.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_cell_measurement_temperature -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_cell_measurement_temperature">
+    <rdfs:label>_cell_measurement_temperature</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#cell"/>
+    <rdfs:subClassOf>
+      <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2006/12/owl2#ObjectRestriction"/>
+        <owl:onProperty rdf:resource="#hasUnits"/>
+        <owl:someValuesFrom rdf:resource="#K"/>
+      </rdf:Description>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The temperature in kelvins at which the unit-cell parameters were measured (not the temperature of synthesis).</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_chemical_formula_moiety -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_chemical_formula_moiety">
+    <rdfs:label>_chemical_formula_moiety</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#chemical_formula"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Formula with each discrete bonded residue or ion shown as a separate moiety. See the _chemical_formula_[] category description for rules for writing chemical formulae. In addition to the general formulae requirements, the following rules apply: (1) Moieties are separated by commas ','. (2) The order of elements within a moiety follows general rule (5) in the _chemical_formula_[] category description. (3) Parentheses are not used within moieties but may surround a moiety. Parentheses may not be nested. (4) Charges should be placed at the end of the moiety. The charge '+' or '-' may be preceded by a numerical multiplier and should be separated from the last (element symbol + count) by a space. Pre- or post-multipliers may be used for individual moieties.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_chemical_formula_sum -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_chemical_formula_sum">
+    <rdfs:label>_chemical_formula_sum</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#chemical_formula"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">See the _chemical_formula_[] category description for the rules for writing chemical formulae in which all discrete bonded residues and ions are summed over the constituent elements, following the ordering given in general rule (5) in the _chemical_formula_[] category description. Parentheses are not normally used.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_chemical_formula_weight -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_chemical_formula_weight">
+    <rdfs:label>_chemical_formula_weight</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#chemical_formula"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2006/12/owl2#ObjectRestriction"/>
+        <owl:onProperty rdf:resource="#hasUnits"/>
+        <owl:someValuesFrom rdf:resource="#Da"/>
+      </rdf:Description>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Formula mass in daltons. This mass should correspond to the formulae given under _chemical_formula_structural, *_iupac, *_moiety or *_sum and, together with the Z value and cell parameters, should yield the density given as _exptl_crystal_density_diffrn.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_database_code_depnum_ccdc_archive -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_database_code_depnum_ccdc_archive">
+    <rdfs:label>_database_code_depnum_ccdc_archive</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#database"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Deposition numbers assigned by the Cambridge Crystallographic Data Centre (CCDC) to files containing structural information archived by the CCDC.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_diffrn_ambient_temperature -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_diffrn_ambient_temperature">
+    <rdfs:label>_diffrn_ambient_temperature</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#diffrn"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2006/12/owl2#ObjectRestriction"/>
+        <owl:onProperty rdf:resource="#hasUnits"/>
+        <owl:someValuesFrom rdf:resource="#K"/>
+      </rdf:Description>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The mean temperature in kelvins at which the intensities were measured.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_diffrn_measured_fraction_theta_full -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_diffrn_measured_fraction_theta_full">
+    <rdfs:label>_diffrn_measured_fraction_theta_full</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#diffrn"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Fraction of unique (symmetry-independent) reflections measured out to _diffrn_reflns_theta_full.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_diffrn_measured_fraction_theta_max -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_diffrn_measured_fraction_theta_max">
+    <rdfs:label>_diffrn_measured_fraction_theta_max</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#diffrn"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Fraction of unique (symmetry-independent) reflections measured out to _diffrn_reflns_theta_max.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_diffrn_measurement_device_type -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_diffrn_measurement_device_type">
+    <rdfs:label>_diffrn_measurement_device_type</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#diffrn_measurement"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The make, model or name of the measurement device (goniometer) used.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_diffrn_measurement_method -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_diffrn_measurement_method">
+    <rdfs:label>_diffrn_measurement_method</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#diffrn_measurement"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Method used to measure the intensities.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_diffrn_radiation_monochromator -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_diffrn_radiation_monochromator">
+    <rdfs:label>_diffrn_radiation_monochromator</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#diffrn_radiation"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The method used to obtain monochromatic radiation. If a mono- chromator crystal is used, the material and the indices of the Bragg reflection are specified.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_diffrn_radiation_source -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_diffrn_radiation_source">
+    <rdfs:label>_diffrn_radiation_source</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#diffrn_source"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The source of radiation.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_diffrn_radiation_type -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_diffrn_radiation_type">
+    <rdfs:label>_diffrn_radiation_type</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#diffrn_radiation"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The type of the radiation. This is used to give a more detailed description than _diffrn_radiation_probe and is typically a description of the X-ray wavelength in Siegbahn notation.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_diffrn_radiation_wavelength -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_diffrn_radiation_wavelength">
+    <rdfs:label>_diffrn_radiation_wavelength</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#diffrn_radiation_wavelength"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2006/12/owl2#ObjectRestriction"/>
+        <owl:onProperty rdf:resource="#hasUnits"/>
+        <owl:someValuesFrom rdf:resource="#A"/>
+      </rdf:Description>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The radiation wavelength in angstroms.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_diffrn_reflns_number -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_diffrn_reflns_number">
+    <rdfs:label>_diffrn_reflns_number</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#diffrn_reflns"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The total number of measured intensities, excluding reflections that are classed as systematically absent arising from translational symmetry in the crystal unit cell.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_diffrn_reflns_theta_full -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_diffrn_reflns_theta_full">
+    <rdfs:label>_diffrn_reflns_theta_full</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#diffrn_reflns"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2006/12/owl2#ObjectRestriction"/>
+        <owl:onProperty rdf:resource="#hasUnits"/>
+        <owl:someValuesFrom rdf:resource="#deg"/>
+      </rdf:Description>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The theta angle (in degrees) at which the measured reflection count is close to complete. The fraction of unique reflections measured out to this angle is given by _diffrn_measured_fraction_theta_full.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_diffrn_reflns_theta_max -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_diffrn_reflns_theta_max">
+    <rdfs:label>_diffrn_reflns_theta_max</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#diffrn_reflns"/>
+    <rdfs:subClassOf>
+      <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2006/12/owl2#ObjectRestriction"/>
+        <owl:onProperty rdf:resource="#hasUnits"/>
+        <owl:someValuesFrom rdf:resource="#deg"/>
+      </rdf:Description>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Maximum theta angle in degrees for the measured intensities. The fraction of unique reflections measured out to this angle is given by _diffrn_measured_fraction_theta_max</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_diffrn_reflns_theta_min -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_diffrn_reflns_theta_min">
+    <rdfs:label>_diffrn_reflns_theta_min</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#diffrn_reflns"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2006/12/owl2#ObjectRestriction"/>
+        <owl:onProperty rdf:resource="#hasUnits"/>
+        <owl:someValuesFrom rdf:resource="#deg"/>
+      </rdf:Description>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Minimum theta angle in degrees for the measured intensities.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_diffrn_standards_number -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_diffrn_standards_number">
+    <rdfs:label>_diffrn_standards_number</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#diffrn_standards"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The number of unique standard reflections used during the measurement of the diffraction intensities.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_exptl_absorpt_coefficient_mu -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_exptl_absorpt_coefficient_mu">
+    <rdfs:label>_exptl_absorpt_coefficient_mu</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#exptl"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2006/12/owl2#ObjectRestriction"/>
+        <owl:onProperty rdf:resource="#hasUnits"/>
+        <owl:someValuesFrom rdf:resource="#mm1"/>
+      </rdf:Description>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The absorption coefficient mu in reciprocal millimetres calculated from the atomic content of the cell, the density and the radiation wavelength.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_exptl_absorpt_correction_type -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_exptl_absorpt_correction_type">
+    <rdfs:label>_exptl_absorpt_correction_type</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#exptl"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The absorption-correction type and method. The value 'empirical' should NOT be used unless more detailed information is not available.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_exptl_absorpt_process_details -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_exptl_absorpt_process_details">
+    <rdfs:label>_exptl_absorpt_process_details</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#exptl"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Description of the absorption process applied to the intensities. A literature reference should be supplied for psi-scan techniques.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_exptl_crystal_colour -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_exptl_crystal_colour">
+    <rdfs:label>_exptl_crystal_colour</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#exptl_crystal"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The colour of the crystal.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_exptl_crystal_density_diffrn -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_exptl_crystal_density_diffrn">
+    <rdfs:label>_exptl_crystal_density_diffrn</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#exptl_crystal"/>
+    <rdfs:subClassOf>
+      <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2006/12/owl2#ObjectRestriction"/>
+        <owl:onProperty rdf:resource="#hasUnits"/>
+        <owl:someValuesFrom rdf:resource="#Mgm3"/>
+      </rdf:Description>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Density values calculated from the crystal cell and contents. The units are megagrams per cubic metre (grams per cubic centimetre).</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_exptl_crystal_density_method -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_exptl_crystal_density_method">
+    <rdfs:label>_exptl_crystal_density_method</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#exptl_crystal"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The method used to measure _exptl_crystal_density_meas.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_exptl_crystal_description -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_exptl_crystal_description">
+    <rdfs:label>_exptl_crystal_description</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#exptl_crystal"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A description of the quality and habit of the crystal. The crystal dimensions should not normally be reported here; use instead _exptl_crystal_size_ for the gross dimensions of the crystal and _exptl_crystal_face_ to describe the relationship between individual faces.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_exptl_special_details -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_exptl_special_details">
+    <rdfs:label>_exptl_special_details</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#exptl"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Any special information about the experimental work prior to the intensity measurements. See also _exptl_crystal_preparation.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_geom_special_details -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_geom_special_details">
+    <rdfs:label>_geom_special_details</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#geom"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The description of geometrical information not covered by the existing data names in the geometry categories, such as least-squares planes.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_publ_body_element -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_publ_body_element">
+    <rdfs:label>_publ_body_element</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#publ_body"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The functional role of the associated text section.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_publ_contact_author_email -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_publ_contact_author_email">
+    <rdfs:label>_publ_contact_author_email</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#publ"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">E-mail address in a form recognizable to international networks. The format of e-mail addresses is given in Section 3.4, Address Specification, of Internet Message Format, RFC 2822, P. Resnick (Editor), Network Standards Group, April 2001.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_publ_contact_author_name -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_publ_contact_author_name">
+    <rdfs:label>_publ_contact_author_name</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#publ"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The name of the author submitting the manuscript and data block. This is the person contacted by the journal editorial staff.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_refine_ls_abs_structure_details -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_refine_ls_abs_structure_details">
+    <rdfs:label>_refine_ls_abs_structure_details</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#refine"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The nature of the absolute structure and how it was determined.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_refine_ls_extinction_method -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_refine_ls_extinction_method">
+    <rdfs:label>_refine_ls_extinction_method</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#refine"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A description of the extinction-correction method applied. This description should include information about the correction method, either 'Becker-Coppens' or 'Zachariasen'. The latter is sometimes referred to as the 'Larson' method even though it employs Zachariasen's formula. The Becker-Coppens procedure is referred to as 'type 1' when correcting secondary extinction dominated by the mosaic spread; as 'type 2' when secondary extinction is dominated by particle size and includes a primary extinction component; and as 'mixed' when there is a mixture of types 1 and 2. For the Becker-Coppens method, it is also necessary to set the mosaic distribution as either 'Gaussian' or 'Lorentzian' and the nature of the extinction as 'isotropic' or 'anisotropic'. Note that if either the 'mixed' or 'anisotropic' corrections are applied, the multiple coefficients cannot be contained in *_extinction_coef and must be listed in _refine_special_details. Ref: Becker, P. J. &amp; Coppens, P. (1974). Acta Cryst. A30, 129-147, 148-153. Zachariasen, W. H. (1967). Acta Cryst. 23, 558-564. Larson, A. C. (1967). Acta Cryst. 23, 664-665.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_refine_ls_goodness_of_fit_ref -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_refine_ls_goodness_of_fit_ref">
+    <rdfs:label>_refine_ls_goodness_of_fit_ref</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#refine"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The least-squares goodness-of-fit parameter S for all reflections included in the refinement after the final cycle of refinement. Ideally, account should be taken of parameters restrained in the least-squares refinement. See also _refine_ls_restrained_S_ definitions. { sum | w | Y(obs) - Y(calc) |^2^ | }^1/2^ S = { ----------------------------------- } { Nref - Nparam } Y(obs) = the observed coefficients (see _refine_ls_structure_factor_coef) Y(calc) = the calculated coefficients (see _refine_ls_structure_factor_coef) w = the least-squares reflection weight [1/(u^2^)] u = standard uncertainty Nref = the number of reflections used in the refinement Nparam = the number of refined parameters and the sum is taken over the specified reflections</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_refine_ls_hydrogen_treatment -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_refine_ls_hydrogen_treatment">
+    <rdfs:label>_refine_ls_hydrogen_treatment</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#refine"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Treatment of hydrogen atoms in the least-squares refinement.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_refine_ls_matrix_type -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_refine_ls_matrix_type">
+    <rdfs:label>_refine_ls_matrix_type</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#refine"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Type of matrix used to accumulate the least-squares derivatives.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_refine_ls_number_parameters -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_refine_ls_number_parameters">
+    <rdfs:label>_refine_ls_number_parameters</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#refine"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The number of parameters refined in the least-squares process. If possible, this number should include some contribution from the restrained parameters. The restrained parameters are distinct from the constrained parameters (where one or more parameters are linearly dependent on the refined value of another). Least-squares restraints often depend on geometry or energy considerations and this makes their direct contribution to this number, and to the goodness-of-fit calculation, difficult to assess.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_refine_ls_number_reflns -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_refine_ls_number_reflns">
+    <rdfs:label>_refine_ls_number_reflns</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#refine"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The number of unique reflections contributing to the least-squares refinement calculation.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_refine_ls_number_restraints -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_refine_ls_number_restraints">
+    <rdfs:label>_refine_ls_number_restraints</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#refine"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The number of restrained parameters. These are parameters which are not directly dependent on another refined parameter. Restrained parameters often involve geometry or energy dependencies. See also _atom_site_constraints and _atom_site_refinement_flags. A general description of refinement constraints may appear in _refine_special_details.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_refine_ls_structure_factor_coef -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_refine_ls_structure_factor_coef">
+    <rdfs:label>_refine_ls_structure_factor_coef</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#refine"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Structure-factor coefficient |F|, F^2^ or I used in the least-squares refinement process.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_refine_ls_weighting_details -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_refine_ls_weighting_details">
+    <rdfs:label>_refine_ls_weighting_details</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#refine"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A description of special aspects of the weighting scheme used in the least-squares refinement. Used to describe the weighting when the value of _refine_ls_weighting_scheme is specified as 'calc'.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_refine_ls_weighting_scheme -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_refine_ls_weighting_scheme">
+    <rdfs:label>_refine_ls_weighting_scheme</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#refine"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The weighting scheme applied in the least-squares process. The standard code may be followed by a description of the weight (but see _refine_ls_weighting_details for a preferred approach).</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_refine_special_details -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_refine_special_details">
+    <rdfs:label>_refine_special_details</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#refine"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Description of special aspects of the refinement process.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_reflns_number_gt -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_reflns_number_gt">
+    <rdfs:label>_reflns_number_gt</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#reflns"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The number of reflections in the _refln_ list (not the _diffrn_refln_ list) that are significantly intense, satisfying the criterion specified by _reflns_threshold_expression. This may include Friedel-equivalent reflections (i.e. those which are symmetry-equivalent under the Laue symmetry but inequivalent under the crystal class) according to the nature of the structure and the procedures used. Special characteristics of the reflections included in the _refln_ list should be given in the item _reflns_special_details.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_reflns_number_total -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_reflns_number_total">
+    <rdfs:label>_reflns_number_total</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#reflns"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The total number of reflections in the _refln_ list (not the _diffrn_refln_ list). This may include Friedel-equivalent reflections (i.e. those which are symmetry-equivalent under the Laue symmetry but inequivalent under the crystal class) according to the nature of the structure and the procedures used. Special characteristics of the reflections included in the _refln_ list should be given in the item _reflns_special_details.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_reflns_threshold_expression -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_reflns_threshold_expression">
+    <rdfs:label>_reflns_threshold_expression</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#reflns"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The threshold, usually based on multiples of u(I), u(F^2^) or u(F), that serves to identify significantly intense reflections, the number of which is given by _reflns_number_gt. These reflections are used in the calculation of _refine_ls_R_factor_gt.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#_symmetry_cell_setting -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#_symmetry_cell_setting">
+    <rdfs:label>_symmetry_cell_setting</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#symmetry"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The cell settings for this space-group symmetry.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#atom_site -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#atom_site">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#atom_sites -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#atom_sites">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#atom_type -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#atom_type">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#audit -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#audit">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#audit_author -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#audit_author">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#audit_conform -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#audit_conform">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#audit_contact_author -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#audit_contact_author">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#audit_link -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#audit_link">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#category_overview -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#category_overview">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#cell -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#cell">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#cell_measurement_refln -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#cell_measurement_refln">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#chemical -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#chemical">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#chemical_conn_atom -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#chemical_conn_atom">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#chemical_conn_bond -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#chemical_conn_bond">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#chemical_formula -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#chemical_formula">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#citation -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#citation">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#citation_author -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#citation_author">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#citation_editor -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#citation_editor">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#database -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#database">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#diffrn -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#diffrn">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#diffrn_attenuator -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#diffrn_attenuator">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#diffrn_detector -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#diffrn_detector">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#diffrn_measurement -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#diffrn_measurement">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#diffrn_orient_matrix -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#diffrn_orient_matrix">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#diffrn_radiation -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#diffrn_radiation">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#diffrn_radiation_wavelength -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#diffrn_radiation_wavelength">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#diffrn_refln -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#diffrn_refln">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#diffrn_reflns -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#diffrn_reflns">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#diffrn_reflns_class -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#diffrn_reflns_class">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#diffrn_scale_group -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#diffrn_scale_group">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#diffrn_source -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#diffrn_source">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#diffrn_standard_refln -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#diffrn_standard_refln">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#diffrn_standards -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#diffrn_standards">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#exptl -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#exptl">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#exptl_crystal -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#exptl_crystal">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#exptl_crystal_face -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#exptl_crystal_face">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#geom -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#geom">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#geom_angle -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#geom_angle">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#geom_bond -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#geom_bond">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#geom_contact -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#geom_contact">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#geom_hbond -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#geom_hbond">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#geom_torsion -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#geom_torsion">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#publ -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#publ">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#publ_author -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#publ_author">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#publ_body -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#publ_body">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#publ_manuscript_incl -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#publ_manuscript_incl">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#refine -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#refine">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#refine_ls_class -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#refine_ls_class">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#refln -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#refln">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#reflns -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#reflns">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#reflns_class -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#reflns_class">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#reflns_scale -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#reflns_scale">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#reflns_shell -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#reflns_shell">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#space_group -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#space_group">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#space_group_symop -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#space_group_symop">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#symmetry -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#symmetry">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#symmetry_equiv -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#symmetry_equiv">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#valence_param -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#valence_param">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/iucr#valence_ref -->
+  <owl:Class rdf:about="http://www.xml-cml.org/iucr#valence_ref">
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema# -->
+  <owl:Class rdf:about="#">
+    <rdfs:label>dimensionless</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#A -->
+  <owl:Class rdf:about="#A">
+    <rdfs:label>Angstrom</rdfs:label>
+    <rdfs:label>angstroms</rdfs:label>
+    <rdfs:label>Angstroms</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#A1 -->
+  <owl:Class rdf:about="#A1">
+    <rdfs:label>reciprocal angstroms</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#A2 -->
+  <owl:Class rdf:about="#A2">
+    <rdfs:label>angstroms squared</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#A3 -->
+  <owl:Class rdf:about="#A3">
+    <rdfs:label>cubic angstroms</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#Cml -->
+  <owl:Class rdf:about="#Cml">
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#_publ_body_element"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#Da -->
+  <owl:Class rdf:about="#Da">
+    <rdfs:label>daltons</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#Dictionary -->
+  <owl:Class rdf:about="#Dictionary">
+    <rdfs:subClassOf rdf:resource="#element"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasID"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasEntry"/>
+        <owl:someValuesFrom rdf:resource="#Entry"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#Entry -->
+  <owl:Class rdf:about="#Entry">
+    <rdfs:subClassOf rdf:resource="#element"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasID"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#Formula -->
+  <owl:Class rdf:about="#Formula">
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#_publ_body_element"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#K -->
+  <owl:Class rdf:about="#K">
+    <rdfs:label>kelvin</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#Mg3 -->
+  <owl:Class rdf:about="#Mg3">
+    <rdfs:label>megagrams per cubic metre</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#Mgm3 -->
+  <owl:Class rdf:about="#Mgm3">
+    <rdfs:label>megagrams per cubic metre</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#Molecule -->
+  <owl:Class rdf:about="#Molecule">
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#_publ_body_element"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#Property -->
+  <owl:Class rdf:about="#Property">
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#_publ_body_element"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#Scalar -->
+  <owl:Class rdf:about="#Scalar">
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/iucr#_publ_body_element"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#deg -->
+  <owl:Class rdf:about="#deg">
+    <rdfs:label>degrees</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#degmin -->
+  <owl:Class rdf:about="#degmin">
+    <rdfs:label>degrees per minute</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#degrees -->
+  <owl:Class rdf:about="#degrees">
+    <rdfs:label>degrees</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#element -->
+  <owl:Class rdf:about="#element"/>
+  <!-- http://www.xml-cml.org/schema#fm -->
+  <owl:Class rdf:about="#fm">
+    <rdfs:label>femtometres</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#kPa -->
+  <owl:Class rdf:about="#kPa">
+    <rdfs:label>kilopascals</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#kV -->
+  <owl:Class rdf:about="#kV">
+    <rdfs:label>kilovolts</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#kW -->
+  <owl:Class rdf:about="#kW">
+    <rdfs:label>kilowatts</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#mA -->
+  <owl:Class rdf:about="#mA">
+    <rdfs:label>milliamperes</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#min -->
+  <owl:Class rdf:about="#min">
+    <rdfs:label>minutes</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#mm -->
+  <owl:Class rdf:about="#mm">
+    <rdfs:label>millimetres</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#mm1 -->
+  <owl:Class rdf:about="#mm1">
+    <rdfs:label>reciprocal millimetres</rdfs:label>
+    <rdfs:label>pixels per millimetre</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#sec -->
+  <owl:Class rdf:about="#sec">
+    <rdfs:label>seconds</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#units"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#units -->
+  <owl:Class rdf:about="#units"/>
+  <!-- /////////////////////////////////////////////////////////////////////////////////////// // // Individuals // /////////////////////////////////////////////////////////////////////////////////////// -->
+  <!-- formula_90fc73cae58b4a819d7c43dd2232f1ae -->
+  <Formula rdf:about="formula_90fc73cae58b4a819d7c43dd2232f1ae">
+    <hasCount_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2.0</hasCount_att>
+    <hasConcise_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cl 1 O 4</hasConcise_att>
+  </Formula>
+  <!-- formula_9c257e63d58d413fb59fd71426a2c28b -->
+  <Formula rdf:about="formula_9c257e63d58d413fb59fd71426a2c28b">
+    <hasConcise_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">C 38 H 30 Cu 3 N 6 O 6</hasConcise_att>
+  </Formula>
+  <!-- httpwww.xmlcml.orgschema1 -->
+  <Cml rdf:about="httpwww.xmlcml.orgschema1">
+    <hasId rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1</hasId>
+    <hasTitle_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1</hasTitle_att>
+    <hasCmlChild rdf:resource="iucr_atom_sites_solution_hydrogens_5abaa4747b7e4d779abd61deac41e48a"/>
+    <hasCmlChild rdf:resource="iucr_atom_sites_solution_primary_21c1fb75d1374139a949ca6e80f7d98b"/>
+    <hasCmlChild rdf:resource="iucr_atom_sites_solution_secondary_b1319a4d8b904ceeb482fd51b3f014b7"/>
+    <hasCmlChild rdf:resource="iucr_audit_creation_method_5b1e1ef13e184d76850289c76c09bb5e"/>
+    <hasCmlChild rdf:resource="iucr_cell_measurement_reflns_used_c81ed7dcdeb44c59885ba356e05da421"/>
+    <hasCmlChild rdf:resource="iucr_cell_measurement_temperature_7ea17a050aab437bafd54dc344ac2c01"/>
+    <hasCmlChild rdf:resource="iucr_cell_measurement_theta_max_d09e38ba86c04277947cee739e58e4ed"/>
+    <hasCmlChild rdf:resource="iucr_cell_measurement_theta_min_38f0fc674cdb4dfa98831e73a2c4364b"/>
+    <hasCmlChild rdf:resource="iucr_chemical_formula_moiety_e524c7ec15f44db6b0e315888aab2d46"/>
+    <hasCmlChild rdf:resource="iucr_chemical_formula_sum_7f48ed49fe57463fb68d6e20de04ae31"/>
+    <hasCmlChild rdf:resource="iucr_chemical_formula_weight_b8de1b9af01b44f48322c1c31b366db3"/>
+    <hasCmlChild rdf:resource="iucr_computing_cell_refinement_cea86c5a536c4924a3a3f0266a8ec49f"/>
+    <hasCmlChild rdf:resource="iucr_computing_data_collection_13e8fc814ba74867b074aef218b7b91a"/>
+    <hasCmlChild rdf:resource="iucr_computing_data_reduction_68b9eb75867e42c8bc9ed46b77030f7d"/>
+    <hasCmlChild rdf:resource="iucr_computing_molecular_graphics_9e9d323995094aa1867aeeabce18cc5e"/>
+    <hasCmlChild rdf:resource="iucr_computing_publication_material_41d2ff49cf6e4f599648ee35b57dd024"/>
+    <hasCmlChild rdf:resource="iucr_computing_structure_refinement_b7870de2f6c243fea1faf60fd13ff230"/>
+    <hasCmlChild rdf:resource="iucr_computing_structure_solution_e7b83a4a65434ffb9f2d0a317fbd3a4f"/>
+    <hasCmlChild rdf:resource="iucr_database_code_depnum_ccdc_archive_932576bc133c4328816a66829ac1be42"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_ambient_temperature_5182962df2c74a5b8d7dba7ae24db453"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_measured_fraction_theta_full_2a9b0483d321434994b835afc6148fac"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_measured_fraction_theta_max_a4524793a42c4054ba86ec52a4720a84"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_measurement_device_type_405a2ef33a2646628ce84ed1f0d52101"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_measurement_method_2ca19b14f4cf41bcafe77938960047e3"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_radiation_monochromator_bfbc4bbed59144d6ad04daa1e7b2d77f"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_radiation_source_1bd61ad132414cf19f5ac7144431795a"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_radiation_type_e6c69cbd092d48d992b2ffd4325dacfd"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_radiation_wavelength_e6c9e99e222841f0b90ba8f84cffbeb2"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_av_r_equivalents_dc6b6018964d4ab5967a813e15aadcb7"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_av_sigmaineti_34eed13a8cf946dea94609f3c9e117eb"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_limit_h_max_47884e9adfb840b3951999230a86a8c6"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_limit_h_min_3f5d93b8d80e4f039ed90468390e4c3a"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_limit_k_max_8af17d9af38e409891e7d094211a3aff"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_limit_k_min_fe523acb0be0422bab98d652202ca5cf"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_limit_l_max_fb070d09848d47c9b779306cae43def2"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_limit_l_min_08ac1acf459048678d666883380d67b3"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_number_e82520c0646b43ae85b9fc7714a4711e"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_theta_full_68676c14e0194633b5164fdebdf16c91"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_theta_max_3aa16b7de43548b0825ea3133ed54255"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_theta_min_b981b5316f3247919aadc3139336893b"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_standards_number_e45dd134c07b4e5097ee7a667d7c7773"/>
+    <hasCmlChild rdf:resource="iucr_exptl_absorpt_coefficient_mu_ac2d6c70121e48748b4b80d62ea8a51a"/>
+    <hasCmlChild rdf:resource="iucr_exptl_absorpt_correction_t_max_e7c3702cdfe5445babc073d9ef1cb994"/>
+    <hasCmlChild rdf:resource="iucr_exptl_absorpt_correction_t_min_3231095ec5de4b5d8e4304aa80d595b5"/>
+    <hasCmlChild rdf:resource="iucr_exptl_absorpt_correction_type_cca30bf411b14b8cb7ed75240b3c9520"/>
+    <hasCmlChild rdf:resource="iucr_exptl_absorpt_process_details_9800d139bd314d04b7d163df931d7782"/>
+    <hasCmlChild rdf:resource="iucr_exptl_crystal_colour_639b0f5adfd44b759fe3481522838d0c"/>
+    <hasCmlChild rdf:resource="iucr_exptl_crystal_density_diffrn_60b2d57fc502440fb175a70c9fddc206"/>
+    <hasCmlChild rdf:resource="iucr_exptl_crystal_density_method_8f433fc1d65440a5bfb30eeac10e5f9d"/>
+    <hasCmlChild rdf:resource="iucr_exptl_crystal_description_b3f02885533143c7b1ccc8d23a1ddb28"/>
+    <hasCmlChild rdf:resource="iucr_exptl_crystal_f_000_22bb5eaf86e84c138fd0055c9c325ffd"/>
+    <hasCmlChild rdf:resource="iucr_exptl_crystal_size_max_008510c26caa4c1f8ef59876a6e60d4f"/>
+    <hasCmlChild rdf:resource="iucr_exptl_crystal_size_mid_aa34bf3b721d484e8d166d72a4ac9a34"/>
+    <hasCmlChild rdf:resource="iucr_exptl_crystal_size_min_27e359b566bd44b8bf141f2668667ae4"/>
+    <hasCmlChild rdf:resource="iucr_exptl_special_details_e4e6621bcd5a49d186fcb5d750e09bb8"/>
+    <hasCmlChild rdf:resource="iucr_geom_special_details_50806ae6ef28473b982051f374c920fc"/>
+    <hasCmlChild rdf:resource="iucr_journal_coden_cambridge_344004d9a6c44d4a811ab79559c2b0e3"/>
+    <hasCmlChild rdf:resource="iucr_journal_name_full_46b680b8212c416398f6cdb6f482452d"/>
+    <hasCmlChild rdf:resource="iucr_publ_contact_author_email_0a199818ed1f44baa37b2af660e64aa0"/>
+    <hasCmlChild rdf:resource="iucr_publ_contact_author_name_ed51173753554b329ccb0aeba4afbbe9"/>
+    <hasCmlChild rdf:resource="iucr_publ_section_title_ee0621f05a3545c5b8da1b2c07f002cd"/>
+    <hasCmlChild rdf:resource="iucr_refine_diff_density_max_f7590b99296c49ef8b89aed88f447b3d"/>
+    <hasCmlChild rdf:resource="iucr_refine_diff_density_min_bac73a3e99e54375ac04becf74a68de5"/>
+    <hasCmlChild rdf:resource="iucr_refine_diff_density_rms_11511faca2604408a9c37a5790234cc7"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_abs_structure_details_3ef4c59c314a463b8547a8740e33f534"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_abs_structure_flack_413d87616f1d42719d3fc139d38b8ff6"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_extinction_method_f46fa4aea6a14c8bbee5f7158fcb03b3"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_goodness_of_fit_ref_2680d05f6d6846e889813c9ff89dcdbf"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_hydrogen_treatment_427318044ee94baaab90f4dae23cb666"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_matrix_type_22910fb3c6fa40e284271abd511f50f3"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_number_parameters_33e8578d124d4ff5bd310f07b7ea775c"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_number_reflns_ddba0f14ea4840d0889e0e763b7757cf"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_number_restraints_ced024aca1504d2d8fdb44438a9f049b"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_r_factor_all_c826fdb8cb384209a980e0b976e1504d"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_r_factor_gt_268dc878bc1947c99dd4ef9cb0423484"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_restrained_s_all_56d8effc7c044c248b236d31b44b28a5"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_shiftsu_max_d051f67225254c158ef9770d3181bfde"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_shiftsu_mean_32030a089b194474b22142cb656c77cb"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_structure_factor_coef_228a262e838940cda179aa9e018acc02"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_weighting_details_39f8e51f4f874d06bae32fa13f8989e4"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_weighting_scheme_4dab99e690f847f5a2b16216a5a5a05a"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_wr_factor_gt_832e04fdef61427395e9d4804fdd0743"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_wr_factor_ref_25e2552d41de4894ac053bdc7acda302"/>
+    <hasCmlChild rdf:resource="iucr_refine_special_details_23da7bcb356b4f29831cc9d6f0b6a747"/>
+    <hasCmlChild rdf:resource="iucr_reflns_number_gt_525f1b4dc5a4446da258705fc39540c2"/>
+    <hasCmlChild rdf:resource="iucr_reflns_number_total_b63f91b3c75c48de8f6a41d6bcc1fbea"/>
+    <hasCmlChild rdf:resource="iucr_reflns_threshold_expression_438bef5895f946dc9a5389c0bb10bcbb"/>
+    <hasCmlChild rdf:resource="iucr_symmetry_cell_setting_4f53f930b63947b3a1a8363663f6ab26"/>
+    <hasCmlChild rdf:resource="iucr_symmetry_int_tables_number_87219a526eef4ed6b585f7915dd059a9"/>
+    <hasCmlChild rdf:resource="iucr_symmetry_space_group_name_hall_47f9c44f60ec4395b3374687beea1210"/>
+    <hasCmlChild rdf:resource="iucrcompoundClass_0af77ddf43b14bfabd9b4a55f206dc3f"/>
+    <hasCmlChild rdf:resource="molecule_c865a34c19bc4cf7895280d13d746e46"/>
+    <hasCmlChild rdf:resource="property_3bde035fda4b46ee955e311579911413"/>
+  </Cml>
+  <!-- iucr_atom_sites_solution_hydrogens_5abaa4747b7e4d779abd61deac41e48a -->
+  <Scalar rdf:about="iucr_atom_sites_solution_hydrogens_5abaa4747b7e4d779abd61deac41e48a">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">geom</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_atom_sites_solution_hydrogens</hasDictref_att>
+  </Scalar>
+  <!-- iucr_atom_sites_solution_primary_21c1fb75d1374139a949ca6e80f7d98b -->
+  <Scalar rdf:about="iucr_atom_sites_solution_primary_21c1fb75d1374139a949ca6e80f7d98b">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">direct</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_atom_sites_solution_primary</hasDictref_att>
+  </Scalar>
+  <!-- iucr_atom_sites_solution_secondary_b1319a4d8b904ceeb482fd51b3f014b7 -->
+  <Scalar rdf:about="iucr_atom_sites_solution_secondary_b1319a4d8b904ceeb482fd51b3f014b7">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">difmap</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_atom_sites_solution_secondary</hasDictref_att>
+  </Scalar>
+  <!-- iucr_audit_creation_method_5b1e1ef13e184d76850289c76c09bb5e -->
+  <iucr:_audit_creation_method rdf:about="iucr_audit_creation_method_5b1e1ef13e184d76850289c76c09bb5e">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SHELXL-97</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_audit_creation_method</hasDictref_att>
+  </iucr:_audit_creation_method>
+  <!-- iucr_cell_measurement_reflns_used_c81ed7dcdeb44c59885ba356e05da421 -->
+  <Scalar rdf:about="iucr_cell_measurement_reflns_used_c81ed7dcdeb44c59885ba356e05da421">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_cell_measurement_reflns_used"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">9471.0</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_cell_measurement_reflns_used</hasDictref_att>
+  </Scalar>
+  <!-- iucr_cell_measurement_temperature_7ea17a050aab437bafd54dc344ac2c01 -->
+  <Scalar rdf:about="iucr_cell_measurement_temperature_7ea17a050aab437bafd54dc344ac2c01">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_cell_measurement_temperature"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">100(2)</hasValue>
+    <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">K</hasUnits>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_cell_measurement_temperature</hasDictref_att>
+  </Scalar>
+  <!-- iucr_cell_measurement_theta_max_d09e38ba86c04277947cee739e58e4ed -->
+  <Scalar rdf:about="iucr_cell_measurement_theta_max_d09e38ba86c04277947cee739e58e4ed">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">25.71</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_cell_measurement_theta_max</hasDictref_att>
+  </Scalar>
+  <!-- iucr_cell_measurement_theta_min_38f0fc674cdb4dfa98831e73a2c4364b -->
+  <Scalar rdf:about="iucr_cell_measurement_theta_min_38f0fc674cdb4dfa98831e73a2c4364b">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2.53</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_cell_measurement_theta_min</hasDictref_att>
+  </Scalar>
+  <!-- iucr_chemical_formula_moiety_e524c7ec15f44db6b0e315888aab2d46 -->
+  <iucr:_chemical_formula_moiety rdf:about="iucr_chemical_formula_moiety_e524c7ec15f44db6b0e315888aab2d46">
+    <rdf:type rdf:resource="#Formula"/>
+    <hasInline_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">C38 H30 Cu3 N6 O6, 2(Cl O4)</hasInline_att>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_chemical_formula_moiety</hasDictref_att>
+    <hasCmlChild rdf:resource="formula_90fc73cae58b4a819d7c43dd2232f1ae"/>
+    <hasCmlChild rdf:resource="formula_9c257e63d58d413fb59fd71426a2c28b"/>
+  </iucr:_chemical_formula_moiety>
+  <!-- iucr_chemical_formula_sum_7f48ed49fe57463fb68d6e20de04ae31 -->
+  <iucr:_chemical_formula_sum rdf:about="iucr_chemical_formula_sum_7f48ed49fe57463fb68d6e20de04ae31">
+    <rdf:type rdf:resource="#Formula"/>
+    <hasConcise_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">C 38 H 30 Cl 2 Cu 3 N 6 O 14</hasConcise_att>
+    <hasInline_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">C38 H30 Cl2 Cu3 N6 O14</hasInline_att>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_chemical_formula_sum</hasDictref_att>
+  </iucr:_chemical_formula_sum>
+  <!-- iucr_chemical_formula_weight_b8de1b9af01b44f48322c1c31b366db3 -->
+  <iucr:_chemical_formula_weight rdf:about="iucr_chemical_formula_weight_b8de1b9af01b44f48322c1c31b366db3">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasErrorvalue_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.0</hasErrorvalue_att>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1056.2</hasValue>
+    <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Da</hasUnits>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_chemical_formula_weight</hasDictref_att>
+  </iucr:_chemical_formula_weight>
+  <!-- iucr_computing_cell_refinement_cea86c5a536c4924a3a3f0266a8ec49f -->
+  <Scalar rdf:about="iucr_computing_cell_refinement_cea86c5a536c4924a3a3f0266a8ec49f">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SMART</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_computing_cell_refinement</hasDictref_att>
+  </Scalar>
+  <!-- iucr_computing_data_collection_13e8fc814ba74867b074aef218b7b91a -->
+  <Scalar rdf:about="iucr_computing_data_collection_13e8fc814ba74867b074aef218b7b91a">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SMART (Bruker, 2004)</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_computing_data_collection</hasDictref_att>
+  </Scalar>
+  <!-- iucr_computing_data_reduction_68b9eb75867e42c8bc9ed46b77030f7d -->
+  <Scalar rdf:about="iucr_computing_data_reduction_68b9eb75867e42c8bc9ed46b77030f7d">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SAINT (Bruker, 2004)</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_computing_data_reduction</hasDictref_att>
+  </Scalar>
+  <!-- iucr_computing_molecular_graphics_9e9d323995094aa1867aeeabce18cc5e -->
+  <Scalar rdf:about="iucr_computing_molecular_graphics_9e9d323995094aa1867aeeabce18cc5e">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ORTEP-3 for Windows (Farrugia, 1997)</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_computing_molecular_graphics</hasDictref_att>
+  </Scalar>
+  <!-- iucr_computing_publication_material_41d2ff49cf6e4f599648ee35b57dd024 -->
+  <Scalar rdf:about="iucr_computing_publication_material_41d2ff49cf6e4f599648ee35b57dd024">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PLATON (Spek, 2008)</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_computing_publication_material</hasDictref_att>
+  </Scalar>
+  <!-- iucr_computing_structure_refinement_b7870de2f6c243fea1faf60fd13ff230 -->
+  <Scalar rdf:about="iucr_computing_structure_refinement_b7870de2f6c243fea1faf60fd13ff230">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SHELXL97 (Sheldrick, 1997)</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_computing_structure_refinement</hasDictref_att>
+  </Scalar>
+  <!-- iucr_computing_structure_solution_e7b83a4a65434ffb9f2d0a317fbd3a4f -->
+  <Scalar rdf:about="iucr_computing_structure_solution_e7b83a4a65434ffb9f2d0a317fbd3a4f">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SIR92 (Altomare et al., 1993)</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_computing_structure_solution</hasDictref_att>
+  </Scalar>
+  <!-- iucr_database_code_depnum_ccdc_archive_932576bc133c4328816a66829ac1be42 -->
+  <iucr:_database_code_depnum_ccdc_archive rdf:about="iucr_database_code_depnum_ccdc_archive_932576bc133c4328816a66829ac1be42">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CCDC 715446</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_database_code_depnum_ccdc_archive</hasDictref_att>
+  </iucr:_database_code_depnum_ccdc_archive>
+  <!-- iucr_diffrn_ambient_temperature_5182962df2c74a5b8d7dba7ae24db453 -->
+  <iucr:_diffrn_ambient_temperature rdf:about="iucr_diffrn_ambient_temperature_5182962df2c74a5b8d7dba7ae24db453">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">100(2)</hasValue>
+    <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">K</hasUnits>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_ambient_temperature</hasDictref_att>
+  </iucr:_diffrn_ambient_temperature>
+  <!-- iucr_diffrn_measured_fraction_theta_full_2a9b0483d321434994b835afc6148fac -->
+  <Scalar rdf:about="iucr_diffrn_measured_fraction_theta_full_2a9b0483d321434994b835afc6148fac">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_diffrn_measured_fraction_theta_full"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.999</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_measured_fraction_theta_full</hasDictref_att>
+  </Scalar>
+  <!-- iucr_diffrn_measured_fraction_theta_max_a4524793a42c4054ba86ec52a4720a84 -->
+  <Scalar rdf:about="iucr_diffrn_measured_fraction_theta_max_a4524793a42c4054ba86ec52a4720a84">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_diffrn_measured_fraction_theta_max"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.999</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_measured_fraction_theta_max</hasDictref_att>
+  </Scalar>
+  <!-- iucr_diffrn_measurement_device_type_405a2ef33a2646628ce84ed1f0d52101 -->
+  <iucr:_diffrn_measurement_device_type rdf:about="iucr_diffrn_measurement_device_type_405a2ef33a2646628ce84ed1f0d52101">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bruker SMART CCD area detector</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_measurement_device_type</hasDictref_att>
+  </iucr:_diffrn_measurement_device_type>
+  <!-- iucr_diffrn_measurement_method_2ca19b14f4cf41bcafe77938960047e3 -->
+  <Scalar rdf:about="iucr_diffrn_measurement_method_2ca19b14f4cf41bcafe77938960047e3">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_diffrn_measurement_method"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">\f and \w</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_measurement_method</hasDictref_att>
+  </Scalar>
+  <!-- iucr_diffrn_radiation_monochromator_bfbc4bbed59144d6ad04daa1e7b2d77f -->
+  <Scalar rdf:about="iucr_diffrn_radiation_monochromator_bfbc4bbed59144d6ad04daa1e7b2d77f">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_diffrn_radiation_monochromator"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">graphite</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_radiation_monochromator</hasDictref_att>
+  </Scalar>
+  <!-- iucr_diffrn_radiation_source_1bd61ad132414cf19f5ac7144431795a -->
+  <Scalar rdf:about="iucr_diffrn_radiation_source_1bd61ad132414cf19f5ac7144431795a">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_diffrn_radiation_source"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fine-focus sealed tube</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_radiation_source</hasDictref_att>
+  </Scalar>
+  <!-- iucr_diffrn_radiation_type_e6c69cbd092d48d992b2ffd4325dacfd -->
+  <Scalar rdf:about="iucr_diffrn_radiation_type_e6c69cbd092d48d992b2ffd4325dacfd">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_diffrn_radiation_type"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MoK\a</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_radiation_type</hasDictref_att>
+  </Scalar>
+  <!-- iucr_diffrn_radiation_wavelength_e6c9e99e222841f0b90ba8f84cffbeb2 -->
+  <iucr:_diffrn_radiation_wavelength rdf:about="iucr_diffrn_radiation_wavelength_e6c9e99e222841f0b90ba8f84cffbeb2">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.71073</hasValue>
+    <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A</hasUnits>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_radiation_wavelength</hasDictref_att>
+  </iucr:_diffrn_radiation_wavelength>
+  <!-- iucr_diffrn_reflns_av_r_equivalents_dc6b6018964d4ab5967a813e15aadcb7 -->
+  <Scalar rdf:about="iucr_diffrn_reflns_av_r_equivalents_dc6b6018964d4ab5967a813e15aadcb7">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.0399</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_av_r_equivalents</hasDictref_att>
+  </Scalar>
+  <!-- iucr_diffrn_reflns_av_sigmaineti_34eed13a8cf946dea94609f3c9e117eb -->
+  <Scalar rdf:about="iucr_diffrn_reflns_av_sigmaineti_34eed13a8cf946dea94609f3c9e117eb">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.0333</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_av_sigmai/neti</hasDictref_att>
+  </Scalar>
+  <!-- iucr_diffrn_reflns_limit_h_max_47884e9adfb840b3951999230a86a8c6 -->
+  <Scalar rdf:about="iucr_diffrn_reflns_limit_h_max_47884e9adfb840b3951999230a86a8c6">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_limit_h_max</hasDictref_att>
+  </Scalar>
+  <!-- iucr_diffrn_reflns_limit_h_min_3f5d93b8d80e4f039ed90468390e4c3a -->
+  <Scalar rdf:about="iucr_diffrn_reflns_limit_h_min_3f5d93b8d80e4f039ed90468390e4c3a">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">-11</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_limit_h_min</hasDictref_att>
+  </Scalar>
+  <!-- iucr_diffrn_reflns_limit_k_max_8af17d9af38e409891e7d094211a3aff -->
+  <Scalar rdf:about="iucr_diffrn_reflns_limit_k_max_8af17d9af38e409891e7d094211a3aff">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">12</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_limit_k_max</hasDictref_att>
+  </Scalar>
+  <!-- iucr_diffrn_reflns_limit_k_min_fe523acb0be0422bab98d652202ca5cf -->
+  <Scalar rdf:about="iucr_diffrn_reflns_limit_k_min_fe523acb0be0422bab98d652202ca5cf">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">-12</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_limit_k_min</hasDictref_att>
+  </Scalar>
+  <!-- iucr_diffrn_reflns_limit_l_max_fb070d09848d47c9b779306cae43def2 -->
+  <Scalar rdf:about="iucr_diffrn_reflns_limit_l_max_fb070d09848d47c9b779306cae43def2">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">17</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_limit_l_max</hasDictref_att>
+  </Scalar>
+  <!-- iucr_diffrn_reflns_limit_l_min_08ac1acf459048678d666883380d67b3 -->
+  <Scalar rdf:about="iucr_diffrn_reflns_limit_l_min_08ac1acf459048678d666883380d67b3">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">-16</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_limit_l_min</hasDictref_att>
+  </Scalar>
+  <!-- iucr_diffrn_reflns_number_e82520c0646b43ae85b9fc7714a4711e -->
+  <iucr:_diffrn_reflns_number rdf:about="iucr_diffrn_reflns_number_e82520c0646b43ae85b9fc7714a4711e">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">9471.0</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_number</hasDictref_att>
+  </iucr:_diffrn_reflns_number>
+  <!-- iucr_diffrn_reflns_theta_full_68676c14e0194633b5164fdebdf16c91 -->
+  <iucr:_diffrn_reflns_theta_full rdf:about="iucr_diffrn_reflns_theta_full_68676c14e0194633b5164fdebdf16c91">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">27.31</hasValue>
+    <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">deg</hasUnits>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_theta_full</hasDictref_att>
+  </iucr:_diffrn_reflns_theta_full>
+  <!-- iucr_diffrn_reflns_theta_max_3aa16b7de43548b0825ea3133ed54255 -->
+  <Scalar rdf:about="iucr_diffrn_reflns_theta_max_3aa16b7de43548b0825ea3133ed54255">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_diffrn_reflns_theta_max"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">27.31</hasValue>
+    <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">deg</hasUnits>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_theta_max</hasDictref_att>
+  </Scalar>
+  <!-- iucr_diffrn_reflns_theta_min_b981b5316f3247919aadc3139336893b -->
+  <iucr:_diffrn_reflns_theta_min rdf:about="iucr_diffrn_reflns_theta_min_b981b5316f3247919aadc3139336893b">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2.53</hasValue>
+    <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">deg</hasUnits>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_theta_min</hasDictref_att>
+  </iucr:_diffrn_reflns_theta_min>
+  <!-- iucr_diffrn_standards_number_e45dd134c07b4e5097ee7a667d7c7773 -->
+  <Scalar rdf:about="iucr_diffrn_standards_number_e45dd134c07b4e5097ee7a667d7c7773">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_diffrn_standards_number"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_standards_number</hasDictref_att>
+  </Scalar>
+  <!-- iucr_exptl_absorpt_coefficient_mu_ac2d6c70121e48748b4b80d62ea8a51a -->
+  <Scalar rdf:about="iucr_exptl_absorpt_coefficient_mu_ac2d6c70121e48748b4b80d62ea8a51a">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_exptl_absorpt_coefficient_mu"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.792</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_absorpt_coefficient_mu</hasDictref_att>
+    <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mm1</hasUnits>
+  </Scalar>
+  <!-- iucr_exptl_absorpt_correction_t_max_e7c3702cdfe5445babc073d9ef1cb994 -->
+  <Scalar rdf:about="iucr_exptl_absorpt_correction_t_max_e7c3702cdfe5445babc073d9ef1cb994">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.760</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_absorpt_correction_t_max</hasDictref_att>
+  </Scalar>
+  <!-- iucr_exptl_absorpt_correction_t_min_3231095ec5de4b5d8e4304aa80d595b5 -->
+  <Scalar rdf:about="iucr_exptl_absorpt_correction_t_min_3231095ec5de4b5d8e4304aa80d595b5">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.630</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_absorpt_correction_t_min</hasDictref_att>
+  </Scalar>
+  <!-- iucr_exptl_absorpt_correction_type_cca30bf411b14b8cb7ed75240b3c9520 -->
+  <iucr:_exptl_absorpt_correction_type rdf:about="iucr_exptl_absorpt_correction_type_cca30bf411b14b8cb7ed75240b3c9520">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_absorpt_correction_type</hasDictref_att>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">multi-scan</hasValue>
+  </iucr:_exptl_absorpt_correction_type>
+  <!-- iucr_exptl_absorpt_process_details_9800d139bd314d04b7d163df931d7782 -->
+  <iucr:_exptl_absorpt_process_details rdf:about="iucr_exptl_absorpt_process_details_9800d139bd314d04b7d163df931d7782">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(SADABS; Sheldrick, 2004)</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_absorpt_process_details</hasDictref_att>
+  </iucr:_exptl_absorpt_process_details>
+  <!-- iucr_exptl_crystal_colour_639b0f5adfd44b759fe3481522838d0c -->
+  <Scalar rdf:about="iucr_exptl_crystal_colour_639b0f5adfd44b759fe3481522838d0c">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_exptl_crystal_colour"/>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_crystal_colour</hasDictref_att>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">violet</hasValue>
+  </Scalar>
+  <!-- iucr_exptl_crystal_density_diffrn_60b2d57fc502440fb175a70c9fddc206 -->
+  <Scalar rdf:about="iucr_exptl_crystal_density_diffrn_60b2d57fc502440fb175a70c9fddc206">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_exptl_crystal_density_diffrn"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.754</hasValue>
+    <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mgm3</hasUnits>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_crystal_density_diffrn</hasDictref_att>
+  </Scalar>
+  <!-- iucr_exptl_crystal_density_method_8f433fc1d65440a5bfb30eeac10e5f9d -->
+  <iucr:_exptl_crystal_density_method rdf:about="iucr_exptl_crystal_density_method_8f433fc1d65440a5bfb30eeac10e5f9d">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_crystal_density_method</hasDictref_att>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">not measured</hasValue>
+  </iucr:_exptl_crystal_density_method>
+  <!-- iucr_exptl_crystal_description_b3f02885533143c7b1ccc8d23a1ddb28 -->
+  <Scalar rdf:about="iucr_exptl_crystal_description_b3f02885533143c7b1ccc8d23a1ddb28">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_exptl_crystal_description"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hexagonal</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_crystal_description</hasDictref_att>
+  </Scalar>
+  <!-- iucr_exptl_crystal_f_000_22bb5eaf86e84c138fd0055c9c325ffd -->
+  <Scalar rdf:about="iucr_exptl_crystal_f_000_22bb5eaf86e84c138fd0055c9c325ffd">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">533</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_crystal_f_000</hasDictref_att>
+  </Scalar>
+  <!-- iucr_exptl_crystal_size_max_008510c26caa4c1f8ef59876a6e60d4f -->
+  <Scalar rdf:about="iucr_exptl_crystal_size_max_008510c26caa4c1f8ef59876a6e60d4f">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.41</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_crystal_size_max</hasDictref_att>
+  </Scalar>
+  <!-- iucr_exptl_crystal_size_mid_aa34bf3b721d484e8d166d72a4ac9a34 -->
+  <Scalar rdf:about="iucr_exptl_crystal_size_mid_aa34bf3b721d484e8d166d72a4ac9a34">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.24</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_crystal_size_mid</hasDictref_att>
+  </Scalar>
+  <!-- iucr_exptl_crystal_size_min_27e359b566bd44b8bf141f2668667ae4 -->
+  <Scalar rdf:about="iucr_exptl_crystal_size_min_27e359b566bd44b8bf141f2668667ae4">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.16</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_crystal_size_min</hasDictref_att>
+  </Scalar>
+  <!-- iucr_exptl_special_details_e4e6621bcd5a49d186fcb5d750e09bb8 -->
+  <Scalar rdf:about="iucr_exptl_special_details_e4e6621bcd5a49d186fcb5d750e09bb8">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_exptl_special_details"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Correction applied by SADABS (Sheldrick, 2004). The transmission factors are not real since they include corrections for beam decay and possibly crystal decay (the two cannot be distinguished). The numbers listed in the CIF are those calculated by SHELXL97 (Sheldrick, 2004).</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_special_details</hasDictref_att>
+  </Scalar>
+  <!-- iucr_geom_special_details_50806ae6ef28473b982051f374c920fc -->
+  <Scalar rdf:about="iucr_geom_special_details_50806ae6ef28473b982051f374c920fc">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_geom_special_details"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">All esds (except the esd in the dihedral angle between two l.s. planes) are estimated using the full covariance matrix. The cell esds are taken into account individually in the estimation of esds in distances, angles and torsion angles; correlations between esds in cell parameters are only used when they are defined by crystal symmetry. An approximate (isotropic) treatment of cell esds is used for estimating esds involving l.s. planes.</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_geom_special_details</hasDictref_att>
+  </Scalar>
+  <!-- iucr_journal_coden_cambridge_344004d9a6c44d4a811ab79559c2b0e3 -->
+  <Scalar rdf:about="iucr_journal_coden_cambridge_344004d9a6c44d4a811ab79559c2b0e3">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0222</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_journal_coden_cambridge</hasDictref_att>
+  </Scalar>
+  <!-- iucr_journal_name_full_46b680b8212c416398f6cdb6f482452d -->
+  <Scalar rdf:about="iucr_journal_name_full_46b680b8212c416398f6cdb6f482452d">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dalton Trans.</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_journal_name_full</hasDictref_att>
+  </Scalar>
+  <!-- iucr_publ_contact_author_email_0a199818ed1f44baa37b2af660e64aa0 -->
+  <Scalar rdf:about="iucr_publ_contact_author_email_0a199818ed1f44baa37b2af660e64aa0">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_publ_contact_author_email"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">TMAJI@JNCASR.AC.IN</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_publ_contact_author_email</hasDictref_att>
+  </Scalar>
+  <!-- iucr_publ_contact_author_name_ed51173753554b329ccb0aeba4afbbe9 -->
+  <iucr:_publ_contact_author_name rdf:about="iucr_publ_contact_author_name_ed51173753554b329ccb0aeba4afbbe9">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Tapas Maji</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_publ_contact_author_name</hasDictref_att>
+  </iucr:_publ_contact_author_name>
+  <!-- iucr_publ_section_title_ee0621f05a3545c5b8da1b2c07f002cd -->
+  <Scalar rdf:about="iucr_publ_section_title_ee0621f05a3545c5b8da1b2c07f002cd">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A planar Cu2+ (S = 1/2) kagom\'e network pillared by 1,2-bis(4-pyridyl) ethane with interesting magnetic properties</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_publ_section_title</hasDictref_att>
+  </Scalar>
+  <!-- iucr_refine_diff_density_max_f7590b99296c49ef8b89aed88f447b3d -->
+  <Scalar rdf:about="iucr_refine_diff_density_max_f7590b99296c49ef8b89aed88f447b3d">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.973</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_diff_density_max</hasDictref_att>
+  </Scalar>
+  <!-- iucr_refine_diff_density_min_bac73a3e99e54375ac04becf74a68de5 -->
+  <Scalar rdf:about="iucr_refine_diff_density_min_bac73a3e99e54375ac04becf74a68de5">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">-0.528</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_diff_density_min</hasDictref_att>
+  </Scalar>
+  <!-- iucr_refine_diff_density_rms_11511faca2604408a9c37a5790234cc7 -->
+  <Scalar rdf:about="iucr_refine_diff_density_rms_11511faca2604408a9c37a5790234cc7">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.109</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_diff_density_rms</hasDictref_att>
+  </Scalar>
+  <!-- iucr_refine_ls_abs_structure_details_3ef4c59c314a463b8547a8740e33f534 -->
+  <iucr:_refine_ls_abs_structure_details rdf:about="iucr_refine_ls_abs_structure_details_3ef4c59c314a463b8547a8740e33f534">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Flack H D (1983), Acta Cryst. A39, 876-881</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_abs_structure_details</hasDictref_att>
+  </iucr:_refine_ls_abs_structure_details>
+  <!-- iucr_refine_ls_abs_structure_flack_413d87616f1d42719d3fc139d38b8ff6 -->
+  <Scalar rdf:about="iucr_refine_ls_abs_structure_flack_413d87616f1d42719d3fc139d38b8ff6">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.48(3)</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_abs_structure_flack</hasDictref_att>
+  </Scalar>
+  <!-- iucr_refine_ls_extinction_method_f46fa4aea6a14c8bbee5f7158fcb03b3 -->
+  <iucr:_refine_ls_extinction_method rdf:about="iucr_refine_ls_extinction_method_f46fa4aea6a14c8bbee5f7158fcb03b3">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_extinction_method</hasDictref_att>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">none</hasValue>
+  </iucr:_refine_ls_extinction_method>
+  <!-- iucr_refine_ls_goodness_of_fit_ref_2680d05f6d6846e889813c9ff89dcdbf -->
+  <Scalar rdf:about="iucr_refine_ls_goodness_of_fit_ref_2680d05f6d6846e889813c9ff89dcdbf">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_refine_ls_goodness_of_fit_ref"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.075</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_goodness_of_fit_ref</hasDictref_att>
+  </Scalar>
+  <!-- iucr_refine_ls_hydrogen_treatment_427318044ee94baaab90f4dae23cb666 -->
+  <Scalar rdf:about="iucr_refine_ls_hydrogen_treatment_427318044ee94baaab90f4dae23cb666">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_refine_ls_hydrogen_treatment"/>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_hydrogen_treatment</hasDictref_att>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">noref</hasValue>
+  </Scalar>
+  <!-- iucr_refine_ls_matrix_type_22910fb3c6fa40e284271abd511f50f3 -->
+  <Scalar rdf:about="iucr_refine_ls_matrix_type_22910fb3c6fa40e284271abd511f50f3">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_refine_ls_matrix_type"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">full</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_matrix_type</hasDictref_att>
+  </Scalar>
+  <!-- iucr_refine_ls_number_parameters_33e8578d124d4ff5bd310f07b7ea775c -->
+  <Scalar rdf:about="iucr_refine_ls_number_parameters_33e8578d124d4ff5bd310f07b7ea775c">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_refine_ls_number_parameters"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">118.0</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_number_parameters</hasDictref_att>
+  </Scalar>
+  <!-- iucr_refine_ls_number_reflns_ddba0f14ea4840d0889e0e763b7757cf -->
+  <Scalar rdf:about="iucr_refine_ls_number_reflns_ddba0f14ea4840d0889e0e763b7757cf">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_refine_ls_number_reflns"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1560.0</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_number_reflns</hasDictref_att>
+  </Scalar>
+  <!-- iucr_refine_ls_number_restraints_ced024aca1504d2d8fdb44438a9f049b -->
+  <Scalar rdf:about="iucr_refine_ls_number_restraints_ced024aca1504d2d8fdb44438a9f049b">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_refine_ls_number_restraints"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_number_restraints</hasDictref_att>
+  </Scalar>
+  <!-- iucr_refine_ls_r_factor_all_c826fdb8cb384209a980e0b976e1504d -->
+  <Scalar rdf:about="iucr_refine_ls_r_factor_all_c826fdb8cb384209a980e0b976e1504d">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.0508</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_r_factor_all</hasDictref_att>
+  </Scalar>
+  <!-- iucr_refine_ls_r_factor_gt_268dc878bc1947c99dd4ef9cb0423484 -->
+  <Scalar rdf:about="iucr_refine_ls_r_factor_gt_268dc878bc1947c99dd4ef9cb0423484">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.0437</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_r_factor_gt</hasDictref_att>
+  </Scalar>
+  <!-- iucr_refine_ls_restrained_s_all_56d8effc7c044c248b236d31b44b28a5 -->
+  <Scalar rdf:about="iucr_refine_ls_restrained_s_all_56d8effc7c044c248b236d31b44b28a5">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1.092</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_restrained_s_all</hasDictref_att>
+  </Scalar>
+  <!-- iucr_refine_ls_shiftsu_max_d051f67225254c158ef9770d3181bfde -->
+  <Scalar rdf:about="iucr_refine_ls_shiftsu_max_d051f67225254c158ef9770d3181bfde">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.000</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_shift/su_max</hasDictref_att>
+  </Scalar>
+  <!-- iucr_refine_ls_shiftsu_mean_32030a089b194474b22142cb656c77cb -->
+  <Scalar rdf:about="iucr_refine_ls_shiftsu_mean_32030a089b194474b22142cb656c77cb">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.000</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_shift/su_mean</hasDictref_att>
+  </Scalar>
+  <!-- iucr_refine_ls_structure_factor_coef_228a262e838940cda179aa9e018acc02 -->
+  <Scalar rdf:about="iucr_refine_ls_structure_factor_coef_228a262e838940cda179aa9e018acc02">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_refine_ls_structure_factor_coef"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fsqd</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_structure_factor_coef</hasDictref_att>
+  </Scalar>
+  <!-- iucr_refine_ls_weighting_details_39f8e51f4f874d06bae32fa13f8989e4 -->
+  <iucr:_refine_ls_weighting_details rdf:about="iucr_refine_ls_weighting_details_39f8e51f4f874d06bae32fa13f8989e4">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">calc w=1/[\s^2^(Fo^2^)+(0.0566P)^2^+1.7187P] where P=(Fo^2^+2Fc^2^)/3</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_weighting_details</hasDictref_att>
+  </iucr:_refine_ls_weighting_details>
+  <!-- iucr_refine_ls_weighting_scheme_4dab99e690f847f5a2b16216a5a5a05a -->
+  <Scalar rdf:about="iucr_refine_ls_weighting_scheme_4dab99e690f847f5a2b16216a5a5a05a">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_refine_ls_weighting_scheme"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">calc</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_weighting_scheme</hasDictref_att>
+  </Scalar>
+  <!-- iucr_refine_ls_wr_factor_gt_832e04fdef61427395e9d4804fdd0743 -->
+  <Scalar rdf:about="iucr_refine_ls_wr_factor_gt_832e04fdef61427395e9d4804fdd0743">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.1073</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_wr_factor_gt</hasDictref_att>
+  </Scalar>
+  <!-- iucr_refine_ls_wr_factor_ref_25e2552d41de4894ac053bdc7acda302 -->
+  <Scalar rdf:about="iucr_refine_ls_wr_factor_ref_25e2552d41de4894ac053bdc7acda302">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.1127</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_wr_factor_ref</hasDictref_att>
+  </Scalar>
+  <!-- iucr_refine_special_details_23da7bcb356b4f29831cc9d6f0b6a747 -->
+  <iucr:_refine_special_details rdf:about="iucr_refine_special_details_23da7bcb356b4f29831cc9d6f0b6a747">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Refinement of F^2^ against ALL reflections. The weighted R-factor wR and goodness of fit S are based on F^2^, conventional R-factors R are based on F, with F set to zero for negative F^2^. The threshold expression of F^2^ &gt; 2sigma(F^2^) is used only for calculating R-factors(gt) etc. and is not relevant to the choice of reflections for refinement. R-factors based on F^2^ are statistically about twice as large as those based on F, and R- factors based on ALL data will be even larger.</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_special_details</hasDictref_att>
+  </iucr:_refine_special_details>
+  <!-- iucr_reflns_number_gt_525f1b4dc5a4446da258705fc39540c2 -->
+  <Scalar rdf:about="iucr_reflns_number_gt_525f1b4dc5a4446da258705fc39540c2">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_reflns_number_gt"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1417.0</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_reflns_number_gt</hasDictref_att>
+  </Scalar>
+  <!-- iucr_reflns_number_total_b63f91b3c75c48de8f6a41d6bcc1fbea -->
+  <Scalar rdf:about="iucr_reflns_number_total_b63f91b3c75c48de8f6a41d6bcc1fbea">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_reflns_number_total"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1560.0</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_reflns_number_total</hasDictref_att>
+  </Scalar>
+  <!-- iucr_reflns_threshold_expression_438bef5895f946dc9a5389c0bb10bcbb -->
+  <Scalar rdf:about="iucr_reflns_threshold_expression_438bef5895f946dc9a5389c0bb10bcbb">
+    <rdf:type rdf:resource="http://www.xml-cml.org/iucr#_reflns_threshold_expression"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&gt;2sigma(I)</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_reflns_threshold_expression</hasDictref_att>
+  </Scalar>
+  <!-- iucr_symmetry_cell_setting_4f53f930b63947b3a1a8363663f6ab26 -->
+  <iucr:_symmetry_cell_setting rdf:about="iucr_symmetry_cell_setting_4f53f930b63947b3a1a8363663f6ab26">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hexagonal</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_symmetry_cell_setting</hasDictref_att>
+  </iucr:_symmetry_cell_setting>
+  <!-- iucr_symmetry_int_tables_number_87219a526eef4ed6b585f7915dd059a9 -->
+  <Scalar rdf:about="iucr_symmetry_int_tables_number_87219a526eef4ed6b585f7915dd059a9">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">174</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_symmetry_int_tables_number</hasDictref_att>
+  </Scalar>
+  <!-- iucr_symmetry_space_group_name_hall_47f9c44f60ec4395b3374687beea1210 -->
+  <Scalar rdf:about="iucr_symmetry_space_group_name_hall_47f9c44f60ec4395b3374687beea1210">
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">P -6</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_symmetry_space_group_name_hall</hasDictref_att>
+  </Scalar>
+  <!-- iucrcompoundClass_0af77ddf43b14bfabd9b4a55f206dc3f -->
+  <Scalar rdf:about="iucrcompoundClass_0af77ddf43b14bfabd9b4a55f206dc3f">
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:compoundClass</hasDictref_att>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">organometallic</hasValue>
+  </Scalar>
+  <!-- molecule_c865a34c19bc4cf7895280d13d746e46 -->
+  <Molecule rdf:about="molecule_c865a34c19bc4cf7895280d13d746e46"/>
+  <!-- property_3bde035fda4b46ee955e311579911413 -->
+  <Property rdf:about="property_3bde035fda4b46ee955e311579911413"/>
+  <!-- http://www.xml-cml.org/schema#dictionary1 -->
+  <Dictionary rdf:about="#dictionary1"/>
+  <!-- jar:file:/C:/Users/ned24/.m2/repository/cml/jumbo-converters/0.2-SNAPSHOT/jumbo-converters-0.2-SNAPSHOT.jar!/org/xmlcml/cml/converters/rdf/cml/ontologies/cifCore.owl -->
+  <rdf:Description rdf:about="jar:file:/C:/Users/ned24/.m2/repository/cml/jumbo-converters/0.2-SNAPSHOT/jumbo-converters-0.2-SNAPSHOT.jar!/org/xmlcml/cml/converters/rdf/cml/ontologies/cifCore.owl">
+    <hasCmlChild rdf:resource="httpwww.xmlcml.orgschema1"/>
+  </rdf:Description>
+</rdf:RDF>

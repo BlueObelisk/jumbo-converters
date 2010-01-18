@@ -1,50 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-   <modelVersion>4.0.0</modelVersion>
-   <parent>
-      <groupId>wwmm</groupId>
-      <artifactId>pom</artifactId>
-      <version>1.0-SNAPSHOT</version>
-   </parent>
-   <groupId>cml</groupId>
-   <artifactId>jumbo-converters</artifactId>
-   <packaging>pom</packaging>
-   <name>Jumbo-Converters</name>
-   <version>0.3-SNAPSHOT</version>
-   <description>Converts from and to CML</description>
-   <url>http://www.xml-cml.org/</url>
-   <scm/>
-   <modules>
-      <module>jumbo-converters-core</module>
-      <module>jumbo-converters-cli</module>
-      <module>jumbo-converters-cif</module>
-      <module>jumbo-converters-chemdraw</module>
-      <module>jumbo-converters-gaussian</module>
-      <module>jumbo-converters-rdf</module>
-      <module>jumbo-converters-epo</module>
-      <module>jumbo-converters-graphics</module>
-      <module>jumbo-converters-spectrum</module>
-      <module>jumbo-converters-molecule</module>
-      <module>jumbo-converters-pdf</module>
-      <module>jumbo-converters-reaction</module>
-	  <module>jumbo-converters-testutils</module>
-  </modules>
-  <repositories>
-      <repository>
-         <id>wwmm</id>
-         <name>wwmm</name>
-         <url>http://wwmm.ch.cam.ac.uk/maven2</url>
-      </repository>
-   </repositories>
-   <build>
-      <plugins>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-               <testFailureIgnore>false</testFailureIgnore>
-            </configuration>
-         </plugin>
-      </plugins>
-   </build>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>wwmm</groupId>
+		<artifactId>pom</artifactId>
+		<version>1</version>
+	</parent>
+	<groupId>cml</groupId>
+	<artifactId>jumbo-converters</artifactId>
+	<packaging>pom</packaging>
+	<name>Jumbo-Converters</name>
+	<version>1</version>
+	<description>Converts from and to CML</description>
+	<url>http://www.xml-cml.org/</url>
+	<developers>
+		<developer>
+			<id>jimdowning</id>
+			<name>Jim Downing</name>
+			<email>ojd20@cam.ac.uk</email>
+		</developer>
+	</developers>
+	<scm />
+	<modules>
+		<module>jumbo-converters-core</module>
+		<module>jumbo-converters-cli</module>
+		<module>jumbo-converters-cif</module>
+		<module>jumbo-converters-chemdraw</module>
+		<module>jumbo-converters-gaussian</module>
+		<module>jumbo-converters-rdf</module>
+		<module>jumbo-converters-epo</module>
+		<module>jumbo-converters-graphics</module>
+		<module>jumbo-converters-spectrum</module>
+		<module>jumbo-converters-molecule</module>
+		<module>jumbo-converters-pdf</module>
+		<module>jumbo-converters-reaction</module>
+		<module>jumbo-converters-testutils</module>
+	</modules>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<testFailureIgnore>true</testFailureIgnore>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
