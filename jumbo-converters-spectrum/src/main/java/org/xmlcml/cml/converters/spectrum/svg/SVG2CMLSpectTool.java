@@ -201,12 +201,12 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 						text1, SUBSCRIPT_FACTOR, SUPERSCRIPT_FACTOR, eps)) {
 					text1.detach();
 				} else {
-					LOG.debug("accepted..............."+text0.getText());
+					LOG.trace("accepted..............."+text0.getText());
 					text0 = text1;
 				}
 			}
 		}
-		LOG.debug("... joined texts");
+		LOG.trace("... joined texts");
 	}
 
 //	/** crude
@@ -278,18 +278,18 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
     		}
     	}
     	
-		LOG.debug("... joining lineList "+lineListList.size());
+		LOG.trace("... joining lineList "+lineListList.size());
 		// skip single lines
     	for (List<SVGElement> lineList : lineListList) {
     		if (lineList.size() > 1) {
-				LOG.debug("... joining lines "+lineList.size());
+				LOG.trace("... joining lines "+lineList.size());
 		    	SVGPolyline newPolyline = mergeLinesInList(lineList);
 		    	ParentNode parent = lineList.get(0).getParent();
 		    	parent.replaceChild(lineList.get(0), newPolyline);
 		    	for (SVGElement line : lineList) {
 		    		line.detach();
 		    	}
-				LOG.debug("... joined lines");
+				LOG.trace("... joined lines");
     		}
     	}
     }
@@ -330,7 +330,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 		}
 		while (polylineList.size() > 1) {
 			polylineList = SVGPolyline.binaryMergePolylines(polylineList, eps);
-			LOG.debug("POLY "+polylineList.size());
+			LOG.trace("POLY "+polylineList.size());
 		}
 		return polylineList.get(0);
 	}
@@ -357,7 +357,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 		}
 		examineAsPage(minText);
 		examineAsPage(maxText);
-		LOG.debug("BB "+bbox);
+		LOG.trace("BB "+bbox);
 	}
 	
 	private void examineAsPage(SVGText text) {
@@ -378,7 +378,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 			}
 			textG.appendChild(text);
 			textG.setClassName(PAGENUMBER);
-			LOG.debug("PAGE: "+text.getValue());
+			LOG.trace("PAGE: "+text.getValue());
 		}
 	}
 	
@@ -392,7 +392,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 			polyline.addMonotonicityAttributes();
 			/*SVGElement g = */markAsDataG(polyline);
 		}
-		LOG.debug("data orientation: "+spectrumDataOrientation+" ... "+spectrumValuesList.size());
+		LOG.trace("data orientation: "+spectrumDataOrientation+" ... "+spectrumValuesList.size());
 		
 	}
 	private SVGElement markAsDataG(SVGPolyline polyline) {
@@ -415,7 +415,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 					}
 					spectrumValuesList.add(g);
 				} else {
-					LOG.debug("Cannot analyze spectrumdata orientation from monotonicity");
+					LOG.trace("Cannot analyze spectrumdata orientation from monotonicity");
 				}
 			}
 		}
@@ -463,13 +463,13 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 				break;
 			}
 		}
-		LOG.debug("CL "+clusterList.size());
-		LOG.debug("HV "+horizontalVerticalList.size());
+		LOG.trace("CL "+clusterList.size());
+		LOG.trace("HV "+horizontalVerticalList.size());
 		
 		mergeClusters();
 		
-		LOG.debug("CL "+clusterList.size());
-		LOG.debug("HV "+horizontalVerticalList.size());
+		LOG.trace("CL "+clusterList.size());
+		LOG.trace("HV "+horizontalVerticalList.size());
 		annotateLinesByCluster();
 		createDebugBoundingSVGRects();
 	}
@@ -494,7 +494,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 		String[] colors = {"red", "yellow", "green", "cyan", "blue", "purple"};
 		int color = 0;
 		for (LineCluster cl : clusterList) {
-			LOG.debug("LINES in cluster "+cl.getLineList().size());
+			LOG.trace("LINES in cluster "+cl.getLineList().size());
 			String col = colors[color++ % colors.length];
 			for (SVGLine line : cl.getLineList()) {
 				line.setStroke(col);
@@ -550,7 +550,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 		Integer min = Integer.MAX_VALUE;
 		for (Integer nline : clusterListMap.keySet()) {
 			List<SVGG> gList = clusterListMap.get(nline);
-			LOG.debug("nline "+nline+"; "+gList.size());
+			LOG.trace("nline "+nline+"; "+gList.size());
 			if (nline < min) {
 				min = nline;
 			}
