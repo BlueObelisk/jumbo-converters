@@ -397,7 +397,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 	}
 	private SVGElement markAsDataG(SVGPolyline polyline) {
 		SVGG g = null;
-		CMLUtil.debug(polyline, "markAsDataG polyline");
+//		CMLUtil.debug(polyline, "markAsDataG polyline");
 		Real2Range r2r = polyline.getBoundingBox();
 		if (r2r.getXRange().getRange() > 300 || r2r.getYRange().getRange() > 300) {
 			if (polyline.getReal2Array().size() > 100) {
