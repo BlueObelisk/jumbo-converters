@@ -17,6 +17,7 @@ import org.jcamp.units.DerivedUnit;
 import org.jcamp.units.Unit;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLCml;
@@ -30,7 +31,7 @@ import org.xmlcml.cml.element.CMLYaxis;
  * @author pm286
  *
  */
-public class CMLSpect2JDXConverter extends AbstractConverter {
+public class CMLSpect2JDXConverter extends AbstractConverter implements Converter {
 	private static final Logger LOG = Logger.getLogger(CMLSpect2JDXConverter.class);
 	
 	public final static String[] typicalArgsForConverterCommand = {

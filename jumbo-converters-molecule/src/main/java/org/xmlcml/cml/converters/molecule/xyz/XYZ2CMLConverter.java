@@ -79,7 +79,7 @@ public class XYZ2CMLConverter extends AbstractConverter implements
 		}
 		CMLCml cml = new CMLCml();
 		cml.appendChild(molecule);
-		cml.debug("CML2XYZ");
+//		cml.debug("CML2XYZ");
 		return cml;
 	}
 
