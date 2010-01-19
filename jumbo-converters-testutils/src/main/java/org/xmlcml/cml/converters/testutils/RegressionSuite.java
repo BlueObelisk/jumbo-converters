@@ -13,9 +13,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import nu.xom.Builder;
 import nu.xom.Element;
@@ -24,11 +22,9 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.SuffixFileFilter;
 import org.apache.log4j.Logger;
-import org.junit.Assert;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.testutil.TestUtils;
-
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
@@ -80,7 +76,7 @@ public class RegressionSuite {
 										.getNamespaceURI()
 										.equals(
 												"http://www.w3.org/1999/02/22-rdf-syntax-ns#")) {
-							compareRDF(refElement, outElement, refFile, outFile);
+							compareRDF(refFile, outFile);
 						} else {
 							// ordinary XML
 							TestUtils.assertEqualsIncludingFloat(
@@ -115,7 +111,7 @@ public class RegressionSuite {
 	 * @param ref
 	 * @param test
 	 */
-	private void compareRDF(Element ref, Element test, File refF, File testF) {
+	private void compareRDF(File refF, File testF) {
 		List<Statement> refStmts = statementsFrom(refF);
 		List<Statement> testStmts = statementsFrom(testF);
 		for (int i = 0; i < refStmts.size(); i++) {
@@ -167,8 +163,8 @@ public class RegressionSuite {
 				String subj2 = s2.getSubject().getURI();
 				String pred2 = s2.getPredicate().getURI();
 				String obj2 = s2.getObject().toString();
-				boolean useSubj = isUUID(s1.getSubject());
-				boolean useObj = isUUID((Resource) s1.getObject());
+				boolean useSubj = !isUUID(s1.getSubject());
+				boolean useObj = !isUUID((Resource) s1.getObject());
 				if (useSubj && !subj1.equals(subj2)) {
 					return subj1.compareTo(subj2);
 				} else if (!pred1.equals(pred2)) {
