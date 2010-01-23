@@ -1,6 +1,7 @@
 package org.xmlcml.cml.converters.graphics.svg.elements;
 
 import static org.junit.Assert.fail;
+
 import static org.xmlcml.cml.base.CMLConstants.SVG_NS;
 
 import java.util.List;
@@ -187,7 +188,7 @@ public class SVGChemPathTest {
 	}
 	
 	private void test(String msg, Real2 expected, Real2 test, double eps) {
-		String m = org.xmlcml.euclid.TestUtils.testEquals(expected, test, eps);
+		String m = TestUtils.testEquals(expected, test, eps);
 		if (m != null) {
 			Assert.fail(msg+": "+m);
 		}
