@@ -35,7 +35,7 @@ public class SVGChemPathTest {
 		"<svg:path d='M 11 12 L 13 14 15 16'/>"+
 		"</svg:svg>"+
 		"";
-		Element element = org.xmlcml.cml.testutil.TestUtils.parseValidString(s);
+		Element element = org.xmlcml.cml.testutil.JumboTestUtils.parseValidString(s);
 		SVGSVG svg = (SVGSVG) SVGElement.createSVG(element);
 		SVGChemSVG svgChem = new SVGChemSVG(svg);
 		Assert.assertNotNull("svgChem not null", svgChem);
@@ -49,13 +49,13 @@ public class SVGChemPathTest {
 		"<svg:path d='M 11 12 L 13 14 15 16'/>"+
 		"</svg:svg>"+
 		"";
-		Element element = org.xmlcml.cml.testutil.TestUtils.parseValidString(s);
+		Element element = org.xmlcml.cml.testutil.JumboTestUtils.parseValidString(s);
 		SVGSVG svg = (SVGSVG) SVGElement.createSVG(element);
 		SVGChemSVG svgChem = new SVGChemSVG(svg);
 		Assert.assertNotNull("svgChem not null", svgChem);
 		List<SVGChemPath> pathList = SVGChemPath.getPathList(svgChem);
 		Assert.assertEquals("path count", 2, pathList.size());
-		org.xmlcml.cml.testutil.TestUtils.assertEqualsIncludingFloat("path1", 		
+		org.xmlcml.cml.testutil.JumboTestUtils.assertEqualsIncludingFloat("path1", 		
 				"<svg:path style=' fill : none; stroke : black; stroke-width : 0.5;' d='M 1 2 L 3 4 5 6' xmlns:svg='"+SVG_NS+"'/>", 
 				pathList.get(0), true, 0.00001);
 	}
@@ -193,7 +193,7 @@ public class SVGChemPathTest {
 	}
 	
 	private void test(String msg, Real2 expected, Real2 test, double eps) {
-		String m = org.xmlcml.cml.testutil.TestUtils.testEquals(expected, test, eps);
+		String m = org.xmlcml.cml.testutil.JumboTestUtils.testEquals(expected, test, eps);
 		if (m != null) {
 			Assert.fail(msg+": "+m);
 		}
@@ -203,7 +203,7 @@ public class SVGChemPathTest {
 	 * @return
 	 */
 	private SVGChemPath makePath(String s) {
-		Element element = org.xmlcml.cml.testutil.TestUtils.parseValidString(s);
+		Element element = org.xmlcml.cml.testutil.JumboTestUtils.parseValidString(s);
 		SVGPath path = (SVGPath) SVGElement.createSVG(element);
 		SVGChemPath svgPath = new SVGChemPath(path);
 		Assert.assertNotNull("svgChem not null", svgPath);

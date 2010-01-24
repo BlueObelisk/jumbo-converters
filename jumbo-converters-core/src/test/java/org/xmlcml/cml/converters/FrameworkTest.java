@@ -2,6 +2,7 @@ package org.xmlcml.cml.converters;
 
 
 import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,7 +20,7 @@ import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 import org.xmlcml.euclid.Util;
-import org.xmlcml.cml.testutil.TestUtils;
+import org.xmlcml.cml.testutil.JumboTestUtils;
 
 /**
  * 
@@ -65,7 +66,7 @@ public class FrameworkTest {
 		// Check for warnings
 		List<String> warnings = converter.getWarnings();
 		Assert.assertTrue(warnings.isEmpty());
-		TestUtils.assertEqualsCanonically(in + " should have same contents as " + out,
+		JumboTestUtils.assertEqualsCanonically(in + " should have same contents as " + out,
 				new Builder().build(in), new Builder().build(out));
 	}
 
@@ -112,7 +113,7 @@ public class FrameworkTest {
 		// Check for warnings
 		List<String> warnings = converter.getWarnings();
 		Assert.assertTrue(warnings.isEmpty());
-		TestUtils.assertEqualsCanonically(inF + " should have same contents as " + outF,
+		JumboTestUtils.assertEqualsCanonically(inF + " should have same contents as " + outF,
 				new Builder().build(inF), new Builder().build(outF));
 	}
 	
