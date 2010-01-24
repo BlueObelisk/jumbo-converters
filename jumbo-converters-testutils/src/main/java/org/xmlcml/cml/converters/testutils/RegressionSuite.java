@@ -24,7 +24,7 @@ import org.apache.commons.io.filefilter.SuffixFileFilter;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.Converter;
-import org.xmlcml.cml.testutil.TestUtils;
+import org.xmlcml.cml.testutil.JumboTestUtils;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
@@ -79,7 +79,7 @@ public class RegressionSuite {
 							compareRDF(refFile, outFile);
 						} else {
 							// ordinary XML
-							TestUtils.assertEqualsIncludingFloat(
+							JumboTestUtils.assertEqualsIncludingFloat(
 									"Comparing XML files: " + outFile
 											+ " against " + refFile,
 									refElement, outElement, true, 0.00001);
