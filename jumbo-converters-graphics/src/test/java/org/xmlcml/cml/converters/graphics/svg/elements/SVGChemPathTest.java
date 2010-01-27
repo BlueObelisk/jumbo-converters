@@ -15,7 +15,6 @@ import org.junit.Test;
 import org.xmlcml.cml.graphics.SVGElement;
 import org.xmlcml.cml.graphics.SVGPath;
 import org.xmlcml.cml.graphics.SVGSVG;
-//import org.xmlcml.cml.testutil.TestUtils;
 import org.xmlcml.euclid.Angle;
 import org.xmlcml.euclid.Real2;
 import org.xmlcml.euclid.Util;
