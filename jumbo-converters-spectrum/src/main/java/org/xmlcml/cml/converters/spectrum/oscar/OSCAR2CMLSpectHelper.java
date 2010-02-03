@@ -143,6 +143,10 @@ public class OSCAR2CMLSpectHelper extends Object {
 		}
 		processSpectrumQuantityElements(quantityElements);
 		processPeaksElements(peaks);
+		String type = oscarSpectrum.getAttributeValue("type");
+		if (type != null) {
+			cmlSpectrum.setType(type);
+		}
 	}
 
 	private void processPeaksElements(Elements peaks) {
