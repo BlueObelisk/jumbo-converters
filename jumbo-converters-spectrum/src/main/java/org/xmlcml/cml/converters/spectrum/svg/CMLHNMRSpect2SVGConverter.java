@@ -15,8 +15,8 @@ import org.xmlcml.cml.graphics.SVGG;
  * @author pm286
  *
  */
-public class CMLSpect2SVGConverter extends AbstractConverter {
-	private static final Logger LOG = Logger.getLogger(CMLSpect2SVGConverter.class);
+public class CMLHNMRSpect2SVGConverter extends AbstractConverter {
+	private static final Logger LOG = Logger.getLogger(CMLHNMRSpect2SVGConverter.class);
 	static {
 		LOG.setLevel(Level.DEBUG);
 	}
@@ -46,7 +46,7 @@ public class CMLSpect2SVGConverter extends AbstractConverter {
 	/** use only for instantiation
 	 * 
 	 */
-	public CMLSpect2SVGConverter() {
+	public CMLHNMRSpect2SVGConverter() {
 		LOG.trace("CMLSpect2SVG");
 	}
 		  
@@ -63,6 +63,7 @@ public class CMLSpect2SVGConverter extends AbstractConverter {
 		CMLSpect2SVGHelper helper = new CMLSpect2SVGHelper();
 		SVGG svgg = helper.parse(xml);
 		return svgg;
+
 	}
 
 	/**
