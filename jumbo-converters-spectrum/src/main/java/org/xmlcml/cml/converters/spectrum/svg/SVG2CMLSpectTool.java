@@ -712,7 +712,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 				topG, "./svg:g[@class='"+UNKNOWN+"']");
 		for (SVGElement unknown : unknownList) {
 			Real2Range r2r = unknown.getBoundingBox();
-			LOG.debug("R2R "+r2r);
+			LOG.trace("R2R "+r2r);
 			if (r2r != null) {
 				double xRangeRange = r2r.getXRange().getRange();
 				double yRangeRange = r2r.getYRange().getRange();
@@ -735,7 +735,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 		List<SVGElement> unknownList = SVGElement.getElementList(
 				topG, "./svg:g[@class='"+UNKNOWN+"' and count(*) = 0]");
 		for (SVGElement unknown : unknownList) {
-			LOG.debug("DETACH EMPTY UNKNOWN");
+			LOG.trace("DETACH EMPTY UNKNOWN");
 			unknown.detach();
 		}
 	}
@@ -845,7 +845,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 				cluster.addLine(linej);
 				horizontalVerticalList.remove(linei);
 				horizontalVerticalList.remove(linej);
-				LOG.debug("made new cluster "+clusterList.size()+" .. "+linei+" .. "+linej);
+				LOG.trace("made new cluster "+clusterList.size()+" .. "+linei+" .. "+linej);
 				change = true;
 				break;
 			}
@@ -928,7 +928,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 			}
 			lineList.add((SVGLine) element);
 		}
-		LOG.debug("LIST "+lineList.size());
+		LOG.trace("LIST "+lineList.size());
 		if (lineList.size() > 0) {
 			List<List<SVGElement>> gListList = new ArrayList<List<SVGElement>>();
 			int i = lineList.size();
@@ -970,7 +970,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 						gg.appendChild(element);
 					}
 				}
-				LOG.debug("made peaklist");
+				LOG.trace("made peaklist");
 				g.setClassName(PEAKLIST);
 			}
 		}
