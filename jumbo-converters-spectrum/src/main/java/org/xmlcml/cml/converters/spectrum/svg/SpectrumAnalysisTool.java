@@ -30,9 +30,9 @@ import org.xmlcml.euclid.Util;
 
 public class SpectrumAnalysisTool {
 	private final static Logger LOG = Logger.getLogger(SpectrumAnalysisTool.class);
-	static {
-		LOG.setLevel(Level.DEBUG);
-	}
+//	static {
+//		LOG.setLevel(Level.TRACE);
+//	}
 	
 	private SVGG spectrumG;
 	private AxisTool horizontalAxis;
@@ -74,7 +74,7 @@ public class SpectrumAnalysisTool {
 		spectrumValues = (valuesList.size() == 0) ? null : (SVGPolyline) valuesList.get(0);
 		String xMonotonicity = (spectrumValues == null) ? null : spectrumValues.getAttributeValue(SVGPoly.MONOTONIC+"X");
 		String yMonotonicity = (spectrumValues == null) ? null : spectrumValues.getAttributeValue(SVGPoly.MONOTONIC+"Y");
-		LOG.debug("MX MY "+xMonotonicity+"/"+yMonotonicity);
+		LOG.trace("MX MY "+xMonotonicity+"/"+yMonotonicity);
 		if (xMonotonicity == null) {
 			spectrumDataOrientation = (yMonotonicity == null) ? null : Orientation.VERTICAL;
 		} else {
@@ -163,7 +163,7 @@ public class SpectrumAnalysisTool {
 	private AxisTool interpretAxisAndGetAxisTool(Orientation orientation) {
 		AxisTool axisTool = null;
 		List<SVGElement> axisGroups = SVGElement.getElementList(spectrumG, "./svg:g[@class='"+orientation.toString()+"']");
-		LOG.debug("AXES: "+axisGroups.size());
+		LOG.trace("AXES: "+axisGroups.size());
 		SVGG axisGroup = (axisGroups.size() > 0) ? (SVGG) axisGroups.get(0) : null; 
 		if (axisGroup != null) {
 			axisTool = new AxisTool(orientation);
@@ -251,7 +251,7 @@ public class SpectrumAnalysisTool {
 			if (!Double.isNaN(dataValue) && !Real.isEqual(dataValue, calcDataValue, 0.1)) {
 				LOG.warn("BAD PEAK: "+dataCoord+" / "+dataOrigin+" / "+dataValue +"/" + calcDataValue);
 			}
-			LOG.debug("PEAK: "+ calcDataValue + " ["+integralValue+"]");
+			LOG.trace("PEAK: "+ calcDataValue + " ["+integralValue+"]");
 		}
 		cmlPeak.setXValue(Util.format(calcDataValue, 2));
 		if (!Double.isNaN(integralValue)) {

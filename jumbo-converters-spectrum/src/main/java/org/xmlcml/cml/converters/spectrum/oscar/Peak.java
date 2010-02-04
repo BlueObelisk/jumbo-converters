@@ -1,7 +1,6 @@
 package org.xmlcml.cml.converters.spectrum.oscar;
 
 import nu.xom.Element;
-
 import nu.xom.Elements;
 import nu.xom.Nodes;
 

@@ -144,9 +144,22 @@ public class OSCAR2CMLSpectHelper extends Object {
 		processSpectrumQuantityElements(quantityElements);
 		processPeaksElements(peaks);
 		String type = oscarSpectrum.getAttributeValue("type");
+		type = getCMLSpectrumType(type);
 		if (type != null) {
 			cmlSpectrum.setType(type);
 		}
+	}
+
+	private String getCMLSpectrumType(String type) {
+		String newType = null;
+		if (type == null) {
+			newType = null;
+		} else if (type.equals("hnmr")) {
+			newType = type;
+		} else {
+			newType = "unknown: "+type;
+		}
+		return newType;
 	}
 
 	private void processPeaksElements(Elements peaks) {
@@ -229,7 +242,7 @@ public class OSCAR2CMLSpectHelper extends Object {
 			if (child instanceof Text) {
 				String text = child.getValue().trim();
 				if (!(text.equals("") || text.equals(CMLConstants.S_COMMA))) {
-					throw new RuntimeException("unusual text from <peaks> ["+text+"]");
+					LOG.error("unusual text child in <peaks> ["+text+"]");
 				}
 			} else if (child instanceof Element) {
 				Element childElement = (Element) child;
