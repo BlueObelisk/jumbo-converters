@@ -208,7 +208,9 @@ public class CMLEditor  {
 	
 	private List<CMLMolecule> getMolecules(CMLElement element) {
 		List<CMLMolecule> moleculeList = new ArrayList<CMLMolecule>();
-		Nodes nodes = element.query(".//cml:molecule[not(ancestor::cml:molecule)", CML_XPATH);
+//		Nodes nodes = element.query(".//*[local-name()='molecule']");
+//		Nodes nodes = element.query(".//cml:molecule", CML_XPATH);
+		Nodes nodes = element.query(".//descendant-or-self::cml:molecule[not(ancestor::cml:molecule)]", CML_XPATH);
 		for (int i = 0; i < nodes.size(); i++) {
 			moleculeList.add((CMLMolecule) nodes.get(i));
 		}
