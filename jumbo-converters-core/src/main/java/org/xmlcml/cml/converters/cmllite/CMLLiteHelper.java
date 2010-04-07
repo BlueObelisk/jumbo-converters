@@ -9,6 +9,8 @@ import nu.xom.Nodes;
 import nu.xom.ParentNode;
 
 import org.apache.log4j.Logger;
+import org.xmlcml.cml.attribute.DictRefAttribute;
+import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLAtomArray;
@@ -22,7 +24,9 @@ import org.xmlcml.cml.element.CMLLabel;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLMoleculeList;
 import org.xmlcml.cml.element.CMLName;
+import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
+import org.xmlcml.cml.tools.BondOrder;
 
 public class CMLLiteHelper {
 
@@ -54,15 +58,27 @@ public class CMLLiteHelper {
 	private void process() {
 //		LOG.debug("CMLLite");
 		cml.addNamespaceDeclaration("cmlDict", "http://www.xml-cml.org/dictionary/cml/");
+		processElementDescendants();
+		processIDAttributes();
+		processDictRefAttributes();
+		removeBadAttributes();
+	}
+
+	private void processElementDescendants() {
 		Nodes nodes = cml.query("//*");
 		for (int i = 0; i < nodes.size(); i++) {
 			Element element = (Element) nodes.get(i);
 			Class clazz = element.getClass();
 			if (element instanceof CMLElement) {
-//				LOG.debug("class "+clazz);
 				if (cmlLiteClassSet.contains(clazz)) {
-					if (element instanceof CMLBondStereo) {
+					if (element instanceof CMLAtom) {
+						processAtom((CMLAtom) element);
+					} else if (element instanceof CMLAtomArray) {
+						processAtomArray((CMLAtomArray) element);
+					} else if (element instanceof CMLBondStereo) {
 						processBondStereo((CMLBondStereo) element);
+					} else if (element instanceof CMLBond) {
+						processBond((CMLBond) element);
 					} else if (element instanceof CMLLabel) {
 						processLabel((CMLLabel) element);
 					} else if (element instanceof CMLMoleculeList) {
@@ -71,7 +87,6 @@ public class CMLLiteHelper {
 						processScalar((CMLScalar) element);
 					}
 				} else {
-//					LOG.warn("Removing CML Element "+clazz);
 					element.detach();
 				}
 			} else {
@@ -80,9 +95,81 @@ public class CMLLiteHelper {
 		}
 	}
 
+	private void processIDAttributes() {
+		Nodes nodes = cml.query("//@id");
+		for (int i = 0; i < nodes.size(); i++) {
+			normalizeId((Attribute) nodes.get(i));
+		}
+	}
+	
+	private static Set<String> badAttNames;
+	static {
+		badAttNames = new HashSet<String>();
+		badAttNames.add("userCyclic");
+	}
+	private void removeBadAttributes() {
+		Nodes nodes = cml.query("//@*");
+		for (int i = 0; i < nodes.size(); i++) {
+			Attribute att = (Attribute) nodes.get(i);
+			if (badAttNames.contains(att.getLocalName())) {
+				att.detach();
+			}
+		}
+	}
+
+	private void normalizeId(Attribute idAtt) {
+		String value = idAtt.getValue();
+		value = value.replaceAll("[&^%$£\"!(),;'/#~=+*{}\\[\\]]", "_");
+		idAtt.setValue(value);
+	}
+	
+	private void processDictRefAttributes() {
+		Nodes nodes = cml.query("//@dictRef");
+		for (int i = 0; i < nodes.size(); i++) {
+			normalizeDictRef((DictRefAttribute) nodes.get(i));
+		}
+	}
+	
+	private void normalizeDictRef(DictRefAttribute dictRefAtt) {
+		String prefix = dictRefAtt.getPrefix();
+		if (prefix == null) {
+			throw new RuntimeException("no prefix");
+		}
+		String ns = dictRefAtt.getNamespaceURIString();
+		if (ns == null) {
+			Element root = (Element) dictRefAtt.getParent().query("/*").get(0);
+			root.addNamespaceDeclaration(prefix, "http://www.xml-cml.org/schema/foo");
+		}
+		String idRef = dictRefAtt.getIdRef();
+		String idRef1 = normalizeIdRef(idRef);
+		if (!idRef.equals(idRef1)) {
+			dictRefAtt.setIdRef(idRef1);
+		}
+	}
+	
+	
+	private String normalizeIdRef(String idRef) {
+		while (idRef.startsWith(CMLConstants.S_UNDER)) {
+			idRef = idRef.substring(1);
+		}
+		return idRef;
+	}
+
 	private void processScalar(CMLScalar scalar) {
 		if (scalar.getXMLContent() == null) {
 			scalar.setXMLContent("content");
+		}
+		// all scalars must be in properties
+		ParentNode parent = scalar.getParent();
+		if (parent != null && !(parent instanceof CMLProperty)) {
+			CMLProperty property = new CMLProperty();
+			parent.replaceChild(scalar, property);
+			property.appendChild(scalar);
+			Attribute dictRefAtt = scalar.getDictRefAttribute();
+			if (dictRefAtt != null) {
+				dictRefAtt.detach();
+				property.addAttribute(dictRefAtt);
+			}
 		}
 	}
 
@@ -101,6 +188,26 @@ public class CMLLiteHelper {
 		// currently no-op
 	}
 
+	private void processAtom(CMLAtom atom) {
+		Nodes childNodes = atom.query("*");
+		for (int i = 0; i < childNodes.size(); i++) {
+			Element childElement = (Element) childNodes.get(i);
+			if (childElement instanceof CMLAtomParity ||
+					childElement instanceof CMLLabel ||
+					childElement instanceof CMLName) {
+			} else {
+				childElement.detach();
+			}
+		}
+	}
+			
+	private void processAtomArray(CMLAtomArray atomArray) {
+		ParentNode parent = atomArray.getParent();
+		if (parent != null && parent instanceof CMLFormula) {
+			atomArray.detach();
+		}
+	}
+	
 	private void processLabel(CMLLabel label) {
 		if (removeCMLLabel(label)) {
 //			LOG.debug("removed CMLLabel");
@@ -125,12 +232,15 @@ public class CMLLiteHelper {
 		}
 	}
 
+	private void processBond(CMLBond bond) {
+		BondOrder.normalizeBondOrder(bond);
+	}
+	
 	private void processBondStereo(CMLBondStereo bondStereo) {
 		Attribute convention = bondStereo.getConventionAttribute();
 		if (convention == null) {
 			bondStereo.setConvention("cmlDict:wedgehatch");
 		}
-//		bondStereo.debug("BS");
 		
 		// this is because of a bug in chem4word
 		bondStereo.detach();

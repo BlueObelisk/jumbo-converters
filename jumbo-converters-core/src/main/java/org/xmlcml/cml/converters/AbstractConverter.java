@@ -836,18 +836,21 @@ public abstract class AbstractConverter implements Converter {
     * @return the {@link CMLElement}
     */
    public static CMLElement ensureCML(Element xml) {
-      if (xml instanceof CMLElement) {
-         return (CMLElement) xml.copy();
-      } else {
-         Document doc = new Document((Element) xml.copy());
-         try {
-            Document doc2 = new CMLBuilder().build(doc.toXML(), doc.getBaseURI());
-            CMLElement cmlElement = (CMLElement) doc2.getRootElement();
-            return cmlElement;
-         } catch (Exception e) {
-            CMLUtil.debug(xml, "NON-XML");
-            throw new RuntimeException(e);
-         }
+	   if (xml == null) {
+		   throw new RuntimeException("null cml");
+	   }
+       if (xml instanceof CMLElement) {
+           return (CMLElement) xml.copy();
+       } else {
+           Document doc = new Document((Element) xml.copy());
+           try {
+               Document doc2 = new CMLBuilder().build(doc.toXML(), doc.getBaseURI());
+               CMLElement cmlElement = (CMLElement) doc2.getRootElement();
+               return cmlElement;
+           } catch (Exception e) {
+               CMLUtil.debug(xml, "NON-XML");
+               throw new RuntimeException(e);
+           }
       }
    }
 
