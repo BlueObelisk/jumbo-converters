@@ -38,12 +38,9 @@ public class CMLEditorConverter extends AbstractConverter implements
 	 * 
 	 */
 	public Element convertToXML(Element cmlInx) {
+		this.cmlIn = ensureCML(cmlInx);
 		ensureCMLEditor();
-		if (!(cmlInx instanceof CMLElement)) {
-			throw new RuntimeException("editor requires CML input");
-		}
-		this.cmlIn = (CMLElement) cmlInx;
-		cmlOut = (CMLElement) cmlIn;
+		cmlOut = cmlIn;
 		cmlEditor.executeCommand(cmlIn);
 		return cmlOut;
 	}

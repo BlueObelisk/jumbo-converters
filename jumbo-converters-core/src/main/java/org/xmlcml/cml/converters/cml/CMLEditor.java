@@ -13,6 +13,9 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLMolecule.HydrogenControl;
+import org.xmlcml.cml.graphics.SVGGBox;
+import org.xmlcml.cml.tools.AbstractSVGTool;
+import org.xmlcml.cml.tools.MoleculeLayout;
 import org.xmlcml.cml.tools.MoleculeTool;
 
 /** allows editing of CMLObjects
@@ -42,6 +45,8 @@ public class CMLEditor  {
 	private boolean addSMILESFromFormula;
 	private boolean addMorgan;
 	private String xpath;
+	private Double scale2D;
+	private Double average2DBondlength;
 	
 	public CMLEditor() {
 	}
@@ -187,6 +192,11 @@ public class CMLEditor  {
 					adjustBondOrdersToValency(moleculeTool);
 				} else if (add2DCoordinates) {
 					add2DCoordinates(moleculeTool);
+				} else if (scale2D != null) {
+					moleculeTool.getMolecule().multiply2DCoordsBy(scale2D);
+				} else if (average2DBondlength != null) {
+					moleculeTool.scaleAverage2DBondLength(average2DBondlength);
+			//		moleculeTool.setAverage2DBondLength(average2DBondlength);
 				} else if (add3DCoordinates) {
 					add3DCoordinates(moleculeTool);
 				} else if (addAtomParityFromCoordinates) {
@@ -217,7 +227,7 @@ public class CMLEditor  {
 		return moleculeList;
 	}
 	
-	private void transformFractionalToCartesian(MoleculeTool moleculeTool) {
+	private void transformFractionalToCartesian(AbstractSVGTool moleculeTool) {
 		
 	}
 	private void addHydrogens(MoleculeTool moleculeTool) {
@@ -233,32 +243,34 @@ public class CMLEditor  {
 		moleculeTool.adjustBondOrdersToValency();
 	}
 	private void add2DCoordinates(MoleculeTool moleculeTool) {
-		throw new RuntimeException("ADD 2D NYI");
+		MoleculeLayout moleculeLayout = 
+			new MoleculeLayout(moleculeTool);
+		moleculeLayout.create2DCoordinates();
 	}
-	private void add3DCoordinates(MoleculeTool moleculeTool) {
+	private void add3DCoordinates(AbstractSVGTool moleculeTool) {
 		throw new RuntimeException("ADD 3D NYI");
 	}
-	private void addAtomParityFromCoordinates(MoleculeTool moleculeTool) {
+	private void addAtomParityFromCoordinates(AbstractSVGTool moleculeTool) {
 //		List<CMLAtom> atomList = moleculeTool.getMolecule().getAtoms();
 //		for (CMLAtom atom : atomList) {
 //			AtomTool atomTool = AtomTool.getOrCreateTool(atom);
 //		}
 		throw new RuntimeException("atom parity NYI");
 	}
-	private void addBondStereoFromCoordinates(MoleculeTool moleculeTool) {
+	private void addBondStereoFromCoordinates(AbstractSVGTool moleculeTool) {
 //		List<CMLBond> bondList = moleculeTool.getMolecule().getBonds();
 //		for (CMLBond bond : bondList) {
 //			BondTool bondTool = BondTool.getOrCreateTool(bond);
 //		}
 //		throw new RuntimeException("bond parity NYI");
 	}
-	private void addFormulaFromAtoms(MoleculeTool moleculeTool) {
+	private void addFormulaFromAtoms(AbstractSVGTool moleculeTool) {
 		throw new RuntimeException("addFormulaFromAtoms not yet implemented");
 	}
-	private void addSMILESFromFormula(MoleculeTool moleculeTool) {
+	private void addSMILESFromFormula(AbstractSVGTool moleculeTool) {
 		throw new RuntimeException("addSMILESFromFormula not yet implemented");
 	}
-	private void addMorgan(MoleculeTool moleculeTool) {
+	private void addMorgan(AbstractSVGTool moleculeTool) {
 		throw new RuntimeException("addMorgan not yet implemented");
 	}
 
@@ -276,5 +288,13 @@ public class CMLEditor  {
 
 	public void setXpath(String xpath) {
 		this.xpath = xpath;
+	}
+
+	public void setScale2D(Double d) {
+		this.scale2D = d;
+	}
+
+	public void set(Double average2DBondlength) {
+		this.average2DBondlength = average2DBondlength;
 	}
 }

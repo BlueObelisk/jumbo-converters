@@ -37,7 +37,6 @@ public class MoleculeDisplayCommand extends GraphicsCommand {
 
 	private void setMoleculeDisplay(MoleculeDisplay moleculeDisplay) {
 		this.moleculeDisplay = moleculeDisplay;
-		LOG.debug("MMMM "+moleculeDisplay);
 		if (moleculeDisplay != null) {
 			this.defaultAtomDisplay = moleculeDisplay.getDefaultAtomDisplay();
 			LOG.debug("DEFAULTATOMDISPLAY "+defaultAtomDisplay);
