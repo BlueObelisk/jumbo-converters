@@ -33,6 +33,12 @@ import org.xmlcml.euclid.Real2;
 public class CDKUtils implements CMLConstants {
 
 	public static IMolecule getCdkMol(CMLMolecule cmlMol) {
+		CMLMolecule molCopy = (CMLMolecule)cmlMol.copy();
+		CMLCrystal cryst = (CMLCrystal)molCopy.getFirstCMLChild(CMLCrystal.TAG);
+		if (cryst != null) {
+			cryst.detach();
+		}
+		
 		ByteArrayInputStream bais = null;
 		IMolecule cdkMol = null;
 		try {

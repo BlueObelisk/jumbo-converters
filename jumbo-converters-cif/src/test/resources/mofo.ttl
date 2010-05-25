@@ -1,0 +1,63 @@
+@prefix cml: <http://www.xmlcml.org/rdf-schema#> .
+@prefix cryst: <http://www.xmlcml.org/cryst-rdf-schema#> .
+@prefix uuid: <##RANDOMLY GENERATED UUID HERE##> .
+@prefix chem: <http://www.polymerinformatics.com/ChemAxiom/ChemDomain.owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix oco: <http://www.openarchives.org/ore/chem/experiments/> .
+
+<./mofo.cif> a cml:dataResource .
+<./mofo.cml> a cml:dataResource .
+
+uuid:thisExperiment
+        a oco:ExperimentRun ;
+        oco:emits uuid:thisCif .
+
+uuid:thisCif
+        a oco:File ;
+        cml:representedBy <./mofo.cif> .
+         
+uuid:thisCml
+        a oco:File ;
+        cml:representedBy <./mofo.cml> .
+        dc:source uuid:thisCif .
+        
+uuid:thisCryst
+        cml:representedBy uuid:thisCml ;
+        a cryst:CrystallochemicalStructure;
+        # Don't have to worry about the tables
+        iucr:journalYear "2009"; 
+        iucr:exptlCrystalSizeMid [ 
+            cml:hasValue "0.56"^^xsd:double ; 
+            cml:errorValue "0.0"^^xsd:double ];
+        # ... etc for all useful scalars under CMLCml
+        cryst:moieties ( 
+            uuid:acta_e_2009_06-00_bg2260sup1_I ) ;
+        cryst:unitCell uuid:thisUnitCell .
+
+uuid:acta_e_2009_06-00_bg2260sup1_I
+        a chem:MolecularEntity ;
+        cml:hasIdentifier [
+            # is this right? what about versions?
+            a iupac:InChI
+            cml:hasValue "InChI=1/C14H17NO2/c16-13-7-6-12-14(17)11(8-9-15(12)13)10-4-2-1-3-5-10/h1-5,11-12,14,17H,6-9H2/t11-,12+,14+/m1/s1"^^xsd:string ] ;
+        cml:hasIdentifier [
+            a openbabel:Smiles
+            cml:hasValue "[H]O[C@]3([H])([C@]([H])(C([H])([H])C([H])([H])N2C(=O)C([H])([H])C([H])([H])[C@]23([H]))C1=C([H])C([H])=C([H])C([H])=C1([H]))"^^xsd:string ] ;
+        cml:hasFormula [
+            a cml:ConciseFormula
+            cml:hasValue "C 14 H 17 N 1 O 2"^^xsd:string ] .
+        
+uuid:thisUnitcell
+        a cryst:UnitCell;
+        cryst:hasUnitCellParameter [
+            a cryst:UnitCellLengthA ;
+            cml:hasValue "11.4164"^^xsd:double ;
+            cml:hasUnits cml:angstroms ;
+            cml:errorValue "3.0E-4"^^xsd:double ] ;
+        #  ..plus lengthB and C
+        cryst:hasUnitCellParameter [
+            a cryst:UnitCellAngleAlpha ;
+            cml:hasValue "90.0"^^xsd:double ;
+            cml:hasUnits cml:degrees ;
+            cml:errorValue "0.0"^^xsd:double] .
+        #  ..plus lengthBeta and Gamma
