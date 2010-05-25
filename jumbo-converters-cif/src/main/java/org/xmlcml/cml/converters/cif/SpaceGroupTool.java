@@ -1,8 +1,9 @@
 package org.xmlcml.cml.converters.cif;
 
+import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Map;
 
 import nu.xom.Elements;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLConstants;
@@ -19,7 +21,8 @@ import org.xmlcml.cml.element.CMLName;
 import org.xmlcml.cml.element.CMLSymmetry;
 
 
-/** stores and analyzes spacegroup information
+/** 
+ * Stores and analyzes spacegroup information.
  * 
  * @author pm286
  *
@@ -27,35 +30,52 @@ import org.xmlcml.cml.element.CMLSymmetry;
 public class SpaceGroupTool implements CMLConstants {
 	private static Logger LOG = Logger.getLogger(SpaceGroupTool.class);
 
-	// names associated with given symmetry. Indexed by each name
-	// however also has additional symmetries which are associated 
-	// with names. Normally there will be several names and only one symm
-	// but different setings can cause problems. This is an unavoidable mess
-	// cmlList
-	//    name
-	//    name
-	//    ...
-	//    symma
-	//    symmb
-	private Map<String, CMLList> nameMap = null;
-	private List<CMLSymmetry> allSymmetries = null;
+	/*
+	 names associated with given symmetry. Indexed by each name
+	 however also has additional symmetries which are associated 
+	 with names. Normally there will be several names and only one symm
+	 but different setings can cause problems. This is an unavoidable mess
+	 cmlList
+	    name
+	    name
+	    ...
+	    symma
+	    symmb
+	 */
+	private Map<String, CMLList> nameMap = new HashMap<String, CMLList>();
+	private List<CMLSymmetry> allSymmetries = new ArrayList<CMLSymmetry>();
 
-	private String filename;
 	private CMLCml cml;
-
 	private boolean update = false;
+	private File spaceGroupFile;
+
+	public SpaceGroupTool(boolean update) {
+		this(null, update);
+	}
 
 	/** constructor.
 	 * 
 	 * @param filename
 	 * @param update
 	 */
-	public SpaceGroupTool(String filename, boolean update) {
-		this.filename = filename;
+	public SpaceGroupTool(File spaceGroupFile, boolean update) {
 		this.update = update;
-		init();
+		this.spaceGroupFile = spaceGroupFile;
+	}
+	
+	public void setSpaceGroupFile(File spaceGroupFile) {
+		this.spaceGroupFile = spaceGroupFile;
+	}
+
+	private void parseSpaceGroupFile() {
+		InputStream is = null;
 		try {
-			this.cml = (CMLCml) new CMLBuilder().build(new FileReader(filename)).getRootElement();
+			if (spaceGroupFile == null) {
+				is = getClass().getClassLoader().getResourceAsStream("./space-groups.xml");
+			} else {
+				is = FileUtils.openInputStream(spaceGroupFile);
+			}
+			this.cml = (CMLCml) new CMLBuilder().build(is).getRootElement();
 			Elements symmetryList = cml.getChildCMLElements(CMLList.TAG);
 			for (int i = 0; i < symmetryList.size(); i++) {
 				CMLList cmlList = (CMLList) symmetryList.get(i);
@@ -63,9 +83,6 @@ public class SpaceGroupTool implements CMLConstants {
 				for (int k = 0; k < names.size(); k++) {
 					CMLName name = (CMLName) names.get(k);
 					String nameValue = name.getValue();
-					if (nameMap.get(nameValue) != null) {
-						//System.err.println("duplicate name: "+nameValue);
-					}
 					nameMap.put(nameValue, cmlList);
 				}
 				Elements symmetries = cmlList.getChildCMLElements(CMLSymmetry.TAG);
@@ -86,17 +103,18 @@ public class SpaceGroupTool implements CMLConstants {
 		}
 	}
 
-	private void init() {
-		nameMap = new HashMap<String, CMLList>();
-		allSymmetries = new ArrayList<CMLSymmetry>();
-	}
-
-	/** lookup symmetry by spacegroup name
+	/** 
+	 * lookup symmetry by spacegroup name
 	 * use first stored symmetry at present
+	 * 
 	 * @param spaceGroup
+	 * 
 	 * @return first (and usually only) stored symmetry
 	 */
 	public CMLSymmetry getSymmetry(String spaceGroup) {
+		if (cml == null) {
+			parseSpaceGroupFile();
+		}
 		CMLSymmetry symmetry = null;
 		CMLList cmlList = nameMap.get(spaceGroup);
 		if (cmlList != null) {
@@ -106,12 +124,6 @@ public class SpaceGroupTool implements CMLConstants {
 		return symmetry;
 	}
 
-	/** analyze.
-	 * 
-	 * @param symmetry
-	 * @param hmName
-	 * @param hallName
-	 */
 	public void analyze(CMLSymmetry symmetry, String hmName, String hallName) {
 		if (symmetry == null) {
 			//System.err.println("'symmetry' element is null, cannot analyze.");
@@ -190,69 +202,16 @@ public class SpaceGroupTool implements CMLConstants {
 		return id.toLowerCase();
 	}
 
-	/** update.
-	 */
 	public void update() {
-		/**-
-		List<CMLElement> lists = cml.getChildCMLElements();
-		for (int i = 0; i < lists.size(); i++) {
-			CMLList listi = (CMLList) lists.get(i);
-			String idi = listi.getId();
-			System.err.println("..."+idi);
-			List<CMLElement> symmis = listi.getChildCMLElements();
-			if (symmis.size() > 1) {
-				checkMultipleSymmetries(idi, symmis);
-			}
-			// check synonyms
-			boolean checkSynonyms = false;
-			if (checkSynonyms) {
-				for (CMLElement symmi : symmis) {
-					CMLSymmetry symmix = (CMLSymmetry) symmi;
-					for (int j = i+1; j < lists.size(); j++) {
-						CMLList listj = (CMLList) lists.get(j);
-						String idj = listj.getId();
-						List<CMLElement> symmjs = listj.getChildCMLElements();
-						for (CMLElement symmj : symmjs) {
-							CMLSymmetry symmjx = (CMLSymmetry) symmj;
-							if (symmix.isEqualTo(symmjx, 0.0001)) {
-								System.err.println("Probable synonym for spacegroup: "+idi+"..."+idj);
-							}
-						}
-					}
-				}
-			}
-		}
-		--*/
 		try {
-			FileOutputStream fos = new FileOutputStream(filename);
+			FileOutputStream fos = new FileOutputStream(spaceGroupFile);
 			int indent = 2;
 			cml.debug(fos, indent);
 			fos.close();
 		} catch (IOException ioe) {
 			throw new RuntimeException("Unexpected ioerror: "+ioe);
 		}
-
 	}
 
-//	private void checkMultipleSymmetries(String sgname, List<CMLElement> symmetries) {
-//	for (int i = 0; i < symmetries.size(); i++) {
-//	CMLSymmetry symmi = (CMLSymmetry) symmetries.get(i);
-//	int nsymmi = symmi.getTransform3Elements().size();
-//	if (!symmi.isSpaceGroup()) {
-////	throw new RuntimeException("element "+i+" in "+sgname+" is not a group");
-//	System.err.println("element "+i+" in "+sgname+" is not a space group");
-//	}
-//	for (int j = i+1; j < symmetries.size(); j++) {
-//	CMLSymmetry symmj = (CMLSymmetry) symmetries.get(j);
-//	int nsymmj = symmj.getTransform3Elements().size();
-//	if (nsymmi != nsymmj) {
-////	throw new RuntimeException("symmetries of different sizes: "+
-////	sgname+" ... "+i+S_SLASH+nsymmi+"  "+j+S_SLASH+nsymmj);
-//	System.err.println("symmetries of different sizes: "+
-//	sgname+" ... "+i+S_SLASH+nsymmi+"  "+j+S_SLASH+nsymmj);
-//	}
-//	}
-//	}
-//	}
 }
 
