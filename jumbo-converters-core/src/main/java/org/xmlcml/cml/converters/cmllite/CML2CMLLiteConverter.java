@@ -4,6 +4,7 @@ import nu.xom.Element;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.Converter;
@@ -30,7 +31,7 @@ public class CML2CMLLiteConverter extends AbstractConverter implements
 	 * 
 	 */
 	public Element convertToXML(Element element) {
-		CMLElement cmlIn = ensureCML(element);
+		CMLElement cmlIn = CMLBuilder.ensureCML(element);
 		CMLLiteHelper converter = new CMLLiteHelper(cmlIn);
 		CMLCml cml = converter.getCML();
 		return cml;

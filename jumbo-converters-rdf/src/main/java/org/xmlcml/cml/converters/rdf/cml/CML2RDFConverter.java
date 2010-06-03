@@ -6,6 +6,7 @@ import nu.xom.Element;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.Type;
@@ -45,7 +46,7 @@ public class CML2RDFConverter extends AbstractConverter {
 	 *            input stream
 	 */
 	public Element convertToXML(Element xml) {
-		CMLElement cml = ensureCML(xml);
+		CMLElement cml = CMLBuilder.ensureCML(xml);
 //		CMLMolecule molecule = new CMLSelector(cml).getToplevelMoleculeDescendantOrSelf(true);
 		CML2RDF cml2rdf = new CML2RDF();
 		Element rdf = cml2rdf.convertCMLElement(cml);

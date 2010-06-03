@@ -1,17 +1,14 @@
 package org.xmlcml.cml.converters.cml;
 
 import nu.xom.Element;
-import nu.xom.Nodes;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.base.CMLConstants;
+import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.Type;
-import org.xmlcml.cml.element.CMLMolecule;
-import org.xmlcml.cml.tools.MoleculeTool;
 
 
 public class CMLEditorConverter extends AbstractConverter implements
@@ -38,7 +35,7 @@ public class CMLEditorConverter extends AbstractConverter implements
 	 * 
 	 */
 	public Element convertToXML(Element cmlInx) {
-		this.cmlIn = ensureCML(cmlInx);
+		this.cmlIn = CMLBuilder.ensureCML(cmlInx);
 		ensureCMLEditor();
 		cmlOut = cmlIn;
 		cmlEditor.executeCommand(cmlIn);

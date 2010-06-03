@@ -6,6 +6,7 @@ import nu.xom.Element;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.Command;
@@ -47,7 +48,7 @@ public class CML2OWLRDFConverter extends AbstractConverter {
 	 */
    @Override
 	public Element convertToXML(Element xml) {
-		CMLElement cml = ensureCML(xml);
+		CMLElement cml = CMLBuilder.ensureCML(xml);
 		CML2OWLRDF cml2owlrdf = new CML2OWLRDF(ontologyResource);
 		Element rdf = cml2owlrdf.convertCMLElement(cml);
 		return rdf;

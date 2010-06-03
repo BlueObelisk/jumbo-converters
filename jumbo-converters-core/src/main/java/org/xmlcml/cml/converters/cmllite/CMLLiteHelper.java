@@ -1,6 +1,7 @@
 package org.xmlcml.cml.converters.cmllite;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import nu.xom.Attribute;
@@ -12,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLAtomArray;
 import org.xmlcml.cml.element.CMLAtomParity;
@@ -27,6 +29,7 @@ import org.xmlcml.cml.element.CMLName;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.tools.BondOrder;
+import org.xmlcml.cml.tools.BondTool;
 
 public class CMLLiteHelper {
 
@@ -162,14 +165,18 @@ public class CMLLiteHelper {
 		// all scalars must be in properties
 		ParentNode parent = scalar.getParent();
 		if (parent != null && !(parent instanceof CMLProperty)) {
-			CMLProperty property = new CMLProperty();
-			parent.replaceChild(scalar, property);
-			property.appendChild(scalar);
-			Attribute dictRefAtt = scalar.getDictRefAttribute();
-			if (dictRefAtt != null) {
-				dictRefAtt.detach();
-				property.addAttribute(dictRefAtt);
-			}
+			replaceScalarByPropertyScalar(scalar, parent);
+		}
+	}
+
+	private void replaceScalarByPropertyScalar(CMLScalar scalar, ParentNode parent) {
+		CMLProperty property = new CMLProperty();
+		parent.replaceChild(scalar, property);
+		property.appendChild(scalar);
+		Attribute dictRefAtt = scalar.getDictRefAttribute();
+		if (dictRefAtt != null) {
+			dictRefAtt.detach();
+			property.addAttribute(dictRefAtt);
 		}
 	}
 
@@ -195,6 +202,22 @@ public class CMLLiteHelper {
 			if (childElement instanceof CMLAtomParity ||
 					childElement instanceof CMLLabel ||
 					childElement instanceof CMLName) {
+			} else if (childElement instanceof CMLScalar) {
+				// only labels allowed
+				//<scalar dictRef="iucr:_atom_site_label" dataType="xsd:string">C2S</scalar>
+				CMLScalar scalar = (CMLScalar) childElement;
+				DictRefAttribute dictRefAtt = (DictRefAttribute) scalar.getDictRefAttribute();
+				String value = dictRefAtt.getValue();
+				if (dictRefAtt != null && 
+						(value.equals("iucr:atom_site_label") || value.equals("iucr:_atom_site_label"))) {
+					CMLLabel label = new CMLLabel();
+					label.setCMLValue(scalar.getValue());
+					label.setDictRef(value);
+					atom.replaceChild(scalar, label);
+					// should add a convention at some stage
+				} else {
+					childElement.detach();
+				}
 			} else {
 				childElement.detach();
 			}
@@ -234,6 +257,7 @@ public class CMLLiteHelper {
 
 	private void processBond(CMLBond bond) {
 		BondOrder.normalizeBondOrder(bond);
+		BondTool.getOrCreateTool(bond).ensureId();
 	}
 	
 	private void processBondStereo(CMLBondStereo bondStereo) {
@@ -254,6 +278,11 @@ public class CMLLiteHelper {
 			cml = wrapperCml;
 		}
 		return (CMLCml) cml;
+	}
+
+	public CMLMolecule getMolecule() {
+		List<CMLMolecule> moleculeList = CMLUtil.extractTopLevelMolecules(cml);
+		return (moleculeList.size() > 0) ? moleculeList.get(0) : null;
 	}
 
 }

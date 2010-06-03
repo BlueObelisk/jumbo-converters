@@ -37,6 +37,7 @@ public class Type {
 	public static final Type GAU_IN;
 	public static final Type GAU_LOG;
 	public static final Type HTML;
+	public static final Type IMAGE;
 	public static final Type JDX;
 	public static final Type MDL;
 	public static final Type NAME;
@@ -83,7 +84,9 @@ public class Type {
 		GAU_LOG = new Type("chemical/x-gaussian-log", ObjectType.TEXT,
 				"gau.log", "g03");
 		HTML = new Type("text/html", ObjectType.TEXT,
-				"html", "htm");
+				"html", "htm");		
+		IMAGE = new Type("image", ObjectType.BYTES,
+						"img");
 		JDX = new Type("chemical/x-jcamp-dx", ObjectType.TEXT,
 				"jdx");
 		MDL = new Type("chemical/x-mdl-molfile",

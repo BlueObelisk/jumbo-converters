@@ -12,6 +12,7 @@ import nu.xom.ValidityException;
 
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLAngle;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLLength;
@@ -74,14 +75,24 @@ public class Util {
 	}
 
 	public static Document stripDTDAndOtherProblematicXMLHeadings(String s) throws IOException {
+		if (s == null || s.length() == 0) {
+			throw new RuntimeException("zero length document");
+		}
 		// strip DTD
 		String DTD = ".dtd\">";
 		int idx = s.indexOf(DTD);
-		int ld = idx+DTD.length()+1;
-		if (ld < 0) {
-			throw new RuntimeException("Tidy cannot parse 'HTML' (negative substring)");
+		String baosS = "";
+		if (idx != -1) {
+			int ld = idx+DTD.length()+1;
+			if (ld < 0) {
+				throw new RuntimeException("Tidy cannot parse 'HTML' (negative substring)");
+			}
+			try {
+				baosS = s.substring(ld);
+			} catch (Exception e) {
+				throw new RuntimeException("cannot parse string: ("+s.length()+"/"+ld+"/"+idx+") "+s.substring(0, Math.min(500, s.length())),e);
+			}
 		}
-		String baosS = s.substring(ld);
 		// strip namespace
 		baosS = baosS.replace(" xmlns=\"http://www.w3.org/1999/xhtml\"", "");
 		// strip XML declaration

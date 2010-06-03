@@ -100,13 +100,11 @@ public class ChemicalType implements CMLConstants {
 		Element element = null;
 		try {
 			String res = resource+U_S+type+".xml";
-//			LOG.debug("RRRRRRR "+res);
 			InputStream in = Util.getInputStreamFromResource(res);
 			element =  new CMLBuilder().build(in).getRootElement();
 			in.close();
 		} catch (Exception ioe) {
 			System.err.println("SERIOUS HYDROGEN COUNTING ERROR IN SMILES; NEED BUG FIX: "+ioe);
-//			throw new CMLRuntimeException("Exc: ", ioe);
 		}
 		if (element != null) {
 			for (int i = 0; i < element.getChildCount(); i++) {

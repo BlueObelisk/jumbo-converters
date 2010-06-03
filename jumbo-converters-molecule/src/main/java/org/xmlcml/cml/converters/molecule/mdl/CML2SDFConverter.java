@@ -92,7 +92,7 @@ public class CML2SDFConverter extends AbstractConverter implements
 	 *            input stream
 	 */
 	public List<String> convertToText(Element xml) {
-		cml = ensureCML(xml);
+		cml = CMLBuilder.ensureCML(xml);
 		CMLMolecule molecule = new CMLSelector(cml).getToplevelMoleculeDescendant(true);
 		List<String> lines = new ArrayList<String>();
 		if (molecule != null) {

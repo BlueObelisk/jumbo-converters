@@ -54,7 +54,7 @@ public class CMLMerger extends AbstractMerger {
 		String filenameS = createFilename(outputDirectory, outputFile, serial);
 		try {
 			LOG.debug(" wrote FILE "+filenameS+" .. "+new File(filenameS).getAbsolutePath());
-			CMLUtil.debug((Element)node, new FileOutputStream(filenameS), 1);
+			CMLUtil.debug((Element)node, new FileOutputStream(filenameS), 0);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

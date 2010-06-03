@@ -1,10 +1,14 @@
 package org.xmlcml.cml.converters.cif;
 
+import static org.xmlcml.cml.base.CMLConstants.CML_NS;
 import static org.xmlcml.cml.base.CMLConstants.CML_XPATH;
+import static org.xmlcml.cml.converters.cif.CrystalEyeConstants.NO_BONDS_OR_CHARGES_FLAG_DICTREF;
+import static org.xmlcml.cml.converters.cif.CrystalEyeConstants.POLYMERIC_FLAG_DICTREF;
 import static org.xmlcml.euclid.EuclidConstants.S_UNDER;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -12,47 +16,53 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.vecmath.Point2d;
+import javax.vecmath.Vector2d;
+
 import nu.xom.Attribute;
 import nu.xom.Element;
-import nu.xom.Node;
 import nu.xom.Nodes;
 import nu.xom.Text;
 
-import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
+import org.openscience.cdk.exception.CDKException;
+import org.openscience.cdk.interfaces.IMolecule;
+import org.openscience.cdk.layout.StructureDiagramGenerator;
+import org.openscience.cdk.smiles.SmilesGenerator;
 import org.xmlcml.cml.base.CMLBuilder;
+import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.Type;
-import org.xmlcml.cml.converters.cif.CIF2CMLUtils.CompoundClass;
+import org.xmlcml.cml.converters.cif.CrystalEyeUtils.CompoundClass;
 import org.xmlcml.cml.element.CMLAtom;
-import org.xmlcml.cml.element.CMLAtomArray;
 import org.xmlcml.cml.element.CMLBond;
-import org.xmlcml.cml.element.CMLBondStereo;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLCrystal;
 import org.xmlcml.cml.element.CMLFormula;
 import org.xmlcml.cml.element.CMLMetadata;
 import org.xmlcml.cml.element.CMLMetadataList;
 import org.xmlcml.cml.element.CMLMolecule;
-import org.xmlcml.cml.element.CMLProperty;
-import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.element.CMLMolecule.HydrogenControl;
 import org.xmlcml.cml.tools.ConnectionTableTool;
 import org.xmlcml.cml.tools.CrystalTool;
 import org.xmlcml.cml.tools.DisorderTool;
 import org.xmlcml.cml.tools.DisorderToolControls;
 import org.xmlcml.cml.tools.MoleculeTool;
+import org.xmlcml.cml.tools.SMILESTool;
 import org.xmlcml.cml.tools.StereochemistryTool;
 import org.xmlcml.cml.tools.ValencyTool;
 import org.xmlcml.cml.tools.DisorderToolControls.ProcessControl;
 import org.xmlcml.euclid.RealRange;
 import org.xmlcml.molutil.ChemicalElement;
 
+
 public class RawCML2CompleteCMLConverter extends AbstractConverter {
-	
-	public static final String POLYMERIC_FLAG_DICTREF = "ned24:isPolymeric";
-	public static final String NO_BONDS_OR_CHARGES_FLAG_DICTREF = "ned24:noBondsOrChargesSet";
+
+	private static final Logger LOG = Logger.getLogger(RawCML2CompleteCMLConverter.class);
+
+	private CMLMolecule molecule;
 	
 	public Type getInputType() {
 		return Type.CML;
@@ -77,31 +87,42 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 	 * @param pathMinusMime path to root for this cif file
 	 */
 	private Element processCif(Element rawCml) {
-		ByteArrayOutputStream os = null;
-		ByteArrayInputStream is = null;
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		try {
+			CMLUtil.debug(rawCml, os, 0);
+		} catch (IOException e1) {
+			runtimeException("BUG", e1);
+		}
+		ByteArrayInputStream is = new ByteArrayInputStream(os.toByteArray());
 		CMLCml cml = null;
 		try {
-			os = new ByteArrayOutputStream();
-			CMLUtil.debug(rawCml, os, 0);
-			is = new ByteArrayInputStream(os.toByteArray());
 			cml = (CMLCml) new CMLBuilder().build(is).getRootElement();
 		} catch (Exception e1) {
 			runtimeException("bad CML element: "+e1.getMessage(), e1);
-		} finally {
-			IOUtils.closeQuietly(os);
-			IOUtils.closeQuietly(is);
 		}
-
-		CMLMolecule molecule = getMolecule(cml);
+		try {
+			os.close();
+			is.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		os = null;
+		is = null;
 		
+		try {
+			molecule = getMolecule(cml);
+		} catch (Exception e) {
+			LOG.error("Cannot get molecule", e);
+			return null;
+		}
 		// don't want to do molecules that are too large, so if > 1000 atoms, then pass
 		if (molecule.getAtomCount() > 1000) {
 			return null;
 		}
 
-		CompoundClass compoundClass = CIF2CMLUtils.getCompoundClass(molecule);
+		CompoundClass compoundClass = CrystalEyeUtils.getCompoundClass(molecule);
 		addCompoundClass((CMLCml)cml, compoundClass);
-		addSpaceGroupMultiplicities(molecule);
+		addSpaceGroupMultiplicities();
 		try {
 			processDisorder(molecule, compoundClass);
 			CMLMolecule mergedMolecule = null;
@@ -134,78 +155,17 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 			molecule.detach();
 			cml.appendChild(mergedMolecule);
 			repositionCMLCrystalElement(cml);
+			
 		} catch (RuntimeException e) {
 			runtimeException("Error creating complete CML: ", e);
 		}
-		
-		makeCMLLiteCompatible(cml);
-		
 		return cml;
 	}
-	
-	private void makeCMLLiteCompatible(CMLCml cml) {
-		removeAtomArraysFromFormulae(cml);
-		removeUserCyclicsFromBonds(cml);
-		normaliseBondOrders(cml);
-		addMoleculeCounts(cml);
-		addDictionaryNamespaces(cml);
-		addBondStereoConventions(cml);
-	}
-	
-	private void addBondStereoConventions(CMLElement cml) {
-		for (Node node : CMLUtil.getQueryNodes(cml, ".//cml:bondStereo", CML_XPATH)) {
-			CMLBondStereo bs = (CMLBondStereo)node;
-			bs.setConvention("cmlDict:wedgehatch");
-		}
-	}
-	
-	private void addDictionaryNamespaces(CMLElement cml) {
-		cml.addNamespaceDeclaration("cmlDict", "http://www.xml-cml.org/dictionary/cml/");
-	}
-	
-	private void addMoleculeCounts(CMLElement cml) {
-		for (Node node : CMLUtil.getQueryNodes(cml, ".//cml:molecule/cml:molecule", CML_XPATH)) {
-			CMLMolecule mol = (CMLMolecule)node;
-			mol.setCount("1");
-		}
-	}
-	
-	private void normaliseBondOrders(CMLElement cml) {
-		for (Node node : CMLUtil.getQueryNodes(cml, ".//cml:bond/@order", CML_XPATH)) {
-			Attribute att = (Attribute)node;
-			String order = att.getValue();
-			if ("1".equals(order)) {
-				att.setValue("S");
-			} else if ("2".equals(order)) {
-				att.setValue("D");
-			} if ("3".equals(order)) {
-				att.setValue("T");
-			} 
-		}
-	}
-	
-	private void removeUserCyclicsFromBonds(CMLElement cml) {
-		for (Node node : CMLUtil.getQueryNodes(cml, ".//cml:bond[@userCyclic]", CML_XPATH)) {
-			CMLBond bond = (CMLBond)node;
-			bond.removeAttribute("userCyclic");
-		}
-	}
-	
-	private void removeAtomArraysFromFormulae(CMLElement cml) {
-		for (Node node : CMLUtil.getQueryNodes(cml, ".//cml:formula", CML_XPATH)) {
-			CMLFormula formula = (CMLFormula)node;
-			Element atomArray = formula.getFirstCMLChild(CMLAtomArray.TAG);
-			if (atomArray != null) {
-				formula.removeChild(atomArray);
-			}
-		}
-	}
 
-	/** 
-	 * add spg. multiplicities to atoms.
+	/** add spg. multiplicities to atoms.
 	 * only include if > 1
 	 */
-	private void addSpaceGroupMultiplicities(CMLMolecule molecule) {
+	private void addSpaceGroupMultiplicities() {
 		CrystalTool crystalTool = new CrystalTool(molecule);
 		crystalTool.annotateSpaceGroupMultiplicities();
 	}
@@ -218,6 +178,7 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 	private CMLMolecule getMolecule(CMLElement cml) {
 		Nodes moleculeNodes = cml.query(CMLMolecule.NS, CML_XPATH);
 		if (moleculeNodes.size() != 1) {
+			//cml.debug("NO MOL???");
 			runtimeException("NO MOLECULE FOUND");
 		}
 		return (CMLMolecule) moleculeNodes.get(0);
@@ -229,19 +190,17 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 	 * @param compoundClass
 	 */
 	private void addCompoundClass(CMLCml cml, CompoundClass compoundClass) {
-		CMLProperty property = new CMLProperty();
-		property.setDictRef("iucr:compoundClass");
-		CMLScalar scalar = new CMLScalar();
-		property.appendChild(scalar);
-		scalar.setDataType("xsd:string");
-		scalar.setDictRef("iucr:compoundClass");
-		scalar.appendChild(new Text(compoundClass.toString()));
-		cml.appendChild(scalar);
+		Element compClass = new Element("scalar", CML_NS);
+		compClass.addAttribute(new Attribute("dataType", "xsd:string"));
+		compClass.addAttribute(new Attribute("dictRef", "iucr:compoundClass"));
+		compClass.appendChild(new Text(compoundClass.toString()));
+		cml.appendChild(compClass);
 	}
 	
 	/**
 	 * Tries to remove disorder from the structure
-	 * 
+	 * @param molecule
+	 * @param compoundClass
 	 */
 	private void processDisorder(CMLMolecule molecule, CompoundClass compoundClass) {
 		// sort disorder out per molecule rather than per crystal.  This way if the disorder is
@@ -270,7 +229,10 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 
 	/**
 	 * Calculates the molecular skeleton from the RawCML data
-	 *
+	 * @param molecule
+	 * @param compoundClass
+	 * @return
+	 * @throws Exception
 	 */
 	private CMLMolecule createFinalStructure(CMLMolecule molecule,
 											CompoundClass compoundClass) throws Exception {
@@ -302,7 +264,10 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 	
 	/**
 	 * Calculate whether organometallic structure is polymeric
-	 * 
+	 * @param originalMolecule
+	 * @param mergedMolecule
+	 * @param compoundClass
+	 * @return
 	 */
 	private boolean isPolymericOrganometal(CMLMolecule originalMolecule,
 											CMLMolecule mergedMolecule,
@@ -385,7 +350,8 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 
 	/**
 	 * get Pre Underscore String In Atom Id
-	 * 
+	 * @param id
+	 * @return
 	 */
 	private String getPreUnderscoreStringInAtomId(String id) {
 		if (id.contains(S_UNDER)) {
@@ -397,7 +363,8 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 	
 	/**
 	 * Special case of SiO4 requires iterating twice
-	 * 
+	 * @param molecule
+	 * @return
 	 */
 	private boolean isSiO4(CMLMolecule molecule) {
 		boolean is = false;
@@ -419,7 +386,7 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 
 	/**
 	 * Add flag to say whether the structure is polymeric or not
-	 * 
+	 * @param molecule
 	 */
 	private void addPolymericFlag(CMLMolecule molecule) {
 		CMLMetadataList ml = (CMLMetadataList)molecule.getFirstCMLChild(CMLMetadataList.TAG);
@@ -434,7 +401,8 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 
 	/**
 	 * Runs methods that bond orders and charges to molecules. Also adds stereo chemistry.
-	 *
+	 * @param cml
+	 * @param mergedMolecule
 	 */
 	private void calculateBondsAnd3DStereo(CMLCml cml, CMLMolecule mergedMolecule) {
 		for (CMLMolecule subMol : mergedMolecule.getDescendantsOrMolecule()) {
@@ -456,7 +424,7 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 					addNoBondsOrChargesSetFlag(subMol);
 				}
 			} else {
-				setAllBondOrders(subMol, CMLBond.SINGLE_S);
+				setAllBondOrders(subMol, CMLBond.SINGLE);
 			}
 			if (success) {
 				// remove metals before adding stereochemistry - otherwise
@@ -475,7 +443,7 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 
 	/**
 	 * Puts chiral atom as the first atom in the bond
-	 *
+	 * @param molecule
 	 */
 	public void rearrangeChiralAtomsInBonds(CMLMolecule molecule) {
 		for (CMLMolecule subMol : molecule.getDescendantsOrMolecule()) {
@@ -504,7 +472,8 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 
 	/**
 	 * Calculate identifiers for molecule and add then in
-	 * 
+	 * @param molecule
+	 * @param compoundClass
 	 */
 	private void add2DStereoSMILESAndInChI(CMLMolecule molecule, CompoundClass compoundClass) {
 		if (containsUnknownBondOrder(molecule)) {
@@ -596,7 +565,8 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 
 	/**
 	 * Looks for flag that says if processing for bond orders and charges has been successful
-	 * 
+	 * @param molecule
+	 * @return
 	 */
 	public static boolean hasBondOrdersAndCharges(CMLMolecule molecule) {
 		boolean hasBOAC = true;
@@ -609,7 +579,7 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 
 	/**
 	 * Add flag says if processing for bond orders and charges has been successful
-	 * 
+	 * @param molecule
 	 */
 	private void addNoBondsOrChargesSetFlag(CMLMolecule molecule) {
 		CMLMetadataList ml = (CMLMetadataList)molecule.getFirstCMLChild(CMLMetadataList.TAG);
@@ -624,7 +594,8 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 	
 	/**
 	 * Does the molecule contain a bond order that hasn't been found
-	 *
+	 * @param molecule
+	 * @return
 	 */
 	private boolean containsUnknownBondOrder(CMLMolecule molecule) {
 		boolean b = false;
@@ -639,7 +610,9 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 
 	/**
 	 * Compares a molecule against a formula to find what the charge is for the molecule
-	 * 
+	 * @param cml
+	 * @param molecule
+	 * @return
 	 */
 	private int getMoietyChargeFromFormula(CMLCml cml, CMLMolecule molecule) {
 		int molCharge = ValencyTool.UNKNOWN_CHARGE;
@@ -668,13 +641,15 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 
 	/**
 	 * Set all bond orders in the molecule to the order provided
-	 *
+	 * @param molecule
+	 * @param order
 	 */
 	private void setAllBondOrders(CMLMolecule molecule, String order) {
 		for (CMLBond bond : molecule.getBonds()) {
 			bond.setOrder(order);
 		}
 	}
+
 
 	@Override
 	public int getConverterVersion() {

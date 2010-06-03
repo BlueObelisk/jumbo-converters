@@ -15,6 +15,7 @@ import org.jcamp.spectrum.OrderedArrayData;
 import org.jcamp.spectrum.Spectrum1D;
 import org.jcamp.units.DerivedUnit;
 import org.jcamp.units.Unit;
+import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.Converter;
@@ -57,7 +58,7 @@ public class CMLSpect2JDXConverter extends AbstractConverter implements Converte
 	 * @return the <a href="http://www.cafeconleche.org/XOM/">XOM</a> {@link Element}
 	 */
 	public List<String> convertToText(Element xml) {
-		CMLCml cml = (CMLCml) ensureCML(xml);
+		CMLCml cml = (CMLCml) CMLBuilder.ensureCML(xml);
 		Nodes spectrumNodes = cml.query(".//cml:spectrum", CMLConstants.CML_XPATH);
 		CMLSpectrum spectrum = (CMLSpectrum) spectrumNodes.get(0);
 		CMLSpectrumData data = spectrum.getSpectrumDataElements().get(0);

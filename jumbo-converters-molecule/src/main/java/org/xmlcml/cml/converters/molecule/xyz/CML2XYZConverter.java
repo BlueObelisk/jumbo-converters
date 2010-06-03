@@ -7,6 +7,7 @@ import nu.xom.Element;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLElement.CoordinateType;
 import org.xmlcml.cml.converters.AbstractConverter;
@@ -56,7 +57,7 @@ public class CML2XYZConverter extends AbstractConverter implements
 	 */
 	@Override
 	public List<String> convertToText(Element xml) {
-		CMLElement cml = ensureCML(xml);
+		CMLElement cml = CMLBuilder.ensureCML(xml);
 		CMLMolecule molecule = new CMLSelector(cml).getToplevelMoleculeDescendant(true);
 		List<String> lines = new ArrayList<String>();
 		if (molecule != null) {

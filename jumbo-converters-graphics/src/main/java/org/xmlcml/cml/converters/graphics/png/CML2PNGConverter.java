@@ -7,12 +7,14 @@ import nu.xom.Element;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
+import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLElement.CoordinateType;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.CMLSelector;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.Type;
+import org.xmlcml.cml.converters.graphics.CDKUtils;
 import org.xmlcml.cml.element.CMLMolecule;
 
 public class CML2PNGConverter extends AbstractConverter implements
@@ -62,7 +64,7 @@ public class CML2PNGConverter extends AbstractConverter implements
    @Override
    public byte[] convertToBytes(Element xml) {
       byte[] output = null;
-      CMLElement cml = ensureCML(xml);
+      CMLElement cml = CMLBuilder.ensureCML(xml);
       CMLMolecule molecule = new CMLSelector(cml).getToplevelMoleculeDescendantOrSelf(true);
       if (molecule != null) {
          output = convertToBytes(molecule);

@@ -826,35 +826,7 @@ public abstract class AbstractConverter implements Converter {
       }
    }
 
-   /**
-    * Utility method that allows for convenient conversion of
-    * <a href="http://www.cafeconleche.org/XOM/apidocs/index.html">XOM</a> elements to
-    * CML elements if necessary.
-    * always makes a copy
-    *
-    * @param xml a valid CMLElement
-    * @return the {@link CMLElement}
-    */
-   public static CMLElement ensureCML(Element xml) {
-	   if (xml == null) {
-		   throw new RuntimeException("null cml");
-	   }
-       if (xml instanceof CMLElement) {
-           return (CMLElement) xml.copy();
-       } else {
-           Document doc = new Document((Element) xml.copy());
-           try {
-               Document doc2 = new CMLBuilder().build(doc.toXML(), doc.getBaseURI());
-               CMLElement cmlElement = (CMLElement) doc2.getRootElement();
-               return cmlElement;
-           } catch (Exception e) {
-               CMLUtil.debug(xml, "NON-XML");
-               throw new RuntimeException(e);
-           }
-      }
-   }
-
-   /**
+     /**
     * A helper method to ensure that errors and exceptions are
     * both logged and sent to stdout. This particular method allows
     * the message from {@link Exception} {@code e} to be appended.
