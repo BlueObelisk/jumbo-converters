@@ -2,8 +2,6 @@ package org.xmlcml.cml.converters.cif;
 
 import static org.xmlcml.cml.base.CMLConstants.CML_NS;
 import static org.xmlcml.cml.base.CMLConstants.CML_XPATH;
-import static org.xmlcml.cml.converters.cif.CrystalEyeConstants.NO_BONDS_OR_CHARGES_FLAG_DICTREF;
-import static org.xmlcml.cml.converters.cif.CrystalEyeConstants.POLYMERIC_FLAG_DICTREF;
 import static org.xmlcml.euclid.EuclidConstants.S_UNDER;
 
 import java.io.ByteArrayInputStream;
@@ -396,7 +394,7 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 		}
 		CMLMetadata met = new CMLMetadata();
 		ml.appendChild(met);
-		met.setAttribute("dictRef", POLYMERIC_FLAG_DICTREF);
+		met.setAttribute("dictRef", CrystalEyeConstants.POLYMERIC_FLAG_DICTREF);
 	}	
 
 	/**
@@ -570,7 +568,7 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 	 */
 	public static boolean hasBondOrdersAndCharges(CMLMolecule molecule) {
 		boolean hasBOAC = true;
-		Nodes flagNodes = molecule.query(".//"+CMLMetadata.NS+"[@dictRef='"+NO_BONDS_OR_CHARGES_FLAG_DICTREF+"']", CML_XPATH);
+		Nodes flagNodes = molecule.query(".//"+CMLMetadata.NS+"[@dictRef='"+CrystalEyeConstants.NO_BONDS_OR_CHARGES_FLAG_DICTREF+"']", CML_XPATH);
 		if (flagNodes.size() > 0) {
 			hasBOAC = false;
 		}
@@ -589,7 +587,7 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 		}
 		CMLMetadata met = new CMLMetadata();
 		ml.appendChild(met);
-		met.setAttribute("dictRef", NO_BONDS_OR_CHARGES_FLAG_DICTREF);
+		met.setAttribute("dictRef", CrystalEyeConstants.NO_BONDS_OR_CHARGES_FLAG_DICTREF);
 	}
 	
 	/**
