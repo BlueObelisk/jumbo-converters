@@ -89,7 +89,7 @@ public abstract class AbstractCompchemInputProcessor extends AbstractCompchemPro
 		}
 		jobList = new ArrayList<Job>();
 		if (controlsElement != null) {
-			CMLElement cmlControls = AbstractConverter.ensureCML(controlsElement);
+			CMLElement cmlControls = CMLBuilder.ensureCML(controlsElement);
 			globalModule = null;
 			Elements childElements = cmlControls.getChildElements();
 			for (int i = 0; i < childElements.size(); i++) {

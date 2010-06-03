@@ -42,10 +42,12 @@ public class MDL2CMLConverter extends AbstractConverter implements
 	 *            input stream
 	 */
 	public Element convertToXML(List<String> lines) {
-		MDLConverter converter = new MDLConverter();
-		CMLMolecule molecule = converter.readMOL(lines);
 		CMLCml cml = new CMLCml();
-		cml.appendChild(molecule);
+		if (lines != null && lines.size() > 0) {
+			MDLConverter converter = new MDLConverter();
+			CMLMolecule molecule = converter.readMOL(lines);
+			cml.appendChild(molecule);
+		}
 		return cml;
 	}
 

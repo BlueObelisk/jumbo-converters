@@ -8,6 +8,7 @@ import nu.xom.Element;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.CMLSelector;
 import org.xmlcml.cml.converters.Command;
@@ -146,7 +147,7 @@ SVGConverter {
 	 */
 	public Element convertToXML(Element xml) {
 		
-		CMLElement cmlElement = ensureCML(xml);
+		CMLElement cmlElement = CMLBuilder.ensureCML(xml);
 		CMLSelector cmlSelector = new CMLSelector(cmlElement);
 		List<CMLMolecule> moleculeList = cmlSelector.getToplevelMoleculeDescendants();
 		cmlScaler = new CMLScalerStyler();

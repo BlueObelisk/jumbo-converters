@@ -60,9 +60,12 @@ public class HTML2XHTMLConverter extends AbstractConverter {
     	Tidy tidy = createTidyWithOptions();
     	tidy.parse(inputStream, baos );
     	baos.close();
-    	
+    	Document document = null;
     	String baosS0 = ""+new String(baos.toByteArray());
-    	return Util.stripDTDAndOtherProblematicXMLHeadings(baosS0);
+    	if (baosS0.length() > 0) {
+    		document = Util.stripDTDAndOtherProblematicXMLHeadings(baosS0);
+    	}
+    	return document;
     }
 
 	private static Tidy createTidyWithOptions() {

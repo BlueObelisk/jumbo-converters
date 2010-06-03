@@ -4,6 +4,7 @@ import nu.xom.Element;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.CMLSelector;
@@ -44,7 +45,7 @@ public class CMLJob2CMLAbsJobConverter extends AbstractConverter implements
 	 */
 	@Override
 	public Element convertToXML(Element jobXml) {
-		CMLElement jobCml = ensureCML(jobXml);
+		CMLElement jobCml = CMLBuilder.ensureCML(jobXml);
 		if (!(jobCml instanceof CMLCml)) {
 			throw new RuntimeException("Job input must be a CMLCml element");
 		}

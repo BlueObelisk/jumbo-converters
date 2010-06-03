@@ -734,8 +734,17 @@ public class MDLConverter {
 
             // element type
             String elType = line.substring(31, 34).trim();
+            // replace * (MDL) by R (CML)
+            if (elType.equals(CMLConstants.S_STAR)) {
+            	elType = ChemicalElement.AS.R.value;
+            }
+          
             if (!elementExists(elType)) {
-            	throw new RuntimeException(elType + " is not a valid element atomicSymbol");
+            	CMLLabel label = new CMLLabel();
+            	label.setCMLValue(elType);
+            	thisAtom.addLabel(label);
+            	LOG.warn(elType + " is not a valid element atomicSymbol");
+            	elType = ChemicalElement.AS.R.value;
             }
             thisAtom.setElementType(elType);
 

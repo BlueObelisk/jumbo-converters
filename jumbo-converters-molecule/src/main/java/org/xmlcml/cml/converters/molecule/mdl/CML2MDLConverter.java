@@ -72,7 +72,7 @@ public class CML2MDLConverter extends AbstractConverter implements
 	 *            input stream
 	 */
 	public List<String> convertToText(Element xml) {
-		CMLElement cml = ensureCML(xml);
+		CMLElement cml = CMLBuilder.ensureCML(xml);
 		CMLMolecule molecule = new CMLSelector(cml).getToplevelMoleculeDescendant(true);
 		List<String> lines = new ArrayList<String>();
 		if (molecule != null) {

@@ -3,6 +3,7 @@ import nu.xom.Element;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.Converter;
@@ -48,7 +49,7 @@ public class CML2OWLConverter extends AbstractConverter implements
 		CML2OWL cml2owl = new CML2OWL();
 		CMLElement cml = null;
 		try {
-			cml = ensureCML(xml);
+			cml = CMLBuilder.ensureCML(xml);
 		} catch (Exception e) {
 			// was not CML
 		}

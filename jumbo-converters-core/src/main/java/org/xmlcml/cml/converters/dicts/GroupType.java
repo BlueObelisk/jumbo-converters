@@ -80,7 +80,6 @@ public class GroupType extends ChemicalType implements CMLConstants {
 							childElement.detach();
 							groupMolecule.appendChild(childElement);
 						}
-//						groupMolecule.debug("BBBBBBBBBBBBBBB");
 						groupMolecule.setId(molecule.getId());
 						molecule = groupMolecule;
 					}

@@ -12,6 +12,7 @@ import nu.xom.ValidityException;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.CMLSelector;
 import org.xmlcml.cml.converters.Type;
@@ -49,7 +50,7 @@ public class CML2GaussianInputConverter extends AbstractCompchem2CMLConverter {
     */
    public List<String> convertToText(Element xml) {
       List<String> stringList = null;
-      CMLElement cml = ensureCML(xml);
+      CMLElement cml = CMLBuilder.ensureCML(xml);
       CMLMolecule molecule = new CMLSelector(cml).getToplevelMoleculeDescendant(
               true);
       if (molecule != null) {
