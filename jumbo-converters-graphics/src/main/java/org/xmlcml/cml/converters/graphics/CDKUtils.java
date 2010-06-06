@@ -10,9 +10,11 @@ import java.util.Map;
 import javax.vecmath.Point2d;
 
 import nu.xom.Attribute;
+import nu.xom.Document;
 import nu.xom.Node;
 import nu.xom.Nodes;
 
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.openscience.cdk.CDKConstants;
 import org.openscience.cdk.ChemFile;
 import org.openscience.cdk.exception.CDKException;
@@ -73,7 +75,10 @@ public class CDKUtils implements CMLConstants {
 		ByteArrayInputStream bais = null;
 		IMolecule cdkMol = null;
 		try {
-			bais = new ByteArrayInputStream(cmlMol.toXML().getBytes());
+			// this should serialize while keeping the encoding
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			CMLUtil.debug(cmlMol, baos, -1);
+			bais = new ByteArrayInputStream(baos.toByteArray());
 			IChemFile cf = (IChemFile) new CMLReader(bais).read(new ChemFile());
 			bais.close();
 			IMoleculeSet mols = cf.getChemSequence(0).getChemModel(0).getMoleculeSet();

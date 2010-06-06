@@ -32,4 +32,13 @@ public class CML2PNGConverterTest {
       Cml2Png cml2png = new Cml2Png((CMLMolecule) d.getRootElement().getChildElements().get(0));
       cml2png.renderMolecule("out.png");
    }
+	  
+	  @Test
+	public void testConverter3() throws Exception {
+      CMLBuilder cb = new CMLBuilder();
+      Document d = cb.build(new File("src/test/resources/graphics/cml2png/in/data.morganized.cml"));
+      CMLMolecule molecule = (CMLMolecule) d.query("/*/*[local-name()='molecule']").get(0);
+      Cml2Png cml2png = new Cml2Png(molecule);
+      cml2png.renderMolecule("morgan.png");
+   }
 }

@@ -84,10 +84,8 @@ public class CML2PNGConverter extends AbstractConverter implements
       molecule = ensureCoordinates(molecule);
       if (molecule != null) {
          Cml2Png cp = new Cml2Png(molecule);
-         cp.setWidthAndHeight(300, 300);
          ByteArrayOutputStream baos = new ByteArrayOutputStream();
          cp.renderMolecule(baos);
-//			cp.renderMolecule(new FileOutputStream("z:\\docs\\test.png"));
          output = baos.toByteArray();
          IOUtils.closeQuietly(baos);
          LOG.trace("Output size: " + output.length);
@@ -105,7 +103,6 @@ public class CML2PNGConverter extends AbstractConverter implements
          LOG.trace("Trying to add 2D coordinates.");
          try {
             molecule = CDKUtils.add2DCoords(molecule);
-
          } catch (Exception ex) {
             warn("Cannot create 2D coordinates for diagram" + ex.getMessage());
             molecule = null;
