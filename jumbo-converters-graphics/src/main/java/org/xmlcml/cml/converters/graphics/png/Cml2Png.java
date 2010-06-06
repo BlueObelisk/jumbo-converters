@@ -1,10 +1,10 @@
 package org.xmlcml.cml.converters.graphics.png;
 
 import java.awt.Color;
-
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,6 +14,9 @@ import java.io.OutputStream;
 import javax.imageio.ImageIO;
 import javax.vecmath.Vector2d;
 
+import nu.xom.Nodes;
+
+import org.apache.log4j.Logger;
 import org.openscience.cdk.geometry.GeometryTools;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IMolecule;
@@ -31,6 +34,7 @@ import org.xmlcml.cml.tools.MoleculeTool;
  *
  */
 public class Cml2Png implements CMLConstants {
+	private static Logger LOG = Logger.getLogger(Cml2Png.class);
 	
 	public Color backgroundColour = Color.WHITE;
 	public String fontName = "MonoSpaced";
@@ -50,8 +54,7 @@ public class Cml2Png implements CMLConstants {
 
 	private CMLMolecule cmlMol;
 
-	/* Gif apparently doesn't work, for strange legal reasons. */
-	public String format = "png";
+	private String format = "png";
 	
 	public Cml2Png() {
 		;
@@ -87,10 +90,20 @@ public class Cml2Png implements CMLConstants {
 //		// at the moment to use this method, the CML molecule must already
 //		// have 2D coordinates.
 //		
+		Nodes noXYCoords = cmlMol.query("//*[local-name()='molecule']" +
+				"/*[local-name()='atomArray']" +
+				"/*[local-name()='atom' and (not(@x2) or not(@y2))]");
+		if (noXYCoords.size() > 0) {
+			try {
+				cmlMol = CDKUtils.add2DCoords(cmlMol);
+			} catch (NullPointerException e) {
+				LOG.trace("Cannot add coordinates by CDK");
+				return;
+			}
+		}
+
 		Renderer2DModel r2dm = new Renderer2DModel();
 		Java2DRenderer r2d = new Java2DRenderer(r2dm);
-//		Renderer2D r2d = new Renderer2D(r2dm);
-//		
 		IMolecule cdkMol = CDKUtils.cmlMol2CdkMol(cmlMol);
 		int atomCount = cdkMol.getAtomCount();
 		if (atomCount > 1 && atomCount < 20) {
@@ -105,7 +118,6 @@ public class Cml2Png implements CMLConstants {
 			fontSize = 10;
 		}
 		
-		// cdkMol = forceSDGGenerationOfCoords(cdkMol);
 		
 				
 		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
@@ -114,7 +126,8 @@ public class Cml2Png implements CMLConstants {
 		g.fillRect(0, 0, width, height);
 		
 		GeometryTools.translateAllPositive(cdkMol);
-		GeometryTools.scaleMolecule(cdkMol, new Dimension(width, height), 0.8);
+		// this seems to break it
+//		GeometryTools.scaleMolecule(cdkMol, new Dimension(width, height), 0.8);
 		GeometryTools.center(cdkMol, new Dimension(width, height));
 		r2dm.setBackgroundDimension(new Dimension(width, height));
 		r2dm.setBackColor(backgroundColour);
@@ -125,7 +138,11 @@ public class Cml2Png implements CMLConstants {
 		r2dm.setColorAtomsByType(true);
 		
 		if (cdkMol != null) {
-			r2d.paintMolecule(cdkMol, img.createGraphics());
+			try {
+				r2d.paintMolecule(cdkMol, img.createGraphics(), new Rectangle(width, height));
+			} catch (Exception e) {
+				LOG.error("Cannot create PNG "+e.getMessage());
+			}
 		}
 		
 		try {
@@ -160,48 +177,6 @@ public class Cml2Png implements CMLConstants {
 		this.height = height;
 	}
 	
-    
- 
-	/** NOTE THAT THIS IS A CUTDOWN VERSION OF THIS CLASS (DL387)
-	 * Produces png images for CDK molecules. Configure this by setting the
-	 * public variables.
-	 * 
-	 * @author ptc24
-	 *
-	 */
-		
-		
-	/**Renders molecule
-	 *  
-	 * @param mol The molecule.
-	 * @return 
-	 * @throws Exception
-	 */
-	public BufferedImage renderMolecule(IMolecule mol) throws Exception {
-//		Renderer2DModel r2dm = new Renderer2DModel();
-//		Renderer2D r2d = new Renderer2D(r2dm);
-//		GeometryToolsInternalCoordinates.translateAllPositive(mol);
-//		if(fixedWidthAndHeight) {
-//			r2dm.setBackgroundDimension(new Dimension(width, height));
-//			GeometryToolsInternalCoordinates.scaleMolecule(mol, r2dm.getBackgroundDimension(), occupationFactor);        	
-//		} else {
-//			double [] cvals = GeometryToolsInternalCoordinates.getMinMax(mol);
-//			width = (int) Math.round(((cvals[2] - cvals[0]) * scaleFactor) + (fontSize*3)/2 + 3 + borderWidth * 2);
-//			height = (int) Math.round(((cvals[3] - cvals[1]) * scaleFactor) + fontSize/2 + 1 + borderWidth * 2);
-//			GeometryToolsInternalCoordinates.scaleMolecule(mol, scaleFactor);
-//			r2dm.setBackgroundDimension(new Dimension(width, height));
-//		}
-//		GeometryToolsInternalCoordinates.center(mol, r2dm.getBackgroundDimension());
-//		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
-//		Graphics g = img.getGraphics();
-//		g.setColor(backgroundColour);		
-//		g.fillRect(0, 0, width, height);
-//		r2dm.setBackColor(backgroundColour);
-//		r2dm.setFont(new Font(fontName, fontStyle, fontSize));
-//		r2dm.setColorAtomsByType(colourAtoms);
-//		r2d.paintMolecule(mol, img.createGraphics(), true, true);
-//		return img;
-		return null;
-	}
+ 		
 }
 

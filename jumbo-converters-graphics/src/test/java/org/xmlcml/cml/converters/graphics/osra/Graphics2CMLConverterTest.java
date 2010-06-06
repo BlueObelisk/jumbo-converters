@@ -6,8 +6,8 @@ import java.util.List;
 import nu.xom.Element;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
-import org.xmlcml.cml.base.CMLUtil;
 
 public class Graphics2CMLConverterTest {
 
@@ -16,7 +16,7 @@ public class Graphics2CMLConverterTest {
 		Assert.assertTrue("dummy", true);
 	}
 	/*
-	 * Tests are not portable (rely on OSRA.exe)
+	 * Tests are not portable (rely on OSRA.exe)o
 	 */
 	  @Test
 	  @Ignore
