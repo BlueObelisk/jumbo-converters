@@ -23,6 +23,9 @@ import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLMolecule.HydrogenControl;
 import org.xmlcml.cml.tools.GeometryTool;
 import org.xmlcml.cml.tools.MoleculeTool;
+import uk.ac.cam.ch.wwmm.osra.Osra;
+import uk.ac.cam.ch.wwmm.osra.OsraException;
+import uk.ac.cam.ch.wwmm.osra.OsraRunner;
 
 /** Interprets images into CML using OSRA
  * 
@@ -59,15 +62,13 @@ public class Graphics2CMLConverter extends AbstractConverter {
 		return smilesList;
 	}
 		
-	private List<String> createSmiles(File image) throws IOException {
-		String arguments = "";
-		List<String> smilesList = runOsra(image, arguments);
+	private List<String> createSmiles(File image) throws IOException, OsraException {
+		List<String> smilesList = runOsra(image);
 		return smilesList;
 	}
 
-	private List<String> createSDF(File image) throws IOException {
-		String arguments = " -f sdf ";
-		List<String> smilesList = runOsra(image, arguments);
+	private List<String> createSDF(File image) throws IOException, OsraException {
+		List<String> smilesList = runOsra(image, "-f", "sdf");
 		return smilesList;
 	}
 
@@ -79,6 +80,8 @@ public class Graphics2CMLConverter extends AbstractConverter {
 			sdfLines = createSDF(image);
 			cml = (CMLCml) new MDL2CMLConverter().convertToXML(sdfLines);
 		} catch (IOException e) {
+			throw new RuntimeException("Cannot parse image "+image, e);
+		} catch (OsraException e) {
 			throw new RuntimeException("Cannot parse image "+image, e);
 		}
 		
@@ -113,35 +116,20 @@ public class Graphics2CMLConverter extends AbstractConverter {
     * @throws FileNotFoundException if inputfile does not exist
     * @throws IOException
     */
-   public static List<String> runOsra(File inputfile, String arguments) throws IOException {
-	   List<String> lineList = new ArrayList<String>();
-       if (arguments == null) {
-    	   arguments = "";
-       } else if (!arguments.endsWith(" ")) {
-    	   arguments += " ";
-       }
+     public static List<String> runOsra(File inputfile, String... arguments) throws IOException, OsraException {
 
-       String path = "";
-       if (inputfile != null) {
-           if (!inputfile.exists()) {
-        	   throw new FileNotFoundException(inputfile.getAbsolutePath() + " cannot be found");
-           }
-           path = inputfile.getAbsolutePath();
+         if (inputfile != null) {
+             if (!inputfile.exists()) {
+                 throw new FileNotFoundException(inputfile.getAbsolutePath() + " cannot be found");
+             }
+         }
 
-       }
+         LOG.debug("executing osra");
 
-       String command = OSRA_BAT+" " + arguments + path;
-       LOG.debug("executing " + command);
+         OsraRunner osra = Osra.getOsraRunner();
 
-       Process p = Runtime.getRuntime().exec(command, null, new File("."));
-       BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-       String output = "";
-      
-       String line = null;
-       while ((line = bufferedReader.readLine()) != null) {
-    	   lineList.add(line);
-       }
+         List<String> lineList = osra.run(inputfile, arguments);
+         return lineList;
 
-       return lineList;
-   }
+     }
 }
