@@ -37,7 +37,8 @@ public class Graphics2CMLConverter extends AbstractConverter {
 	
 		
 	private static final String OSRA_BAT = 
-		"C:\\download\\osra-mingw-1-3-6\\osra-mingw\\osra.bat";
+//		"C:\\download\\osra-mingw-1-3-6\\osra-mingw\\osra.bat";
+		"do not use local BAT files";
 
 	public Graphics2CMLConverter() {
 		;

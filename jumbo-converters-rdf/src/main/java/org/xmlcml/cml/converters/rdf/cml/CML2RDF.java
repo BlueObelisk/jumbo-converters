@@ -17,7 +17,6 @@ import org.apache.log4j.Logger;
 import org.semanticweb.owl.apibinding.OWLManager;
 import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLOntologyManager;
-//import org.xmlcml.cif.CIFConstants;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
@@ -30,6 +29,7 @@ import org.xmlcml.cml.element.CMLEntry;
 import org.xmlcml.cml.element.CMLFormula;
 import org.xmlcml.cml.element.CMLIdentifier;
 import org.xmlcml.cml.element.CMLLabel;
+import org.xmlcml.cml.element.CMLMetadata;
 import org.xmlcml.cml.element.CMLMetadataList;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLName;
@@ -131,10 +131,8 @@ public class CML2RDF {
          processLabel(resource, cmlElement, count - 1);
       } else if (cmlElement instanceof CMLMetadataList) {
          processMetadataList(resource, cmlElement, count - 1);
-      } else if (cmlElement instanceof CMLMetadataList) {
+      } else if (cmlElement instanceof CMLMetadata) {
          processMetadata(resource, cmlElement, count - 1);
-      } else if (cmlElement instanceof CMLMetadataList) {
-         processChildren(resource, cmlElement, count - 1);
       } else if (cmlElement instanceof CMLMolecule) {
          processMolecule(resource, cmlElement, count - 1);
       } else if (cmlElement instanceof CMLName) {
@@ -145,7 +143,9 @@ public class CML2RDF {
          processProperty(resource, cmlElement, count - 1);
       } else if (cmlElement instanceof CMLScalar) {
          processScalar(resource, cmlElement, count - 1);
-      }
+      } else {
+          processChildren(resource, cmlElement, count - 1);
+     }
    }
 
    private void createAndAddTripleFromId(Resource resource,
