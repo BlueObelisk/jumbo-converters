@@ -60,6 +60,8 @@ import org.xmlcml.molutil.ChemicalElement;
  */
 public class CIFXML2CMLConverter extends AbstractConverter {
 
+	private static final String GLOBAL = "global";
+
 	private static final Logger LOG = Logger.getLogger(CIFXML2CMLConverter.class);
 	
 	private CIFDataBlock globalBlock;
@@ -331,6 +333,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 				String cifId = cif.getId();
 				
 				
+				sortBlockToPutGlobalFirst(bList);
 				// Process each datablock of the cif in turn
 				for (CIFDataBlock block : bList) {
 					try {
@@ -360,6 +363,27 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 			}
 		}
 		return cmlRoot;
+	}
+
+	private void sortBlockToPutGlobalFirst(List<CIFDataBlock> bList) {
+		int globalSerial = -1;
+		for (int i = 0; i < bList.size(); i++) {
+			String id = bList.get(i).getId();
+			if (id.equals(GLOBAL)) {
+				if (globalSerial != -1) {
+					LOG.error("more than one global block");
+					globalSerial = -1;
+					break;
+				} else {
+					globalSerial = i;
+				}
+			}
+		}
+		if (globalSerial != -1 && globalSerial != 0) {
+			CIFDataBlock globalBlock = bList.get(globalSerial);
+			bList.remove(globalSerial);
+			bList.add(0, globalBlock);
+		}
 	}
 
 	private void processBlock(CIFDataBlock block) {
@@ -469,7 +493,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 			} else {
 				if (id == null) {
 					id = "block"+serial;
-				} else if (id.equalsIgnoreCase("global")) {
+				} else if (id.equalsIgnoreCase(GLOBAL)) {
 					id = "block"+serial;
 				} else {
 					// leave unchanged
@@ -481,7 +505,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 			} else {
 				if (id == null) {
 					id = cifId + S_UNDER + serial;
-				} else if (id.equalsIgnoreCase("global")) {
+				} else if (id.equalsIgnoreCase(GLOBAL)) {
 					id = cifId + S_UNDER + serial;
 				} else {
 					id = cifId + S_UNDER + id;

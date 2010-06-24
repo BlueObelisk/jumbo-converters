@@ -176,7 +176,6 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 	private CMLMolecule getMolecule(CMLElement cml) {
 		Nodes moleculeNodes = cml.query(CMLMolecule.NS, CML_XPATH);
 		if (moleculeNodes.size() != 1) {
-			//cml.debug("NO MOL???");
 			runtimeException("NO MOLECULE FOUND");
 		}
 		return (CMLMolecule) moleculeNodes.get(0);
