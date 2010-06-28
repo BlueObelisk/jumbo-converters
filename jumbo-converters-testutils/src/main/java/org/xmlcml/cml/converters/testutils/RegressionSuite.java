@@ -8,6 +8,7 @@ import static org.xmlcml.euclid.EuclidConstants.S_WHITEREGEX;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -22,6 +23,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.SuffixFileFilter;
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.testutil.JumboTestUtils;
@@ -114,12 +116,26 @@ public class RegressionSuite {
 	 * @param test
 	 */
 	private void compareRDF(File refF, File testF) {
+		LOG.info("comparing RDF files");
 		List<Statement> refStmts = statementsFrom(refF);
 		List<Statement> testStmts = statementsFrom(testF);
+		Assert.assertEquals("statement counts "+ refStmts.size()+" != "+ testStmts.size(), refStmts.size(), testStmts.size());
 		for (int i = 0; i < refStmts.size(); i++) {
 			assertStatementEquals("Statement " + i, refStmts.get(i), testStmts
 					.get(i));
 		}
+//		try {
+//			LOG.info("comparing RDF models");
+//			Model refModel = ModelFactory.createDefaultModel();
+//			refModel.read(new FileInputStream(refF), null);
+//			Model testModel = ModelFactory.createDefaultModel();
+//			testModel.read(new FileInputStream(testF), null);
+//			Assert.assertTrue("isomorphic ", refModel.isIsomorphicWith(testModel));
+////			refModel.
+//		} catch (Exception e) {
+//			throw new RuntimeException("failed to read and compare RDF", e);
+//		}
+		
 	}
 
 	private static void assertStatementEquals(String msg, Statement expected,
@@ -146,7 +162,7 @@ public class RegressionSuite {
 	}
 
 	private static boolean isUUID(Resource r) {
-		return r.getURI().indexOf("urn:uuid:") == 0;
+		return r.getURI() != null && r.getURI().startsWith("urn:uuid:");
 	}
 
 	private List<Statement> statementsFrom(File f) {
@@ -166,9 +182,14 @@ public class RegressionSuite {
 				String pred2 = s2.getPredicate().getURI();
 				String obj2 = s2.getObject().toString();
 				boolean useSubj = !isUUID(s1.getSubject());
-				boolean useObj = !isUUID((Resource) s1.getObject());
-				if (useSubj && !subj1.equals(subj2)) {
-					return subj1.compareTo(subj2);
+				boolean useObj;
+				if (s1.getObject() instanceof Resource) {
+					useObj = !isUUID((Resource) s1.getObject());
+				} else {
+					useObj = true;
+				}
+				if (useSubj && !((subj1 == null && subj2 == null) || (subj1 != null && subj1.equals(subj2)))) {
+					return subj1 == null ? -1 : (subj2 == null ? 1 : subj1.compareTo(subj2));
 				} else if (!pred1.equals(pred2)) {
 					return pred1.compareTo(pred2);
 				} else {
