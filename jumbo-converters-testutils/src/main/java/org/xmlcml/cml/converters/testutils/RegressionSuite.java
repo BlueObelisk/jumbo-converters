@@ -141,11 +141,17 @@ public class RegressionSuite {
 	private static void assertStatementEquals(String msg, Statement expected,
 			Statement test) {
 		Resource se = expected.getSubject();
+		Assert.assertNotNull("subj expected", se);
 		Resource st = test.getSubject();
+		Assert.assertNotNull("subj test", st);
 		Property pe = expected.getPredicate();
+		Assert.assertNotNull("prop expected", pe);
 		Property pt = test.getPredicate();
+		Assert.assertNotNull("prop test", pt);
 		RDFNode oe = expected.getObject();
+		Assert.assertNotNull("obj expected", oe);
 		RDFNode ot = test.getObject();
+		Assert.assertNotNull("obj test", ot);
 		if (!isUUID(se)) {
 			assertEquals(msg + "::Subject", se, st);
 		}
