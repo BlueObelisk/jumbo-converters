@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xml:base="http://www.xml-cml.org/schema" xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:cmlx="http://www.xml-cml.org/cmlx#" xmlns:owl2="http://www.w3.org/2006/12/owl2#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:schema="http://www.xml-cml.org/schema#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns="http://www.xml-cml.org/schema#">
+<rdf:RDF xml:base="http://www.xml-cml.org/schema" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.xml-cml.org/schema#" xmlns:schema="http://www.xml-cml.org/schema#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:owl2="http://www.w3.org/2006/12/owl2#" xmlns:cmlx="http://www.xml-cml.org/cmlx#">
   <owl:Ontology rdf:about=""/>
   <!-- /////////////////////////////////////////////////////////////////////////////////////// // // Object Properties // /////////////////////////////////////////////////////////////////////////////////////// -->
   <!-- http://www.xml-cml.org/schema#hasCmlChild -->
@@ -172,17 +172,17 @@
     <rdfs:label>_chemical_formula_weight</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#chemical_formula"/>
     <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
       <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2006/12/owl2#ObjectRestriction"/>
         <owl:onProperty rdf:resource="#hasUnits"/>
         <owl:someValuesFrom rdf:resource="#Da"/>
       </rdf:Description>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty rdf:resource="#hasValue"/>
-        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-      </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:comment xml:lang="en">Formula mass in daltons. This mass should correspond to the formulae given under _chemical_formula_structural, *_iupac, *_moiety or *_sum and, together with the Z value and cell parameters, should yield the density given as _exptl_crystal_density_diffrn.</rdfs:comment>
   </owl:Class>
@@ -287,17 +287,17 @@
     <rdfs:label>_diffrn_ambient_temperature</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#diffrn"/>
     <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty rdf:resource="#hasValue"/>
-        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
       <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2006/12/owl2#ObjectRestriction"/>
         <owl:onProperty rdf:resource="#hasUnits"/>
         <owl:someValuesFrom rdf:resource="#K"/>
       </rdf:Description>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:comment xml:lang="en">The mean temperature in kelvins at which the intensities were measured.</rdfs:comment>
   </owl:Class>
@@ -390,17 +390,17 @@
     <rdfs:label>_diffrn_radiation_wavelength</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#diffrn_radiation_wavelength"/>
     <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty rdf:resource="#hasValue"/>
-        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
       <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2006/12/owl2#ObjectRestriction"/>
         <owl:onProperty rdf:resource="#hasUnits"/>
         <owl:someValuesFrom rdf:resource="#A"/>
       </rdf:Description>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:comment xml:lang="en">The radiation wavelength in angstroms.</rdfs:comment>
   </owl:Class>
@@ -493,17 +493,17 @@
     <rdfs:label>_diffrn_reflns_theta_full</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#diffrn_reflns"/>
     <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty rdf:resource="#hasValue"/>
-        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
       <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2006/12/owl2#ObjectRestriction"/>
         <owl:onProperty rdf:resource="#hasUnits"/>
         <owl:someValuesFrom rdf:resource="#deg"/>
       </rdf:Description>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:comment xml:lang="en">The theta angle (in degrees) at which the measured reflection count is close to complete. The fraction of unique reflections measured out to this angle is given by _diffrn_measured_fraction_theta_full.</rdfs:comment>
   </owl:Class>
@@ -531,17 +531,17 @@
     <rdfs:label>_diffrn_reflns_theta_min</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#diffrn_reflns"/>
     <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty rdf:resource="#hasValue"/>
-        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
       <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2006/12/owl2#ObjectRestriction"/>
         <owl:onProperty rdf:resource="#hasUnits"/>
         <owl:someValuesFrom rdf:resource="#deg"/>
       </rdf:Description>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:comment xml:lang="en">Minimum theta angle in degrees for the measured intensities.</rdfs:comment>
   </owl:Class>
@@ -605,17 +605,17 @@
     <rdfs:label>_exptl_crystal_density_diffrn</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#exptl_crystal"/>
     <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
       <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2006/12/owl2#ObjectRestriction"/>
         <owl:onProperty rdf:resource="#hasUnits"/>
         <owl:someValuesFrom rdf:resource="#Mgm3"/>
       </rdf:Description>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty rdf:resource="#hasValue"/>
-        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-      </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:comment xml:lang="en">Density values calculated from the crystal cell and contents. The units are megagrams per cubic metre (grams per cubic centimetre).</rdfs:comment>
   </owl:Class>
@@ -667,17 +667,17 @@
     <rdfs:label>_exptl_crystal_size_mid</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#exptl_crystal"/>
     <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
       <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2006/12/owl2#ObjectRestriction"/>
         <owl:onProperty rdf:resource="#hasUnits"/>
         <owl:someValuesFrom rdf:resource="#mm"/>
       </rdf:Description>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty rdf:resource="#hasValue"/>
-        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-      </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:comment xml:lang="en">The maximum, medial and minimum dimensions in millimetres of the crystal. If the crystal is a sphere, then the *_rad item is its radius. If the crystal is a cylinder, then the *_rad item is its radius and the *_length item is its length. These may appear in a list with _exptl_crystal_id if multiple crystals are used in the experiment.</rdfs:comment>
   </owl:Class>
@@ -844,18 +844,6 @@
     </rdfs:subClassOf>
     <rdfs:comment xml:lang="en">Data items specified by the journal staff.</rdfs:comment>
   </owl:Class>
-  <!-- http://www.xml-cml.org/cmlx#_publ_body_element -->
-  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#_publ_body_element">
-    <rdfs:label>_publ_body_element</rdfs:label>
-    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#publ_body"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty rdf:resource="#hasValue"/>
-        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:comment xml:lang="en">The functional role of the associated text section.</rdfs:comment>
-  </owl:Class>
   <!-- http://www.xml-cml.org/cmlx#_publ_contact_author_address -->
   <owl:Class rdf:about="http://www.xml-cml.org/cmlx#_publ_contact_author_address">
     <rdfs:label>_publ_contact_author_address</rdfs:label>
@@ -952,17 +940,17 @@
     <rdfs:label>_refine_diff_density_min</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#refine"/>
     <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty rdf:resource="#hasValue"/>
-        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
       <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2006/12/owl2#ObjectRestriction"/>
         <owl:onProperty rdf:resource="#hasUnits"/>
         <owl:someValuesFrom rdf:resource="#e_A3"/>
       </rdf:Description>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:comment xml:lang="en">The largest and smallest values and the root-mean-square deviation, in electrons per angstrom cubed, of the final difference electron density. The *_rms value is measured with respect to the arithmetic mean density and is derived from summations over each grid point in the asymmetric unit of the cell. This quantity is useful for assessing the significance of *_min and *_max values, and also for defining suitable contour levels.</rdfs:comment>
   </owl:Class>
@@ -1405,8 +1393,8 @@
   </owl:Class>
   <!-- http://www.xml-cml.org/schema#A -->
   <owl:Class rdf:about="#A">
-    <rdfs:label>angstroms</rdfs:label>
     <rdfs:label>Angstrom</rdfs:label>
+    <rdfs:label>angstroms</rdfs:label>
     <rdfs:label>Angstroms</rdfs:label>
     <rdfs:subClassOf rdf:resource="#units"/>
   </owl:Class>
@@ -1427,7 +1415,7 @@
   </owl:Class>
   <!-- http://www.xml-cml.org/schema#Cml -->
   <owl:Class rdf:about="#Cml">
-    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#_publ_body_element"/>
+    <rdfs:subClassOf rdf:resource="#element"/>
   </owl:Class>
   <!-- http://www.xml-cml.org/schema#Da -->
   <owl:Class rdf:about="#Da">
@@ -1439,14 +1427,14 @@
     <rdfs:subClassOf rdf:resource="#element"/>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:onProperty rdf:resource="#hasEntry"/>
-        <owl:someValuesFrom rdf:resource="#Entry"/>
+        <owl:onProperty rdf:resource="#hasID"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:onProperty rdf:resource="#hasID"/>
-        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <owl:onProperty rdf:resource="#hasEntry"/>
+        <owl:someValuesFrom rdf:resource="#Entry"/>
       </owl:Restriction>
     </rdfs:subClassOf>
   </owl:Class>
@@ -1462,7 +1450,7 @@
   </owl:Class>
   <!-- http://www.xml-cml.org/schema#Formula -->
   <owl:Class rdf:about="#Formula">
-    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#_publ_body_element"/>
+    <rdfs:subClassOf rdf:resource="#element"/>
   </owl:Class>
   <!-- http://www.xml-cml.org/schema#K -->
   <owl:Class rdf:about="#K">
@@ -1481,15 +1469,15 @@
   </owl:Class>
   <!-- http://www.xml-cml.org/schema#Molecule -->
   <owl:Class rdf:about="#Molecule">
-    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#_publ_body_element"/>
+    <rdfs:subClassOf rdf:resource="#element"/>
   </owl:Class>
   <!-- http://www.xml-cml.org/schema#Property -->
   <owl:Class rdf:about="#Property">
-    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#_publ_body_element"/>
+    <rdfs:subClassOf rdf:resource="#element"/>
   </owl:Class>
   <!-- http://www.xml-cml.org/schema#Scalar -->
   <owl:Class rdf:about="#Scalar">
-    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#_publ_body_element"/>
+    <rdfs:subClassOf rdf:resource="#element"/>
   </owl:Class>
   <!-- http://www.xml-cml.org/schema#deg -->
   <owl:Class rdf:about="#deg">
@@ -1550,8 +1538,8 @@
   </owl:Class>
   <!-- http://www.xml-cml.org/schema#mm1 -->
   <owl:Class rdf:about="#mm1">
-    <rdfs:label>pixels per millimetre</rdfs:label>
     <rdfs:label>reciprocal millimetres</rdfs:label>
+    <rdfs:label>pixels per millimetre</rdfs:label>
     <rdfs:subClassOf rdf:resource="#units"/>
   </owl:Class>
   <!-- http://www.xml-cml.org/schema#sec -->
@@ -1565,692 +1553,692 @@
   <!-- httpwww.xmlcml.orgschemaI -->
   <Cml rdf:about="httpwww.xmlcml.orgschemaI">
     <hasId rdf:datatype="http://www.w3.org/2001/XMLSchema#string">I</hasId>
-    <hasCmlChild rdf:resource="iucr_atom_sites_solution_hydrogens_579d318f19c94aa9b09d6ed0cba6fca4"/>
-    <hasCmlChild rdf:resource="iucr_atom_sites_solution_primary_4d15e0ae6a054d4cabc5d9f397d78aad"/>
-    <hasCmlChild rdf:resource="iucr_atom_sites_solution_secondary_4537aaee13c3481b934ccb8d248fde40"/>
-    <hasCmlChild rdf:resource="iucr_audit_creation_method_87dd1b5a8b7346aeb068d85ad8d0968d"/>
-    <hasCmlChild rdf:resource="iucr_cell_measurement_reflns_used_39d45a94e800431ca8a5bfc0f83e8f9b"/>
-    <hasCmlChild rdf:resource="iucr_cell_measurement_temperature_bfd37199380545e295c2cd016049d806"/>
-    <hasCmlChild rdf:resource="iucr_cell_measurement_theta_max_a9ba5cf51cd949c7a62c29a2ed4ffa71"/>
-    <hasCmlChild rdf:resource="iucr_cell_measurement_theta_min_40910a4c966e48ae9122e54f092a1fa6"/>
-    <hasCmlChild rdf:resource="iucr_chemical_formula_moiety_fe92eca461c442878fb8f909dc75988a"/>
-    <hasCmlChild rdf:resource="iucr_chemical_formula_sum_b2a0019158cf4346a4eb65e7bbd194c4"/>
-    <hasCmlChild rdf:resource="iucr_chemical_formula_weight_0b26e700ddb747b9a6d882c0c0d7c3f7"/>
-    <hasCmlChild rdf:resource="iucr_chemical_name_systematic_f301578f58764e6cba5634bb50eb582b"/>
-    <hasCmlChild rdf:resource="iucr_computing_cell_refinement_ca7f29ae30d747959d22ec264dfe00e3"/>
-    <hasCmlChild rdf:resource="iucr_computing_data_collection_00ec3a9b1b3c4b30a0e237cfd9ac6d17"/>
-    <hasCmlChild rdf:resource="iucr_computing_data_reduction_2c737df2be584a7ab161c615a5cb3249"/>
-    <hasCmlChild rdf:resource="iucr_computing_molecular_graphics_69495bb8f64f4304909a18ea7fd457f3"/>
-    <hasCmlChild rdf:resource="iucr_computing_publication_material_21d5fe1344bf4011a89c2011291b8d51"/>
-    <hasCmlChild rdf:resource="iucr_computing_structure_refinement_89a04dce1d694fffa61b9c38fe279e32"/>
-    <hasCmlChild rdf:resource="iucr_computing_structure_solution_d5a03c3689774656868017d6894e5705"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_ambient_temperature_3f52f17c332343aaae4e1344b75a851c"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_measured_fraction_theta_full_89b77d29bab54db2a6de1631bec0e991"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_measured_fraction_theta_max_a5609c58acb0478d96be1322d18e98e4"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_measurement_device_type_a6012999b2c94e069f69abbe17be8368"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_measurement_method_3ca4c014148640589b3d8fa98fe92fb7"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_radiation_monochromator_d8f7a91b75c2412aa4128117a53cea0d"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_radiation_source_f3a4ceb1589e47f9955d71f5a43efaef"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_radiation_type_187aaffadee74de78ca94aa27357af0c"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_radiation_wavelength_9e827551a7394f1e95d095fbdc500b39"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_reflns_av_r_equivalents_8d97af6e53dd48da972bb1535c8f3dab"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_reflns_av_sigmaineti_8cc4bf189e354b63b0d7d9da8bd9e436"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_reflns_limit_h_max_b3c4468d45ee4969b2010566ea5c78e0"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_reflns_limit_h_min_4e4ddfc6d56c44179f08f9b0ae908dea"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_reflns_limit_k_max_887bad219f9f417ba4ba48592cf05500"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_reflns_limit_k_min_c3d01461ae7d4010a8e71cd0d69d4d66"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_reflns_limit_l_max_d318d08249054030a25ad96d84b8dc67"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_reflns_limit_l_min_f074ea7e065649b6abe9e15b7fe4a651"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_reflns_number_637b970939f942cf9a1def09e67fbd55"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_reflns_theta_full_11ae8068c56f4991b56ff057db36ebaa"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_reflns_theta_max_f9c9c069df84409890681e510ea148a4"/>
-    <hasCmlChild rdf:resource="iucr_diffrn_reflns_theta_min_84356f4addc745caa02bde5cc3b8baa4"/>
-    <hasCmlChild rdf:resource="iucr_exptl_absorpt_coefficient_mu_ba11d491f2ed48cd95d421600c7064dc"/>
-    <hasCmlChild rdf:resource="iucr_exptl_absorpt_correction_t_max_935c8b7c792947e6b8a3785968c8e76a"/>
-    <hasCmlChild rdf:resource="iucr_exptl_absorpt_correction_t_min_a3d04e1b5d54408e89a5b624009c359d"/>
-    <hasCmlChild rdf:resource="iucr_exptl_absorpt_correction_type_3fe4860a630d4d8d8b4a5d4d5ed3a4fd"/>
-    <hasCmlChild rdf:resource="iucr_exptl_absorpt_process_details_1e7b8f107c1c4c33b1569795aafb57a8"/>
-    <hasCmlChild rdf:resource="iucr_exptl_crystal_colour_703e867bb9654ad9b51fcd22b49edbef"/>
-    <hasCmlChild rdf:resource="iucr_exptl_crystal_density_diffrn_ee640ea30ed448f3a3a47ab92b27db1e"/>
-    <hasCmlChild rdf:resource="iucr_exptl_crystal_density_method_0470ab84e0d64714a85f045bf1ac01d3"/>
-    <hasCmlChild rdf:resource="iucr_exptl_crystal_description_d23972c9fb504d9081b858b303c417d9"/>
-    <hasCmlChild rdf:resource="iucr_exptl_crystal_f_000_67a313e64230434c8fef882225def90e"/>
-    <hasCmlChild rdf:resource="iucr_exptl_crystal_size_max_8e7fad209e4f4aa8b07feec81fe71018"/>
-    <hasCmlChild rdf:resource="iucr_exptl_crystal_size_mid_842cc8e7c3644b8d913ecc21e47fb505"/>
-    <hasCmlChild rdf:resource="iucr_exptl_crystal_size_min_ddd396cb1f0045c4b4cb18e692e8cb0e"/>
-    <hasCmlChild rdf:resource="iucr_exptl_special_details_ca4cf28797ae4856ae0a298e71fc7310"/>
-    <hasCmlChild rdf:resource="iucr_geom_special_details_df198b730b00493ab9d10e494f5d6711"/>
-    <hasCmlChild rdf:resource="iucr_journal_coeditor_code_be935aba6b5e474bb3e2c5181442d458"/>
-    <hasCmlChild rdf:resource="iucr_journal_date_accepted_d2334b65d447421bb630c6c250c97ca2"/>
-    <hasCmlChild rdf:resource="iucr_journal_date_recd_electronic_b8a068b73caa4f1f9299079d5af2c4af"/>
-    <hasCmlChild rdf:resource="iucr_journal_issue_5f538e6fcfe64ed6bbfc90d2c8482001"/>
-    <hasCmlChild rdf:resource="iucr_journal_name_full_3104a7f17fcc4d308ca0d0c399f40f8c"/>
-    <hasCmlChild rdf:resource="iucr_journal_page_first_dce52e23226446bb9b99a590afe6bece"/>
-    <hasCmlChild rdf:resource="iucr_journal_page_last_c68d637a26974ff7895dd48a90d1af24"/>
-    <hasCmlChild rdf:resource="iucr_journal_paper_category_18390bd8c66d4696b6e2bd5f15ee1582"/>
-    <hasCmlChild rdf:resource="iucr_journal_volume_29eaab7aeb3e47af8e912b2ee6f17779"/>
-    <hasCmlChild rdf:resource="iucr_journal_year_e2dcb708eeec4caaaaff54a2ca63e632"/>
-    <hasCmlChild rdf:resource="iucr_publ_contact_author_address_9c5961124b2b4f78a631e3d9d0ea5059"/>
-    <hasCmlChild rdf:resource="iucr_publ_contact_author_email_45cfe72daa284f90be038f2715decf19"/>
-    <hasCmlChild rdf:resource="iucr_publ_contact_author_fax_c0bc85fb39574378a95e86450b7a4bcc"/>
-    <hasCmlChild rdf:resource="iucr_publ_contact_author_name_8ad7cc8c7087444992e136bb21caf9d8"/>
-    <hasCmlChild rdf:resource="iucr_publ_contact_author_phone_6bed8320c8344187a5bfbfbe1d51fc65"/>
-    <hasCmlChild rdf:resource="iucr_publ_section_title_45fe8619bcdf4922a59266d3630ee00b"/>
-    <hasCmlChild rdf:resource="iucr_refine_diff_density_max_a985f46d000e4e78bd7fe8c068599ab0"/>
-    <hasCmlChild rdf:resource="iucr_refine_diff_density_min_b3385f68289b4e8ca5699f2dea597aa0"/>
-    <hasCmlChild rdf:resource="iucr_refine_ls_extinction_method_d1ff3b739be042dfa86530c93b367edb"/>
-    <hasCmlChild rdf:resource="iucr_refine_ls_goodness_of_fit_ref_15e4ff787a7e465fb8b98c2f2886b4b3"/>
-    <hasCmlChild rdf:resource="iucr_refine_ls_hydrogen_treatment_16cdbe675c7f4aea94b370efa5f65058"/>
-    <hasCmlChild rdf:resource="iucr_refine_ls_matrix_type_12ffa50fec32438ca76ca115e024d5ca"/>
-    <hasCmlChild rdf:resource="iucr_refine_ls_number_parameters_106261f8ec30476f933ca0ec5f2db8f2"/>
-    <hasCmlChild rdf:resource="iucr_refine_ls_number_reflns_263b7e1758ca421c9454a3235f1ee7fe"/>
-    <hasCmlChild rdf:resource="iucr_refine_ls_number_restraints_cd6419128bc84f6f96d2efc4d1cb9504"/>
-    <hasCmlChild rdf:resource="iucr_refine_ls_r_factor_all_ceaa103955b24ce09b94ca44608cc37d"/>
-    <hasCmlChild rdf:resource="iucr_refine_ls_r_factor_gt_9a4accb947c448a687a25fd082c21a2a"/>
-    <hasCmlChild rdf:resource="iucr_refine_ls_restrained_s_all_37e256b7aeea492a8cca6a72e640a9a7"/>
-    <hasCmlChild rdf:resource="iucr_refine_ls_shiftsu_max_e2f90fbfef8e442db81ba6952f9988e7"/>
-    <hasCmlChild rdf:resource="iucr_refine_ls_shiftsu_mean_75d5926cf4af41b1abd89d2263805479"/>
-    <hasCmlChild rdf:resource="iucr_refine_ls_structure_factor_coef_7e273a02220145ef991a55f70f81dfbb"/>
-    <hasCmlChild rdf:resource="iucr_refine_ls_weighting_details_2b33832ea19641629a762a1530a897bd"/>
-    <hasCmlChild rdf:resource="iucr_refine_ls_weighting_scheme_753b0b11b61d4a33a43c9be17b285ac3"/>
-    <hasCmlChild rdf:resource="iucr_refine_ls_wr_factor_gt_fa68d2e50aee4ae09e2d48eaa7f235f9"/>
-    <hasCmlChild rdf:resource="iucr_refine_ls_wr_factor_ref_fe9e36ad917c49a785ee6d5dc86edbae"/>
-    <hasCmlChild rdf:resource="iucr_refine_special_details_6d469275e35f4e21a2e50990f5919519"/>
-    <hasCmlChild rdf:resource="iucr_reflns_number_gt_e587b62d50ea4f29afdffb55a5719a6b"/>
-    <hasCmlChild rdf:resource="iucr_reflns_number_total_8d04babd3b1548aa9ee5520ab8312dc9"/>
-    <hasCmlChild rdf:resource="iucr_reflns_threshold_expression_73f7ee310909451f83b2dcbea282a3c8"/>
-    <hasCmlChild rdf:resource="iucr_symmetry_cell_setting_330f433cf048469abe2ce0707600c133"/>
-    <hasCmlChild rdf:resource="iucr_symmetry_space_group_name_hall_92b636bc50c54b36987c0810ef728e58"/>
-    <hasCmlChild rdf:resource="molecule_74dc29bd3f6c4d82b1b49feec94e4210"/>
-    <hasCmlChild rdf:resource="property_301ab7f3ab6c4706b667cc66123ba5c2"/>
+    <hasCmlChild rdf:resource="iucr_atom_sites_solution_hydrogens_51713d0e19a94d21bf07d53115508563"/>
+    <hasCmlChild rdf:resource="iucr_atom_sites_solution_primary_e08911a729a7402993b0a818f4826c30"/>
+    <hasCmlChild rdf:resource="iucr_atom_sites_solution_secondary_b1bf3c3eb4024ac1bcd422a695b9ea11"/>
+    <hasCmlChild rdf:resource="iucr_audit_creation_method_f2623b1bb8324e958003b369f85044de"/>
+    <hasCmlChild rdf:resource="iucr_cell_measurement_reflns_used_1489a3605a764a279e856a5cc25ab9eb"/>
+    <hasCmlChild rdf:resource="iucr_cell_measurement_temperature_6c2fcd6db0254767a4f245ffe1850272"/>
+    <hasCmlChild rdf:resource="iucr_cell_measurement_theta_max_e0b6460a493b422d94af1b6e20450e5a"/>
+    <hasCmlChild rdf:resource="iucr_cell_measurement_theta_min_ebe10824268f40a6a89c3126177f3663"/>
+    <hasCmlChild rdf:resource="iucr_chemical_formula_moiety_e798c1b3ec5f468c9040d26ba5130186"/>
+    <hasCmlChild rdf:resource="iucr_chemical_formula_sum_e7671d8b70da45438c664c74ae8fe1c4"/>
+    <hasCmlChild rdf:resource="iucr_chemical_formula_weight_951d1e30187d43669b909d53d0903374"/>
+    <hasCmlChild rdf:resource="iucr_chemical_name_systematic_e81db60e84764ea3b89d24e86cc95bdc"/>
+    <hasCmlChild rdf:resource="iucr_computing_cell_refinement_591ccf303e464b96be720cc45a548d5d"/>
+    <hasCmlChild rdf:resource="iucr_computing_data_collection_46db8136117943d6a575721f826ec402"/>
+    <hasCmlChild rdf:resource="iucr_computing_data_reduction_5cd24df34b184264994fc4b6d38b4259"/>
+    <hasCmlChild rdf:resource="iucr_computing_molecular_graphics_5e4c2c5e0aa445269f6cb7845e845a3d"/>
+    <hasCmlChild rdf:resource="iucr_computing_publication_material_9c39ae0d7c644db4844189500b26fb14"/>
+    <hasCmlChild rdf:resource="iucr_computing_structure_refinement_c26bed58de0a47c7b9d7886f4ba78874"/>
+    <hasCmlChild rdf:resource="iucr_computing_structure_solution_b9ac07cb4ce742ceaf1e04afbb216435"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_ambient_temperature_88e5c5c3213c43819c8b332ad253fa5c"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_measured_fraction_theta_full_0f0caee4ac384dd48c5458d0d029e901"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_measured_fraction_theta_max_6225b7f870434a489394a2093a98aeef"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_measurement_device_type_a81fad5b1e1f499696921a4ac0beb49c"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_measurement_method_294c7871391c450f9fb369cc67631ff6"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_radiation_monochromator_c5c08de16f184c0e8f7695cfff17c41b"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_radiation_source_d6aee9f46ff94018a8119650e60f012a"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_radiation_type_c585369d28c3409d8d1e00cc81dda317"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_radiation_wavelength_04315a8907904ddaa0eefaa0c13c8aa8"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_av_r_equivalents_f3917ff237b4422a8e911fb7771279b1"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_av_sigmaineti_6aa3e936566d465390e7f6418d8759f4"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_limit_h_max_9d19be40ff6248b0ad4b7dc92db64ca8"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_limit_h_min_4fecb29356b34be1819bd77814717ca3"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_limit_k_max_d442c9a91a6840faa20d60879a4f2bcd"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_limit_k_min_bee8afccfdc1417ba54b5e1187c3b9de"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_limit_l_max_2c750c3d57fa4d55a506eaadd14a969f"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_limit_l_min_e1944a1c6e514ad38aea491ff9e35e78"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_number_997561968170484797bdf667bc862719"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_theta_full_dc311d4cd49d4fdabcc744cd818f0076"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_theta_max_3cd6a84977de401bacdadab9b1f35ca2"/>
+    <hasCmlChild rdf:resource="iucr_diffrn_reflns_theta_min_4f62ea58d3f04d0da7d663ef4f43650d"/>
+    <hasCmlChild rdf:resource="iucr_exptl_absorpt_coefficient_mu_9fa982a12c8e4de7822d86c5c394b583"/>
+    <hasCmlChild rdf:resource="iucr_exptl_absorpt_correction_t_max_81be6270d6b246fca9ba86c67271fb63"/>
+    <hasCmlChild rdf:resource="iucr_exptl_absorpt_correction_t_min_856f363dbe3d4499ba8aa9737a0e04c8"/>
+    <hasCmlChild rdf:resource="iucr_exptl_absorpt_correction_type_fc5a56acd6874c0f8c6332416c8743e1"/>
+    <hasCmlChild rdf:resource="iucr_exptl_absorpt_process_details_01defc130d124a519bb820e597db271e"/>
+    <hasCmlChild rdf:resource="iucr_exptl_crystal_colour_a6e1baddab284adbbb3f6dd40bed852e"/>
+    <hasCmlChild rdf:resource="iucr_exptl_crystal_density_diffrn_990d34fa20e4443991b6c5ab6daba15d"/>
+    <hasCmlChild rdf:resource="iucr_exptl_crystal_density_method_9eabb385c8fb41e5a1f412dc18181bb4"/>
+    <hasCmlChild rdf:resource="iucr_exptl_crystal_description_c4a139cdde784b93b44852626d83faab"/>
+    <hasCmlChild rdf:resource="iucr_exptl_crystal_f_000_841a1b2e5b1140808d3d9e315516c0d9"/>
+    <hasCmlChild rdf:resource="iucr_exptl_crystal_size_max_3ff5377b22f2449e855c3b9a93abf786"/>
+    <hasCmlChild rdf:resource="iucr_exptl_crystal_size_mid_c1aefa69468f4a77ad83520178cf8a21"/>
+    <hasCmlChild rdf:resource="iucr_exptl_crystal_size_min_40639afca6a44f79a03fc0f69509edac"/>
+    <hasCmlChild rdf:resource="iucr_exptl_special_details_5bd43eac5d464cb6a719a95965dc5bca"/>
+    <hasCmlChild rdf:resource="iucr_geom_special_details_2a02cee5ee84419c852f422d96175c54"/>
+    <hasCmlChild rdf:resource="iucr_journal_coeditor_code_8d300dd44add48b499c1c573875759f1"/>
+    <hasCmlChild rdf:resource="iucr_journal_date_accepted_1811c7a79861401984435123d7908eee"/>
+    <hasCmlChild rdf:resource="iucr_journal_date_recd_electronic_b5ffdf983e9241e0ad1a0b0b6e19ae7b"/>
+    <hasCmlChild rdf:resource="iucr_journal_issue_cd9d03e01bbb499493522851e74d54db"/>
+    <hasCmlChild rdf:resource="iucr_journal_name_full_202d7198b69a43519293415525c7a022"/>
+    <hasCmlChild rdf:resource="iucr_journal_page_first_26f95b6419994ccaa02f35f871e23f23"/>
+    <hasCmlChild rdf:resource="iucr_journal_page_last_578a7ae4a8934b1e81822b1b42592309"/>
+    <hasCmlChild rdf:resource="iucr_journal_paper_category_b251717596d748c2bb0238d074ba6f6b"/>
+    <hasCmlChild rdf:resource="iucr_journal_volume_e5af8b46151c47958fdea13972a36ac1"/>
+    <hasCmlChild rdf:resource="iucr_journal_year_7afe8ec503f94fb8886cadc55e6ea3fe"/>
+    <hasCmlChild rdf:resource="iucr_publ_contact_author_address_1e04954981dc4a8294a74b23d56ff056"/>
+    <hasCmlChild rdf:resource="iucr_publ_contact_author_email_4040b3ebb3fb44d294d1f9a216e7af24"/>
+    <hasCmlChild rdf:resource="iucr_publ_contact_author_fax_e5bbd3fee2f548a4ac71d08d18c832e4"/>
+    <hasCmlChild rdf:resource="iucr_publ_contact_author_name_0610e71d4f9c4efe8cf9be1bbe299a10"/>
+    <hasCmlChild rdf:resource="iucr_publ_contact_author_phone_83e6b8f10f0b44978e5115cf1335fc14"/>
+    <hasCmlChild rdf:resource="iucr_publ_section_title_7d092c5aac00404582666b2cb54f3b25"/>
+    <hasCmlChild rdf:resource="iucr_refine_diff_density_max_c88c1d1ae2ee417f81f633b7a3880185"/>
+    <hasCmlChild rdf:resource="iucr_refine_diff_density_min_7cd79499fa304d0293778571f7e452ed"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_extinction_method_4b860c34fad84beb840c4640d233da71"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_goodness_of_fit_ref_a156efab7a0948f3a7e9efeeb5d90989"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_hydrogen_treatment_417aa10dfedc4843b9b6de92fc5a5692"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_matrix_type_a477e4d351d64fcba945649d4682c0e2"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_number_parameters_8d1c6b0cd0e24eec9036d9197e0fbba5"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_number_reflns_8b1ff4d0eaaf48cdb046961275d1bbfc"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_number_restraints_2b486bcb39ba43ffa04f8ed63eef6d04"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_r_factor_all_a56965a66420442bae9dca56b7a45273"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_r_factor_gt_9bb5664d9ec346708261bbc8f7aacb77"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_restrained_s_all_d2b10a453ccb4a4eb90d8a5c2fc2ad7f"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_shiftsu_max_18baafeef7ec4cc7b1ccb47787f06272"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_shiftsu_mean_34d006665fad45d8a42770cb24892ffb"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_structure_factor_coef_6576d79d124443169d347d7b3e1dc676"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_weighting_details_1214c13fa8844b6ea049eb8b507bf1d4"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_weighting_scheme_3fab8a7e90194168be223c4f45f15bf1"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_wr_factor_gt_27d726819f574d1597332c7447ed2a70"/>
+    <hasCmlChild rdf:resource="iucr_refine_ls_wr_factor_ref_2b8c50d710e14cf3a360a5553cc97dcc"/>
+    <hasCmlChild rdf:resource="iucr_refine_special_details_464b3b9292d04b3fa19436ff3b3af975"/>
+    <hasCmlChild rdf:resource="iucr_reflns_number_gt_c517777d90ba40a88c970a04e4c8738f"/>
+    <hasCmlChild rdf:resource="iucr_reflns_number_total_d94f501baca342f798c5cda296e8f3c3"/>
+    <hasCmlChild rdf:resource="iucr_reflns_threshold_expression_842365c3dc4b481881c7625348a76876"/>
+    <hasCmlChild rdf:resource="iucr_symmetry_cell_setting_315e263ec9974ea0b48f8f463ed7df46"/>
+    <hasCmlChild rdf:resource="iucr_symmetry_space_group_name_hall_3a30b85ceff24c76abcae8b89323347b"/>
+    <hasCmlChild rdf:resource="molecule_b38d400437a44ce0aed674a4bc38798a"/>
+    <hasCmlChild rdf:resource="property_007fc740ade54b79accf1352a1b027fa"/>
   </Cml>
-  <!-- iucr_atom_sites_solution_hydrogens_579d318f19c94aa9b09d6ed0cba6fca4 -->
-  <Scalar rdf:about="iucr_atom_sites_solution_hydrogens_579d318f19c94aa9b09d6ed0cba6fca4">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_atom_sites_solution_hydrogens"/>
+  <!-- iucr_atom_sites_solution_hydrogens_51713d0e19a94d21bf07d53115508563 -->
+  <cmlx:_atom_sites_solution_hydrogens rdf:about="iucr_atom_sites_solution_hydrogens_51713d0e19a94d21bf07d53115508563">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">geom</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_atom_sites_solution_hydrogens</hasDictref_att>
-  </Scalar>
-  <!-- iucr_atom_sites_solution_primary_4d15e0ae6a054d4cabc5d9f397d78aad -->
-  <cmlx:_atom_sites_solution_primary rdf:about="iucr_atom_sites_solution_primary_4d15e0ae6a054d4cabc5d9f397d78aad">
+  </cmlx:_atom_sites_solution_hydrogens>
+  <!-- iucr_atom_sites_solution_primary_e08911a729a7402993b0a818f4826c30 -->
+  <cmlx:_atom_sites_solution_primary rdf:about="iucr_atom_sites_solution_primary_e08911a729a7402993b0a818f4826c30">
     <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">direct</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_atom_sites_solution_primary</hasDictref_att>
   </cmlx:_atom_sites_solution_primary>
-  <!-- iucr_atom_sites_solution_secondary_4537aaee13c3481b934ccb8d248fde40 -->
-  <Scalar rdf:about="iucr_atom_sites_solution_secondary_4537aaee13c3481b934ccb8d248fde40">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_atom_sites_solution_secondary"/>
+  <!-- iucr_atom_sites_solution_secondary_b1bf3c3eb4024ac1bcd422a695b9ea11 -->
+  <cmlx:_atom_sites_solution_secondary rdf:about="iucr_atom_sites_solution_secondary_b1bf3c3eb4024ac1bcd422a695b9ea11">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">difmap</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_atom_sites_solution_secondary</hasDictref_att>
-  </Scalar>
-  <!-- iucr_audit_creation_method_87dd1b5a8b7346aeb068d85ad8d0968d -->
-  <Scalar rdf:about="iucr_audit_creation_method_87dd1b5a8b7346aeb068d85ad8d0968d">
+  </cmlx:_atom_sites_solution_secondary>
+  <!-- iucr_audit_creation_method_f2623b1bb8324e958003b369f85044de -->
+  <Scalar rdf:about="iucr_audit_creation_method_f2623b1bb8324e958003b369f85044de">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_audit_creation_method"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SHELXL-97</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_audit_creation_method</hasDictref_att>
   </Scalar>
-  <!-- iucr_cell_measurement_reflns_used_39d45a94e800431ca8a5bfc0f83e8f9b -->
-  <cmlx:_cell_measurement_reflns_used rdf:about="iucr_cell_measurement_reflns_used_39d45a94e800431ca8a5bfc0f83e8f9b">
+  <!-- iucr_cell_measurement_reflns_used_1489a3605a764a279e856a5cc25ab9eb -->
+  <cmlx:_cell_measurement_reflns_used rdf:about="iucr_cell_measurement_reflns_used_1489a3605a764a279e856a5cc25ab9eb">
     <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1363.0</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_cell_measurement_reflns_used</hasDictref_att>
   </cmlx:_cell_measurement_reflns_used>
-  <!-- iucr_cell_measurement_temperature_bfd37199380545e295c2cd016049d806 -->
-  <cmlx:_cell_measurement_temperature rdf:about="iucr_cell_measurement_temperature_bfd37199380545e295c2cd016049d806">
+  <!-- iucr_cell_measurement_temperature_6c2fcd6db0254767a4f245ffe1850272 -->
+  <cmlx:_cell_measurement_temperature rdf:about="iucr_cell_measurement_temperature_6c2fcd6db0254767a4f245ffe1850272">
     <rdf:type rdf:resource="#Scalar"/>
-    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">298</hasValue>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">298.0</hasValue>
     <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">K</hasUnits>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_cell_measurement_temperature</hasDictref_att>
   </cmlx:_cell_measurement_temperature>
-  <!-- iucr_cell_measurement_theta_max_a9ba5cf51cd949c7a62c29a2ed4ffa71 -->
-  <cmlx:_cell_measurement_theta_max rdf:about="iucr_cell_measurement_theta_max_a9ba5cf51cd949c7a62c29a2ed4ffa71">
+  <!-- iucr_cell_measurement_theta_max_e0b6460a493b422d94af1b6e20450e5a -->
+  <cmlx:_cell_measurement_theta_max rdf:about="iucr_cell_measurement_theta_max_e0b6460a493b422d94af1b6e20450e5a">
     <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">27.397</hasValue>
     <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">deg</hasUnits>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_cell_measurement_theta_max</hasDictref_att>
   </cmlx:_cell_measurement_theta_max>
-  <!-- iucr_cell_measurement_theta_min_40910a4c966e48ae9122e54f092a1fa6 -->
-  <Scalar rdf:about="iucr_cell_measurement_theta_min_40910a4c966e48ae9122e54f092a1fa6">
+  <!-- iucr_cell_measurement_theta_min_ebe10824268f40a6a89c3126177f3663 -->
+  <Scalar rdf:about="iucr_cell_measurement_theta_min_ebe10824268f40a6a89c3126177f3663">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_cell_measurement_theta_min"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2.16</hasValue>
     <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">deg</hasUnits>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_cell_measurement_theta_min</hasDictref_att>
   </Scalar>
-  <!-- iucr_chemical_formula_moiety_fe92eca461c442878fb8f909dc75988a -->
-  <Formula rdf:about="iucr_chemical_formula_moiety_fe92eca461c442878fb8f909dc75988a">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_chemical_formula_moiety"/>
+  <!-- iucr_chemical_formula_moiety_e798c1b3ec5f468c9040d26ba5130186 -->
+  <cmlx:_chemical_formula_moiety rdf:about="iucr_chemical_formula_moiety_e798c1b3ec5f468c9040d26ba5130186">
+    <rdf:type rdf:resource="#Formula"/>
     <hasConcise_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">C 11 H 9 Cl 2 N 3 O 1</hasConcise_att>
     <hasInline_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">C11 H9 Cl2 N3 O</hasInline_att>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_chemical_formula_moiety</hasDictref_att>
-  </Formula>
-  <!-- iucr_chemical_formula_sum_b2a0019158cf4346a4eb65e7bbd194c4 -->
-  <Formula rdf:about="iucr_chemical_formula_sum_b2a0019158cf4346a4eb65e7bbd194c4">
+  </cmlx:_chemical_formula_moiety>
+  <!-- iucr_chemical_formula_sum_e7671d8b70da45438c664c74ae8fe1c4 -->
+  <Formula rdf:about="iucr_chemical_formula_sum_e7671d8b70da45438c664c74ae8fe1c4">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_chemical_formula_sum"/>
     <hasConcise_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">C 11 H 9 Cl 2 N 3 O 1</hasConcise_att>
     <hasInline_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">C11 H9 Cl2 N3 O</hasInline_att>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_chemical_formula_sum</hasDictref_att>
   </Formula>
-  <!-- iucr_chemical_formula_weight_0b26e700ddb747b9a6d882c0c0d7c3f7 -->
-  <Scalar rdf:about="iucr_chemical_formula_weight_0b26e700ddb747b9a6d882c0c0d7c3f7">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_chemical_formula_weight"/>
+  <!-- iucr_chemical_formula_weight_951d1e30187d43669b909d53d0903374 -->
+  <cmlx:_chemical_formula_weight rdf:about="iucr_chemical_formula_weight_951d1e30187d43669b909d53d0903374">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasErrorvalue_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.0</hasErrorvalue_att>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">270.11</hasValue>
     <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Da</hasUnits>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_chemical_formula_weight</hasDictref_att>
-  </Scalar>
-  <!-- iucr_chemical_name_systematic_f301578f58764e6cba5634bb50eb582b -->
-  <Scalar rdf:about="iucr_chemical_name_systematic_f301578f58764e6cba5634bb50eb582b">
+  </cmlx:_chemical_formula_weight>
+  <!-- iucr_chemical_name_systematic_e81db60e84764ea3b89d24e86cc95bdc -->
+  <Scalar rdf:about="iucr_chemical_name_systematic_e81db60e84764ea3b89d24e86cc95bdc">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_chemical_name_systematic"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(3,6-Dichloropyridin-2-yl)(3,5-dimethyl-1&lt;i&gt;H&lt;/i&gt;-pyrazol-1-yl)methanone</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_chemical_name_systematic</hasDictref_att>
   </Scalar>
-  <!-- iucr_computing_cell_refinement_ca7f29ae30d747959d22ec264dfe00e3 -->
-  <Scalar rdf:about="iucr_computing_cell_refinement_ca7f29ae30d747959d22ec264dfe00e3">
+  <!-- iucr_computing_cell_refinement_591ccf303e464b96be720cc45a548d5d -->
+  <Scalar rdf:about="iucr_computing_cell_refinement_591ccf303e464b96be720cc45a548d5d">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_computing_cell_refinement"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SAINT (Siemens, 1996)</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_computing_cell_refinement</hasDictref_att>
   </Scalar>
-  <!-- iucr_computing_data_collection_00ec3a9b1b3c4b30a0e237cfd9ac6d17 -->
-  <Scalar rdf:about="iucr_computing_data_collection_00ec3a9b1b3c4b30a0e237cfd9ac6d17">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_computing_data_collection"/>
+  <!-- iucr_computing_data_collection_46db8136117943d6a575721f826ec402 -->
+  <cmlx:_computing_data_collection rdf:about="iucr_computing_data_collection_46db8136117943d6a575721f826ec402">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SMART (Siemens, 1996)</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_computing_data_collection</hasDictref_att>
-  </Scalar>
-  <!-- iucr_computing_data_reduction_2c737df2be584a7ab161c615a5cb3249 -->
-  <cmlx:_computing_data_reduction rdf:about="iucr_computing_data_reduction_2c737df2be584a7ab161c615a5cb3249">
-    <rdf:type rdf:resource="#Scalar"/>
+  </cmlx:_computing_data_collection>
+  <!-- iucr_computing_data_reduction_5cd24df34b184264994fc4b6d38b4259 -->
+  <Scalar rdf:about="iucr_computing_data_reduction_5cd24df34b184264994fc4b6d38b4259">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_computing_data_reduction"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SAINT (Siemens, 1996)</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_computing_data_reduction</hasDictref_att>
-  </cmlx:_computing_data_reduction>
-  <!-- iucr_computing_molecular_graphics_69495bb8f64f4304909a18ea7fd457f3 -->
-  <Scalar rdf:about="iucr_computing_molecular_graphics_69495bb8f64f4304909a18ea7fd457f3">
+  </Scalar>
+  <!-- iucr_computing_molecular_graphics_5e4c2c5e0aa445269f6cb7845e845a3d -->
+  <Scalar rdf:about="iucr_computing_molecular_graphics_5e4c2c5e0aa445269f6cb7845e845a3d">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_computing_molecular_graphics"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SHELXTL (Sheldrick, 2008)</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_computing_molecular_graphics</hasDictref_att>
   </Scalar>
-  <!-- iucr_computing_publication_material_21d5fe1344bf4011a89c2011291b8d51 -->
-  <Scalar rdf:about="iucr_computing_publication_material_21d5fe1344bf4011a89c2011291b8d51">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_computing_publication_material"/>
+  <!-- iucr_computing_publication_material_9c39ae0d7c644db4844189500b26fb14 -->
+  <cmlx:_computing_publication_material rdf:about="iucr_computing_publication_material_9c39ae0d7c644db4844189500b26fb14">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SHELXTL (Sheldrick, 2008)</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_computing_publication_material</hasDictref_att>
-  </Scalar>
-  <!-- iucr_computing_structure_refinement_89a04dce1d694fffa61b9c38fe279e32 -->
-  <cmlx:_computing_structure_refinement rdf:about="iucr_computing_structure_refinement_89a04dce1d694fffa61b9c38fe279e32">
+  </cmlx:_computing_publication_material>
+  <!-- iucr_computing_structure_refinement_c26bed58de0a47c7b9d7886f4ba78874 -->
+  <cmlx:_computing_structure_refinement rdf:about="iucr_computing_structure_refinement_c26bed58de0a47c7b9d7886f4ba78874">
     <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SHELXL97 (Sheldrick, 2008)</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_computing_structure_refinement</hasDictref_att>
   </cmlx:_computing_structure_refinement>
-  <!-- iucr_computing_structure_solution_d5a03c3689774656868017d6894e5705 -->
-  <Scalar rdf:about="iucr_computing_structure_solution_d5a03c3689774656868017d6894e5705">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_computing_structure_solution"/>
+  <!-- iucr_computing_structure_solution_b9ac07cb4ce742ceaf1e04afbb216435 -->
+  <cmlx:_computing_structure_solution rdf:about="iucr_computing_structure_solution_b9ac07cb4ce742ceaf1e04afbb216435">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SHELXS97 (Sheldrick, 2008)</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_computing_structure_solution</hasDictref_att>
-  </Scalar>
-  <!-- iucr_diffrn_ambient_temperature_3f52f17c332343aaae4e1344b75a851c -->
-  <Scalar rdf:about="iucr_diffrn_ambient_temperature_3f52f17c332343aaae4e1344b75a851c">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_diffrn_ambient_temperature"/>
-    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">298(2)</hasValue>
+  </cmlx:_computing_structure_solution>
+  <!-- iucr_diffrn_ambient_temperature_88e5c5c3213c43819c8b332ad253fa5c -->
+  <cmlx:_diffrn_ambient_temperature rdf:about="iucr_diffrn_ambient_temperature_88e5c5c3213c43819c8b332ad253fa5c">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">298.0</hasValue>
     <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">K</hasUnits>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_ambient_temperature</hasDictref_att>
-  </Scalar>
-  <!-- iucr_diffrn_measured_fraction_theta_full_89b77d29bab54db2a6de1631bec0e991 -->
-  <Scalar rdf:about="iucr_diffrn_measured_fraction_theta_full_89b77d29bab54db2a6de1631bec0e991">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_diffrn_measured_fraction_theta_full"/>
+  </cmlx:_diffrn_ambient_temperature>
+  <!-- iucr_diffrn_measured_fraction_theta_full_0f0caee4ac384dd48c5458d0d029e901 -->
+  <cmlx:_diffrn_measured_fraction_theta_full rdf:about="iucr_diffrn_measured_fraction_theta_full_0f0caee4ac384dd48c5458d0d029e901">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.985</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_measured_fraction_theta_full</hasDictref_att>
-  </Scalar>
-  <!-- iucr_diffrn_measured_fraction_theta_max_a5609c58acb0478d96be1322d18e98e4 -->
-  <Scalar rdf:about="iucr_diffrn_measured_fraction_theta_max_a5609c58acb0478d96be1322d18e98e4">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_diffrn_measured_fraction_theta_max"/>
+  </cmlx:_diffrn_measured_fraction_theta_full>
+  <!-- iucr_diffrn_measured_fraction_theta_max_6225b7f870434a489394a2093a98aeef -->
+  <cmlx:_diffrn_measured_fraction_theta_max rdf:about="iucr_diffrn_measured_fraction_theta_max_6225b7f870434a489394a2093a98aeef">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.985</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_measured_fraction_theta_max</hasDictref_att>
-  </Scalar>
-  <!-- iucr_diffrn_measurement_device_type_a6012999b2c94e069f69abbe17be8368 -->
-  <cmlx:_diffrn_measurement_device_type rdf:about="iucr_diffrn_measurement_device_type_a6012999b2c94e069f69abbe17be8368">
+  </cmlx:_diffrn_measured_fraction_theta_max>
+  <!-- iucr_diffrn_measurement_device_type_a81fad5b1e1f499696921a4ac0beb49c -->
+  <cmlx:_diffrn_measurement_device_type rdf:about="iucr_diffrn_measurement_device_type_a81fad5b1e1f499696921a4ac0beb49c">
     <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bruker SMART CCD area-detector</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_measurement_device_type</hasDictref_att>
   </cmlx:_diffrn_measurement_device_type>
-  <!-- iucr_diffrn_measurement_method_3ca4c014148640589b3d8fa98fe92fb7 -->
-  <Scalar rdf:about="iucr_diffrn_measurement_method_3ca4c014148640589b3d8fa98fe92fb7">
+  <!-- iucr_diffrn_measurement_method_294c7871391c450f9fb369cc67631ff6 -->
+  <Scalar rdf:about="iucr_diffrn_measurement_method_294c7871391c450f9fb369cc67631ff6">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_diffrn_measurement_method"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">\f and \w</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_measurement_method</hasDictref_att>
   </Scalar>
-  <!-- iucr_diffrn_radiation_monochromator_d8f7a91b75c2412aa4128117a53cea0d -->
-  <Scalar rdf:about="iucr_diffrn_radiation_monochromator_d8f7a91b75c2412aa4128117a53cea0d">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_diffrn_radiation_monochromator"/>
+  <!-- iucr_diffrn_radiation_monochromator_c5c08de16f184c0e8f7695cfff17c41b -->
+  <cmlx:_diffrn_radiation_monochromator rdf:about="iucr_diffrn_radiation_monochromator_c5c08de16f184c0e8f7695cfff17c41b">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">graphite</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_radiation_monochromator</hasDictref_att>
-  </Scalar>
-  <!-- iucr_diffrn_radiation_source_f3a4ceb1589e47f9955d71f5a43efaef -->
-  <cmlx:_diffrn_radiation_source rdf:about="iucr_diffrn_radiation_source_f3a4ceb1589e47f9955d71f5a43efaef">
-    <rdf:type rdf:resource="#Scalar"/>
+  </cmlx:_diffrn_radiation_monochromator>
+  <!-- iucr_diffrn_radiation_source_d6aee9f46ff94018a8119650e60f012a -->
+  <Scalar rdf:about="iucr_diffrn_radiation_source_d6aee9f46ff94018a8119650e60f012a">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_diffrn_radiation_source"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fine-focus sealed tube</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_radiation_source</hasDictref_att>
-  </cmlx:_diffrn_radiation_source>
-  <!-- iucr_diffrn_radiation_type_187aaffadee74de78ca94aa27357af0c -->
-  <Scalar rdf:about="iucr_diffrn_radiation_type_187aaffadee74de78ca94aa27357af0c">
+  </Scalar>
+  <!-- iucr_diffrn_radiation_type_c585369d28c3409d8d1e00cc81dda317 -->
+  <Scalar rdf:about="iucr_diffrn_radiation_type_c585369d28c3409d8d1e00cc81dda317">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_diffrn_radiation_type"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MoK\a</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_radiation_type</hasDictref_att>
   </Scalar>
-  <!-- iucr_diffrn_radiation_wavelength_9e827551a7394f1e95d095fbdc500b39 -->
-  <cmlx:_diffrn_radiation_wavelength rdf:about="iucr_diffrn_radiation_wavelength_9e827551a7394f1e95d095fbdc500b39">
-    <rdf:type rdf:resource="#Scalar"/>
+  <!-- iucr_diffrn_radiation_wavelength_04315a8907904ddaa0eefaa0c13c8aa8 -->
+  <Scalar rdf:about="iucr_diffrn_radiation_wavelength_04315a8907904ddaa0eefaa0c13c8aa8">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_diffrn_radiation_wavelength"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.71073</hasValue>
     <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A</hasUnits>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_radiation_wavelength</hasDictref_att>
-  </cmlx:_diffrn_radiation_wavelength>
-  <!-- iucr_diffrn_reflns_av_r_equivalents_8d97af6e53dd48da972bb1535c8f3dab -->
-  <Scalar rdf:about="iucr_diffrn_reflns_av_r_equivalents_8d97af6e53dd48da972bb1535c8f3dab">
+  </Scalar>
+  <!-- iucr_diffrn_reflns_av_r_equivalents_f3917ff237b4422a8e911fb7771279b1 -->
+  <Scalar rdf:about="iucr_diffrn_reflns_av_r_equivalents_f3917ff237b4422a8e911fb7771279b1">
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.0378</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_av_r_equivalents</hasDictref_att>
   </Scalar>
-  <!-- iucr_diffrn_reflns_av_sigmaineti_8cc4bf189e354b63b0d7d9da8bd9e436 -->
-  <Scalar rdf:about="iucr_diffrn_reflns_av_sigmaineti_8cc4bf189e354b63b0d7d9da8bd9e436">
+  <!-- iucr_diffrn_reflns_av_sigmaineti_6aa3e936566d465390e7f6418d8759f4 -->
+  <Scalar rdf:about="iucr_diffrn_reflns_av_sigmaineti_6aa3e936566d465390e7f6418d8759f4">
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.0601</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_av_sigmai/neti</hasDictref_att>
   </Scalar>
-  <!-- iucr_diffrn_reflns_limit_h_max_b3c4468d45ee4969b2010566ea5c78e0 -->
-  <Scalar rdf:about="iucr_diffrn_reflns_limit_h_max_b3c4468d45ee4969b2010566ea5c78e0">
+  <!-- iucr_diffrn_reflns_limit_h_max_9d19be40ff6248b0ad4b7dc92db64ca8 -->
+  <Scalar rdf:about="iucr_diffrn_reflns_limit_h_max_9d19be40ff6248b0ad4b7dc92db64ca8">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_diffrn_reflns_limit_h_max"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.0</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_limit_h_max</hasDictref_att>
   </Scalar>
-  <!-- iucr_diffrn_reflns_limit_h_min_4e4ddfc6d56c44179f08f9b0ae908dea -->
-  <Scalar rdf:about="iucr_diffrn_reflns_limit_h_min_4e4ddfc6d56c44179f08f9b0ae908dea">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_diffrn_reflns_limit_h_min"/>
+  <!-- iucr_diffrn_reflns_limit_h_min_4fecb29356b34be1819bd77814717ca3 -->
+  <cmlx:_diffrn_reflns_limit_h_min rdf:about="iucr_diffrn_reflns_limit_h_min_4fecb29356b34be1819bd77814717ca3">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8.0</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_limit_h_min</hasDictref_att>
-  </Scalar>
-  <!-- iucr_diffrn_reflns_limit_k_max_887bad219f9f417ba4ba48592cf05500 -->
-  <cmlx:_diffrn_reflns_limit_k_max rdf:about="iucr_diffrn_reflns_limit_k_max_887bad219f9f417ba4ba48592cf05500">
-    <rdf:type rdf:resource="#Scalar"/>
+  </cmlx:_diffrn_reflns_limit_h_min>
+  <!-- iucr_diffrn_reflns_limit_k_max_d442c9a91a6840faa20d60879a4f2bcd -->
+  <Scalar rdf:about="iucr_diffrn_reflns_limit_k_max_d442c9a91a6840faa20d60879a4f2bcd">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_diffrn_reflns_limit_k_max"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">10.0</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_limit_k_max</hasDictref_att>
-  </cmlx:_diffrn_reflns_limit_k_max>
-  <!-- iucr_diffrn_reflns_limit_k_min_c3d01461ae7d4010a8e71cd0d69d4d66 -->
-  <Scalar rdf:about="iucr_diffrn_reflns_limit_k_min_c3d01461ae7d4010a8e71cd0d69d4d66">
+  </Scalar>
+  <!-- iucr_diffrn_reflns_limit_k_min_bee8afccfdc1417ba54b5e1187c3b9de -->
+  <Scalar rdf:about="iucr_diffrn_reflns_limit_k_min_bee8afccfdc1417ba54b5e1187c3b9de">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_diffrn_reflns_limit_k_min"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-9.0</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_limit_k_min</hasDictref_att>
   </Scalar>
-  <!-- iucr_diffrn_reflns_limit_l_max_d318d08249054030a25ad96d84b8dc67 -->
-  <Scalar rdf:about="iucr_diffrn_reflns_limit_l_max_d318d08249054030a25ad96d84b8dc67">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_diffrn_reflns_limit_l_max"/>
+  <!-- iucr_diffrn_reflns_limit_l_max_2c750c3d57fa4d55a506eaadd14a969f -->
+  <cmlx:_diffrn_reflns_limit_l_max rdf:about="iucr_diffrn_reflns_limit_l_max_2c750c3d57fa4d55a506eaadd14a969f">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">11.0</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_limit_l_max</hasDictref_att>
-  </Scalar>
-  <!-- iucr_diffrn_reflns_limit_l_min_f074ea7e065649b6abe9e15b7fe4a651 -->
-  <cmlx:_diffrn_reflns_limit_l_min rdf:about="iucr_diffrn_reflns_limit_l_min_f074ea7e065649b6abe9e15b7fe4a651">
+  </cmlx:_diffrn_reflns_limit_l_max>
+  <!-- iucr_diffrn_reflns_limit_l_min_e1944a1c6e514ad38aea491ff9e35e78 -->
+  <cmlx:_diffrn_reflns_limit_l_min rdf:about="iucr_diffrn_reflns_limit_l_min_e1944a1c6e514ad38aea491ff9e35e78">
     <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-9.0</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_limit_l_min</hasDictref_att>
   </cmlx:_diffrn_reflns_limit_l_min>
-  <!-- iucr_diffrn_reflns_number_637b970939f942cf9a1def09e67fbd55 -->
-  <Scalar rdf:about="iucr_diffrn_reflns_number_637b970939f942cf9a1def09e67fbd55">
+  <!-- iucr_diffrn_reflns_number_997561968170484797bdf667bc862719 -->
+  <Scalar rdf:about="iucr_diffrn_reflns_number_997561968170484797bdf667bc862719">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_diffrn_reflns_number"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3145.0</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_number</hasDictref_att>
   </Scalar>
-  <!-- iucr_diffrn_reflns_theta_full_11ae8068c56f4991b56ff057db36ebaa -->
-  <Scalar rdf:about="iucr_diffrn_reflns_theta_full_11ae8068c56f4991b56ff057db36ebaa">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_diffrn_reflns_theta_full"/>
+  <!-- iucr_diffrn_reflns_theta_full_dc311d4cd49d4fdabcc744cd818f0076 -->
+  <cmlx:_diffrn_reflns_theta_full rdf:about="iucr_diffrn_reflns_theta_full_dc311d4cd49d4fdabcc744cd818f0076">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">25.0</hasValue>
     <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">deg</hasUnits>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_theta_full</hasDictref_att>
-  </Scalar>
-  <!-- iucr_diffrn_reflns_theta_max_f9c9c069df84409890681e510ea148a4 -->
-  <Scalar rdf:about="iucr_diffrn_reflns_theta_max_f9c9c069df84409890681e510ea148a4">
+  </cmlx:_diffrn_reflns_theta_full>
+  <!-- iucr_diffrn_reflns_theta_max_3cd6a84977de401bacdadab9b1f35ca2 -->
+  <Scalar rdf:about="iucr_diffrn_reflns_theta_max_3cd6a84977de401bacdadab9b1f35ca2">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_diffrn_reflns_theta_max"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">25.0</hasValue>
     <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">deg</hasUnits>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_theta_max</hasDictref_att>
   </Scalar>
-  <!-- iucr_diffrn_reflns_theta_min_84356f4addc745caa02bde5cc3b8baa4 -->
-  <cmlx:_diffrn_reflns_theta_min rdf:about="iucr_diffrn_reflns_theta_min_84356f4addc745caa02bde5cc3b8baa4">
-    <rdf:type rdf:resource="#Scalar"/>
+  <!-- iucr_diffrn_reflns_theta_min_4f62ea58d3f04d0da7d663ef4f43650d -->
+  <Scalar rdf:about="iucr_diffrn_reflns_theta_min_4f62ea58d3f04d0da7d663ef4f43650d">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_diffrn_reflns_theta_min"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2.18</hasValue>
     <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">deg</hasUnits>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_diffrn_reflns_theta_min</hasDictref_att>
-  </cmlx:_diffrn_reflns_theta_min>
-  <!-- iucr_exptl_absorpt_coefficient_mu_ba11d491f2ed48cd95d421600c7064dc -->
-  <Scalar rdf:about="iucr_exptl_absorpt_coefficient_mu_ba11d491f2ed48cd95d421600c7064dc">
+  </Scalar>
+  <!-- iucr_exptl_absorpt_coefficient_mu_9fa982a12c8e4de7822d86c5c394b583 -->
+  <Scalar rdf:about="iucr_exptl_absorpt_coefficient_mu_9fa982a12c8e4de7822d86c5c394b583">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_exptl_absorpt_coefficient_mu"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.524</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_absorpt_coefficient_mu</hasDictref_att>
     <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mm1</hasUnits>
   </Scalar>
-  <!-- iucr_exptl_absorpt_correction_t_max_935c8b7c792947e6b8a3785968c8e76a -->
-  <Scalar rdf:about="iucr_exptl_absorpt_correction_t_max_935c8b7c792947e6b8a3785968c8e76a">
+  <!-- iucr_exptl_absorpt_correction_t_max_81be6270d6b246fca9ba86c67271fb63 -->
+  <Scalar rdf:about="iucr_exptl_absorpt_correction_t_max_81be6270d6b246fca9ba86c67271fb63">
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.7870</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_absorpt_correction_t_max</hasDictref_att>
   </Scalar>
-  <!-- iucr_exptl_absorpt_correction_t_min_a3d04e1b5d54408e89a5b624009c359d -->
-  <Scalar rdf:about="iucr_exptl_absorpt_correction_t_min_a3d04e1b5d54408e89a5b624009c359d">
+  <!-- iucr_exptl_absorpt_correction_t_min_856f363dbe3d4499ba8aa9737a0e04c8 -->
+  <Scalar rdf:about="iucr_exptl_absorpt_correction_t_min_856f363dbe3d4499ba8aa9737a0e04c8">
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.7796</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_absorpt_correction_t_min</hasDictref_att>
   </Scalar>
-  <!-- iucr_exptl_absorpt_correction_type_3fe4860a630d4d8d8b4a5d4d5ed3a4fd -->
-  <cmlx:_exptl_absorpt_correction_type rdf:about="iucr_exptl_absorpt_correction_type_3fe4860a630d4d8d8b4a5d4d5ed3a4fd">
-    <rdf:type rdf:resource="#Scalar"/>
+  <!-- iucr_exptl_absorpt_correction_type_fc5a56acd6874c0f8c6332416c8743e1 -->
+  <Scalar rdf:about="iucr_exptl_absorpt_correction_type_fc5a56acd6874c0f8c6332416c8743e1">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_exptl_absorpt_correction_type"/>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_absorpt_correction_type</hasDictref_att>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">multi-scan</hasValue>
-  </cmlx:_exptl_absorpt_correction_type>
-  <!-- iucr_exptl_absorpt_process_details_1e7b8f107c1c4c33b1569795aafb57a8 -->
-  <cmlx:_exptl_absorpt_process_details rdf:about="iucr_exptl_absorpt_process_details_1e7b8f107c1c4c33b1569795aafb57a8">
+  </Scalar>
+  <!-- iucr_exptl_absorpt_process_details_01defc130d124a519bb820e597db271e -->
+  <cmlx:_exptl_absorpt_process_details rdf:about="iucr_exptl_absorpt_process_details_01defc130d124a519bb820e597db271e">
     <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(SADABS; Sheldrick, 1996)</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_absorpt_process_details</hasDictref_att>
   </cmlx:_exptl_absorpt_process_details>
-  <!-- iucr_exptl_crystal_colour_703e867bb9654ad9b51fcd22b49edbef -->
-  <cmlx:_exptl_crystal_colour rdf:about="iucr_exptl_crystal_colour_703e867bb9654ad9b51fcd22b49edbef">
-    <rdf:type rdf:resource="#Scalar"/>
+  <!-- iucr_exptl_crystal_colour_a6e1baddab284adbbb3f6dd40bed852e -->
+  <Scalar rdf:about="iucr_exptl_crystal_colour_a6e1baddab284adbbb3f6dd40bed852e">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_exptl_crystal_colour"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">colourless</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_crystal_colour</hasDictref_att>
-  </cmlx:_exptl_crystal_colour>
-  <!-- iucr_exptl_crystal_density_diffrn_ee640ea30ed448f3a3a47ab92b27db1e -->
-  <cmlx:_exptl_crystal_density_diffrn rdf:about="iucr_exptl_crystal_density_diffrn_ee640ea30ed448f3a3a47ab92b27db1e">
+  </Scalar>
+  <!-- iucr_exptl_crystal_density_diffrn_990d34fa20e4443991b6c5ab6daba15d -->
+  <cmlx:_exptl_crystal_density_diffrn rdf:about="iucr_exptl_crystal_density_diffrn_990d34fa20e4443991b6c5ab6daba15d">
     <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.488</hasValue>
     <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mgm3</hasUnits>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_crystal_density_diffrn</hasDictref_att>
   </cmlx:_exptl_crystal_density_diffrn>
-  <!-- iucr_exptl_crystal_density_method_0470ab84e0d64714a85f045bf1ac01d3 -->
-  <cmlx:_exptl_crystal_density_method rdf:about="iucr_exptl_crystal_density_method_0470ab84e0d64714a85f045bf1ac01d3">
-    <rdf:type rdf:resource="#Scalar"/>
+  <!-- iucr_exptl_crystal_density_method_9eabb385c8fb41e5a1f412dc18181bb4 -->
+  <Scalar rdf:about="iucr_exptl_crystal_density_method_9eabb385c8fb41e5a1f412dc18181bb4">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_exptl_crystal_density_method"/>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_crystal_density_method</hasDictref_att>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">not measured</hasValue>
-  </cmlx:_exptl_crystal_density_method>
-  <!-- iucr_exptl_crystal_description_d23972c9fb504d9081b858b303c417d9 -->
-  <Scalar rdf:about="iucr_exptl_crystal_description_d23972c9fb504d9081b858b303c417d9">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_exptl_crystal_description"/>
+  </Scalar>
+  <!-- iucr_exptl_crystal_description_c4a139cdde784b93b44852626d83faab -->
+  <cmlx:_exptl_crystal_description rdf:about="iucr_exptl_crystal_description_c4a139cdde784b93b44852626d83faab">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">block</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_crystal_description</hasDictref_att>
-  </Scalar>
-  <!-- iucr_exptl_crystal_f_000_67a313e64230434c8fef882225def90e -->
-  <Scalar rdf:about="iucr_exptl_crystal_f_000_67a313e64230434c8fef882225def90e">
+  </cmlx:_exptl_crystal_description>
+  <!-- iucr_exptl_crystal_f_000_841a1b2e5b1140808d3d9e315516c0d9 -->
+  <Scalar rdf:about="iucr_exptl_crystal_f_000_841a1b2e5b1140808d3d9e315516c0d9">
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">276</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_crystal_f_000</hasDictref_att>
   </Scalar>
-  <!-- iucr_exptl_crystal_size_max_8e7fad209e4f4aa8b07feec81fe71018 -->
-  <Scalar rdf:about="iucr_exptl_crystal_size_max_8e7fad209e4f4aa8b07feec81fe71018">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_exptl_crystal_size_max"/>
+  <!-- iucr_exptl_crystal_size_max_3ff5377b22f2449e855c3b9a93abf786 -->
+  <cmlx:_exptl_crystal_size_max rdf:about="iucr_exptl_crystal_size_max_3ff5377b22f2449e855c3b9a93abf786">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.5</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_crystal_size_max</hasDictref_att>
     <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mm</hasUnits>
-  </Scalar>
-  <!-- iucr_exptl_crystal_size_mid_842cc8e7c3644b8d913ecc21e47fb505 -->
-  <Scalar rdf:about="iucr_exptl_crystal_size_mid_842cc8e7c3644b8d913ecc21e47fb505">
+  </cmlx:_exptl_crystal_size_max>
+  <!-- iucr_exptl_crystal_size_mid_c1aefa69468f4a77ad83520178cf8a21 -->
+  <Scalar rdf:about="iucr_exptl_crystal_size_mid_c1aefa69468f4a77ad83520178cf8a21">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_exptl_crystal_size_mid"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.49</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_crystal_size_mid</hasDictref_att>
     <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mm</hasUnits>
   </Scalar>
-  <!-- iucr_exptl_crystal_size_min_ddd396cb1f0045c4b4cb18e692e8cb0e -->
-  <cmlx:_exptl_crystal_size_min rdf:about="iucr_exptl_crystal_size_min_ddd396cb1f0045c4b4cb18e692e8cb0e">
-    <rdf:type rdf:resource="#Scalar"/>
+  <!-- iucr_exptl_crystal_size_min_40639afca6a44f79a03fc0f69509edac -->
+  <Scalar rdf:about="iucr_exptl_crystal_size_min_40639afca6a44f79a03fc0f69509edac">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_exptl_crystal_size_min"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.48</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_crystal_size_min</hasDictref_att>
     <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mm</hasUnits>
-  </cmlx:_exptl_crystal_size_min>
-  <!-- iucr_exptl_special_details_ca4cf28797ae4856ae0a298e71fc7310 -->
-  <cmlx:_exptl_special_details rdf:about="iucr_exptl_special_details_ca4cf28797ae4856ae0a298e71fc7310">
+  </Scalar>
+  <!-- iucr_exptl_special_details_5bd43eac5d464cb6a719a95965dc5bca -->
+  <cmlx:_exptl_special_details rdf:about="iucr_exptl_special_details_5bd43eac5d464cb6a719a95965dc5bca">
     <rdf:type rdf:resource="#Scalar"/>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_exptl_special_details</hasDictref_att>
   </cmlx:_exptl_special_details>
-  <!-- iucr_geom_special_details_df198b730b00493ab9d10e494f5d6711 -->
-  <cmlx:_geom_special_details rdf:about="iucr_geom_special_details_df198b730b00493ab9d10e494f5d6711">
+  <!-- iucr_geom_special_details_2a02cee5ee84419c852f422d96175c54 -->
+  <cmlx:_geom_special_details rdf:about="iucr_geom_special_details_2a02cee5ee84419c852f422d96175c54">
     <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">All e.s.d.'s (except the e.s.d. in the dihedral angle between two l.s. planes) are estimated using the full covariance matrix. The cell e.s.d.'s are taken into account individually in the estimation of e.s.d.'s in distances, angles and torsion angles; correlations between e.s.d.'s in cell parameters are only used when they are defined by crystal symmetry. An approximate (isotropic) treatment of cell e.s.d.'s is used for estimating e.s.d.'s involving l.s. planes.</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_geom_special_details</hasDictref_att>
   </cmlx:_geom_special_details>
-  <!-- iucr_journal_coeditor_code_be935aba6b5e474bb3e2c5181442d458 -->
-  <cmlx:_journal_coeditor_code rdf:about="iucr_journal_coeditor_code_be935aba6b5e474bb3e2c5181442d458">
+  <!-- iucr_journal_coeditor_code_8d300dd44add48b499c1c573875759f1 -->
+  <cmlx:_journal_coeditor_code rdf:about="iucr_journal_coeditor_code_8d300dd44add48b499c1c573875759f1">
     <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">BG2182</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_journal_coeditor_code</hasDictref_att>
   </cmlx:_journal_coeditor_code>
-  <!-- iucr_journal_date_accepted_d2334b65d447421bb630c6c250c97ca2 -->
-  <cmlx:_journal_date_accepted rdf:about="iucr_journal_date_accepted_d2334b65d447421bb630c6c250c97ca2">
+  <!-- iucr_journal_date_accepted_1811c7a79861401984435123d7908eee -->
+  <cmlx:_journal_date_accepted rdf:about="iucr_journal_date_accepted_1811c7a79861401984435123d7908eee">
     <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2008-05-18</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_journal_date_accepted</hasDictref_att>
   </cmlx:_journal_date_accepted>
-  <!-- iucr_journal_date_recd_electronic_b8a068b73caa4f1f9299079d5af2c4af -->
-  <Scalar rdf:about="iucr_journal_date_recd_electronic_b8a068b73caa4f1f9299079d5af2c4af">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_journal_date_recd_electronic"/>
+  <!-- iucr_journal_date_recd_electronic_b5ffdf983e9241e0ad1a0b0b6e19ae7b -->
+  <cmlx:_journal_date_recd_electronic rdf:about="iucr_journal_date_recd_electronic_b5ffdf983e9241e0ad1a0b0b6e19ae7b">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2008-04-10</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_journal_date_recd_electronic</hasDictref_att>
-  </Scalar>
-  <!-- iucr_journal_issue_5f538e6fcfe64ed6bbfc90d2c8482001 -->
-  <cmlx:_journal_issue rdf:about="iucr_journal_issue_5f538e6fcfe64ed6bbfc90d2c8482001">
-    <rdf:type rdf:resource="#Scalar"/>
+  </cmlx:_journal_date_recd_electronic>
+  <!-- iucr_journal_issue_cd9d03e01bbb499493522851e74d54db -->
+  <Scalar rdf:about="iucr_journal_issue_cd9d03e01bbb499493522851e74d54db">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_journal_issue"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_journal_issue</hasDictref_att>
-  </cmlx:_journal_issue>
-  <!-- iucr_journal_name_full_3104a7f17fcc4d308ca0d0c399f40f8c -->
-  <Scalar rdf:about="iucr_journal_name_full_3104a7f17fcc4d308ca0d0c399f40f8c">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_journal_name_full"/>
+  </Scalar>
+  <!-- iucr_journal_name_full_202d7198b69a43519293415525c7a022 -->
+  <cmlx:_journal_name_full rdf:about="iucr_journal_name_full_202d7198b69a43519293415525c7a022">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Acta Crystallographica, Section E</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_journal_name_full</hasDictref_att>
-  </Scalar>
-  <!-- iucr_journal_page_first_dce52e23226446bb9b99a590afe6bece -->
-  <cmlx:_journal_page_first rdf:about="iucr_journal_page_first_dce52e23226446bb9b99a590afe6bece">
+  </cmlx:_journal_name_full>
+  <!-- iucr_journal_page_first_26f95b6419994ccaa02f35f871e23f23 -->
+  <cmlx:_journal_page_first rdf:about="iucr_journal_page_first_26f95b6419994ccaa02f35f871e23f23">
     <rdf:type rdf:resource="#Scalar"/>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_journal_page_first</hasDictref_att>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">o1224</hasValue>
   </cmlx:_journal_page_first>
-  <!-- iucr_journal_page_last_c68d637a26974ff7895dd48a90d1af24 -->
-  <cmlx:_journal_page_last rdf:about="iucr_journal_page_last_c68d637a26974ff7895dd48a90d1af24">
+  <!-- iucr_journal_page_last_578a7ae4a8934b1e81822b1b42592309 -->
+  <cmlx:_journal_page_last rdf:about="iucr_journal_page_last_578a7ae4a8934b1e81822b1b42592309">
     <rdf:type rdf:resource="#Scalar"/>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_journal_page_last</hasDictref_att>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">o1224</hasValue>
   </cmlx:_journal_page_last>
-  <!-- iucr_journal_paper_category_18390bd8c66d4696b6e2bd5f15ee1582 -->
-  <Scalar rdf:about="iucr_journal_paper_category_18390bd8c66d4696b6e2bd5f15ee1582">
+  <!-- iucr_journal_paper_category_b251717596d748c2bb0238d074ba6f6b -->
+  <Scalar rdf:about="iucr_journal_paper_category_b251717596d748c2bb0238d074ba6f6b">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_journal_paper_category"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">QO</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_journal_paper_category</hasDictref_att>
   </Scalar>
-  <!-- iucr_journal_volume_29eaab7aeb3e47af8e912b2ee6f17779 -->
-  <Scalar rdf:about="iucr_journal_volume_29eaab7aeb3e47af8e912b2ee6f17779">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_journal_volume"/>
+  <!-- iucr_journal_volume_e5af8b46151c47958fdea13972a36ac1 -->
+  <cmlx:_journal_volume rdf:about="iucr_journal_volume_e5af8b46151c47958fdea13972a36ac1">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">64</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_journal_volume</hasDictref_att>
-  </Scalar>
-  <!-- iucr_journal_year_e2dcb708eeec4caaaaff54a2ca63e632 -->
-  <cmlx:_journal_year rdf:about="iucr_journal_year_e2dcb708eeec4caaaaff54a2ca63e632">
-    <rdf:type rdf:resource="#Scalar"/>
+  </cmlx:_journal_volume>
+  <!-- iucr_journal_year_7afe8ec503f94fb8886cadc55e6ea3fe -->
+  <Scalar rdf:about="iucr_journal_year_7afe8ec503f94fb8886cadc55e6ea3fe">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_journal_year"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2008</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_journal_year</hasDictref_att>
-  </cmlx:_journal_year>
-  <!-- iucr_publ_contact_author_address_9c5961124b2b4f78a631e3d9d0ea5059 -->
-  <cmlx:_publ_contact_author_address rdf:about="iucr_publ_contact_author_address_9c5961124b2b4f78a631e3d9d0ea5059">
+  </Scalar>
+  <!-- iucr_publ_contact_author_address_1e04954981dc4a8294a74b23d56ff056 -->
+  <cmlx:_publ_contact_author_address rdf:about="iucr_publ_contact_author_address_1e04954981dc4a8294a74b23d56ff056">
     <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Department of Chemistry Guangxi University for Nationalities Nanning 530004 People's Republic of China</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_publ_contact_author_address</hasDictref_att>
   </cmlx:_publ_contact_author_address>
-  <!-- iucr_publ_contact_author_email_45cfe72daa284f90be038f2715decf19 -->
-  <cmlx:_publ_contact_author_email rdf:about="iucr_publ_contact_author_email_45cfe72daa284f90be038f2715decf19">
-    <rdf:type rdf:resource="#Scalar"/>
+  <!-- iucr_publ_contact_author_email_4040b3ebb3fb44d294d1f9a216e7af24 -->
+  <Scalar rdf:about="iucr_publ_contact_author_email_4040b3ebb3fb44d294d1f9a216e7af24">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_publ_contact_author_email"/>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_publ_contact_author_email</hasDictref_att>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">yxhphd@163.com</hasValue>
-  </cmlx:_publ_contact_author_email>
-  <!-- iucr_publ_contact_author_fax_c0bc85fb39574378a95e86450b7a4bcc -->
-  <cmlx:_publ_contact_author_fax rdf:about="iucr_publ_contact_author_fax_c0bc85fb39574378a95e86450b7a4bcc">
-    <rdf:type rdf:resource="#Scalar"/>
+  </Scalar>
+  <!-- iucr_publ_contact_author_fax_e5bbd3fee2f548a4ac71d08d18c832e4 -->
+  <Scalar rdf:about="iucr_publ_contact_author_fax_e5bbd3fee2f548a4ac71d08d18c832e4">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_publ_contact_author_fax"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0086-771-3262396</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_publ_contact_author_fax</hasDictref_att>
-  </cmlx:_publ_contact_author_fax>
-  <!-- iucr_publ_contact_author_name_8ad7cc8c7087444992e136bb21caf9d8 -->
-  <cmlx:_publ_contact_author_name rdf:about="iucr_publ_contact_author_name_8ad7cc8c7087444992e136bb21caf9d8">
-    <rdf:type rdf:resource="#Scalar"/>
+  </Scalar>
+  <!-- iucr_publ_contact_author_name_0610e71d4f9c4efe8cf9be1bbe299a10 -->
+  <Scalar rdf:about="iucr_publ_contact_author_name_0610e71d4f9c4efe8cf9be1bbe299a10">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_publ_contact_author_name"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Xian-Hong Yin</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_publ_contact_author_name</hasDictref_att>
-  </cmlx:_publ_contact_author_name>
-  <!-- iucr_publ_contact_author_phone_6bed8320c8344187a5bfbfbe1d51fc65 -->
-  <Scalar rdf:about="iucr_publ_contact_author_phone_6bed8320c8344187a5bfbfbe1d51fc65">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_publ_contact_author_phone"/>
+  </Scalar>
+  <!-- iucr_publ_contact_author_phone_83e6b8f10f0b44978e5115cf1335fc14 -->
+  <cmlx:_publ_contact_author_phone rdf:about="iucr_publ_contact_author_phone_83e6b8f10f0b44978e5115cf1335fc14">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0086-771-3262396</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_publ_contact_author_phone</hasDictref_att>
-  </Scalar>
-  <!-- iucr_publ_section_title_45fe8619bcdf4922a59266d3630ee00b -->
-  <Scalar rdf:about="iucr_publ_section_title_45fe8619bcdf4922a59266d3630ee00b">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_publ_section_title"/>
+  </cmlx:_publ_contact_author_phone>
+  <!-- iucr_publ_section_title_7d092c5aac00404582666b2cb54f3b25 -->
+  <cmlx:_publ_section_title rdf:about="iucr_publ_section_title_7d092c5aac00404582666b2cb54f3b25">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(3,6-Dichloropyridin-2-yl)(3,5-dimethyl-1&lt;i&gt;H&lt;/i&gt;-pyrazol-1-yl)methanone</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_publ_section_title</hasDictref_att>
-  </Scalar>
-  <!-- iucr_refine_diff_density_max_a985f46d000e4e78bd7fe8c068599ab0 -->
-  <Scalar rdf:about="iucr_refine_diff_density_max_a985f46d000e4e78bd7fe8c068599ab0">
+  </cmlx:_publ_section_title>
+  <!-- iucr_refine_diff_density_max_c88c1d1ae2ee417f81f633b7a3880185 -->
+  <Scalar rdf:about="iucr_refine_diff_density_max_c88c1d1ae2ee417f81f633b7a3880185">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_refine_diff_density_max"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.224</hasValue>
     <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e_A3</hasUnits>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_diff_density_max</hasDictref_att>
   </Scalar>
-  <!-- iucr_refine_diff_density_min_b3385f68289b4e8ca5699f2dea597aa0 -->
-  <cmlx:_refine_diff_density_min rdf:about="iucr_refine_diff_density_min_b3385f68289b4e8ca5699f2dea597aa0">
-    <rdf:type rdf:resource="#Scalar"/>
+  <!-- iucr_refine_diff_density_min_7cd79499fa304d0293778571f7e452ed -->
+  <Scalar rdf:about="iucr_refine_diff_density_min_7cd79499fa304d0293778571f7e452ed">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_refine_diff_density_min"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-0.274</hasValue>
     <hasUnits rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e_A3</hasUnits>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_diff_density_min</hasDictref_att>
-  </cmlx:_refine_diff_density_min>
-  <!-- iucr_refine_ls_extinction_method_d1ff3b739be042dfa86530c93b367edb -->
-  <Scalar rdf:about="iucr_refine_ls_extinction_method_d1ff3b739be042dfa86530c93b367edb">
+  </Scalar>
+  <!-- iucr_refine_ls_extinction_method_4b860c34fad84beb840c4640d233da71 -->
+  <Scalar rdf:about="iucr_refine_ls_extinction_method_4b860c34fad84beb840c4640d233da71">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_refine_ls_extinction_method"/>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_extinction_method</hasDictref_att>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">none</hasValue>
   </Scalar>
-  <!-- iucr_refine_ls_goodness_of_fit_ref_15e4ff787a7e465fb8b98c2f2886b4b3 -->
-  <Scalar rdf:about="iucr_refine_ls_goodness_of_fit_ref_15e4ff787a7e465fb8b98c2f2886b4b3">
+  <!-- iucr_refine_ls_goodness_of_fit_ref_a156efab7a0948f3a7e9efeeb5d90989 -->
+  <Scalar rdf:about="iucr_refine_ls_goodness_of_fit_ref_a156efab7a0948f3a7e9efeeb5d90989">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_refine_ls_goodness_of_fit_ref"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.044</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_goodness_of_fit_ref</hasDictref_att>
   </Scalar>
-  <!-- iucr_refine_ls_hydrogen_treatment_16cdbe675c7f4aea94b370efa5f65058 -->
-  <Scalar rdf:about="iucr_refine_ls_hydrogen_treatment_16cdbe675c7f4aea94b370efa5f65058">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_refine_ls_hydrogen_treatment"/>
+  <!-- iucr_refine_ls_hydrogen_treatment_417aa10dfedc4843b9b6de92fc5a5692 -->
+  <cmlx:_refine_ls_hydrogen_treatment rdf:about="iucr_refine_ls_hydrogen_treatment_417aa10dfedc4843b9b6de92fc5a5692">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">constr</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_hydrogen_treatment</hasDictref_att>
-  </Scalar>
-  <!-- iucr_refine_ls_matrix_type_12ffa50fec32438ca76ca115e024d5ca -->
-  <cmlx:_refine_ls_matrix_type rdf:about="iucr_refine_ls_matrix_type_12ffa50fec32438ca76ca115e024d5ca">
-    <rdf:type rdf:resource="#Scalar"/>
+  </cmlx:_refine_ls_hydrogen_treatment>
+  <!-- iucr_refine_ls_matrix_type_a477e4d351d64fcba945649d4682c0e2 -->
+  <Scalar rdf:about="iucr_refine_ls_matrix_type_a477e4d351d64fcba945649d4682c0e2">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_refine_ls_matrix_type"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">full</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_matrix_type</hasDictref_att>
-  </cmlx:_refine_ls_matrix_type>
-  <!-- iucr_refine_ls_number_parameters_106261f8ec30476f933ca0ec5f2db8f2 -->
-  <Scalar rdf:about="iucr_refine_ls_number_parameters_106261f8ec30476f933ca0ec5f2db8f2">
+  </Scalar>
+  <!-- iucr_refine_ls_number_parameters_8d1c6b0cd0e24eec9036d9197e0fbba5 -->
+  <Scalar rdf:about="iucr_refine_ls_number_parameters_8d1c6b0cd0e24eec9036d9197e0fbba5">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_refine_ls_number_parameters"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">154.0</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_number_parameters</hasDictref_att>
   </Scalar>
-  <!-- iucr_refine_ls_number_reflns_263b7e1758ca421c9454a3235f1ee7fe -->
-  <Scalar rdf:about="iucr_refine_ls_number_reflns_263b7e1758ca421c9454a3235f1ee7fe">
+  <!-- iucr_refine_ls_number_reflns_8b1ff4d0eaaf48cdb046961275d1bbfc -->
+  <Scalar rdf:about="iucr_refine_ls_number_reflns_8b1ff4d0eaaf48cdb046961275d1bbfc">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_refine_ls_number_reflns"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2101.0</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_number_reflns</hasDictref_att>
   </Scalar>
-  <!-- iucr_refine_ls_number_restraints_cd6419128bc84f6f96d2efc4d1cb9504 -->
-  <cmlx:_refine_ls_number_restraints rdf:about="iucr_refine_ls_number_restraints_cd6419128bc84f6f96d2efc4d1cb9504">
-    <rdf:type rdf:resource="#Scalar"/>
+  <!-- iucr_refine_ls_number_restraints_2b486bcb39ba43ffa04f8ed63eef6d04 -->
+  <Scalar rdf:about="iucr_refine_ls_number_restraints_2b486bcb39ba43ffa04f8ed63eef6d04">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_refine_ls_number_restraints"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_number_restraints</hasDictref_att>
-  </cmlx:_refine_ls_number_restraints>
-  <!-- iucr_refine_ls_r_factor_all_ceaa103955b24ce09b94ca44608cc37d -->
-  <Scalar rdf:about="iucr_refine_ls_r_factor_all_ceaa103955b24ce09b94ca44608cc37d">
+  </Scalar>
+  <!-- iucr_refine_ls_r_factor_all_a56965a66420442bae9dca56b7a45273 -->
+  <Scalar rdf:about="iucr_refine_ls_r_factor_all_a56965a66420442bae9dca56b7a45273">
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.0647</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_r_factor_all</hasDictref_att>
   </Scalar>
-  <!-- iucr_refine_ls_r_factor_gt_9a4accb947c448a687a25fd082c21a2a -->
-  <Scalar rdf:about="iucr_refine_ls_r_factor_gt_9a4accb947c448a687a25fd082c21a2a">
+  <!-- iucr_refine_ls_r_factor_gt_9bb5664d9ec346708261bbc8f7aacb77 -->
+  <Scalar rdf:about="iucr_refine_ls_r_factor_gt_9bb5664d9ec346708261bbc8f7aacb77">
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.0442</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_r_factor_gt</hasDictref_att>
   </Scalar>
-  <!-- iucr_refine_ls_restrained_s_all_37e256b7aeea492a8cca6a72e640a9a7 -->
-  <Scalar rdf:about="iucr_refine_ls_restrained_s_all_37e256b7aeea492a8cca6a72e640a9a7">
+  <!-- iucr_refine_ls_restrained_s_all_d2b10a453ccb4a4eb90d8a5c2fc2ad7f -->
+  <Scalar rdf:about="iucr_refine_ls_restrained_s_all_d2b10a453ccb4a4eb90d8a5c2fc2ad7f">
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1.044</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_restrained_s_all</hasDictref_att>
   </Scalar>
-  <!-- iucr_refine_ls_shiftsu_max_e2f90fbfef8e442db81ba6952f9988e7 -->
-  <Scalar rdf:about="iucr_refine_ls_shiftsu_max_e2f90fbfef8e442db81ba6952f9988e7">
+  <!-- iucr_refine_ls_shiftsu_max_18baafeef7ec4cc7b1ccb47787f06272 -->
+  <Scalar rdf:about="iucr_refine_ls_shiftsu_max_18baafeef7ec4cc7b1ccb47787f06272">
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.000</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_shift/su_max</hasDictref_att>
   </Scalar>
-  <!-- iucr_refine_ls_shiftsu_mean_75d5926cf4af41b1abd89d2263805479 -->
-  <Scalar rdf:about="iucr_refine_ls_shiftsu_mean_75d5926cf4af41b1abd89d2263805479">
+  <!-- iucr_refine_ls_shiftsu_mean_34d006665fad45d8a42770cb24892ffb -->
+  <Scalar rdf:about="iucr_refine_ls_shiftsu_mean_34d006665fad45d8a42770cb24892ffb">
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.000</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_shift/su_mean</hasDictref_att>
   </Scalar>
-  <!-- iucr_refine_ls_structure_factor_coef_7e273a02220145ef991a55f70f81dfbb -->
-  <cmlx:_refine_ls_structure_factor_coef rdf:about="iucr_refine_ls_structure_factor_coef_7e273a02220145ef991a55f70f81dfbb">
-    <rdf:type rdf:resource="#Scalar"/>
+  <!-- iucr_refine_ls_structure_factor_coef_6576d79d124443169d347d7b3e1dc676 -->
+  <Scalar rdf:about="iucr_refine_ls_structure_factor_coef_6576d79d124443169d347d7b3e1dc676">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_refine_ls_structure_factor_coef"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fsqd</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_structure_factor_coef</hasDictref_att>
-  </cmlx:_refine_ls_structure_factor_coef>
-  <!-- iucr_refine_ls_weighting_details_2b33832ea19641629a762a1530a897bd -->
-  <cmlx:_refine_ls_weighting_details rdf:about="iucr_refine_ls_weighting_details_2b33832ea19641629a762a1530a897bd">
-    <rdf:type rdf:resource="#Scalar"/>
+  </Scalar>
+  <!-- iucr_refine_ls_weighting_details_1214c13fa8844b6ea049eb8b507bf1d4 -->
+  <Scalar rdf:about="iucr_refine_ls_weighting_details_1214c13fa8844b6ea049eb8b507bf1d4">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_refine_ls_weighting_details"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">calc w=1/[\s^2^(Fo^2^)+(0.0468P)^2^+0.2168P] where P=(Fo^2^+2Fc^2^)/3</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_weighting_details</hasDictref_att>
-  </cmlx:_refine_ls_weighting_details>
-  <!-- iucr_refine_ls_weighting_scheme_753b0b11b61d4a33a43c9be17b285ac3 -->
-  <Scalar rdf:about="iucr_refine_ls_weighting_scheme_753b0b11b61d4a33a43c9be17b285ac3">
+  </Scalar>
+  <!-- iucr_refine_ls_weighting_scheme_3fab8a7e90194168be223c4f45f15bf1 -->
+  <Scalar rdf:about="iucr_refine_ls_weighting_scheme_3fab8a7e90194168be223c4f45f15bf1">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_refine_ls_weighting_scheme"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">calc</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_weighting_scheme</hasDictref_att>
   </Scalar>
-  <!-- iucr_refine_ls_wr_factor_gt_fa68d2e50aee4ae09e2d48eaa7f235f9 -->
-  <Scalar rdf:about="iucr_refine_ls_wr_factor_gt_fa68d2e50aee4ae09e2d48eaa7f235f9">
+  <!-- iucr_refine_ls_wr_factor_gt_27d726819f574d1597332c7447ed2a70 -->
+  <Scalar rdf:about="iucr_refine_ls_wr_factor_gt_27d726819f574d1597332c7447ed2a70">
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.1096</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_wr_factor_gt</hasDictref_att>
   </Scalar>
-  <!-- iucr_refine_ls_wr_factor_ref_fe9e36ad917c49a785ee6d5dc86edbae -->
-  <Scalar rdf:about="iucr_refine_ls_wr_factor_ref_fe9e36ad917c49a785ee6d5dc86edbae">
+  <!-- iucr_refine_ls_wr_factor_ref_2b8c50d710e14cf3a360a5553cc97dcc -->
+  <Scalar rdf:about="iucr_refine_ls_wr_factor_ref_2b8c50d710e14cf3a360a5553cc97dcc">
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.1263</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_ls_wr_factor_ref</hasDictref_att>
   </Scalar>
-  <!-- iucr_refine_special_details_6d469275e35f4e21a2e50990f5919519 -->
-  <Scalar rdf:about="iucr_refine_special_details_6d469275e35f4e21a2e50990f5919519">
+  <!-- iucr_refine_special_details_464b3b9292d04b3fa19436ff3b3af975 -->
+  <Scalar rdf:about="iucr_refine_special_details_464b3b9292d04b3fa19436ff3b3af975">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_refine_special_details"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Refinement of &lt;i&gt;F&lt;/i&gt;^2^ against ALL reflections. The weighted &lt;i&gt;R&lt;/i&gt;-factor &lt;i&gt;wR&lt;/i&gt; and goodness of fit &lt;i&gt;S&lt;/i&gt; are based on &lt;i&gt;F&lt;/i&gt;^2^, conventional &lt;i&gt;R&lt;/i&gt;-factors &lt;i&gt;R&lt;/i&gt; are based on &lt;i&gt;F&lt;/i&gt;, with &lt;i&gt;F&lt;/i&gt; set to zero for negative &lt;i&gt;F&lt;/i&gt;^2^. The threshold expression of &lt;i&gt;F&lt;/i&gt;^2^ &gt; \s(&lt;i&gt;F&lt;/i&gt;^2^) is used only for calculating &lt;i&gt;R&lt;/i&gt;-factors(gt) &lt;i&gt;etc&lt;/i&gt;. and is not relevant to the choice of reflections for refinement. &lt;i&gt;R&lt;/i&gt;-factors based on &lt;i&gt;F&lt;/i&gt;^2^ are statistically about twice as large as those based on &lt;i&gt;F&lt;/i&gt;, and &lt;i&gt;R&lt;/i&gt;- factors based on ALL data will be even larger.</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_refine_special_details</hasDictref_att>
   </Scalar>
-  <!-- iucr_reflns_number_gt_e587b62d50ea4f29afdffb55a5719a6b -->
-  <cmlx:_reflns_number_gt rdf:about="iucr_reflns_number_gt_e587b62d50ea4f29afdffb55a5719a6b">
-    <rdf:type rdf:resource="#Scalar"/>
+  <!-- iucr_reflns_number_gt_c517777d90ba40a88c970a04e4c8738f -->
+  <Scalar rdf:about="iucr_reflns_number_gt_c517777d90ba40a88c970a04e4c8738f">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_reflns_number_gt"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1543.0</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_reflns_number_gt</hasDictref_att>
-  </cmlx:_reflns_number_gt>
-  <!-- iucr_reflns_number_total_8d04babd3b1548aa9ee5520ab8312dc9 -->
-  <cmlx:_reflns_number_total rdf:about="iucr_reflns_number_total_8d04babd3b1548aa9ee5520ab8312dc9">
-    <rdf:type rdf:resource="#Scalar"/>
+  </Scalar>
+  <!-- iucr_reflns_number_total_d94f501baca342f798c5cda296e8f3c3 -->
+  <Scalar rdf:about="iucr_reflns_number_total_d94f501baca342f798c5cda296e8f3c3">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_reflns_number_total"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2102.0</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_reflns_number_total</hasDictref_att>
-  </cmlx:_reflns_number_total>
-  <!-- iucr_reflns_threshold_expression_73f7ee310909451f83b2dcbea282a3c8 -->
-  <Scalar rdf:about="iucr_reflns_threshold_expression_73f7ee310909451f83b2dcbea282a3c8">
+  </Scalar>
+  <!-- iucr_reflns_threshold_expression_842365c3dc4b481881c7625348a76876 -->
+  <Scalar rdf:about="iucr_reflns_threshold_expression_842365c3dc4b481881c7625348a76876">
     <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_reflns_threshold_expression"/>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">I&gt;2\s(I)</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_reflns_threshold_expression</hasDictref_att>
   </Scalar>
-  <!-- iucr_symmetry_cell_setting_330f433cf048469abe2ce0707600c133 -->
-  <Scalar rdf:about="iucr_symmetry_cell_setting_330f433cf048469abe2ce0707600c133">
-    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#_symmetry_cell_setting"/>
+  <!-- iucr_symmetry_cell_setting_315e263ec9974ea0b48f8f463ed7df46 -->
+  <cmlx:_symmetry_cell_setting rdf:about="iucr_symmetry_cell_setting_315e263ec9974ea0b48f8f463ed7df46">
+    <rdf:type rdf:resource="#Scalar"/>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_symmetry_cell_setting</hasDictref_att>
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">triclinic</hasValue>
-  </Scalar>
-  <!-- iucr_symmetry_space_group_name_hall_92b636bc50c54b36987c0810ef728e58 -->
-  <Scalar rdf:about="iucr_symmetry_space_group_name_hall_92b636bc50c54b36987c0810ef728e58">
+  </cmlx:_symmetry_cell_setting>
+  <!-- iucr_symmetry_space_group_name_hall_3a30b85ceff24c76abcae8b89323347b -->
+  <Scalar rdf:about="iucr_symmetry_space_group_name_hall_3a30b85ceff24c76abcae8b89323347b">
     <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">-P 1</hasValue>
     <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iucr:_symmetry_space_group_name_hall</hasDictref_att>
   </Scalar>
-  <!-- molecule_74dc29bd3f6c4d82b1b49feec94e4210 -->
-  <Molecule rdf:about="molecule_74dc29bd3f6c4d82b1b49feec94e4210"/>
-  <!-- property_301ab7f3ab6c4706b667cc66123ba5c2 -->
-  <Property rdf:about="property_301ab7f3ab6c4706b667cc66123ba5c2"/>
-  <!-- file:/Users/ojd20/workspace/jumbo-converters/jumbo-converters-rdf/target/classes/dic.owl -->
-  <rdf:Description rdf:about="file:/Users/ojd20/workspace/jumbo-converters/jumbo-converters-rdf/target/classes/dic.owl">
+  <!-- molecule_b38d400437a44ce0aed674a4bc38798a -->
+  <Molecule rdf:about="molecule_b38d400437a44ce0aed674a4bc38798a"/>
+  <!-- property_007fc740ade54b79accf1352a1b027fa -->
+  <Property rdf:about="property_007fc740ade54b79accf1352a1b027fa"/>
+  <!-- file:/C:/Users/pm286/workspace/jumbo-converters/jumbo-converters-rdf/target/classes/dic.owl -->
+  <rdf:Description rdf:about="file:/C:/Users/pm286/workspace/jumbo-converters/jumbo-converters-rdf/target/classes/dic.owl">
     <hasCmlChild rdf:resource="httpwww.xmlcml.orgschemaI"/>
   </rdf:Description>
   <!-- http://www.xml-cml.org/schema#dictionary1 -->
