@@ -85,8 +85,10 @@ public class RegressionSuite {
 									refElement, outElement, true, 0.00001);
 						}
 					} catch (Exception e) {
-						LOG.warn("Cannot compare non-xml files");
+						throw new RuntimeException("Test failure ", e);
 					}
+				} else {
+					LOG.warn("Cannot compare non-xml files");
 				}
 			}
 		}
