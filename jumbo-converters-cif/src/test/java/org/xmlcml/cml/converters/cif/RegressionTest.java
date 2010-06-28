@@ -28,12 +28,6 @@ public class RegressionTest {
       RegressionSuite.run("cif/cifxml", "xml", "cml",
                             new CIFXML2CMLConverter());
    }
-   
-   //@Ignore
-   @Test
-   public void rawcml2cml() {
-      RegressionSuite.run("cif/rawcml", "cif.cml", "comp.cml",
-                            new RawCML2CompleteCMLConverter());
-   }
+
 
 }

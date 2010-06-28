@@ -1,6 +1,7 @@
 package org.xmlcml.cml.converters.rdf.cml;
 
 import java.io.ByteArrayOutputStream;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.URI;
