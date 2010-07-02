@@ -1,10 +1,10 @@
 package org.xmlcml.cml.converters.rdf.cml;
 
 import java.io.ByteArrayOutputStream;
-
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,6 +25,7 @@ import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtomArray;
 import org.xmlcml.cml.element.CMLBondArray;
 import org.xmlcml.cml.element.CMLCml;
+import org.xmlcml.cml.element.CMLCrystal;
 import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.element.CMLEntry;
 import org.xmlcml.cml.element.CMLFormula;
@@ -109,6 +110,30 @@ public class CML2RDF {
       return rdfXml;
    }
 
+   /** main entry point
+    * processes by recursive descent
+    * @param cmlElement top element
+    * @return
+    */
+   public List<String> convertCMLElementToN3(CMLElement cmlElement) {
+
+      processElement(null, cmlElement, 1000);
+
+      List<String> lines = new ArrayList<String>();
+      try {
+    	  ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    	  rdfModel.write(baos, "N3");
+    	  String ss = new String(baos.toByteArray());
+    	  String[] linex = ss.split("\\r?\\n\\r?");
+    	  for (String line : linex) {
+    		  lines.add(line);
+    	  }
+      } catch (Exception e) {
+    	  throw new RuntimeException("CML exception ", e);
+      }
+      return lines;
+   }
+
    private void processElement(Resource resource, CMLElement cmlElement,
            int count) {
       if (--count < 0) {
@@ -119,7 +144,9 @@ public class CML2RDF {
       } else if (cmlElement instanceof CMLAtomArray) {
       } else if (cmlElement instanceof CMLBondArray) {
       } else if (cmlElement instanceof CMLCml) {
-         processCml(resource, cmlElement, count - 1);
+          processCml(resource, cmlElement, count - 1);
+      } else if (cmlElement instanceof CMLCrystal) {
+          processCrystal(resource, cmlElement, count - 1);
       } else if (cmlElement instanceof CMLDictionary) {
          processDictionary(resource, cmlElement, count - 1);
       } else if (cmlElement instanceof CMLEntry) {
@@ -271,6 +298,15 @@ public class CML2RDF {
    /**
     * @param cmlElement
     */
+   private void processCrystal(Resource resource, CMLElement cmlElement,
+           int count) {
+      Resource newResource = createResourceAndAddToSubject(resource, cmlElement);
+      addIDAttributesAndChildren(newResource, cmlElement, count - 1);
+   }
+   
+ /**
+    * @param cmlElement
+    */
    private void processEntry(Resource resource, CMLElement cmlElement, int count) {
       Resource newResource = createResourceAndAddToSubject(resource, cmlElement);
       addIDAttributesAndChildren(newResource, cmlElement, count - 1);
@@ -336,6 +372,7 @@ public class CML2RDF {
       addIDAttributesAndChildren(newResource, cmlElement, count - 1);
    }
 
+  
    /**
     * @param cmlElement
     */
@@ -416,4 +453,5 @@ public class CML2RDF {
       }
       return xml;
    }
-}
+	
+  }
