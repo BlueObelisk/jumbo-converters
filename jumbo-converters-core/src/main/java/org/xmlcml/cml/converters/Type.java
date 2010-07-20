@@ -40,6 +40,7 @@ public class Type {
 	public static final Type IMAGE;
 	public static final Type JDX;
 	public static final Type MDL;
+	public static final Type N3;
 	public static final Type NAME;
 	public static final Type OWL;
 	public static final Type PDF;
@@ -91,6 +92,7 @@ public class Type {
 				"jdx");
 		MDL = new Type("chemical/x-mdl-molfile",
 				ObjectType.TEXT, "mol");
+		N3 = new Type("text/n3; charset=utf-8", ObjectType.BYTES, "n3");
 		NAME = new Type("text/text",
 				ObjectType.TEXT, "name");
 		OWL = new Type("application/rdf+xml",
@@ -129,6 +131,7 @@ public class Type {
 		typeList.add(HTML);
 		typeList.add(JDX);
 		typeList.add(MDL);
+		typeList.add(N3);
 		typeList.add(NAME);
 		typeList.add(OWL);
 		typeList.add(PDF);
