@@ -15,8 +15,14 @@ public class Value {
 	String max;
 	String point;
 	private Elements childElements;
+	private Units units;
 
-	public Value(Element valueElement) {
+	/**
+	 * 
+	 * @param valueElement
+	 * @param unitsElement may be null if no &lt;units> follows the &lt;value>
+	 */
+	public Value(Element valueElement, Element unitsElement) {
 		Elements minElements = valueElement.getChildElements("min");
 		Elements maxElements = valueElement.getChildElements("max");
 		Elements pointElements = valueElement.getChildElements("point");
@@ -27,6 +33,14 @@ public class Value {
 		min = getValue(minElements, "min");
 		max = getValue(maxElements, "max");
 		point = getValue(pointElements, "point");
+		if (point == null) {
+			if (min == null || max == null) {
+				throw new RuntimeException("peak must have point or min and max");
+			}
+		}
+		if (unitsElement != null) {
+			units = new Units(unitsElement);
+		}
 	}
 	
 	private String getValue(Elements elements, String type) {
@@ -37,5 +51,21 @@ public class Value {
 			content = elements.get(0).getValue();
 		}
 		return content;
+	}
+
+	public String getPoint() {
+		return point;
+	}
+
+	public Units getUnits() {
+		return units;
+	}
+
+	public String getMin() {
+		return min;
+	}
+
+	public String getMax() {
+		return max;
 	}
 }

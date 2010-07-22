@@ -43,11 +43,11 @@ public class Quantity {
 	private String peakType;
 	private Value coupling;
 	private String comment;
-	private Units units;
 	private List<Value> valueList;
-	private String min;
-	private String max;
-	private String point;
+
+	public List<Value> getValueList() {
+		return valueList;
+	}
 
 	public Quantity(Element element) {
 		getType(element);
@@ -59,48 +59,38 @@ public class Quantity {
 			processText(texts.get(0));
 		} else if (valueElements.size() + unitsElements.size() == childElements.size()) {
 			processValues();
-			processUnits();
+//			processUnits();
 		}
 	}
 
-	public String getMin() {
-		return min;
-	}
 
-	public String getMax() {
-		return max;
-	}
-
-	public String getPoint() {
-		return point;
-	}
-
-	public Units getUnits() {
-		return units;
-	}
-
-	private void processUnits() {
-		if (unitsElements.size() > 1) {
-			throw new RuntimeException("only one units allowed");
-		} else if (unitsElements.size() == 1) {
-			units = new Units(unitsElements.get(0));
-		}
-	}
+//	private void processUnits() {
+//		if (unitsElements.size() > 1) {
+//			throw new RuntimeException("only one units allowed");
+//		} else if (unitsElements.size() == 1) {
+//			units = new Units(unitsElements.get(0));
+//		}
+//	}
 
 	private void processValues() {
 		valueList = new ArrayList<Value>();
 		for (int i = 0; i < valueElements.size(); i++) {
-			Value value = new Value(valueElements.get(i));
-			valueList.add(value);
-			if (value.min != null) {
-				min = value.min;
-			} else if (value.max != null) {
-				max = value.max;
-			} else if (value.point != null) {
-				point = value.point;
-			} else {
-				throw new RuntimeException("value has no child");
+			Element valueElement = valueElements.get(i);
+			Element unitsElement = null;
+			Element parentElement = (Element) valueElement.getParent();
+			if (parentElement != null) {
+				for (int j = parentElement.indexOf(valueElement)+1; j < parentElement.getChildCount(); j++) {
+					if (parentElement.getChild(j) instanceof Element) {
+						Element nextElement = (Element) parentElement.getChild(j);
+						if ("units".equals(nextElement.getLocalName())) {
+							unitsElement = nextElement;
+						}
+						break;
+					}
+				}
 			}
+			Value value = new Value(valueElement, unitsElement);
+			valueList.add(value);
 		}
 	}
 
