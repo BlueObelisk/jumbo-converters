@@ -16,7 +16,6 @@ import org.xmlcml.cml.converters.testutils.RegressionSuite;
 public class RegressionTest {
 
    @Test
-   @Ignore
    public void oscar2cml() {
       RegressionSuite.run("spectrum/oscar2cml", "xml", "cml",
                             new OSCAR2CMLSpectConverter());
