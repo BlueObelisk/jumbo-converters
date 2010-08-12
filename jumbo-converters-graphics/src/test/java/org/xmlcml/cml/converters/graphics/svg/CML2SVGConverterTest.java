@@ -13,6 +13,7 @@ import org.xmlcml.cml.tools.MoleculeTool;
 public class CML2SVGConverterTest {
 
    @Test
+   @Ignore
    public void testConverter() {
       RegressionSuite.run("graphics/cml2svg", "cml", "svg",
                           new CML2SVGConverter());
