@@ -20,6 +20,8 @@ import org.xmlcml.cml.element.CMLTorsion;
 
 public class Util {
 
+	public final static String DTD = ".dtd\">";
+
 	/**
 	 * @param bytes
 	 * @return
@@ -79,9 +81,8 @@ public class Util {
 			throw new RuntimeException("zero length document");
 		}
 		// strip DTD
-		String DTD = ".dtd\">";
 		int idx = s.indexOf(DTD);
-		String baosS = "";
+		String baosS = s;
 		if (idx != -1) {
 			int ld = idx+DTD.length()+1;
 			if (ld < 0) {
@@ -92,7 +93,7 @@ public class Util {
 			} catch (Exception e) {
 				throw new RuntimeException("cannot parse string: ("+s.length()+"/"+ld+"/"+idx+") "+s.substring(0, Math.min(500, s.length())),e);
 			}
-		}
+		} 
 		// strip namespace
 		baosS = baosS.replace(" xmlns=\"http://www.w3.org/1999/xhtml\"", "");
 		// strip XML declaration
@@ -100,11 +101,9 @@ public class Util {
 		Document document;
 		try {
 			document = new Builder().build(new StringReader(baosS));
-		} catch (ValidityException e) {
-			throw new RuntimeException("BUG: tidy should have created valid XML: "+e);
-		} catch (ParsingException e) {
-			System.out.println(baosS);
-			throw new RuntimeException("BUG: tidy should have created valid XML: "+e);
+		} catch (Exception e) {
+			System.out.println("trying to parse:"+baosS+":");
+			throw new RuntimeException("BUG: DTD stripper should have created valid XML: "+e);
 		}
 		return document;
 	}
