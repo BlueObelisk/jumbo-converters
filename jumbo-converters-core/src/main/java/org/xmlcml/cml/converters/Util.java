@@ -7,8 +7,6 @@ import nu.xom.Builder;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Nodes;
-import nu.xom.ParsingException;
-import nu.xom.ValidityException;
 
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
@@ -20,9 +18,9 @@ import org.xmlcml.cml.element.CMLTorsion;
 
 public class Util {
 
-	public final static String DTD = ".dtd\">";
 
 	/**
+	 * ??????????????
 	 * @param bytes
 	 * @return
 	 * @throws RuntimeException
@@ -76,36 +74,10 @@ public class Util {
 		}
 	}
 
+	@Deprecated
+	/** use CMLUtil */
 	public static Document stripDTDAndOtherProblematicXMLHeadings(String s) throws IOException {
-		if (s == null || s.length() == 0) {
-			throw new RuntimeException("zero length document");
-		}
-		// strip DTD
-		int idx = s.indexOf(DTD);
-		String baosS = s;
-		if (idx != -1) {
-			int ld = idx+DTD.length()+1;
-			if (ld < 0) {
-				throw new RuntimeException("Tidy cannot parse 'HTML' (negative substring)");
-			}
-			try {
-				baosS = s.substring(ld);
-			} catch (Exception e) {
-				throw new RuntimeException("cannot parse string: ("+s.length()+"/"+ld+"/"+idx+") "+s.substring(0, Math.min(500, s.length())),e);
-			}
-		} 
-		// strip namespace
-		baosS = baosS.replace(" xmlns=\"http://www.w3.org/1999/xhtml\"", "");
-		// strip XML declaration
-		baosS = baosS.replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "");
-		Document document;
-		try {
-			document = new Builder().build(new StringReader(baosS));
-		} catch (Exception e) {
-			System.out.println("trying to parse:"+baosS+":");
-			throw new RuntimeException("BUG: DTD stripper should have created valid XML: "+e);
-		}
-		return document;
+		return CMLUtil.stripDTDAndOtherProblematicXMLHeadings(s);
 	}
 
 	/** create atom id from serial number.
