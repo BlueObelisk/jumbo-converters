@@ -1,7 +1,6 @@
 package org.xmlcml.cml.converters.cif;
 
 import static org.xmlcml.cml.converters.cif.CrystalEyeConstants.CRYSTALEYE_DATE_FORMAT;
-
 import static org.xmlcml.cml.converters.cif.CrystalEyeConstants.TITLE_MIME;
 
 import java.io.File;
