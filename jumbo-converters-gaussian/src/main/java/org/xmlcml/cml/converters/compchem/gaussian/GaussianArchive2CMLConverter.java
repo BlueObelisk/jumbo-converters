@@ -1,6 +1,5 @@
 package org.xmlcml.cml.converters.compchem.gaussian;
 
-
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
@@ -16,6 +15,7 @@ import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLDictionary;
+import org.xmlcml.euclid.Util;
 
 public class GaussianArchive2CMLConverter extends AbstractCompchem2CMLConverter{
 	private static final Logger LOG = Logger.getLogger(GaussianArchive2CMLConverter.class);
@@ -92,26 +92,15 @@ public class GaussianArchive2CMLConverter extends AbstractCompchem2CMLConverter{
 	private CMLDictionary findDictionary() {
 		CMLDictionary dictionary = null;
 		String resourceS = "org/xmlcml/cml/converters/compchem/gaussian/gaussianArchiveDict.xml";
-		URL url = getClass().getClassLoader().getResource(resourceS);
-		if (url == null) {
-			throw new RuntimeException("can't load gaussian archive dictionary (check resource directories are on the classpath");
-		}
-		if (command != null && !command.isQuiet()) {
-			LOG.info("URL "+url);
-		}
 		try {
-			InputStream inputStream = url.openStream();
+			InputStream inputStream = Util.getInputStreamFromResource(resourceS);
 			CMLCml cml = (CMLCml) new CMLBuilder().build(inputStream).getRootElement();
 			dictionary = (CMLDictionary)cml.getFirstCMLChild(CMLDictionary.TAG);
 			if (dictionary == null) {
 				throw new IllegalStateException("Failed to find dictionary element in "+resourceS);
 			}
-		} catch (FileNotFoundException e) {
-			LOG.error("Failed to find dictionary from resource: "+url);
 		} catch (Exception e) {
-			LOG.warn("Failed to read dictionary from resource: "+url);
-//			e.printStackTrace();
-			LOG.error("bad dictionary: ");
+			throw new RuntimeException("Cannot read dictionary", e);
 		}
 		return dictionary;
 	}
