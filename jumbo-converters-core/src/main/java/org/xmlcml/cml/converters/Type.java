@@ -1,6 +1,7 @@
 package org.xmlcml.cml.converters;
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -352,5 +353,11 @@ public class Type {
 			type = types.iterator().next();
 		}
 		return type;
+	}
+
+	public static String getTypeForFilename(String filename) {
+		String extension = (filename == null) ? null : org.xmlcml.euclid.Util.getSuffix(filename);
+		Type type = (extension == null) ? null : getTypeForExtension(extension);
+		return (type == null) ? null : type.getDefaultExtension();
 	}
 }
