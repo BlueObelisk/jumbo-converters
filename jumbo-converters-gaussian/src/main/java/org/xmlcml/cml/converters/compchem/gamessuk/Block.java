@@ -99,9 +99,9 @@ public class Block {
 		}
 		if (element != null) {
 			if (index != null) {
-				element.addAttribute(new Attribute(GamessUKPunch2CMLConverter.GAMESSUK_PREFIX+":index", GamessUKPunch2CMLConverter.GAMESSUK_URI, ""+index));
+				element.addAttribute(new Attribute(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX+":index", GamessUKPunch2XMLConverter.GAMESSUK_URI, ""+index));
 			}
-			String dictRef = DictRefAttribute.createValue(GamessUKPunch2CMLConverter.GAMESSUK_PREFIX, blockName);
+			String dictRef = DictRefAttribute.createValue(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX, blockName);
 			element.setAttribute("dictRef", dictRef);
 		} else {
 			System.err.println("null element: "+blockName);
@@ -109,7 +109,7 @@ public class Block {
 	}
 
 	private CMLElement createDoubleMatrix(int fieldsPerLine, int charsPerField, String local) {
-		String dictRef = DictRefAttribute.createValue(GamessUKPunch2CMLConverter.GAMESSUK_PREFIX, local);
+		String dictRef = DictRefAttribute.createValue(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX, local);
 		if (records == 0) {
 			throw new RuntimeException(local+" expects multiple records");
 		}
@@ -170,7 +170,7 @@ public class Block {
 		  0.588760
 		...
 				 */
-		String dictRef = DictRefAttribute.createValue(GamessUKPunch2CMLConverter.GAMESSUK_PREFIX, local);
+		String dictRef = DictRefAttribute.createValue(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX, local);
 		if (records == 0) {
 			throw new RuntimeException(local+" expects multiple records");
 		}
@@ -189,7 +189,7 @@ public class Block {
 block=grid_title records= 1 index =   1
 formaldehyde total charge density                                               
 				 */
-		String dictRef = DictRefAttribute.createValue(GamessUKPunch2CMLConverter.GAMESSUK_PREFIX, local);
+		String dictRef = DictRefAttribute.createValue(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX, local);
 		if (records == 0) {
 			throw new RuntimeException(local+" expects multiple records");
 		}

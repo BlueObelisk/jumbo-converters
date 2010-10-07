@@ -17,8 +17,8 @@ import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.euclid.Util;
 
-public class GamessUKPunch2CMLConverter extends AbstractCompchem2CMLConverter{
-	private static final Logger LOG = Logger.getLogger(GamessUKPunch2CMLConverter.class);
+public class GamessUKXML2CMLConverter extends AbstractCompchem2CMLConverter{
+	private static final Logger LOG = Logger.getLogger(GamessUKXML2CMLConverter.class);
 	static {
 		LOG.setLevel(Level.INFO);
 	}
