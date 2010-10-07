@@ -63,6 +63,9 @@ public class ConverterImpl {
 			throw new RuntimeException("No input file given");
 		}
 		File infile = new File(infilename);
+		if (!infile.exists()) {
+			throw new RuntimeException("Input file does not exist: "+infile.getAbsolutePath());
+		}
 		if (outfilename == null) {
 			throw new RuntimeException("No output file given");
 		}
@@ -87,6 +90,7 @@ public class ConverterImpl {
 		try {
 			Converter converter = (Converter) Class.forName(converterName).newInstance();
 			System.out.println("Converting "+infile.getAbsolutePath()+" => \n"+outfile.getAbsolutePath());
+			
 			converter.convert(infile, outfile);
 		} catch (Exception e) {
 			throw new RuntimeException("Cannot create/run converter", e);
