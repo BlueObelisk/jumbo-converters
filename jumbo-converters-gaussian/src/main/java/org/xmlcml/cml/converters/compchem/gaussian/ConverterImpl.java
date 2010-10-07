@@ -11,6 +11,8 @@ import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.euclid.Util;
 
+import com.hp.hpl.jena.util.FileUtils;
+
 
 public class ConverterImpl {
 	
@@ -65,6 +67,7 @@ public class ConverterImpl {
 			throw new RuntimeException("No output file given");
 		}
 		File outfile = new File(outfilename);
+		org.apache.commons.io.FileUtils.deleteQuietly(outfile);
 		if (intype == null) {
 			intype = getType(infilename);
 			if (intype == null) {
