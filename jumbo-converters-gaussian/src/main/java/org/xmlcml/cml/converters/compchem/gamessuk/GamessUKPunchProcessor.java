@@ -65,7 +65,6 @@ block=grid_data records=    2500 index=  1 elements =   1
 	private Block readBlock(List<String> lines, int lineCount) {
 		String line = lines.get(lineCount).trim();
 		line = line.replaceAll("\\s*=\\s*", "=");	// remove ws round equals
-		System.out.println(line);
 		if (!line.startsWith("block=")) {
 			throw new RuntimeException("expected block at line "+lineCount+"; found: "+line);
 		}

@@ -35,6 +35,7 @@ public class Type {
 	public static final Type CSV;
 	public static final Type DALTON;
 	public static final Type GAMESSUK_PUNCH;
+	public static final Type GAMESSUK_PUNCH_XML;
 	public static final Type GAU_ARC;
 	public static final Type GAU_IN;
 	public static final Type GAU_LOG;
@@ -81,7 +82,9 @@ public class Type {
 		DALTON = new Type("chemical/x-dalton", ObjectType.TEXT,
 		".out");
 		GAMESSUK_PUNCH = new Type("chemical/x-gamessuk-punch", ObjectType.TEXT,
-				"pun");
+		"gamessuk.punch");
+		GAMESSUK_PUNCH_XML = new Type("chemical/x-gamessuk-punch-xml", ObjectType.XML,
+		"gamessuk.punch.xml");
 		GAU_ARC = new Type("chemical/x-gaussian-archive", ObjectType.TEXT,
 				"gau", "gau.arc");
 		GAU_IN = new Type("chemical/x-gaussian-input", ObjectType.TEXT,
@@ -130,6 +133,7 @@ public class Type {
 		typeList.add(CSV);
 		typeList.add(DALTON);
 		typeList.add(GAMESSUK_PUNCH);
+		typeList.add(GAMESSUK_PUNCH_XML);
 		typeList.add(GAU_ARC);
 		typeList.add(GAU_IN);
 		typeList.add(GAU_LOG);

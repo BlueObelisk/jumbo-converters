@@ -66,10 +66,12 @@ public class ConverterImpl {
 		if (!infile.exists()) {
 			throw new RuntimeException("Input file does not exist: "+infile.getAbsolutePath());
 		}
+		System.out.println("Input file: "+infile.getAbsolutePath());
 		if (outfilename == null) {
 			throw new RuntimeException("No output file given");
 		}
 		File outfile = new File(outfilename);
+		System.out.println("Output file: "+outfile.getAbsolutePath());
 		org.apache.commons.io.FileUtils.deleteQuietly(outfile);
 		if (intype == null) {
 			intype = getType(infilename);
@@ -77,15 +79,21 @@ public class ConverterImpl {
 				throw new RuntimeException("Cannot find input type");
 			}
 		}
+		System.out.println("Input type: "+intype);
 		if (outtype == null) {
 			outtype = getType(outfilename);
 			if (outtype == null) {
 				throw new RuntimeException("Cannot find output type");
 			}
 		}
+		System.out.println("Output type: "+outtype);
 		if (converterName == null) {
 			converterName = getConverterName(intype, outtype);
 		}
+		if (converterName == null) {
+			throw new RuntimeException("Cannot find converter name");
+		}
+		System.out.println("Converter name: "+converterName);
 		
 		try {
 			Converter converter = (Converter) Class.forName(converterName).newInstance();
@@ -113,6 +121,9 @@ public class ConverterImpl {
 			}
 		} catch (Exception e) {
 			throw new RuntimeException("Cannot find converter for "+intype+" "+outtype, e);
+		}
+		if (converterName == null) {
+			throw new RuntimeException("Cannot find converter for "+intype+" "+outtype);
 		}
 		return converterName;
 	}
