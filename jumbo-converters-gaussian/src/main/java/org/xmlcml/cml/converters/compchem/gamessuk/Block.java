@@ -14,6 +14,7 @@ import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLAtomArray;
+import org.xmlcml.cml.element.CMLAtomicBasisFunction;
 import org.xmlcml.cml.element.CMLBasisSet;
 import org.xmlcml.cml.element.CMLBond;
 import org.xmlcml.cml.element.CMLBondArray;
@@ -158,7 +159,57 @@ public class Block {
 	}
 
 	private void makeBasis() {
+		/**
+block = basis records =  21
+c          1  s   1   1      172.256000       0.061767
+c          1  s   1   2       25.910900       0.358794
+c          1  s   1   3        5.533350       0.700713
+c          1  s   2   1        3.664980      -0.395897
+c          1  s   2   2        0.770545       1.215840
+c          1  p   3   1        3.664980       0.236460
+c          1  p   3   2        0.770545       0.860619
+c          1  s   4   1        0.195857       1.000000
+c          1  p   5   1        0.195857       1.000000
+o          2  s   1   1      322.037000       0.059239
+o          2  s   1   2       48.430800       0.351500
+o          2  s   1   3       10.420600       0.707658
+o          2  s   2   1        7.402940      -0.404453
+o          2  s   2   2        1.576200       1.221560
+o          2  p   3   1        7.402940       0.244586
+o          2  p   3   2        1.576200       0.853955
+o          2  s   4   1        0.373684       1.000000
+o          2  p   5   1        0.373684       1.000000
+h          3  s   1   1        5.447178       0.156285
+h          3  s   1   2        0.824547       0.904691
+h          3  s   2   1        0.183192       1.000000
+
+into
+
+   <basisSet>
+	   <atomicBasisFunction id="a1" n="1" l="0" lm="s" symbol="S" atomRef="a1"/>
+	   <atomicBasisFunction id="a2" n="2" l="0" lm="s" symbol="S" atomRef="a2"/>
+	   <atomicBasisFunction id="a3" n="2" l="1" lm="px" symbol="PX" atomRef="a2"/>
+
+		 */
 		element = new CMLBasisSet();
+		for (int i = 0; i < records; i++) {
+			String line = lines.get(i);
+			String elementType = Util.capitalise(line.substring(0, 2)).trim();
+			int i1 = Integer.parseInt(line.substring(2, 12).trim());
+			String s2 = line.substring(12, 15).trim();
+			int i3 = Integer.parseInt(line.substring(15, 19).trim());
+			int i4 = Integer.parseInt(line.substring(19, 23).trim());
+			double f5 = new Double(line.substring(24, 39).trim());
+			double f6 = new Double(line.substring(39, 54).trim());
+			CMLAtomicBasisFunction abf = new CMLAtomicBasisFunction();
+			abf.addAttribute(new Attribute(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX+":i1", GamessUKPunch2XMLConverter.GAMESSUK_URI, ""+i1));
+			abf.addAttribute(new Attribute(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX+":s2", GamessUKPunch2XMLConverter.GAMESSUK_URI, ""+s2));
+			abf.addAttribute(new Attribute(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX+":i3", GamessUKPunch2XMLConverter.GAMESSUK_URI, ""+i3));
+			abf.addAttribute(new Attribute(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX+":i4", GamessUKPunch2XMLConverter.GAMESSUK_URI, ""+i4));
+			abf.addAttribute(new Attribute(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX+":f5", GamessUKPunch2XMLConverter.GAMESSUK_URI, ""+f5));
+			abf.addAttribute(new Attribute(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX+":f6", GamessUKPunch2XMLConverter.GAMESSUK_URI, ""+f6));
+			((CMLBasisSet)element).addAtomicBasisFunction(abf);
+		}
 	}
 
 	private CMLArray createDoubleArray(String local) {

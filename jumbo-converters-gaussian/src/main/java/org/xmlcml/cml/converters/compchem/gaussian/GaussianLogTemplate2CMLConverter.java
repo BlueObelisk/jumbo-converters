@@ -11,6 +11,7 @@ import nu.xom.Nodes;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
+import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
 import org.xmlcml.cml.element.CMLCml;
@@ -132,9 +133,9 @@ public class GaussianLogTemplate2CMLConverter  extends AbstractCompchem2CMLConve
 	 * not sure what this is for
 	 */
 	@Override
-	public void addNamespaces(CMLCml topCml) {
-		addCommonNamespaces(topCml);
-		topCml.addNamespaceDeclaration(GAUSS_PREFIX, GAUSS_URI);
+	public void addNamespaces(CMLElement cml) {
+		addCommonNamespaces(cml);
+		cml.addNamespaceDeclaration(GAUSS_PREFIX, GAUSS_URI);
 	}
 
 	@Override
