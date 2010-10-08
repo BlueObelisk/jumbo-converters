@@ -84,9 +84,9 @@ public class GaussianArchive2CMLConverter extends AbstractCompchem2CMLConverter{
 		return topCml;
 	}
 
-	public void addNamespaces(CMLCml topCml) {
-		addCommonNamespaces(topCml);
-		topCml.addNamespaceDeclaration(GAUSS_PREFIX, GAUSS_URI);
+	public void addNamespaces(CMLElement cml) {
+		addCommonNamespaces(cml);
+		cml.addNamespaceDeclaration(GAUSS_PREFIX, GAUSS_URI);
 	}
 	
 	private CMLDictionary findDictionary() {

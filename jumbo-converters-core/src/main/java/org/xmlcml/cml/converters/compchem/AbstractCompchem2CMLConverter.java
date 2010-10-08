@@ -37,13 +37,13 @@ public abstract class AbstractCompchem2CMLConverter extends AbstractConverter {
 		this.molecule = molecule;
 	}
 
-	protected abstract void addNamespaces(CMLCml topCml);
+	protected abstract void addNamespaces(CMLElement cml);
 
-	protected void addCommonNamespaces(CMLCml topCml) {
-		if (topCml != null) {
-			topCml.addNamespaceDeclaration(XSD_PREFIX, XSD_NS);
-			topCml.addNamespaceDeclaration(CML_UNITS, UNIT_NS);
-			topCml.addNamespaceDeclaration(CML_PREFIX, CML_NS);
+	protected void addCommonNamespaces(CMLElement cml) {
+		if (cml != null) {
+			cml.addNamespaceDeclaration(XSD_PREFIX, XSD_NS);
+			cml.addNamespaceDeclaration(CML_UNITS, UNIT_NS);
+			cml.addNamespaceDeclaration(CML_PREFIX, CML_NS);
 		}
 	}
 

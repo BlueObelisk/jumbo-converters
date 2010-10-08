@@ -62,9 +62,9 @@ public class CML2GaussianInputConverter extends AbstractCompchem2CMLConverter {
       return stringList;
    }
 
-   public void addNamespaces(CMLCml topCml) {
-      addCommonNamespaces(topCml);
-      topCml.addNamespaceDeclaration(GAUSS_PREFIX, GAUSS_URI);
+   public void addNamespaces(CMLElement cml) {
+      addCommonNamespaces(cml);
+      cml.addNamespaceDeclaration(GAUSS_PREFIX, GAUSS_URI);
    }
 
    /** reads auxiliary file into XML Element

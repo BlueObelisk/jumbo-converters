@@ -42,6 +42,7 @@ public class GamessUKPunch2XMLConverter extends AbstractCompchem2CMLConverter{
 	 */
 	public Element convertToXML(List<String> lines) {
 		CMLCml topCml = new CMLCml();
+		addCommonNamespaces(topCml);
 		GamessUKPunchProcessor converter = new GamessUKPunchProcessor();
 		converter.read(lines);
 		List<CMLElement> cmlElementList = converter.getBlockList();
@@ -57,9 +58,9 @@ public class GamessUKPunch2XMLConverter extends AbstractCompchem2CMLConverter{
 		return topCml;
 	}
 
-	public void addNamespaces(CMLCml topCml) {
-		addCommonNamespaces(topCml);
-		topCml.addNamespaceDeclaration(GAMESSUK_PREFIX, GAMESSUK_URI);
+	public void addNamespaces(CMLElement cml) {
+		addCommonNamespaces(cml);
+		cml.addNamespaceDeclaration(GAMESSUK_PREFIX, GAMESSUK_URI);
 	}
 
 	@Override
