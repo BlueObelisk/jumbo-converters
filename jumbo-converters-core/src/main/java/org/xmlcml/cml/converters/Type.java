@@ -34,8 +34,14 @@ public class Type {
 	public static final Type CML;
 	public static final Type CSV;
 	public static final Type DALTON;
+	public static final Type FOO;
+	public static final Type FOO_XML;
 	public static final Type GAMESSUK_PUNCH;
 	public static final Type GAMESSUK_PUNCH_XML;
+	public static final Type GAMESSUS_INPUT;
+	public static final Type GAMESSUS_INPUT_XML;
+	public static final Type GAMESSUS_PUNCH;
+	public static final Type GAMESSUS_PUNCH_XML;
 	public static final Type GAU_ARC;
 	public static final Type GAU_IN;
 	public static final Type GAU_LOG;
@@ -81,10 +87,22 @@ public class Type {
 		"csv");
 		DALTON = new Type("chemical/x-dalton", ObjectType.TEXT,
 		".out");
+		FOO = new Type("chemical/x-foo", ObjectType.TEXT,
+		"foo");
+		FOO_XML = new Type("chemical/x-foo-xml", ObjectType.XML,
+		"foo.xml");
 		GAMESSUK_PUNCH = new Type("chemical/x-gamessuk-punch", ObjectType.TEXT,
 		"gamessuk.punch");
 		GAMESSUK_PUNCH_XML = new Type("chemical/x-gamessuk-punch-xml", ObjectType.XML,
 		"gamessuk.punch.xml");
+		GAMESSUS_INPUT = new Type("chemical/x-gamessus-input", ObjectType.TEXT,
+		"gamessus.input");
+		GAMESSUS_INPUT_XML = new Type("chemical/x-gamessus-input-xml", ObjectType.XML,
+		"gamessus.input.xml");
+		GAMESSUS_PUNCH = new Type("chemical/x-gamessus-punch", ObjectType.TEXT,
+		"gamessus.punch");
+		GAMESSUS_PUNCH_XML = new Type("chemical/x-gamessus-punch-xml", ObjectType.XML,
+		"gamessus.punch.xml");
 		GAU_ARC = new Type("chemical/x-gaussian-archive", ObjectType.TEXT,
 				"gau", "gau.arc");
 		GAU_IN = new Type("chemical/x-gaussian-input", ObjectType.TEXT,
@@ -132,8 +150,12 @@ public class Type {
 		typeList.add(CML);
 		typeList.add(CSV);
 		typeList.add(DALTON);
+		typeList.add(FOO);
+		typeList.add(FOO_XML);
 		typeList.add(GAMESSUK_PUNCH);
 		typeList.add(GAMESSUK_PUNCH_XML);
+		typeList.add(GAMESSUS_PUNCH);
+		typeList.add(GAMESSUS_PUNCH_XML);
 		typeList.add(GAU_ARC);
 		typeList.add(GAU_IN);
 		typeList.add(GAU_LOG);

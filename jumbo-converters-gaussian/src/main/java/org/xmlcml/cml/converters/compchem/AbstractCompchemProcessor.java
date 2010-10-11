@@ -1,6 +1,12 @@
 package org.xmlcml.cml.converters.compchem;
 
-public class AbstractCompchemProcessor {
+
+/**
+ * this may be obsolete
+ * @author pm286
+ *
+ */
+public abstract class AbstractCompchemProcessor {
 
 	public enum Solvent {
 		ACETONE("Acetone"),

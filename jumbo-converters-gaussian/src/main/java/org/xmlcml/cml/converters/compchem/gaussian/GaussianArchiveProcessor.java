@@ -265,4 +265,6 @@ class StringArray {
 	public void setLines(List<String> lines) {
 		this.lines = lines;
 	}
+	
+
 }
