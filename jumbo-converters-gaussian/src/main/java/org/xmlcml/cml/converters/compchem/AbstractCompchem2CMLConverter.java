@@ -7,12 +7,18 @@ import static org.xmlcml.cml.base.CMLConstants.CML_XPATH;
 import static org.xmlcml.cml.base.CMLConstants.UNIT_NS;
 import static org.xmlcml.cml.base.CMLConstants.XSD_NS;
 import static org.xmlcml.cml.base.CMLConstants.XSD_PREFIX;
+
+import java.util.List;
+
+import nu.xom.Element;
 import nu.xom.Nodes;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.LegacyProcessor;
+import org.xmlcml.cml.converters.RawXML2CMLProcessor;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLFormula;
 import org.xmlcml.cml.element.CMLMetadata;
@@ -22,12 +28,15 @@ import org.xmlcml.cml.tools.MoleculeTool;
 public abstract class AbstractCompchem2CMLConverter extends AbstractConverter {
 
 	private static final Logger LOG = Logger.getLogger(AbstractCompchem2CMLConverter.class);
-	private static double BOHR2ANGSTROM = 0.52917720859;
+	public final static Double BOHR2ANGSTROM = 0.52917720859;
+
 	static {
 		LOG.setLevel(Level.INFO);
 	}
 
 	private CMLMolecule molecule;
+	protected RawXML2CMLProcessor rawXml2CmlProcessor;
+	protected LegacyProcessor legacyProcessor;
 	
 	public CMLMolecule getMolecule() {
 		return molecule;
@@ -122,6 +131,20 @@ public abstract class AbstractCompchem2CMLConverter extends AbstractConverter {
 		molecule.appendChild(formula);
 		cml = processParamsTopMetadataNamespaces(cml);
 		return cml;
+	}
+
+	protected CMLElement convert(Element xml) {
+		rawXml2CmlProcessor.process(xml);
+		CMLElement cml = rawXml2CmlProcessor.getCMLElement();
+		addNamespaces(cml);
+		return cml;
+	}
+
+	protected CMLElement readAndProcess(List<String> lines) {
+		legacyProcessor.read(lines);
+		CMLElement cmlElement = legacyProcessor.getCMLElement();
+		addCommonNamespaces(cmlElement);
+		return cmlElement;
 	}
 	
 }

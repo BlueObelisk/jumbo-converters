@@ -5,33 +5,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import nu.xom.Attribute;
+import org.xmlcml.cml.converters.AbstractBlock;
+import org.xmlcml.cml.converters.LegacyProcessor;
 
-import org.xmlcml.cml.base.CMLElement;
+public class GamessUKPunchProcessor extends LegacyProcessor {
 
-public class GamessUKPunchProcessor {
-
-	List<Block> blockList = new ArrayList<Block>();
+	private static final String ELEMENTS = "elements";
+	private static final String UNIT = "unit";
+	private static final String INDEX = "index";
+	private static final String RECORDS = "records";
+	private static final String BLOCK = "block";
+	
+	List<AbstractBlock> blockList = new ArrayList<AbstractBlock>();
 	public GamessUKPunchProcessor() {
 		
 	}
-	public void read(List<String> lines) {
-		int lineCount = 0;
-		while (lineCount < lines.size()) {
-			Block block = readBlock(lines, lineCount);
-			blockList.add(block);
-			lineCount += block.lines.size() + 1;
-		}
-	}
-	
-	public List<CMLElement> getBlockList() {
-		List<CMLElement> cmlList = new ArrayList<CMLElement>();
-		for (Block block : blockList) {
-			cmlList.add(block.element);
-		}
-		return cmlList;
-	}
-
 	/**
 block = fragment records = 0
 block = coordinates records =     4 unit = au
@@ -62,32 +50,33 @@ block=grid_data records=    2500 index=  1 elements =   1
 	 * @param lineCount
 	 * @return
 	 */
-	private Block readBlock(List<String> lines, int lineCount) {
+	@Override
+	protected AbstractBlock readBlock(List<String> lines) {
 		String line = lines.get(lineCount).trim();
 		line = line.replaceAll("\\s*=\\s*", "=");	// remove ws round equals
 		if (!line.startsWith("block=")) {
 			throw new RuntimeException("expected block at line "+lineCount+"; found: "+line);
 		}
-		Block block = createBlock(lines, lineCount, line);
+		AbstractBlock block = createBlock(lines, lineCount, line);
 		block.convertToRawCML();
 		return block;
 	}
 	
-	private Block createBlock(List<String> lines, int lineCount, String line) {
-		Block block = new Block();
+	private GamessUKPunchBlock createBlock(List<String> lines, int lineCount, String line) {
+		GamessUKPunchBlock block = new GamessUKPunchBlock();
 		String[] tokens = line.split("\\s+");
 		Map<String, String> nvMap = createNVMap(tokens);
 		for (String name : nvMap.keySet()) {
 			String value = nvMap.get(name);
-			if (name.equals("block")) {
-				block.blockName = value;
-			} else if (name.equals("records")) {
+			if (name.equals(BLOCK)) {
+				block.setBlockName(value);
+			} else if (name.equals(RECORDS)) {
 				block.records = Integer.parseInt(value);
-			} else if (name.equals("index")) {
+			} else if (name.equals(INDEX)) {
 				block.index = Integer.parseInt(value);
-			} else if (name.equals("unit")) {
+			} else if (name.equals(UNIT)) {
 				block.unit = value;
-			} else if (name.equals("elements")) {
+			} else if (name.equals(ELEMENTS)) {
 				block.elements = Integer.parseInt(value);
 			} else {
 				throw new RuntimeException("unknown keyword: "+name);

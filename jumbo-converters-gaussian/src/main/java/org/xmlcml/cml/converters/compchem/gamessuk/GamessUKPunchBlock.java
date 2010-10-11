@@ -11,6 +11,7 @@ import nu.xom.Element;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLAtomArray;
@@ -22,18 +23,15 @@ import org.xmlcml.cml.element.CMLMatrix;
 import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.euclid.Util;
 
-public class Block {
+public class GamessUKPunchBlock extends AbstractBlock {
 
 	public static final Double AU_TO_ANGSTROM = 0.52917721;
-	String blockName;
 	Integer records;
 	Integer index;
-	List<String> lines = new ArrayList<String>();
 	String unit;
 	int elements;
-	CMLElement element = null;
 	
-	public Block() {
+	public GamessUKPunchBlock() {
 		
 	}
 	

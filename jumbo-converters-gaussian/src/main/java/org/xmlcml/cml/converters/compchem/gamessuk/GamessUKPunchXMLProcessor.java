@@ -8,33 +8,32 @@ import nu.xom.Element;
 import nu.xom.Elements;
 import nu.xom.Nodes;
 
-import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
+import org.xmlcml.cml.converters.LegacyProcessor;
+import org.xmlcml.cml.converters.RawXML2CMLProcessor;
+import org.xmlcml.cml.converters.compchem.AbstractCompchemProcessor;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLBond;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLProperty;
 
-public class GamessUKPunchXMLProcessor {
+public class GamessUKPunchXMLProcessor extends RawXML2CMLProcessor {
 
-	private Element xml;
-	private CMLElement cmlElement;
+
+	public final static String PROPERTY_XPATH = "./*[(local-name()='scalar' or local-name()='array' or local-name()='matrix') and @dictRef]";
 	private Element bondArray;
 
-	public void process(Element punchXML) {
-		this.xml = punchXML;
-		CMLUtil.removeWhitespaceNodes(xml);
+	public void processXML() {
 		transformAtomArraysIntoMolecules();
 		transformAtomArraysIntoFrequencies();
-		createProperties();
+		wrapWithProperty(PROPERTY_XPATH);
 		createModules();
-		cmlElement = CMLBuilder.ensureCML(xml);
 	}
 
 	private void createModules() {
-		Nodes moduleNodes = xml.query("./*[local-name()='module']");
+		Nodes moduleNodes = xmlInput.query("./*[local-name()='module']");
 		for (int i = 0; i < moduleNodes.size(); i++) {
 			Element module = (Element) moduleNodes.get(i);
 			Element nextModule = (i == moduleNodes.size()-1) ? null : (Element) moduleNodes.get(i+1);
@@ -43,10 +42,9 @@ public class GamessUKPunchXMLProcessor {
 	}
 
 	private void wrapFollowingSiblings(Element module, Element nextModule) {
-		CMLUtil.debug(xml, "XXXXX");
-		int index = xml.indexOf(module);
-		int nextIndex = (nextModule == null) ? xml.getChildCount() : xml.indexOf(nextModule);
-		Elements childElements = xml.getChildElements();
+		int index = xmlInput.indexOf(module);
+		int nextIndex = (nextModule == null) ? xmlInput.getChildCount() : xmlInput.indexOf(nextModule);
+		Elements childElements = xmlInput.getChildElements();
 		List<Element> siblingList = new ArrayList<Element>();
 		for (int i = index+1; i < nextIndex; i++) {
 			siblingList.add(childElements.get(i));
@@ -59,7 +57,8 @@ public class GamessUKPunchXMLProcessor {
 	}
 
 	private void transformAtomArraysIntoFrequencies() {
-		Nodes atomArrayNodes = xml.query("./*[local-name()='atomArray' and @dictRef='gamessuk:normal_coordinates']");
+		Nodes atomArrayNodes = xmlInput.query(
+				"./*[local-name()='atomArray' and @dictRef='gamessuk:normal_coordinates']");
 		for (int i = 0; i < atomArrayNodes.size(); i++) {
 			Element atomArray = (Element) atomArrayNodes.get(i);
 			CMLArray array = new CMLArray();
@@ -70,35 +69,26 @@ public class GamessUKPunchXMLProcessor {
 				atom.detach();
 				array.appendChild(atom);
 			}
-			xml.replaceChild(atomArray, array);
+			xmlInput.replaceChild(atomArray, array);
 		}
 	}
 
-	private void createProperties() {
-		Nodes nodes = xml.query("./*[(local-name()='scalar' or local-name()='array' or local-name()='matrix') and @dictRef]");
-		for (int i = 0; i < nodes.size(); i++) {
-			Element el = (Element) nodes.get(i);
-			CMLProperty property = new CMLProperty();
-			Attribute dictRef = el.getAttribute("dictRef");
-			dictRef.detach();
-			property.addAttribute(dictRef);
-			xml.replaceChild(el, property);
-			Attribute index = el.getAttribute("index", GamessUKPunch2XMLConverter.GAMESSUK_URI);
-			if (index != null) {
-				index.detach();
-				property.addAttribute(index);
-			}
-			property.appendChild(el);
+	@Override
+	protected void decorateProperty(Element scalArrMat, CMLProperty property) {
+		Attribute index = scalArrMat.getAttribute("index", GamessUKPunch2XMLConverter.GAMESSUK_URI);
+		if (index != null) {
+			index.detach();
+			property.addAttribute(index);
 		}
 	}
 
 	private void transformAtomArraysIntoMolecules() {
-		Nodes bondArrayNodes = xml.query("./*[local-name()='bondArray' and @dictRef='gamessuk:connectivity']");
+		Nodes bondArrayNodes = xmlInput.query("./*[local-name()='bondArray' and @dictRef='gamessuk:connectivity']");
 		if (bondArrayNodes.size() > 1) {
 			throw new RuntimeException("Cannot manage multiple connectivities");
 		}
 		bondArray = (bondArrayNodes.size() == 0) ? null : (Element) bondArrayNodes.get(0);
-		Nodes atomArrayNodes = xml.query("./*[local-name()='atomArray' and not(@dictRef='gamessuk:normal_coordinates')]");
+		Nodes atomArrayNodes = xmlInput.query("./*[local-name()='atomArray' and not(@dictRef='gamessuk:normal_coordinates')]");
 		for (int i = 0; i < atomArrayNodes.size(); i++) {
 			Element atomArray = (Element) atomArrayNodes.get(i);
 			CMLMolecule molecule = replaceAtomArrayByMolecule(atomArray);
@@ -129,12 +119,7 @@ public class GamessUKPunchXMLProcessor {
 			molecule.addAtom(atom);
 		}
 		CMLUtil.copyAttributes(atomArray, molecule);
-		xml.replaceChild(atomArray, molecule);
+		xmlInput.replaceChild(atomArray, molecule);
 		return molecule;
 	}
-
-	public CMLElement getCML() {
-		return cmlElement;
-	}
-
 }

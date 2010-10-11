@@ -219,6 +219,5 @@ public class AbstractCompchemInputProcessorNew extends AbstractCompchemProcessor
 	public CMLCml getAbstractJob() {
 		return abstractJob;
 	}
-	
-	
+
 }
