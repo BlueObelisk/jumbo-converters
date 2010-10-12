@@ -3,10 +3,12 @@ package org.xmlcml.cml.converters;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.element.CMLCml;
 
 public abstract class LegacyProcessor {
+	private static final Logger LOG = Logger.getLogger(LegacyProcessor.class);
 
 	private List<AbstractBlock> blockList;
 	protected List<String> lines;
@@ -26,6 +28,7 @@ public abstract class LegacyProcessor {
 				blockList.add(block);
 			}
 		}
+		LOG.debug("Finished reading blocks: "+blockList.size());
 	}
 
 	public List<CMLElement> getBlockList() {

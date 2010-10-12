@@ -18,7 +18,7 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.LegacyProcessor;
-import org.xmlcml.cml.converters.RawXML2CMLProcessor;
+import org.xmlcml.cml.converters.cml.RawXML2CMLProcessor;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLFormula;
 import org.xmlcml.cml.element.CMLMetadata;

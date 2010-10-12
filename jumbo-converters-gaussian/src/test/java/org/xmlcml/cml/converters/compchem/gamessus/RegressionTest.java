@@ -1,5 +1,6 @@
  package org.xmlcml.cml.converters.compchem.gamessus;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xmlcml.cml.converters.testutils.RegressionSuite;
 
@@ -25,6 +26,12 @@ public class RegressionTest {
 	   public void gamessusInput2XML() {
 	      RegressionSuite.run("compchem/gamessus/inp", "inp", "xml",
 	                          new GamessUSInput2XMLConverter());
+	                              
+	   }
+	   @Test
+	   public void gamessusLog2XML() {
+	      RegressionSuite.run("compchem/gamessus/log", "log", "xml",
+	                          new GamessUSLog2XMLConverter());
 	                              
 	   }
 }

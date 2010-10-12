@@ -44,7 +44,8 @@ import org.xmlcml.cml.converters.Type.ObjectType;
  */
 public abstract class AbstractConverter implements Converter {
 
-   /**
+   private static final String UTF_8 = "UTF-8";
+/**
     * A {@link Logger} used to log messages during object conversion.
     */
    private static final Logger LOG = Logger.getLogger(AbstractConverter.class);
@@ -99,8 +100,24 @@ public abstract class AbstractConverter implements Converter {
    /** auxiliary file as XML */
    protected Element auxElement;
    protected Command command;
+   // change if you need faithful whitespace
+   protected int indent = 2;
 
-   public Command getCommand() {
+   public int getIndent() {
+	   return indent;
+   }
+
+   /**
+    * by default set to 2 for prettiness.
+    * BUT this "mucks whitespace"
+    * so set to ZERO if you want faithful whitespace
+    * @param indent
+    */
+   public void setIndent(int indent) {
+	   this.indent = indent;
+   }
+
+public Command getCommand() {
       return command;
    }
 
@@ -276,7 +293,7 @@ public abstract class AbstractConverter implements Converter {
             serialize(convertToText(bytes), out);
             break;
          case XML:
-            serialize(convertToXML(bytes), out);
+            serialize(convertToXML(bytes), out, this);
             break;
          case BYTES:
             serialize(convertToBytes(bytes), out);
@@ -311,7 +328,7 @@ public abstract class AbstractConverter implements Converter {
             serialize(convertToText(xml), out);
             break;
          case XML:
-            serialize(convertToXML(xml), out);
+            serialize(convertToXML(xml), out, this);
             break;
          case BYTES:
             serialize(convertToBytes(xml), out);
@@ -393,7 +410,7 @@ public abstract class AbstractConverter implements Converter {
                   serialize(convertToText(marshallToText(in)), out);
                   break;
                case XML:
-                  serialize(convertToXML(marshallToText(in)), out);
+                  serialize(convertToXML(marshallToText(in)), out, this);
                   break;
                case BYTES:
                   serialize(convertToBytes(marshallToText(in)), out);
@@ -406,7 +423,7 @@ public abstract class AbstractConverter implements Converter {
                   serialize(convertToText(marshallToXML(getBuilder(), in)), out);
                   break;
                case XML:
-                  serialize(convertToXML(marshallToXML(getBuilder(), in)), out);
+                  serialize(convertToXML(marshallToXML(getBuilder(), in)), out, this);
                   break;
                case BYTES:
                   serialize(convertToBytes(marshallToXML(getBuilder(), in)), out);
@@ -419,7 +436,7 @@ public abstract class AbstractConverter implements Converter {
                   serialize(convertToText(marshallToBytes(in)), out);
                   break;
                case XML:
-                  serialize(convertToXML(marshallToBytes(in)), out);
+                  serialize(convertToXML(marshallToBytes(in)), out, this);
                   break;
                case BYTES:
                   serialize(convertToBytes(marshallToBytes(in)), out);
@@ -447,7 +464,7 @@ public abstract class AbstractConverter implements Converter {
             serialize(convertToText(txt), out);
             break;
          case XML:
-            serialize(convertToXML(txt), out);
+            serialize(convertToXML(txt), out, this);
             break;
          case BYTES:
             serialize(convertToBytes(txt), out);
@@ -562,7 +579,7 @@ public abstract class AbstractConverter implements Converter {
       String inS = null;
       try {
          BufferedReader br = new BufferedReader(new InputStreamReader(in,
-                                                                      "UTF-8"));
+                                                                      UTF_8));
          StringBuilder sb = new StringBuilder();
          while (true) {
             String line = br.readLine();
@@ -642,14 +659,15 @@ public abstract class AbstractConverter implements Converter {
     * @param xml the {@link Element} to serialize
     * @param out the {@link OutputStream} to send the serialized out put to
     */
-   public static void serialize(Element xml, OutputStream out) {
+   public static void serialize(Element xml, OutputStream out, AbstractConverter converter) {
       if (xml == null) {
          LOG.error("Null XML for output - should have been trapped");
       } else {
          try {
-            Serializer serializer = new Serializer(out, "UTF-8");
+            Serializer serializer = new Serializer(out, UTF_8);
 //            serializer.setMaxLength(0);
-            serializer.setIndent(2);
+            // this mucks up whitespace unless set to ZERO
+            serializer.setIndent(converter.getIndent());
             Document doc = new Document((Element) xml.copy());
             serializer.write(doc);
          } catch (UnsupportedEncodingException e) {
@@ -694,7 +712,7 @@ public abstract class AbstractConverter implements Converter {
                  "Null element in marshallToText; your conversion may have failed");
       }
       try {
-         Serializer serializer = new Serializer(baos, "UTF-8");
+         Serializer serializer = new Serializer(baos, UTF_8);
          serializer.setIndent(indent);
          Document doc = new Document((Element) element.copy());
          serializer.write(doc);

@@ -17,6 +17,9 @@ public class GamessUSPunch2XMLConverter extends AbstractCompchem2CMLConverter{
 		LOG.setLevel(Level.INFO);
 	}
 	
+	public GamessUSPunch2XMLConverter() {
+		
+	}
 	public static final String GAMESSUS_PREFIX = "gamessus";
 	public static final String GAMESSUS_URI = "http://wwmm.ch.cam.ac.uk/dict/gamessus";
 	
