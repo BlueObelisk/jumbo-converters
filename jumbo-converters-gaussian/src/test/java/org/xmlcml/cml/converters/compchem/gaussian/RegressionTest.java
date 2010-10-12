@@ -2,6 +2,7 @@ package org.xmlcml.cml.converters.compchem.gaussian;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.xmlcml.cml.converters.compchem.gamessus.GamessUSLog2XMLConverter;
 import org.xmlcml.cml.converters.compchem.gaussian.input.CML2GaussianInputConverter;
 import org.xmlcml.cml.converters.compchem.gaussian.log.GaussianLog2CMLConverter;
 import org.xmlcml.cml.converters.testutils.RegressionSuite;
@@ -42,4 +43,11 @@ public class RegressionTest {
       RegressionSuite.run("compchem/gaussian/input/nmr", "cml", "gau.in",
                           new GaussianLog2CMLConverter());
    }
+   @Test
+   public void log2XML() {
+      RegressionSuite.run("compchem/gaussian/log", "log", "xml",
+                          new GamessUSLog2XMLConverter());
+                              
+   }
+
 }

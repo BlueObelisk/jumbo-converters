@@ -57,12 +57,12 @@ block=grid_data records=    2500 index=  1 elements =   1
 		if (!line.startsWith("block=")) {
 			throw new RuntimeException("expected block at line "+lineCount+"; found: "+line);
 		}
-		AbstractBlock block = createBlock(lines, lineCount, line);
+		AbstractBlock block = createBlock(lines, line);
 		block.convertToRawCML();
 		return block;
 	}
 	
-	private GamessUKPunchBlock createBlock(List<String> lines, int lineCount, String line) {
+	private GamessUKPunchBlock createBlock(List<String> lines, String line) {
 		GamessUKPunchBlock block = new GamessUKPunchBlock();
 		String[] tokens = line.split("\\s+");
 		Map<String, String> nvMap = createNVMap(tokens);

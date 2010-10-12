@@ -11,7 +11,7 @@ import nu.xom.Nodes;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.LegacyProcessor;
-import org.xmlcml.cml.converters.RawXML2CMLProcessor;
+import org.xmlcml.cml.converters.cml.RawXML2CMLProcessor;
 import org.xmlcml.cml.converters.compchem.AbstractCompchemProcessor;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtom;

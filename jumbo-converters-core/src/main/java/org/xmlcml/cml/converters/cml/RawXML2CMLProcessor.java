@@ -1,4 +1,4 @@
-package org.xmlcml.cml.converters;
+package org.xmlcml.cml.converters.cml;
 
 import nu.xom.Attribute;
 import nu.xom.Element;
