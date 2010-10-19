@@ -21,7 +21,6 @@ public class GamessUSLog2XMLConverter extends Text2XMLConverter {
 	private static final String LEAVE_LINK = "leaveLink";
 
 	public GamessUSLog2XMLConverter() {
-		super();
 	}
 	
 	public String getMarkerResourceName() {

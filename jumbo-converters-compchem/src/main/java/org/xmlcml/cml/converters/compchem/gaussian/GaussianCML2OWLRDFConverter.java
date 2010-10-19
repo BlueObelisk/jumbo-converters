@@ -37,11 +37,6 @@ public class GaussianCML2OWLRDFConverter extends AbstractConverter {
       return rdf;
    }
 
-   @Override
-   public int getConverterVersion() {
-      return 0;
-   }
-
    public Type getOutputType() {
       return Type.RDFXML;
    }

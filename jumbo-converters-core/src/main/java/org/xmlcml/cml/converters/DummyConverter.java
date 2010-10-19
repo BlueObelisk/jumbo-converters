@@ -21,9 +21,4 @@ public class DummyConverter extends AbstractConverter {
 		
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }

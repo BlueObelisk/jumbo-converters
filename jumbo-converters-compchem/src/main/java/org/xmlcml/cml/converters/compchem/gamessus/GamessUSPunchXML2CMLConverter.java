@@ -16,6 +16,10 @@ public class GamessUSPunchXML2CMLConverter extends AbstractCompchem2CMLConverter
 		LOG.setLevel(Level.INFO);
 	}	
 	
+	public GamessUSPunchXML2CMLConverter() {
+		this.abstractCommon = new GamessUSCommon();
+	}
+
 	public Type getInputType() {
 		return Type.XML;
 	}
@@ -34,14 +38,4 @@ public class GamessUSPunchXML2CMLConverter extends AbstractCompchem2CMLConverter
 		return convert(xml);
 	}
 
-	public void addNamespaces(CMLElement cml) {
-		addCommonNamespaces(cml);
-		cml.addNamespaceDeclaration(GamessUSPunch2XMLConverter.GAMESSUS_PREFIX, GamessUSPunch2XMLConverter.GAMESSUS_URI);
-	}
-
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-	
 }

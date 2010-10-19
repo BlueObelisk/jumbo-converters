@@ -17,13 +17,6 @@ public class TextParserConverter extends AbstractParser implements
 	static {
 		LOG.setLevel(Level.INFO);
 	};
-	public final static String[] typicalArgsForConverterCommand = {
-		"-sd", "marker/text",
-		"-odir", "../temp",
-		"-is", "txt",
-		"-os", "cml",
-		"-converter", "org.xmlcml.cml.converters.marker.text.TextParserConverter"
-	};
 	
 	/**
 	 * 
@@ -34,9 +27,4 @@ public class TextParserConverter extends AbstractParser implements
 		return getCmlModule();
 	}
 	
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }

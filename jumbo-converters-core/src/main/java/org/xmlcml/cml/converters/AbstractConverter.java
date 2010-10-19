@@ -55,20 +55,6 @@ public abstract class AbstractConverter implements Converter {
    }
 
    /**
-    * Obtain the current version number of this {@link AbstractConveter}.
-    * In sub-classes this should be set by the programmer each time an alteration
-    * is made to the code so that when the new code is installed on the server
-    * the check made by {@link CheckJumboConverter} when running the Ant build file
-    * will ensure that the converter is forced to run even if the "-onlyNewer" flag is set.
-    *
-    * @return The current version number
-    * @see org.xmlcml.cml.converters.ant.CheckJumboConverter CheckJumboConverter
-    * @see org.xmlcml.cml.converters.ant.ConverterVersionUpdate ConverterVersionUpdate
-    */
-   public int getConverterVersion() {
-      return 0;
-   }
-   /**
     *
     */
    protected List<String> warnings = new ArrayList<String>();
@@ -85,14 +71,6 @@ public abstract class AbstractConverter implements Converter {
     *
     */
    protected String fileId = null;
-   /**
-    *
-    */
-   protected String includesDirectoryRelative = null;
-   /**
-    *
-    */
-   protected String setupDirectoryAbsolute = null;
    /**
     *
     */
@@ -117,7 +95,7 @@ public abstract class AbstractConverter implements Converter {
 	   this.indent = indent;
    }
 
-public Command getCommand() {
+   public Command getCommand() {
       return command;
    }
 
@@ -930,34 +908,6 @@ public Command getCommand() {
          throw new RuntimeException("Cannot find id");
       }
       return id;
-   }
-
-   /**
-    *
-    */
-   public String getIncludesDirectoryRelative() {
-      return includesDirectoryRelative;
-   }
-
-   /**
-    *
-    */
-   public void setIncludesDirectoryRelative(String includesDirectoryRelative) {
-      this.includesDirectoryRelative = includesDirectoryRelative;
-   }
-
-   /**
-    *
-    */
-   public String getSetupDirectoryAbsolute() {
-      return setupDirectoryAbsolute;
-   }
-
-   /**
-    *
-    */
-   public void setSetupDirectoryAbsolute(String setupDirectoryAbsolute) {
-      this.setupDirectoryAbsolute = setupDirectoryAbsolute;
    }
 
    /**

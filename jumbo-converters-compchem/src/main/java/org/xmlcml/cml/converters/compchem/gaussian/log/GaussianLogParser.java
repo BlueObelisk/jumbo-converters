@@ -29,9 +29,4 @@ public class GaussianLogParser extends AbstractParser {
 		return getAuxElement(GAUSSIAN_TEMPLATE_LIST);
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }

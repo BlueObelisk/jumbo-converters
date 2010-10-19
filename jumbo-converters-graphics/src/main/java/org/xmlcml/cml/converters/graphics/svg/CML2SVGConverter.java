@@ -163,14 +163,6 @@ SVGConverter {
 		return svgCreator.getSVG();
 	}
 
-	/**
-	 * Returns the current version number of this {@link AbstractConveter}.
-	 */
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-   
 }
 
     

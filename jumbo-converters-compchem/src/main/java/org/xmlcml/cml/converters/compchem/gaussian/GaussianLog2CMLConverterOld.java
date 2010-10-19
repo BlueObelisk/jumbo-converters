@@ -30,30 +30,6 @@ public class GaussianLog2CMLConverterOld  extends AbstractCompchem2CMLConverter 
 	public static final String GAUSS_PREFIX = "gauss";
 	public static final String GAUSS_URI = "http://wwmm.ch.cam.ac.uk/dict/gauss";
 	
-	public final static String[] typicalArgsForConverterCommand = {
-//		"-sd", "src/test/resources/gaussian/frequencies",
-		"-sd", "D:/projects/cost/gaussian/files",
-		"-odir", "../gaussian.cml",
-		"-is", "log",
-		"-os", "gau.freq.cml",
-		// dictionary file; should not be necessary to have full file name
-		// eclipse picks this up from resources but any does not
-		"-aux", "D:/workspace/jumbo-converters/src/main/resources/org/xmlcml/cml/converters/compchem/gaussian/gaussianArchiveDict.xml",
-		"-converter", "org.xmlcml.cml.converters.compchem.gaussian.GaussianLog2CMLFrequenciesConverter"
-	};
-	
-	public final static String[] testArgs = {
-		"-quiet",
-		"-sd", "src/test/resources/gaussian",
-		"-odir", "../gaussian.cml",
-		"-is", "gau",
-		"-os", "gau.cml",
-		// dictionary file; should not be necessary to have full file name
-		// eclipse picks this up from resources but any does not
-		"-aux", "src/main/resources/org/xmlcml/cml/converters/compchem/gaussian/gaussianArchiveDict.xml",
-		"-converter", "org.xmlcml.cml.converters.compchem.gaussian.GaussianLog2CMLFrequenciesConverter"
-	};
-
 	private CMLCml topCml;
 	
 	public Type getInputType() {
@@ -137,11 +113,5 @@ public class GaussianLog2CMLConverterOld  extends AbstractCompchem2CMLConverter 
 		addCommonNamespaces(cml);
 		cml.addNamespaceDeclaration(GAUSS_PREFIX, GAUSS_URI);
 	}
-
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 
 }

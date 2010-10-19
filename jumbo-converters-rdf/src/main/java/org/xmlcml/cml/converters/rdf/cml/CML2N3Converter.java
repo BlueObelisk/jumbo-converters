@@ -45,9 +45,4 @@ public class CML2N3Converter extends AbstractConverter {
 		return lines;
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }

@@ -14,6 +14,12 @@
    <name>jumbo-converters-gaussian</name>
 
    <dependencies>
+        <dependency>
+            <groupId>cml</groupId>
+            <artifactId>jumbo</artifactId>
+            <version>5.5.1-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
       <dependency>
          <groupId>cml</groupId>
          <artifactId>jumbo-converters-core</artifactId>
@@ -36,7 +42,34 @@
          <version>0.3-SNAPSHOT</version>
          <scope>test</scope>
       </dependency>
+        <dependency>
+            <groupId>gigadot.semsci</groupId>
+            <artifactId>semsci-chemistry</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>owlapi</groupId>
+            <artifactId>owlapi</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hp.hpl.jena</groupId>
+            <artifactId>jena</artifactId>
+            <version>2.6.3</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>log4j</artifactId>
+                    <groupId>log4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
    </dependencies>
+    <repositories>
+        <repository>
+            <id>com.hp.hpl.jena</id>
+            <url>http://openjena.org/repo</url>
+        </repository>
+    </repositories>
 </project>
 
 

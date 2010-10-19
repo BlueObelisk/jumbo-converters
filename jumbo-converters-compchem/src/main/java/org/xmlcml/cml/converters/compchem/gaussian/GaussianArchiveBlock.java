@@ -11,12 +11,13 @@ import nu.xom.Nodes;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
+import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.Command;
 import org.xmlcml.cml.converters.ConverterLog;
 import org.xmlcml.cml.converters.Util;
+import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLCml;
@@ -48,9 +49,9 @@ import org.xmlcml.molutil.ChemicalElement;
  * @author Peter Murray-Rust
  * 
  */
-public class GaussianArchive implements CMLConstants {
+public class GaussianArchiveBlock extends AbstractBlock {
 
-   private static Logger LOG = Logger.getLogger(GaussianArchive.class);
+   private static Logger LOG = Logger.getLogger(GaussianArchiveBlock.class);
 
    static {
       LOG.setLevel(Level.DEBUG);
@@ -129,14 +130,9 @@ public class GaussianArchive implements CMLConstants {
     *
     * @param dictionary
     */
-   public GaussianArchive(CMLDictionary dictionary, Command command) {
-      this.dictionary = dictionary;
-      this.command = command;
-      init();
-   }
-
-   private void init() {
-      makeDictionary();
+   public GaussianArchiveBlock() {
+		this.abstractCommon = new GaussianCommon();
+		makeDictionary(); // maybe refactor
    }
 
    /**
@@ -151,16 +147,16 @@ public class GaussianArchive implements CMLConstants {
          dictionaryTool.setIgnoreCaseOfEnumerations(true);
          idIndex = dictionaryTool.makeIndex("@id");
 
-         CMLEntry methodEntry = idIndex.get("method");
-         if (methodEntry == null) {
-            throw new RuntimeException("No method entry in dictionary");
-         }
-         EntryTool methodEntryTool = EntryTool.getOrCreateTool(methodEntry);
-         CMLEntry basisEntry = idIndex.get("basis");
-         if (basisEntry == null) {
-            throw new RuntimeException("No basis entry in dictionary");
-         }
-         EntryTool basisEntryTool = EntryTool.getOrCreateTool(basisEntry);
+//         CMLEntry methodEntry = idIndex.get("method");
+//         if (methodEntry == null) {
+//            throw new RuntimeException("No method entry in dictionary");
+//         }
+//         EntryTool methodEntryTool = EntryTool.getOrCreateTool(methodEntry);
+//         CMLEntry basisEntry = idIndex.get("basis");
+//         if (basisEntry == null) {
+//            throw new RuntimeException("No basis entry in dictionary");
+//         }
+//         EntryTool basisEntryTool = EntryTool.getOrCreateTool(basisEntry);
       }
    }
 
@@ -196,6 +192,11 @@ public class GaussianArchive implements CMLConstants {
       return this.title;
    }
 
+   @Override
+   public void convertToRawCML() {
+	   System.err.println("convertToRawCML should be refactored");
+   }
+   
    CMLCml parseArchiveToCML(String archiveS) {
       cml = new CMLCml();
       String[] lines = archiveS.split(ESCAPED_TOP_SEPARATOR);
@@ -480,17 +481,17 @@ public class GaussianArchive implements CMLConstants {
       try {
          addMetadata();
       } catch (RuntimeException e) {
-         warn("Cannot add metadata: " + e.getMessage());
+         LOG.warn("Cannot add metadata: " + e.getMessage());
       }
       try {
          addAuthorFormula(molecule);
       } catch (RuntimeException e) {
-         warn("Cannot add author and formula " + e.getMessage());
+    	  LOG.warn("Cannot add author and formula " + e.getMessage());
       }
       try {
          addKeywords();
       } catch (RuntimeException e) {
-         warn("Cannot add keywords: " + e.getMessage());
+    	  LOG.warn("Cannot add keywords: " + e.getMessage());
       }
 
       molecule.setTitle(title);
@@ -498,18 +499,18 @@ public class GaussianArchive implements CMLConstants {
       try {
          addAtomRelatedArrayAndMatrix();
       } catch (RuntimeException e) {
-         warn("Cannot add array and matrix: " + e.getMessage());
+    	  LOG.warn("Cannot add array and matrix: " + e.getMessage());
       }
       try {
          addAlphaBetaValues();
       } catch (RuntimeException e) {
-         warn("Cannot add alpha and beta: " + e.getMessage());
+    	  LOG.warn("Cannot add alpha and beta: " + e.getMessage());
       }
 
       try {
          addNameValues();
       } catch (RuntimeException e) {
-         warn("Cannot parse nameValues: " + e.getMessage());
+    	  LOG.warn("Cannot parse nameValues: " + e.getMessage());
       }
       normalizeParameters();
       normalizeProperties();
@@ -1132,14 +1133,6 @@ public class GaussianArchive implements CMLConstants {
               }, translateSymbolToDouble(fields[6]));
    }
 
-   private void warn(String message) {
-      converterLog.addToLog(Level.WARN, message);
-//		command.warn(message);
-   }
-
-   public void setConverterLog(ConverterLog converterLog) {
-      this.converterLog = converterLog;
-   }
 }
 
 class NameValue {

@@ -31,6 +31,9 @@ public class CIF2CIFXMLConverter extends AbstractConverter {
 
 	private CIFParser parser = new CIFParser();
 
+	public CIF2CIFXMLConverter() {
+	}
+	
 	public Type getInputType() {
 		return Type.CIF;
 	}
@@ -88,11 +91,6 @@ public class CIF2CIFXMLConverter extends AbstractConverter {
 			IOUtils.closeQuietly(br);
 		}
 		return cif;
-	}
-
-	@Override
-	public int getConverterVersion() {
-		return 0;
 	}
 
 }

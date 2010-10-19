@@ -5,6 +5,10 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.ChemistrySummary;
 
 /**
+ * not sure what this is doing
+ * */
+
+/**
  * Generates a structure summary page as XHTML.
  * 
  * @author pm286

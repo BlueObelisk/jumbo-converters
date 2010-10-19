@@ -18,14 +18,6 @@ public class CML2CMLIdConverter extends AbstractConverter implements
 	static {
 		LOG.setLevel(Level.INFO);
 	};
-	public final static String[] typicalArgsForConverterCommand = {
-		"-sd", "src/test/resources/cml",
-		"-odir", "../temp",
-		"-is", "cml",
-		"-os", "cml",
-		"-converter", "org.xmlcml.cml.converters.molecule.xyz.CML2CMLIdConverter"
-	};
-	
 	
 	public Type getInputType() {
 		return Type.CML;
@@ -46,11 +38,6 @@ public class CML2CMLIdConverter extends AbstractConverter implements
 			((Element)nodes.get(i)).addAttribute(xmlid);
 		}
 		return cml;
-	}
-
-	@Override
-	public int getConverterVersion() {
-		return 0;
 	}
 
 }

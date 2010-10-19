@@ -47,10 +47,6 @@ public class FrameworkTest {
 		public Element convertToXML(Element xml) {
 			return (Element) xml.copy();
 		}
-		@Override
-		public int getConverterVersion() {
-			return 0;
-		}
 	}
 
 	private static final Logger LOG = Logger.getLogger(FrameworkTest.class);

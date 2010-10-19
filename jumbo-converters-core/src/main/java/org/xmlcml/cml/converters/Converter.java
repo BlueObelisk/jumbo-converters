@@ -246,34 +246,7 @@ public interface Converter {
 	 * 
 	 * @return
 	 */
-	public String getIncludesDirectoryRelative() ;
-
-	/**
-	 * 
-	 * 
-	 * @return
-	 */
-	public void setIncludesDirectoryRelative(String includesDirectoryRelative) ;
-
-	/**
-	 * 
-	 * 
-	 * @return
-	 */
 	public void setMetadataCml(CMLElement metadataCML) ;
 
-	/**
-	 * 
-	 * 
-	 * @return
-	 */
-	public String getSetupDirectoryAbsolute() ;
-
-	/**
-	 * 
-	 * 
-	 * @return
-	 */
-	public void setSetupDirectoryAbsolute(String setupDirectoryAbsolute) ;
 
 }

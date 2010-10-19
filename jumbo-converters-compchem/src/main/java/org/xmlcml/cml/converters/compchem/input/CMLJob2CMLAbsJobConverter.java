@@ -20,15 +20,6 @@ public class CMLJob2CMLAbsJobConverter extends AbstractConverter implements
 	static {
 		LOG.setLevel(Level.INFO);
 	}
-	public final static String[] typicalArgsForConverterCommand = {
-		"-sd", "src/test/resources/cml",
-		"-odir", "../temp",
-		"-is", "cml",
-		"-os", "xyz",
-		"-converter", "org.xmlcml.cml.converters.molecule.xyz.CML2XYZConverter"
-	};
-	
-	
 	public Type getInputType() {
 		return Type.CML;
 	}
@@ -65,11 +56,6 @@ public class CMLJob2CMLAbsJobConverter extends AbstractConverter implements
 		CMLElement cmlElement = (CMLElement) this.getAuxElement();
 		CMLMolecule molecule = new CMLSelector(cmlElement).getToplevelMoleculeDescendant(true);
 		return molecule;
-	}
-
-	@Override
-	public int getConverterVersion() {
-		return 0;
 	}
 
 }

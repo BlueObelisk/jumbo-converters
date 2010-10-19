@@ -155,9 +155,4 @@ public class CML2SDFConverter extends AbstractConverter implements
 		lines.add(SDF_END);
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }

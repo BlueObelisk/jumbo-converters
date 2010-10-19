@@ -106,8 +106,4 @@ public class HTML2XHTMLConverter extends AbstractConverter {
 		return element;
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
 }

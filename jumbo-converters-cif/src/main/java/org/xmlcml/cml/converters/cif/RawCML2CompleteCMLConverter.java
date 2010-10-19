@@ -676,8 +676,4 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 		}
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
 }

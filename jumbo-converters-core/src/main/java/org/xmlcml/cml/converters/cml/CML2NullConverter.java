@@ -32,9 +32,4 @@ public class CML2NullConverter extends NullConverter implements
 		LOG.debug("file "+infile.getAbsolutePath());
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }

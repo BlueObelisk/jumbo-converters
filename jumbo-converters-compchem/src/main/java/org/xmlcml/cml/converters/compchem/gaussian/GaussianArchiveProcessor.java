@@ -3,22 +3,21 @@ package org.xmlcml.cml.converters.compchem.gaussian;
 import static org.xmlcml.euclid.EuclidConstants.S_ATSIGN;
 import static org.xmlcml.euclid.EuclidConstants.S_BACKSLASH;
 import static org.xmlcml.euclid.EuclidConstants.S_EMPTY;
-import static org.xmlcml.euclid.EuclidConstants.S_SLASH;
 import static org.xmlcml.euclid.EuclidConstants.S_SPACE;
 
-import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.converters.Command;
-import org.xmlcml.cml.converters.ConverterLog;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.output.AbstractCompchemOutputProcessor;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLDictionary;
+import org.xmlcml.euclid.Util;
 
 /**
  * converts Gaussian archive to molecule, metadata and properties
@@ -33,9 +32,11 @@ public class GaussianArchiveProcessor extends AbstractCompchemOutputProcessor {
 	static {
 		LOG.setLevel(Level.DEBUG);
 	}
-	private GaussianArchive archive;
-	private ConverterLog converterLog;
-	private Command command;
+	
+	public final static String DICT_RESOURCE = 
+		"org/xmlcml/cml/converters/compchem/gaussian/gaussianArchiveDict.xml";
+	
+	private GaussianArchiveBlock archive;
 
 	/** start of archive */
 	final static String START = 
@@ -58,16 +59,12 @@ public class GaussianArchiveProcessor extends AbstractCompchemOutputProcessor {
 	protected void init() {
 	}
 	
-	public GaussianArchiveProcessor() {
-		
-	}
 	/** constructor.
 	 * 
 	 * @param dictionary
 	 */
-	public GaussianArchiveProcessor(CMLDictionary dictionary, Command command) {
-		this.dictionary = dictionary;
-		this.command = command;
+	public GaussianArchiveProcessor() {
+		this.dictionary = findDictionary();
 		init();
 	}
 	
@@ -97,29 +94,12 @@ public class GaussianArchiveProcessor extends AbstractCompchemOutputProcessor {
 
 	public CMLElement readArchive() {
 		// leading spaces are sometimes missing
-		String archiveS = null;
-		try {
-			archiveS = readAndConcatenateArchiveLines();
-		} catch (RuntimeException e) {
-			command.warn("****DETECTED and SKIPPED: "+e);
-		} catch (Throwable e) {
-			command.warn("******SKIPPED: "+e);
-		}
+		String archiveS = readAndConcatenateArchiveLines();
 		CMLCml cml = null;
 		if (archiveS != null) {
-			try {
-				archive = new GaussianArchive(dictionary, this.command);
-				archive.setConverterLog(converterLog);
-				cml = archive.parseArchiveToCML(archiveS);
-				LOG.trace("CMLElement "+cml);
-			} catch (RuntimeException e) {
-				command.debug("Parse problem: "+e);
-				converterLog.addToLog(Level.ERROR, "Detected and SKIPPED: "+e.getMessage()+S_SLASH+archive.getTitle());
-			} catch (Throwable e) {
-//    				e.printStackTrace();
-				command.debug("Parse error: "+e);
-				converterLog.addToLog(Level.ERROR, "*****failed parsetoCML *SKIPPED: "+e.getMessage()+S_SLASH+archive.getTitle());
-			}
+			archive = new GaussianArchiveBlock();
+			cml = archive.parseArchiveToCML(archiveS);
+			LOG.trace("CMLElement "+cml);
 		}
 		return cml;
 	}
@@ -131,49 +111,21 @@ public class GaussianArchiveProcessor extends AbstractCompchemOutputProcessor {
     	 */
     public void readArchive(List<String> lines, CMLCml topCml) {
     	stringArray = new StringArray(lines);
-//    	List<CMLElement> cmlElementList = null;
 		boolean start = false;
 		CMLCml cml = null;
     	while (true) {
     		String line = stringArray.readLine();
-//    		LOG.trace("??? "+line);
     		if (line == null) {
     			break;
     		}
     		// leading spaces are sometimes missing
     		if (line.trim().startsWith(START)) {
     			start = true;
-    			String archiveS = null;
-    			try {
-    				archiveS = readAndConcatenateArchiveLines();
-    			} catch (RuntimeException e) {
-    				command.warn("****DETECTED and SKIPPED: "+e);
-    				continue;
-    			} catch (Throwable e) {
-//    				e.printStackTrace();
-    				command.warn("******SKIPPED: "+e);
-    				continue;
-    			}
-    			try {
-    				archive = new GaussianArchive(dictionary, this.command);
-    				archive.setConverterLog(converterLog);
-					cml = archive.parseArchiveToCML(archiveS);
-    				LOG.trace("CMLElement "+cml);
-//    	    		if (cmlElementList == null) {
-//    	    			cmlElementList = new ArrayList<CMLElement>();
-//    	    		}
-//	    			cmlElementList.add(cml);
-	    			topCml.appendChild(cml);
-    			} catch (RuntimeException e) {
-    				command.debug("Parse problem: "+e);
-					converterLog.addToLog(Level.ERROR, "Detected and SKIPPED: "+e.getMessage()+S_SLASH+archive.getTitle());
-    				continue;
-    			} catch (Throwable e) {
-//    				e.printStackTrace();
-    				command.debug("Parse error: "+e);
-					converterLog.addToLog(Level.ERROR, "*****failed parsetoCML *SKIPPED: "+e.getMessage()+S_SLASH+archive.getTitle());
-    				continue;
-    			}
+    			String archiveS = readAndConcatenateArchiveLines();
+				archive = new GaussianArchiveBlock();
+				cml = archive.parseArchiveToCML(archiveS);
+				LOG.trace("CMLElement "+cml);
+    			topCml.appendChild(cml);
     		}
     	}
 		if (!start) {
@@ -181,7 +133,7 @@ public class GaussianArchiveProcessor extends AbstractCompchemOutputProcessor {
 		}
     }
     
-    private String readAndConcatenateArchiveLines() throws IOException {
+    private String readAndConcatenateArchiveLines() {
     	StringBuffer sb = new StringBuffer();
     	String line = stringArray.getLines().get(stringArray.getLineCount()-1);
     	boolean startsWithSpace = line.startsWith(S_SPACE);
@@ -226,8 +178,20 @@ public class GaussianArchiveProcessor extends AbstractCompchemOutputProcessor {
 //    	}
     }
 
-	public void setConverterLog(ConverterLog converterLog) {
-		this.converterLog = converterLog;
+
+	public static CMLDictionary findDictionary() {
+		CMLDictionary dictionary = null;
+		try {
+			InputStream inputStream = Util.getInputStreamFromResource(DICT_RESOURCE);
+			CMLCml cml = (CMLCml) new CMLBuilder().build(inputStream).getRootElement();
+			dictionary = (CMLDictionary)cml.getFirstCMLChild(CMLDictionary.TAG);
+			if (dictionary == null) {
+				throw new RuntimeException("Failed to find dictionary element in "+DICT_RESOURCE);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("Cannot read dictionary", e);
+		}
+		return dictionary;
 	}
 
 }
@@ -266,5 +230,6 @@ class StringArray {
 		this.lines = lines;
 	}
 	
+
 
 }

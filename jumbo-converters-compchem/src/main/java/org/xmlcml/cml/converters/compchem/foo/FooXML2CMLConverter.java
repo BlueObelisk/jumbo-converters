@@ -17,6 +17,10 @@ public class FooXML2CMLConverter extends AbstractCompchem2CMLConverter{
 		LOG.setLevel(Level.INFO);
 	}	
 	
+	public FooXML2CMLConverter() {
+		abstractCommon = new FooCommon();
+	}
+	
 	public Type getInputType() {
 		return Type.XML;
 	}
@@ -26,7 +30,7 @@ public class FooXML2CMLConverter extends AbstractCompchem2CMLConverter{
 	}
 
 	/**
-	 * converts an MDL object to CML. returns cml:cml/cml:molecule
+	 * converts an Foo to CML. returns cml:cml/cml:molecule
 	 * 
 	 * @param in input stream
 	 */
@@ -35,14 +39,4 @@ public class FooXML2CMLConverter extends AbstractCompchem2CMLConverter{
 		return convert(xml);
 	}
 
-	public void addNamespaces(CMLElement cml) {
-		addCommonNamespaces(cml);
-		cml.addNamespaceDeclaration(Foo2XMLConverter.FOO_PREFIX, Foo2XMLConverter.FOO_URI);
-	}
-
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-	
 }

@@ -3,14 +3,16 @@ package org.xmlcml.cml.converters;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.tools.DictionaryTool;
 
 /**
  * holds chunks of information (usually text) while processing
  * @author pm286
  *
  */
-public abstract class AbstractBlock {
+public abstract class AbstractBlock implements CMLConstants {
 
 	/**
 	 * useful lines (we may have skipped whitespace or
@@ -19,9 +21,19 @@ public abstract class AbstractBlock {
 	protected List<String> lines;
 	protected CMLElement element = null;
 	protected String blockName;
+	protected AbstractCommon abstractCommon;
+	protected boolean validateDictRef;
 
 	protected AbstractBlock() {
 		lines = new ArrayList<String>();
+		validateDictRef = true;
+	}
+	
+	public boolean isValidateDictRef() {
+		return validateDictRef;
+	}
+	public void setValidateDictRef(boolean validateDictRef) {
+		this.validateDictRef = validateDictRef;
 	}
 	// ???
 	public void setElement(CMLElement element) {
@@ -58,6 +70,10 @@ public abstract class AbstractBlock {
 
 	public void setBlockName(String blockName) {
 		this.blockName = blockName;
+	}
+	
+	protected DictionaryTool getDictionaryTool() {
+		return (abstractCommon == null) ? null : abstractCommon.getDictionaryTool();
 	}
 
 }

@@ -53,9 +53,4 @@ public class CMLEditorConverter extends AbstractConverter implements
 		}
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }
