@@ -83,9 +83,4 @@ public class CML2XYZConverter extends AbstractConverter implements
 		return lines;
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }

@@ -308,9 +308,4 @@ Saved	TRUE
 		spectrum.appendChild(peak);
 	}
 	
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }

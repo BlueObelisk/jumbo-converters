@@ -28,14 +28,6 @@ public class CMLSplitter extends AbstractSplitter {
 		LOG.setLevel(Level.DEBUG);
 	}
 	
-	public final static String[] typicalArgsForConverterCommand = {
-		"-sd", "D:\\projects\\nature",
-		"-is", "cdx.cml",
-		"-os", "mol.cml",
-		"-converter", "org.xmlcml.cml.converters.cml.CMLSplitter",
-		"-xpath", "//cml:molecule"
-	};
-		
 	public CMLSplitter() {
 		
 	}
@@ -73,11 +65,6 @@ public class CMLSplitter extends AbstractSplitter {
 
 	public Type getOutputType() {
 		return Type.CML;
-	}
-
-	@Override
-	public int getConverterVersion() {
-		return 0;
 	}
 
 }

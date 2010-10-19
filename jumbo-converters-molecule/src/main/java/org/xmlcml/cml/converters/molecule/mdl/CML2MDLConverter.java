@@ -82,9 +82,4 @@ public class CML2MDLConverter extends AbstractConverter implements
 		return lines;
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }

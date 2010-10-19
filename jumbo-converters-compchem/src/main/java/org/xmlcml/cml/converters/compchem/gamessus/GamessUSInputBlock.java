@@ -30,7 +30,7 @@ public class GamessUSInputBlock extends AbstractBlock {
 	public static final String DELIM   = CMLConstants.S_PIPE;
 	
 	public GamessUSInputBlock() {
-		
+		this.abstractCommon = new GamessUSCommon();
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class GamessUSInputBlock extends AbstractBlock {
 		 * valuable for blocks to have a dictRef
 		 */
 		if (element != null) {
-			String dictRef = DictRefAttribute.createValue(GamessUSPunch2XMLConverter.GAMESSUS_PREFIX, getBlockName());
+			String dictRef = DictRefAttribute.createValue(abstractCommon.getPrefix(), getBlockName());
 			element.setAttribute("dictRef", dictRef);
 		} else {
 			System.err.println("null element: "+getBlockName());
@@ -98,8 +98,7 @@ public class GamessUSInputBlock extends AbstractBlock {
 		}
 		CMLProperty property = new CMLProperty();
 		String name = nameValues[0].toLowerCase();
-		String dictRef = DictRefAttribute.createValue(
-				GamessUSInput2XMLConverter.GAMESSUS_PREFIX, name);
+		String dictRef = DictRefAttribute.createValue(abstractCommon.getPrefix(), name);
 		property.setDictRef(dictRef);
 		String value = nameValues[1];
 		value = value.replaceAll("\\.T\\.|\\.t\\.|TRUE", "true");

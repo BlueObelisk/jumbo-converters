@@ -18,12 +18,9 @@ public class GamessUSPunch2XMLConverter extends AbstractCompchem2CMLConverter{
 	}
 	
 	public GamessUSPunch2XMLConverter() {
-		
+		this.abstractCommon = new GamessUSCommon();
 	}
-	public static final String GAMESSUS_PREFIX = "gamessus";
-	public static final String GAMESSUS_URI = "http://wwmm.ch.cam.ac.uk/dict/gamessus";
-	
-	
+
 	public Type getInputType() {
 		return Type.GAMESSUS_PUNCH;
 	}
@@ -43,14 +40,4 @@ public class GamessUSPunch2XMLConverter extends AbstractCompchem2CMLConverter{
 		return cmlElement;
 	}
 
-	public void addNamespaces(CMLElement cml) {
-		addCommonNamespaces(cml);
-		cml.addNamespaceDeclaration(GAMESSUS_PREFIX, GAMESSUS_URI);
-	}
-
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-	
 }

@@ -44,9 +44,4 @@ public class CDX2CMLConverter extends AbstractConverter implements
 		return cdxml2CmlConverter.convertToXML(cdxml);
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }

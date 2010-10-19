@@ -108,12 +108,6 @@ public class MMReRDF2CMLReactConverter extends AbstractConverter implements
          preparation.expandDescription(topNode, cmlElement);
       }
    }
-
-   @Override
-   public int getConverterVersion() {
-      return 0;
-   }
-
    private void tidyCML() {
       tidyScalars();
       tidyReagents();

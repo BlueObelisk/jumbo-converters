@@ -54,9 +54,4 @@ public class CML2RDFConverter extends AbstractConverter {
 		return rdf;
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }

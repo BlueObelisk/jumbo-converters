@@ -82,9 +82,4 @@ public class CDX2CDXMLConverter extends AbstractConverter implements
 //		return (Element) result;
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }

@@ -63,9 +63,4 @@ public class CML2OWLConverter extends AbstractConverter implements
 		return outXML;
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }

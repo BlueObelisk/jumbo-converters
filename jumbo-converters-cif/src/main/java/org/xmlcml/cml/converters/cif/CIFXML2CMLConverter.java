@@ -1059,11 +1059,6 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		CMLTable table = makeTable(loop, category);
 		cml.appendChild(table);
 	}
-
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
 	
 }
 

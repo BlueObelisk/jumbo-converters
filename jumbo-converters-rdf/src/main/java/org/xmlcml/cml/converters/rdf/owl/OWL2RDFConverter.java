@@ -85,9 +85,4 @@ public class OWL2RDFConverter extends AbstractConverter implements
 	
 
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }

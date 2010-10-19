@@ -37,9 +37,4 @@ public class CML2CMLLiteConverter extends AbstractConverter implements
 		return cml;
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }

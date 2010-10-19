@@ -254,9 +254,4 @@ public class JDX2CMLConverter extends AbstractConverter implements
 		}
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }

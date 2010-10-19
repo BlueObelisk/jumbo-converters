@@ -15,7 +15,9 @@ import nu.xom.Nodes;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.LegacyProcessor;
 import org.xmlcml.cml.converters.cml.RawXML2CMLProcessor;
@@ -37,6 +39,7 @@ public abstract class AbstractCompchem2CMLConverter extends AbstractConverter {
 	private CMLMolecule molecule;
 	protected RawXML2CMLProcessor rawXml2CmlProcessor;
 	protected LegacyProcessor legacyProcessor;
+	protected AbstractCommon abstractCommon;
 	
 	public CMLMolecule getMolecule() {
 		return molecule;
@@ -46,13 +49,12 @@ public abstract class AbstractCompchem2CMLConverter extends AbstractConverter {
 		this.molecule = molecule;
 	}
 
-	protected abstract void addNamespaces(CMLElement cml);
-
 	protected void addCommonNamespaces(CMLElement cml) {
 		if (cml != null) {
 			cml.addNamespaceDeclaration(XSD_PREFIX, XSD_NS);
 			cml.addNamespaceDeclaration(CML_UNITS, UNIT_NS);
 			cml.addNamespaceDeclaration(CML_PREFIX, CML_NS);
+			cml.addNamespaceDeclaration(CMLConstants.CMLX_PREFIX, CMLConstants.CMLX_NS);
 		}
 	}
 
@@ -144,7 +146,13 @@ public abstract class AbstractCompchem2CMLConverter extends AbstractConverter {
 		legacyProcessor.read(lines);
 		CMLElement cmlElement = legacyProcessor.getCMLElement();
 		addCommonNamespaces(cmlElement);
+		addNamespaces(cmlElement);
 		return cmlElement;
 	}
 	
+	public void addNamespaces(CMLElement cml) {
+		addCommonNamespaces(cml);
+		this.abstractCommon.addNamespaceDeclaration(cml);
+	}
+
 }

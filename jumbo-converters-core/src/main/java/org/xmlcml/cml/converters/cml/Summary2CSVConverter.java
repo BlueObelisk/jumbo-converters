@@ -104,9 +104,4 @@ public class Summary2CSVConverter extends AbstractConverter implements
 		return stringList;
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }

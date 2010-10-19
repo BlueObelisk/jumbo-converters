@@ -41,10 +41,4 @@ public class EPO2XMLConverter extends AbstractConverter implements
 		return element;
 	}
 
-
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }

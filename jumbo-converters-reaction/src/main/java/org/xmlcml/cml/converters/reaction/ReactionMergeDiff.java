@@ -35,24 +35,6 @@ public class ReactionMergeDiff extends AbstractConverter implements MergeDiff {
 		LOG.setLevel(Level.DEBUG);
 	};
 	
-	public int getConverterVersion() {
-		return 0;
-	}
-	
-	public final static String[] typicalArgsForConverterCommand = {
-		"-i",
-		"D:/projects1/mmre/rdfFiles/cml/Harter-preparation-1.cml", 
-		"-aux", 
-		"D:/projects1/thesis/Harter7/mols/chem120.cml",
-		"-is", 
-		"cml",
-		"-it", 
-		"CML",
-		"-o", 
-		"D:/projects1/mmre/rdfFiles/cml/Harter-preparation-1.diff.cml",
-		"-converter", 
-		"org.xmlcml.cml.converters.reaction.ReactionMergeDiff",
-		};
 	private CMLElement cmlElement;
 	private List<String> xpathList;
 	private Element mergedElement;

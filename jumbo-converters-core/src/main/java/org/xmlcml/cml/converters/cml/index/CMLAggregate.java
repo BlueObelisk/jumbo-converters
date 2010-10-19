@@ -45,31 +45,6 @@ public class CMLAggregate extends AbstractAggregator {
 		LOG.setLevel(Level.INFO);
 	}
 	
-	public final static String[] typicalArgsForConverterCommand = {
-		"-sd", "target/tmp/AggregateTest",         // start directory
-		"-is", "cml",                            // input suffix
-//		"-os", "xml",                            // output suffix
-		"-ot", "INDEX",                          // output type
-		"-converter", "org.xmlcml.cml.converters.cml.index.CMLAggregate",
-		"--index",                               // create index
-		"-if", "../summary/summary1.xml",        // indexfile
-		"-bd",                                   // index byDirectory
-		"-xpath", "//*/@id[1]"                   // xpath result to use as index
-		};
-	
-	public final static String[] testArgs = {
-//		"-quiet",
-		"-sd", "target/tmp/AggregateTest",         // start directory
-		"-is", "cml",                            // input suffix
-//		"-os", "xml",                            // output suffix
-		"-ot", "INDEX",                          // output type
-		"-converter", "org.xmlcml.cml.converters.cml.index.CMLAggregate",
-		"--index",                               // create index
-		"-if", "../summary/summary1.xml",        // indexfile
-		"-bd",                                   // index byDirectory
-		"-xpath", "//*/@id[1]"                   // xpath result to use as index
-		};
-	
 	public static String COUNT_FUNCTION = "COUNT";
 
 	private static Pattern XPATH_PATTERN = Pattern.compile("(COUNT|FOO)\\((.*)\\)");
@@ -132,11 +107,6 @@ public class CMLAggregate extends AbstractAggregator {
 	
 	public Type getInputType() {
 		return Type.CML;
-	}
-
-	@Override
-	public int getConverterVersion() {
-		return 0;
 	}
 	
 }

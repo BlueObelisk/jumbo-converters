@@ -12,7 +12,7 @@ public class GaussianLog2XMLConverter extends Text2XMLConverter {
 	}
 	
 	public String getMarkerResourceName() {
-		return "org/xmlcml/cml/converters/compchem/gamessus/markers.xml";
+		return "org/xmlcml/cml/converters/compchem/gaussian/markers.xml";
 	}
 
 }

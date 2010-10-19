@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.converters.AbstractBlock;
+import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLBond;
 import org.xmlcml.cml.element.CMLMolecule;
@@ -20,7 +21,7 @@ public class FooBlock extends AbstractBlock {
 	public static final String MOLECULE = "molecule";
 	
 	public FooBlock() {
-	
+		this.abstractCommon = new FooCommon();
 	}
 
 	/**
@@ -39,7 +40,7 @@ public class FooBlock extends AbstractBlock {
 		 * valuable for blocks to have a dictRef
 		 */
 		if (element != null) {
-			String dictRef = DictRefAttribute.createValue(Foo2XMLConverter.FOO_PREFIX, getBlockName());
+			String dictRef = DictRefAttribute.createValue(abstractCommon.getPrefix(), getBlockName());
 			element.setAttribute("dictRef", dictRef);
 		} else {
 			System.err.println("null element: "+getBlockName());

@@ -258,9 +258,4 @@ public class CML2CMLConverter extends AbstractConverter implements
 		this.selectNodesXPath = selectNodesXPath;
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
 }

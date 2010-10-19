@@ -65,14 +65,6 @@ public class CMLSpect2SVGConverter extends AbstractConverter {
 		return svgg;
 	}
 
-	/**
-	 * Returns the current version number of this {@link AbstractConveter}.
-	 */
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-   
 }
 
     

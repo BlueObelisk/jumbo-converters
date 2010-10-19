@@ -111,9 +111,4 @@ public class CML2PNGConverter extends AbstractConverter implements
       return molecule;
    }
 
-
-   @Override
-   public int getConverterVersion() {
-      return 0;
-   }
 }

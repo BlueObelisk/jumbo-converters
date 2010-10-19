@@ -7,9 +7,9 @@ import nu.xom.Element;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
-import org.xmlcml.cml.converters.compchem.foo.FooProcessor;
 
 public class GamessUSInput2XMLConverter extends AbstractCompchem2CMLConverter{
 	private static final Logger LOG = Logger.getLogger(GamessUSInput2XMLConverter.class);
@@ -17,9 +17,9 @@ public class GamessUSInput2XMLConverter extends AbstractCompchem2CMLConverter{
 		LOG.setLevel(Level.INFO);
 	}
 	
-	public static final String GAMESSUS_PREFIX = "gamessus";
-	public static final String GAMESSUS_URI = "http://wwmm.ch.cam.ac.uk/dict/gamessus";
-	
+	public GamessUSInput2XMLConverter() {
+		this.abstractCommon = new GamessUSCommon();
+	}
 	
 	public Type getInputType() {
 		return Type.GAMESSUS_INPUT;
@@ -40,14 +40,4 @@ public class GamessUSInput2XMLConverter extends AbstractCompchem2CMLConverter{
 		return cmlElement;
 	}
 
-	public void addNamespaces(CMLElement cml) {
-		addCommonNamespaces(cml);
-		cml.addNamespaceDeclaration(GAMESSUS_PREFIX, GAMESSUS_URI);
-	}
-
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-	
 }

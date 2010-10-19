@@ -29,15 +29,6 @@ public class CMLMerger extends AbstractMerger {
 		LOG.setLevel(Level.DEBUG);
 	}
 
-	// to be fixed
-	public final static String[] typicalArgsForConverterCommand = {
-		"-sd", "D:\\projects1\\thesis\\harter7\\data",
-		"-is", "cdx.cml",
-		"-os", "mol.cml",
-		"-converter", "org.xmlcml.cml.converters.cml.CMLSplitter",
-		"-xpath", "//cml:molecule"
-	};
-		
 	public CMLMerger() {
 		
 	}
@@ -75,11 +66,6 @@ public class CMLMerger extends AbstractMerger {
 
 	public Type getOutputType() {
 		return Type.CML;
-	}
-
-	@Override
-	public int getConverterVersion() {
-		return 0;
 	}
 
 }

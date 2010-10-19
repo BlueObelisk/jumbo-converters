@@ -86,8 +86,4 @@ public class CleanConverter extends AbstractConverter {
 		return null;
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
 }

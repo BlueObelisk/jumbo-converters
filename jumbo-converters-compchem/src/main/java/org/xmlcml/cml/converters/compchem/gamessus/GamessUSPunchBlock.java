@@ -2,16 +2,18 @@ package org.xmlcml.cml.converters.compchem.gamessus;
 
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLLabel;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLScalar;
+import org.xmlcml.cml.tools.DictionaryTool;
 import org.xmlcml.molutil.ChemicalElement;
 
 public class GamessUSPunchBlock extends AbstractBlock {
-
+	private static Logger LOG = Logger.getLogger(GamessUSPunchBlock.class);
 	/*
 	 * keywords in legacy input
 	 */
@@ -22,7 +24,7 @@ public class GamessUSPunchBlock extends AbstractBlock {
 	public static final String ZMAT = "ZMAT";
 	
 	public GamessUSPunchBlock() {
-	
+		this.abstractCommon = new GamessUSCommon();
 	}
 
 	/**
@@ -47,8 +49,15 @@ public class GamessUSPunchBlock extends AbstractBlock {
 		 * valuable for blocks to have a dictRef
 		 */
 		if (element != null) {
-			String dictRef = DictRefAttribute.createValue(GamessUSPunch2XMLConverter.GAMESSUS_PREFIX, getBlockName());
-			element.setAttribute("dictRef", dictRef);
+			String entryId = getBlockName().toLowerCase();
+			if (validateDictRef) {
+				DictionaryTool dictionaryTool = abstractCommon.getDictionaryTool();
+				if (!dictionaryTool.isIdInDictionary(entryId)) {
+					LOG.warn("entryId "+entryId+" not found in dictionary: "+dictionaryTool);
+				}
+				String dictRef = DictRefAttribute.createValue(abstractCommon.getPrefix(), entryId);
+				element.setAttribute("dictRef", dictRef);
+			}
 		} else {
 			System.err.println("null element: "+getBlockName());
 		}

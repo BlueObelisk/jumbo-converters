@@ -18,6 +18,9 @@ public class GaussianLog2CMLConverter extends AbstractCompchem2CMLConverter{
 		LOG.setLevel(Level.INFO);
 	}
 	
+	public GaussianLog2CMLConverter() {
+		
+	}
 	public static final String GAUSSIAN_PREFIX = "gaussian";
 	public static final String GAUSSIAN_URI = "http://wwmm.ch.cam.ac.uk/dict/gaussian/log";
 	
@@ -41,18 +44,6 @@ public class GaussianLog2CMLConverter extends AbstractCompchem2CMLConverter{
 		parser.convertToXML(lines);
 		CMLModule module = parser.getCmlModule();
 		return module;
-	}
-
-	protected void addNamespaces(CMLElement cml) {
-		if (cml != null) {
-			addCommonNamespaces(cml);
-			cml.addNamespaceDeclaration(GAUSSIAN_PREFIX, GAUSSIAN_URI);
-		}
-	}
-
-	@Override
-	public int getConverterVersion() {
-		return 0;
 	}
 
 }

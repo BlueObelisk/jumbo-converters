@@ -725,8 +725,4 @@ public class PubchemXML2CMLConverter extends AbstractConverter implements
       return v;
    }
 
-   @Override
-   public int getConverterVersion() {
-      return 0;
-   }
 }

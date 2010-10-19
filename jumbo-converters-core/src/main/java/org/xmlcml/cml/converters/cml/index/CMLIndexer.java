@@ -66,10 +66,4 @@ public class CMLIndexer extends AbstractIndexer {
 		addToIndex(element, infile.getAbsolutePath());
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-
-
 }

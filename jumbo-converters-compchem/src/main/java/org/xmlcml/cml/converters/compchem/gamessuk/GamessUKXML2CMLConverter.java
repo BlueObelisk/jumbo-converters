@@ -41,9 +41,4 @@ public class GamessUKXML2CMLConverter extends AbstractCompchem2CMLConverter{
 		cml.addNamespaceDeclaration(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX, GamessUKPunch2XMLConverter.GAMESSUK_URI);
 	}
 
-	@Override
-	public int getConverterVersion() {
-		return 0;
-	}
-	
 }
