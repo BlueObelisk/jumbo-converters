@@ -50,7 +50,7 @@ public class FooProcessor extends LegacyProcessor {
 	 * @return
 	 */
 	private FooBlock createBlock() {
-		FooBlock block = new FooBlock();
+		FooBlock block = new FooBlock(blockContainer);
 		String line = lines.get(lineCount);
 		block.setBlockName(line.substring(1));
 		lineCount++;

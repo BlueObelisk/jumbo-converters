@@ -86,7 +86,7 @@ public class GamessUSInputProcessor extends LegacyProcessor {
 	}
 
 	private AbstractBlock createAnonymousBlock() {
-		AbstractBlock block = new AnonymousBlock();
+		AbstractBlock block = new AnonymousBlock(blockContainer);
 		while (lineCount < lines.size()) {
 			String line = Util.rightTrim(lines.get(lineCount));
 			if (line.startsWith(KEYWORD)) {
@@ -104,7 +104,7 @@ public class GamessUSInputProcessor extends LegacyProcessor {
 	 * @return
 	 */
 	private AbstractBlock createBlock() {
-		AbstractBlock block = new GamessUSInputBlock();
+		AbstractBlock block = new GamessUSInputBlock(blockContainer);
 		String line = Util.rightTrim(lines.get(lineCount));
 		if (!line.startsWith(KEYWORD)) {
 			throw new RuntimeException("should start with :"+KEYWORD);

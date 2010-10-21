@@ -5,6 +5,7 @@ import java.util.List;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AnonymousBlock;
 import org.xmlcml.cml.converters.LegacyProcessor;
+import org.xmlcml.cml.element.CMLMolecule;
 
 /**
  *  $DATA  
@@ -46,6 +47,7 @@ public class GamessUSPunchProcessor extends LegacyProcessor {
 
 	public static final String KEYWORD = " $";
 	private static final String END = " $END";
+	private CMLMolecule lastMolecule;
 	
 	public GamessUSPunchProcessor() {
 	}
@@ -65,11 +67,15 @@ public class GamessUSPunchProcessor extends LegacyProcessor {
 			block = createBlock();
 		}
 		block.convertToRawCML();
+		CMLMolecule molecule = block.getMolecule();
+		if (molecule != null) {
+			this.lastMolecule = molecule;
+		}
 		return block;
 	}
 
 	private AbstractBlock createAnonymousBlock() {
-		AbstractBlock block = new AnonymousBlock();
+		AbstractBlock block = new AnonymousBlock(blockContainer);
 		while (lineCount < lines.size()) {
 			String line = lines.get(lineCount);
 			if (line.startsWith(KEYWORD)) {
@@ -86,7 +92,7 @@ public class GamessUSPunchProcessor extends LegacyProcessor {
 	 * @return
 	 */
 	private AbstractBlock createBlock() {
-		AbstractBlock block = new GamessUSPunchBlock();
+		GamessUSPunchBlock block = new GamessUSPunchBlock(blockContainer);
 		String line = lines.get(lineCount);
 		block.setBlockName(line.substring(2, 6).trim());
 		lineCount++;

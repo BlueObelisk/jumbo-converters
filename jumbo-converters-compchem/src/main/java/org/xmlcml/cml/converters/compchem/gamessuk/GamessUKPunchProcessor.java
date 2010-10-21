@@ -63,7 +63,7 @@ block=grid_data records=    2500 index=  1 elements =   1
 	}
 	
 	private GamessUKPunchBlock createBlock(List<String> lines, String line) {
-		GamessUKPunchBlock block = new GamessUKPunchBlock();
+		GamessUKPunchBlock block = new GamessUKPunchBlock(blockContainer);
 		String[] tokens = line.split("\\s+");
 		Map<String, String> nvMap = createNVMap(tokens);
 		for (String name : nvMap.keySet()) {

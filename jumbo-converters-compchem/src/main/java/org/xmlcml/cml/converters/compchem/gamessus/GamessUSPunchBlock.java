@@ -1,13 +1,20 @@
 package org.xmlcml.cml.converters.compchem.gamessus;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.converters.AbstractBlock;
+import org.xmlcml.cml.converters.BlockContainer;
+import org.xmlcml.cml.converters.compchem.CompchemUtils;
+import org.xmlcml.cml.converters.compchem.NumericFormat;
+import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLLabel;
+import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLMolecule;
+import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.tools.DictionaryTool;
 import org.xmlcml.molutil.ChemicalElement;
@@ -22,8 +29,11 @@ public class GamessUSPunchBlock extends AbstractBlock {
 	public static final String HESS = "HESS";
 	public static final String VIB  = "VIB";
 	public static final String ZMAT = "ZMAT";
-	
-	public GamessUSPunchBlock() {
+
+	private CMLMolecule molecule;
+
+	public GamessUSPunchBlock(BlockContainer blockContainer) {
+		super(blockContainer);
 		this.abstractCommon = new GamessUSCommon();
 	}
 
@@ -73,7 +83,7 @@ H1          1.0     -2.9805271364       .9147039208       .1059830464
 	 */
 	private void makeData() {
 		int lineCount = 0;
-		CMLMolecule molecule = new CMLMolecule();
+		molecule = new CMLMolecule();
 		String title = lines.get(lineCount++);
 		molecule.setTitle(title);
 		// skip first atom line (don't understand)
@@ -97,6 +107,7 @@ H1          1.0     -2.9805271364       .9147039208       .1059830464
 			molecule.addAtom(atom);
 		}
 		element = molecule;
+		blockContainer.setMolecule(molecule);
 	}
 
 	public static final Pattern ATOM_BOND_COUNT = Pattern.compile("\\s*(\\d+)\\s+(\\d+)");
@@ -111,8 +122,75 @@ H1          1.0     -2.9805271364       .9147039208       .1059830464
 		element = new CMLScalar();
 	}
 
+	/*
+         IVIB=   0 IATOM=   0 ICOORD=   0 E=     -417.0146230240
+	 */
+	private final static Pattern vibPattern = Pattern.compile("         IVIB=(....) IATOM=(....) ICOORD=(....) E=(....................).*");
 	private void makeVib() {
-		element = new CMLScalar();
+		molecule = blockContainer.getMolecule();
+		if (molecule == null) {
+			throw new RuntimeException("No molecule; cannot analyse vibs");
+		}
+		CMLModule module = new CMLModule();
+		
+/*
+         IVIB=   0 IATOM=   0 ICOORD=   0 E=     -417.0146230240
+-3.014817301E-06-5.316670868E-06-4.345305914E-06 1.221059187E-05 6.746840227E-06
+-5.750877884E-06-2.129021293E-05 1.289122123E-05-4.221137717E-05 1.283919380E-07
+...
+ 7.799249640E-06-1.877789578E-08 9.009626448E-06 5.782921410E-06 1.610009308E-05
+-6.564999713E-06 1.749591384E-05 2.550531014E-06  (48 fields for 16 atoms)
+ 0.000000000E+00 0.000000000E+00 0.000000000E+00  (3 fields???)
+ */
+		int lineCount = 0;
+		int atomCount = molecule.getAtomCount();
+		String flags = lines.get(lineCount++);
+		Matcher matcher = vibPattern.matcher(flags);
+		if (!matcher.matches()) {
+			throw new RuntimeException("bad flags match");
+		}
+		addScalar(module, Integer.parseInt(matcher.group(1).trim()), "ivib");
+		addScalar(module, Integer.parseInt(matcher.group(2).trim()), "iatom");
+		addScalar(module, Integer.parseInt(matcher.group(3).trim()), "icoord");
+		addScalar(module, new Double(matcher.group(4).trim()), "e");
+		CompchemUtils compchemUtils = new CompchemUtils();
+		// add array
+		NumericFormat numericFormat = new NumericFormat();
+		numericFormat.setF(16, 9);
+		double[] dd = compchemUtils.readFormattedNumericArray(lines, lineCount, 0, numericFormat, 5, atomCount*3);
+		addArray(module, dd, "vibs");
+		lineCount += compchemUtils.getLinesRead();
+		// add vector
+		dd = compchemUtils.readFormattedNumericArray(lines, lineCount, 0, numericFormat, 5, 3);
+		addArray(module, dd, "vector");
+		lineCount++;
+		element = module;
+		
+	}
+
+	private void addScalar(CMLModule module, int i, String dictId) {
+		addScalar(module, dictId, new CMLScalar(i));
+	}
+
+	private void addScalar(CMLModule module, double d, String dictId) {
+		addScalar(module, dictId, new CMLScalar(d));
+	}
+
+	private void addScalar(CMLModule module, String dictId, CMLScalar scalar) {
+		CMLProperty property = new CMLProperty();
+		property.addScalar(scalar);
+		String dictRef = DictRefAttribute.createValue(abstractCommon.getPrefix(), dictId);
+		property.setDictRef(dictRef);
+		module.appendChild(property);
+	}
+
+	private void addArray(CMLModule module, double[] dd, String localName) {
+		CMLArray array = new CMLArray(dd);
+		CMLProperty property = new CMLProperty();
+		property.addArray(array);
+		String dictRef = DictRefAttribute.createValue(abstractCommon.getPrefix(), localName);
+		property.setDictRef(dictRef);
+		module.appendChild(property);
 	}
 
 	private void makeZmat() {

@@ -10,13 +10,13 @@ import org.xmlcml.cml.element.CMLCml;
 public abstract class LegacyProcessor {
 	private static final Logger LOG = Logger.getLogger(LegacyProcessor.class);
 
-	private List<AbstractBlock> blockList;
+	protected BlockContainer blockContainer;
 	protected List<String> lines;
 	protected int lineCount = 0;
 	protected CMLElement cmlElement;
 	
 	protected LegacyProcessor() {
-		this.blockList = new ArrayList<AbstractBlock>();
+		this.blockContainer = new BlockContainer();
 	}
 	
 	public void read(List<String> lines) {
@@ -25,16 +25,16 @@ public abstract class LegacyProcessor {
 		while (lineCount < lines.size()) {
 			AbstractBlock block = readBlock(lines);
 			if (block != null) {
-				blockList.add(block);
+				blockContainer.add(block);
 			}
 		}
-		LOG.debug("Finished reading blocks: "+blockList.size());
+		LOG.debug("Finished reading blocks: "+blockContainer.size());
 	}
 
 	public List<CMLElement> getBlockList() {
 		List<CMLElement> cmlList = new ArrayList<CMLElement>();
-		if (blockList != null) {
-			for (AbstractBlock block : blockList) {
+		if (blockContainer != null) {
+			for (AbstractBlock block : blockContainer.getBlockList()) {
 				cmlList.add(block.getElement());
 			}
 		}
@@ -50,7 +50,7 @@ public abstract class LegacyProcessor {
 	
 	public CMLElement getCMLElement() {
 		cmlElement = new CMLCml();
-		for (AbstractBlock block : blockList) {
+		for (AbstractBlock block : blockContainer.getBlockList()) {
 			CMLElement element = block.getElement();
 			cmlElement.appendChild(element);
 		}

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.tools.DictionaryTool;
 
 /**
@@ -23,10 +24,13 @@ public abstract class AbstractBlock implements CMLConstants {
 	protected String blockName;
 	protected AbstractCommon abstractCommon;
 	protected boolean validateDictRef;
+	protected CMLMolecule molecule;
+	protected BlockContainer blockContainer;
 
-	protected AbstractBlock() {
+	protected AbstractBlock(BlockContainer blockContainer) {
 		lines = new ArrayList<String>();
 		validateDictRef = true;
+		this.blockContainer = blockContainer;
 	}
 	
 	public boolean isValidateDictRef() {
@@ -74,6 +78,14 @@ public abstract class AbstractBlock implements CMLConstants {
 	
 	protected DictionaryTool getDictionaryTool() {
 		return (abstractCommon == null) ? null : abstractCommon.getDictionaryTool();
+	}
+
+	public CMLMolecule getMolecule() {
+		return molecule;
+	}
+
+	public void setBlockContainer(BlockContainer blockContainer) {
+		this.blockContainer = blockContainer;
 	}
 
 }
