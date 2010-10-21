@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.AbstractBlock;
+import org.xmlcml.cml.converters.BlockContainer;
 import org.xmlcml.cml.converters.Command;
 import org.xmlcml.cml.converters.ConverterLog;
 import org.xmlcml.cml.converters.Util;
@@ -130,7 +131,8 @@ public class GaussianArchiveBlock extends AbstractBlock {
     *
     * @param dictionary
     */
-   public GaussianArchiveBlock() {
+   public GaussianArchiveBlock(BlockContainer blockContainer) {
+		super(blockContainer);
 		this.abstractCommon = new GaussianCommon();
 		makeDictionary(); // maybe refactor
    }

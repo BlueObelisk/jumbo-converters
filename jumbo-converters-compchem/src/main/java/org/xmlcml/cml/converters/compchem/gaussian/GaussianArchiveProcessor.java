@@ -13,8 +13,10 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.converters.AbstractBlock;
+import org.xmlcml.cml.converters.BlockContainer;
+import org.xmlcml.cml.converters.LegacyProcessor;
 import org.xmlcml.cml.converters.Type;
-import org.xmlcml.cml.converters.compchem.output.AbstractCompchemOutputProcessor;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.euclid.Util;
@@ -26,7 +28,7 @@ import org.xmlcml.euclid.Util;
  * @author Peter Murray-Rust
  * 
  */
-public class GaussianArchiveProcessor extends AbstractCompchemOutputProcessor {
+public class GaussianArchiveProcessor extends /*AbstractCompchemOutputProcessor*/ LegacyProcessor {
 
 	private static Logger LOG = Logger.getLogger(GaussianArchiveProcessor.class);
 	static {
@@ -57,6 +59,7 @@ public class GaussianArchiveProcessor extends AbstractCompchemOutputProcessor {
 	}
 
 	protected void init() {
+		this.dictionary = findDictionary();
 	}
 	
 	/** constructor.
@@ -64,9 +67,18 @@ public class GaussianArchiveProcessor extends AbstractCompchemOutputProcessor {
 	 * @param dictionary
 	 */
 	public GaussianArchiveProcessor() {
-		this.dictionary = findDictionary();
 		init();
 	}
+	
+	
+//	/** constructor.
+//	 * 
+//	 * @param dictionary
+//	 */
+//	public GaussianArchiveProcessor(BlockContainer blockContainer) {
+//		super(blockContainer);
+//		init();
+//	}
 	
 	/**
 	 * 
@@ -97,7 +109,7 @@ public class GaussianArchiveProcessor extends AbstractCompchemOutputProcessor {
 		String archiveS = readAndConcatenateArchiveLines();
 		CMLCml cml = null;
 		if (archiveS != null) {
-			archive = new GaussianArchiveBlock();
+			archive = new GaussianArchiveBlock(blockContainer);
 			cml = archive.parseArchiveToCML(archiveS);
 			LOG.trace("CMLElement "+cml);
 		}
@@ -122,7 +134,7 @@ public class GaussianArchiveProcessor extends AbstractCompchemOutputProcessor {
     		if (line.trim().startsWith(START)) {
     			start = true;
     			String archiveS = readAndConcatenateArchiveLines();
-				archive = new GaussianArchiveBlock();
+				archive = new GaussianArchiveBlock(blockContainer);
 				cml = archive.parseArchiveToCML(archiveS);
 				LOG.trace("CMLElement "+cml);
     			topCml.appendChild(cml);
@@ -192,6 +204,13 @@ public class GaussianArchiveProcessor extends AbstractCompchemOutputProcessor {
 			throw new RuntimeException("Cannot read dictionary", e);
 		}
 		return dictionary;
+	}
+
+	@Override
+	// TODO
+	protected AbstractBlock readBlock(List<String> lines) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
