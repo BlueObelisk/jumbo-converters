@@ -10,15 +10,16 @@ import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
 import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
+import org.xmlcml.cml.converters.compchem.gamessus.GamessUSPunchProcessor;
 import org.xmlcml.cml.element.CMLCml;
 
-public class GaussianArchive2CMLConverter extends AbstractCompchem2CMLConverter{
-	private static final Logger LOG = Logger.getLogger(GaussianArchive2CMLConverter.class);
+public class GaussianArchive2XMLConverter extends AbstractCompchem2CMLConverter{
+	private static final Logger LOG = Logger.getLogger(GaussianArchive2XMLConverter.class);
 	static {
 		LOG.setLevel(Level.INFO);
 	}
 	
-	public GaussianArchive2CMLConverter() {
+	public GaussianArchive2XMLConverter() {
 		this.abstractCommon = new GaussianCommon();
 	}
 	
@@ -36,19 +37,9 @@ public class GaussianArchive2CMLConverter extends AbstractCompchem2CMLConverter{
 	 * @param in input stream
 	 */
 	public Element convertToXML(List<String> lines) {
-		CMLCml topCml = new CMLCml();
-		GaussianArchiveOrigProcessor processor = new GaussianArchiveOrigProcessor();
-		List<CMLElement> cmlElementList = processor.readArchives(lines);
-		for (CMLElement cmlElement : cmlElementList) {
-			topCml.appendChild(cmlElement);
-		}
-		try {
-			ensureId(topCml);
-		} catch (RuntimeException e) {
-			// no id
-		}
-		topCml = processParamsTopMetadataNamespaces(topCml);
-		return topCml;
+		legacyProcessor = new GaussianArchiveProcessor();
+		CMLElement cmlElement = readAndProcess(lines);
+		return cmlElement;
 	}
 
 }

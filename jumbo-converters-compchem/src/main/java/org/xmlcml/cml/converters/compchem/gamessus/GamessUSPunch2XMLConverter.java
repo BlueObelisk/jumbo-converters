@@ -29,11 +29,6 @@ public class GamessUSPunch2XMLConverter extends AbstractCompchem2CMLConverter{
 		return Type.GAMESSUS_PUNCH_XML;
 	}
 
-	/**
-	 * converts an MDL object to CML. returns cml:cml/cml:molecule
-	 * 
-	 * @param in input stream
-	 */
 	public Element convertToXML(List<String> lines) {
 		legacyProcessor = new GamessUSPunchProcessor();
 		CMLElement cmlElement = readAndProcess(lines);

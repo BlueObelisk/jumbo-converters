@@ -36,16 +36,16 @@ public class GamessUKPunch2XMLConverter extends AbstractCompchem2CMLConverter{
 	}
 
 	/**
-	 * converts an MDL object to CML. returns cml:cml/cml:molecule
+	 * converts a Gamess punch object to raw CML. 
 	 * 
 	 * @param in input stream
 	 */
 	public Element convertToXML(List<String> lines) {
 		CMLCml topCml = new CMLCml();
 		addCommonNamespaces(topCml);
-		GamessUKPunchProcessor converter = new GamessUKPunchProcessor();
-		converter.read(lines);
-		List<CMLElement> cmlElementList = converter.getBlockList();
+		GamessUKPunchProcessor processor = new GamessUKPunchProcessor();
+		processor.read(lines);
+		List<CMLElement> cmlElementList = processor.getBlockList();
 		for (CMLElement cmlElement : cmlElementList) {
 			topCml.appendChild(cmlElement);
 		}

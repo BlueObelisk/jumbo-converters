@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.attribute.DictRefAttribute;
+import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.BlockContainer;
 import org.xmlcml.cml.converters.compchem.CompchemUtils;
@@ -12,10 +13,12 @@ import org.xmlcml.cml.converters.compchem.NumericFormat;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLLabel;
+import org.xmlcml.cml.element.CMLMatrix;
 import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
+import org.xmlcml.cml.element.CMLSymmetry;
 import org.xmlcml.cml.tools.DictionaryTool;
 import org.xmlcml.molutil.ChemicalElement;
 
@@ -86,9 +89,12 @@ H1          1.0     -2.9805271364       .9147039208       .1059830464
 		molecule = new CMLMolecule();
 		String title = lines.get(lineCount++);
 		molecule.setTitle(title);
-		// skip first atom line (don't understand)
+		CMLSymmetry symmetry = new CMLSymmetry();
 		//C1       0
-		lineCount++;
+		String pgline = lines.get(lineCount++);
+		String[] tokens = pgline.split(CMLConstants.WHITESPACE);
+		symmetry.setPointGroup(tokens[0]);
+		molecule.appendChild(symmetry);
 		
 		int id = 1;
 		for (; lineCount < lines.size(); lineCount += 3) {
@@ -118,8 +124,47 @@ H1          1.0     -2.9805271364       .9147039208       .1059830464
 		element = new CMLScalar();
 	}
 
+	private final static Pattern hessPattern = Pattern.compile(
+			"ENERGY IS(....................) E\\(NUC\\) IS(....................).*");
 	private void makeHess() {
-		element = new CMLScalar();
+		/*
+		ENERGY IS     -417.0146230240 E(NUC) IS      384.0190725767
+		 1  1 2.64800944E-01-1.13848557E-01-8.77575186E-03-2.79100487E-01 9.26552102E-02
+		 1  2 6.37962242E-03-1.45252521E-02 1.95434248E-02 4.42901143E-03 2.87107862E-02
+		 ...
+		 */
+		ensureMolecule();
+		CMLModule module = new CMLModule();
+		module.setRole("gammesus:hess");
+		int lineCount = 0;
+		int coordCount = molecule.getAtomCount()*3;
+		String flags = lines.get(lineCount++);
+		Matcher matcher = hessPattern.matcher(flags);
+		if (!matcher.matches()) {
+			throw new RuntimeException("bad flags match:"+flags+":");
+		}
+		addScalar(module, new Double(matcher.group(1).trim()), "hessenergy");
+		addScalar(module, new Double(matcher.group(2).trim()), "hessenuc");
+		double[][] matrix = new double[coordCount][];
+		for (int i = 0; i < coordCount; i++) {
+			CompchemUtils compchemUtils = new CompchemUtils();
+			// add array
+			NumericFormat numericFormat = new NumericFormat();
+			numericFormat.setF(15, 8);
+			int leftMargin = 5;
+			matrix[i] = compchemUtils.readFormattedNumericArray(lines, lineCount, leftMargin, numericFormat, 5, coordCount);
+		}
+		addMatrix(module, matrix, "hess");
+		element = module;
+	}
+
+	private void addMatrix(CMLModule module, double[][] matrix, String dictId) {
+		CMLProperty property = new CMLProperty();
+		CMLMatrix cmlMatrix = new CMLMatrix(matrix); 
+		property.appendChild(cmlMatrix);
+		String dictRef = DictRefAttribute.createValue(abstractCommon.getPrefix(), dictId);
+		property.setDictRef(dictRef);
+		module.appendChild(property);
 	}
 
 	/*
@@ -127,10 +172,7 @@ H1          1.0     -2.9805271364       .9147039208       .1059830464
 	 */
 	private final static Pattern vibPattern = Pattern.compile("         IVIB=(....) IATOM=(....) ICOORD=(....) E=(....................).*");
 	private void makeVib() {
-		molecule = blockContainer.getMolecule();
-		if (molecule == null) {
-			throw new RuntimeException("No molecule; cannot analyse vibs");
-		}
+		ensureMolecule();
 		CMLModule module = new CMLModule();
 		
 /*
@@ -143,7 +185,7 @@ H1          1.0     -2.9805271364       .9147039208       .1059830464
  0.000000000E+00 0.000000000E+00 0.000000000E+00  (3 fields???)
  */
 		int lineCount = 0;
-		int atomCount = molecule.getAtomCount();
+		int coordCount = molecule.getAtomCount()*3;
 		String flags = lines.get(lineCount++);
 		Matcher matcher = vibPattern.matcher(flags);
 		if (!matcher.matches()) {
@@ -157,7 +199,7 @@ H1          1.0     -2.9805271364       .9147039208       .1059830464
 		// add array
 		NumericFormat numericFormat = new NumericFormat();
 		numericFormat.setF(16, 9);
-		double[] dd = compchemUtils.readFormattedNumericArray(lines, lineCount, 0, numericFormat, 5, atomCount*3);
+		double[] dd = compchemUtils.readFormattedNumericArray(lines, lineCount, 0, numericFormat, 5, coordCount);
 		addArray(module, dd, "vibs");
 		lineCount += compchemUtils.getLinesRead();
 		// add vector
@@ -166,6 +208,13 @@ H1          1.0     -2.9805271364       .9147039208       .1059830464
 		lineCount++;
 		element = module;
 		
+	}
+
+	private void ensureMolecule() {
+		molecule = blockContainer.getMolecule();
+		if (molecule == null) {
+			throw new RuntimeException("No molecule; cannot analyse vibs");
+		}
 	}
 
 	private void addScalar(CMLModule module, int i, String dictId) {

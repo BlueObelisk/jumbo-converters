@@ -4,6 +4,8 @@ import java.io.InputStream;
 
 import nu.xom.Nodes;
 
+import org.apache.log4j.Logger;
+import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLDictionary;
@@ -11,6 +13,7 @@ import org.xmlcml.cml.tools.DictionaryTool;
 import org.xmlcml.euclid.Util;
 
 public abstract class AbstractCommon {
+	private static Logger LOG = Logger.getLogger(AbstractCommon.class);
 
 	public DictionaryTool dictionaryTool;
 
@@ -41,5 +44,23 @@ public abstract class AbstractCommon {
 	public void addNamespaceDeclaration(CMLElement cml) {
 		cml.addNamespaceDeclaration(this.getPrefix(), this.getNamespace());
 	}
+
+	public void addDictRef(CMLElement element, String entryId, boolean checkDictionary) {
+		String dictRef = DictRefAttribute.createValue(this.getPrefix(), entryId);
+		if (checkDictionary) {
+			checkAgainstDictionary(element, dictRef);
+		}
+		element.setAttribute("dictRef", dictRef);
+	}
 	
+	private void checkAgainstDictionary(CMLElement element, String name) {
+		String entryId = name.toLowerCase();
+		if (dictionaryTool != null) {
+			if (!dictionaryTool.isIdInDictionary(entryId)) {
+				LOG.warn("entryId "+entryId+" not found in dictionary: "+dictionaryTool);
+			}
+		}
+	}
+
+
 }

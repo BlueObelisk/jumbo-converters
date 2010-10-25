@@ -1,6 +1,7 @@
 package gigadot.semsci.converters.chem;
 
 import gigadot.semsci.chem.dictionary.DictionaryCollection;
+
 import gigadot.semsci.chem.schema.CompChemSemantics;
 import gigadot.semsci.converters.chem.exception.UnexpectedCompChemSchema;
 import gigadot.semsci.converters.chem.tools.SemMoleculeTool;
