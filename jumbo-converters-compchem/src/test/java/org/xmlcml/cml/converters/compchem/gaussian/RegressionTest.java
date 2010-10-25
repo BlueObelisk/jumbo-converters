@@ -15,8 +15,8 @@ public class RegressionTest {
 
    @Test
    public void gaussianArchive2CML() {
-      RegressionSuite.run("compchem/gaussian/gaussian", "gau", "cml",
-                          new GaussianArchive2CMLConverter());
+      RegressionSuite.run("compchem/gaussian/archive", "arc", "xml",
+                          new GaussianArchive2XMLConverter());
    }
 
    @Test

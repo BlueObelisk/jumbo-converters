@@ -50,9 +50,9 @@ import org.xmlcml.molutil.ChemicalElement;
  * @author Peter Murray-Rust
  * 
  */
-public class GaussianArchiveBlock extends AbstractBlock {
+public class GaussianArchiveOrigBlock extends AbstractBlock {
 
-   private static Logger LOG = Logger.getLogger(GaussianArchiveBlock.class);
+   private static Logger LOG = Logger.getLogger(GaussianArchiveOrigBlock.class);
 
    static {
       LOG.setLevel(Level.DEBUG);
@@ -131,7 +131,7 @@ public class GaussianArchiveBlock extends AbstractBlock {
     *
     * @param dictionary
     */
-   public GaussianArchiveBlock(BlockContainer blockContainer) {
+   public GaussianArchiveOrigBlock(BlockContainer blockContainer) {
 		super(blockContainer);
 		this.abstractCommon = new GaussianCommon();
 		makeDictionary(); // maybe refactor

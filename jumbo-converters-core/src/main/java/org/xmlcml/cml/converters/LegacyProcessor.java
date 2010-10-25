@@ -21,15 +21,21 @@ public abstract class LegacyProcessor {
 	
 	public void read(List<String> lines) {
 		this.lines = lines;
+		preprocessBlocks();
 		lineCount = 0;
-		while (lineCount < lines.size()) {
-			AbstractBlock block = readBlock(lines);
+		while (lineCount < this.lines.size()) {
+			AbstractBlock block = readBlock(this.lines);
 			if (block != null) {
 				blockContainer.add(block);
 			}
 		}
 		LOG.debug("Finished reading blocks: "+blockContainer.size());
 	}
+
+	/** processing before blocks are read
+	 * often null
+	 */
+	protected abstract void preprocessBlocks();
 
 	public List<CMLElement> getBlockList() {
 		List<CMLElement> cmlList = new ArrayList<CMLElement>();
@@ -52,7 +58,9 @@ public abstract class LegacyProcessor {
 		cmlElement = new CMLCml();
 		for (AbstractBlock block : blockContainer.getBlockList()) {
 			CMLElement element = block.getElement();
-			cmlElement.appendChild(element);
+			if (element != null) {
+				cmlElement.appendChild(element);
+			}
 		}
 		return cmlElement;
 	}

@@ -28,9 +28,9 @@ import org.xmlcml.euclid.Util;
  * @author Peter Murray-Rust
  * 
  */
-public class GaussianArchiveProcessor extends /*AbstractCompchemOutputProcessor*/ LegacyProcessor {
+public class GaussianArchiveOrigProcessor extends /*AbstractCompchemOutputProcessor*/ LegacyProcessor {
 
-	private static Logger LOG = Logger.getLogger(GaussianArchiveProcessor.class);
+	private static Logger LOG = Logger.getLogger(GaussianArchiveOrigProcessor.class);
 	static {
 		LOG.setLevel(Level.DEBUG);
 	}
@@ -38,7 +38,7 @@ public class GaussianArchiveProcessor extends /*AbstractCompchemOutputProcessor*
 	public final static String DICT_RESOURCE = 
 		"org/xmlcml/cml/converters/compchem/gaussian/gaussianArchiveDict.xml";
 	
-	private GaussianArchiveBlock archive;
+	private GaussianArchiveOrigBlock archive;
 
 	/** start of archive */
 	final static String START = 
@@ -66,7 +66,7 @@ public class GaussianArchiveProcessor extends /*AbstractCompchemOutputProcessor*
 	 * 
 	 * @param dictionary
 	 */
-	public GaussianArchiveProcessor() {
+	public GaussianArchiveOrigProcessor() {
 		init();
 	}
 	
@@ -109,7 +109,7 @@ public class GaussianArchiveProcessor extends /*AbstractCompchemOutputProcessor*
 		String archiveS = readAndConcatenateArchiveLines();
 		CMLCml cml = null;
 		if (archiveS != null) {
-			archive = new GaussianArchiveBlock(blockContainer);
+			archive = new GaussianArchiveOrigBlock(blockContainer);
 			cml = archive.parseArchiveToCML(archiveS);
 			LOG.trace("CMLElement "+cml);
 		}
@@ -134,7 +134,7 @@ public class GaussianArchiveProcessor extends /*AbstractCompchemOutputProcessor*
     		if (line.trim().startsWith(START)) {
     			start = true;
     			String archiveS = readAndConcatenateArchiveLines();
-				archive = new GaussianArchiveBlock(blockContainer);
+				archive = new GaussianArchiveOrigBlock(blockContainer);
 				cml = archive.parseArchiveToCML(archiveS);
 				LOG.trace("CMLElement "+cml);
     			topCml.appendChild(cml);
@@ -213,6 +213,10 @@ public class GaussianArchiveProcessor extends /*AbstractCompchemOutputProcessor*
 		return null;
 	}
 
+	@Override
+	protected void preprocessBlocks() {
+		// not required
+	}
 }
 class StringArray {
 	private int lineCount;

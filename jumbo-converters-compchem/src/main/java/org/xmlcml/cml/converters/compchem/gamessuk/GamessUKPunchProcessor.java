@@ -109,6 +109,10 @@ block=grid_data records=    2500 index=  1 elements =   1
 		return nvMap;
 	}
 
+	@Override
+	protected void preprocessBlocks() {
+		// not required
+	}
 	
 
 }

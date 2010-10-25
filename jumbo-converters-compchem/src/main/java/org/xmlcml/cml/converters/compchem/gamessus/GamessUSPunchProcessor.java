@@ -103,4 +103,8 @@ public class GamessUSPunchProcessor extends LegacyProcessor {
 		return block;
 	}
 	
+	@Override
+	protected void preprocessBlocks() {
+		// not required
+	}
 }
