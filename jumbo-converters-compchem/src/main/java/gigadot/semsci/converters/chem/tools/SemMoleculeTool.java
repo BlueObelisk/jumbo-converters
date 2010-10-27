@@ -4,7 +4,7 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
 import org.xmlcml.cml.element.CMLMolecule;
 import gigadot.semsci.converters.chem.uri.URIGenerator;
-import gigadot.semsci.chem.schema.CompChemSemantics;
+import gigadot.semsci.chem.schema.CompChemSematics;
 
 /**
  * 
@@ -37,9 +37,9 @@ public class SemMoleculeTool extends AbstractSemanticTool {
     public Resource getResource(Model model) {
         if (bnode_geo_res == null) {
             String partfinal_uri = getURIGenerator().createCMLURL(molecule).toString();
-            Resource path_res = model.createResource(partfinal_uri, CompChemSemantics.cmlrdfDataResource);
-            bnode_geo_res = model.createResource(CompChemSemantics.axiomMolecularEntity);
-            bnode_geo_res.addProperty(CompChemSemantics.cmlrdfRepresentedBy, path_res);
+            Resource path_res = model.createResource(partfinal_uri, CompChemSematics.cmlrdfDataResource);
+            bnode_geo_res = model.createResource(CompChemSematics.axiomMolecularEntity);
+            bnode_geo_res.addProperty(CompChemSematics.cmlrdfRepresentedBy, path_res);
         }
         return bnode_geo_res;
     }

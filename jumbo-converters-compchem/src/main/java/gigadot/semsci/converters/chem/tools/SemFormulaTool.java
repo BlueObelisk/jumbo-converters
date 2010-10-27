@@ -1,6 +1,6 @@
 package gigadot.semsci.converters.chem.tools;
 
-import gigadot.semsci.chem.schema.CompChemSemantics;
+import gigadot.semsci.chem.schema.CompChemSematics;
 
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.element.CMLFormula;
@@ -52,8 +52,8 @@ public class SemFormulaTool extends AbstractSemanticTool {
     
     void addFormalCharge(Model model, int charge) {
     	Literal val_res = model.createTypedLiteral(charge, CMLConstants.XSD_INTEGER);
-        Resource res = model.createResource(CompChemSemantics.cmlrdfProperty("hasCharge"));
-        res.addProperty(CompChemSemantics.cmlrdfHasValue, val_res);
+        Resource res = model.createResource(CompChemSematics.cmlrdfProperty("hasCharge"));
+        res.addProperty(CompChemSematics.cmlrdfHasValue, val_res);
  //       bnode_prop_res.addProperty(res, "xx");
     }
     

@@ -1,8 +1,7 @@
 package gigadot.semsci.converters.chem;
 
 import gigadot.semsci.chem.dictionary.DictionaryCollection;
-
-import gigadot.semsci.chem.schema.CompChemSemantics;
+import gigadot.semsci.chem.schema.CompChemSematics;
 import gigadot.semsci.converters.chem.exception.UnexpectedCompChemSchema;
 import gigadot.semsci.converters.chem.tools.SemMoleculeTool;
 import gigadot.semsci.converters.chem.tools.SemParameterTool;
@@ -127,9 +126,9 @@ public class CompChemProcessor extends RawXML2CMLProcessor implements HasURIGene
             // N3:   jim:computation
             // N3:       a qm:Computation;
             Resource unq_com_res = compchemModel.createResource(
-                    createUUIDURIString(cml), CompChemSemantics.qmComputation);
+                    createUUIDURIString(cml), CompChemSematics.qmComputation);
             // N3:       cml:representedBy <./target/CH4.cml>;
-            unq_com_res.addProperty(CompChemSemantics.cmlrdfRepresentedBy, path_res);
+            unq_com_res.addProperty(CompChemSematics.cmlrdfRepresentedBy, path_res);
 
             CMLModule joblist_mod = (CMLModule) joblist_nodes.get(0);
             // N3:       chemid:EmpiricalFormula "H4O4Si";
@@ -158,7 +157,7 @@ public class CompChemProcessor extends RawXML2CMLProcessor implements HasURIGene
         // N3:    <./target/CH4.cml> a cml:dataResource.
         String path_uri = getURIGenerator().createCMLURL(cml).toString();
         
-        Resource path_res = compchemModel.createResource(path_uri, CompChemSemantics.cmlrdfDataResource);
+        Resource path_res = compchemModel.createResource(path_uri, CompChemSematics.cmlrdfDataResource);
         return path_res;
 
     }
@@ -187,7 +186,7 @@ public class CompChemProcessor extends RawXML2CMLProcessor implements HasURIGene
 		}
 		Iterator<RDFNode> jobs_rdf_iter = jobs_rdf_list.iterator();
 		RDFList job_list = compchemModel.createList(jobs_rdf_iter);
-		unq_com_res.addProperty(CompChemSemantics.qmJobs, job_list);
+		unq_com_res.addProperty(CompChemSematics.qmJobs, job_list);
 	}
 
 	private void processIdentifiers(Resource unq_com_res, CMLModule joblist_mod) {
@@ -195,13 +194,13 @@ public class CompChemProcessor extends RawXML2CMLProcessor implements HasURIGene
 		for (int i = 0; i < id_nodes.size(); i++) {
 		    CMLIdentifier id = (CMLIdentifier) id_nodes.get(i);
 		    if (id.getConvention().equals("chemid:EmpiricalFormula")) {
-		        unq_com_res.addProperty(CompChemSemantics.chemidEmpiricalFormula, id.getCMLValue());
+		        unq_com_res.addProperty(CompChemSematics.chemidEmpiricalFormula, id.getCMLValue());
 		    } else if (id.getConvention().equals("chemid:CanonicalSmiles")) {
-		        unq_com_res.addProperty(CompChemSemantics.chemidCanonicalSmiles, id.getCMLValue());
+		        unq_com_res.addProperty(CompChemSematics.chemidCanonicalSmiles, id.getCMLValue());
 		    } else if (id.getConvention().equals("chemid:IsomericSmiles")) {
-		        unq_com_res.addProperty(CompChemSemantics.chemidIsomericSmiles, id.getCMLValue());
+		        unq_com_res.addProperty(CompChemSematics.chemidIsomericSmiles, id.getCMLValue());
 		    } else if (id.getConvention().equals("chemid:InChI")) {
-		        unq_com_res.addProperty(CompChemSemantics.chemidInChI, id.getCMLValue());
+		        unq_com_res.addProperty(CompChemSematics.chemidInChI, id.getCMLValue());
 		    }
 		}
 	}
@@ -231,7 +230,7 @@ public class CompChemProcessor extends RawXML2CMLProcessor implements HasURIGene
     private Resource createInitTaskResource(CMLModule init_mod) {
         // N3:   jim:j1init
         // N3:       a qm:Initialization;
-        Resource unq_jinit_res = compchemModel.createResource(createUUIDURIString(init_mod), CompChemSemantics.qmInitialization);
+        Resource unq_jinit_res = compchemModel.createResource(createUUIDURIString(init_mod), CompChemSematics.qmInitialization);
         // N3:       qm:hasGeometry [
         // N3:           a chem:MolecularEntity;
         // N3:           cml:representedBy <./target/CH4init.cml> ] ;
@@ -247,13 +246,13 @@ public class CompChemProcessor extends RawXML2CMLProcessor implements HasURIGene
 	private void addMolecule(Resource unq_jinit_res, CMLMolecule molecule) {
 		SemMoleculeTool semTool = SemMoleculeTool.getOrCreateTool(molecule, getURIGenerator());
         Resource bnode_geo_res = semTool.getResource(compchemModel);
-        unq_jinit_res.addProperty(CompChemSemantics.qmHasGeometry, bnode_geo_res);
+        unq_jinit_res.addProperty(CompChemSematics.qmHasGeometry, bnode_geo_res);
 	}
 
     private Resource createOptimizationTaskResource(CMLModule opt_mod) {
         // N3:   jim:j1opt
         // N3:       a qm:Optimization;
-        Resource unq_jopt_res = compchemModel.createResource(createUUIDURIString(opt_mod), CompChemSemantics.qmOptimization);
+        Resource unq_jopt_res = compchemModel.createResource(createUUIDURIString(opt_mod), CompChemSematics.qmOptimization);
         // N3:       qm:hasSteps ( jim:step1 jim:step2 ) .
         Nodes step_nodes = opt_mod.query("./cml:module[@role='step']", CMLNamespace.CML_XPATH);
         List<RDFNode> step_rdf_list = new ArrayList<RDFNode>(step_nodes.size());
@@ -262,7 +261,7 @@ public class CompChemProcessor extends RawXML2CMLProcessor implements HasURIGene
             CMLPropertyList prop_list = (CMLPropertyList) step_mod.getFirstCMLChild(CMLPropertyList.TAG);
             // N3:    jim:step2
             // N3:       a qm:OptimizationStep;
-            Resource unq_opt_step_res = compchemModel.createResource(createUUIDURIString(step_mod), CompChemSemantics.qmOptimizationStep);
+            Resource unq_opt_step_res = compchemModel.createResource(createUUIDURIString(step_mod), CompChemSematics.qmOptimizationStep);
             // N3:       qm:scfEnergy [
             // N3:           a cml:Property ;
             // N3:           cml:hasValue "-40.5111790287"^^xsd:double;
@@ -273,14 +272,14 @@ public class CompChemProcessor extends RawXML2CMLProcessor implements HasURIGene
         }
         Iterator<RDFNode> step_rdf_iter = step_rdf_list.iterator();
         RDFList step_list = compchemModel.createList(step_rdf_iter);
-        unq_jopt_res.addProperty(CompChemSemantics.qmHasSteps, step_list);
+        unq_jopt_res.addProperty(CompChemSematics.qmHasSteps, step_list);
         return unq_jopt_res;
     }
 
     private Resource createFinalTaskResource(CMLModule final_mod) {
         // N3:   jim:j1final
         // N3:       a qm:FinalResult;
-        Resource unq_jfinal_res = compchemModel.createResource(createUUIDURIString(final_mod), CompChemSemantics.qmFinalResult);
+        Resource unq_jfinal_res = compchemModel.createResource(createUUIDURIString(final_mod), CompChemSematics.qmFinalResult);
         // N3:       qm:hasGeometry jim:mol2;
         CMLMolecule molecule = (CMLMolecule) final_mod.getFirstCMLChild(CMLMolecule.TAG);
         addMolecule(unq_jfinal_res, molecule);
@@ -294,14 +293,14 @@ public class CompChemProcessor extends RawXML2CMLProcessor implements HasURIGene
     private Resource createJobResource(CMLModule job_mod, Resource unq_jinit_res, Resource unq_jopt_res, Resource unq_jfinal_res) {
         // N3:   jim:job1
         // N3:       a qm:ComputationalJob;
-        Resource unq_job_res = compchemModel.createResource(createUUIDURIString(job_mod), CompChemSemantics.qmComputationJob);
+        Resource unq_job_res = compchemModel.createResource(createUUIDURIString(job_mod), CompChemSematics.qmComputationJob);
         // N3:       qm:hasInitialisation jim:j1init;
-        unq_job_res.addProperty(CompChemSemantics.qmHasInitialisation, unq_jinit_res);
+        unq_job_res.addProperty(CompChemSematics.qmHasInitialisation, unq_jinit_res);
         // N3:       qm:hasOptimization jim:j1opt;
         if (unq_jopt_res != null) {
-            unq_job_res.addProperty(CompChemSemantics.qmHasOptimization, unq_jopt_res);
+            unq_job_res.addProperty(CompChemSematics.qmHasOptimization, unq_jopt_res);
         }
-        unq_job_res.addProperty(CompChemSemantics.qmHasFinalResult, unq_jfinal_res);
+        unq_job_res.addProperty(CompChemSematics.qmHasFinalResult, unq_jfinal_res);
         return unq_job_res;
     }
 
@@ -324,7 +323,7 @@ public class CompChemProcessor extends RawXML2CMLProcessor implements HasURIGene
                 bnode_pp_res = semTool.getResource(unq_jtask_res.getModel());
             }
             if (bnode_pp_res != null) {
-                unq_jtask_res.addProperty(CompChemSemantics.qmProperty(qmPredicate), bnode_pp_res);
+                unq_jtask_res.addProperty(CompChemSematics.qmProperty(qmPredicate), bnode_pp_res);
             }
         }
     }
@@ -354,13 +353,13 @@ public class CompChemProcessor extends RawXML2CMLProcessor implements HasURIGene
      * @param compchemModel
      */
     private void setupNsprefixes() {
-        compchemModel.setNsPrefix("cml", CompChemSemantics.CML_SCHEMA_NS);
-        compchemModel.setNsPrefix("cmlrdf", CompChemSemantics.CMLRDF_SCHEMA_NS);
-        compchemModel.setNsPrefix("qm", CompChemSemantics.CMLQMRDF_SCHEMA_NS);
-        compchemModel.setNsPrefix("chem", CompChemSemantics.CMLAXIOM_NS);
-        compchemModel.setNsPrefix("chemid", CompChemSemantics.CHEMID_NS);
-        compchemModel.setNsPrefix("xsd", CompChemSemantics.XSD_NS);
-        compchemModel.setNsPrefix("rdf", CompChemSemantics.RDF_NS);
+        compchemModel.setNsPrefix("cml", CompChemSematics.CML_SCHEMA_NS);
+        compchemModel.setNsPrefix("cmlrdf", CompChemSematics.CMLRDF_SCHEMA_NS);
+        compchemModel.setNsPrefix("qm", CompChemSematics.CMLQMRDF_SCHEMA_NS);
+        compchemModel.setNsPrefix("chem", CompChemSematics.CMLAXIOM_NS);
+        compchemModel.setNsPrefix("chemid", CompChemSematics.CHEMID_NS);
+        compchemModel.setNsPrefix("xsd", CompChemSematics.XSD_NS);
+        compchemModel.setNsPrefix("rdf", CompChemSematics.RDF_NS);
     }
 
     /**

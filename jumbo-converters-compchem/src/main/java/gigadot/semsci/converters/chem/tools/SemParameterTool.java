@@ -5,7 +5,7 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.vocabulary.RDF;
 import gigadot.semsci.converters.chem.exception.UnexpectedCompChemSchema;
-import gigadot.semsci.chem.schema.CompChemSemantics;
+import gigadot.semsci.chem.schema.CompChemSematics;
 import java.util.List;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.element.CMLParameter;
@@ -45,13 +45,13 @@ public class SemParameterTool extends AbstractSemanticTool {
                 CMLElement elem = list.get(0);
                 Literal val_res = getXSDLiteral(elem, model);
 
-                bnode_param_res = model.createResource(CompChemSemantics.cmlrdfParameter);
+                bnode_param_res = model.createResource(CompChemSematics.cmlrdfParameter);
 
-                bnode_param_res.addProperty(CompChemSemantics.cmlrdfHasValue, val_res);
+                bnode_param_res.addProperty(CompChemSematics.cmlrdfHasValue, val_res);
 
                 String units = elem.getAttributeValue("units");
                 if (units != null) {
-                    bnode_param_res.addProperty(CompChemSemantics.cmlrdfHasUnits, units);
+                    bnode_param_res.addProperty(CompChemSematics.cmlrdfHasUnits, units);
                 }
 
                 Resource cmlType = getCMLTypeString(elem);

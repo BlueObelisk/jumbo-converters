@@ -13,11 +13,17 @@ import org.xmlcml.cml.converters.testutils.RegressionSuite;
  */
 public class RegressionTest {
 
-   @Test
-   public void gaussianArchive2CML() {
-      RegressionSuite.run("compchem/gaussian/archive", "arc", "xml",
-                          new GaussianArchive2XMLConverter());
-   }
+	   @Test
+	   public void gaussianArchive2XML() {
+	      RegressionSuite.run("compchem/gaussian/archive", "arc", "xml",
+	                          new GaussianArchive2XMLConverter());
+	   }
+
+	   @Test
+	   public void gaussianArchiveXML2CML() {
+	      RegressionSuite.run("compchem/gaussian/archive", "xml", "cml",
+	                          new GaussianArchiveXML2CMLConverter());
+	   }
 
    @Test
    public void gauCML2OWL() {
