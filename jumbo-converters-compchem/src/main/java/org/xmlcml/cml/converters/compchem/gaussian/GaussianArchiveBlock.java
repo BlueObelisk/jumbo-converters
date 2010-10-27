@@ -1,7 +1,6 @@
 package org.xmlcml.cml.converters.compchem.gaussian;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,17 +9,16 @@ import nu.xom.Node;
 import nu.xom.Nodes;
 
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.BlockContainer;
-import org.xmlcml.cml.converters.Command;
 import org.xmlcml.cml.converters.Util;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtom;
-import org.xmlcml.cml.element.CMLEntry;
 import org.xmlcml.cml.element.CMLFormula;
 import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLMolecule;
@@ -28,8 +26,7 @@ import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLPropertyList;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.element.CMLZMatrix;
-import org.xmlcml.cml.tools.MoleculeTool;
-import org.xmlcml.euclid.IntArray;
+import org.xmlcml.euclid.JodaDate;
 import org.xmlcml.euclid.Point3;
 import org.xmlcml.euclid.RealArray;
 import org.xmlcml.molutil.ChemicalElement;
@@ -153,7 +150,10 @@ public class GaussianArchiveBlock extends AbstractBlock {
 				formula.setInline(name);
 				element = formula;
 			} else if (DATE.equals(dictRef)) {
-				element = new CMLScalar(new Date(name));
+				System.out.println("date "+name);
+				// 30-Mar-2009
+				DateTime dateTime = JodaDate.parseDate(name, "dd-MMM-yyyy");
+				element = new CMLScalar(dateTime);
 			} else {
 				element = new CMLScalar(name);
 			}

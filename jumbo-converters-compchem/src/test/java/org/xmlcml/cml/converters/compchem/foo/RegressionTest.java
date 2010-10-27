@@ -11,13 +11,13 @@ import org.xmlcml.cml.converters.testutils.RegressionSuite;
 public class RegressionTest {
 
 	   @Test
-	   public void gamessuk2XML() {
+	   public void foo2XML() {
 	      RegressionSuite.run("compchem/foo/punch", "foo", "xml",
 	                          new Foo2XMLConverter());
 	                              
 	   }
 	   @Test
-	   public void gamessukXML2CML() {
+	   public void fooXML2CML() {
 	      RegressionSuite.run("compchem/foo/complete", "xml", "cml",
 	                          new FooXML2CMLConverter());
 	                              

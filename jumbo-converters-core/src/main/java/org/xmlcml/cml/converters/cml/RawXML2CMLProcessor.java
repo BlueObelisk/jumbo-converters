@@ -15,6 +15,7 @@ public abstract class RawXML2CMLProcessor {
 	protected CMLElement cmlElement;
 	
 	public void process(Element xml) {
+//		this.xmlInput = CMLBuilder.ensureCML(xml);
 		this.xmlInput = xml;
 		CMLUtil.removeWhitespaceNodes(xml);
 		processXML();

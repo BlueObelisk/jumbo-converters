@@ -15,7 +15,7 @@ import org.xmlcml.cml.element.CMLVector3;
 import gigadot.semsci.converters.chem.uri.DefaultURIUUIDGenerator;
 import gigadot.semsci.converters.chem.uri.HasURIGenerator;
 import gigadot.semsci.converters.chem.uri.URIGenerator;
-import gigadot.semsci.chem.schema.CompChemSemantics;
+import gigadot.semsci.chem.schema.CompChemSematics;
 
 /**
  * 
@@ -40,13 +40,13 @@ public abstract class AbstractSemanticTool extends AbstractTool implements HasUR
     protected static Resource getCMLTypeString(CMLElement elem) {
         Resource res = null;
         if (elem instanceof CMLScalar) {
-            res = CompChemSemantics.cmlScalar;
+            res = CompChemSematics.cmlScalar;
         } else if (elem instanceof CMLArray) {
-            res = CompChemSemantics.cmlArray;
+            res = CompChemSematics.cmlArray;
         } else if (elem instanceof CMLMatrix) {
-            res = CompChemSemantics.cmlMatrix;
+            res = CompChemSematics.cmlMatrix;
         } else if (elem instanceof CMLVector3) {
-            res = CompChemSemantics.cmlVector3;
+            res = CompChemSematics.cmlVector3;
         }
         return res;
     }
