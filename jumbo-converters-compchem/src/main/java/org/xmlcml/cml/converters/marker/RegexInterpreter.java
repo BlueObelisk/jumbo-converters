@@ -83,7 +83,7 @@ public class RegexInterpreter {
 				nameList.add(name);
 			}
 		} else {
-			CMLUtil.debug(regexElement, "regex");
+//			CMLUtil.debug(regexElement, "regex");
 		}
 		return nameList;
 	}

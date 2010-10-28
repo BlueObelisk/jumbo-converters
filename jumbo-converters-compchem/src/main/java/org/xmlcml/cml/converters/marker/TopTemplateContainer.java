@@ -35,7 +35,7 @@ import org.xmlcml.cml.element.CMLModule;
 public class TopTemplateContainer {
 	private static Logger LOG = Logger.getLogger(TopTemplateContainer.class);
 	static {
-		LOG.setLevel(Level.DEBUG);
+		LOG.setLevel(Level.INFO);
 	}
 	
 	static final String ARRAY_DATA_ATT = "arrayData";

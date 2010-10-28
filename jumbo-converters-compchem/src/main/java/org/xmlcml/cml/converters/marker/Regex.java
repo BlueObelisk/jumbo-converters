@@ -22,7 +22,7 @@ import org.xmlcml.cml.element.CMLScalar;
 public class Regex extends Marker {
 	private static Logger LOG = Logger.getLogger(Regex.class);
 	static {
-		LOG.setLevel(Level.DEBUG);
+		LOG.setLevel(Level.INFO);
 	}
 	
 	public static final String ID_PREFIX = "r";
