@@ -150,8 +150,8 @@ public class GaussianArchiveBlock extends AbstractBlock {
 				formula.setInline(name);
 				element = formula;
 			} else if (DATE.equals(dictRef)) {
-				System.out.println("date "+name);
-				// 30-Mar-2009
+				System.out.println("ARC date "+name);
+				// 30-Mar-2009 (and nothing else)
 				DateTime dateTime = JodaDate.parseDate(name, "dd-MMM-yyyy");
 				element = new CMLScalar(dateTime);
 			} else {
