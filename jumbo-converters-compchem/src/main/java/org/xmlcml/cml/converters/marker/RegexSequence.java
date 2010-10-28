@@ -17,7 +17,7 @@ import org.xmlcml.cml.element.CMLModule;
 public class RegexSequence extends MarkerSequence {
 	static Logger LOG = Logger.getLogger(RegexSequence.class);
 	static {
-		LOG.setLevel(Level.DEBUG);
+		LOG.setLevel(Level.INFO);
 	}
 	String prefix;
 

@@ -40,7 +40,7 @@ import org.xmlcml.euclid.Util;
 public abstract class AbstractParser extends AbstractConverter {
 	private static Logger LOG = Logger.getLogger(AbstractParser.class);
 	static {
-		LOG.setLevel(Level.DEBUG);
+		LOG.setLevel(Level.INFO);
 	}
 	
 	private CMLModule cmlModule;
