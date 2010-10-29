@@ -8,11 +8,8 @@ import nu.xom.Element;
 import nu.xom.Elements;
 import nu.xom.Nodes;
 
-import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
-import org.xmlcml.cml.converters.LegacyProcessor;
 import org.xmlcml.cml.converters.cml.RawXML2CMLProcessor;
-import org.xmlcml.cml.converters.compchem.AbstractCompchemProcessor;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLBond;
@@ -22,9 +19,13 @@ import org.xmlcml.cml.element.CMLProperty;
 public class GamessUKPunchXMLProcessor extends RawXML2CMLProcessor {
 
 
-	public final static String PROPERTY_XPATH = "./*[(local-name()='scalar' or local-name()='array' or local-name()='matrix') and @dictRef]";
+	public final static String PROPERTY_XPATH = 
+		"./*[(local-name()='scalar' or local-name()='array' or local-name()='matrix') and @dictRef]";
 	private Element bondArray;
 
+	public GamessUKPunchXMLProcessor() {
+		this.abstractCommon = new GamessUKCommon();
+	}
 	public void processXML() {
 		transformAtomArraysIntoMolecules();
 		transformAtomArraysIntoFrequencies();
@@ -55,7 +56,7 @@ public class GamessUKPunchXMLProcessor extends RawXML2CMLProcessor {
 			module.appendChild(sibling);
 		}
 	}
-
+	
 	private void transformAtomArraysIntoFrequencies() {
 		Nodes atomArrayNodes = xmlInput.query(
 				"./*[local-name()='atomArray' and @dictRef='gamessuk:normal_coordinates']");
@@ -75,7 +76,7 @@ public class GamessUKPunchXMLProcessor extends RawXML2CMLProcessor {
 
 	@Override
 	protected void decorateProperty(Element scalArrMat, CMLProperty property) {
-		Attribute index = scalArrMat.getAttribute("index", GamessUKPunch2XMLConverter.GAMESSUK_URI);
+		Attribute index = scalArrMat.getAttribute("index", abstractCommon.getNamespace());
 		if (index != null) {
 			index.detach();
 			property.addAttribute(index);

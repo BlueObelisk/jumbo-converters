@@ -36,9 +36,4 @@ public class GamessUKXML2CMLConverter extends AbstractCompchem2CMLConverter{
 		return cml;
 	}
 
-	public void addNamespaces(CMLElement cml) {
-		addCommonNamespaces(cml);
-		cml.addNamespaceDeclaration(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX, GamessUKPunch2XMLConverter.GAMESSUK_URI);
-	}
-
 }

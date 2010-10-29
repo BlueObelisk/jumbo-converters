@@ -3,7 +3,6 @@ package org.xmlcml.cml.converters.compchem.gamessuk;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import nu.xom.Attribute;
 import nu.xom.Element;
 
 import org.xmlcml.cml.attribute.DictRefAttribute;
@@ -11,6 +10,7 @@ import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.BlockContainer;
+import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLAtomArray;
@@ -24,6 +24,29 @@ import org.xmlcml.euclid.Util;
 
 public class GamessUKPunchBlock extends AbstractBlock {
 
+	private static final String INDEX = "index";
+	private static final String VECTORS = "vectors";
+	private static final String BASIS = "basis";
+	private static final String GRID_MAPPING = "grid_mapping";
+	private static final String GRID_AXES = "grid_axes";
+	private static final String GRID_TITLE = "grid_title";
+	private static final String VIBRATIONAL_FREQUENCY = "vibrational_frequency";
+	private static final String SCF_ENERGY = "scf_energy";
+	private static final String OCCUPATIONS = "occupations";
+	private static final String MULLIKEN_ATOMIC_CHARGES = "mulliken_atomic_charges";
+	private static final String MULLIKEN_ATOM_POPULATIONS = "mulliken_atom_populations";
+	private static final String MULLIKEN_AO_POPULATIONS = "mulliken_ao_populations";
+	private static final String LOWDIN_ATOMIC_CHARGES = "lowdin_atomic_charges";
+	private static final String LOWDIN_ATOM_POPULATIONS = "lowdin_atom_populations";
+	private static final String LOWDIN_AO_POPULATIONS = "lowdin_ao_populations";
+	private static final String GRID_DATA = "grid_data";
+	private static final String CONNECTIVITY = "connectivity";
+	private static final String NORMAL_COORDINATES = "normal_coordinates";
+	private static final String UPDATE_COORDINATES = "update_coordinates";
+	private static final String COORDINATES = "coordinates";
+	private static final String DATA = "data";
+	private static final String FRAGMENT_SEQUENCE = "fragment.sequence";
+	private static final String FRAGMENT = "fragment";
 	public static final Double AU_TO_ANGSTROM = 0.52917721;
 	Integer records;
 	Integer index;
@@ -32,6 +55,7 @@ public class GamessUKPunchBlock extends AbstractBlock {
 	
 	public GamessUKPunchBlock(BlockContainer blockContainer) {
 		super(blockContainer);
+		this.abstractCommon = new GamessUSCommon();
 	}
 	
 	public void add(String s) {
@@ -39,45 +63,45 @@ public class GamessUKPunchBlock extends AbstractBlock {
 	}
 
 	public void convertToRawCML() {
-		if (blockName.equals("fragment") ||
-				blockName.equals("fragment.sequence") ||
-				blockName.equals("data") ||
+		if (blockName.equals(FRAGMENT) ||
+				blockName.equals(FRAGMENT_SEQUENCE) ||
+				blockName.equals(DATA) ||
 			false) {
 			makeMarkerBlock();
 		} else if (
-				blockName.equals("coordinates") ||
-				blockName.equals("update_coordinates") ||
-				blockName.equals("normal_coordinates") ||
+				blockName.equals(COORDINATES) ||
+				blockName.equals(UPDATE_COORDINATES) ||
+				blockName.equals(NORMAL_COORDINATES) ||
 				false) {
 			makeCoordinates();
-		} else if (blockName.equals("connectivity")) {
+		} else if (blockName.equals(CONNECTIVITY)) {
 			makeConnectivity();
 		} else if (
-				blockName.equals("grid_data") ||
-				blockName.equals("lowdin_ao_populations") ||
-				blockName.equals("lowdin_atom_populations") ||
-				blockName.equals("lowdin_atomic_charges") ||
-				blockName.equals("mulliken_ao_populations") ||
-				blockName.equals("mulliken_atom_populations") ||
-				blockName.equals("mulliken_atomic_charges") ||
-				blockName.equals("occupations") ||
-				blockName.equals("scf_energy") ||
-				blockName.equals("vibrational_frequency") ||
+				blockName.equals(GRID_DATA) ||
+				blockName.equals(LOWDIN_AO_POPULATIONS) ||
+				blockName.equals(LOWDIN_ATOM_POPULATIONS) ||
+				blockName.equals(LOWDIN_ATOMIC_CHARGES) ||
+				blockName.equals(MULLIKEN_AO_POPULATIONS) ||
+				blockName.equals(MULLIKEN_ATOM_POPULATIONS) ||
+				blockName.equals(MULLIKEN_ATOMIC_CHARGES) ||
+				blockName.equals(OCCUPATIONS) ||
+				blockName.equals(SCF_ENERGY) ||
+				blockName.equals(VIBRATIONAL_FREQUENCY) ||
 			
 			false) {
 			element = createDoubleArray(blockName);
 		} else if (
-				blockName.equals("grid_title") ||
-				blockName.equals("grid_axes") ||	// need an expert to decode
-				blockName.equals("grid_mapping") || // need an expert to decode
+				blockName.equals(GRID_TITLE) ||
+				blockName.equals(GRID_AXES) ||	// need an expert to decode
+				blockName.equals(GRID_MAPPING) || // need an expert to decode
 			false) {
 			element = createScalarArray(blockName);
 		} else if (
-				blockName.equals("basis") ||
+				blockName.equals(BASIS) ||
 				false) {
 			makeBasis();
 		} else if (
-				blockName.equals("vectors") ||
+				blockName.equals(VECTORS) ||
 				false) {
 			/**
 			block = vectors records =    88 index =   1 elements =  22
@@ -97,9 +121,9 @@ public class GamessUKPunchBlock extends AbstractBlock {
 		}
 		if (element != null) {
 			if (index != null) {
-				element.addAttribute(new Attribute(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX+":index", GamessUKPunch2XMLConverter.GAMESSUK_URI, ""+index));
+				addNamespacedAttribute(element, INDEX, ""+index);
 			}
-			String dictRef = DictRefAttribute.createValue(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX, blockName);
+			String dictRef = DictRefAttribute.createValue(abstractCommon.getPrefix(), blockName);
 			element.setAttribute("dictRef", dictRef);
 		} else {
 			System.err.println("null element: "+blockName);
@@ -107,7 +131,7 @@ public class GamessUKPunchBlock extends AbstractBlock {
 	}
 
 	private CMLElement createDoubleMatrix(int fieldsPerLine, int charsPerField, String local) {
-		String dictRef = DictRefAttribute.createValue(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX, local);
+		String dictRef = DictRefAttribute.createValue(abstractCommon.getPrefix(), local);
 		if (records == 0) {
 			throw new RuntimeException(local+" expects multiple records");
 		}
@@ -191,7 +215,7 @@ into
 		element = new CMLBasisSet();
 		for (int i = 0; i < records; i++) {
 			String line = lines.get(i);
-			String elementType = Util.capitalise(line.substring(0, 2)).trim();
+//			String elementType = Util.capitalise(line.substring(0, 2)).trim();
 			int i1 = Integer.parseInt(line.substring(2, 12).trim());
 			String s2 = line.substring(12, 15).trim();
 			int i3 = Integer.parseInt(line.substring(15, 19).trim());
@@ -199,12 +223,12 @@ into
 			double f5 = new Double(line.substring(24, 39).trim());
 			double f6 = new Double(line.substring(39, 54).trim());
 			CMLAtomicBasisFunction abf = new CMLAtomicBasisFunction();
-			abf.addAttribute(new Attribute(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX+":i1", GamessUKPunch2XMLConverter.GAMESSUK_URI, ""+i1));
-			abf.addAttribute(new Attribute(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX+":s2", GamessUKPunch2XMLConverter.GAMESSUK_URI, ""+s2));
-			abf.addAttribute(new Attribute(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX+":i3", GamessUKPunch2XMLConverter.GAMESSUK_URI, ""+i3));
-			abf.addAttribute(new Attribute(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX+":i4", GamessUKPunch2XMLConverter.GAMESSUK_URI, ""+i4));
-			abf.addAttribute(new Attribute(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX+":f5", GamessUKPunch2XMLConverter.GAMESSUK_URI, ""+f5));
-			abf.addAttribute(new Attribute(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX+":f6", GamessUKPunch2XMLConverter.GAMESSUK_URI, ""+f6));
+			addNamespacedAttribute(abf, "i1", ""+i1);
+			addNamespacedAttribute(abf, "s2", ""+s2);
+			addNamespacedAttribute(abf, "i3", ""+i3);
+			addNamespacedAttribute(abf, "i4", ""+i4);
+			addNamespacedAttribute(abf, "f5", ""+f5);
+			addNamespacedAttribute(abf, "f6", ""+f6);
 			((CMLBasisSet)element).addAtomicBasisFunction(abf);
 		}
 	}
@@ -218,7 +242,7 @@ into
 		  0.588760
 		...
 				 */
-		String dictRef = DictRefAttribute.createValue(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX, local);
+		String dictRef = DictRefAttribute.createValue(abstractCommon.getPrefix(), local);
 		if (records == 0) {
 			throw new RuntimeException(local+" expects multiple records");
 		}
@@ -237,7 +261,7 @@ into
 block=grid_title records= 1 index =   1
 formaldehyde total charge density                                               
 				 */
-		String dictRef = DictRefAttribute.createValue(GamessUKPunch2XMLConverter.GAMESSUK_PREFIX, local);
+		String dictRef = DictRefAttribute.createValue(abstractCommon.getPrefix(), local);
 		if (records == 0) {
 			throw new RuntimeException(local+" expects multiple records");
 		}
