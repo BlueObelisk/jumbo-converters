@@ -47,7 +47,7 @@ public class GamessUSPunchProcessor extends LegacyProcessor {
 
 	public static final String KEYWORD = " $";
 	private static final String END = " $END";
-	private CMLMolecule lastMolecule;
+//	private CMLMolecule lastMolecule;
 	
 	public GamessUSPunchProcessor() {
 	}
@@ -68,9 +68,6 @@ public class GamessUSPunchProcessor extends LegacyProcessor {
 		}
 		block.convertToRawCML();
 		CMLMolecule molecule = block.getMolecule();
-		if (molecule != null) {
-			this.lastMolecule = molecule;
-		}
 		return block;
 	}
 
