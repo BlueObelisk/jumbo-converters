@@ -1,5 +1,9 @@
 package org.xmlcml.cml.converters.compchem.gamessus;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -7,20 +11,28 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.AbstractBlock;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
 import org.xmlcml.cml.converters.compchem.CompchemUtils;
 import org.xmlcml.cml.converters.compchem.NumericFormat;
+import org.xmlcml.cml.element.CMLAngle;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLLabel;
+import org.xmlcml.cml.element.CMLLength;
 import org.xmlcml.cml.element.CMLMatrix;
 import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.element.CMLSymmetry;
+import org.xmlcml.cml.element.CMLTorsion;
+import org.xmlcml.cml.element.CMLZMatrix;
 import org.xmlcml.cml.tools.DictionaryTool;
+import org.xmlcml.euclid.IntArray;
 import org.xmlcml.molutil.ChemicalElement;
+
+import fortran.format.FortranFormat;
 
 public class GamessUSPunchBlock extends AbstractBlock {
 	private static Logger LOG = Logger.getLogger(GamessUSPunchBlock.class);
@@ -37,7 +49,11 @@ public class GamessUSPunchBlock extends AbstractBlock {
 
 	public GamessUSPunchBlock(BlockContainer blockContainer) {
 		super(blockContainer);
-		this.abstractCommon = new GamessUSCommon();
+	}
+
+	@Override
+	protected AbstractCommon getCommon() {
+		return new GamessUSCommon();
 	}
 
 	/**
@@ -121,6 +137,11 @@ H1          1.0     -2.9805271364       .9147039208       .1059830464
 	public static final Pattern BOND = Pattern.compile("\\s*(\\d+)\\s+(\\d+)");
 	
 	private void makeGrad() {
+		/*
+H1          1.0  -2.9805271364    .9147039208    .1059830464
+		 */
+//		FortranFormat format = new FortranFormat("(A8,F7.1,3F15.10)");
+//		readTable(lines, format);
 		element = new CMLScalar();
 	}
 
@@ -210,6 +231,60 @@ H1          1.0     -2.9805271364       .9147039208       .1059830464
 		
 	}
 
+	/*
+    IVIB=   0 IATOM=   0 ICOORD=   0 E=     -417.0146230240
+	*/
+	private void makeVib1() {
+		ensureMolecule();
+		CMLModule module = new CMLModule();
+		
+	/*
+	    IVIB=   0 IATOM=   0 ICOORD=   0 E=     -417.0146230240
+	-3.014817301E-06-5.316670868E-06-4.345305914E-06 1.221059187E-05 6.746840227E-06
+	-5.750877884E-06-2.129021293E-05 1.289122123E-05-4.221137717E-05 1.283919380E-07
+	...
+	7.799249640E-06-1.877789578E-08 9.009626448E-06 5.782921410E-06 1.610009308E-05
+	-6.564999713E-06 1.749591384E-05 2.550531014E-06  (48 fields for 16 atoms)
+	0.000000000E+00 0.000000000E+00 0.000000000E+00  (3 fields???)
+	*/
+		int lineCount = 0;
+		int coordCount = molecule.getAtomCount()*3;
+		String flags = lines.get(lineCount++);
+		Matcher matcher = vibPattern.matcher(flags);
+		if (!matcher.matches()) {
+			throw new RuntimeException("bad flags match");
+		}
+		String FLAGS_F = "('        IVIB='I4' IATOM='I4' ICOORD='I4' E='F20.10)";
+		List<Object> results = parseFortran(FLAGS_F, flags);
+		addScalar(module, (Integer)results.get(0), "ivib");
+		addScalar(module, (Integer)results.get(1), "iatom");
+		addScalar(module, (Integer)results.get(2), "icoord");
+		addScalar(module, (Integer)results.get(3), "e");
+		CompchemUtils compchemUtils = new CompchemUtils();
+		// add array
+		NumericFormat numericFormat = new NumericFormat();
+		numericFormat.setF(16, 9);
+		double[] dd = compchemUtils.readFormattedNumericArray(lines, lineCount, 0, numericFormat, 5, coordCount);
+		addArray(module, dd, "vibs");
+		lineCount += compchemUtils.getLinesRead();
+		// add vector
+		dd = compchemUtils.readFormattedNumericArray(lines, lineCount, 0, numericFormat, 5, 3);
+		addArray(module, dd, "vector");
+		lineCount++;
+		element = module;
+		
+	}
+
+	public static List<Object> parseFortran(String format, String data) {
+		List<Object> results = new ArrayList<Object>();
+		try {
+			results = new FortranFormat(format).parse(data);
+		} catch (Exception e) {
+			throw new RuntimeException("Cannot parse fortran", e);
+		}
+		return results;
+	}
+
 	private void ensureMolecule() {
 		molecule = blockContainer.getMolecule();
 		if (molecule == null) {
@@ -243,6 +318,25 @@ H1          1.0     -2.9805271364       .9147039208       .1059830464
 	}
 
 	private void makeZmat() {
+		/**
+ $ZMAT   IZMAT(1)=
+ // I have NO idea what these lines are. I hope there are exactly two
+         3,   2,   3,   5,   7,
+         3,   3,   5,   7,  13,
+         1,   1,   2,
+         1,   2,   4,
+         ...
+         1,  13,  15,
+         2,   1,   2,   3,
+         2,   1,   2,   4,
+         ...
+         2,  15,  13,  16,
+         3,   1,   2,   3,   6,
+         3,   1,   2,   3,   5,
+         ...
+         3,  14,   7,  13,  15,
+ $END
+		 */
 		/*
         
 		IZMAT =1 followed by two atom numbers. (I-J bond length)                        
@@ -264,7 +358,61 @@ H1          1.0     -2.9805271364       .9147039208       .1059830464
 		         (If I=J AND M=N, this is a conventional torsion).                      
 		         Examples: N2H4, or, with one common pair, H2POH.                       
 			 */
-		element = new CMLScalar();
+		CMLZMatrix matrix = new CMLZMatrix();
+		// skip first two lines
+		int lineCount = 2;
+		while (lineCount < lines.size()) {
+			String line = lines.get(lineCount++).trim();
+			// remove trailing comma
+			if (line.endsWith(",")) {
+				line = line.substring(0, line.length()-1);
+			}
+			//remove whitespace and create 
+			// assume fields are comma-separated
+			String fields[] = line.replaceAll(" ", "").split(",");
+			IntArray intArray = new IntArray(fields);
+			int key = intArray.elementAt(0);
+			intArray.deleteElement(0);
+			int size = intArray.size();
+			if (size < 2) {
+				throw new RuntimeException("too few fields for zmat: "+line);
+			} else if (size > 6) {
+				throw new RuntimeException("too many fields for zmat: "+line);
+			}
+			if (key == 1 && size == 2) {
+				CMLLength length = new CMLLength();
+				length.setAtomRefs2(new String[]{
+				"a"+intArray.elementAt(0), 
+				"a"+intArray.elementAt(1)});
+				matrix.addLength(length);
+			} else if (key == 2 && size == 3) {
+				CMLAngle angle = new CMLAngle();
+				angle.setAtomRefs3(new String[]{
+				"a"+intArray.elementAt(0),
+				"a"+intArray.elementAt(1),
+				"a"+intArray.elementAt(2)});
+				matrix.addAngle(angle);
+			} else if (key == 3 && size == 4) {
+				CMLTorsion torsion = new CMLTorsion();
+				torsion.setAtomRefs4(new String[]{
+				"a"+intArray.elementAt(0),
+				"a"+intArray.elementAt(1),
+				"a"+intArray.elementAt(2),
+				"a"+intArray.elementAt(3)});
+				matrix.addTorsion(torsion);
+			} else if (key == 4 && size == 4) {
+				LOG.warn("JUMBO does not support zmat field: "+line);
+			} else if (key == 5 && size == 3) {
+				LOG.warn("JUMBO does not support zmat field: "+line);
+			} else if (key == 6 && size == 5) {
+				LOG.warn("JUMBO does not support zmat field: "+line);
+			} else if (key == 7 && size == 6) {
+				LOG.warn("JUMBO does not support zmat field: "+line);
+			} else {
+				throw new RuntimeException("bad zmat line: "+line);
+			}
+		}
+		element = matrix;
 	}
 
 }

@@ -7,7 +7,9 @@ import java.util.regex.Pattern;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.AbstractBlock;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
+import org.xmlcml.cml.converters.compchem.foo.FooCommon;
 import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLProperty;
@@ -32,7 +34,10 @@ public class GamessUSInputBlock extends AbstractBlock {
 	
 	public GamessUSInputBlock(BlockContainer blockContainer) {
 		super(blockContainer);
-		this.abstractCommon = new GamessUSCommon();
+	}
+	@Override
+	protected AbstractCommon getCommon() {
+		return new GamessUSCommon();
 	}
 
 	/**

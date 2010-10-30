@@ -33,7 +33,7 @@ public class CML2SVGConverterTest {
 	   moleculeTool.scaleAverage2DBondLength(50.0);
 	   SVGGBox svgg = moleculeTool.draw(MoleculeDisplay.getDEFAULT());
 	   SVGSVG svgSvg = SVGSVG.wrapAsSVG(svgg);
-	   svgSvg.debug("SVG");
+	   //svgSvg.debug("SVG");
 	   
 //	   CML2SVGConverter cml2svgConverter = new CML2SVGConverter();
 //	   CMLElement cmlIn = (CMLElement) JumboTestUtils.parseValidFile("graphics/cml2svg/in/crystal.cml");

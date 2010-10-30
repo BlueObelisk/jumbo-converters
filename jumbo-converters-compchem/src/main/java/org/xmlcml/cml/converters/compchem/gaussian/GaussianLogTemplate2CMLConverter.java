@@ -12,6 +12,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
 import org.xmlcml.cml.element.CMLCml;
@@ -26,12 +27,18 @@ public class GaussianLogTemplate2CMLConverter  extends AbstractCompchem2CMLConve
 	// really awful, but ant cannot pick up classpath
 	public final static String DICT_FILE = 
 		"D:/workspace/jumbo-converters/src/main/resources/org/xmlcml/cml/converters/compchem/gaussian/gaussianArchiveDict.xml";
-	
-	public static final String GAUSS_PREFIX = "gauss";
-	public static final String GAUSS_URI = "http://wwmm.ch.cam.ac.uk/dict/gauss";
-	
+
 	private CMLCml topCml;
 	
+
+	public GaussianLogTemplate2CMLConverter() {
+		
+	}
+	
+   @Override
+   protected AbstractCommon getCommon() {
+	   return new GaussianCommon();
+   }
 	public Type getInputType() {
 		return Type.GAU_LOG;
 	}
@@ -103,15 +110,6 @@ public class GaussianLogTemplate2CMLConverter  extends AbstractCompchem2CMLConve
 		Element element = gaussianArchiveConverter.convertToXML(lines);
 		Nodes molecules = element.query(".//cml:molecule", CMLConstants.CML_XPATH);
 		return (molecules.size() == 0) ? null : (CMLMolecule) molecules.get(molecules.size()-1);
-	}
-
-	/**
-	 * not sure what this is for
-	 */
-	@Override
-	public void addNamespaces(CMLElement cml) {
-		addCommonNamespaces(cml);
-		cml.addNamespaceDeclaration(GAUSS_PREFIX, GAUSS_URI);
 	}
 
 }

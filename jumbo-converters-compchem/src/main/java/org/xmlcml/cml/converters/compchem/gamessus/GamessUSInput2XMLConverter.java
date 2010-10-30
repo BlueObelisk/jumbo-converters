@@ -10,6 +10,7 @@ import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
+import org.xmlcml.cml.converters.compchem.gaussian.GaussianCommon;
 
 public class GamessUSInput2XMLConverter extends AbstractCompchem2CMLConverter{
 	private static final Logger LOG = Logger.getLogger(GamessUSInput2XMLConverter.class);
@@ -18,9 +19,12 @@ public class GamessUSInput2XMLConverter extends AbstractCompchem2CMLConverter{
 	}
 	
 	public GamessUSInput2XMLConverter() {
-		this.abstractCommon = new GamessUSCommon();
 	}
-	
+   @Override
+   protected AbstractCommon getCommon() {
+	   return new GamessUSCommon();
+   }
+
 	public Type getInputType() {
 		return Type.GAMESSUS_INPUT;
 	}

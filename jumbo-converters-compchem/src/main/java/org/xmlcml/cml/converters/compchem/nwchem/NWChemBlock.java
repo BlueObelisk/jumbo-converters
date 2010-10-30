@@ -1,4 +1,4 @@
-package org.xmlcml.cml.converters.compchem.foo;
+package org.xmlcml.cml.converters.compchem.nwchem;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -7,13 +7,14 @@ import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
+import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLBond;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.euclid.Util;
 
-public class FooBlock extends AbstractBlock {
+public class NWChemBlock extends AbstractBlock {
 
 	/*
 	 * keywords in legacy input
@@ -21,13 +22,13 @@ public class FooBlock extends AbstractBlock {
 	public static final String DIPOLE   = "dipole";
 	public static final String MOLECULE = "molecule";
 	
-	public FooBlock(BlockContainer blockContainer) {
+	public NWChemBlock(BlockContainer blockContainer) {
 		super(blockContainer);
 	}
-
+	
 	@Override
 	protected AbstractCommon getCommon() {
-		return new FooCommon();
+		return new NWChemCommon();
 	}
 
 	/**

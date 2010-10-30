@@ -40,7 +40,10 @@ public abstract class AbstractCompchem2CMLConverter extends AbstractConverter {
 	protected RawXML2CMLProcessor rawXml2CmlProcessor;
 	protected LegacyProcessor legacyProcessor;
 	protected AbstractCommon abstractCommon;
-	
+
+	protected AbstractCompchem2CMLConverter() {
+		abstractCommon = getCommon();
+	}
 	public CMLMolecule getMolecule() {
 		return molecule;
 	}
@@ -155,4 +158,5 @@ public abstract class AbstractCompchem2CMLConverter extends AbstractConverter {
 		this.abstractCommon.addNamespaceDeclaration(cml);
 	}
 
+	protected abstract AbstractCommon getCommon();
 }
