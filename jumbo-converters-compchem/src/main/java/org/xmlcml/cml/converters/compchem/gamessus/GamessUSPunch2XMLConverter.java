@@ -7,9 +7,9 @@ import nu.xom.Element;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
-import org.xmlcml.cml.converters.compchem.foo.FooProcessor;
 
 public class GamessUSPunch2XMLConverter extends AbstractCompchem2CMLConverter{
 	private static final Logger LOG = Logger.getLogger(GamessUSPunch2XMLConverter.class);
@@ -18,7 +18,11 @@ public class GamessUSPunch2XMLConverter extends AbstractCompchem2CMLConverter{
 	}
 	
 	public GamessUSPunch2XMLConverter() {
-		this.abstractCommon = new GamessUSCommon();
+	}
+	
+	@Override
+	protected AbstractCommon getCommon() {
+		return new GamessUSCommon();
 	}
 
 	public Type getInputType() {

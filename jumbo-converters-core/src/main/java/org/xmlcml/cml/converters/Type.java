@@ -51,6 +51,8 @@ public class Type {
 	public static final Type MDL;
 	public static final Type N3;
 	public static final Type NAME;
+	public static final Type NWCHEM;
+	public static final Type NWCHEM_XML;
 	public static final Type OWL;
 	public static final Type PDF;
 	public static final Type PNG;
@@ -120,6 +122,10 @@ public class Type {
 		N3 = new Type("text/n3; charset=utf-8", ObjectType.BYTES, "n3");
 		NAME = new Type("text/text",
 				ObjectType.TEXT, "name");
+		NWCHEM = new Type("chemical/x-nwchem", ObjectType.TEXT,
+		"nwchem");
+		NWCHEM_XML = new Type("chemical/x-nwchem-xml", ObjectType.XML,
+		"nwchem.xml");
 		OWL = new Type("application/rdf+xml",
 				ObjectType.XML, "owl");
 		PDF = new Type("image/pdf",
@@ -164,6 +170,8 @@ public class Type {
 		typeList.add(MDL);
 		typeList.add(N3);
 		typeList.add(NAME);
+		typeList.add(NWCHEM);
+		typeList.add(NWCHEM_XML);
 		typeList.add(OWL);
 		typeList.add(PDF);
 		typeList.add(PNG);

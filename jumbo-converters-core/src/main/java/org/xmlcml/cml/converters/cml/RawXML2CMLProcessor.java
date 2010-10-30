@@ -7,12 +7,14 @@ import nu.xom.Nodes;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.element.CMLProperty;
 
 public abstract class RawXML2CMLProcessor {
 
 	protected Element xmlInput;
 	protected CMLElement cmlElement;
+	protected AbstractCommon abstractCommon;
 	
 	public void process(Element xml) {
 		this.xmlInput = xml;

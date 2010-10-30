@@ -3,6 +3,8 @@ package org.xmlcml.cml.converters;
 import java.util.ArrayList;
 import java.util.List;
 
+import nu.xom.Attribute;
+
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.element.CMLMolecule;
@@ -31,6 +33,7 @@ public abstract class AbstractBlock implements CMLConstants {
 		lines = new ArrayList<String>();
 		validateDictRef = true;
 		this.blockContainer = blockContainer;
+		abstractCommon = getCommon();
 	}
 	
 	public boolean isValidateDictRef() {
@@ -71,6 +74,8 @@ public abstract class AbstractBlock implements CMLConstants {
 	}
 
 	public abstract void convertToRawCML();
+	
+	protected abstract AbstractCommon getCommon();
 
 	public void setBlockName(String blockName) {
 		this.blockName = blockName;
@@ -87,5 +92,12 @@ public abstract class AbstractBlock implements CMLConstants {
 	public void setBlockContainer(BlockContainer blockContainer) {
 		this.blockContainer = blockContainer;
 	}
+
+	protected void addNamespacedAttribute(CMLElement el, String localName,
+			String value) {
+				el.addAttribute(new Attribute(
+						abstractCommon.getPrefix()+":"+localName, 
+						abstractCommon.getNamespace(), value));
+			}
 
 }

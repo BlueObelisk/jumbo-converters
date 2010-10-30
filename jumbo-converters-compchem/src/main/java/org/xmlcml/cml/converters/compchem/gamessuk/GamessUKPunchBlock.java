@@ -9,8 +9,8 @@ import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractBlock;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
-import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLAtomArray;
@@ -55,7 +55,10 @@ public class GamessUKPunchBlock extends AbstractBlock {
 	
 	public GamessUKPunchBlock(BlockContainer blockContainer) {
 		super(blockContainer);
-		this.abstractCommon = new GamessUSCommon();
+	}
+	
+	protected AbstractCommon getCommon() {
+		return new GamessUKCommon();
 	}
 	
 	public void add(String s) {

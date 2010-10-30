@@ -7,8 +7,10 @@ import nu.xom.Element;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
+import org.xmlcml.cml.converters.compchem.gaussian.GaussianCommon;
 import org.xmlcml.cml.converters.marker.AbstractParser;
 import org.xmlcml.cml.element.CMLModule;
 
@@ -17,15 +19,17 @@ public class GaussianLog2CMLConverter extends AbstractCompchem2CMLConverter{
 	static {
 		LOG.setLevel(Level.INFO);
 	}
+
+	protected AbstractParser parser;
 	
 	public GaussianLog2CMLConverter() {
 		
 	}
-	public static final String GAUSSIAN_PREFIX = "gaussian";
-	public static final String GAUSSIAN_URI = "http://wwmm.ch.cam.ac.uk/dict/gaussian/log";
 	
-	protected AbstractParser parser;
-	
+   @Override
+   protected AbstractCommon getCommon() {
+	   return new GaussianCommon();
+   }
 	public Type getInputType() {
 		return Type.GAU_ARC;
 	}

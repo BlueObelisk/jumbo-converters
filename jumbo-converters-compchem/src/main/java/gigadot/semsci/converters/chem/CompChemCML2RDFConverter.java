@@ -3,8 +3,10 @@ package gigadot.semsci.converters.chem;
 import nu.xom.Element;
 
 import org.apache.log4j.Logger;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
+import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 
 /**
  *
@@ -15,7 +17,10 @@ public class CompChemCML2RDFConverter extends AbstractCompchem2CMLConverter {
     private static Logger LOG = Logger.getLogger(CompChemCML2RDFConverter.class);
     
 	public CompChemCML2RDFConverter() {
-		abstractCommon = new CompChemCommon();
+	}
+	@Override
+	protected AbstractCommon getCommon() {
+		return new CompChemCommon();
 	}
 	
 	public Type getOutputType() {

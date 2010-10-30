@@ -1,4 +1,4 @@
-package org.xmlcml.cml.converters.compchem.gaussian;
+package org.xmlcml.cml.converters.compchem.nwchem;
 
 import java.util.List;
 
@@ -8,43 +8,40 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractCommon;
+import org.xmlcml.cml.converters.LegacyProcessor;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
 import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
-import org.xmlcml.cml.converters.compchem.gamessus.GamessUSPunchProcessor;
-import org.xmlcml.cml.element.CMLCml;
 
-public class GaussianArchive2XMLConverter extends AbstractCompchem2CMLConverter{
-	private static final Logger LOG = Logger.getLogger(GaussianArchive2XMLConverter.class);
+public class NWChemLog2XMLConverter extends AbstractCompchem2CMLConverter{
+	private static final Logger LOG = Logger.getLogger(NWChemLog2XMLConverter.class);
 	static {
 		LOG.setLevel(Level.INFO);
 	}
-	
-	public GaussianArchive2XMLConverter() {
-	}
 
+	public NWChemLog2XMLConverter() {
+	}
    @Override
    protected AbstractCommon getCommon() {
-	   return new GaussianCommon();
+	   return new NWChemCommon();
    }
-	
+
 	public Type getInputType() {
-		return Type.GAU_ARC;
+		return Type.FOO;
 	}
 
 	public Type getOutputType() {
-		return Type.CML;
+		return Type.FOO_XML;
 	}
 
 	/**
-	 * converts an MDL object to CML. returns cml:cml/cml:molecule
+	 * converts an Foo object to CML. returns cml:cml/cml:molecule
 	 * 
 	 * @param in input stream
 	 */
 	public Element convertToXML(List<String> lines) {
-		legacyProcessor = new GaussianArchiveProcessor();
-		CMLElement cmlElement = readAndProcess(lines);
-		return cmlElement;
+		legacyProcessor = new NWChemProcessor();
+		return readAndProcess(lines);
 	}
 
 }

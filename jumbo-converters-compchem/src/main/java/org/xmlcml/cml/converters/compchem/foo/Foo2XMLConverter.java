@@ -7,9 +7,11 @@ import nu.xom.Element;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.LegacyProcessor;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
+import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 
 public class Foo2XMLConverter extends AbstractCompchem2CMLConverter{
 	private static final Logger LOG = Logger.getLogger(Foo2XMLConverter.class);
@@ -18,9 +20,12 @@ public class Foo2XMLConverter extends AbstractCompchem2CMLConverter{
 	}
 
 	public Foo2XMLConverter() {
-		abstractCommon = new FooCommon();
 	}
-	
+   @Override
+   protected AbstractCommon getCommon() {
+	   return new FooCommon();
+   }
+
 	public Type getInputType() {
 		return Type.FOO;
 	}
@@ -36,8 +41,7 @@ public class Foo2XMLConverter extends AbstractCompchem2CMLConverter{
 	 */
 	public Element convertToXML(List<String> lines) {
 		legacyProcessor = new FooProcessor();
-		CMLElement cmlElement = readAndProcess(lines);
-		return cmlElement;
+		return readAndProcess(lines);
 	}
 
 }

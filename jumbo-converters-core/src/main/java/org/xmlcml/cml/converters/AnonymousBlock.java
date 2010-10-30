@@ -12,11 +12,15 @@ public class AnonymousBlock extends AbstractBlock {
 
 	public static final String ANONYMOUS = "anonymous";
 	private String delimiter = CMLConstants.S_PIPE;
+	
 	public AnonymousBlock(BlockContainer blockContainer) {
 		super(blockContainer);
 		setBlockName(ANONYMOUS);
 	}
 	
+	protected AbstractCommon getCommon() {
+		return null;
+	}
 	public String getDelimiter() {
 		return delimiter;
 	}
