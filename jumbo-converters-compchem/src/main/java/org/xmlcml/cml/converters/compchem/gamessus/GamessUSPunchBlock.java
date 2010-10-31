@@ -1,8 +1,5 @@
 package org.xmlcml.cml.converters.compchem.gamessus;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,6 +14,7 @@ import org.xmlcml.cml.converters.compchem.CompchemUtils;
 import org.xmlcml.cml.converters.compchem.NumericFormat;
 import org.xmlcml.cml.element.CMLAngle;
 import org.xmlcml.cml.element.CMLArray;
+import org.xmlcml.cml.element.CMLArrayList;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLLabel;
 import org.xmlcml.cml.element.CMLLength;
@@ -26,13 +24,14 @@ import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.element.CMLSymmetry;
+import org.xmlcml.cml.element.CMLTable;
 import org.xmlcml.cml.element.CMLTorsion;
 import org.xmlcml.cml.element.CMLZMatrix;
 import org.xmlcml.cml.tools.DictionaryTool;
 import org.xmlcml.euclid.IntArray;
 import org.xmlcml.molutil.ChemicalElement;
 
-import fortran.format.FortranFormat;
+import fortran.format.JumboFormat;
 
 public class GamessUSPunchBlock extends AbstractBlock {
 	private static Logger LOG = Logger.getLogger(GamessUSPunchBlock.class);
@@ -137,12 +136,44 @@ H1          1.0     -2.9805271364       .9147039208       .1059830464
 	public static final Pattern BOND = Pattern.compile("\\s*(\\d+)\\s+(\\d+)");
 	
 	private void makeGrad() {
+		CMLModule module = new CMLModule();
+		module.setRole(abstractCommon.getPrefix());
 		/*
-H1          1.0  -2.9805271364    .9147039208    .1059830464
+E=     -417.0071979209  GMAX=    .0518798  GRMS=    .0144469
+H1           1.    1.4236802098E-02   -1.2652467333E-02   -2.0583432080E-03
+C2           6.   -1.7931214639E-03   -2.3258102960E-02    2.7744336442E-03
+N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
 		 */
-//		FortranFormat format = new FortranFormat("(A8,F7.1,3F15.10)");
-//		readTable(lines, format);
-		element = new CMLScalar();
+		int lineCount = 0;
+		
+		String flags = lines.get(lineCount++);
+		JumboFormat jumboFormat = new JumboFormat();
+		List<CMLScalar> scalars = jumboFormat.addParsedScalars(
+			module,
+			abstractCommon.getPrefix(), 
+			"('E='F20.10'  GMAX='F12.7'  GRMS='F12.7)", 
+			flags, 
+			new String[]{"F.e", "F.gmax", "F.grms"});
+		int natoms = blockContainer.getMolecule().getAtomCount();
+		addMoleculeAsColumns(module, lineCount, natoms);
+		element = module;
+	}
+
+	private void addMoleculeAsColumns(CMLModule module, int lineCount,
+			int natoms) {
+		JumboFormat jumboFormat = new JumboFormat();
+		List<CMLArray> columns = jumboFormat.createTableColumns(
+			abstractCommon.getPrefix(), 
+			"A10F5.1F20.10F20.10F20.10",
+			lineCount,
+			lines, natoms,
+			new String[]{"A.elem", "F.atnum", "F.x", "F.y", "F.z"});
+		lineCount += jumboFormat.getLinesRead();
+		CMLArrayList columnList = new CMLArrayList();
+		for (CMLArray column : columns) {
+			columnList.addArray(column);
+		}
+		module.appendChild(columnList);
 	}
 
 	private final static Pattern hessPattern = Pattern.compile(
@@ -188,59 +219,59 @@ H1          1.0  -2.9805271364    .9147039208    .1059830464
 		module.appendChild(property);
 	}
 
-	/*
-         IVIB=   0 IATOM=   0 ICOORD=   0 E=     -417.0146230240
-	 */
-	private final static Pattern vibPattern = Pattern.compile("         IVIB=(....) IATOM=(....) ICOORD=(....) E=(....................).*");
-	private void makeVib() {
-		ensureMolecule();
-		CMLModule module = new CMLModule();
-		
-/*
-         IVIB=   0 IATOM=   0 ICOORD=   0 E=     -417.0146230240
--3.014817301E-06-5.316670868E-06-4.345305914E-06 1.221059187E-05 6.746840227E-06
--5.750877884E-06-2.129021293E-05 1.289122123E-05-4.221137717E-05 1.283919380E-07
-...
- 7.799249640E-06-1.877789578E-08 9.009626448E-06 5.782921410E-06 1.610009308E-05
--6.564999713E-06 1.749591384E-05 2.550531014E-06  (48 fields for 16 atoms)
- 0.000000000E+00 0.000000000E+00 0.000000000E+00  (3 fields???)
- */
-		int lineCount = 0;
-		int coordCount = molecule.getAtomCount()*3;
-		String flags = lines.get(lineCount++);
-		Matcher matcher = vibPattern.matcher(flags);
-		if (!matcher.matches()) {
-			throw new RuntimeException("bad flags match");
-		}
-		addScalar(module, Integer.parseInt(matcher.group(1).trim()), "ivib");
-		addScalar(module, Integer.parseInt(matcher.group(2).trim()), "iatom");
-		addScalar(module, Integer.parseInt(matcher.group(3).trim()), "icoord");
-		addScalar(module, new Double(matcher.group(4).trim()), "e");
-		CompchemUtils compchemUtils = new CompchemUtils();
-		// add array
-		NumericFormat numericFormat = new NumericFormat();
-		numericFormat.setF(16, 9);
-		double[] dd = compchemUtils.readFormattedNumericArray(lines, lineCount, 0, numericFormat, 5, coordCount);
-		addArray(module, dd, "vibs");
-		lineCount += compchemUtils.getLinesRead();
-		// add vector
-		dd = compchemUtils.readFormattedNumericArray(lines, lineCount, 0, numericFormat, 5, 3);
-		addArray(module, dd, "vector");
-		lineCount++;
-		element = module;
-		
-	}
+//	/*
+//         IVIB=   0 IATOM=   0 ICOORD=   0 E=     -417.0146230240
+//	 */
+//	private final static Pattern vibPattern = Pattern.compile("         IVIB=(....) IATOM=(....) ICOORD=(....) E=(....................).*");
+//	private void makeVib() {
+//		ensureMolecule();
+//		CMLModule module = new CMLModule();
+//		
+///*
+//         IVIB=   0 IATOM=   0 ICOORD=   0 E=     -417.0146230240
+//-3.014817301E-06-5.316670868E-06-4.345305914E-06 1.221059187E-05 6.746840227E-06
+//-5.750877884E-06-2.129021293E-05 1.289122123E-05-4.221137717E-05 1.283919380E-07
+//...
+// 7.799249640E-06-1.877789578E-08 9.009626448E-06 5.782921410E-06 1.610009308E-05
+//-6.564999713E-06 1.749591384E-05 2.550531014E-06  (48 fields for 16 atoms)
+// 0.000000000E+00 0.000000000E+00 0.000000000E+00  (3 fields???)
+// */
+//		int lineCount = 0;
+//		int coordCount = molecule.getAtomCount()*3;
+//		String flags = lines.get(lineCount++);
+//		Matcher matcher = vibPattern.matcher(flags);
+//		if (!matcher.matches()) {
+//			throw new RuntimeException("bad flags match");
+//		}
+//		addScalar(module, Integer.parseInt(matcher.group(1).trim()), "ivib");
+//		addScalar(module, Integer.parseInt(matcher.group(2).trim()), "iatom");
+//		addScalar(module, Integer.parseInt(matcher.group(3).trim()), "icoord");
+//		addScalar(module, new Double(matcher.group(4).trim()), "e");
+//		CompchemUtils compchemUtils = new CompchemUtils();
+//		// add array
+//		NumericFormat numericFormat = new NumericFormat();
+//		numericFormat.setF(16, 9);
+//		double[] dd = compchemUtils.readFormattedNumericArray(lines, lineCount, 0, numericFormat, 5, coordCount);
+//		addArray(module, dd, "vibs");
+//		lineCount += compchemUtils.getLinesRead();
+//		// add vector
+//		dd = compchemUtils.readFormattedNumericArray(lines, lineCount, 0, numericFormat, 5, 3);
+//		addArray(module, dd, "vector");
+//		lineCount++;
+//		element = module;
+//		
+//	}
 
 	/*
     IVIB=   0 IATOM=   0 ICOORD=   0 E=     -417.0146230240
 	*/
-	private void makeVib1() {
+	private void makeVib() {
 		ensureMolecule();
 		CMLModule module = new CMLModule();
 		
 	/*
-	    IVIB=   0 IATOM=   0 ICOORD=   0 E=     -417.0146230240
-	-3.014817301E-06-5.316670868E-06-4.345305914E-06 1.221059187E-05 6.746840227E-06
+        IVIB=   0 IATOM=   0 ICOORD=   0 E=     -417.0146230240
+    -3.014817301E-06-5.316670868E-06-4.345305914E-06 1.221059187E-05 6.746840227E-06
 	-5.750877884E-06-2.129021293E-05 1.289122123E-05-4.221137717E-05 1.283919380E-07
 	...
 	7.799249640E-06-1.877789578E-08 9.009626448E-06 5.782921410E-06 1.610009308E-05
@@ -250,41 +281,23 @@ H1          1.0  -2.9805271364    .9147039208    .1059830464
 		int lineCount = 0;
 		int coordCount = molecule.getAtomCount()*3;
 		String flags = lines.get(lineCount++);
-		Matcher matcher = vibPattern.matcher(flags);
-		if (!matcher.matches()) {
-			throw new RuntimeException("bad flags match");
-		}
-		String FLAGS_F = "('        IVIB='I4' IATOM='I4' ICOORD='I4' E='F20.10)";
-		List<Object> results = parseFortran(FLAGS_F, flags);
-		addScalar(module, (Integer)results.get(0), "ivib");
-		addScalar(module, (Integer)results.get(1), "iatom");
-		addScalar(module, (Integer)results.get(2), "icoord");
-		addScalar(module, (Integer)results.get(3), "e");
-		CompchemUtils compchemUtils = new CompchemUtils();
-		// add array
-		NumericFormat numericFormat = new NumericFormat();
-		numericFormat.setF(16, 9);
-		double[] dd = compchemUtils.readFormattedNumericArray(lines, lineCount, 0, numericFormat, 5, coordCount);
-		addArray(module, dd, "vibs");
-		lineCount += compchemUtils.getLinesRead();
-		// add vector
-		dd = compchemUtils.readFormattedNumericArray(lines, lineCount, 0, numericFormat, 5, 3);
-		addArray(module, dd, "vector");
-		lineCount++;
+		JumboFormat jumboFormat = new JumboFormat();
+		List<CMLScalar> scalars = jumboFormat.addParsedScalars(
+				module,
+				abstractCommon.getPrefix(), 
+				"('         IVIB=',I4,' IATOM=',I4,' ICOORD=',I4,' E='F20.10)", 
+				flags, 
+				new String[]{"I.ivib", "I.iatom", "I.coord", "F.e"});
+		jumboFormat = new JumboFormat();
+		CMLArray vector = jumboFormat.parseMultipleLinesToArray(
+				"(5F16.9)", lines, lineCount, coordCount, CMLConstants.XSD_DOUBLE);
+		this.addDictRefTo(vector, "vector");
+		module.appendChild(vector);
+		CMLArray unk = new JumboFormat().parseToSingleLineArray("(F16.9)", lines.get(lineCount++), CMLConstants.XSD_DOUBLE);
+		this.addDictRefTo(unk, "unknown");
+		module.appendChild(unk);
 		element = module;
-		
 	}
-
-	public static List<Object> parseFortran(String format, String data) {
-		List<Object> results = new ArrayList<Object>();
-		try {
-			results = new FortranFormat(format).parse(data);
-		} catch (Exception e) {
-			throw new RuntimeException("Cannot parse fortran", e);
-		}
-		return results;
-	}
-
 	private void ensureMolecule() {
 		molecule = blockContainer.getMolecule();
 		if (molecule == null) {
