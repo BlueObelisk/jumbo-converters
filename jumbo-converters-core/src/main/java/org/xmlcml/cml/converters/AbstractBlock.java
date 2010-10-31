@@ -5,9 +5,11 @@ import java.util.List;
 
 import nu.xom.Attribute;
 
+import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.element.CMLMolecule;
+import org.xmlcml.cml.interfacex.HasDictRef;
 import org.xmlcml.cml.tools.DictionaryTool;
 
 /**
@@ -99,5 +101,9 @@ public abstract class AbstractBlock implements CMLConstants {
 						abstractCommon.getPrefix()+":"+localName, 
 						abstractCommon.getNamespace(), value));
 			}
+
+	protected void addDictRefTo(HasDictRef element, String value) {
+		element.setDictRef(DictRefAttribute.createValue(abstractCommon.getPrefix(), value));
+	}
 
 }

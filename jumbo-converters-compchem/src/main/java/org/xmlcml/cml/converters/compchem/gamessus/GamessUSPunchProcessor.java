@@ -89,7 +89,7 @@ public class GamessUSPunchProcessor extends LegacyProcessor {
 	 * @return
 	 */
 	private AbstractBlock createBlock() {
-		GamessUSPunchBlock block = new GamessUSPunchBlock(blockContainer);
+		AbstractBlock block = new GamessUSPunchBlock(blockContainer);
 		String line = lines.get(lineCount);
 		block.setBlockName(line.substring(2, 6).trim());
 		lineCount++;
