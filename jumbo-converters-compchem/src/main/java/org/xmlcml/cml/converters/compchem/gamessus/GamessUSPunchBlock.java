@@ -30,6 +30,7 @@ import org.xmlcml.cml.element.CMLTorsion;
 import org.xmlcml.cml.element.CMLZMatrix;
 import org.xmlcml.cml.tools.DictionaryTool;
 import org.xmlcml.euclid.IntArray;
+import org.xmlcml.euclid.Util;
 import org.xmlcml.molutil.ChemicalElement;
 
 import fortran.format.JumboFormat;
@@ -359,9 +360,16 @@ N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
 		} else if (line.startsWith(DATA_FROM_NSERCH)) {
 			nserch(module);
 		} else {
-			LOG.warn("No anonymousProcessor for: "+line);
+			preserveText(module);
 		}
 		element = module;
+	}
+
+	private void preserveText(CMLModule module) {
+		String line = Util.concatenate((String[])lines.toArray(new String[0]), CMLConstants.S_NEWLINE);
+		CMLScalar scalar = new CMLScalar(line);
+		module.appendChild(scalar);
+		addDictRefTo(scalar, "unknown");
 	}
 
 	private void nserch(CMLModule module) {
