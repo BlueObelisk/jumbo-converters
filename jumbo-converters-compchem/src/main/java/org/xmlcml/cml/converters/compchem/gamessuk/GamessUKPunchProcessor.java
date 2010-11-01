@@ -114,5 +114,10 @@ block=grid_data records=    2500 index=  1 elements =   1
 		// not required
 	}
 	
+	@Override
+	protected void postprocessBlocks() {
+		// not required
+	}
+	
 
 }

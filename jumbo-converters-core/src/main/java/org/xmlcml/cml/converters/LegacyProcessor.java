@@ -10,6 +10,8 @@ import org.xmlcml.cml.element.CMLCml;
 public abstract class LegacyProcessor {
 	private static final Logger LOG = Logger.getLogger(LegacyProcessor.class);
 
+	public static final String _ANONYMOUS = "_anonymous_";
+
 	protected BlockContainer blockContainer;
 	protected List<String> lines;
 	protected int lineCount = 0;
@@ -29,6 +31,7 @@ public abstract class LegacyProcessor {
 				blockContainer.add(block);
 			}
 		}
+		postprocessBlocks();
 		LOG.debug("Finished reading blocks: "+blockContainer.size());
 	}
 
@@ -36,6 +39,11 @@ public abstract class LegacyProcessor {
 	 * often null
 	 */
 	protected abstract void preprocessBlocks();
+
+	/** processing after blocks are read
+	 * often null
+	 */
+	protected abstract void postprocessBlocks();
 
 	public List<CMLElement> getBlockList() {
 		List<CMLElement> cmlList = new ArrayList<CMLElement>();
@@ -63,5 +71,13 @@ public abstract class LegacyProcessor {
 			}
 		}
 		return cmlElement;
+	}
+
+	protected void processAnonymousBlocks() {
+		for (AbstractBlock block : blockContainer.getBlockList()) {
+			if (_ANONYMOUS.equals(block.getBlockName())) {
+				block.convertToRawCML();
+			}
+		}
 	}
 }

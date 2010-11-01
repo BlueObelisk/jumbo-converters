@@ -65,4 +65,9 @@ public class FooProcessor extends LegacyProcessor {
 		// not required
 	}
 	
+	@Override
+	protected void postprocessBlocks() {
+		// not required
+	}
+	
 }

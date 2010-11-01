@@ -47,7 +47,6 @@ public class GamessUSPunchProcessor extends LegacyProcessor {
 
 	public static final String KEYWORD = " $";
 	private static final String END = " $END";
-//	private CMLMolecule lastMolecule;
 	
 	public GamessUSPunchProcessor() {
 	}
@@ -61,18 +60,24 @@ public class GamessUSPunchProcessor extends LegacyProcessor {
 	protected AbstractBlock readBlock(List<String> lines) {
 		AbstractBlock block = null;
 		String line = lines.get(lineCount);
-		if (!line.startsWith(KEYWORD)) {
-			block = createAnonymousBlock();
-		} else {
+		if (line.startsWith(KEYWORD)) {
 			block = createBlock();
+//		} else if (line.startsWith("-------------------- DATA FROM NSERCH")) {
+//			block = createBlock();
+//			block.setBlockName("NSERCH");
+//		} else if (line.startsWith("----- RESULTS FROM SUCCESSFUL")) {
+//			block = createBlock();
+//			block.setBlockName("RESULTS");
+		} else {
+			block = createAnonymousBlock();
 		}
 		block.convertToRawCML();
-		CMLMolecule molecule = block.getMolecule();
 		return block;
 	}
 
 	private AbstractBlock createAnonymousBlock() {
-		AbstractBlock block = new AnonymousBlock(blockContainer);
+//		AbstractBlock block = new AnonymousBlock(blockContainer);
+		AbstractBlock block = new GamessUSPunchBlock(blockContainer);
 		while (lineCount < lines.size()) {
 			String line = lines.get(lineCount);
 			if (line.startsWith(KEYWORD)) {
@@ -81,6 +86,7 @@ public class GamessUSPunchProcessor extends LegacyProcessor {
 			block.add(line);
 			lineCount++;
 		}
+		block.setBlockName(_ANONYMOUS);
 		return block;
 	}
 	/**
@@ -104,4 +110,9 @@ public class GamessUSPunchProcessor extends LegacyProcessor {
 	protected void preprocessBlocks() {
 		// not required
 	}
+	@Override
+	protected void postprocessBlocks() {
+//		processAnonymousBlocks();
+	}
+	
 }
