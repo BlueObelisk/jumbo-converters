@@ -217,6 +217,12 @@ public class GaussianArchiveOrigProcessor extends /*AbstractCompchemOutputProces
 	protected void preprocessBlocks() {
 		// not required
 	}
+	
+	@Override
+	protected void postprocessBlocks() {
+		// not required
+	}
+	
 }
 class StringArray {
 	private int lineCount;

@@ -95,6 +95,12 @@ public class GaussianArchiveProcessor extends LegacyProcessor {
 		}
 	}
 	
+	@Override
+	protected void postprocessBlocks() {
+		// not required
+	}
+	
+	
     private String readAndConcatenateArchiveLines() {
     	lineCount = 0;
     	StringBuffer sb = new StringBuffer();

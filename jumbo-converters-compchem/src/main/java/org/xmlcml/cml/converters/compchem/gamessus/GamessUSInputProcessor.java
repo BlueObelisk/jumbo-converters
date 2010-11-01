@@ -134,4 +134,10 @@ public class GamessUSInputProcessor extends LegacyProcessor {
 	protected void preprocessBlocks() {
 		// not required
 	}
+	
+	@Override
+	protected void postprocessBlocks() {
+		// not required
+	}
+	
 }
