@@ -18,7 +18,7 @@ public class RegressionTest {
 	   }
 	   @Test
 	   public void gamessusPunchXML2CML() {
-	      RegressionSuite.run("compchem/gamessus/punchComplete", "xml", "cml",
+	      RegressionSuite.run("compchem/gamessus/punch", "xml", "cml",
 	                          new GamessUSPunchXML2CMLConverter());
 	                              
 	   }
