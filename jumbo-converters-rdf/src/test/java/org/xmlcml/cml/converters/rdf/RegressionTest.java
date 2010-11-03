@@ -1,5 +1,6 @@
 package org.xmlcml.cml.converters.rdf;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xmlcml.cml.converters.rdf.cml.CML2N3Converter;
 import org.xmlcml.cml.converters.rdf.cml.CML2OWLRDFConverter;
@@ -14,6 +15,7 @@ import org.xmlcml.cml.converters.testutils.RegressionSuite;
 public class RegressionTest {
 
    @Test
+   @Ignore
    public void cml2owlrdf() {
       RegressionSuite.run("rdf/cml2owlrdf", "cml", "rdf",
                           new CML2OWLRDFConverter());
@@ -25,6 +27,7 @@ public class RegressionTest {
    }
 
    @Test
+   @Ignore
    public void cml2owl() {
       RegressionSuite.run("rdf/cml2owl", "xml", "owl", new CML2OWLConverter());
    }

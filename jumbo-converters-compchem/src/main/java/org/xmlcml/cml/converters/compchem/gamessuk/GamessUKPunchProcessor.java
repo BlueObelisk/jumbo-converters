@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.xmlcml.cml.converters.AbstractBlock;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.LegacyProcessor;
+import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 
 public class GamessUKPunchProcessor extends LegacyProcessor {
 
@@ -20,6 +22,12 @@ public class GamessUKPunchProcessor extends LegacyProcessor {
 	public GamessUKPunchProcessor() {
 		
 	}
+	@Override
+	protected AbstractCommon getCommon() {
+		return new GamessUKCommon();
+	}
+
+
 	/**
 block = fragment records = 0
 block = coordinates records =     4 unit = au

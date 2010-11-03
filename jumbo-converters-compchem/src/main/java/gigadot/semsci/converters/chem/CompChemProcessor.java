@@ -28,7 +28,9 @@ import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLNamespace;
 import org.xmlcml.cml.converters.AbstractBlock;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.cml.RawXML2CMLProcessor;
+import org.xmlcml.cml.converters.compchem.nwchem.NWChemCommon;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLIdentifier;
 import org.xmlcml.cml.element.CMLModule;
@@ -56,6 +58,12 @@ public class CompChemProcessor extends RawXML2CMLProcessor implements HasURIGene
 	public CompChemProcessor() {
 	}
 
+	@Override
+	protected AbstractCommon getCommon() {
+		return new CompChemCommon();
+	}
+
+	
 	/** dummy
 	 * @return null
 	 */

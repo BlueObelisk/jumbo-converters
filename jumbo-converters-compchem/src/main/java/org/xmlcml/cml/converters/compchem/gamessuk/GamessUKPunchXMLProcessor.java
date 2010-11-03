@@ -1,5 +1,7 @@
 package org.xmlcml.cml.converters.compchem.gamessuk;
 
+import gigadot.semsci.converters.chem.CompChemCommon;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import nu.xom.Elements;
 import nu.xom.Nodes;
 
 import org.xmlcml.cml.base.CMLUtil;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.cml.RawXML2CMLProcessor;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtom;
@@ -24,8 +27,13 @@ public class GamessUKPunchXMLProcessor extends RawXML2CMLProcessor {
 	private Element bondArray;
 
 	public GamessUKPunchXMLProcessor() {
-		this.abstractCommon = new GamessUKCommon();
 	}
+	
+	@Override
+	protected AbstractCommon getCommon() {
+		return new GamessUKCommon();
+	}
+
 	public void processXML() {
 		transformAtomArraysIntoMolecules();
 		transformAtomArraysIntoFrequencies();

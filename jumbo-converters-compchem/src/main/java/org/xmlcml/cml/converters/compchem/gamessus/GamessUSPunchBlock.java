@@ -1,7 +1,6 @@
 package org.xmlcml.cml.converters.compchem.gamessus;
 
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
@@ -11,8 +10,6 @@ import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
 import org.xmlcml.cml.converters.LegacyProcessor;
-import org.xmlcml.cml.converters.compchem.CompchemUtils;
-import org.xmlcml.cml.converters.compchem.NumericFormat;
 import org.xmlcml.cml.element.CMLAngle;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLArrayList;
@@ -22,34 +19,70 @@ import org.xmlcml.cml.element.CMLLength;
 import org.xmlcml.cml.element.CMLMatrix;
 import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLMolecule;
-import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.element.CMLSymmetry;
-import org.xmlcml.cml.element.CMLTable;
 import org.xmlcml.cml.element.CMLTorsion;
 import org.xmlcml.cml.element.CMLZMatrix;
 import org.xmlcml.cml.tools.DictionaryTool;
 import org.xmlcml.euclid.IntArray;
+import org.xmlcml.euclid.Point3;
 import org.xmlcml.euclid.Util;
 import org.xmlcml.molutil.ChemicalElement;
 
 import fortran.format.JumboFormat;
 
 public class GamessUSPunchBlock extends AbstractBlock {
+	private static final String OPTIMIZED_RHF = "--- OPTIMIZED RHF";
+
+	private static final String COORDS_SYMMETRY = " COORDINATES OF SYMMETRY UNIQUE ATOMS (ANGS)\n"+
+			"   ATOM   CHARGE       X              Y              Z\n"+
+			" ------------------------------------------------------------";
+
+	private static Logger LOG = Logger.getLogger(GamessUSPunchBlock.class);
+	
+	private static final String ERHF = "erhf";
+	private static final String ENUC = "enuc";
+	private static final String ITERS = "iters";
+
+	private static final String GRMS = "grms";
+	private static final String GMAX = "gmax";
+	private static final String HESS_ENERGY = "F.hess.energy";
+	private static final String HESS_ENUC = "F.hess.enuc";
+	private static final String HESS = "hess";
+	private static final String E = "e";
+	private static final String COORD = "coord";
+	private static final String IATOM = "iatom";
+	private static final String IVIB = "ivib";
+	private static final String VECTOR = "vector";
+	private static final String UNKNOWN = "unknown";
+	private static final String Z = "z";
+	private static final String Y = "y";
+	private static final String X = "x";
+	private static final String ATNUM = "atnum";
+	private static final String ELEM = "elem";
 	private static final String DATA_FROM_NSERCH = "-------------------- DATA FROM NSERCH=";
 	private static final String RESULTS_FROM = "----- RESULTS FROM";
-	private static Logger LOG = Logger.getLogger(GamessUSPunchBlock.class);
+	private static final String COORDS_ORBS= "----- COORDS, ORBS,"; 
+	private static final String CLOSED_SHELL= "--- CLOSED SHELL ORBITALS"; 
+	private static final String OPEN_SHELL= "--- OPEN SHELL ORBITALS"; 
 	/*
 	 * keywords in legacy input
 	 */
 	public static final String DATA = "DATA";
 	public static final String GRAD = "GRAD";
-	public static final String HESS = "HESS";
+	public static final String HESSX = "HESS";
+	public static final String VEC  = "VEC";
 	public static final String VIB  = "VIB";
 	public static final String ZMAT = "ZMAT";
 
-	private CMLMolecule molecule;
+	private static final String POP1 = "pop1";
+	private static final String POP2 = "pop2";
+	private static final String POP3 = "pop3";
+	private static final String POP4 = "pop4";
 
+	private static final String DATE = "date";
+
+	private CMLMolecule molecule;
 	public GamessUSPunchBlock(BlockContainer blockContainer) {
 		super(blockContainer);
 	}
@@ -68,8 +101,10 @@ public class GamessUSPunchBlock extends AbstractBlock {
 			makeData();
 		} else if (GRAD.equals(getBlockName())) {
 			makeGrad();
-		} else if (HESS.equals(getBlockName())) {
+		} else if (HESSX.equals(getBlockName())) {
 			makeHess();
+		} else if (VEC.equals(getBlockName())) {
+			makeVec();
 		} else if (VIB.equals(getBlockName())) {
 			makeVib();
 		} else if (ZMAT.equals(getBlockName())) {
@@ -77,8 +112,9 @@ public class GamessUSPunchBlock extends AbstractBlock {
 		} else if (LegacyProcessor._ANONYMOUS.equals(getBlockName())) {
 			makeAnonymous();
 		} else {
-			debug("unknown");
+			debug(UNKNOWN);
 			System.err.println("Unknown blockname: "+getBlockName());
+			throw new RuntimeException("Unknown blockname: "+getBlockName());
 		}
 		/**
 		 * valuable for blocks to have a dictRef
@@ -98,6 +134,83 @@ public class GamessUSPunchBlock extends AbstractBlock {
 		}
 	}
 
+	private void makeAnonymous() {
+		lineCount = 0;
+		CMLModule module = new CMLModule();
+		String line = lines.get(lineCount);
+		if (line.startsWith(RESULTS_FROM)) {
+			results0(module);
+		} else if (line.startsWith(COORDS_ORBS)) {
+			results(module);
+		} else if (line.startsWith(DATA_FROM_NSERCH)) {
+			nserch(module);
+		} else if (line.startsWith(CLOSED_SHELL) || line.startsWith(OPEN_SHELL)) {
+			closedOpenShell(module);
+		} else if (line.startsWith(OPTIMIZED_RHF)) {
+			optimizedRHF(module);
+		} else if (line.startsWith(" POPULATION ANALYSIS")) {
+			populationAnalysis(module);
+		} else {
+			preserveText(module);
+		}
+		element = module;
+	}
+	
+	private void optimizedRHF(CMLModule module) {
+		/**
+--- OPTIMIZED RHF      MO-S --- GENERATED AT Mon Oct 25 13:07:35 2010
+E=      -37.2380397698, E(NUC)=    5.9560361192
+		 */
+		JumboFormat jumboFormat = new JumboFormat();
+		jumboFormat.addParsedScalars(module, abstractCommon.getPrefix(),
+				"'--- OPTIMIZED RHF      MO-S --- GENERATED AT 'A24", lines.get(lineCount++),
+				new String[]{D_+DATE});
+		jumboFormat.addParsedScalars(module, abstractCommon.getPrefix(),
+				"'E=     'F15.10', E(NUC)='F15.10", lines.get(lineCount++),
+				new String[]{F_+E, F_+ENUC});
+	}
+
+	private void populationAnalysis(CMLModule module) {
+		/**
+  POPULATION ANALYSIS
+ C            5.99315   0.00685   5.95532   0.04468
+ H            1.00342  -0.00342   1.02234  -0.02234
+ H            1.00342  -0.00342   1.02234  -0.02234
+  MOMENTS AT POINT    1 X,Y,Z=  0.000000  0.000000  0.000000
+  DIPOLE       0.000000  0.000000  1.515763
+		 */
+		int atomCount = blockContainer.getMolecule().getAtomCount();
+		lineCount++;
+		CMLArrayList columns = new JumboFormat().createTableColumnsAsArrayList(
+				abstractCommon.getPrefix(), "A11,4F10.5",
+				lineCount, lines, atomCount, new String[]{A_+ELEM, F_+POP1, F_+POP2, F_+POP3, F_+POP4});
+		module.appendChild(columns);
+	}
+
+	private void makeVec() {
+		/**
+ $VEC   
+ 1  1 9.83733867E-01 6.32729846E-02 0.00000000E+00 0.00000000E+00 1.13580482E-02
+ 1  2-1.64394234E-02-1.64394234E-02
+ 2  1-2.43674945E-01 6.41661903E-01 0.00000000E+00 0.00000000E+00 1.70910229E-01
+ 2  2 2.85808918E-01 2.85808918E-01
+ .. 7 lines overall
+ 7  1 0.00000000E+00 0.00000000E+00 1.12514651E+00 0.00000000E+00 0.00000000E+00
+ 7  2 8.36936903E-01-8.36936903E-01
+		 */
+		element = new CMLModule();
+		element.appendChild(makePackedLines());
+	}
+
+	private CMLScalar makePackedLines() {
+		StringBuilder sb = new StringBuilder();
+		for (String line : lines) {
+			sb.append(line);
+			sb.append(CMLConstants.S_NEWLINE);
+		}
+		return new CMLScalar(sb.toString().trim());
+	}
+
 	private void debug(String msg) {
 		System.out.println("=========="+msg+"==========");
 		for (String line : lines) {
@@ -115,7 +228,7 @@ H1          1.0     -2.9805271364       .9147039208       .1059830464
         
 	 */
 	private void makeData() {
-		int lineCount = 0;
+		lineCount = 0;
 		molecule = new CMLMolecule();
 		String title = lines.get(lineCount++);
 		molecule.setTitle(title);
@@ -125,30 +238,61 @@ H1          1.0     -2.9805271364       .9147039208       .1059830464
 		String[] tokens = pgline.split(CMLConstants.WHITESPACE);
 		symmetry.setPointGroup(tokens[0]);
 		molecule.appendChild(symmetry);
-		
+		// unexpected lines here. possibly controlled by symmetry card
+		// currently fudge by eating white
+		eatEmptyLines();
 		int id = 1;
-		for (; lineCount < lines.size(); lineCount += 3) {
-			addAtom(lineCount, id++);
+		while (lineCount < lines.size()) {
+			addAtom(id++);
 		}
 		element = molecule;
 		blockContainer.setMolecule(molecule);
 	}
 
-	private int addAtom(int lineCount, int id) {
+	private void eatEmptyLines() {
+		while (lineCount < lines.size()) {
+			if (lines.get(lineCount).trim().length() != 0) {
+				break;
+			}
+			lineCount++;
+		}
+	}
+
+	private void addAtom(int id) {
 		String line = lines.get(lineCount);
 //			H1          1.0     -2.9805271364       .9147039208       .1059830464
 		CMLAtom atom = new CMLAtom();
 		CMLLabel label = new CMLLabel();
-		label.setCMLValue(line.substring(0, 8));
+		label.setCMLValue(line.substring(0, 10));
 		atom.addLabel(label);
-		int atomicNumber = new Integer(line.substring(8, 13).trim()); 
+		int atomicNumber = new Integer(line.substring(10, 13).trim()); 
 		atom.setElementType(ChemicalElement.getElement(atomicNumber).getSymbol());
 		atom.setX3(new Double(line.substring(15, 33).trim()));
 		atom.setY3(new Double(line.substring(33, 51).trim()));
 		atom.setZ3(new Double(line.substring(51, 69).trim()));
 		atom.setId("a"+(id++));
 		molecule.addAtom(atom);
-		return id;
+		lineCount++;
+		CMLScalar basis = readBasis(atom);
+		atom.appendChild(basis);
+	}
+
+	
+	private CMLScalar readBasis(CMLAtom atom) {
+		// read until blannk
+		StringBuffer sb = new StringBuffer();
+		while (lineCount < lines.size()) {
+			String line = lines.get(lineCount++);
+			if (line.trim().length() == 0) {
+				break;
+			}
+			sb.append(line);
+			sb.append(CMLConstants.S_NEWLINE);
+		}
+		CMLScalar basis = new CMLScalar(sb.toString().trim());
+		basis.setDictRef(DictRefAttribute.createValue(abstractCommon.getPrefix(), "basis"));
+		atom.appendChild(basis);
+		return basis;
 	}
 
 	public static final Pattern ATOM_BOND_COUNT = Pattern.compile("\\s*(\\d+)\\s+(\\d+)");
@@ -164,7 +308,7 @@ H1           1.    1.4236802098E-02   -1.2652467333E-02   -2.0583432080E-03
 C2           6.   -1.7931214639E-03   -2.3258102960E-02    2.7744336442E-03
 N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
 		 */
-		int lineCount = 0;
+		lineCount = 0;
 		
 		String flags = lines.get(lineCount++);
 		JumboFormat jumboFormat = new JumboFormat();
@@ -173,13 +317,14 @@ N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
 			abstractCommon.getPrefix(), 
 			"('E='F20.10'  GMAX='F12.7'  GRMS='F12.7)", 
 			flags, 
-			new String[]{"F.e", "F.gmax", "F.grms"});
-		addMoleculeAsColumns(module, lineCount, "A10F5.1F20.10F20.10F20.10");
+			new String[]{F_+E, F_+GMAX, F_+GRMS});
+		addMoleculeAsColumns(module, "A10F5.1F20.10F20.10F20.10");
 		element = module;
 	}
 
 	private final static Pattern hessPattern = Pattern.compile(
 			"ENERGY IS(....................) E\\(NUC\\) IS(....................).*");
+
 	private void makeHess() {
 		/*
 		ENERGY IS     -417.0146230240 E(NUC) IS      384.0190725767
@@ -189,8 +334,8 @@ N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
 		 */
 		ensureMolecule();
 		CMLModule module = new CMLModule();
-		module.setRole("gammesus:hess");
-		int lineCount = 0;
+		module.setDictRef("gammesus:hess");
+		lineCount = 0;
 		int coordCount = molecule.getAtomCount()*3;
 		String flags = lines.get(lineCount++);
 		List<CMLScalar> scalars = new JumboFormat().addParsedScalars(
@@ -198,7 +343,7 @@ N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
 				abstractCommon.getPrefix(), 
 				"('ENERGY IS'F20.10' E(NUC) IS'F20.10)", 
 				flags, 
-				new String[]{"F.hess.energy", "F.hess.enuc"});
+				new String[]{F_+HESS_ENERGY, F_+HESS_ENUC});
 		JumboFormat jumboFormat = new JumboFormat();
 		double[][] matrixx = new double[coordCount][];
 	    for (int i = 0; i < coordCount; i++) {
@@ -208,7 +353,7 @@ N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
 	    	matrixx[i] = array.getDoubles();
 	    }
 		CMLMatrix matrix = new CMLMatrix(matrixx);
-		this.addDictRefTo(matrix, "hess");
+		this.addDictRefTo(matrix, HESS);
 		module.appendChild(matrix);
 		element = module;
 	}
@@ -226,23 +371,24 @@ N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
 	-6.564999713E-06 1.749591384E-05 2.550531014E-06  (48 fields for 16 atoms)
 	0.000000000E+00 0.000000000E+00 0.000000000E+00  (3 fields???)
 	*/
-		int lineCount = 0;
+		lineCount = 0;
 		int coordCount = molecule.getAtomCount()*3;
 		String flags = lines.get(lineCount++);
 		JumboFormat jumboFormat = new JumboFormat();
-		List<CMLScalar> scalars = jumboFormat.addParsedScalars(
+		jumboFormat.addParsedScalars(
 				module,
 				abstractCommon.getPrefix(), 
 				"('         IVIB=',I4,' IATOM=',I4,' ICOORD=',I4,' E='F20.10)", 
 				flags, 
-				new String[]{"I.ivib", "I.iatom", "I.coord", "F.e"});
+				new String[]{I_+IVIB, I_+IATOM, I_+COORD, F_+E});
 		jumboFormat = new JumboFormat();
 		CMLArray vector = jumboFormat.parseMultipleLinesToArray(
 				"(5F16.9)", lines, lineCount, coordCount, CMLConstants.XSD_DOUBLE);
-		this.addDictRefTo(vector, "vector");
+		this.addDictRefTo(vector, VECTOR);
 		module.appendChild(vector);
-		CMLArray unk = new JumboFormat().parseToSingleLineArray("(F16.9)", lines.get(lineCount++), CMLConstants.XSD_DOUBLE);
-		this.addDictRefTo(unk, "unknown");
+		lineCount += jumboFormat.getLinesRead();
+		CMLArray unk = new JumboFormat().parseToSingleLineArray("(3F16.9)", lines.get(lineCount++), CMLConstants.XSD_DOUBLE);
+		this.addDictRefTo(unk, UNKNOWN);
 		module.appendChild(unk);
 		element = module;
 	}
@@ -295,8 +441,8 @@ N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
 		         Examples: N2H4, or, with one common pair, H2POH.                       
 			 */
 		CMLZMatrix matrix = new CMLZMatrix();
-		// skip first two lines
-		int lineCount = 2;
+		// dont skip first two lines
+		lineCount = 0;
 		while (lineCount < lines.size()) {
 			String line = lines.get(lineCount++).trim();
 			// remove trailing comma
@@ -351,25 +497,25 @@ N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
 		element = matrix;
 	}
 	
-	private void makeAnonymous() {
-		int lineCount = 0;
-		CMLModule module = new CMLModule();
-		String line = lines.get(lineCount);
-		if (line.startsWith(RESULTS_FROM)) {
-			anonymousResults(module);
-		} else if (line.startsWith(DATA_FROM_NSERCH)) {
-			nserch(module);
-		} else {
-			preserveText(module);
-		}
-		element = module;
+	private void closedOpenShell(CMLModule module) {
+		/**
+--- CLOSED SHELL ORBITALS --- GENERATED AT Mon Oct 25 13:07:35 2010
+Methylene...1-A-1 state...RHF/STO-2G                                            
+E(RHF)=      -37.2322678015, E(NUC)=    6.1221376700,    8 ITERS
+		 */
+		lineCount++;
+		CMLScalar title = new CMLScalar(lines.get(lineCount++));
+		module.appendChild(title);
+		new JumboFormat().addParsedScalars(module, abstractCommon.getPrefix(),  
+				"'E(RHF)='F20.10', E(NUC)='F16.10','I5' ITERS'", 
+				lines.get(lineCount++), new String[]{F_+ERHF, F_+ENUC, I_+ITERS});
 	}
 
 	private void preserveText(CMLModule module) {
 		String line = Util.concatenate((String[])lines.toArray(new String[0]), CMLConstants.S_NEWLINE);
 		CMLScalar scalar = new CMLScalar(line);
 		module.appendChild(scalar);
-		addDictRefTo(scalar, "unknown");
+		this.setBlockName(UNKNOWN);
 	}
 
 	private void nserch(CMLModule module) {
@@ -381,45 +527,61 @@ N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
  H1          1.0  -3.0274208244    .9305579239   -.0180318347
  C2          6.0  -2.1178295124    .2873036749   -.0637304065
 		 */
-		addDictRefTo(module, "nserch");
-		int lineCount = 0;
-		readNserch(module, lineCount);
-		lineCount = 4;
-		addMoleculeAsColumns(module, lineCount, "' 'A8,F7.1,3F15.10");
-		module.setRole("NSERCH");
+		lineCount = 0;
+		readNserch(module);
+		readLines(COORDS_SYMMETRY);
+		addMoleculeAsColumns(module, "' 'A8,F7.1,3F15.10");
+		setBlockName(GamessUSCommon.NSERCH);
 	}
 
-	private int readNserch(CMLModule module, int lineCount) {
+	private void readNserch(CMLModule module) {
 		JumboFormat jumboFormat = new JumboFormat();
 		List<CMLScalar> scalars = jumboFormat.parseToScalars(
 				abstractCommon.getPrefix(), 
 				"('-------------------- DATA FROM NSERCH= 'I3' --------------------')",
-				lines.get(lineCount++), new String[] {"I.ncyc"});
+				lines.get(lineCount++), new String[] {I_+GamessUSCommon.NCYC});
 		module.appendChild(scalars.get(0));
-		return lineCount;
-	}
-	
-	private void addMoleculeAsColumns(CMLModule module, int lineCount, String format) {
-		int natoms = blockContainer.getMolecule().getAtomCount();
-		JumboFormat jumboFormat = new JumboFormat();
-		List<CMLArray> columns = jumboFormat.createTableColumns(
-			abstractCommon.getPrefix(), format,
-			lineCount, lines, natoms,
-			new String[]{"A.elem", "F.atnum", "F.x", "F.y", "F.z"});
-		lineCount += jumboFormat.getLinesRead();
-		CMLArrayList columnList = new CMLArrayList();
-		for (CMLArray column : columns) {
-			columnList.addArray(column);
-		}
-		module.appendChild(columnList);
 	}
 
+	private void readLines(String toRead) {
+		String[] linesToRead = toRead.split(CMLConstants.S_NEWLINE);
+		for (String lineToRead : linesToRead) {
+			if (!lineToRead.equals(lines.get(lineCount++))) {
+				throw new RuntimeException("cannot find line :"+lineToRead+"\nfound :"+lines.get(lineCount-1));
+			}
+		}
+	}
+
+	private void addMoleculeAsColumns(CMLModule module, String format) {
+		int natoms = blockContainer.getMolecule().getAtomCount();
+		CMLMolecule molecule = new CMLMolecule();
+		JumboFormat jumboFormat = new JumboFormat();
+		for (int i = 0; i < natoms; i++) {
+			List<Object> scalars = jumboFormat.parseFortranLine(format, lines.get(lineCount++));
+			CMLAtom atom = new CMLAtom("a"+(i+1));
+			int atNum = (int) Math.round((Double)scalars.get(1));
+			atom.setElementType(ChemicalElement.getElement(atNum).getSymbol());
+			atom.setXYZ3(new Point3((Double)scalars.get(2), (Double)scalars.get(3), (Double)scalars.get(4)));
+			CMLLabel label = new CMLLabel();
+			label.setCMLValue(scalars.get(0).toString());
+			atom.addLabel(label);
+			molecule.addAtom(atom);
+		}
+		module.appendChild(molecule);
+	}
+
+	private void results0(CMLModule module) {
+		if (lines.size() != 1) {
+			throw new RuntimeException("expected 1 lines, found: "+lines.size());
+		}
+		// no=op
+	}
 	
-	private void anonymousResults(CMLModule module) {
-		addDictRefTo(module, "results");
-		int lineCount = 5;
-		addMoleculeAsColumns(module, lineCount, "' 'A8,F7.1,3F15.10");
-		module.setRole("RESULTS");
+	private void results(CMLModule module) {
+		lineCount++;
+		readLines(COORDS_SYMMETRY);
+		addMoleculeAsColumns(module, "' 'A8,F7.1,3F15.10");
+		setBlockName(GamessUSCommon.RESULTS);
 	}
 
 

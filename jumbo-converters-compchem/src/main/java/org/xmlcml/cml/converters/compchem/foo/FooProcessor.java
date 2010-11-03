@@ -3,7 +3,9 @@ package org.xmlcml.cml.converters.compchem.foo;
 import java.util.List;
 
 import org.xmlcml.cml.converters.AbstractBlock;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.LegacyProcessor;
+import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 
 /**
  * supports a simple typical structure such as:
@@ -28,6 +30,11 @@ public class FooProcessor extends LegacyProcessor {
 	public FooProcessor() {
 	}
 	
+	@Override
+	protected AbstractCommon getCommon() {
+		return new FooCommon();
+	}
+
 	/**
 	 * @param lines
 	 * @param lineCount

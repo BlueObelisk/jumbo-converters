@@ -16,9 +16,11 @@ public abstract class LegacyProcessor {
 	protected List<String> lines;
 	protected int lineCount = 0;
 	protected CMLElement cmlElement;
+	protected AbstractCommon abstractCommon;
 	
 	protected LegacyProcessor() {
 		this.blockContainer = new BlockContainer();
+		abstractCommon = getCommon();
 	}
 	
 	public void read(List<String> lines) {
@@ -45,6 +47,8 @@ public abstract class LegacyProcessor {
 	 */
 	protected abstract void postprocessBlocks();
 
+	protected abstract AbstractCommon getCommon();
+	
 	public List<CMLElement> getBlockList() {
 		List<CMLElement> cmlList = new ArrayList<CMLElement>();
 		if (blockContainer != null) {

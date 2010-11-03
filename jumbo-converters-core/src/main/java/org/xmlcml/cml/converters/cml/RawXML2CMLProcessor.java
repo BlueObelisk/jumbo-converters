@@ -16,6 +16,9 @@ public abstract class RawXML2CMLProcessor {
 	protected CMLElement cmlElement;
 	protected AbstractCommon abstractCommon;
 	
+	protected RawXML2CMLProcessor() {
+		abstractCommon = getCommon();
+	}
 	public void process(Element xml) {
 		this.xmlInput = xml;
 		CMLUtil.removeWhitespaceNodes(xml);
@@ -48,6 +51,8 @@ public abstract class RawXML2CMLProcessor {
 	 * must generate cmlElement
 	 */
 	protected abstract void processXML();
+
+	protected abstract AbstractCommon getCommon();
 
 	public CMLElement getCMLElement() {
 		return cmlElement;

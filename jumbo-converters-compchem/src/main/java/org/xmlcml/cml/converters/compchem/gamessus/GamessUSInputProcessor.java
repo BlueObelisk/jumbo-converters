@@ -2,8 +2,9 @@ package org.xmlcml.cml.converters.compchem.gamessus;
 
 import java.util.List;
 
+
 import org.xmlcml.cml.converters.AbstractBlock;
-import org.xmlcml.cml.converters.AnonymousBlock;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.LegacyProcessor;
 import org.xmlcml.euclid.Util;
 
@@ -65,7 +66,14 @@ public class GamessUSInputProcessor extends LegacyProcessor {
 	public static final String DATA    = "DATA";
 	
 	public GamessUSInputProcessor() {
+
 	}
+	
+	@Override
+	protected AbstractCommon getCommon() {
+		return new GamessUSCommon();
+	}
+
 	
 	/**
 	 * @param lines
@@ -86,7 +94,7 @@ public class GamessUSInputProcessor extends LegacyProcessor {
 	}
 
 	private AbstractBlock createAnonymousBlock() {
-		AbstractBlock block = new AnonymousBlock(blockContainer);
+		AbstractBlock block = new GamessUSInputBlock(blockContainer);
 		while (lineCount < lines.size()) {
 			String line = Util.rightTrim(lines.get(lineCount));
 			if (line.startsWith(KEYWORD)) {
