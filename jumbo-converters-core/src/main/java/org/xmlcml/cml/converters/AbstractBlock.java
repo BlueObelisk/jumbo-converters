@@ -6,6 +6,7 @@ import java.util.List;
 import nu.xom.Attribute;
 import nu.xom.Element;
 
+import org.apache.log4j.Logger;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
@@ -19,7 +20,8 @@ import org.xmlcml.cml.tools.DictionaryTool;
  *
  */
 public abstract class AbstractBlock implements CMLConstants {
-
+	public final static Logger LOG = Logger.getLogger(AbstractBlock.class);
+	
 	protected static final String A_ = "A.";
 	protected static final String D_ = "D.";
 	protected static final String E_ = "E.";
@@ -110,12 +112,24 @@ public abstract class AbstractBlock implements CMLConstants {
 				abstractCommon.getNamespace(), value));
 	}
 
-	protected void addDictRefTo(HasDictRef element, String value) {
-		Attribute dictRef = ((Element)element).getAttribute("dictRef");
-		if (dictRef != null) {
-			dictRef.detach();
+//	protected void addDictRefTo(HasDictRef element, String value) {
+//		Attribute dictRef = ((Element)element).getAttribute("dictRef");
+//		if (dictRef != null) {
+//			dictRef.detach();
+//		}
+//		
+//		element.setDictRef(DictRefAttribute.createValue(abstractCommon.getPrefix(), value));
+//	}
+
+	protected void checkIdAndAdd(CMLElement element, String entryId) {
+		if (validateDictRef) {
+			DictionaryTool dictionaryTool = abstractCommon.getDictionaryTool();
+			if (!dictionaryTool.isIdInDictionary(entryId)) {
+				LOG.warn("entryId "+entryId+" not found in dictionary: "+dictionaryTool);
+			}
+			String dictRef = DictRefAttribute.createValue(abstractCommon.getPrefix(), entryId);
+			element.addAttribute(new Attribute(DictRefAttribute.NAME, dictRef));
 		}
-		element.setDictRef(DictRefAttribute.createValue(abstractCommon.getPrefix(), value));
 	}
 
 }

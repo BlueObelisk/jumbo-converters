@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
@@ -23,7 +22,6 @@ import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.element.CMLSymmetry;
 import org.xmlcml.cml.element.CMLTorsion;
 import org.xmlcml.cml.element.CMLZMatrix;
-import org.xmlcml.cml.tools.DictionaryTool;
 import org.xmlcml.euclid.IntArray;
 import org.xmlcml.euclid.Point3;
 import org.xmlcml.euclid.Util;
@@ -38,7 +36,7 @@ public class GamessUSPunchBlock extends AbstractBlock {
 			"   ATOM   CHARGE       X              Y              Z\n"+
 			" ------------------------------------------------------------";
 
-	private static Logger LOG = Logger.getLogger(GamessUSPunchBlock.class);
+	public static Logger LOG = Logger.getLogger(GamessUSPunchBlock.class);
 	
 	private static final String ERHF = "erhf";
 	private static final String ENUC = "enuc";
@@ -167,20 +165,12 @@ public class GamessUSPunchBlock extends AbstractBlock {
 		 */
 		if (element != null) {
 			String entryId = getBlockName().toLowerCase();
-			if (validateDictRef) {
-				DictionaryTool dictionaryTool = abstractCommon.getDictionaryTool();
-				if (!dictionaryTool.isIdInDictionary(entryId)) {
-					LOG.warn("entryId "+entryId+" not found in dictionary: "+dictionaryTool);
-				}
-				String dictRef = DictRefAttribute.createValue(abstractCommon.getPrefix(), entryId);
-				element.setAttribute("dictRef", dictRef);
-			}
+			checkIdAndAdd(element, entryId);
 		} else {
 			System.err.println("null element: "+getBlockName());
 		}
 	}
 
-	
 	private void makeTwoei() {
 		/*
  $TWOEI
@@ -392,6 +382,8 @@ STATE   1 ENERGY=     -113.7017742428
    0
  $END
  */
+		// NYI
+		element = preserveText();
 	}
 	
 	private void makeAnonymous() {
@@ -573,7 +565,7 @@ H1          1.0     -2.9805271364       .9147039208       .1059830464
 
 	
 	private CMLScalar readBasis(CMLAtom atom) {
-		// read until blannk
+		// read until blank
 		StringBuffer sb = new StringBuffer();
 		while (lineCount < lines.size()) {
 			String line = lines.get(lineCount++);
@@ -584,7 +576,7 @@ H1          1.0     -2.9805271364       .9147039208       .1059830464
 			sb.append(CMLConstants.S_NEWLINE);
 		}
 		CMLScalar basis = new CMLScalar(sb.toString().trim());
-		basis.setDictRef(DictRefAttribute.createValue(abstractCommon.getPrefix(), "basis"));
+		checkIdAndAdd(basis, "basis");
 		atom.appendChild(basis);
 		return basis;
 	}
@@ -674,28 +666,38 @@ N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
 		 */
 		ensureMolecule();
 		CMLModule module = new CMLModule();
-		module.setDictRef("gammesus:hess");
+		checkIdAndAdd(module, "hess");
 		lineCount = 0;
-		int coordCount = molecule.getAtomCount()*3;
 		String flags = lines.get(lineCount++);
 		List<CMLScalar> scalars = new JumboFormat().addParsedScalars(
-				module,
-				abstractCommon.getPrefix(), 
+				module,	abstractCommon.getPrefix(), 
 				"('ENERGY IS'F20.10' E(NUC) IS'F20.10)", 
-				flags, 
-				new String[]{F_+HESS_ENERGY, F_+HESS_ENUC});
+				flags, new String[]{F_+HESS_ENERGY, F_+HESS_ENUC});
+		String fortranFormat = "(5X,5E15.8)";
 		JumboFormat jumboFormat = new JumboFormat();
-		CMLMatrix matrix = readMatrix(coordCount, jumboFormat);
-		this.addDictRefTo(matrix, HESS);
+		// we don't know how many lines to read, so read whole matrix
+		CMLArray array = readArrayGreedily(jumboFormat, fortranFormat, XSD_DOUBLE);
+		int size = (int) Math.rint(Math.sqrt(new Double(array.getSize())));
+		if (size*size != array.getSize()) {
+			throw new RuntimeException("Matrix not square: "+ array.getSize());
+		}
+		CMLMatrix matrix = readMatrix(size, jumboFormat, fortranFormat);
+		checkIdAndAdd(matrix, HESS);
 		module.appendChild(matrix);
 		element = module;
 	}
 
-	private CMLMatrix readMatrix(int coordCount, JumboFormat jumboFormat) {
+	private CMLArray readArrayGreedily(JumboFormat jumboFormat, String fortranFormat, String dataType) {
+		CMLArray array = jumboFormat.parseMultipleLinesToArray(
+				fortranFormat, lines, lineCount, -1, dataType);
+		return array;
+	}
+	
+	private CMLMatrix readMatrix(int coordCount, JumboFormat jumboFormat, String fortranFormat) {
 		double[][] matrixx = new double[coordCount][];
 	    for (int i = 0; i < coordCount; i++) {
 	    	CMLArray array = jumboFormat.parseMultipleLinesToArray(
-	    			"(5X,5E15.8)", lines, lineCount, coordCount, CMLConstants.XSD_DOUBLE);
+	    			fortranFormat, lines, lineCount, coordCount, CMLConstants.XSD_DOUBLE);
 	    	lineCount += jumboFormat.getLinesRead();
 	    	matrixx[i] = array.getDoubles();
 	    }
@@ -729,11 +731,11 @@ N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
 		jumboFormat = new JumboFormat();
 		CMLArray vector = jumboFormat.parseMultipleLinesToArray(
 				"(5F16.9)", lines, lineCount, coordCount, CMLConstants.XSD_DOUBLE);
-		this.addDictRefTo(vector, VECTOR);
+		checkIdAndAdd(vector, VECTOR);
 		module.appendChild(vector);
 		lineCount += jumboFormat.getLinesRead();
 		CMLArray unk = new JumboFormat().parseToSingleLineArray("(3F16.9)", lines.get(lineCount++), CMLConstants.XSD_DOUBLE);
-		this.addDictRefTo(unk, UNKNOWN);
+		checkIdAndAdd(unk, UNKNOWN);
 		module.appendChild(unk);
 		element = module;
 	}
@@ -851,11 +853,8 @@ E(ROHF)=      -37.2778767090, E(NUC)=    6.1450367257,    7 ITERS
 		 */
 		lineCount++;
 		Pattern pattern = Pattern.compile("E\\(([^\\)]+)\\)=\\s*([\\-\\.\\d]+), E\\(([^\\)]+)\\)=\\s*([\\-\\.\\d]+),\\s+(\\d+) ITERS");
-//		Pattern pattern = Pattern.compile("E\\(([^\\)]+)\\)=\\s*([\\-\\.\\d]+), E\\(([^\\)]+)\\)=\\s*([\\-\\.\\d]+),\\s+.*");
-		System.out.println(pattern);
 		CMLScalar title = new CMLScalar(lines.get(lineCount++));
 		module.appendChild(title);
-		System.out.println(lines.get(lineCount));
 		new JumboFormat().addParsedScalars(module, abstractCommon.getPrefix(),  pattern, 
 		lines.get(lineCount++), new String[]{A_+DICTREF, F_+ERHF, A_+DICTREF, F_+ENUC, I_+ITERS});
 	}
