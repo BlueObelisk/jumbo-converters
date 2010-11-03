@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.element.CMLArray;
+import org.xmlcml.cml.element.CMLArrayList;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.element.CMLTable;
-import org.xmlcml.cml.element.CMLTableContent;
-import org.xmlcml.cml.element.CMLTableHeader;
-import org.xmlcml.cml.element.CMLTableHeaderCell;
 import org.xmlcml.cml.tools.TableTool;
+import org.xmlcml.euclid.JodaDate;
 
 public class JumboFormat {
 	private static Logger LOG = Logger.getLogger(JumboFormat.class);
@@ -85,6 +85,9 @@ public class JumboFormat {
 				scalar = new CMLScalar((Double)result);
 			} else if (result instanceof String && clazz.equals(String.class)) {
 				scalar = new CMLScalar((String)result);
+			} else if (result instanceof String && clazz.equals(DateTime.class)) {
+				DateTime dateTime = JodaDate.parseDate(result.toString().trim());
+				scalar = new CMLScalar(dateTime);
 			} else {
 				throw new RuntimeException("Bad name/class "+result+" / "+clazz+" / "+name);
 			}
@@ -143,12 +146,14 @@ public class JumboFormat {
 				nameList.add(name.substring(2));
 			} else if (name.startsWith("F.")) {
 				nameList.add(name.substring(2));
+			} else if (name.startsWith("D.")) {
+				nameList.add(name.substring(2));
 			} else if (name.startsWith("E.")) {
 				nameList.add(name.substring(2));
 			} else if (name.startsWith("A.")) {
 				nameList.add(name.substring(2));
 			} else {
-				throw new RuntimeException("Name must start with I. or E. or F. or A."); 
+				throw new RuntimeException("Name must start with I.,D.,E.,F. or A."); 
 			}
 		}
 		return nameList;
@@ -161,12 +166,14 @@ public class JumboFormat {
 				classList.add(Integer.class);
 			} else if (name.startsWith("E.")) {
 				classList.add(Double.class);
+			} else if (name.startsWith("D.")) {
+				classList.add(DateTime.class);
 			} else if (name.startsWith("F.")) {
 				classList.add(Double.class);
 			} else if (name.startsWith("A.")) {
 				classList.add(String.class);
 			} else {
-				throw new RuntimeException("Name must start with I. or E. or F. or A."); 
+				throw new RuntimeException("Name must start with I., D., E., F. or A."); 
 			}
 		}
 		return classList;
@@ -181,6 +188,16 @@ public class JumboFormat {
 		return scalarList;
 	}
 
+	/**
+	 * creates the columns in an array
+	 * @param prefix
+	 * @param format
+	 * @param lineCount
+	 * @param lines
+	 * @param linesToRead
+	 * @param names
+	 * @return
+	 */
 	public List<CMLArray> createTableColumns(String prefix, String format,
 			int lineCount, List<String> lines, int linesToRead, String[] names) {
 		int lineCount0 = lineCount;
@@ -212,6 +229,8 @@ public class JumboFormat {
 			array.append(scalar.getInt());
 		} else if (CMLConstants.XSD_DOUBLE.equals(dataType)) {
 			array.append(scalar.getDouble());
+		} else if (CMLConstants.XSD_DATE.equals(dataType)) {
+			array.append(scalar.getDate());
 		}
 	}
 
@@ -238,6 +257,16 @@ public class JumboFormat {
 
 	public int getLinesRead() {
 		return linesRead;
+	}
+
+	public CMLArrayList createTableColumnsAsArrayList(String prefix,
+			String format, int lineCount, List<String> lines, int linesToRead, String[] names) {
+		CMLArrayList arrayList = new CMLArrayList();
+		List<CMLArray> arrays = this.createTableColumns(prefix, format, lineCount, lines, linesToRead, names);
+		for (CMLArray array : arrays) {
+			arrayList.addArray(array);
+		}
+		return arrayList;
 	}
 
 

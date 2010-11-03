@@ -10,7 +10,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.AbstractBlock;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.LegacyProcessor;
+import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 import org.xmlcml.cml.element.CMLMolecule;
 
 /**
@@ -48,6 +50,11 @@ public class GaussianArchiveProcessor extends LegacyProcessor {
 	public GaussianArchiveProcessor() {
 	}
 	
+	@Override
+	protected AbstractCommon getCommon() {
+		return new GaussianCommon();
+	}
+
 	/**
 	 * @param lines
 	 * @param lineCount

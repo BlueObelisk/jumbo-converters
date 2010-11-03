@@ -3,13 +3,23 @@ package org.xmlcml.cml.converters.compchem.gaussian;
 import nu.xom.Nodes;
 
 import org.xmlcml.cml.base.CMLBuilder;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.cml.RawXML2CMLProcessor;
+import org.xmlcml.cml.converters.compchem.gamessuk.GamessUKCommon;
 import org.xmlcml.cml.element.CMLFormula;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.tools.MoleculeTool;
 
 public class GaussianArchiveXMLProcessor extends RawXML2CMLProcessor {
 
+	public GaussianArchiveXMLProcessor() {
+		
+	}
+	
+	@Override
+	protected AbstractCommon getCommon() {
+		return new GaussianCommon();
+	}
 	protected void processXML() {
 		xmlInput = CMLBuilder.ensureCML(xmlInput);
 //		wrapWithProperty("./*[local-name()='scalar']");

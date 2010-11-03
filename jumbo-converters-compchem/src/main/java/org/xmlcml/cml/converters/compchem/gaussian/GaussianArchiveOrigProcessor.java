@@ -14,9 +14,11 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractBlock;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
 import org.xmlcml.cml.converters.LegacyProcessor;
 import org.xmlcml.cml.converters.Type;
+import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.euclid.Util;
@@ -70,6 +72,11 @@ public class GaussianArchiveOrigProcessor extends /*AbstractCompchemOutputProces
 		init();
 	}
 	
+	@Override
+	protected AbstractCommon getCommon() {
+		return new GaussianCommon();
+	}
+
 	
 //	/** constructor.
 //	 * 

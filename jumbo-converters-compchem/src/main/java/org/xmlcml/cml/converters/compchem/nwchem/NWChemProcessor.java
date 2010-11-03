@@ -3,7 +3,9 @@ package org.xmlcml.cml.converters.compchem.nwchem;
 import java.util.List;
 
 import org.xmlcml.cml.converters.AbstractBlock;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.LegacyProcessor;
+import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 
 /**
  * @author pm286
@@ -15,6 +17,11 @@ public class NWChemProcessor extends LegacyProcessor {
 	public NWChemProcessor() {
 	}
 	
+	@Override
+	protected AbstractCommon getCommon() {
+		return new NWChemCommon();
+	}
+
 	/**
 	 * @param lines
 	 * @param lineCount

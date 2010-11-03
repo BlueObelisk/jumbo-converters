@@ -2,10 +2,10 @@ package org.xmlcml.cml.converters.compchem.gamessus;
 
 import java.util.List;
 
+import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.AbstractBlock;
-import org.xmlcml.cml.converters.AnonymousBlock;
+import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.LegacyProcessor;
-import org.xmlcml.cml.element.CMLMolecule;
 
 /**
  *  $DATA  
@@ -45,12 +45,15 @@ H16         1.0      -.5854990105     -1.5842704744       .5426395725
  */
 public class GamessUSPunchProcessor extends LegacyProcessor {
 
-	public static final String KEYWORD = " $";
-	private static final String END = " $END";
-	
+	private static final String MINUS3 = "---";
 	public GamessUSPunchProcessor() {
 	}
 	
+	@Override
+	protected AbstractCommon getCommon() {
+		return new GamessUSCommon();
+	}
+
 	/**
 	 * @param lines
 	 * @param lineCount
@@ -60,14 +63,10 @@ public class GamessUSPunchProcessor extends LegacyProcessor {
 	protected AbstractBlock readBlock(List<String> lines) {
 		AbstractBlock block = null;
 		String line = lines.get(lineCount);
-		if (line.startsWith(KEYWORD)) {
+		if (line.startsWith(GamessUSCommon.KEYWORD)) {
 			block = createBlock();
-//		} else if (line.startsWith("-------------------- DATA FROM NSERCH")) {
-//			block = createBlock();
-//			block.setBlockName("NSERCH");
-//		} else if (line.startsWith("----- RESULTS FROM SUCCESSFUL")) {
-//			block = createBlock();
-//			block.setBlockName("RESULTS");
+		} else if (line.startsWith(MINUS3)) {
+			block = createAnonymousBlock();
 		} else {
 			block = createAnonymousBlock();
 		}
@@ -76,11 +75,13 @@ public class GamessUSPunchProcessor extends LegacyProcessor {
 	}
 
 	private AbstractBlock createAnonymousBlock() {
-//		AbstractBlock block = new AnonymousBlock(blockContainer);
 		AbstractBlock block = new GamessUSPunchBlock(blockContainer);
+		int lineCount0 = lineCount;
 		while (lineCount < lines.size()) {
 			String line = lines.get(lineCount);
-			if (line.startsWith(KEYWORD)) {
+			if (line.startsWith(GamessUSCommon.KEYWORD)) {
+				break;
+			} else if (lineCount > lineCount0 && line.startsWith(MINUS3)) {
 				break;
 			}
 			block.add(line);
@@ -97,9 +98,10 @@ public class GamessUSPunchProcessor extends LegacyProcessor {
 	private AbstractBlock createBlock() {
 		AbstractBlock block = new GamessUSPunchBlock(blockContainer);
 		String line = lines.get(lineCount);
-		block.setBlockName(line.substring(2, 6).trim());
+		String[] tokens = line.trim().split(CMLConstants.S_WHITEREGEX);
+		block.setBlockName(tokens[0].substring(1).trim());
 		lineCount++;
-		while (lineCount < lines.size() && !lines.get(lineCount).startsWith(END)) {
+		while (lineCount < lines.size() && !lines.get(lineCount).startsWith(GamessUSCommon.END)) {
 			block.add(lines.get(lineCount++));
 		}
 		lineCount++;

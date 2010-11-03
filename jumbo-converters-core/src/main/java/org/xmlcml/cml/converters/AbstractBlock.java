@@ -20,6 +20,11 @@ import org.xmlcml.cml.tools.DictionaryTool;
  */
 public abstract class AbstractBlock implements CMLConstants {
 
+	protected static final String A_ = "A.";
+	protected static final String D_ = "D.";
+	protected static final String E_ = "E.";
+	protected static final String F_ = "F.";
+	protected static final String I_ = "I.";
 	/**
 	 * useful lines (we may have skipped whitespace or
 	 * consumed keywords)
@@ -31,6 +36,7 @@ public abstract class AbstractBlock implements CMLConstants {
 	protected boolean validateDictRef;
 	protected CMLMolecule molecule;
 	protected BlockContainer blockContainer;
+	protected int lineCount;
 
 	protected AbstractBlock(BlockContainer blockContainer) {
 		lines = new ArrayList<String>();

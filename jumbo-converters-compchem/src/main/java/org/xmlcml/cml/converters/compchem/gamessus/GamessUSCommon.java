@@ -16,6 +16,18 @@ public class GamessUSCommon extends AbstractCommon {
 	
 	private static final String GAMESSUS_PREFIX = "gamessus";
 	private static final String GAMESSUS_URI = "http://wwmm.ch.cam.ac.uk/dict/gamessus";
+
+	static final String NSERCH = "NSERCH";
+
+	static final String STEP = "STEP";
+
+	static final String RESULTS = "RESULTS";
+
+	public static final String KEYWORD = " $";
+
+	static final String END = " $END";
+
+	static final String NCYC = "ncyc";
     protected String getDictionaryResource() {
     	return "org/xmlcml/cml/converters/compchem/gamessus/gamessusDict.xml";
     }

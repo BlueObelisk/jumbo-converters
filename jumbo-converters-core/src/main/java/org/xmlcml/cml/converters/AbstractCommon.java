@@ -10,7 +10,6 @@ import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.tools.DictionaryTool;
-import org.xmlcml.euclid.Util;
 
 public abstract class AbstractCommon {
 	private static Logger LOG = Logger.getLogger(AbstractCommon.class);
@@ -22,7 +21,8 @@ public abstract class AbstractCommon {
 			
 			String dictionaryResource = getDictionaryResource();
 			try {
-				InputStream inputStream = Util.getResourceUsingContextClassLoader(dictionaryResource, this.getClass());
+//				InputStream inputStream = Util.getResourceUsingContextClassLoader(dictionaryResource, this.getClass());
+				InputStream inputStream = org.xmlcml.euclid.Util.getInputStreamFromResource(dictionaryResource);
 				CMLElement cmlElement = (CMLElement) CMLUtil.parseQuietlyIntoCML(inputStream);
 				Nodes dictionaryNodes = cmlElement.query(".//*[local-name()='dictionary']");
 				CMLDictionary dictionary = (dictionaryNodes.size() == 1) ?
