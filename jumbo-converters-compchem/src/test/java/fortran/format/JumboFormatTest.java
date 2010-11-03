@@ -115,4 +115,67 @@ public class JumboFormatTest {
 		Assert.assertEquals("lines read", 3, jumboFormat.getLinesRead());
 	}
 		
+	@Test
+	public void testMultipleLinesToArrayReadToEnd() {
+		List<String> lines = new ArrayList<String>();
+		lines.add("   1.000   2.000   3.000   4.000   5.000   6.000   7.000   8.000   9.000  10.000");
+		lines.add("  11.000  12.000  13.000  14.000  15.000  16.000  17.000  18.000  19.000  20.000");
+		lines.add("  21.000  22.000  23.000");
+		lines.add("   1.000   2.000   3.000   4.000   5.000   6.000   7.000   8.000   9.000  10.000");
+		lines.add("  11.000  12.000  13.000  14.000  15.000  16.000  17.000  18.000  19.000  20.000");
+		lines.add("  51.000  52.000  23.000");
+		lines.add("   1.000   2.000   3.000   4.000   5.000   6.000   7.000   8.000   9.000  10.000");
+		lines.add("  11.000  12.000  13.000  14.000  15.000  16.000  17.000  18.000  19.000  20.000");
+		lines.add("  81.000  82.000  23.000");
+		String format = "(10F8.3)";
+		int lineCount = 0;
+		int fieldsToRead = -1;
+		JumboFormat jumboFormat = new JumboFormat();
+		CMLArray array = jumboFormat.parseMultipleLinesToArray(
+				format, lines, lineCount, fieldsToRead, CMLConstants.XSD_DOUBLE);
+		CMLArray expected = new CMLArray(new double[] {
+		   1.000,  2.000,  3.000,  4.000,  5.000,  6.000,  7.000,  8.000,  9.000, 10.000,
+		  11.000, 12.000, 13.000, 14.000, 15.000, 16.000, 17.000, 18.000, 19.000, 20.000,
+		  21.000, 22.000, 23.000,
+		   1.000,  2.000,  3.000,  4.000,  5.000,  6.000,  7.000,  8.000,  9.000, 10.000,
+		  11.000, 12.000, 13.000, 14.000, 15.000, 16.000, 17.000, 18.000, 19.000, 20.000,
+		  51.000, 52.000, 23.000,
+		   1.000,  2.000,  3.000,  4.000,  5.000,  6.000,  7.000,  8.000,  9.000, 10.000,
+		  11.000, 12.000, 13.000, 14.000, 15.000, 16.000, 17.000, 18.000, 19.000, 20.000,
+		  81.000, 82.000, 23.000});
+
+		JumboTestUtils.assertEqualsIncludingFloat("testParseToSingleLineArray", expected, array, true, 0.000001);
+		Assert.assertEquals("lines read", 9, jumboFormat.getLinesRead());
+	}
+		
+	@Test
+	public void testMultipleLinesToArrayReadToFirstNonCompliantLine() {
+		List<String> lines = new ArrayList<String>();
+		lines.add("   1.000   2.000   3.000   4.000   5.000   6.000   7.000   8.000   9.000  10.000");
+		lines.add("  11.000  12.000  13.000  14.000  15.000  16.000  17.000  18.000  19.000  20.000");
+		lines.add("  21.000  22.000  23.000");
+		lines.add("   1.000   2.000   3.000   4.000   5.000   6.000   7.000   8.000   9.000  10.000");
+		lines.add("  11.000  12.000  13.000  14.000  15.000  16.000  17.000  18.000  19.000  20.000");
+		lines.add("  XXXXXXXXX");
+		lines.add("  51.000  52.000  23.000");
+		lines.add("   1.000   2.000   3.000   4.000   5.000   6.000   7.000   8.000   9.000  10.000");
+		lines.add("  11.000  12.000  13.000  14.000  15.000  16.000  17.000  18.000  19.000  20.000");
+		lines.add("  81.000  82.000  23.000");
+		String format = "(10F8.3)";
+		int lineCount = 0;
+		int fieldsToRead = -1;
+		JumboFormat jumboFormat = new JumboFormat();
+		CMLArray array = jumboFormat.parseMultipleLinesToArray(
+				format, lines, lineCount, fieldsToRead, CMLConstants.XSD_DOUBLE);
+		CMLArray expected = new CMLArray(new double[] {
+		   1.000,  2.000,  3.000,  4.000,  5.000,  6.000,  7.000,  8.000,  9.000, 10.000,
+		  11.000, 12.000, 13.000, 14.000, 15.000, 16.000, 17.000, 18.000, 19.000, 20.000,
+		  21.000, 22.000, 23.000,
+		   1.000,  2.000,  3.000,  4.000,  5.000,  6.000,  7.000,  8.000,  9.000, 10.000,
+		  11.000, 12.000, 13.000, 14.000, 15.000, 16.000, 17.000, 18.000, 19.000, 20.000,
+		   });
+
+		JumboTestUtils.assertEqualsIncludingFloat("testParseToSingleLineArray", expected, array, true, 0.000001);
+		Assert.assertEquals("lines read", 5, jumboFormat.getLinesRead());
+	}
 }

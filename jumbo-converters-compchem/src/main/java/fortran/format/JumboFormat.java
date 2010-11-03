@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.management.RuntimeErrorException;
-
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.xmlcml.cml.attribute.DictRefAttribute;
@@ -14,7 +12,6 @@ import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLArrayList;
-import org.xmlcml.cml.element.CMLMatrix;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.element.CMLTable;
 import org.xmlcml.cml.tools.TableTool;
