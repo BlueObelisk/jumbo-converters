@@ -117,7 +117,6 @@ public class JumboFormat {
 			String result = matcher.group(i+1); // groups count from 1
 			Object clazz = classList.get(i);
 			String name = nameList.get(i);
-			System.out.println(name+" = "+result);
 			CMLScalar scalar = null;
 			if (clazz.equals(Integer.class)) {
 				scalar = new CMLScalar(new Integer(result));
