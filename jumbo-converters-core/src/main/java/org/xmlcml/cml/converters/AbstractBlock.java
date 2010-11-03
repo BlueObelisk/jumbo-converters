@@ -25,6 +25,7 @@ public abstract class AbstractBlock implements CMLConstants {
 	protected static final String E_ = "E.";
 	protected static final String F_ = "F.";
 	protected static final String I_ = "I.";
+	protected static final String DICTREF = DictRefAttribute.NAME;
 	/**
 	 * useful lines (we may have skipped whitespace or
 	 * consumed keywords)

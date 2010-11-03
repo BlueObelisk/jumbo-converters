@@ -2,6 +2,10 @@ package fortran.format;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.management.RuntimeErrorException;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
@@ -26,7 +30,7 @@ public class JumboFormat {
 			FortranFormat fortranFormat = new FortranFormat(newFormat);
 			results = fortranFormat.parse(line);
 		} catch (Exception e) {
-			throw new RuntimeException("Cannot parse fortran", e);
+			throw new RuntimeException("Cannot parse fortran :"+line+":", e);
 		}
 		return results;
 	}
@@ -87,6 +91,41 @@ public class JumboFormat {
 				scalar = new CMLScalar((String)result);
 			} else if (result instanceof String && clazz.equals(DateTime.class)) {
 				DateTime dateTime = JodaDate.parseDate(result.toString().trim());
+				scalar = new CMLScalar(dateTime);
+			} else {
+				throw new RuntimeException("Bad name/class "+result+" / "+clazz+" / "+name);
+			}
+			scalar.setDictRef(DictRefAttribute.createValue(prefix, name));
+			scalarList.add(scalar);
+		}
+		return scalarList;
+	}
+
+	public List<CMLScalar> parseToScalars(
+			String prefix, Pattern pattern, String data, String[] names) {
+		List<CMLScalar> scalarList = new ArrayList<CMLScalar>();
+		List<String> nameList = makeNameList(names);
+		List<Class> classList = makeClassList(names);
+		Matcher matcher = pattern.matcher(data);
+		if (!matcher.find()) {
+			throw new RuntimeException("Cannot parse :"+data+": with :"+pattern+":");
+		} else if (matcher.groupCount() != nameList.size()) {
+			throw new RuntimeException("Unmatched lengths of names and results "+matcher.groupCount()+" != "+nameList.size());
+		}
+		for (int i = 0; i < nameList.size(); i++) {
+			String result = matcher.group(i+1); // groups count from 1
+			Object clazz = classList.get(i);
+			String name = nameList.get(i);
+			System.out.println(name+" = "+result);
+			CMLScalar scalar = null;
+			if (clazz.equals(Integer.class)) {
+				scalar = new CMLScalar(new Integer(result));
+			} else if (clazz.equals(Double.class)) {
+				scalar = new CMLScalar(new Double(result));
+			} else if (clazz.equals(String.class)) {
+				scalar = new CMLScalar(result);
+			} else if (clazz.equals(DateTime.class)) {
+				DateTime dateTime = JodaDate.parseDate(result.trim());
 				scalar = new CMLScalar(dateTime);
 			} else {
 				throw new RuntimeException("Bad name/class "+result+" / "+clazz+" / "+name);
@@ -187,6 +226,15 @@ public class JumboFormat {
 		}
 		return scalarList;
 	}
+	
+	public void addParsedScalars(CMLElement element, String prefix,
+			Pattern pattern, String data, String[] names) {
+		List<CMLScalar> scalarList = this.parseToScalars(prefix, pattern, data, names);
+		for (CMLScalar scalar : scalarList) {
+			element.appendChild(scalar);
+		}
+	}
+
 
 	/**
 	 * creates the columns in an array
