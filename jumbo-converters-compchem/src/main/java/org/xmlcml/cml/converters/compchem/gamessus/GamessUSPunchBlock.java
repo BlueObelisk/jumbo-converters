@@ -685,6 +685,13 @@ N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
 				flags, 
 				new String[]{F_+HESS_ENERGY, F_+HESS_ENUC});
 		JumboFormat jumboFormat = new JumboFormat();
+		CMLMatrix matrix = readMatrix(coordCount, jumboFormat);
+		this.addDictRefTo(matrix, HESS);
+		module.appendChild(matrix);
+		element = module;
+	}
+
+	private CMLMatrix readMatrix(int coordCount, JumboFormat jumboFormat) {
 		double[][] matrixx = new double[coordCount][];
 	    for (int i = 0; i < coordCount; i++) {
 	    	CMLArray array = jumboFormat.parseMultipleLinesToArray(
@@ -693,9 +700,7 @@ N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
 	    	matrixx[i] = array.getDoubles();
 	    }
 		CMLMatrix matrix = new CMLMatrix(matrixx);
-		this.addDictRefTo(matrix, HESS);
-		module.appendChild(matrix);
-		element = module;
+		return matrix;
 	}
 	
 	private void makeVib() {
