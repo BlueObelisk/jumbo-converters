@@ -14,6 +14,7 @@ import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLArrayList;
+import org.xmlcml.cml.element.CMLMatrix;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.element.CMLTable;
 import org.xmlcml.cml.tools.TableTool;
@@ -163,21 +164,51 @@ public class JumboFormat {
 	public CMLArray parseMultipleLinesToArray(
 			String format, List<String> lines, int lineCount, int fieldsToRead, String dataType) {
 		CMLArray array = new CMLArray();
+		CMLArray lineArray = null;
 		array.setDataType(dataType);
 		int fieldsPerLine = -1;
 		linesRead = 0;
-		while (fieldsToRead > 0 && lineCount < lines.size()) {
-			CMLArray lineArray = parseToSingleLineArray(format, lines.get(lineCount++), dataType);
+		while (/*fieldsToRead > 0 && */lineCount < lines.size()) {
+			try {
+				lineArray = parseToSingleLineArray(format, lines.get(lineCount++), dataType);
+			} catch (Exception e) {
+				if (fieldsToRead < 0) {
+					// allowed if we are trying to read until end
+					break;
+				} else {
+					throw new RuntimeException("unexpected end of read", e);
+				}
+			}
 			if (fieldsPerLine == -1) {
 				fieldsPerLine = lineArray.getSize();
 			}
-			fieldsToRead -= fieldsPerLine;
 			array.append(lineArray);
 			linesRead++;
+			if (fieldsToRead >=0) {
+				fieldsToRead -= fieldsPerLine;
+				if (fieldsToRead <= 0) {
+					break;
+				}
+			}
 		}
 		return array;
 	}
 
+	// REFACTOR THIS
+	//"(5X,5E15.8)" // CMLConstants.XSD_DOUBLE
+//	public CMLMatrix readMatrix(int rows, int cols, String format, List<String> lines, String dataType) {
+//		double[][] matrixx = new double[rows][];
+//		linesRead = 0;
+//	    for (int i = 0; i < rows; i++) {
+//	    	JumboFormat jumboFormat = new JumboFormat();
+//	    	CMLArray array = jumboFormat.parseMultipleLinesToArray(
+//	    			format, lines, cols, dataType);
+//	    	linesRead += jumboFormat.getLinesRead();
+//	    	matrixx[i] = array.getDoubles();
+//	    }
+//		return new CMLMatrix(matrixx);
+//	}
+	
 	private static List<String> makeNameList(String[] names) {
 		List<String> nameList = new ArrayList<String>();
 		for (String name : names) {
