@@ -85,7 +85,6 @@ public class GaussianArchiveBlock extends AbstractBlock {
 	 */
 	public final static String[] PARAMETERTYPES = { 
 		METHOD, BASIS, BASIS1, THERMAL };
-	private CMLMolecule molecule;
 	private Map<String, String> symbolMap;
 
 	public GaussianArchiveBlock(BlockContainer blockContainer) {

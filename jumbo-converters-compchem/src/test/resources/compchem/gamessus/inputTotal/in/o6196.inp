@@ -1,0 +1,55 @@
+! EXAM 41.
+!   This job illustrates TDDFT/PBE0/6-31+G(d) for
+!   the 3 lowest singlet excited states of CO.
+!   There are diffuse functions in the basis set,
+!   as excited states often have Rydberg character.
+!
+!   The geometry is the experimental ground state's.
+!   The first excited state need not have the same
+!   geometry as the G.S., so its gradient is big.
+!   experimental Te is 8.06 to 1-pi,
+!                      8.17 to 1-sigma-minus
+!   Of course this run computes vertical T0 values.
+!   Computational results on the log file show that
+!   these two valence states arise from sigma->pi*
+!   and pi->pi* excitations, respectively.
+!
+!            Results for the gas phase:
+!  ground state FINAL E= -113.1878149968, 17 iters
+!        excitation  transition dipole    oscillator
+!  state    eV       x       y       z     strength
+!  0 sig+   .000
+!  1  pi   8.474  -.3724   .5587   .0000     .094
+!  2  pi   8.474   .5587   .3724   .0000     .094
+!  3 sig- 10.231   .0000   .0000   .0000     .000
+!  The 'lambda diagnostic' for the pi state is 0.700
+!  RMS gradient of 1st excited state= 0.112201641
+!
+!          if aqueous solvation is turned on:
+!  E= -113.1885370825, 14 iters, R.M.S.= .105538008
+!        excitation  transition dipole    oscillator
+!  state    eV       x       y       z     strength
+!  0 sig+   .000
+!  1  pi   8.267   .0001   .7499   .0000     .114
+!  2  pi   8.267   .7499  -.0001   .0000     .114
+!  3 sig-  9.799   .0000   .0000   .0000     .000
+!  The solvated first E.S. optimizes to R= 1.2282
+!
+ $contrl scftyp=rhf dfttyp=pbe0 tddft=excite
+         runtyp=gradient $end
+ $system timlim=4 $end
+ $tddft  nstate=3 mult=1 iroot=1 $end
+ $guess  guess=huckel $end
+ $basis  gbasis=N31 ngauss=6 diffsp=.T. ndfunc=1 $end
+
+x$pcm    solvnt=water $end
+x$pcmcav radii=suahf $end
+x$tddft  noneq=.false. $end
+
+ $data
+CO...excitation to the 3 lowest singlet states
+Cnv 4
+
+C    6.0   0.0   0.0   0.0
+O    8.0   0.0   0.0   1.128323
+ $end 

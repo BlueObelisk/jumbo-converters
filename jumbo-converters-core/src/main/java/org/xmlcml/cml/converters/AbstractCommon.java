@@ -14,31 +14,31 @@ import org.xmlcml.cml.tools.DictionaryTool;
 public abstract class AbstractCommon {
 	private static Logger LOG = Logger.getLogger(AbstractCommon.class);
 
-	public DictionaryTool dictionaryTool;
+	private CMLDictionary dictionary;
 
 	public DictionaryTool getDictionaryTool() {
-		if (dictionaryTool == null) {
-			
+		getDictionary();
+		return DictionaryTool.getOrCreateTool(dictionary);
+	}
+	
+	public CMLDictionary getDictionary() {
+		if (dictionary == null) {
 			String dictionaryResource = getDictionaryResource();
 			try {
-//				InputStream inputStream = Util.getResourceUsingContextClassLoader(dictionaryResource, this.getClass());
 				InputStream inputStream = org.xmlcml.euclid.Util.getInputStreamFromResource(dictionaryResource);
 				CMLElement cmlElement = (CMLElement) CMLUtil.parseQuietlyIntoCML(inputStream);
 				Nodes dictionaryNodes = cmlElement.query(".//*[local-name()='dictionary']");
-				CMLDictionary dictionary = (dictionaryNodes.size() == 1) ?
+				dictionary = (dictionaryNodes.size() == 1) ?
 						(CMLDictionary) dictionaryNodes.get(0) : null;
-				dictionaryTool = DictionaryTool.getOrCreateTool(dictionary);
 			} catch (Exception e) {
 				throw new RuntimeException("cannot read dictionary: "+dictionaryResource, e);
 			}
 		}
-		return dictionaryTool;
-	}
+		return dictionary;
+}
 
 	protected abstract String getDictionaryResource();
-	
 	public abstract String getPrefix();
-	
 	public abstract String getNamespace();
 
 	public void addNamespaceDeclaration(CMLElement cml) {
@@ -54,6 +54,7 @@ public abstract class AbstractCommon {
 	}
 	
 	private void checkAgainstDictionary(CMLElement element, String name) {
+		DictionaryTool dictionaryTool = getDictionaryTool();
 		String entryId = name.toLowerCase();
 		if (dictionaryTool != null) {
 			if (!dictionaryTool.isIdInDictionary(entryId)) {

@@ -4,15 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nu.xom.Attribute;
-import nu.xom.Element;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.converters.util.JumboReader;
+import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.element.CMLMolecule;
-import org.xmlcml.cml.interfacex.HasDictRef;
+import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.tools.DictionaryTool;
+import org.xmlcml.euclid.Util;
 
 /**
  * holds chunks of information (usually text) while processing
@@ -28,6 +30,8 @@ public abstract class AbstractBlock implements CMLConstants {
 	protected static final String F_ = "F.";
 	protected static final String I_ = "I.";
 	protected static final String DICTREF = DictRefAttribute.NAME;
+
+	public static final String UNKNOWN = "unknown";
 	/**
 	 * useful lines (we may have skipped whitespace or
 	 * consumed keywords)
@@ -37,9 +41,10 @@ public abstract class AbstractBlock implements CMLConstants {
 	protected String blockName;
 	protected AbstractCommon abstractCommon;
 	protected boolean validateDictRef;
-	protected CMLMolecule molecule;
 	protected BlockContainer blockContainer;
-	protected int lineCount;
+	protected JumboReader jumboReader;
+	protected CMLMolecule molecule;
+	protected Integer natoms;
 
 	protected AbstractBlock(BlockContainer blockContainer) {
 		lines = new ArrayList<String>();
@@ -93,8 +98,8 @@ public abstract class AbstractBlock implements CMLConstants {
 		this.blockName = blockName;
 	}
 	
-	protected DictionaryTool getDictionaryTool() {
-		return (abstractCommon == null) ? null : abstractCommon.getDictionaryTool();
+	protected CMLDictionary getDictionary() {
+		return (abstractCommon == null) ? null : abstractCommon.getDictionary();
 	}
 
 	public CMLMolecule getMolecule() {
@@ -122,14 +127,41 @@ public abstract class AbstractBlock implements CMLConstants {
 //	}
 
 	protected void checkIdAndAdd(CMLElement element, String entryId) {
-		if (validateDictRef) {
-			DictionaryTool dictionaryTool = abstractCommon.getDictionaryTool();
-			if (!dictionaryTool.isIdInDictionary(entryId)) {
-				LOG.warn("entryId "+entryId+" not found in dictionary: "+dictionaryTool);
-			}
-			String dictRef = DictRefAttribute.createValue(abstractCommon.getPrefix(), entryId);
-			element.addAttribute(new Attribute(DictRefAttribute.NAME, dictRef));
+		DictionaryTool dictionaryTool = abstractCommon.getDictionaryTool();
+		if (!dictionaryTool.isIdInDictionary(entryId)) {
+			LOG.warn("entryId "+entryId+" not found in dictionary: "+dictionaryTool);
 		}
+		String dictRef = DictRefAttribute.createValue(abstractCommon.getPrefix(), entryId);
+		element.addAttribute(new Attribute(DictRefAttribute.NAME, dictRef));
+	}
+
+	protected int getAtomCount() {
+		natoms = blockContainer.getMolecule().getAtomCount();
+		return natoms;
+	}
+
+	protected CMLElement preserveText() {
+		String line = Util.concatenate((String[])lines.toArray(new String[0]), CMLConstants.S_NEWLINE);
+		CMLScalar scalar = new CMLScalar(line);
+		jumboReader.setParentElement(scalar);
+		this.setBlockName(UNKNOWN);
+		return scalar;
+	}
+
+	protected void ensureMolecule() {
+		molecule = blockContainer.getMolecule();
+		if (molecule == null) {
+			throw new RuntimeException("No molecule");
+		}
+	}
+
+	protected CMLScalar createPackedLines() {
+		StringBuilder sb = new StringBuilder();
+		for (String line : lines) {
+			sb.append(line);
+			sb.append(CMLConstants.S_NEWLINE);
+		}
+		return new CMLScalar(sb.toString().trim());
 	}
 
 }
