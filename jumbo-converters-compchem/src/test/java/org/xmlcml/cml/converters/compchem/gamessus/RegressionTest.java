@@ -22,6 +22,22 @@ public class RegressionTest {
 	                          new GamessUSPunchXML2CMLConverter());
 	                              
 	   }
+	   // There are lots of varied udata files here. uncomment if you want to run 
+	   // them. The ref files may not be up to date
+	   @Test
+	   @Ignore
+	   public void gamessusPunchTotal2XML() {
+	      RegressionSuite.run("compchem/gamessus/punchTotal", "dat", "xml",
+	                          new GamessUSPunch2XMLConverter());
+	                              
+	   }
+	   @Test
+	   @Ignore
+	   public void gamessusPunchTotalXML2CML() {
+	      RegressionSuite.run("compchem/gamessus/punchTotal", "xml", "cml",
+	                          new GamessUSPunchXML2CMLConverter());
+	   }
+	                              
 	   @Test
 	   public void gamessusInput2XML() {
 	      RegressionSuite.run("compchem/gamessus/inp", "inp", "xml",

@@ -1,21 +1,20 @@
 package org.xmlcml.cml.converters.compchem.gamessus;
 
-import java.util.List;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
+import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
 import org.xmlcml.cml.converters.LegacyProcessor;
+import org.xmlcml.cml.converters.util.JumboReader;
 import org.xmlcml.cml.element.CMLAngle;
 import org.xmlcml.cml.element.CMLArray;
-import org.xmlcml.cml.element.CMLArrayList;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLLabel;
 import org.xmlcml.cml.element.CMLLength;
-import org.xmlcml.cml.element.CMLMatrix;
 import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLScalar;
@@ -23,11 +22,8 @@ import org.xmlcml.cml.element.CMLSymmetry;
 import org.xmlcml.cml.element.CMLTorsion;
 import org.xmlcml.cml.element.CMLZMatrix;
 import org.xmlcml.euclid.IntArray;
-import org.xmlcml.euclid.Point3;
-import org.xmlcml.euclid.Util;
 import org.xmlcml.molutil.ChemicalElement;
 
-import fortran.format.JumboFormat;
 
 public class GamessUSPunchBlock extends AbstractBlock {
 	private static final String OPTIMIZED_RHF = "--- OPTIMIZED RHF";
@@ -52,7 +48,6 @@ public class GamessUSPunchBlock extends AbstractBlock {
 	private static final String IATOM = "iatom";
 	private static final String IVIB = "ivib";
 	private static final String VECTOR = "vector";
-	private static final String UNKNOWN = "unknown";
 	private static final String Z = "z";
 	private static final String Y = "y";
 	private static final String X = "x";
@@ -95,7 +90,8 @@ public class GamessUSPunchBlock extends AbstractBlock {
 
 	private static final String DATE = "date";
 
-	private CMLMolecule molecule;
+	private static final String DICTREF_NEXT = "dictRefNext";
+
 	public GamessUSPunchBlock(BlockContainer blockContainer) {
 		super(blockContainer);
 	}
@@ -110,6 +106,7 @@ public class GamessUSPunchBlock extends AbstractBlock {
 	 * 
 	 */
 	public void convertToRawCML() {
+		jumboReader = new JumboReader(this.getDictionary(), abstractCommon.getPrefix(), lines);
 		if (false) {
 		} else if (CISVEC.equals(getBlockName())) {
 			makeCisvec();
@@ -164,34 +161,34 @@ public class GamessUSPunchBlock extends AbstractBlock {
 		 * valuable for blocks to have a dictRef
 		 */
 		if (element != null) {
-			String entryId = getBlockName().toLowerCase();
-			checkIdAndAdd(element, entryId);
+			checkIdAndAdd(element, getBlockName().toLowerCase());
 		} else {
 			System.err.println("null element: "+getBlockName());
 		}
 	}
 
-	private void makeTwoei() {
-		/*
- $TWOEI
-  9.38230741E+00 3.59976772E-01 4.84824999E+00 2.58194131E+00 3.69772753E-01
-  2.26208416E+00 2.58194146E+00 3.69775829E-01 1.75438331E+00 2.26208429E+00
-...
-  3.50401191E-01 3.56418458E-01 3.21214602E-01 3.50398946E-01 6.05502942E-01
-  2.35039664E-01 2.46416459E-01 2.46416796E-01 6.25819176E-01 6.25819121E-01
-  8.04754778E-01
-  9.38230741E+00 5.33706794E-06 4.84824999E+00 7.31854723E-02 4.94486827E-05
-  2.26208416E+00 7.31854734E-02 4.94572956E-05 1.63533585E-01 2.26208429E+00
-...
-  3.96746625E-03 1.32000268E-03 1.32003348E-03 5.62533556E-02 5.62533408E-02
-  8.04754778E-01
- $END
-		 */
-		// NYI
-		element = preserveText();
+	
+	private void makeAnonymous() {
+		CMLModule module = new CMLModule();
+		jumboReader.setParentElement(module);
+		String line = jumboReader.peekLine();
+		if (line.startsWith(RESULTS_FROM)) {
+			anonResultsFrom();
+		} else if (line.startsWith(COORDS_ORBS)) {
+			anonCoordsOrbs();
+		} else if (line.startsWith(DATA_FROM_NSERCH)) {
+			anonNserch();
+		} else if (line.startsWith(CLOSED_SHELL) || line.startsWith(OPEN_SHELL)) {
+			anonClosedOpenShell();
+		} else if (line.startsWith(OPTIMIZED_RHF)) {
+			anonOptimisedRHF();
+		} else if (line.startsWith(" POPULATION ANALYSIS")) {
+			anonPopulationAnalysis();
+		} else {
+			preserveText();
+		}
+		element = module;
 	}
-
-
 	
 	private void makeCisvec() {
 		/*
@@ -209,35 +206,148 @@ STATE   1 ENERGY=     -113.7017742428
 		element = preserveText();
 	}
 
-	private void makeTdipole() {
-		/**
-		 * 		 $TDIPOLE
-		         1         1        18
-		      -75.0101113553      -75.0101113553
-		        0.0000000000        0.0000000000       -0.6389554616
-		         1         2        18
-		      -75.0101113553      -74.3945819389
-		        0.0000000000        0.0000000000        0.3926137047
-		         2         2        18
-		      -74.3945819389      -74.3945819389
-		        0.0000000000        0.0000000000        0.1297954762
-		 $END
-		 */
-				// NYI
-				element = preserveText();
-			}
+	private void anonCoordsOrbs() {
+		jumboReader.readLine();
+		jumboReader.skipCheckedLines(COORDS_SYMMETRY);
+		getAtomCount();
+		jumboReader.parseMoleculeAsColumns(atomCount, "' 'A8,F7.1,3F15.10", new int[]{-1, 1, 0, 2, 3, 4}, JumboReader.ADD);
+		setBlockName(GamessUSCommon.RESULTS);
+	}
 
-	private void makeTvelocity() {
-		/**
- $TVELOCITY
-         1         2        18
-      -75.0101113553      -74.3945819389
-        0.0000000000        0.0000000000        0.3682047219
- $END
+	private void anonClosedOpenShell() {
+			/**
+	--- CLOSED SHELL ORBITALS --- GENERATED AT Mon Oct 25 13:07:35 2010
+	Methylene...1-A-1 state...RHF/STO-2G                                            
+	E(RHF)=      -37.2322678015, E(NUC)=    6.1221376700,    8 ITERS
+	or 
+	E(ROHF)=      -37.2778767090, E(NUC)=    6.1450367257,    7 ITERS
+			 */
+			jumboReader.readLine();
+			jumboReader.readLineAsScalar("title", JumboReader.ADD);
+			Pattern pattern = Pattern.compile("E\\(([^\\)]+)\\)=\\s*([\\-\\.\\d]+), E\\(([^\\)]+)\\)=\\s*([\\-\\.\\d]+),\\s+(\\d+) ITERS");
+			jumboReader.parseScalars(pattern, 
+					new String[]{A_+DICTREF_NEXT, F_+ERHF, A_+DICTREF_NEXT, F_+ENUC, I_+ITERS}, JumboReader.ADD);
+		}
+
+	/**
+	 $DATA  
+	HCO-L-Ala-NH2 - OPTIMIZE - B3LYP/cc-pVDZ - N_at = 16                            
+	C1       0
+	H1          1.0     -2.9805271364       .9147039208       .1059830464
+	   CCD     0
+	        
 		 */
-				// NYI
-				element = preserveText();
+		private void makeData() {
+			molecule = new CMLMolecule();
+			jumboReader.setParentElement(molecule);
+			String title = jumboReader.readLine();
+			molecule.setTitle(title);
+			CMLSymmetry symmetry = new CMLSymmetry();
+			//C1       0
+			String pgline = jumboReader.readLine();
+			String[] tokens = pgline.split(CMLConstants.WHITESPACE);
+			symmetry.setPointGroup(tokens[0]);
+			molecule.appendChild(symmetry);
+			// unexpected lines here. possibly controlled by symmetry card
+			// currently fudge by eating white
+			jumboReader.eatEmptyLines();
+			int id = 1;
+			while (jumboReader.hasMoreLines()) {
+				addAtom(id++);
 			}
+			element = molecule;
+			// we need this for later blocks
+			blockContainer.setMolecule(molecule);
+		}
+
+	private void makeDipdr() {
+		/**
+		$DIPDR
+		 -2.68829961E+00 0.00000000E+00 0.00000000E+00
+		  0.00000000E+00-1.49612845E-01 0.00000000E+00
+...
+		  0.00000000E+00 7.48204205E-02 7.54407241E-01
+		  0.00000000E+00 1.06457228E+00-2.00610985E-01
+		 $END	 */
+		// NYI
+		CMLModule module = new CMLModule();
+		element = preserveText();
+	}
+	
+	private void makeGrad() {
+			CMLModule module = new CMLModule();
+			jumboReader.setParentElement(module);
+			module.setRole(abstractCommon.getPrefix());
+			getAtomCount();
+			CMLElement element = jumboReader.parseScalars(
+				"('E='F20.10'  GMAX='F12.7'  GRMS='F12.7)", 
+				new String[]{F_+E, F_+GMAX, F_+GRMS}, JumboReader.ADD);
+			checkIdAndAdd(element, "grad");
+			jumboReader.parseMoleculeAsColumns(atomCount, "A10F5.1F20.10F20.10F20.10", new int[]{-1, 1, 0, 2, 3, 4}, JumboReader.ADD);
+			element = module;
+		}
+
+	private void makeGrad1() {
+			CMLModule module = new CMLModule();
+			module.setRole(abstractCommon.getPrefix());
+			jumboReader.setParentElement(module);
+			/*
+	E=     -417.0071979209  GMAX=    .0518798  GRMS=    .0144469
+	H1           1.    1.4236802098E-02   -1.2652467333E-02   -2.0583432080E-03
+	C2           6.   -1.7931214639E-03   -2.3258102960E-02    2.7744336442E-03
+	N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
+			 */
+			
+			jumboReader.parseScalars(
+				"('E='F20.10'  GMAX='F12.7'  GRMS='F12.7)", 
+				new String[]{F_+E, F_+GMAX, F_+GRMS}, JumboReader.ADD);
+			jumboReader.parseMoleculeAsColumns(atomCount, "A10F5.1F20.10F20.10F20.10", new int[]{-1, 1, 0, 2, 3, 4}, JumboReader.ADD);
+			element = module;
+		}
+
+	private void makeGrad2() {
+			CMLModule module = new CMLModule();
+			module.setRole(abstractCommon.getPrefix());
+			jumboReader.setParentElement(module);
+			/*
+	E=     -417.0071979209  GMAX=    .0518798  GRMS=    .0144469
+	H1           1.    1.4236802098E-02   -1.2652467333E-02   -2.0583432080E-03
+	C2           6.   -1.7931214639E-03   -2.3258102960E-02    2.7744336442E-03
+	N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
+			 */
+			jumboReader.parseScalars(
+				"('E='F20.10'  GMAX='F12.7'  GRMS='F12.7)", 
+				new String[]{F_+E, F_+GMAX, F_+GRMS}, JumboReader.ADD);
+			getAtomCount();
+			jumboReader.parseMoleculeAsColumns(atomCount, "A10F5.1F20.10F20.10F20.10", new int[]{-1, 1, 0, 2, 3, 4}, JumboReader.ADD);
+			element = module;
+		}
+
+	private void makeHess() {
+		/*
+		ENERGY IS     -417.0146230240 E(NUC) IS      384.0190725767
+		 1  1 2.64800944E-01-1.13848557E-01-8.77575186E-03-2.79100487E-01 9.26552102E-02
+		 1  2 6.37962242E-03-1.45252521E-02 1.95434248E-02 4.42901143E-03 2.87107862E-02
+		 ...
+		 */
+		ensureMolecule();
+		CMLModule module = new CMLModule();
+		jumboReader.setParentElement(module);
+		checkIdAndAdd(module, "hess");
+		jumboReader.parseScalars(
+				"('ENERGY IS'F20.10' E(NUC) IS'F20.10)", 
+				new String[]{F_+HESS_ENERGY, F_+HESS_ENUC}, JumboReader.ADD);
+		// we don't know how many lines to read, so read whole matrix
+		String format = "(5X,5E15.8)";
+		CMLArray array = jumboReader.readArrayGreedily(format, XSD_DOUBLE);
+		int size = (int) Math.rint(Math.sqrt(new Double(array.getSize())));
+		if (size*size != array.getSize()) {
+			throw new RuntimeException("Matrix not square: "+ array.getSize());
+		}
+		jumboReader.resetCurrentLine();
+		jumboReader.parseMatrix(size, size, format, CMLConstants.XSD_DOUBLE, HESS, JumboReader.ADD);
+		element = module;
+	}
 
 	private void makeIrc() {
 		/**
@@ -253,15 +363,69 @@ STATE   1 ENERGY=     -113.7017742428
 		element = preserveText();
 	}
 
-	private void makeDipdr() {
+	private void anonNserch() {
+			/**
+	-------------------- DATA FROM NSERCH=  12 --------------------
+	 COORDINATES OF SYMMETRY UNIQUE ATOMS (ANGS)
+	   ATOM   CHARGE       X              Y              Z
+	 ------------------------------------------------------------
+	 H1          1.0  -3.0274208244    .9305579239   -.0180318347
+	 C2          6.0  -2.1178295124    .2873036749   -.0637304065
+			 */
+			jumboReader.parseScalars(
+			"('-------------------- DATA FROM NSERCH= 'I3' --------------------')", 
+			new String[] {I_+GamessUSCommon.NCYC}, JumboReader.ADD);
+			jumboReader.skipCheckedLines(COORDS_SYMMETRY);
+			getAtomCount();
+			jumboReader.parseMoleculeAsColumns(atomCount, "' 'A8,F7.1,3F15.10", new int[]{-1, 1, 0, 2, 3, 4}, JumboReader.ADD);
+			setBlockName(GamessUSCommon.NSERCH);
+		}
+
+	private void anonOptimisedRHF() {
 		/**
-		$DIPDR
-		 -2.68829961E+00 0.00000000E+00 0.00000000E+00
-		  0.00000000E+00-1.49612845E-01 0.00000000E+00
-...
-		  0.00000000E+00 7.48204205E-02 7.54407241E-01
-		  0.00000000E+00 1.06457228E+00-2.00610985E-01
-		 $END	 */
+--- OPTIMIZED RHF      MO-S --- GENERATED AT Mon Oct 25 13:07:35 2010
+E=      -37.2380397698, E(NUC)=    5.9560361192
+		 */
+		jumboReader.parseScalars(
+				"'--- OPTIMIZED RHF      MO-S --- GENERATED AT 'A24", 
+				new String[]{D_+DATE}, JumboReader.ADD);
+		jumboReader.parseScalars(
+				"'E=     'F15.10', E(NUC)='F15.10", new String[]{F_+E, F_+ENUC}
+				, JumboReader.ADD);
+	}
+
+	private void anonPopulationAnalysis() {
+		getAtomCount();
+		jumboReader.readLine();
+		jumboReader.parseTableColumnsAsArrayList(
+			"A11,4F10.5", atomCount, 
+			new String[]{A_+ELEM, F_+POP1, F_+POP2, F_+POP3, F_+POP4}, JumboReader.ADD);
+	}
+
+	private void anonResultsFrom() {
+		if (lines.size() != 1) {
+			throw new RuntimeException("expected 1 lines, found: "+lines.size());
+		}
+		// no=op
+	}
+
+	private void makeSolev() {
+		/*
+		 $SOLEV
+		    1  0.0       0.0000    -54.9382263296
+		    2  1.0       0.1380    -54.9382257010
+		    3  1.0       0.1380    -54.9382257010
+		    4  2.0   15296.5697    -54.8685312164
+		    5  2.0   15296.5697    -54.8685312164
+		    6  0.0   30593.1395    -54.7988361032
+		 $END
+		 */
+		// NYI
+		element = preserveText();
+	}
+	
+	private void makeScf() {
+		//  $SCF    CICOEF( 1)=  0.97750533, -0.21091073 $END   
 		// NYI
 		element = preserveText();
 	}
@@ -299,144 +463,120 @@ STATE   1 ENERGY=     -113.7017742428
 		element = preserveText();
 	}
 	
-	private void makeSolev() {
-		/*
-		 $SOLEV
-		    1  0.0       0.0000    -54.9382263296
-		    2  1.0       0.1380    -54.9382257010
-		    3  1.0       0.1380    -54.9382257010
-		    4  2.0   15296.5697    -54.8685312164
-		    5  2.0   15296.5697    -54.8685312164
-		    6  0.0   30593.1395    -54.7988361032
-		 $END
-		 */
-		// NYI
-		element = preserveText();
-	}
-	
-	private void makeScf() {
-		//  $SCF    CICOEF( 1)=  0.97750533, -0.21091073 $END   
-		// NYI
-		element = preserveText();
-	}
-	
-	private void makeSubscf() {
-/**
- $SUBSCF
-! SUBSYSTEM     1
-  1  7  0
-  2  8  3  9  0
-  0
-! SUBSYSTEM     2
-   2   8   0
-   1   7   3   9   4  10   0
-   0
-! SUBSYSTEM     3
-   3   9   0
-   1   7   2   8   4  10   5  11   0
-   0
-! SUBSYSTEM     4
-   4  10   0
-   2   8   3   9   5  11   6  12   0
-   0
-! SUBSYSTEM     5
-   5  11   0
-   3   9   4  10   6  12   0
-   0
-! SUBSYSTEM     6
-   6  12   0
-   4  10   5  11   0
-   0
- $END
- */
-		// NYI
-		element = preserveText();
-	}
-	
 	private void makeSubcor() {
-/**
- $SUBCOR
-! SUBSYSTEM     1
-  1  7  0
-  2  8  0
-  0
-! SUBSYSTEM     2
-  2  8  0
-  1  7  3  9  0
-  0
-! SUBSYSTEM     3
-   3   9   0
-   2   8   4  10   0
-   0
-! SUBSYSTEM     4
-   4  10   0
-   3   9   5  11   0
-   0
-! SUBSYSTEM     5
-   5  11   0
-   4  10   6  12   0
-   0
-! SUBSYSTEM     6
-   6  12   0
-   5  11   0
-   0
- $END
- */
+	/**
+	 $SUBCOR
+	! SUBSYSTEM     1
+	  1  7  0
+	  2  8  0
+	  0
+	! SUBSYSTEM     2
+	  2  8  0
+	  1  7  3  9  0
+	  0
+	! SUBSYSTEM     3
+	   3   9   0
+	   2   8   4  10   0
+	   0
+	! SUBSYSTEM     4
+	   4  10   0
+	   3   9   5  11   0
+	   0
+	! SUBSYSTEM     5
+	   5  11   0
+	   4  10   6  12   0
+	   0
+	! SUBSYSTEM     6
+	   6  12   0
+	   5  11   0
+	   0
+	 $END
+	 */
 		// NYI
 		element = preserveText();
-	}
-	
-	private void makeAnonymous() {
-		lineCount = 0;
-		CMLModule module = new CMLModule();
-		String line = lines.get(lineCount);
-		if (line.startsWith(RESULTS_FROM)) {
-			results0(module);
-		} else if (line.startsWith(COORDS_ORBS)) {
-			results(module);
-		} else if (line.startsWith(DATA_FROM_NSERCH)) {
-			nserch(module);
-		} else if (line.startsWith(CLOSED_SHELL) || line.startsWith(OPEN_SHELL)) {
-			closedOpenShell(module);
-		} else if (line.startsWith(OPTIMIZED_RHF)) {
-			optimizedRHF(module);
-		} else if (line.startsWith(" POPULATION ANALYSIS")) {
-			populationAnalysis(module);
-		} else {
-			preserveText(module);
-		}
-		element = module;
-	}
-	
-	private void optimizedRHF(CMLModule module) {
-		/**
---- OPTIMIZED RHF      MO-S --- GENERATED AT Mon Oct 25 13:07:35 2010
-E=      -37.2380397698, E(NUC)=    5.9560361192
-		 */
-		JumboFormat jumboFormat = new JumboFormat();
-		jumboFormat.addParsedScalars(module, abstractCommon.getPrefix(),
-				"'--- OPTIMIZED RHF      MO-S --- GENERATED AT 'A24", lines.get(lineCount++),
-				new String[]{D_+DATE});
-		jumboFormat.addParsedScalars(module, abstractCommon.getPrefix(),
-				"'E=     'F15.10', E(NUC)='F15.10", lines.get(lineCount++),
-				new String[]{F_+E, F_+ENUC});
 	}
 
-	private void populationAnalysis(CMLModule module) {
+	private void makeSubscf() {
+	/**
+	 $SUBSCF
+	! SUBSYSTEM     1
+	  1  7  0
+	  2  8  3  9  0
+	  0
+	! SUBSYSTEM     2
+	   2   8   0
+	   1   7   3   9   4  10   0
+	   0
+	! SUBSYSTEM     3
+	   3   9   0
+	   1   7   2   8   4  10   5  11   0
+	   0
+	! SUBSYSTEM     4
+	   4  10   0
+	   2   8   3   9   5  11   6  12   0
+	   0
+	! SUBSYSTEM     5
+	   5  11   0
+	   3   9   4  10   6  12   0
+	   0
+	! SUBSYSTEM     6
+	   6  12   0
+	   4  10   5  11   0
+	   0
+	 $END
+	 */
+		// NYI
+		element = preserveText();
+	}
+
+	private void makeTdipole() {
+	/**
+	 * 		 $TDIPOLE
+	         1         1        18
+	      -75.0101113553      -75.0101113553
+	        0.0000000000        0.0000000000       -0.6389554616
+	         1         2        18
+	      -75.0101113553      -74.3945819389
+	        0.0000000000        0.0000000000        0.3926137047
+	         2         2        18
+	      -74.3945819389      -74.3945819389
+	        0.0000000000        0.0000000000        0.1297954762
+	 $END
+	 */
+		// NYI
+		element = preserveText();
+	}
+
+	private void makeTvelocity() {
 		/**
-  POPULATION ANALYSIS
- C            5.99315   0.00685   5.95532   0.04468
- H            1.00342  -0.00342   1.02234  -0.02234
- H            1.00342  -0.00342   1.02234  -0.02234
-  MOMENTS AT POINT    1 X,Y,Z=  0.000000  0.000000  0.000000
-  DIPOLE       0.000000  0.000000  1.515763
+ $TVELOCITY
+         1         2        18
+      -75.0101113553      -74.3945819389
+        0.0000000000        0.0000000000        0.3682047219
+ $END
 		 */
-		int atomCount = blockContainer.getMolecule().getAtomCount();
-		lineCount++;
-		CMLArrayList columns = new JumboFormat().createTableColumnsAsArrayList(
-				abstractCommon.getPrefix(), "A11,4F10.5",
-				lineCount, lines, atomCount, new String[]{A_+ELEM, F_+POP1, F_+POP2, F_+POP3, F_+POP4});
-		module.appendChild(columns);
+				// NYI
+		element = preserveText();
+	}
+
+	private void makeTwoei() {
+			/*
+	 $TWOEI
+	  9.38230741E+00 3.59976772E-01 4.84824999E+00 2.58194131E+00 3.69772753E-01
+	  2.26208416E+00 2.58194146E+00 3.69775829E-01 1.75438331E+00 2.26208429E+00
+	...
+	  3.50401191E-01 3.56418458E-01 3.21214602E-01 3.50398946E-01 6.05502942E-01
+	  2.35039664E-01 2.46416459E-01 2.46416796E-01 6.25819176E-01 6.25819121E-01
+	  8.04754778E-01
+	  9.38230741E+00 5.33706794E-06 4.84824999E+00 7.31854723E-02 4.94486827E-05
+	  2.26208416E+00 7.31854734E-02 4.94572956E-05 1.63533585E-01 2.26208429E+00
+	...
+	  3.96746625E-03 1.32000268E-03 1.32003348E-03 5.62533556E-02 5.62533408E-02
+	  8.04754778E-01
+	 $END
+			 */
+		// NYI
+		element = preserveText();
 	}
 
 	private void makeVec() {
@@ -451,7 +591,7 @@ E=      -37.2380397698, E(NUC)=    5.9560361192
  7  2 8.36936903E-01-8.36936903E-01
 		 */
 		element = new CMLModule();
-		element.appendChild(makePackedLines());
+		element.appendChild(createPackedLines());
 	}
 
 	private void makeVec1() {
@@ -468,7 +608,7 @@ E=      -37.2380397698, E(NUC)=    5.9560361192
  7  5-6.44523230E-01-2.20422384E-01 0.00000000E+00-1.46637220E-02 6.72413304E-03
 		 */
 		element = new CMLModule();
-		element.appendChild(makePackedLines());
+		element.appendChild(createPackedLines());
 	}
 
 	private void makeVec2() {
@@ -485,265 +625,30 @@ E=      -37.2380397698, E(NUC)=    5.9560361192
  7  5-6.44523230E-01-2.20422384E-01 0.00000000E+00-1.46637220E-02 6.72413304E-03
 		 */
 		element = new CMLModule();
-		element.appendChild(makePackedLines());
+		element.appendChild(createPackedLines());
 	}
 
-	private CMLScalar makePackedLines() {
-		StringBuilder sb = new StringBuilder();
-		for (String line : lines) {
-			sb.append(line);
-			sb.append(CMLConstants.S_NEWLINE);
-		}
-		return new CMLScalar(sb.toString().trim());
-	}
-
-	private void debug(String msg) {
-		System.out.println("=========="+msg+"==========");
-		for (String line : lines) {
-			System.out.println(">>"+line);
-		}
-		System.out.println("=========="+msg+"==========");
-	}
-
-	/**
- $DATA  
-HCO-L-Ala-NH2 - OPTIMIZE - B3LYP/cc-pVDZ - N_at = 16                            
-C1       0
-H1          1.0     -2.9805271364       .9147039208       .1059830464
-   CCD     0
-        
-	 */
-	private void makeData() {
-		lineCount = 0;
-		molecule = new CMLMolecule();
-		String title = lines.get(lineCount++);
-		molecule.setTitle(title);
-		CMLSymmetry symmetry = new CMLSymmetry();
-		//C1       0
-		String pgline = lines.get(lineCount++);
-		String[] tokens = pgline.split(CMLConstants.WHITESPACE);
-		symmetry.setPointGroup(tokens[0]);
-		molecule.appendChild(symmetry);
-		// unexpected lines here. possibly controlled by symmetry card
-		// currently fudge by eating white
-		eatEmptyLines();
-		int id = 1;
-		while (lineCount < lines.size()) {
-			addAtom(id++);
-		}
-		element = molecule;
-		blockContainer.setMolecule(molecule);
-	}
-
-	private void eatEmptyLines() {
-		while (lineCount < lines.size()) {
-			if (lines.get(lineCount).trim().length() != 0) {
-				break;
-			}
-			lineCount++;
-		}
-	}
-
-	private void addAtom(int id) {
-		String line = lines.get(lineCount);
-//			H1          1.0     -2.9805271364       .9147039208       .1059830464
-		CMLAtom atom = new CMLAtom();
-		CMLLabel label = new CMLLabel();
-		label.setCMLValue(line.substring(0, 10));
-		atom.addLabel(label);
-		int atomicNumber = new Integer(line.substring(10, 13).trim()); 
-		atom.setElementType(ChemicalElement.getElement(atomicNumber).getSymbol());
-		atom.setX3(new Double(line.substring(15, 33).trim()));
-		atom.setY3(new Double(line.substring(33, 51).trim()));
-		atom.setZ3(new Double(line.substring(51, 69).trim()));
-		atom.setId("a"+(id++));
-		molecule.addAtom(atom);
-		lineCount++;
-		CMLScalar basis = readBasis(atom);
-		atom.appendChild(basis);
-	}
-
-	
-	private CMLScalar readBasis(CMLAtom atom) {
-		// read until blank
-		StringBuffer sb = new StringBuffer();
-		while (lineCount < lines.size()) {
-			String line = lines.get(lineCount++);
-			if (line.trim().length() == 0) {
-				break;
-			}
-			sb.append(line);
-			sb.append(CMLConstants.S_NEWLINE);
-		}
-		CMLScalar basis = new CMLScalar(sb.toString().trim());
-		checkIdAndAdd(basis, "basis");
-		atom.appendChild(basis);
-		return basis;
-	}
-
-	public static final Pattern ATOM_BOND_COUNT = Pattern.compile("\\s*(\\d+)\\s+(\\d+)");
-	public static final Pattern ATOM = Pattern.compile("\\s*([A-Z][a-z]?)\\s*([\\-\\+]?\\d*\\.?\\d+)\\s*([\\-\\+]?\\d*\\.?\\d+)\\s*([\\-\\+]?\\d*\\.?\\d+)");
-	public static final Pattern BOND = Pattern.compile("\\s*(\\d+)\\s+(\\d+)");
-	
-	private void makeGrad() {
-		CMLModule module = new CMLModule();
-		module.setRole(abstractCommon.getPrefix());
-		/*
-E=     -417.0071979209  GMAX=    .0518798  GRMS=    .0144469
-H1           1.    1.4236802098E-02   -1.2652467333E-02   -2.0583432080E-03
-C2           6.   -1.7931214639E-03   -2.3258102960E-02    2.7744336442E-03
-N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
-		 */
-		lineCount = 0;
-		
-		String flags = lines.get(lineCount++);
-		JumboFormat jumboFormat = new JumboFormat();
-		List<CMLScalar> scalars = jumboFormat.addParsedScalars(
-			module,
-			abstractCommon.getPrefix(), 
-			"('E='F20.10'  GMAX='F12.7'  GRMS='F12.7)", 
-			flags, 
-			new String[]{F_+E, F_+GMAX, F_+GRMS});
-		addMoleculeAsColumns(module, "A10F5.1F20.10F20.10F20.10");
-		element = module;
-	}
-
-	private void makeGrad1() {
-		CMLModule module = new CMLModule();
-		module.setRole(abstractCommon.getPrefix());
-		/*
-E=     -417.0071979209  GMAX=    .0518798  GRMS=    .0144469
-H1           1.    1.4236802098E-02   -1.2652467333E-02   -2.0583432080E-03
-C2           6.   -1.7931214639E-03   -2.3258102960E-02    2.7744336442E-03
-N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
-		 */
-		lineCount = 0;
-		
-		String flags = lines.get(lineCount++);
-		JumboFormat jumboFormat = new JumboFormat();
-		List<CMLScalar> scalars = jumboFormat.addParsedScalars(
-			module,
-			abstractCommon.getPrefix(), 
-			"('E='F20.10'  GMAX='F12.7'  GRMS='F12.7)", 
-			flags, 
-			new String[]{F_+E, F_+GMAX, F_+GRMS});
-		addMoleculeAsColumns(module, "A10F5.1F20.10F20.10F20.10");
-		element = module;
-	}
-
-	private void makeGrad2() {
-		CMLModule module = new CMLModule();
-		module.setRole(abstractCommon.getPrefix());
-		/*
-E=     -417.0071979209  GMAX=    .0518798  GRMS=    .0144469
-H1           1.    1.4236802098E-02   -1.2652467333E-02   -2.0583432080E-03
-C2           6.   -1.7931214639E-03   -2.3258102960E-02    2.7744336442E-03
-N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
-		 */
-		lineCount = 0;
-		
-		String flags = lines.get(lineCount++);
-		JumboFormat jumboFormat = new JumboFormat();
-		List<CMLScalar> scalars = jumboFormat.addParsedScalars(
-			module,
-			abstractCommon.getPrefix(), 
-			"('E='F20.10'  GMAX='F12.7'  GRMS='F12.7)", 
-			flags, 
-			new String[]{F_+E, F_+GMAX, F_+GRMS});
-		addMoleculeAsColumns(module, "A10F5.1F20.10F20.10F20.10");
-		element = module;
-	}
-
-	private final static Pattern hessPattern = Pattern.compile(
-			"ENERGY IS(....................) E\\(NUC\\) IS(....................).*");
-
-	private void makeHess() {
-		/*
-		ENERGY IS     -417.0146230240 E(NUC) IS      384.0190725767
-		 1  1 2.64800944E-01-1.13848557E-01-8.77575186E-03-2.79100487E-01 9.26552102E-02
-		 1  2 6.37962242E-03-1.45252521E-02 1.95434248E-02 4.42901143E-03 2.87107862E-02
-		 ...
-		 */
-		ensureMolecule();
-		CMLModule module = new CMLModule();
-		checkIdAndAdd(module, "hess");
-		lineCount = 0;
-		String flags = lines.get(lineCount++);
-		List<CMLScalar> scalars = new JumboFormat().addParsedScalars(
-				module,	abstractCommon.getPrefix(), 
-				"('ENERGY IS'F20.10' E(NUC) IS'F20.10)", 
-				flags, new String[]{F_+HESS_ENERGY, F_+HESS_ENUC});
-		String fortranFormat = "(5X,5E15.8)";
-		JumboFormat jumboFormat = new JumboFormat();
-		// we don't know how many lines to read, so read whole matrix
-		CMLArray array = readArrayGreedily(jumboFormat, fortranFormat, XSD_DOUBLE);
-		int size = (int) Math.rint(Math.sqrt(new Double(array.getSize())));
-		if (size*size != array.getSize()) {
-			throw new RuntimeException("Matrix not square: "+ array.getSize());
-		}
-		CMLMatrix matrix = readMatrix(size, jumboFormat, fortranFormat);
-		checkIdAndAdd(matrix, HESS);
-		module.appendChild(matrix);
-		element = module;
-	}
-
-	private CMLArray readArrayGreedily(JumboFormat jumboFormat, String fortranFormat, String dataType) {
-		CMLArray array = jumboFormat.parseMultipleLinesToArray(
-				fortranFormat, lines, lineCount, -1, dataType);
-		return array;
-	}
-	
-	private CMLMatrix readMatrix(int coordCount, JumboFormat jumboFormat, String fortranFormat) {
-		double[][] matrixx = new double[coordCount][];
-	    for (int i = 0; i < coordCount; i++) {
-	    	CMLArray array = jumboFormat.parseMultipleLinesToArray(
-	    			fortranFormat, lines, lineCount, coordCount, CMLConstants.XSD_DOUBLE);
-	    	lineCount += jumboFormat.getLinesRead();
-	    	matrixx[i] = array.getDoubles();
-	    }
-		CMLMatrix matrix = new CMLMatrix(matrixx);
-		return matrix;
-	}
-	
 	private void makeVib() {
 		ensureMolecule();
 		CMLModule module = new CMLModule();
-		
+		jumboReader.setParentElement(module);
 	/*
-        IVIB=   0 IATOM=   0 ICOORD=   0 E=     -417.0146230240
-    -3.014817301E-06-5.316670868E-06-4.345305914E-06 1.221059187E-05 6.746840227E-06
+	    IVIB=   0 IATOM=   0 ICOORD=   0 E=     -417.0146230240
+	-3.014817301E-06-5.316670868E-06-4.345305914E-06 1.221059187E-05 6.746840227E-06
 	-5.750877884E-06-2.129021293E-05 1.289122123E-05-4.221137717E-05 1.283919380E-07
 	...
 	7.799249640E-06-1.877789578E-08 9.009626448E-06 5.782921410E-06 1.610009308E-05
 	-6.564999713E-06 1.749591384E-05 2.550531014E-06  (48 fields for 16 atoms)
 	0.000000000E+00 0.000000000E+00 0.000000000E+00  (3 fields???)
 	*/
-		lineCount = 0;
 		int coordCount = molecule.getAtomCount()*3;
-		String flags = lines.get(lineCount++);
-		JumboFormat jumboFormat = new JumboFormat();
-		jumboFormat.addParsedScalars(
-				module,
-				abstractCommon.getPrefix(), 
+		jumboReader.parseScalars(
 				"('         IVIB=',I4,' IATOM=',I4,' ICOORD=',I4,' E='F20.10)", 
-				flags, 
-				new String[]{I_+IVIB, I_+IATOM, I_+COORD, F_+E});
-		jumboFormat = new JumboFormat();
-		CMLArray vector = jumboFormat.parseMultipleLinesToArray(
-				"(5F16.9)", lines, lineCount, coordCount, CMLConstants.XSD_DOUBLE);
-		checkIdAndAdd(vector, VECTOR);
-		module.appendChild(vector);
-		lineCount += jumboFormat.getLinesRead();
-		CMLArray unk = new JumboFormat().parseToSingleLineArray("(3F16.9)", lines.get(lineCount++), CMLConstants.XSD_DOUBLE);
-		checkIdAndAdd(unk, UNKNOWN);
-		module.appendChild(unk);
+				new String[]{I_+IVIB, I_+IATOM, I_+COORD, F_+E}, JumboReader.ADD);
+		jumboReader.parseMultipleLinesToArray(
+				"(5F16.9)", coordCount, VECTOR, CMLConstants.XSD_DOUBLE, JumboReader.ADD);
+		jumboReader.parseArray("(3F16.9)", CMLConstants.XSD_DOUBLE, UNKNOWN, JumboReader.ADD);
 		element = module;
-	}
-	private void ensureMolecule() {
-		molecule = blockContainer.getMolecule();
-		if (molecule == null) {
-			throw new RuntimeException("No molecule; cannot analyse vibs");
-		}
 	}
 
 	private void makeZmat() {
@@ -788,9 +693,8 @@ N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
 			 */
 		CMLZMatrix matrix = new CMLZMatrix();
 		// dont skip first two lines
-		lineCount = 0;
-		while (lineCount < lines.size()) {
-			String line = lines.get(lineCount++).trim();
+		while (jumboReader.hasMoreLines()) {
+			String line = jumboReader.readLine().trim();
 			// remove trailing comma
 			if (line.endsWith(",")) {
 				line = line.substring(0, line.length()-1);
@@ -842,100 +746,57 @@ N3           7.   -1.5142322939E-02    4.8724521568E-03   -3.9199279015E-03
 		}
 		element = matrix;
 	}
+
+	private void addAtom(int id) {
+		String line = jumboReader.readLine().trim();
+//			H1          1.0     -2.9805271364       .9147039208       .1059830464
+		CMLAtom atom = new CMLAtom();
+		CMLLabel label = new CMLLabel();
+		label.setCMLValue(line.substring(0, 10));
+		atom.addLabel(label);
+		int atomicNumber = new Integer(line.substring(10, 13).trim()); 
+		atom.setElementType(ChemicalElement.getElement(atomicNumber).getSymbol());
+		atom.setX3(new Double(line.substring(15, 33).trim()));
+		atom.setY3(new Double(line.substring(33, 51).trim()));
+		atom.setZ3(new Double(line.substring(51, 69).trim()));
+		atom.setId("a"+(id++));
+		molecule.addAtom(atom);
+		CMLScalar basis = readBasis(atom);
+		atom.appendChild(basis);
+	}
+
 	
-	private void closedOpenShell(CMLModule module) {
-		/**
---- CLOSED SHELL ORBITALS --- GENERATED AT Mon Oct 25 13:07:35 2010
-Methylene...1-A-1 state...RHF/STO-2G                                            
-E(RHF)=      -37.2322678015, E(NUC)=    6.1221376700,    8 ITERS
-or 
-E(ROHF)=      -37.2778767090, E(NUC)=    6.1450367257,    7 ITERS
-		 */
-		lineCount++;
-		Pattern pattern = Pattern.compile("E\\(([^\\)]+)\\)=\\s*([\\-\\.\\d]+), E\\(([^\\)]+)\\)=\\s*([\\-\\.\\d]+),\\s+(\\d+) ITERS");
-		CMLScalar title = new CMLScalar(lines.get(lineCount++));
-		module.appendChild(title);
-		new JumboFormat().addParsedScalars(module, abstractCommon.getPrefix(),  pattern, 
-		lines.get(lineCount++), new String[]{A_+DICTREF, F_+ERHF, A_+DICTREF, F_+ENUC, I_+ITERS});
-	}
-
-	private CMLModule preserveText(CMLModule module) {
-		String line = Util.concatenate((String[])lines.toArray(new String[0]), CMLConstants.S_NEWLINE);
-		CMLScalar scalar = new CMLScalar(line);
-		module.appendChild(scalar);
-		this.setBlockName(UNKNOWN);
-		return module;
-	}
-	
-	private CMLModule preserveText() {
-		return preserveText(new CMLModule());
-	}
-
-	private void nserch(CMLModule module) {
-		/**
--------------------- DATA FROM NSERCH=  12 --------------------
- COORDINATES OF SYMMETRY UNIQUE ATOMS (ANGS)
-   ATOM   CHARGE       X              Y              Z
- ------------------------------------------------------------
- H1          1.0  -3.0274208244    .9305579239   -.0180318347
- C2          6.0  -2.1178295124    .2873036749   -.0637304065
-		 */
-		lineCount = 0;
-		readNserch(module);
-		readLines(COORDS_SYMMETRY);
-		addMoleculeAsColumns(module, "' 'A8,F7.1,3F15.10");
-		setBlockName(GamessUSCommon.NSERCH);
-	}
-
-	private void readNserch(CMLModule module) {
-		JumboFormat jumboFormat = new JumboFormat();
-		List<CMLScalar> scalars = jumboFormat.parseToScalars(
-				abstractCommon.getPrefix(), 
-				"('-------------------- DATA FROM NSERCH= 'I3' --------------------')",
-				lines.get(lineCount++), new String[] {I_+GamessUSCommon.NCYC});
-		module.appendChild(scalars.get(0));
-	}
-
-	private void readLines(String toRead) {
-		String[] linesToRead = toRead.split(CMLConstants.S_NEWLINE);
-		for (String lineToRead : linesToRead) {
-			if (!lineToRead.equals(lines.get(lineCount++))) {
-				throw new RuntimeException("cannot find line :"+lineToRead+"\nfound :"+lines.get(lineCount-1));
+	private CMLScalar readBasis(CMLAtom atom) {
+		// read until blank
+		StringBuffer sb = new StringBuffer();
+		while (jumboReader.hasMoreLines()) {
+			String line = jumboReader.readLine().trim();
+			if (line.trim().length() == 0) {
+				break;
 			}
+			sb.append(line);
+			sb.append(CMLConstants.S_NEWLINE);
 		}
+		CMLScalar basis = new CMLScalar(sb.toString().trim());
+		checkIdAndAdd(basis, "basis");
+		atom.appendChild(basis);
+		return basis;
 	}
 
-	private void addMoleculeAsColumns(CMLModule module, String format) {
-		int natoms = blockContainer.getMolecule().getAtomCount();
-		CMLMolecule molecule = new CMLMolecule();
-		JumboFormat jumboFormat = new JumboFormat();
-		for (int i = 0; i < natoms; i++) {
-			List<Object> scalars = jumboFormat.parseFortranLine(format, lines.get(lineCount++));
-			CMLAtom atom = new CMLAtom("a"+(i+1));
-			int atNum = (int) Math.round((Double)scalars.get(1));
-			atom.setElementType(ChemicalElement.getElement(atNum).getSymbol());
-			atom.setXYZ3(new Point3((Double)scalars.get(2), (Double)scalars.get(3), (Double)scalars.get(4)));
-			CMLLabel label = new CMLLabel();
-			label.setCMLValue(scalars.get(0).toString());
-			atom.addLabel(label);
-			molecule.addAtom(atom);
-		}
-		module.appendChild(molecule);
-	}
-
-	private void results0(CMLModule module) {
-		if (lines.size() != 1) {
-			throw new RuntimeException("expected 1 lines, found: "+lines.size());
-		}
-		// no=op
-	}
+	public static final Pattern ATOM_BOND_COUNT = Pattern.compile("\\s*(\\d+)\\s+(\\d+)");
+	public static final Pattern ATOM = Pattern.compile("\\s*([A-Z][a-z]?)\\s*([\\-\\+]?\\d*\\.?\\d+)\\s*([\\-\\+]?\\d*\\.?\\d+)\\s*([\\-\\+]?\\d*\\.?\\d+)");
+	public static final Pattern BOND = Pattern.compile("\\s*(\\d+)\\s+(\\d+)");
 	
-	private void results(CMLModule module) {
-		lineCount++;
-		readLines(COORDS_SYMMETRY);
-		addMoleculeAsColumns(module, "' 'A8,F7.1,3F15.10");
-		setBlockName(GamessUSCommon.RESULTS);
+	private final static Pattern hessPattern = Pattern.compile(
+			"ENERGY IS(....................) E\\(NUC\\) IS(....................).*");
+
+	public int atomCount = 0;
+
+	private void debug(String msg) {
+		System.out.println("=========="+msg+"==========");
+		for (String line : lines) {
+			System.out.println(">>"+line);
+		}
+		System.out.println("=========="+msg+"==========");
 	}
-
-
 }

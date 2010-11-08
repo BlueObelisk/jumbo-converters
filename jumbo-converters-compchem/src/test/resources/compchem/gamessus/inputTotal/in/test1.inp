@@ -1,0 +1,78 @@
+ $CONTRL SCFTYP=RHF RUNTYP=OPTIMIZE EXETYP=RUN
+         COORD=ZMT NZVAR=42
+         QMTTOL=5.0E-6 NPRINT=-5 ICHARG=0 MULT=1
+         ISPHER=-1
+ $END
+ $SYSTEM TIMLIM=14400 MWORDS=50 MEMDDI=0 PARALL=.T. $END
+ $DFT DFTTYP=B3LYP $END
+ $BASIS GBASIS=CCD $END
+ $SCF DIRSCF=.T. FDIFF=.T. NPUNCH=0 DIIS=.T. CONV=1.0E-5 $END
+ $GUESS GUESS=HUCKEL $END
+ $STATPT NSTEP=100 OPTTOL=0.0001 NPRT=-2 NPUN=-2 $END
+ $ZMAT DLC=.T. AUTO=.T.
+       IFZMAT(1)=3,7,5,3,2, 3,13,7,5,3
+       FVALUE(1)=-15, -15
+ $END
+ $DATA
+HCO-L-Ala-NH2 - OPTIMIZE - B3LYP/cc-pVDZ - N_at = 16
+C1
+H1    
+C2         1 rC2H1        
+N3         2 rN3C2             1 aN3C2H1            
+O4         2 rO4C2             3 aO4C2N3                 1 pO4C2N3H1                
+C5         3 rC5N3             2 aC5N3C2                 1 dC5N3C2H1                
+H6         3 rH6N3             2 aH6N3C2                 5 pH6N3C2C5                
+C7         5 rC7C5             3 aC7C5N3                 2 dC7C5N3C2                
+C8         5 rC8C5             3 aC8C5N3                 7 pC8C5N3C7                
+H9         5 rH9C5             3 aH9C5N3                 7 pH9C5N3C7                
+H10        8 rH10C8            5 aH10C8C5                3 dH10C8C5N3               
+H11        8 rH11C8            5 aH11C8C5               10 pH11C8C5H10              
+H12        8 rH12C8            5 aH12C8C5               10 pH12C8C5H10              
+N13        7 rN13C7            5 aN13C7C5                3 dN13C7C5N3               
+O14        7 rO14C7            5 aO14C7C5               13 pO14C7C5N13              
+H15       13 rH15N13           7 aH15N13C7               5 dH15N13C7C5              
+H16       13 rH16N13           7 aH16N13C7              15 pH16N13C7H15             
+
+rC2H1         1.0889743331
+rN3C2         1.3394412977
+rO4C2         1.1949195168
+rC5N3         1.4715526971
+rH6N3         0.9914777727
+rC7C5         1.5364411325
+rC8C5         1.5307685736
+rH9C5         1.0805256411
+rH10C8        1.0827052097
+rH11C8        1.0773852597
+rH12C8        1.0840000558
+rN13C7        1.3406756284
+rO14C7        1.1966494931
+rH15N13       0.9929237138
+rH16N13       0.9941599400
+aN3C2H1             110.9023260337
+aO4C2N3             128.5418780807
+aC5N3C2             135.6501801760
+aH6N3C2             112.5598343328
+aC7C5N3             122.6249997147
+aC8C5N3             107.5524922604
+aH9C5N3             107.2279596812
+aH10C8C5            110.6411799577
+aH11C8C5            109.7915031230
+aH12C8C5            110.2786573783
+aN13C7C5            121.5510514967
+aO14C7C5            115.3496221769
+aH15N13C7           114.2984452671
+aH16N13C7           119.3011272991
+pO4C2N3H1                  179.1630605030
+dC5N3C2H1                  178.0029069366
+pH6N3C2C5                 -175.9458944672
+dC7C5N3C2                  -15.0000000000
+pC8C5N3C7                 -125.2733227019
+pH9C5N3C7                  118.5153143003
+dH10C8C5N3                  66.2895587800
+pH11C8C5H10                120.5815115513
+pH12C8C5H10               -119.9766722517
+dN13C7C5N3                 -15.0000000000
+pO14C7C5N13               -175.5222950902
+dH15N13C7C5                175.9394304036
+pH16N13C7H15              -146.5149511775
+ $END
