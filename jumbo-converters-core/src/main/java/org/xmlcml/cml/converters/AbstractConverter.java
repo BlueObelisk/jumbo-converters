@@ -54,27 +54,13 @@ public abstract class AbstractConverter implements Converter {
       LOG.setLevel(Level.INFO);
    }
 
-   /**
-    *
-    */
-   protected List<String> warnings = new ArrayList<String>();
-   /**
-    *
-    */
-//	protected Command command;
-   protected CMLElement metadataCml;
-   /**
-    * A log for messages generated during conversion of files.
-    */
-   protected ConverterLog converterLog = new ConverterLog();
-   /**
-    *
-    */
-   protected String fileId = null;
-   /**
-    *
-    */
-   private Builder builder = new Builder();
+    protected List<String> warnings = new ArrayList<String>();
+    protected CMLElement metadataCml;
+    protected ConverterLog converterLog = new ConverterLog();
+    protected String fileId = null;
+    private Builder builder = new Builder();
+	protected LegacyProcessor legacyProcessor;
+
    /** auxiliary file as XML */
    protected Element auxElement;
    protected Command command;

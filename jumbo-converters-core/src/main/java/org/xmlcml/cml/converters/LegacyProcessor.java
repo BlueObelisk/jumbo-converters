@@ -3,9 +3,13 @@ package org.xmlcml.cml.converters;
 import java.util.ArrayList;
 import java.util.List;
 
+import nu.xom.Node;
+
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLCml;
+import org.xmlcml.cml.element.CMLScalar;
 
 public abstract class LegacyProcessor {
 	private static final Logger LOG = Logger.getLogger(LegacyProcessor.class);
@@ -37,6 +41,19 @@ public abstract class LegacyProcessor {
 		LOG.debug("Finished reading blocks: "+blockContainer.size());
 	}
 
+	public void read(CMLElement element) {
+		List<Node> scalarNodes = CMLUtil.getQueryNodes(element, "*");
+//		preprocessBlocks();
+		for (Node scalarNode : scalarNodes) {
+			AbstractBlock block = readBlock((CMLScalar) scalarNode);
+			if (block != null) {
+				blockContainer.add(block);
+			}
+		}
+//		postprocessBlocks();
+		LOG.debug("Finished reading blocks: "+blockContainer.size());
+	}
+
 	/** processing before blocks are read
 	 * often null
 	 */
@@ -65,6 +82,8 @@ public abstract class LegacyProcessor {
 	 * @return
 	 */
 	protected abstract AbstractBlock readBlock(List<String> lines);
+	
+	protected abstract AbstractBlock readBlock(CMLScalar scalar);
 	
 	public CMLElement getCMLElement() {
 		cmlElement = new CMLCml();

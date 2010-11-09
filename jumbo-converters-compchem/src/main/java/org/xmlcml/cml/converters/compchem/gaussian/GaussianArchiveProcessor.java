@@ -14,6 +14,7 @@ import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.LegacyProcessor;
 import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 import org.xmlcml.cml.element.CMLMolecule;
+import org.xmlcml.cml.element.CMLScalar;
 
 /**
 1\1\GINC-PIRX\FOpt\UB3LYP\Aug-CC-pVDZ\C4H8Cl1(2)\BERND\19-Feb-2002\0\\
@@ -76,6 +77,10 @@ public class GaussianArchiveProcessor extends LegacyProcessor {
 			this.lastMolecule = molecule;
 		}
 		return block;
+	}
+
+	protected AbstractBlock readBlock(CMLScalar scalar) {
+		return null;
 	}
 
 	/**

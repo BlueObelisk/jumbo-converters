@@ -6,6 +6,7 @@ import java.util.List;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.LegacyProcessor;
+import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.euclid.Util;
 
 /**
@@ -91,6 +92,10 @@ public class GamessUSInputProcessor extends LegacyProcessor {
 		}
 		block.convertToRawCML();
 		return block;
+	}
+
+	protected AbstractBlock readBlock(CMLScalar scalar) {
+		return null;
 	}
 
 	private AbstractBlock createAnonymousBlock() {

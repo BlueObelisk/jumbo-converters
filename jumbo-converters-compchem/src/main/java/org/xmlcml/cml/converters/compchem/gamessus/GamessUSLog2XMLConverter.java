@@ -27,7 +27,7 @@ public class GamessUSLog2XMLConverter extends Text2XMLConverter {
 		return "org/xmlcml/cml/converters/compchem/gaussian/log/marker1.xml";
 	}
 	
-	public Element tidy(Element element) {
+	public Element processIntoBlocks(Element element) {
 		Element newElement = element;
 		Nodes scalarNodes = element.query("./*[local-name()='scalar']");
 		List<Element> scalarList = new ArrayList<Element>();
