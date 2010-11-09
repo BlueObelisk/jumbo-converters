@@ -21,6 +21,7 @@ import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLDictionary;
+import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.euclid.Util;
 
 /**
@@ -77,15 +78,6 @@ public class GaussianArchiveOrigProcessor extends /*AbstractCompchemOutputProces
 		return new GaussianCommon();
 	}
 
-	
-//	/** constructor.
-//	 * 
-//	 * @param dictionary
-//	 */
-//	public GaussianArchiveProcessor(BlockContainer blockContainer) {
-//		super(blockContainer);
-//		init();
-//	}
 	
 	/**
 	 * 
@@ -216,7 +208,10 @@ public class GaussianArchiveOrigProcessor extends /*AbstractCompchemOutputProces
 	@Override
 	// TODO
 	protected AbstractBlock readBlock(List<String> lines) {
-		// TODO Auto-generated method stub
+		return null;
+	}
+
+	protected AbstractBlock readBlock(CMLScalar scalar) {
 		return null;
 	}
 

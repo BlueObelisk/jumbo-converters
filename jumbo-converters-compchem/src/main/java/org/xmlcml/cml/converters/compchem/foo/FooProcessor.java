@@ -6,6 +6,7 @@ import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.LegacyProcessor;
 import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
+import org.xmlcml.cml.element.CMLScalar;
 
 /**
  * supports a simple typical structure such as:
@@ -49,6 +50,10 @@ public class FooProcessor extends LegacyProcessor {
 		FooBlock block = createBlock();
 		block.convertToRawCML();
 		return block;
+	}
+
+	protected AbstractBlock readBlock(CMLScalar scalar) {
+		return null;
 	}
 
 	/**

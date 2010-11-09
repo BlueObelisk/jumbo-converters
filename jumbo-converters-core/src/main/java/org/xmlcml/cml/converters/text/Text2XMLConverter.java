@@ -1,6 +1,7 @@
 package org.xmlcml.cml.converters.text;
 
 import java.io.InputStream;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -43,7 +44,7 @@ public class Text2XMLConverter extends AbstractConverter {
 	public Element convertToXML(List<String> lines) {
 		List<String> linesCopy = this.convertToIntermediateText(lines);
 		Element element = createXML(linesCopy);
-		element = tidy(element);
+		element = processIntoBlocks(element);
 		return element;
 	}
 
@@ -52,7 +53,7 @@ public class Text2XMLConverter extends AbstractConverter {
 	 * @param element
 	 * @return
 	 */
-	public Element tidy(Element element) {
+	public Element processIntoBlocks(Element element) {
 		return element;
 	}
 	public void setMarkerResourceName(String resourceName) {
@@ -96,10 +97,16 @@ public class Text2XMLConverter extends AbstractConverter {
 	private List<String> convertToIntermediateText(List<String> lines) {
 		readMarkers(getMarkerInputStream());
 		List<String> linesCopy = new ArrayList<String>(lines.size());
-		for (String line : lines) {
+		int lineCount = 0;
+		for (lineCount = 0;lineCount < lines.size();lineCount++) {
+			String line = lines.get(lineCount);
 			for (ChunkerMarker marker : markerList) {
 				if (marker.matches(line)) {
-					String markup = marker.getMarkup(line);
+					int lineCount0 = lineCount;
+					lineCount += marker.getOffset();
+					String markedLine = lines.get(lineCount);
+					String markup = marker.getMarkup(markedLine);
+					lineCount = lineCount0;
 					linesCopy.add(markup);
 				}
 			}

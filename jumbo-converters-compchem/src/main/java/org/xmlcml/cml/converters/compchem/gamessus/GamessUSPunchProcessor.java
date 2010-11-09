@@ -6,6 +6,7 @@ import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.LegacyProcessor;
+import org.xmlcml.cml.element.CMLScalar;
 
 /**
  *  $DATA  
@@ -72,6 +73,10 @@ public class GamessUSPunchProcessor extends LegacyProcessor {
 		}
 		block.convertToRawCML();
 		return block;
+	}
+	
+	protected AbstractBlock readBlock(CMLScalar scalar) {
+		return null;
 	}
 
 	private AbstractBlock createAnonymousBlock() {

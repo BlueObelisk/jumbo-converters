@@ -18,11 +18,13 @@ public class ChunkerMarker {
 	public static final String MARKUP = "markup";
 	public static final String MARK = "mark";
 	public static final String REGEX = "regex";
+	private static final String OFFSET = "offset";
 	
 	private String regex;
 	private String mark;
 	private Pattern pattern;
 	private Matcher matcher;
+	private int offset = 0;
 	
 	public ChunkerMarker() {
 		
@@ -34,6 +36,8 @@ public class ChunkerMarker {
 		if (regex == null || mark == null) {
 			throw new RuntimeException("must give regex and mark");
 		}
+		String offsetS = childElement.getAttributeValue(OFFSET);
+		offset = (offsetS == null) ? 0 : Integer.parseInt(offsetS);
 	}
 	public String getRegex() {
 		return regex;
@@ -60,5 +64,8 @@ public class ChunkerMarker {
 			element.addAttribute(new Attribute(GROUP+(i+1), matcher.group(i+1)));
 		}
 		return element.toXML();
+	}
+	public int getOffset() {
+		return offset;
 	}
 }

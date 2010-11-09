@@ -38,7 +38,6 @@ public abstract class AbstractCompchem2CMLConverter extends AbstractConverter {
 
 	private CMLMolecule molecule;
 	protected RawXML2CMLProcessor rawXml2CmlProcessor;
-	protected LegacyProcessor legacyProcessor;
 	protected AbstractCommon abstractCommon;
 
 	protected AbstractCompchem2CMLConverter() {
@@ -147,6 +146,15 @@ public abstract class AbstractCompchem2CMLConverter extends AbstractConverter {
 
 	protected CMLElement readAndProcess(List<String> lines) {
 		legacyProcessor.read(lines);
+		return addNamespaces();
+	}
+
+	protected CMLElement readAndProcess(CMLElement scalars) {
+		legacyProcessor.read(scalars);
+		return addNamespaces();
+	}
+	
+	private CMLElement addNamespaces() {
 		CMLElement cmlElement = legacyProcessor.getCMLElement();
 		addCommonNamespaces(cmlElement);
 		addNamespaces(cmlElement);

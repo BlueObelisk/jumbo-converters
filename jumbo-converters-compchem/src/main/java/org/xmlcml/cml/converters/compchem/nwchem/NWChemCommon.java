@@ -18,7 +18,7 @@ public class NWChemCommon extends AbstractCommon {
 	private static final String NWCHEM_URI = "http://wwmm.ch.cam.ac.uk/dict/nwchem";
 	
     protected String getDictionaryResource() {
-    	return "org/xmlcml/cml/converters/compchem/nwchem/nwchemDictionary.xml";
+    	return "org/xmlcml/cml/converters/compchem/nwchem/nwchemDict.xml";
     }
     
 	public String getPrefix() {

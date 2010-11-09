@@ -9,6 +9,7 @@ import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.LegacyProcessor;
 import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
+import org.xmlcml.cml.element.CMLScalar;
 
 public class GamessUKPunchProcessor extends LegacyProcessor {
 
@@ -70,6 +71,10 @@ block=grid_data records=    2500 index=  1 elements =   1
 		return block;
 	}
 	
+	protected AbstractBlock readBlock(CMLScalar scalar) {
+		return null;
+	}
+
 	private AbstractBlock createBlock(List<String> lines, String line) {
 		GamessUKPunchBlock block = new GamessUKPunchBlock(blockContainer);
 		String[] tokens = line.split("\\s+");
