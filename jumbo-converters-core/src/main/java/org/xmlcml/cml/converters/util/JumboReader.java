@@ -28,6 +28,7 @@ import org.xmlcml.cml.tools.DictionaryTool;
 import org.xmlcml.cml.tools.TableTool;
 import org.xmlcml.euclid.JodaDate;
 import org.xmlcml.euclid.Point3;
+import org.xmlcml.euclid.Util;
 import org.xmlcml.molutil.ChemicalElement;
 
 import fortran.format.FortranFormat;
@@ -308,7 +309,7 @@ public class JumboReader {
 	}
 
 	public CMLMatrix parseMatrix(
-			int rows, int cols, String fortranFormat, String dataType, String name, boolean add) {
+			int rows, int cols, String fortranFormat, String dataType, String dictRef, boolean add) {
 		resetPreviousLineNumber();
 		CMLMatrix matrix = null;
 		if (CMLConstants.XSD_DOUBLE.equals(dataType)) {
@@ -319,9 +320,13 @@ public class JumboReader {
 			throw new RuntimeException("Only double and integer matrices allowed, found: "+dataType);
 		}
 		
-		addDictRef(matrix, dictionaryPrefix, name);
-		addElementToParentElement(add, matrix);
+		addElementWithDictRef(matrix, dictRef);
 		return matrix;
+	}
+
+	public void addElementWithDictRef(CMLElement element, String dictRef) {
+		addElementToParentElement(true, element);
+		addDictRef(element, dictRef);
 	}
 
 	private CMLMatrix makeDoubleMatrix(int rows, int cols,
@@ -402,7 +407,7 @@ public class JumboReader {
 		if (elementType == null) {
 			throw new RuntimeException("no valid element symbol/number");
 		}
-		atom.setElementType(elementType);
+		atom.setElementType(Util.capitalise(elementType));
 		return atNum;
 	}
 
@@ -431,6 +436,19 @@ public class JumboReader {
 		return arrayList;
 	}
 
+	/**
+	 * reads currentLine, extracts double with format, creates dictRef and adds to parent
+	 * @param format single F statemnet (with optional strings and spaces)
+	 * @param dictRef local dictRef
+	 */
+	public void addDouble(String format, String dictRef) {
+		this.parseScalars(format, new String[]{"F."+dictRef}, JumboReader.ADD);
+	}
+	
+	/** read until non-blank line (trimmed if necessary).
+	 * currentLine is positioned at this line
+	 * 
+	 */
 	public void eatEmptyLines() {
 		resetPreviousLineNumber();
 		while (currentLineNumber < lines.size()) {
@@ -597,7 +615,9 @@ public class JumboReader {
 			Object clazz = classList.get(i);
 			String name = nameList.get(i);
 			CMLScalar scalar = null;
-			if ((result instanceof Integer || result instanceof String && pattern != null) &&
+			if (result == null) {
+				throw new RuntimeException("Null result "+result+" / "+clazz+" / "+name);
+			} else if ((result instanceof Integer || result instanceof String && pattern != null) &&
 					clazz.equals(Integer.class)) {
 				scalar = new CMLScalar(new Integer(result.toString()));
 			} else if ((result instanceof Double || result instanceof String && pattern != null )&& 
@@ -682,6 +702,10 @@ public class JumboReader {
 		}
 	}
 
+	public void addDictRef(CMLElement element, String localDictRef) {
+		addDictRef(element, getDictionaryPrefix(), localDictRef);
+	}
+
 	private void checkId(String entryId) {
 		if (!dictionaryTool.isIdInDictionary(entryId)) {
 			LOG.warn("entryId "+entryId+" not found in dictionary: "+dictionaryTool);
@@ -709,19 +733,6 @@ public class JumboReader {
 		return objectList;
 	}
 	
-//	/** read matrix of known size 
-//	 * 
-//	 */
-//	private CMLMatrix readMatrix(int rows, int cols, String format, String dataType) {
-//		double[][] matrixx = new double[rows][];
-//	    for (int i = 0; i < rows; i++) {
-//	    	JumboFormat jumboFormat = new JumboFormat();
-//	    	CMLArray array = jumboFormat.parseMultipleLinesToArray(format, cols, dataType);
-//	    	matrixx[i] = array.getDoubles();
-//	    }
-//		return new CMLMatrix(matrixx);
-//	}
-
 	private void resetPreviousLineNumber() {
 		this.previousLineNumber = currentLineNumber;
 	}
@@ -846,6 +857,25 @@ public class JumboReader {
 				arrayList.add(array);
 			}
 		}
+	}
+
+	/**
+	 * reads lines until condition is not mateched
+	 * currentLineNumber is set to line that caused break
+	 * @param pattern
+	 * @param matches if true read while pattern matches; if false read until
+	 * @return list of lines read
+	 */
+	public List<String> readLinesWhile(Pattern pattern, boolean matches) {
+		ArrayList<String> linesRead = new ArrayList<String>();
+		while (currentLineNumber < lines.size()) {
+			String line = readLine();
+			if (pattern.matcher(line).matches() != matches) {
+				break;
+			}
+			linesRead.add(line);
+		}
+		return linesRead;
 	}
 
 

@@ -1,7 +1,5 @@
 package org.xmlcml.cml.converters.util;
 
-import static org.junit.Assert.fail;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -16,6 +14,7 @@ import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.element.CMLList;
+import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.testutil.JumboTestUtils;
@@ -411,7 +410,9 @@ public class JumboReaderTest {
 	public void testParseMatrix() {
 		String[] strings = new String[] {" 1 2 3 4 5", " 6 7 8 910", "1112131415"};
 		JumboReader jumboReader = new JumboReader(getDictionary(), getPrefix(), strings);
-		CMLElement element = jumboReader.parseMatrix(3, 5, "(5I2)", CMLConstants.XSD_INTEGER, "myMatrix", false);
+		jumboReader.setParentElement(new CMLModule());
+		CMLElement element = jumboReader.parseMatrix(
+				3, 5, "(5I2)", CMLConstants.XSD_INTEGER, "myMatrix", false);
 		String expectedS = "<matrix delimiter=\"\" dataType=\"xsd:integer\" rows=\"3\" columns=\"5\" dictRef=\"pref:myMatrix\" " +
 				"xmlns=\"http://www.xml-cml.org/schema\">1 2 3 4 5 6 7 8 9 10 11 12 13 14 15</matrix>";
 		JumboTestUtils.assertEqualsIncludingFloat("element", expectedS, element, true, 0.000001);

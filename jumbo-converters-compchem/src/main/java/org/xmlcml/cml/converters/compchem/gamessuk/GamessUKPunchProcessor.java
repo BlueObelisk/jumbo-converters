@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.LegacyProcessor;
@@ -123,7 +124,7 @@ block=grid_data records=    2500 index=  1 elements =   1
 	}
 
 	@Override
-	protected void preprocessBlocks() {
+	protected void preprocessBlocks(CMLElement element) {
 		// not required
 	}
 	

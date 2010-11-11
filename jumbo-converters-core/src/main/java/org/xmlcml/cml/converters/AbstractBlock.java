@@ -164,4 +164,11 @@ public abstract class AbstractBlock implements CMLConstants {
 		return new CMLScalar(sb.toString().trim());
 	}
 
+	public void debug() {
+		System.out.println("blockname "+blockName+" lines "+lines.size());
+		if (lines.size() > 0) {
+			System.out.println(lines.get(0));
+			System.out.println(lines.get(lines.size()-1));
+		}
+	}
 }

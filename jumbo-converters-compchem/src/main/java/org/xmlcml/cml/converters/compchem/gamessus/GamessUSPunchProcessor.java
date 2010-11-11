@@ -3,6 +3,7 @@ package org.xmlcml.cml.converters.compchem.gamessus;
 import java.util.List;
 
 import org.xmlcml.cml.base.CMLConstants;
+import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.LegacyProcessor;
@@ -114,7 +115,7 @@ public class GamessUSPunchProcessor extends LegacyProcessor {
 	}
 	
 	@Override
-	protected void preprocessBlocks() {
+	protected void preprocessBlocks(CMLElement element) {
 		// not required
 	}
 	@Override
