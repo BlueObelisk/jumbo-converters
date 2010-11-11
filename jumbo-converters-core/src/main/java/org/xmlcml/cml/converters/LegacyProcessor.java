@@ -29,7 +29,7 @@ public abstract class LegacyProcessor {
 	
 	public void read(List<String> lines) {
 		this.lines = lines;
-		preprocessBlocks();
+		preprocessBlocks(null);
 		lineCount = 0;
 		while (lineCount < this.lines.size()) {
 			AbstractBlock block = readBlock(this.lines);
@@ -42,8 +42,8 @@ public abstract class LegacyProcessor {
 	}
 
 	public void read(CMLElement element) {
+		preprocessBlocks(element);
 		List<Node> scalarNodes = CMLUtil.getQueryNodes(element, "*");
-//		preprocessBlocks();
 		for (Node scalarNode : scalarNodes) {
 			AbstractBlock block = readBlock((CMLScalar) scalarNode);
 			if (block != null) {
@@ -57,7 +57,7 @@ public abstract class LegacyProcessor {
 	/** processing before blocks are read
 	 * often null
 	 */
-	protected abstract void preprocessBlocks();
+	protected abstract void preprocessBlocks(CMLElement rootElement);
 
 	/** processing after blocks are read
 	 * often null
@@ -102,5 +102,16 @@ public abstract class LegacyProcessor {
 				block.convertToRawCML();
 			}
 		}
+	}
+
+	protected AbstractBlock getPreviousBlock() {
+		AbstractBlock previousBlock = null;
+		if (blockContainer != null) {
+			int currentBlockNumber = blockContainer.getCurrentBlockNumber();
+			if (currentBlockNumber >= 0) {
+				previousBlock = blockContainer.getBlockList().get(currentBlockNumber-1);
+			}
+		}
+		return previousBlock;
 	}
 }

@@ -216,7 +216,7 @@ public class GaussianArchiveOrigProcessor extends /*AbstractCompchemOutputProces
 	}
 
 	@Override
-	protected void preprocessBlocks() {
+	protected void preprocessBlocks(CMLElement element) {
 		// not required
 	}
 	

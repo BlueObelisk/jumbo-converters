@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.LegacyProcessor;
@@ -93,7 +94,7 @@ public class GaussianArchiveProcessor extends LegacyProcessor {
 	}
 	
 	@Override
-	protected void preprocessBlocks() {
+	protected void preprocessBlocks(CMLElement element) {
 		archiveString = readAndConcatenateArchiveLines();
 		archiveString = archiveString.substring(0, archiveString.length()-TERMINATOR.length());
 		String[] archiveLines = archiveString.split(DOUBLE_BLOCK_SEPARATOR);

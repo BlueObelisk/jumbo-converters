@@ -2,10 +2,10 @@ package org.xmlcml.cml.converters.compchem.foo;
 
 import java.util.List;
 
+import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.LegacyProcessor;
-import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 import org.xmlcml.cml.element.CMLScalar;
 
 /**
@@ -73,7 +73,7 @@ public class FooProcessor extends LegacyProcessor {
 	}
 
 	@Override
-	protected void preprocessBlocks() {
+	protected void preprocessBlocks(CMLElement element) {
 		// not required
 	}
 	
