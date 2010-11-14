@@ -31,9 +31,11 @@ public class NWChemProcessor extends LegacyProcessor {
 	public static final String BASIS = "Basis";
 	public static final String CASE = "case";
 	public static final String CENTER_1 = "center 1";
+	public static final String CENTER_OF_MASS = "center of mass";
+	public static final String CENTER_ONE = "center one";
 	public static final String CITATION = "CITATION";
 	public static final String CONVERGENCE_INFORMATION = "Convergence Information";
-	public static final String DFT_FINAL_MOLECULAR_ORBITAL_ANALYSIS = "DFT Final Molecular Orbital Analysis";
+	public static final String FINAL_MOLECULAR_ORBITAL_ANALYSIS = "Final Molecular Orbital Analysis";
 	public static final String DIRECTORY_INFORMATION = "Directory information";
 	public static final String GA_STATISTICS_FOR_PROCESS = "GA Statistics for process";
 	public static final String GENERAL_INFORMATION = "General Information";
@@ -49,9 +51,10 @@ public class NWChemProcessor extends LegacyProcessor {
 	public static final String NORTHWEST_COMPUTATIONAL_CHEMISTRY_PACKAGE = "Northwest Computational Chemistry Package";
 	public static final String NUCLEAR_DIPOLE_MOMENT = "Nuclear Dipole moment";
 	public static final String NW_CHEM_DFT_MODULE = "NWChem DFT Module";
+	public static final String NW_CHEM_CPHF_MODULE = "NWChem CPHF Module";
 	public static final String NW_CHEM_INPUT_MODULE = "NWChem Input Module";
 	public static final String SUMMARY_OF_ALLOCATED_GLOBAL_ARRAYS = "Summary of allocated global arrays";
-	public static final String SUMMARY_OF_AO_BASIS = "Summary of .ao basis.";
+	public static final String SUMMARY_OF_BASIS = "Summary of .* basis.";
 	public static final String SUPERPOSITION_OF_ATOMIC_DENSITY_GUESS = "Superposition of Atomic Density Guess";
 	public static final String SCREENING_TOLERANCE_INFORMATION = "Screening Tolerance Information";
 	public static final String SYMMETRY_ANALYSIS_OF_MOLECULAR_ORBITALS = "Symmetry analysis of molecular orbitals";
@@ -70,10 +73,12 @@ public class NWChemProcessor extends LegacyProcessor {
 		blockStringList.add(AUTO_Z);
 		blockStringList.add(BASIS);
 		blockStringList.add(CASE);
-		blockStringList.add(CENTER_1);
+		blockStringList.add(CENTER_1); // a mess
+		blockStringList.add(CENTER_OF_MASS); 
+		blockStringList.add(CENTER_ONE); // another mess
 		blockStringList.add(CITATION);
 		blockStringList.add(CONVERGENCE_INFORMATION);
-		blockStringList.add(DFT_FINAL_MOLECULAR_ORBITAL_ANALYSIS);
+		blockStringList.add(FINAL_MOLECULAR_ORBITAL_ANALYSIS);
 		blockStringList.add(DIRECTORY_INFORMATION);
 		blockStringList.add(GA_STATISTICS_FOR_PROCESS);
 		blockStringList.add(GENERAL_INFORMATION);
@@ -89,10 +94,11 @@ public class NWChemProcessor extends LegacyProcessor {
 		blockStringList.add(NORTHWEST_COMPUTATIONAL_CHEMISTRY_PACKAGE);
 		blockStringList.add(NUCLEAR_DIPOLE_MOMENT);
 		blockStringList.add(NW_CHEM_DFT_MODULE);
+		blockStringList.add(NW_CHEM_CPHF_MODULE);
 		blockStringList.add(NW_CHEM_INPUT_MODULE);
 		blockStringList.add(SCREENING_TOLERANCE_INFORMATION);
 		blockStringList.add(SUMMARY_OF_ALLOCATED_GLOBAL_ARRAYS);
-		blockStringList.add(SUMMARY_OF_AO_BASIS);
+		blockStringList.add(SUMMARY_OF_BASIS);
 		blockStringList.add(SUPERPOSITION_OF_ATOMIC_DENSITY_GUESS);
 		blockStringList.add(SYMMETRY_INFORMATION);
 		blockStringList.add(SYMMETRY_ANALYSIS_OF_MOLECULAR_ORBITALS);
@@ -104,7 +110,7 @@ public class NWChemProcessor extends LegacyProcessor {
 	static {
 		patternList = new ArrayList<Pattern>();
 		for (String blockString : blockStringList) {
-			patternList.add(Pattern.compile("("+blockString+").*"));
+			patternList.add(Pattern.compile(".*("+blockString+").*"));
 		}
 	}
 	public NWChemProcessor() {
@@ -142,8 +148,8 @@ public class NWChemProcessor extends LegacyProcessor {
 	 * then read lines until next block start
 	 * @return
 	 */
-	private NWChemBlock createBlock(String line0) {
-		NWChemBlock block = new NWChemBlock(blockContainer);
+	private AbstractBlock createBlock(String line0) {
+		AbstractBlock block = new NWChemBlock(blockContainer);
 		
 		setBlockName(block, line0);
 		for (String line : lines) {
@@ -152,7 +158,7 @@ public class NWChemProcessor extends LegacyProcessor {
 		return block;
 	}
 
-	private void setBlockName(NWChemBlock block, String line) {
+	private void setBlockName(AbstractBlock block, String line) {
 		String name = "unknown";
 		if (line != null) {
 			for (Pattern pattern : patternList) {
@@ -162,7 +168,7 @@ public class NWChemProcessor extends LegacyProcessor {
 					if (matcher.groupCount() >= 1) {
 						name = matcher.group(1);
 					}
-					System.out.println(">>>"+line);
+//					System.out.println(">>>"+line);
 					break;
 				}
 			}

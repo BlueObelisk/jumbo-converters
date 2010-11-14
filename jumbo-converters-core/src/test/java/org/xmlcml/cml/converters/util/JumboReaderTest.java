@@ -480,7 +480,7 @@ public class JumboReaderTest {
 		JumboReader jumboReader = new JumboReader(getDictionary(), getPrefix(), strings);
 		jumboReader.readLine();
 		Assert.assertEquals("read line", 1, jumboReader.getCurrentLineNumber());
-		jumboReader.eatEmptyLines();
+		jumboReader.readEmptyLines();
 		Assert.assertEquals("eat empty", 3, jumboReader.getCurrentLineNumber());
 	}
 
@@ -491,7 +491,7 @@ public class JumboReaderTest {
 		jumboReader.readLine();
 		Assert.assertTrue("more", jumboReader.hasMoreLines());
 		Assert.assertEquals("read line", 1, jumboReader.getCurrentLineNumber());
-		jumboReader.eatEmptyLines();
+		jumboReader.readEmptyLines();
 		Assert.assertTrue("more", jumboReader.hasMoreLines());
 		Assert.assertEquals("eat empty", 3, jumboReader.getCurrentLineNumber());
 		jumboReader.readLine();
@@ -507,7 +507,7 @@ public class JumboReaderTest {
 		jumboReader.readLine();
 		Assert.assertEquals("read line", 1, jumboReader.getCurrentLineNumber());
 		Assert.assertEquals("peek", "", jumboReader.peekLine());
-		jumboReader.eatEmptyLines();
+		jumboReader.readEmptyLines();
 		Assert.assertTrue("more", jumboReader.hasMoreLines());
 		Assert.assertEquals("eat empty", 3, jumboReader.getCurrentLineNumber());
 		Assert.assertEquals("peek", " X 7 8.9", jumboReader.peekLine());
@@ -624,7 +624,7 @@ public class JumboReaderTest {
 		jumboReader.readLine();
 		Assert.assertEquals("read line", 1, jumboReader.getCurrentLineNumber());
 		Assert.assertEquals("peek", "", jumboReader.peekLine());
-		jumboReader.eatEmptyLines();
+		jumboReader.readEmptyLines();
 		Assert.assertTrue("more", jumboReader.hasMoreLines());
 		Assert.assertEquals("eat empty", 3, jumboReader.getCurrentLineNumber());
 		jumboReader.resetCurrentLine();

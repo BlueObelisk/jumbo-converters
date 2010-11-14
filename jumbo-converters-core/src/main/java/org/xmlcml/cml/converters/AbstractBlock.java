@@ -32,6 +32,8 @@ public abstract class AbstractBlock implements CMLConstants {
 	protected static final String DICTREF = DictRefAttribute.NAME;
 
 	public static final String UNKNOWN = "unknown";
+
+	protected static final boolean ADD = true;
 	/**
 	 * useful lines (we may have skipped whitespace or
 	 * consumed keywords)

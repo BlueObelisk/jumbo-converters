@@ -250,7 +250,7 @@ STATE   1 ENERGY=     -113.7017742428
 			molecule.appendChild(symmetry);
 			// unexpected lines here. possibly controlled by symmetry card
 			// currently fudge by eating white
-			jumboReader.eatEmptyLines();
+			jumboReader.readEmptyLines();
 			int id = 1;
 			while (jumboReader.hasMoreLines()) {
 				addAtom(id++);
@@ -395,10 +395,17 @@ E=      -37.2380397698, E(NUC)=    5.9560361192
 	}
 
 	private void anonPopulationAnalysis() {
+/*
+ POPULATION ANALYSIS
+C            5.99315   0.00685   5.95532   0.04468
+H            1.00342  -0.00342   1.02234  -0.02234
+H            1.00342  -0.00342   1.02234  -0.02234
+ */
 		getAtomCount();
 		jumboReader.readLine();
+		System.err.println(jumboReader.peekLine());
 		jumboReader.parseTableColumnsAsArrayList(
-			"A11,4F10.5", atomCount, 
+			"(A10,4F10.5)", -1, 
 			new String[]{A_+ELEM, F_+POP1, F_+POP2, F_+POP3, F_+POP4}, JumboReader.ADD);
 	}
 
