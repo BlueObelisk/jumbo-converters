@@ -72,10 +72,14 @@ public class NWChemBlock extends AbstractBlock {
 			skipBlock();
 		} else if (NWChemProcessor.CONVERGENCE_INFORMATION.equals(blockName)) {
 			makeConvergence();
-		} else if (blockName.contains(NWChemProcessor.FINAL_MOLECULAR_ORBITAL_ANALYSIS)) {
-			makeFinalMolecularOrbitalAnalysis();
 		} else if (NWChemProcessor.DIRECTORY_INFORMATION.equals(blockName)) {
 			makeDirectoryInformation();
+		} else if (NWChemProcessor.FINAL_EIGENVALUES.equals(blockName)) {
+			makeFinalEigenvalues();
+		} else if (blockName.contains(NWChemProcessor.FINAL_MOLECULAR_ORBITAL_ANALYSIS)) {
+			makeFinalMolecularOrbitalAnalysis();
+		} else if (blockName.contains(NWChemProcessor.FINAL_RHF_RESULTS)) {
+			makeFinalRhfResults();
 		} else if (NWChemProcessor.GA_STATISTICS_FOR_PROCESS.equals(blockName)) {
 			makeGaStatistics();
 		} else if (NWChemProcessor.GEOMETRY.equals(blockName)) {
@@ -94,6 +98,8 @@ public class NWChemBlock extends AbstractBlock {
 			makeMemoryInformation();
 		} else if (NWChemProcessor.MOMENTS_OF_INERTIA.equals(blockName)) {
 			makeMomentsOfInertia();
+		} else if (NWChemProcessor.MULLIKEN_ANALYSIS_OF_THE_TOTAL_DENSITY.equals(blockName)) {
+			makeMullikenAnalysis();
 		} else if (NWChemProcessor.MULTIPOLE_ANALYSIS_OF_THE_DENSITY.equals(blockName)) {
 			makeMultipoleAnalysis();
 		} else if (NON_VARIATIONAL_INITIAL_ENERGY.equals(blockName)) {
@@ -102,12 +108,16 @@ public class NWChemBlock extends AbstractBlock {
 			makeNWCOMP();
 		} else if (NWChemProcessor.NUCLEAR_DIPOLE_MOMENT.equals(blockName)) {
 			makeNuclearDipole();
-		} else if (NWChemProcessor.NW_CHEM_DFT_MODULE.equals(blockName)) {
-			makeNWChemDftModule();
 		} else if (NWChemProcessor.NW_CHEM_CPHF_MODULE.equals(blockName)) {
 			makeNWChemCphfModule();
+		} else if (NWChemProcessor.NW_CHEM_DFT_MODULE.equals(blockName)) {
+			makeNWChemDftModule();
 		} else if (NWChemProcessor.NW_CHEM_INPUT_MODULE.equals(blockName)) {
 			makeNWChemInputModule();
+		} else if (NWChemProcessor.NW_CHEM_PROPERTY_MODULE.equals(blockName)) {
+			makeNWChemPropertyModule();
+		} else if (NWChemProcessor.NW_CHEM_SCF_MODULE.equals(blockName)) {
+			makeNWChemScfModule();
 		} else if (NWChemProcessor.SCREENING_TOLERANCE_INFORMATION.equals(blockName)) {
 			makeScreeningTolerance();
 		} else if (NWChemProcessor.SUMMARY_OF_ALLOCATED_GLOBAL_ARRAYS.equals(blockName)) {
@@ -351,6 +361,35 @@ task dft energy
 		jumboReader.readLines(2);
 	}
 
+	private void makeNWChemScfModule() {
+/*
+                                 NWChem SCF Module
+                                 -----------------
+
+
+              Methylamine...rhf/3-21g//Pople-Gordon standard geometry
+
+
+
+  ao basis        = "ao basis"
+  functions       =    28
+  atoms           =     7
+  closed shells   =     9
+  open shells     =     0
+  charge          =   0.00
+  wavefunction    = RHF 
+  input vectors   = atomic
+  output vectors  = ./methylamine.movecs
+  use symmetry    = F
+  symmetry adapt  = F
+ */
+		makeModule();
+		jumboReader.readLines(4);
+		jumboReader.readLineAsScalar("title", ADD);
+		jumboReader.readLines(3);
+		jumboReader.makeNameValues(Pattern.compile("\\s*([^=]*)\\s*=\\s*([^=]*).*"), ADD);
+	}
+	
 	private void makeNWChemDftModule() {
 /*
                                  NWChem DFT Module
@@ -377,12 +416,24 @@ task dft energy
 
   perdew86 is a nonlocal functional; adding perdew81 local functional. 
  */
-		CMLModule module = makeModule();
-		this.debug();
-		try {
-			jumboReader.readLines(2);
-		} catch (Exception e) {
-		}
+		makeModule();
+		jumboReader.readLines(4);
+		jumboReader.readLineAsScalar("title", ADD);
+	}
+
+	private void makeNWChemPropertyModule() {
+/*
+                              NWChem Property Module
+                              ----------------------
+
+
+              Methylamine...rhf/3-21g//Pople-Gordon standard geometry
+
+ */
+		makeModule();
+		jumboReader.readLines(4);
+		jumboReader.readLineAsScalar("title", ADD);
+		
 	}
 
 	private void makeXCInformation() {
@@ -707,6 +758,40 @@ MA usage statistics:
 		
 	}
 
+	private void makeMullikenAnalysis() {
+/**
+  Mulliken analysis of the total density
+  --------------------------------------
+
+    Atom       Charge   Shell Charges
+ -----------   ------   -------------------------------------------------------
+    1 C    6     6.39   1.99  0.36  1.59  1.06  1.39
+    2 N    7     7.77   1.99  0.36  1.82  1.35  2.26
+    3 H    1     0.83   0.48  0.35
+...
+    7 H    1     0.71   0.46  0.25
+ */
+		makeModule();
+		jumboReader.readLines(5);
+		String format1 = "(I5,A3,I4,3X,F6.2)";
+		String format2 = "(22X,10F6.2)";
+		String[] names1 = {I_+"serial", A_+"atsym", I_+"atnum", F_+"charge"};
+		String name2 = F_+"shellcharge";
+		while(jumboReader.hasMoreLines()) {
+			if (jumboReader.peekLine().trim().length() == 0) {
+				break;
+			}
+			try {
+				jumboReader.parseScalars(format1, names1, ADD);
+				jumboReader.increment(-1);
+				jumboReader.parseArray(format2, CMLConstants.XSD_DOUBLE, name2, ADD);
+			} catch (Exception e) {
+				break;
+			}
+		}
+		
+	}
+
 	private void makeMultipoleAnalysis() {
 /**
      Multipole analysis of the density
@@ -773,6 +858,50 @@ OR
 		}
 	}
 
+	private void makeFinalRhfResults() {
+/**
+       Final RHF  results 
+       ------------------ 
+
+         Total SCF energy =    -94.679444926652
+      One-electron energy =   -210.716788531248
+      Two-electron energy =     73.987179567659
+ Nuclear repulsion energy =     42.050164036937
+
+        Time for solution =      0.1s
+
+
+ */
+				
+		makeModule();
+		jumboReader.readLines(3);
+		while (jumboReader.hasMoreLines()) {
+			jumboReader.makeNameValues(Pattern.compile("\\s*([^\\=]*)\\s*\\=\\s*([^\\s]*).*"), ADD);
+		}
+	}
+	
+//              Final eigenvalues
+//    -----------------
+	private void makeFinalEigenvalues() {
+/**
+             Final eigenvalues
+             -----------------
+
+              1      
+    1  -15.4458
+    2  -11.1826
+..
+   18    0.9873
+   19    1.2592
+
+ */
+				
+		makeModule();
+		jumboReader.readLines(4);
+		jumboReader.parseTableColumnsAsArrayList("(I5,F10.4)", -1, new String[]{I_+"serial", F_+"eigenval"}, ADD);
+	}
+			
+
 	private void readVector(String type) {
 		if (ROHF.equalsIgnoreCase(type)) {
 			jumboReader.parseScalars("(' Vector',I5,'  Occ=',E12.6,'  E=',E12.6)",
@@ -789,7 +918,6 @@ OR
 		String format = "I6,F14.6,I4,A3,A14";
 		String[] names2 = new String[]{I_+"bfn", F_+"coeff", I_+"atnum", A_+"atsym", A_+"orb", I_+"bfn", F_+"coeff", I_+"atnum", A_+"atsym", A_+"orb"};
 		String[] names = new String[]{I_+"bfn", F_+"coeff", I_+"atnum", A_+"atsym", A_+"orb"};
-		System.err.println(jumboReader.peekLine());
 		
 		try {
 			jumboReader.parseTableColumnsAsArrayList("(2("+format+"))", -1, names2, ADD);
