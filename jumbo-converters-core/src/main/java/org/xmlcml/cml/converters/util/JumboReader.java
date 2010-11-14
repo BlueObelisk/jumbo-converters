@@ -1,5 +1,6 @@
 package org.xmlcml.cml.converters.util;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -13,6 +14,7 @@ import org.joda.time.DateTime;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLArrayList;
 import org.xmlcml.cml.element.CMLAtom;
@@ -34,6 +36,8 @@ import org.xmlcml.molutil.ChemicalElement;
 import fortran.format.FortranFormat;
 
 public class JumboReader {
+	private static final String UNKNOWN = "unknown";
+
 	private static Logger LOG = Logger.getLogger(JumboReader.class);
 
 	private CMLDictionary dictionary;
@@ -225,13 +229,30 @@ public class JumboReader {
 	public static List<Object> parseFortranLine(String format, String line) {
 		String newFormat = JumboReader.expandStringsInFormatIntoNX(format);
 		List<Object> results = new ArrayList<Object>();
+		FortranFormat fortranFormat = null;
 		try {
-			FortranFormat fortranFormat = new FortranFormat(newFormat);
+			fortranFormat = new FortranFormat(newFormat);
 			results = fortranFormat.parse(line);
 		} catch (Exception e) {
-			throw new RuntimeException("Cannot parse fortran :"+line+":", e);
+			// might be due to D notation
+			Exception ee = null;
+			try {
+				line = convertScientificNotation(line);
+				results = fortranFormat.parse(line);
+			} catch (Exception e1) {
+				ee = e1;
+			}
+			if (ee != null) {
+				throw new RuntimeException("Cannot parse fortran :"+line+":", e);
+			}
 		}
 		return results;
+	}
+
+	private static String convertScientificNotation(String line) {
+		line = line.replaceAll("D\\+", "E\\+");
+		line = line.replaceAll("D\\-", "E\\-");
+		return line;
 	}
 
 	/**
@@ -266,6 +287,44 @@ public class JumboReader {
 		s = s.replaceAll("\\,+", ",");
 		s = s.replaceAll("\\(,", "\\(");
 		return s;
+	}
+
+	/**
+	 * creates a name-value pair from applying pattern to currentLine
+	 * @param pattern (required to have two groups, name and value)
+	 * @param add should the CMLElement be added to the parentElement
+	 * @return the CMLList or CMLScalar
+	 */
+	public CMLElement parseNameValue(Pattern pattern, String dataType, boolean add) {
+		resetPreviousLineNumber();
+		String lineToParse = lines.get(currentLineNumber++);
+		CMLScalar scalar = null;
+		if (lineToParse.trim().length() != 0) {
+			scalar = parseAndAddNameValue(pattern, dataType, add, lineToParse);
+		}
+		return scalar;
+	}
+
+	private CMLScalar parseAndAddNameValue(Pattern pattern, String dataType,
+			boolean add, String lineToParse) {
+		CMLScalar scalar;
+		Matcher matcher = pattern.matcher(lineToParse);
+		if (!matcher.matches() || matcher.groupCount() != 2) {
+			throw new RuntimeException("Cannot parse {"+lineToParse+"} with "+pattern);
+		}
+		String dictRef = matcher.group(1).trim();
+		dictRef = dictRef.replaceAll("[^a-zA-Z0-9\\.\\-]", CMLConstants.S_UNDER);
+		String value = matcher.group(2).trim();
+		if (CMLConstants.XSD_DOUBLE.equals(dataType)) {
+			scalar = new CMLScalar(Double.parseDouble(value.toString()));
+		} else if (CMLConstants.XSD_INTEGER.equals(dataType)) {
+			scalar = new CMLScalar(Integer.parseInt(value.toString()));
+		} else {
+			scalar = new CMLScalar(value);
+		}
+		addDictRef(scalar, dictRef);
+		addElementToParentElement(add, scalar);
+		return scalar;
 	}
 
 	/**
@@ -449,7 +508,7 @@ public class JumboReader {
 	 * currentLine is positioned at this line
 	 * 
 	 */
-	public void eatEmptyLines() {
+	public void readEmptyLines() {
 		resetPreviousLineNumber();
 		while (currentLineNumber < lines.size()) {
 			if (lines.get(currentLineNumber++).trim().length() != 0) {
@@ -487,11 +546,12 @@ public class JumboReader {
 	public List<String> readLines(int linesToRead) {
 		List<String> lineList = new ArrayList<String>();
 		if (currentLineNumber + linesToRead >= lines.size()) {
-			throw new RuntimeException("not enough lines to read");
-		}
-		resetPreviousLineNumber();
-		for (int i = 0; i < linesToRead; i++) {
-			lineList.add(lines.get(currentLineNumber++));
+			LOG.warn("not enough lines to read");
+		} else {
+			resetPreviousLineNumber();
+			for (int i = 0; i < linesToRead; i++) {
+				lineList.add(lines.get(currentLineNumber++));
+			}
 		}
 		return lineList;
 	}
@@ -669,14 +729,29 @@ public class JumboReader {
 		}
 		CMLTable table = new CMLTable();
 		List<CMLArray> arrayList = new ArrayList<CMLArray>();
+		Exception ee = null;
 		while(linesToRead < 0 ||
 			(currentLineNumber - lineCount0 < linesToRead)) {
-			CMLElement element = this.parseScalars(format, names, DONT_ADD);
+			CMLElement element;
+			try {
+				element = this.parseScalars(format, names, DONT_ADD);
+			} catch (Exception e) {
+				if (linesToRead < 0) {
+					ee = e;
+					// end of table
+					currentLineNumber--;
+					break;
+				}
+				throw new RuntimeException("Cannot parse line: "+this.peekLine());
+			}
 			ensureArrayList(arrayList, element);
 			List<CMLScalar> cells = getScalarList(element);
 			for (int jcol = 0; jcol < arrayList.size(); jcol++ ) {
 				addToArray(cells.get(jcol), arrayList.get(jcol));
 			}
+		}
+		if (currentLineNumber == lineCount0) {
+			throw new RuntimeException("failed to parse any lines", ee);
 		}
 		return arrayList;
 	}
@@ -876,6 +951,31 @@ public class JumboReader {
 			linesRead.add(line);
 		}
 		return linesRead;
+	}
+
+	public void makeUnknownScalar(boolean add) {
+		String line = lines.get(currentLineNumber++);
+		CMLScalar scalar = new CMLScalar(line.trim());
+		addDictRef(scalar, UNKNOWN);
+		addElementToParentElement(add, scalar);
+	}
+
+	public void makeNameValues(Pattern pattern, boolean add) {
+		CMLElement scalar = null;
+		while (hasMoreLines()) {
+			try {
+				scalar = parseNameValue(pattern, CMLConstants.XSD_STRING, add);
+				if (scalar == null) {
+					break;
+				}
+			} catch (Exception e) {
+				break;
+			}
+		}
+	}
+
+	public void increment(int offset) {
+		currentLineNumber += offset;
 	}
 
 
