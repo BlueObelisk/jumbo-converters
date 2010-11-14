@@ -35,8 +35,10 @@ public class NWChemProcessor extends LegacyProcessor {
 	public static final String CENTER_ONE = "center one";
 	public static final String CITATION = "CITATION";
 	public static final String CONVERGENCE_INFORMATION = "Convergence Information";
-	public static final String FINAL_MOLECULAR_ORBITAL_ANALYSIS = "Final Molecular Orbital Analysis";
 	public static final String DIRECTORY_INFORMATION = "Directory information";
+	public static final String FINAL_EIGENVALUES = "Final eigenvalues";
+	public static final String FINAL_MOLECULAR_ORBITAL_ANALYSIS = "Final Molecular Orbital Analysis";
+	public static final String FINAL_RHF_RESULTS = "Final RHF  results";
 	public static final String GA_STATISTICS_FOR_PROCESS = "GA Statistics for process";
 	public static final String GENERAL_INFORMATION = "General Information";
 	public static final String GEOMETRY = "Geometry";
@@ -47,12 +49,15 @@ public class NWChemProcessor extends LegacyProcessor {
 	public static final String MEMORY_INFORMATION = "Memory information";
 	public static final String MOMENTS_OF_INERTIA = "moments of inertia";
 	public static final String MULTIPOLE_ANALYSIS_OF_THE_DENSITY = "Multipole analysis of the density";
+	public static final String MULLIKEN_ANALYSIS_OF_THE_TOTAL_DENSITY = "Mulliken analysis of the total density";
 	public static final String NON_VARIATIONAL_INITIAL_ENERGY = "Non.variational initial energy";
 	public static final String NORTHWEST_COMPUTATIONAL_CHEMISTRY_PACKAGE = "Northwest Computational Chemistry Package";
 	public static final String NUCLEAR_DIPOLE_MOMENT = "Nuclear Dipole moment";
 	public static final String NW_CHEM_DFT_MODULE = "NWChem DFT Module";
 	public static final String NW_CHEM_CPHF_MODULE = "NWChem CPHF Module";
+	public static final String NW_CHEM_SCF_MODULE = "NWChem SCF Module";
 	public static final String NW_CHEM_INPUT_MODULE = "NWChem Input Module";
+	public static final String NW_CHEM_PROPERTY_MODULE = "NWChem Property Module";
 	public static final String SUMMARY_OF_ALLOCATED_GLOBAL_ARRAYS = "Summary of allocated global arrays";
 	public static final String SUMMARY_OF_BASIS = "Summary of .* basis.";
 	public static final String SUPERPOSITION_OF_ATOMIC_DENSITY_GUESS = "Superposition of Atomic Density Guess";
@@ -62,6 +67,7 @@ public class NWChemProcessor extends LegacyProcessor {
 	public static final String XC_INFORMATION = "XC Information";
 	public static final String XYZ_FORMAT_GEOMETRY = "XYZ format geometry";
 	public static final String Z_MATRIX = "Z.matrix";
+
 	static List<String> blockStringList;
 	static {
 		blockStringList = new ArrayList<String>();
@@ -78,7 +84,9 @@ public class NWChemProcessor extends LegacyProcessor {
 		blockStringList.add(CENTER_ONE); // another mess
 		blockStringList.add(CITATION);
 		blockStringList.add(CONVERGENCE_INFORMATION);
+		blockStringList.add(FINAL_EIGENVALUES);
 		blockStringList.add(FINAL_MOLECULAR_ORBITAL_ANALYSIS);
+		blockStringList.add(FINAL_RHF_RESULTS);
 		blockStringList.add(DIRECTORY_INFORMATION);
 		blockStringList.add(GA_STATISTICS_FOR_PROCESS);
 		blockStringList.add(GENERAL_INFORMATION);
@@ -90,12 +98,15 @@ public class NWChemProcessor extends LegacyProcessor {
 		blockStringList.add(MEMORY_INFORMATION);
 		blockStringList.add(MOMENTS_OF_INERTIA);
 		blockStringList.add(MULTIPOLE_ANALYSIS_OF_THE_DENSITY);
+		blockStringList.add(MULLIKEN_ANALYSIS_OF_THE_TOTAL_DENSITY);
 		blockStringList.add(NON_VARIATIONAL_INITIAL_ENERGY);
 		blockStringList.add(NORTHWEST_COMPUTATIONAL_CHEMISTRY_PACKAGE);
 		blockStringList.add(NUCLEAR_DIPOLE_MOMENT);
-		blockStringList.add(NW_CHEM_DFT_MODULE);
 		blockStringList.add(NW_CHEM_CPHF_MODULE);
+		blockStringList.add(NW_CHEM_DFT_MODULE);
 		blockStringList.add(NW_CHEM_INPUT_MODULE);
+		blockStringList.add(NW_CHEM_PROPERTY_MODULE);
+		blockStringList.add(NW_CHEM_SCF_MODULE);
 		blockStringList.add(SCREENING_TOLERANCE_INFORMATION);
 		blockStringList.add(SUMMARY_OF_ALLOCATED_GLOBAL_ARRAYS);
 		blockStringList.add(SUMMARY_OF_BASIS);
