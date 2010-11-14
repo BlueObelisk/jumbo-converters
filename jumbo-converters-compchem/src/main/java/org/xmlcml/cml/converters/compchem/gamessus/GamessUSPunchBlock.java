@@ -403,7 +403,6 @@ H            1.00342  -0.00342   1.02234  -0.02234
  */
 		getAtomCount();
 		jumboReader.readLine();
-		System.err.println(jumboReader.peekLine());
 		jumboReader.parseTableColumnsAsArrayList(
 			"(A10,4F10.5)", -1, 
 			new String[]{A_+ELEM, F_+POP1, F_+POP2, F_+POP3, F_+POP4}, JumboReader.ADD);
