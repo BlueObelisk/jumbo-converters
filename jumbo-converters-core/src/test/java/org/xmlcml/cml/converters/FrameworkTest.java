@@ -2,7 +2,6 @@ package org.xmlcml.cml.converters;
 
 
 import java.io.File;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,8 +18,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
-import org.xmlcml.euclid.Util;
 import org.xmlcml.cml.testutil.JumboTestUtils;
+import org.xmlcml.euclid.Util;
 
 /**
  * 
