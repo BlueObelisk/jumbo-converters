@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import nu.xom.Attribute;
+
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
@@ -13,12 +15,18 @@ import org.xmlcml.cml.converters.BlockContainer;
 import org.xmlcml.cml.converters.util.JumboReader;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLArrayList;
+import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLMatrix;
 import org.xmlcml.cml.element.CMLModule;
+import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLScalar;
+import org.xmlcml.euclid.Util;
 
 public class NWChemBlock extends AbstractBlock {
 
+	private static final String BASIS = "basis";
+	private static final String ECHO = "echo";
+	private static final String INPUT = "input";
 	private static final String ECHO_INPUT = "echoInput";
 	private static final String ATOM_BASIS = "atomBasis";
 	private static final Pattern ATOM_BASIS_PATTERN = Pattern.compile("\\s*([A-za-z][a-z]?)\\s*\\((.*)\\).*");
@@ -28,6 +36,15 @@ public class NWChemBlock extends AbstractBlock {
 	private static final String AUTO_Z = "auto-z";
 	private static final String ROHF = "ROHF";
 	private static final String DFT = "DFT";
+	// input 
+	private static final String GEOMETRY = "geometry";
+	private static final String TITLE = "title";
+	private static final String START = "start";
+	private static final String SYMMETRY = "symmetry";
+	private static final String END = "end";
+	private static final String PROPERTY = "property";
+	private CMLMolecule inputMolecule;
+	
 	public NWChemBlock(BlockContainer blockContainer) {
 		super(blockContainer);
 	}
@@ -333,7 +350,76 @@ task dft energy
 	}
 	
 	private void makeInput() {
-		
+		jumboReader = new JumboReader(this.getDictionary(), abstractCommon.getPrefix(), lines);
+		CMLModule module = makeModule();
+		module.setRole(INPUT);
+		CMLElement parent = module;
+		boolean inGeometry = false;
+		inputMolecule = null;
+		for (String line : lines) {
+			System.out.println(line);
+			// remove comments
+			line = line.split(CMLConstants.S_HASH)[0];
+			line = line.trim();
+			String token = line.equals("") ? "" : line.split(CMLConstants.S_WHITEREGEX)[0];
+			if ("".equals(token)) {
+				// 
+			} else if (TITLE.equalsIgnoreCase(token)) {
+				module.setTitle(line);
+			} else if (GEOMETRY.equalsIgnoreCase(token)) {
+				inputMolecule = new CMLMolecule();
+				parent.appendChild(inputMolecule);
+				parent = inputMolecule;
+				addScalar(inputMolecule, line, token);
+				inGeometry = true;
+			} else if (inGeometry && SYMMETRY.equalsIgnoreCase(token)) {
+				addScalar(parent, line, token);
+			} else if (BASIS.equalsIgnoreCase(token)) {
+				parent = makeSubModule(parent, token, line);
+			} else if (DFT.equalsIgnoreCase(token)) {
+				parent = makeSubModule(parent, token, line);
+			} else if (PROPERTY.equalsIgnoreCase(token)) {
+				parent = makeSubModule(parent, token, line);
+//			} else if (ECHO.equalsIgnoreCase(token)) {
+//				addScalar(parent, line, token);
+//			} else if (START.equalsIgnoreCase(token)) {
+//				addScalar(parent, line, token);
+			} else if (END.equalsIgnoreCase(token)) {
+				parent = (CMLModule) parent.getParent();
+				inGeometry = false;
+			} else if (inGeometry && line.split(CMLConstants.S_WHITEREGEX).length == 4){
+				addAtom(line);
+			} else {
+				addScalar(parent, line, token);
+				System.out.println("Cannot process: "+line);
+//				throw new RuntimeException("Cannot process token: "+token);
+			}
+		}
+	}
+
+	private void addAtom(String line) {
+		String[] tokens = line.split(CMLConstants.S_WHITEREGEX);
+		CMLAtom atom = new CMLAtom();
+		atom.setElementType(Util.capitalise(tokens[0]));
+		atom.setId("a"+(inputMolecule.getAtomCount()+1));
+		inputMolecule.addAtom(atom);
+		atom.setX3(new Double(tokens[1]));
+		atom.setY3(new Double(tokens[2]));
+		atom.setZ3(new Double(tokens[3]));
+	}
+
+	private void addScalar(CMLElement parent, String line, String token) {
+		CMLScalar scalar = new CMLScalar(line);
+		scalar.setDictRef(DictRefAttribute.createValue(abstractCommon.getPrefix(), token));
+		parent.appendChild(scalar);
+	}
+
+	private CMLModule makeSubModule(CMLElement parent, String token, String line) {
+		CMLModule subModule = new CMLModule();
+		parent.appendChild(subModule);
+		subModule.addAttribute(new Attribute("title", line));
+		subModule.addAttribute(new Attribute("dictRef", DictRefAttribute.createValue(abstractCommon.getPrefix(), token)));
+		return subModule;
 	}
 
 	private void makeNWCOMP() {
@@ -385,7 +471,7 @@ task dft energy
  */
 		makeModule();
 		jumboReader.readLines(4);
-		jumboReader.readLineAsScalar("title", ADD);
+		jumboReader.readLineAsScalar(TITLE, ADD);
 		jumboReader.readLines(3);
 		jumboReader.makeNameValues(Pattern.compile("\\s*([^=]*)\\s*=\\s*([^=]*).*"), ADD);
 	}
@@ -418,7 +504,7 @@ task dft energy
  */
 		makeModule();
 		jumboReader.readLines(4);
-		jumboReader.readLineAsScalar("title", ADD);
+		jumboReader.readLineAsScalar(TITLE, ADD);
 	}
 
 	private void makeNWChemPropertyModule() {
@@ -432,7 +518,7 @@ task dft energy
  */
 		makeModule();
 		jumboReader.readLines(4);
-		jumboReader.readLineAsScalar("title", ADD);
+		jumboReader.readLineAsScalar(TITLE, ADD);
 		
 	}
 
@@ -1056,7 +1142,7 @@ OR
 			throw new RuntimeException("cannot match basis line: "+lines.get(0));
 		}
 		String basis = matcher.group(1);
-		jumboReader.addDictRef(new CMLScalar(basis), "basis");
+		jumboReader.addDictRef(new CMLScalar(basis), BASIS);
 		jumboReader.readLines(1);
 	}
 	
@@ -1080,7 +1166,7 @@ OR
  */
 		CMLModule module = makeModule();
 		jumboReader.parseScalars(Pattern.compile("\\s*Summary of \"([^\"]*)\" \\-\\> \"([^\"]*)\"\\s*\\((.*)\\).*"), 
-				new String[]{A_+"basis", A_+"basis1", A_+"coordtype"},ADD);
+				new String[]{A_+BASIS, A_+"basis1", A_+"coordtype"},ADD);
 		jumboReader.readLines(3);
 		
 		try {
@@ -1275,7 +1361,7 @@ Type          Name      I     J     K     L     M      Value
 
 	private void summarizeBlock0() {
 		CMLModule module = new CMLModule();
-		module.setTitle((lines.size() == 0) ? "title" : lines.get(0));
+		module.setTitle((lines.size() == 0) ? TITLE : lines.get(0));
 		element = module;
 		CMLScalar scalar = new CMLScalar(preserveText().getValue());
 		module.appendChild(scalar);
@@ -1287,7 +1373,7 @@ Type          Name      I     J     K     L     M      Value
 
 	private void skipBlock() {
 		CMLModule module = new CMLModule();
-		module.setTitle((lines.size() == 0) ? "title" : lines.get(0));
+		module.setTitle((lines.size() == 0) ? TITLE : lines.get(0));
 		element = module;
 	}
 
