@@ -1,0 +1,35 @@
+
+    <template name="argument" id="arg" pattern="(argument).*">
+      /* argument 1 = dft_feco5.nw
+
+
+
+      ============================== echo of input deck
+      ============================== echo
+
+      start dft_feco5
+
+      # test of DFT with Fe(CO)5 using cd basis and xc basis
+
+      ... dft xc b3lyp end title "case t23 --- (b3lyp) DFT (energy)"
+      task dft energy
+
+
+
+
+      ================================================================================
+      */ CMLModule module = makeModule();
+      System.err.println("..."+jumboReader.peekLine());
+      jumboReader.makeNameValues(Pattern.compile(".*(argument
+      *\\d+)\\s*=\\s*(.*)"), ADD); 
+        List      String>
+        lines = jumboReader.readLinesWhile(Pattern.compile(".*=== echo
+        of input deck ==.*"), false); jumboReader.readLine();
+        NWChemLogBlock inputBlock = new NWChemLogBlock(blockContainer);
+        inputBlock.setBlockName(ECHO_INPUT);
+        blockContainer.getBlockList().add(0, inputBlock); lines =
+        jumboReader.readLinesWhile(Pattern.compile(".*===========.*"),
+        false); for (String line : lines) { inputBlock.add(line); }
+        inputBlock.makeInput();
+
+    </template>

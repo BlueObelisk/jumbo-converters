@@ -10,7 +10,7 @@ import org.xmlcml.cml.element.CMLScalar;
 
 public class GaussianLink {
 	protected List<String> lineList;
-	protected String linkName = null;
+	private String linkName = null;
 	protected CMLModule cmlModule = null;
 	protected CMLMolecule molecule;
 	public String line = null;
@@ -19,7 +19,7 @@ public class GaussianLink {
 	
 	protected GaussianLink() {
 		lineList = new ArrayList<String>();
-		linkName = "default";
+		setLinkName("default");
 	}
 	
 	public GaussianLink(CMLMolecule molecule) {
@@ -45,7 +45,7 @@ public class GaussianLink {
 	}
 	
 	void setGLink(GaussianLink glink) {
-		this.setLinkName(glink.linkName);
+		this.setLinkName(glink.getLinkName());
 		this.setLineList(glink.lineList);
 	}
 
@@ -53,7 +53,7 @@ public class GaussianLink {
 		this.lineList = lineList;
 	}
 
-	void setLinkName(String linkName) {
+	public void setLinkName(String linkName) {
 		this.linkName = linkName;
 	}
 
@@ -62,7 +62,7 @@ public class GaussianLink {
 	}
 	
 	public String toString() {
-		return "L "+linkName+" / "+lineList.size();
+		return "L "+getLinkName()+" / "+lineList.size();
 	}
 	
 	public CMLModule convert2CML() {
@@ -70,9 +70,9 @@ public class GaussianLink {
 		GaussianLink subLink = null;
 		
 		// try to create class for link
-		if (linkName != null) {
+		if (getLinkName() != null) {
 			try {
-				Class linkClass = Class.forName(this.getClass().getPackage().getName()+".link.Link"+linkName);
+				Class linkClass = Class.forName(this.getClass().getPackage().getName()+".link.Link"+getLinkName());
 				subLink = (GaussianLink) linkClass.newInstance();
 				subLink.setMolecule(molecule);
 				subLink.setGLink(this);
@@ -84,7 +84,7 @@ public class GaussianLink {
 		// if class exists use it
 		if (subLink != null) {
 			cmlModule = subLink.convert2CML();
-			cmlModule.setDictRef("gau:link"+subLink.linkName);
+			cmlModule.setDictRef("gau:link"+subLink.getLinkName());
 			cmlModule.setTitle(subLink.getTitle());
 		} else {
 			// use default
@@ -96,7 +96,7 @@ public class GaussianLink {
 
 	private CMLModule outputDefaultModule() {
 		CMLModule cmlModule = new CMLModule();
-		cmlModule.setDictRef("gau:link"+linkName);
+		cmlModule.setDictRef("gau:link"+getLinkName());
 		for (String line : lineList) {
 			CMLScalar scalar = new CMLScalar(line);
 			scalar.removeAttribute("dataType");
@@ -109,6 +109,10 @@ public class GaussianLink {
 	    previous_line = line;
 	    line = (line_num == lineList.size()) ? null : lineList.get(line_num++);
 	    return line;
+	}
+
+	public String getLinkName() {
+		return linkName;
 	}
 }
 

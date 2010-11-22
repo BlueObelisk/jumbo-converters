@@ -2,6 +2,8 @@ package org.xmlcml.cml.converters;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import nu.xom.Attribute;
 
@@ -10,7 +12,10 @@ import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.util.JumboReader;
+import org.xmlcml.cml.element.CMLArray;
+import org.xmlcml.cml.element.CMLArrayList;
 import org.xmlcml.cml.element.CMLDictionary;
+import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.tools.DictionaryTool;
@@ -22,6 +27,9 @@ import org.xmlcml.euclid.Util;
  *
  */
 public abstract class AbstractBlock implements CMLConstants {
+	protected static final String UNKNOWN_BLOCK = "unknownBlock";
+	protected static final String UNKNOWN = "unknown";
+
 	public final static Logger LOG = Logger.getLogger(AbstractBlock.class);
 	
 	protected static final String A_ = "A.";
@@ -31,9 +39,20 @@ public abstract class AbstractBlock implements CMLConstants {
 	protected static final String I_ = "I.";
 	protected static final String DICTREF = DictRefAttribute.NAME;
 
-	public static final String UNKNOWN = "unknown";
-
 	protected static final boolean ADD = true;
+
+	public static final String TITLE = "title";
+
+	public static final String DICT_REF = "dictRef";
+	public static CMLArray createAndAddArray(CMLArrayList arrayList, String type,
+		String prefix, String dictRef) {
+		CMLArray array = new CMLArray();
+		array.setDataType(type);
+		array.setDictRef(DictRefAttribute.createValue(prefix, dictRef));
+		arrayList.addArray(array);
+		return array;
+	}
+
 	/**
 	 * useful lines (we may have skipped whitespace or
 	 * consumed keywords)
@@ -47,11 +66,13 @@ public abstract class AbstractBlock implements CMLConstants {
 	protected JumboReader jumboReader;
 	protected CMLMolecule molecule;
 	protected Integer natoms;
+	protected LegacyProcessor legacyProcessor;
 
 	protected AbstractBlock(BlockContainer blockContainer) {
 		lines = new ArrayList<String>();
 		validateDictRef = true;
 		this.blockContainer = blockContainer;
+		this.legacyProcessor = blockContainer.getLegacyProcessor();
 		abstractCommon = getCommon();
 	}
 	
@@ -96,10 +117,6 @@ public abstract class AbstractBlock implements CMLConstants {
 	
 	protected abstract AbstractCommon getCommon();
 
-	public void setBlockName(String blockName) {
-		this.blockName = blockName;
-	}
-	
 	protected CMLDictionary getDictionary() {
 		return (abstractCommon == null) ? null : abstractCommon.getDictionary();
 	}
@@ -146,7 +163,7 @@ public abstract class AbstractBlock implements CMLConstants {
 		String line = Util.concatenate((String[])lines.toArray(new String[0]), CMLConstants.S_NEWLINE);
 		CMLScalar scalar = new CMLScalar(line);
 		jumboReader.setParentElement(scalar);
-		this.setBlockName(UNKNOWN);
+		this.createBlockNameFromLine(UNKNOWN_BLOCK);
 		return scalar;
 	}
 
@@ -172,5 +189,67 @@ public abstract class AbstractBlock implements CMLConstants {
 			System.out.println(lines.get(0));
 			System.out.println(lines.get(lines.size()-1));
 		}
+	}
+
+	public void createBlockNameFromLine(String line) {
+		if (line == null) {
+			throw new RuntimeException("null block name");
+		}
+		String name = UNKNOWN_BLOCK;
+		for (Pattern pattern : legacyProcessor.blockNamePatternList) {
+			Matcher matcher = pattern.matcher(line.trim());
+			if (matcher.matches()) {
+				name = line;
+				if (matcher.groupCount() >= 1) {
+					name = matcher.group(1);
+				}
+				break;
+			}
+		}
+		setBlockName(name);
+	}
+
+	public void setBlockName(String name) {
+		this.blockName = name;
+	}
+
+	protected void skipBlock() {
+		CMLModule module = new CMLModule();
+		module.setTitle((lines.size() == 0) ? TITLE : lines.get(0));
+		element = module;
+	}
+
+	protected void summarizeBlock0() {
+		CMLModule module = new CMLModule();
+		module.setTitle((lines.size() == 0) ? TITLE : lines.get(0));
+		element = module;
+		CMLScalar scalar = new CMLScalar(preserveText().getValue());
+		module.appendChild(scalar);
+	}
+
+	protected void summarizeBlock() {
+		summarizeBlock0();
+	}
+
+	protected CMLModule makeModule() {
+		CMLModule module = new CMLModule();
+		jumboReader.setParentElement(module);
+		module.setRole(abstractCommon.getPrefix());
+		element = module;
+		return module;
+	}
+
+	protected CMLModule makeSubModule(CMLElement parent, String token, String line) {
+		CMLModule subModule = new CMLModule();
+		parent.appendChild(subModule);
+		subModule.setTitle(line);
+		subModule.setDictRef(DictRefAttribute.createValue(abstractCommon.getPrefix(), token));
+		return subModule;
+	}
+
+	protected void addScalar(CMLElement parent, String line, String token) {
+		CMLScalar scalar = new CMLScalar(line);
+		scalar.setDictRef(DictRefAttribute.createValue(abstractCommon.getPrefix(), token));
+		parent.appendChild(scalar);
 	}
 }

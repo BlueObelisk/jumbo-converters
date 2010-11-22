@@ -1,0 +1,20 @@
+    <template name="Mulliken analysis of the total density" id="mulliken">
+      /** 
+      Mulliken analysis of the total density
+      --------------------------------------
+
+      Atom Charge Shell Charges ----------- ------
+      ------------------------------------------------------- 1 C 6 6.39
+      1.99 0.36 1.59 1.06 1.39 2 N 7 7.77 1.99 0.36 1.82 1.35 2.26 3 H 1
+      0.83 0.48 0.35 ... 7 H 1 0.71 0.46 0.25 */ makeModule();
+      jumboReader.readLines(5); String format1 = "(I5,A3,I4,3X,F6.2)";
+      String format2 = "(22X,10F6.2)"; String[] names1 = {I_+SERIAL,
+      A_+ATSYM, I_+ATNUM, F_+CHARGE}; String name2 = SHELLCHARGE;
+      while(jumboReader.hasMoreLines()) { if
+      (jumboReader.peekLine().trim().length() == 0) { break; } try {
+      jumboReader.parseScalars(format1, names1, ADD);
+      jumboReader.increment(-1); jumboReader.parseArray(format2,
+      CMLConstants.XSD_DOUBLE, name2, ADD); } catch (Exception e) {
+      break; } }
+
+    </template>

@@ -1,0 +1,289 @@
+ argument  1 = h2o-rifc02.nwc
+                                         
+                                         
+
+
+              Northwest Computational Chemistry Package (NWChem) 2.1
+              ------------------------------------------------------
+
+
+                    Environmental Molecular Sciences Laboratory
+                       Pacific Northwest National Laboratory
+                                Richland, WA 99352
+
+                                         
+                                         
+
+
+                           COPYRIGHT (C) 1994, 1995, 1996,
+                        Pacific Northwest National Laboratory,
+                             Battelle Memorial Institute.
+
+                            >>> All Rights Reserved <<<
+
+
+                                    DISCLAIMER
+                                    ----------
+
+            This material was prepared as an account of work sponsored
+            by an agency of the United States Government.  Neither the
+            United States Government nor the United States Department
+            of Energy, nor Battelle, nor any of their employees, MAKES
+            ANY WARRANTY, EXPRESS OR IMPLIED, OR ASSUMES ANY LEGAL
+            LIABILITY OR RESPONSIBILITY FOR THE ACCURACY, COMPLETENESS,
+            OR USEFULNESS OF ANY INFORMATION, APPARATUS, PRODUCT,
+            SOFTWARE, OR PROCESS DISCLOSED, OR REPRESENTS THAT ITS USE
+            WOULD NOT INFRINGE PRIVATELY OWNED RIGHTS.
+
+
+                                    LIMITED USE
+                                    -----------
+
+            This software (including any documentation) is being made
+            available to you for your internal use only, solely for use
+            in performance of work directly for the U.S. Federal
+            Government or work under contracts with the U.S. Department
+            of Energy or other U.S. Federal Government agencies.  This
+            software is a version which has not yet been evaluated and
+            cleared for commercialization.  Adherence to this notice
+            may be necessary for the author, Battelle Memorial
+            Institute, to successfully assert copyright in and
+            commercialize this software. This software is not intended
+            for duplication or distribution to third parties without
+            the permission of the Manager of Software Products at
+            Pacific Northwest National Laboratory, Richland,
+            Washington, 99352.
+
+
+                                  ACKNOWLEDGMENT
+                                  --------------
+
+            This software and its documentation were produced with
+            Government support under Contract Number DE-AC06-76RLO-1830
+            awarded by the United States Department of Energy.  The
+            Government retains a paid-up non-exclusive, irrevocable
+            worldwide license to reproduce, prepare derivative works,
+            perform publicly and display publicly by or for the
+            Government, including the right to distribute to other
+            Government contractors.
+
+
+              Job information
+              ---------------
+
+    hostname  = kopernik.npac.syr.edu
+    program   = ../../bin/SGI_N32/nwchem
+    date      = Wed Feb 12 14:48:34 1997
+    compiled  = Wed Feb 12 14:42:34 EST 1997
+    source    = /home/A6G/bernhold/nwchem-dev/ccsd/nwchem
+    input     = h2o-rifc02.nwc
+    prefix    = h2o.
+    data base = ./h2o.db
+    status    = restart
+    nproc     =    1
+
+
+            Memory information
+            ------------------
+
+    heap      =    1572865 doubles
+    stack     =    1572865 doubles
+    global    =    3145728 doubles (allocated separately from heap & stack)
+    total     =    6291458 doubles
+    verify    = yes
+    hardfail  = no 
+
+
+
+
+                                NWCHEM Input Module
+                                -------------------
+
+
+                      Basis "ri-mp2 basis" -> "" (cartesian)
+                      -----
+  O (Oxygen)
+  ----------
+            Exponent  Coefficients 
+       -------------- ---------------------------------------------------------
+  1 S    11720.000000  0.000710
+
+  2 S     1759.000000  0.005470
+
+  3 S      400.800000  0.027837
+
+  4 S      113.700000  0.104800
+
+  5 S       37.030000  0.283062
+
+  6 S       13.270000  0.448719
+
+  7 S        5.025000  0.270952
+
+  8 S        1.013000  0.015458
+
+  9 S        0.302300 -0.002585
+
+ 10 P       17.700000  0.043018
+
+ 11 P        3.854000  0.228913
+
+ 12 P        1.046000  0.508728
+
+ 13 P        0.275300  0.460531
+
+ 14 D        1.185000  1.000000
+
+ 15 D        0.550600  1.000000
+
+ 16 F        2.370000  1.000000
+
+  H (Hydrogen)
+  ------------
+            Exponent  Coefficients 
+       -------------- ---------------------------------------------------------
+  1 S       13.010000  0.019685
+
+  2 S        1.962000  0.137977
+
+  3 S        0.444600  0.478148
+
+  4 S        0.122000  0.501240
+
+  5 S        0.122000  1.000000
+
+  6 P        0.727000  1.000000
+
+  7 P        1.454000  1.000000
+
+  8 D        1.454000  1.000000
+
+
+ Read molecular orbitals from ./h2o.movecs
+
+
+ Read molecular orbitals from ./h2o.movecs
+
+                               NWCHEM RI-MP2 Energy
+                               --------------------
+                    H2O, cc-pVDZ basis, SCF optimized geometry
+
+
+
+          Nr. of AO basis functions:         25
+     Nr. of fitting basis functions:         77
+               Nr. of MO spin cases:          1
+        Nr. of MOs in SCF reference:         25
+    Nr. of occupied MOs in SCF ref.:          5
+     Nr. of virtual MOs in SCF ref.:         20
+        Nr. of MOs to be correlated:         24
+     Nr. of occupied MOs correlated:          4
+      Nr. of virtual MOs correlated:         20
+
+          RI integral approximation: 'V'
+    Threshold for Schwarz screening:  1.000E-08
+ Smallest eigenvalue retained in fit  1.000E-08
+     Base file name for MO integrals 'mo3cint'
+    Type of storage for MO integrals 'Fortran direct access files'
+
+                 SCF reference file: './h2o.movecs'
+                SCF reference title: 'H2O, cc-pVDZ basis, SCF optimized geometry'
+
+
+ ******************
+ * IMPORTANT NOTE *
+ ******************
+ This correlated calculation is based on an SCF reference in which
+ orbitals have been frozen or rearranged relative to the result of the
+ SCF calculation.  From this point on, the orbitals are labeled in the
+ 'correlated basis'.
+
+ Setting small eigenvalue to infinity            1  3.9939858582113939E-18
+ Setting small eigenvalue to infinity            2  4.6556113411937722E-17
+ Transformation block size    4, requiring     1 integral passes.
+ XForm_3cInts: Completed     1:    4 pass. @Wed Feb 12 14:48:36 1997
+ Energy evaluation using block sizes     4    4
+ RIMP2_V_E2: Approx. ints. done (    1:    4,    1:    4) @Wed Feb 12 14:48:36 1997
+ RIMP2_V_E2: Copy to B done (    1:    4,    1:    4) @Wed Feb 12 14:48:36 1997
+ RIMP2_V_E2: Denominators done (    1:    4,    1:    4) @Wed Feb 12 14:48:36 1997
+ RIMP2_V_E2: Completed block (    1:    4,    1:    4) @Wed Feb 12 14:48:36 1997
+ -------------
+ RI-MP2 energy
+ -------------
+ Reference energy:               -76.027389122693535
+ Correlation energy:              -0.205522498378101
+ Total RI-MP2 energy:            -76.232911621071636
+ -----------------------
+ Performance information
+ -----------------------
+
+ Timer overhead =  1.52D-05 seconds/call
+
+                                   Nr. of calls                 CPU time (s)              Wall time (s)  
+                             -------------------------      ---------------------      ---------------------
+ Name                        Min        Avg        Max      Min      Avg      Max      Min      Avg      Max
+ Overall                       1          1          1  2.2      2.2      2.2        2.3      2.3      2.3    
+ 3c integral xform.            1          1          1 0.52     0.52     0.52       0.52     0.52     0.52    
+ Energy                        1          1          1 2.07E-02 2.07E-02 2.07E-02   3.75E-02 3.75E-02 3.75E-02
+ 3c integral generati          1          1          1 0.50     0.50     0.50       0.50     0.50     0.50    
+ First 2/3 xform.              3          3          3 4.36E-03 4.36E-03 4.36E-03   4.37E-03 4.37E-03 4.37E-03
+ Final 1/3 xform.              1          1          1 6.12E-03 6.12E-03 6.12E-03   6.17E-03 6.17E-03 6.17E-03
+ Write 3c integrals            1          1          1 6.12E-03 6.12E-03 6.12E-03   6.12E-03 6.12E-03 6.12E-03
+ Read 3c integrals             1          1          1 5.98E-03 5.98E-03 5.98E-03   5.99E-03 5.99E-03 5.99E-03
+ Fitting basis xform           1          1          1 0.13     0.13     0.13       0.13     0.13     0.13    
+ Schwarz init                  1          1          1 4.99E-02 4.99E-02 4.99E-02   5.01E-02 5.01E-02 5.01E-02
+ Form 4ci                      1          1          1 5.42E-03 5.42E-03 5.42E-03   5.52E-03 5.52E-03 5.52E-03
+ Form A & B                    1          1          1 2.40E-03 2.40E-03 2.40E-03   2.40E-03 2.40E-03 2.40E-03
+ Denominators                  1          1          1 7.80E-04 7.80E-04 7.80E-04   7.80E-04 7.80E-04 7.80E-04
+ Pair Energies                 1          1          1 6.83E-04 6.83E-04 6.83E-04   6.86E-04 6.86E-04 6.86E-04
+
+ The average no. of pstat calls per process was 1.60D+01 with a timing overhead of 2.44D-04s
+
+
+
+                                NWCHEM Input Module
+                                -------------------
+
+
+
+ Summary of allocated global arrays 
+ ----------------------------------
+
+   No active global arrays
+  
+
+                         GA Statistics for process    0
+                         ------------------------------
+
+       create   destroy   get      put      acc     scatter   gather  read&inc
+calls:   16       16       25      167     1038        0        0        0     
+bytes total:             5.19e+05 1.93e+05 2.43e+05 0.00e+00 0.00e+00 0.00e+00
+bytes remote:            0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00
+Max memory consumed for GA by this process: 151808 bytes
+
+MA_summarize_allocated_blocks: starting scan ...
+MA_summarize_allocated_blocks: scan completed: 0 heap blocks, 0 stack blocks
+MA usage statistics:
+
+	allocation statistics:
+					      heap	     stack
+					      ----	     -----
+	current number of blocks	         0	         0
+	maximum number of blocks	        20	         9
+	current total bytes		         0	         0
+	maximum total bytes		   3880856	  15146252
+	maximum total K-bytes		      3881	     15147
+	maximum total M-bytes		         4	        16
+
+
+ If you wish to cite NWChem in the references section of a
+ publication, please use the following citation:
+
+    High Performance Computational Chemistry Group, "NWChem,
+    A Computational Chemistry Package for Parallel
+    Computers, Version 2.1," (1996), Pacific Northwest
+    National Laboratory, Richland, Washington 99352, USA.
+
+
+
+ Total times  cpu:        2.6s     wall:        2.9s

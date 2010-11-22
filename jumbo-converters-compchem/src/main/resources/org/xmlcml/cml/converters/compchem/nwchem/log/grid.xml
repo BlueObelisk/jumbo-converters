@@ -1,0 +1,16 @@
+    <template name="Grid Information" id="grid">
+      /* Grid Information ---------------- Grid used for XC integration:
+      medium Radial quadrature: Mura-Knowles Angular quadrature:
+      Lebedev. Tag B.-S. Rad. Rad. Pts. Rad. Cut. Ang. Pts. ---
+      ---------- --------- --------- --------- fe 1.40 112 8.0 590 c
+      0.70 49 11.0 434 o 0.60 49 13.0 434 Grid pruning is: on Number of
+      quadrature shells: 308 Spatial weights used: Erf1
+
+      */ CMLModule module = makeModule(); jumboReader.readLines(2);
+      jumboReader.makeNameValues(NAME_COLON_VALUE, ADD);
+      jumboReader.readLines(1);
+      jumboReader.parseTableColumnsAsArrayList("(10X,A2,15X,F8.2,I9,6X,F8.1,I10)",
+      -1, new String[]{A_+TAG, F_+BSRAD, I_+RADPTS, F_+RADCUT,
+      I_+ANGPTS}, ADD); jumboReader.makeNameValues(NAME_COLON_VALUE,
+      ADD);
+    </template>

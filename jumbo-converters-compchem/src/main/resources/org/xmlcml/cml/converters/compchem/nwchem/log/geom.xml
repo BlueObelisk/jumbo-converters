@@ -1,0 +1,16 @@
+    <template id="geom" name="Geometry" pattern="(Geometry).*">
+      /* Geometry "geometry" -> "" -------------------------
+
+      Output coordinates in a.u. (scale by 1.000000000 to convert to
+      a.u.)
+
+      No. Tag Charge X Y Z ---- ---------------- ----------
+      -------------- -------------- -------------- 1 fe 26.0000
+      0.00000000 0.00000000 0.00000000 2 c 6.0000 0.00000000 0.00000000
+      3.41435800 ... 11 o 8.0000 1.45716734 -5.43822254 0.00000000
+
+      */ CMLModule module = makeModule(); jumboReader.readLines(7);
+      jumboReader.parseTableColumnsAsArrayList("(5X,A17,F11.4,F15.8,F15.8,F15.8)",
+      -1, new String[]{A_+TAG, F_+CHARGE, F_+X, F_+Y, F_+Z}, ADD);
+
+    </template>

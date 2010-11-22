@@ -1,0 +1,35 @@
+    
+
+
+    
+
+    
+
+    <template id="molorb" name="Final Molecular Orbital Analysis" pattern="([^\s]+\s*Final Molecular Orbital Analysis)">
+      /** DFT Final Molecular Orbital Analysis
+      ------------------------------------
+
+      Vector 19 Occ=2.000000D+00 E=-2.132706D+00 Symmetry=e' MO Center=
+      2.3D-03, -4.3D-04, 3.4D-18, r^2= 2.5D-01 Bfn. Coefficient
+      Atom+Function Bfn. Coefficient Atom+Function ----- ------------
+      --------------- ----- ------------ --------------- 10 1.026049 1
+      Fe py 7 -0.387574 1 Fe py 9 0.317409 1 Fe px
+
+      OR ROHF Final Molecular Orbital Analysis
+      -------------------------------------
+
+      Vector 3 Occ=2.000000D+00 E=-1.163995D+00 MO Center= -9.1D-02,
+      -4.6D-01, 8.3D-16, r^2= 9.2D-01 Bfn. Coefficient Atom+Function
+      Bfn. Coefficient Atom+Function ----- ------------ ---------------
+      ----- ------------ --------------- 15 0.597567 2 N s 6 0.208631 1
+      C s 10 -0.198832 2 N s 11 0.176693 2 N s
+
+
+
+      */
+
+      makeModule(); String type =
+      jumboReader.readLine().split(CMLConstants.S_WHITEREGEX)[0];
+      jumboReader.readLines(2); while (jumboReader.hasMoreLines()) {
+      readVector(type); jumboReader.readEmptyLines(); }
+    </template>

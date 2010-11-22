@@ -1,0 +1,65 @@
+    <template name="3 Center 2 Electron Integral Information" id="center23">
+      /** 3 Center 2 Electron Integral Information
+      ---------------------------------------- Maximum number of
+      3-center 2e- integrals is: 12235520. This is reduced with Schwarz
+      screening to: 5362125. Incore requires a per proc buffer size of:
+      1799667. The minimum integral buffer size is: 113760 Minimum dble
+      words available (all nodes) is: 26199921 This is reduced (for
+      later use) to: 25816300 Suggested buffer size is: 1799667
+
+      1.800 MW buffer allocated for incore 3-center 2e- integral storage
+      on stack. The percent of 3c 2e- integrals held in-core is: 100.00
+
+      Time prior to 1st pass: 1.5
+
+      Grid_pts file = ./dft_feco5.gridpts.0 Record size in doubles =
+      12289 No. of grid_pts per rec = 3070 Max. records in memory = 18
+      Max. recs in file = 140416
+
+
+      Memory utilization after 1st SCF pass: Heap Space remaining (MW):
+      12.87 12872215 Stack Space remaining (MW): 11.31 11305115
+
+      convergence iter energy DeltaE RMS-Dens Diis-err time
+      ---------------- ----- ----------------- --------- ---------
+      --------- ------ d= 0,ls=0.0,diis 1 -1822.8247493675 -2.62D+03
+      6.20D-02 9.95D+00 1.9 d= 0,ls=0.0,diis 2 -1811.2270745263 1.16D+01
+      7.18D-02 6.78D+01 2.3 ... d= 0,ls=0.0,diis 18 -1823.6801959292
+      -3.28D-06 8.81D-06 3.23D-06 8.0 d= 0,ls=0.0,diis 19
+      -1823.6801961701 -2.41D-07 9.79D-07 1.05D-07 8.4
+
+
+      Total DFT energy = -1823.680196170071 One electron energy =
+      -4105.874590431184 Coulomb energy = 1601.844762163483
+      Exchange-Corr. energy = -118.145985996560 Nuclear repulsion energy
+      = 798.495618094190
+
+      Numeric. integr. density = 95.999997053934
+
+      Total iterative time = 6.9s
+
+
+      */ makeModule(); jumboReader.readLines(2);
+      jumboReader.makeNameValues(NAME_COLON_VALUE, ADD);
+      jumboReader.readLinesWhile(Pattern.compile( " convergence iter
+      energy DeltaE RMS-Dens Diis\\-err time"), false);
+      jumboReader.readLines(2); // d= 0,ls=0.0,diis 1 -1822.8247493675
+      -2.62D+03 6.20D-02 9.95D+00 1.9
+
+      String format = "(18X,I5,F18.10,E10.2,E10.2,E10.2,F8.1)";
+      jumboReader.parseTableColumnsAsArrayList( format, -1, new
+      String[]{I_+ITER, F_+ENERGY, F_+DELTAE, F_+RMSDENS, F_+DIISERR,
+      F_+TIME}, true); jumboReader.readLines(2);
+      jumboReader.addDouble("(' Total DFT energy =',F22.12)", TOTALDFT);
+      jumboReader.addDouble("(' One electron energy =',F22.12)",
+      ONEELECENER); jumboReader.addDouble("(' Coulomb energy
+      =',F22.12)", COULOMB); jumboReader.addDouble("(' Exchange-Corr.
+      energy =',F22.12)", ECHANGECORR); jumboReader.addDouble("('
+      Nuclear repulsion energy =',F22.12)", NUCREPENER);
+      jumboReader.readEmptyLines(); jumboReader.addDouble("(' Numeric.
+      integr. density =',F22.12)", NUMITERDENS);
+      jumboReader.readEmptyLines(); jumboReader.addDouble("(' Total
+      iterative time =',F9.1,'s')", TOTITERTIME);
+
+
+    </template>
