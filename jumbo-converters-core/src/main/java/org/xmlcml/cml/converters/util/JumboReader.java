@@ -30,6 +30,7 @@ import org.xmlcml.cml.tools.DictionaryTool;
 import org.xmlcml.cml.tools.TableTool;
 import org.xmlcml.euclid.JodaDate;
 import org.xmlcml.euclid.Point3;
+import org.xmlcml.euclid.Real;
 import org.xmlcml.euclid.Util;
 import org.xmlcml.molutil.ChemicalElement;
 
@@ -315,15 +316,54 @@ public class JumboReader {
 		String dictRef = matcher.group(1).trim();
 		dictRef = dictRef.replaceAll("[^a-zA-Z0-9\\.\\-]", CMLConstants.S_UNDER);
 		String value = matcher.group(2).trim();
+		scalar = createScalar(dataType, value);
+		addDictRef(scalar, dictRef);
+		addElementToParentElement(add, scalar);
+		return scalar;
+	}
+
+	/**
+	 * @param dataType
+	 * @param value
+	 * @return
+	 */
+	public static CMLScalar createScalar(String dataType, String value) {
+		CMLScalar scalar;
 		if (CMLConstants.XSD_DOUBLE.equals(dataType)) {
-			scalar = new CMLScalar(Double.parseDouble(value.toString()));
+			scalar = new CMLScalar(Real.parseDouble(value));
 		} else if (CMLConstants.XSD_INTEGER.equals(dataType)) {
-			scalar = new CMLScalar(Integer.parseInt(value.toString()));
+			scalar = new CMLScalar(Integer.parseInt(value));
+		} else if (CMLConstants.XSD_BOOLEAN.equals(dataType)) {
+			scalar = new CMLScalar(new Boolean(value));
+		} else if (CMLConstants.XSD_DATE.equals(dataType)) {
+			scalar = new CMLScalar(JodaDate.parseDate(value));
 		} else {
 			scalar = new CMLScalar(value);
 		}
-		addDictRef(scalar, dictRef);
-		addElementToParentElement(add, scalar);
+		return scalar;
+	}
+
+	/**
+	 * @param clazz
+	 * @param value
+	 * @return
+	 */
+	public static CMLScalar createScalar(Class dataTypeClass, String value) {
+		value = value.trim();
+		CMLScalar scalar = null;
+		if (Double.class.equals(dataTypeClass)) {
+			scalar = new CMLScalar(Real.parseDouble(value));
+		} else if (Integer.class.equals(dataTypeClass)) {
+			scalar = new CMLScalar(Integer.parseInt(value));
+		} else if (Boolean.class.equals(dataTypeClass)) {
+			scalar = new CMLScalar(new Boolean(value));
+		} else if (DateTime.class.equals(dataTypeClass)) {
+			scalar = new CMLScalar(JodaDate.parseDate(value));
+		} else if (String.class.equals(dataTypeClass)) {
+			scalar = new CMLScalar(value);
+		} else {
+			scalar = null;
+		}
 		return scalar;
 	}
 
@@ -662,7 +702,7 @@ public class JumboReader {
 		}
 	}
 
-	private CMLElement convertToSingleScalarOrList(List<Object> results, String[] names, Pattern pattern) {
+	public CMLElement convertToSingleScalarOrList(List<Object> results, String[] names, Pattern pattern) {
 		if (results.size() != names.length) {
 			throw new RuntimeException(
 					"Unmatched lengths of names and results "+results.size()+" != "+names.length);
@@ -672,32 +712,67 @@ public class JumboReader {
 		List<Class> classList = makeClassList(names);
 		for (int i = 0; i < nameList.size(); i++) {
 			Object result = results.get(i);
-			Object clazz = classList.get(i);
+			Class clazz = classList.get(i);
 			String name = nameList.get(i);
-			CMLScalar scalar = null;
-			if (result == null) {
-				throw new RuntimeException("Null result "+result+" / "+clazz+" / "+name);
-			} else if ((result instanceof Integer || result instanceof String && pattern != null) &&
-					clazz.equals(Integer.class)) {
-				scalar = new CMLScalar(new Integer(result.toString()));
-			} else if ((result instanceof Double || result instanceof String && pattern != null )&& 
-			        clazz.equals(Double.class)) {
-				scalar = new CMLScalar(new Double(result.toString()));
-			} else if (result instanceof String && clazz.equals(String.class)) {
-				scalar = new CMLScalar(result.toString());
-			} else if (result instanceof String && clazz.equals(DateTime.class)) {
-				DateTime dateTime = JodaDate.parseDate(result.toString().trim());
-				scalar = new CMLScalar(dateTime);
-			} else {
-				throw new RuntimeException("Bad name/class "+result+" / "+clazz+" / "+name);
-			}
-			addDictRef(scalar, dictionaryPrefix, name);
+			CMLScalar scalar = convertToScalar(result, clazz, name, pattern);
 			scalarList.add(scalar);
 		}
 		return createSingleScalarOrList(scalarList);
 	}
 
-	private CMLElement createSingleScalarOrList(List<CMLScalar> scalarList) {
+	public CMLScalar convertToScalar(Object result, Class clazz, String name) {
+		return convertToScalar(result, clazz, name, null);
+	}
+
+	/**
+	 * 
+	 * @param result String, Integer, Double
+	 * @param clazz String, Integer, Double
+	 * @param name
+	 * @param pattern
+	 * @return
+	 */
+	public CMLScalar convertToScalar(Object result, Class clazz, String name, Pattern pattern) {
+		CMLScalar scalar = null;
+		if (result == null) {
+			throw new RuntimeException("Null result "+result+" / "+clazz+" / "+name);
+		} else if ((result instanceof Integer || result instanceof String && pattern != null) &&
+				clazz.equals(Integer.class)) {
+			scalar = new CMLScalar(new Integer(result.toString()));
+		} else if ((result instanceof Double || result instanceof String && pattern != null )&& 
+		        clazz.equals(Double.class)) {
+			scalar = new CMLScalar(new Double(result.toString()));
+		} else if (result instanceof String && clazz.equals(String.class)) {
+			scalar = new CMLScalar(result.toString());
+		} else if (result instanceof String && clazz.equals(DateTime.class)) {
+			DateTime dateTime = JodaDate.parseDate(result.toString().trim());
+			scalar = new CMLScalar(dateTime);
+		} else {
+			throw new RuntimeException("Bad name/class "+result+" / "+clazz+" / "+name);
+		}
+		addDictRef(scalar, dictionaryPrefix, name);
+		return scalar;
+	}
+
+	public static Object parseScalar(String string, Class clazz) {
+		Object result = null;
+		if (Integer.class.equals(clazz)) {
+			result = new Integer(string);
+		} else if (Double.class.equals(clazz)) {
+			result = Real.parseDouble(string);
+		} else if (String.class.equals(clazz)) {
+			result = string;
+		} else if (DateTime.class.equals(clazz)) {
+			result = JodaDate.parseDate(string);
+		} else if (Boolean.class.equals(clazz)) {
+			result = new Boolean(string);
+		} else {
+			throw new RuntimeException("unsupported / unknown class: "+clazz);
+		}
+		return result;
+	}
+	
+	public static CMLElement createSingleScalarOrList(List<CMLScalar> scalarList) {
 		CMLElement element = null;
 		if (scalarList.size() == 1) {
 			element = scalarList.get(0);
@@ -742,7 +817,7 @@ public class JumboReader {
 					currentLineNumber--;
 					break;
 				}
-				throw new RuntimeException("Cannot parse line: "+this.peekLine());
+				throw new RuntimeException("Cannot parse line: "+this.peekLine(), e);
 			}
 			ensureArrayList(arrayList, element);
 			List<CMLScalar> cells = getScalarList(element);
@@ -835,21 +910,29 @@ public class JumboReader {
 	private static List<Class> makeClassList(String[] names) {
 		List<Class> classList = new ArrayList<Class>();
 		for (String name : names) {
-			if (name.startsWith("I.")) {
-				classList.add(Integer.class);
-			} else if (name.startsWith("E.")) {
-				classList.add(Double.class);
-			} else if (name.startsWith("D.")) {
-				classList.add(DateTime.class);
-			} else if (name.startsWith("F.")) {
-				classList.add(Double.class);
-			} else if (name.startsWith("A.")) {
-				classList.add(String.class);
-			} else {
+			Class clazz = makeClass(classList, name);
+			if (clazz == null) {
 				throw new RuntimeException("Name must start with I., D., E., F. or A."); 
 			}
+			classList.add(clazz);
 		}
 		return classList;
+	}
+
+	private static Class makeClass(List<Class> classList, String name) {
+		Class clazz = null;
+		if (name.startsWith("I.")) {
+			clazz = Integer.class;
+		} else if (name.startsWith("E.")) {
+			clazz = Double.class;
+		} else if (name.startsWith("D.")) {
+			clazz = DateTime.class;
+		} else if (name.startsWith("F.")) {
+			clazz = Double.class;
+		} else if (name.startsWith("A.")) {
+			clazz = String.class;
+		}
+		return clazz;
 	}
 
 //	/** reads line into scalars and adds those to element

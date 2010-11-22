@@ -2,7 +2,9 @@ package org.xmlcml.cml.converters.compchem.gaussian;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.xmlcml.cml.converters.compchem.gamessus.GamessUSLog2XMLConverter;
+import org.xmlcml.cml.converters.compchem.gamessus.log.GamessUSLog2XMLConverter;
+import org.xmlcml.cml.converters.compchem.gaussian.archive.GaussianArchive2XMLConverter;
+import org.xmlcml.cml.converters.compchem.gaussian.archive.GaussianArchiveXML2CMLConverter;
 import org.xmlcml.cml.converters.compchem.gaussian.input.CML2GaussianInputConverter;
 import org.xmlcml.cml.converters.compchem.gaussian.log.GaussianLog2CMLConverter;
 import org.xmlcml.cml.converters.testutils.RegressionSuite;

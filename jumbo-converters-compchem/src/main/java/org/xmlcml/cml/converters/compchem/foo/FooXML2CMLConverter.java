@@ -10,7 +10,7 @@ import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
 import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
-import org.xmlcml.cml.converters.compchem.gamessus.GamessUSPunchXMLProcessor;
+import org.xmlcml.cml.converters.compchem.gamessus.punch.GamessUSPunchXMLProcessor;
 import org.xmlcml.cml.element.CMLCml;
 
 public class FooXML2CMLConverter extends AbstractCompchem2CMLConverter{

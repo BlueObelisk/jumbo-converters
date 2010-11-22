@@ -2,6 +2,10 @@
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.xmlcml.cml.converters.compchem.gamessus.input.GamessUSInput2XMLConverter;
+import org.xmlcml.cml.converters.compchem.gamessus.log.GamessUSLog2XMLConverter;
+import org.xmlcml.cml.converters.compchem.gamessus.punch.GamessUSPunch2XMLConverter;
+import org.xmlcml.cml.converters.compchem.gamessus.punch.GamessUSPunchXML2CMLConverter;
 import org.xmlcml.cml.converters.testutils.RegressionSuite;
 
 /**
@@ -11,12 +15,14 @@ import org.xmlcml.cml.converters.testutils.RegressionSuite;
 public class RegressionTest {
 
 	   @Test
+	   @Ignore
 	   public void gamessusPunch2XML() {
 	      RegressionSuite.run("compchem/gamessus/punch", "dat", "xml",
 	                          new GamessUSPunch2XMLConverter());
 	                              
 	   }
 	   @Test
+	   @Ignore
 	   public void gamessusPunchXML2CML() {
 	      RegressionSuite.run("compchem/gamessus/punch", "xml", "cml",
 	                          new GamessUSPunchXML2CMLConverter());

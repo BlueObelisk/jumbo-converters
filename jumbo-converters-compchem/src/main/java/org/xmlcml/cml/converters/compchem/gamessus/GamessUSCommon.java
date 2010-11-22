@@ -14,20 +14,16 @@ import org.xmlcml.cml.converters.AbstractCommon;
 public class GamessUSCommon extends AbstractCommon {
 	private final static Logger LOG = Logger.getLogger(GamessUSCommon.class);
 	
-	private static final String GAMESSUS_PREFIX = "gamessus";
-	private static final String GAMESSUS_URI = "http://wwmm.ch.cam.ac.uk/dict/gamessus";
+	public static final String GAMESSUS_PREFIX = "gamessus";
+	public static final String GAMESSUS_URI = "http://wwmm.ch.cam.ac.uk/dict/gamessus";
 
-	static final String NSERCH = "NSERCH";
-
-	static final String STEP = "STEP";
-
-	static final String RESULTS = "RESULTS";
-
+	public static final String NSERCH = "NSERCH";
+	public static final String STEP = "STEP";
+	public static final String RESULTS = "RESULTS";
 	public static final String KEYWORD = " $";
-
-	static final String END = " $END";
-
-	static final String NCYC = "ncyc";
+	public static final String END = " $END";
+	public static final String NCYC = "ncyc";
+	
     protected String getDictionaryResource() {
     	return "org/xmlcml/cml/converters/compchem/gamessus/gamessusDict.xml";
     }

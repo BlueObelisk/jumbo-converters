@@ -9,13 +9,21 @@ public class BlockContainer {
 	private List<AbstractBlock> blockList;
 	private CMLMolecule molecule;
 	private int currentBlockNumber = -1;
+	private LegacyProcessor legacyProcessor;
 	
-	public BlockContainer() {
+	public BlockContainer(LegacyProcessor legacyProcessor) {
 		this.blockList = new ArrayList<AbstractBlock>();
+		this.legacyProcessor = legacyProcessor;
 	}
+	
+	public LegacyProcessor getLegacyProcessor() {
+		return legacyProcessor;
+	}
+
 	public List<AbstractBlock> getBlockList() {
 		return blockList;
 	}
+	
 	public void add(AbstractBlock block) {
 		this.blockList.add(block);
 		block.setBlockContainer(this);

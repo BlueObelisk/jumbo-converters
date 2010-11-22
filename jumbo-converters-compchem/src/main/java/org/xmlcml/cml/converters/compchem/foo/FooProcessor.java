@@ -5,6 +5,7 @@ import java.util.List;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
+import org.xmlcml.cml.converters.BlockContainer;
 import org.xmlcml.cml.converters.LegacyProcessor;
 import org.xmlcml.cml.element.CMLScalar;
 
@@ -34,6 +35,11 @@ public class FooProcessor extends LegacyProcessor {
 	@Override
 	protected AbstractCommon getCommon() {
 		return new FooCommon();
+	}
+
+	@Override
+	protected String getTemplateResourceName() {
+		return "org/xmlcml/cml/converters/compchem/foo/template.xml";
 	}
 
 	/**
@@ -80,6 +86,11 @@ public class FooProcessor extends LegacyProcessor {
 	@Override
 	protected void postprocessBlocks() {
 		// not required
+	}
+
+	@Override
+	protected AbstractBlock createAbstractBlock(BlockContainer blockContainer) {
+		return new FooBlock(blockContainer);
 	}
 	
 }

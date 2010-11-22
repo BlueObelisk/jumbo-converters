@@ -1,28 +1,30 @@
 package org.xmlcml.cml.converters.text;
 
 import java.io.InputStream;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import nu.xom.Attribute;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
+import nu.xom.Nodes;
 
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.LegacyProcessor;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.euclid.Util;
 
-public class Text2XMLConverter extends AbstractConverter {
+public abstract class Text2XMLConverter extends AbstractConverter {
 
 	private static final String STAGO = "<";
 	private static final String MARKER = "marker";
+	private static final String ENTER_LINK = "enterLink";
+	private static final String GROUP1 = "group1";
+	private static final String LEAVE_LINK = "leaveLink";
 	private List<String> lines;
 	private String markerResourceName;
 	private List<ChunkerMarker> markerList;
@@ -42,28 +44,23 @@ public class Text2XMLConverter extends AbstractConverter {
 	
 	@Override
 	public Element convertToXML(List<String> lines) {
-		List<String> linesCopy = this.convertToIntermediateText(lines);
-		Element element = createXML(linesCopy);
-		element = processIntoBlocks(element);
-		return element;
+		this.lines = lines;
+		this.insertMarkers();
+		Element element = createXML();
+//		element = processIntoBlocks(element);
+		legacyProcessor = createLegacyProcessor();
+		legacyProcessor.read((CMLElement)element);
+		return legacyProcessor.getCMLElement();
 	}
 
-	/**
-	 * override if further processing is required
-	 * @param element
-	 * @return
-	 */
-	public Element processIntoBlocks(Element element) {
-		return element;
-	}
-	public void setMarkerResourceName(String resourceName) {
-		this.markerResourceName = resourceName;
-	}
+//	public void setMarkerResourceName(String resourceName) {
+//		this.markerResourceName = resourceName;
+//	}
 	
-	public String getMarkerResourceName() {
-		return markerResourceName;
-	}
+	protected abstract String getMarkerResourceName();
 	
+	protected abstract LegacyProcessor createLegacyProcessor();
+
 	private InputStream getMarkerInputStream() {
 		InputStream is = null;
 		try {
@@ -73,6 +70,7 @@ public class Text2XMLConverter extends AbstractConverter {
 		}
 		return is;
 	}
+	
 	protected void readMarkers(InputStream is) {
 		Document doc = CMLUtil.parseQuietlyToDocument(is);
 		markerList = new ArrayList<ChunkerMarker>();
@@ -87,14 +85,7 @@ public class Text2XMLConverter extends AbstractConverter {
 		}
 	}
 
-	private void read(List<String> lines) {
-		this.lines = new ArrayList<String>(lines.size());
-		for (String line : lines) {
-			this.lines.add(line);
-		}
-	}
-	
-	private List<String> convertToIntermediateText(List<String> lines) {
+	private void insertMarkers() {
 		readMarkers(getMarkerInputStream());
 		List<String> linesCopy = new ArrayList<String>(lines.size());
 		int lineCount = 0;
@@ -102,20 +93,22 @@ public class Text2XMLConverter extends AbstractConverter {
 			String line = lines.get(lineCount);
 			for (ChunkerMarker marker : markerList) {
 				if (marker.matches(line)) {
-					int lineCount0 = lineCount;
-					lineCount += marker.getOffset();
-					String markedLine = lines.get(lineCount);
-					String markup = marker.getMarkup(markedLine);
-					lineCount = lineCount0;
-					linesCopy.add(markup);
+					insertMarkupLine(lineCount, marker, linesCopy);
+					break;
 				}
 			}
 			linesCopy.add(line);
 		}
-		return linesCopy;
+		lines = linesCopy;
 	}
 
-	private CMLElement createXML(List<String> lines) {
+	private void insertMarkupLine(int lineCount, ChunkerMarker marker, List<String> linesCopy) {
+		int offset = marker.getOffset();
+		String markup = marker.getMarkup(lines.get(lineCount+offset));
+		linesCopy.add(linesCopy.size()+offset, markup);
+	}
+
+	private CMLElement createXML() {
 		CMLCml cml = new CMLCml();
 		CMLScalar scalar = null;
 		StringBuilder sb = null;
@@ -168,6 +161,32 @@ public class Text2XMLConverter extends AbstractConverter {
 			}
 		}
 		return isXML;
+	}
+
+	public Element processIntoBlocks(Element element) {
+		Element newElement = element;
+		Nodes scalarNodes = element.query("./*[local-name()='scalar']");
+		List<Element> scalarList = new ArrayList<Element>();
+		for (int i = 0; i < scalarNodes.size(); i++) {
+			Element scalar = (Element)scalarNodes.get(i);
+			scalarList.add(scalar);
+		}
+		for (int i = 0; i < scalarList.size(); i++) {
+			Element scalar = scalarList.get(i);
+			if (LEAVE_LINK.equals(scalar.getAttributeValue(ChunkerMarker.MARK))) {
+				if (i > 0) {
+					String link = scalar.getAttributeValue(GROUP1);
+					Element previousScalar = scalarList.get(i-1);
+					String previousLink = previousScalar.getAttributeValue(GROUP1);
+					if (ENTER_LINK.equals(previousScalar.getAttributeValue(ChunkerMarker.MARK))) {
+						if (link.equals(previousLink)) {
+							scalar.detach();
+						}
+					}
+				}
+			}
+		}
+		return newElement;
 	}
 	
 	

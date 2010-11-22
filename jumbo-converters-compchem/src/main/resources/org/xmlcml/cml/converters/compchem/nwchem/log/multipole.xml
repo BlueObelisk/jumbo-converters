@@ -1,0 +1,19 @@
+    <template id="multipole" name="Multipole analysis of the density">
+      Multipole analysis of the density
+      ---------------------------------
+
+      L x y z total alpha beta nuclear
+      - - - - ----- ----- ---- -------
+      0 0 0 0 0.000000 -48.000000 -48.000000 96.000000
+
+      1 1 0 0 0.000000   0.000000   0.000000  0.000000
+      1 0 1 0 0.000000   0.000000   0.000000  0.000000
+      */ makeModule();
+      jumboReader.readLines(5); String format = "(I6,2X,3I2,4F14.6)";
+      String[] names = {I_+L, I_+X, I_+Y, I_+Z, F_+TOTAL, F_+ALPHA,
+      F_+BETA, F_+NUCLEAR}; while(jumboReader.hasMoreLines()) { if
+      (jumboReader.peekLine().trim().length() == 0) { break; } try {
+      jumboReader.parseTableColumnsAsArrayList(format, -1, names, ADD);
+      jumboReader.readLines(1); } catch (Exception e) { break; } }
+
+    </template>
