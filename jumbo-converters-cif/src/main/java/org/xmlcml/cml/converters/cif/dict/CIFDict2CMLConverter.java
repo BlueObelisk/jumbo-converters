@@ -53,6 +53,7 @@ public class CIFDict2CMLConverter extends CIF2CIFXMLConverter {
 	 * 
 	 * @param lines
 	 */
+	@Override
 	public Element convertToXML(List<String> lines) {
 		CIF cifxml = (CIF) super.convertToXML(lines);
 		detachComments(cifxml);

@@ -1,22 +1,22 @@
 package org.xmlcml.cml.converters.cif.dict;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Serializer;
+
 import org.xmlcml.cif.CIF;
 import org.xmlcml.cif.CIFDataBlock;
 import org.xmlcml.cif.CIFException;
 import org.xmlcml.cif.CIFItem;
 import org.xmlcml.cif.CIFParser;
 import org.xmlcml.cml.base.CMLConstants;
-import org.xmlcml.cml.base.CMLNamespace;
 import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.element.CMLEntry;
-
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 /**
  * @author sea36
