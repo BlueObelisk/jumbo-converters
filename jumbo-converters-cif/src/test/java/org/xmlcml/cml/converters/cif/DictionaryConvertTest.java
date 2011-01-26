@@ -15,28 +15,42 @@ import org.xmlcml.cml.converters.cif.dict.CIFDict2CMLConverter;
 import org.xmlcml.cml.converters.cif.dict.CifDictionaryBuilder;
 
 public class DictionaryConvertTest {
-	
-	
+
+	@Test
+	public void testCifXom() throws CIFException, IOException {
+		File dir=new File("src/test/resources/dict");
+		dir.mkdirs();
+		File in = new File("src/main/resources/cif_core.dic");
+		CIFParser parser = new CIFParser();
+		Document cifDict = parser.parse(in);
+		Serializer ser = new Serializer(new FileOutputStream(new File(
+				"src/test/resources/dict/cif.xml")));
+		ser.setIndent(2);
+		ser.write(cifDict);
+	}
+
 	@Test
 	public void testCreateDictionaryPeter() throws IOException {
-		File in=new File("src/main/resources/cif_core.dic");
+		File in = new File("src/main/resources/cif_core.dic");
 		CIFDict2CMLConverter dictConv = new CIFDict2CMLConverter();
-		Element xml=dictConv.convertToXML(in);
-		Serializer ser =new Serializer(new FileOutputStream(new File("src/test/resources/dict/peter.xml")));
+		Element xml = dictConv.convertToXML(in);
+		Serializer ser = new Serializer(new FileOutputStream(new File(
+				"src/test/resources/dict/peter.xml")));
 		ser.setIndent(2);
 		ser.write(new Document(xml));
 	}
-	
+
 	@Test
-	public void testCreateDictionarySam() throws CIFException, IOException{
-		File in=new File("src/main/resources/cif_core.dic");
+	public void testCreateDictionarySam() throws CIFException, IOException {
+		File in = new File("src/main/resources/cif_core.dic");
 		CifDictionaryBuilder builder = new CifDictionaryBuilder();
 		CIFParser parser = new CIFParser();
-        Document cifDict = parser.parse(in);
-        builder.build(cifDict);
-        Serializer ser = new Serializer(new FileOutputStream(new File("src/test/resources/dict/sam.xml")));
-        ser.setIndent(2);
-        ser.write(builder.getCmlDoc());
+		Document cifDict = parser.parse(in);
+		builder.build(cifDict);
+		Serializer ser = new Serializer(new FileOutputStream(new File(
+				"src/test/resources/dict/sam.xml")));
+		ser.setIndent(2);
+		ser.write(builder.getCmlDoc());
 	}
-	
+
 }
