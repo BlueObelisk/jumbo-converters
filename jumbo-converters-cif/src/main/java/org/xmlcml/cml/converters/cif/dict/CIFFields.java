@@ -54,6 +54,17 @@ public enum CIFFields {
 			entry.addAttribute(new Attribute("units",newUnit));
 		}
 		
+	},
+	unitDesc("_units_detail"){
+
+		@Override
+		public void custom(CIFItem cifItem, CMLEntry entry) {
+			String unitDesc = cifItem.getValue();
+			CMLElement elem=new CMLElement("unitsDescription");
+			elem.appendChild(unitDesc);
+			entry.appendChild(elem);
+		}
+		
 	};
 
 	final String cifName;
