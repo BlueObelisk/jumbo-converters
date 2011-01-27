@@ -47,6 +47,8 @@ public class CifDictionaryBuilder {
             addEntry(dataBlock);
         }
     }
+    
+    
 
     private void addEntry(CIFDataBlock dataBlock) {
 
