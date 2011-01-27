@@ -28,6 +28,7 @@ public class DictionaryConvertTest {
 		ser.setIndent(2);
 		ser.write(cifDict);
 	}
+	
 
 	@Test
 	public void testCreateDictionaryPeter() throws IOException {
