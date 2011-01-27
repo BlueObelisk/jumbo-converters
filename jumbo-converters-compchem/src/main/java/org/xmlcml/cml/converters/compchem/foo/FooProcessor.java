@@ -39,7 +39,7 @@ public class FooProcessor extends LegacyProcessor {
 
 	@Override
 	protected String getTemplateResourceName() {
-		return "org/xmlcml/cml/converters/compchem/foo/template.xml";
+		return "org/xmlcml/cml/converters/compchem/foo/templateList.xml";
 	}
 
 	/**

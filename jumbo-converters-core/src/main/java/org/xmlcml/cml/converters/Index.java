@@ -98,14 +98,14 @@ public class Index {
 
 	@SuppressWarnings("unchecked")
 	public void put(String key, IndexEntry entry) {
-		Set entrySet = (Set) indexMap.get(key);
+		Set<IndexEntry> entrySet = (Set<IndexEntry>) indexMap.get(key);
 		if (!allowDuplicateKeys) {
 			if (entrySet != null) {
 				throw new RuntimeException("duplicate entry for: "+key);
 			}
 		}
 		if (entrySet == null) {
-			entrySet = new HashSet();
+			entrySet = new HashSet<IndexEntry>();
 			indexMap.put(key, entrySet);
 		}
 		entrySet.add(entry);
@@ -137,9 +137,9 @@ public class Index {
 	
 	@SuppressWarnings("unchecked")
 	public void debug() {
-		Map indexMap = this.getIndex();
+		Map<String, Set<IndexEntry>> indexMap = this.getIndex();
 		for (Object key : indexMap.keySet()) {
-			Set indexSet = (Set) indexMap.get(key);
+			Set<IndexEntry> indexSet = (Set<IndexEntry>) indexMap.get(key);
 			Util.println(key+"...");
 			for (Object ie : indexSet) {
 				Element element = ((IndexEntry)ie).getEntryRef();

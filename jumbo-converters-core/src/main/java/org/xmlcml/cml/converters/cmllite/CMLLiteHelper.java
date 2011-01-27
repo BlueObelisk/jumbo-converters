@@ -34,9 +34,9 @@ import org.xmlcml.cml.tools.BondTool;
 public class CMLLiteHelper {
 
 	private static final Logger LOG = Logger.getLogger(CMLLiteHelper.class);
-	private static Set<Class> cmlLiteClassSet = new HashSet<Class>(); 
+	private static Set<Class<? extends CMLElement>> cmlLiteClassSet = new HashSet<Class<? extends CMLElement>>(); 
 	static {
-		cmlLiteClassSet = new HashSet<Class>(); 
+		cmlLiteClassSet = new HashSet<Class<? extends CMLElement>>(); 
 		cmlLiteClassSet.add(CMLAtom.class);
 		cmlLiteClassSet.add(CMLAtomArray.class);
 		cmlLiteClassSet.add(CMLAtomParity.class);
@@ -72,7 +72,7 @@ public class CMLLiteHelper {
 //		System.out.println("NODESSSS"+nodes.size());
 		for (int i = 0; i < nodes.size(); i++) {
 			Element element = (Element) nodes.get(i);
-			Class clazz = element.getClass();
+			Class<?> clazz =  element.getClass();
 			if (element instanceof CMLElement) {
 				if (cmlLiteClassSet.contains(clazz)) {
 					if (element instanceof CMLAtom) {

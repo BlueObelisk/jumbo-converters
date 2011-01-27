@@ -26,7 +26,7 @@ public class GaussianLogProcessor extends LegacyProcessor {
 
 	@Override
 	protected String getTemplateResourceName() {
-		return "org/xmlcml/cml/converters/compchem/gaussian/log/template.xml";
+		return "org/xmlcml/cml/converters/compchem/gaussian/log/templateList.xml";
 	}
 
 	@Override

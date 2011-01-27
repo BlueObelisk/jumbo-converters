@@ -26,7 +26,7 @@ public class CaptureGroup {
 	
 	// of form \\s*((?:\\-?\\d+\\b\\s*){1,3}) or {1,} or {3}
 	// ((?:\-?\d+\.\d+\s+){1,3})
-	private static String testTarget = "((?:\\-?\\d+\\.\\d+\\s+){1,3})";
+//	private static String testTarget = "((?:\\-?\\d+\\.\\d+\\s+){1,3})";
 	private static String QUANTIFIER0_S = 
 		"\\(      # first capture bracket in target\n" +
 		"\\?\\:   # and its non-capture flag\n" +

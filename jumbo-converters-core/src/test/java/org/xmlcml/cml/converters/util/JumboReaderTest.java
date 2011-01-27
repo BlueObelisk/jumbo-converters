@@ -150,7 +150,7 @@ public class JumboReaderTest {
 	public void testParseToSingleLineArray() {
 		String data = " 7.799249640E-06-1.877789578E-08 9.009626448E-06 5.782921410E-06 1.610009308E-05";
 		String format = "(5E16.9)";
-		CMLArray array = new JumboReader().parseArray(
+		CMLArray array = new JumboReader().readArray(
 				format, data, CMLConstants.XSD_DOUBLE);
 		CMLArray expected = new CMLArray(new double[] {
 		7.799249640E-06,
@@ -174,7 +174,7 @@ public class JumboReaderTest {
 		int fieldsToRead = 23;
 		JumboReader jumboReader = new JumboReader(getDictionary(), getPrefix(), lines);
 		jumboReader.setCurrentLineNumber(2);
-		CMLArray array = jumboReader.parseMultipleLinesToArray(
+		CMLArray array = jumboReader.readMultipleLinesToArray(
 				format, fieldsToRead, CMLConstants.XSD_DOUBLE);
 		CMLArray expected = new CMLArray(new double[] {
 		   1.000,  2.000,  3.000,  4.000,  5.000,  6.000,  7.000,  8.000,  9.000, 10.000,
@@ -199,7 +199,7 @@ public class JumboReaderTest {
 		String format = "(10F8.3)";
 		int fieldsToRead = -1;
 		JumboReader jumboReader = new JumboReader(getDictionary(), getPrefix(), lines);
-		CMLArray array = jumboReader.parseMultipleLinesToArray(
+		CMLArray array = jumboReader.readMultipleLinesToArray(
 				format, fieldsToRead, CMLConstants.XSD_DOUBLE);
 		CMLArray expected = new CMLArray(new double[] {
 		   1.000,  2.000,  3.000,  4.000,  5.000,  6.000,  7.000,  8.000,  9.000, 10.000,
@@ -232,7 +232,7 @@ public class JumboReaderTest {
 		String format = "(10F8.3)";
 		int fieldsToRead = -1;
 		JumboReader jumboReader = new JumboReader(getDictionary(), getPrefix(), lines);
-		CMLArray array = jumboReader.parseMultipleLinesToArray(
+		CMLArray array = jumboReader.readMultipleLinesToArray(
 				format, fieldsToRead, CMLConstants.XSD_DOUBLE);
 		CMLArray expected = new CMLArray(new double[] {
 		   1.000,  2.000,  3.000,  4.000,  5.000,  6.000,  7.000,  8.000,  9.000, 10.000,
@@ -290,7 +290,7 @@ public class JumboReaderTest {
 			newlines.add("a");
 			newlines.add("b");
 			newlines.add("c");
-			jumboReader.setLinesToBeParsed(newlines);
+			jumboReader.setLinesToBeRead(newlines);
 			JumboTestUtils.assertEquals("lines", new String[]{"a", "b", "c"}, 
 					jumboReader.getLinesToBeParsed().toArray(new String[0]));
 	}
@@ -302,7 +302,7 @@ public class JumboReaderTest {
 				"bar"};
 			JumboReader jumboReader = new JumboReader(getDictionary(), getPrefix(), strings);
 			String[] newlines = new String[]{"a", "b", "c"};
-			jumboReader.setLinesToBeParsed(newlines);
+			jumboReader.setLinesToBeRead(newlines);
 			JumboTestUtils.assertEquals("lines", new String[]{"a", "b", "c"}, 
 					jumboReader.getLinesToBeParsed().toArray(new String[0]));
 	}
@@ -382,7 +382,7 @@ public class JumboReaderTest {
 	public void testParseMultipleLinesToArrayStringIntString() {
 		String[] strings = new String[] {" 1 2 3 4 5", " 6 7 8 910", "111213"};
 		JumboReader jumboReader = new JumboReader(getDictionary(), getPrefix(), strings);
-		CMLElement element = jumboReader.parseMultipleLinesToArray("(5I2)", 11, CMLConstants.XSD_INTEGER);
+		CMLElement element = jumboReader.readMultipleLinesToArray("(5I2)", 11, CMLConstants.XSD_INTEGER);
 		String expectedS = "<array delimiter=\"\" dataType=\"xsd:integer\" size=\"13\" " +
 				"xmlns=\"http://www.xml-cml.org/schema\">1 2 3 4 5 6 7 8 9 10 11 12 13</array>";
 		JumboTestUtils.assertEqualsIncludingFloat("element", expectedS, element, true, 0.000001);
@@ -391,7 +391,7 @@ public class JumboReaderTest {
 	public void testParseMultipleLinesToArrayStringIntString1() {
 		String[] strings = new String[] {" 1 2 3 4 5", " 6 7 8 910", "111213"};
 		JumboReader jumboReader = new JumboReader(getDictionary(), getPrefix(), strings);
-		CMLElement element = jumboReader.parseMultipleLinesToArray("(5I2)", 2, CMLConstants.XSD_INTEGER);
+		CMLElement element = jumboReader.readMultipleLinesToArray("(5I2)", 2, CMLConstants.XSD_INTEGER);
 		String expectedS = "<array delimiter=\"\" dataType=\"xsd:integer\" size=\"5\" " +
 				"xmlns=\"http://www.xml-cml.org/schema\">1 2 3 4 5</array>";
 		JumboTestUtils.assertEqualsIncludingFloat("element", expectedS, element, true, 0.000001);
@@ -400,7 +400,7 @@ public class JumboReaderTest {
 	public void testParseMultipleLinesToArrayStringIntString2() {
 		String[] strings = new String[] {" 1 2 3 4 5", " 6 7 8 910", "111213"};
 		JumboReader jumboReader = new JumboReader(getDictionary(), getPrefix(), strings);
-		CMLElement element = jumboReader.parseMultipleLinesToArray("(5I2)", 8, CMLConstants.XSD_INTEGER);
+		CMLElement element = jumboReader.readMultipleLinesToArray("(5I2)", 8, CMLConstants.XSD_INTEGER);
 		String expectedS = "<array delimiter=\"\" dataType=\"xsd:integer\" size=\"10\" " +
 				"xmlns=\"http://www.xml-cml.org/schema\">1 2 3 4 5 6 7 8 9 10</array>";
 		JumboTestUtils.assertEqualsIncludingFloat("element", expectedS, element, true, 0.000001);
@@ -425,7 +425,7 @@ public class JumboReaderTest {
 		int elsym = 1;
 		int label = 0;
 		int atnum = -1;
-		CMLMolecule molecule = jumboReader.parseMoleculeAsColumns(
+		CMLMolecule molecule = jumboReader.readMoleculeAsColumns(
 				2, "(A2,A2,3(F3.1))", new int[]{elsym, atnum, label, 2, 3, 4}, false);
 		String expectedS = "<molecule xmlns=\"http://www.xml-cml.org/schema\">" +
 				"  <atomArray>" +
@@ -444,7 +444,7 @@ public class JumboReaderTest {
 	public void testParseArrayStringStringStringBoolean() {
 //		JumboReader jumboReader = new JumboReader(getDictionary(), getPrefix(), strings);
 		JumboReader jumboReader = new JumboReader();
-		CMLElement element = jumboReader.parseArray("(5I2)", " 1 2 3 4 5", CMLConstants.XSD_INTEGER);
+		CMLElement element = jumboReader.readArray("(5I2)", " 1 2 3 4 5", CMLConstants.XSD_INTEGER);
 		String expectedS = "<array delimiter=\"\" dataType=\"xsd:integer\" size=\"5\" " +
 				"xmlns=\"http://www.xml-cml.org/schema\">1 2 3 4 5</array>";
 		JumboTestUtils.assertEqualsIncludingFloat("element", expectedS, element, true, 0.000001);
@@ -464,7 +464,7 @@ public class JumboReaderTest {
 	public void testParseTableColumnsAsArrayList() {
 		String[] strings = new String[] {" C 2 3.4", " X 7 8.9"};
 		JumboReader jumboReader = new JumboReader(getDictionary(), getPrefix(), strings);
-		CMLElement element = jumboReader.parseTableColumnsAsArrayList(
+		CMLElement element = jumboReader.readTableColumnsAsArrayList(
 				"(A2,I2, F4.2)", 2, new String[]{"A.a", "I.b", "F.c"}, false);
 		String expectedS = "<arrayList xmlns=\"http://www.xml-cml.org/schema\">" +
 				"  <array dictRef=\"pref:a\" dataType=\"xsd:string\" size=\"2\" delimiter=\"\">C X</array>" +
@@ -571,7 +571,7 @@ public class JumboReaderTest {
 	@Test
 	public void testParseArrayStringStringString() {
 		JumboReader jumboReader = new JumboReader();
-		CMLElement element = jumboReader.parseArray("(5I2)", " 1 2 3 4 5", CMLConstants.XSD_INTEGER);
+		CMLElement element = jumboReader.readArray("(5I2)", " 1 2 3 4 5", CMLConstants.XSD_INTEGER);
 		String expectedS = "<array delimiter=\"\" dataType=\"xsd:integer\" size=\"5\" xmlns=\"http://www.xml-cml.org/schema\">1 2 3 4 5</array>";
 		JumboTestUtils.assertEqualsIncludingFloat("element", expectedS, element, true, 0.000001);
 	}
@@ -582,10 +582,12 @@ public class JumboReaderTest {
 		JumboReader jumboReader = new JumboReader();
 		try {
 			jumboReader.appendChild(new CMLScalar());
-			Assert.fail("should throw null parent");
+//			Assert.fail("should throw null parent");
 		} catch (Exception e) {
+			throw new RuntimeException("should not throw exception", e);
 		}
-	}
+		Assert.assertTrue(true)
+;	}
 	
 	@Test
 	public void testAppendChild1() {
@@ -607,7 +609,7 @@ public class JumboReaderTest {
 		JumboReader jumboReader = new JumboReader(getDictionary(), getPrefix(), strings);
 		CMLList list = new CMLList();
 		jumboReader.setParentElement(list);
-		jumboReader.parseArray("(3I2)", CMLConstants.XSD_INTEGER, "I.aaa", true);
+		jumboReader.readArray("(3I2)", CMLConstants.XSD_INTEGER, "I.aaa", true);
 		String expectedS = 
 			"<list xmlns=\"http://www.xml-cml.org/schema\">" +
 			"  <array delimiter=\"\" dataType=\"xsd:integer\" size=\"3\" dictRef=\"pref:I.aaa\">1 2 3</array>" +

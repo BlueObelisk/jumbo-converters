@@ -108,7 +108,8 @@ public class GamessUSPunchBlock extends AbstractBlock {
 	 */
 	public void convertToRawCML() {
 		jumboReader = new JumboReader(this.getDictionary(), abstractCommon.getPrefix(), lines);
-		if (false) {
+		if (getBlockName() == null) {
+			throw new RuntimeException("null blockName");
 		} else if (CISVEC.equals(getBlockName())) {
 			makeCisvec();
 		} else if (DATA.equals(getBlockName())) {
@@ -211,7 +212,7 @@ STATE   1 ENERGY=     -113.7017742428
 		jumboReader.readLine();
 		jumboReader.skipCheckedLines(COORDS_SYMMETRY);
 		getAtomCount();
-		jumboReader.parseMoleculeAsColumns(atomCount, "' 'A8,F7.1,3F15.10", new int[]{-1, 1, 0, 2, 3, 4}, JumboReader.ADD);
+		jumboReader.readMoleculeAsColumns(atomCount, "' 'A8,F7.1,3F15.10", new int[]{-1, 1, 0, 2, 3, 4}, JumboReader.ADD);
 		setBlockName(GamessUSCommon.RESULTS);
 	}
 
@@ -284,7 +285,7 @@ STATE   1 ENERGY=     -113.7017742428
 				"('E='F20.10'  GMAX='F12.7'  GRMS='F12.7)", 
 				new String[]{F_+E, F_+GMAX, F_+GRMS}, JumboReader.ADD);
 			checkIdAndAdd(element, "grad");
-			jumboReader.parseMoleculeAsColumns(atomCount, "A10F5.1F20.10F20.10F20.10", new int[]{-1, 1, 0, 2, 3, 4}, JumboReader.ADD);
+			jumboReader.readMoleculeAsColumns(atomCount, "A10F5.1F20.10F20.10F20.10", new int[]{-1, 1, 0, 2, 3, 4}, JumboReader.ADD);
 			element = module;
 		}
 
@@ -302,7 +303,7 @@ STATE   1 ENERGY=     -113.7017742428
 			jumboReader.parseScalars(
 				"('E='F20.10'  GMAX='F12.7'  GRMS='F12.7)", 
 				new String[]{F_+E, F_+GMAX, F_+GRMS}, JumboReader.ADD);
-			jumboReader.parseMoleculeAsColumns(atomCount, "A10F5.1F20.10F20.10F20.10", new int[]{-1, 1, 0, 2, 3, 4}, JumboReader.ADD);
+			jumboReader.readMoleculeAsColumns(atomCount, "A10F5.1F20.10F20.10F20.10", new int[]{-1, 1, 0, 2, 3, 4}, JumboReader.ADD);
 			element = module;
 		}
 
@@ -320,7 +321,7 @@ STATE   1 ENERGY=     -113.7017742428
 				"('E='F20.10'  GMAX='F12.7'  GRMS='F12.7)", 
 				new String[]{F_+E, F_+GMAX, F_+GRMS}, JumboReader.ADD);
 			getAtomCount();
-			jumboReader.parseMoleculeAsColumns(atomCount, "A10F5.1F20.10F20.10F20.10", new int[]{-1, 1, 0, 2, 3, 4}, JumboReader.ADD);
+			jumboReader.readMoleculeAsColumns(atomCount, "A10F5.1F20.10F20.10F20.10", new int[]{-1, 1, 0, 2, 3, 4}, JumboReader.ADD);
 			element = module;
 		}
 
@@ -378,7 +379,7 @@ STATE   1 ENERGY=     -113.7017742428
 			new String[] {I_+GamessUSCommon.NCYC}, JumboReader.ADD);
 			jumboReader.skipCheckedLines(COORDS_SYMMETRY);
 			getAtomCount();
-			jumboReader.parseMoleculeAsColumns(atomCount, "' 'A8,F7.1,3F15.10", new int[]{-1, 1, 0, 2, 3, 4}, JumboReader.ADD);
+			jumboReader.readMoleculeAsColumns(atomCount, "' 'A8,F7.1,3F15.10", new int[]{-1, 1, 0, 2, 3, 4}, JumboReader.ADD);
 			setBlockName(GamessUSCommon.NSERCH);
 		}
 
@@ -404,7 +405,7 @@ H            1.00342  -0.00342   1.02234  -0.02234
  */
 		getAtomCount();
 		jumboReader.readLine();
-		jumboReader.parseTableColumnsAsArrayList(
+		jumboReader.readTableColumnsAsArrayList(
 			"(A10,4F10.5)", -1, 
 			new String[]{A_+ELEM, F_+POP1, F_+POP2, F_+POP3, F_+POP4}, JumboReader.ADD);
 	}
@@ -654,7 +655,7 @@ H            1.00342  -0.00342   1.02234  -0.02234
 				new String[]{I_+IVIB, I_+IATOM, I_+COORD, F_+E}, JumboReader.ADD);
 		jumboReader.parseMultipleLinesToArray(
 				"(5F16.9)", coordCount, VECTOR, CMLConstants.XSD_DOUBLE, JumboReader.ADD);
-		jumboReader.parseArray("(3F16.9)", CMLConstants.XSD_DOUBLE, UNKNOWN, JumboReader.ADD);
+		jumboReader.readArray("(3F16.9)", CMLConstants.XSD_DOUBLE, UNKNOWN, JumboReader.ADD);
 		element = module;
 	}
 

@@ -61,7 +61,7 @@ public class GamessUSPunchProcessor extends LegacyProcessor {
 
 	@Override
 	protected String getTemplateResourceName() {
-		return "org/xmlcml/cml/converters/compchem/gamessus/punch/template.xml";
+		return "org/xmlcml/cml/converters/compchem/gamessus/punch/templateList.xml";
 	}
 	/**
 	 * @param lines

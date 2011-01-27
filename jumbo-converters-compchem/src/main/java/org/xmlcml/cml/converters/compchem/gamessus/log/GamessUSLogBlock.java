@@ -52,7 +52,8 @@ public class GamessUSLogBlock extends AbstractBlock {
 	 */
 	public void convertToRawCML() {
 		jumboReader = new JumboReader(this.getDictionary(), abstractCommon.getPrefix(), lines);
-		if (false) {
+		if (getBlockName() == null) {
+			throw new RuntimeException(" Null blockname");
 		} else if (CISVEC.equals(getBlockName())) {
 //			makeCisvec();
 		} else {

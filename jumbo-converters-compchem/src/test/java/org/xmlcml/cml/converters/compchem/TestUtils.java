@@ -16,6 +16,10 @@ import org.xmlcml.euclid.Util;
 
 public class TestUtils {
 	
+	private static final String IN_SUFFIX = ".in";
+	private static final String XML_SUFFIX = ".xml";
+	private static final String SUBDIR = "templates";
+
 	@Test
 	public void testDummy() {
 		Assert.assertTrue(true);
@@ -35,7 +39,7 @@ public class TestUtils {
 
 	private static Element readXml(Converter converter, String name) {
 		Element element = null;
-		String resourceName = getResourcePath(converter)+"/"+name+".xml";
+		String resourceName = getResourcePath(converter)+"/"+SUBDIR+"/"+name+XML_SUFFIX;
 		try {
 			element = new Builder().build(
 					Util.getInputStreamFromResource(resourceName)).getRootElement();
@@ -46,10 +50,10 @@ public class TestUtils {
 	}
 
 	private static List<String> readLines(Converter converter, String name) {
-		String resourcePath = getResourcePath(converter)+"/"+name+".in";
+		String resourcePath = getResourcePath(converter)+"/"+SUBDIR+"/"+name+IN_SUFFIX;
 		List<String> lineList = null;
 		try {
-			lineList = IOUtils.readLines(
+			lineList = (List<String>) IOUtils.readLines(
 				Util.getInputStreamFromResource(resourcePath));
 		} catch (IOException e) {
 			throw new RuntimeException("Cannot read lines from "+resourcePath, e);
