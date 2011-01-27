@@ -108,7 +108,8 @@ public class GamessUSPunchBlockOld extends AbstractBlock {
 	 */
 	public void convertToRawCML() {
 		jumboReader = new JumboReader(this.getDictionary(), abstractCommon.getPrefix(), lines);
-		if (false) {
+		if (getBlockName() == null) {
+			throw new RuntimeException("null blockName");
 //		} else if (CISVEC.equals(getBlockName())) {
 //			makeCisvec();
 //		} else if (DATA.equals(getBlockName())) {

@@ -127,6 +127,7 @@ public class InfoData {
 			molecule.appendChild(property);
 			CMLScalar scalar = createScalar();
 			property.addScalar(scalar);
+//			if (implementation == null) {
 			if (false) {
 			} else if (implementation != null) {
 				if (implementation.startsWith("E_")) {

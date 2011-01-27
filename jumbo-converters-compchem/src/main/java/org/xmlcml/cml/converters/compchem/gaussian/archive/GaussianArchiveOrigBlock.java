@@ -618,7 +618,7 @@ public class GaussianArchiveOrigBlock extends AbstractBlock {
    }
 
    void addKeyword1(String keyword) {
-      if (false) {
+      if (keyword == null) {
       } else if (keyword.toUpperCase().startsWith(GAUSS_ONIOM)) {
          processONIOM(keyword);
       } else {

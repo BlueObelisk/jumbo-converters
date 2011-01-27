@@ -213,8 +213,8 @@ public abstract class ParserUtil {
 	 * at present simple lookup from preprepared regexes 
 	 * @return
 	 */
-	static Class getRegexCaptureType(String regex) {
-		Class clazz = String.class;
+	static Class<?> getRegexCaptureType(String regex) {
+		Class<?> clazz = String.class;
 		if (regex.equals(ParserUtil.REGEX_FLOAT)) {
 			clazz = Double.class;
 		} else if(regex.equals(ParserUtil.REGEX_INTEGER)) {

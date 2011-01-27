@@ -1,4 +1,4 @@
-package org.xmlcml.cml.converters.reaction;
+package org.xmlcml.cml.converters.reaction.properties;
 
 import java.util.HashMap;
 import java.util.HashSet;

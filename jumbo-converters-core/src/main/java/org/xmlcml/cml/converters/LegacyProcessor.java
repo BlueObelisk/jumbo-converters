@@ -29,68 +29,87 @@ public abstract class LegacyProcessor {
 	protected CMLElement cmlElement;
 	protected AbstractCommon abstractCommon;
 	protected List<Template> templateList;
-	protected List<Pattern> blockNamePatternList;
-	public Map<String, Template> getTemplateByNameMap() {
-		return templateByNameMap;
+//	protected List<Pattern> blockNamePatternList;
+	protected boolean dtdValidate = true;
+//	private Map<String, Template> templateByNameMap;
+	
+//	public Map<String, Template> getTemplateByNameMap() {
+//		return templateByNameMap;
+//	}
+	
+	public Template getTemplateByPattern(String blockName) {
+		Template matchedTemplate = null;
+		for (Template template : templateList) {
+			Pattern templatePattern = template.getPattern();
+			if (templatePattern.matcher(blockName).matches()) {
+				matchedTemplate = template;
+				break;
+			}
+		}
+		return matchedTemplate;
 	}
 
-	private Map<String, Template> templateByNameMap;
 	
 	protected LegacyProcessor() {
 		this.blockContainer = new BlockContainer(this);
 		abstractCommon = getCommon();
-		ensureTemplateByNameMap();
+//		ensureTemplateByNameMap();
 		readTemplates();
-		makePatternList();
+//		makePatternList();
 //		debugTemplates();
 	}
 
 	private void debugTemplates() {
+		LOG.debug("TEMPLATELIST "+templateList.size());
 		for (Template template : templateList) {
 			template.debug();
 		}
 	}
 
 	private void readTemplates() {
+		LOG.debug("readTemplates");
 		String templateResource = this.getTemplateResourceName();
 		try {
-			Element root = new Builder().build(org.xmlcml.euclid.Util.getInputStreamFromResource(templateResource)).getRootElement();
+			Element root = new Builder(dtdValidate).build(org.xmlcml.euclid.Util.getInputStreamFromResource(templateResource)).getRootElement();
 			Elements childElements = root.getChildElements();
 			templateList = new ArrayList<Template>();
 			for (int i = 0; i < childElements.size(); i++) {
-				processAndAddTemplate(childElements.get(i));
+				Element childElement = childElements.get(i);
+				processAndAddTemplate(childElement);
 			}
 		} catch (Exception e) {
-			throw new RuntimeException("Cannot find / read templateList "+templateResource, e);
+			throw new RuntimeException("Cannot parse/read/find templateList "+templateResource, e);
 		}
 	}
 
-	private void makePatternList() {
-		blockNamePatternList = new ArrayList<Pattern>();
-		for (Template template : templateList) {
-			Pattern pattern = template.getPattern();
-			blockNamePatternList.add(pattern);
-		}
-	}
+//	private void makePatternList() {
+//		blockNamePatternList = new ArrayList<Pattern>();
+//		for (Template template : templateList) {
+//			Pattern pattern = template.getPattern();
+//			blockNamePatternList.add(pattern);
+//		}
+//		System.out.println("made template patterns: "+templateList.size());
+//	}
 
 	private void processAndAddTemplate(Element element) {
 		Template newTemplate = new Template(this, element);
 		String newId = newTemplate.getId();
+		System.out.println("ID "+newId+" tlist "+templateList.size());
 		for (Template template : templateList) {
 			if (template.getId().equals(newId)) {
 				throw new RuntimeException("Duplicate id: "+newId);
 			}
 		}
-		ensureTemplateByNameMap();
-		templateByNameMap.put(newTemplate.getName(), newTemplate);
+//		ensureTemplateByNameMap();
+//		templateByNameMap.put(newTemplate.getName(), newTemplate);
 		templateList.add(newTemplate);
 	}
 	
-	private void ensureTemplateByNameMap() {
-		if (templateByNameMap == null) {
-			templateByNameMap = new HashMap<String, Template>();
-		}
-	}
+//	private void ensureTemplateByNameMap() {
+//		if (templateByNameMap == null) {
+//			templateByNameMap = new HashMap<String, Template>();
+//		}
+//	}
 
 	protected abstract String getTemplateResourceName();
 
@@ -190,6 +209,7 @@ public abstract class LegacyProcessor {
 		} else {
 			scalar = (CMLScalar) element.getFirstChildElement(CMLScalar.TAG);
 		}
+//		scalar.debug("BLOCK");
 		if (scalar != null) {
 			String[] lineArray = scalar.getXMLContent().split(CMLConstants.S_NEWLINE);		
 			lines = new ArrayList<String>();

@@ -20,6 +20,7 @@ import org.xmlcml.cml.converters.compchem.nwchem.NWChemCommon;
 public class NWChemLogProcessor extends LegacyProcessor {
 	
 	public NWChemLogProcessor() {
+		super();
 	}
 	
 	@Override
@@ -29,7 +30,7 @@ public class NWChemLogProcessor extends LegacyProcessor {
 
 	@Override
 	protected String getTemplateResourceName() {
-		return "org/xmlcml/cml/converters/compchem/nwchem/log/template.xml";
+		return "org/xmlcml/cml/converters/compchem/nwchem/log/templateList.xml";
 	}
 	
 	/**

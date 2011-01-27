@@ -34,7 +34,7 @@ public class GamessUKPunchProcessor extends LegacyProcessor {
 
 	@Override
 	protected String getTemplateResourceName() {
-		return "org/xmlcml/cml/converters/compchem/gamessuk/punch/template.xml";
+		return "org/xmlcml/cml/converters/compchem/gamessuk/punch/templateList.xml";
 	}
 	
 	/**

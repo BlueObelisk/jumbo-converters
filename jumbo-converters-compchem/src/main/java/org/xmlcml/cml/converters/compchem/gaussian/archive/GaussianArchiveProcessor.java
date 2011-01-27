@@ -61,7 +61,7 @@ public class GaussianArchiveProcessor extends LegacyProcessor {
 
 	@Override
 	protected String getTemplateResourceName() {
-		return "org/xmlcml/cml/converters/compchem/gaussian/archive/template.xml";
+		return "org/xmlcml/cml/converters/compchem/gaussian/archive/templateList.xml";
 	}
 	
 	/**

@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import nu.xom.Attribute;
 
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
@@ -196,8 +197,10 @@ public abstract class AbstractBlock implements CMLConstants {
 			throw new RuntimeException("null block name");
 		}
 		String name = UNKNOWN_BLOCK;
-		for (Pattern pattern : legacyProcessor.blockNamePatternList) {
-			Matcher matcher = pattern.matcher(line.trim());
+//		for (Pattern pattern : legacyProcessor.blockNamePatternList) {
+		for (Template template : legacyProcessor.templateList) {
+			Pattern templatePattern = template.getPattern();
+			Matcher matcher = templatePattern.matcher(line.trim());
 			if (matcher.matches()) {
 				name = line;
 				if (matcher.groupCount() >= 1) {
