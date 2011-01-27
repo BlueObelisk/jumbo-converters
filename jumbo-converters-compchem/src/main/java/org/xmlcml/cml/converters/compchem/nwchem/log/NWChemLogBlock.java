@@ -245,10 +245,11 @@ public class NWChemLogBlock extends AbstractBlock {
 		if (blockName == null) {
 			throw new RuntimeException("null block name");
 		}
-		Template blockTemplate = legacyProcessor.getTemplateByNameMap().get(blockName);
+//		Template blockTemplate = legacyProcessor.getTemplateByNameMap().get(blockName);
+		Template blockTemplate = legacyProcessor.getTemplateByPattern(blockName);
 		if (blockTemplate != null) {
-			blockTemplate.debug();
-			blockTemplate.process(this);
+//			blockTemplate.debug();
+			blockTemplate.markupBlock(this);
 			blockName = blockTemplate.getId();
 		} else if (_3_CENTER_2_ELECTRON_INTEGRAL_INFORMATION.equals(blockName)) {
 			make3Center();
@@ -345,7 +346,7 @@ public class NWChemLogBlock extends AbstractBlock {
 			if (ATOM_BASIS_PATTERN.matcher(line).matches()) {
 				makeAtomBasisBlock();
 			} else {
-				System.err.println("UNKNOWN>>"+line);
+				LOG.error("UNKNOWN>>"+line);
 				summarizeBlock();
 			}
 		} else {
@@ -423,7 +424,7 @@ Iterative solution of linear equations
 */
 		jumboReader.readLinesWhile(Pattern.compile("\\s*iter   nsub   residual    time"), false);
 		jumboReader.readLines(1);
-		jumboReader.parseTableColumnsAsArrayList(
+		jumboReader.readTableColumnsAsArrayList(
 				"(I6,I7,E12.2,F10.1)", -1, 
 				new String[]{I_+ITER,I_+NSUB,F_+RESIDUAL,F_+TIME}, ADD);
 
@@ -482,9 +483,9 @@ Iterative solution of linear equations
 		readAndAddMatrix(TOTAL_SHIELDING_TENSOR);
 		jumboReader.makeNameValues(NAME_EQUALS_VALUE, ADD);
 		jumboReader.readLines(2);
-		jumboReader.parseArray("(10X,3F12.4)", CMLConstants.XSD_DOUBLE, MAGNETIC, ADD);
+		jumboReader.readArray("(10X,3F12.4)", CMLConstants.XSD_DOUBLE, MAGNETIC, ADD);
 		jumboReader.readLines(1);
-		jumboReader.parseTableColumnsAsArrayList("(I7,3X,F12.4,F12.4,F12.4)", 3, 
+		jumboReader.readTableColumnsAsArrayList("(I7,3X,F12.4,F12.4,F12.4)", 3, 
 				new String[]{I_+SERIAL, F_+MAG_A, F_+MAG_B, F_+MAG_C}, ADD);
 	}
 
@@ -857,7 +858,7 @@ MA usage statistics:
 		jumboReader.readLines(2);
 		jumboReader.makeNameValues(NAME_COLON_VALUE, ADD);
 		jumboReader.readLines(1);
-		jumboReader.parseTableColumnsAsArrayList("(10X,A2,15X,F8.2,I9,6X,F8.1,I10)", -1,
+		jumboReader.readTableColumnsAsArrayList("(10X,A2,15X,F8.2,I9,6X,F8.1,I10)", -1,
 				new String[]{A_+TAG, F_+BSRAD, I_+RADPTS, F_+RADCUT, I_+ANGPTS}, ADD);
 		jumboReader.makeNameValues(NAME_COLON_VALUE, ADD);
 	}
@@ -921,7 +922,7 @@ MA usage statistics:
  */
 		CMLModule module = makeModule();
 		jumboReader.readLines(7);
-		jumboReader.parseTableColumnsAsArrayList("(5X,A17,F11.4,F15.8,F15.8,F15.8)", -1, 
+		jumboReader.readTableColumnsAsArrayList("(5X,A17,F11.4,F15.8,F15.8,F15.8)", -1, 
 				new String[]{A_+TAG, F_+CHARGE, F_+X, F_+Y, F_+Z}, ADD);
 	}
 
@@ -1045,7 +1046,7 @@ MA usage statistics:
 			try {
 				jumboReader.parseScalars(format1, names1, ADD);
 				jumboReader.increment(-1);
-				jumboReader.parseArray(format2, CMLConstants.XSD_DOUBLE, name2, ADD);
+				jumboReader.readArray(format2, CMLConstants.XSD_DOUBLE, name2, ADD);
 			} catch (Exception e) {
 				break;
 			}
@@ -1074,7 +1075,7 @@ MA usage statistics:
 				break;
 			}
 			try {
-				jumboReader.parseTableColumnsAsArrayList(format, -1, names, ADD);
+				jumboReader.readTableColumnsAsArrayList(format, -1, names, ADD);
 				jumboReader.readLines(1);
 			} catch (Exception e) {
 				break;
@@ -1160,7 +1161,7 @@ OR
 				
 		makeModule();
 		jumboReader.readLines(4);
-		jumboReader.parseTableColumnsAsArrayList("(I5,F10.4)", -1, new String[]{I_+SERIAL, F_+EIGENVAL}, ADD);
+		jumboReader.readTableColumnsAsArrayList("(I5,F10.4)", -1, new String[]{I_+SERIAL, F_+EIGENVAL}, ADD);
 	}
 			
 
@@ -1182,13 +1183,13 @@ OR
 		String[] names = new String[]{I_+BFN, F_+COEFF, I_+ATNUM, A_+ATSYM, A_+ORB};
 		
 		try {
-			jumboReader.parseTableColumnsAsArrayList("(2("+format+"))", -1, names2, ADD);
+			jumboReader.readTableColumnsAsArrayList("(2("+format+"))", -1, names2, ADD);
 		} catch (Exception e) {
 			// maybe only one line
 		}
 		// straggling line at end?
 		if (jumboReader.hasMoreLines() && jumboReader.peekLine().trim().length() > 0) {
-			jumboReader.parseTableColumnsAsArrayList("("+format+")", -1, names, ADD);
+			jumboReader.readTableColumnsAsArrayList("("+format+")", -1, names, ADD);
 		}
 	}
 
@@ -1249,7 +1250,7 @@ OR
 		// d= 0,ls=0.0,diis     1  -1822.8247493675 -2.62D+03  6.20D-02  9.95D+00     1.9
 
 		String format = "(18X,I5,F18.10,E10.2,E10.2,E10.2,F8.1)";
-		jumboReader.parseTableColumnsAsArrayList(
+		jumboReader.readTableColumnsAsArrayList(
 				format, -1, new String[]{I_+ITER, F_+ENERGY, F_+DELTAE, F_+RMSDENS, F_+DIISERR, F_+TIME}, true);
 		jumboReader.readLines(2);
 		jumboReader.addDouble("('         Total DFT energy =',F22.12)", TOTALDFT);
@@ -1346,10 +1347,10 @@ OR
 		jumboReader.readLines(3);
 		
 		try {
-			jumboReader.parseTableColumnsAsArrayList("(A3,48X,I4,4X,I5,3X,A)", -1, 
+			jumboReader.readTableColumnsAsArrayList("(A3,48X,I4,4X,I5,3X,A)", -1, 
 					new String[]{A_+ELSYM, /*A_+"desc",*/ I_+SHELLS, I_+FUNCTIONS, A_+TYPES}, true);
 		} catch (Exception e) {
-			jumboReader.parseTableColumnsAsArrayList("(A3,48X,A)", -1, 
+			jumboReader.readTableColumnsAsArrayList("(A3,48X,A)", -1, 
 					new String[]{A_+ELSYM, /*A_+"desc",*/ A_+FUNCTIONS}, true);
 		}
 		return element;
@@ -1428,7 +1429,7 @@ OR
 		makeModule();
 		jumboReader.readLines(3);
 		System.out.println("CURR>>"+jumboReader.peekLine());
-		jumboReader.parseTableColumnsAsArrayList("(6X,A2,10X,F15.6)", -1, 
+		jumboReader.readTableColumnsAsArrayList("(6X,A2,10X,F15.6)", -1, 
 				new String[]{A_+ATOMSYM, F_+ATOMMASS}, JumboReader.ADD);
 //		System.out.println("CURRX>>"+jumboReader.peekLine());
 	}
@@ -1516,7 +1517,7 @@ Type          Name      I     J     K     L     M      Value
 			"(I6)", new String[]{I_+NATOMS}, JumboReader.DONT_ADD);
 		int atomCount = ((CMLScalar)scalar).getInt();
 		jumboReader.readLines(1);
-		jumboReader.parseMoleculeAsColumns(atomCount, "A3,15X,3F15.8", new int[]{0, -1, -1, 1, 2, 3}, ADD);
+		jumboReader.readMoleculeAsColumns(atomCount, "A3,15X,3F15.8", new int[]{0, -1, -1, 1, 2, 3}, ADD);
 	}
 
 }

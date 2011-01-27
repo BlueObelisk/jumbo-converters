@@ -1,7 +1,17 @@
 package org.xmlcml.cml.converters.util;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.List;
 
+import nu.xom.Builder;
+import nu.xom.Document;
+
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLReaderFactory;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLMolecule;
@@ -42,6 +52,41 @@ public class ConverterUtils {
 				toAtom.appendChild(vector3);
 			}
 		}
+	}
+
+	public static Document parseHtmlWithTagSoup(InputStream is) {
+        try {
+            Builder builder = getTagsoupBuilder();
+            return builder.build(is);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception whilse parsing XML, due to: "+e.getMessage(), e);
+        }
+    }
+
+	public static Document parseHtmlWithTagSoup(File file) {
+		try {
+			return parseHtmlWithTagSoup(new FileInputStream(file));
+		} catch (FileNotFoundException e) {
+            throw new RuntimeException("Exception whilse parsing HTML, due to: "+e.getMessage(), e);
+		}
+    }
+
+	/*
+	<dependency>
+	    <groupId>org.ccil.cowan.tagsoup</groupId>
+	    <artifactId>tagsoup</artifactId>
+	    <version>1.0.1</version>
+	</dependency>
+*/
+
+	public static Builder getTagsoupBuilder() {
+		XMLReader tagsoup = null;
+		try {
+		    tagsoup = XMLReaderFactory.createXMLReader("org.ccil.cowan.tagsoup.Parser");
+		} catch (SAXException e) {
+		    throw new RuntimeException("Exception whilst creating XMLReader from org.ccil.cowan.tagsoup.Parser");
+		}
+		return new Builder(tagsoup);
 	}
 
 }

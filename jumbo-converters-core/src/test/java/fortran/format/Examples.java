@@ -318,7 +318,7 @@ public class Examples {
 		Assert.assertEquals(msg, test.size(), results.size());
 		for (int i = 0; i < test.size(); i++) {
 			CMLScalar scalar = results.get(i);
-			Class clazz = scalar.getDataTypeClass();
+			Class<?> clazz = scalar.getDataTypeClass();
 			Object testObj = test.get(i);
 			if (testObj == null) {
 				Assert.assertNull(msg+" null", scalar);

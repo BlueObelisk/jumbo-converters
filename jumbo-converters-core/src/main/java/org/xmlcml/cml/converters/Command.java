@@ -37,7 +37,7 @@ public class Command {
       QUIET;
    }
    private Map<String, String> propertyMap = new HashMap<String, String>();
-   private Set<Class> converterClassSet;
+//   private Set<Class<?>> converterClassSet;
    private List<List<String>> argListList;
    private Verbosity verbosity = Verbosity.INFO;
    private String logfile;

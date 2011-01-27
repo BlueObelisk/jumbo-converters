@@ -80,7 +80,7 @@ public class GamessUSInputProcessor extends LegacyProcessor {
 
 	@Override
 	protected String getTemplateResourceName() {
-		return "org/xmlcml/cml/converters/compchem/gamessus/input/template.xml";
+		return "org/xmlcml/cml/converters/compchem/gamessus/input/templateList.xml";
 	}
 		
 	/**

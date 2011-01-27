@@ -15,6 +15,7 @@ import org.xmlcml.cml.converters.text.Text2XMLConverter;
 public class NWChemLog2XMLConverter extends Text2XMLConverter {
 	
 	public NWChemLog2XMLConverter() {
+		super();
 	}
 	
 	public String getMarkerResourceName() {

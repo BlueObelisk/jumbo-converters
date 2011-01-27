@@ -53,7 +53,7 @@ public class CompChemProcessor extends RawXML2CMLProcessor implements HasURIGene
     private DictionaryCollection dictionaryCollection = null;
     private URIGenerator uriGen = new DefaultURIUUIDGenerator();
     private Model compchemModel = null;
-    private Element rdfElement = null;
+//    private Element rdfElement = null;
 
 	public CompChemProcessor() {
 	}

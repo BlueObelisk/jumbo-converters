@@ -1,4 +1,4 @@
-package org.xmlcml.cml.converters.reaction;
+package org.xmlcml.cml.converters.reaction.properties;
 
 
 import nu.xom.Attribute;
@@ -9,9 +9,8 @@ import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.rdf.rdf.RDFDescription;
 import org.xmlcml.cml.converters.rdf.rdf.RDFRdf;
 import org.xmlcml.cml.converters.rdf.rdf.RDFTriple;
-import org.xmlcml.cml.converters.reaction.MMReConstants;
-import org.xmlcml.cml.converters.reaction.MMReConstants.Predicate;
-import org.xmlcml.cml.converters.reaction.MMReConstants.Unit;
+import org.xmlcml.cml.converters.reaction.properties.MMReConstants.Predicate;
+import org.xmlcml.cml.converters.reaction.properties.MMReConstants.Unit;
 import org.xmlcml.cml.element.CMLAction;
 import org.xmlcml.cml.element.CMLAmount;
 import org.xmlcml.cml.element.CMLLabel;
