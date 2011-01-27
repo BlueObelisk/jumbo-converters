@@ -6,17 +6,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import nu.xom.Document;
-import nu.xom.Element;
 import nu.xom.Serializer;
 
 import org.xmlcml.cif.CIF;
 import org.xmlcml.cif.CIFDataBlock;
 import org.xmlcml.cif.CIFException;
-import org.xmlcml.cif.CIFItem;
 import org.xmlcml.cif.CIFParser;
-import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.element.CMLDictionary;
-import org.xmlcml.cml.element.CMLEntry;
 
 /**
  * @author sea36
@@ -44,41 +40,43 @@ public class CifDictionaryBuilder {
             if (dataBlock.getId().endsWith("[]") || dataBlock.getId().endsWith("_")) {
                 continue;
             }
-            addEntry(dataBlock);
+            
+            dictionary.appendChild(CIFFields.parseToEntry(dataBlock));
+            //addEntry(dataBlock);
         }
     }
     
     
 
-    private void addEntry(CIFDataBlock dataBlock) {
-
-        CIFItem cifName = dataBlock.getChildItem("_name");
-        if (cifName == null) {
-            return;
-        }
-
-        String name = cifName.getValue().substring(1);  // Remove '_' prefix
-
-        CMLEntry entry = new CMLEntry();
-        entry.setTerm(name);
-        entry.setId(name);
-
-        Element description = new Element("description", CMLConstants.CML_NS);
-        description.appendChild("Corresponds to the _"+name+" term in the IUCr Core CIF dictionary.");
-        entry.appendChild(description);
-
-        CIFItem cifDefinition = dataBlock.getChildItem("_definition");
-        if (cifDefinition != null) {
-            Element definition = new Element("definition", CMLConstants.CML_NS);
-            definition.appendChild(cifDefinition.getValue());
-
-            entry.appendChild(definition);
-        }
-
-
-
-        dictionary.appendChild(entry);
-    }
+//    private void addEntry(CIFDataBlock dataBlock) {
+//
+//        CIFItem cifName = dataBlock.getChildItem("_name");
+//        if (cifName == null) {
+//            return;
+//        }
+//
+//        String name = cifName.getValue().substring(1);  // Remove '_' prefix
+//
+//        CMLEntry entry = new CMLEntry();
+//        entry.setTerm(name);
+//        entry.setId(name);
+//
+//        Element description = new Element("description", CMLConstants.CML_NS);
+//        description.appendChild("Corresponds to the _"+name+" term in the IUCr Core CIF dictionary.");
+//        entry.appendChild(description);
+//
+//        CIFItem cifDefinition = dataBlock.getChildItem("_definition");
+//        if (cifDefinition != null) {
+//            Element definition = new Element("definition", CMLConstants.CML_NS);
+//            definition.appendChild(cifDefinition.getValue());
+//
+//            entry.appendChild(definition);
+//        }
+//
+//
+//
+//        dictionary.appendChild(entry);
+//    }
 
 
     public Document getCmlDoc() {
