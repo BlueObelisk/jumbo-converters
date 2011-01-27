@@ -4,15 +4,20 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import nu.xom.Document;
+import nu.xom.Element;
 import nu.xom.Serializer;
 
 import org.xmlcml.cif.CIF;
 import org.xmlcml.cif.CIFDataBlock;
 import org.xmlcml.cif.CIFException;
+import org.xmlcml.cif.CIFLoop;
 import org.xmlcml.cif.CIFParser;
+import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.element.CMLDictionary;
+import org.xmlcml.cml.element.CMLEntry;
 
 /**
  * @author sea36
@@ -41,7 +46,28 @@ public class CifDictionaryBuilder {
                 continue;
             }
             
-            dictionary.appendChild(CIFFields.parseToEntry(dataBlock));
+            CMLEntry entry=CIFFields.parseToEntry(dataBlock);
+            dictionary.appendChild(entry);
+            
+    		List<CIFLoop> loops = dataBlock.getLoopList();
+    		for (CIFLoop loop : loops) {
+    			List<String> nameList = loop.getNameList();
+    			if (nameList.contains("_name")) {
+    			} else if (nameList.contains("_example")) {
+    			} else if (nameList.contains("_list_link_child")) {
+    			} else if (nameList.contains("_related_item")) {
+    			} else if (nameList.contains("_enumeration")) {
+    				List<String> enumerationValues = loop.getColumnValues("_enumeration");
+    				for (String enumerationValue : enumerationValues) {
+    					Element enumeration = new Element("enumeration", CMLConstants.CMLX_NS);
+    					enumeration.appendChild(enumerationValue);
+    					entry.appendChild(enumeration);
+    				}
+    			} else {
+    				loop.debug();
+    			}
+    		}
+            
             //addEntry(dataBlock);
         }
     }

@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nu.xom.Attribute;
+import nu.xom.Element;
 
 import org.xmlcml.cif.CIFDataBlock;
 import org.xmlcml.cif.CIFItem;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLEntry;
+
+
 
 public enum CIFFields {
 	name("_name") {
@@ -19,7 +22,9 @@ public enum CIFFields {
 	        entry.setTerm(name);
 	        entry.setId(name);
 	        CMLElement description = new CMLElement("description");
-	        description.appendChild("Corresponds to the _"+name+" term in the IUCr Core CIF dictionary.");
+	        Element html = new Element("p","http://www.w3.org/1999/xhtml");
+	        html.appendChild("Corresponds to the _"+name+" term in the IUCr Core CIF dictionary.");
+	        description.appendChild(html);
 	        entry.appendChild(description);
 		}
 	},
@@ -27,14 +32,16 @@ public enum CIFFields {
 		@Override
 		public void custom(CIFItem cifItem, CMLEntry entry) {
 			CMLElement definition = new CMLElement("definition");
-            definition.appendChild(cifItem.getValue());
+	        Element html = new Element("p","http://www.w3.org/1999/xhtml");
+	        html.appendChild(cifItem.getValue());
+	        definition.appendChild(html);
             entry.appendChild(definition);
 		}
 	},
 	superclass("_category"){
 		@Override
 		public void custom(CIFItem cifItem, CMLEntry entry) {
-			CMLElement superclass = new CMLElement("superclass");
+			Element superclass = new Element("superclass");
 			superclass.appendChild(cifItem.getValue());
 			entry.appendChild(superclass);
 		}
