@@ -1,0 +1,45 @@
+<!ENTITY % formatType  'formatType      (FORTRAN|WHITESPACE|REGEX)'>
+<!ENTITY % id          'id              CDATA #REQUIRED'>
+<!ENTITY % linesToRead 'linesToRead     CDATA'>
+<!ENTITY % makeArray   'makeArray       CDATA'>
+<!ENTITY % name        'name            CDATA #REQUIRED'>
+<!ENTITY % names       'names           CDATA'>
+<!ENTITY % pattern     'pattern         CDATA #REQUIRED'>
+<!ENTITY % reading     'reading         (WHILE|UNTIL|ALL|ONCE)'>
+
+<!ELEMENT templates (template*)>
+<!ATTLIST templates
+    >
+<!ELEMENT template (
+    comment|
+    readLines|
+    record|
+    comment)*>
+<!ATTLIST template
+    %id;
+    %name;
+    %pattern;
+    >
+
+<!ELEMENT record   (#PCDATA)>
+<!ATTLIST record
+    %id;
+    %formatType;   #REQUIRED
+    %reading;      #IMPLIED
+    %linesToRead;  #IMPLIED
+    %makeArray;    #IMPLIED
+    %names;  #IMPLIED
+    >
+    
+<!ELEMENT readLines (#PCDATA)>
+<!ATTLIST readLines
+    %formatType;   #IMPLIED
+    %linesToRead;  #IMPLIED
+    %reading;      #IMPLIED
+    >
+
+<!ELEMENT comment (#PCDATA)>
+<!ATTLIST comment
+    role CDATA   #IMPLIED
+    >
+    
