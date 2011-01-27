@@ -72,7 +72,7 @@ public class GaussianLink {
 		// try to create class for link
 		if (getLinkName() != null) {
 			try {
-				Class linkClass = Class.forName(this.getClass().getPackage().getName()+".link.Link"+getLinkName());
+				Class<?> linkClass = Class.forName(this.getClass().getPackage().getName()+".link.Link"+getLinkName());
 				subLink = (GaussianLink) linkClass.newInstance();
 				subLink.setMolecule(molecule);
 				subLink.setGLink(this);

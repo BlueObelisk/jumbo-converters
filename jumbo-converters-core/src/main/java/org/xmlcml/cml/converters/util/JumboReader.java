@@ -1,6 +1,5 @@
 package org.xmlcml.cml.converters.util;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -14,7 +13,9 @@ import org.joda.time.DateTime;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.converters.AbstractBlock;
+import org.xmlcml.cml.converters.format.Field;
+import org.xmlcml.cml.converters.format.LineReader;
+import org.xmlcml.cml.converters.format.LineReader.ReadingType;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLArrayList;
 import org.xmlcml.cml.element.CMLAtom;
@@ -25,6 +26,7 @@ import org.xmlcml.cml.element.CMLMatrix;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.element.CMLTable;
+import org.xmlcml.cml.interfacex.HasDataType;
 import org.xmlcml.cml.interfacex.HasDictRef;
 import org.xmlcml.cml.tools.DictionaryTool;
 import org.xmlcml.cml.tools.TableTool;
@@ -37,9 +39,16 @@ import org.xmlcml.molutil.ChemicalElement;
 import fortran.format.FortranFormat;
 
 public class JumboReader {
-	private static final String UNKNOWN = "unknown";
+
+//	private static final String LOCAL_DICT_REF = "localDictRef";
 
 	private static Logger LOG = Logger.getLogger(JumboReader.class);
+	
+	public static final String JUMBO_READER = "jumboReader";
+	public static final String MISREAD = "misread";
+	public static final String SPACE = "space";
+	
+	private static final String UNKNOWN = "unknown";
 
 	private CMLDictionary dictionary;
 	private String dictionaryPrefix;
@@ -47,7 +56,6 @@ public class JumboReader {
 	private int currentLineNumber;
 	private int previousLineNumber;
 	private CMLElement parentElement;
-
 	private DictionaryTool dictionaryTool;
 
 	public static final Boolean DONT_ADD = false;
@@ -68,7 +76,7 @@ public class JumboReader {
 	 */
 	public JumboReader(CMLDictionary dictionary, String prefix, List<String> lines) {
 		this();
-		setLinesToBeParsed(lines);
+		setLinesToBeRead(lines);
 		setDictionary(dictionary);
 		setDictionaryPrefix(prefix);
 	}
@@ -84,7 +92,7 @@ public class JumboReader {
 		if (line == null) {
 			throw new RuntimeException("line should not be null");
 		}
-		setLinesToBeParsed(new String[]{line});
+		setLinesToBeRead(new String[]{line});
 		setDictionary(dictionary);
 		setDictionaryPrefix(prefix);
 	}
@@ -97,7 +105,7 @@ public class JumboReader {
 	 */
 	public JumboReader(CMLDictionary dictionary, String prefix, String[] line) {
 		this();
-		setLinesToBeParsed(line);
+		setLinesToBeRead(line);
 		setDictionary(dictionary);
 		setDictionaryPrefix(prefix);
 	}
@@ -148,7 +156,7 @@ public class JumboReader {
 	 * @param lines
 	 * @return
 	 */
-	public JumboReader setLinesToBeParsed(List<String> lines) {
+	public JumboReader setLinesToBeRead(List<String> lines) {
 		if (lines == null) {
 			throw new RuntimeException("null lines");
 		}
@@ -162,7 +170,7 @@ public class JumboReader {
 	 * @param lines
 	 * @return
 	 */
-	public JumboReader setLinesToBeParsed(String[] lines) {
+	public JumboReader setLinesToBeRead(String[] lines) {
 		if (lines == null) {
 			throw new RuntimeException("null lines");
 		}
@@ -170,7 +178,7 @@ public class JumboReader {
 		for (String line : lines) {
 			lineList.add(line);
 		}
-		this.setLinesToBeParsed(lineList);
+		this.setLinesToBeRead(lineList);
 		return this;
 	}
 
@@ -296,17 +304,17 @@ public class JumboReader {
 	 * @param add should the CMLElement be added to the parentElement
 	 * @return the CMLList or CMLScalar
 	 */
-	public CMLElement parseNameValue(Pattern pattern, String dataType, boolean add) {
+	public CMLElement parseNameValue(Pattern pattern, Class<?> dataClass, boolean add) {
 		resetPreviousLineNumber();
 		String lineToParse = lines.get(currentLineNumber++);
 		CMLScalar scalar = null;
 		if (lineToParse.trim().length() != 0) {
-			scalar = parseAndAddNameValue(pattern, dataType, add, lineToParse);
+			scalar = readAndAddNameValue(pattern, dataClass, add, lineToParse);
 		}
 		return scalar;
 	}
 
-	private CMLScalar parseAndAddNameValue(Pattern pattern, String dataType,
+	private CMLScalar readAndAddNameValue(Pattern pattern, Class<?> dataClass,
 			boolean add, String lineToParse) {
 		CMLScalar scalar;
 		Matcher matcher = pattern.matcher(lineToParse);
@@ -316,31 +324,40 @@ public class JumboReader {
 		String dictRef = matcher.group(1).trim();
 		dictRef = dictRef.replaceAll("[^a-zA-Z0-9\\.\\-]", CMLConstants.S_UNDER);
 		String value = matcher.group(2).trim();
-		scalar = createScalar(dataType, value);
+		Field field = new PatternField();
+		scalar = field.createScalar(value);
 		addDictRef(scalar, dictRef);
 		addElementToParentElement(add, scalar);
 		return scalar;
 	}
 
-	/**
-	 * @param dataType
-	 * @param value
-	 * @return
-	 */
-	public static CMLScalar createScalar(String dataType, String value) {
-		CMLScalar scalar;
-		if (CMLConstants.XSD_DOUBLE.equals(dataType)) {
-			scalar = new CMLScalar(Real.parseDouble(value));
-		} else if (CMLConstants.XSD_INTEGER.equals(dataType)) {
-			scalar = new CMLScalar(Integer.parseInt(value));
-		} else if (CMLConstants.XSD_BOOLEAN.equals(dataType)) {
-			scalar = new CMLScalar(new Boolean(value));
-		} else if (CMLConstants.XSD_DATE.equals(dataType)) {
-			scalar = new CMLScalar(JodaDate.parseDate(value));
-		} else {
-			scalar = new CMLScalar(value);
+	public static void addIsSpaceAttribute(CMLScalar scalar) {
+		scalar.setCMLXAttribute(JumboReader.JUMBO_READER, SPACE);
+	}
+
+	public static boolean isSpace(CMLElement element) {
+		return element != null && 
+		    SPACE.equals(element.getCMLXAttribute(JUMBO_READER));
+	}
+
+	public static void addMisreadAttribute(CMLScalar scalar) {
+		scalar.setCMLXAttribute(JUMBO_READER, MISREAD);
+	}
+
+	public static boolean isMisread(CMLElement element) {
+		return element != null && 
+		    MISREAD.equals(element.getCMLXAttribute(JUMBO_READER));
+	}
+
+	public static boolean containsMisRead(List<? extends CMLElement> elementList) {
+		boolean misread = false;
+		for (CMLElement element : elementList) {
+			if (isMisread(element)) {
+				misread = true;
+				break;
+			}
 		}
-		return scalar;
+		return misread;
 	}
 
 	/**
@@ -348,23 +365,77 @@ public class JumboReader {
 	 * @param value
 	 * @return
 	 */
-	public static CMLScalar createScalar(Class dataTypeClass, String value) {
-		value = value.trim();
-		CMLScalar scalar = null;
-		if (Double.class.equals(dataTypeClass)) {
-			scalar = new CMLScalar(Real.parseDouble(value));
-		} else if (Integer.class.equals(dataTypeClass)) {
-			scalar = new CMLScalar(Integer.parseInt(value));
-		} else if (Boolean.class.equals(dataTypeClass)) {
-			scalar = new CMLScalar(new Boolean(value));
-		} else if (DateTime.class.equals(dataTypeClass)) {
-			scalar = new CMLScalar(JodaDate.parseDate(value));
-		} else if (String.class.equals(dataTypeClass)) {
-			scalar = new CMLScalar(value);
-		} else {
-			scalar = null;
+	public static CMLArray createArray(Class<?> dataTypeClass, String toParse, Field field) {
+		CMLArray array = createZeroLengthArrayOfDataType(dataTypeClass);
+		int start = 0;
+		for (int i = 0; i < field.getMultiplier(); i++) {
+			int end = start + field.getWidth();
+			Object object = readAndAddNonNullTypedObject(array, dataTypeClass, toParse, start, end);
+			if (object == null) {
+				break;
+			}
+			start = end;
 		}
-		return scalar;
+		field.setTotalWidthRead(field.getWidth() * field.getMultiplier());
+		return array;
+	}
+
+	private static Object readAndAddNonNullTypedObject(CMLArray array, Class<?> dataTypeClass, String toParse, int start, int end) {
+		Object object = null;
+		if (end <= toParse.length()) {
+			String value = toParse.substring(start, end);
+			try {
+				if (Double.class.equals(dataTypeClass)) {
+					object = Real.parseDouble(value.trim());
+					if (object != null) {
+						array.append((Double) object);
+					}
+				} else if (Integer.class.equals(dataTypeClass)) {
+					object = new Integer(value.trim());
+					if (object != null) {
+						array.append((Integer) object);
+					}
+//				} else if (Boolean.class.equals(dataTypeClass)) {
+	//				object = new Boolean(value.trim());
+	//				if (object != null) {
+	//					array.append((Boolean)object);
+	//				}
+//				} else if (DateTime.class.equals(dataTypeClass)) {
+	//				object = JodaDate.parseDate(value.trim());
+				} else if (String.class.equals(dataTypeClass)) {
+					if (value != null) {
+						array.append((String)value);
+					}
+				} else {
+					object = null;
+				}
+			} catch (Exception e) {
+				// end of valid parsing
+			}
+		}
+		return object;
+	}
+
+	private static CMLArray createZeroLengthArrayOfDataType(Class<?> dataTypeClass) {
+		CMLArray array = null;
+		if (Double.class.equals(dataTypeClass)) {
+			array = new CMLArray(new double[0]);
+		} else if (Integer.class.equals(dataTypeClass)) {
+			array = new CMLArray(new int[0]);
+		} else if (Boolean.class.equals(dataTypeClass)) {
+			throw new RuntimeException("Array does not yet support boolean");
+//			array = new CMLArray();
+//			array.setDataType(CMLConstants.XSD_BOOLEAN);
+		} else if (DateTime.class.equals(dataTypeClass)) {
+			throw new RuntimeException("Array does not yet support date");
+//			array = new CMLArray();
+//			array.setDataType(CMLConstants.XSD_DATE);
+		} else if (String.class.equals(dataTypeClass)) {
+			array = new CMLArray(new String[0]);
+		} else {
+			array = null;
+		}
+		return array;
 	}
 
 	/**
@@ -399,7 +470,7 @@ public class JumboReader {
 	}
 	
 	public CMLArray parseMultipleLinesToArray(String format, int fieldsToRead, String localDictRef, String dataType, boolean add) {
-		CMLArray array = parseMultipleLinesToArray(format, fieldsToRead, dataType);
+		CMLArray array = readMultipleLinesToArray(format, fieldsToRead, dataType);
 		addDictRef(array, dictionaryPrefix, localDictRef);
 		if (add) {
 			parentElement.appendChild(array);
@@ -425,6 +496,9 @@ public class JumboReader {
 
 	public void addElementWithDictRef(CMLElement element, String dictRef) {
 		addElementToParentElement(true, element);
+		if (this.parentElement != null) {
+//			((CMLElement)this.parentElement).debug("PPPPPPPPP");
+		}
 		addDictRef(element, dictRef);
 	}
 
@@ -433,7 +507,7 @@ public class JumboReader {
 		CMLMatrix matrix;
 		double[][] matrixx = new double[rows][];
 		for (int i = 0; i < rows; i++) {
-			CMLArray array = this.parseMultipleLinesToArray(
+			CMLArray array = this.readMultipleLinesToArray(
 					fortranFormat, cols, dataType);
 			matrixx[i] = array.getDoubles();
 		}
@@ -446,7 +520,7 @@ public class JumboReader {
 		CMLMatrix matrix;
 		int[][] matrixx = new int[rows][];
 		for (int i = 0; i < rows; i++) {
-			CMLArray array = this.parseMultipleLinesToArray(
+			CMLArray array = this.readMultipleLinesToArray(
 					fortranFormat, cols, dataType);
 			matrixx[i] = array.getInts();
 		}
@@ -466,7 +540,7 @@ public class JumboReader {
 	 * @param add
 	 * @return
 	 */
-	public CMLMolecule parseMoleculeAsColumns(int natoms, String format, int[] pointers, boolean add) {
+	public CMLMolecule readMoleculeAsColumns(int natoms, String format, int[] pointers, boolean add) {
 		CMLMolecule molecule = new CMLMolecule();
 		resetPreviousLineNumber();
 		for (int i = 0; i < natoms; i++) {
@@ -482,6 +556,95 @@ public class JumboReader {
 		}
 		addElementToParentElement(add, molecule);
 		return molecule;
+	}
+
+	/**
+	 * reads rows of elements expecting some/all 
+	 * elementSymbol, atnum, label, x, y, z
+	 * this order would give serial {0, 1, 2, 3, 4}
+	 * order can be arbitrary. -1 is missing
+	 * @param natoms
+	 * @param format
+	 * @param pointers 
+	 * @param add
+	 * @return
+	 */
+	public CMLArrayList readTableColumnsAsArrayList(LineReader lineReader) {
+		CMLArrayList arrayList = null;
+		resetPreviousLineNumber();
+		Integer linesToRead = lineReader.getLinesToRead();
+		if (linesToRead != null) {
+			arrayList = readArrayList(lineReader, linesToRead);
+			if (arrayList == null) {
+				int currentLine = this.getCurrentLineNumber();
+				String lastRead = null;
+				if (currentLine > 0) {
+					this.setCurrentLineNumber(currentLine-1);
+					lastRead = this.peekLine();
+					this.setCurrentLineNumber(currentLine);
+				}
+				throw new RuntimeException("cannot read "+linesToRead+" for table: failed at: "+this.getCurrentLineNumber()+" /current :"+this.peekLine()+"/lastRead :"+lastRead);
+			}
+//		} else if (readingType != null) {
+//			arrayList = readArrayList(lineReader, readingType);
+		}
+		return arrayList;
+	}
+
+	private CMLArrayList readArrayList(LineReader lineReader, Integer linesToRead) {
+		CMLArrayList arrayList = new CMLArrayList(); 
+		int i = 0;
+		boolean fail = false;
+		// read until no more or 
+		while (linesToRead != null &&
+				i < linesToRead &&
+				currentLineNumber < lines.size()) {
+			i++;
+//			String line = lines.get(currentLineNumber++);
+			List<HasDataType> hasDataTypeList = lineReader.parseInlineHasDataTypes(this);
+			if (hasDataTypeList == null) {
+				fail = true;
+				break;
+			}
+			addToArrayList(lineReader, arrayList, hasDataTypeList);
+		}
+		if (fail) {
+			arrayList = null;
+		}
+		return arrayList;
+	}
+
+	private CMLArrayList readArrayList(LineReader lineReader, ReadingType readingType) {
+		CMLArrayList arrayList = new CMLArrayList(); 
+		if (!ReadingType.WHILE.equals(readingType)) {
+			throw new RuntimeException("tables must use reading=WHILE");
+		}
+		// read until no more or 
+		while (currentLineNumber < lines.size()) {
+			List<HasDataType> hasDataTypeList = lineReader.parseInlineHasDataTypes(this);
+			if (hasDataTypeList == null) {
+				break;
+			}
+			addToArrayList(lineReader, arrayList, hasDataTypeList);
+		}
+		return arrayList;
+	}
+
+	private void addToArrayList(LineReader lineReader, CMLArrayList arrayList,
+			List<HasDataType> hasDataTypeList) {
+		ensureArrayList(arrayList, hasDataTypeList);
+		addScalarsFromListToArrays(arrayList, hasDataTypeList, lineReader);
+	}
+
+	private void addScalarsFromListToArrays(CMLArrayList arrayList,
+			List<HasDataType> scalarList, LineReader lineReader) {
+		for (int jcol = 0; jcol < arrayList.getArraysCount(); jcol++ ) {
+			HasDataType hasDataType = scalarList.get(jcol);
+			if (hasDataType != null && hasDataType instanceof CMLScalar) {
+				addScalarToArray((CMLScalar)hasDataType, (CMLArray)arrayList.getArrays().get(jcol),
+					lineReader.getDelimiter(), lineReader.isTrim());
+			}
+		}
 	}
 
 	private void addAtomLabel(int[] pointers, List<Object> scalars, CMLAtom atom) {
@@ -510,27 +673,45 @@ public class JumboReader {
 		return atNum;
 	}
 
-	public CMLArray parseArray(String format, String dataType, String name, boolean add) {
+	public CMLArray readArray(String format, String dataType, String name, boolean add) {
 		resetPreviousLineNumber();
-		CMLArray array = parseArray(format, lines.get(currentLineNumber++), dataType);
+		CMLArray array = readArray(format, lines.get(currentLineNumber++), dataType);
 		addElementToParentElement(add, array);
 		addDictRef(array, getDictionaryPrefix(), name);
 		return array;
 	}
 
+	public CMLArray readArray(String format, String lineToBeParsed, String dataType) {
+		CMLArray array = new CMLArray();
+		array.setDataType(dataType);
+		List<Object> results = JumboReader.parseFortranLine(format, lineToBeParsed);
+		for (Object result : results) {
+			if (result == null) {
+				break;
+			}
+			if (CMLConstants.XSD_STRING.equals(dataType)) {
+				array.append(result.toString());
+			} else if (CMLConstants.XSD_DOUBLE.equals(dataType)) {
+				array.append(((Double)result).doubleValue());
+			} else if (CMLConstants.XSD_INTEGER.equals(dataType)) {
+				array.append(((Integer)result).intValue());
+			} else {
+				throw new RuntimeException("Bad result "+result+" / "+dataType);
+			}
+		}
+		return array;
+	}
+
 	public CMLArray readArrayGreedily(String fortranFormat, String dataType) {
-		CMLArray array = this.parseMultipleLinesToArray(
+		CMLArray array = this.readMultipleLinesToArray(
 				fortranFormat, -1, dataType);
 		return array;
 	}
 
-	public CMLArrayList parseTableColumnsAsArrayList(String format, int linesToRead, String[] names, boolean add) {
-		CMLArrayList arrayList = new CMLArrayList();
+	//only used in tests
+	public CMLArrayList readTableColumnsAsArrayList(String format, int linesToRead, String[] names, boolean add) {
 		resetPreviousLineNumber();
-		List<CMLArray> arrays = this.createTableColumns(format, linesToRead, names);
-		for (CMLArray array : arrays) {
-			arrayList.addArray(array);
-		}
+		CMLArrayList arrayList = this.createTableColumns(format, linesToRead, names);
 		addElementToParentElement(add, arrayList);
 		return arrayList;
 	}
@@ -568,7 +749,7 @@ public class JumboReader {
 
 	public String readLine() {
 		resetPreviousLineNumber();
-		return lines.get(currentLineNumber++);
+		return (currentLineNumber >= lines.size()) ? null : lines.get(currentLineNumber++);
 	}
 
 	/** reads complete line and ass as scalar
@@ -623,27 +804,6 @@ public class JumboReader {
 	}
 
 
-	public CMLArray parseArray(String format, String lineToBeParsed, String dataType) {
-		CMLArray array = new CMLArray();
-		array.setDataType(dataType);
-		List<Object> results = JumboReader.parseFortranLine(format, lineToBeParsed);
-		for (Object result : results) {
-			if (result == null) {
-				break;
-			}
-			if (CMLConstants.XSD_STRING.equals(dataType)) {
-				array.append(result.toString());
-			} else if (CMLConstants.XSD_DOUBLE.equals(dataType)) {
-				array.append(((Double)result).doubleValue());
-			} else if (CMLConstants.XSD_INTEGER.equals(dataType)) {
-				array.append(((Integer)result).intValue());
-			} else {
-				throw new RuntimeException("Bad result "+result+" / "+dataType);
-			}
-		}
-		return array;
-	}
-
 	/**
 	 * reads enough lines to fill fieldsToRead
 	 * if fieldsToRead is negative reads until end of lines or fails to parse
@@ -652,7 +812,7 @@ public class JumboReader {
 	 * @param dataType
 	 * @return
 	 */
-	public CMLArray parseMultipleLinesToArray(String format, int fieldsToRead, String dataType) {
+	public CMLArray readMultipleLinesToArray(String format, int fieldsToRead, String dataType) {
 		CMLArray array = new CMLArray();
 		CMLArray lineArray = null;
 		array.setDataType(dataType);
@@ -660,7 +820,7 @@ public class JumboReader {
 		resetPreviousLineNumber();
 		while (currentLineNumber < lines.size()) {
 			try {
-				lineArray = parseArray(format, lines.get(currentLineNumber++), dataType);
+				lineArray = readArray(format, lines.get(currentLineNumber++), dataType);
 			} catch (Exception e) {
 				if (fieldsToRead < 0) {
 					// allowed if we are trying to read until end
@@ -686,9 +846,18 @@ public class JumboReader {
 		return array;
 	}
 
+	/** appends if parentElement is non-null
+	 * else no-op
+	 * 
+	 * @param element
+	 */
 	public	void appendChild(CMLElement element) {
-		checkParent();
-		parentElement.appendChild(element);
+		if (parentElement != null) {
+			parentElement.appendChild(element);
+		} else {
+			// no=op
+//			throw new RuntimeException("JumboReader needs parentElement");
+		}
 	}
 
 	public void resetCurrentLine() {
@@ -697,8 +866,7 @@ public class JumboReader {
 
 	private void addElementToParentElement(boolean add, CMLElement element) {
 		if (add) {
-			checkParent();
-			parentElement.appendChild(element);
+			appendChild(element);
 		}
 	}
 
@@ -709,10 +877,10 @@ public class JumboReader {
 		}
 		List<CMLScalar> scalarList = new ArrayList<CMLScalar>();
 		List<String> nameList = makeNameList(names);
-		List<Class> classList = makeClassList(names);
+		List<Class<?>> classList = makeClassList(names);
 		for (int i = 0; i < nameList.size(); i++) {
 			Object result = results.get(i);
-			Class clazz = classList.get(i);
+			Class<?> clazz = classList.get(i);
 			String name = nameList.get(i);
 			CMLScalar scalar = convertToScalar(result, clazz, name, pattern);
 			scalarList.add(scalar);
@@ -720,7 +888,7 @@ public class JumboReader {
 		return createSingleScalarOrList(scalarList);
 	}
 
-	public CMLScalar convertToScalar(Object result, Class clazz, String name) {
+	public CMLScalar convertToScalar(Object result, Class<?> clazz, String name) {
 		return convertToScalar(result, clazz, name, null);
 	}
 
@@ -732,7 +900,7 @@ public class JumboReader {
 	 * @param pattern
 	 * @return
 	 */
-	public CMLScalar convertToScalar(Object result, Class clazz, String name, Pattern pattern) {
+	public CMLScalar convertToScalar(Object result, Class<?> clazz, String name, Pattern pattern) {
 		CMLScalar scalar = null;
 		if (result == null) {
 			throw new RuntimeException("Null result "+result+" / "+clazz+" / "+name);
@@ -754,7 +922,7 @@ public class JumboReader {
 		return scalar;
 	}
 
-	public static Object parseScalar(String string, Class clazz) {
+	public static Object parseScalar(String string, Class<?> clazz) {
 		Object result = null;
 		if (Integer.class.equals(clazz)) {
 			result = new Integer(string);
@@ -795,7 +963,8 @@ public class JumboReader {
 	 * @param names
 	 * @return
 	 */
-	private List<CMLArray> createTableColumns(String format, int linesToRead, String[] names) {
+	// ONLY USED IN OLD TESTs
+	private CMLArrayList createTableColumns(String format, int linesToRead, String[] names) {
 		checkLines();
 		int lineCount0 = currentLineNumber;
 		int linesLeft = lines.size() - currentLineNumber;
@@ -803,7 +972,7 @@ public class JumboReader {
 			throw new RuntimeException("Not enough lines to read "+linesToRead+ " > "+linesLeft);
 		}
 		CMLTable table = new CMLTable();
-		List<CMLArray> arrayList = new ArrayList<CMLArray>();
+		CMLArrayList arrayList = new CMLArrayList();
 		Exception ee = null;
 		while(linesToRead < 0 ||
 			(currentLineNumber - lineCount0 < linesToRead)) {
@@ -820,9 +989,9 @@ public class JumboReader {
 				throw new RuntimeException("Cannot parse line: "+this.peekLine(), e);
 			}
 			ensureArrayList(arrayList, element);
-			List<CMLScalar> cells = getScalarList(element);
-			for (int jcol = 0; jcol < arrayList.size(); jcol++ ) {
-				addToArray(cells.get(jcol), arrayList.get(jcol));
+			List<HasDataType> cells = getHasDataTypeList(element);
+			for (int jcol = 0; jcol < arrayList.getArraysCount(); jcol++ ) {
+				addScalarToArray((CMLScalar)cells.get(jcol), (CMLArray)arrayList.getArrays().get(jcol), "|", true);
 			}
 		}
 		if (currentLineNumber == lineCount0) {
@@ -843,12 +1012,14 @@ public class JumboReader {
 	private void addDictRef(CMLElement element, String dictionaryPrefix, String name) {
 		checkPrefix();
 		checkId(name);
-		String dictRef = DictRefAttribute.createValue(dictionaryPrefix, name);
-		if (element instanceof HasDictRef) {
-			((HasDictRef)element).setDictRef(dictRef);
-		} else {
-			LOG.warn("element "+element+" does not implement dictRef attribute");
-			element.addAttribute(new Attribute(DictRefAttribute.NAME, dictRef));
+		if (name != null) {
+			String dictRef = DictRefAttribute.createValue(dictionaryPrefix, name);
+			if (element instanceof HasDictRef) {
+				((HasDictRef)element).setDictRef(dictRef);
+			} else {
+				LOG.warn("element "+element+" does not implement dictRef attribute");
+				element.addAttribute(new Attribute(DictRefAttribute.NAME, dictRef));
+			}
 		}
 	}
 
@@ -907,10 +1078,10 @@ public class JumboReader {
 		return nameList;
 	}
 
-	private static List<Class> makeClassList(String[] names) {
-		List<Class> classList = new ArrayList<Class>();
+	private static List<Class<?>> makeClassList(String[] names) {
+		List<Class<?>> classList = new ArrayList<Class<?>>();
 		for (String name : names) {
-			Class clazz = makeClass(classList, name);
+			Class<?> clazz = makeClass(classList, name);
 			if (clazz == null) {
 				throw new RuntimeException("Name must start with I., D., E., F. or A."); 
 			}
@@ -919,8 +1090,8 @@ public class JumboReader {
 		return classList;
 	}
 
-	private static Class makeClass(List<Class> classList, String name) {
-		Class clazz = null;
+	private static Class<?> makeClass(List<Class<?>> classList, String name) {
+		Class<?> clazz = null;
 		if (name.startsWith("I.")) {
 			clazz = Integer.class;
 		} else if (name.startsWith("E.")) {
@@ -935,84 +1106,85 @@ public class JumboReader {
 		return clazz;
 	}
 
-//	/** reads line into scalars and adds those to element
-//	 * 
-//	 * @param element
-//	 * @param format
-//	 * @param lineToParse
-//	 * @param names
-//	 * @return
-//	 */
-//	public List<CMLScalar> addParsedScalarsAndIncrement(String format, String[] names) {
-//		String lineToParse = readLine();
-//		List<CMLScalar> scalarList = this.parseScalars(format, lineToParse, names);
-//		checkParent();
-//		for (CMLScalar scalar : scalarList) {
-//			parentElement.appendChild(scalar);
-//		}
-//		return scalarList;
-//	}
-	
-//	/** reads line into scalars and adds those to element
-//	 * 
-//	 * @param element
-//	 * @param pattern
-//	 * @param lineToParse
-//	 * @param names
-//	 * @return
-//	 */
-//	public void addParsedScalars(Pattern pattern, String lineToParse, String[] names) {
-//		List<CMLScalar> scalarList = this.parseScalars(pattern, lineToParse, names);
-//		checkParent();
-//		for (CMLScalar scalar : scalarList) {
-//			parentElement.appendChild(scalar);
+
+
+//	private void checkParent() {
+//		if (parentElement == null) {
+//			throw new RuntimeException("null parent element");
 //		}
 //	}
 
-
-	private void checkParent() {
-		if (parentElement == null) {
-			throw new RuntimeException("null parent element");
-		}
-	}
-
-	private static List<CMLScalar> getScalarList(CMLElement element) {
-		List<CMLScalar> scalars = new ArrayList<CMLScalar>();
+	private static List<HasDataType> getHasDataTypeList(CMLElement element) {
+		List<HasDataType> hasDataTypeList = new ArrayList<HasDataType>();
 		if (element instanceof CMLList) {
 			if (element instanceof CMLList) {
-				Elements childElements = element.getChildElements();
-				for (int i = 0; i < childElements.size(); i++) {
-					scalars.add((CMLScalar)childElements.get(i));
-				}
+				addListElementsAsScalars(element, hasDataTypeList);
 			} else {
-				scalars.add((CMLScalar)element);
+				hasDataTypeList.add((CMLScalar)element);
 			}
 		}
-		return scalars;
+		return hasDataTypeList;
 	}
 
-	private static void addToArray(CMLScalar scalar, CMLArray array) {
-		String dataType = scalar.getDataType();
-		if (CMLConstants.XSD_STRING.equals(dataType)) {
-			array.append(scalar.getStringContent());
-		} else if (CMLConstants.XSD_INTEGER.equals(dataType)) {
-			array.append(scalar.getInt());
-		} else if (CMLConstants.XSD_DOUBLE.equals(dataType)) {
-			array.append(scalar.getDouble());
-		} else if (CMLConstants.XSD_DATE.equals(dataType)) {
-			array.append(scalar.getDate());
+	private static void addListElementsAsScalars(CMLElement element,
+			List<HasDataType> scalars) {
+		Elements childElements = element.getChildElements();
+		for (int i = 0; i < childElements.size(); i++) {
+			scalars.add((HasDataType)childElements.get(i));
 		}
 	}
 
-	private static void ensureArrayList(
-			List<CMLArray> arrayList, CMLElement scalarElements) {
-		if (arrayList.size() == 0) {
-			List<CMLScalar> scalars = getScalarList(scalarElements);
-			for (CMLScalar scalar : scalars) {
-				CMLArray array = new CMLArray();
-				array.setDictRef(scalar.getDictRef());
-				array.setDataType(scalar.getDataType());
-				arrayList.add(array);
+	// TODO this should be in CMLArray
+	public static void addScalarToArray(CMLScalar scalar, CMLArray array, String delimiter, boolean trim) {
+		if (scalar == null || array == null) {
+			throw new RuntimeException("Scalar and array must not be null");
+		}
+		String scalarDataType = scalar.getDataType();
+		if (array.getSize() == 0 && array.getDataTypeAttribute() == null) {
+			array.setDataType(scalar.getDataType());
+			if (CMLConstants.XSD_STRING.equals(array.getDataType()) && delimiter != null) {
+				array.setDelimiter(delimiter);
+			}
+		}
+		String arrayDataType = array.getDataType();
+		if (!scalarDataType.equals(arrayDataType)) {
+			throw new RuntimeException("cannot add "+scalarDataType+" to array "+arrayDataType);
+		}
+		if (CMLConstants.XSD_STRING.equals(arrayDataType)) {
+			String s = scalar.getXMLContent();
+			if (trim) {
+				s = s.trim();
+			}
+			array.append(s);
+		} else if (CMLConstants.XSD_DOUBLE.equals(arrayDataType)) {
+			array.append(scalar.getDouble());
+		} else if (CMLConstants.XSD_INTEGER.equals(arrayDataType)) {
+			array.append(scalar.getInt());
+		} else if (CMLConstants.XSD_BOOLEAN.equals(arrayDataType)) {
+			throw new RuntimeException("Cannot append boolean");
+//			array.append(scalar.getBoolean());
+		} else if (CMLConstants.XSD_DATE.equals(arrayDataType)) {
+			array.append(scalar.getDate());
+		} else {
+			throw new RuntimeException("Cannot append unknown datatype "+arrayDataType);
+		}
+	}
+
+
+	private static void ensureArrayList(CMLArrayList arrayList, CMLElement scalarElements) {
+		List<HasDataType> scalarList = getHasDataTypeList(scalarElements);
+		ensureArrayList(arrayList, scalarList);
+	}
+
+	private static void ensureArrayList(CMLArrayList arrayList, List<HasDataType> hasDataTypeList) {
+		if (arrayList.getArraysCount() == 0) {
+			for (HasDataType hasDataType : hasDataTypeList) {
+				if (hasDataType != null) {
+					CMLArray array = new CMLArray();
+					array.setDictRef(hasDataType.getDictRef());
+					array.setDataType(hasDataType.getDataType());
+					arrayList.addArray(array);
+				}
 			}
 		}
 	}
@@ -1047,7 +1219,7 @@ public class JumboReader {
 		CMLElement scalar = null;
 		while (hasMoreLines()) {
 			try {
-				scalar = parseNameValue(pattern, CMLConstants.XSD_STRING, add);
+				scalar = parseNameValue(pattern, String.class, add);
 				if (scalar == null) {
 					break;
 				}
@@ -1059,6 +1231,25 @@ public class JumboReader {
 
 	public void increment(int offset) {
 		currentLineNumber += offset;
+	}
+
+	public List<CMLElement> readElements(LineReader lineReader) {
+		List<CMLElement> elementList = new ArrayList<CMLElement>();
+		String line = lines.get(currentLineNumber);
+		int startChar = 0;
+		StringBuilder stringBuilder = new StringBuilder(line);
+		for (Field field : lineReader.getFieldList()) {
+			CMLElement element = field.read(stringBuilder, startChar, dictionaryPrefix);
+			startChar = field.getStartChar();
+			if (element != null) {
+				if (JumboReader.isSpace(element) && !JumboReader.isMisread(element)) {
+					
+				} else {
+					elementList.add(element);
+				}
+			}
+		}
+		return elementList;
 	}
 
 

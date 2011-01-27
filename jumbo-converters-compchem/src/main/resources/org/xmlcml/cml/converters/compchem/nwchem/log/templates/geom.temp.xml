@@ -1,0 +1,18 @@
+<template id="geom" name="Geometry" pattern=".*(Geometry).*">
+<comment>
+                             Geometry "geometry" -> ""
+                             -------------------------
+
+ Output coordinates in a.u. (scale by  1.000000000 to convert to a.u.)
+
+  No.       Tag          Charge          X              Y              Z
+ ---- ---------------- ---------- -------------- -------------- --------------
+    1 fe                  26.0000     0.00000000     0.00000000     0.00000000
+    2 c                    6.0000     0.00000000     0.00000000     3.41435800
+    3 c                    6.0000     0.00000000     0.00000000    -3.41435800
+    ...
+</comment>
+<readLines linesToRead="7"/>
+<record id="geom" linesToRead="*" makeArray="true" 
+    formatType="FORTRAN">(I5,1X,A16{tag},1X,F10.4{charge},1X,F14.8{x},1X,F14.8{y},1X,F14.8{z})</record>
+</template>

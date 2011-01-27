@@ -69,7 +69,7 @@ public abstract class ChemistrySummary {
                  "<td>" + inchi + "</td></tr>";
       }
 
-      Map root = new HashMap<String, String>();
+      Map<String, String> root = new HashMap<String, String>();
       // Put string ``title'' into the root
       root.put("title", title);			//title of the page
       if (includesDirectoryRelative != null) {

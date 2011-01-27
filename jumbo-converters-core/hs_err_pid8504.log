@@ -1,0 +1,164 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x6d9c09c9, pid=8504, tid=4888
+#
+# JRE version: 6.0_21-b07
+# Java VM: Java HotSpot(TM) Client VM (17.0-b17 mixed mode windows-x86 )
+# Problematic frame:
+# V  [jvm.dll+0x1109c9]
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x022a8800):  JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_in_vm, id=4888, stack(0x18690000,0x186e0000)]
+
+siginfo: ExceptionCode=0xc0000005, reading address 0x59720078
+
+Registers:
+EAX=0x18f9df68, EBX=0x00000000, ECX=0x000071ee, EDX=0x00000000
+ESP=0x186dfa14, EBP=0x186dfa18, ESI=0x59720074, EDI=0x021c7c50
+EIP=0x6d9c09c9, EFLAGS=0x00010213
+
+Top of Stack: (sp=0x186dfa14)
+0x186dfa14:   022a8800 186dfa40 6d9e65c2 18f9df68
+0x186dfa24:   186dfac4 186dfa7b 022a8800 00000000
+0x186dfa34:   00000000 00000000 022a8800 186dfa7c
+0x186dfa44:   6d44976e 021c7c50 18f9df68 186dfa7b
+0x186dfa54:   18f9df68 6d4342c9 18f9df68 186dfa7b
+0x186dfa64:   00000054 00000000 00000000 00000001
+0x186dfa74:   00000000 006dfa9c 186dfa9c 6d434434
+0x186dfa84:   00000001 186dfab8 186dfc54 6d452b02 
+
+Instructions: (pc=0x6d9c09c9)
+0x6d9c09b9:   74 25 8b 30 85 f6 74 1f 81 fe fe fe fe fe 74 17
+0x6d9c09c9:   8b 46 04 8d 48 08 8b 01 ff 90 94 00 00 00 84 c0 
+
+
+Stack: [0x18690000,0x186e0000],  sp=0x186dfa14,  free space=13e186df4f8k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x1109c9]
+V  [jvm.dll+0x1365c2]
+C  [jdwp.dll+0x1976e]
+C  [jdwp.dll+0x4434]
+C  [jdwp.dll+0x4472]
+C  [jdwp.dll+0x17d53]
+V  [jvm.dll+0x185f5c]
+C  [msvcr71.dll+0x9565]
+C  [kernel32.dll+0x13677]
+C  [ntdll.dll+0x39d42]
+C  [ntdll.dll+0x39d15]
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x18cb5400 JavaThread "ReaderThread" [_thread_in_native, id=5232, stack(0x18e40000,0x18e90000)]
+  0x022c6800 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=9560, stack(0x18b20000,0x18b70000)]
+  0x022c1c00 JavaThread "CompilerThread0" daemon [_thread_blocked, id=8500, stack(0x18a30000,0x18a80000)]
+  0x022ac800 JavaThread "JDWP Command Reader" daemon [_thread_in_native, id=6628, stack(0x189a0000,0x189f0000)]
+  0x022ab800 JavaThread "JDWP Event Helper Thread" daemon [_thread_blocked, id=7132, stack(0x188a0000,0x188f0000)]
+=>0x022a8800 JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_in_vm, id=4888, stack(0x18690000,0x186e0000)]
+  0x0229d800 JavaThread "Attach Listener" daemon [_thread_blocked, id=676, stack(0x184c0000,0x18510000)]
+  0x0229a800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=3568, stack(0x18430000,0x18480000)]
+  0x0226cc00 JavaThread "Finalizer" daemon [_thread_blocked, id=5068, stack(0x183a0000,0x183f0000)]
+  0x02268000 JavaThread "Reference Handler" daemon [_thread_blocked, id=7216, stack(0x18310000,0x18360000)]
+  0x021ca800 JavaThread "main" [_thread_blocked, id=5636, stack(0x00270000,0x002c0000)]
+
+Other Threads:
+  0x02265000 VMThread [stack: 0x02140000,0x02190000] [id=5452]
+  0x022c7800 WatcherThread [stack: 0x18bb0000,0x18c00000] [id=6224]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ def new generation   total 4928K, used 3370K [0x042d0000, 0x04820000, 0x09820000)
+  eden space 4416K,  64% used [0x042d0000, 0x0459a9b8, 0x04720000)
+  from space 512K,  99% used [0x047a0000, 0x0481fff8, 0x04820000)
+  to   space 512K,   0% used [0x04720000, 0x04720000, 0x047a0000)
+ tenured generation   total 10944K, used 3768K [0x09820000, 0x0a2d0000, 0x142d0000)
+   the space 10944K,  34% used [0x09820000, 0x09bce1f8, 0x09bce200, 0x0a2d0000)
+ compacting perm gen  total 12288K, used 5713K [0x142d0000, 0x14ed0000, 0x182d0000)
+   the space 12288K,  46% used [0x142d0000, 0x148644e8, 0x14864600, 0x14ed0000)
+No shared spaces configured.
+
+Dynamic libraries:
+0x00400000 - 0x00424000 	C:\Program Files (x86)\Java\jdk1.6.0_21\bin\javaw.exe
+0x777c0000 - 0x77940000 	C:\Windows\SysWOW64\ntdll.dll
+0x75cd0000 - 0x75dd0000 	C:\Windows\syswow64\kernel32.dll
+0x760f0000 - 0x76136000 	C:\Windows\syswow64\KERNELBASE.dll
+0x77280000 - 0x77320000 	C:\Windows\syswow64\ADVAPI32.dll
+0x75c20000 - 0x75ccc000 	C:\Windows\syswow64\msvcrt.dll
+0x76f50000 - 0x76f69000 	C:\Windows\SysWOW64\sechost.dll
+0x77140000 - 0x77230000 	C:\Windows\syswow64\RPCRT4.dll
+0x75330000 - 0x75390000 	C:\Windows\syswow64\SspiCli.dll
+0x75320000 - 0x7532c000 	C:\Windows\syswow64\CRYPTBASE.dll
+0x75ff0000 - 0x760f0000 	C:\Windows\syswow64\USER32.dll
+0x75e90000 - 0x75f20000 	C:\Windows\syswow64\GDI32.dll
+0x77790000 - 0x7779a000 	C:\Windows\syswow64\LPK.dll
+0x77320000 - 0x773bd000 	C:\Windows\syswow64\USP10.dll
+0x75b20000 - 0x75b80000 	C:\Windows\system32\IMM32.DLL
+0x75f20000 - 0x75fec000 	C:\Windows\syswow64\MSCTF.dll
+0x7c340000 - 0x7c396000 	C:\Program Files (x86)\Java\jdk1.6.0_21\jre\bin\msvcr71.dll
+0x6d8b0000 - 0x6db57000 	C:\Program Files (x86)\Java\jdk1.6.0_21\jre\bin\client\jvm.dll
+0x74560000 - 0x74592000 	C:\Windows\system32\WINMM.dll
+0x74a40000 - 0x74a8b000 	C:\Windows\system32\apphelp.dll
+0x6d860000 - 0x6d86c000 	C:\Program Files (x86)\Java\jdk1.6.0_21\jre\bin\verify.dll
+0x6d3e0000 - 0x6d3ff000 	C:\Program Files (x86)\Java\jdk1.6.0_21\jre\bin\java.dll
+0x6d340000 - 0x6d348000 	C:\Program Files (x86)\Java\jdk1.6.0_21\jre\bin\hpi.dll
+0x755f0000 - 0x755f5000 	C:\Windows\syswow64\PSAPI.DLL
+0x6d430000 - 0x6d459000 	C:\Program Files (x86)\Java\jdk1.6.0_21\jre\bin\jdwp.dll
+0x6d750000 - 0x6d756000 	C:\Program Files (x86)\Java\jdk1.6.0_21\jre\bin\npt.dll
+0x6d8a0000 - 0x6d8af000 	C:\Program Files (x86)\Java\jdk1.6.0_21\jre\bin\zip.dll
+0x6d2b0000 - 0x6d2b7000 	C:\Program Files (x86)\Java\jdk1.6.0_21\jre\bin\dt_socket.dll
+0x75e50000 - 0x75e85000 	C:\Windows\syswow64\WS2_32.dll
+0x75970000 - 0x75976000 	C:\Windows\syswow64\NSI.dll
+0x73b00000 - 0x73b10000 	C:\Windows\system32\NLAapi.dll
+0x74650000 - 0x7468c000 	C:\Windows\System32\mswsock.dll
+0x74d30000 - 0x74d74000 	C:\Windows\system32\DNSAPI.dll
+0x73af0000 - 0x73af8000 	C:\Windows\System32\winrnr.dll
+0x73ae0000 - 0x73af0000 	C:\Windows\system32\napinsp.dll
+0x73ac0000 - 0x73ad2000 	C:\Windows\system32\pnrpnsp.dll
+0x73a90000 - 0x73ab4000 	C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live\WLIDNSP.DLL
+0x770e0000 - 0x77137000 	C:\Windows\syswow64\SHLWAPI.dll
+0x74da0000 - 0x74dbc000 	C:\Windows\system32\IPHLPAPI.DLL
+0x74d90000 - 0x74d97000 	C:\Windows\system32\WINNSI.DLL
+0x72ec0000 - 0x72ef8000 	C:\Windows\System32\fwpuclnt.dll
+0x72eb0000 - 0x72eb6000 	C:\Windows\system32\rasadhlp.dll
+0x746a0000 - 0x746a5000 	C:\Windows\System32\wshtcpip.dll
+0x6d6c0000 - 0x6d6d3000 	C:\Program Files (x86)\Java\jdk1.6.0_21\jre\bin\net.dll
+0x744b0000 - 0x744b6000 	C:\Windows\System32\wship6.dll
+
+VM Arguments:
+jvm_args: -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:53431 -Dfile.encoding=Cp1252 
+java_command: org.eclipse.jdt.internal.junit.runner.RemoteTestRunner -version 3 -port 53430 -testLoaderClass org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader -loaderpluginname org.eclipse.jdt.junit4.runtime -test org.xmlcml.cml.converters.format.SimpleFortranFormatTest:testReadCheckFlag1a
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=c:\Program Files (x86)\Java\jdk1.6.0_21
+CLASSPATH=.
+PATH=C:\Program Files (x86)\Java\jdk1.6.0_21\jre\bin;C:\Program Files (x86)\MiKTeX 2.9\miktex\bin;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;c:\Program Files (x86)\Java\jdk1.6.0_21\bin;C:\Python26;C:\Tools\apache-maven-2.2.1\bin;C:\Tools\jmol-12.0.14;C:\tools\OpenBabel-2.2.3;C:\tools\OpenCV2.0\bin;C:\Tools\Pauthor-v1.2\bin;C:\Tools\osra-1.3.6;C:\Tools\inchi-1.03\win32;C:\Program Files (x86)\TortoiseHg\;C:\Program Files\TortoiseSVN\bin;C:\Program Files (x86)\PuTTY;C:\Program Files (x86)\Toshiba\Bluetooth Toshiba Stack\sys\;C:\Program Files (x86)\Toshiba\Bluetooth Toshiba Stack\sys\x64\;C:\Program Files\Broadcom\Broadcom 802.11 Network Adapter\Driver;C:\Tools\cygwin\bin;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\DTS\Binn\;D:\workspace\lensfield-0.2-SNAPSHOT\lensfield2-0.2-SNAPSHOT\bin;C:\Program Files (x86)\Mozilla Firefox;C:\Program Files (x86)\OpenBabel-2.3.0;C:\program Files\wordfind;D:\workspace\lensfield-0.2-SNAPSHOT\lensfield2-0.2-SNAPSHOT\\bin;C:\MinGW\bin
+USERNAME=pm286
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 37 Stepping 5, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 7 Build 7600 
+
+CPU:total 4 (8 cores per cpu, 2 threads per core) family 6 model 37 stepping 5, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, ht
+
+Memory: 4k page, physical 3988328k(1107856k free), swap 7974756k(2950312k free)
+
+vm_info: Java HotSpot(TM) Client VM (17.0-b17) for windows-x86 JRE (1.6.0_21-b07), built on Jul 17 2010 01:10:15 by "java_re" with MS VC++ 7.1 (VS2003)
+
+time: Mon Dec 20 17:11:12 2010
+elapsed time: 7735 seconds
+

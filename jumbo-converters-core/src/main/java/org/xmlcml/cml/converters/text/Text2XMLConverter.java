@@ -46,11 +46,13 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 	public Element convertToXML(List<String> lines) {
 		this.lines = lines;
 		this.insertMarkers();
-		Element element = createXML();
-//		element = processIntoBlocks(element);
+		Element element = createXMLFromTextAndMarkedLines();
+//		CMLUtil.debug(element, "LINES");
 		legacyProcessor = createLegacyProcessor();
 		legacyProcessor.read((CMLElement)element);
-		return legacyProcessor.getCMLElement();
+		Element cmlElement = legacyProcessor.getCMLElement();
+//		CMLUtil.debug(cmlElement, "parsedXML");
+		return cmlElement;
 	}
 
 //	public void setMarkerResourceName(String resourceName) {
@@ -108,37 +110,37 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 		linesCopy.add(linesCopy.size()+offset, markup);
 	}
 
-	private CMLElement createXML() {
+	private CMLElement createXMLFromTextAndMarkedLines() {
 		CMLCml cml = new CMLCml();
 		CMLScalar scalar = null;
 		StringBuilder sb = null;
-		Element lineXML = null;
+		Element markedLineAsXML = null;
 		for (String line : lines) {
-			if (isXML(line)) {
-				lineXML = null;
+			if (isMarkedXML(line)) {
+				markedLineAsXML = null;
 				try {
-					lineXML = CMLUtil.parseXML(line);
+					markedLineAsXML = CMLUtil.parseXML(line);
 				} catch (Exception e) {
 					throw new RuntimeException("BUG", e);
 				}
-				sb = processScalar(scalar, sb, cml);
+				sb = addTextToScalar(scalar, sb, cml);
 			} else {
 				if (sb == null) {
 					sb = new StringBuilder();
 					scalar = new CMLScalar();
-					if (lineXML != null) {
-						CMLUtil.copyAttributes(lineXML, scalar);
+					if (markedLineAsXML != null) {
+						CMLUtil.copyAttributes(markedLineAsXML, scalar);
 					}
 				}
 				sb.append(line);
 				sb.append("\n");
 			}
 		}
-		sb = processScalar(scalar, sb, cml);
+		sb = addTextToScalar(scalar, sb, cml);
 		return cml;
 	}
 	
-	private StringBuilder processScalar(CMLScalar scalar, StringBuilder sb, CMLCml cml) {
+	private StringBuilder addTextToScalar(CMLScalar scalar, StringBuilder sb, CMLCml cml) {
 		if (scalar != null) {
 			if (sb != null) {
 				String value = sb.toString();
@@ -150,7 +152,7 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 		return sb;
 	}
 
-	private boolean isXML(String line) {
+	private boolean isMarkedXML(String line) {
 		boolean isXML = false;
 		if (line.startsWith(STAGO)) {
 			try {

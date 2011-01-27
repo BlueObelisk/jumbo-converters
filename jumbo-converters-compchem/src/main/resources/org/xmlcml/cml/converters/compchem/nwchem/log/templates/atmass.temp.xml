@@ -1,0 +1,14 @@
+<template id="atmass" name="Atomic Mass" pattern=".*Atomic Mass.*">
+  <comment>
+      Atomic Mass 
+      ----------- 
+
+      fe                55.934900
+      c                 12.000000
+      o                 15.994910
+  </comment>
+  <readLines formatType="FORTRAN">
+('      Atomic Mass',/,'      -----------',/)
+  </readLines>
+  <record formatType="FORTRAN" id="atmass" makeArray="true" linesToRead="*">('      ',A10{tag},F17.6{mass})</record>
+</template>

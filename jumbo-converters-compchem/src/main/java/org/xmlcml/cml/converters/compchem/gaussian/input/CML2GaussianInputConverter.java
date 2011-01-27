@@ -29,8 +29,8 @@ public class CML2GaussianInputConverter extends AbstractCompchem2CMLConverter {
       LOG.setLevel(Level.INFO);
    }
    // really awful, but ant cannot pick up classpath
-   private final static String DICT_FILE =
-           "org/xmlcml/cml/converters/compchem/gaussian/gaussianArchiveDict.xml";
+//   private final static String DICT_FILE =
+//           "org/xmlcml/cml/converters/compchem/gaussian/gaussianArchiveDict.xml";
    
    private String controlFile = "org/xmlcml/cml/converters/compchem/controls/freq.xml";
    public static final String GAUSS_PREFIX = "gauss";

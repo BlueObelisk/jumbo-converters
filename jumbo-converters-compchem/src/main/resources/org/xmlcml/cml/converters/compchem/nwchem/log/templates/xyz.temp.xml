@@ -1,0 +1,20 @@
+<template id="xyz" name="XYZ format geometry" pattern="XYZ format geometry">
+  <comment>
+            XYZ format geometry
+            -------------------
+    11
+ geometry
+ fe                    0.00000000     0.00000000     0.00000000
+ c                     0.00000000     0.00000000     1.80680057
+...
+ o                     0.77109980    -2.87778364     0.00000000
+
+  </comment>
+  <readLines>
+            XYZ format geometry
+            -------------------
+  </readLines>
+  <record id="atoms" formatType="FORTRAN" makeArray="true">(I6{natoms},/,A{geom},/)</record>
+  <record reading="ALL" formatType="FORTRAN" makeArray="true" 
+      id="mol">(1X,A10{atomtype},7x,3F15.8{xyz},/)</record>
+</template>
