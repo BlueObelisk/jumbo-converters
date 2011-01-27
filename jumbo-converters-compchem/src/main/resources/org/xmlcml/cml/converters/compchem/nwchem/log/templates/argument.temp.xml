@@ -1,0 +1,24 @@
+<template name="argument" id="argument" pattern="(argument).*">
+    <comment>
+      argument 1 = dft_feco5.nw
+
+
+
+      ============================== echo of input deck
+      ============================== echo
+
+      start dft_feco5
+
+      # test of DFT with Fe(CO)5 using cd basis and xc basis
+
+      ... dft xc b3lyp end title "case t23 --- (b3lyp) DFT (energy)"
+      task dft energy
+
+
+
+
+      ================================================================================
+    </comment>
+    <record names="$name1 $value1" linesToRead="*" formatType="REGEX" 
+         id="args">.*(argument)[^=]*=(.*)</record>
+</template>
