@@ -3,6 +3,7 @@ package org.xmlcml.cml.converters.compchem.nwchem.log;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xmlcml.cml.converters.compchem.TestUtils;
+import org.xmlcml.cml.converters.testutils.RegressionSuite;
 
 public class ConverterTest {
 	@Test         public void testAcknow()    {testConverter("acknow");}
@@ -25,5 +26,12 @@ public class ConverterTest {
 	private void testConverter(String name) {
 		TestUtils.runConverterTest(new NWChemLog2XMLConverter(), name);
 	}
+	
+	   @Test
+	   @Ignore
+	   public void nwchemOut2XML() {
+	      RegressionSuite.run("compchem/nwchem/log", "out", "xml",
+	                          new NWChemLog2XMLConverter());
+	   }
 
 }
