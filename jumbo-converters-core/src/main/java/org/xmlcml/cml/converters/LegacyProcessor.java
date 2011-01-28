@@ -94,7 +94,6 @@ public abstract class LegacyProcessor {
 	private void processAndAddTemplate(Element element) {
 		Template newTemplate = new Template(this, element);
 		String newId = newTemplate.getId();
-		System.out.println("ID "+newId+" tlist "+templateList.size());
 		for (Template template : templateList) {
 			if (template.getId().equals(newId)) {
 				throw new RuntimeException("Duplicate id: "+newId);

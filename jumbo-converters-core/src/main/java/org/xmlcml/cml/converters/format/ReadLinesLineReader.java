@@ -18,12 +18,12 @@ public class ReadLinesLineReader extends LineReader {
 	public ReadLinesLineReader(Element childElement) {
 		super(READ_LINES_LINE_READER, childElement);
 		createLinesFromContent();
-		this.debug();
+//		this.debug();
 	}
 
 	private void createLinesFromContent() {
 		if (linesToRead == null && formatType == null) {
-			this.debug();
+//			this.debug();
 			String[] lines = content.split(CMLConstants.S_NEWLINE);
 			linesToRead = Math.max(0, lines.length - 1); // neglect first and last newline
 		}
