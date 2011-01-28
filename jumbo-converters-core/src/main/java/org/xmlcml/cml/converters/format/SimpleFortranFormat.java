@@ -221,7 +221,7 @@ We support Iw, Fw.d, Ew.d (D,G,H), A, Aw, nX, /
 	Integer readWidth() {
 		Integer width = readDigits();
 		if (width == null) {
-			LOG.info("no width given: "+this.transformedFormat);
+			LOG.trace("no width given: "+this.transformedFormat);
 			width = MAX_WIDTH;
 		}
 		return width;

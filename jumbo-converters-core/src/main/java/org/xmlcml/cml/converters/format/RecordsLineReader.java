@@ -21,22 +21,30 @@ public class RecordsLineReader extends LineReader {
 	private static final String RECORD = "__record";
 	public static final String RECORD_READER = "recordReader";
 
-	private static final String DOLLAR_NAME = "$name";
-	private static final String DOLLAR_VALUE = "$value";
+	private static final String DOLLAR_NAME = "__name";
+	private static final String DOLLAR_VALUE = "__value";
 
 	public RecordsLineReader(Element childElement) {
 		super(RECORD_READER, childElement);
+		init();
 	}
 
 	public RecordsLineReader(List<Field> fieldList) {
 		super(fieldList);
+		init();
+	}
+	
+	@Override
+	protected void init() {
+		super.init();
+		this.debug();
 	}
 
 	@Override
 	public CMLElement readLinesAndParse(JumboReader jumboReader) {
 		this.jumboReader = jumboReader;
 		CMLElement element = null;
-		this.debug();
+//		this.debug();
 		Integer linesToRead = this.getLinesToRead();
 		if (linesToRead != null) {
 			element = readRecordList(linesToRead);
@@ -85,7 +93,8 @@ public class RecordsLineReader extends LineReader {
 		Nodes names = newElement.query(".//*[local-name()='scalar' and contains(@dictRef,':"+DOLLAR_NAME+"')]");
 		Nodes values = newElement.query(".//*[local-name()='scalar' and contains(@dictRef,':"+DOLLAR_VALUE+"')]");
 		if (names.size() != values.size()) {
-			throw new RuntimeException("mismatched name/values");
+			newElement.debug("name/value");
+			throw new RuntimeException("mismatched counts name ("+names.size()+") values ("+values.size()+")");
 		}
 		for (int i = 0; i < names.size(); i++) {
 			CMLScalar name = (CMLScalar) names.get(i);
@@ -141,6 +150,7 @@ public class RecordsLineReader extends LineReader {
 	private CMLList readRecord() {
 		CMLList list = null;
 		// this adds parsed lines to parent element in jumboReader
+		LOG.debug("Reading "+jumboReader.peekLine());
 		List<HasDataType> hasDataTypeList = parseInlineHasDataTypes(jumboReader);
 		if (hasDataTypeList != null) {
 			list = new CMLList();
