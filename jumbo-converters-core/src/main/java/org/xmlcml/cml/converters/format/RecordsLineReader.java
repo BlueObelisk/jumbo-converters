@@ -26,17 +26,15 @@ public class RecordsLineReader extends LineReader {
 
 	public RecordsLineReader(Element childElement) {
 		super(RECORD_READER, childElement);
-		init();
+		init0();
 	}
 
 	public RecordsLineReader(List<Field> fieldList) {
 		super(fieldList);
-		init();
+		init0();
 	}
 	
-	@Override
-	protected void init() {
-		super.init();
+	protected void init0() {
 		this.debug();
 	}
 

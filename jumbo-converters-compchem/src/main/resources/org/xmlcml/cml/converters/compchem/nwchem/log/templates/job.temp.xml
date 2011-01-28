@@ -24,9 +24,11 @@
     
 </readLines>
 <!-- <record formatType="PATTERN" id="job" linesToRead="*"> *(.*){__name},' *= *',A{__value})</record> -->
+<!--  <record names="__name1 __value1" linesToRead="*" formatType="REGEX" 
+         id="args"> *([^ ][^=]+[^ ]) *= *(.*)</record>-->
 <record names="__name1 __value1" linesToRead="*" formatType="REGEX" 
-         id="args"> *([^=]*[^ ]) *= *(.*)</record>
+         id="args">([^=]*)=(.*)</record>
 <readLines linesToRead="1"/>
 <record names="__name1 __value1" linesToRead="*" formatType="REGEX" 
-         id="args"> *([^=]*[^ ]) *= *(.*)</record>
+         id="args"> *([^ ][^=]+[^ ]) *= *(.*)</record>
 </template>
