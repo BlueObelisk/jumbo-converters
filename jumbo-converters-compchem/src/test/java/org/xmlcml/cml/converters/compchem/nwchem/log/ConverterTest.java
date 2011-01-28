@@ -28,6 +28,7 @@ public class ConverterTest {
 	}
 	
 	   @Test
+	   @Ignore
 	   public void nwchemOut2XML() {
 	      RegressionSuite.run("compchem/nwchem/log", "out", "xml",
 	                          new NWChemLog2XMLConverter());

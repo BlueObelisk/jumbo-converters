@@ -291,7 +291,7 @@ public abstract class LineReader extends Element {
 		if (line != null && line.trim().length() > 0) {
 			currentCharInLine = 0;
 			if (pattern != null) {
-				parseWithPattern();
+				dataTypeList = parseWithPattern();
 			} else {
 				dataTypeList = parseWithFields();
 			}
@@ -301,24 +301,24 @@ public abstract class LineReader extends Element {
 		
 	}
 
-	private CMLList parseWithPattern() {
+	private List<HasDataType> parseWithPattern() {
 		String line = jumboReader.peekLine();
 		Matcher matcher = pattern.matcher(line);
-		CMLList list = null;
+		List<HasDataType> list = null;
 		if (matcher.matches()) {
-			list = new CMLList();
+			list = new ArrayList<HasDataType>();
 			String localDictRef[] = (names == null) ? null : names.split(CMLConstants.S_SPACE);
 			for (int i = 1; i <= matcher.groupCount(); i++) {
 				CMLScalar scalar = new CMLScalar(matcher.group(i).trim());
-				list.appendChild(scalar);
+				list.add(scalar);
 				if (localDictRef != null && localDictRef.length == matcher.groupCount()) {
 					scalar.setDictRef(DictRefAttribute.createValue(jumboReader.getDictionaryPrefix(), localDictRef[i-1]));
 				}
 			}
 		}
-		if (list != null) {
-			jumboReader.appendChild(list);
-		}
+//		if (list != null) {
+//			jumboReader.appendChild(list);
+//		}
 		return list;
 	}
 
