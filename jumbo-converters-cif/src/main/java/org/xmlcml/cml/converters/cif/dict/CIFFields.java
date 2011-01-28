@@ -15,6 +15,7 @@ import org.xmlcml.cml.element.CMLEntry;
 
 
 public enum CIFFields {
+	
 	name("_name") {
 		@Override
 		public void custom(CIFItem cifItem, CMLEntry entry) {
@@ -22,7 +23,7 @@ public enum CIFFields {
 	        entry.setTerm(name);
 	        entry.setId(name);
 	        CMLElement description = new CMLElement("description");
-	        Element html = new Element("p","http://www.w3.org/1999/xhtml");
+	        Element html = new Element("html:p",HTMLNS);
 	        html.appendChild("Corresponds to the _"+name+" term in the IUCr Core CIF dictionary.");
 	        description.appendChild(html);
 	        entry.appendChild(description);
@@ -32,7 +33,7 @@ public enum CIFFields {
 		@Override
 		public void custom(CIFItem cifItem, CMLEntry entry) {
 			CMLElement definition = new CMLElement("definition");
-	        Element html = new Element("p","http://www.w3.org/1999/xhtml");
+	        Element html = new Element("html:p",HTMLNS);
 	        html.appendChild(cifItem.getValue());
 	        definition.appendChild(html);
             entry.appendChild(definition);
@@ -75,6 +76,7 @@ public enum CIFFields {
 	};
 
 	final String cifName;
+	public static final String HTMLNS = "http://www.w3.org/1999/xhtml";
 	static List<String> unitList=new ArrayList<String>();
 
 	private CIFFields(String cifName) {
