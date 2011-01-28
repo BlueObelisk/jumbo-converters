@@ -109,7 +109,7 @@ public abstract class LineReader extends Element {
 		init();
 	}
 
-	private void init() {
+	protected void init() {
 		linesToRead = null;
 		fieldList = new ArrayList<Field>();
 	}
@@ -226,7 +226,7 @@ public abstract class LineReader extends Element {
 		SimpleFortranFormat simpleFortranFormat = new SimpleFortranFormat(content.trim());
 		fieldList = simpleFortranFormat.getFieldList();
 		for (Field field : fieldList) {
-			LOG.debug("FIELD "+field);
+//			LOG.debug("FIELD "+field);
 		}
 	}
 
