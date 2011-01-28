@@ -9,6 +9,7 @@ import java.util.List;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Serializer;
+import nu.xom.jaxen.NamespaceContext;
 
 import org.xmlcml.cif.CIF;
 import org.xmlcml.cif.CIFDataBlock;
@@ -24,113 +25,79 @@ import org.xmlcml.cml.element.CMLEntry;
  */
 public class CifDictionaryBuilder {
 
-    private static final String URI = "http://www.xml-cml.org/dict/cif/";
-    private static final String PREFIX = "cif";
+	private static final String URI = "http://www.xml-cml.org/dict/cif/";
+	private static final String PREFIX = "cif";
 
-    private CMLDictionary dictionary;
+	private CMLDictionary dictionary;
 
-    public CifDictionaryBuilder() {
-        dictionary = new CMLDictionary();
-        dictionary.setNamespace(URI);
-        dictionary.setDictionaryPrefix(PREFIX);
-    }
+	public CifDictionaryBuilder() {
+		dictionary = new CMLDictionary();
+		dictionary.setNamespace(URI);
+		dictionary.setDictionaryPrefix(PREFIX);
+		dictionary.addNamespaceDeclaration("html", CIFFields.HTMLNS);
+	}
 
+	public void build(Document cifDict) {
+		CIF cif = (CIF) cifDict.getRootElement();
+		for (CIFDataBlock dataBlock : cif.getDataBlockList()) {
+			if ("on_this_dictionary".equals(dataBlock.getId())) {
+				continue;
+			}
+			if (dataBlock.getId().endsWith("[]")
+					|| dataBlock.getId().endsWith("_")) {
+				continue;
+			}
 
-    public void build(Document cifDict) {
-        CIF cif = (CIF) cifDict.getRootElement();
-        for (CIFDataBlock dataBlock : cif.getDataBlockList()) {
-            if ("on_this_dictionary".equals(dataBlock.getId())) {
-                continue;
-            }
-            if (dataBlock.getId().endsWith("[]") || dataBlock.getId().endsWith("_")) {
-                continue;
-            }
-            
-            CMLEntry entry=CIFFields.parseToEntry(dataBlock);
-            dictionary.appendChild(entry);
-            
-    		List<CIFLoop> loops = dataBlock.getLoopList();
-    		for (CIFLoop loop : loops) {
-    			List<String> nameList = loop.getNameList();
-    			if (nameList.contains("_name")) {
-    			} else if (nameList.contains("_example")) {
-    			} else if (nameList.contains("_list_link_child")) {
-    			} else if (nameList.contains("_related_item")) {
-    			} else if (nameList.contains("_enumeration")) {
-    				List<String> enumerationValues = loop.getColumnValues("_enumeration");
-    				for (String enumerationValue : enumerationValues) {
-    					Element enumeration = new Element("enumeration", CMLConstants.CMLX_NS);
-    					enumeration.appendChild(enumerationValue);
-    					entry.appendChild(enumeration);
-    				}
-    			} else {
-    				loop.debug();
-    			}
-    		}
-            
-            //addEntry(dataBlock);
-        }
-    }
-    
-    
+			// Parse datablock using enum methods.
+			CMLEntry entry = CIFFields.parseToEntry(dataBlock);
+			dictionary.appendChild(entry);
+			parseLoopsfromDataBlock(dataBlock, entry);
+		}
+	}
 
-//    private void addEntry(CIFDataBlock dataBlock) {
-//
-//        CIFItem cifName = dataBlock.getChildItem("_name");
-//        if (cifName == null) {
-//            return;
-//        }
-//
-//        String name = cifName.getValue().substring(1);  // Remove '_' prefix
-//
-//        CMLEntry entry = new CMLEntry();
-//        entry.setTerm(name);
-//        entry.setId(name);
-//
-//        Element description = new Element("description", CMLConstants.CML_NS);
-//        description.appendChild("Corresponds to the _"+name+" term in the IUCr Core CIF dictionary.");
-//        entry.appendChild(description);
-//
-//        CIFItem cifDefinition = dataBlock.getChildItem("_definition");
-//        if (cifDefinition != null) {
-//            Element definition = new Element("definition", CMLConstants.CML_NS);
-//            definition.appendChild(cifDefinition.getValue());
-//
-//            entry.appendChild(definition);
-//        }
-//
-//
-//
-//        dictionary.appendChild(entry);
-//    }
+	private void parseLoopsfromDataBlock(CIFDataBlock dataBlock,
+			CMLEntry entry) {
+		List<CIFLoop> loops = dataBlock.getLoopList();
+		for (CIFLoop loop : loops) {
+			List<String> nameList = loop.getNameList();
+			if (nameList.contains("_enumeration")) {
+				List<String> enumerationValues = loop
+						.getColumnValues("_enumeration");
+				for (String enumerationValue : enumerationValues) {
+					Element enumeration = new Element("enumeration",
+							CMLConstants.CMLX_NS);
+					enumeration.appendChild(enumerationValue);
+					entry.appendChild(enumeration);
+				}
+			}
+		}
+	}
 
+	public Document getCmlDoc() {
+		return dictionary.getDocument() == null ? new Document(dictionary)
+				: dictionary.getDocument();
+	}
 
-    public Document getCmlDoc() {
-        return dictionary.getDocument() == null ? new Document(dictionary) : dictionary.getDocument();
-    }
+	private static void build(File in, File out) throws IOException,
+			CIFException {
+		CIFParser parser = new CIFParser();
+		Document cifDict = parser.parse(in);
+		CifDictionaryBuilder builder = new CifDictionaryBuilder();
+		builder.build(cifDict);
 
+		BufferedOutputStream os = new BufferedOutputStream(
+				new FileOutputStream(out));
+		Serializer ser = new Serializer(os);
+		ser.setIndent(4);
+		ser.write(builder.getCmlDoc());
+		os.close();
+	}
 
-    private static void build(File in, File out) throws IOException, CIFException {
-        CIFParser parser = new CIFParser();
-        Document cifDict = parser.parse(in);
-        CifDictionaryBuilder builder = new CifDictionaryBuilder();
-        builder.build(cifDict);
+	public static void main(String[] args) throws Exception {
 
-        BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(out));
-        Serializer ser = new Serializer(os);
-        ser.setIndent(4);
-        ser.write(builder.getCmlDoc());
-        os.close();
-    }
+		CifDictionaryBuilder.build(new File("cif_core.dic"), new File(
+				"cif-dictionary.cml"));
 
-
-
-    public static void main(String[] args) throws Exception {
-
-        CifDictionaryBuilder.build(new File("cif_core.dic"), new File("cif-dictionary.cml"));
-
-    }
-
-
+	}
 
 }
