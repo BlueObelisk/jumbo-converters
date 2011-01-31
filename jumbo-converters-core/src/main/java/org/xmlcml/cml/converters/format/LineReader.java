@@ -314,10 +314,13 @@ public abstract class LineReader extends Element {
 			list = new ArrayList<HasDataType>();
 			String localDictRef[] = (names == null) ? null : names.split(CMLConstants.S_SPACE);
 			for (int i = 1; i <= matcher.groupCount(); i++) {
-				CMLScalar scalar = new CMLScalar(matcher.group(i).trim());
-				list.add(scalar);
-				if (localDictRef != null && localDictRef.length == matcher.groupCount()) {
-					scalar.setDictRef(DictRefAttribute.createValue(jumboReader.getDictionaryPrefix(), localDictRef[i-1]));
+				String matcherGroup = matcher.group(i);
+				if (matcherGroup != null) {
+					CMLScalar scalar = new CMLScalar(matcherGroup.trim());
+					list.add(scalar);
+					if (localDictRef != null && localDictRef.length == matcher.groupCount()) {
+						scalar.setDictRef(DictRefAttribute.createValue(jumboReader.getDictionaryPrefix(), localDictRef[i-1]));
+					}
 				}
 			}
 		}
