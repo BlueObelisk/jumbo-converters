@@ -26,5 +26,7 @@
           Convergence on gradient requested: 5.00D-04
 </comment>
   <readLines id="rl1" linesToRead="2"/>
-  <record id="property" names="__name __value" linesToRead="*" formatType="REGEX"> *([^:]*) *: *(.*)</record>
+  <!--  the names from this are slightly hairy - I should try non-capturing groups -->
+  <record id="property" names="_all __name __value __dummy" linesToRead="*" 
+    formatType="REGEX"> *(([^:]*) *: *(.*))|(.*\.)</record>
 </template>
