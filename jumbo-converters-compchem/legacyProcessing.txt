@@ -1,0 +1,119 @@
+
+Parsing:
+
+Each legacy2XML project must provide a list of templates, bound into a templateList;
+
+
+// this reads the marker definitions and creates a list of markers
+// typical marker finds:
+//       FooBar
+//       ------
+// i.e. an underlined string 
+// marker is of form regex: \s*(\-\-\-+)\s*; offset: -1 // finds ---- underlining text
+
+    Text2XMLConverter.readMarkers(InputStream is) {
+
+the marker patterns are used to mark the lines:
+    @Override
+    public Element convertToXML(List<String> lines) {
+        this.lines = lines;
+        this.insertMarkers();
+            // markers are found in marker.xml
+            readMarkers(getMarkerInputStream());
+            for (line in input) {
+                for (ChunkerMarker marker : markerList) {
+                    // marker is of form regex: \s*(\-\-\-+)\s*; offset: -1 // finds ---- underlining text
+                    if (marker.matches(line)) {
+                        insertMarkupLine(lineCount, marker, linesCopy);
+                        break;
+                    }
+                }
+                linesCopy.add(line);
+            }
+            lines = linesCopy;
+        }
+        // element is <cml> wrapping <scalar> elements wrapping all lines from marked line
+        // to just before next marked line
+        Element element = createXMLFromTextAndMarkedLines();
+        legacyProcessor = createLegacyProcessor();
+        legacyProcessor.read((CMLElement)element);
+        Element cmlElement = legacyProcessor.getCMLElement();
+        return cmlElement;
+    }
+    
+    // then reads through the marked sections (scalars) are converts into blocks:
+        protected AbstractBlock readBlock(CMLElement element) {
+        CMLScalar scalar = null;
+        if (element instanceof CMLScalar) {
+            scalar = (CMLScalar) element;
+        } else {
+            scalar = (CMLScalar) element.getFirstChildElement(CMLScalar.TAG);
+        }
+        if (scalar != null) {
+            // split into raw lines
+            // then
+            block = createBlock(lines.get(0)); // gets block name from template
+            block.convertToRawCML();
+        }
+        return block;
+    }
+    
+    // adding a new block
+    // 1. choose a unique id (e.g. zmat)
+    // 2. create zmat.temp.xml in the templates directory (
+        [proj]/org/xmlcml/cml/converters/compchem/nwchem/log/templates
+    // this should look like:
+<template id="zmat" name="Z-Matrix" pattern=".*Z.matrix.*">
+  <comment>
+                                Z-matrix (autoz)
+                                -------- 
+
+ Units are Angstrom for bonds and degrees for angles
+
+      Type          Name      I     J     K     L     M      Value
+      ----------- --------  ----- ----- ----- ----- ----- ----------
+    1 Stretch                  1     2                       1.80680
+..
+   10 Stretch                  8    11                       1.15200
+   11 Bend                     2     1     6                90.00000
+..
+   37 Bend                    11     1     7               120.00000
+   38 Torsion                  1     2     6     9         180.00000
+..
+   55 Torsion                  1     8     7    10         180.00000
+  </comment>
+  <record id="type" names="type" formatType="REGEX">(.*Z\-matrix \((.*)\))</record>
+  <readLines>
+                                -------- 
+
+ Units are Angstrom for bonds and degrees for angles
+
+      Type          Name      I     J     K     L     M      Value
+      ----------- --------  ----- ----- ----- ----- ----- ----------
+</readLines>
+  <record id="stretch" formatType="FORTRAN" makeArray="true" linesToRead="*"
+     >(I5{serial},'Stretch    ',' ',I8{name},2x,I4{i},2x,I4{j},6x,6x,6x,2x,F10.5{value})</record>
+</template>
+
+NOTES: line 0: the pattern is used to find the marked block by matching the first line
+this also gives the blockName and blockID
+line 1: the common shows a typical legacy output
+<readLines> this skips the lines show. Optionally this can have a check
+<record> this reads zero or many of the records with the format/regex shown 
+
+    // 3. add a line to /org/xmlcml/cml/converters/compchem/nwchem/log/templateList.xml of the form:
+    <!ENTITY zmat       SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/zmat.temp.xml">
+
+    and within the XML an entity reference:
+    &zmat;
+    
+    [try to keep things in alphabetical order]
+    
+    // 4. create a test file (zmat.in) in src/test/resources/org/xmlcml/cml/compchem/nwchem/log/templates
+    // 5. create the expected output (zmat.out) in the same directory (when correct it may be 
+             easiest to run the program and copy from target/test/log/out/zmat.out)
+    
+    
+
+
+

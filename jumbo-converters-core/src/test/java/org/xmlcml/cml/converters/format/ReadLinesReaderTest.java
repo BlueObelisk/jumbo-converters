@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.util.JumboReader;
 
-public class ScalarsLineReaderTest {
+public class ReadLinesReaderTest {
 
 	@Test
 	@Ignore
@@ -37,7 +37,7 @@ public class ScalarsLineReaderTest {
 				"plugh",
 				"baz",
 		});
-		ReadLinesLineReader rllr = new ReadLinesLineReader(readLines);
+		ReadLinesLineReader rllr = new ReadLinesLineReader(readLines, null);
 		JumboReader jumboReader = new JumboReader(SimpleFortranFormatTest.getDictionary(), "pref", lines);
 		System.out.println("line0 "+jumboReader.peekLine());
 		rllr.readLinesAndParse(jumboReader);

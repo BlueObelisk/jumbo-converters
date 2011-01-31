@@ -1,0 +1,24 @@
+<template id="zmat" name="Z-Matrix" pattern=".*Z\-matrix.*">
+  <comment>
+                                Z-matrix (autoz)
+                                -------- 
+
+ Units are Angstrom for bonds and degrees for angles
+
+      Type          Name      I     J     K     L     M      Value
+      ----------- --------  ----- ----- ----- ----- ----- ----------
+    1 Stretch                  1     2                       1.80680
+..
+   10 Stretch                  8    11                       1.15200
+   11 Bend                     2     1     6                90.00000
+..
+   37 Bend                    11     1     7               120.00000
+   38 Torsion                  1     2     6     9         180.00000
+..
+   55 Torsion                  1     8     7    10         180.00000
+  </comment>
+  <record id="type" names="type" formatType="REGEX">(.*Z\-matrix \((.*)\))</record>
+<readLines id="rl1" linesToRead="6" output="VERBOSE"/>
+  <record id="stretch" formatType="FORTRAN" linesToRead="*" output="VERBOSE"
+     >(I5{serial},1x,A11{type},1x,A8{name},2x,I4{i},2x,I4{j},2x,I4{k},2x,I4{l},2x,I4{m},2x,F10.5{coordvalue})</record>
+</template>

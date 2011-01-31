@@ -11,13 +11,13 @@ import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.interfacex.HasDataType;
 
-public class ArrayLineReader extends LineReader {
+class ArrayLineReader extends LineReader {
 	private static final Logger LOG = Logger.getLogger(ArrayLineReader.class);
 
 	public static final String ARRAY_LINE_READER = "arrayLineReader";
 	
 	public ArrayLineReader(Element childElement) {
-		super(ARRAY_LINE_READER, childElement);
+		super(ARRAY_LINE_READER, childElement, null);
 	}
 	
 	public ArrayLineReader(List<Field> fieldList) {

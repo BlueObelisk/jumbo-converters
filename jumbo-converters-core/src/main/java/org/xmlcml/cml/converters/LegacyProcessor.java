@@ -29,19 +29,14 @@ public abstract class LegacyProcessor {
 	protected CMLElement cmlElement;
 	protected AbstractCommon abstractCommon;
 	protected List<Template> templateList;
-//	protected List<Pattern> blockNamePatternList;
 	protected boolean dtdValidate = true;
-//	private Map<String, Template> templateByNameMap;
 	
-//	public Map<String, Template> getTemplateByNameMap() {
-//		return templateByNameMap;
-//	}
-	
-	public Template getTemplateByPattern(String blockName) {
+	public Template getTemplateByBlockName(String blockName) {
 		Template matchedTemplate = null;
 		for (Template template : templateList) {
-			Pattern templatePattern = template.getPattern();
-			if (templatePattern.matcher(blockName).matches()) {
+			String templateName = template.getName();
+			LOG.trace(templateName + " / " + blockName);
+			if (templateName.equals(blockName)) {
 				matchedTemplate = template;
 				break;
 			}
@@ -53,9 +48,7 @@ public abstract class LegacyProcessor {
 	protected LegacyProcessor() {
 		this.blockContainer = new BlockContainer(this);
 		abstractCommon = getCommon();
-//		ensureTemplateByNameMap();
 		readTemplates();
-//		makePatternList();
 //		debugTemplates();
 	}
 
@@ -82,15 +75,6 @@ public abstract class LegacyProcessor {
 		}
 	}
 
-//	private void makePatternList() {
-//		blockNamePatternList = new ArrayList<Pattern>();
-//		for (Template template : templateList) {
-//			Pattern pattern = template.getPattern();
-//			blockNamePatternList.add(pattern);
-//		}
-//		System.out.println("made template patterns: "+templateList.size());
-//	}
-
 	private void processAndAddTemplate(Element element) {
 		Template newTemplate = new Template(this, element);
 		String newId = newTemplate.getId();
@@ -99,17 +83,9 @@ public abstract class LegacyProcessor {
 				throw new RuntimeException("Duplicate id: "+newId);
 			}
 		}
-//		ensureTemplateByNameMap();
-//		templateByNameMap.put(newTemplate.getName(), newTemplate);
 		templateList.add(newTemplate);
 	}
 	
-//	private void ensureTemplateByNameMap() {
-//		if (templateByNameMap == null) {
-//			templateByNameMap = new HashMap<String, Template>();
-//		}
-//	}
-
 	protected abstract String getTemplateResourceName();
 
 	public void read(List<String> lines) {

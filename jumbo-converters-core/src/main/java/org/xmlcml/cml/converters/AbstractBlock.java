@@ -41,10 +41,9 @@ public abstract class AbstractBlock implements CMLConstants {
 	protected static final String DICTREF = DictRefAttribute.NAME;
 
 	protected static final boolean ADD = true;
-
+	public static final String DICT_REF = "dictRef";
 	public static final String TITLE = "title";
 
-	public static final String DICT_REF = "dictRef";
 	public static CMLArray createAndAddArray(CMLArrayList arrayList, String type,
 		String prefix, String dictRef) {
 		CMLArray array = new CMLArray();
@@ -137,15 +136,6 @@ public abstract class AbstractBlock implements CMLConstants {
 				abstractCommon.getNamespace(), value));
 	}
 
-//	protected void addDictRefTo(HasDictRef element, String value) {
-//		Attribute dictRef = ((Element)element).getAttribute("dictRef");
-//		if (dictRef != null) {
-//			dictRef.detach();
-//		}
-//		
-//		element.setDictRef(DictRefAttribute.createValue(abstractCommon.getPrefix(), value));
-//	}
-
 	protected void checkIdAndAdd(CMLElement element, String entryId) {
 		DictionaryTool dictionaryTool = abstractCommon.getDictionaryTool();
 		if (!dictionaryTool.isIdInDictionary(entryId)) {
@@ -196,18 +186,25 @@ public abstract class AbstractBlock implements CMLConstants {
 		if (line == null) {
 			throw new RuntimeException("null block name");
 		}
+		line = line.trim();
 		String name = UNKNOWN_BLOCK;
 //		for (Pattern pattern : legacyProcessor.blockNamePatternList) {
 		for (Template template : legacyProcessor.templateList) {
 			Pattern templatePattern = template.getPattern();
-			Matcher matcher = templatePattern.matcher(line.trim());
+			LOG.trace(templatePattern + "] ["+ line+"]");
+			Matcher matcher = templatePattern.matcher(line);
 			if (matcher.matches()) {
 				name = line;
 				if (matcher.groupCount() >= 1) {
 					name = matcher.group(1);
+				} else {
+					name = template.getName();
 				}
 				break;
 			}
+		}
+		if (UNKNOWN_BLOCK.equals(name)) {
+			LOG.warn("Cannot match line as block: "+line);
 		}
 		setBlockName(name);
 	}

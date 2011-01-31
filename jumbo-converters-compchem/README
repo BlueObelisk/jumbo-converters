@@ -1,4 +1,4 @@
-This project converts Gaussian files to CML and related semantics
+This project converts legacy files to CML and related semantics
 
 After it has been built check it with:
 
@@ -6,10 +6,11 @@ mvn test
 
 to run an example (with appropriate classpath or using maven) from project home
 
-mvn exec:java  -Dexec.mainClass=org.xmlcml.cml.converters.compchem.gaussian.ConverterImpl -Dexec.args="-in D:/workspace/jumbo-converters/jumbo-converters-gaussian/examples/pyridone.gau -out D:/workspace/jumbo-converters/jumbo-converters-gaussian/examples/pyridone.cml"
+mvn exec:java  -Dexec.mainClass=org.xmlcml.cml.converters.compchem.gaussian.Converter -Dexec.args="-in D:/workspace/jumbo-converters/jumbo-converters-gaussian/examples/pyridone.gau -out D:/workspace/jumbo-converters/jumbo-converters-gaussian/examples/pyridone.cml"
 
 It should be possible to use filenames relative to the projects, e.g. examples/pyridone.gau
 
 also try:
 mvn exec:java -e -Dexec.mainClass=org.xmlcml.cml.converters.compchem.gaussian.ConverterImpl -Dexec.args="-in examples/c10000.pun -intype gamessuk.punch -out examples/c10000.gamessuk.punch.xml -outtype gamessuk.punch.xml"
 
+=============

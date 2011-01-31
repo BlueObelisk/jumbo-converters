@@ -10,6 +10,8 @@ import org.joda.time.DateTime;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.converters.Outputter;
+import org.xmlcml.cml.converters.Outputter.OutputLevel;
 import org.xmlcml.cml.converters.util.JumboReader;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLList;
@@ -397,13 +399,25 @@ public abstract class Field extends Element {
 					value.charAt(value.length()-1-decimalPlaces) != CMLConstants.C_PERIOD) {
 				scalar = this.createMisreadScalar(value);
 			} else {
-				scalar = new CMLScalar(Real.parseDouble(value.trim()));
+				Double d = null;
+				try {
+					d = Real.parseDouble(value.trim());
+				} catch (NumberFormatException e) {
+					throw new RuntimeException("Cannot parse double: "+this, e);
+				}
+				scalar = new CMLScalar(d);
 			}
 		} else if (Integer.class.equals(dataClass)) {
 			if (check && !Character.isDigit(value.charAt(value.length()-1))) {
 				scalar = this.createMisreadScalar(value);
 			} else {
-				scalar = new CMLScalar(Integer.parseInt(value.trim()));
+				Integer ii = null;
+				try {
+					ii = Integer.parseInt(value.trim());
+				} catch (NumberFormatException e) {
+					throw new RuntimeException("Cannot parse integer: "+this, e);
+				}
+				scalar = new CMLScalar(ii);
 			}
 		} else if (Boolean.class.equals(dataClass)) {
 			scalar = new CMLScalar(new Boolean(value));
@@ -436,4 +450,5 @@ public abstract class Field extends Element {
 			setLocalDictRef(localDictRef);
 		}
 	}
+	
 }

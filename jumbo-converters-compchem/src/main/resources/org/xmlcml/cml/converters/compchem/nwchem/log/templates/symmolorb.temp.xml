@@ -1,0 +1,34 @@
+<template id="symmolorb" name="Symmetry analysis of molecular orbitals" 
+    pattern=".*Symmetry analysis of molecular orbitals.*">
+  <comment>
+      Symmetry analysis of molecular orbitals - initial
+      -------------------------------------------------
+
+  Numbering of irreducible representations: 
+
+     1 a1'         2 a1"         3 a2'         4 a2"         5 e'      
+     6 e"      
+
+  Orbital symmetries:
+
+     1 a1'         2 a1'         3 a2"         4 e'          5 e'      
+     6 a1'         7 a2"         8 a1'         9 e'         10 e'      
+     ...
+    56 e'         57 e'         58 e"      
+
+   Time after variat. SCF:     22.6
+  </comment>
+  <record id="type" names="type" formatType="REGEX" output="VERBOSE"
+      > *Symmetry analysis of molecular orbitals \- (.*)</record>
+  <readLines id="rl1" linesToRead="4" output="VERBOSE"/>
+  <!-- does not work -->
+  <!-- 
+   <record id="irred" linesToRead="*" formatType="FORTRAN" output="VERBOSE"
+    >(*(I6{serial},1x,A7{ir}))</record>
+    -->
+  <record id="irred" linesToRead="*" formatType="FORTRAN" output="VERBOSE"
+    >(I6{serial},1x,A7{ir},I6{serial},1x,A7{ir},I6{serial},1x,A7{ir},I6{serial},1x,A7{ir},I6{serial},1x,A7{ir})</record>
+  <readLines id="rl2" linesToRead="3"/>
+  <record id="orbsym" linesToRead="*" formatType="FORTRAN" output="VERBOSE"
+    >(I6{serial},1x,A7{ir},I6{serial},1x,A7{ir},I6{serial},1x,A7{ir},I6{serial},1x,A7{ir},I6{serial},1x,A7{ir})</record>
+</template>

@@ -1,0 +1,21 @@
+<template id="summary" name="NWSummary of Basis" pattern=".*Summary of .*">
+  <comment>
+ Summary of "ao basis" -> "" (cartesian)
+ ------------------------------------------------------------------------------
+       Tag                 Description            Shells   Functions and Types
+ ---------------- ------------------------------  ------  ---------------------
+ o                     DZVP (DFT Orbital)            6       15   3s2p1d
+ c                     DZVP (DFT Orbital)            6       15   3s2p1d
+ fe                    DZVP (DFT Orbital)           10       26   5s3p2d
+
+
+  library name resolved from: .nwchemrc
+  library file name is: &lt;/home/d3y133/nwchem-releases/nwchem-6.0-gfortran/QA/../src/basis/libraries/&gt;
+  
+</comment>
+  <record id="basis" formatType="REGEX" linesToRead="*" names="basis geom">\s*Summary of\s"([^"]+)"\s\-&gt;\s\"\"\s\(([^\)]*)\)\s*</record>
+ <!-- FIXME -->
+  <readLines id="r1" linesToRead="3"/>
+  <record id="orbs" formatType="FORTRAN" linesToRead="*"
+      >(1x,A16{tag},1x,A30{desc},2x,A6{shell},2x,I5{functions},A16{type})</record>
+</template>

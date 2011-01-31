@@ -68,4 +68,13 @@ public class ChunkerMarker {
 	public int getOffset() {
 		return offset;
 	}
+	
+	public String toString() {
+		String s = 	"";
+		s += "regex: "+regex;
+		s += "; mark: "+mark;
+		s += "; pattern: "+pattern;
+		s += "; offset: "+offset;
+		return s;
+	}
 }

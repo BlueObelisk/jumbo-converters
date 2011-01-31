@@ -1,3 +1,4 @@
+<!ENTITY % output      'output          (VERBOSE|NORMAL|NONE)  "NONE"'>
 <!ENTITY % formatType  'formatType      (FORTRAN|WHITESPACE|REGEX)'>
 <!ENTITY % id          'id              CDATA #REQUIRED'>
 <!ENTITY % linesToRead 'linesToRead     CDATA'>
@@ -17,6 +18,7 @@
     comment)*>
 <!ATTLIST template
     %id;
+    %output;
     %name;
     %pattern;
     >
@@ -24,15 +26,18 @@
 <!ELEMENT record   (#PCDATA)>
 <!ATTLIST record
     %id;
+    %output;
     %formatType;   #REQUIRED
     %reading;      #IMPLIED
     %linesToRead;  #IMPLIED
     %makeArray;    #IMPLIED
-    %names;  #IMPLIED
+    %names;        #IMPLIED
     >
     
 <!ELEMENT readLines (#PCDATA)>
 <!ATTLIST readLines
+    %id;
+    %output;
     %formatType;   #IMPLIED
     %linesToRead;  #IMPLIED
     %reading;      #IMPLIED

@@ -1,0 +1,29 @@
+<template id="multipole" name="Multipole analysis of the density" pattern=".*Multipole analysis of the density.*">
+  <comment>
+     Multipole analysis of the density
+     ---------------------------------
+
+     L   x y z        total         alpha         beta         nuclear
+     -   - - -        -----         -----         ----         -------
+     0   0 0 0      0.000000    -48.000000    -48.000000     96.000000
+
+     1   1 0 0      0.000000      0.000000      0.000000      0.000000
+     1   0 1 0      0.000000      0.000000      0.000000      0.000000
+     1   0 0 1      0.000000      0.000000      0.000000      0.000000
+
+     2   2 0 0    -53.003653   -270.344905   -270.344905    487.686157
+     2   1 1 0      0.000000      0.000000      0.000000      0.000000
+     2   1 0 1      0.000000      0.000000      0.000000      0.000000
+     2   0 2 0    -53.003653   -270.344905   -270.344905    487.686157
+     2   0 1 1      0.000000      0.000000      0.000000      0.000000
+     2   0 0 2    -51.969478   -346.034925   -346.034925    640.100373
+
+
+ Task  times  cpu:        8.4s     wall:        8.6s
+
+
+</comment>
+  <readLines id="r1" linesToRead="5"/>
+  <record id="orbs" formatType="FORTRAN" linesToRead="*"
+      >(5x,I1{l},2x,I2{x},I2{y},I2{z},F14.6{total},F14.6{alpha},F14.6{beta},F14.6{nuclear})</record>
+</template>
