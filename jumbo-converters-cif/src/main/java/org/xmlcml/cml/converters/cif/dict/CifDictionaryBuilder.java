@@ -4,12 +4,14 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Serializer;
-import nu.xom.jaxen.NamespaceContext;
 
 import org.xmlcml.cif.CIF;
 import org.xmlcml.cif.CIFDataBlock;
@@ -29,6 +31,7 @@ public class CifDictionaryBuilder {
 	private static final String PREFIX = "cif";
 
 	private CMLDictionary dictionary;
+	private Map<String, String> unitMap=new HashMap<String, String>();
 
 	public CifDictionaryBuilder() {
 		dictionary = new CMLDictionary();
@@ -52,11 +55,19 @@ public class CifDictionaryBuilder {
 			CMLEntry entry = CIFFields.parseToEntry(dataBlock);
 			dictionary.appendChild(entry);
 			parseLoopsfromDataBlock(dataBlock, entry);
+			this.unitMap.put(CIFFields.getLastUnit(),CIFFields.getLastUnitDesc());
 		}
+		writeUnitsUsed(System.out);
 	}
 
-	private void parseLoopsfromDataBlock(CIFDataBlock dataBlock,
-			CMLEntry entry) {
+	private void writeUnitsUsed(PrintStream out) {
+		for (String unit : unitMap.keySet()) {
+			out.println(unit+" "+unitMap.get(unit));
+		}
+
+	}
+
+	private void parseLoopsfromDataBlock(CIFDataBlock dataBlock, CMLEntry entry) {
 		List<CIFLoop> loops = dataBlock.getLoopList();
 		for (CIFLoop loop : loops) {
 			List<String> nameList = loop.getNameList();
@@ -95,8 +106,8 @@ public class CifDictionaryBuilder {
 
 	public static void main(String[] args) throws Exception {
 
-		CifDictionaryBuilder.build(new File("cif_core.dic"), new File(
-				"cif-dictionary.cml"));
+		CifDictionaryBuilder.build(new File("src/main/resources/cif_core.dic"),
+				new File("src/main/resources/cif-dictionary.cml"));
 
 	}
 

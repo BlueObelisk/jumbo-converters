@@ -1,13 +1,11 @@
 package org.xmlcml.cml.converters.cif.dict;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import nu.xom.Attribute;
 import nu.xom.Element;
 
 import org.xmlcml.cif.CIFDataBlock;
 import org.xmlcml.cif.CIFItem;
+import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLEntry;
@@ -21,7 +19,7 @@ public enum CIFFields {
 		public void custom(CIFItem cifItem, CMLEntry entry) {
 			String name = cifItem.getValue().substring(1);
 	        entry.setTerm(name);
-	        entry.setId(name);
+	        entry.setId(mungeIDString(name));
 	        CMLElement description = new CMLElement("description");
 	        Element html = new Element("html:p",HTMLNS);
 	        html.appendChild("Corresponds to the _"+name+" term in the IUCr Core CIF dictionary.");
@@ -57,9 +55,10 @@ public enum CIFFields {
 	units("_units"){
 		@Override
 		public void custom(CIFItem cifItem, CMLEntry entry) {
-			String unit=cifItem.getValue();
+			String unit=mungeIDString(cifItem.getValue());
 			String newUnit="cifUnit:"+unit;
 			entry.addAttribute(new Attribute("units",newUnit));
+			CIFFields.lastUnit=newUnit;
 		}
 		
 	},
@@ -68,16 +67,26 @@ public enum CIFFields {
 		@Override
 		public void custom(CIFItem cifItem, CMLEntry entry) {
 			String unitDesc = cifItem.getValue();
-			CMLElement elem=new CMLElement("unitsDescription");
-			elem.appendChild(unitDesc);
-			entry.appendChild(elem);
+//			CMLElement elem=new CMLElement("unitsDescription");
+//			elem.appendChild(unitDesc);
+//			entry.appendChild(elem);
+			CIFFields.lastUnitDesc=unitDesc;
 		}
 		
 	};
 
 	final String cifName;
 	public static final String HTMLNS = "http://www.w3.org/1999/xhtml";
-	static List<String> unitList=new ArrayList<String>();
+	private static String lastUnit;
+	private static String lastUnitDesc;
+	
+	public static String getLastUnit() {
+		return lastUnit;
+	}
+
+	public static String getLastUnitDesc() {
+		return lastUnitDesc;
+	}
 
 	private CIFFields(String cifName) {
 		this.cifName = cifName;
@@ -100,4 +109,30 @@ public enum CIFFields {
 		}
 		return entry;
 	}
+	public static String mungeIDString(String unit){
+		StringBuilder out = new StringBuilder();
+		for(int x=0;x<unit.length();x++){
+			char c = unit.charAt(x);
+			switch (c) {
+			case '^':
+			case '%':
+			case '$':
+			case '£':
+				break;
+			case '.':
+				if(unit.length()==1){
+					out.append("dimensionless");
+				}
+				break;
+			case '/':
+				out.append('_');
+				break;
+			default:
+				out.append(c);
+				break;
+			}
+		}
+		return out.toString();
+	}
+	
 }
