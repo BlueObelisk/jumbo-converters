@@ -45,4 +45,18 @@ public class CIFFieldsTest {
 		}
 		Assert.assertNotNull(entry.getChildCMLElement("definition", 0));
 	}
+	@Test
+	public void testIsValidChar(){
+		Assert.assertTrue(CIFFields.isValidCharacter('_'));
+		Assert.assertTrue(CIFFields.isValidCharacter('a'));
+		Assert.assertTrue(CIFFields.isValidCharacter('Q'));
+		Assert.assertTrue(CIFFields.isValidCharacter('-'));
+		Assert.assertFalse(CIFFields.isValidCharacter('$'));
+		Assert.assertFalse(CIFFields.isValidCharacter('^'));
+	}
+	@Test
+	public void testMungeId(){
+		String result=CIFFields.mungeIDString("sdfgijoi34^^");
+		Assert.assertTrue(result.indexOf('^')==-1);
+	}
 }
