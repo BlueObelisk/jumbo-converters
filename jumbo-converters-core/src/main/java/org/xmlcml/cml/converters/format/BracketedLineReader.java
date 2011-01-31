@@ -14,7 +14,7 @@ public class BracketedLineReader extends LineReader {
 	public static final String BRACKETED_LINE_READER = "bracketedLineReader";
 
 	public BracketedLineReader(Element childElement) {
-		super(BRACKETED_LINE_READER, childElement);
+		super(BRACKETED_LINE_READER, childElement, null);
 	}
 
 	public BracketedLineReader(List<Field> fieldList) {

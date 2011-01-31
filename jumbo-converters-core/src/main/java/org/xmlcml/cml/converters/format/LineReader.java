@@ -14,10 +14,12 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.converters.Outputter;
+import org.xmlcml.cml.converters.Outputter.OutputLevel;
+import org.xmlcml.cml.converters.Template;
 import org.xmlcml.cml.converters.format.Field.FieldType;
 import org.xmlcml.cml.converters.util.JumboReader;
 import org.xmlcml.cml.element.CMLArray;
-import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.interfacex.HasDataType;
 
@@ -100,6 +102,10 @@ public abstract class LineReader extends Element {
 	private String names;
 	protected String makeArray = null;
 
+	protected OutputLevel outputLevel;
+
+	protected Template template;
+
 	public String getId() {
 		return (id == null) ? NULL_ID : id;
 	}
@@ -114,9 +120,10 @@ public abstract class LineReader extends Element {
 		fieldList = new ArrayList<Field>();
 	}
 
-	public LineReader(String tag, Element element) {
+	public LineReader(String tag, Element element, Template template) {
 		super(tag);
 		init();
+		this.template = template;
 		this.lineReaderElement = element;
 		this.content = element.getValue();
 		readAndCreateFormatType();
@@ -124,7 +131,9 @@ public abstract class LineReader extends Element {
 		readAndCreateNames();
 		readAndCreateMakeArrays();
 		readAndCreateId();
+		readAndCreateOutputLevel();
 		createFields();
+		outputLevel = Outputter.extractOutputLevel(this);
 	}
 
 	private void readAndCreateMakeArrays() {
@@ -159,18 +168,6 @@ public abstract class LineReader extends Element {
 		}
 	}
 
-//	private void readAndCreateReadingType() {
-//		String readingTypeS = lineReaderElement.getAttributeValue(READING_TYPE);
-//		readingType = null;
-//		if (readingTypeS != null) {
-//			readingType = ReadingType.valueOf(readingTypeS);
-//			if (readingType == null) {
-//				throw new RuntimeException("Unknown readingType: "+readingTypeS);
-//			}
-//			this.addAttribute(new Attribute(READING_TYPE, readingTypeS));
-//		}
-//	}
-
 	private void readAndCreateLinesToRead() {
 		String linesToReadS = lineReaderElement.getAttributeValue(LINES_TO_READ);
 		linesToRead = null;
@@ -192,6 +189,14 @@ public abstract class LineReader extends Element {
 		this.id = lineReaderElement.getAttributeValue(ID);
 		if (id != null) {
 			this.addAttribute(new Attribute(ID, id));
+		}
+		LOG.trace("ID: "+id);
+	}
+
+	private void readAndCreateOutputLevel() {
+		String outputS = lineReaderElement.getAttributeValue(Outputter.OUTPUT);
+		if (outputS != null) {
+			this.addAttribute(new Attribute(Outputter.OUTPUT, outputS));
 		}
 	}
 
@@ -345,7 +350,8 @@ public abstract class LineReader extends Element {
 				line = jumboReader.readLine();
 				currentCharInLine = 0;
 			} else {
-				currentCharInLine += field.getWidth();
+				Integer width = field.getWidth();
+				currentCharInLine += (width == null ? 0 : width);
 			}
 		} else {
 			Integer multiplier = field.getMultiplier();
@@ -373,9 +379,14 @@ public abstract class LineReader extends Element {
 		return scalar;
 	}
 
-
+	public void debug(String string, OutputLevel maxLevel) {
+		if (Outputter.canOutput(outputLevel, maxLevel)) {
+			LOG.debug(this.getClass().getSimpleName()+" ["+this.getId()+"] "+string);
+		}
+	}
+	
 	public void debug() {
-		LOG.debug(">>LINEREADER>>"+content+"\n"+toString()+"\n>>Fields: "+fieldList.size());
+		LOG.debug("LINEREADER "+(template == null ? "" : "in "+template.getId())+" > "+content+"\n"+toString()+"\n>>Fields: "+fieldList.size());
 		for (Field field :fieldList) {
 			LOG.debug(""+field);
 		}
@@ -388,30 +399,8 @@ public abstract class LineReader extends Element {
 		((size == null) ? "" : " size:"+size+"; ")+
 		((localDictRef == null) ? "" : " ldr:"+localDictRef+"; ")+
 		((linesToRead == null) ? "" : " ltr:"+linesToRead+"; ")+
+		((outputLevel == null) ? "" : " output:"+outputLevel+"; ")+
 		"";
 	}
 
-//	/*
-//	protected Integer linesToRead = null;
-//	protected List<Field> fieldList;
-//	private LineType lineType;
-//	protected FormatType formatType;
-//	private ReadingType readingType;
-//	private String content;
-//	private String until;
-//	private int fieldCount;
-//	protected String localDictRef;
-//	protected int currentCharInLine;
-//	protected Integer columns;
-//	protected Integer rows;
-//	protected Integer size;
-//	private Element lineReaderElement;
-//	protected String delimiter = CMLConstants.S_TILDE;
-//
-//	protected boolean trim = true;
-//
-//	 */
-//	public Element createXML() {
-//		return this;
-//	}
 }

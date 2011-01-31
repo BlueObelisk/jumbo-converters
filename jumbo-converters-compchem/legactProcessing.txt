@@ -1,0 +1,34 @@
+
+Parsing:
+
+Each legacy2XML project must provide a list of templates, bound into a templateList;
+
+the templates patterns are used to mark the lines:
+    @Override
+    public Element convertToXML(List<String> lines) {
+        this.lines = lines;
+        this.insertMarkers();
+            // markers are found in marker.xml
+            readMarkers(getMarkerInputStream());
+            for (line in input) {
+                for (ChunkerMarker marker : markerList) {
+                    // marker is of form regex: \s*(\-\-\-+)\s*; offset: -1 // finds ---- underlining text
+                    if (marker.matches(line)) {
+                        insertMarkupLine(lineCount, marker, linesCopy);
+                        break;
+                    }
+                }
+                linesCopy.add(line);
+            }
+            lines = linesCopy;
+        }
+        // marks lines using 
+        Element element = createXMLFromTextAndMarkedLines();
+        legacyProcessor = createLegacyProcessor();
+        legacyProcessor.read((CMLElement)element);
+        Element cmlElement = legacyProcessor.getCMLElement();
+        return cmlElement;
+    }
+
+
+

@@ -8,6 +8,7 @@ import nu.xom.Nodes;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.converters.Template;
 import org.xmlcml.cml.converters.util.JumboReader;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLList;
@@ -24,8 +25,8 @@ public class RecordsLineReader extends LineReader {
 	private static final String DOLLAR_NAME = "__name";
 	private static final String DOLLAR_VALUE = "__value";
 
-	public RecordsLineReader(Element childElement) {
-		super(RECORD_READER, childElement);
+	public RecordsLineReader(Element childElement, Template template) {
+		super(RECORD_READER, childElement, template);
 		init0();
 	}
 
@@ -35,7 +36,7 @@ public class RecordsLineReader extends LineReader {
 	}
 	
 	protected void init0() {
-		this.debug();
+//		this.debug();
 	}
 
 	@Override
@@ -116,8 +117,10 @@ public class RecordsLineReader extends LineReader {
 				int size = list.getChildCMLElements().size();
 				for (CMLElement childElement : childElements) {
 					List<CMLElement> recordList = childElement.getChildCMLElements();
+					// not sure what this did
 					if (size != recordList.size()) {
-						throw new RuntimeException();
+						list.debug("LIST");
+						throw new RuntimeException("size of childElements ("+size+") != recordList.size() ("+recordList.size()+")");
 					}
 					for (int i = 0; i < size; i++) {
 						HasDictRef hasDictRef = (HasDictRef) recordList.get(i);
@@ -148,7 +151,7 @@ public class RecordsLineReader extends LineReader {
 	private CMLList readRecord() {
 		CMLList list = null;
 		// this adds parsed lines to parent element in jumboReader
-		LOG.debug("Reading "+jumboReader.peekLine());
+		LOG.trace("Reading "+jumboReader.peekLine());
 		List<HasDataType> hasDataTypeList = parseInlineHasDataTypes(jumboReader);
 		if (hasDataTypeList != null) {
 			list = new CMLList();

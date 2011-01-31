@@ -158,9 +158,6 @@ public class NWChemLogBlock extends AbstractBlock {
 	private static final String ATOM_BASIS = "atomBasis";
 	private static final Pattern ATOM_BASIS_PATTERN = Pattern.compile("\\s*([A-za-z][a-z]?)\\s*\\((.*)\\).*");
 	private static final String SUMMARY_OF_BASIS1 = "Summary of \".* basis\"";
-//	private static final String Z_MATRIX = "Z-matrix";
-//	private static final String NON_VARIATIONAL_INITIAL_ENERGY = "Non-variational initial energy";
-//	private static final String AUTO_Z = "auto-z";
 	private static final String ROHF = "ROHF";
 	private static final String DFT = "DFT";
 	private static final String START = "start";
@@ -244,111 +241,107 @@ public class NWChemLogBlock extends AbstractBlock {
 		String blockName = getBlockName();
 		if (blockName == null) {
 			throw new RuntimeException("null block name");
+		} else if (UNKNOWN_BLOCK.equals(blockName)){
+			LOG.warn("Unknown block");
 		}
-//		Template blockTemplate = legacyProcessor.getTemplateByNameMap().get(blockName);
-		Template blockTemplate = legacyProcessor.getTemplateByPattern(blockName);
+		Template blockTemplate = legacyProcessor.getTemplateByBlockName(blockName.trim());
 		if (blockTemplate != null) {
-//			blockTemplate.debug();
 			blockTemplate.markupBlock(this);
 			blockName = blockTemplate.getId();
-		} else if (_3_CENTER_2_ELECTRON_INTEGRAL_INFORMATION.equals(blockName)) {
-			make3Center();
-		} else if (ACKNOWLEDGMENT.equals(blockName)) {
-			skipBlock();
-		} else if (ARGUMENT.equals(blockName)) {
-			makeArgument();
-		} else if (ATOMIC_MASS.equals(blockName)) {
-			makeAtomicMass();
-		} else if (AUTHORS.equals(blockName)) {
-			skipBlock();
-		} else if (AUTO_Z.equals(blockName)) {
-			makeAutoZ();
-		} else if (blockName.startsWith(BASIS)) {
-			makeBasis();
-		} else if (CASE.equals(blockName)) {
-			summarizeBlock0();
-		} else if (CENTER_1.equals(blockName)) {
-			skipBlock();
-		} else if (CENTER_OF_MASS.equals(blockName)) {
-			makeCenterOfMass();
-		} else if (CENTER_ONE.equals(blockName)) {
-			skipBlock();
-		} else if (CITATION.equals(blockName)) {
-			skipBlock();
-		} else if (CONVERGENCE_INFORMATION.equals(blockName)) {
-			makeConvergence();
-		} else if (DIRECTORY_INFORMATION.equals(blockName)) {
-			makeDirectoryInformation();
-		} else if (FINAL_EIGENVALUES.equals(blockName)) {
-			makeFinalEigenvalues();
-		} else if (blockName.contains(FINAL_MOLECULAR_ORBITAL_ANALYSIS)) {
-			makeFinalMolecularOrbitalAnalysis();
-		} else if (blockName.contains(FINAL_RHF_RESULTS)) {
-			makeFinalRhfResults();
-		} else if (GA_STATISTICS_FOR_PROCESS.equals(blockName)) {
-			makeGaStatistics();
-		} else if (GEOMETRY.equals(blockName)) {
-			makeGeometry();
-		} else if (GENERAL_INFORMATION.equals(blockName)) {
-			makeGeneralInformation();
-		} else if (GRID_INFORMATION.equals(blockName)) {
-			makeGridInformation();
-		} else if (INTERNUCLEAR_DISTANCES.equals(blockName)) {
-			skipBlock();
-		} else if (INTERNUCLEAR_ANGLES.equals(blockName)) {
-			skipBlock();
-		} else if (JOB_INFORMATION.equals(blockName)) {
-			makeJobInformation();
-		} else if (MEMORY_INFORMATION.equals(blockName)) {
-			makeMemoryInformation();
-		} else if (MOMENTS_OF_INERTIA.equals(blockName)) {
-			makeMomentsOfInertia();
-		} else if (MULLIKEN_ANALYSIS_OF_THE_TOTAL_DENSITY.equals(blockName)) {
-			makeMullikenAnalysis();
-		} else if (MULTIPOLE_ANALYSIS_OF_THE_DENSITY.equals(blockName)) {
-			makeMultipoleAnalysis();
-		} else if (NON_VARIATIONAL_INITIAL_ENERGY.equals(blockName)) {
-			makeNonVariational();
-		} else if (NORTHWEST_COMPUTATIONAL_CHEMISTRY_PACKAGE.equals(blockName)) {
-			makeNWCOMP();
-		} else if (NUCLEAR_DIPOLE_MOMENT.equals(blockName)) {
-			makeNuclearDipole();
-		} else if (NW_CHEM_CPHF_MODULE.equals(blockName)) {
-			makeNWChemCphfModule();
-		} else if (NW_CHEM_DFT_MODULE.equals(blockName)) {
-			makeNWChemDftModule();
-		} else if (NW_CHEM_INPUT_MODULE.equals(blockName)) {
-			makeNWChemInputModule();
-		} else if (NW_CHEM_PROPERTY_MODULE.equals(blockName)) {
-			makeNWChemPropertyModule();
-		} else if (NW_CHEM_SCF_MODULE.equals(blockName)) {
-			makeNWChemScfModule();
-		} else if (SCREENING_TOLERANCE_INFORMATION.equals(blockName)) {
-			makeScreeningTolerance();
-		} else if (SUMMARY_OF_ALLOCATED_GLOBAL_ARRAYS.equals(blockName)) {
-			makeGlobalArrays();
-		} else if (SUMMARY_OF_BASIS.equals(blockName)) {
-			makeBasisSummary();
-		} else if (SUPERPOSITION_OF_ATOMIC_DENSITY_GUESS.equals(blockName)) {
-			makeSuperposition();
-		} else if (SYMMETRY_ANALYSIS_OF_MOLECULAR_ORBITALS.equals(blockName)) {
-			makeSymmetryAnalysis();
-		} else if (SYMMETRY_INFORMATION.equals(blockName)) {
-			makeSymmetryInfo();
-		} else if (XC_INFORMATION.equals(blockName)) {
-			makeXCInformation();
-		} else if (XYZ_FORMAT_GEOMETRY.equals(blockName)) {
-			makeXYZ();
-		} else if (Z_MATRIX.equals(blockName)) {
-			makeZMatrix();
+			LOG.info("BLOCK: "+blockName);
+//		} else if (_3_CENTER_2_ELECTRON_INTEGRAL_INFORMATION.equals(blockName)) {
+//			make3Center();
+//		} else if (ACKNOWLEDGMENT.equals(blockName)) {
+//			skipBlock();
+//		} else if (ARGUMENT.equals(blockName)) {
+//			makeArgument();
+//		} else if (ATOMIC_MASS.equals(blockName)) {
+//			makeAtomicMass();
+//		} else if (AUTHORS.equals(blockName)) {
+//			skipBlock();
+//		} else if (AUTO_Z.equals(blockName)) {
+//			makeAutoZ();
+//		} else if (blockName.startsWith(BASIS)) {
+//			makeBasis();
+//		} else if (CASE.equals(blockName)) {
+//			summarizeBlock0();
+//		} else if (CENTER_1.equals(blockName)) {
+//			skipBlock();
+//		} else if (CENTER_OF_MASS.equals(blockName)) {
+//			makeCenterOfMass();
+//		} else if (CENTER_ONE.equals(blockName)) {
+//			skipBlock();
+//		} else if (CITATION.equals(blockName)) {
+//			skipBlock();
+//		} else if (CONVERGENCE_INFORMATION.equals(blockName)) {
+//			makeConvergence();
+//		} else if (DIRECTORY_INFORMATION.equals(blockName)) {
+//			makeDirectoryInformation();
+//		} else if (FINAL_EIGENVALUES.equals(blockName)) {
+//			makeFinalEigenvalues();
+//		} else if (blockName.contains(FINAL_MOLECULAR_ORBITAL_ANALYSIS)) {
+//			makeFinalMolecularOrbitalAnalysis();
+//		} else if (blockName.contains(FINAL_RHF_RESULTS)) {
+//			makeFinalRhfResults();
+//		} else if (GA_STATISTICS_FOR_PROCESS.equals(blockName)) {
+//			makeGaStatistics();
+//		} else if (GEOMETRY.equals(blockName)) {
+//			makeGeometry();
+//		} else if (GENERAL_INFORMATION.equals(blockName)) {
+//			makeGeneralInformation();
+//		} else if (GRID_INFORMATION.equals(blockName)) {
+//			makeGridInformation();
+//		} else if (INTERNUCLEAR_DISTANCES.equals(blockName)) {
+//			skipBlock();
+//		} else if (INTERNUCLEAR_ANGLES.equals(blockName)) {
+//			skipBlock();
+//		} else if (JOB_INFORMATION.equals(blockName)) {
+//			makeJobInformation();
+//		} else if (MEMORY_INFORMATION.equals(blockName)) {
+//			makeMemoryInformation();
+//		} else if (MOMENTS_OF_INERTIA.equals(blockName)) {
+//			makeMomentsOfInertia();
+//		} else if (MULLIKEN_ANALYSIS_OF_THE_TOTAL_DENSITY.equals(blockName)) {
+//			makeMullikenAnalysis();
+//		} else if (MULTIPOLE_ANALYSIS_OF_THE_DENSITY.equals(blockName)) {
+//			makeMultipoleAnalysis();
+//		} else if (NON_VARIATIONAL_INITIAL_ENERGY.equals(blockName)) {
+//			makeNonVariational();
+//		} else if (NORTHWEST_COMPUTATIONAL_CHEMISTRY_PACKAGE.equals(blockName)) {
+//			makeNWCOMP();
+//		} else if (NUCLEAR_DIPOLE_MOMENT.equals(blockName)) {
+//			makeNuclearDipole();
+//		} else if (NW_CHEM_CPHF_MODULE.equals(blockName)) {
+//			makeNWChemCphfModule();
+//		} else if (NW_CHEM_DFT_MODULE.equals(blockName)) {
+//			makeNWChemDftModule();
+//		} else if (NW_CHEM_INPUT_MODULE.equals(blockName)) {
+//			makeNWChemInputModule();
+//		} else if (NW_CHEM_PROPERTY_MODULE.equals(blockName)) {
+//			makeNWChemPropertyModule();
+//		} else if (NW_CHEM_SCF_MODULE.equals(blockName)) {
+//			makeNWChemScfModule();
+//		} else if (SCREENING_TOLERANCE_INFORMATION.equals(blockName)) {
+//			makeScreeningTolerance();
+//		} else if (SUMMARY_OF_ALLOCATED_GLOBAL_ARRAYS.equals(blockName)) {
+//			makeGlobalArrays();
+//		} else if (SUMMARY_OF_BASIS.equals(blockName)) {
+//			makeBasisSummary();
+//		} else if (SUPERPOSITION_OF_ATOMIC_DENSITY_GUESS.equals(blockName)) {
+//			makeSuperposition();
+//		} else if (SYMMETRY_ANALYSIS_OF_MOLECULAR_ORBITALS.equals(blockName)) {
+//			makeSymmetryAnalysis();
+//		} else if (SYMMETRY_INFORMATION.equals(blockName)) {
+//			makeSymmetryInfo();
+//		} else if (XC_INFORMATION.equals(blockName)) {
+//			makeXCInformation();
+//		} else if (XYZ_FORMAT_GEOMETRY.equals(blockName)) {
+//			makeXYZ();
+//		} else if (Z_MATRIX.equals(blockName)) {
+//			makeZMatrix();
 		} else if (UNKNOWN_BLOCK.equals(blockName)) {
-			String line = lines.get(0);
-			if (ATOM_BASIS_PATTERN.matcher(line).matches()) {
-				makeAtomBasisBlock();
-			} else {
-				LOG.error("UNKNOWN>>"+line);
-				summarizeBlock();
-			}
+			CMLModule module = this.makeModule();
+			Template.tidyUnusedLines(jumboReader, module);
 		} else {
 			System.err.println("Unknown blockname: "+blockName);
 		}
@@ -362,229 +355,228 @@ public class NWChemLogBlock extends AbstractBlock {
 		}
 	}
 
-	private void makeNWChemCphfModule() {
-		CMLModule module = makeModule();
-		jumboReader.readLines(2);
-		jumboReader.readEmptyLines();
-/*
-                                NWChem CPHF Module
-                                ------------------
- 
- 
-  scftype          =     RHF 
-  nclosed          =        9
-  nopen            =        0
-  variables        =      234
-  # of vectors     =        3
-  tolerance        = 0.10D-03
-  level shift      = 0.00D+00
-  max iterations   =       50
-  max subspace     =       30
+//	private void makeNWChemCphfModule() {
+//		CMLModule module = makeModule();
+//		jumboReader.readLines(2);
+//		jumboReader.readEmptyLines();
+///*
+//                                NWChem CPHF Module
+//                                ------------------
+// 
+// 
+//  scftype          =     RHF 
+//  nclosed          =        9
+//  nopen            =        0
+//  variables        =      234
+//  # of vectors     =        3
+//  tolerance        = 0.10D-03
+//  level shift      = 0.00D+00
+//  max iterations   =       50
+//  max subspace     =       30
+//
+//*/
+//		jumboReader.makeNameValues(NAME_EQUALS_VALUE, ADD);
+//
+///*		
+// #quartets = 3.714D+04 #integrals = 1.406D+05 #direct =  0.0% #cached =100.0%
+//
+//
+// Integral file          = ./ch3f_trans.aoints.0
+// Record size in doubles =  65536        No. of integs per rec  =  43688
+// Max. records in memory =      3        Max. records in file   =   5708
+// No. of bits per label  =      8        No. of bits per value  =     64
+//
+//
+//File balance: exchanges=     0  moved=     0  time=   0.0
+//
+//*/
+//		jumboReader.readLinesWhile(Pattern.compile(
+//				"Iterative solution of linear equations"), false);
+///*
+//
+//Iterative solution of linear equations
+//  No. of variables      234
+//  No. of equations        3
+//  Maximum subspace       30
+//        Iterations       50
+//       Convergence  1.0D-04
+//        Start time      4.5
+//
+//*/
+//		jumboReader.makeNameValues(NAME_SPACE_NUMBER, ADD);
+//		
+///*
+//
+//   iter   nsub   residual    time
+//   ----  ------  --------  ---------
+//     1      3    8.41D-01       5.4
+//     2      6    2.77D-02       6.3
+//     3      9    7.44D-04       7.2
+//     4     12    2.16D-05       8.0
+//
+//*/
+//		jumboReader.readLinesWhile(Pattern.compile("\\s*iter   nsub   residual    time"), false);
+//		jumboReader.readLines(1);
+//		jumboReader.readTableColumnsAsArrayList(
+//				"(I6,I7,E12.2,F10.1)", -1, 
+//				new String[]{I_+ITER,I_+NSUB,F_+RESIDUAL,F_+TIME}, ADD);
+//
+///*
+// Parallel integral file used       4 records with       0 large values
+//*/
+//
+///*
+//      Atom:    1  C 
+//        Diamagnetic
+//    257.9652     -0.0001     -0.0430
+//      0.0000    257.9400      0.0000
+//     -3.6400    -10.9048    254.4877
+//
+//        Paramagnetic
+//   -171.5341      0.0001      0.0262
+//     -0.0001   -171.5059      0.0008
+//      3.6241     10.9053    -66.6073
+//
+//        Total Shielding Tensor
+//     86.4312      0.0000     -0.0168
+//     -0.0001     86.4341      0.0008
+//     -0.0159      0.0005    187.8804
+//
+//           isotropic =     120.2486
+//          anisotropy =     101.4478
+//
+//          Principal Components and Axis System
+//                 1           2           3
+//              187.8804     86.4341     86.4312
+//
+//      1        -0.0002     -0.0142      0.9999
+//      2         0.0000      0.9999      0.0142
+//      3         1.0000      0.0000      0.0002
+//
+//*/
+//		while (jumboReader.hasMoreLines()) {
+//			try {
+//				addMagneticTensors(module);
+//			} catch (Exception e) {
+//				break;
+//			}
+//		}
+//
+//	}
 
-*/
-		jumboReader.makeNameValues(NAME_EQUALS_VALUE, ADD);
+//	private void addMagneticTensors(CMLModule module) {
+//		jumboReader.readLinesWhile(Pattern.compile("      Atom:\\s*\\d+.*"), false);
+//		jumboReader.increment(-1);
+//		CMLModule atomModule = new CMLModule();
+//		module.appendChild(atomModule);
+//		jumboReader.setParentElement(atomModule);
+//		jumboReader.parseScalars("(11X,I5,A4)", new String[]{I_+SERIAL, A_+ELSYM}, ADD);
+//		readAndAddMatrix(DIAMAGNETIC);
+//		readAndAddMatrix(PARAMAGNETIC);
+//		readAndAddMatrix(TOTAL_SHIELDING_TENSOR);
+//		jumboReader.makeNameValues(NAME_EQUALS_VALUE, ADD);
+//		jumboReader.readLines(2);
+//		jumboReader.readArray("(10X,3F12.4)", CMLConstants.XSD_DOUBLE, MAGNETIC, ADD);
+//		jumboReader.readLines(1);
+//		jumboReader.readTableColumnsAsArrayList("(I7,3X,F12.4,F12.4,F12.4)", 3, 
+//				new String[]{I_+SERIAL, F_+MAG_A, F_+MAG_B, F_+MAG_C}, ADD);
+//	}
 
-/*		
- #quartets = 3.714D+04 #integrals = 1.406D+05 #direct =  0.0% #cached =100.0%
+//	private void readAndAddMatrix(String dictRef) {
+//		jumboReader.readLines(1);
+//		CMLMatrix matrix = jumboReader.parseMatrix(3, 3, "(F12.4,F12.4,F12.4)", 
+//				CMLConstants.XSD_DOUBLE, dictRef, ADD);
+//		jumboReader.readLines(1);
+//	}
 
-
- Integral file          = ./ch3f_trans.aoints.0
- Record size in doubles =  65536        No. of integs per rec  =  43688
- Max. records in memory =      3        Max. records in file   =   5708
- No. of bits per label  =      8        No. of bits per value  =     64
-
-
-File balance: exchanges=     0  moved=     0  time=   0.0
-
-*/
-		jumboReader.readLinesWhile(Pattern.compile(
-				"Iterative solution of linear equations"), false);
-/*
-
-Iterative solution of linear equations
-  No. of variables      234
-  No. of equations        3
-  Maximum subspace       30
-        Iterations       50
-       Convergence  1.0D-04
-        Start time      4.5
-
-*/
-		jumboReader.makeNameValues(NAME_SPACE_NUMBER, ADD);
-		
-/*
-
-   iter   nsub   residual    time
-   ----  ------  --------  ---------
-     1      3    8.41D-01       5.4
-     2      6    2.77D-02       6.3
-     3      9    7.44D-04       7.2
-     4     12    2.16D-05       8.0
-
-*/
-		jumboReader.readLinesWhile(Pattern.compile("\\s*iter   nsub   residual    time"), false);
-		jumboReader.readLines(1);
-		jumboReader.readTableColumnsAsArrayList(
-				"(I6,I7,E12.2,F10.1)", -1, 
-				new String[]{I_+ITER,I_+NSUB,F_+RESIDUAL,F_+TIME}, ADD);
-
-/*
- Parallel integral file used       4 records with       0 large values
-*/
-
-/*
-      Atom:    1  C 
-        Diamagnetic
-    257.9652     -0.0001     -0.0430
-      0.0000    257.9400      0.0000
-     -3.6400    -10.9048    254.4877
-
-        Paramagnetic
-   -171.5341      0.0001      0.0262
-     -0.0001   -171.5059      0.0008
-      3.6241     10.9053    -66.6073
-
-        Total Shielding Tensor
-     86.4312      0.0000     -0.0168
-     -0.0001     86.4341      0.0008
-     -0.0159      0.0005    187.8804
-
-           isotropic =     120.2486
-          anisotropy =     101.4478
-
-          Principal Components and Axis System
-                 1           2           3
-              187.8804     86.4341     86.4312
-
-      1        -0.0002     -0.0142      0.9999
-      2         0.0000      0.9999      0.0142
-      3         1.0000      0.0000      0.0002
-
-*/
-		while (jumboReader.hasMoreLines()) {
-			try {
-				addMagneticTensors(module);
-			} catch (Exception e) {
-				break;
-			}
-		}
-
-	}
-
-	private void addMagneticTensors(CMLModule module) {
-		jumboReader.readLinesWhile(Pattern.compile("      Atom:\\s*\\d+.*"), false);
-		jumboReader.increment(-1);
-		CMLModule atomModule = new CMLModule();
-		module.appendChild(atomModule);
-		jumboReader.setParentElement(atomModule);
-		jumboReader.parseScalars("(11X,I5,A4)", new String[]{I_+SERIAL, A_+ELSYM}, ADD);
-		readAndAddMatrix(DIAMAGNETIC);
-		readAndAddMatrix(PARAMAGNETIC);
-		readAndAddMatrix(TOTAL_SHIELDING_TENSOR);
-		jumboReader.makeNameValues(NAME_EQUALS_VALUE, ADD);
-		jumboReader.readLines(2);
-		jumboReader.readArray("(10X,3F12.4)", CMLConstants.XSD_DOUBLE, MAGNETIC, ADD);
-		jumboReader.readLines(1);
-		jumboReader.readTableColumnsAsArrayList("(I7,3X,F12.4,F12.4,F12.4)", 3, 
-				new String[]{I_+SERIAL, F_+MAG_A, F_+MAG_B, F_+MAG_C}, ADD);
-	}
-
-	private void readAndAddMatrix(String dictRef) {
-		jumboReader.readLines(1);
-		CMLMatrix matrix = jumboReader.parseMatrix(3, 3, "(F12.4,F12.4,F12.4)", 
-				CMLConstants.XSD_DOUBLE, dictRef, ADD);
-		jumboReader.readLines(1);
-	}
-
-	private void makeArgument() {
-/*
- argument  1 = dft_feco5.nw
-
-
-
-============================== echo of input deck ==============================
-echo
-
-start dft_feco5
-
-# test of DFT with Fe(CO)5 using cd basis and xc basis
-
-...
-dft
-  xc b3lyp
-end
-title "case t23 --- (b3lyp) DFT (energy)"
-task dft energy
-
-
-
-================================================================================
- */
-		CMLModule module = makeModule();
-		System.err.println("..."+jumboReader.peekLine());
-		jumboReader.makeNameValues(Pattern.compile(".*(argument *\\d+)\\s*=\\s*(.*)"), ADD);
-		List<String> lines = jumboReader.readLinesWhile(Pattern.compile(".*=== echo of input deck ==.*"), false);
-		jumboReader.readLine();
-		NWChemLogBlock inputBlock = new NWChemLogBlock(blockContainer);
-		inputBlock.setBlockName(ECHO_INPUT);
-		blockContainer.getBlockList().add(0, inputBlock);
-		lines = jumboReader.readLinesWhile(Pattern.compile(".*===========.*"), false);
-		for (String line : lines) {
-			inputBlock.add(line);
-		}
-		inputBlock.makeInput();
-	}
+//	private void makeArgument() {
+///*
+// argument  1 = dft_feco5.nw
+//
+//
+//
+//============================== echo of input deck ==============================
+//echo
+//
+//start dft_feco5
+//
+//# test of DFT with Fe(CO)5 using cd basis and xc basis
+//
+//...
+//dft
+//  xc b3lyp
+//end
+//title "case t23 --- (b3lyp) DFT (energy)"
+//task dft energy
+//
+//
+//
+//================================================================================
+// */
+//		CMLModule module = makeModule();
+//		System.err.println("..."+jumboReader.peekLine());
+//		jumboReader.makeNameValues(Pattern.compile(".*(argument *\\d+)\\s*=\\s*(.*)"), ADD);
+//		List<String> lines = jumboReader.readLinesWhile(Pattern.compile(".*=== echo of input deck ==.*"), false);
+//		jumboReader.readLine();
+//		NWChemLogBlock inputBlock = new NWChemLogBlock(blockContainer);
+//		inputBlock.setBlockName(ECHO_INPUT);
+//		blockContainer.getBlockList().add(0, inputBlock);
+//		lines = jumboReader.readLinesWhile(Pattern.compile(".*===========.*"), false);
+//		for (String line : lines) {
+//			inputBlock.add(line);
+//		}
+//		inputBlock.makeInput();
+//	}
 	
-	private void makeInput() {
-		jumboReader = new JumboReader(this.getDictionary(), abstractCommon.getPrefix(), lines);
-		CMLModule module = makeModule();
-		module.setRole(INPUT);
-		CMLElement parent = module;
-		boolean inGeometry = false;
-		boolean inBasis = false;
-		inputMolecule = null;
-		for (String line : lines) {
-//			System.out.println(line);
-			// remove comments
-			line = line.split(CMLConstants.S_HASH)[0];
-			line = line.trim();
-			String token = line.equals("") ? "" : line.split(CMLConstants.S_WHITEREGEX)[0];
-			if ("".equals(token)) {
-				// 
-			} else if (TITLE.equalsIgnoreCase(token)) {
-				module.setTitle(line);
-			} else if (GEOMETRY.equalsIgnoreCase(token)) {
-				inputMolecule = new CMLMolecule();
-				parent.appendChild(inputMolecule);
-				parent = inputMolecule;
-				addScalar(inputMolecule, line, token);
-				inGeometry = true;
-			} else if (inGeometry && SYMMETRY.equalsIgnoreCase(token)) {
-				addScalar(parent, line, token);
-			} else if (BASIS.equalsIgnoreCase(token)) {
-				parent = makeSubModule(parent, token, line);
-				inBasis = true;
-			} else if (DFT.equalsIgnoreCase(token)) {
-				parent = makeSubModule(parent, token, line);
-			} else if (PROPERTY.equalsIgnoreCase(token)) {
-				parent = makeSubModule(parent, token, line);
-//			} else if (ECHO.equalsIgnoreCase(token)) {
+//	private void makeInput() {
+//		jumboReader = new JumboReader(this.getDictionary(), abstractCommon.getPrefix(), lines);
+//		CMLModule module = makeModule();
+//		module.setRole(INPUT);
+//		CMLElement parent = module;
+//		boolean inGeometry = false;
+//		boolean inBasis = false;
+//		inputMolecule = null;
+//		for (String line : lines) {
+//			// remove comments
+//			line = line.split(CMLConstants.S_HASH)[0];
+//			line = line.trim();
+//			String token = line.equals("") ? "" : line.split(CMLConstants.S_WHITEREGEX)[0];
+//			if ("".equals(token)) {
+//				// 
+//			} else if (TITLE.equalsIgnoreCase(token)) {
+//				module.setTitle(line);
+//			} else if (GEOMETRY.equalsIgnoreCase(token)) {
+//				inputMolecule = new CMLMolecule();
+//				parent.appendChild(inputMolecule);
+//				parent = inputMolecule;
+//				addScalar(inputMolecule, line, token);
+//				inGeometry = true;
+//			} else if (inGeometry && SYMMETRY.equalsIgnoreCase(token)) {
 //				addScalar(parent, line, token);
-//			} else if (START.equalsIgnoreCase(token)) {
+//			} else if (BASIS.equalsIgnoreCase(token)) {
+//				parent = makeSubModule(parent, token, line);
+//				inBasis = true;
+//			} else if (DFT.equalsIgnoreCase(token)) {
+//				parent = makeSubModule(parent, token, line);
+//			} else if (PROPERTY.equalsIgnoreCase(token)) {
+//				parent = makeSubModule(parent, token, line);
+////			} else if (ECHO.equalsIgnoreCase(token)) {
+////				addScalar(parent, line, token);
+////			} else if (START.equalsIgnoreCase(token)) {
+////				addScalar(parent, line, token);
+//			} else if (END.equalsIgnoreCase(token)) {
+//				parent = (CMLModule) parent.getParent();
+//				inGeometry = false;
+//				inBasis = true;
+//			} else if (inGeometry && line.split(CMLConstants.S_WHITEREGEX).length == 4){
+//				addAtom(line);
+//			} else {
 //				addScalar(parent, line, token);
-			} else if (END.equalsIgnoreCase(token)) {
-				parent = (CMLModule) parent.getParent();
-				inGeometry = false;
-				inBasis = true;
-			} else if (inGeometry && line.split(CMLConstants.S_WHITEREGEX).length == 4){
-				addAtom(line);
-			} else {
-				addScalar(parent, line, token);
-				System.out.println("Cannot process: "+line);
-//				throw new RuntimeException("Cannot process token: "+token);
-			}
-		}
-	}
+//				System.out.println("Cannot process: "+line);
+////				throw new RuntimeException("Cannot process token: "+token);
+//			}
+//		}
+//	}
 
 	private void addAtom(String line) {
 		String[] tokens = line.split(CMLConstants.S_WHITEREGEX);

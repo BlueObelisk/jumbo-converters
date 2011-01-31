@@ -9,6 +9,7 @@ import nu.xom.Element;
 import nu.xom.Elements;
 import nu.xom.Nodes;
 
+import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.AbstractConverter;
@@ -19,15 +20,17 @@ import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.euclid.Util;
 
 public abstract class Text2XMLConverter extends AbstractConverter {
-
+	private static final Logger LOG = Logger.getLogger(Text2XMLConverter.class);
 	private static final String STAGO = "<";
 	private static final String MARKER = "marker";
 	private static final String ENTER_LINK = "enterLink";
 	private static final String GROUP1 = "group1";
 	private static final String LEAVE_LINK = "leaveLink";
+	private static final Integer TAB_WIDTH = 8;
 	private List<String> lines;
 	private String markerResourceName;
 	private List<ChunkerMarker> markerList;
+	protected Integer tabWidth = TAB_WIDTH;
 
 	public Type getInputType() {
 		return Type.TXT;
@@ -45,8 +48,11 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 	@Override
 	public Element convertToXML(List<String> lines) {
 		this.lines = lines;
+		convertCharactersInLines();
+		// mark lines to act as potential block boundaries
 		this.insertMarkers();
-		Element element = createXMLFromTextAndMarkedLines();
+		// element is <cml> wrapping <scalar> with the marked line and all lines to before next mark
+		CMLElement element = createXMLFromTextAndMarkedLines();
 //		CMLUtil.debug(element, "LINES");
 		legacyProcessor = createLegacyProcessor();
 		legacyProcessor.read((CMLElement)element);
@@ -55,10 +61,25 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 		return cmlElement;
 	}
 
-//	public void setMarkerResourceName(String resourceName) {
-//		this.markerResourceName = resourceName;
-//	}
-	
+	/**
+	 * deal with tabs, other possible conversions...
+	 */
+	private void convertCharactersInLines() {
+		List<String> newlines = new ArrayList<String>(lines.size());
+		for (String line : lines) {
+			newlines.add(Util.replaceTabs(line, (int)TAB_WIDTH));
+		}
+		lines = newlines;
+	}
+
+	public Integer getTabWidth() {
+		return tabWidth;
+	}
+
+	public void setTabWidth(Integer tabWidth) {
+		this.tabWidth = tabWidth;
+	}
+
 	protected abstract String getMarkerResourceName();
 	
 	protected abstract LegacyProcessor createLegacyProcessor();
@@ -94,6 +115,7 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 		for (lineCount = 0;lineCount < lines.size();lineCount++) {
 			String line = lines.get(lineCount);
 			for (ChunkerMarker marker : markerList) {
+				LOG.trace(marker);
 				if (marker.matches(line)) {
 					insertMarkupLine(lineCount, marker, linesCopy);
 					break;
@@ -116,6 +138,7 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 		StringBuilder sb = null;
 		Element markedLineAsXML = null;
 		for (String line : lines) {
+			LOG.trace("marked line: "+line);
 			if (isMarkedXML(line)) {
 				markedLineAsXML = null;
 				try {
