@@ -1,0 +1,43 @@
+<template id="nwchemmp2" name="NWChem MP2 Semi-direct Energy/Gradient Module" pattern="\s*NWChem MP2 Semi-direct Energy/Gradient Module\s*">
+  <comment>
+                   NWChem MP2 Semi-direct Energy/Gradient Module
+                   ---------------------------------------------
+ 
+ 
+               Au+, Au(14s,10p,8d,3f,2g,1h) -> [11s,10p,8d,3f,2g,1h]
+ 
+ 
+
+ Read molecular orbitals from ./Au+.movecs
+
+  Basis functions       =    131
+  Molecular orbitals    =    131
+  Frozen core           =      0
+  Frozen virtuals       =      0
+  Active alpha occupied =      9
+  Active beta occupied  =      9
+  Active alpha virtual  =    122
+  Active beta virtual   =    122
+  Use MO symmetry       = T
+  Use skeleton AO sym   = T
+
+
+ GA uses MA = T    GA memory limited = F
+
+ Available: local mem=  11563443 global mem=         0 local disk=257036800.
+   1 passes of   9:      2901740                     0               326302.
+ 
+ Semi-direct pass number   1 of   1  for RHF alpha+beta  at      173.0s
+Node 0 wrote      2.5 Mb in       .0 s     Agg I/O rate:    NaNQ Mb/s
+ Done moints_semi at      548.5s
+ Done maket at      550.1s
+ Done multipass loop at      550.2s
+
+</comment>
+<readLines linesToRead="4" id="rl1"/>
+<record id="r1" linesToRead="1" formatType="REGEX" names="from to">\s*(.*)\s*->\s*(.*)\s*</record>
+<readLines linesToRead="3" id="rl2" output="VERBOSE"/>
+<record id="r2" linesToRead="1" formatType="REGEX" names="file">\s*Read molecular orbitals from\s*(.*)\s*</record>
+<readLines linesToRead="1" id="rl3" output="VERBOSE"/>
+<record id="r3" linesToRead="*" formatType="REGEX" names="__name __value">\s*(.*)\s*=\s*(.*)\s*</record>
+</template>

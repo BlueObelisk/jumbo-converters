@@ -3,7 +3,7 @@ package org.xmlcml.cml.converters.format;
 public class WidthField extends Field {
 
 	public WidthField(SimpleFortranFormat sff, FieldType type) {
-		super(sff, type);
+		super(sff, type, null);
 		setTypesAndParameters();
 	}
 	private void setTypesAndParameters() {

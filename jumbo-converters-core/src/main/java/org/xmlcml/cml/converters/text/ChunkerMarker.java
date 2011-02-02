@@ -3,6 +3,8 @@ package org.xmlcml.cml.converters.text;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
 import nu.xom.Attribute;
 import nu.xom.Element;
 
@@ -12,6 +14,7 @@ import nu.xom.Element;
  *
  */
 public class ChunkerMarker {
+	private final static Logger LOG = Logger.getLogger(ChunkerMarker.class);
 	
 	public static final String GROUP = "group";
 	public static final String LINE = "line";
@@ -53,6 +56,7 @@ public class ChunkerMarker {
 		this.mark = mark;
 	}
 	public boolean matches(String line) {
+		LOG.trace(pattern.toString()+" | "+line);
 		matcher = pattern.matcher(line);
 		return matcher.matches();
 	}
