@@ -1,0 +1,18 @@
+<template id="finalrhf" name="Final RHF  results" pattern="\s*Final RHF  results\s*">
+  <comment>
+       Final RHF  results 
+       ------------------ 
+
+         Total SCF energy =   -134.684334043866
+      One-electron energy =   -233.466922651842
+      Two-electron energy =     98.782588607976
+ Nuclear repulsion energy =       .000000000000
+
+        Time for solution =     81.8s
+
+</comment>
+<readLines linesToRead="3" id="rl1"/>
+<record id="r1" linesToRead="*" formatType="REGEX" names="__name __value">\s*(.*) = (.*)\s*</record>
+<readLines linesToRead="1" id="rl2" output="VERBOSE"/>
+<record id="r2" linesToRead="1" formatType="REGEX" names="time units">.*=\s*(.*)(s)</record>
+</template>

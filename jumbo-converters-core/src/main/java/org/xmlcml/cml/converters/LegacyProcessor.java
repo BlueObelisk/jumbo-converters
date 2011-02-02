@@ -60,7 +60,7 @@ public abstract class LegacyProcessor {
 	}
 
 	private void readTemplates() {
-		LOG.debug("readTemplates");
+		LOG.trace("readTemplates");
 		String templateResource = this.getTemplateResourceName();
 		try {
 			Element root = new Builder(dtdValidate).build(org.xmlcml.euclid.Util.getInputStreamFromResource(templateResource)).getRootElement();

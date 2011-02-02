@@ -1,0 +1,18 @@
+<template id="mulliken" name="Mulliken analysis of the total density" pattern="\s*Mulliken analysis of the total density\s*">
+  <comment>
+  Mulliken analysis of the total density
+  --------------------------------------
+
+    Atom       Charge   Shell Charges
+ -----------   ------   -------------------------------------------------------
+    1 Au  19    18.00    .05  -.52   .33  1.71   .42   .02  -.01   .00   .00   .00   .00   .00   .03  -.68  1.34  4.07  1.16   .09  -.01   .00   .00   .00  -.25  1.86  4.77
+  2.97   .64   .00   .00   .00   .00   .00   .00   .00   .00
+
+ Parallel integral file used     182 records with       0 large values
+
+</comment>
+<readLines linesToRead="5" id="rl1"/>
+<record id="r1" linesToRead="*" formatType="FORTRAN">(I5{serial},A3{elem},I4{num},3x,F6.2{charge},1x,25F6.2{shell}/25F6.2{shell})</record>
+<readLines linesToRead="1" id="rl2" output="VERBOSE"/>
+<record id="r2" linesToRead="*" formatType="FORTRAN">(28x,I8{record},13X,I8{large})</record>
+</template>
