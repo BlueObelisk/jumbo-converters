@@ -298,38 +298,38 @@ public class JumboReader {
 		return s;
 	}
 
-	/**
-	 * creates a name-value pair from applying pattern to currentLine
-	 * @param pattern (required to have two groups, name and value)
-	 * @param add should the CMLElement be added to the parentElement
-	 * @return the CMLList or CMLScalar
-	 */
-	public CMLElement parseNameValue(Pattern pattern, Class<?> dataClass, boolean add) {
-		resetPreviousLineNumber();
-		String lineToParse = lines.get(currentLineNumber++);
-		CMLScalar scalar = null;
-		if (lineToParse.trim().length() != 0) {
-			scalar = readAndAddNameValue(pattern, dataClass, add, lineToParse);
-		}
-		return scalar;
-	}
+//	/**
+//	 * creates a name-value pair from applying pattern to currentLine
+//	 * @param pattern (required to have two groups, name and value)
+//	 * @param add should the CMLElement be added to the parentElement
+//	 * @return the CMLList or CMLScalar
+//	 */
+//	public CMLElement parseNameValue(Pattern pattern, Class<?> dataClass, boolean add) {
+//		resetPreviousLineNumber();
+//		String lineToParse = lines.get(currentLineNumber++);
+//		CMLScalar scalar = null;
+//		if (lineToParse.trim().length() != 0) {
+//			scalar = readAndAddNameValue(pattern, dataClass, add, lineToParse);
+//		}
+//		return scalar;
+//	}
 
-	private CMLScalar readAndAddNameValue(Pattern pattern, Class<?> dataClass,
-			boolean add, String lineToParse) {
-		CMLScalar scalar;
-		Matcher matcher = pattern.matcher(lineToParse);
-		if (!matcher.matches() || matcher.groupCount() != 2) {
-			throw new RuntimeException("Cannot parse {"+lineToParse+"} with "+pattern);
-		}
-		String dictRef = matcher.group(1).trim();
-		dictRef = dictRef.replaceAll("[^a-zA-Z0-9\\.\\-]", CMLConstants.S_UNDER);
-		String value = matcher.group(2).trim();
-		Field field = new PatternField();
-		scalar = field.createScalar(value);
-		addDictRef(scalar, dictRef);
-		addElementToParentElement(add, scalar);
-		return scalar;
-	}
+//	private CMLScalar readAndAddNameValue(Pattern pattern, Class<?> dataClass,
+//			boolean add, String lineToParse) {
+//		CMLScalar scalar;
+//		Matcher matcher = pattern.matcher(lineToParse);
+//		if (!matcher.matches() || matcher.groupCount() != 2) {
+//			throw new RuntimeException("Cannot parse {"+lineToParse+"} with "+pattern);
+//		}
+//		String dictRef = matcher.group(1).trim();
+//		dictRef = dictRef.replaceAll("[^a-zA-Z0-9\\.\\-]", CMLConstants.S_UNDER);
+//		String value = matcher.group(2).trim();
+//		Field field = new PatternField();
+//		scalar = field.createScalar(value);
+//		addDictRef(scalar, dictRef);
+//		addElementToParentElement(add, scalar);
+//		return scalar;
+//	}
 
 	public static void addIsSpaceAttribute(CMLScalar scalar) {
 		scalar.setCMLXAttribute(JumboReader.JUMBO_READER, SPACE);
@@ -1215,19 +1215,19 @@ public class JumboReader {
 		addElementToParentElement(add, scalar);
 	}
 
-	public void makeNameValues(Pattern pattern, boolean add) {
-		CMLElement scalar = null;
-		while (hasMoreLines()) {
-			try {
-				scalar = parseNameValue(pattern, String.class, add);
-				if (scalar == null) {
-					break;
-				}
-			} catch (Exception e) {
-				break;
-			}
-		}
-	}
+//	public void makeNameValues(Pattern pattern, boolean add) {
+//		CMLElement scalar = null;
+//		while (hasMoreLines()) {
+//			try {
+//				scalar = parseNameValue(pattern, String.class, add);
+//				if (scalar == null) {
+//					break;
+//				}
+//			} catch (Exception e) {
+//				break;
+//			}
+//		}
+//	}
 
 	public void increment(int offset) {
 		currentLineNumber += offset;

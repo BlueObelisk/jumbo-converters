@@ -53,11 +53,9 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 		this.insertMarkers();
 		// element is <cml> wrapping <scalar> with the marked line and all lines to before next mark
 		CMLElement element = createXMLFromTextAndMarkedLines();
-//		CMLUtil.debug(element, "LINES");
 		legacyProcessor = createLegacyProcessor();
 		legacyProcessor.read((CMLElement)element);
 		Element cmlElement = legacyProcessor.getCMLElement();
-//		CMLUtil.debug(cmlElement, "parsedXML");
 		return cmlElement;
 	}
 
@@ -117,6 +115,7 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 			for (ChunkerMarker marker : markerList) {
 				LOG.trace(marker);
 				if (marker.matches(line)) {
+					LOG.trace("matched: "+marker+" | "+line);
 					insertMarkupLine(lineCount, marker, linesCopy);
 					break;
 				}
@@ -138,8 +137,8 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 		StringBuilder sb = null;
 		Element markedLineAsXML = null;
 		for (String line : lines) {
-			LOG.trace("marked line: "+line);
 			if (isMarkedXML(line)) {
+				LOG.trace("*** marked line: "+line);
 				markedLineAsXML = null;
 				try {
 					markedLineAsXML = CMLUtil.parseXML(line);

@@ -91,16 +91,23 @@ public abstract class Field extends Element {
 	protected int dataStartChar;
 	protected SimpleFortranFormat simpleFortranFormat;
 	protected String expectedValue = null;
+
+	private LineReader lineReader;
 	
-	public Field(SimpleFortranFormat sff, FieldType fieldType) {
+	public Field(SimpleFortranFormat sff, FieldType fieldType, LineReader lineReader) {
 		super(FIELD);
 		this.fieldType = fieldType;
 		this.simpleFortranFormat = sff;
-
+		init(lineReader);
 	}
 
-	protected Field(String tag) {
+	protected Field(String tag, LineReader lineReader) {
 		super(tag);
+		init(lineReader);
+	}
+	
+	private void init(LineReader lineReader) {
+		this.lineReader = lineReader;
 	}
 
 	public String getDictionaryPrefix() {
@@ -238,7 +245,7 @@ public abstract class Field extends Element {
 					try {
 						scalar = this.createScalar(ff);
 					} catch (Exception e) {
-						throw new RuntimeException("Cannot parse :"+ff+": in "+line, e);
+						throw new RuntimeException("Cannot parse ~"+ff+"~ in "+line, e);
 					}
 					if (scalar != null && !JumboReader.isMisread((CMLElement)scalar)) {
 						((HasDictRef)scalar).setDictRef(DictRefAttribute.createValue(dictionaryPrefix, localDictRef));
@@ -325,6 +332,9 @@ public abstract class Field extends Element {
 
 	public String toString() {
 		String s = "";
+		if (lineReader != null) {
+			s += "template: "+lineReader.template.getId()+" lineReader: "+lineReader.getId()+" ";
+		}
 		if (fieldList != null) {
 			s += fieldList.size()+"*"+multiplier;
 			for (Field field : fieldList) {

@@ -1,0 +1,24 @@
+<template id="rohffinal" name="ROHF Final Molecular Orbital Analysis" pattern="\s*ROHF Final Molecular Orbital Analysis\s*">
+  <comment>
+                       ROHF Final Molecular Orbital Analysis
+                       -------------------------------------
+ 
+ Vector    2  Occ=2.000000D+00  E=-3.036992D+00  Symmetry=b3u
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    24       .691291  1 Au px                18      -.358797  1 Au px         
+    21       .309698  1 Au px                27       .220256  1 Au px         
+ 
+ Vector    3  Occ=2.000000D+00  E=-3.036992D+00  Symmetry=b2u
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    25       .691291  1 Au py                19      -.358797  1 Au py         
+    22       .309698  1 Au py                28       .220256  1 Au py         
+ 
+...
+</comment>
+<readLines linesToRead="3" id="rl1"/>
+<record id="r1" linesToRead="1" formatType="FORTRAN" >(7x,I5,6x,E12.6{occ},4x,E13.6{e},11x,A10{symm})</record>
+<readLines linesToRead="2" id="rl2" output="VERBOSE"/>
+<record id="r2" linesToRead="*" formatType="FORTRAN">(I6{bfn},F14.6{coeff},I3{atom},A3{elem},A6{funct},9x,I6{bfn},F14.6{coeff},I3{atom},A3{elem},A6{funct})</record>
+</template>

@@ -1,0 +1,34 @@
+<template id="ccsd" name="CCSD Energy" pattern="\s*CCSD Energy\s*">
+  <comment>
+ CCSD Energy
+ -----------
+ Reference energy:            -134.684334043866102
+ CCSD corr. energy:              -.654354731113251
+ Total CCSD energy:           -135.338688774979346
+ memory 11036505
+
+
+*********triples calculation*********
+
+nkpass= 1; nvpass=  1; memdrv=  611830; memtrn= 4400205; memavail=11035399
+ memory available/node                11035399
+ total number of virtual orbitals       122
+ number of virtuals per integral pass   122
+ number of integral evaluations           1
+ number of occupied per triples pass      9
+ number of triples passes                 1
+
+ commencing integral evaluation        1
+ Time for integral evaluation pass     1   149.12
+ Time for triples evaluation pass      1   231.47
+
+ pseudo-e(mp4)   -.20388563010252E-01
+ pseudo-e(mp5)    .23839122339290E-03
+        e(t)     -.20150171786859E-01
+
+</comment>
+<readLines linesToRead="2" id="rl1"/>
+<record id="r1" linesToRead="*" formatType="REGEX" names="__name __value">\s*(.*):\s{8}\s*([-\d\.]+)\s*</record>
+<readLines linesToRead="1" id="rl2" output="VERBOSE"/>
+<record id="r2" linesToRead="*" formatType="FORTRAN">(I5{row},F10.4{value})</record>
+</template>
