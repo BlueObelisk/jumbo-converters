@@ -4,7 +4,7 @@ package org.xmlcml.cml.converters.format;
 public class FloatField extends Field {
 
 	public FloatField(SimpleFortranFormat sff, FieldType type) {
-		super(sff, type);
+		super(sff, type, null);
 		setFortranTypesAndParameters();
 	}
 

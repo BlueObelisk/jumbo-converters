@@ -188,7 +188,6 @@ public abstract class AbstractBlock implements CMLConstants {
 		}
 		line = line.trim();
 		String name = UNKNOWN_BLOCK;
-//		for (Pattern pattern : legacyProcessor.blockNamePatternList) {
 		for (Template template : legacyProcessor.templateList) {
 			Pattern templatePattern = template.getPattern();
 			LOG.trace(templatePattern + "] ["+ line+"]");
@@ -200,6 +199,7 @@ public abstract class AbstractBlock implements CMLConstants {
 				} else {
 					name = template.getName();
 				}
+				LOG.debug("template ("+template.getId()+") matched name: "+name+" in line: ["+line+"]");
 				break;
 			}
 		}

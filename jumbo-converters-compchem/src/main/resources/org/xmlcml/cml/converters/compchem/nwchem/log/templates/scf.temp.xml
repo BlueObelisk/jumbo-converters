@@ -1,0 +1,28 @@
+<template id="scf" name="NWChem SCF Module" pattern="\s*NWChem SCF Module\s*">
+  <comment>
+                                 NWChem SCF Module
+                                 -----------------
+ 
+ 
+               Au+, Au(14s,10p,8d,3f,2g,1h) -> [11s,10p,8d,3f,2g,1h]
+ 
+ 
+
+  ao basis        = "ao basis"
+  functions       =   131
+  atoms           =     1
+  closed shells   =     9
+  open shells     =     0
+  charge          =   1.00
+  wavefunction    = RHF 
+  input vectors   = ./Au+.movecs
+  output vectors  = ./Au+.movecs
+  use symmetry    = T
+  symmetry adapt  = T
+
+</comment>
+<readLines linesToRead="4" id="rl1"/>
+<record id="r1" linesToRead="*" formatType="REGEX" names="from to">\s*(.*) \-> (.*)\s*</record>
+<readLines linesToRead="3" id="rl2"/>
+<record id="r2" linesToRead="*" formatType="REGEX" names="__name __value">\s*(.*)\s*=\s*(.*)</record>
+</template>

@@ -1,0 +1,24 @@
+<template id="directmp2" name="Direct MP2" pattern="\s*Direct MP2\s*">
+  <comment>
+                          Direct MP2
+                          ----------
+          Basis functions:                      131
+          Shells:                                35
+          Block length:                          32
+          Active occupied range:             1 -  9
+          Active virtual range:             10 -131
+          MO coefficients read from:  ./Au+.movecs             
+          Operator matrices in core:             45
+          AO passes required:                     1
+          Use AO Integral blocking
+          Twofold algorithm used
+
+     Pass:    1     Index range:    1  -    9     Time:     81.04
+
+</comment>
+<readLines linesToRead="2" id="rl1"/>
+<record id="r1" linesToRead="*" formatType="REGEX" names="__name __value">\s*(.*)\s*:\s*(.*)\s*</record>
+<record id="r2" linesToRead="*" formatType="REGEX" names="note">\s*(.*)\s*</record>
+<readLines linesToRead="1" id="rl3" output="VERBOSE"/>
+<record id="r3" linesToRead="1" formatType="FORTRAN" names="__name __value">(10x,I5{pass},17x,I5{from},4x,I5{to},10x,F10.2{time})</record>
+</template>

@@ -1,0 +1,41 @@
+<template id="mp2energy" name="MP2 Energy (coupled cluster initial guess)" pattern="\s*MP2 Energy \(coupled cluster initial guess\)\s*">
+  <comment>
+ MP2 Energy (coupled cluster initial guess)
+ ------------------------------------------
+ Reference energy:           -134.684334043866102
+ MP2 Corr. energy:              -.677993809103580
+ Total MP2 energy:           -135.362327852969685
+
+
+ ****************************************************************************
+              the segmented parallel titan ccsd program: 32 nodes
+ ****************************************************************************
+
+
+
+
+ level of theory    ccsd(t)
+ number of core         0
+ number of occupied     9
+ number of virtual    122
+ number of deleted      0
+ total functions      131
+ number of shells      35
+ basis label          566
+
+
+
+   ***** ccsd parameters *****
+   iprt   =     0
+   convi  =  .100E-05
+   maxit  =    20
+   mxvec  =     5
+ memory 11418558
+  file_read_ga: failed to open ./Au+.t2
+  Failed reading restart vector from ./Au+.t2
+  Using MP2 initial guess vector 
+
+</comment>
+<readLines linesToRead="2" id="rl1"/>
+<record id="r1" linesToRead="*" formatType="REGEX" names="__name __value">\s*(.*)\s*:\s*(.*)\s*</record>
+</template>
