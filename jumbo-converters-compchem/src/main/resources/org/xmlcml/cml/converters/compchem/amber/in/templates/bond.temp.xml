@@ -1,0 +1,31 @@
+<template name="BOND" id="bond" pattern="s*BOND.*">
+<comment>
+ - 4 -      ***** INPUT FOR BOND LENGTH PARAMETERS *****
+
+                    IBT , JBT , RK , REQ
+
+                        FORMAT(A2,1X,A2,2F10.2)
+
+         IBT,JBT    Atom symbols for the two bonded atoms.
+
+         RK         The harmonic force constant for the bond "IBT"-"JBT".
+                    The unit is kcal/mol/(A**2).
+
+         REQ        The equilibrium bond length for the above bond in angstroms
+
+                    The input is terminated by a blank card.
+
+</comment>
+<comment>
+BOND
+cq-ca 428.1   1.397 k (3_2: 5 points @0.01A == 0-1 Kcal), dist from mp2/6-31G*
+c2-cq 330.1   1.461 k (1_2: 5 points @0.01A == 0->1.2 Kcal) dist from mp2/6-31G*
+c2-cd 364.0   1.424 k (1_16: 10 points @0.01A == 0->al3.5 Kc) distr fom /mp2*6-31G
+cc-nh 495.0   1.352 k (33_28: 5 points @0.01A == 0->1.5 Kcal) dist from mp2/6-31G*
+
+</comment>
+<readLines linesToRead="1" id="rl1"></readLines>
+<!-- leap does not conform to this; uses %s %s %lf %lf  -->
+<!-- <record formatType="FORTRAN" id="r1" linesToRead="*">(A2{ibt},1x,A2{jbt},F10.2{rk},F10.2{req})</record>-->
+<record formatType="REGEX" id="r1" linesToRead="*" names="ibt jbt rk_kcal req_ang">([^\s]{2}).([^\s]{2})\s+([\-\+\d\.]+)\s+([\-\+\d\.]+)\s+.*</record>
+</template>

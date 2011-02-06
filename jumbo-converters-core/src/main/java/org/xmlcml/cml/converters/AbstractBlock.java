@@ -190,10 +190,11 @@ public abstract class AbstractBlock implements CMLConstants {
 		String name = UNKNOWN_BLOCK;
 		for (Template template : legacyProcessor.templateList) {
 			Pattern templatePattern = template.getPattern();
-			LOG.trace(templatePattern + "] ["+ line+"]");
+			LOG.debug(templatePattern + "] ["+ line+"]");
 			Matcher matcher = templatePattern.matcher(line);
 			if (matcher.matches()) {
 				name = line;
+				LOG.debug("matches block: "+templatePattern+"|"+line);
 				if (matcher.groupCount() >= 1) {
 					name = matcher.group(1);
 				} else {

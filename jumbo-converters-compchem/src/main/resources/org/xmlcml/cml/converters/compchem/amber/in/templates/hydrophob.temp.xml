@@ -1,0 +1,53 @@
+<template name="Atom Name" id="atomname" pattern="%FLAG ATOM_NAME.*">
+<comment>
+Force field parameter modification file specification
+      Modified  force  field  parameters in file frcmod: This file is
+      normally the one that will be changed by the user.  It consists
+      of  a 1-card title, followed by a blank line, then keyword sec-
+      tions.  The allowed keywords (appearing in columns 1-4) are:
+
+
+      MASS          follow this card by card of type - 2 - listed in the
+                    unit 10 instructions above.  End with a blank line.
+
+      BOND          follow this card by card of type - 4 - listed in the
+                    unit 10 instructions above.  End with a blank line.
+
+      ANGL          follow this card by card of type - 5 - listed in the
+                    unit 10 instructions above.  End with a blank line.
+
+      DIHE          follow this card by card of type - 6 - listed in the
+                    unit 10 instructions above.  End with a blank line.
+
+      IMPR          follow this card by card of type - 7 - listed in the
+                    unit 10 instructions above.  End with a blank line.
+
+      HBON          follow this card by card of type - 8 - listed in the
+                    unit 10 instructions above.  End with a blank line.
+
+      NONB          follow this card by card of type - 10A, B or C - listed
+                    in the unit 10 instructions above.  E.g. if you specify
+                    STDA in parm.in for the "regular" parm.dat file, this is
+                    the convention that will be used when reading frcmod.
+                    End with a blank line.
+
+
+           Any or all of the keywords may be missing, if you have  no
+      changes  for  that  section.  The entire file can be missing if
+      you have no changes at all to make to the standard force field.
+      Restrictions:  note that you cannot modify the equivalence pat-
+      tern set up in the standard force field.
+
+           If you have parameters in the frcmod file that modify val-
+      ues  in the standard parameter file, and if iparml is set to 2,
+      then both the original and  the  modified  parameters  will  be
+      printed  to  the  output file.  The modified parameters will be
+      marked with asterisks, and it is these values that will be used
+      in subsequent calculations.
+
+</comment>
+<comment>
+</comment>
+<readLines linesToRead="2" id="rl1"/>
+<record formatType="FORTRAN" id="r1" makeArray="true" linesToRead="*">(20A4{name})</record>
+</template>

@@ -133,7 +133,7 @@ We support Iw, Fw.d, Ew.d (D,G,H), A, Aw, nX, /
 		formatStartChar++;
 		FieldType fieldType = Field.FieldType.getFieldType(charx);
 		if (fieldType == null) {
-			throw new RuntimeException("cannot parse field type:"+charx);
+			throw new RuntimeException("cannot parse field type: ["+charx+"] int line["+formatStringBuilder+"]");
 		} else if (fieldType.toString().equals(FortranType.A.toString()) ||
 		           fieldType.toString().equals(FortranType.I.toString()) ||
 		           fieldType.toString().equals(FortranType.Q.toString()) ||
