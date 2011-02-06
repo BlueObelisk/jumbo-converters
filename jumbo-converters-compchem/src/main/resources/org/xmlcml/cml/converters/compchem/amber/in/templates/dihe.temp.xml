@@ -1,0 +1,52 @@
+<template name="DIHEDRAL" id="dihe" pattern=".*DIHE.*">
+<comment>
+
+         - 6 -      ***** INPUT FOR DIHEDRAL PARAMETERS *****
+
+                    IPT , JPT , KPT , LPT , IDIVF , PK , PHASE , PN
+
+                        FORMAT(A2,1X,A2,1X,A2,1X,A2,I4,3F15.2)
+
+         IPT, ...   The atom symbols for the atoms forming a dihedral
+                    angle.  If IPT .eq. 'X ' .and. LPT .eq. 'X ' then
+                    any dihedrals in the system involving the atoms "JPT" and
+                    and "KPT" are assigned the same parameters.  This is
+                    called the general dihedral type and is of the form
+                    "X "-"JPT"-"KPT"-"X ".
+
+         IDIVF      The factor by which the torsional barrier is divided.
+                    Consult Weiner, et al., JACS 106:765 (1984) p. 769 for
+                    details. Basically, the actual torsional potential is
+
+                           (PK/IDIVF) * (1 + cos(PN*phi - PHASE))
+
+         PK         The barrier height divided by a factor of 2.
+
+         PHASE      The phase shift angle in the torsional function.
+
+                    The unit is degrees.
+
+         PN         The periodicity of the torsional barrier.
+                    NOTE: If PN .lt. 0.0 then the torsional potential
+                          is assumed to have more than one term, and the
+                          values of the rest of the terms are read from the
+                          next cards until a positive PN is encountered.  The
+                          negative value of pn is used only for identifying
+                          the existence of the next term and only the
+                          absolute value of PN is kept.
+
+            The input is terminated by a blank card.
+
+</comment>
+<comment>
+DIHE
+cd-cd-c2-cq   1   2.0          236.4             2.
+cd-c2-cd-cd   1   2.0          236.4             2.
+cd-c2-cq-ca   1   1.5          268.6             2.
+c3-nh-cc-cc   4   14.500       180.000           2.000          (X -ca-ca-X)
+
+</comment>
+<readLines linesToRead="1" id="rl1"></readLines>
+<!-- FORMAT(A2,1X,A2,1X,A2,1X,A2,I4,3F15.2) -->
+<record formatType="FORTRAN" id="r1" linesToRead="*">(A2{ipt},1x,A2{jpt},1x,A2{kpt},1x,A2{lpt},I4{idivf},F15.2{pk_kcal},1x,F15.2{phase_deg},F15.2{pn})</record>
+</template>

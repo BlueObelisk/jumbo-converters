@@ -1,0 +1,31 @@
+<template name="ANGLE" id="angl" pattern=".*ANGL.*">
+<comment>
+       - 5 -      ***** INPUT FOR BOND ANGLE PARAMETERS *****
+
+                    ITT , JTT , KTT , TK , TEQ
+
+                        FORMAT(A2,1X,A2,1X,A2,2F10.2)
+
+         ITT,...    The atom symbols for the atoms making an angle.
+
+         TK         The harmonic force constants for the angle "ITT"-"JTT"-
+                    "KTT" in units of kcal/mol/(rad**2) (radians are the
+                    traditional unit for angle parameters in force fields).
+
+         TEQ        The equilibrium bond angle for the above angle in degrees.
+
+                    The input is terminated by a blank card.
+
+</comment>
+<comment>
+
+ANGLE
+cd-c2-cd   100.211    121.085 k (16_1_25: 5 points at 1 degree 0->0.8 Kcal) angle from mp2/6-31G*
+cd-c2-cq   102.736    119.194 k (25_1_2: 5 points at 1 degree 0->0.8 Kcal) angle from mp2/6-31G*
+c2-cq-ca   102.012    120.340 k (1_2_3: 5 points at 1 degree 0->0.8 Kcal) angle from mp2/6-31G*
+c3-nh-c3   119.542    119.218 k (47_33_43: 5 points at 1 degree 0->0.9 Kcal) angle from mp2/6-31G*
+</comment>
+
+<readLines linesToRead="1" id="rl1"></readLines>
+<record formatType="FORTRAN" id="r1" linesToRead="*">(A2{itt},1X,A2{jtt},1X,A2{ktt},F10.2{tk},F10.2{teq})</record>
+</template>
