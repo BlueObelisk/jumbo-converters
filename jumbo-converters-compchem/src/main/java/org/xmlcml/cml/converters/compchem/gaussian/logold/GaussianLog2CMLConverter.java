@@ -1,4 +1,4 @@
-package org.xmlcml.cml.converters.compchem.gaussian.log;
+package org.xmlcml.cml.converters.compchem.gaussian.logold;
 
 import java.util.List;
 

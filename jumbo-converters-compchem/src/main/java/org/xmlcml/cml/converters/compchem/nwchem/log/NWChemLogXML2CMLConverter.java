@@ -28,14 +28,6 @@ public class NWChemLogXML2CMLConverter extends AbstractCompchem2CMLConverter{
 	   return new NWChemCommon();
    }
 
-	public Type getInputType() {
-		return Type.XML;
-	}
-
-	public Type getOutputType() {
-		return Type.CML;
-	}
-
 	/**
 	 * converts an Foo to CML. returns cml:cml/cml:molecule
 	 * 

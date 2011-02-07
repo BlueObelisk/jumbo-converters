@@ -1,26 +1,25 @@
-package org.xmlcml.cml.converters.compchem.amber.in;
+package org.xmlcml.cml.converters.compchem.gaussian.log;
 
 import nu.xom.Element;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.AbstractCommon;
-import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
-import org.xmlcml.cml.converters.compchem.amber.AmberCommon;
+import org.xmlcml.cml.converters.compchem.gaussian.GaussianCommon;
 
-public class AmberFFXML2CMLConverter extends AbstractCompchem2CMLConverter{
-	private static final Logger LOG = Logger.getLogger(AmberFFXML2CMLConverter.class);
+public class GaussianLogXML2CMLConverter extends AbstractCompchem2CMLConverter{
+	private static final Logger LOG = Logger.getLogger(GaussianLogXML2CMLConverter.class);
 	static {
 		LOG.setLevel(Level.INFO);
 	}	
 	
-	public AmberFFXML2CMLConverter() {
+	public GaussianLogXML2CMLConverter() {
 	}
 
    @Override
    protected AbstractCommon getCommon() {
-	   return new AmberCommon();
+	   return new GaussianCommon();
    }
 
 	/**
@@ -29,7 +28,7 @@ public class AmberFFXML2CMLConverter extends AbstractCompchem2CMLConverter{
 	 * @param in input stream
 	 */
 	public Element convertToXML(Element xml) {
-		rawXml2CmlProcessor = new AmberFFXMLProcessor();
+		rawXml2CmlProcessor = new GaussianLogXMLProcessor();
 		return convert(xml);
 	}
 

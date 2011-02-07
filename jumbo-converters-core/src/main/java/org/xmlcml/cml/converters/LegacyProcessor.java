@@ -86,8 +86,6 @@ public abstract class LegacyProcessor {
 		templateList.add(newTemplate);
 	}
 	
-	protected abstract String getTemplateResourceName();
-
 	public void read(List<String> lines) {
 		this.lines = lines;
 		preprocessBlocks(null);
@@ -214,4 +212,13 @@ public abstract class LegacyProcessor {
 
 	protected abstract AbstractBlock createAbstractBlock(
 			BlockContainer blockContainer);
+
+
+	protected String getTemplateResourceName() {
+		return getResourceRootFromPackage(this.getClass())+"/templateList.xml";
+	}
+
+	public static String getResourceRootFromPackage(Class<?> clazz) {
+		return clazz.getPackage().getName().replaceAll("\\.", CMLConstants.S_SLASH);
+	}
 }

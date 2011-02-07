@@ -19,6 +19,7 @@ import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLScalar;
+import org.xmlcml.cml.interfacex.HasDictRef;
 import org.xmlcml.cml.tools.DictionaryTool;
 import org.xmlcml.euclid.Util;
 
@@ -252,5 +253,38 @@ public abstract class AbstractBlock implements CMLConstants {
 		CMLScalar scalar = new CMLScalar(line);
 		scalar.setDictRef(DictRefAttribute.createValue(abstractCommon.getPrefix(), token));
 		parent.appendChild(scalar);
+	}
+
+	/**
+	 * the main method. Iterates over the blocks created by the input process
+	 * 
+	 */
+	public void convertToRawCMLDefault() {
+		jumboReader = new JumboReader(this.getDictionary(), abstractCommon.getPrefix(), lines);
+		String blockName = getBlockName();
+		if (blockName == null) {
+			throw new RuntimeException("null block name");
+		} else if (UNKNOWN_BLOCK.equals(blockName)){
+			LOG.warn("Unknown block");
+		}
+		Template blockTemplate = legacyProcessor.getTemplateByBlockName(blockName.trim());
+		if (blockTemplate != null) {
+			blockTemplate.markupBlock(this);
+			blockName = blockTemplate.getId();
+			LOG.info("BLOCK: "+blockName);
+		} else if (UNKNOWN_BLOCK.equals(blockName)) {
+			CMLModule module = this.makeModule();
+			Template.tidyUnusedLines(jumboReader, module);
+		} else {
+			System.err.println("Unknown blockname: "+blockName);
+		}
+		/**
+		 * valuable for blocks to have a dictRef
+		 */
+		if (element != null) {
+			((HasDictRef)element).setDictRef(DictRefAttribute.createValue(abstractCommon.getPrefix(), blockName));
+		} else {
+			System.err.println("null element: "+blockName);
+		}
 	}
 }

@@ -18,10 +18,6 @@ public class AmberFF2XMLConverter extends Text2XMLConverter {
 		super();
 	}
 	
-	public String getMarkerResourceName() {
-		return "org/xmlcml/cml/converters/compchem/amber/in/marker1.xml";
-	}
-	
 	@Override
 	public Element convertToXML(List<String> lines) {
 		Element element = super.convertToXML(lines);

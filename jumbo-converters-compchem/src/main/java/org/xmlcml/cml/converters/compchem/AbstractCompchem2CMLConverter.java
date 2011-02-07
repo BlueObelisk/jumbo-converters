@@ -20,6 +20,7 @@ import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.LegacyProcessor;
+import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.cml.RawXML2CMLProcessor;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLFormula;
@@ -167,4 +168,11 @@ public abstract class AbstractCompchem2CMLConverter extends AbstractConverter {
 	}
 
 	protected abstract AbstractCommon getCommon();
+	
+	public Type getInputType() {
+		return Type.XML;
+	}
+	public Type getOutputType() {
+		return Type.CML;
+	}
 }
