@@ -2,11 +2,7 @@ package org.xmlcml.cml.converters.compchem.nwchem.log;
 
 import java.util.List;
 
-import nu.xom.Element;
-import nu.xom.Node;
-
 import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
@@ -28,11 +24,6 @@ public class NWChemLogProcessor extends LegacyProcessor {
 		return new NWChemCommon();
 	}
 
-	@Override
-	protected String getTemplateResourceName() {
-		return "org/xmlcml/cml/converters/compchem/nwchem/log/templateList.xml";
-	}
-	
 	/**
 	 * @param lines
 	 * @param lineCount

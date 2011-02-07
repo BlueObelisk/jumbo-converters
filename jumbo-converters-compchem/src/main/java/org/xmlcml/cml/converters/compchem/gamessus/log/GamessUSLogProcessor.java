@@ -26,10 +26,6 @@ public class GamessUSLogProcessor extends LegacyProcessor {
 		return new GamessUSCommon();
 	}
 
-	@Override
-	protected String getTemplateResourceName() {
-		return "org/xmlcml/cml/converters/compchem/gamessus/log/templateList.xml";
-	}
 	/**
 	 * @param lines
 	 * @param lineCount

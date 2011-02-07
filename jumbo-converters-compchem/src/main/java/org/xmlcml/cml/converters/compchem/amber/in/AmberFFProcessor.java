@@ -24,11 +24,6 @@ public class AmberFFProcessor extends LegacyProcessor {
 		return new AmberCommon();
 	}
 
-	@Override
-	protected String getTemplateResourceName() {
-		return "org/xmlcml/cml/converters/compchem/amber/in/templateList.xml";
-	}
-	
 	/**
 	 * @param lines
 	 * @param lineCount

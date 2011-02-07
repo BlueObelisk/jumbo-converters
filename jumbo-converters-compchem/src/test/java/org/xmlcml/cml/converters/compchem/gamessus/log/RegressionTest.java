@@ -10,6 +10,7 @@ import org.xmlcml.cml.converters.testutils.RegressionSuite;
  */
 public class RegressionTest {
 
+	
 	   /** note: writes to target\test\compchem\gamessus\log\out\test1.xml
 	    * 
 	    */

@@ -78,8 +78,6 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 		this.tabWidth = tabWidth;
 	}
 
-	protected abstract String getMarkerResourceName();
-	
 	protected abstract LegacyProcessor createLegacyProcessor();
 
 	private InputStream getMarkerInputStream() {
@@ -211,6 +209,10 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 			}
 		}
 		return newElement;
+	}
+
+	public String getMarkerResourceName() {
+		return LegacyProcessor.getResourceRootFromPackage(this.getClass())+"/marker1.xml";
 	}
 	
 	

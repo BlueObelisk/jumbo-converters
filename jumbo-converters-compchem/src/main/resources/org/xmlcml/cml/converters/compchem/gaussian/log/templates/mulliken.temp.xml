@@ -1,0 +1,32 @@
+<template id="mulliken" name="Mulliken atomic charges" pattern=".*Mulliken atomic charges.*">
+  <comment>
+ Mulliken atomic charges:
+              1
+     1  Si   1.103178
+     2  O   -0.481658
+     3  C   -0.800728
+     4  C   -0.824005
+     5  C   -0.824005
+     6  H    0.167435
+     7  H    0.182566
+     8  H    0.182566
+     9  H    0.169976
+    10  H    0.180961
+    11  H    0.168922
+    12  H    0.169974
+    13  H    0.168923
+    14  H    0.180962
+    15  H    0.254933
+ Sum of Mulliken charges=   0.00000
+    
+ </comment>
+  <readLines id="rl1" linesToRead="1"/>
+  <record formatType="FORTRAN" id="serial" linesToRead="1">(10X,I5{col})</record>
+  <record formatType="FORTRAN" id="spins"  linesToRead="*">(I6{ser},A5{elem},F10.6{charge})</record>
+  <!--  problem exiting this -->
+<!--   
+  <readLines id="rl1" linesToRead="1"/>
+  <record formatType="FORTRAN" id="sum" linesToRead="1">(25X,F10.5{sum})</record>
+  -->
+</template>
+ 

@@ -1,4 +1,4 @@
-package org.xmlcml.cml.converters.compchem.gaussian.log;
+package org.xmlcml.cml.converters.compchem.gaussian.logold;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,26 +22,26 @@ import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLMolecule;
 
-public class GaussianLogTemplate2CMLConverter  extends AbstractCompchem2CMLConverter {
-	private static final Logger LOG = Logger.getLogger(GaussianLogTemplate2CMLConverter.class);
+public class GaussianLog2CMLConverterOld  extends AbstractCompchem2CMLConverter {
+	private static final Logger LOG = Logger.getLogger(GaussianLog2CMLConverterOld.class);
 	static {
 		LOG.setLevel(Level.INFO);
 	}
 	// really awful, but ant cannot pick up classpath
 	public final static String DICT_FILE = 
 		"D:/workspace/jumbo-converters/src/main/resources/org/xmlcml/cml/converters/compchem/gaussian/gaussianArchiveDict.xml";
-
+	
 	private CMLCml topCml;
 	
-
-	public GaussianLogTemplate2CMLConverter() {
+	public GaussianLog2CMLConverterOld() {
 		
 	}
-	
+
    @Override
    protected AbstractCommon getCommon() {
 	   return new GaussianCommon();
    }
+
 	public Type getInputType() {
 		return Type.GAU_LOG;
 	}
@@ -92,7 +92,6 @@ public class GaussianLogTemplate2CMLConverter  extends AbstractCompchem2CMLConve
 			for (int j = i+1; j < moduleList.size(); j++) {
 				CMLModule next = moduleList.get(j);
 				if (start.getDictRef().equals(next.getDictRef())) {
-//					System.out.println(">>> "+(j-i));
 					nextList.add(new Integer(j - i));
 					break;
 				}
