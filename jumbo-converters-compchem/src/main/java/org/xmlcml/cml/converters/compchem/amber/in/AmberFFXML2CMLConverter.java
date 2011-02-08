@@ -18,11 +18,6 @@ public class AmberFFXML2CMLConverter extends AbstractCompchem2CMLConverter{
 	public AmberFFXML2CMLConverter() {
 	}
 
-   @Override
-   protected AbstractCommon getCommon() {
-	   return new AmberCommon();
-   }
-
 	/**
 	 * converts an Foo to CML. returns cml:cml/cml:molecule
 	 * 

@@ -17,6 +17,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.LegacyProcessor;
@@ -44,6 +45,15 @@ public abstract class AbstractCompchem2CMLConverter extends AbstractConverter {
 	protected AbstractCompchem2CMLConverter() {
 		abstractCommon = getCommon();
 	}
+	/** form class name for Common and instantiate
+	 * assumes package of form: package org.xmlcml.cml.converters.gaussian.log
+	 * can always be overridden if names are more tricky
+	 * @return
+	 */
+	protected AbstractCommon getCommon() {
+		return AbstractBlock.createInstanceOfCommon(this.getClass());
+	}
+	
 	public CMLMolecule getMolecule() {
 		return molecule;
 	}
@@ -167,8 +177,6 @@ public abstract class AbstractCompchem2CMLConverter extends AbstractConverter {
 		this.abstractCommon.addNamespaceDeclaration(cml);
 	}
 
-	protected abstract AbstractCommon getCommon();
-	
 	public Type getInputType() {
 		return Type.XML;
 	}

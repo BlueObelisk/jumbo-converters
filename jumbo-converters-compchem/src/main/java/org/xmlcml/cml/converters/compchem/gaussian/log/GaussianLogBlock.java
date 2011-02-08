@@ -13,11 +13,6 @@ public class GaussianLogBlock extends AbstractBlock {
 		super(blockContainer);
 	}
 	
-	@Override
-	protected AbstractCommon getCommon() {
-		return new GaussianCommon();
-	}
-
 	/**
 	 * the main method. Iterates over the blocks created by the input process
 	 * 

@@ -1,0 +1,43 @@
+<template name="RESOURCE USE" id="resource1" pattern=".*RESOURCE\s+USE.*">
+<comment>
+</comment>
+<comment>
+   1.  RESOURCE   USE: 
+--------------------------------------------------------------------------------
+
+| Flags: SGIFFT MPI                                                             
+| New format PARM file being parsed.
+| Version =    1.000 Date = 06/02/05 Time = 14:13:53
+ NATOM  =     304 NTYPES =      12 NBONH =     150 MBONA  =     160
+ NTHETH =     346 MTHETA =     219 NPHIH =     653 MPHIA  =     403
+ NHPARM =       0 NPARM  =       0 NNB   =    1701 NRES   =      20
+ NBONA  =     160 NTHETA =     219 NPHIA =     403 NUMBND =      32
+ NUMANG =      70 NPTRA  =      34 NATYP =      21 NPHB   =       0
+ IFBOX  =       0 NMXRS  =      24 IFCAP =       0 NEXTRA =       0
+ NCOPY  =       0
+
+
+|     Memory Use     Allocated
+|     Real                8661
+|     Hollerith           1846
+|     Integer            35106
+|     Max Pairs              1
+|     Max Rstack             1
+|     Max Istack             1
+|     nblistReal             0
+|     nblist Int             0
+|       Total              212 kbytes
+| Duplicated    0 dihedrals
+| Duplicated    0 dihedrals
+
+</comment>
+
+<readLines linesToRead="3" id="rl1"></readLines>
+<record formatType="REGEX" id="r1" linesToRead="*" names="card">\|\s*(.*)</record>
+<readLines linesToRead="2" id="rl2"></readLines>
+<record formatType="REGEX" id="r2" linesToRead="*" names="__name __value">\|(.*):\s*(.*)</record>
+<record formatType="FORTRAN" id="r2a" linesToRead="*" 
+    >(A8{__name1},1x,I8{__value1},A8{__name2},1x,I8{__value2},A8{__name3},1x,I8{__value3},A8{__name4},1x,I8{__value4})</record>
+<readLines linesToRead="2" id="rl3"></readLines>
+<record formatType="REGEX" id="r3" linesToRead="*" names="__name __value">\|\s*(\S.*)\s\s\s\s*(\S.*)</record>
+</template>

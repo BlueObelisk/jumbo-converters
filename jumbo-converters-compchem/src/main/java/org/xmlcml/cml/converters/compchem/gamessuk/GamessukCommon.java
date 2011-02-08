@@ -11,8 +11,8 @@ import org.xmlcml.cml.converters.AbstractCommon;
  * @author pm286
  *
  */
-public class GamessUKCommon extends AbstractCommon {
-	private final static Logger LOG = Logger.getLogger(GamessUKCommon.class);
+public class GamessukCommon extends AbstractCommon {
+	private final static Logger LOG = Logger.getLogger(GamessukCommon.class);
 	
 	private static final String GAMESSUK_PREFIX = "gamessuk";
 	private static final String GAMESSUK_URI = "http://wwmm.ch.cam.ac.uk/dict/gamessuk";

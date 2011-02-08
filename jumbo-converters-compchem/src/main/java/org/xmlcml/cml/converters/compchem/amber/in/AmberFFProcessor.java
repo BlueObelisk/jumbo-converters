@@ -18,12 +18,6 @@ public class AmberFFProcessor extends LegacyProcessor {
 	public AmberFFProcessor() {
 		super();
 	}
-	
-	@Override
-	protected AbstractCommon getCommon() {
-		return new AmberCommon();
-	}
-
 	/**
 	 * @param lines
 	 * @param lineCount

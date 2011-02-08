@@ -23,10 +23,6 @@ public class GaussianArchive2CMLConverter extends AbstractCompchem2CMLConverter{
 	public GaussianArchive2CMLConverter() {
 	}
 	
-   @Override
-   protected AbstractCommon getCommon() {
-	   return new GaussianCommon();
-   }
 	public Type getInputType() {
 		return Type.GAU_ARC;
 	}

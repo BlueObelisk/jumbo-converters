@@ -17,11 +17,6 @@ public class GaussianLogXML2CMLConverter extends AbstractCompchem2CMLConverter{
 	public GaussianLogXML2CMLConverter() {
 	}
 
-   @Override
-   protected AbstractCommon getCommon() {
-	   return new GaussianCommon();
-   }
-
 	/**
 	 * converts an Foo to CML. returns cml:cml/cml:molecule
 	 * 

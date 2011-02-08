@@ -58,11 +58,6 @@ public class CompChemProcessor extends RawXML2CMLProcessor implements HasURIGene
 	public CompChemProcessor() {
 	}
 
-	@Override
-	protected AbstractCommon getCommon() {
-		return new CompChemCommon();
-	}
-
 	
 	/** dummy
 	 * @return null

@@ -3,6 +3,8 @@ package org.xmlcml.cml.converters.text;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import nu.xom.Document;
 import nu.xom.Element;
@@ -28,7 +30,6 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 	private static final String LEAVE_LINK = "leaveLink";
 	private static final Integer TAB_WIDTH = 8;
 	private List<String> lines;
-	private String markerResourceName;
 	private List<ChunkerMarker> markerList;
 	protected Integer tabWidth = TAB_WIDTH;
 
@@ -108,25 +109,24 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 		readMarkers(getMarkerInputStream());
 		List<String> linesCopy = new ArrayList<String>(lines.size());
 		int lineCount = 0;
-		for (lineCount = 0;lineCount < lines.size();lineCount++) {
+		for (lineCount = 0; lineCount < lines.size();lineCount++) {
 			String line = lines.get(lineCount);
+			int linesMatched = 0;
 			for (ChunkerMarker marker : markerList) {
-				LOG.trace(marker);
-				if (marker.matches(line)) {
-					LOG.trace("matched: "+marker+" | "+line);
-					insertMarkupLine(lineCount, marker, linesCopy);
+				linesMatched = marker.countMatchedLines(lineCount, lines, linesCopy);
+				if (linesMatched != 0) {
 					break;
 				}
 			}
-			linesCopy.add(line);
+			if (linesMatched < 0) {
+				// skip matched lines
+				lineCount -= linesMatched;
+				LOG.debug("DELETED "+linesMatched);
+			} else {
+				linesCopy.add(line);
+			}
 		}
 		lines = linesCopy;
-	}
-
-	private void insertMarkupLine(int lineCount, ChunkerMarker marker, List<String> linesCopy) {
-		int offset = marker.getOffset();
-		String markup = marker.getMarkup(lines.get(lineCount+offset));
-		linesCopy.add(linesCopy.size()+offset, markup);
 	}
 
 	private CMLElement createXMLFromTextAndMarkedLines() {
