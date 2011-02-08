@@ -11,11 +11,6 @@ public class FooXMLProcessor extends RawXML2CMLProcessor {
 		
 	}
 	
-	@Override
-	protected AbstractCommon getCommon() {
-		return new FooCommon();
-	}
-
 	protected void processXML() {
 		wrapWithProperty("./*[local-name()='scalar']");
 	}

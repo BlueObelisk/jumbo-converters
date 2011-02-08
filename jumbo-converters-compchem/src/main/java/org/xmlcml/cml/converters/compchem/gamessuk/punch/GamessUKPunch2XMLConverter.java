@@ -10,7 +10,7 @@ import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
-import org.xmlcml.cml.converters.compchem.gamessuk.GamessUKCommon;
+import org.xmlcml.cml.converters.compchem.gamessuk.GamessukCommon;
 import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 
 public class GamessUKPunch2XMLConverter extends AbstractCompchem2CMLConverter{
@@ -22,10 +22,6 @@ public class GamessUKPunch2XMLConverter extends AbstractCompchem2CMLConverter{
 	public GamessUKPunch2XMLConverter() {
 	}
 	
-   @Override
-   protected AbstractCommon getCommon() {
-	   return new GamessUKCommon();
-   }
 	public Type getInputType() {
 		return Type.GAMESSUK_PUNCH;
 	}

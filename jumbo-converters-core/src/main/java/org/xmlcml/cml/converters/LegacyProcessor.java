@@ -124,7 +124,14 @@ public abstract class LegacyProcessor {
 	 */
 	protected abstract void postprocessBlocks();
 
-	protected abstract AbstractCommon getCommon();
+	/** form class name for Common and instantiate
+	 * assumes package of form: package org.xmlcml.cml.converters.gaussian.log
+	 * can always be overridden if names are more tricky
+	 * @return
+	 */
+	protected AbstractCommon getCommon() {
+		return AbstractBlock.createInstanceOfCommon(this.getClass());
+	}
 	
 	public List<CMLElement> getBlockList() {
 		List<CMLElement> cmlList = new ArrayList<CMLElement>();
@@ -176,12 +183,8 @@ public abstract class LegacyProcessor {
 
 	protected AbstractBlock readBlock(CMLElement element) {
 		AbstractBlock block = null;
-		CMLScalar scalar = null;
-		if (element instanceof CMLScalar) {
-			scalar = (CMLScalar) element;
-		} else {
-			scalar = (CMLScalar) element.getFirstChildElement(CMLScalar.TAG);
-		}
+		CMLScalar scalar = (element instanceof CMLScalar) ? (CMLScalar) element :
+			(CMLScalar) element.getFirstChildElement(CMLScalar.TAG);
 //		scalar.debug("BLOCK");
 		if (scalar != null) {
 			String[] lineArray = scalar.getXMLContent().split(CMLConstants.S_NEWLINE);		
@@ -189,8 +192,10 @@ public abstract class LegacyProcessor {
 			for (int i = 0; i < lineArray.length; i++) {
 				lines.add(lineArray[i]);
 			}
-			block = createBlock(lines.get(0));
-			block.convertToRawCML();
+			if (lines.size() > 0) {
+				block = createBlock(lines.get(0));
+				block.convertToRawCML();
+			}
 		}
 		return block;
 	}
@@ -215,7 +220,9 @@ public abstract class LegacyProcessor {
 
 
 	protected String getTemplateResourceName() {
-		return getResourceRootFromPackage(this.getClass())+"/templateList.xml";
+		String templateResourceName = getResourceRootFromPackage(this.getClass())+"/templateList.xml";
+		LOG.debug("template resource: "+templateResourceName);
+		return templateResourceName;
 	}
 
 	public static String getResourceRootFromPackage(Class<?> clazz) {

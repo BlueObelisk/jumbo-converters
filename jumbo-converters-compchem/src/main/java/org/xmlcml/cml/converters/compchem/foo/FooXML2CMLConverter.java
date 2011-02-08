@@ -22,11 +22,6 @@ public class FooXML2CMLConverter extends AbstractCompchem2CMLConverter{
 	public FooXML2CMLConverter() {
 	}
 
-   @Override
-   protected AbstractCommon getCommon() {
-	   return new FooCommon();
-   }
-
 	public Type getInputType() {
 		return Type.XML;
 	}

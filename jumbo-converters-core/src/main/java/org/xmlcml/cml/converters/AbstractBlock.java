@@ -115,8 +115,34 @@ public abstract class AbstractBlock implements CMLConstants {
 	}
 
 	public abstract void convertToRawCML();
-	
-	protected abstract AbstractCommon getCommon();
+
+	/** form class name for Common and instantiate
+	 * assumes package of form: package org.xmlcml.cml.converters.gaussian.log
+	 * can always be overridden if names are more tricky
+	 * @return
+	 */
+	protected AbstractCommon getCommon() {
+		return createInstanceOfCommon(this.getClass());
+	}
+
+	public static AbstractCommon createInstanceOfCommon(Class<?> clazz) {
+		String name = clazz.getPackage().getName();
+		String[] names = name.split("\\.");
+		// assume there is always a single qualifier .../gaussian.log
+		String lastName = Util.capitalise(names[names.length-2])+"Common";
+		String packageName = "";
+		for (int i = 0; i < names.length-1; i++) {
+			packageName += ((i > 0) ? "." : "") + names[i];
+		}
+		String commonClassName = packageName+CMLConstants.S_PERIOD+lastName;
+		LOG.trace(commonClassName);
+		try {
+			Class<?> commonClass = Class.forName(commonClassName);
+			return (AbstractCommon) commonClass.newInstance();
+		} catch (Exception e) {
+			throw new RuntimeException("Cannot create common: "+commonClassName, e);
+		}
+	}
 
 	protected CMLDictionary getDictionary() {
 		return (abstractCommon == null) ? null : abstractCommon.getDictionary();

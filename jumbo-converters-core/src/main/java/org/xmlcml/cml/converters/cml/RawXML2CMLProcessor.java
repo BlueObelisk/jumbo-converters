@@ -7,6 +7,7 @@ import nu.xom.Nodes;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
+import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.element.CMLProperty;
 
@@ -19,6 +20,16 @@ public abstract class RawXML2CMLProcessor {
 	protected RawXML2CMLProcessor() {
 		abstractCommon = getCommon();
 	}
+	
+	/** form class name for Common and instantiate
+	 * assumes package of form: package org.xmlcml.cml.converters.gaussian.log
+	 * can always be overridden if names are more tricky
+	 * @return
+	 */
+	protected AbstractCommon getCommon() {
+		return AbstractBlock.createInstanceOfCommon(this.getClass());
+	}
+	
 	public void process(Element xml) {
 		this.xmlInput = xml;
 		CMLUtil.removeWhitespaceNodes(xml);
@@ -51,8 +62,6 @@ public abstract class RawXML2CMLProcessor {
 	 * must generate cmlElement
 	 */
 	protected abstract void processXML();
-
-	protected abstract AbstractCommon getCommon();
 
 	public CMLElement getCMLElement() {
 		return cmlElement;

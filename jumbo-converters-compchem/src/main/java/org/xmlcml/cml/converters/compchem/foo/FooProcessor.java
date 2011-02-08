@@ -33,11 +33,6 @@ public class FooProcessor extends LegacyProcessor {
 	}
 	
 	@Override
-	protected AbstractCommon getCommon() {
-		return new FooCommon();
-	}
-
-	@Override
 	protected String getTemplateResourceName() {
 		return "org/xmlcml/cml/converters/compchem/foo/templateList.xml";
 	}

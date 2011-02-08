@@ -18,10 +18,6 @@ public class CompChemCML2RDFConverter extends AbstractCompchem2CMLConverter {
     
 	public CompChemCML2RDFConverter() {
 	}
-	@Override
-	protected AbstractCommon getCommon() {
-		return new CompChemCommon();
-	}
 	
 	public Type getOutputType() {
 	    return Type.RDFXML;

@@ -25,11 +25,6 @@ public class FooBlock extends AbstractBlock {
 		super(blockContainer);
 	}
 
-	@Override
-	protected AbstractCommon getCommon() {
-		return new FooCommon();
-	}
-
 	/**
 	 * the main method. Iterates over the blocks created by the input process
 	 * 
