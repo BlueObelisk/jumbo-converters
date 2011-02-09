@@ -30,7 +30,10 @@ public class OutPutModuleBuilder {
         topModule = new CMLModule();
         topModule.addAttribute(new Attribute("convention", CONVENTION_CRYSTALOGRAPHY));
         crystalModule = new CMLModule();
+        crystalModule.addAttribute(new Attribute("convention",CONVENTION_CRYSTAL));
         moleculeModule = new CMLModule();
+        moleculeModule.addAttribute(new Attribute("convention",CONVENTION_MOLECULAR));
+
         cml.addNamespaceDeclaration(IUCR_DICT_PREFIX, IUCR_DICT_URI);
         cml.addNamespaceDeclaration(XHTML_PREFIX, XHTML_URI);
         cml.appendChild(topModule);

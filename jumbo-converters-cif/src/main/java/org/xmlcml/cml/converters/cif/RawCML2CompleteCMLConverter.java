@@ -34,6 +34,7 @@ import org.xmlcml.cml.element.CMLCrystal;
 import org.xmlcml.cml.element.CMLFormula;
 import org.xmlcml.cml.element.CMLMetadata;
 import org.xmlcml.cml.element.CMLMetadataList;
+import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
@@ -53,6 +54,7 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 	
 	public static final String POLYMERIC_FLAG_DICTREF = "ned24:isPolymeric";
 	public static final String NO_BONDS_OR_CHARGES_FLAG_DICTREF = "ned24:noBondsOrChargesSet";
+
 	
 	public Type getInputType() {
 		return Type.CML;
@@ -92,6 +94,8 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 			IOUtils.closeQuietly(is);
 		}
 
+		OutPutModuleBuilder outMol = new OutPutModuleBuilder();
+		
 		CMLMolecule molecule = getMolecule(cml);
 		
 		// don't want to do molecules that are too large, so if > 1000 atoms, then pass
@@ -555,9 +559,9 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 			Nodes nonUnitOccNodes = cmlMol.query(".//"+CMLAtom.NS+"[@occupancy[. < 1]]", CML_XPATH);
 			if (!DisorderTool.isDisordered(cmlMol) && !cmlMol.hasCloseContacts() && nonUnitOccNodes.size() == 0
 					&& hasBondOrdersAndCharges(cmlMol)) {
-				try {
-					CDKUtils.add2DCoords(cmlMol);
-					new StereochemistryTool(cmlMol).addWedgeHatchBonds();
+				try {//TODO don't need 2D co-ordinates at this point.
+//					CDKUtils.add2DCoords(cmlMol);
+//					new StereochemistryTool(cmlMol).addWedgeHatchBonds();
 				} catch (Exception e) {
 					warn("Exception adding wedge/hatch bonds to molecule "+cmlMol.getId());
 				}

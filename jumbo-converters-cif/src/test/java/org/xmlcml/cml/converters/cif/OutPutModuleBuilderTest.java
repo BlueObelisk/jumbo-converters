@@ -1,7 +1,5 @@
 package org.xmlcml.cml.converters.cif;
 
-import static org.junit.Assert.*;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.xmlcml.cml.element.CMLMolecule;
