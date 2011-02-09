@@ -56,7 +56,8 @@ public class CIFFieldsTest {
 	}
 	@Test
 	public void testMungeId(){
-		String result=CIFFields.mungeIDString("sdfgijoi34^^");
-		Assert.assertTrue(result.indexOf('^')==-1);
+		String result=CIFFields.mungeIDString("sdfgijoi3^4^");
+		Assert.assertEquals(-1,result.indexOf('^'));
+		Assert.assertEquals('4',result.charAt(result.length()-1));
 	}
 }
