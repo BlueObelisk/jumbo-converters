@@ -133,6 +133,9 @@ public enum CIFFields {
                 }
             }
         }
+        if(out.length()>2 && out.charAt(out.length()-1)=='*' && out.charAt(out.length()-2)=='*'){
+            out.delete(out.length()-2, out.length());
+        }
         return out.toString();
     }
 
