@@ -13,6 +13,7 @@ import org.xmlcml.cml.converters.cif.CIFEntry;
  * @author pm286
  *
  */
+@Deprecated
 public class CIFDictionary implements CIFConstants {
 
 	/** create CIFDictionary with CIF namespace.
