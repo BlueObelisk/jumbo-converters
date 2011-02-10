@@ -231,7 +231,7 @@ public abstract class LineReader extends Element {
 		SimpleFortranFormat simpleFortranFormat = new SimpleFortranFormat(content.trim());
 		fieldList = simpleFortranFormat.getFieldList();
 		for (Field field : fieldList) {
-//			LOG.debug("FIELD "+field);
+			LOG.debug("FIELD "+field);
 		}
 	}
 
@@ -293,6 +293,7 @@ public abstract class LineReader extends Element {
 		this.jumboReader = jumboReader;
 		List<HasDataType> dataTypeList = null;
 		String line = jumboReader.peekLine();
+		// TODO
 		if (line != null && line.trim().length() > 0) {
 			currentCharInLine = 0;
 			if (pattern != null) {
@@ -394,6 +395,13 @@ public abstract class LineReader extends Element {
 			LOG.debug(""+field);
 		}
 	}
+	
+	public void debugLine(String title, OutputLevel level) {
+//		LOG.debug("LINE "+jumboReader.getCurrentLineNumber());
+//		jumboReader.peekLine();
+//		debug(title+" ("+jumboReader.getCurrentLineNumber()+"):"+jumboReader.peekLine(), level);
+	}
+
 
 	public String toString() {
 		return "lineType: "+lineType+
