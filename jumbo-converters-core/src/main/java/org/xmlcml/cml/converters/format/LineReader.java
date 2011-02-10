@@ -293,7 +293,8 @@ public abstract class LineReader extends Element {
 		this.jumboReader = jumboReader;
 		List<HasDataType> dataTypeList = null;
 		String line = jumboReader.peekLine();
-		if (line != null /*&& line.trim().length() > 0*/) {
+		// TODO
+		if (line != null && line.trim().length() > 0) {
 			currentCharInLine = 0;
 			if (pattern != null) {
 				dataTypeList = parseWithPattern();
