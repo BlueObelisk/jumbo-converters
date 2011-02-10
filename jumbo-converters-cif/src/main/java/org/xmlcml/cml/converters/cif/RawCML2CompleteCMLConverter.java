@@ -54,6 +54,9 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 	public static final String POLYMERIC_FLAG_DICTREF = "ned24:isPolymeric";
 	public static final String NO_BONDS_OR_CHARGES_FLAG_DICTREF = "ned24:noBondsOrChargesSet";
 	
+	OutPutModuleBuilder outMol;
+	CMLCml cml;
+	
 	public Type getInputType() {
 		return Type.CML;
 	}
@@ -79,7 +82,8 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 	private Element processCif(Element rawCml) {
 		ByteArrayOutputStream os = null;
 		ByteArrayInputStream is = null;
-		CMLCml cml = null;
+		cml = null;
+		outMol = new OutPutModuleBuilder();
 		try {
 			os = new ByteArrayOutputStream();
 			CMLUtil.debug(rawCml, os, 0);
@@ -91,7 +95,7 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 			IOUtils.closeQuietly(os);
 			IOUtils.closeQuietly(is);
 		}
-
+		
 		CMLMolecule molecule = getMolecule(cml);
 		
 		// don't want to do molecules that are too large, so if > 1000 atoms, then pass
@@ -134,13 +138,17 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 			molecule.detach();
 			cml.appendChild(mergedMolecule);
 			repositionCMLCrystalElement(cml);
+			outMol.addToMolecule(mergedMolecule);
 		} catch (RuntimeException e) {
 			runtimeException("Error creating complete CML: ", e);
 		}
 		
 		makeCMLLiteCompatible(cml);
+		outMol.addAllChildrenToTop(cml);
+		outMol.cloneIdsFromElement(cml);
+		outMol.finalise();
 		
-		return cml;
+		return outMol.getCml();
 	}
 	
 	private void makeCMLLiteCompatible(CMLCml cml) {
@@ -555,9 +563,9 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 			Nodes nonUnitOccNodes = cmlMol.query(".//"+CMLAtom.NS+"[@occupancy[. < 1]]", CML_XPATH);
 			if (!DisorderTool.isDisordered(cmlMol) && !cmlMol.hasCloseContacts() && nonUnitOccNodes.size() == 0
 					&& hasBondOrdersAndCharges(cmlMol)) {
-				try {
-					CDKUtils.add2DCoords(cmlMol);
-					new StereochemistryTool(cmlMol).addWedgeHatchBonds();
+				try {//TODO don't need 2D co-ordinates at this point.
+//					CDKUtils.add2DCoords(cmlMol);
+//					new StereochemistryTool(cmlMol).addWedgeHatchBonds();
 				} catch (Exception e) {
 					warn("Exception adding wedge/hatch bonds to molecule "+cmlMol.getId());
 				}
@@ -587,8 +595,9 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 			CMLCrystal crystal = (CMLCrystal)crystalNodes.get(0);
 			CMLCrystal crystalC = (CMLCrystal)crystal.copy();
 			crystal.detach();
-			CMLMolecule molecule = (CMLMolecule)cml.getFirstCMLChild(CMLMolecule.TAG);
-			molecule.insertChild(crystalC, 0);
+			outMol.addToCrystal(crystalC);
+			//CMLMolecule molecule = (CMLMolecule)cml.getFirstCMLChild(CMLMolecule.TAG);
+		//	molecule.insertChild(crystalC, 0);
 		} else {
 			runtimeException("Should have found a CMLCrystal element as child of CMLCml.");
 		}
