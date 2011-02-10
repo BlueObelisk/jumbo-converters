@@ -8,6 +8,7 @@ import nu.xom.Nodes;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.converters.Outputter.OutputLevel;
 import org.xmlcml.cml.converters.Template;
 import org.xmlcml.cml.converters.util.JumboReader;
 import org.xmlcml.cml.element.CMLArray;
@@ -43,7 +44,7 @@ public class RecordsLineReader extends LineReader {
 	public CMLElement readLinesAndParse(JumboReader jumboReader) {
 		this.jumboReader = jumboReader;
 		CMLElement element = null;
-//		this.debug();
+		debugLine("first line", OutputLevel.VERBOSE);
 		Integer linesToRead = this.getLinesToRead();
 		if (linesToRead != null) {
 			element = readRecordList(linesToRead);
@@ -52,14 +53,17 @@ public class RecordsLineReader extends LineReader {
 		} else {
 			readRecord();
 		}
+		debugLine("current line", OutputLevel.VERBOSE);
 		return element;
 	}
 
 	private CMLList readRecordList(Integer linesToRead) {
 		CMLList list = new CMLList();
 		for (int i = 0; i < linesToRead; i++) {
+			LOG.debug("line "+jumboReader.getCurrentLineNumber()+" : "+jumboReader.peekLine());
 			CMLList list0 = readRecord();
 			if (list0 == null) {
+				LOG.debug("failed to read line");
 				break;
 			}
 			((CMLElement)list).appendChild(list0);
@@ -151,7 +155,7 @@ public class RecordsLineReader extends LineReader {
 	private CMLList readRecord() {
 		CMLList list = null;
 		// this adds parsed lines to parent element in jumboReader
-		LOG.trace("Reading "+jumboReader.peekLine());
+		LOG.debug("Reading "+jumboReader.peekLine());
 		List<HasDataType> hasDataTypeList = parseInlineHasDataTypes(jumboReader);
 		if (hasDataTypeList != null) {
 			list = new CMLList();

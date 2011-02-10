@@ -7,6 +7,7 @@ import org.xmlcml.cml.converters.registry.ConverterRegistry;
 import org.xmlcml.euclid.Util;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * @author Sam Adams
@@ -34,6 +35,13 @@ public class ConverterCli {
             }
             
             File infile = new File(infilename);
+            try {
+				LOG.info("input file: "+infile.getAbsolutePath());
+				LOG.info("input file: "+infile.getCanonicalPath());
+			} catch (IOException e) {
+				e.printStackTrace();
+				throw new RuntimeException("Cannot find file: ", e);
+			}
             File outfile = new File(outfilename);
 
             converter.convert(infile, outfile);
