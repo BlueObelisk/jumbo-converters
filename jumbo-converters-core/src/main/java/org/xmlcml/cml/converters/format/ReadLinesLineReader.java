@@ -36,7 +36,7 @@ public class ReadLinesLineReader extends LineReader {
 	public CMLElement readLinesAndParse(JumboReader jumboReader) {
 		String line = null;
 		LOG.info("Template: "+(template == null ? "null" : this.template.getId()));
-		debug("First line :"+jumboReader.peekLine(), OutputLevel.VERBOSE);
+		debugLine("first line", OutputLevel.VERBOSE);
 		LOG.trace("READ LINES AND PARSE "+this);
 		if (linesToRead != null) {
 			jumboReader.readLines(linesToRead);
@@ -57,7 +57,7 @@ public class ReadLinesLineReader extends LineReader {
 			line = jumboReader.readLine();
 			LOG.trace("line: "+jumboReader.getCurrentLineNumber()+" peek: "+jumboReader.peekLine());
 		}
-		debug("Current line :"+jumboReader.peekLine(), OutputLevel.VERBOSE);
+		debug("Current line", OutputLevel.VERBOSE);
 		return null;
 	}
 

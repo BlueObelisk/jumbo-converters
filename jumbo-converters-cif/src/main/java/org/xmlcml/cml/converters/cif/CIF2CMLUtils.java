@@ -62,14 +62,13 @@ public class CIF2CMLUtils implements CMLConstants {
 		}
 		if (!hasMetal) {
 			return CompoundClass.ORGANIC;
-		} else if (hasMetal) {
+		} else{
 			if (hasH && hasC) {
 				return CompoundClass.ORGANOMETALLIC;
 			} else {
 				return CompoundClass.INORGANIC;
 			}
 		}
-		return null;
 	}
 
 }
