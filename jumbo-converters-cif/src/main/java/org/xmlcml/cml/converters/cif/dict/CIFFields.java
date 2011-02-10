@@ -125,16 +125,10 @@ public enum CIFFields {
                 case '/':
                     out.append('_');
                     break;
-                case '^':
-                    out.append("**");
-                    break;
                 default:
                     break;
                 }
             }
-        }
-        if(out.length()>2 && out.charAt(out.length()-1)=='*' && out.charAt(out.length()-2)=='*'){
-            out.delete(out.length()-2, out.length());
         }
         return out.toString();
     }

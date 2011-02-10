@@ -63,14 +63,4 @@ public class CIFFieldsTest {
         Assert.assertEquals('4', result.charAt(result.length() - 1));
     }
 
-    @Test
-    public void testComplexMungeId() {
-        String result = CIFFields.mungeIDString("^");
-        Assert.assertEquals(-1, result.indexOf('^'));
-        Assert.assertEquals("**", result);
-
-        String longer = CIFFields.mungeIDString("a^");
-        Assert.assertEquals(-1, longer.indexOf('^'));
-        Assert.assertEquals(-1, longer.indexOf('*'));
-    }
 }
