@@ -2,6 +2,7 @@ package org.xmlcml.cml.converters.cif;
 
 import nu.xom.Attribute;
 import nu.xom.Element;
+import nu.xom.Elements;
 
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLModule;
@@ -19,6 +20,22 @@ public class OutPutModuleBuilder {
     CMLModule crystalModule;
     CMLModule moleculeModule;
     CMLCml cml;
+    public CMLModule getTopModule() {
+        return topModule;
+    }
+
+    public CMLModule getCrystalModule() {
+        return crystalModule;
+    }
+
+    public CMLModule getMoleculeModule() {
+        return moleculeModule;
+    }
+
+    public CMLCml getCml() {
+        return cml;
+    }
+
     boolean isFinalised = false;
 
     public OutPutModuleBuilder() {
@@ -30,9 +47,9 @@ public class OutPutModuleBuilder {
         topModule = new CMLModule();
         topModule.addAttribute(new Attribute("convention", CONVENTION_CRYSTALOGRAPHY));
         crystalModule = new CMLModule();
-        crystalModule.addAttribute(new Attribute("convention",CONVENTION_CRYSTAL));
+        crystalModule.addAttribute(new Attribute("convention", CONVENTION_CRYSTAL));
         moleculeModule = new CMLModule();
-        moleculeModule.addAttribute(new Attribute("convention",CONVENTION_MOLECULAR));
+        moleculeModule.addAttribute(new Attribute("convention", CONVENTION_MOLECULAR));
 
         cml.addNamespaceDeclaration(IUCR_DICT_PREFIX, IUCR_DICT_URI);
         cml.addNamespaceDeclaration(XHTML_PREFIX, XHTML_URI);
@@ -51,6 +68,7 @@ public class OutPutModuleBuilder {
         if (element == null) {
             throw new IllegalArgumentException("Cannot add null element");
         }
+        element.detach();
         this.topModule.appendChild(element);
     }
 
@@ -58,6 +76,7 @@ public class OutPutModuleBuilder {
         if (element == null) {
             throw new IllegalArgumentException("Cannot add null element");
         }
+        element.detach();
         this.crystalModule.appendChild(element);
     }
 
@@ -65,6 +84,33 @@ public class OutPutModuleBuilder {
         if (element == null) {
             throw new IllegalArgumentException("Cannot add null element");
         }
+        element.detach();
         this.moleculeModule.appendChild(element);
     }
+
+    /**
+     * 
+     * @param parent
+     * 
+     */
+    public void addAllChildrenToTop(Element parent) {
+        Elements children = parent.getChildElements();
+        for (int x = 0; x < children.size(); x++) {
+            Element element = children.get(x);
+            element.detach();
+            this.addToTop(element);
+        }
+    }
+
+    public void cloneIdsFromElement(CMLCml parent) {
+        String id = parent.getId();
+        if (id != null) {
+            this.topModule.setId(id);
+        }
+        String title= parent.getTitle();
+        if(title!=null){
+            this.topModule.setTitle(title);
+        }
+    }
+
 }
