@@ -25,7 +25,9 @@ import org.xmlcml.cml.element.CMLEntry;
  * 
  * @author pm286
  *
+ *@deprecated use CifDictionaryBuilder instead.
  */
+@Deprecated
 public class CIFDict2CMLConverter extends CIF2CIFXMLConverter {
 	
 	private static final Logger LOG = Logger

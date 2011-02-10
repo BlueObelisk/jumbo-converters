@@ -24,6 +24,7 @@ import org.xmlcml.cml.element.CMLEntry;
 
 /**
  * @author sea36
+ * @author nwe23
  */
 public class CifDictionaryBuilder {
 
