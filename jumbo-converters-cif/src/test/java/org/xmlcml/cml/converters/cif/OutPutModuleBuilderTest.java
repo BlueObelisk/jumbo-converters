@@ -1,5 +1,7 @@
 package org.xmlcml.cml.converters.cif;
 
+import nu.xom.Element;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.xmlcml.cml.element.CMLMolecule;
@@ -51,5 +53,16 @@ public class OutPutModuleBuilderTest {
         CMLMolecule mol = null;
         builder.addToMolecule(mol);
     }
-
+    @Test
+    public void testAddAllChildren(){
+        OutPutModuleBuilder builder = new OutPutModuleBuilder();
+        Element root= new Element("root");
+        root.appendChild(new Element("child1"));
+        root.appendChild(new Element("child2"));
+        root.appendChild("text"); //Text nodes not copied
+        Assert.assertEquals(3, root.getChildCount());
+        builder.addAllChildrenToTop(root);
+        Assert.assertEquals(2, builder.topModule.getChildCount());
+    }
+    
 }
