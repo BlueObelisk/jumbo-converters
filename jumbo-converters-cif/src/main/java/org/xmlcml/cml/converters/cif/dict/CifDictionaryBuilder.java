@@ -31,15 +31,15 @@ public class CifDictionaryBuilder {
 	private static final String URI = "http://www.xml-cml.org/dict/cif/";
 	private static final String PREFIX = "cif";
 
-	private CMLDictionary dictionary;
-	private CMLDictionary unitsDict;
+	protected CMLDictionary dictionary;
+	protected CMLDictionary unitsDict;
 	private Map<String, String> unitMap=new HashMap<String, String>();
 
 	public CifDictionaryBuilder() {
 		dictionary = new CMLDictionary();
 		dictionary.setNamespace(URI);
 		dictionary.setDictionaryPrefix(PREFIX);
-		dictionary.addNamespaceDeclaration("html", CIFFields.HTMLNS);
+		dictionary.addNamespaceDeclaration("xhtml", CIFFields.HTMLNS);
 	}
 
 	public void build(Document cifDict) {

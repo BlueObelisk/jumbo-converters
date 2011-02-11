@@ -10,16 +10,25 @@ import org.xmlcml.cml.element.CMLEntry;
 
 public class UnitsDictionary extends CMLDictionary{
 
+    private static final String URI = "http://www.xml-cml.org/dict/cifUnit";
+    private static final String PREFIX = "cifUnit";
+    
     public UnitsDictionary() {
         super();
         init();
     }
     private void init(){
-        
+        setNamespace(URI);
+        setDictionaryPrefix(PREFIX);
+        addNamespaceDeclaration("xhtml", CIFFields.HTMLNS);
     }
     public void addUnit(String id, String description){
         CMLEntry entry = new CMLEntry();
-        entry.setId(CIFFields.mungeUnitID(id));
+        String nid=CIFFields.mungeIDString(id);
+        if(nid.equals("")){
+            return;
+        }
+        entry.setId(nid);
         entry.setTerm(id);
         CMLElement desc = new CMLElement("description");
         Element text = new Element("xhtml:p",CIFFields.HTMLNS);
