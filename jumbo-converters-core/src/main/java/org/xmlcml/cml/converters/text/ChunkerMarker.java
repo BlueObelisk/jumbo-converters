@@ -21,12 +21,13 @@ public class ChunkerMarker {
 	private final static Logger LOG = Logger.getLogger(ChunkerMarker.class);
 	
 	private static final String DELETE = "delete";
-	private static final String GROUP = "group";
-	private static final String LINE = "line";
+//	private static final String GROUP = "group";
+//	private static final String LINE = "line";
+//	private static final String COUNT = "count";
 	public static final String MARK = "mark";
 	private static final String MARKUP = "markup";
 	private static final String MULTIPLE = "multiple";
-	private static final String OFFSET = "offset";
+	static final String OFFSET = "offset";
 	public static final String REGEX = "regex";
 	private static final String Y = "y";
 
@@ -78,10 +79,11 @@ public class ChunkerMarker {
 	public Pattern[] getPatterns() {
 		return patterns;
 	}
-	public String getMarkup(String line) {
+	public String createLineOfEmptyMarkup(int offset) {
 		Element element = new Element(MARKUP);
 		element.addAttribute(new Attribute(MARK, mark));
-		element.addAttribute(new Attribute(LINE, line));
+//		element.addAttribute(new Attribute(LINE, line));
+		element.addAttribute(new Attribute(OFFSET, ""+offset));
 		return element.toXML();
 	}
 	public int getOffset() {
@@ -90,11 +92,15 @@ public class ChunkerMarker {
 	
 	public void insertMarkupLine(int lineCount, List<String> lines, List<String> linesCopy) {
 		int offset = this.getOffset();
-		String markup = this.getMarkup(lines.get(lineCount+offset));
-		linesCopy.add(linesCopy.size()+offset, markup);
+//		String markup = this.creatLineOfEmptyMarkup(lines.get(lineCount+offset));
+		String markup = this.createLineOfEmptyMarkup(offset);
+		LOG.debug("Markup: "+markup);
+//		if (offset <= 0) {
+			linesCopy.add(linesCopy.size()+Math.min(0, offset), markup);
+//		}
 	}
 
-	public int countMatchedLines(int lineCount, List<String> lines, List<String> linesCopy) {
+	public int insertMatchedLineAndReturnCount(int lineCount, List<String> lines, List<String> linesCopy) {
 		Pattern[] linePatterns = this.getPatterns();
 		boolean matched = true;
 		for (int i = 0; i < linePatterns.length; i++) {
