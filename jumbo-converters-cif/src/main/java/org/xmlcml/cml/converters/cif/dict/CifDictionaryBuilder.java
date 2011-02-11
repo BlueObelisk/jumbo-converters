@@ -31,14 +31,15 @@ public class CifDictionaryBuilder {
 	private static final String URI = "http://www.xml-cml.org/dict/cif/";
 	private static final String PREFIX = "cif";
 
-	private CMLDictionary dictionary;
+	protected CMLDictionary dictionary;
+	protected CMLDictionary unitsDict;
 	private Map<String, String> unitMap=new HashMap<String, String>();
 
 	public CifDictionaryBuilder() {
 		dictionary = new CMLDictionary();
 		dictionary.setNamespace(URI);
 		dictionary.setDictionaryPrefix(PREFIX);
-		dictionary.addNamespaceDeclaration("html", CIFFields.HTMLNS);
+		dictionary.addNamespaceDeclaration("xhtml", CIFFields.HTMLNS);
 	}
 
 	public void build(Document cifDict) {
@@ -58,9 +59,17 @@ public class CifDictionaryBuilder {
 			parseLoopsfromDataBlock(dataBlock, entry);
 			this.unitMap.put(CIFFields.getLastUnit(),CIFFields.getLastUnitDesc());
 		}
-		writeUnitsUsed(System.out);
+		//writeUnitsUsed(System.out);
+		unitsDict=createUnitsDictionary(unitMap);
 	}
 
+	private CMLDictionary createUnitsDictionary(Map<String, String> unitMap){
+	    UnitsDictionary dict=new UnitsDictionary();
+	    dict.addUnits(unitMap);
+	    return dict;
+	    
+	}
+	
 	private void writeUnitsUsed(PrintStream out) {
 		for (String unit : unitMap.keySet()) {
 			out.println(unit+" "+unitMap.get(unit));
@@ -103,13 +112,17 @@ public class CifDictionaryBuilder {
 		ser.setIndent(4);
 		ser.write(builder.getCmlDoc());
 		os.close();
+		
+        os = new BufferedOutputStream(new FileOutputStream(new File(out.getAbsolutePath() + ".units")));
+        ser.setOutputStream(os);
+        ser.write(new Document(builder.unitsDict));
 	}
 
 	public static void main(String[] args) throws Exception {
 
 		CifDictionaryBuilder.build(new File("src/main/resources/cif_core.dic"),
 				new File("src/main/resources/cif-dictionary.cml"));
-
+		
 	}
 
 }
