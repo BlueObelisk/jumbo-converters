@@ -113,7 +113,7 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 			String line = lines.get(lineCount);
 			int linesMatched = 0;
 			for (ChunkerMarker marker : markerList) {
-				linesMatched = marker.countMatchedLines(lineCount, lines, linesCopy);
+				linesMatched = marker.insertMatchedLineAndReturnCount(lineCount, lines, linesCopy);
 				if (linesMatched != 0) {
 					break;
 				}
@@ -127,6 +127,38 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 			}
 		}
 		lines = linesCopy;
+		linesCopy = movePositiveOffsets(linesCopy);
+	}
+
+	private List<String> movePositiveOffsets(List<String> lines) {
+		int iline = 0;
+		while (iline < lines.size()) {
+			Element xml = readLineAsXML(lines.get(iline));
+			if (xml != null) {
+				int offset = new Integer(xml.getAttributeValue(ChunkerMarker.OFFSET));
+				moveMarkupDownByPositiveMarkup(lines, iline, xml, offset);
+				if (offset > 0) {
+					iline += offset;
+				}
+			}
+			iline++;
+		}
+		return lines;
+	}
+
+	private void moveMarkupDownByPositiveMarkup(List<String> lines, int iline,
+			Element xml, int offset) {
+		if (offset > 0) {
+			for (int j = 0, il = iline; j < offset; j++,il++) {
+				if (il+1 >= lines.size()) {
+					break;
+				}
+				lines.set(il, lines.get(il+1));
+			}
+			if (iline+offset < lines.size()) {
+				lines.set(iline+offset, xml.toXML());
+			}
+		}
 	}
 
 	private CMLElement createXMLFromTextAndMarkedLines() {
@@ -175,14 +207,20 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 	private boolean isMarkedXML(String line) {
 		boolean isXML = false;
 		if (line.startsWith(STAGO)) {
-			try {
-				CMLUtil.parseXML(line);
-				isXML = true;
-			} catch (Exception e) {
-				// not XML
-			}
+			Element xml = readLineAsXML(line);
+			isXML = (xml != null);
 		}
 		return isXML;
+	}
+
+	private Element readLineAsXML(String line) {
+		Element xml = null;
+		try {
+			xml = CMLUtil.parseXML(line);
+		} catch (Exception e) {
+			// not XML
+		}
+		return xml;
 	}
 
 	public Element processIntoBlocks(Element element) {

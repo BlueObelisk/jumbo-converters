@@ -1,28 +1,7 @@
-<template name="RESULTS" id="results" pattern=".*RESULTS.*">
+<template name="AVERAGE or RMS" id="averms" pattern=".*A V E R A G E.*">
 <comment>
 </comment>
 <comment>
---------------------------------------------------------------------------------
-   4.  RESULTS
---------------------------------------------------------------------------------
-
-
- NSTEP =        0   TIME(PS) =       0.000  TEMP(K) =     0.00  PRESS =     0.0
- Etot   =      -699.8639  EKtot   =         0.0000  EPtot      =      -699.8639
- BOND   =        12.0162  ANGLE   =        35.0330  DIHED      =        94.7732
- 1-4 NB =        48.6629  1-4 EEL =       862.3478  VDWAALS    =       -57.3368
- EELEC  =     -1261.7824  EGB     =      -433.5778  RESTRAINT  =         0.0000
- ------------------------------------------------------------------------------
-
-
- NSTEP =       50   TIME(PS) =       0.025  TEMP(K) =     0.11  PRESS =     0.0
- Etot   =      -698.0963  EKtot   =         0.0850  EPtot      =      -698.1813
- BOND   =        11.9530  ANGLE   =        35.2055  DIHED      =        94.7920
- 1-4 NB =        48.6287  1-4 EEL =       862.1685  VDWAALS    =       -57.4115
- EELEC  =     -1261.1621  EGB     =      -432.3553  RESTRAINT  =         0.0000
- ------------------------------------------------------------------------------
-
-
       A V E R A G E S   O V E R   10000 S T E P S
 
 
@@ -32,7 +11,7 @@
  1-4 NB =        48.9091  1-4 EEL =       863.3276  VDWAALS    =       -59.1723
  EELEC  =     -1246.3847  EGB     =      -446.2253  RESTRAINT  =         0.0000
  ------------------------------------------------------------------------------
-
+ 
 
       R M S  F L U C T U A T I O N S
 
@@ -46,21 +25,16 @@
 
 </comment>
 
-<!--  fudged - needs to be reset to 3 -->
-<readLines linesToRead="2" id="rl1"></readLines>
-<record formatType="FORTRAN" id="r1" linesToRead="*" output="VERBOSE"
+  <readLines linesToRead="1" id="rl1"></readLines>
+<record formatType="FORTRAN" id="r1" linesToRead="1" output="VERBOSE"
 >(//8x,I9{nstep},13x,F12.3{time_ps},11x,F9.2{temp_k},9x,F8.1{press}/
 9x,F15.4{etot},11x,F15.4{ektot},14x,F15.4{eptot}/
 9x,F15.4{bond},11x,F15.4{angle},14x,F15.4{dihed}/
 9x,F15.4{nb14},11x,F15.4{eel14},14x,F15.4{vdwaals}/
 9x,F15.4{eelec},11x,F15.4{egb},14x,F15.4{restraint}/)</record>
-<!--  
-      A V E R A G E S   O V E R   10000 S T E P S
-
-
--->
-<record formatType="FORTRAN" id="r1" linesToRead="*" output="VERBOSE"
->(//31x,I8{nstep}///8x,I9{nstep},13x,F12.3{time_ps},11x,F9.2{temp_k},9x,F8.1{press}/
+<readLines linesToRead="5" id="r5"/>
+<record formatType="FORTRAN" id="r2" linesToRead="1" output="VERBOSE"
+>(8x,I9{nstep},13x,F12.3{time_ps},11x,F9.2{temp_k},9x,F8.1{press}/
 9x,F15.4{etot},11x,F15.4{ektot},14x,F15.4{eptot}/
 9x,F15.4{bond},11x,F15.4{angle},14x,F15.4{dihed}/
 9x,F15.4{nb14},11x,F15.4{eel14},14x,F15.4{vdwaals}/

@@ -294,14 +294,20 @@ public abstract class LineReader extends Element {
 		List<HasDataType> dataTypeList = null;
 		String line = jumboReader.peekLine();
 		// TODO
-		if (line != null && line.trim().length() > 0) {
-			currentCharInLine = 0;
-			if (pattern != null) {
-				dataTypeList = parseWithPattern();
-			} else {
-				dataTypeList = parseWithFields();
+		if (line != null) {
+			List<Field> fieldList = this.getFieldList();
+			FieldType type0 = (fieldList.size() == 0) ? null : fieldList.get(0).getFieldType();
+			LOG.trace("FT "+type0);
+			// if the first fieldType is N (newline) allow line length 0
+			if (line.trim().length() > 0 || FieldType.N.equals(type0)) {
+				currentCharInLine = 0;
+				if (pattern != null) {
+					dataTypeList = parseWithPattern();
+				} else {
+					dataTypeList = parseWithFields();
+				}
+				jumboReader.readLine();
 			}
-			jumboReader.readLine();
 		}
 		return dataTypeList;
 		
