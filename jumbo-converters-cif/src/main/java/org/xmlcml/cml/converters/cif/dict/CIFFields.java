@@ -18,7 +18,7 @@ public enum CIFFields {
             entry.setTerm(name);
             entry.setId(mungeIDString(name));
             CMLElement description = new CMLElement("description");
-            Element html = new Element("html:p", HTMLNS);
+            Element html = new Element("xhtml:p", HTMLNS);
             html.appendChild("Corresponds to the _" + name + " term in the IUCr Core CIF dictionary.");
             description.appendChild(html);
             entry.appendChild(description);
@@ -28,7 +28,7 @@ public enum CIFFields {
         @Override
         public void custom(CIFItem cifItem, CMLEntry entry) {
             CMLElement definition = new CMLElement("definition");
-            Element html = new Element("html:p", HTMLNS);
+            Element html = new Element("xhtml:p", HTMLNS);
             html.appendChild(cifItem.getValue());
             definition.appendChild(html);
             entry.appendChild(definition);
@@ -52,10 +52,13 @@ public enum CIFFields {
     units("_units") {
         @Override
         public void custom(CIFItem cifItem, CMLEntry entry) {
-            String unit = mungeIDString(cifItem.getValue());
-            String newUnit = "cifUnit:" + unit;
+            String unit = cifItem.getValue();
+            if(cifItem.getValue()==null){
+                System.out.println(cifItem.toXML());
+            }
+            String newUnit = mungeUnitID(unit);
             entry.addAttribute(new Attribute("units", newUnit));
-            CIFFields.lastUnit = newUnit;
+            CIFFields.lastUnit = unit;
         }
 
     },
@@ -107,8 +110,17 @@ public enum CIFFields {
         return entry;
     }
 
+    public static String mungeUnitID(String term){
+        StringBuilder builder= new StringBuilder("cifUnit:");
+        builder.append(mungeIDString(term));
+        return builder.toString();
+    }
+    
     public static String mungeIDString(String unit) {
         StringBuilder out = new StringBuilder();
+        if(unit==null){
+            return out.toString();
+        }
         for (int x = 0; x < unit.length(); x++) {
             char c = unit.charAt(x);
             if (isValidCharacter(c)) {
