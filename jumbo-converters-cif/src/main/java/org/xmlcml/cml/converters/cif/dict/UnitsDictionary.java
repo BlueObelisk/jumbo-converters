@@ -2,6 +2,7 @@ package org.xmlcml.cml.converters.cif.dict;
 
 import java.util.Map;
 
+import nu.xom.Attribute;
 import nu.xom.Element;
 
 import org.xmlcml.cml.base.CMLElement;
@@ -12,6 +13,9 @@ public class UnitsDictionary extends CMLDictionary{
 
     private static final String URI = "http://www.xml-cml.org/dict/cifUnit";
     private static final String PREFIX = "cifUnit";
+    private static final String conv_URI="http://www.xml-cml.org/convention/";
+    private static final String conv_PREFIX="convention";
+
     
     public UnitsDictionary() {
         super();
@@ -21,6 +25,8 @@ public class UnitsDictionary extends CMLDictionary{
         setNamespace(URI);
         setDictionaryPrefix(PREFIX);
         addNamespaceDeclaration("xhtml", CIFFields.HTMLNS);
+        addNamespaceDeclaration(conv_PREFIX, conv_URI);
+        this.addAttribute(new Attribute("convention","convention:dictionary"));
     }
     public void addUnit(String id, String description){
         CMLEntry entry = new CMLEntry();

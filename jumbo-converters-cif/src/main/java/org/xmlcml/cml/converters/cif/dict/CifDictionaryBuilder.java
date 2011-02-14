@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import nu.xom.Attribute;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Serializer;
@@ -30,7 +31,9 @@ public class CifDictionaryBuilder {
 
 	private static final String URI = "http://www.xml-cml.org/dict/cif/";
 	private static final String PREFIX = "cif";
-
+    private static final String conv_URI="http://www.xml-cml.org/convention/";
+    private static final String conv_PREFIX="convention";
+	
 	protected CMLDictionary dictionary;
 	protected CMLDictionary unitsDict;
 	private Map<String, String> unitMap=new HashMap<String, String>();
@@ -40,6 +43,8 @@ public class CifDictionaryBuilder {
 		dictionary.setNamespace(URI);
 		dictionary.setDictionaryPrefix(PREFIX);
 		dictionary.addNamespaceDeclaration("xhtml", CIFFields.HTMLNS);
+		dictionary.addNamespaceDeclaration(conv_PREFIX, conv_URI);
+		dictionary.addAttribute(new Attribute("convention","convention:dictionary"));
 	}
 
 	public void build(Document cifDict) {
