@@ -111,7 +111,8 @@ public enum CIFFields {
     }
 
     public static String mungeUnitID(String term){
-        StringBuilder builder= new StringBuilder("cifUnit:");
+        StringBuilder builder= new StringBuilder(UnitsDictionary.PREFIX);
+        builder.append(':');
         builder.append(mungeIDString(term));
         return builder.toString();
     }
