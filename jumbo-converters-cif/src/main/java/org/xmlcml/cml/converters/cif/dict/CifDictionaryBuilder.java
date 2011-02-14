@@ -14,12 +14,14 @@ import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Serializer;
 
+import org.apache.xml.serialize.XHTMLSerializer;
 import org.xmlcml.cif.CIF;
 import org.xmlcml.cif.CIFDataBlock;
 import org.xmlcml.cif.CIFException;
 import org.xmlcml.cif.CIFLoop;
 import org.xmlcml.cif.CIFParser;
 import org.xmlcml.cml.base.CMLConstants;
+import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.element.CMLEntry;
 
@@ -45,6 +47,13 @@ public class CifDictionaryBuilder {
 		dictionary.addNamespaceDeclaration("xhtml", CIFFields.HTMLNS);
 		dictionary.addNamespaceDeclaration(conv_PREFIX, conv_URI);
 		dictionary.addAttribute(new Attribute("convention","convention:dictionary"));
+		dictionary.addNamespaceDeclaration(UnitsDictionary.PREFIX, UnitsDictionary.URI);
+		dictionary.addAttribute(new Attribute("title","Auto-generated from the CIF CORE DEFINITIONS version 2.4.1"));
+		CMLElement desc=new CMLElement("description");
+		Element xhtml = new Element("xhtml:p", CIFFields.HTMLNS);
+		xhtml.appendChild("A CML dictionary of the IUCR standard CIF CORE DEFINITIONS available from the IUCR website (http://www.iucr.org/resources/cif/dictionaries/cif_core).");
+		desc.appendChild(xhtml);
+		dictionary.appendChild(desc);
 	}
 
 	public void build(Document cifDict) {

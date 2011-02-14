@@ -11,8 +11,8 @@ import org.xmlcml.cml.element.CMLEntry;
 
 public class UnitsDictionary extends CMLDictionary{
 
-    private static final String URI = "http://www.xml-cml.org/dict/cifUnit";
-    private static final String PREFIX = "cifUnit";
+    static final String URI = "http://www.xml-cml.org/dict/cifUnit";
+    static final String PREFIX = "cifUnit";
     private static final String conv_URI="http://www.xml-cml.org/convention/";
     private static final String conv_PREFIX="convention";
 
