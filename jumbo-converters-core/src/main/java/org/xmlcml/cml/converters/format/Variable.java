@@ -1,7 +1,7 @@
 package org.xmlcml.cml.converters.format;
 
 public class Variable {
-	private static Double number;
+	private Double number;
 	private Symbol symbol;
 
 	public Variable() {
@@ -18,7 +18,7 @@ public class Variable {
 	public static Variable createVariable(String s) {
 		Variable v = null;
 		try {
-			number = new Double(s);
+			Double number = new Double(s);
 			v = new Variable(number);
 		} catch (NumberFormatException nfe) {
 			Symbol symbol = Symbol.createSymbol(s);
@@ -29,7 +29,7 @@ public class Variable {
 		return v;
 	}
 
-	public static Double getDouble() {
+	public Double getDouble() {
 		return number;
 	}
 

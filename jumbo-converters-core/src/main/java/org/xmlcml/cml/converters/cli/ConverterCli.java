@@ -1,13 +1,13 @@
 package org.xmlcml.cml.converters.cli;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.registry.ConverterInfo;
 import org.xmlcml.cml.converters.registry.ConverterRegistry;
 import org.xmlcml.euclid.Util;
-
-import java.io.File;
-import java.io.IOException;
 
 /**
  * @author Sam Adams

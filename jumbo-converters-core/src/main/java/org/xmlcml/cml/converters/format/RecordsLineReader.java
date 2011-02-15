@@ -9,7 +9,8 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.Outputter.OutputLevel;
-import org.xmlcml.cml.converters.Template;
+import org.xmlcml.cml.converters.text.LineContainer;
+import org.xmlcml.cml.converters.text.Template;
 import org.xmlcml.cml.converters.util.JumboReader;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLList;
@@ -38,6 +39,11 @@ public class RecordsLineReader extends LineReader {
 	
 	protected void init0() {
 //		this.debug();
+	}
+
+	@Override
+	public void apply(LineContainer lineContainer) {
+		throw new RuntimeException("NYI");
 	}
 
 	@Override
@@ -136,6 +142,7 @@ public class RecordsLineReader extends LineReader {
 		return list;
 	}
 
+	@SuppressWarnings("unused")
 	private CMLList makeLists(CMLElement element) {
 		CMLList arrayList = new CMLList();
 		List<CMLElement> fieldList = element.getChildCMLElements();

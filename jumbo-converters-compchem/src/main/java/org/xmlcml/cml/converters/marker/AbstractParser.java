@@ -11,7 +11,6 @@ import nu.xom.Nodes;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.base.CMLElements;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.ConverterLog;
 import org.xmlcml.cml.converters.Type;

@@ -1,7 +1,6 @@
 package org.xmlcml.cml.converters;
 
 import java.util.ArrayList;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -346,6 +345,7 @@ public class Type {
 	 * requires fileFileFilter and non-hidden files
 	 * @return filter passing all suffixFilters
 	 */
+	@SuppressWarnings("deprecation")
 	public IOFileFilter getSuffixFileFilter() {
 		IOFileFilter fileFilter =  null;
 		if (extensions.size() > 0) {

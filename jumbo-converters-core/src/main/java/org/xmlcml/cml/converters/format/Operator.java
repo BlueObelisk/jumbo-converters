@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
 
 public class Operator implements Comparable<Operator> {
+	@SuppressWarnings("unused")
 	private static final Logger LOG = Logger.getLogger(Operator.class);
 
 	public enum Associativity {

@@ -9,7 +9,6 @@ import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
-import org.xmlcml.cml.converters.compchem.foo.FooCommon;
 import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLMolecule;
@@ -83,7 +82,7 @@ public class GamessUSInputBlock extends AbstractBlock {
 	}
 
 	@Override
-	protected CMLModule makeModule() {
+	public CMLModule makeModule() {
 		CMLModule module = new CMLModule();
 		for (String line : lines) {
 			
@@ -192,7 +191,9 @@ pH16N13C7H15              -146.5149511775
 			int charge = Integer.parseInt(tokens[1]);
 			molecule.setFormalCharge(charge);
 		}
+		@SuppressWarnings("unused")
 		int id = 1;
+		@SuppressWarnings("unused")
 		List<String> stringList = new ArrayList<String>();
 		for (; lineCount < lines.size(); lineCount++) {
 			// TODO

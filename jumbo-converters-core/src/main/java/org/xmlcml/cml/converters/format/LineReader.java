@@ -16,8 +16,9 @@ import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.Outputter;
 import org.xmlcml.cml.converters.Outputter.OutputLevel;
-import org.xmlcml.cml.converters.Template;
 import org.xmlcml.cml.converters.format.Field.FieldType;
+import org.xmlcml.cml.converters.text.LineContainer;
+import org.xmlcml.cml.converters.text.Template;
 import org.xmlcml.cml.converters.util.JumboReader;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLScalar;
@@ -31,12 +32,14 @@ public abstract class LineReader extends Element {
 	private static final String ID = "id";
 
 	protected static final String ELEMENT_TYPE = "elementType";
-	private static final String LOCAL_DICT_REF = "localDictRef";
-	private static final String EXACT = "exact";
-	private static final String REGEX = "regex";
+//	private static final String LOCAL_DICT_REF = "localDictRef";
+//	private static final String EXACT = "exact";
+//	private static final String REGEX = "regex";
 	private static final String FORMAT_TYPE = "formatType";
 	private static final String NAMES = "names";
+	@SuppressWarnings("unused")
 	private static final String UNTIL = "until";
+	@SuppressWarnings("unused")
 	private static final String WHILE = "while";
 	private static final String LINES_TO_READ = "linesToRead";
 	public static final String T_FLAG = CMLConstants.S_TILDE;
@@ -281,6 +284,10 @@ public abstract class LineReader extends Element {
 
 // ============================== reading ======================
 	
+	public void apply(LineContainer lineContainer) {
+		throw new RuntimeException("sublass must override apply(LineContainer)");
+	}
+
 	public abstract CMLElement readLinesAndParse(JumboReader jumboReader);
 
 	/** parses into scalars 

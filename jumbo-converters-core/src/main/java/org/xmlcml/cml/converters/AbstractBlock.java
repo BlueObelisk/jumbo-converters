@@ -8,10 +8,10 @@ import java.util.regex.Pattern;
 import nu.xom.Attribute;
 
 import org.apache.log4j.Logger;
-import org.joda.time.DateTime;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.converters.text.Template;
 import org.xmlcml.cml.converters.util.JumboReader;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLArrayList;
@@ -64,7 +64,7 @@ public abstract class AbstractBlock implements CMLConstants {
 	protected AbstractCommon abstractCommon;
 	protected boolean validateDictRef;
 	protected BlockContainer blockContainer;
-	protected JumboReader jumboReader;
+	private JumboReader jumboReader;
 	protected CMLMolecule molecule;
 	protected Integer natoms;
 	protected LegacyProcessor legacyProcessor;
@@ -180,7 +180,7 @@ public abstract class AbstractBlock implements CMLConstants {
 	protected CMLElement preserveText() {
 		String line = Util.concatenate((String[])lines.toArray(new String[0]), CMLConstants.S_NEWLINE);
 		CMLScalar scalar = new CMLScalar(line);
-		jumboReader.setParentElement(scalar);
+		getJumboReader().setParentElement(scalar);
 		this.createBlockNameFromLine(UNKNOWN_BLOCK);
 		return scalar;
 	}
@@ -216,6 +216,7 @@ public abstract class AbstractBlock implements CMLConstants {
 		line = line.trim();
 		String name = UNKNOWN_BLOCK;
 		for (Template template : legacyProcessor.templateList) {
+			@SuppressWarnings("deprecation")
 			Pattern templatePattern = template.getPattern();
 			LOG.debug(templatePattern + "] ["+ line+"]");
 			Matcher matcher = templatePattern.matcher(line);
@@ -259,9 +260,9 @@ public abstract class AbstractBlock implements CMLConstants {
 		summarizeBlock0();
 	}
 
-	protected CMLModule makeModule() {
+	public CMLModule makeModule() {
 		CMLModule module = new CMLModule();
-		jumboReader.setParentElement(module);
+		getJumboReader().setParentElement(module);
 		module.setRole(abstractCommon.getPrefix());
 		element = module;
 		return module;
@@ -286,7 +287,7 @@ public abstract class AbstractBlock implements CMLConstants {
 	 * 
 	 */
 	public void convertToRawCMLDefault() {
-		jumboReader = new JumboReader(this.getDictionary(), abstractCommon.getPrefix(), lines);
+		setJumboReader(new JumboReader(this.getDictionary(), abstractCommon.getPrefix(), lines));
 		String blockName = getBlockName();
 		if (blockName == null) {
 			throw new RuntimeException("null block name");
@@ -300,7 +301,7 @@ public abstract class AbstractBlock implements CMLConstants {
 			LOG.info("BLOCK: "+blockName);
 		} else if (UNKNOWN_BLOCK.equals(blockName)) {
 			CMLModule module = this.makeModule();
-			Template.tidyUnusedLines(jumboReader, module);
+			Template.tidyUnusedLines(getJumboReader(), module);
 		} else {
 			System.err.println("Unknown blockname: "+blockName);
 		}
@@ -312,5 +313,13 @@ public abstract class AbstractBlock implements CMLConstants {
 		} else {
 			System.err.println("null element: "+blockName);
 		}
+	}
+
+	public void setJumboReader(JumboReader jumboReader) {
+		this.jumboReader = jumboReader;
+	}
+
+	public JumboReader getJumboReader() {
+		return jumboReader;
 	}
 }

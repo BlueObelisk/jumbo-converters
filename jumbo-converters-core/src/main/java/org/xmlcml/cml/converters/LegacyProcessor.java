@@ -1,10 +1,7 @@
 package org.xmlcml.cml.converters;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
 
 import nu.xom.Builder;
 import nu.xom.Element;
@@ -15,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
+import org.xmlcml.cml.converters.text.Template;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLScalar;
 
@@ -52,6 +50,7 @@ public abstract class LegacyProcessor {
 //		debugTemplates();
 	}
 
+	@SuppressWarnings("unused")
 	private void debugTemplates() {
 		LOG.debug("TEMPLATELIST "+templateList.size());
 		for (Template template : templateList) {
@@ -76,7 +75,7 @@ public abstract class LegacyProcessor {
 	}
 
 	private void processAndAddTemplate(Element element) {
-		Template newTemplate = new Template(this, element);
+		Template newTemplate = new Template(element);
 		String newId = newTemplate.getId();
 		for (Template template : templateList) {
 			if (template.getId().equals(newId)) {

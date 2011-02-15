@@ -5,8 +5,6 @@ import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
 import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
-import org.xmlcml.cml.converters.util.JumboReader;
-import org.xmlcml.cml.element.CMLModule;
 
 
 public class GamessUSLogBlock extends AbstractBlock {

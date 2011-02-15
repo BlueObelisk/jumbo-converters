@@ -7,11 +7,11 @@ import nu.xom.Element;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.Outputter;
 import org.xmlcml.cml.converters.Outputter.OutputLevel;
-import org.xmlcml.cml.converters.Template;
 import org.xmlcml.cml.converters.format.Field.FieldType;
+import org.xmlcml.cml.converters.text.LineContainer;
+import org.xmlcml.cml.converters.text.Template;
 import org.xmlcml.cml.converters.util.JumboReader;
 
 public class ReadLinesLineReader extends LineReader {
@@ -32,6 +32,11 @@ public class ReadLinesLineReader extends LineReader {
 		}
 	}
 
+	@Override
+	public void apply(LineContainer lineContainer) {
+		throw new RuntimeException("NYI");
+	}
+	
 	@Override
 	public CMLElement readLinesAndParse(JumboReader jumboReader) {
 		String line = null;

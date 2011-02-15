@@ -1,25 +1,17 @@
 package org.xmlcml.cml.converters.marker;
 
-import java.io.IOException;
-import java.io.StringReader;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import nu.xom.Attribute;
-import nu.xom.Builder;
 import nu.xom.Element;
-import nu.xom.Node;
 import nu.xom.Nodes;
-import nu.xom.ParsingException;
-import nu.xom.Text;
-import nu.xom.ValidityException;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.attribute.NamespaceRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.base.CMLUtil;
 
 /** utilities for parsing
  * 

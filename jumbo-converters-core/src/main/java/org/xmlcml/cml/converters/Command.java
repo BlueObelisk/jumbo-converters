@@ -2,8 +2,6 @@ package org.xmlcml.cml.converters;
 
 import static org.xmlcml.euclid.EuclidConstants.S_APOS;
 import static org.xmlcml.euclid.EuclidConstants.S_EMPTY;
-import static org.xmlcml.euclid.EuclidConstants.S_LBRAK;
-import static org.xmlcml.euclid.EuclidConstants.S_RBRAK;
 import static org.xmlcml.euclid.EuclidConstants.S_SPACE;
 
 import java.io.File;
@@ -11,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
@@ -232,13 +229,13 @@ public class Command {
       return argString;
    }
 
-   private String getUnprotectedString(Object o) {
-      String sx = (String) o;
-      if (sx.startsWith(S_LBRAK) && sx.endsWith(S_RBRAK)) {
-         sx = sx.substring(1, sx.length() - 1);
-      }
-      return sx;
-   }
+//   private String getUnprotectedString(Object o) {
+//      String sx = (String) o;
+//      if (sx.startsWith(S_LBRAK) && sx.endsWith(S_RBRAK)) {
+//         sx = sx.substring(1, sx.length() - 1);
+//      }
+//      return sx;
+//   }
 
    public IOFileFilter getFileFilter() {
       return fileFilter;

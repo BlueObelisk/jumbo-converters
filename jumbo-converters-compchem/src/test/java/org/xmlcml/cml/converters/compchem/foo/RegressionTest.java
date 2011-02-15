@@ -1,7 +1,6 @@
  package org.xmlcml.cml.converters.compchem.foo;
 
 import org.junit.Test;
-import org.xmlcml.cml.converters.compchem.gamessuk.punch.GamessUKPunch2XMLConverter;
 import org.xmlcml.cml.converters.testutils.RegressionSuite;
 
 /**

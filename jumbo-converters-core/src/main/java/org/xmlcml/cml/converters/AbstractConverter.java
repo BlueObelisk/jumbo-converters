@@ -320,9 +320,6 @@ public abstract class AbstractConverter implements Converter {
       try {
          fin = new FileInputStream(in);
          fout = new FileOutputStream(out);
-         if (fin == null) {
-            LOG.error("Null input stream to converter");
-         }
          convert(fin, fout);
       } catch (Exception e) {
          throw new RuntimeException(e);
@@ -519,7 +516,6 @@ public abstract class AbstractConverter implements Converter {
       }
    }
 
-   @SuppressWarnings("unchecked")
    public static List<String> marshallToText(InputStream in) {
       try {
          List<String> lines = (List<String>) IOUtils.readLines(in);
@@ -564,7 +560,7 @@ public abstract class AbstractConverter implements Converter {
       if (element == null && dtdProblem.failed) {
          Document doc = null;
          try {
-            doc = Util.stripDTDAndOtherProblematicXMLHeadings(inS);
+            doc = CMLUtil.stripDTDAndOtherProblematicXMLHeadings(inS);
          } catch (Exception e) {
             throw new RuntimeException("Cannot parse XML ", e);
          }

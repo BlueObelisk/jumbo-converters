@@ -18,7 +18,6 @@ import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
 import org.xmlcml.cml.converters.LegacyProcessor;
 import org.xmlcml.cml.converters.Type;
-import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 import org.xmlcml.cml.converters.compchem.gaussian.GaussianCommon;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLDictionary;
@@ -51,6 +50,7 @@ public class GaussianArchiveOrigProcessor extends /*AbstractCompchemOutputProces
 	final static String TERMINATOR = 
 		S_BACKSLASH+S_BACKSLASH+S_ATSIGN;
 
+	@SuppressWarnings("unused")
 	private CMLDictionary dictionary;
 	private StringArray stringArray;
 	

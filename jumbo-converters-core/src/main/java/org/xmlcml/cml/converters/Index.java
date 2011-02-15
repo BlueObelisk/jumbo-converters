@@ -96,7 +96,6 @@ public class Index {
 		this.put(key, entry);
 	}
 
-	@SuppressWarnings("unchecked")
 	public void put(String key, IndexEntry entry) {
 		Set<IndexEntry> entrySet = (Set<IndexEntry>) indexMap.get(key);
 		if (!allowDuplicateKeys) {
@@ -135,7 +134,6 @@ public class Index {
 		this.indexMap = indexMap;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void debug() {
 		Map<String, Set<IndexEntry>> indexMap = this.getIndex();
 		for (Object key : indexMap.keySet()) {

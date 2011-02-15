@@ -8,7 +8,6 @@ import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
 import org.xmlcml.cml.converters.LegacyProcessor;
 import org.xmlcml.cml.converters.compchem.gaussian.GaussianCommon;
-import org.xmlcml.cml.element.CMLScalar;
 
 public class GaussianLogProcessor extends LegacyProcessor {
 

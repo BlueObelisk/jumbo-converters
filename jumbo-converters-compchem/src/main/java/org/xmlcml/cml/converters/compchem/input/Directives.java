@@ -11,6 +11,7 @@ import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLParameter;
 
 public class Directives extends ParameterContainer {
+	@SuppressWarnings("unused")
 	private static Logger LOG = Logger.getLogger(Directives.class);
 
 	public final static String ROLE    = "directives";

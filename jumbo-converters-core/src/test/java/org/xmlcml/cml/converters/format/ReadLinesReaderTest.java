@@ -27,6 +27,7 @@ public class ReadLinesReaderTest {
 				"    <readLines format='FORTRAN'>(/,/,/)</readLines>" +
 				"  </template>" +
 				"</templateList>";
+		@SuppressWarnings("unused")
 		Element template = CMLUtil.parseXML(templateXML);
 //		String readLinesXML = "<readLines formatType='FORTRAN'>(/,/,/)</readLines>";
 		String readLinesXML = "<readLines formatType='FORTRAN'>(/)</readLines>";

@@ -123,6 +123,7 @@ import org.xmlcml.cml.element.CMLScalar;
 
  */
 public class Link1 extends GaussianLink {
+	@SuppressWarnings("unused")
 	private static Logger LOG = Logger.getLogger(GaussianLink.class);
 	
 	private static String LINK_REGEX = " (\\d+)/(\\d+=\\-?\\d+(,\\d+=\\-?\\d+)*)/(\\d+(,\\d+)*)(\\((\\-?\\d+)\\))?\\;";

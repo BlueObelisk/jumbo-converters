@@ -14,9 +14,9 @@ import nu.xom.Element;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.w3c.tidy.Tidy;
+import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.Type;
-import org.xmlcml.cml.converters.Util;
 
 /** allows editing of CMLObjects
  * 
@@ -63,7 +63,7 @@ public class HTML2XHTMLConverter extends AbstractConverter {
     	Document document = null;
     	String baosS0 = ""+new String(baos.toByteArray());
     	if (baosS0.length() > 0) {
-    		document = Util.stripDTDAndOtherProblematicXMLHeadings(baosS0);
+    		document = CMLUtil.stripDTDAndOtherProblematicXMLHeadings(baosS0);
     	}
     	return document;
     }

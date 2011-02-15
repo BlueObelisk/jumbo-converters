@@ -10,6 +10,7 @@ import org.xmlcml.cml.converters.AbstractCommon;
  *
  */
 public class GaussianCommon extends AbstractCommon {
+	@SuppressWarnings("unused")
 	private final static Logger LOG = Logger.getLogger(GaussianCommon.class);
 	
 	private static final String GAUSSIAN_PREFIX = "gaussian";

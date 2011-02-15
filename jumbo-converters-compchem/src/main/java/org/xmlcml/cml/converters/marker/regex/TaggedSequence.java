@@ -11,6 +11,7 @@ import nu.xom.Element;
 import org.apache.log4j.Logger;
 
 public class TaggedSequence {
+	@SuppressWarnings("unused")
 	private static Logger LOG = Logger.getLogger(TaggedSequence.class);
 	
 	private List<TaggedString> taggedStringList = new ArrayList<TaggedString>();

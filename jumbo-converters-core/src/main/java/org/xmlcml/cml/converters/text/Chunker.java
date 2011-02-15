@@ -8,22 +8,18 @@ import nu.xom.Attribute;
 import nu.xom.Element;
 
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.base.CMLConstants;
 
 /**
  * manages strategy for marking text documents
  * @author pm286
  *
  */
-public class ChunkerMarker {
+public class Chunker {
 
 
-	private final static Logger LOG = Logger.getLogger(ChunkerMarker.class);
+	private final static Logger LOG = Logger.getLogger(Chunker.class);
 	
 	private static final String DELETE = "delete";
-//	private static final String GROUP = "group";
-//	private static final String LINE = "line";
-//	private static final String COUNT = "count";
 	public static final String MARK = "mark";
 	private static final String MARKUP = "markup";
 	private static final String MULTIPLE = "multiple";
@@ -31,7 +27,7 @@ public class ChunkerMarker {
 	public static final String REGEX = "regex";
 	private static final String Y = "y";
 
-	private static final String NEWLINE_S = CMLConstants.S_DOLLAR;
+//	private static final String NEWLINE_S = CMLConstants.S_DOLLAR;
 	
 	private String regexS;
 	private Pattern[] patterns;
@@ -41,10 +37,10 @@ public class ChunkerMarker {
 	private String multiple;
 	private boolean delete;
 	
-	public ChunkerMarker() {
+	public Chunker() {
 		
 	}
-	public ChunkerMarker(Element childElement) {
+	public Chunker(Element childElement) {
 		this();
 		multiple = childElement.getAttributeValue(MULTIPLE);
 		setRegex(childElement.getAttributeValue(REGEX));
@@ -82,7 +78,6 @@ public class ChunkerMarker {
 	public String createLineOfEmptyMarkup(int offset) {
 		Element element = new Element(MARKUP);
 		element.addAttribute(new Attribute(MARK, mark));
-//		element.addAttribute(new Attribute(LINE, line));
 		element.addAttribute(new Attribute(OFFSET, ""+offset));
 		return element.toXML();
 	}
@@ -92,12 +87,9 @@ public class ChunkerMarker {
 	
 	public void insertMarkupLine(int lineCount, List<String> lines, List<String> linesCopy) {
 		int offset = this.getOffset();
-//		String markup = this.creatLineOfEmptyMarkup(lines.get(lineCount+offset));
 		String markup = this.createLineOfEmptyMarkup(offset);
-		LOG.debug("Markup: "+markup);
-//		if (offset <= 0) {
-			linesCopy.add(linesCopy.size()+Math.min(0, offset), markup);
-//		}
+		LOG.debug("Markup: ["+markup+"]");
+		linesCopy.add(linesCopy.size()+Math.min(0, offset), markup);
 	}
 
 	public int insertMatchedLineAndReturnCount(int lineCount, List<String> lines, List<String> linesCopy) {
