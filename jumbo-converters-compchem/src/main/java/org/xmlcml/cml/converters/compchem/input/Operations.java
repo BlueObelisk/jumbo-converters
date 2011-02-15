@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.element.CMLParameter;
 
 public class Operations extends ParameterContainer {
+	@SuppressWarnings("unused")
 	private static Logger LOG = Logger.getLogger(Operations.class);
 
 	public final static String ROLE         = "operations";

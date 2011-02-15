@@ -2,11 +2,10 @@ package org.xmlcml.cml.converters.compchem.gaussian.log;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.AbstractBlock;
-import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
-import org.xmlcml.cml.converters.compchem.gaussian.GaussianCommon;
 
 public class GaussianLogBlock extends AbstractBlock {
+	@SuppressWarnings("unused")
 	private final static Logger LOG = Logger.getLogger(GaussianLogBlock.class);
 
 	public GaussianLogBlock(BlockContainer blockContainer) {

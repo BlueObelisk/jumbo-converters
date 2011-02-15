@@ -1,6 +1,5 @@
 package org.xmlcml.cml.converters.format;
 
-import static org.junit.Assert.fail;
 import nu.xom.Element;
 
 import org.junit.Test;
@@ -20,7 +19,9 @@ public class ReadLinesLineReaderTest {
 				"    <readLines format='FORTRAN'>(/,/,/)</readLines>" +
 				"  </template>" +
 				"</templateList>";
+		@SuppressWarnings("unused")
 		Element template = CMLUtil.parseXML(templateXML);
+		@SuppressWarnings("unused")
 		String scalarXML = "<scalar>\n" +
 				"foo\n" +
 				"bar\n" +

@@ -2,7 +2,6 @@ package org.xmlcml.cml.converters.format;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.xmlcml.cml.testutil.JumboTestUtils;
 
 public class VariableTest {
 
@@ -26,6 +25,7 @@ public class VariableTest {
 	public void testVariableDouble() {
 		Variable variable = Variable.createVariable("-2.1");
 		Assert.assertNotNull("number", variable);
+		@SuppressWarnings("unused")
 		Double d = variable.getDouble();
 	}
 	

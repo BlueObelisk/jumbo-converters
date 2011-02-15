@@ -1,10 +1,9 @@
 package org.xmlcml.cml.converters.filter;
 
-import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.base.CMLUtil;
 import org.junit.Assert;
 import org.junit.Test;
-
+import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.euclid.IntRange;
 
 

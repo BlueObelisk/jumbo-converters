@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractBlock;
-import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
 import org.xmlcml.cml.converters.LegacyProcessor;
 import org.xmlcml.cml.element.CMLScalar;

@@ -2,9 +2,12 @@ package org.xmlcml.cml.converters.compchem;
 
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
 
 public class NumericFormat {
+	@SuppressWarnings("unused")
+	private static final Logger LOG = Logger.getLogger(NumericFormat.class);
 	private int width = -1;
 	int decimal = -1;
 	Pattern exponent = Pattern.compile("[EeGgDd][\\+\\- ]\\d\\d");
@@ -39,9 +42,7 @@ public class NumericFormat {
 			throw new RuntimeException("Cannot fit field into width");
 		}
 		double d = Double.NaN;
-		if (field == null) {
-			
-		} else if (field.trim().equals("")) {
+		if (field.trim().equals("")) {
 			/** fortran can regard blank as zero */
 			d = 0.0;
 		} else if (field.indexOf(CMLConstants.S_STAR) != -1) {

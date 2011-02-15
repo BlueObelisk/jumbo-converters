@@ -18,7 +18,6 @@ import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
 import org.xmlcml.cml.converters.Util;
-import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 import org.xmlcml.cml.converters.compchem.gaussian.GaussianCommon;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtom;
@@ -56,8 +55,8 @@ public class GaussianArchiveBlock extends AbstractBlock {
 	private static final String BLOCK2 = "block2";
 	private static final String BLOCK3 = "block3";
 	private static final String BLOCK4 = "block4";
-	private static final String BLOCK5 = "block5";
-	private static final String BLOCK6 = "block6";
+//	private static final String BLOCK5 = "block5";
+//	private static final String BLOCK6 = "block6";
 
 	final static String ATOM_SEPARATOR = S_COMMA;
 	final static String KEYWORD_SEPARATOR = S_SPACE;
@@ -77,8 +76,8 @@ public class GaussianArchiveBlock extends AbstractBlock {
 	      USER,
 	      DATE,
 	      SYMBOLS,};
-	private static int METHOD_SER = 2;
-	private static int BASIS_SER = 3;
+//	private static int METHOD_SER = 2;
+//	private static int BASIS_SER = 3;
 	/**
 	 * parameterTypes
 	 * 

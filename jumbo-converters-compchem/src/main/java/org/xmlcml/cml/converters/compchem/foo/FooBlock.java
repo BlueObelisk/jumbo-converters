@@ -5,7 +5,6 @@ import java.util.regex.Pattern;
 
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.converters.AbstractBlock;
-import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLBond;

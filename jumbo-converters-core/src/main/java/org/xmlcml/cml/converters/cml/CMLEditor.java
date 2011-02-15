@@ -13,7 +13,6 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLMolecule.HydrogenControl;
-import org.xmlcml.cml.graphics.SVGGBox;
 import org.xmlcml.cml.tools.AbstractSVGTool;
 import org.xmlcml.cml.tools.MoleculeLayout;
 import org.xmlcml.cml.tools.MoleculeTool;
@@ -169,8 +168,7 @@ public class CMLEditor  {
 	}
 		
 	public void executeCommand(CMLElement element) {
-		if (false) {
-		} else if (removeNodesXPath != null) {
+		if (removeNodesXPath != null) {
 			Nodes nodes = element.query(removeNodesXPath, CML_XPATH);
 			for (int i = 0; i < nodes.size(); i++) {
 				nodes.get(i).detach();
@@ -179,8 +177,7 @@ public class CMLEditor  {
 			List<CMLMolecule> moleculeList = getMolecules(element);
 			for (CMLMolecule molecule : moleculeList) {
 				MoleculeTool moleculeTool = MoleculeTool.getOrCreateTool(molecule);
-				if (false) {
-				} else if (transformFractionalToCartesian) {
+				if (transformFractionalToCartesian) {
 					transformFractionalToCartesian(moleculeTool);
 				} else if (addHydrogens) {
 					addHydrogens(moleculeTool);

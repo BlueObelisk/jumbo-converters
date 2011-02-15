@@ -61,6 +61,7 @@ public class JumboReaderTest {
 	public void testJumboReaderNullLine() {
 		String line = null;
 		try {
+			@SuppressWarnings("unused")
 			JumboReader jumboReader = new JumboReader(DICTIONARY, "pref", line);
 			Assert.fail("Should catch null input");
 		} catch (Exception e) {
@@ -170,7 +171,7 @@ public class JumboReaderTest {
 		lines.add("  11.000  12.000  13.000  14.000  15.000  16.000  17.000  18.000  19.000  20.000");
 		lines.add("  21.000  22.000  23.000");
 		String format = "(10F8.3)";
-		int lineCount = 2;
+//		int lineCount = 2;
 		int fieldsToRead = 23;
 		JumboReader jumboReader = new JumboReader(getDictionary(), getPrefix(), lines);
 		jumboReader.setCurrentLineNumber(2);

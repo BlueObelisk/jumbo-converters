@@ -1,11 +1,11 @@
 package org.xmlcml.cml.converters.filter;
 
+import nu.xom.Nodes;
+
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.euclid.IntRange;
 import org.xmlcml.euclid.Real;
 import org.xmlcml.euclid.RealRange;
-import org.xmlcml.euclid.IntRange;
-
-import nu.xom.Nodes;
 
 
 public class XPathFilter implements AbstractCMLFilter {

@@ -10,6 +10,8 @@ import org.xmlcml.cml.converters.AbstractCommon;
  *
  */
 public class AmberCommon extends AbstractCommon {
+	
+	@SuppressWarnings("unused")
 	private final static Logger LOG = Logger.getLogger(AmberCommon.class);
 	
 	private static final String AMBER_PREFIX = "amber";

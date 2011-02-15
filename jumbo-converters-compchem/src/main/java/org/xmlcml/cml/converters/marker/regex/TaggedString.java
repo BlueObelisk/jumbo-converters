@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 
 public class TaggedString {
+	@SuppressWarnings("unused")
 	private static Logger LOG = Logger.getLogger(TaggedString.class);
 	
 	private String rawText;
@@ -16,6 +17,7 @@ public class TaggedString {
 		this.tag = new Tag(tagString);
 	}
 	
+	@SuppressWarnings("unused")
 	private void noOp() {
 	}
 
@@ -33,6 +35,7 @@ public class TaggedString {
 	static String markupTagsAndAddSerialRegex(String regex) {
 		
 		Pattern pattern = Pattern.compile(CaptureGroupElement.MARKUP_TAG);
+		@SuppressWarnings("unused")
 		int start = 0;
 		while (true) {
 			Matcher matcher = pattern.matcher(regex);
@@ -45,6 +48,7 @@ public class TaggedString {
 	}
 
 	private static String markNextTag(String regex, Matcher matcher) {
+		@SuppressWarnings("unused")
 		int start;
 		String group1 = matcher.group(1);
 //		int lastGroupNumber = matcher.groupCount();

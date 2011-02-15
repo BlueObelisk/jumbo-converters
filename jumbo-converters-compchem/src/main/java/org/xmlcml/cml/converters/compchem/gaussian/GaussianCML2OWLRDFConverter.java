@@ -7,8 +7,8 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.rdf.cml.CML2OWLRDF;
 import org.xmlcml.cml.element.CMLCml;
 
@@ -17,7 +17,8 @@ import org.xmlcml.cml.element.CMLCml;
  */
 public class GaussianCML2OWLRDFConverter extends AbstractConverter {
 
-   private static final Logger LOG = Logger.getLogger(
+   @SuppressWarnings("unused")
+private static final Logger LOG = Logger.getLogger(
            GaussianCML2OWLRDFConverter.class);
    private String AUX_FILENAME = "org/xmlcml/cml/converters/rdf/cml/ontologies/gaussianArchiveDict.owl";
 

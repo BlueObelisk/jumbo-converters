@@ -4,9 +4,7 @@ import nu.xom.Element;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
-import org.xmlcml.cml.converters.compchem.gaussian.GaussianCommon;
 
 public class GaussianLogXML2CMLConverter extends AbstractCompchem2CMLConverter{
 	private static final Logger LOG = Logger.getLogger(GaussianLogXML2CMLConverter.class);

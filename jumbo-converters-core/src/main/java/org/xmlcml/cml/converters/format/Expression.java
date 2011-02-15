@@ -15,6 +15,7 @@ import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.format.Operator.Associativity;
 
 public class Expression {
+	@SuppressWarnings("unused")
 	private static final Logger LOG = Logger.getLogger(Expression.class);
 	
 	private static final String EXPRESSION = "expression";

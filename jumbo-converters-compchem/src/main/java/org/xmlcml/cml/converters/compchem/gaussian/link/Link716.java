@@ -14,6 +14,7 @@ import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.element.CMLVector3;
 
 public class Link716 extends GaussianLink {
+	@SuppressWarnings("unused")
 	private static Logger LOG = Logger.getLogger(Link716.class);
 	
     public Link716() {

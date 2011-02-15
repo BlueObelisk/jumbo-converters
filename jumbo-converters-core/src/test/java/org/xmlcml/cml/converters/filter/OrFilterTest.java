@@ -1,7 +1,6 @@
 package org.xmlcml.cml.converters.filter;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.euclid.IntRange;

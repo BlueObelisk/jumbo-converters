@@ -17,9 +17,7 @@ import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
 import org.xmlcml.cml.converters.Command;
-import org.xmlcml.cml.converters.ConverterLog;
 import org.xmlcml.cml.converters.Util;
-import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 import org.xmlcml.cml.converters.compchem.gaussian.GaussianCommon;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtom;
@@ -108,7 +106,7 @@ public class GaussianArchiveOrigBlock extends AbstractBlock {
       "basis1",
       "thermal"
    };
-   private ConverterLog converterLog;
+//   private ConverterLog converterLog;
    /** anything with this string is a keyword.
     */
    private List<NameValue> metadataList = new ArrayList<NameValue>();
@@ -145,27 +143,27 @@ public class GaussianArchiveOrigBlock extends AbstractBlock {
    /**
     * @throws RuntimeException
     */
-   private void makeDictionary() throws RuntimeException {
-      if (dictionaryTool == null && dictionary != null) {
-         dictionaryTool = DictionaryTool.getOrCreateTool(dictionary);
-         dictionaryTool.setPrefix(GAUSS_PREFIX);
-         dictionaryTool.setDelimiter(S_COMMA);
-         dictionaryTool.setFailOnError(false);
-         dictionaryTool.setIgnoreCaseOfEnumerations(true);
-         idIndex = dictionaryTool.makeIndex("@id");
-
-//         CMLEntry methodEntry = idIndex.get("method");
-//         if (methodEntry == null) {
-//            throw new RuntimeException("No method entry in dictionary");
-//         }
-//         EntryTool methodEntryTool = EntryTool.getOrCreateTool(methodEntry);
-//         CMLEntry basisEntry = idIndex.get("basis");
-//         if (basisEntry == null) {
-//            throw new RuntimeException("No basis entry in dictionary");
-//         }
-//         EntryTool basisEntryTool = EntryTool.getOrCreateTool(basisEntry);
-      }
-   }
+//   private void makeDictionary() throws RuntimeException {
+//      if (dictionaryTool == null && dictionary != null) {
+//         dictionaryTool = DictionaryTool.getOrCreateTool(dictionary);
+//         dictionaryTool.setPrefix(GAUSS_PREFIX);
+//         dictionaryTool.setDelimiter(S_COMMA);
+//         dictionaryTool.setFailOnError(false);
+//         dictionaryTool.setIgnoreCaseOfEnumerations(true);
+//         idIndex = dictionaryTool.makeIndex("@id");
+//
+////         CMLEntry methodEntry = idIndex.get("method");
+////         if (methodEntry == null) {
+////            throw new RuntimeException("No method entry in dictionary");
+////         }
+////         EntryTool methodEntryTool = EntryTool.getOrCreateTool(methodEntry);
+////         CMLEntry basisEntry = idIndex.get("basis");
+////         if (basisEntry == null) {
+////            throw new RuntimeException("No basis entry in dictionary");
+////         }
+////         EntryTool basisEntryTool = EntryTool.getOrCreateTool(basisEntry);
+//      }
+//   }
 
 //	>1
 //	>1
@@ -626,8 +624,7 @@ public class GaussianArchiveOrigBlock extends AbstractBlock {
          int equalsx = keyword.indexOf(S_EQUALS);
          int lbrakx = keyword.indexOf(S_LBRAK);
          int slashx = keyword.indexOf(S_SLASH);
-         if (false) {
-         } else if (isFirst(slashx, equalsx, lbrakx)) {
+         if (isFirst(slashx, equalsx, lbrakx)) {
             processSlash(keyword);
          } else if (isFirst(equalsx, lbrakx, slashx)) {
             processEquals(keyword);
