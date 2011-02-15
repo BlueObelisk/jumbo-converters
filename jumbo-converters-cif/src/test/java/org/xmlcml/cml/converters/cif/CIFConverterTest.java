@@ -9,6 +9,7 @@ import junit.framework.Assert;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Serializer;
+import nu.xom.XPathContext;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
@@ -40,15 +41,17 @@ public class CIFConverterTest {
         CIF cif = cif2cifxml.parseLegacy(stringList);
         CIFXML2CMLConverter cifxml2cml = new CIFXML2CMLConverter();
         Element raw = cifxml2cml.convertToXML(cif);
-        Serializer ser = new Serializer(System.out);
-        ser.write(new Document(raw));
+//        Serializer ser = new Serializer(System.out);
+//        ser.write(new Document(raw));
         RawCML2CompleteCMLConverter conv = new RawCML2CompleteCMLConverter();
         CMLElement cml = (CMLElement) conv.convertToXML(raw);
         cml.debug();
         Assert.assertEquals(0, conv.cml.getChildCount());
-        String XQuery = "/cml:cml/cml:module[@convention=\"" + OutPutModuleBuilder.CONVENTION_CRYSTALOGRAPHY + "\"]/cml:module[@convention=\""
-                + OutPutModuleBuilder.CONVENTION_CRYSTAL + "\"]/cml:module[@convention=\"" + OutPutModuleBuilder.CONVENTION_MOLECULAR + "\"]/cml:molecule";
-        Assert.assertEquals(1, cml.query(XQuery, CMLConstants.CML_XPATH).size());
+        XPathContext context = new XPathContext();
+        context.addNamespace(CMLConstants.CML_PREFIX, CMLConstants.CML_NS);
+        String XQuery = "/cml:cml/cml:module[@convention=\"convention:" + OutPutModuleBuilder.CONVENTION_CRYSTALOGRAPHY + "\"]/cml:module[@convention=\"convention:"
+                + OutPutModuleBuilder.CONVENTION_CRYSTAL + "\"]/cml:module[@convention=\"convention:" + OutPutModuleBuilder.CONVENTION_MOLECULAR + "\"]/cml:molecule";
+        Assert.assertEquals(1, cml.query(XQuery, context).size());
     }
 
 }

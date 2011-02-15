@@ -14,7 +14,6 @@ import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Serializer;
 
-import org.apache.xml.serialize.XHTMLSerializer;
 import org.xmlcml.cif.CIF;
 import org.xmlcml.cif.CIFDataBlock;
 import org.xmlcml.cif.CIFException;
@@ -31,8 +30,8 @@ import org.xmlcml.cml.element.CMLEntry;
  */
 public class CifDictionaryBuilder {
 
-	private static final String URI = "http://www.xml-cml.org/dict/cif/";
-	private static final String PREFIX = "cif";
+	public static final String URI = "http://www.xml-cml.org/dict/cif/";
+	public static final String PREFIX = "iucr";
     private static final String conv_URI="http://www.xml-cml.org/convention/";
     private static final String conv_PREFIX="convention";
 	
@@ -90,6 +89,7 @@ public class CifDictionaryBuilder {
 		}
 
 	}
+	//TODO fix loops like data_cell_measurement_theta_ min/max
 
 	private void parseLoopsfromDataBlock(CIFDataBlock dataBlock, CMLEntry entry) {
 		List<CIFLoop> loops = dataBlock.getLoopList();
