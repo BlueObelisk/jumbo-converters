@@ -6,6 +6,7 @@ import org.xmlcml.cml.converters.cml.RawXML2CMLProcessor;
 import org.xmlcml.cml.converters.compchem.gaussian.GaussianCommon;
 
 public class GaussianLogXMLProcessor extends RawXML2CMLProcessor {
+	@SuppressWarnings("unused")
 	private final static Logger LOG = Logger.getLogger(GaussianLogXMLProcessor.class);
 
 	public GaussianLogXMLProcessor() {

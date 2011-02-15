@@ -55,6 +55,7 @@ public class TableAndArrayCreator {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	private void createCMLTables(CMLModule module) {
 		for (MarkerTable markerTable : templateInterpreter.getMarkerTableList()) {
 			CMLTable table = new CMLTable();

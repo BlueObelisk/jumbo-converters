@@ -1,7 +1,5 @@
 package org.xmlcml.cml.converters.compchem.gamessuk.punch;
 
-import gigadot.semsci.converters.chem.CompChemCommon;
-
 import java.util.ArrayList;
 import java.util.List;
 

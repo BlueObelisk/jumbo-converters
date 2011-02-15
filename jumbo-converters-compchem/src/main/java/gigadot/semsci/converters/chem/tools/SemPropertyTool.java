@@ -1,14 +1,17 @@
 package gigadot.semsci.converters.chem.tools;
 
+import gigadot.semsci.chem.schema.CompChemSematics;
+import gigadot.semsci.converters.chem.exception.UnexpectedCompChemSchema;
+
+import java.util.List;
+
+import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.element.CMLProperty;
+
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.vocabulary.RDF;
-import gigadot.semsci.converters.chem.exception.UnexpectedCompChemSchema;
-import java.util.List;
-import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.element.CMLProperty;
-import gigadot.semsci.chem.schema.CompChemSematics;
 
 /**
  * 

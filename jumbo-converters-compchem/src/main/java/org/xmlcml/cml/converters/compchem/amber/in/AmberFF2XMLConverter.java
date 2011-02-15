@@ -8,7 +8,6 @@ import java.util.List;
 
 import nu.xom.Element;
 
-import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.LegacyProcessor;
 import org.xmlcml.cml.converters.text.Text2XMLConverter;
 

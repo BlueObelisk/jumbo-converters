@@ -14,7 +14,6 @@ import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
 import org.xmlcml.cml.converters.LegacyProcessor;
-import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 import org.xmlcml.cml.converters.compchem.gaussian.GaussianCommon;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLScalar;
@@ -38,6 +37,7 @@ D001 with INT=ULTRAFINE\\0,2\C,0.1063168353,0.3005635652,-0.5502851935
  */
 public class GaussianArchiveProcessor extends LegacyProcessor {
 
+	@SuppressWarnings("unused")
 	private static Logger LOG = Logger.getLogger(LegacyProcessor.class);
 	/** start of archive */
 	final static String START = 
@@ -49,6 +49,7 @@ public class GaussianArchiveProcessor extends LegacyProcessor {
 	/** ends with \\@ */
 	final static String TERMINATOR = BLOCK_SEPARATOR+S_ATSIGN;
 	private String archiveString;
+	@SuppressWarnings("unused")
 	private CMLMolecule lastMolecule;
 	
 	public GaussianArchiveProcessor() {

@@ -6,7 +6,12 @@ package gigadot.semsci.converters.chem.exception;
  */
 public class UnexpectedCompChemSchema extends RuntimeException {
 
-    public UnexpectedCompChemSchema(Throwable cause) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6932355389408123334L;
+
+	public UnexpectedCompChemSchema(Throwable cause) {
         super(cause);
     }
 

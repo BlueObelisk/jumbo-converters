@@ -1,11 +1,8 @@
 package org.xmlcml.cml.converters.dicts;
 
-import java.util.List;
-
 import nu.xom.Element;
 import nu.xom.Nodes;
 
-import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.element.CMLDictionary;
@@ -16,7 +13,8 @@ public class ValidatorProcessor {
 
 	private Element in;
 	private CMLElement cmlElement;
-	private List<CMLDictionary> dictionaryList;
+//	private List<CMLDictionary> dictionaryList;
+	@SuppressWarnings("unused")
 	private CMLDictionary dictionary;
 	private DictionaryTool dictionaryTool;
 	public ValidatorProcessor() {

@@ -1,11 +1,8 @@
 package org.xmlcml.cml.converters.compchem.gaussian.archive;
 
-import nu.xom.Nodes;
-
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.cml.RawXML2CMLProcessor;
-import org.xmlcml.cml.converters.compchem.gamessuk.GamessukCommon;
 import org.xmlcml.cml.converters.compchem.gaussian.GaussianCommon;
 import org.xmlcml.cml.element.CMLFormula;
 import org.xmlcml.cml.element.CMLMolecule;

@@ -16,7 +16,7 @@ import com.hp.hpl.jena.rdf.model.Resource;
  */
 public class SemFormulaTool extends AbstractSemanticTool {
 
-    private static final String UNITS = "units";
+//    private static final String UNITS = "units";
 	private CMLFormula formula;
     private Resource bnode_prop_res = null;
 
@@ -58,7 +58,8 @@ public class SemFormulaTool extends AbstractSemanticTool {
     }
     
     void addCountElementTriples(Model model, double count, String elementType) {
-    	Literal count_res = model.createTypedLiteral(count, CMLConstants.XSD_DOUBLE);
+    	@SuppressWarnings("unused")
+		Literal count_res = model.createTypedLiteral(count, CMLConstants.XSD_DOUBLE);
 //    	bnode_prop_res.addProperty("has"+elementType, count_res);
     }
     

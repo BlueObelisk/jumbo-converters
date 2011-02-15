@@ -34,7 +34,6 @@ package fortran.format;
 //
 
 import java.io.IOException;
-
 import java.io.StringReader;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -957,9 +956,9 @@ public class FortranFormat {
 		 * 
 		 * @return the EditDescriptor type
 		 */
-		public EditDescriptor getType() {
-			return type;
-		}
+//		public EditDescriptor getType() {
+//			return type;
+//		}
 
 		/**
 		 * Gets the length.

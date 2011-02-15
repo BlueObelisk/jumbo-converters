@@ -3,12 +3,10 @@ package org.xmlcml.cml.converters.compchem;
 import java.util.List;
 
 import org.xmlcml.cml.base.CMLConstants;
-import org.xmlcml.cml.element.CMLArray;
-import org.xmlcml.euclid.RealArray;
 
 public class CompchemUtils {
 	private int linesToRead;
-	private NumericFormat numericFormat;
+//	private NumericFormat numericFormat;
 	public CompchemUtils() {
 		
 	}
@@ -24,7 +22,7 @@ public class CompchemUtils {
 		int iend = istart + linesToRead;
 		int fieldsPerLastLine = fieldsToRead % fieldsPerLine;
 		int fieldCounter = 0;
-		this.numericFormat = numericFormat;
+//		this.numericFormat = numericFormat;
 		double[] doubles = new double[fieldsToRead];
 		for (int i = istart; i < iend; i++) {
 			int fieldsPerThisLine = (i < iend-1) ? fieldsPerLine : fieldsPerLastLine;
@@ -51,6 +49,7 @@ public class CompchemUtils {
 		return doubles;
 	}
 
+	@SuppressWarnings("unused")
 	private static double readFormattedNumber(
 			String field, int width, int decimal) {
 		double d = Double.NaN;

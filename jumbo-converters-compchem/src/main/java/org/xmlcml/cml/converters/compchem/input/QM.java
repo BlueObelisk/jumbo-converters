@@ -13,6 +13,7 @@ import org.xmlcml.cml.element.CMLScalar;
 
 
 public class QM extends ParameterContainer {
+	@SuppressWarnings("unused")
 	private static Logger LOG = Logger.getLogger(QM.class);
 	
 	public final static String ROLE = "qm";

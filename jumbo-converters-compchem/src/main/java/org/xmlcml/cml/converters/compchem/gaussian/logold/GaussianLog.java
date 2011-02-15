@@ -18,6 +18,7 @@ import org.xmlcml.cml.element.CMLMolecule;
  */
 
 public class GaussianLog implements CMLConstants {
+	@SuppressWarnings("unused")
 	private static Logger LOG = Logger.getLogger(GaussianLog.class);
 //	Leave Link  101 at Mon Mar 30 15:42:29 2009, MaxMem=    6291456 cpu:       0.1	 * @param line
 	private static Pattern END_PATTERN = Pattern.compile("^Leave Link  *(.*) at.*");
@@ -31,6 +32,7 @@ public class GaussianLog implements CMLConstants {
 		return glinkList;
 	}
 
+	@SuppressWarnings("unused")
 	private CMLMolecule molecule = null;
 
 	public GaussianLog() {

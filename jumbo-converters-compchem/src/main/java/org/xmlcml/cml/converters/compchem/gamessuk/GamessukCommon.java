@@ -1,7 +1,5 @@
 package org.xmlcml.cml.converters.compchem.gamessuk;
 
-import java.io.IOException;
-
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.AbstractCommon;
 
@@ -12,6 +10,7 @@ import org.xmlcml.cml.converters.AbstractCommon;
  *
  */
 public class GamessukCommon extends AbstractCommon {
+	@SuppressWarnings("unused")
 	private final static Logger LOG = Logger.getLogger(GamessukCommon.class);
 	
 	private static final String GAMESSUK_PREFIX = "gamessuk";

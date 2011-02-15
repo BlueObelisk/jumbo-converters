@@ -66,7 +66,7 @@ public class RegexExtractor extends ParseExtractor {
 			CMLElement element = extractedElementList.get(i);
 			List<CMLElement> splitElements = captureGroupList.get(i).processCountExpressions(element);
 			// TODO is this right???
-			for (CMLElement splitElement : splitElements) {
+			for (@SuppressWarnings("unused") CMLElement splitElement : splitElements) {
 				elementListNew.add(element);
 			}
 		}

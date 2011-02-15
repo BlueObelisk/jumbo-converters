@@ -12,6 +12,7 @@ import org.xmlcml.cml.converters.compchem.gaussian.GaussianLink;
 
  */
 public class Link702 extends GaussianLink {
+	@SuppressWarnings("unused")
 	private static Logger LOG = Logger.getLogger(Link702.class);
 	
 //	private static String LINK_REGEX = " (\\d+)/(\\d+=\\-?\\d+(,\\d+=\\-?\\d+)*)/(\\d+(,\\d+)*)(\\-?\\d+)?\\;";

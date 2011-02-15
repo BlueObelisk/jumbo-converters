@@ -1,64 +1,48 @@
 package org.xmlcml.cml.converters.compchem.gaussian.logold;
 
-import java.util.regex.Pattern;
-
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.base.CMLConstants;
-import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
 import org.xmlcml.cml.converters.LegacyProcessor;
 import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 import org.xmlcml.cml.converters.util.JumboReader;
-import org.xmlcml.cml.element.CMLAngle;
-import org.xmlcml.cml.element.CMLArray;
-import org.xmlcml.cml.element.CMLAtom;
-import org.xmlcml.cml.element.CMLLabel;
-import org.xmlcml.cml.element.CMLLength;
 import org.xmlcml.cml.element.CMLModule;
-import org.xmlcml.cml.element.CMLMolecule;
-import org.xmlcml.cml.element.CMLScalar;
-import org.xmlcml.cml.element.CMLSymmetry;
-import org.xmlcml.cml.element.CMLTorsion;
-import org.xmlcml.cml.element.CMLZMatrix;
-import org.xmlcml.euclid.IntArray;
-import org.xmlcml.molutil.ChemicalElement;
 
 
 public class GaussianLogBlock extends AbstractBlock {
-	private static final String OPTIMIZED_RHF = "--- OPTIMIZED RHF";
-
-	private static final String COORDS_SYMMETRY = " COORDINATES OF SYMMETRY UNIQUE ATOMS (ANGS)\n"+
-			"   ATOM   CHARGE       X              Y              Z\n"+
-			" ------------------------------------------------------------";
+//	private static final String OPTIMIZED_RHF = "--- OPTIMIZED RHF";
+//
+//	private static final String COORDS_SYMMETRY = " COORDINATES OF SYMMETRY UNIQUE ATOMS (ANGS)\n"+
+//			"   ATOM   CHARGE       X              Y              Z\n"+
+//			" ------------------------------------------------------------";
 
 	public static Logger LOG = Logger.getLogger(GaussianLogBlock.class);
 	
-	private static final String ERHF = "erhf";
-	private static final String ENUC = "enuc";
-	private static final String ITERS = "iters";
-
-	private static final String GRMS = "grms";
-	private static final String GMAX = "gmax";
-	private static final String HESS_ENERGY = "F.hess.energy";
-	private static final String HESS_ENUC = "F.hess.enuc";
-	private static final String HESS = "hess";
-	private static final String E = "e";
-	private static final String COORD = "coord";
-	private static final String IATOM = "iatom";
-	private static final String IVIB = "ivib";
-	private static final String VECTOR = "vector";
-	private static final String Z = "z";
-	private static final String Y = "y";
-	private static final String X = "x";
-	private static final String ATNUM = "atnum";
-	private static final String ELEM = "elem";
-	private static final String DATA_FROM_NSERCH = "-------------------- DATA FROM NSERCH=";
-	private static final String RESULTS_FROM = "----- RESULTS FROM";
-	private static final String COORDS_ORBS= "----- COORDS, ORBS,"; 
-	private static final String CLOSED_SHELL= "--- CLOSED SHELL ORBITALS"; 
-	private static final String OPEN_SHELL= "--- OPEN SHELL ORBITALS"; 
+//	private static final String ERHF = "erhf";
+//	private static final String ENUC = "enuc";
+//	private static final String ITERS = "iters";
+//
+//	private static final String GRMS = "grms";
+//	private static final String GMAX = "gmax";
+//	private static final String HESS_ENERGY = "F.hess.energy";
+//	private static final String HESS_ENUC = "F.hess.enuc";
+//	private static final String HESS = "hess";
+//	private static final String E = "e";
+//	private static final String COORD = "coord";
+//	private static final String IATOM = "iatom";
+//	private static final String IVIB = "ivib";
+//	private static final String VECTOR = "vector";
+//	private static final String Z = "z";
+//	private static final String Y = "y";
+//	private static final String X = "x";
+//	private static final String ATNUM = "atnum";
+//	private static final String ELEM = "elem";
+//	private static final String DATA_FROM_NSERCH = "-------------------- DATA FROM NSERCH=";
+//	private static final String RESULTS_FROM = "----- RESULTS FROM";
+//	private static final String COORDS_ORBS= "----- COORDS, ORBS,"; 
+//	private static final String CLOSED_SHELL= "--- CLOSED SHELL ORBITALS"; 
+//	private static final String OPEN_SHELL= "--- OPEN SHELL ORBITALS"; 
 	/*
 	 * keywords in legacy input
 	 */
@@ -107,7 +91,7 @@ public class GaussianLogBlock extends AbstractBlock {
 	 * 
 	 */
 	public void convertToRawCML() {
-		jumboReader = new JumboReader(this.getDictionary(), abstractCommon.getPrefix(), lines);
+		setJumboReader(new JumboReader(this.getDictionary(), abstractCommon.getPrefix(), lines));
 		if (getBlockName() == null) {
 			throw new RuntimeException("null blockName");
 //		} else if (CISVEC.equals(getBlockName())) {
@@ -172,8 +156,9 @@ public class GaussianLogBlock extends AbstractBlock {
 	
 	private void makeAnonymous() {
 		CMLModule module = new CMLModule();
-		jumboReader.setParentElement(module);
-		String line = jumboReader.peekLine();
+		getJumboReader().setParentElement(module);
+		@SuppressWarnings("unused")
+		String line = getJumboReader().peekLine();
 //		if (line.startsWith(RESULTS_FROM)) {
 //			anonResultsFrom();
 //		} else if (line.startsWith(COORDS_ORBS)) {

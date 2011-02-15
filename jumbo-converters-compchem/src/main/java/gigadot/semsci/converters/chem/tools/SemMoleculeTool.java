@@ -1,10 +1,12 @@
 package gigadot.semsci.converters.chem.tools;
 
+import gigadot.semsci.chem.schema.CompChemSematics;
+import gigadot.semsci.converters.chem.uri.URIGenerator;
+
+import org.xmlcml.cml.element.CMLMolecule;
+
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
-import org.xmlcml.cml.element.CMLMolecule;
-import gigadot.semsci.converters.chem.uri.URIGenerator;
-import gigadot.semsci.chem.schema.CompChemSematics;
 
 /**
  * 

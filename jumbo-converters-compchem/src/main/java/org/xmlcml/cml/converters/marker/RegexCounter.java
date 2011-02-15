@@ -1,10 +1,9 @@
 package org.xmlcml.cml.converters.marker;
 
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.element.CMLScalar;
 
 public class RegexCounter extends MarkerCounter {
+	@SuppressWarnings("unused")
 	private final static Logger LOG = Logger.getLogger(RegexCounter.class);
 
 	public RegexCounter(Marker regex) {

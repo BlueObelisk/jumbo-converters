@@ -2,17 +2,14 @@ package org.xmlcml.cml.converters.marker;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.element.CMLModule;
-import org.xmlcml.cml.element.CMLScalar;
 
 public class TemplateExtractor extends ParseExtractor {
+	@SuppressWarnings("unused")
 	private static Logger LOG = Logger.getLogger(RegexExtractor.class);
+	@SuppressWarnings("unused")
 	private Template template;
 	
 	public TemplateExtractor(Marker marker) {

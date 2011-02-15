@@ -37,7 +37,7 @@ public class CaptureGroupList {
 		CaptureGroup.LOG.info("Generating dummy names for skipped element");
 		List<String> nameList = new ArrayList<String>();
 		String s = "";
-		for (CaptureGroup group : getGroups()) {
+		for (@SuppressWarnings("unused") CaptureGroup group : getGroups()) {
 			s += "dummy ";
 			nameList.add(s);
 		}

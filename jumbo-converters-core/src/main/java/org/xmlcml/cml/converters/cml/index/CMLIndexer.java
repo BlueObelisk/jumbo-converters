@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractIndexer;
-import org.xmlcml.cml.converters.Command;
 import org.xmlcml.cml.converters.Type;
 
 /**

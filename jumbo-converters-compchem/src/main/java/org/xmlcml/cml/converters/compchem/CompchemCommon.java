@@ -10,6 +10,7 @@ import org.xmlcml.cml.converters.AbstractCommon;
  *
  */
 public class CompchemCommon extends AbstractCommon {
+	@SuppressWarnings("unused")
 	private final static Logger LOG = Logger.getLogger(CompchemCommon.class);
 	
 	private static final String COMPCHEM_PREFIX = "compchem";

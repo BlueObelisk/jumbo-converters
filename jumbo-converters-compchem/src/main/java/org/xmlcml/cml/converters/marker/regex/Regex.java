@@ -120,9 +120,9 @@ public class Regex extends AbstractRegexElement {
 		}
 	}
 
-	private void addMatches(List<String> groupList) {
-		this.addMatchesRecursively(groupList, 0);
-	}
+//	private void addMatches(List<String> groupList) {
+//		this.addMatchesRecursively(groupList, 0);
+//	}
 
 	protected void addMatchesRecursively(List<String> groupList, int i) {
 		this.addAttribute(new Attribute(AbstractRegexElement.TRANSLATED_ATT, groupList.get(i++)));
@@ -145,7 +145,7 @@ public class Regex extends AbstractRegexElement {
 		Elements childElements = this.getChildElements(CaptureGroupElement.CAPTURE_GROUP_TAG);
 		for (int i = 0; i < childElements.size(); i++) {
 			AbstractRegexElement childElement = (AbstractRegexElement) childElements.get(i);
-			String comment = childElement.getComment();
+//			String comment = childElement.getComment();
 			counter = childElement.processOptionalCounts(counter);
 		}
 		return counter;

@@ -11,11 +11,9 @@ import org.xmlcml.cml.attribute.NamespaceRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.compchem.input.AbstractCompchemInputProcessor;
-import org.xmlcml.cml.converters.compchem.input.Directives;
 import org.xmlcml.cml.converters.compchem.input.Job;
 import org.xmlcml.cml.converters.compchem.input.Operations;
 import org.xmlcml.cml.element.CMLAtom;
-import org.xmlcml.cml.element.CMLBond;
 import org.xmlcml.cml.element.CMLParameter;
 import org.xmlcml.euclid.Point3;
 
@@ -39,8 +37,10 @@ public class GaussianInputProcessor extends AbstractCompchemInputProcessor {
 	private static String NORMAL = "N";
 	private static String FULL = "P";
 
+	@SuppressWarnings("unused")
 	private static String NOSYMMETRY = "nosymmetry";
 
+	@SuppressWarnings("unused")
 	private boolean hasCarbonyl;
 
 	public GaussianInputProcessor(CML2GaussianInputConverter converter) {
@@ -308,26 +308,26 @@ public class GaussianInputProcessor extends AbstractCompchemInputProcessor {
 	}
 	*/
 
-	private void checkForCarbonyl() {
-		for (CMLBond bond : inputMolecule.getBonds()) {
-			if (!CMLBond.DOUBLE.equals(bond.getOrder()) &&
-					!CMLBond.DOUBLE_D.equals(bond.getOrder()) &&
-					!CMLBond.DOUBLE_NORM.equals(bond.getOrder())) {
-				continue;
-			}
-			boolean hasC = false;
-			boolean hasO = false;
-			for (CMLAtom atom : bond.getAtoms()) {
-				if ("C".equals(atom.getElementType())) {
-					hasC = true;
-				} else if ("O".equals(atom.getElementType())) {
-					hasO = true;
-				}
-			}
-			if (hasC && hasO) {
-				hasCarbonyl = true;
-				break;
-			}
-		}
-	}
+//	private void checkForCarbonyl() {
+//		for (CMLBond bond : inputMolecule.getBonds()) {
+//			if (!CMLBond.DOUBLE.equals(bond.getOrder()) &&
+//					!CMLBond.DOUBLE_D.equals(bond.getOrder()) &&
+//					!CMLBond.DOUBLE_NORM.equals(bond.getOrder())) {
+//				continue;
+//			}
+//			boolean hasC = false;
+//			boolean hasO = false;
+//			for (CMLAtom atom : bond.getAtoms()) {
+//				if ("C".equals(atom.getElementType())) {
+//					hasC = true;
+//				} else if ("O".equals(atom.getElementType())) {
+//					hasO = true;
+//				}
+//			}
+//			if (hasC && hasO) {
+//				hasCarbonyl = true;
+//				break;
+//			}
+//		}
+//	}
 }

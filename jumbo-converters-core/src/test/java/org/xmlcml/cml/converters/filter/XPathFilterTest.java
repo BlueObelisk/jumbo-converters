@@ -1,15 +1,13 @@
 package org.xmlcml.cml.converters.filter;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 import java.io.ByteArrayInputStream;
 
+import org.junit.Assert;
+import org.junit.Test;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
-import org.xmlcml.euclid.Real;
-import org.xmlcml.euclid.RealRange;
 import org.xmlcml.euclid.IntRange;
+import org.xmlcml.euclid.RealRange;
 
 public class XPathFilterTest {
 	@Test

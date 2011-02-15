@@ -61,9 +61,11 @@ public class Country {
 	    <postcode>(GIR 0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]|[A-HK-Y][0-9]([0-9]|[ABEHMNPRV-Y]))|[0-9][A-HJKPS-UW]) [0-9][ABD-HJLNP-UW-Z]{2})</postcode>
 	  </country>
 		 */
+	@SuppressWarnings("unused")
 	private String id;
 	private List<String> nameList;
 	private List<Region> regionList;
+	@SuppressWarnings("unused")
 	private Pattern postcodePattern;
 
 	public Country() {

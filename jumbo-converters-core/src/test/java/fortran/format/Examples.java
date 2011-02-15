@@ -95,6 +95,7 @@ public class Examples {
 		String data = " 12ABC 1.2";
 		String format = "(I3,2X,F5.1)";
 		try {
+			@SuppressWarnings("unused")
 			List<Object> results = FortranFormat.read(data, format);
 			Assert.fail("should throw");
 		} catch (Exception e) {
@@ -158,6 +159,7 @@ public class Examples {
 		String data = "***";
 		String format = "(I3)";
 		try {
+			@SuppressWarnings("unused")
 			List<Object> results = FortranFormat.read(data, format);
 			Assert.fail("should throw");
 		} catch (Exception e) {
@@ -167,7 +169,7 @@ public class Examples {
 
 	@Test
 	public void testAlpha() throws Exception {
-		String data = "Hello 3";
+//		String data = "Hello 3";
 		String format = "('Hello',I2)";
 		ArrayList<Object> input = new ArrayList<Object>();
 		input.add(7);
