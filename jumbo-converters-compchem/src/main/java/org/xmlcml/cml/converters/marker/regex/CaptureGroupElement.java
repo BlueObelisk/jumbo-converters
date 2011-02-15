@@ -3,10 +3,8 @@ package org.xmlcml.cml.converters.marker.regex;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import nu.xom.Attribute;
 import nu.xom.Element;
 import nu.xom.Elements;
-import nu.xom.Text;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLElement;
@@ -113,7 +111,7 @@ public class CaptureGroupElement extends AbstractRegexElement {
 		Elements childElements = this.getChildElements(CaptureGroupElement.CAPTURE_GROUP_TAG);
 		for (int i = 0; i < childElements.size(); i++) {
 			AbstractRegexElement childElement = (AbstractRegexElement) childElements.get(i);
-			String comment = childElement.getComment();
+//			String comment = childElement.getComment();
 			if (childElement.query("*").size() > 0) {
 				counter = childElement.processOptionalCounts(counter);
 			} else {

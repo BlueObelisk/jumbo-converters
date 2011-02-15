@@ -15,6 +15,7 @@ import nu.xom.Nodes;
 </regionList>
  */
 public class Region {
+	@SuppressWarnings("unused")
 	private String id;
 	private List<String> nameList;
 	

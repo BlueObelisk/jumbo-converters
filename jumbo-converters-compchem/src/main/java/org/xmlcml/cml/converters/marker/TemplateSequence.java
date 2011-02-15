@@ -7,7 +7,6 @@ import nu.xom.Nodes;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.element.CMLModule;
 
 public class TemplateSequence extends MarkerSequence {
 	static Logger LOG = Logger.getLogger(MarkerSequence.class);

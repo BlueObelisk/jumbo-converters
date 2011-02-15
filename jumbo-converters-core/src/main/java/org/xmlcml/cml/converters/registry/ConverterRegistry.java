@@ -1,12 +1,17 @@
 package org.xmlcml.cml.converters.registry;
 
+import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.io.IOUtils;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.util.JumboException;
-
-import java.io.InputStream;
-import java.net.URL;
-import java.util.*;
 
 /**
  * @author Sam Adams
@@ -31,8 +36,8 @@ public class ConverterRegistry {
                         }
                         String s = line.trim();
                         if (s.length() > 0) {
-                            Class<ConverterList> clazz = (Class<ConverterList>) Class.forName(s);
-                            ConverterList list = clazz.newInstance();
+                            Class<?> clazz = (Class<?>) Class.forName(s);
+                            ConverterList list = (ConverterList) clazz.newInstance();
                             for (ConverterInfo converter : list.listConverters()) {
                                 register(converter);
                             }

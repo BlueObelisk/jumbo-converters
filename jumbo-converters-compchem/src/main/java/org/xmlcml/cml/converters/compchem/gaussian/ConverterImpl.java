@@ -11,8 +11,6 @@ import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.euclid.Util;
 
-import com.hp.hpl.jena.util.FileUtils;
-
 /** don't know why this is here.
  * I think it's used in a test
  * @author pm286

@@ -9,6 +9,7 @@ import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.util.JumboReader;
 
 public class BracketedLineReader extends LineReader {
+	@SuppressWarnings("unused")
 	private static final Logger LOG = Logger.getLogger(BracketedLineReader.class);
 
 	public static final String BRACKETED_LINE_READER = "bracketedLineReader";

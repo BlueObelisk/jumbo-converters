@@ -6,7 +6,6 @@ import nu.xom.Element;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.element.CMLModule;
 
 /**
  * a regex sequence manages a list of regexes including their creation and
@@ -77,11 +76,11 @@ public class RegexSequence extends MarkerSequence {
 		}
 	}
 		
-	private void processParsedModules(LegacyStore legacyStore, Regex regex,
-			int moduleStart, int moduleEnd, CMLModule wrapperModule) {
-		parseExtractor = regex.getParseExtractor();
-		parseExtractor.extractModulesForEachMatch(legacyStore,
-				moduleStart, moduleEnd,	wrapperModule);
-	}
+//	private void processParsedModules(LegacyStore legacyStore, Regex regex,
+//			int moduleStart, int moduleEnd, CMLModule wrapperModule) {
+//		parseExtractor = regex.getParseExtractor();
+//		parseExtractor.extractModulesForEachMatch(legacyStore,
+//				moduleStart, moduleEnd,	wrapperModule);
+//	}
 
 }

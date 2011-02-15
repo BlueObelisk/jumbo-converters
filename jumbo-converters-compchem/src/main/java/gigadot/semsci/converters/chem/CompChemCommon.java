@@ -1,7 +1,5 @@
 package gigadot.semsci.converters.chem;
 
-import java.io.IOException;
-
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.AbstractCommon;
 
@@ -12,6 +10,7 @@ import org.xmlcml.cml.converters.AbstractCommon;
  *
  */
 public class CompChemCommon extends AbstractCommon {
+	@SuppressWarnings("unused")
 	private final static Logger LOG = Logger.getLogger(CompChemCommon.class);
 	
 	private static final String COMPCHEM_PREFIX = "compchem";

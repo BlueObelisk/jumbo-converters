@@ -2,8 +2,6 @@ package org.xmlcml.cml.converters.marker.regex;
 
 import java.util.regex.Pattern;
 
-import nu.xom.Element;
-
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLUtil;
 

@@ -1,14 +1,8 @@
 package org.xmlcml.cml.converters.text;
 
-import java.io.InputStream;
-
-import nu.xom.Element;
-
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.xmlcml.cml.base.CMLUtil;
-import org.xmlcml.euclid.Util;
 
 public class Text2XMLConverterTest {
 	@Test

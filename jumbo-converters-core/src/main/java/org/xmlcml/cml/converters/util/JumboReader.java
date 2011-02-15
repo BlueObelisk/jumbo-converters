@@ -15,7 +15,6 @@ import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.format.Field;
 import org.xmlcml.cml.converters.format.LineReader;
-import org.xmlcml.cml.converters.format.LineReader.ReadingType;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLArrayList;
 import org.xmlcml.cml.element.CMLAtom;
@@ -29,7 +28,6 @@ import org.xmlcml.cml.element.CMLTable;
 import org.xmlcml.cml.interfacex.HasDataType;
 import org.xmlcml.cml.interfacex.HasDictRef;
 import org.xmlcml.cml.tools.DictionaryTool;
-import org.xmlcml.cml.tools.TableTool;
 import org.xmlcml.euclid.JodaDate;
 import org.xmlcml.euclid.Point3;
 import org.xmlcml.euclid.Real;
@@ -103,9 +101,9 @@ public class JumboReader {
 	 * @param prefix
 	 * @param line single line
 	 */
-	public JumboReader(CMLDictionary dictionary, String prefix, String[] line) {
+	public JumboReader(CMLDictionary dictionary, String prefix, String[] lines) {
 		this();
-		setLinesToBeRead(line);
+		setLinesToBeRead(lines);
 		setDictionary(dictionary);
 		setDictionaryPrefix(prefix);
 	}
@@ -614,21 +612,21 @@ public class JumboReader {
 		return arrayList;
 	}
 
-	private CMLArrayList readArrayList(LineReader lineReader, ReadingType readingType) {
-		CMLArrayList arrayList = new CMLArrayList(); 
-		if (!ReadingType.WHILE.equals(readingType)) {
-			throw new RuntimeException("tables must use reading=WHILE");
-		}
-		// read until no more or 
-		while (currentLineNumber < lines.size()) {
-			List<HasDataType> hasDataTypeList = lineReader.parseInlineHasDataTypes(this);
-			if (hasDataTypeList == null) {
-				break;
-			}
-			addToArrayList(lineReader, arrayList, hasDataTypeList);
-		}
-		return arrayList;
-	}
+//	private CMLArrayList readArrayList(LineReader lineReader, ReadingType readingType) {
+//		CMLArrayList arrayList = new CMLArrayList(); 
+//		if (!ReadingType.WHILE.equals(readingType)) {
+//			throw new RuntimeException("tables must use reading=WHILE");
+//		}
+//		// read until no more or 
+//		while (currentLineNumber < lines.size()) {
+//			List<HasDataType> hasDataTypeList = lineReader.parseInlineHasDataTypes(this);
+//			if (hasDataTypeList == null) {
+//				break;
+//			}
+//			addToArrayList(lineReader, arrayList, hasDataTypeList);
+//		}
+//		return arrayList;
+//	}
 
 	private void addToArrayList(LineReader lineReader, CMLArrayList arrayList,
 			List<HasDataType> hasDataTypeList) {
@@ -971,6 +969,7 @@ public class JumboReader {
 		if (linesToRead > linesLeft) {
 			throw new RuntimeException("Not enough lines to read "+linesToRead+ " > "+linesLeft);
 		}
+		@SuppressWarnings("unused")
 		CMLTable table = new CMLTable();
 		CMLArrayList arrayList = new CMLArrayList();
 		Exception ee = null;
@@ -1000,14 +999,14 @@ public class JumboReader {
 		return arrayList;
 	}
 
-	private static CMLTable createTableFromColumns(List<CMLArray> columns) {
-		CMLTable table = new CMLTable();
-		TableTool tableTool = TableTool.getOrCreateTool(table);
-		for (CMLArray column : columns) {
-			tableTool.addArray(column);
-		}
-		return table;
-	}
+//	private static CMLTable createTableFromColumns(List<CMLArray> columns) {
+//		CMLTable table = new CMLTable();
+//		TableTool tableTool = TableTool.getOrCreateTool(table);
+//		for (CMLArray column : columns) {
+//			tableTool.addArray(column);
+//		}
+//		return table;
+//	}
 
 	private void addDictRef(CMLElement element, String dictionaryPrefix, String name) {
 		checkPrefix();
@@ -1214,20 +1213,6 @@ public class JumboReader {
 		addDictRef(scalar, UNKNOWN);
 		addElementToParentElement(add, scalar);
 	}
-
-//	public void makeNameValues(Pattern pattern, boolean add) {
-//		CMLElement scalar = null;
-//		while (hasMoreLines()) {
-//			try {
-//				scalar = parseNameValue(pattern, String.class, add);
-//				if (scalar == null) {
-//					break;
-//				}
-//			} catch (Exception e) {
-//				break;
-//			}
-//		}
-//	}
 
 	public void increment(int offset) {
 		currentLineNumber += offset;

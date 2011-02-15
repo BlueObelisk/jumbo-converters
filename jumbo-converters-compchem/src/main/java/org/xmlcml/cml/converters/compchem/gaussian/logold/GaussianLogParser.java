@@ -1,10 +1,6 @@
 package org.xmlcml.cml.converters.compchem.gaussian.logold;
 
-import java.io.IOException;
-
 import nu.xom.Element;
-import nu.xom.ParsingException;
-import nu.xom.ValidityException;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;

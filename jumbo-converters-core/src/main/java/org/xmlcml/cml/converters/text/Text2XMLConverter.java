@@ -3,8 +3,6 @@ package org.xmlcml.cml.converters.text;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import nu.xom.Document;
 import nu.xom.Element;
@@ -30,7 +28,7 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 	private static final String LEAVE_LINK = "leaveLink";
 	private static final Integer TAB_WIDTH = 8;
 	private List<String> lines;
-	private List<ChunkerMarker> markerList;
+	private List<Chunker> markerList;
 	protected Integer tabWidth = TAB_WIDTH;
 
 	public Type getInputType() {
@@ -93,14 +91,14 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 	
 	protected void readMarkers(InputStream is) {
 		Document doc = CMLUtil.parseQuietlyToDocument(is);
-		markerList = new ArrayList<ChunkerMarker>();
+		markerList = new ArrayList<Chunker>();
 		Elements childElements = doc.getRootElement().getChildElements();
 		for (int i = 0; i < childElements.size(); i++) {
 			Element childElement = childElements.get(i);
 			if (childElement.getLocalName() != MARKER) {
 				throw new RuntimeException("Expected marker elemnt, found: "+childElement.getLocalName());
 			}
-			ChunkerMarker marker = new ChunkerMarker(childElement);
+			Chunker marker = new Chunker(childElement);
 			markerList.add(marker);
 		}
 	}
@@ -112,7 +110,7 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 		for (lineCount = 0; lineCount < lines.size();lineCount++) {
 			String line = lines.get(lineCount);
 			int linesMatched = 0;
-			for (ChunkerMarker marker : markerList) {
+			for (Chunker marker : markerList) {
 				linesMatched = marker.insertMatchedLineAndReturnCount(lineCount, lines, linesCopy);
 				if (linesMatched != 0) {
 					break;
@@ -135,7 +133,7 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 		while (iline < lines.size()) {
 			Element xml = readLineAsXML(lines.get(iline));
 			if (xml != null) {
-				int offset = new Integer(xml.getAttributeValue(ChunkerMarker.OFFSET));
+				int offset = new Integer(xml.getAttributeValue(Chunker.OFFSET));
 				moveMarkupDownByPositiveMarkup(lines, iline, xml, offset);
 				if (offset > 0) {
 					iline += offset;
@@ -216,7 +214,9 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 	private Element readLineAsXML(String line) {
 		Element xml = null;
 		try {
-			xml = CMLUtil.parseXML(line);
+			if (line != null && line.trim().startsWith(STAGO)) {
+				xml = CMLUtil.parseXML(line);
+			}
 		} catch (Exception e) {
 			// not XML
 		}
@@ -233,12 +233,12 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 		}
 		for (int i = 0; i < scalarList.size(); i++) {
 			Element scalar = scalarList.get(i);
-			if (LEAVE_LINK.equals(scalar.getAttributeValue(ChunkerMarker.MARK))) {
+			if (LEAVE_LINK.equals(scalar.getAttributeValue(Chunker.MARK))) {
 				if (i > 0) {
 					String link = scalar.getAttributeValue(GROUP1);
 					Element previousScalar = scalarList.get(i-1);
 					String previousLink = previousScalar.getAttributeValue(GROUP1);
-					if (ENTER_LINK.equals(previousScalar.getAttributeValue(ChunkerMarker.MARK))) {
+					if (ENTER_LINK.equals(previousScalar.getAttributeValue(Chunker.MARK))) {
 						if (link.equals(previousLink)) {
 							scalar.detach();
 						}

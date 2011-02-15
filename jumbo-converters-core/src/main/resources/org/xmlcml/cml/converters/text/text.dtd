@@ -1,0 +1,68 @@
+<!ENTITY % formatType  'formatType      (FORTRAN|WHITESPACE|REGEX)'>
+<!ENTITY % id          'id              CDATA'>
+<!ENTITY % linesToRead 'linesToRead     CDATA'>
+<!ENTITY % makeArray   'makeArray       CDATA'>
+<!ENTITY % multiple    'multiple        CDATA'>
+<!ENTITY % name        'name            CDATA'>
+<!ENTITY % names       'names           CDATA'>
+<!ENTITY % offset      'pattern         CDATA'>
+<!ENTITY % output      'output          (VERBOSE|NORMAL|NONE)'>
+<!ENTITY % pattern     'pattern         CDATA'>
+<!ENTITY % prefix      'prefix          CDATA'>
+<!ENTITY % repeat      'repeat          (WHILE|UNTIL)'>
+<!ENTITY % role        'role            (EXAMPLE|DESCRIPTION)'>
+<!ENTITY % uri         'uri             CDATA'>
+
+<!ELEMENT templateList (template*)>
+<!ATTLIST templateList
+    >
+<!ELEMENT template 
+    (dictionary*,deleter*,templateList?,(comment|readLines|record))*>
+<!ATTLIST template
+    %id;            #REQUIRED
+    %name;          #REQUIRED
+    %output;        #IMPLIED
+    %pattern;       #REQUIRED
+    >
+
+<!--  <deleter multiple="\$" pattern=".*KE Trans.*$\s*Translational\s*$.*KE Trans.*"/>-->
+<!ELEMENT deleter EMPTY>
+<!ATTLIST deleter
+    %multiple;      #IMPLIED
+    %offset;        #IMPLIED
+    %pattern;       #REQUIRED
+    >
+
+<!--  <dictionary id="i1" uri="http://www.xml-cml.org/dictionary/foo" prefix="cml"/>-->
+<!ELEMENT dictionary EMPTY>
+<!ATTLIST dictionary
+    %id;            #REQUIRED
+    %uri;           #REQUIRED
+    %prefix;        #REQUIRED
+    >
+
+<!ELEMENT readLines (#PCDATA)>
+<!ATTLIST readLines
+    %formatType;    #IMPLIED
+    %id;            #IMPLIED
+    %linesToRead;   #IMPLIED
+    %output;        #IMPLIED
+    %repeat;        #REQUIRED
+    >
+
+<!ELEMENT record   (#PCDATA)>
+<!ATTLIST record
+    %formatType;    #REQUIRED
+    %id;            #IMPLIED
+    %linesToRead;   #IMPLIED
+    %makeArray;     #IMPLIED
+    %names;         #IMPLIED
+    %output;        #IMPLIED
+    %repeat;        #IMPLIED
+    >
+    
+<!ELEMENT comment (#PCDATA)>
+<!ATTLIST comment
+    %role;          #IMPLIED
+    >
+    

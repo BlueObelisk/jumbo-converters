@@ -2,7 +2,6 @@ package org.xmlcml.cml.converters.compchem.gamessus.input;
 
 import java.util.List;
 
-
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;

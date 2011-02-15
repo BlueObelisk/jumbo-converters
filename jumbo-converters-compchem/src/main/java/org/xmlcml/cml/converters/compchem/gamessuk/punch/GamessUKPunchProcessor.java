@@ -11,7 +11,6 @@ import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
 import org.xmlcml.cml.converters.LegacyProcessor;
 import org.xmlcml.cml.converters.compchem.gamessuk.GamessukCommon;
-import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 import org.xmlcml.cml.element.CMLScalar;
 
 public class GamessUKPunchProcessor extends LegacyProcessor {

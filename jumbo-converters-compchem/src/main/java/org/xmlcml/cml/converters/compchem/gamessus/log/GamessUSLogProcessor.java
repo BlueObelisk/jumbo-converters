@@ -2,14 +2,12 @@ package org.xmlcml.cml.converters.compchem.gamessus.log;
 
 import java.util.List;
 
-import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
 import org.xmlcml.cml.converters.LegacyProcessor;
 import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
-import org.xmlcml.cml.converters.compchem.gamessus.punch.GamessUSPunchBlockOld;
 import org.xmlcml.cml.element.CMLScalar;
 
 /**

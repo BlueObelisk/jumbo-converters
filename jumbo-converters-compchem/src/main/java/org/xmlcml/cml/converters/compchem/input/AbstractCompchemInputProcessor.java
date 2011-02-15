@@ -13,7 +13,6 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLElement.CoordinateType;
-import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.Command;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
 import org.xmlcml.cml.converters.compchem.AbstractCompchemProcessor;
@@ -22,7 +21,6 @@ import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLMolecule;
-import org.xmlcml.cml.element.CMLParameter;
 
 public abstract class AbstractCompchemInputProcessor extends AbstractCompchemProcessor {
 	private static Logger LOG = Logger.getLogger(AbstractCompchemInputProcessor.class);

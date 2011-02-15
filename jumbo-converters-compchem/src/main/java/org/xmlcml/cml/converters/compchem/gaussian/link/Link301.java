@@ -20,6 +20,7 @@ public class Link301 extends GaussianLink {
 //	};
 
     public Link301() {
+    	LOG.debug("Constructoe");
 	}
     
     @Override

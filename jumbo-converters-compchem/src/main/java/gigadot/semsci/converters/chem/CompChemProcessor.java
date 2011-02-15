@@ -28,9 +28,7 @@ import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLNamespace;
 import org.xmlcml.cml.converters.AbstractBlock;
-import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.cml.RawXML2CMLProcessor;
-import org.xmlcml.cml.converters.compchem.nwchem.NWChemCommon;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLIdentifier;
 import org.xmlcml.cml.element.CMLModule;
@@ -241,7 +239,7 @@ public class CompChemProcessor extends RawXML2CMLProcessor implements HasURIGene
         addMolecule(unq_jinit_res, molecule);
 
         CMLParameterList init_params = (CMLParameterList) init_mod.getFirstCMLChild(CMLParameterList.TAG);
-        List params = init_params.getParameterDescendants();
+        List<CMLParameter> params = init_params.getParameterDescendants();
         addPropertyOrParameterResourcesToTask(params, unq_jinit_res);
         return unq_jinit_res;
     }
@@ -269,7 +267,7 @@ public class CompChemProcessor extends RawXML2CMLProcessor implements HasURIGene
             // N3:           a cml:Property ;
             // N3:           cml:hasValue "-40.5111790287"^^xsd:double;
             // N3:           cml:hasUnits cml:molarEnergy ] .
-            List props = prop_list.getPropertyDescendants();
+            List<CMLProperty> props = prop_list.getPropertyDescendants();
             addPropertyOrParameterResourcesToTask(props, unq_opt_step_res);
             step_rdf_list.add(unq_opt_step_res);
         }
@@ -288,7 +286,7 @@ public class CompChemProcessor extends RawXML2CMLProcessor implements HasURIGene
         addMolecule(unq_jfinal_res, molecule);
 
         CMLPropertyList final_proplist = (CMLPropertyList) molecule.getFirstCMLChild(CMLPropertyList.TAG);
-        List props = final_proplist.getPropertyDescendants();
+        List<CMLProperty> props = final_proplist.getPropertyDescendants();
         addPropertyOrParameterResourcesToTask(props, unq_jfinal_res);
         return unq_jfinal_res;
     }
@@ -307,7 +305,7 @@ public class CompChemProcessor extends RawXML2CMLProcessor implements HasURIGene
         return unq_job_res;
     }
 
-    private void addPropertyOrParameterResourcesToTask(List<CMLElement> props, Resource unq_jtask_res) {
+    private void addPropertyOrParameterResourcesToTask(List<? extends CMLElement> props, Resource unq_jtask_res) {
         for (int j = 0; j < props.size(); j++) {
             // N3:   # What should we do about "unknown:unknown" units?
             // N3:       qm:dipole [
