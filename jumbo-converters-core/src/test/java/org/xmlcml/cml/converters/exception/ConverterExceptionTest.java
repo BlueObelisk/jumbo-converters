@@ -1,6 +1,4 @@
-package orc.xmlcml.cml.converters.exception;
-
-import static org.junit.Assert.*;
+package org.xmlcml.cml.converters.exception;
 
 import java.io.IOException;
 
@@ -39,7 +37,7 @@ public class ConverterExceptionTest {
             try {
                 throw new ConverterException("Test", e);
             } catch (ConverterException e1) {
-               Assert.assertEquals(21,e1.getStackTrace().length);
+               Assert.assertTrue(e1.getStackTrace().length>=21);
                e1.printStackTrace();
             }
         }
