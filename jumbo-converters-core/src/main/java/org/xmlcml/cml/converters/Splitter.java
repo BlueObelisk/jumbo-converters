@@ -5,6 +5,7 @@ package org.xmlcml.cml.converters;
  * @author axiomsofchoice
  *
  */
+@Deprecated
 public interface Splitter {
 
 }
