@@ -38,7 +38,6 @@ public class ConverterExceptionTest {
                 throw new ConverterException("Test", e);
             } catch (ConverterException e1) {
                Assert.assertTrue(e1.getStackTrace().length>=21);
-               e1.printStackTrace();
             }
         }
     }
