@@ -87,7 +87,7 @@ public class TemplateTest {
 		Assert.assertEquals("name", "test", template.getName());
 //		Assert.assertEquals("pattern", "\\s*\\s*", template.getPattern().pattern());
 		Assert.assertEquals("outputLevel", OutputLevel.NONE, template.getOutputLevel());
-		template.debug();
+//		template.debug();
 	}
 
 	@Test
@@ -131,7 +131,7 @@ public class TemplateTest {
 		Assert.assertEquals("name", "test", template.getName());
 		Assert.assertEquals("pattern", "", template.getPattern().pattern());
 		Assert.assertEquals("outputLevel", OutputLevel.NONE, template.getOutputLevel());
-		template.debug();
+//		template.debug();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -151,7 +151,7 @@ public class TemplateTest {
 		Assert.assertEquals("name", "test", template.getName());
 		Assert.assertEquals("pattern", "", template.getPattern().pattern());
 		Assert.assertEquals("pattern", OutputLevel.NONE, template.getOutputLevel());
-		template.debug();
+//		template.debug();
 	}
 
 
@@ -171,7 +171,7 @@ public class TemplateTest {
 		template.applyMarkup(toBeParsed);
 		LineContainer lineContainer = template.getLineContainer();
 		Assert.assertNotNull(lineContainer);
-		lineContainer.debug("LineContainer");
+//		lineContainer.debug("LineContainer");
 	}
 	
 
@@ -192,7 +192,7 @@ public class TemplateTest {
 		template.applyMarkup(toBeParsed);
 		LineContainer lineContainer = template.getLineContainer();
 		Assert.assertNotNull(lineContainer);
-		lineContainer.debug("LineContainer");
+//		lineContainer.debug("LineContainer");
 	}
 	
 	@Test
@@ -259,7 +259,7 @@ public class TemplateTest {
 		template.applyMarkup(toBeParsed);
 		LineContainer lineContainer = template.getLineContainer();
 		Assert.assertNotNull(lineContainer);
-		lineContainer.debug("LineContainer");
+//		lineContainer.debug("LineContainer");
 	}
 	
 	@Test
@@ -386,7 +386,7 @@ public class TemplateTest {
 		String templateS = 
 			"<template id='t1' name='test' pattern='' dictRef=''>" +
 			"  <templateList>" +
-			"    <template pattern='.*2.*' offset='1' id='t1' name='template 1' endPattern='.*5.*' endOffset='1'/>" +
+			"    <template repeatCount='*' pattern='.*2.*' offset='1' id='t1' name='template 1' endPattern='.*5.*' endOffset='1'/>" +
 			"  </templateList>" +
 			"</template>";
 		Template template = new Template(CMLUtil.parseXML(templateS));
@@ -419,12 +419,12 @@ public class TemplateTest {
 	}
 	
 	@Test
-//	@Ignore // FIXME not yet right
+	@Ignore // FIXME not yet right // loops
 	public void testTemplateChunkingOffsetRepeat1() {
 		String templateS = 
 			"<template id='t1' name='test' pattern='' dictRef=''>" +
 			"  <templateList>" +
-			"    <template pattern='.*\\-\\-\\-\\-.*' offset='0' id='t1' name='template 1' endPattern='.*\\-\\-\\-.*' endOffset='-1'/>" +
+			"    <template repeatCount='*' pattern='.*\\-\\-\\-\\-.*' offset='0' id='t1' name='template 1' endPattern='.*\\-\\-\\-.*' endOffset='-1'/>" +
 			"  </templateList>" +
 			"</template>";
 		Template template = new Template(CMLUtil.parseXML(templateS));
@@ -464,7 +464,7 @@ public class TemplateTest {
 		String templateS = 
 			"<template id='t1' name='test' pattern='' dictRef=''>" +
 			"  <templateList>" +
-			"    <template pattern='.*ssss.*' offset='0' id='t1' name='template 1' endPattern='.*eeee.*' endOffset='1'/>" +
+			"    <template repeatCount='*' pattern='.*ssss.*' offset='0' id='t1' name='template 1' endPattern='.*eeee.*' endOffset='1'/>" +
 			"  </templateList>" +
 			"</template>";
 		Template template = new Template(CMLUtil.parseXML(templateS));
@@ -563,4 +563,360 @@ public class TemplateTest {
 "</lineContainer>";
 		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
 	}
+	
+	@Test
+	public void testNestedTemplates2() {
+		String templateS = 
+			"<template id='book' name='test' pattern='' dictRef=''>" +
+			"  <templateList>" +
+			"    <template repeatCount='*' pattern='.*chapter.*' offset='0' id='chapter' name='template A' endPattern='.*====.*' endOffset='0'>" +
+			"      <templateList>" +
+			"        <template repeatCount='*' pattern='.*section.*' offset='0' id='section' name='template B' endPattern='.*####.*' endOffset='0'>" +
+			"        </template>" +
+			"      </templateList>" +
+			"    </template>" +
+			"    <template repeatCount='*' pattern='.*line.*' offset='0' id='chapterLine' name='template A' endPattern='.*line.*' endOffset='0'/>" +
+			"  </templateList>" +
+			"</template>";
+		Template template = new Template(CMLUtil.parseXML(templateS));
+		String toBeParsed = "" +
+			"book\n"+
+			"line1\n"+
+			"line1a\n"+
+			"line1b\n"+
+			"line2\n"+
+			"chapter1\n"+
+			"line4\n"+
+			"section 1\n"+
+			"line6\n"+
+			"line7\n"+
+			"line8\n"+
+			"####\n"+
+			"line10\n"+
+			"section 2\n"+
+			"line12d\n"+
+			"####\n"+
+			"line14\n"+
+			"====\n"+
+			"line16b\n"+
+			"line17\n"+
+			"line18\n"+
+			"line19\n"+
+			"";
+		template.applyMarkup(toBeParsed);
+		LineContainer lineContainer = template.getLineContainer();
+		Assert.assertNotNull(lineContainer);
+		String refS = 
+			"<lineContainer>book"+
+			  "<chunk templateRef='chapterLine'>line1</chunk>"+
+			  "<chunk templateRef='chapterLine'>line1a</chunk>"+
+			  "<chunk templateRef='chapterLine'>line1b</chunk>"+
+			  "<chunk templateRef='chapterLine'>line2</chunk>"+
+			  "<chunk templateRef='chapter'>chapter1line4"+
+			    "<chunk templateRef='section'>section 1line6line7line8</chunk>####line10"+
+			    "<chunk templateRef='section'>section 2line12d</chunk>####line14"+
+			  "</chunk>===="+
+			  "<chunk templateRef='chapterLine'>line16b</chunk>"+
+			  "<chunk templateRef='chapterLine'>line17</chunk>"+
+			  "<chunk templateRef='chapterLine'>line18</chunk>line19"+
+			"</lineContainer>"+
+		    "";
+		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
+//		Assert.fail("wrong output");
+		
+	}
+	
+	@Test
+	public void testStartEnd00() {
+		String templateS = 
+			"<template id='book' name='test' pattern='' dictRef=''>" +
+			"  <templateList>" +
+			"    <template repeatCount='*' pattern='.*start.*' offset='0' id='chapter' " +
+			"        name='template A' endPattern='.*end.*' endOffset='0'>" +
+			"    </template>" +
+			"  </templateList>" +
+			"</template>";
+		Template template = new Template(CMLUtil.parseXML(templateS));
+		String toBeParsed = "" +
+			"book\n"+
+			"start1\n"+
+			"end1\n"+
+			"start2\n"+
+			"end2\n"+
+			"start3\n"+
+			"end3\n"+
+			"start4\n"+
+			"end4\n"+
+			"";
+		template.applyMarkup(toBeParsed);
+		LineContainer lineContainer = template.getLineContainer();
+		Assert.assertNotNull(lineContainer);
+		String refS = 
+		  "<lineContainer>book"+
+		  "<chunk templateRef=\"chapter\">start1</chunk>end1"+
+		  "<chunk templateRef=\"chapter\">start2</chunk>end2"+
+		  "<chunk templateRef=\"chapter\">start3</chunk>end3"+
+		  "<chunk templateRef=\"chapter\">start4</chunk>end4"+
+		  "</lineContainer>";
+		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
+	}
+	
+	@Test
+	public void testStartEnd01() {
+		String templateS = 
+			"<template id='book' name='test' pattern='' dictRef=''>" +
+			"  <templateList>" +
+			"    <template repeatCount='*' pattern='.*start.*' offset='0' id='chapter' name='template A' " +
+			"        endPattern='.*end.*' endOffset='1'>" +
+			"    </template>" +
+			"  </templateList>" +
+			"</template>";
+		Template template = new Template(CMLUtil.parseXML(templateS));
+		String toBeParsed = "" +
+			"book\n"+
+			"start1\n"+
+			"end1\n"+
+			"start2\n"+
+			"end2\n"+
+			"start3\n"+
+			"end3\n"+
+			"start4\n"+
+			"end4\n"+
+			"";
+		template.applyMarkup(toBeParsed);
+		LineContainer lineContainer = template.getLineContainer();
+		Assert.assertNotNull(lineContainer);
+		String refS = 
+			  "<lineContainer>book"+
+			  "<chunk templateRef=\"chapter\">start1end1</chunk>"+
+			  "<chunk templateRef=\"chapter\">start2end2</chunk>"+
+			  "<chunk templateRef=\"chapter\">start3end3</chunk>"+
+			  "<chunk templateRef=\"chapter\">start4end4</chunk>"+
+			  "</lineContainer>";
+		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
+	}
+	
+	@Test
+	public void testStartStart0() {
+		String templateS = 
+			"<template id='book' name='test' pattern='' dictRef=''>" +
+			"  <templateList>" +
+			"    <template repeatCount='*' pattern='.*start.*' offset='0' id='chapter' name='template A' " +
+			"        endPattern='.*start.*' endOffset='0'>" +
+			"    </template>" +
+			"  </templateList>" +
+			"</template>";
+		Template template = new Template(CMLUtil.parseXML(templateS));
+		String toBeParsed = "" +
+			"book\n"+
+			"start1\n"+
+			"end1\n"+
+			"start2\n"+
+			"end2\n"+
+			"start3\n"+
+			"end3\n"+
+			"start4\n"+
+			"end4\n"+
+			"start5\n"+
+			"end5\n"+
+			"start6\n"+
+			"end6\n"+
+			"";
+		template.applyMarkup(toBeParsed);
+		LineContainer lineContainer = template.getLineContainer();
+		Assert.assertNotNull(lineContainer);
+		String refS = 
+			  "<lineContainer>book"+
+			  "<chunk templateRef='chapter'>start1end1</chunk>"+
+			  "<chunk templateRef='chapter'>start2end2</chunk>"+
+			  "<chunk templateRef='chapter'>start3end3</chunk>"+
+			  "<chunk templateRef='chapter'>start4end4</chunk>"+
+			  "<chunk templateRef='chapter'>start5end5</chunk>start6end6"+
+			  "</lineContainer>";
+		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
+//		Assert.fail("wrong output");
+	}
+	
+	@Test
+	public void testRepeatCount() {
+		String templateS = 
+			"<template id='book' name='test' pattern='' dictRef=''>" +
+			"  <templateList>" +
+			"    <template pattern='.*start.*' offset='0' id='chapter' name='repeat defaults to 1,1' " +
+			"        endPattern='.*end.*' endOffset='1'>" +
+			"    </template>" +
+			"  </templateList>" +
+			"</template>";
+		Template template = new Template(CMLUtil.parseXML(templateS));
+		String toBeParsed = "" +
+			"book\n"+
+			"start1\n"+
+			"content1a\n"+
+			"end1\n"+
+			"skip1\n"+
+			"start2\n"+
+			"content2a\n"+
+			"end2\n"+
+			"skip2\n"+
+			"start3\n"+
+			"content3a\n"+
+			"end3\n"+
+			"skip3\n"+
+			"start4\n"+
+			"content4a\n"+
+			"end4\n"+
+			"skip4\n"+
+			"";
+		template.applyMarkup(toBeParsed);
+		LineContainer lineContainer = template.getLineContainer();
+		Assert.assertNotNull(lineContainer);
+		String refS = 
+			  "<lineContainer>book"+
+			  "<chunk templateRef='chapter'>start1content1aend1</chunk>skip1start2content2aend2skip2start3content3aend3skip3start4content4aend4skip4"+
+			  "</lineContainer>";
+		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
+	}
+
+	@Test
+	public void testRepeatCount1() {
+		String templateS = 
+			"<template id='book' name='test' pattern='' dictRef=''>" +
+			"  <templateList>" +
+			"    <template repeatCount='3' pattern='.*start.*' offset='0' id='chapter' name='template A' " +
+			"        endPattern='.*end.*' endOffset='1'>" +
+			"    </template>" +
+			"  </templateList>" +
+			"</template>";
+		Template template = new Template(CMLUtil.parseXML(templateS));
+		String toBeParsed = "" +
+			"book\n"+
+			"start1\n"+
+			"content1a\n"+
+			"end1\n"+
+			"skip1\n"+
+			"start2\n"+
+			"content2a\n"+
+			"end2\n"+
+			"skip2\n"+
+			"start3\n"+
+			"content3a\n"+
+			"end3\n"+
+			"skip3\n"+
+			"start4\n"+
+			"content4a\n"+
+			"end4\n"+
+			"skip4\n"+
+			"";
+		template.applyMarkup(toBeParsed);
+		LineContainer lineContainer = template.getLineContainer();
+		Assert.assertNotNull(lineContainer);
+		String refS = 
+			  "<lineContainer>book"+
+			  "<chunk templateRef='chapter'>start1content1aend1</chunk>skip1"+
+			  "<chunk templateRef='chapter'>start2content2aend2</chunk>skip2"+
+			  "<chunk templateRef='chapter'>start3content3aend3</chunk>skip3start4content4aend4skip4"+
+			  "</lineContainer>";
+		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
+	}
+	
+	@Test
+	public void testMultipleChildren() {
+		String templateS = 
+			"<template id='book' name='test' pattern='' dictRef=''>" +
+			"  <templateList>" +
+			"    <template repeatCount='*' pattern='.*start2.*' offset='0' id='start2Ref' name='start2' " +
+			"        endPattern='.*end.*' endOffset='1'>" +
+			"    </template>" +
+			"    <template repeatCount='*' pattern='.*start1.*' offset='0' id='start1Ref' name='start1' " +
+			"        endPattern='.*end.*' endOffset='1'>" +
+			"    </template>" +
+			"  </templateList>" +
+			"</template>";
+		Template template = new Template(CMLUtil.parseXML(templateS));
+		String toBeParsed = "" +
+			"book\n"+
+			"start1\n"+
+			"content1a\n"+
+			"end1\n"+
+			"skip1\n"+
+			"start2\n"+
+			"content2a\n"+
+			"end2\n"+
+			"skip2\n"+
+			"start3\n"+
+			"content3a\n"+
+			"end3\n"+
+			"skip3\n"+
+			"start1\n"+
+			"content1b\n"+
+			"end1\n"+
+			"skip1\n"+
+			"start4\n"+
+			"content4a\n"+
+			"end4\n"+
+			"skip4\n"+
+			"";
+		template.applyMarkup(toBeParsed);
+		LineContainer lineContainer = template.getLineContainer();
+		Assert.assertNotNull(lineContainer);
+		String refS = 
+			  "<lineContainer>book"+
+			  "<chunk templateRef='start1Ref'>start1content1aend1</chunk>skip1"+
+			  "<chunk templateRef='start2Ref'>start2content2aend2</chunk>skip2start3content3aend3skip3" +
+			  "<chunk templateRef='start1Ref'>start1content1bend1</chunk>skip1start4content4aend4skip4"+
+			  "</lineContainer>";
+		
+		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
+	}
+	
+	@Test
+	public void testMultipleChildren1() {
+		String templateS = 
+			"<template id='book' name='test' pattern='' dictRef=''>" +
+			"  <templateList>" +
+			"    <template repeatCount='*' pattern='.*start1.*' offset='0' id='start1Ref' name='start1' " +
+			"        endPattern='.*end.*' endOffset='1'>" +
+			"    </template>" +
+			"    <template repeatCount='*' pattern='.*start2.*' offset='1' id='start2Ref' name='start2' " +
+			"        endPattern='.*end.*' endOffset='0'>" +
+			"    </template>" +
+			"  </templateList>" +
+			"</template>";
+		Template template = new Template(CMLUtil.parseXML(templateS));
+		String toBeParsed = "" +
+			"book\n"+
+			"start1\n"+
+			"content1a\n"+
+			"end1\n"+
+			"skip1\n"+
+			"start2\n"+
+			"content2a\n"+
+			"end2\n"+
+			"skip2\n"+
+			"start3\n"+
+			"content3a\n"+
+			"end3\n"+
+			"skip3\n"+
+			"start1\n"+
+			"content1b\n"+
+			"end1\n"+
+			"skip1\n"+
+			"start4\n"+
+			"content4a\n"+
+			"end4\n"+
+			"skip4\n"+
+			"";
+		template.applyMarkup(toBeParsed);
+		LineContainer lineContainer = template.getLineContainer();
+		Assert.assertNotNull(lineContainer);
+		String refS = 
+			  "<lineContainer>book"+
+			  "<chunk templateRef='start1Ref'>start1content1aend1</chunk>skip1start2" +
+			  "<chunk templateRef='start2Ref'>content2a</chunk>end2skip2start3content3aend3skip3"+
+			  "<chunk templateRef='start1Ref'>start1content1bend1</chunk>skip1start4content4aend4skip4"+
+			  "</lineContainer>";
+		
+		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
+	}
+	
 }

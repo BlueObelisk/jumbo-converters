@@ -1,14 +1,14 @@
 package org.xmlcml.cml.converters.text;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import nu.xom.Attribute;
 import nu.xom.Element;
 import nu.xom.Node;
+import nu.xom.Nodes;
+import nu.xom.ParentNode;
 import nu.xom.Text;
 
 import org.apache.log4j.Logger;
@@ -16,21 +16,17 @@ import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.euclid.Int2;
 
-public class LineContainer /*extends Element */ {
+public class LineContainer {
 
-//	@SuppressWarnings("unused")
 	private final static Logger LOG = Logger.getLogger(LineContainer.class);
 	
 	private static final String CHUNK = "chunk";
 	private static final String LINE_CONTAINER = "lineContainer";
-	private static final String TEMPLATE_REF = "templateRef";
 
-	private int currentNodeNumber = 0;
-	private int nodeIndex;
+	private int currentNodeIndex = 0;
 	private Element linesElement;
 	
 	public LineContainer() {
-//		super(LINE_CONTAINER);
 	}
 	
 	/** extracts children of element and destroys element
@@ -46,6 +42,14 @@ public class LineContainer /*extends Element */ {
 		this.setContent(s);
 	}
 	
+	public int getCurrentNodeIndex() {
+		return currentNodeIndex;
+	}
+
+	public void setCurrentNodeIndex(int nodeIndex) {
+		this.currentNodeIndex = nodeIndex;
+	}
+
 	public void setContent(String string) {
 		List<String> lines = (string == null) ? null : Arrays.asList(string.split(CMLConstants.S_NEWLINE));
 		if (lines != null) {
@@ -63,18 +67,18 @@ public class LineContainer /*extends Element */ {
 	public Node getNextNode() {
 		Node currentNode = null;
 		if (hasMoreNodes()) {
-			currentNode = linesElement.getChild(currentNodeNumber);
-			currentNodeNumber++;
+			currentNode = linesElement.getChild(currentNodeIndex);
+			currentNodeIndex++;
 		}
 		return currentNode;
 	}
 	
 	public Node peekCurrentNode() {
-		return (hasMoreNodes()) ? linesElement.getChild(currentNodeNumber) : null;
+		return (hasMoreNodes()) ? linesElement.getChild(currentNodeIndex) : null;
 	}
 	
 	public boolean hasMoreNodes() {
-		return currentNodeNumber < linesElement.getChildCount();
+		return currentNodeIndex < linesElement.getChildCount();
 	}
 
 	public boolean canReadContiguousTextNodes(int start, int linesToRead) {
@@ -92,23 +96,44 @@ public class LineContainer /*extends Element */ {
 		return can;
 	}
 
-	public Int2 matchLines(int start, List<Pattern> contiguousPatterns) {
-		Int2 range = new Int2(start, start);
-		if (this.canReadContiguousTextNodes(start, contiguousPatterns.size())) {
+	public Int2 matchLines(int startIndex, List<Pattern> contiguousPatterns) {
+		Int2 range = new Int2(startIndex, startIndex);
+		if (this.canReadContiguousTextNodes(startIndex, contiguousPatterns.size())) {
 			for (int i = 0; i < contiguousPatterns.size(); i++) {
-				Node node = linesElement.getChild(i + start);
-				Matcher matcher = contiguousPatterns.get(i).matcher(node.getValue());
+				Node node = linesElement.getChild(i + startIndex);
+				String value = node.getValue();
+				Pattern pattern = contiguousPatterns.get(i);
+				LOG.trace("matching ["+value+"] against ["+pattern+"]");
+				Matcher matcher = pattern.matcher(value);
 				if (!matcher.matches()) {
 					range = null;
 					break;
 				}
 			}
 			if (range != null) {
-				range = new Int2(start, start+contiguousPatterns.size()-1);
+				range = new Int2(startIndex, startIndex+contiguousPatterns.size()-1);
 			}
 		}
 		return range;
 	}
+
+	Int2 findNextMatch(int nodeIndex, PatternChunker chunker) {
+		// loop through lines till end (might tweak this later??)
+		while (nodeIndex < this.linesElement.getChildCount()) {
+			LOG.debug(nodeIndex+"/"+this.linesElement.getChildCount());
+			Int2 contiguous = this.getContiguousTextRange(nodeIndex);
+			while (nodeIndex < contiguous.getY()) {
+				Int2 start = this.matchLines(nodeIndex, chunker.getPatternList());
+				if (start != null) {
+					return start;
+				}
+				nodeIndex++;
+			}
+			nodeIndex++;
+		}
+		return null;
+	}
+
 
 	public Int2 getContiguousTextRange(int start) {
 		@SuppressWarnings("unused")
@@ -122,61 +147,10 @@ public class LineContainer /*extends Element */ {
 		return new Int2(start, index);
 	}
 	
-	public List<Element> applyChunkers(int maxRepeatCount, PatternChunker startChunker, PatternChunker endChunker, String templateId) {
-		LOG.trace("max "+maxRepeatCount+" "+startChunker+"|"+endChunker+ " | "+templateId);
-		nodeIndex = 0;
-		int repeatCount = 0; // use this later
-		List<Element> chunkedElements = new ArrayList<Element>();
-		while (repeatCount < maxRepeatCount) {
-			Element chunk = findNextChunk(startChunker, endChunker);
-			if (chunk == null) {
-				break;
-			}
-			chunk.addAttribute(new Attribute(TEMPLATE_REF, templateId));
-//			CMLUtil.debug(chunk,"CHUNK--------");
-			chunkedElements.add(chunk);
-			repeatCount++;
-		}
-//		System.out.println("CHUNKED elements "+chunkedElements.size()+"=====================");
-//		for (Element chunk : chunkedElements) {
-//			CMLUtil.debug(chunk, "inlist");
-//		}
-//		CMLUtil.debug(linesElement, "LINECONTAINER");
-		
-		return chunkedElements;
-	}
-
-	private Element findNextChunk(PatternChunker startChunker, PatternChunker endChunker) {
+	Element createChunk(int start, int end) {
+		LOG.trace("chunk "+start+" | "+end);
 		Element chunk = null;
-		Int2 startRange = findNextMatch(nodeIndex, startChunker);
-		if (startRange != null) {
-			int start = startRange.getX()+startChunker.getOffset();
-			int end = startRange.getY();
-			Int2 endRange = findNextMatch(end+1, endChunker);
-			if (endRange != null) {
-				end = endRange.getX()+endChunker.getOffset();
-				nodeIndex = endRange.getY()+1;
-			}
-			chunk = chunk(start, end);
-		}
-		return chunk;
-	}
-
-	private Int2 findNextMatch(int nodeIndex, PatternChunker startChunker) {
-		Int2 contiguous = this.getContiguousTextRange(nodeIndex);
-		while (nodeIndex < contiguous.getY()) {
-			Int2 start = this.matchLines(nodeIndex, startChunker.getPatternList());
-			if (start != null) {
-				return start;
-			}
-			nodeIndex++;
-		}
-		return null;
-	}
-
-	private Element chunk(int start, int end) {
-		LOG.debug("chunk "+start+" | "+end);
-		Element chunk = new Element(CHUNK);
+		int nchunked = 0;
 		for (int i = 0; i < end-start; i++) {
 			Node node = linesElement.getChild(start);
 			if (node == null) {
@@ -184,18 +158,23 @@ public class LineContainer /*extends Element */ {
 				continue;
 			}
 			if (!(node instanceof Text)) {
-				throw new RuntimeException("expected text node, found "+node);
+//				throw new RuntimeException("making chunk: expected text node, found "+node.toXML());
+				LOG.error("making chunk: expected text node, found "+node.toXML());
+				break;
+			} else {
+				if (chunk == null) {
+					chunk = new Element(CHUNK);
+				}
+				node.detach();
+				chunk.appendChild(node);
+				nchunked++;
 			}
-			if (chunk == null) {
-				chunk = new Element(CHUNK);
-			}
-			node.detach();
-			chunk.appendChild(node);
 		}
 		if (chunk != null) {
 			linesElement.insertChild(chunk, start);
 		}
-//		CMLUtil.debug(chunk,"chunk extracted");
+//		currentNodeIndex -= (end-start)-1;
+		currentNodeIndex -= (nchunked-1);
 		return chunk;
 	}
 
@@ -205,6 +184,24 @@ public class LineContainer /*extends Element */ {
 
 	public Element getLinesElement() {
 		return linesElement;
+	}
+
+	public Element getNormalizedLinesElement() {
+		Element element = this.getLinesElement();
+		Nodes nodes = element.query(".//text()");
+		for (int i = 0; i < nodes.size(); i++) {
+			wrapText((Text)nodes.get(i));
+		}
+		CMLUtil.normalizeWhitespaceInTextNodes(element);
+		return element;
+	}
+
+	private void wrapText(Text text) {
+		Element parent = (Element) text.getParent();
+		Element l = new Element("l");
+		parent.replaceChild(text, l);
+		l.appendChild(text);
+		CMLUtil.debug(l);
 	}
 
 }

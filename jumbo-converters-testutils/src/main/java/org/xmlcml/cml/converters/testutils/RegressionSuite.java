@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -26,7 +25,6 @@ import org.apache.commons.io.filefilter.SuffixFileFilter;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.xmlcml.cml.base.CMLConstants;
-import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.testutil.JumboTestUtils;
 
@@ -246,7 +244,7 @@ public class RegressionSuite {
 	public void run() {
 		inputSuffix = getInputSuffix();
 		outputSuffix = getOutputSuffix();
-		File od = clean(getOutputDir());
+		/*File od = */clean(getOutputDir());
 		final File startDir = getStartDir();
 		if (!startDir.exists()) {
 			throw new RuntimeException("Cannot run regression test of "
