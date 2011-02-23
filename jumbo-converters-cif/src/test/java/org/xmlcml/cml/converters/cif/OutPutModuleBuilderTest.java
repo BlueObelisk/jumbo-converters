@@ -100,4 +100,50 @@ public class OutPutModuleBuilderTest {
         type = prop.getScalarElements().get(0).getDataType();
         Assert.assertEquals("xsd:double", type);
     }
+    
+    @Test
+    public void testParseDouble(){
+        OutPutModuleBuilder builder = new OutPutModuleBuilder();
+        double d=builder.getDoubleFromString("87.4(3)");
+        Assert.assertEquals(87.4, d,0.000001);
+    }
+    @Test
+    public void testParseDoubleNoError(){
+        OutPutModuleBuilder builder = new OutPutModuleBuilder();
+        double d=builder.getDoubleFromString("67");
+        Assert.assertEquals(67, d,0.000001);
+    }
+    @Test
+    public void testParseError(){
+        OutPutModuleBuilder builder = new OutPutModuleBuilder();
+        double d=builder.getErrorFromString("87.4(3)");
+        Assert.assertEquals(0.3, d,0.000001);
+    }
+    @Test
+    public void testParseMultipleDigitsError(){
+        OutPutModuleBuilder builder = new OutPutModuleBuilder();
+        double d=builder.getErrorFromString("87.4(323)");
+        Assert.assertEquals(32.3, d,0.000001);
+    }
+    @Test
+    public void testParseNoDecimal(){
+        OutPutModuleBuilder builder = new OutPutModuleBuilder();
+        double d=builder.getErrorFromString("8724(323)");
+        Assert.assertEquals(323, d,0.000001);
+    }
+    @Test
+    public void testFetchErrorDataType() {
+        OutPutModuleBuilder builder = new OutPutModuleBuilder();
+        CMLProperty prop = new CMLProperty();
+        prop.addNamespaceDeclaration(CifDictionaryBuilder.PREFIX, CifDictionaryBuilder.URI);
+        prop.setDictRef("iucr:cell_measurement_wavelength");
+        prop.addScalar(new CMLScalar("0.0622(45)"));
+        String type = prop.getScalarElements().get(0).getDataType();
+        Assert.assertEquals("xsd:string", type);
+        builder.fetchDataType(prop);
+        type = prop.getScalarElements().get(0).getDataType();
+        Assert.assertEquals("xsd:double", type);
+        Assert.assertEquals(0.0045, prop.getScalarElements().get(0).getErrorValue(),0.000001);
+        Assert.assertEquals("0.0622", prop.getScalarElements().get(0).getValue());
+    }
 }
