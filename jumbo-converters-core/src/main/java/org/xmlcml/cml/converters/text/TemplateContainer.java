@@ -7,7 +7,6 @@ import nu.xom.Element;
 import nu.xom.Elements;
 
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.base.CMLUtil;
 
 public class TemplateContainer {
 	@SuppressWarnings("unused")
@@ -21,10 +20,10 @@ public class TemplateContainer {
 
 	public TemplateContainer(Element element) {
 		this.element = element;
-		processChildElements();
+		readChildrenAndCreateTemplates();
 	}
 
-	private void processChildElements() {
+	private void readChildrenAndCreateTemplates() {
 		Elements elements = element.getChildElements();
 		for (int i = 0; i < elements.size(); i++) {
 			Element element = elements.get(i);
@@ -38,21 +37,6 @@ public class TemplateContainer {
 	
 	public List<Template> getTemplateList() {
 		return templateList;
-	}
-
-	public void apply(LineContainer lineContainer) {
-		for (Template template : templateList) {
-			template.debug();
-			List<Element> elements = template.applyChunkers(lineContainer);
-			LOG.trace("found child elements after wrap: "+elements.size());
-			for (Element element : elements) {
-//				CMLUtil.debug(element, "**childEl");
-				LineContainer childLineContainer = new LineContainer(element);
-//				childLineContainer.debug("child");
-				template.applyMarkup(childLineContainer);
-				
-			}
-		}
 	}
 	
 }

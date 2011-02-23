@@ -1,0 +1,15 @@
+<template id='qespresso' name='test' pattern='' dictRef=''>
+  <templateList>
+    <template id='cartax' name='cartax' pattern='.*\s+Cartesian axes.*' endPattern='\s*'/>
+    <template id='site' name='site' pattern='.*site n.*' endPattern='\s*'/>
+     <template id='kpoints' name='kpoints' pattern='.*number of k points=.*' endPattern='\s*'>
+      <templateList>
+        <template id='kp' name='kp' repeatCount='*' pattern=' *k\(\s*\d+\) = \(.*' endPattern=' *k\(\s*\d+\) = \(.*'/>
+      </templateList>
+    </template>
+    
+    <template id='dim' name='dim' pattern='.*Current dimensions of program pwscf are:.*' endPattern='\s*'/>
+    <template id='eig' name='eig' pattern='.*Subspace diagonalization in iterative .*' endPattern='\s*'/>
+    
+  </templateList>
+</template>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import nu.xom.Attribute;
 import nu.xom.Element;
 import nu.xom.Elements;
 
@@ -18,27 +19,34 @@ import org.xmlcml.cml.converters.format.LineReader;
 import org.xmlcml.cml.converters.format.LineReader.LineType;
 import org.xmlcml.cml.converters.format.ReadLinesLineReader;
 import org.xmlcml.cml.converters.format.RecordsLineReader;
+import org.xmlcml.cml.converters.text.LineContainer;
 import org.xmlcml.cml.converters.util.JumboReader;
 import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLScalar;
+import org.xmlcml.euclid.Int2;
 
 public class Template {
 	
-//	private static final String BLOCK = "block";
-
 	private final static Logger LOG = Logger.getLogger(Template.class);
 
+	public static final String TAG = "template";
+	
+	public static final String ZERO_OR_ONE = "?";
+	public static final String ZERO_OR_MORE = "*";
+	public static final String ONE_OR_MORE = "+";
+	// attributes
 	public static final String CMLX_UNREAD = "cmlx:unread";
+	private static final String DICT_REF = "dictRef";
+	private static final String END_OFFSET = "endOffset";
+	private static final String END_PATTERN = "endPattern";
 	private static final String ID = "id";
 	private static final String MULTIPLE = "multiple";
 	private static final String NAME = "name";
-	private static final String PATTERN = "pattern";
-	private static final String END_PATTERN = "endPattern";
-//	private static final String SP_STAR = "\\s*";
-	public static final String TAG = "template";
-
 	private static final String OFFSET = "offset";
-	private static final String END_OFFSET = "endOffset";
+	private static final String OUTPUT = "output";
+	private static final String PATTERN = "pattern";
+	private static final String REPEAT_COUNT = "repeatCount";
+	private static final String TEMPLATE_REF = "templateRef";
 	
 	protected Element theElement;
 	private String id;
@@ -50,8 +58,8 @@ public class Template {
 	private PatternChunker startChunker;
 	private Integer offset;
 	private Integer endOffset;
-	
-	private int maxRepeatCount = Integer.MAX_VALUE;
+	private Integer minRepeatCount = 1;
+	private Integer maxRepeatCount = 1;
 	
 	private JumboReader jumboReader;
 	private OutputLevel outputLevel;
@@ -61,6 +69,8 @@ public class Template {
 	private List<LineReader> lineReaderList;
 
 	private LineContainer lineContainer;
+
+	private String dictRef;
 
 	public Template(Element element) {
 		this.theElement = element;
@@ -119,10 +129,24 @@ public class Template {
 	}
 
 	private void processAttributes() {
+		checkIfAttributeNamesAreAllowed(new String[]{
+				DICT_REF,
+				END_OFFSET,
+				END_PATTERN,
+				ID, 
+				MULTIPLE,
+				NAME,
+				OFFSET,
+				OUTPUT,
+				PATTERN,
+				REPEAT_COUNT,
+		});
+				
 		id = theElement.getAttributeValue(ID);
 		checkNotNull(theElement, ID, id);
 		name = theElement.getAttributeValue(NAME);
 		checkNotNull(theElement, NAME, name);
+		this.dictRef = theElement.getAttributeValue(DICT_REF);
 		
 		patternString = theElement.getAttributeValue(PATTERN);
 		checkNotNull(theElement, PATTERN, patternString);
@@ -142,16 +166,67 @@ public class Template {
 		offsetS = theElement.getAttributeValue(END_OFFSET);
 		endOffset = (offsetS == null) ? offset : new Integer(offsetS);
 		
+		String repeatCountS = theElement.getAttributeValue(REPEAT_COUNT); 
+		minRepeatCount = 1;
+		maxRepeatCount = 1;
+		if (ZERO_OR_ONE.equals(repeatCountS)) {
+			minRepeatCount = 0;
+			maxRepeatCount = 1;
+		} else if (ZERO_OR_MORE.equals(repeatCountS)) {
+			minRepeatCount = 0;
+			maxRepeatCount = Integer.MAX_VALUE;
+		} else if (ONE_OR_MORE.equals(repeatCountS)) {
+			minRepeatCount = 1;
+			maxRepeatCount = Integer.MAX_VALUE;
+		} else if (repeatCountS != null) {
+			String[] ss = repeatCountS.split(CMLConstants.S_COMMA);
+			if (ss.length > 2) {
+				throw new RuntimeException("Bad repeat Count: "+repeatCountS);
+			} else if (ss.length == 2) {
+				try {
+					minRepeatCount = new Integer(ss[0]);
+					maxRepeatCount = new Integer(ss[1]);
+				} catch (Exception e) {
+					throw new RuntimeException("Bad repeat Count: "+repeatCountS);
+				}
+			} else if (ss.length == 1) {
+				try {
+					minRepeatCount = new Integer(ss[0]);
+					maxRepeatCount = new Integer(ss[0]);
+				} catch (Exception e) {
+					throw new RuntimeException("Bad repeat Count: "+repeatCountS);
+				}
+			} else {
+				throw new RuntimeException("Bad repeat Count: "+repeatCountS);
+			}
+		}
+		
 		startChunker = new PatternChunker(createPatternList(patternString, multipleS), offset);
 		endChunker = new PatternChunker(createPatternList(endPatternString, multipleS), endOffset);
 	}
 
-	/** used by Deleter - needs refactoring */
-	public static List<Pattern> processMultipleAndPatternAttributes(Element element) {
-		String patternS = element.getAttributeValue(PATTERN);
-		String multipleS = element.getAttributeValue(MULTIPLE);
-		return createPatternList(patternS, multipleS);
+	private void checkIfAttributeNamesAreAllowed(String[] allowedNames) {
+		for (int i = 0; i < theElement.getAttributeCount(); i++) {
+			String attName = theElement.getAttribute(i).getLocalName();
+			boolean allowed = false;
+			for (String allowedName : allowedNames) {
+				if (attName.equals(allowedName)) {
+					allowed = true;
+					break;
+				}
+			}
+			if (!allowed) {
+				throw new RuntimeException("Forbidden attribute name: "+attName);
+			}
+		}
 	}
+
+//	/** used by Deleter - needs refactoring */
+//	private static List<Pattern> processMultipleAndPatternAttributes(Element element) {
+//		String patternS = element.getAttributeValue(PATTERN);
+//		String multipleS = element.getAttributeValue(MULTIPLE);
+//		return createPatternList(patternS, multipleS);
+//	}
 
 	static List<Pattern> createPatternList(String patternS,
 			String multipleS) {
@@ -212,7 +287,7 @@ public class Template {
 		
 	private static void checkNotNull(Element element, String attName, String attVal) {
 		if (attVal == null) {
-			CMLUtil.debug(element, "CHECK");
+			CMLUtil.debug(element, "CHECK null attVal");
 			throw new RuntimeException(element.getLocalName()+": must give "+attName+" attribute");
 		}
 	}
@@ -239,9 +314,50 @@ public class Template {
 
 	private void applyChildTemplateList() {
 		if (templateContainer != null) {
-			LOG.debug(id+" applying childTemplates");
-			templateContainer.apply(lineContainer);
+			LOG.trace(id+" applying childTemplates");
+			for (Template template : templateContainer.getTemplateList()) {
+				template.debug();
+				List<Element> elements = template.resetNodeIndexAndApplyChunkers(lineContainer);
+				LOG.trace("found child elements after wrap: "+elements.size());
+				for (Element element : elements) {
+					LineContainer childLineContainer = new LineContainer(element);
+					template.applyMarkup(childLineContainer);
+				}
+			}
 		}
+	}
+
+	public List<Element> resetNodeIndexAndApplyChunkers(LineContainer lineContainer) {
+		lineContainer.setCurrentNodeIndex(0);
+		int repeatCount = 0; // use this later
+		List<Element> chunkedElements = new ArrayList<Element>();
+		while (repeatCount < this.maxRepeatCount) {
+			Element chunk = this.findNextChunk(lineContainer);
+			if (chunk == null) {
+				break;
+			}
+			chunk.addAttribute(new Attribute(TEMPLATE_REF, this.id));
+			chunkedElements.add(chunk);
+			repeatCount++;
+		}
+		return chunkedElements;
+	}
+
+	Element findNextChunk(LineContainer lineContainer) {
+		Element chunk = null;
+		Int2 startRange = lineContainer.findNextMatch(lineContainer.getCurrentNodeIndex(), this.startChunker);
+		if (startRange != null) {
+			int start = startRange.getX()+this.startChunker.getOffset();
+			int end = startRange.getY();
+			Int2 endRange = lineContainer.findNextMatch(end+1, this.endChunker);
+			if (endRange != null) {
+				end = endRange.getX();
+				lineContainer.setCurrentNodeIndex(endRange.getY());
+			}
+			chunk = lineContainer.createChunk(start, end+endChunker.getOffset());
+			LOG.trace("line1 "+lineContainer.peekCurrentNode());
+		}
+		return chunk;
 	}
 
 	private void applyLineReaders() {
@@ -334,11 +450,6 @@ public class Template {
 		System.out.println("==========================");
 	}
 
-	public List<Element> applyChunkers(LineContainer lineContainer) {
-		List<Element> elements = lineContainer.applyChunkers(maxRepeatCount, startChunker, endChunker, id);
-		return elements;
-	}
-	
 	public String toString() {
 		String s = "";
 		s += "startChunker "+startChunker.toString()+"\n";
@@ -346,14 +457,4 @@ public class Template {
 		return s;
 	}
 	
-//	private void getMatchWithEndPatterOrRestOfLines(
-//			LineContainer lineContainer, int nodeIndex) {
-//		Int2 end;
-//		end = lineContainer.matchLines(nodeIndex, endPatternChunker);
-//		if (end == null) {
-//			// or the rest of the lines
-//			end = lineContainer.getContiguousTextRange(nodeIndex);
-//		}
-//	}
-
 }

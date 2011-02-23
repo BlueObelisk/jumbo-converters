@@ -1,0 +1,72 @@
+<?xml version="1.0" standalone='no' ?>
+<!DOCTYPE template SYSTEM "src/test/resources/org/xmlcml/cml/converters/text/template.dtd" [
+<!ATTLIST template 
+    id (A|B) #REQUIRED> 
+]>
+<template id='qespresso' name='test' pattern='' dictRef=''>
+  <templateList>
+    &prog;
+    &para;
+    <template id='proc' name='proc' pattern='.*Number of processors in use:.*' endPattern='\s*'/>
+    <template id='pspot' name='pspot' pattern='.*For Norm-Conserving or Ultrasoft.*' endPattern='\s*'/>
+    <template id='planes' name='planes' pattern='.*Planes per process.*' endPattern='\s*'/>
+    <template id='proc1' name='proc1' pattern='.*Proc/.*' endPattern='\s*'/>
+    <template id='brav' name='brav' pattern='.*bravais\-lattice.*' endPattern='\s*'/>
+    <template id='celldm' name='celldm' pattern='.*celldm.*' endPattern='\s*'/>
+    <template id='cart' name='cart' pattern='.*crystal axes:.*' endPattern='\s*'/>
+    <template id='recip' name='recip' pattern='.*reciprocal axes:.*' endPattern='\s*'/>
+    <template id='pspot1' name='pspot1' pattern='.*PseudoPot.*' endPattern='\s*'/>
+    <template id='atomic1' name='atomic1' pattern='.*atomic species\s+valence.*' endPattern='\s*'/>
+    <template id='symops' name='symops' pattern='.*\d+\s+Sym.Ops.*' endPattern='\s*'/>
+    <template id='cartax' name='cartax' pattern='.*\s+Cartesian axes.*' endPattern='\s*'/>
+    <template id='site' name='site' pattern='.*site n.*' endPattern='\s*'/>
+    <template id='kpoints' name='kpoints' pattern='.*number of k points=.*' endPattern='\s*'>
+      <templateList>
+      <!--         k(    1) = (   0.0000000   0.0000000   0.0000000), wk =   0.0039062 -->
+        <template id='kp' name='kp' repeatCount='*' pattern='\s*k\(\s*\d+\) = \(.*' endPattern='\s*k\(\s*\d+\) = \(.*'/>
+      </templateList>
+    </template>
+    
+    <template id='gcut' name='gcut' repeatCount='*' pattern='.*G cutoff.*' endPattern='\s*'/>
+    <template id='array' name='array' pattern='.*Largest allocated.*' endPattern='\s*'/>
+    <template id='initpot' name='initpot' pattern='.*Initial potential.*' endPattern='\s*'/>
+    <template id='startchg' name='startchg' pattern='.*starting charge.*' endPattern='\s*'/>
+    <template id='totcpu' name='totcpu' pattern='.*total cpu time spent up to now.*' endPattern='\s*'/>
+    <template id='dynmem' name='dynmem' pattern='.*per-process dynamical memory .*' endPattern='\s*'/>
+    
+    <template id='dim' name='dim' pattern='.*Current dimensions of program pwscf are:.*' endPattern='\s*'/>
+    <template id='eig' name='eig' pattern='.*Subspace diagonalization in iterative .*' endPattern='\s*'/>
+    
+    <template id='self' pattern='.*Self\-consistent Calculation.*' name='self'
+         endPattern='.*End of self\-consistent calculation.*'>
+      <templateList>
+        <template pattern='.*iteration #.*' offset='0' id='iteration' repeatCount='*' name='cpu' 
+           endPattern='.*iteration #.*' endOffset='0'>
+        </template>
+      </templateList>
+    </template>
+    
+    <template id='fermi' name='fermi' pattern='.*the Fermi energy .*' endPattern='\s*'/>
+    <template id='k' name='k' pattern='.*k =.*' repeatCount='*' endPattern='.*k =.*'/>
+    <template id='toten' name='toten' pattern='.*total energy\s+=.*' endPattern='\s*'/>
+    <template id='toten1' name='toten1' pattern='.*The total energy is the sum.*' endPattern='\s*'/>
+    <template id='energies' name='energies' pattern='.*one\-electron.*' endPattern='\s*'/>
+    <template id='conv' name='conv' pattern='.*convergence has been achieved.*' endPattern='\s*'/>
+    <template id='force' name='force' pattern='.*Forces acting on atoms.*' endPattern='\s*'/>
+    <template id='atom' name='atom' pattern='.*atom\s+\d+ type.*' endPattern='\s*'/>
+    <template id='totforce' name='totforce' pattern='.*Total force =.*' endPattern='\s*'/>
+    <template id='stress0' name='stress0' pattern='.*entering subroutine stress.*' endPattern='\s*'/>
+    <template id='stress1' name='stress1' pattern='.*total\s+stress.*' endPattern='\s*'/>
+    <template id='outfile' name='outfile' pattern='.*Writing output data file.*' endPattern='\s*'/>
+    <template id='pwscf' name='pwscf' pattern='.*PWSCF\s+:.*' endPattern='\s*'/>
+    <template id='initrun' name='initrun' pattern='.*init_run.*' endPattern='\s*'/>
+    <template id='initrun1' name='initrun1' pattern='.*Called by init_run:.*' endPattern='\s*'/>
+    <template id='electrons' name='electrons' pattern='.*Called by electrons:.*' endPattern='\s*'/>
+    <template id='cbands' name='cbands' pattern='.*Called by c_bands:.*' endPattern='\s*'/>
+    <template id='cgdiag' name='cgdiag' pattern='.*Called by \*cgdiagg:.*' endPattern='\s*'/>
+    <template id='hpsi' name='hpsi' pattern='.*Called by h_psi:.*' endPattern='\s*'/>
+    <template id='gen' name='gen' pattern='.*General routines.*' endPattern='\s*'/>
+    <template id='pararout' name='pararout' pattern='.*Parallel routines.*' endPattern='\s*'/>
+
+  </templateList>
+</template>

@@ -1,16 +1,20 @@
 package org.xmlcml.cml.converters.testutils;
 
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 import java.io.File;
 import java.io.IOException;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.junit.Test;
 import org.junit.Assert;
-import org.xmlcml.cml.converters.AbstractConverter;
-import org.mockito.stubbing.Answer;
+import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.Mock;
-import static org.mockito.Mockito.*;
+import org.mockito.stubbing.Answer;
+import org.xmlcml.cml.converters.AbstractConverter;
 
 /**
  *
@@ -116,7 +120,7 @@ public class RegressionSuiteTest {
       }
    }
 
-   private Answer copyFile(final File inputFile, final File outputFile) {
+   private Answer<?> copyFile(final File inputFile, final File outputFile) {
       return new Answer() {
 
          public Object answer(InvocationOnMock invocation) {
