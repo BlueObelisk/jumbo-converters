@@ -3,6 +3,7 @@ package org.xmlcml.cml.converters.cif;
 import static org.xmlcml.cml.base.CMLConstants.CML_XPATH;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -57,19 +58,18 @@ public class CIFConverterTest {
         String XQuery = "/cml:cml/cml:module[@convention=\"convention:" + OutPutModuleBuilder.CONVENTION_CRYSTALOGRAPHY + "\"]/cml:module[@convention=\"convention:"
                 + OutPutModuleBuilder.CONVENTION_CRYSTAL + "\"]/cml:module[@convention=\"convention:" + OutPutModuleBuilder.CONVENTION_MOLECULAR + "\"]/cml:molecule";
         Assert.assertEquals(1, cml.query(XQuery, context).size());
+        Serializer ser= new Serializer(new FileOutputStream(new File("target/testCif.xml")));
+        ser.setIndent(2);
+        ser.write(new Document(cml));
     }
 
     @Test
     public void testGettingNewDataType() throws IOException{
-        List<String> stringList = (List<String>) FileUtils.readLines(new File("src/test/resources/cif/cif/in/b603701asup1.cif"));
+        List<String> stringList = (List<String>) FileUtils.readLines(new File("src/test/resources/cif/cif/in/actaEtest.cif"));
         CIF2CIFXMLConverter cif2cifxml = new CIF2CIFXMLConverter();
         CIF cif = cif2cifxml.parseLegacy(stringList);
         CIFXML2CMLConverter cifxml2cml = new CIFXML2CMLConverter();
         Element raw = cifxml2cml.convertToXML(cif);
-        Serializer ser =new Serializer(System.out);
-        ser.setIndent(4);
-       // ser.write(new Document(raw));
-        ser.flush();
         
         RawCML2CompleteCMLConverter conv = new RawCML2CompleteCMLConverter();
         CMLElement cml = (CMLElement) conv.convertToXML(raw);

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,15 +62,21 @@ public class CifDictionaryBuilder {
 			if ("on_this_dictionary".equals(dataBlock.getId())) {
 				continue;
 			}
-			if (dataBlock.getId().endsWith("[]")
-					|| dataBlock.getId().endsWith("_")) {
+			if (dataBlock.getId().endsWith("[]")){
 				continue;
+			}
+			
+			if(dataBlock.getId().endsWith("_")){
+			    
 			}
 
 			// Parse datablock using enum methods.
 			CMLEntry entry = CIFFields.parseToEntry(dataBlock);
+			List<CMLEntry> extraEntires=parseLoopsfromDataBlock(dataBlock, entry);
 			dictionary.appendChild(entry);
-			parseLoopsfromDataBlock(dataBlock, entry);
+			for(CMLEntry extraEntry:extraEntires){
+			    dictionary.appendChild(extraEntry);
+			}
 			this.unitMap.put(CIFFields.getLastUnit(),CIFFields.getLastUnitDesc());
 		}
 		//writeUnitsUsed(System.out);
@@ -89,10 +96,11 @@ public class CifDictionaryBuilder {
 		}
 
 	}
-	//TODO fix loops like data_cell_measurement_theta_ min/max
 
-	private void parseLoopsfromDataBlock(CIFDataBlock dataBlock, CMLEntry entry) {
+	private List<CMLEntry> parseLoopsfromDataBlock(CIFDataBlock dataBlock, CMLEntry entry) {
 		List<CIFLoop> loops = dataBlock.getLoopList();
+		List<String> extra_names=new ArrayList<String>();
+		List<CMLEntry> entries=new ArrayList<CMLEntry>();
 		for (CIFLoop loop : loops) {
 			List<String> nameList = loop.getNameList();
 			if (nameList.contains("_enumeration")) {
@@ -105,7 +113,26 @@ public class CifDictionaryBuilder {
 					entry.appendChild(enumeration);
 				}
 			}
+			if(nameList.contains("_name")){
+			    List<String> nameValues = loop.getColumnValues("_name");
+			    for(String name:nameValues){
+			        extra_names.add(name);
+			    }
+			}
 		}
+        for (String name : extra_names) {
+            CMLEntry second = new CMLEntry(entry);
+            String newName = name.substring(1).toLowerCase();
+            second.setTerm(newName);
+            second.setId(CIFFields.mungeIDString(newName));
+            CMLElement description = new CMLElement("description");
+            Element html = new Element("xhtml:p", CMLConstants.XHTML_NS);
+            html.appendChild("Corresponds to the _" + newName + " term in the IUCr Core CIF dictionary.");
+            description.appendChild(html);
+            second.appendChild(description);
+            entries.add(second);
+		}
+        return entries;
 	}
 
 	public Document getCmlDoc() {
@@ -133,7 +160,9 @@ public class CifDictionaryBuilder {
 	}
 
 	public static void main(String[] args) throws Exception {
-
+/**
+ * Running this rebuilds the cif-dictionary form the cif_core.dic
+ */
 		CifDictionaryBuilder.build(new File("src/main/resources/cif_core.dic"),
 				new File("src/main/resources/cif-dictionary.cml"));
 		
