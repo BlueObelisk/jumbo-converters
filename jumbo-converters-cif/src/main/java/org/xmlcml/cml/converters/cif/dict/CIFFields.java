@@ -14,7 +14,10 @@ public enum CIFFields {
     name("_name") {
         @Override
         public void custom(CIFItem cifItem, CMLEntry entry) {
-            String name = cifItem.getValue().substring(1);
+            String name = cifItem.getValue().substring(1).toLowerCase();
+            if(name.endsWith("_")){
+                name=name.substring(0, name.length()-1);
+            }
             entry.setTerm(name);
             entry.setId(mungeIDString(name));
             CMLElement description = new CMLElement("description");

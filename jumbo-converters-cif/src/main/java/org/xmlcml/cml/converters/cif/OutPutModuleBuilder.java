@@ -13,6 +13,7 @@ import nu.xom.Nodes;
 import nu.xom.ParsingException;
 import nu.xom.ValidityException;
 
+import org.hamcrest.core.IsInstanceOf;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
@@ -131,7 +132,7 @@ public class OutPutModuleBuilder {
 
     protected void fetchDataType(CMLElement element) {
         Attribute dictURI = element.getAttribute("dictRef");
-        // If no dictionary, don't do anything
+        // If no dictRef, don't do anything
         if (dictURI == null) {
             return;
         }
@@ -141,16 +142,18 @@ public class OutPutModuleBuilder {
             System.err.println("Cannot dereference non-namespaced reference: " + dictRef);
             return;
         }
-        // String prefix = dictRef.substring(0, pos);
+        String prefix = dictRef.substring(0, pos);
         String id = dictRef.substring(pos + 1);
-        String standardURI = CifDictionaryBuilder.URI;
-        if (!dict.getNamespace().equals(standardURI)) {
-            System.err.println("Dictionary URI: " + dict.getNamespace() + " does not match " + standardURI + " from file");
+        
+        if (!CifDictionaryBuilder.PREFIX.equals(prefix)) {
+            System.err.println("Dictionary Prefix: " + CifDictionaryBuilder.PREFIX + " does not match " + prefix + " from file");
             return;
         }
         CMLEntry dictEntry = idMap.get(id);
+        
+        //Ignore dictrefs which aren't from the CIF dictionary
         if (dictEntry == null) {
-            System.err.println("No entry matches " + id);
+           // System.err.println("No entry matches " + id);
             return;
         }
         Elements elems = element.getChildCMLElements("scalar");
@@ -159,9 +162,11 @@ public class OutPutModuleBuilder {
             String type = dictEntry.getDataType();
             if ("xsd:float".equals(type) || "xsd:double".equals(type)) {
                 double d = getDoubleFromString(scalar.getValue());
-                double e = getErrorFromString(scalar.getValue());
+                Double e = getErrorFromString(scalar.getValue());
                 scalar.setValue(d);
-                scalar.setErrorValue(e);
+                if (e != null) {
+                    scalar.setErrorValue(e);
+                }
             } else if ("xsd:string".equals(type)) {
                 String s = scalar.getValue();
                 scalar.setValue(s);
@@ -169,11 +174,11 @@ public class OutPutModuleBuilder {
         }
     }
 
-    protected double getErrorFromString(String value) {
+    protected Double getErrorFromString(String value) {
         int x = value.indexOf('(');
         int y = value.indexOf('.');
         if(x==-1){
-            return 0;
+            return null;
         }
         int error = Integer.parseInt(value.substring(x+1,value.indexOf(')')));
         
@@ -225,7 +230,16 @@ public class OutPutModuleBuilder {
         if (element instanceof CMLElement) {
             fetchDataType((CMLElement) element);
         }
+        fetchDataTypeOfScalarChildren(element);
         this.moleculeModule.appendChild(element);
+    }
+
+    protected void fetchDataTypeOfScalarChildren(Element element) {
+        Nodes nodes=element.query(".//cml:*["+CMLScalar.NS+"]", CMLConstants.CML_XPATH);
+        for (int x = 0; x < nodes.size(); x++) {
+            CMLElement parent = (CMLElement) nodes.get(x);
+            fetchDataType(parent);
+        }
     }
 
     /**
@@ -238,6 +252,9 @@ public class OutPutModuleBuilder {
         for (int x = 0; x < children.size(); x++) {
             Element element = children.get(x);
             element.detach();
+            if(element instanceof CMLElement){
+                fetchDataType((CMLElement)element);
+            }
             this.addToTop(element);
         }
     }
