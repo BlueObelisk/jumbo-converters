@@ -73,7 +73,9 @@ public class CIFConverterTest {
         
         RawCML2CompleteCMLConverter conv = new RawCML2CompleteCMLConverter();
         CMLElement cml = (CMLElement) conv.convertToXML(raw);
-        cml.debug();
+        //cml.debug();
+        Nodes nodes=cml.query("//cml:property/cml:scalar[@dataType=\"xsd:double\"]", CMLConstants.CML_XPATH);
+        Assert.assertEquals(83, nodes.size());
     }
     
 }

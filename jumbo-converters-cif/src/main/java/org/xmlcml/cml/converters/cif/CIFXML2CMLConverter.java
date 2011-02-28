@@ -70,6 +70,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 	}
 
 	private CIFXML2CMLOptions converterOptions;
+	OutPutModuleBuilder helper = new OutPutModuleBuilder();
 
 	private static CIFCategory[] CML_CATEGORIES = new CIFCategory[] {
 		CIFCategory.ATOM_SITE_ANISO,
@@ -330,15 +331,24 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 			List<CIFTableCell> cellList = loop.getColumnCells(i);
 			CMLArray column = new CMLArray();
 			String dataType = XSD_STRING;
-			if (converterOptions.getDictionary() != null) {
-				CMLEntry entry = converterOptions.getDictionary().getCMLEntry(columnName.toLowerCase());
-				if (entry == null) {
-					warn("column name not in dictionary: "+columnName);
-				} else {
-					dataType = entry.getDataType();
-					column.setDataType(dataType);
-				}
+			String type=helper.getDataType(columnName.toLowerCase().substring(1));
+			if(type!=null){
+			    if("xsd:float".equals(type)){
+			        type=XSD_DOUBLE;
+			    }
+			    dataType=type;
+			    column.setDataType(type);
 			}
+//			    
+//			if (converterOptions.getDictionary() != null) {
+//				CMLEntry entry = converterOptions.getDictionary().getCMLEntry(columnName.toLowerCase());
+//				if (entry == null) {
+//					warn("column name not in dictionary: "+columnName);
+//				} else {
+//					dataType = entry.getDataType();
+//					column.setDataType(dataType);
+//				}
+//			}
 			column.setDictRef(makeDictRef(columnName));
 			column.setDelimiter(DELIM);
 			for (CIFTableCell cell : cellList) {
