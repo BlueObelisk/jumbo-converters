@@ -329,7 +329,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		for (int i = 0; i < nameList.size(); i++) {
 			String columnName = nameList.get(i);
 			List<CIFTableCell> cellList = loop.getColumnCells(i);
-			CMLArray column = new CMLArray();
+			CMLArray arrayFromColumn = new CMLArray();
 			String dataType = XSD_STRING;
 			String type=helper.getDataType(columnName.toLowerCase().substring(1));
 			if(type!=null){
@@ -337,7 +337,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 			        type=XSD_DOUBLE;
 			    }
 			    dataType=type;
-			    column.setDataType(type);
+			    arrayFromColumn.setDataType(type);
 			}
 //			    
 //			if (converterOptions.getDictionary() != null) {
@@ -349,12 +349,15 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 //					column.setDataType(dataType);
 //				}
 //			}
-			column.setDictRef(makeDictRef(columnName));
-			column.setDelimiter(DELIM);
+			arrayFromColumn.setDictRef(makeDictRef(columnName));
+			arrayFromColumn.setDelimiter(DELIM);
+			StringBuilder errorValueBuilder = new StringBuilder(DELIM);
+			boolean atLeastOneError=false;
 			for (CIFTableCell cell : cellList) {
 				String value = cell.getValue();
 				if (XSD_DOUBLE.equals(dataType)) {
 					double dValue = Double.NaN;
+					Double error = null;
 					if (!CIFUtil.isDefault(value)) {
 						try {
 							double values[] = CIFUtil.getNumericValueAndSu(value);
@@ -362,22 +365,34 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 								warn("Cannot parse "+columnName+S_SLASH+value);
 							} else {
 								dValue = values[0];
+								error=values[1];
 							}
 						} catch (RuntimeException e) {
 							runtimeException("bad double: ", e);
 						}
 					}
-					column.append(dValue);
+					arrayFromColumn.append(dValue);
+					if(error!=null && !error.isNaN()){
+					    atLeastOneError=true;
+					    errorValueBuilder.append(error);
+					    errorValueBuilder.append(DELIM);
+					}
+					else{
+					    errorValueBuilder.append(DELIM);
+					}
 				} else {
-					column.append(cell.getValue());
+					arrayFromColumn.append(cell.getValue());
 				}
 			}
-
-			Attribute sz = column.getSizeAttribute();
-			if (sz != null) {
-				column.removeAttribute(sz);
+			if(atLeastOneError){
+			    Attribute errorAttribute=new Attribute("errorValues",errorValueBuilder.toString());
+			    arrayFromColumn.addAttribute(errorAttribute);
 			}
-			table.addArray(column);
+			Attribute sz = arrayFromColumn.getSizeAttribute();
+			if (sz != null) {
+				arrayFromColumn.removeAttribute(sz);
+			}
+			table.addArray(arrayFromColumn);
 		}
 
 		// FIXME 'columnBased' tableType is not valid WRT the CML schema, what to do?
