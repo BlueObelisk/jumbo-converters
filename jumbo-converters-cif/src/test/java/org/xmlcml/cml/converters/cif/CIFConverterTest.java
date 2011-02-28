@@ -1,7 +1,5 @@
 package org.xmlcml.cml.converters.cif;
 
-import static org.xmlcml.cml.base.CMLConstants.CML_XPATH;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,7 +9,6 @@ import java.util.List;
 import junit.framework.Assert;
 import nu.xom.Document;
 import nu.xom.Element;
-import nu.xom.Elements;
 import nu.xom.Nodes;
 import nu.xom.Serializer;
 import nu.xom.XPathContext;
@@ -22,7 +19,6 @@ import org.xmlcml.cif.CIF;
 import org.xmlcml.cif.CIFDataBlock;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.element.CMLMolecule;
 
 public class CIFConverterTest {
     @Test
@@ -41,17 +37,25 @@ public class CIFConverterTest {
     }
 
     @Test
+    public void testCIFXOMtoCMLRaw() throws IOException{
+        List<String> stringList = (List<String>) FileUtils.readLines(new File("src/test/resources/cif/test.cif"));
+        CIF2CIFXMLConverter cif2cifxml = new CIF2CIFXMLConverter();
+        CIF cif = cif2cifxml.parseLegacy(stringList);
+        CIFXML2CMLConverter cifxml2cml = new CIFXML2CMLConverter();
+        CMLElement raw = (CMLElement)cifxml2cml.convertToXML(cif);
+        Nodes nodes=raw.query("//cml:array[@dataType=\"xsd:double\"]", CMLConstants.CML_XPATH);
+        Assert.assertEquals(14, nodes.size());
+    }
+    
+    @Test
     public void convertRawToComplete() throws IOException {
         List<String> stringList = (List<String>) FileUtils.readLines(new File("src/test/resources/cif/test.cif"));
         CIF2CIFXMLConverter cif2cifxml = new CIF2CIFXMLConverter();
         CIF cif = cif2cifxml.parseLegacy(stringList);
         CIFXML2CMLConverter cifxml2cml = new CIFXML2CMLConverter();
         Element raw = cifxml2cml.convertToXML(cif);
-//        Serializer ser = new Serializer(System.out);
-//        ser.write(new Document(raw));
         RawCML2CompleteCMLConverter conv = new RawCML2CompleteCMLConverter();
         CMLElement cml = (CMLElement) conv.convertToXML(raw);
-       //cml.debug();
         Assert.assertEquals(0, conv.cml.getChildCount());
         XPathContext context = new XPathContext();
         context.addNamespace(CMLConstants.CML_PREFIX, CMLConstants.CML_NS);
@@ -73,7 +77,6 @@ public class CIFConverterTest {
         
         RawCML2CompleteCMLConverter conv = new RawCML2CompleteCMLConverter();
         CMLElement cml = (CMLElement) conv.convertToXML(raw);
-        cml.debug();
         Nodes nodes=cml.query("//cml:property/cml:scalar[@dataType=\"xsd:double\"]", CMLConstants.CML_XPATH);
         Assert.assertEquals(83, nodes.size());
     }
