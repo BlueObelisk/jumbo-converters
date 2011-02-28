@@ -129,6 +129,15 @@ public class OutPutModuleBuilder {
         isFinalised = true;
     }
 
+    public  String getDataType(String id) {
+        CMLEntry dictEntry = idMap.get(id);
+        if (dictEntry == null) {
+             return null;
+         }
+        String type = dictEntry.getDataType();
+        return type;
+    }
+    
     protected void fetchDataType(CMLElement element) {
         Attribute dictURI = element.getAttribute("dictRef");
         // If no dictRef, don't do anything
@@ -268,5 +277,7 @@ public class OutPutModuleBuilder {
             this.topModule.setTitle(title);
         }
     }
+
+
 
 }
