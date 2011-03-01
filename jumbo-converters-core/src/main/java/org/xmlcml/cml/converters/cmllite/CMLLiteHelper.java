@@ -59,7 +59,6 @@ public class CMLLiteHelper {
 	}
 
 	private void process() {
-//		LOG.debug("CMLLite");
 		cml.addNamespaceDeclaration("cmlDict", "http://www.xml-cml.org/dictionary/cml/");
 		processElementDescendants();
 		processIDAttributes();
@@ -69,7 +68,6 @@ public class CMLLiteHelper {
 
 	private void processElementDescendants() {
 		Nodes nodes = cml.query("//*");
-//		System.out.println("NODESSSS"+nodes.size());
 		for (int i = 0; i < nodes.size(); i++) {
 			Element element = (Element) nodes.get(i);
 			Class<?> clazz =  element.getClass();

@@ -202,7 +202,7 @@ public abstract class AbstractBlock implements CMLConstants {
 	}
 
 	public void debug() {
-		System.out.println("blockname "+blockName+" lines "+lines.size());
+		System.out.println(this.getClass()+" blockname "+blockName+" lines "+lines.size());
 		if (lines.size() > 0) {
 			System.out.println(lines.get(0));
 			System.out.println(lines.get(lines.size()-1));
@@ -218,17 +218,17 @@ public abstract class AbstractBlock implements CMLConstants {
 		for (Template template : legacyProcessor.templateList) {
 			@SuppressWarnings("deprecation")
 			Pattern templatePattern = template.getPattern();
-			LOG.debug(templatePattern + "] ["+ line+"]");
+			LOG.trace(templatePattern + "] ["+ line+"]");
 			Matcher matcher = templatePattern.matcher(line);
 			if (matcher.matches()) {
 				name = line;
-				LOG.debug("matches block: "+templatePattern+"|"+line);
+				LOG.trace("matches block: "+templatePattern+"|"+line);
 				if (matcher.groupCount() >= 1) {
 					name = matcher.group(1);
 				} else {
 					name = template.getName();
 				}
-				LOG.debug("template ("+template.getId()+") matched name: "+name+" in line: ["+line+"]");
+				LOG.trace("template ("+template.getId()+") matched name: "+name+" in line: ["+line+"]");
 				break;
 			}
 		}

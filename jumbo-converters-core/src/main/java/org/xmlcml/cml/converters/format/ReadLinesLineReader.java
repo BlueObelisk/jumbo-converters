@@ -33,7 +33,7 @@ public class ReadLinesLineReader extends LineReader {
 	}
 
 	@Override
-	public void apply(LineContainer lineContainer) {
+	public Element apply(LineContainer lineContainer) {
 		throw new RuntimeException("NYI");
 	}
 	
@@ -65,6 +65,4 @@ public class ReadLinesLineReader extends LineReader {
 		debug("Current line", OutputLevel.VERBOSE);
 		return null;
 	}
-
-
 }

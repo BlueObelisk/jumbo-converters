@@ -7,7 +7,6 @@ import nu.xom.Element;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
-import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.util.JumboReader;
@@ -30,7 +29,6 @@ public abstract class Field extends Element {
 	public static final String WIDTH_TO_READ = "widthToRead";
 	public static final String EXPECTED_VALUE = "expectedValue";
 
-	private static final String DICTIONARY_PREFIX = "dictionaryPrefix";
 	private static final String DATA_STRUCTURE_CLASS = "dataStructureClass";
 	private static final String MULTIPLIER = "multiplier";
 
@@ -70,7 +68,7 @@ public abstract class Field extends Element {
 	}
 	
 	public static final String FIELD = "field";
-	public static final String FIELD_PREFIX = "field";
+	public static final String FIELD_PREFIX = "foo:field";
 
 	protected boolean check = false;
 	protected Integer widthToRead;
@@ -78,7 +76,6 @@ public abstract class Field extends Element {
 	protected Integer multiplier;
 	protected FieldType fieldType;
 	private Class<?> dataTypeClass;
-	private String dictionaryPrefix;
 	private String localDictRef;
 	private int endCharInLine;
 	private Integer totalWidthRead;
@@ -105,15 +102,6 @@ public abstract class Field extends Element {
 	
 	private void init(LineReader lineReader) {
 		this.lineReader = lineReader;
-	}
-
-	public String getDictionaryPrefix() {
-		return dictionaryPrefix;
-	}
-
-	public void setDictionaryPrefix(String dictionaryPrefix) {
-		this.dictionaryPrefix = dictionaryPrefix;
-		this.addAttribute(new Attribute(DICTIONARY_PREFIX, dictionaryPrefix));
 	}
 
 	public void setLocalDictRef(String localDictRef) {
@@ -245,7 +233,7 @@ public abstract class Field extends Element {
 						throw new RuntimeException("Cannot parse ~"+ff+"~ in "+line, e);
 					}
 					if (scalar != null && !JumboReader.isMisread((CMLElement)scalar)) {
-						((HasDictRef)scalar).setDictRef(DictRefAttribute.createValue(dictionaryPrefix, localDictRef));
+						((HasDictRef)scalar).setDictRef(localDictRef);
 					}
 				}
 			}
@@ -273,14 +261,14 @@ public abstract class Field extends Element {
 		return this.dataStructureClass;
 	}
 
-	public CMLElement read(StringBuilder stringBuilder, int startCh, String dictionaryPrefix) {
+	public CMLElement read(StringBuilder stringBuilder, int startCh) {
 		this.dataBuilder = stringBuilder;
 		this.dataStartChar = startCh;
 		CMLElement element = null;
 		if (stringBuilder == null) {
 			throw new RuntimeException("null stringBuilder");
 		} else if (fieldList != null) {
-			element = readSubFields(dictionaryPrefix);
+			element = readSubFields();
 		} else if(multiplier == null) {
 			element = this.createScalar(stringBuilder.substring(dataStartChar, dataStartChar+widthToRead));
 			this.dataStartChar += widthToRead;
@@ -289,8 +277,7 @@ public abstract class Field extends Element {
 			dataStartChar += this.getTotalWidthRead();
 		}
 		if (element != null && localDictRef != null && !JumboReader.isMisread(element)) {
-			String dictRef = DictRefAttribute.createValue(dictionaryPrefix, localDictRef);
-			((HasDictRef)element).setDictRef(dictRef);
+			((HasDictRef)element).setDictRef(localDictRef);
 		}
 		return element;
 	}
@@ -299,14 +286,14 @@ public abstract class Field extends Element {
 		return dataStartChar;
 	}
 
-	private CMLElement readSubFields(String dictionaryPrefix) {
+	private CMLElement readSubFields() {
 		CMLElement element;
 		element = new CMLList();
 		for (int i = 0; i < multiplier; i++) {
 			CMLList childElement = new CMLList();
 			element.appendChild(childElement);
 			for (Field field : fieldList) {
-				CMLElement grandChildElement = field.read(dataBuilder, dataStartChar, dictionaryPrefix);
+				CMLElement grandChildElement = field.read(dataBuilder, dataStartChar);
 				if (grandChildElement != null) {
 					childElement.appendChild(grandChildElement);
 				}
@@ -352,8 +339,8 @@ public abstract class Field extends Element {
 		return s;
 	}
 
-	public CMLElement read(String string, String prefix) {
-		return read(new StringBuilder(string), 0, prefix);
+	public CMLElement read(String string) {
+		return read(new StringBuilder(string), 0);
 	}
 
 	public void setStartChar(int start) {

@@ -11,7 +11,6 @@ import nu.xom.Attribute;
 import nu.xom.Element;
 
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.Outputter;
@@ -25,6 +24,12 @@ import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.interfacex.HasDataType;
 
 public abstract class LineReader extends Element {
+	private static final String A = "A";
+	private static final String B = "B";
+	private static final String D = "D";
+	private static final String F = "F";
+	private static final String I = "I";
+
 	private final static Logger LOG = Logger.getLogger(LineReader.class);
 
 	private static final String MAKE_ARRAY = "makeArray";
@@ -32,11 +37,11 @@ public abstract class LineReader extends Element {
 	private static final String ID = "id";
 
 	protected static final String ELEMENT_TYPE = "elementType";
-//	private static final String LOCAL_DICT_REF = "localDictRef";
-//	private static final String EXACT = "exact";
-//	private static final String REGEX = "regex";
 	private static final String FORMAT_TYPE = "formatType";
+	private static final String NAME = "name";    // obsolete
 	private static final String NAMES = "names";
+	private static final String OUTPUT = "output";
+//	private static final String TYPES = "types";
 	@SuppressWarnings("unused")
 	private static final String UNTIL = "until";
 	@SuppressWarnings("unused")
@@ -82,32 +87,35 @@ public abstract class LineReader extends Element {
     }
 		
 	private static final String LINE_READER = "lineReader";
-
 	protected static final String TRUE = "true";
 	
 	protected JumboReader jumboReader;
 	protected Integer linesToRead = null;
 	protected List<Field> fieldList;
-	private LineType lineType;
+	private   LineType lineType;
 	protected FormatType formatType;
 	protected String content;
-	private int fieldCount;
+	private   int fieldCount;
 	protected String localDictRef;
 	protected int currentCharInLine;
 	protected Integer columns;
 	protected Integer rows;
 	protected Integer size;
-	private Element lineReaderElement;
+	private   Element lineReaderElement;
 	protected String delimiter = CMLConstants.S_TILDE;
 	protected boolean trim = true;
 	protected String id;
 	protected Pattern pattern;
-	private String names;
+	private   String names;
+	private   String types;
 	protected String makeArray = null;
-
+	protected LineContainer lineContainer;
 	protected OutputLevel outputLevel;
-
 	protected Template template;
+
+	private Pattern FIELD_PATTERN = Pattern.compile("\\{[FIA]([^\\}])*\\}");
+
+	private List<String[]> typeAndNameList;
 
 	public String getId() {
 		return (id == null) ? NULL_ID : id;
@@ -128,7 +136,21 @@ public abstract class LineReader extends Element {
 		init();
 		this.template = template;
 		this.lineReaderElement = element;
+//		CMLUtil.debug(lineReaderElement, "LINEREADER");
 		this.content = element.getValue();
+		processAttributes();
+	}
+
+	private void processAttributes() {
+		Template.checkIfAttributeNamesAreAllowed(lineReaderElement, new String[]{
+			ID, 
+			FORMAT_TYPE,
+			LINES_TO_READ,
+			MAKE_ARRAY,
+			NAME,
+			NAMES,
+			OUTPUT,
+		});
 		readAndCreateFormatType();
 		readAndCreateLinesToRead();
 		readAndCreateNames();
@@ -234,7 +256,7 @@ public abstract class LineReader extends Element {
 		SimpleFortranFormat simpleFortranFormat = new SimpleFortranFormat(content.trim());
 		fieldList = simpleFortranFormat.getFieldList();
 		for (Field field : fieldList) {
-			LOG.debug("FIELD "+field);
+			LOG.trace("FIELD "+field);
 		}
 	}
 
@@ -242,12 +264,122 @@ public abstract class LineReader extends Element {
 		if (content == null) {
 			throw new RuntimeException("null content in LineReader: "+this.getLocalName());
 		}
+		expandSymbols();
+		if (names == null) {
+			names = createAttributes(1);
+		}
+		types = createAttributes(0);
 		this.pattern = null;
 		try {
 			pattern = Pattern.compile(content);
 		} catch (Exception e) {
 			throw new RuntimeException("Cannot parse regex: "+content);
 		}
+	}
+
+	private String createAttributes(int serial) {
+		String attVal = "";
+		for (int i = 0; i < typeAndNameList.size(); i++) {
+			attVal += typeAndNameList.get(i)[serial];
+			if (i < typeAndNameList.size()-1) {
+				attVal += " ";
+			}
+		}
+		return attVal;
+	}
+
+	private List<String[]> expandSymbols() {
+		int start = 0;
+		typeAndNameList = new ArrayList<String[]>();
+		StringBuilder sb = new StringBuilder();
+		Matcher matcher = FIELD_PATTERN.matcher(content);
+		int serial = 0;
+		while (matcher.find(start)) {
+			int start0 = matcher.start();
+			int end = matcher.end();			
+			sb.append(content.substring(start, start0));
+			String transformS = expand(content.substring(start0, end), serial++);
+			sb.append(transformS);
+			start = end;
+		}
+		sb.append(content.substring(start));
+		content = sb.toString();
+		return typeAndNameList;
+	}
+
+	private String expand(String string, int serial) {
+		string = string.substring(1, string.length()-1);
+		String type = createType(string.substring(0,1));
+		string = string.substring(1);
+		String[] ss = string.split(CMLConstants.S_COMMA);
+		String name = (ss.length < 2) ? null : ss[1];
+		String[] typeName = new String[]{type, name};
+		typeAndNameList.add(typeName);
+		String[] wd = ss[0].split("\\.");
+		Integer width = (wd[0] == null || wd[0].trim().length() == 0) ? null : new Integer(wd[0]); 
+		Integer decimal = (wd.length == 1 || wd[1] == null || wd[1].trim().length() == 0) ? null : new Integer(wd[1]); 
+		LOG.trace("<"+type+">"+width+"."+decimal);
+		String newString = "";
+		if (type.equals(CMLConstants.XSD_STRING)) {
+			newString = "\\s*([^\\s]+)\\s*";
+		} else if (type.equals(CMLConstants.XSD_BOOLEAN)) {
+//			newString = createIntegerField(width);
+		} else if (type.equals(CMLConstants.XSD_INTEGER)) {
+			newString = createIntegerField(width);
+		} else if (type.equals(CMLConstants.XSD_DOUBLE)) {
+			newString = createFloatField(string, width, decimal);
+		} else if (type.equals(CMLConstants.XSD_DATE)) {
+//			newString = createFloatField(string, width, decimal);
+		} else {
+			throw new RuntimeException("bad type in: "+string);
+		}
+		return newString;
+	}
+
+	private String createType(String string) {
+		String type = null;
+		if (string.equals(A)) {
+			type = CMLConstants.XSD_STRING;
+		} else if (string.equals(I)) {
+			type = CMLConstants.XSD_INTEGER;
+		} else if (string.equals(D)) {
+			type = CMLConstants.XSD_DATE;
+		} else if (string.equals(F)) {
+			type = CMLConstants.XSD_DOUBLE;
+		} else if (string.equals(B)) {
+			type = CMLConstants.XSD_BOOLEAN;
+		} else {
+			throw new RuntimeException("bad type: "+string);
+		}
+		return type;
+	}
+
+	private String createFloatField(String string, Integer width,
+			Integer decimal) {
+		String newString;
+		if (width == null) {
+			newString = "\\s*(\\-?\\d+\\.?\\d*)\\s*";
+		} else {
+			if (decimal == null) {
+				throw new RuntimeException("decimal must be given: "+string);
+			}
+			int first = width - decimal -1;
+			if (first < 1) {
+				throw new RuntimeException("bad width/decimal: "+string);
+			}
+			newString = "(?=[ ]*\\-?\\d+)[ \\-\\d]{"+first+"}\\.\\d{"+decimal+"}";
+		}
+		return newString;
+	}
+
+	private String createIntegerField(Integer width) {
+		String newString;
+		if (width == null) {
+			newString = "\\s*(\\-?\\d+)\\s*";
+		} else {
+			newString = "(?=[ ]*\\-?\\d+)[ \\-\\d]{"+width+"}";
+		}
+		return newString;
 	}
 
 	public boolean isTrim() {
@@ -284,8 +416,8 @@ public abstract class LineReader extends Element {
 
 // ============================== reading ======================
 	
-	public void apply(LineContainer lineContainer) {
-		throw new RuntimeException("sublass must override apply(LineContainer)");
+	public Element apply(LineContainer lineContainer) {
+		throw new RuntimeException("subclass must override apply(LineContainer)");
 	}
 
 	public abstract CMLElement readLinesAndParse(JumboReader jumboReader);
@@ -298,9 +430,24 @@ public abstract class LineReader extends Element {
 	 */
 	public List<HasDataType> parseInlineHasDataTypes(JumboReader jumboReader) {
 		this.jumboReader = jumboReader;
+		return parseInlineHasDataTypes();
+		
+	}
+
+	/** parses 
+	 * 
+	 * @param lineContainer
+	 * @return
+	 */
+	public List<HasDataType> parseInlineHasDataTypes(LineContainer lineContainer) {
+		this.lineContainer = lineContainer;
+		return parseInlineHasDataTypes();
+		
+	}
+
+	protected List<HasDataType> parseInlineHasDataTypes() {
+		String line = peekLine();
 		List<HasDataType> dataTypeList = null;
-		String line = jumboReader.peekLine();
-		// TODO
 		if (line != null) {
 			List<Field> fieldList = this.getFieldList();
 			FieldType type0 = (fieldList.size() == 0) ? null : fieldList.get(0).getFieldType();
@@ -313,35 +460,72 @@ public abstract class LineReader extends Element {
 				} else {
 					dataTypeList = parseWithFields();
 				}
-				jumboReader.readLine();
+				// advance only on successful reads
+				if (dataTypeList != null) {
+					readLine();
+				}
 			}
 		}
 		return dataTypeList;
-		
 	}
+	
+	private String readLine() {
+		String s = null;
+		if (jumboReader != null) {
+			s = jumboReader.readLine();
+		} else if (lineContainer != null) {
+			s = lineContainer.readLine();
+		}
+		return s;
+	}
+	
+	public String peekLine() {
+		String s = null;
+		if (jumboReader != null) {
+			s = jumboReader.peekLine();
+		} else if (lineContainer != null) {
+			s = lineContainer.peekLine();
+		}
+		return s;
+	}
+	
 
 	private List<HasDataType> parseWithPattern() {
-		String line = jumboReader.peekLine();
+		String line = peekLine();
 		Matcher matcher = pattern.matcher(line);
 		List<HasDataType> list = null;
 		if (matcher.matches()) {
 			list = new ArrayList<HasDataType>();
 			String localDictRef[] = (names == null) ? null : names.split(CMLConstants.S_SPACE);
+			String dataType[] = (types == null || types.trim().length() == 0) ? null : types.split(CMLConstants.S_SPACE);
+			LOG.trace("N T "+names+" / "+types);
 			for (int i = 1; i <= matcher.groupCount(); i++) {
 				String matcherGroup = matcher.group(i);
 				if (matcherGroup != null) {
-					CMLScalar scalar = new CMLScalar(matcherGroup.trim());
+					String dType = (dataType == null) ? null : dataType[i-1]; 
+					CMLScalar scalar = createScalar(matcherGroup.trim(), dType);
 					list.add(scalar);
 					if (localDictRef != null && localDictRef.length == matcher.groupCount()) {
-						scalar.setDictRef(DictRefAttribute.createValue(jumboReader.getDictionaryPrefix(), localDictRef[i-1]));
+						scalar.setDictRef(localDictRef[i-1]);
 					}
 				}
 			}
 		}
-//		if (list != null) {
-//			jumboReader.appendChild(list);
-//		}
 		return list;
+	}
+
+	private CMLScalar createScalar(String value, String dType) {
+		CMLScalar scalar = null;
+		if (dType == null || dType.equals(CMLConstants.XSD_STRING)) {
+			scalar = new CMLScalar(value);
+		} else if (dType.equals(CMLConstants.XSD_DOUBLE)) {
+			scalar = new CMLScalar(new Double(value));
+		} else if (dType.equals(CMLConstants.XSD_INTEGER)) {
+			scalar = new CMLScalar(new Integer(value));
+		} else {
+			throw new RuntimeException("unsupported data type in creating scalar: "+dType);
+		}
+		return scalar;
 	}
 
 	private List<HasDataType> parseWithFields() {
@@ -358,13 +542,13 @@ public abstract class LineReader extends Element {
 
 	public HasDataType parseSingleScalarOrInlineArray(Field field) {
 		HasDataType hasDataType = null;
-		String dictionaryPrefix = jumboReader.getDictionaryPrefix();
 		LOG.trace(field.toString());
-		field.setDictionaryPrefix(dictionaryPrefix);
-		String line = jumboReader.peekLine();
+//		String line = jumboReader.peekLine();
+		String line = peekLine();
 		if (field.getDataTypeClass() == null) {
 			if (FieldType.N.equals(field.getFieldType())) { // newline
-				line = jumboReader.readLine();
+//				line = jumboReader.readLine();
+				line = readLine();
 				currentCharInLine = 0;
 			} else {
 				Integer width = field.getWidth();

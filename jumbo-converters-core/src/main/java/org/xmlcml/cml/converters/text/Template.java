@@ -42,11 +42,12 @@ public class Template {
 	private static final String ID = "id";
 	private static final String MULTIPLE = "multiple";
 	private static final String NAME = "name";
+	private static final String NAMES = "names";
 	private static final String OFFSET = "offset";
 	private static final String OUTPUT = "output";
 	private static final String PATTERN = "pattern";
 	private static final String REPEAT_COUNT = "repeatCount";
-	private static final String TEMPLATE_REF = "templateRef";
+	public  static final String TEMPLATE_REF = "templateRef";
 	
 	protected Element theElement;
 	private String id;
@@ -67,13 +68,13 @@ public class Template {
 	private List<Deleter> deleterList;
 	private TemplateContainer templateContainer;
 	private List<LineReader> lineReaderList;
-
 	private LineContainer lineContainer;
-
 	private String dictRef;
+	private String[] names;
 
 	public Template(Element element) {
 		this.theElement = element;
+		CMLUtil.removeWhitespaceNodes(this.theElement);
 		processChildElementsAndAttributes();
 	}
 
@@ -129,27 +130,30 @@ public class Template {
 	}
 
 	private void processAttributes() {
-		checkIfAttributeNamesAreAllowed(new String[]{
-				DICT_REF,
-				END_OFFSET,
-				END_PATTERN,
-				ID, 
-				MULTIPLE,
-				NAME,
-				OFFSET,
-				OUTPUT,
-				PATTERN,
-				REPEAT_COUNT,
+		checkIfAttributeNamesAreAllowed(theElement, new String[]{
+			DICT_REF,
+			END_OFFSET,
+			END_PATTERN,
+			ID, 
+			MULTIPLE,
+			NAME,
+			NAMES,
+			OFFSET,
+			OUTPUT,
+			PATTERN,
+			REPEAT_COUNT,
 		});
 				
 		id = theElement.getAttributeValue(ID);
-		checkNotNull(theElement, ID, id);
+//		checkNotNull(theElement, ID, id);
 		name = theElement.getAttributeValue(NAME);
-		checkNotNull(theElement, NAME, name);
+// name should not be mandatory		
+//		checkNotNull(theElement, NAME, name);
+		names = getStringsFromAttribute(NAMES);
 		this.dictRef = theElement.getAttributeValue(DICT_REF);
 		
 		patternString = theElement.getAttributeValue(PATTERN);
-		checkNotNull(theElement, PATTERN, patternString);
+//		checkNotNull(theElement, PATTERN, patternString);
 		endPatternString = theElement.getAttributeValue(END_PATTERN);
 		if (endPatternString == null) {
 			endPatternString = patternString;
@@ -161,11 +165,25 @@ public class Template {
 		if (!OutputLevel.NONE.equals(outputLevel)) {
 			System.out.println("OUTPUT "+outputLevel);
 		}
-		String offsetS = theElement.getAttributeValue(OFFSET);
-		offset = (offsetS == null) ? 0 : new Integer(offsetS);
-		offsetS = theElement.getAttributeValue(END_OFFSET);
-		endOffset = (offsetS == null) ? offset : new Integer(offsetS);
+		offset = readIntegerAttribute(theElement, OFFSET);
+		endOffset = readIntegerAttribute(theElement, END_OFFSET);
 		
+		processRepeatCount();
+		
+		startChunker = new PatternChunker(createPatternList(patternString, multipleS), offset);
+		endChunker = new PatternChunker(createPatternList(endPatternString, multipleS), endOffset);
+	}
+
+	private String[] getStringsFromAttribute(String names) {
+		return names == null ? null : names.split(CMLConstants.S_WHITEREGEX);
+	}
+
+	public static Integer readIntegerAttribute(Element element, String attName) {
+		String value = element.getAttributeValue(attName);
+		return (value == null) ? 0 : new Integer(value);
+	}
+
+	private void processRepeatCount() {
 		String repeatCountS = theElement.getAttributeValue(REPEAT_COUNT); 
 		minRepeatCount = 1;
 		maxRepeatCount = 1;
@@ -200,12 +218,9 @@ public class Template {
 				throw new RuntimeException("Bad repeat Count: "+repeatCountS);
 			}
 		}
-		
-		startChunker = new PatternChunker(createPatternList(patternString, multipleS), offset);
-		endChunker = new PatternChunker(createPatternList(endPatternString, multipleS), endOffset);
 	}
 
-	private void checkIfAttributeNamesAreAllowed(String[] allowedNames) {
+	public static void checkIfAttributeNamesAreAllowed(Element theElement, String[] allowedNames) {
 		for (int i = 0; i < theElement.getAttributeCount(); i++) {
 			String attName = theElement.getAttribute(i).getLocalName();
 			boolean allowed = false;
@@ -216,17 +231,11 @@ public class Template {
 				}
 			}
 			if (!allowed) {
+				CMLUtil.debug(theElement, "FORBIDDEN ATT");
 				throw new RuntimeException("Forbidden attribute name: "+attName);
 			}
 		}
 	}
-
-//	/** used by Deleter - needs refactoring */
-//	private static List<Pattern> processMultipleAndPatternAttributes(Element element) {
-//		String patternS = element.getAttributeValue(PATTERN);
-//		String multipleS = element.getAttributeValue(MULTIPLE);
-//		return createPatternList(patternS, multipleS);
-//	}
 
 	static List<Pattern> createPatternList(String patternS,
 			String multipleS) {
@@ -260,6 +269,11 @@ public class Template {
 			} else if (LineType.RECORD.getTag().equals(name)) {
 				lineReader = new RecordsLineReader(childElement, this);
 				lineReaderList.add(lineReader);
+			} else if (Template.TAG.equals(name)) {
+				Template childTemplate = new Template(childElement);
+				LOG.warn("TEMPLATE child");
+				System.out.println(theElement.getAttributeValue(ID)+"/"+childElement.getAttributeValue(ID));
+				throw new RuntimeException("TODO fix recursive template");
 			} else if (TemplateContainer.TAG.equals(name)) {
 				if (templateContainer != null) {
 					throw new RuntimeException("Only one templateList allowed");
@@ -267,14 +281,14 @@ public class Template {
 				templateContainer = new TemplateContainer(childElement);
 			} else {
 				CMLUtil.debug(theElement, "UNKNOWN CHILD");
-				throw new RuntimeException("unknown child "+name);
+				throw new RuntimeException("unknown child: "+name);
 			}
 		}
-		if (lineReaderList.size() > 0 &&
-		   (deleterList.size() > 0 || templateContainer != null)) {
-				throw new RuntimeException(
-						"Cannot have both deleters+templateList and readLines+record");
-		}
+//		if (lineReaderList.size() > 0 &&
+//		   (deleterList.size() > 0 || templateContainer != null)) {
+//				throw new RuntimeException(
+//						"Cannot have both deleters+templateList and readLines+record");
+//		}
 	}
 
 	private void ignore() {
@@ -295,15 +309,19 @@ public class Template {
 	// =========================================================
 
 	public void applyMarkup(String line) {
+		LOG.debug("LINE: "+line+" / "+line.split(CMLConstants.S_NEWLINE).length);
 		lineContainer = new LineContainer(line);
 		applyMarkup(lineContainer);
 	}
 	
 	public void applyMarkup(LineContainer lineContainer) {
 		this.lineContainer = lineContainer;
+		Element linesElement = lineContainer.getLinesElement();
 		applyDeleters();
 		applyChildTemplateList();
 		applyLineReaders();
+		linesElement.addAttribute(new Attribute(Template.TEMPLATE_REF, this.getId()));
+
 	}
 	
 	private void applyDeleters() {
@@ -315,13 +333,14 @@ public class Template {
 	private void applyChildTemplateList() {
 		if (templateContainer != null) {
 			LOG.trace(id+" applying childTemplates");
-			for (Template template : templateContainer.getTemplateList()) {
-				template.debug();
-				List<Element> elements = template.resetNodeIndexAndApplyChunkers(lineContainer);
+			for (Template childTemplate : templateContainer.getTemplateList()) {
+//				template.debug();
+				List<Element> elements = childTemplate.resetNodeIndexAndApplyChunkers(lineContainer);
 				LOG.trace("found child elements after wrap: "+elements.size());
 				for (Element element : elements) {
+					element.addAttribute(new Attribute(TEMPLATE_REF, childTemplate.getId()));
 					LineContainer childLineContainer = new LineContainer(element);
-					template.applyMarkup(childLineContainer);
+					childTemplate.applyMarkup(childLineContainer);
 				}
 			}
 		}
@@ -362,7 +381,13 @@ public class Template {
 
 	private void applyLineReaders() {
 		for (LineReader lineReader : lineReaderList) {
-			lineReader.apply(lineContainer);
+			Element chunk = lineReader.apply(lineContainer);
+			if (chunk != null) {
+				chunk.addAttribute(new Attribute(TEMPLATE_REF, lineReader.getId()));
+				lineContainer.insertChunk(chunk);
+			} else {
+				throw new RuntimeException("null chunk");
+			}
 		}
 	}
 

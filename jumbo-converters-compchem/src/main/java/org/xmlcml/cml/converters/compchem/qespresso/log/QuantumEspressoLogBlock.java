@@ -3,7 +3,7 @@ package org.xmlcml.cml.converters.compchem.qespresso.log;
 import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.BlockContainer;
-import org.xmlcml.cml.converters.compchem.qespresso.QuantumEspressoCommon;
+import org.xmlcml.cml.converters.compchem.qespresso.QespressoCommon;
 
 public class QuantumEspressoLogBlock extends AbstractBlock {
 
@@ -13,7 +13,7 @@ public class QuantumEspressoLogBlock extends AbstractBlock {
 	
 	@Override
 	protected AbstractCommon getCommon() {
-		return new QuantumEspressoCommon();
+		return new QespressoCommon();
 	}
 
 	/**

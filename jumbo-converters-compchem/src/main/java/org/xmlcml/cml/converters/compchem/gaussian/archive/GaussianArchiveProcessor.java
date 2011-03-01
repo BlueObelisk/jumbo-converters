@@ -37,7 +37,6 @@ D001 with INT=ULTRAFINE\\0,2\C,0.1063168353,0.3005635652,-0.5502851935
  */
 public class GaussianArchiveProcessor extends LegacyProcessor {
 
-	@SuppressWarnings("unused")
 	private static Logger LOG = Logger.getLogger(LegacyProcessor.class);
 	/** start of archive */
 	final static String START = 
@@ -62,7 +61,9 @@ public class GaussianArchiveProcessor extends LegacyProcessor {
 
 	@Override
 	protected String getTemplateResourceName() {
-		return "org/xmlcml/cml/converters/compchem/gaussian/archive/templateList.xml";
+		String name =  "org/xmlcml/cml/converters/compchem/gaussian/archive/templateList.xml";
+		LOG.info("template name: "+name);
+		return name;
 	}
 	
 	/**

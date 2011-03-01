@@ -8,6 +8,7 @@ import org.xmlcml.cml.converters.testutils.RegressionSuite;
  *
  * @author ojd20
  */
+@Ignore // till we have templates
 public class RegressionTest {
 
 	

@@ -9,7 +9,6 @@ import nu.xom.Elements;
 import org.apache.log4j.Logger;
 
 public class TemplateContainer {
-	@SuppressWarnings("unused")
 	private final static Logger LOG = Logger.getLogger(TemplateContainer.class);
 	
 	public static final String TAG = "templateList";
@@ -24,13 +23,16 @@ public class TemplateContainer {
 	}
 
 	private void readChildrenAndCreateTemplates() {
-		Elements elements = element.getChildElements();
-		for (int i = 0; i < elements.size(); i++) {
-			Element element = elements.get(i);
-			String name = element.getLocalName();
-			if (Template.TAG.equals(name)) {
-				Template template = new Template(element);
+		Elements childElements = element.getChildElements();
+		for (int i = 0; i < childElements.size(); i++) {
+			Element childElement = childElements.get(i);
+			String childName = childElement.getLocalName();
+			LOG.trace(TAG+" CHILD: "+childName);
+			if (Template.TAG.equals(childName)) {
+				Template template = new Template(childElement);
 				templateList.add(template);
+			} else {
+				throw new RuntimeException("Unexpected child of "+TAG+": "+childName);
 			}
 		}
 	}

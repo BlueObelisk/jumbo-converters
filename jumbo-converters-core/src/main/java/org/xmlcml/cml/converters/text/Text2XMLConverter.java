@@ -27,7 +27,7 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 	private static final String GROUP1 = "group1";
 	private static final String LEAVE_LINK = "leaveLink";
 	private static final Integer TAB_WIDTH = 8;
-	private List<String> lines;
+	protected List<String> lines;
 	private List<Chunker> markerList;
 	protected Integer tabWidth = TAB_WIDTH;
 
@@ -61,7 +61,7 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 	/**
 	 * deal with tabs, other possible conversions...
 	 */
-	private void convertCharactersInLines() {
+	protected void convertCharactersInLines() {
 		List<String> newlines = new ArrayList<String>(lines.size());
 		for (String line : lines) {
 			newlines.add(Util.replaceTabs(line, (int)TAB_WIDTH));

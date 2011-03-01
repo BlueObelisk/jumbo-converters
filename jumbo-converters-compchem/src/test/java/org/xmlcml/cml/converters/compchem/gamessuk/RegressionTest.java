@@ -1,5 +1,6 @@
  package org.xmlcml.cml.converters.compchem.gamessuk;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xmlcml.cml.converters.compchem.gamessuk.punch.GamessUKPunch2XMLConverter;
 import org.xmlcml.cml.converters.compchem.gamessuk.punch.GamessUKPunchXML2CMLConverter;
@@ -9,6 +10,8 @@ import org.xmlcml.cml.converters.testutils.RegressionSuite;
  *
  * @author ojd20
  */
+
+@Ignore // till we have templates
 public class RegressionTest {
 
 	   @Test

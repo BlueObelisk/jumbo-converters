@@ -21,6 +21,7 @@ public class QuantumEspressoLog2XMLConverter extends Text2XMLConverter {
 
 	@Override
 	protected LegacyProcessor createLegacyProcessor() {
-		return new QuantumEspressoLogProcessor();
+		throw new RuntimeException("changing processor type");
+//		return new QuantumEspressoLogProcessor();
 	}
 }
