@@ -5,23 +5,24 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import nu.xom.Attribute;
 import nu.xom.Element;
 import nu.xom.Node;
 import nu.xom.Nodes;
-import nu.xom.ParentNode;
 import nu.xom.Text;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLUtil;
+import org.xmlcml.cml.element.CMLList;
+import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.euclid.Int2;
 
 public class LineContainer {
 
 	private final static Logger LOG = Logger.getLogger(LineContainer.class);
 	
-	private static final String CHUNK = "chunk";
-	private static final String LINE_CONTAINER = "lineContainer";
+	public  static final String LINE_COUNT = "lineCount";
 
 	private int currentNodeIndex = 0;
 	private Element linesElement;
@@ -37,9 +38,21 @@ public class LineContainer {
 		this.linesElement = element;
 	}
 	
+	/** splits lines at line endings	 * 
+	 * @param s
+	 */
 	public LineContainer(String s) {
 		this();
 		this.setContent(s);
+	}
+	
+	/** takes list of split lines
+	 * @param lines
+	 */
+	public LineContainer(List<String> lines) {
+		this();
+		LOG.trace("lines: "+lines.size());
+		this.setContent(lines);
 	}
 	
 	public int getCurrentNodeIndex() {
@@ -58,10 +71,11 @@ public class LineContainer {
 	}
 
 	public void setContent(List<String> lines) {
-		linesElement = new Element(LINE_CONTAINER);
+		linesElement = new CMLModule();
 		for (String line : lines) {
 			linesElement.appendChild(line);
 		}
+		LOG.trace(linesElement.getChildCount());
 	}
 	
 	public Node getNextNode() {
@@ -120,7 +134,7 @@ public class LineContainer {
 	Int2 findNextMatch(int nodeIndex, PatternChunker chunker) {
 		// loop through lines till end (might tweak this later??)
 		while (nodeIndex < this.linesElement.getChildCount()) {
-			LOG.debug(nodeIndex+"/"+this.linesElement.getChildCount());
+			LOG.trace(nodeIndex+"/"+this.linesElement.getChildCount());
 			Int2 contiguous = this.getContiguousTextRange(nodeIndex);
 			while (nodeIndex < contiguous.getY()) {
 				Int2 start = this.matchLines(nodeIndex, chunker.getPatternList());
@@ -163,7 +177,7 @@ public class LineContainer {
 				break;
 			} else {
 				if (chunk == null) {
-					chunk = new Element(CHUNK);
+					chunk = new CMLModule();
 				}
 				node.detach();
 				chunk.appendChild(node);
@@ -171,15 +185,27 @@ public class LineContainer {
 			}
 		}
 		if (chunk != null) {
+			chunk.addAttribute(new Attribute(LINE_COUNT, ""+nchunked));
+//			CMLUtil.debug(chunk, "CH");
 			linesElement.insertChild(chunk, start);
 		}
-//		currentNodeIndex -= (end-start)-1;
 		currentNodeIndex -= (nchunked-1);
 		return chunk;
 	}
 
 	public void debug(String string) {
 		CMLUtil.debug(linesElement, string);
+	}
+
+	public String readLine() {
+		String s = peekLine();
+		currentNodeIndex++;
+		return s;
+	}
+	
+	public String peekLine() {
+		Node node = peekCurrentNode();
+		return (node == null || !(node instanceof Text)) ? null : node.getValue();
 	}
 
 	public Element getLinesElement() {
@@ -204,4 +230,38 @@ public class LineContainer {
 		CMLUtil.debug(l);
 	}
 
+	public void insertChunk(Element chunk) {
+		if (chunk != null) {
+			Node node = linesElement.getChild(currentNodeIndex-1);
+			if (node != null) {
+				int nchunk = getChunkChildCount(chunk);
+				deleteLinesIfMoreThanOne(nchunk);
+				node.getParent().replaceChild(node, chunk);
+			} else {
+				linesElement.appendChild(chunk);
+			}
+		}
+	}
+
+	private void deleteLinesIfMoreThanOne(int nchunk) {
+		int firstIndexToDelete = currentNodeIndex - nchunk;
+		for (int i = 0; i < nchunk-1; i++) {
+			linesElement.getChild(firstIndexToDelete).detach();
+			currentNodeIndex--;
+		}
+	}
+
+	private int getChunkChildCount(Element chunk) {
+		int count = 0;
+		if (chunk instanceof CMLList) {
+			CMLList list = (CMLList) chunk;
+			count = Template.readIntegerAttribute(list, LINE_COUNT);
+			if (count == 0) {
+				count = list.getChildElements().size();
+			}
+		} else {
+			count = Template.readIntegerAttribute(chunk, LINE_COUNT);
+		}
+		return count;
+	}
 }

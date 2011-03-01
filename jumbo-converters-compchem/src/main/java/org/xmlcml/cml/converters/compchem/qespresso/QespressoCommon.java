@@ -9,9 +9,9 @@ import org.xmlcml.cml.converters.AbstractCommon;
  * @author pm286
  *
  */
-public class QuantumEspressoCommon extends AbstractCommon {
+public class QespressoCommon extends AbstractCommon {
 	@SuppressWarnings("unused")
-	private final static Logger LOG = Logger.getLogger(QuantumEspressoCommon.class);
+	private final static Logger LOG = Logger.getLogger(QespressoCommon.class);
 	
 	private static final String QE_PREFIX = "qespresso";
 	private static final String QE_URI = "http://wwmm.ch.cam.ac.uk/dict/qespresso";

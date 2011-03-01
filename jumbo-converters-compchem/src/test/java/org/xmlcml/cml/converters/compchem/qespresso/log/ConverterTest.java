@@ -6,7 +6,7 @@ import org.xmlcml.cml.converters.compchem.TestUtils;
 import org.xmlcml.cml.converters.testutils.RegressionSuite;
 
 public class ConverterTest {
-	@Test         public void testBravais()    {testConverter("bravais");}
+//	@Test         public void testBravais()    {testConverter("bravais");}
 
 	private void testConverter(String name) {
 		TestUtils.runConverterTest(new QuantumEspressoLog2XMLConverter(), name);

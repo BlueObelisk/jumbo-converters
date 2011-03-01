@@ -1,1 +1,10 @@
-    <template id='site' name='site' repeatCount='*' pattern='.*site\s+n.*' endPattern='\s*'/>
+    <template id='site' name='site' repeatCount='*' pattern='.*site\s+n.*' endPattern='\s*'>
+      <comment>
+  site n. atom positions (cryst. coord.)
+  1 C tau( 1) = ( -0.1463680 0.0000000 0.0000000 )
+  2 C tau( 2) = ( 0.0000000 0.1463680 0.0000000 )
+  3 C tau( 3) = ( 0.0000000 -0.1463680 0.0000000 )
+  4 C tau( 4) = ( 0.1463680 0.0000000 0.0000000 )
+      </comment>
+      <record linesToRead='1' formatType='REGEX' names='qe:coord'>.*\(.*\)</record>
+    </template>

@@ -1224,7 +1224,7 @@ public class JumboReader {
 		int startChar = 0;
 		StringBuilder stringBuilder = new StringBuilder(line);
 		for (Field field : lineReader.getFieldList()) {
-			CMLElement element = field.read(stringBuilder, startChar, dictionaryPrefix);
+			CMLElement element = field.read(stringBuilder, startChar/*, dictionaryPrefix*/);
 			startChar = field.getStartChar();
 			if (element != null) {
 				if (JumboReader.isSpace(element) && !JumboReader.isMisread(element)) {

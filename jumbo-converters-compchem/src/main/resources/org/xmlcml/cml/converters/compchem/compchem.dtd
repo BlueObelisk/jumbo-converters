@@ -1,50 +1,53 @@
 <!ENTITY % output      'output          (VERBOSE|NORMAL|NONE)  "NONE"'>
 <!ENTITY % formatType  'formatType      (FORTRAN|WHITESPACE|REGEX)'>
-<!ENTITY % id          'id              CDATA #REQUIRED'>
+<!ENTITY % id          'id              CDATA'>
 <!ENTITY % linesToRead 'linesToRead     CDATA'>
 <!ENTITY % makeArray   'makeArray       CDATA'>
-<!ENTITY % name        'name            CDATA #REQUIRED'>
+<!ENTITY % name        'name            CDATA'>
 <!ENTITY % names       'names           CDATA'>
-<!ENTITY % pattern     'pattern         CDATA #REQUIRED'>
+<!ENTITY % pattern     'pattern         CDATA'>
 <!ENTITY % reading     'reading         (WHILE|UNTIL|ALL|ONCE)'>
 
-<!ELEMENT templates (template*)>
-<!ATTLIST templates
+<!-- parameter entities don't seem to work -->
+<!ELEMENT templateList (template*)>
+<!ATTLIST templateList
+    %id;         #REQUIRED
     >
 <!ELEMENT template (
     comment|
     readLines|
     record|
-    comment)*>
+    comment|
+    templateList)*>
 <!ATTLIST template
-    %id;
-    %output;
-    %name;
-    %pattern;
+    id        CDATA #REQUIRED
+    output    CDATA #IMPLIED
+    name      CDATA #IMPLIED
+    pattern   CDATA #IMPLIED
     >
 
 <!ELEMENT record   (#PCDATA)>
 <!ATTLIST record
-    %id;
-    %output;
-    %formatType;   #REQUIRED
-    %reading;      #IMPLIED
-    %linesToRead;  #IMPLIED
-    %makeArray;    #IMPLIED
-    %names;        #IMPLIED
+    id          CDATA   #REQUIRED
+    output      CDATA   #IMPLIED
+    formatType  CDATA   #IMPLIED
+    reading     CDATA   #IMPLIED
+    linesToRead CDATA   #IMPLIED
+    makeArray   CDATA   #IMPLIED
+    names       CDATA   #IMPLIED
     >
     
 <!ELEMENT readLines (#PCDATA)>
 <!ATTLIST readLines
-    %id;
-    %output;
-    %formatType;   #IMPLIED
-    %linesToRead;  #IMPLIED
-    %reading;      #IMPLIED
+    id          CDATA   #REQUIRED
+    output      CDATA   #IMPLIED
+    formatType  CDATA   #IMPLIED
+    reading     CDATA   #IMPLIED
+    linesToRead CDATA   #IMPLIED
     >
 
 <!ELEMENT comment (#PCDATA)>
 <!ATTLIST comment
-    role CDATA   #IMPLIED
+    role CDATA     #IMPLIED
     >
     

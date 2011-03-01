@@ -2,6 +2,7 @@ package org.xmlcml.cml.converters.format;
 
 import java.util.List;
 
+import nu.xom.Attribute;
 import nu.xom.Element;
 import nu.xom.Nodes;
 
@@ -42,8 +43,18 @@ public class RecordsLineReader extends LineReader {
 	}
 
 	@Override
-	public void apply(LineContainer lineContainer) {
-		throw new RuntimeException("NYI");
+	public Element apply(LineContainer lineContainer) {
+		this.lineContainer = lineContainer;
+		CMLElement element = null;
+		debugLine("first line", OutputLevel.VERBOSE);
+		Integer linesToRead = this.getLinesToRead();
+		if (linesToRead != null) {
+			element = readRecordList(linesToRead);
+		} else {
+			readRecordFromLineContainer();
+		}
+		debugLine("current line", OutputLevel.VERBOSE);
+		return element;
 	}
 
 	@Override
@@ -66,10 +77,9 @@ public class RecordsLineReader extends LineReader {
 	private CMLList readRecordList(Integer linesToRead) {
 		CMLList list = new CMLList();
 		for (int i = 0; i < linesToRead; i++) {
-			LOG.debug("line "+jumboReader.getCurrentLineNumber()+" : "+jumboReader.peekLine());
 			CMLList list0 = readRecord();
 			if (list0 == null) {
-				LOG.debug("failed to read line");
+				LOG.trace("failed to read line");
 				break;
 			}
 			((CMLElement)list).appendChild(list0);
@@ -125,6 +135,7 @@ public class RecordsLineReader extends LineReader {
 			if (childElements.size() > 0) {
 				list = makeLists(childElements.get(0));
 				int size = list.getChildCMLElements().size();
+				recordSizeOfOriginalArrays(list, childElements.size());
 				for (CMLElement childElement : childElements) {
 					List<CMLElement> recordList = childElement.getChildCMLElements();
 					// not sure what this did
@@ -140,6 +151,10 @@ public class RecordsLineReader extends LineReader {
 			}
 		}
 		return list;
+	}
+
+	private void recordSizeOfOriginalArrays(CMLList list, int size) {
+		list.addAttribute(new Attribute(LineContainer.LINE_COUNT, ""+size));
 	}
 
 	@SuppressWarnings("unused")
@@ -162,8 +177,43 @@ public class RecordsLineReader extends LineReader {
 	private CMLList readRecord() {
 		CMLList list = null;
 		// this adds parsed lines to parent element in jumboReader
-		LOG.debug("Reading "+jumboReader.peekLine());
-		List<HasDataType> hasDataTypeList = parseInlineHasDataTypes(jumboReader);
+		LOG.trace("Reading "+peekLine());
+		List<HasDataType> hasDataTypeList = parseInlineHasDataTypes();
+		if (hasDataTypeList != null) {
+			list = new CMLList();
+			for (HasDataType hasDataType : hasDataTypeList) {
+				if (hasDataType != null) {
+					addElementWithDictRef((CMLElement)hasDataType, DictRefAttribute.getLocalName(((HasDictRef)hasDataType).getDictRef()));
+					// this will detach from the module and add to list
+					list.appendChild((CMLElement)hasDataType);
+				}
+			}
+			addElementWithDictRef(list, RECORD);
+		}
+		resolveSymbolicVariables();
+		return list;
+	}
+
+	protected void addElementWithDictRef(CMLElement element, String name) {
+		if (jumboReader != null) {
+			jumboReader.addElementWithDictRef(element, name);
+		}
+	}
+	
+	private void resolveSymbolicVariables() {
+		if (jumboReader != null) {
+			jumboReader.getParentElement();
+		}
+	}
+
+	/**
+	 * this adds records to jumboReader
+	 * needs refactoring
+	 * @return
+	 */
+	private CMLList readRecordFromLineContainer() {
+		CMLList list = null;
+		List<HasDataType> hasDataTypeList = parseInlineHasDataTypes(lineContainer);
 		if (hasDataTypeList != null) {
 			list = new CMLList();
 			for (HasDataType hasDataType : hasDataTypeList) {
@@ -173,10 +223,13 @@ public class RecordsLineReader extends LineReader {
 					list.appendChild((CMLElement)hasDataType);
 				}
 			}
-			jumboReader.addElementWithDictRef(list, RECORD);
+			if (jumboReader != null) {
+				jumboReader.addElementWithDictRef(list, RECORD);
+			}
 		}
-		resolveSymbolicVariables(jumboReader.getParentElement());
+		if (jumboReader != null) {
+			resolveSymbolicVariables(jumboReader.getParentElement());
+		}
 		return list;
 	}
-
 }

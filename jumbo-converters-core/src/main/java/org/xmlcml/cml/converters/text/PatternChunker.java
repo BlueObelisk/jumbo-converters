@@ -19,12 +19,8 @@ public class PatternChunker {
 	public PatternChunker(List<Pattern> patternList, Integer offset) {
 		this.patternList = patternList;
 		if (patternList == null || patternList.size() == 0) {
-			throw new IllegalArgumentException("patternList must have elements");
+//			throw new IllegalArgumentException("patternList must have elements");
 		}
-//		if (position == null) {
-//			throw new IllegalArgumentException("position cannot be null");
-//		}
-//		this.position = position;
 		this.offset = offset;
 	}
 	

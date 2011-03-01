@@ -35,6 +35,7 @@ public class GaussianArchive2CMLConverter extends AbstractCompchem2CMLConverter{
 	 */
 	public Element convertToXML(List<String> lines) {
 		CMLCml topCml = new CMLCml();
+//		GaussianArchiveOrigProcessor processor = new GaussianArchiveOrigProcessor();
 		GaussianArchiveOrigProcessor processor = new GaussianArchiveOrigProcessor();
 		List<CMLElement> cmlElementList = processor.readArchives(lines);
 		for (CMLElement cmlElement : cmlElementList) {

@@ -1,55 +1,48 @@
 package org.xmlcml.cml.converters.compchem.qespresso.log;
 
-import java.util.List;
+import nu.xom.Builder;
+import nu.xom.Document;
 
-import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.converters.AbstractBlock;
-import org.xmlcml.cml.converters.AbstractCommon;
-import org.xmlcml.cml.converters.BlockContainer;
-import org.xmlcml.cml.converters.LegacyProcessor;
-import org.xmlcml.cml.converters.compchem.nwchem.NWChemCommon;
+import org.apache.log4j.Logger;
+import org.xmlcml.cml.base.CMLConstants;
+import org.xmlcml.cml.base.CMLUtil;
+import org.xmlcml.cml.converters.text.Template;
+import org.xmlcml.cml.converters.text.TemplateProcessor;
+import org.xmlcml.euclid.Util;
 
 /**
  * @author pm286
  *
  */
-public class QuantumEspressoLogProcessor extends LegacyProcessor {
+public class QuantumEspressoLogProcessor extends TemplateProcessor {
+	@SuppressWarnings("unused")
+	private final static Logger LOG = Logger.getLogger(QuantumEspressoLogProcessor.class);
 	
-	public QuantumEspressoLogProcessor() {
-		super();
-	}
-	
-	@Override
-	protected AbstractCommon getCommon() {
-		return new NWChemCommon();
-	}
+	private static final String COMMON_XML = "common.xml";
 
-	/**
-	 * @param lines
-	 * @param lineCount
-	 * @return
-	 */
-	@Override
-	protected AbstractBlock readBlock(List<String> lines) {
-		return null;
-	}
-
-	public AbstractBlock createAbstractBlock() {
-		return new QuantumEspressoLogBlock(blockContainer);
-	}
-
-	@Override
-	protected void preprocessBlocks(CMLElement element) {
+	public QuantumEspressoLogProcessor(Template template) {
+		super(template);
+		init();
 	}
 	
-
-	@Override
-	protected void postprocessBlocks() {
+	private void init() {
+		readProperties();
 	}
 
-	@Override
-	protected AbstractBlock createAbstractBlock(BlockContainer blockContainer) {
-		return new QuantumEspressoLogBlock(blockContainer);
+	private void readProperties() {
+		try {
+		Class<?> clazz = this.getClass();
+		String[] packageBits = clazz.getPackage().getName().split("\\.");
+		String dir = "";
+		for (int i = 0; i < packageBits.length-1; i++) {
+			dir += packageBits[i];
+			dir += CMLConstants.S_SLASH;
+		}
+		Document props = new Builder().build(Util.getResourceUsingContextClassLoader(dir+COMMON_XML, clazz));
+		CMLUtil.debug(props.getRootElement(), "PROPS");
+		} catch (Exception e) {
+			throw new RuntimeException("cannot read common: ", e);
+		}
 	}
 	
 }

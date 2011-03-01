@@ -24,6 +24,7 @@ public class SimpleFortranFormat {
 	private static final char R_NAME_DELIM = CMLConstants.C_RCURLY;
 	private static final char CHECK_FLAG_CHAR = CMLConstants.C_ATSIGN;
 	private static final Integer MAX_WIDTH = 1024;
+	private static final String FOO_PREFIX = "foo";
 
 	public enum FortranType {
 		A,
@@ -184,6 +185,8 @@ We support Iw, Fw.d, Ew.d (D,G,H), A, Aw, nX, /
 			field.saveQFieldOrSetLocalDictRef(localDictRef);
 			formatStartChar = idx+1;
 		} else {
+//			field.setLocalDictRef(FOO_PREFIX+CMLConstants.S_COLON+Field.FIELD_PREFIX+fieldList.size());
+			
 			field.setLocalDictRef(Field.FIELD_PREFIX+fieldList.size());
 		}
 		LOG.trace("DBG"+field.toString());

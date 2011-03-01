@@ -6,7 +6,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
-import org.xmlcml.cml.converters.compchem.qespresso.QuantumEspressoCommon;
+import org.xmlcml.cml.converters.compchem.qespresso.QespressoCommon;
 
 public class QuantumEspressoLogXML2CMLConverter extends AbstractCompchem2CMLConverter{
 	private static final Logger LOG = Logger.getLogger(QuantumEspressoLogXML2CMLConverter.class);
@@ -19,7 +19,7 @@ public class QuantumEspressoLogXML2CMLConverter extends AbstractCompchem2CMLConv
 
    @Override
    protected AbstractCommon getCommon() {
-	   return new QuantumEspressoCommon();
+	   return new QespressoCommon();
    }
 
 	/**

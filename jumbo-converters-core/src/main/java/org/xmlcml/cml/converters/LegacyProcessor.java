@@ -58,23 +58,28 @@ public abstract class LegacyProcessor {
 		}
 	}
 
-	private void readTemplates() {
+	protected void readTemplates() {
 		LOG.trace("readTemplates");
 		String templateResource = this.getTemplateResourceName();
-		try {
-			Element root = new Builder(dtdValidate).build(org.xmlcml.euclid.Util.getInputStreamFromResource(templateResource)).getRootElement();
-			Elements childElements = root.getChildElements();
-			templateList = new ArrayList<Template>();
-			for (int i = 0; i < childElements.size(); i++) {
-				Element childElement = childElements.get(i);
-				processAndAddTemplate(childElement);
+		if (templateResource != null) {
+			LOG.debug("readTemplates from: "+templateResource);
+			try {
+				Element root = new Builder(dtdValidate).build(org.xmlcml.euclid.Util.getInputStreamFromResource(templateResource)).getRootElement();
+				Elements childElements = root.getChildElements();
+				templateList = new ArrayList<Template>();
+				for (int i = 0; i < childElements.size(); i++) {
+					Element childElement = childElements.get(i);
+					processAndAddTemplate(childElement);
+				}
+			} catch (Exception e) {
+				throw new RuntimeException("Cannot parse/read/find templateList "+templateResource, e);
 			}
-		} catch (Exception e) {
-			throw new RuntimeException("Cannot parse/read/find templateList "+templateResource, e);
+		} else {
+			LOG.info("skipped reading teplates");
 		}
 	}
 
-	private void processAndAddTemplate(Element element) {
+	protected void processAndAddTemplate(Element element) {
 		Template newTemplate = new Template(element);
 		String newId = newTemplate.getId();
 		for (Template template : templateList) {
@@ -220,7 +225,7 @@ public abstract class LegacyProcessor {
 
 	protected String getTemplateResourceName() {
 		String templateResourceName = getResourceRootFromPackage(this.getClass())+"/templateList.xml";
-		LOG.debug("template resource: "+templateResourceName);
+		LOG.info("template resource: "+templateResourceName);
 		return templateResourceName;
 	}
 
