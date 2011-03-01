@@ -1,5 +1,5 @@
 <template id="gau:anuisospin" name="Anisotropic Spin Dipole Couplings" 
-    pattern=".*Anisotropic Spin Dipole.*">
+    pattern=".*Anisotropic Spin Dipole.*" endPattern=".*Grot.*">
   <comment class="example">
               Anisotropic Spin Dipole Couplings in Principal Axis System
  ---------------------------------------------------------------------------------
@@ -19,18 +19,29 @@
               Bcc     0.0000     0.000     0.000     0.000  0.6863 -0.5926  0.4217
  
  </comment>
-  <record id="rl1" linesToRead="5" formatType="REGEX">.*</record>
-  <templateList linesToRead="*" id="gau:atomaniso">
-    <template id="gau:atomaniso1">
-      <record formatType="REGEX" id="blank" linesToRead="1"></record>
+  <record id="rl1" linesToRead="1" formatType="REGEX" names="foo:bar ">.*Anisotropic Spin Dipole(.*)</record>
+  <record id="rl2" linesToRead="1" formatType="REGEX" names="foo:bar ">(.*)</record>
+  <record id="rl3" linesToRead="1" formatType="REGEX" names="foo:bar ">(.*)</record>
+  <record id="rl4" linesToRead="1" formatType="REGEX" names="foo:bar ">(.*)</record>
+  <record id="rl5" linesToRead="1" formatType="REGEX" names="foo:bar ">(.*)</record>
       <record formatType="REGEX" id="baa" linesToRead="1"
         >{A18}{F11.4,gau:au}{F10.4,gau:mhz}{F10.4,gau:gauss}{F10.4,gau:cm-1}{F8.4,gau:x}{F8.4,gau:y}{F8.4,gau:z}</record>
-         
       <record formatType="REGEX" id="bbb" linesToRead="1"
         >{I6,gau:serial}{A8,gau:label}{A4,gau:dummy}{F11.4,gau:au}{F10.4,gau:mhz}{F10.4,gau:gauss}{F10.4,gau:cm-1}{F8.4,gau:x}{F8.4,gau:y}{F8.4,gau:z}</record>
       <record formatType="REGEX" id="bcc" linesToRead="1"
         >{A18}{F11.4,gau:au}{F10.4,gau:mhz}{F10.4,gau:gauss}{F10.4,gau:cm-1}{F8.4,gau:x}{F8.4,gau:y}{F8.4,gau:z}</record>
+<!--       
+  <templateList linesToRead="*" id="gau:atomaniso">
+    <template id="gau:atomaniso1">
+      <record formatType="REGEX" id="baa" linesToRead="1"
+        >{A18}{F11.4,gau:au}{F10.4,gau:mhz}{F10.4,gau:gauss}{F10.4,gau:cm-1}{F8.4,gau:x}{F8.4,gau:y}{F8.4,gau:z}</record>
+      <record formatType="REGEX" id="bbb" linesToRead="1"
+        >{I6,gau:serial}{A8,gau:label}{A4,gau:dummy}{F11.4,gau:au}{F10.4,gau:mhz}{F10.4,gau:gauss}{F10.4,gau:cm-1}{F8.4,gau:x}{F8.4,gau:y}{F8.4,gau:z}</record>
+      <record formatType="REGEX" id="bcc" linesToRead="1"
+        >{A18}{F11.4,gau:au}{F10.4,gau:mhz}{F10.4,gau:gauss}{F10.4,gau:cm-1}{F8.4,gau:x}{F8.4,gau:y}{F8.4,gau:z}</record>
+      <record formatType="REGEX" id="blank" linesToRead="1"></record>
     </template>
-  </templateList>
+   </templateList>
+   -->
 </template>
  

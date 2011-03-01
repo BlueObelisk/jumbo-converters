@@ -332,11 +332,11 @@ public class Template {
 
 	private void applyChildTemplateList() {
 		if (templateContainer != null) {
-			LOG.trace(id+" applying childTemplates");
+			LOG.debug(id+" applying childTemplates");
 			for (Template childTemplate : templateContainer.getTemplateList()) {
 //				template.debug();
 				List<Element> elements = childTemplate.resetNodeIndexAndApplyChunkers(lineContainer);
-				LOG.trace("found child elements after wrap: "+elements.size());
+				LOG.debug("found child elements after wrap: "+elements.size());
 				for (Element element : elements) {
 					element.addAttribute(new Attribute(TEMPLATE_REF, childTemplate.getId()));
 					LineContainer childLineContainer = new LineContainer(element);

@@ -117,7 +117,7 @@ public class LineContainer {
 				Node node = linesElement.getChild(i + startIndex);
 				String value = node.getValue();
 				Pattern pattern = contiguousPatterns.get(i);
-				LOG.trace("matching ["+value+"] against ["+pattern+"]");
+				LOG.debug("matching ["+value+"] against ["+pattern+"]");
 				Matcher matcher = pattern.matcher(value);
 				if (!matcher.matches()) {
 					range = null;

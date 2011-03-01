@@ -10,7 +10,7 @@ import org.xmlcml.cml.converters.testutils.RegressionSuite;
 import org.xmlcml.euclid.Util;
 
 public class ConverterTest {
-	@Test @Ignore         public void testAnisospin()    {testConverter("anisospin");}
+	@Test    @Ignore     public void testAnisospin()    {testConverter("anisospin");}
 	@Test         public void testMulliken()    {testConverter("mulliken");}
 
 	private void testConverter(String name) {
