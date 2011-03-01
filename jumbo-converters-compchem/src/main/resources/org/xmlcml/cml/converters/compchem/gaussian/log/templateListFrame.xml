@@ -1,0 +1,13 @@
+<!DOCTYPE template SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/compchem.dtd" [
+<!ENTITY anisospin  SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/gaussian/log/templates/anisospin.temp.xml">
+<!ENTITY mulliken   SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/gaussian/log/templates/mulliken.temp.xml">
+ ]>
+<template id='gaussian.log'  pattern='p'>
+  <templateList id='id1'>
+    <template id="link" repeatCount="*" pattern=".*Enter.*" endPattern=".*Leave.*" endOffset="1">
+      <templateList id='id2'>
+        &mulliken;
+      </templateList>
+    </template>
+  </templateList>
+</template>
