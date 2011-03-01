@@ -19,9 +19,5 @@ public class GaussianLogProcessor extends TemplateProcessor {
 		return new GaussianCommon();
 	}
 
-//	public void applyMarkup(List<String> lines) {
-//		((GaussianLogProcessor) this).applyMarkup(lines);
-//	}
-
 }
 

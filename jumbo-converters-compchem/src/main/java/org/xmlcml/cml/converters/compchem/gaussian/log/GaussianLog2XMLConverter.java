@@ -43,8 +43,6 @@ public class GaussianLog2XMLConverter extends TemplateConverter {
 		convertCharactersInLines();
 		GaussianLogProcessor glp = (GaussianLogProcessor) createLegacyProcessor();
 		Element cmlElement = glp.applyMarkup(lines);
-//		legacyProcessor.read((CMLElement)element);
-//		Element cmlElement = glp.getCMLElement();
 		return cmlElement;
 
 	}

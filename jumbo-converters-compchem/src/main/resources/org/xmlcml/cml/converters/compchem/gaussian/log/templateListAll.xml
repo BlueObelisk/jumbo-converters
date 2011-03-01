@@ -1,10 +1,12 @@
 <!DOCTYPE template SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/compchem.dtd" [
 <!ENTITY anisospin  SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/gaussian/log/templates/anisospin.temp.xml">
-<!ENTITY mulliken   SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/gaussian/log/templates/mulliken.temp.xml">
+<!ENTITY atomiccharges SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/gaussian/log/templates/atomiccharges.temp.xml">
+<!ENTITY mulliken   SYSTEM  "src/main/resources/org/xmlcml/cml/converters/compchem/gaussian/log/templates/mulliken.temp.xml">
  ]>
 <template id='gaussian.log'  pattern='p'>
   <templateList id='id1'>
     &anisospin;
+    &atomiccharges;
     &mulliken;
   </templateList>
 </template>
