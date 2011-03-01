@@ -1,7 +1,6 @@
 package org.xmlcml.cml.converters.cif;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +22,8 @@ import org.xmlcml.cml.element.CMLEntry;
 import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLScalar;
 
+import org.apache.commons.io.IOUtils;
+
 public class OutPutModuleBuilder {
     public static final String CONVETION_URI = "http://www.xml-cml.org/convention/";
     public static final String CONVETION_PREFIX = "convention";
@@ -33,7 +34,7 @@ public class OutPutModuleBuilder {
     public static final String IUCR_DICT_PREFIX = CifDictionaryBuilder.PREFIX;
     public static final String XHTML_PREFIX = "xhtml";
     public static final String XHTML_URI = "http://www.w3.org/1999/xhtml";
-    private String _dict_path = "src/main/resources/cif-dictionary.cml";
+    private String _dict_path = "/cif-dictionary.cml";
     CMLDictionary dict;
     Map<String, CMLEntry> idMap;
     CMLModule topModule;
@@ -63,7 +64,7 @@ public class OutPutModuleBuilder {
      * Creates an OutputModuleBuilder with a non-default path to a dictionary
      * for dataType resolution
      * 
-     * @param path
+     * @param dictPath
      *            to CML dictionary
      */
     public OutPutModuleBuilder(String dictPath) {
@@ -75,15 +76,33 @@ public class OutPutModuleBuilder {
         init();
     }
 
-    private void loadDict(String path) throws ValidityException, ParsingException, IOException {
+    private void loadDict(String path) throws ParsingException, IOException {
         CMLBuilder builder = new CMLBuilder();
-        Document doc = builder.build(new File(path));
+        InputStream is = findInput(path);
+        Document doc ;
+        try {
+            doc = builder.build(is);
+        } finally {
+            IOUtils.closeQuietly(is);
+        }
         CMLDictionary dict = (CMLDictionary) doc.getRootElement();
         this.dict = dict;
         idMap = new HashMap<String, CMLEntry>();
         for (CMLEntry entry : dict.getEntryElements()) {
             this.idMap.put(entry.getId(), entry);
         }
+    }
+
+    private InputStream findInput(String path) throws FileNotFoundException {
+        File file = new File(path);
+        if (file.isFile()) {
+            return new BufferedInputStream(new FileInputStream(file));
+        }
+        InputStream in = getClass().getResourceAsStream(path);
+        if (in != null) {
+            return in;
+        }
+        throw new FileNotFoundException("File not found: "+path);
     }
 
     private void init() {
@@ -277,7 +296,5 @@ public class OutPutModuleBuilder {
             this.topModule.setTitle(title);
         }
     }
-
-
 
 }
