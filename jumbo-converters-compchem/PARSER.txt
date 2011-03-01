@@ -1,0 +1,128 @@
+JUMBOParser
+===========
+
+Most of the recent parsers are based on JUMBOParser for the Raw2XML (first parse). 
+Assume we are parsing the LOG files of Gaussian, so we use gaussian/log as the subdirectory.
+Change for other files
+The framework is:
+
+*src/main/java
+    // all the Java files are simple clone-and-edits of a basic structure
+    // take a recent example and substitute the appropriate name
+    org/xmlcml/cml/converters/compchem/gaussian
+      // edit the content to point to appropriate files and tokens
+      GaussianCommon.java             // highly stylized; do not edit
+    org/xmlcml/cml/converters/compchem/gaussian/log
+    
+      GaussianLog2XMLConverter.java   // highly stylized; do not edit
+      GaussianLogProcessor.java       // highly stylized; do not edit
+      GaussianLogXML2CMLConverter.java// highly stylized; do not edit
+      GaussianLogXMLProcessor.java    // highly stylized; do not edit
+
+* src/main/resources/
+    org/xmlcml/cml/converters/compchem
+      compchem.dtd                    // validates the template XML; do not edit or move this file
+    org/xmlcml/cml/converters/compchem/gaussian/log
+      templateList.xml                // the main parser; references the /templates subdirectory [1]
+    org/xmlcml/cml/converters/compchem/gaussian/log/templates 
+      foo.temp.xml                    // template managing foo subsection [2]
+      bar.temp.xml                    // template managing bar subsection
+         ...
+
+* src/test/java/
+    org/xmlcml/cml/converters/compchem/gaussian/log
+      ConverterTest.java                // primary unit and regression test [3]
+      GaussianLog2XMLConverterTest.java // specialist tests (may not be needed for all codes)
+      
+      
+* src/test/resources/
+    org/xmlcml/cml/converters/compchem/gaussian/log/in
+       test1.log                        // test input
+       test2.log
+       ...
+    org/xmlcml/cml/converters/compchem/gaussian/log/ref
+       test1.xml                        // reference xml
+       test2.xml
+       ...
+    org/xmlcml/cml/converters/compchem/gaussian/log/templates
+       foo.in                          // test input for foo sub-chunk
+       foo.xml                         // reference           
+       bar.in                          // test input for bar sub-chunk
+       bar.xml                         // reference
+       
+
+This apparatus creates the full parser.
+       (a) to test, simply run tests (mvn test). All *.log files in log/in will be converted
+           and output to target/test/gaussian/log/test1.xml, etc. These can be used as reference
+           for regression tests
+           Also all foo.in will be converted and compared to foo.xml in templates
+           
+To run the complete converter use       GaussianLog2XMLConverter
+     programmatically:
+         new GaussianLog2XMLConverter().convert(instream, outstream)
+         
+     from commandline ... more later
+
+Details
+=======
+[1] templateList.xml
+
+// standard DTD (do not edit)
+<!DOCTYPE template SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/compchem.dtd" [
+<!-- each entity is included by this mechanism ; expect 50-200 ENTITYs -->
+<!ENTITY atomiccharges SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/gaussian/log/templates/atomiccharges.temp.xml">
+<!ENTITY mulliken   SYSTEM  "src/main/resources/org/xmlcml/cml/converters/compchem/gaussian/log/templates/mulliken.temp.xml">
+ ]>
+ <!-- toplevel template; id should reflect file type -->
+<template id='gaussian.log'>
+  <!-- container for child templates -->
+  <templateList id='id1'>
+    
+    <template id="l601" repeatCount="*" pattern=".*\Enter.*l601.*" endPattern=".*Leave.*" endOffset="1">
+      <templateList id='id2'>
+        <!-- included entities -->
+        &mulliken;
+        &atomiccharges;
+      </templateList>
+    </template>
+
+    <!-- catch all for untrapped templates -->    
+    <template id="link" repeatCount="*" pattern=".*\Enter.*" endPattern=".*Leave.*" endOffset="1"/>
+    
+  </templateList>
+</template>
+
+[2] 
+<!-- give useful id; chunk is parsed starting at pattern and ending at endPattern -->
+<template id="gau:mulliken" name="Mulliken atomic charges" 
+    pattern=".*Mulliken atomic charges.*" endPattern=".*Sum of Mulliken charges=.*" endOffset="1">
+<!-- comment gives example of parsable chunk -->
+  <comment class="example">
+ Mulliken atomic charges:
+              1
+     1  Si   1.103178
+     2  O   -0.481658
+     ...
+    15  H    0.254933
+ Sum of Mulliken charges=   0.00000
+ </comment>
+ <!-- skips a line, captures nothing -->
+  <record id="rl1" linesToRead="1" formatType="REGEX">.*</record>
+ <!-- reads a line, captures Integer of width 5, names it gau:col -->
+  <record formatType="FORTRAN" id="serial" linesToRead="1">(10X,I5{gau:col})</record>
+ <!-- reads many lines, captures 3 fields (I,A,F) using FORTRAN  -->
+  <record formatType="REGEX" id="charges"  makeArray="true" linesToRead="*">{I,gau:ser} {A,gau:elem} {F,gau:charge}</record>
+ <!-- reads final lines using REGEX  -->
+  <record id="rlx" linesToRead="1" formatType="REGEX">.*Sum of Mulliken charges= *{F,gau:sum}.*</record>
+</template>
+ 
+      [3] public class ConverterTest {
+        @Test    public void testFoo()    {testConverter("foo");}  // tests foo chunk
+        @Test    public void testBar()    {testConverter("bar");}  // test bar chunk
+      
+        @Test
+        public void gaussianOut2XML() {    // completely stylized
+            RegressionSuite.run("compchem/gaussian/log", "log", "xml",
+              new GaussianLog2XMLConverter());
+        }
+
