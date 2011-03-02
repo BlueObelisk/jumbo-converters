@@ -15,6 +15,7 @@ import nu.xom.ValidityException;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.converters.chemdraw.CDX2CMLConverter;
 import org.xmlcml.cml.converters.cif.dict.CifDictionaryBuilder;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLDictionary;
@@ -23,8 +24,16 @@ import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLScalar;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 public class OutPutModuleBuilder {
+    
+    private static final Logger logger = Logger.getLogger(OutPutModuleBuilder.class);
+    static {
+        logger.setLevel(Level.INFO);
+    }
+    
     public static final String CONVETION_URI = "http://www.xml-cml.org/convention/";
     public static final String CONVETION_PREFIX = "convention";
     public static final String CONVENTION_CRYSTALOGRAPHY = "CrystalographyExperiment";
@@ -121,16 +130,16 @@ public class OutPutModuleBuilder {
         try {
             this.loadDict(_dict_path);
         } catch (ValidityException e) {
-            System.err.println("Dictionary not valid");
-            e.printStackTrace();
+            logger.error("Dictionary not valid: "+_dict_path);
+            logger.error(e);
             this.dict = null;
         } catch (ParsingException e) {
-            System.err.println("Cannot parse dictionary");
-            e.printStackTrace();
+            logger.error("Could not parse dictionary: "+_dict_path);
+            logger.error(e);
             this.dict = null;
         } catch (IOException e) {
-            System.err.println("IOException reading dictionary");
-            e.printStackTrace();
+            logger.error("IOException reading dictionary: "+_dict_path);
+            logger.error(e);
             this.dict = null;
         }
     }
@@ -166,21 +175,20 @@ public class OutPutModuleBuilder {
         String dictRef = dictURI.getValue();
         int pos = dictRef.indexOf(':');
         if (pos == -1) {
-            System.err.println("Cannot dereference non-namespaced reference: " + dictRef);
+            logger.error("Cannot dereference non-namespaced reference: " + dictRef);
             return;
         }
         String prefix = dictRef.substring(0, pos);
         String id = dictRef.substring(pos + 1);
         
         if (!CifDictionaryBuilder.PREFIX.equals(prefix)) {
-            System.err.println("Dictionary Prefix: " + CifDictionaryBuilder.PREFIX + " does not match " + prefix + " from file");
+            logger.error("Dictionary Prefix: " + CifDictionaryBuilder.PREFIX + " does not match " + prefix + " from file");
             return;
         }
         CMLEntry dictEntry = idMap.get(id);
         
         //Ignore dictrefs which aren't from the CIF dictionary
         if (dictEntry == null) {
-           // System.err.println("No entry matches " + id);
             return;
         }
         Elements elems = element.getChildCMLElements("scalar");
