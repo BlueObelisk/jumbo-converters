@@ -11,6 +11,7 @@ import nu.xom.Node;
 import nu.xom.Nodes;
 import nu.xom.Text;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLUtil;
@@ -21,6 +22,10 @@ import org.xmlcml.euclid.Int2;
 public class LineContainer {
 
 	private final static Logger LOG = Logger.getLogger(LineContainer.class);
+	
+	static{
+	    LOG.setLevel(Level.ERROR);
+	}
 	
 	public  static final String LINE_COUNT = "lineCount";
 
