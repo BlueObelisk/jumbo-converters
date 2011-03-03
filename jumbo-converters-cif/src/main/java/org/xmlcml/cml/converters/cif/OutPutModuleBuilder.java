@@ -220,12 +220,17 @@ public class OutPutModuleBuilder {
         if (dictEntry == null) {
             return;
         }
+        
         String unit = dictEntry.getUnits();
         String type = dictEntry.getDataType();
         
         Elements elems = element.getChildCMLElements("scalar");
         for (int x = 0; x < elems.size(); x++) {
             CMLScalar scalar = (CMLScalar) elems.get(x);
+            if(scalar.getValue().equals(".")){
+                scalar.detach();
+            }
+            
             if(unit!=null){
                 scalar.setUnits(unit);
             }
@@ -240,6 +245,9 @@ public class OutPutModuleBuilder {
                 String s = scalar.getValue();
                 scalar.setValue(s);
             }
+        }
+        if(element.getCMLChildCount("scalar")==0){
+            element.detach();
         }
     }
 

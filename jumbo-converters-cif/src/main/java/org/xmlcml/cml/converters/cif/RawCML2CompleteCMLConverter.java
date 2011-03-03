@@ -213,10 +213,10 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
             runtimeException("Error creating complete CML: ", e);
         }
 
-        makeCMLLiteCompatible(cml);
         outMol.addAllChildrenToTop(cml);
         outMol.cloneIdsFromElement(cml);
         outMol.finalise();
+        makeCMLLiteCompatible(outMol.cml);
         outMols.add(outMol);
     }
 
