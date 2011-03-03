@@ -9,6 +9,7 @@ import nu.xom.Nodes;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.Outputter.OutputLevel;
 import org.xmlcml.cml.converters.text.LineContainer;
 import org.xmlcml.cml.converters.text.Template;
@@ -43,18 +44,23 @@ public class RecordsLineReader extends LineReader {
 	}
 
 	@Override
-	public Element apply(LineContainer lineContainer) {
+	public /*Element*/ void applyMarkup(LineContainer lineContainer) {
 		this.lineContainer = lineContainer;
 		CMLElement element = null;
 		debugLine("first line", OutputLevel.VERBOSE);
 		Integer linesToRead = this.getLinesToRead();
 		if (linesToRead != null) {
-			element = readRecordList(linesToRead);
+			if (FormatType.NONE.equals(formatType)) {
+				lineContainer.increaseCurrentNodeIndex(linesToRead);
+			} else {
+				element = readRecordList(linesToRead);
+				CMLUtil.debug(element, "RECORDS");
+			}
 		} else {
 			readRecordFromLineContainer();
 		}
 		debugLine("current line", OutputLevel.VERBOSE);
-		return element;
+//		return element;
 	}
 
 	@Override
@@ -75,6 +81,7 @@ public class RecordsLineReader extends LineReader {
 	}
 
 	private CMLList readRecordList(Integer linesToRead) {
+		LOG.debug("Current node in: "+lineContainer.getCurrentNodeIndex());
 		CMLList list = new CMLList();
 		for (int i = 0; i < linesToRead; i++) {
 			CMLList list0 = readRecord();
@@ -86,6 +93,7 @@ public class RecordsLineReader extends LineReader {
 		}
 		resolveSymbolicVariables(list);
 		list = tidyRecords((CMLList)list);
+		LOG.debug("Current node out: "+lineContainer.getCurrentNodeIndex());
 		return list;
 	}
 

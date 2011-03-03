@@ -9,7 +9,8 @@ import org.xmlcml.cml.converters.testutils.RegressionSuite;
 import org.xmlcml.euclid.Util;
 
 public class ConverterTest {
-	@Test    @Ignore     public void testAnisospin()    {testConverter("anisospin");}
+	@Test   public void test101zmat()    {testConverter("l101","zmat");}
+	@Test   public void testAnisospin()    {testConverter("anisospin");}
 	@Test   public void testAtomicCharges()    {testConverter("atomiccharges");}
 	@Test   public void testMulliken()    {testConverter("mulliken");}
 
@@ -19,6 +20,13 @@ public class ConverterTest {
         RegressionSuite.run("compchem/gaussian/log", "log", "xml", converter);
     }
    
+	private void testConverter(String link, String name) {
+		GaussianLog2XMLConverter converter = createConverter("templateListAll.xml");
+//		TestUtils.runConverterTest(converter, link+"/"+name);
+		// later turn this to subdirectory after we separate packages
+		TestUtils.runConverterTest(converter, link+"."+name);
+	}
+		
 	private void testConverter(String name) {
 		GaussianLog2XMLConverter converter = createConverter("templateListAll.xml");
 		TestUtils.runConverterTest(converter, name);

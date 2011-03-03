@@ -187,7 +187,7 @@ We support Iw, Fw.d, Ew.d (D,G,H), A, Aw, nX, /
 		} else {
 //			field.setLocalDictRef(FOO_PREFIX+CMLConstants.S_COLON+Field.FIELD_PREFIX+fieldList.size());
 			
-			field.setLocalDictRef(Field.FIELD_PREFIX+fieldList.size());
+			field.dictRefAndUnits(Field.FIELD_PREFIX+fieldList.size());
 		}
 		LOG.trace("DBG"+field.toString());
 	}

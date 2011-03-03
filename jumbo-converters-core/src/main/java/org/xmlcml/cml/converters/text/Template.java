@@ -19,14 +19,15 @@ import org.xmlcml.cml.converters.format.LineReader;
 import org.xmlcml.cml.converters.format.LineReader.LineType;
 import org.xmlcml.cml.converters.format.ReadLinesLineReader;
 import org.xmlcml.cml.converters.format.RecordsLineReader;
-import org.xmlcml.cml.converters.text.LineContainer;
 import org.xmlcml.cml.converters.util.JumboReader;
 import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.euclid.Int2;
 
-public class Template {
+public class Template implements MarkupApplier {
 	
+	public static final String EOI = "$";
+
 	private final static Logger LOG = Logger.getLogger(Template.class);
 
 	public static final String TAG = "template";
@@ -65,9 +66,9 @@ public class Template {
 	private JumboReader jumboReader;
 	private OutputLevel outputLevel;
 
-	private List<Deleter> deleterList;
-	private TemplateContainer templateContainer;
-	private List<LineReader> lineReaderList;
+	private List<MarkupApplier> markerList;
+//	private TemplateContainer templateContainer;
+//	private List<LineReader> lineReaderList;
 	private LineContainer lineContainer;
 	private String dictRef;
 	private String[] names;
@@ -79,8 +80,6 @@ public class Template {
 	}
 
 	private void processChildElementsAndAttributes() {
-		deleterList = new ArrayList<Deleter>();
-		lineReaderList = new ArrayList<LineReader>();
 		processAttributes();
 		createSubclassedElementsFromChildElements();
 		if (!OutputLevel.NONE.equals(outputLevel)) {
@@ -109,17 +108,17 @@ public class Template {
 		return (startChunker == null || startChunker.size() == 0) ? null : startChunker.get(0);
 	}
 
-	public List<LineReader> getLineReaderList() {
-		return lineReaderList;
-	}
-
-	public List<Deleter> getDeleterList() {
-		return deleterList;
-	}
-
-	public TemplateContainer getTemplateContainer() {
-		return templateContainer;
-	}
+//	public List<LineReader> getLineReaderList() {
+//		return lineReaderList;
+//	}
+//
+//	public List<Deleter> getDeleterList() {
+//		return deleterList;
+//	}
+//
+//	public TemplateContainer getTemplateContainer() {
+//		return templateContainer;
+//	}
 
 	public OutputLevel getOutputLevel() {
 		return outputLevel;
@@ -156,7 +155,8 @@ public class Template {
 //		checkNotNull(theElement, PATTERN, patternString);
 		endPatternString = theElement.getAttributeValue(END_PATTERN);
 		if (endPatternString == null) {
-			endPatternString = patternString;
+			// special end-of-information symbol
+			endPatternString = EOI;
 		}
 		multipleS = theElement.getAttributeValue(MULTIPLE);
 		
@@ -237,8 +237,7 @@ public class Template {
 		}
 	}
 
-	static List<Pattern> createPatternList(String patternS,
-			String multipleS) {
+	static List<Pattern> createPatternList(String patternS, String multipleS) {
 		List<Pattern> patterns = new ArrayList<Pattern>();
 		if (patternS != null) {
 			String[] pat = (multipleS == null) ? new String[]{patternS} : patternS.split(multipleS); 
@@ -252,6 +251,7 @@ public class Template {
 
 	private void createSubclassedElementsFromChildElements() {
 		Elements childElements = theElement.getChildElements();
+		markerList = new ArrayList<MarkupApplier>();
 		for (int i = 0; i < childElements.size(); i++) {
 			LineReader lineReader = null;
 			Element childElement = (Element) childElements.get(i);
@@ -262,33 +262,25 @@ public class Template {
 				ignore();
 			} else if (Deleter.TAG.equals(name)) {
 				Deleter deleter = new Deleter(childElement);
-				deleterList.add(deleter);
+				markerList.add(deleter);
 			} else if (LineType.READLINES.getTag().equals(name)) {
 				lineReader = new ReadLinesLineReader(childElement, this);
-				lineReaderList.add(lineReader);
+				markerList.add(lineReader);
+				throw new RuntimeException("readLines is deprecated");
 			} else if (LineType.RECORD.getTag().equals(name)) {
 				lineReader = new RecordsLineReader(childElement, this);
-				lineReaderList.add(lineReader);
+				markerList.add(lineReader);
 			} else if (Template.TAG.equals(name)) {
-				Template childTemplate = new Template(childElement);
-				LOG.warn("TEMPLATE child");
 				System.out.println(theElement.getAttributeValue(ID)+"/"+childElement.getAttributeValue(ID));
-				throw new RuntimeException("TODO fix recursive template");
-			} else if (TemplateContainer.TAG.equals(name)) {
-				if (templateContainer != null) {
-					throw new RuntimeException("Only one templateList allowed");
-				}
-				templateContainer = new TemplateContainer(childElement);
+				throw new RuntimeException("Template cannot be child of Template; use templateList");
+			} else if (TemplateListElement.TAG.equals(name)) {
+				TemplateListElement templateContainer = new TemplateListElement(childElement);
+				markerList.add(templateContainer);
 			} else {
 				CMLUtil.debug(theElement, "UNKNOWN CHILD");
 				throw new RuntimeException("unknown child: "+name);
 			}
 		}
-//		if (lineReaderList.size() > 0 &&
-//		   (deleterList.size() > 0 || templateContainer != null)) {
-//				throw new RuntimeException(
-//						"Cannot have both deleters+templateList and readLines+record");
-//		}
 	}
 
 	private void ignore() {
@@ -299,12 +291,12 @@ public class Template {
 	// ========================================================
 	
 		
-	private static void checkNotNull(Element element, String attName, String attVal) {
-		if (attVal == null) {
-			CMLUtil.debug(element, "CHECK null attVal");
-			throw new RuntimeException(element.getLocalName()+": must give "+attName+" attribute");
-		}
-	}
+//	private static void checkNotNull(Element element, String attName, String attVal) {
+//		if (attVal == null) {
+//			CMLUtil.debug(element, "CHECK null attVal");
+//			throw new RuntimeException(element.getLocalName()+": must give "+attName+" attribute");
+//		}
+//	}
 	
 	// =========================================================
 
@@ -316,35 +308,14 @@ public class Template {
 	
 	public void applyMarkup(LineContainer lineContainer) {
 		this.lineContainer = lineContainer;
+		for (MarkupApplier marker : markerList) {
+			marker.applyMarkup(lineContainer);
+		}
 		Element linesElement = lineContainer.getLinesElement();
-		applyDeleters();
-		applyChildTemplateList();
-		applyLineReaders();
 		linesElement.addAttribute(new Attribute(Template.TEMPLATE_REF, this.getId()));
 
 	}
 	
-	private void applyDeleters() {
-		for (Deleter deleter : deleterList) {
-			deleter.deleteLines(lineContainer, Integer.MAX_VALUE);
-		}
-	}
-
-	private void applyChildTemplateList() {
-		if (templateContainer != null) {
-			LOG.debug(id+" applying childTemplates");
-			for (Template childTemplate : templateContainer.getTemplateList()) {
-//				template.debug();
-				List<Element> elements = childTemplate.resetNodeIndexAndApplyChunkers(lineContainer);
-				LOG.debug("found child elements after wrap: "+elements.size());
-				for (Element element : elements) {
-					element.addAttribute(new Attribute(TEMPLATE_REF, childTemplate.getId()));
-					LineContainer childLineContainer = new LineContainer(element);
-					childTemplate.applyMarkup(childLineContainer);
-				}
-			}
-		}
-	}
 
 	public List<Element> resetNodeIndexAndApplyChunkers(LineContainer lineContainer) {
 		lineContainer.setCurrentNodeIndex(0);
@@ -379,34 +350,35 @@ public class Template {
 		return chunk;
 	}
 
-	private void applyLineReaders() {
-		for (LineReader lineReader : lineReaderList) {
-			Element chunk = lineReader.apply(lineContainer);
-			if (chunk != null) {
-				chunk.addAttribute(new Attribute(TEMPLATE_REF, lineReader.getId()));
-				lineContainer.insertChunk(chunk);
-			} else {
-				throw new RuntimeException("null chunk");
-			}
-		}
-	}
+//	private void applyLineReaders() {
+//		for (LineReader lineReader : lineReaderList) {
+//			Element chunk = lineReader.apply(lineContainer);
+//			if (chunk != null) {
+//				chunk.addAttribute(new Attribute(TEMPLATE_REF, lineReader.getId()));
+//				lineContainer.insertChunk(chunk);
+//			} else {
+//				LOG.debug("null chunk");
+//			}
+//		}
+//	}
 
 	public void markupBlock(AbstractBlock block) {
 		jumboReader = block.getJumboReader();
 		@SuppressWarnings("unused")
 		CMLModule module = block.makeModule();
 		CMLElement lastElement = null;
-		for (LineReader lineReader : lineReaderList) {
-			try {
-				debug("LINE "+jumboReader.peekLine(), OutputLevel.NORMAL);
-				lastElement = lineReader.readLinesAndParse(jumboReader);
-			} catch (Exception e) {
-				e.printStackTrace();
-				lineReader.debug();
-				System.err.println("CANNOT PARSE BLOCK: "+lineReader+" / "+e+ " ["+jumboReader.peekLine()+"]");
-			}
-		}
+//		for (LineReader lineReader : lineReaderList) {
+//			try {
+//				debug("LINE "+jumboReader.peekLine(), OutputLevel.NORMAL);
+//				lastElement = lineReader.readLinesAndParse(jumboReader);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				lineReader.debug();
+//				System.err.println("CANNOT PARSE BLOCK: "+lineReader+" / "+e+ " ["+jumboReader.peekLine()+"]");
+//			}
+//		}
 		tidyUnusedLines(jumboReader, lastElement);
+		throw new RuntimeException("Getting rid of blocks");
 	}
 
 	/**
@@ -443,9 +415,9 @@ public class Template {
 	public void debug() {
 		System.out.println("========"+this.getId()+"=========");
 		CMLUtil.debug(theElement, "TEMPLATE");
-		LOG.debug("linereaders: "+lineReaderList.size());
-		for (LineReader lineReader : lineReaderList) {
-			lineReader.debug();
+		LOG.debug("children: "+markerList.size());
+		for (MarkupApplier marker : markerList) {
+			marker.debug();
 		}
 /*
 	private Element templateElement;

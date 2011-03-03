@@ -111,24 +111,40 @@ public class LineContainer {
 	}
 
 	public Int2 matchLines(int startIndex, List<Pattern> contiguousPatterns) {
-		Int2 range = new Int2(startIndex, startIndex);
-		if (this.canReadContiguousTextNodes(startIndex, contiguousPatterns.size())) {
-			for (int i = 0; i < contiguousPatterns.size(); i++) {
-				Node node = linesElement.getChild(i + startIndex);
-				String value = node.getValue();
-				Pattern pattern = contiguousPatterns.get(i);
-				LOG.debug("matching ["+value+"] against ["+pattern+"]");
-				Matcher matcher = pattern.matcher(value);
-				if (!matcher.matches()) {
-					range = null;
-					break;
+		Int2 range = null;
+		if (isEOIPattern(contiguousPatterns)) {
+			// point to line after end
+			range = new Int2(linesElement.getChildCount(), linesElement.getChildCount());
+		} else {
+			if (this.canReadContiguousTextNodes(startIndex, contiguousPatterns.size())) {
+				if (contiguousPatterns.size() == 0) {
+					range = new Int2(startIndex, startIndex);
+				} else if(matchesContiguousPatterns(startIndex, contiguousPatterns)) {
+					range = new Int2(startIndex, startIndex+contiguousPatterns.size()-1);
 				}
 			}
-			if (range != null) {
-				range = new Int2(startIndex, startIndex+contiguousPatterns.size()-1);
+		}
+		LOG.debug("Range to match: "+range);
+		return range;
+	}
+
+	private boolean matchesContiguousPatterns(int startIndex,
+			List<Pattern> contiguousPatterns) {
+		for (int i = 0; i < contiguousPatterns.size(); i++) {
+			Node node = linesElement.getChild(i + startIndex);
+			String value = node.getValue();
+			Pattern pattern = contiguousPatterns.get(i);
+			LOG.debug("contiguous pattern matching ["+value+"] against ["+pattern+"]");
+			Matcher matcher = pattern.matcher(value);
+			if (!matcher.matches()) {
+				return false;
 			}
 		}
-		return range;
+		return true;
+	}
+
+	private boolean isEOIPattern(List<Pattern> contiguousPatterns) {
+		return contiguousPatterns.size() == 1 && Template.EOI.equals(contiguousPatterns.get(0).toString());
 	}
 
 	Int2 findNextMatch(int nodeIndex, PatternChunker chunker) {
@@ -232,7 +248,10 @@ public class LineContainer {
 
 	public void insertChunk(Element chunk) {
 		if (chunk != null) {
-			Node node = linesElement.getChild(currentNodeIndex-1);
+//			if (currentNodeIndex == 0) {
+//				throw new RuntimeException("node index too small???");
+//			}
+			Node node = (currentNodeIndex == 0) ? null : linesElement.getChild(currentNodeIndex-1);
 			if (node != null) {
 				int nchunk = getChunkChildCount(chunk);
 				deleteLinesIfMoreThanOne(nchunk);
@@ -263,5 +282,16 @@ public class LineContainer {
 			count = Template.readIntegerAttribute(chunk, LINE_COUNT);
 		}
 		return count;
+	}
+
+	public void increaseCurrentNodeIndex(Integer linesToRead) {
+		for (int i = 0; i < linesToRead; i++) {
+			Node node = linesElement.getChild(currentNodeIndex);
+			if (node == null || !(node instanceof Text)) {
+				System.out.println();
+				throw new RuntimeException("failed to find Text node at: "+currentNodeIndex);
+			}
+			currentNodeIndex++;
+		}
 	}
 }
