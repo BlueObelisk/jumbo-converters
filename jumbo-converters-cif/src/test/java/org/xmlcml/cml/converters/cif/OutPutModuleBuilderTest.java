@@ -1,13 +1,10 @@
 package org.xmlcml.cml.converters.cif;
 
-import javax.print.attribute.standard.OutputDeviceAssigned;
-
 import nu.xom.Element;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.xmlcml.cml.converters.cif.dict.CifDictionaryBuilder;
-import org.xmlcml.cml.converters.cif.dict.UnitsDictionary;
 import org.xmlcml.cml.element.CMLEntry;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLProperty;
@@ -27,7 +24,7 @@ public class OutPutModuleBuilderTest {
         Assert.assertEquals(false, builder.isFinalised);
         builder.finalise();
         Assert.assertEquals(true, builder.isFinalised);
-        Assert.assertTrue(builder.moleculeModule.getParent() == builder.crystalModule);
+        Assert.assertTrue(builder.molecule.getParent() == builder.crystalModule);
         Assert.assertTrue(builder.crystalModule.getParent() == builder.topModule);
     }
 
@@ -52,7 +49,7 @@ public class OutPutModuleBuilderTest {
         OutPutModuleBuilder builder = new OutPutModuleBuilder();
         CMLMolecule mol = new CMLMolecule();
         builder.addToMolecule(mol);
-        Assert.assertTrue(mol.getParent() == builder.moleculeModule);
+        Assert.assertTrue(mol.getParent() == builder.molecule);
     }
 
     @Test(expected = IllegalArgumentException.class)
