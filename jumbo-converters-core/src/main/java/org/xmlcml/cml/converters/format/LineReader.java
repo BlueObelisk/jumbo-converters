@@ -17,13 +17,14 @@ import org.xmlcml.cml.converters.Outputter;
 import org.xmlcml.cml.converters.Outputter.OutputLevel;
 import org.xmlcml.cml.converters.format.Field.FieldType;
 import org.xmlcml.cml.converters.text.LineContainer;
+import org.xmlcml.cml.converters.text.MarkupApplier;
 import org.xmlcml.cml.converters.text.Template;
 import org.xmlcml.cml.converters.util.JumboReader;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.interfacex.HasDataType;
 
-public abstract class LineReader extends Element {
+public abstract class LineReader extends Element implements MarkupApplier {
 	private static final String A = "A";
 	private static final String B = "B";
 	private static final String D = "D";
@@ -41,7 +42,6 @@ public abstract class LineReader extends Element {
 	private static final String NAME = "name";    // obsolete
 	private static final String NAMES = "names";
 	private static final String OUTPUT = "output";
-//	private static final String TYPES = "types";
 	@SuppressWarnings("unused")
 	private static final String UNTIL = "until";
 	@SuppressWarnings("unused")
@@ -51,7 +51,7 @@ public abstract class LineReader extends Element {
 
 	public enum FormatType {
 		FORTRAN,
-		WHITESPACE,
+		NONE,
 		REGEX,
 		;
 	}
@@ -88,6 +88,8 @@ public abstract class LineReader extends Element {
 		
 	private static final String LINE_READER = "lineReader";
 	protected static final String TRUE = "true";
+	private static final FormatType DEFAULT_FORMAT_TYPE = FormatType.NONE;
+	private static String DEFAULT_CONTENT = ".*";
 	
 	protected JumboReader jumboReader;
 	protected Integer linesToRead = null;
@@ -139,6 +141,19 @@ public abstract class LineReader extends Element {
 //		CMLUtil.debug(lineReaderElement, "LINEREADER");
 		this.content = element.getValue();
 		processAttributes();
+		addDefaults();
+	}
+
+	private void addDefaults() {
+		if (content == null || content.trim().equals("")) {
+			content = DEFAULT_CONTENT;
+		}
+		if (formatType == null) {
+			formatType = DEFAULT_FORMAT_TYPE;
+		}
+		if (linesToRead == null) {
+			linesToRead = 1;
+		}
 	}
 
 	private void processAttributes() {
@@ -232,8 +247,8 @@ public abstract class LineReader extends Element {
 			createFortranFields();
 		} else if (FormatType.REGEX.equals(formatType)) {
 			createRegexFields();
-		} else if (FormatType.WHITESPACE.equals(formatType)) {
-			
+		} else if (FormatType.NONE.equals(formatType)) {
+			// no-op
 		} else {
 			throw new RuntimeException("Unknown format: "+formatType);
 		}
@@ -528,6 +543,10 @@ public abstract class LineReader extends Element {
 		return scalar;
 	}
 
+	public void applyMarkup(LineContainer lineContainer) {
+		throw new RuntimeException("must override this method in subclass: "+this.getClass());
+	}
+	
 	private List<HasDataType> parseWithFields() {
 		List<HasDataType> dataTypeList;
 		dataTypeList = new ArrayList<HasDataType>();
@@ -587,7 +606,9 @@ public abstract class LineReader extends Element {
 	}
 	
 	public void debug() {
-		LOG.debug("LINEREADER "+(template == null ? "" : "in "+template.getId())+" > "+content+"\n"+toString()+"\n>>Fields: "+fieldList.size());
+		LOG.debug("LINEREADER "+(template == null ? "" : "in "+template.getId())+
+				" formatType: "+formatType+
+				" > "+content+"\n"+toString()+"\n>>Fields: "+fieldList.size());
 		for (Field field :fieldList) {
 			LOG.debug(""+field);
 		}

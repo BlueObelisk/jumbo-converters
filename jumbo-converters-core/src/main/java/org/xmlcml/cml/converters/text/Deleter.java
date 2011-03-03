@@ -14,10 +14,15 @@ public class Deleter extends Template {
 		super(childElement);
 	}
 
+	public void applyMarkup(LineContainer lineContainer) {
+		this.deleteLines(lineContainer, Integer.MAX_VALUE);
+	}
+
 	public void deleteLines(LineContainer lineContainer, int maxRepeatCount) {
 // use chunks
 		int inode = 0;
 		int ndeleted = 0;
+		throw new RuntimeException("delete not implemented");
 //		while (inode < lineContainer.getChildCount()) {
 //			Node node = lineContainer.getChild(inode);
 //			if (node instanceof Text) {

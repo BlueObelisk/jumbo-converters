@@ -1,12 +1,15 @@
 <!DOCTYPE template SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/compchem.dtd" [
+<!ENTITY l101.zmat  SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/gaussian/log/templates/l101.zmat.temp.xml">
 <!ENTITY anisospin  SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/gaussian/log/templates/anisospin.temp.xml">
 <!ENTITY atomiccharges SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/gaussian/log/templates/atomiccharges.temp.xml">
 <!ENTITY mulliken   SYSTEM  "src/main/resources/org/xmlcml/cml/converters/compchem/gaussian/log/templates/mulliken.temp.xml">
  ]>
-<template id='gaussian.log'  pattern='p'>
+<template id='gaussian.log' output="VERBOSE">
   <templateList id='id1'>
+<!--     &l101.zmat;
     &anisospin;
     &atomiccharges;
+    -->
     &mulliken;
   </templateList>
 </template>

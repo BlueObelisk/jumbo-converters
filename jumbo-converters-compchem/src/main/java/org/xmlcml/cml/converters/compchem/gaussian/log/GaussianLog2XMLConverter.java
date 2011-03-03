@@ -39,6 +39,7 @@ public class GaussianLog2XMLConverter extends TemplateConverter {
 	
 	@Override
 	public Element convertToXML(List<String> lines) {
+		// TODO raise to superclass
 		this.lines = lines;
 		convertCharactersInLines();
 		GaussianLogProcessor glp = (GaussianLogProcessor) createLegacyProcessor();

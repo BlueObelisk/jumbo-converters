@@ -14,6 +14,7 @@ import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.interfacex.HasDictRef;
+import org.xmlcml.cml.interfacex.HasUnits;
 import org.xmlcml.euclid.JodaDate;
 import org.xmlcml.euclid.Real;
 
@@ -27,6 +28,7 @@ public abstract class Field extends Element {
 	public static final String FIELD_TYPE = "fieldType";
 	public static final String LOCAL_DICT_REF = "localDictRef";
 	public static final String WIDTH_TO_READ = "widthToRead";
+	public static final String UNITS_ATT = "units";
 	public static final String EXPECTED_VALUE = "expectedValue";
 
 	private static final String DATA_STRUCTURE_CLASS = "dataStructureClass";
@@ -70,6 +72,8 @@ public abstract class Field extends Element {
 	public static final String FIELD = "field";
 	public static final String FIELD_PREFIX = "foo:field";
 
+//	private static final Attribute UNITS = null;
+
 	protected boolean check = false;
 	protected Integer widthToRead;
 	private Integer decimalToRead;
@@ -77,6 +81,7 @@ public abstract class Field extends Element {
 	protected FieldType fieldType;
 	private Class<?> dataTypeClass;
 	private String localDictRef;
+	private String units = null;
 	private int endCharInLine;
 	private Integer totalWidthRead;
 	private Class<?> dataStructureClass;
@@ -87,6 +92,7 @@ public abstract class Field extends Element {
 	protected String expectedValue = null;
 
 	private LineReader lineReader;
+
 	
 	public Field(SimpleFortranFormat sff, FieldType fieldType, LineReader lineReader) {
 		super(FIELD);
@@ -104,8 +110,14 @@ public abstract class Field extends Element {
 		this.lineReader = lineReader;
 	}
 
-	public void setLocalDictRef(String localDictRef) {
-		this.localDictRef = localDictRef;
+	public void dictRefAndUnits(String dictRef) {
+		String[] bits = dictRef.split(CMLConstants.S_COMMA);
+		String unitsx = (bits.length > 1) ? bits[1] : null;
+		if (unitsx != null) {
+			this.units = bits[1];
+			this.addAttribute(new Attribute(UNITS_ATT, units));
+		}
+		this.localDictRef = bits[0];
 		this.addAttribute(new Attribute(LOCAL_DICT_REF, localDictRef));
 	}
 
@@ -232,9 +244,7 @@ public abstract class Field extends Element {
 					} catch (Exception e) {
 						throw new RuntimeException("Cannot parse ~"+ff+"~ in "+line, e);
 					}
-					if (scalar != null && !JumboReader.isMisread((CMLElement)scalar)) {
-						((HasDictRef)scalar).setDictRef(localDictRef);
-					}
+					addDictRefAndUnits(scalar);
 				}
 			}
 		}
@@ -276,10 +286,17 @@ public abstract class Field extends Element {
 			element = JumboReader.createArray(getDataTypeClass(), stringBuilder.substring(dataStartChar), this);
 			dataStartChar += this.getTotalWidthRead();
 		}
+		addDictRefAndUnits(element);
+		return element;
+	}
+
+	private void addDictRefAndUnits(CMLElement element) {
 		if (element != null && localDictRef != null && !JumboReader.isMisread(element)) {
 			((HasDictRef)element).setDictRef(localDictRef);
 		}
-		return element;
+		if (element != null && units != null && !JumboReader.isMisread(element)) {
+			element.addAttribute(new Attribute(UNITS_ATT, units));
+		}
 	}
 
 	public int getStartChar() {
@@ -441,7 +458,7 @@ public abstract class Field extends Element {
 				this.setExpectedValue(localDictRef.replaceAll(CMLConstants.S_SPACE, CMLConstants.S_UNDER));
 				localDictRef = LITERAL;
 			}
-			setLocalDictRef(localDictRef);
+			dictRefAndUnits(localDictRef);
 		}
 	}
 	
