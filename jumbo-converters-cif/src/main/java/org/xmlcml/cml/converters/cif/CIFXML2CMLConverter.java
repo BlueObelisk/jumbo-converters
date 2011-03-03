@@ -331,13 +331,18 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 			List<CIFTableCell> cellList = loop.getColumnCells(i);
 			CMLArray arrayFromColumn = new CMLArray();
 			String dataType = XSD_STRING;
-			String type=helper.getDataType(columnName.toLowerCase().substring(1));
+			String mungedId=columnName.toLowerCase().substring(1);
+			String type=helper.getDataType(mungedId);
+			String units = helper.getUnitsStringorNull(mungedId);
 			if(type!=null){
 			    if("xsd:float".equals(type)){
 			        type=XSD_DOUBLE;
 			    }
 			    dataType=type;
 			    arrayFromColumn.setDataType(type);
+			}
+			if(units!=null){
+			    arrayFromColumn.setUnits(units);
 			}
 //			    
 //			if (converterOptions.getDictionary() != null) {
@@ -381,8 +386,12 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 					    errorValueBuilder.append(DELIM);
 					}
 				} else {
-					arrayFromColumn.append(cell.getValue());
-				}
+                    if (cell.getValue().equals(".")) {
+                        arrayFromColumn.append("");
+                    } else {
+                        arrayFromColumn.append(cell.getValue().trim());
+                    }
+                }
 			}
 			if(atLeastOneError){
 			    Attribute errorAttribute=new Attribute("errorValues",errorValueBuilder.toString());

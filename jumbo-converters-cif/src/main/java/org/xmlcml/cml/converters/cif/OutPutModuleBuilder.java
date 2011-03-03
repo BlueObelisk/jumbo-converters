@@ -1,7 +1,13 @@
 package org.xmlcml.cml.converters.cif;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import nu.xom.Attribute;
@@ -12,20 +18,20 @@ import nu.xom.Nodes;
 import nu.xom.ParsingException;
 import nu.xom.ValidityException;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.converters.chemdraw.CDX2CMLConverter;
 import org.xmlcml.cml.converters.cif.dict.CifDictionaryBuilder;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.element.CMLEntry;
 import org.xmlcml.cml.element.CMLModule;
+import org.xmlcml.cml.element.CMLMolecule;
+import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
 public class OutPutModuleBuilder {
     
@@ -48,7 +54,7 @@ public class OutPutModuleBuilder {
     Map<String, CMLEntry> idMap;
     CMLModule topModule;
     CMLModule crystalModule;
-    CMLModule moleculeModule;
+    CMLMolecule molecule;
     CMLCml cml;
 
     public CMLModule getTopModule() {
@@ -59,8 +65,8 @@ public class OutPutModuleBuilder {
         return crystalModule;
     }
 
-    public CMLModule getMoleculeModule() {
-        return moleculeModule;
+    public CMLMolecule getMolecule() {
+        return molecule;
     }
 
     public CMLCml getCml() {
@@ -121,8 +127,8 @@ public class OutPutModuleBuilder {
         topModule.addAttribute(new Attribute("convention", CONVETION_PREFIX + ":" + CONVENTION_CRYSTALOGRAPHY));
         crystalModule = new CMLModule();
         crystalModule.addAttribute(new Attribute("convention", CONVETION_PREFIX + ":" + CONVENTION_CRYSTAL));
-        moleculeModule = new CMLModule();
-        moleculeModule.addAttribute(new Attribute("convention", CONVETION_PREFIX + ":" + CONVENTION_MOLECULAR));
+        molecule = new CMLMolecule();
+        molecule.addAttribute(new Attribute("convention", CONVETION_PREFIX + ":" + CONVENTION_MOLECULAR));
 
         cml.addNamespaceDeclaration(IUCR_DICT_PREFIX, IUCR_DICT_URI);
         cml.addNamespaceDeclaration(XHTML_PREFIX, XHTML_URI);
@@ -147,12 +153,22 @@ public class OutPutModuleBuilder {
     public void finalise() {
         if (!isFinalised) {
             topModule.appendChild(crystalModule);
-            crystalModule.appendChild(moleculeModule);
+            crystalModule.appendChild(molecule);
             Nodes nodes = this.cml.query("//cml:*[@dictRef]", CMLConstants.CML_XPATH);
             for (int x = 0; x < nodes.size(); x++) {
                 CMLElement elem = (CMLElement) nodes.get(x);
                 fetchDataType(elem);
             }
+            List<CMLElement> children=molecule.getChildCMLElements();
+            if(children.size()==1){
+                CMLElement child=children.get(0);
+                child.detach();
+                molecule.copyAttributesFrom(child);
+                molecule.copyChildrenFrom(child);
+                molecule.copyNamespaces(child);
+                molecule.copyProperties(child);
+            }
+            
         }
         isFinalised = true;
     }
@@ -164,6 +180,19 @@ public class OutPutModuleBuilder {
          }
         String type = dictEntry.getDataType();
         return type;
+    }
+    
+    public String getUnitsStringorNull(String id){
+        CMLEntry dictEntry = idMap.get(id);
+        if(dictEntry==null){
+            return null;
+        }
+        Attribute units = dictEntry.getUnitsAttribute();
+        if(units==null){
+            return null;
+        }
+        String unit = units.getValue();
+        return unit;
     }
     
     protected void fetchDataType(CMLElement element) {
@@ -191,10 +220,15 @@ public class OutPutModuleBuilder {
         if (dictEntry == null) {
             return;
         }
+        String unit = dictEntry.getUnits();
+        String type = dictEntry.getDataType();
+        
         Elements elems = element.getChildCMLElements("scalar");
         for (int x = 0; x < elems.size(); x++) {
             CMLScalar scalar = (CMLScalar) elems.get(x);
-            String type = dictEntry.getDataType();
+            if(unit!=null){
+                scalar.setUnits(unit);
+            }
             if ("xsd:float".equals(type) || "xsd:double".equals(type)) {
                 double d = getDoubleFromString(scalar.getValue());
                 Double e = getErrorFromString(scalar.getValue());
@@ -266,7 +300,7 @@ public class OutPutModuleBuilder {
             fetchDataType((CMLElement) element);
         }
         fetchDataTypeOfScalarChildren(element);
-        this.moleculeModule.appendChild(element);
+        this.molecule.appendChild(element);
     }
 
     protected void fetchDataTypeOfScalarChildren(Element element) {
