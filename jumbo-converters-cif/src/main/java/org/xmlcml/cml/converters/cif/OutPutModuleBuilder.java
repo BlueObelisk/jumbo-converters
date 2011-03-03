@@ -42,7 +42,7 @@ public class OutPutModuleBuilder {
     
     public static final String CONVETION_URI = "http://www.xml-cml.org/convention/";
     public static final String CONVETION_PREFIX = "convention";
-    public static final String CONVENTION_CRYSTALOGRAPHY = "CrystalographyExperiment";
+    public static final String CONVENTION_CRYSTALOGRAPHY = "crystallographyExperiment";
     public static final String CONVENTION_CRYSTAL = "crystalStructure";
     public static final String CONVENTION_MOLECULAR = "molecular";
     public static final String IUCR_DICT_URI = CifDictionaryBuilder.URI;
