@@ -21,6 +21,7 @@ import nu.xom.ValidityException;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.hamcrest.core.IsInstanceOf;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
@@ -247,7 +248,9 @@ public class OutPutModuleBuilder {
             }
         }
         if(element.getCMLChildCount("scalar")==0){
-            element.detach();
+            if (element instanceof CMLProperty) {
+                element.detach();
+            }
         }
     }
 
