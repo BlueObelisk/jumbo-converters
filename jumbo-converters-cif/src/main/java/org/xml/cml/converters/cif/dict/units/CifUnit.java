@@ -9,7 +9,7 @@ public enum CifUnit {
     kW(""),
     A3(""),
     kV(""),
-    A(""),
+    A("angstrom"),
     A_MINUS_1("A-1",""),
     Da(""),
     mm_MINUS_1("mm-1",""),
@@ -17,9 +17,9 @@ public enum CifUnit {
     A2(""),
     degrees(""),
     dimensionless(""),
-    K(""),
+    K("k",UnitDictionaries.si),
     fm(""),
-    sec(""),
+    sec("s",UnitDictionaries.si),
     deg(""),
     mA(""),
     Mg_MINUS_3("Mg-3",""),
@@ -28,8 +28,7 @@ public enum CifUnit {
     
     
     String cmlUnitId;
-    String cmlUnitPrefixString="allUnits";
-    String cmlUnitNamespace="http://www.xml-cml.org/units/allUnits/";
+    UnitDictionaries cmlDict;
     
     String cifUnitId;
     String cifPrefix=UnitsDictionary.PREFIX;
@@ -38,11 +37,23 @@ public enum CifUnit {
     CifUnit(String cmlUnitId){
         this.cifUnitId=this.name();
         this.cmlUnitId=cmlUnitId;
+        this.cmlDict=UnitDictionaries.allUnits;
     }
+    CifUnit(String cmlUnitString, UnitDictionaries dict){
+        this.cifUnitId=this.name();
+        this.cmlUnitId=cmlUnitString;
+        this.cmlDict=dict;
+    }
+    
     CifUnit (String cifID, String cmlUnitId){
     	this.cifUnitId=cifID;
     	this.cmlUnitId=cmlUnitId;
+    	this.cmlDict=UnitDictionaries.allUnits;
     }
-    
+    CifUnit(String cifID, String cmlUnitString,UnitDictionaries dict){
+        this.cifUnitId=cifID;
+        this.cmlUnitId=cmlUnitString;
+        this.cmlDict=dict;
+    }
     
 }

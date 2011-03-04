@@ -22,9 +22,9 @@ public class CIFUnitMapperTest {
     @Test
     public void testGetCMLIdFor() {
         CIFUnitMapper mapper = new CIFUnitMapper();
-        String cml=mapper.getCMLIdFor("deg_min");
+        String cml=mapper.getCMLIdFor("A");
         assertNotNull(cml);
-        assertEquals("", cml);
+        assertEquals("angstrom", cml);
     }
 
 }

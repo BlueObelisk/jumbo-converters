@@ -75,12 +75,12 @@ public class OutPutModuleBuilderTest {
     public void testIndexDictionary() {
         OutPutModuleBuilder builder = new OutPutModuleBuilder();
         int sizeOfMap = builder.idMap.keySet().size();
-        System.out.println(sizeOfMap);
+        System.out.println(sizeOfMap+" Entries in dictionary");
         // CMLEntry entry=builder.idMap.get("cell_measurement_theta_max");
         CMLEntry entry = builder.idMap.get("cell_measurement_wavelength");
-        for (CMLEntry test : builder.idMap.values()) {
-            System.out.println(test.getId());
-        }
+//        for (CMLEntry test : builder.idMap.values()) {
+//            System.out.println(test.getId());
+//        }
         Assert.assertNotNull(entry);
     }
 
