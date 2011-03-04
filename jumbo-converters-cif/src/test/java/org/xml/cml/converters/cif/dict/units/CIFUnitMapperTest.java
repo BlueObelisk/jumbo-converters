@@ -24,7 +24,7 @@ public class CIFUnitMapperTest {
         CIFUnitMapper mapper = new CIFUnitMapper();
         String cml=mapper.getCMLIdFor("deg_min");
         assertNotNull(cml);
-        assertEquals("test", cml);
+        assertEquals("", cml);
     }
 
 }
