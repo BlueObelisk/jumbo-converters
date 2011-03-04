@@ -40,9 +40,9 @@ public class CIFFieldsTest {
         CMLEntry entry = dictionary.getEntryElements().get(0);
         Assert.assertNotNull(entry);
         Assert.assertEquals("atom_site_adp_type", entry.getId());
-        for (Element ele : entry.getChildCMLElements()) {
-            System.out.println(ele.toXML());
-        }
+//        for (Element ele : entry.getChildCMLElements()) {
+//            System.out.println(ele.toXML());
+//        }
         Assert.assertNotNull(entry.getChildCMLElement("definition", 0));
     }
 
