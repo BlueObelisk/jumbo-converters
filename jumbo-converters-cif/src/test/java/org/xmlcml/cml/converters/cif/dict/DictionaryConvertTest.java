@@ -16,6 +16,7 @@ import org.xmlcml.cif.CIFParser;
 import org.xmlcml.cml.converters.cif.dict.CIFDict2CMLConverter;
 import org.xmlcml.cml.converters.cif.dict.CifDictionaryBuilder;
 import org.xmlcml.cml.element.CMLDictionary;
+import org.xmlcml.cml.element.CMLEntry;
 
 public class DictionaryConvertTest {
 
@@ -65,6 +66,9 @@ public class DictionaryConvertTest {
         builder.build(cifDict);
         CMLDictionary dict=builder.unitsDict;
         Assert.assertNotNull(dict);
+//        for(CMLEntry entry:dict.getEntryElements()){
+//        	System.out.println(entry.getId());
+//        }
     }
 
 }
