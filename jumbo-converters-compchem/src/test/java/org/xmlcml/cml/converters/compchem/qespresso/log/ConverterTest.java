@@ -9,7 +9,7 @@ public class ConverterTest {
 //	@Test         public void testBravais()    {testConverter("bravais");}
 
 	private void testConverter(String name) {
-		TestUtils.runConverterTest(new QuantumEspressoLog2XMLConverter(), name);
+		TestUtils.runConverterTest(new QuantumEspressoLog2XMLConverter(), name, null/*FIXME*/);
 	}
 	
 	   @Test

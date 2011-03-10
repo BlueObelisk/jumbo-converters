@@ -17,8 +17,8 @@ public class RegressionTest {
 	    */
 	   @Test
 	   public void gamessusLog2XML() {
-	      RegressionSuite.run("compchem/gamessus/log", "log", "xml",
-	                          new GamessUSLog2XMLConverter());
+//	      RegressionSuite.run("compchem/gamessus/log", "log", "xml",
+//	                          new GamessUSLog2XMLConverter());
 	   }
 
 	   /** note: writes to target\test\compchem\gamessus\log\out\test1.xml

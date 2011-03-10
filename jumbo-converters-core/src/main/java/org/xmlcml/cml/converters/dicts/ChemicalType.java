@@ -104,7 +104,7 @@ public class ChemicalType implements CMLConstants {
 			element =  new CMLBuilder().build(in).getRootElement();
 			in.close();
 		} catch (Exception ioe) {
-			System.err.println("SERIOUS HYDROGEN COUNTING ERROR IN SMILES; NEED BUG FIX: "+ioe);
+			LOG.error("SERIOUS HYDROGEN COUNTING ERROR IN SMILES; NEED BUG FIX: "+ioe);
 		}
 		if (element != null) {
 			for (int i = 0; i < element.getChildCount(); i++) {

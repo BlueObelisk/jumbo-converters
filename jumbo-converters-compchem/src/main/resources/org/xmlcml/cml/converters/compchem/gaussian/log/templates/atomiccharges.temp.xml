@@ -9,8 +9,9 @@
     16  H    0.000000
  Sum of Mulliken charges=   0.00000
  </comment>
-  <record id="rl1" linesToRead="1" formatType="REGEX">.*</record>
-  <record formatType="FORTRAN" id="serial" linesToRead="1">(10X,I5{gau:col})</record>
-  <record formatType="REGEX" id="charges"  makeArray="true" linesToRead="*">{I,gau:ser} {A,gau:elem} {F,gau:charge}</record>
-  <record id="rlx" linesToRead="1" formatType="REGEX">.*Sum of Mulliken charges= *{F,gau:sum}.*</record>
+  <record/>
+  <record formatType="REGEX" id="serial">.{10}{I5,gau:col}</record>
+  <record formatType="REGEX" id="charges"  makeArray="true" 
+      repeatCount="*">{I,gau:ser} {A,gau:elem} {F,gau:charge}</record>
+  <record id="rlx" formatType="REGEX">.*Sum of Mulliken charges= *{F,gau:sum}.*</record>
 </template> 

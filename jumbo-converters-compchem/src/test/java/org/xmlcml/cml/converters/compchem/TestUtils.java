@@ -1,6 +1,7 @@
 package org.xmlcml.cml.converters.compchem;
 
 import java.io.IOException;
+
 import java.util.List;
 
 import nu.xom.Builder;
@@ -10,36 +11,44 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.xmlcml.cml.base.CMLConstants;
+import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.testutil.JumboTestUtils;
 import org.xmlcml.euclid.Util;
 
 public class TestUtils {
 	
-	private static final String IN_SUFFIX = ".in";
-	private static final String XML_SUFFIX = ".xml";
 	private static final String SUBDIR = "templates";
 
 	@Test
 	public void testDummy() {
 		Assert.assertTrue(true);
 	}
+	
 	/**
 	 * runs test on name.in input against ref name.xml 
 	 * generates full resourcename from class of converter
 	 * @param converter
 	 * @param name
 	 */
-	public static void runConverterTest(Converter converter, String name) {
-		List<String> lines = readLines(converter, name);
+	public static void runConverterTest(Converter converter, String resourcePathLines, String resourcePathXML) {
+		List<String> lines = readLines(resourcePathLines);
 		Element xmlOut = converter.convertToXML(lines);
-		Element xmlRef = readXml(converter, name);
-		JumboTestUtils.assertEqualsIncludingFloat(name, xmlRef, xmlOut, true, 0.00000001);
+		CMLUtil.debug(xmlOut, "XX");
+		Element xmlRef = readXml(resourcePathXML);
+		try {
+			JumboTestUtils.assertEqualsIncludingFloat(resourcePathLines, xmlRef, xmlOut, true, 0.00000001);
+		} catch (Exception e) {
+			System.out.println("============XMLDIFF failure=============");
+			CMLUtil.debug(xmlRef, "REFERENCE");
+			System.out.println("======================================");
+			CMLUtil.debug(xmlOut, "TEST");
+			System.out.println("============XMLDIFF end    ===========");
+		}
 	}
 
-	private static Element readXml(Converter converter, String name) {
+	private static Element readXml(String resourceName) {
 		Element element = null;
-		String resourceName = getResourcePath(converter)+"/"+SUBDIR+"/"+name+XML_SUFFIX;
 		try {
 			element = new Builder().build(
 					Util.getInputStreamFromResource(resourceName)).getRootElement();
@@ -49,8 +58,10 @@ public class TestUtils {
 		return element;
 	}
 
-	private static List<String> readLines(Converter converter, String name) {
-		String resourcePath = getResourcePath(converter)+"/"+SUBDIR+"/"+name+IN_SUFFIX;
+	private static List<String> readLines(String resourcePath) {
+		return readResourcePathLines(resourcePath);
+	}
+	private static List<String> readResourcePathLines(String resourcePath) {
 		List<String> lineList = null;
 		try {
 			lineList = (List<String>) IOUtils.readLines(
@@ -59,18 +70,6 @@ public class TestUtils {
 			throw new RuntimeException("Cannot read lines from "+resourcePath, e);
 		}
 		return lineList;
-	}
-
-	private static String getResourcePath(Converter converter) {
-		String converterResourcePath = converter.getClass().getPackage().getName();
-		String thisResourcePath = new TestUtils().getClass().getPackage().getName();
-		if (!converterResourcePath.startsWith(thisResourcePath)) {
-			throw new RuntimeException("cannot work out paths");
-		}
-		String resourcePath = "compchem."+converterResourcePath.substring(thisResourcePath.length()+1);
-		resourcePath = resourcePath.replaceAll(
-				CMLConstants.S_BACKSLASH+CMLConstants.S_PERIOD, CMLConstants.S_SLASH);
-		return resourcePath;
 	}
 
 }

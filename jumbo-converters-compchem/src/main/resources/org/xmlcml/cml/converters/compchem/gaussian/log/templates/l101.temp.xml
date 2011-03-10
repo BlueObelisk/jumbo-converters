@@ -1,5 +1,5 @@
-  <template id="l101" repeatCount="*" pattern=".*Entering Link 1.*" 
-      endPattern=".*Leave Link +1.*">
+  <template id="l101" repeatCount="*" pattern=".*Enter.*l101.*" 
+      endPattern=".*Leave Link +101.*">
       <comment>
  (Enter /beda/users/home/beke/g03_e01/g03/l101.exe)
  ----------------------------------------------------------------------
@@ -26,7 +26,9 @@
 
  Leave Link  101 at Tue Mar  1 11:55:09 2011, MaxMem=  117964800 cpu:       0.4
       </comment>
-    <templateList id='id2'>
-      &l101.zmat;
+    <templateList id='id2' xmlns:xi="http://www.w3.org/2001/XInclude">
+      <xi:include href="l101.zmat.temp.xml"/>
+      <xi:include href="l101.redund.zmat.temp.xml"/>
+      <xi:include href="l101.isot.temp.xml"/>
     </templateList>
   </template>

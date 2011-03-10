@@ -27,7 +27,6 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLNamespace;
-import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.cml.RawXML2CMLProcessor;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLIdentifier;
@@ -56,14 +55,6 @@ public class CompChemProcessor extends RawXML2CMLProcessor implements HasURIGene
 	public CompChemProcessor() {
 	}
 
-	
-	/** dummy
-	 * @return null
-	 */
-	public AbstractBlock readBlock(List<String> stringList) {
-		return null;
-	}
-	
 	public void processXML() {
 		// null
 	}

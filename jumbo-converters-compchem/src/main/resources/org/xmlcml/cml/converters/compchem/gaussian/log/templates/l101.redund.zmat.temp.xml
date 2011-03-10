@@ -1,0 +1,23 @@
+  <template id="l101.redund.zmat" repeatCount="*" pattern=".*Redundant internal coordinates.*" endPattern="$" output="VERBOSE">
+      <comment>
+ ---------------------------
+ #NewComb uB971/6-311+G(d,p)
+ ---------------------------
+ Redundant internal coordinates taken from checkpoint file:
+ /scratch/Gau-23142.chk
+ Charge =  0 Multiplicity = 2
+ C,0,0.9166762042,0.0730268241,4.9909560473
+ H,0,1.8271445526,-0.2241902314,5.5413327124
+ H,0,1.0043564838,1.1498285377,4.8066561748
+ H,0,0.9550579512,-0.4459962779,4.0264362923
+ C,0,-0.321223388,-0.2601308563,5.7505945921
+ H,0,-0.7206191756,0.4228986482,6.4931268102
+ H,0,-0.7720826283,-1.2444366444,5.678007371
+      </comment>
+      <record id="skip" formatType="REGEX">{X,g:name1}</record>
+      <record id="file" formatType="REGEX">{A,g:file}</record>
+      <record formatType="REGEX">.*Charge ={I,g:charge} Multiplicity ={I,g:mult}</record>
+      <record id="r3" repeatCount="*" makeArray="true" formatType="REGEX"
+      >{A,gau:elem},{I,gau:unk},{F,gau:x,unit:angstrom},{F,gau:y,unit:angstrom},{F,gau:z,unit:angstrom}</record>
+      -->
+  </template>

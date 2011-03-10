@@ -14,14 +14,12 @@ import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.text.Template;
 import org.xmlcml.cml.element.CMLCml;
-import org.xmlcml.cml.element.CMLScalar;
 
 public abstract class LegacyProcessor {
 	private static final Logger LOG = Logger.getLogger(LegacyProcessor.class);
 
 	public static final String _ANONYMOUS = "_anonymous_";
 
-	protected BlockContainer blockContainer;
 	protected List<String> lines;
 	protected int lineCount = 0;
 	protected CMLElement cmlElement;
@@ -44,7 +42,6 @@ public abstract class LegacyProcessor {
 
 	
 	protected LegacyProcessor() {
-		this.blockContainer = new BlockContainer(this);
 		abstractCommon = getCommon();
 		readTemplates();
 //		debugTemplates();
@@ -95,27 +92,21 @@ public abstract class LegacyProcessor {
 		preprocessBlocks(null);
 		lineCount = 0;
 		while (lineCount < this.lines.size()) {
-			AbstractBlock block = readBlock(this.lines);
-			if (block != null) {
-				blockContainer.add(block);
-			}
 		}
 		postprocessBlocks();
-		LOG.debug("Finished reading blocks: "+blockContainer.size());
 	}
 
 	public void read(CMLElement element) {
 		preprocessBlocks(element);
 		List<Node> childNodes = CMLUtil.getQueryNodes(element, "*");
 		for (Node childNode : childNodes) {
-			AbstractBlock block = null;
-			block = readBlock((CMLElement) childNode);
-			if (block != null) {
-				blockContainer.add(block);
-			}
+//			AbstractBlock block = null;
+//			block = readBlock((CMLElement) childNode);
+//			if (block != null) {
+//				blockContainer.add(block);
+//			}
 		}
 //		postprocessBlocks();
-		LOG.debug("Finished reading blocks: "+blockContainer.size());
 	}
 
 	/** processing before blocks are read
@@ -134,94 +125,19 @@ public abstract class LegacyProcessor {
 	 * @return
 	 */
 	protected AbstractCommon getCommon() {
-		return AbstractBlock.createInstanceOfCommon(this.getClass());
+		return null;
 	}
 	
-	public List<CMLElement> getBlockList() {
-		List<CMLElement> cmlList = new ArrayList<CMLElement>();
-		if (blockContainer != null) {
-			for (AbstractBlock block : blockContainer.getBlockList()) {
-				cmlList.add(block.getElement());
-			}
-		}
-		return cmlList;
-	}
-
 	public CMLElement getCMLElement() {
 		cmlElement = new CMLCml();
-		for (AbstractBlock block : blockContainer.getBlockList()) {
-			CMLElement element = block.getElement();
-			if (element != null) {
-				cmlElement.appendChild(element);
-			}
-		}
+//		for (AbstractBlock block : blockContainer.getBlockList()) {
+//			CMLElement element = block.getElement();
+//			if (element != null) {
+//				cmlElement.appendChild(element);
+//			}
+//		}
 		return cmlElement;
 	}
-
-	protected void processAnonymousBlocks() {
-		for (AbstractBlock block : blockContainer.getBlockList()) {
-			if (_ANONYMOUS.equals(block.getBlockName())) {
-				block.convertToRawCML();
-			}
-		}
-	}
-
-	protected AbstractBlock getPreviousBlock() {
-		AbstractBlock previousBlock = null;
-		if (blockContainer != null) {
-			int currentBlockNumber = blockContainer.getCurrentBlockNumber();
-			if (currentBlockNumber >= 0) {
-				previousBlock = blockContainer.getBlockList().get(currentBlockNumber-1);
-			}
-		}
-		return previousBlock;
-	}
-
-	protected AbstractBlock readBlock(List<String> lines) {
-		String line = lines.get(lineCount).trim();
-		AbstractBlock block = createBlock(line);
-		block.convertToRawCML();
-		return block;
-	}
-	
-
-	protected AbstractBlock readBlock(CMLElement element) {
-		AbstractBlock block = null;
-		CMLScalar scalar = (element instanceof CMLScalar) ? (CMLScalar) element :
-			(CMLScalar) element.getFirstChildElement(CMLScalar.TAG);
-//		scalar.debug("BLOCK");
-		if (scalar != null) {
-			String[] lineArray = scalar.getXMLContent().split(CMLConstants.S_NEWLINE);		
-			lines = new ArrayList<String>();
-			for (int i = 0; i < lineArray.length; i++) {
-				lines.add(lineArray[i]);
-			}
-			if (lines.size() > 0) {
-				block = createBlock(lines.get(0));
-				block.convertToRawCML();
-			}
-		}
-		return block;
-	}
-
-	/**
-	 * read block start , create name
-	 * then read lines until next block start
-	 * @return
-	 */
-	public AbstractBlock createBlock(String line0) {
-		AbstractBlock block = createAbstractBlock(blockContainer);
-		
-		block.createBlockNameFromLine(line0);
-		for (String line : lines) {
-			block.add(line);
-		}
-		return block;
-	}
-
-	protected abstract AbstractBlock createAbstractBlock(
-			BlockContainer blockContainer);
-
 
 	protected String getTemplateResourceName() {
 		String templateResourceName = getResourceRootFromPackage(this.getClass())+"/templateList.xml";

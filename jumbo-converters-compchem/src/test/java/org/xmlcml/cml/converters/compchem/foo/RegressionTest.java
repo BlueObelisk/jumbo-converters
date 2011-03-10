@@ -13,8 +13,8 @@ public class RegressionTest {
 
 	   @Test
 	   public void foo2XML() {
-	      RegressionSuite.run("compchem/foo/punch", "foo", "xml",
-	                          new Foo2XMLConverter());
+//	      RegressionSuite.run("compchem/foo/punch", "foo", "xml",
+//	                          new Foo2XMLConverter());
 	                              
 	   }
 	   @Test

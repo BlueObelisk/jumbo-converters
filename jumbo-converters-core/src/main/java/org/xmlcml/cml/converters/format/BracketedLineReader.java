@@ -5,8 +5,6 @@ import java.util.List;
 import nu.xom.Element;
 
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.converters.util.JumboReader;
 
 public class BracketedLineReader extends LineReader {
 	@SuppressWarnings("unused")
@@ -22,9 +20,9 @@ public class BracketedLineReader extends LineReader {
 		super(fieldList);
 	}
 
-	@Override
-	public CMLElement readLinesAndParse(JumboReader jumboReader) {
-		throw new RuntimeException("NYI");
-	}
+//	@Override
+//	public CMLElement readLinesAndParse(JumboReader jumboReader) {
+//		throw new RuntimeException("NYI");
+//	}
 
 }

@@ -9,12 +9,9 @@ import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.converters.util.JumboReader;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLScalar;
-import org.xmlcml.cml.interfacex.HasDictRef;
-import org.xmlcml.cml.interfacex.HasUnits;
 import org.xmlcml.euclid.JodaDate;
 import org.xmlcml.euclid.Real;
 
@@ -283,7 +280,7 @@ public abstract class Field extends Element {
 			element = this.createScalar(stringBuilder.substring(dataStartChar, dataStartChar+widthToRead));
 			this.dataStartChar += widthToRead;
 		} else {
-			element = JumboReader.createArray(getDataTypeClass(), stringBuilder.substring(dataStartChar), this);
+//			element = JumboReader.createArray(getDataTypeClass(), stringBuilder.substring(dataStartChar), this);
 			dataStartChar += this.getTotalWidthRead();
 		}
 		addDictRefAndUnits(element);
@@ -291,12 +288,12 @@ public abstract class Field extends Element {
 	}
 
 	private void addDictRefAndUnits(CMLElement element) {
-		if (element != null && localDictRef != null && !JumboReader.isMisread(element)) {
-			((HasDictRef)element).setDictRef(localDictRef);
-		}
-		if (element != null && units != null && !JumboReader.isMisread(element)) {
-			element.addAttribute(new Attribute(UNITS_ATT, units));
-		}
+//		if (element != null && localDictRef != null && !JumboReader.isMisread(element)) {
+//			((HasDictRef)element).setDictRef(localDictRef);
+//		}
+//		if (element != null && units != null && !JumboReader.isMisread(element)) {
+//			element.addAttribute(new Attribute(UNITS_ATT, units));
+//		}
 	}
 
 	public int getStartChar() {
@@ -334,7 +331,7 @@ public abstract class Field extends Element {
 	public String toString() {
 		String s = "";
 		if (lineReader != null) {
-			s += "template: "+lineReader.template.getId()+" lineReader: "+lineReader.getId()+" ";
+			s += "template: "+lineReader.getTemplateId()+" lineReader: "+lineReader.getId()+" ";
 		}
 		if (fieldList != null) {
 			s += fieldList.size()+"*"+multiplier;
@@ -379,7 +376,7 @@ public abstract class Field extends Element {
 
 	public CMLScalar createMisreadScalar(String value) {
 		CMLScalar scalar = new CMLScalar(value);
-		JumboReader.addMisreadAttribute(scalar);
+//		JumboReader.addMisreadAttribute(scalar);
 		this.addNonNullCMLXAttribute(DECIMAL, scalar);
 		this.addNonNullCMLXAttribute(DATA_TYPE_CLASS, scalar);
 		this.addNonNullCMLXAttribute(FIELD_TYPE, scalar);
@@ -439,10 +436,10 @@ public abstract class Field extends Element {
 				// don't include
 			} else if (FieldType.Q.equals(this.getFieldType())) { // Q space
 				scalar = new CMLScalar((String)value);
-				JumboReader.addIsSpaceAttribute(scalar);
-				if (!this.getLocalDictRef().equals(value)) { // needs checking
-					JumboReader.addMisreadAttribute(scalar);
-				}
+//				JumboReader.addIsSpaceAttribute(scalar);
+//				if (!this.getLocalDictRef().equals(value)) { // needs checking
+//					JumboReader.addMisreadAttribute(scalar);
+//				}
 			} else {
 				throw new RuntimeException("Unknown field type: "+this.getFieldType());
 			}

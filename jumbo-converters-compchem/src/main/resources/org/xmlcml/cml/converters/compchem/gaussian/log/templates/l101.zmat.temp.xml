@@ -1,4 +1,4 @@
-  <template id="l101" repeatCount="*" pattern=".*Symbolic Z\-matrix.*" endPattern="$" output="VERBOSE">
+  <template id="l101.zmat" repeatCount="*" pattern=".*Symbolic Z\-matrix.*" endPattern="\s*" output="VERBOSE">
       <comment>
  Symbolic Z-matrix:
  Charge =  0 Multiplicity = 1
@@ -6,7 +6,7 @@
  C                     1.98961  -0.3388    0.40746 
  H                     0.63164   1.77722  -0.58197 
       </comment>
-      <record id="r1" linesToRead="1">.*</record>
-      <record id="r2" linesToRead="1" formatType="FORTRAN">(10x,I2{gau:chg},15x,I2{gau:mult})</record>
-      <record id="r3" linesToRead="*" formatType="FORTRAN">(A4{gau:elem},16x,F10.5{gau:x,unit:angstrom},F10.5{gau:y},F10.5{gau:z})</record>
+      <record/>
+      <record formatType="REGEX">.*Charge ={I,g:charge} Multiplicity ={I,g:mult}</record>
+      <record id="r3" repeatCount="*" makeArray="true" formatType="REGEX">{A,gau:elem} {F,gau:x,unit:angstrom}  {F,gau:y,unit:angstrom} {F,gau:z,unit:angstrom}</record>
   </template>

@@ -2,47 +2,62 @@ package org.xmlcml.cml.converters.compchem.gaussian.log;
 
 import java.io.InputStream;
 
+import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xmlcml.cml.converters.compchem.TestUtils;
 import org.xmlcml.cml.converters.testutils.RegressionSuite;
+import org.xmlcml.cml.converters.text.TemplateConverter;
 import org.xmlcml.euclid.Util;
 
 public class ConverterTest {
-	@Test   public void test101zmat()    {testConverter("l101","zmat");}
-	@Test   public void testAnisospin()    {testConverter("anisospin");}
+	private static Logger LOG = Logger.getLogger(ConverterTest.class);
+
+	private static final String IN_SUFFIX = ".in";
+	private static final String XML_SUFFIX = ".xml";
+
+	private String codeType = "gaussian";
+	private String fileType = "log";
+	
+//	@Test   public void test101zmat()          {testConverter("l101","zmat");}
+	@Test   public void testAnisospin()        {testConverter("anisospin");}
 	@Test   public void testAtomicCharges()    {testConverter("atomiccharges");}
-	@Test   public void testMulliken()    {testConverter("mulliken");}
+	@Test   public void testCoordinates()      {testConverter("coord");}
+	@Test   public void testMulliken()         {testConverter("mulliken");}
+	@Ignore // still some bugs
+	@Test   public void testl716()             {testConverter("l716");}
 
     @Test
     public void gaussianOut2XML() {
-		GaussianLog2XMLConverter converter = createConverter("templateList.xml");
+		TemplateConverter converter = createConverter("org/xmlcml/cml/converters/compchem/gaussian/log/templateList.xml");
         RegressionSuite.run("compchem/gaussian/log", "log", "xml", converter);
     }
    
-	private void testConverter(String link, String name) {
-		GaussianLog2XMLConverter converter = createConverter("templateListAll.xml");
-//		TestUtils.runConverterTest(converter, link+"/"+name);
-		// later turn this to subdirectory after we separate packages
-		TestUtils.runConverterTest(converter, link+"."+name);
-	}
+//	private void testConverter(String link, String name) {
+//		TemplateConverter converter = createConverter("templateListAll.xml");
+//		LOG.debug("created converter");
+////		TestUtils.runConverterTest(converter, link+"/"+name);
+//		// later turn this to subdirectory after we separate packages
+//		TestUtils.runConverterTest(converter, link+"."+name, null/*FIXME*/);
+//	}
 		
 	private void testConverter(String name) {
-		GaussianLog2XMLConverter converter = createConverter("templateListAll.xml");
-		TestUtils.runConverterTest(converter, name);
+		String templateXML = "org/xmlcml/cml/converters/compchem/gaussian/log/templateListAll.xml";
+		TemplateConverter converter = createConverter(templateXML);
+		TestUtils.runConverterTest(converter, 
+				"compchem/gaussian/log/templates/"+name+IN_SUFFIX, 
+				"compchem/gaussian/log/templates/"+name+XML_SUFFIX);
 	}
 		
-	private GaussianLog2XMLConverter createConverter(String templateXML) {
-		GaussianLog2XMLConverter converter = null;
+	private TemplateConverter createConverter(String templateXML) {
+		TemplateConverter converter = null;
 		try {
-			InputStream templateStream = Util.getInputStreamFromResource(
-			"org/xmlcml/cml/converters/compchem/gaussian/log/"+templateXML);
-			converter = GaussianLog2XMLConverter.createGaussianLog2XMLConverter(templateStream);
+			InputStream templateStream = Util.getInputStreamFromResource(templateXML);
+			converter = TemplateConverter.createTemplateConverter(templateStream, "gaussian", "log");
 		} catch (Exception e) {
 			throw new RuntimeException("Cannot make template ", e);
 		}
 		return converter;
 	}
-	
 
 }

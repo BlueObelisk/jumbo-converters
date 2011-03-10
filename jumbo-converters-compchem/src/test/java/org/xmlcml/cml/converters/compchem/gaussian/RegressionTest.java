@@ -4,7 +4,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.xmlcml.cml.converters.compchem.gaussian.input.CML2GaussianInputConverter;
 import org.xmlcml.cml.converters.compchem.gaussian.logold.GaussianLog2CMLConverter;
-import org.xmlcml.cml.converters.compchem.gaussian.logold.GaussianLog2XMLConverter;
 import org.xmlcml.cml.converters.testutils.RegressionSuite;
 
 /**
@@ -37,8 +36,8 @@ public class RegressionTest {
    @Test
    @Ignore // not sure which version this runs
    public void log2XML() {
-      RegressionSuite.run("compchem/gaussian/log", "log", "xml",
-                          new GaussianLog2XMLConverter());
+//      RegressionSuite.run("compchem/gaussian/log", "log", "xml",
+//                          new GaussianLog2XMLConverter());
                               
    }
 
