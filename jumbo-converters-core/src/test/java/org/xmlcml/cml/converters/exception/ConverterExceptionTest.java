@@ -32,7 +32,7 @@ public class ConverterExceptionTest {
     public void testConverterExceptionStringThrowable() {
         String text="sdfgsdf";
         try{
-            Double d = Double.parseDouble(text);
+            /*Double d = */Double.parseDouble(text);
         }catch(RuntimeException e){
             try {
                 throw new ConverterException("Test", e);

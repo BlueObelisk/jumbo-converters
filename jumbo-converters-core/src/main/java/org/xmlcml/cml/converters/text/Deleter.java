@@ -1,8 +1,11 @@
 package org.xmlcml.cml.converters.text;
 
 import nu.xom.Element;
+import nu.xom.Node;
+import nu.xom.Text;
 
 import org.apache.log4j.Logger;
+import org.xmlcml.euclid.Int2;
 
 public class Deleter extends Template {
 	@SuppressWarnings("unused")
@@ -22,27 +25,27 @@ public class Deleter extends Template {
 // use chunks
 		int inode = 0;
 		int ndeleted = 0;
-		throw new RuntimeException("delete not implemented");
-//		while (inode < lineContainer.getChildCount()) {
-//			Node node = lineContainer.getChild(inode);
-//			if (node instanceof Text) {
-//				Int2 range = lineContainer.matchLines(inode, patterns);
-//				if (range != null) {
-//					// detach nodes; count does not need incrementing
-//					for (int i = 0; i < range.getY() - range.getX(); i++) {
-//						lineContainer.getChild(inode).detach();
-//					}
-//					if (ndeleted++ >= maxRepeatCount) {
-//						break;
-//					}
-//					
-//				} else {
-//					inode++;
-//				}
-//			} else {
-//				inode++;
-//			}
-//		}
+		Element linesElement = lineContainer.getLinesElement();
+		while (inode < linesElement.getChildCount()) {
+			Node node = linesElement.getChild(inode);
+			if (node instanceof Text) {
+				Int2 range = lineContainer.matchLines(inode, startChunker.getPatternList());
+				if (range != null) {
+					// detach nodes; count does not need incrementing
+					for (int i = 0; i < range.getY() - range.getX(); i++) {
+						linesElement.getChild(inode).detach();
+					}
+					if (ndeleted++ >= maxRepeatCount) {
+						break;
+					}
+					
+				} else {
+					inode++;
+				}
+			} else {
+				inode++;
+			}
+		}
 	}
 
 	

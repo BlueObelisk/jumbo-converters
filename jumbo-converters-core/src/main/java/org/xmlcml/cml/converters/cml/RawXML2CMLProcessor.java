@@ -7,7 +7,6 @@ import nu.xom.Nodes;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
-import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.element.CMLProperty;
 
@@ -27,7 +26,8 @@ public abstract class RawXML2CMLProcessor {
 	 * @return
 	 */
 	protected AbstractCommon getCommon() {
-		return AbstractBlock.createInstanceOfCommon(this.getClass());
+		return null;
+//		return AbstractBlock.createInstanceOfCommon(this.getClass());
 	}
 	
 	public void process(Element xml) {

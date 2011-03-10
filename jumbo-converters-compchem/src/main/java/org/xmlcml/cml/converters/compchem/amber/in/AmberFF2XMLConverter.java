@@ -25,6 +25,6 @@ public class AmberFF2XMLConverter extends Text2XMLConverter {
 
 	@Override
 	protected LegacyProcessor createLegacyProcessor() {
-		return new AmberFFProcessor();
+		return null;
 	}
 }

@@ -19,10 +19,10 @@ import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.euclid.Int2;
 
 public class LineContainer {
-
 	private final static Logger LOG = Logger.getLogger(LineContainer.class);
 	
 	public  static final String LINE_COUNT = "lineCount";
+	private static final String L = "l";
 
 	private int currentNodeIndex = 0;
 	private Element linesElement;
@@ -147,7 +147,7 @@ public class LineContainer {
 		return contiguousPatterns.size() == 1 && Template.EOI.equals(contiguousPatterns.get(0).toString());
 	}
 
-	Int2 findNextMatch(int nodeIndex, PatternChunker chunker) {
+	Int2 findNextMatch(int nodeIndex, PatternContainer chunker) {
 		// loop through lines till end (might tweak this later??)
 		while (nodeIndex < this.linesElement.getChildCount()) {
 			LOG.trace(nodeIndex+"/"+this.linesElement.getChildCount());
@@ -189,7 +189,7 @@ public class LineContainer {
 			}
 			if (!(node instanceof Text)) {
 //				throw new RuntimeException("making chunk: expected text node, found "+node.toXML());
-				LOG.error("making chunk: expected text node, found "+node.toXML());
+				LOG.error("making chunk: expected text node at: "+start+", found "+node.toXML());
 				break;
 			} else {
 				if (chunk == null) {
@@ -210,7 +210,7 @@ public class LineContainer {
 	}
 
 	public void debug(String string) {
-		CMLUtil.debug(linesElement, string);
+		CMLUtil.debug(linesElement, string+" line: " +currentNodeIndex);
 	}
 
 	public String readLine() {
@@ -229,7 +229,7 @@ public class LineContainer {
 	}
 
 	public Element getNormalizedLinesElement() {
-		Element element = this.getLinesElement();
+		Element element = (Element) this.getLinesElement().copy();
 		Nodes nodes = element.query(".//text()");
 		for (int i = 0; i < nodes.size(); i++) {
 			wrapText((Text)nodes.get(i));
@@ -240,20 +240,19 @@ public class LineContainer {
 
 	private void wrapText(Text text) {
 		Element parent = (Element) text.getParent();
-		Element l = new Element("l");
+		Element l = new Element(L);
 		parent.replaceChild(text, l);
 		l.appendChild(text);
-		CMLUtil.debug(l);
+//		CMLUtil.debug(l);
 	}
 
-	public void insertChunk(Element chunk) {
+	public void insertChunk(Element chunk, int originalNodeIndex) {
 		if (chunk != null) {
-//			if (currentNodeIndex == 0) {
-//				throw new RuntimeException("node index too small???");
-//			}
 			Node node = (currentNodeIndex == 0) ? null : linesElement.getChild(currentNodeIndex-1);
 			if (node != null) {
-				int nchunk = getChunkChildCount(chunk);
+//				int nchunk = getChunkChildCount(chunk);
+				int nchunk = currentNodeIndex - originalNodeIndex;
+				LOG.trace("NCHUNK "+nchunk);
 				deleteLinesIfMoreThanOne(nchunk);
 				node.getParent().replaceChild(node, chunk);
 			} else {
@@ -287,11 +286,17 @@ public class LineContainer {
 	public void increaseCurrentNodeIndex(Integer linesToRead) {
 		for (int i = 0; i < linesToRead; i++) {
 			Node node = linesElement.getChild(currentNodeIndex);
+			if (!hasMoreNodes()) {
+				break;
+			}
 			if (node == null || !(node instanceof Text)) {
-				System.out.println();
 				throw new RuntimeException("failed to find Text node at: "+currentNodeIndex);
 			}
 			currentNodeIndex++;
 		}
+	}
+
+	public void removeEmptyLists() {
+		
 	}
 }

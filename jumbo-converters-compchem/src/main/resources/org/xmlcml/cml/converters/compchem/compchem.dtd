@@ -8,8 +8,10 @@
 <!ENTITY % pattern     'pattern         CDATA'>
 <!ENTITY % reading     'reading         (WHILE|UNTIL|ALL|ONCE)'>
 
+
+<!ELEMENT include (template*)>
 <!-- parameter entities don't seem to work -->
-<!ELEMENT templateList (template*)>
+<!ELEMENT templateList (include | template*)>
 <!ATTLIST templateList
     %id;         #REQUIRED
     >

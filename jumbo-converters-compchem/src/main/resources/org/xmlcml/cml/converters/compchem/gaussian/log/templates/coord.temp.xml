@@ -1,0 +1,18 @@
+<template id="gau:coord" name="Coordinates" 
+    pattern=".*Standard orientation:.*" >
+  <comment class="example">
+                         Standard orientation:                         
+ ---------------------------------------------------------------------
+ Center     Atomic     Atomic              Coordinates (Angstroms)
+ Number     Number      Type              X           Y           Z
+ ---------------------------------------------------------------------
+    1          1             0       -3.004390    0.907942   -0.042084
+    2          6             0       -2.114020    0.295280   -0.082179
+    3          7             0       -0.993069    1.029184   -0.183798
+ ---------------------------------------------------------------------
+ </comment>
+  <record repeatCount="5" formatType="REGEX">(.*)</record>
+  <record formatType="REGEX" id="charges"  makeArray="true" 
+      repeatCount="*">{I,c:ser} {I,c:atnum} {I,gau:type} {F,c:x3} {F,c:y3} {F,c:z3}</record>
+  <record formatType="REGEX">(.*)</record>
+</template> 

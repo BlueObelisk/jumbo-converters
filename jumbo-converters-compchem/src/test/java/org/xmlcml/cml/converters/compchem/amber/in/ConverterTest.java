@@ -17,7 +17,7 @@ public class ConverterTest {
 	@Test         public void testVersion()    {testConverter("version");}
 
 	private void testConverter(String name) {
-		TestUtils.runConverterTest(new AmberFF2XMLConverter(), name);
+		TestUtils.runConverterTest(new AmberFF2XMLConverter(), name, null/*FIXME*/);
 	}
 	
 	   @Test

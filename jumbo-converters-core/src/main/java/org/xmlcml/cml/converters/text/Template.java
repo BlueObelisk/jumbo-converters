@@ -1,5 +1,7 @@
 package org.xmlcml.cml.converters.text;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -7,31 +9,33 @@ import java.util.regex.Pattern;
 import nu.xom.Attribute;
 import nu.xom.Element;
 import nu.xom.Elements;
+import nu.xom.Nodes;
+import nu.xom.ParsingException;
+import nu.xom.xinclude.BadParseAttributeException;
+import nu.xom.xinclude.InclusionLoopException;
+import nu.xom.xinclude.NoIncludeLocationException;
+import nu.xom.xinclude.XIncludeException;
+import nu.xom.xinclude.XIncluder;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
-import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.Outputter;
 import org.xmlcml.cml.converters.Outputter.OutputLevel;
 import org.xmlcml.cml.converters.format.LineReader;
 import org.xmlcml.cml.converters.format.LineReader.LineType;
-import org.xmlcml.cml.converters.format.ReadLinesLineReader;
-import org.xmlcml.cml.converters.format.RecordsLineReader;
-import org.xmlcml.cml.converters.util.JumboReader;
-import org.xmlcml.cml.element.CMLModule;
+import org.xmlcml.cml.converters.format.RecordReader;
+import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLScalar;
+import org.xmlcml.cml.tools.DisorderToolControls.RemoveControl;
 import org.xmlcml.euclid.Int2;
 
 public class Template implements MarkupApplier {
+	private final static Logger LOG = Logger.getLogger(Template.class);
 	
 	public static final String EOI = "$";
-
-	private final static Logger LOG = Logger.getLogger(Template.class);
-
 	public static final String TAG = "template";
-	
 	public static final String ZERO_OR_ONE = "?";
 	public static final String ZERO_OR_MORE = "*";
 	public static final String ONE_OR_MORE = "+";
@@ -49,6 +53,8 @@ public class Template implements MarkupApplier {
 	private static final String PATTERN = "pattern";
 	private static final String REPEAT_COUNT = "repeatCount";
 	public  static final String TEMPLATE_REF = "templateRef";
+
+	private static final String BASE = "base"; // left by XInclude
 	
 	protected Element theElement;
 	private String id;
@@ -56,25 +62,26 @@ public class Template implements MarkupApplier {
 	private String multipleS;
 	private String patternString;
 	private String endPatternString;
-	private PatternChunker endChunker;
-	private PatternChunker startChunker;
+	private PatternContainer endChunker;
+	protected PatternContainer startChunker;
 	private Integer offset;
 	private Integer endOffset;
 	private Integer minRepeatCount = 1;
 	private Integer maxRepeatCount = 1;
-	
-	private JumboReader jumboReader;
 	private OutputLevel outputLevel;
 
 	private List<MarkupApplier> markerList;
-//	private TemplateContainer templateContainer;
-//	private List<LineReader> lineReaderList;
 	private LineContainer lineContainer;
 	private String dictRef;
 	private String[] names;
 
 	public Template(Element element) {
 		this.theElement = element;
+		try {
+			XIncluder.resolveInPlace(theElement.getDocument());
+		} catch (Exception e) {
+			throw new RuntimeException("Bad XInclude", e);
+		}
 		CMLUtil.removeWhitespaceNodes(this.theElement);
 		processChildElementsAndAttributes();
 	}
@@ -95,11 +102,11 @@ public class Template implements MarkupApplier {
 		return name;
 	}
 
-	public PatternChunker getEndChunker() {
+	public PatternContainer getEndChunker() {
 		return endChunker;
 	}
 
-	public PatternChunker getStartChunker() {
+	public PatternContainer getStartChunker() {
 		return startChunker;
 	}
 
@@ -107,18 +114,6 @@ public class Template implements MarkupApplier {
 	public Pattern getPattern() {
 		return (startChunker == null || startChunker.size() == 0) ? null : startChunker.get(0);
 	}
-
-//	public List<LineReader> getLineReaderList() {
-//		return lineReaderList;
-//	}
-//
-//	public List<Deleter> getDeleterList() {
-//		return deleterList;
-//	}
-//
-//	public TemplateContainer getTemplateContainer() {
-//		return templateContainer;
-//	}
 
 	public OutputLevel getOutputLevel() {
 		return outputLevel;
@@ -130,6 +125,7 @@ public class Template implements MarkupApplier {
 
 	private void processAttributes() {
 		checkIfAttributeNamesAreAllowed(theElement, new String[]{
+			BASE,
 			DICT_REF,
 			END_OFFSET,
 			END_PATTERN,
@@ -144,15 +140,11 @@ public class Template implements MarkupApplier {
 		});
 				
 		id = theElement.getAttributeValue(ID);
-//		checkNotNull(theElement, ID, id);
 		name = theElement.getAttributeValue(NAME);
-// name should not be mandatory		
-//		checkNotNull(theElement, NAME, name);
 		names = getStringsFromAttribute(NAMES);
 		this.dictRef = theElement.getAttributeValue(DICT_REF);
 		
 		patternString = theElement.getAttributeValue(PATTERN);
-//		checkNotNull(theElement, PATTERN, patternString);
 		endPatternString = theElement.getAttributeValue(END_PATTERN);
 		if (endPatternString == null) {
 			// special end-of-information symbol
@@ -170,8 +162,8 @@ public class Template implements MarkupApplier {
 		
 		processRepeatCount();
 		
-		startChunker = new PatternChunker(createPatternList(patternString, multipleS), offset);
-		endChunker = new PatternChunker(createPatternList(endPatternString, multipleS), endOffset);
+		startChunker = new PatternContainer(patternString, multipleS, offset);
+		endChunker = new PatternContainer(endPatternString, multipleS, endOffset);
 	}
 
 	private String[] getStringsFromAttribute(String names) {
@@ -231,21 +223,10 @@ public class Template implements MarkupApplier {
 				}
 			}
 			if (!allowed) {
-				CMLUtil.debug(theElement, "FORBIDDEN ATT");
+				CMLUtil.debug(theElement, "FORBIDDEN ATT "+attName);
 				throw new RuntimeException("Forbidden attribute name: "+attName);
 			}
 		}
-	}
-
-	static List<Pattern> createPatternList(String patternS, String multipleS) {
-		List<Pattern> patterns = new ArrayList<Pattern>();
-		if (patternS != null) {
-			String[] pat = (multipleS == null) ? new String[]{patternS} : patternS.split(multipleS); 
-			for (int i = 0; i < pat.length; i++) {
-				patterns.add(Pattern.compile(pat[i]));
-			}
-		}
-		return patterns;
 	}
 
 
@@ -264,11 +245,9 @@ public class Template implements MarkupApplier {
 				Deleter deleter = new Deleter(childElement);
 				markerList.add(deleter);
 			} else if (LineType.READLINES.getTag().equals(name)) {
-				lineReader = new ReadLinesLineReader(childElement, this);
-				markerList.add(lineReader);
 				throw new RuntimeException("readLines is deprecated");
 			} else if (LineType.RECORD.getTag().equals(name)) {
-				lineReader = new RecordsLineReader(childElement, this);
+				lineReader = new RecordReader(childElement, this);
 				markerList.add(lineReader);
 			} else if (Template.TAG.equals(name)) {
 				System.out.println(theElement.getAttributeValue(ID)+"/"+childElement.getAttributeValue(ID));
@@ -288,20 +267,11 @@ public class Template implements MarkupApplier {
 		
 	}
 
-	// ========================================================
+	// =========================OUTPUT/MARKUP===============================
 	
 		
-//	private static void checkNotNull(Element element, String attName, String attVal) {
-//		if (attVal == null) {
-//			CMLUtil.debug(element, "CHECK null attVal");
-//			throw new RuntimeException(element.getLocalName()+": must give "+attName+" attribute");
-//		}
-//	}
-	
-	// =========================================================
-
 	public void applyMarkup(String line) {
-		LOG.debug("LINE: "+line+" / "+line.split(CMLConstants.S_NEWLINE).length);
+		LOG.trace("LINE: "+line+" / "+line.split(CMLConstants.S_NEWLINE).length);
 		lineContainer = new LineContainer(line);
 		applyMarkup(lineContainer);
 	}
@@ -309,16 +279,21 @@ public class Template implements MarkupApplier {
 	public void applyMarkup(LineContainer lineContainer) {
 		this.lineContainer = lineContainer;
 		for (MarkupApplier marker : markerList) {
+			LOG.debug("Applying: "+marker.getClass().getSimpleName()+" "+marker.getId());
 			marker.applyMarkup(lineContainer);
 		}
 		Element linesElement = lineContainer.getLinesElement();
 		linesElement.addAttribute(new Attribute(Template.TEMPLATE_REF, this.getId()));
-
+		removeEmptyLists(linesElement);
+		removeNamelessScalars(linesElement);
+//		tidyUnusedLines(lineContainer, linesElement);
 	}
 	
 
 	public List<Element> resetNodeIndexAndApplyChunkers(LineContainer lineContainer) {
-		lineContainer.setCurrentNodeIndex(0);
+//		if (resetCounter) {
+			lineContainer.setCurrentNodeIndex(0);
+//		}
 		int repeatCount = 0; // use this later
 		List<Element> chunkedElements = new ArrayList<Element>();
 		while (repeatCount < this.maxRepeatCount) {
@@ -350,45 +325,14 @@ public class Template implements MarkupApplier {
 		return chunk;
 	}
 
-//	private void applyLineReaders() {
-//		for (LineReader lineReader : lineReaderList) {
-//			Element chunk = lineReader.apply(lineContainer);
-//			if (chunk != null) {
-//				chunk.addAttribute(new Attribute(TEMPLATE_REF, lineReader.getId()));
-//				lineContainer.insertChunk(chunk);
-//			} else {
-//				LOG.debug("null chunk");
-//			}
-//		}
-//	}
-
-	public void markupBlock(AbstractBlock block) {
-		jumboReader = block.getJumboReader();
-		@SuppressWarnings("unused")
-		CMLModule module = block.makeModule();
-		CMLElement lastElement = null;
-//		for (LineReader lineReader : lineReaderList) {
-//			try {
-//				debug("LINE "+jumboReader.peekLine(), OutputLevel.NORMAL);
-//				lastElement = lineReader.readLinesAndParse(jumboReader);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//				lineReader.debug();
-//				System.err.println("CANNOT PARSE BLOCK: "+lineReader+" / "+e+ " ["+jumboReader.peekLine()+"]");
-//			}
-//		}
-		tidyUnusedLines(jumboReader, lastElement);
-		throw new RuntimeException("Getting rid of blocks");
-	}
-
 	/**
 	 * gets remaining lines in block and adds them to parentElement
 	 */
-	public static void tidyUnusedLines(JumboReader jumboReader, CMLElement parentElement) {
+	public static void tidyUnusedLines(LineContainer lineContainer, CMLElement parentElement) {
 		StringBuilder sb = new StringBuilder();
 		boolean empty = true;
-		while (jumboReader.hasMoreLines()) {
-			String s = jumboReader.readLine();
+		while (lineContainer.hasMoreNodes()) {
+			String s = lineContainer.readLine();
 			if (s.trim().length() != 0) {
 				empty = false;
 			}
@@ -399,12 +343,45 @@ public class Template implements MarkupApplier {
 			CMLScalar scalar = new CMLScalar(sb.toString());
 			scalar.setDictRef(Template.CMLX_UNREAD);
 			if (parentElement == null) {
-				List<CMLElement> cmlChildElements = jumboReader.getParentElement().getChildCMLElements();
-				parentElement = (cmlChildElements.size() == 0) ? jumboReader.getParentElement() : cmlChildElements.get(cmlChildElements.size()-1);
+//				List<CMLElement> cmlChildElements = jumboReader.getParentElement().getChildCMLElements();
+//				parentElement = (cmlChildElements.size() == 0) ? jumboReader.getParentElement() : cmlChildElements.get(cmlChildElements.size()-1);
 			}
 			parentElement.appendChild(scalar);
 		}
 	}
+	
+	public static Element removeNamelessScalars(Element list) {
+		Nodes namelessScalars = list.query(".//*[local-name()='scalar' and not(@dictRef)]");
+		for (int i = 0; i < namelessScalars.size(); i++) {
+			namelessScalars.get(i).detach();
+		}
+		return list;
+	}
+
+	public static Element removeEmptyLists(Element list) {
+		boolean change = true;
+		while (change) {
+			Nodes emptyLists = list.query(".//*[local-name()='list' and count(*)=0]");
+			change = emptyLists.size() > 0;
+			for (int i = 0; i < emptyLists.size(); i++) {
+				emptyLists.get(i).detach();
+			}
+		}
+		return list;
+	}
+
+	public static Element flattenSingletonLists(Element list) {
+		Nodes singletonLists = list.query(".//*[local-name()='list' and count(*)=1 and count(*[local-name()='scalar' or local-name()='array'])=1 and count(*[@dictRef])=1]");
+		for (int i = 0; i < singletonLists.size(); i++) {
+			CMLList singletonList = (CMLList) singletonLists.get(i);
+			CMLElement scalarOrArray = (CMLElement) singletonList.getChildElements().get(0);
+			scalarOrArray.detach();
+			singletonList.detach();
+			list.appendChild(scalarOrArray);
+		}
+		return list;
+	}
+
 
 	public void debug(String string, OutputLevel maxLevel) {
 		if (Outputter.canOutput(outputLevel, maxLevel)) {
@@ -413,38 +390,15 @@ public class Template implements MarkupApplier {
 	}
 	
 	public void debug() {
-		System.out.println("========"+this.getId()+"=========");
+		System.out.println("=====DBG==="+this.getId()+"===DBG======");
 		CMLUtil.debug(theElement, "TEMPLATE");
 		LOG.debug("children: "+markerList.size());
 		for (MarkupApplier marker : markerList) {
 			marker.debug();
 		}
-/*
-	private Element templateElement;
-	private String id;
-	private String name;
-	private String multipleS;
-	private String patternString;
-	private String endPatternString;
-	private PatternChunker endChunker;
-	private PatternChunker startChunker;
-	private Integer offset;
-	private Integer endOffset;
-	
-	private int maxRepeatCount = Integer.MAX_VALUE;
-	
-	private JumboReader jumboReader;
-	private OutputLevel outputLevel;
-
-	private List<Deleter> deleterList;
-	private TemplateContainer templateContainer;
-	private List<LineReader> lineReaderList;
-
-	private LineContainer lineContainer;
- */
 		System.out.println("startChunker "+startChunker.toString());
 		System.out.println("endChunker "+endChunker.toString());
-		System.out.println("==========================");
+		System.out.println("=====END DBG=======");
 	}
 
 	public String toString() {
@@ -452,6 +406,13 @@ public class Template implements MarkupApplier {
 		s += "startChunker "+startChunker.toString()+"\n";
 		s += "endChunker "+endChunker.toString()+"\n";
 		return s;
+	}
+
+	public static String regexEscape(String multiple) {
+		if (CMLConstants.S_DOLLAR.equals(multiple)) {
+			multiple = CMLConstants.S_BACKSLASH+multiple;
+		}
+		return multiple;
 	}
 	
 }

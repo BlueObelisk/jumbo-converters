@@ -17,7 +17,6 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.converters.AbstractBlock;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.Type;
@@ -50,7 +49,7 @@ public abstract class AbstractCompchem2CMLConverter extends AbstractConverter {
 	 * @return
 	 */
 	protected AbstractCommon getCommon() {
-		return AbstractBlock.createInstanceOfCommon(this.getClass());
+		return null;
 	}
 	
 	public CMLMolecule getMolecule() {

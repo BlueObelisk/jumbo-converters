@@ -5,8 +5,6 @@ import java.util.List;
 import nu.xom.Element;
 
 import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.converters.AbstractBlock;
-import org.xmlcml.cml.converters.BlockContainer;
 import org.xmlcml.cml.converters.LegacyProcessor;
 
 
@@ -48,8 +46,4 @@ public class TemplateProcessor extends LegacyProcessor {
 	protected void postprocessBlocks() {
 	}
 
-	@Override
-	protected AbstractBlock createAbstractBlock(BlockContainer blockContainer) {
-		return null;
-	}
 }
