@@ -44,7 +44,7 @@ public enum CifUnit {
     CifUnit(String cmlUnitId){
         this.cifUnitId=this.name();
         this.cmlUnitId=cmlUnitId;
-        this.cmlDict=UnitDictionaries.allUnits;
+        this.cmlDict=UnitDictionaries.nonSi;
     }
     CifUnit(String cmlUnitString, UnitDictionaries dict){
         this.cifUnitId=this.name();
@@ -55,7 +55,7 @@ public enum CifUnit {
     CifUnit (String cifID, String cmlUnitId){
     	this.cifUnitId=cifID;
     	this.cmlUnitId=cmlUnitId;
-    	this.cmlDict=UnitDictionaries.allUnits;
+    	this.cmlDict=UnitDictionaries.nonSi;
     }
     CifUnit(String cifID, String cmlUnitString,UnitDictionaries dict){
         this.cifUnitId=cifID;

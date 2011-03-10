@@ -21,6 +21,7 @@ import nu.xom.ValidityException;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.xml.cml.converters.cif.dict.units.UnitDictionaries;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
@@ -152,6 +153,7 @@ public class OutPutModuleBuilder {
 
     public void finalise() {
         if (!isFinalised) {
+            this.addDictionaryURIs();
             topModule.appendChild(crystalModule);
             crystalModule.appendChild(molecule);
             Nodes nodes = this.cml.query("//cml:*[@dictRef]", CMLConstants.CML_XPATH);
@@ -348,5 +350,12 @@ public class OutPutModuleBuilder {
             this.topModule.setTitle(title);
         }
     }
+    
+    protected void addDictionaryURIs(){
+        for(UnitDictionaries dict:UnitDictionaries.values()){
+            this.cml.addNamespaceDeclaration(dict.prefix,dict.URI);
+        }
+    }
+    
 
 }

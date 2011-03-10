@@ -4,6 +4,7 @@ import nu.xom.Element;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.xml.cml.converters.cif.dict.units.UnitDictionaries;
 import org.xmlcml.cml.converters.cif.dict.CifDictionaryBuilder;
 import org.xmlcml.cml.element.CMLEntry;
 import org.xmlcml.cml.element.CMLMolecule;
@@ -142,5 +143,11 @@ public class OutPutModuleBuilderTest {
         Assert.assertEquals("xsd:double", type);
         Assert.assertEquals(0.0045, prop.getScalarElements().get(0).getErrorValue(),0.000001);
         Assert.assertEquals("0.0622", prop.getScalarElements().get(0).getValue());
+    }
+    @Test
+    public void testAddDictURIS(){
+        OutPutModuleBuilder builder = new OutPutModuleBuilder();
+        builder.addDictionaryURIs();
+        Assert.assertEquals(UnitDictionaries.nonSi.URI, builder.cml.getNamespaceURIForPrefix(UnitDictionaries.nonSi.prefix));
     }
 }
