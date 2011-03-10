@@ -2,7 +2,7 @@ package org.xml.cml.converters.cif.dict.units;
 
 public enum UnitDictionaries {
     allUnits("allUnits","http://www.xml-cml.org/units/allUnits/"),
-    si("si","http://xml-cml.org/unit/si");
+    si("si","http://www.xml-cml.org/unit/si");
     
     public String prefix;
     public String URI;
