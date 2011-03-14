@@ -21,7 +21,6 @@ import nu.xom.ValidityException;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.xml.cml.converters.cif.dict.units.UnitDictionaries;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
@@ -33,6 +32,7 @@ import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
+import org.xmlcml.converters.cif.dict.units.UnitDictionaries;
 
 public class OutPutModuleBuilder {
     
@@ -48,8 +48,6 @@ public class OutPutModuleBuilder {
     public static final String CONVENTION_MOLECULAR = "molecular";
     public static final String IUCR_DICT_URI = CifDictionaryBuilder.URI;
     public static final String IUCR_DICT_PREFIX = CifDictionaryBuilder.PREFIX;
-    public static final String XHTML_PREFIX = "xhtml";
-    public static final String XHTML_URI = "http://www.w3.org/1999/xhtml";
     private String _dict_path = "/cif-dictionary.cml";
     CMLDictionary dict;
     Map<String, CMLEntry> idMap;
@@ -132,7 +130,6 @@ public class OutPutModuleBuilder {
         molecule.addAttribute(new Attribute("convention", CONVETION_PREFIX + ":" + CONVENTION_MOLECULAR));
 
         cml.addNamespaceDeclaration(IUCR_DICT_PREFIX, IUCR_DICT_URI);
-        cml.addNamespaceDeclaration(XHTML_PREFIX, XHTML_URI);
         cml.appendChild(topModule);
         try {
             this.loadDict(_dict_path);
