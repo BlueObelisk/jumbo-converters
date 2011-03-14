@@ -10,6 +10,6 @@
  LUMO         =      -0.090738
 
 </comment>
-  <readLines id="rl1" linesToRead="3"/>
-  <record id="ener" linesToRead="*" formatType="FORTRAN">(1x,A13{enername},'=',F16.6{ener})</record>
+  <record id="rl1" repeatCount="3"/>
+  <record id="ener" repeatCount="*" formatType="REGEX">\s{A13,n:enername}\s*=\*{F16.6,n:ener}</record>
 </template>

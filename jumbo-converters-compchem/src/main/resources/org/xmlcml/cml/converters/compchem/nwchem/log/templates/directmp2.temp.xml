@@ -16,9 +16,10 @@
      Pass:    1     Index range:    1  -    9     Time:     81.04
 
 </comment>
-<readLines linesToRead="2" id="rl1"/>
-<record id="r1" linesToRead="*" formatType="REGEX" names="__name __value">\s*(.*)\s*:\s*(.*)\s*</record>
-<record id="r2" linesToRead="*" formatType="REGEX" names="note">\s*(.*)\s*</record>
-<readLines linesToRead="1" id="rl3" output="VERBOSE"/>
-<record id="r3" linesToRead="1" formatType="FORTRAN" names="__name __value">(10x,I5{pass},17x,I5{from},4x,I5{to},10x,F10.2{time})</record>
+<record repeatCount="2" id="rl1"/>
+<record id="r1" repeatCount="*" formatType="REGEX" names="__name __value">\s*(.*)\s*:\s*(.*)\s*</record>
+<record id="r2" repeatCount="*" formatType="REGEX" names="note">\s*(.*)\s*</record>
+<record repeatCount="1" id="rl3" output="VERBOSE"/>
+<record id="r3" repeatCount="1" formatType="REGEX" names="__name __value"
+   >\s*{I,n:pass}\s*{I,n:from}\s*{I,n:to}\s*{F,n:time}</record>
 </template>

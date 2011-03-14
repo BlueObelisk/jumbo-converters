@@ -59,8 +59,29 @@
 
 
 </comment>
-<!--   >('      Atom:',I5{serial},A3{elem}/8x,A80{type}/3F12.4{row}/3F12.4{row}/3F12.4{row}//8x,A80{type}/3F12.4{row}/3F12.4{row}/3F12.4{row}//8x,A80{type}/3F12.4{row}/3F12.4{row}/3F12.4{row}//'          Principal Components and Axis System'/6x,3I12{col}/10x,3F12.4{values}//I7{row},3X,3F12.4{values})</record>
+<!--   >('      Atom:',{I5,n:serial},{A3,n:elem}/8x,A80{type}/3F12.4{row}/3F12.4{row}/3F12.4{row}//8x,A80{type}/3F12.4{row}/3F12.4{row}/3F12.4{row}//8x,A80{type}/3F12.4{row}/3F12.4{row}/3F12.4{row}//'          Principal Components and Axis System'/6x,3I12{col}/10x,3F12.4{values}//I7{row},3X,3F12.4{values})</record>
  -->
-<record id="r1" formatType="FORTRAN" linesToRead="*" names="serial elem"
-  >('      Atom:',I5{serial},A3{elem}/8x,A80{type}/3F12.4{row}/3F12.4{row}/3F12.4{row}//8x,A80{type}/3F12.4{row}/3F12.4{row}/3F12.4{row}//8x,A80{type}/3F12.4{row}/3F12.4{row}/3F12.4{row}//22x,F13.4{iso}/22x,F13.4{aniso}//'          Principal Components and Axis System'/6x,3I12{col}/10x,3F12.4{values}//I10{row},3F12.4{values}/I10{row},3F12.4{values}/I10{row},3F12.4{values}///)</record>
+<record id="r1" formatType="REGEX" repeatCount="*" names="serial elem" multiple="$"
+  >      Atom:{I5,n:serial}{A3,n:elem}$
+  \s{8}{A,n:type}$
+  {3F12.4,n:row}$
+  {3F12.4,n:row}$
+  {3F12.4,n:row}$
+  \s*$
+  \s{8}{A,n:type}$
+  {3F12.4,n:row}$
+  {3F12.4,n:row}$
+  {3F12.4,n:row}$\s*$
+  \s{8}{A,n:type}$
+  {3F12.4,n:row}$
+  {3F12.4,n:row}$
+  {3F12.4,n:row}$\s*$
+  \s{22}{F13.4,n:iso}$
+  \s{22}{F13.4,n:aniso}$\s*$
+  \s{10}Principal Components and Axis System$
+  \s{6}{3I12,n:col}$
+  \s{10}{3F12.4,n:values}$\s*$
+  {I10,n:row}{3F12.4,n:values}$
+  {I10,n:row}{3F12.4,n:values}$
+  {I10,n:row}{3F12.4,n:values}$\s*$\s*$</record>
 </template>

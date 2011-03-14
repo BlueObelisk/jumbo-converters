@@ -17,8 +17,8 @@
  
 ...
 </comment>
-<readLines linesToRead="3" id="rl1"/>
-<record id="r1" linesToRead="1" formatType="FORTRAN" >(7x,I5,6x,E12.6{occ},4x,E13.6{e},11x,A10{symm})</record>
-<readLines linesToRead="2" id="rl2" output="VERBOSE"/>
-<record id="r2" linesToRead="*" formatType="FORTRAN">(I6{bfn},F14.6{coeff},I3{atom},A3{elem},A6{funct},9x,I6{bfn},F14.6{coeff},I3{atom},A3{elem},A6{funct})</record>
+<record repeatCount="3" id="rl1"/>
+<record id="r1" repeatCount="1" formatType="REGEX" >\s{7}{I5,n:junk}\s{6}{E12.6,n:occ}\s{4}{E13.6,n:e}1\s{A10,n:symm}</record>
+<record repeatCount="2" id="rl2" output="VERBOSE"/>
+<record id="r2" repeatCount="*" formatType="REGEX">{I6,n:bfn}{F14.6,n:coeff}{I3,n:atom}{A3,n:elem}{A6,n:funct}\s{9}{I6,n:bfn}{F14.6,n:coeff}{I3,n:atom}{A3,n:elem}{A6,n:funct}</record>
 </template>

@@ -18,7 +18,7 @@
    55 Torsion                  1     8     7    10         180.00000
   </comment>
   <record id="type" names="type" formatType="REGEX">(.*Z\-matrix \((.*)\))</record>
-<readLines id="rl1" linesToRead="6" output="VERBOSE"/>
-  <record id="stretch" formatType="FORTRAN" linesToRead="*" output="VERBOSE"
-     >(I5{serial},1x,A11{type},1x,A8{name},2x,I4{i},2x,I4{j},2x,I4{k},2x,I4{l},2x,I4{m},2x,F10.5{coordvalue})</record>
+<record id="rl1" repeatCount="6" output="VERBOSE"/>
+  <record id="stretch" formatType="REGEX" repeatCount="*" output="VERBOSE"
+     >{I5,n:serial}\s{A11,n:type}\s{A8,n:name}\s\s{I4,n:i}\s\s{I4,n:j}\s\s{I4,n:k}\s\s{I4,n:l}\s\s{I4,n:m}\s\s{F10.5,n:coordvalue}</record>
 </template>

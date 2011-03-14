@@ -16,8 +16,8 @@
  Forming initial guess at      24.1s
 
 </comment>
-<readLines linesToRead="4" id="rl1"/>
-<record id="r1" linesToRead="*" formatType="FORTRAN" >(8x,A7{ir},I6{count})</record>
-<readLines linesToRead="2" id="rl2"/>
-<record id="r2" linesToRead="1" formatType="FORTRAN" >(25x,F10.1{guess},' ')</record>
+<record repeatCount="4" id="rl1"/>
+<record id="r1" repeatCount="*" formatType="REGEX" >\s{8}{A7,n:ir}{I6,n:count}</record>
+<record repeatCount="2" id="rl2"/>
+<record id="r2" repeatCount="1" formatType="REGEX" >\s{25}{F10.1,n:guess}\s</record>
 </template>

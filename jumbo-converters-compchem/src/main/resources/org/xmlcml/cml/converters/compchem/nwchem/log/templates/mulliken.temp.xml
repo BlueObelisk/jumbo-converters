@@ -11,8 +11,8 @@
  Parallel integral file used     182 records with       0 large values
 
 </comment>
-<readLines linesToRead="5" id="rl1"/>
-<record id="r1" linesToRead="*" formatType="FORTRAN">(I5{serial},A3{elem},I4{num},3x,F6.2{charge},1x,25F6.2{shell}/25F6.2{shell})</record>
-<readLines linesToRead="1" id="rl2" output="VERBOSE"/>
-<record id="r2" linesToRead="*" formatType="FORTRAN">(28x,I8{record},13X,I8{large})</record>
+<record repeatCount="5" id="rl1"/>
+<record id="r1" repeatCount="*" formatType="REGEX">{I,n:serial}{A,n:elem}{I,n:num}{F,n:charge}\s*{25F6.2,n:shell}${25F6.2,n:shell}</record>
+<record repeatCount="1" id="rl2" output="VERBOSE"/>
+<record id="r2" repeatCount="*" formatType="REGEX">\s*{I,n:record}\s*{I,n:large}</record>
 </template>

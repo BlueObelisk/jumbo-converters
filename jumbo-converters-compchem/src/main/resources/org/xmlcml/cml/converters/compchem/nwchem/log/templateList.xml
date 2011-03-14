@@ -1,126 +1,58 @@
-<!DOCTYPE templates SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/compchem.dtd" [
-<!ENTITY acknow     SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/acknow.temp.xml">
-<!ENTITY ang        SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/ang.temp.xml">
-<!ENTITY argument   SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/argument.temp.xml">
-<!ENTITY atmass     SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/atmass.temp.xml">
-<!ENTITY atombasis  SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/atombasis.temp.xml">
-<!ENTITY authors    SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/authors.temp.xml">
-<!ENTITY basis      SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/basis.temp.xml">
-<!ENTITY bassum     SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/bassum.temp.xml">
-<!ENTITY case       SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/case.temp.xml">
-<!ENTITY ccsd       SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/ccsd.temp.xml">
-<!ENTITY ccsdt      SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/ccsdt.temp.xml">
-<!ENTITY center1    SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/center1.temp.xml">
-<!ENTITY center23   SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/center23.temp.xml">
-<!ENTITY centermass SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/centermass.temp.xml">
-<!ENTITY citation   SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/citation.temp.xml">
-<!ENTITY converge   SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/converge.temp.xml">
-<!ENTITY cphf       SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/cphf.temp.xml">
-<!ENTITY directmp2  SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/directmp2.temp.xml">
-<!ENTITY dirinfo    SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/dirinfo.temp.xml">
-<!ENTITY dist       SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/dist.temp.xml">
-<!ENTITY dft        SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/dft.temp.xml">
-<!ENTITY dftvector  SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/dftvector.temp.xml">
-<!ENTITY eigen      SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/eigen.temp.xml">
-<!ENTITY finalrhf   SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/finalrhf.temp.xml">
-<!ENTITY fourindex  SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/fourindex.temp.xml">
-<!ENTITY gastats    SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/gastats.temp.xml">
-<!ENTITY geninfo    SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/geninfo.temp.xml">    
-<!ENTITY geom       SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/geom.temp.xml">    
-<!ENTITY global     SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/global.temp.xml">
-<!ENTITY grid       SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/grid.temp.xml">
-<!ENTITY ignore     SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/ignore.temp.xml">
-<!ENTITY input      SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/input.temp.xml">
-<!ENTITY job        SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/job.temp.xml">
-<!ENTITY memory     SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/memory.temp.xml">
-<!ENTITY momint     SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/momint.temp.xml">
-<!ENTITY mp2energy  SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/mp2energy.temp.xml">
-<!ENTITY multipole  SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/multipole.temp.xml">
-<!ENTITY mulliken   SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/mulliken.temp.xml">
-<!ENTITY nccp       SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/nccp.temp.xml">
-<!ENTITY nonvar     SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/nonvar.temp.xml">
-<!ENTITY nucdipole  SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/nucdipole.temp.xml">
-<!ENTITY nwcheminp  SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/nwcheminp.temp.xml">
-<!ENTITY nwchemmp2  SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/nwchemmp2.temp.xml">
-<!ENTITY property   SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/property.temp.xml">
-<!ENTITY results    SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/results.temp.xml">
-<!ENTITY rohffinal  SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/rohffinal.temp.xml">
-<!ENTITY scf        SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/scf.temp.xml">
-<!ENTITY screen     SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/screen.temp.xml">
-<!ENTITY shielding  SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/shielding.temp.xml">
-<!ENTITY summary    SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/summary.temp.xml">
-<!ENTITY superpos   SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/superpos.temp.xml">
-<!ENTITY symbas     SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/symbas.temp.xml">
-<!ENTITY symmolorb  SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/symmolorb.temp.xml">
-<!ENTITY symminfo   SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/symminfo.temp.xml">
-<!ENTITY tensor     SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/tensor.temp.xml">
-<!ENTITY xc         SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/xc.temp.xml">
-<!ENTITY xyz        SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/xyz.temp.xml">
-<!ENTITY zmat       SYSTEM "src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates/zmat.temp.xml">
- ]>
-<templates>
-<!-- 
-&bassum;
-&case;
-&center1;
-&dist;
-&global;
-&input;
-&results;
-&scf;
--->
-
-&acknow;
-&ang;
-&argument;
-&atmass;
-&atombasis;
-&authors;
-&ccsd;
-&ccsdt;
-&center23;
-&centermass;
-&citation;
-&converge;
-&cphf;
-&directmp2;
-&dirinfo;
-&dft;
-&dftvector;
-&eigen;
-&finalrhf;
-&fourindex;
-&gastats;
-&geninfo;    
-&geom;    
-&grid;    
-&ignore;
-&job;
-&memory;
-&momint;
-&mp2energy;
-&mulliken;
-&multipole;
-&nccp;
-&nonvar;
-&nucdipole;
-&nwcheminp;
-&nwchemmp2;
-&property;
-&rohffinal;
-&scf;
-&screen;
-&shielding;
-&summary;
-&superpos;
-&symbas;
-&symminfo;
-&symmolorb;
-&tensor;
-&xc;
-&xyz;
-&zmat;
-<!-- this is a very general regex, so at end -->
-&basis;
-
-</templates>
+<?xml version="1.0" encoding="UTF-8"?>
+<template id='nwchem.log' output="VERBOSE">
+  <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
+      <xi:include href="acknow.temp.xml"/>
+      <xi:include href="ang.temp.xml"/>
+      <xi:include href="argument.temp.xml"/>
+      <xi:include href="atmass.temp.xml"/>
+      <xi:include href="atombasis.temp.xml"/>
+      <xi:include href="authors.temp.xml"/>
+      <xi:include href="ccsd.temp.xml"/>
+      <xi:include href="ccsdt.temp.xml"/>
+      <xi:include href="center23.temp.xml"/>
+      <xi:include href="centermass.temp.xml"/>
+      <xi:include href="citation.temp.xml"/>
+      <xi:include href="converge.temp.xml"/>
+      <xi:include href="cphf.temp.xml"/>
+      <xi:include href="directmp2.temp.xml"/>
+      <xi:include href="dirinfo.temp.xml"/>
+      <xi:include href="dft.temp.xml"/>
+      <xi:include href="dftvector.temp.xml"/>
+      <xi:include href="eigen.temp.xml"/>
+      <xi:include href="finalrhf.temp.xml"/>
+      <xi:include href="fourindex.temp.xml"/>
+      <xi:include href="gastats.temp.xml"/>
+      <xi:include href="geninfo.temp.xml"/>    
+      <xi:include href="geom.temp.xml"/>    
+      <xi:include href="grid.temp.xml"/>    
+      <xi:include href="ignore.temp.xml"/>
+      <xi:include href="internuc.temp.xml"/>
+      <xi:include href="internucang.temp.xml"/>
+      <xi:include href="job.temp.xml"/>
+      <xi:include href="memory.temp.xml"/>
+      <xi:include href="momint.temp.xml"/>
+      <xi:include href="mp2energy.temp.xml"/>
+      <xi:include href="mulliken.temp.xml"/>
+      <xi:include href="multipole.temp.xml"/>
+      <xi:include href="nccp.temp.xml"/>
+      <xi:include href="nonvar.temp.xml"/>
+      <xi:include href="nucdipole.temp.xml"/>
+      <xi:include href="nwcheminp.temp.xml"/>
+      <xi:include href="nwchemmp2.temp.xml"/>
+      <xi:include href="property.temp.xml"/>
+      <xi:include href="rohffinal.temp.xml"/>
+      <xi:include href="scf.temp.xml"/>
+      <xi:include href="screen.temp.xml"/>
+      <xi:include href="shielding.temp.xml"/>
+      <xi:include href="summary.temp.xml"/>
+      <xi:include href="superpos.temp.xml"/>
+      <xi:include href="symbas.temp.xml"/>
+      <xi:include href="symminfo.temp.xml"/>
+      <xi:include href="symmolorb.temp.xml"/>
+      <xi:include href="tensor.temp.xml"/>
+      <xi:include href="xc.temp.xml"/>
+      <xi:include href="xyz.temp.xml"/>
+      <xi:include href="zmat.temp.xml"/>
+      <xi:include href="basis.temp.xml"/>
+  </templateList>
+</template>

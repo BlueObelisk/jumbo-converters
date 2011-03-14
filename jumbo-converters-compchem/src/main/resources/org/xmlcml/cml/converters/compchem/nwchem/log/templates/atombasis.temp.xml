@@ -31,7 +31,7 @@
  13 D  7.30000000E-02  1.000000
 </comment>
   <record formatType="REGEX" id="elem" names="tag element">\s\s([A-Za-z]+)\s+\((.*)\)</record> 
-  <readLines id="r1" linesToRead="3"/>
-  <record linesToRead="*" formatType="FORTRAN" id="orbital"
-      >(I3{serial},A2{morb},E16.8{coeff},F10.6{weight}/)</record> 
+  <record id="r1" repeatCount="3"/>
+  <record repeatCount="*" formatType="REGEX" id="orbital"
+      >{I,n:serial},{A,n:morb},{E,n:coeff}{F,n:weight}</record> 
 </template>

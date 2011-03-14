@@ -10,11 +10,11 @@
  o                     0.77109980    -2.87778364     0.00000000
 
   </comment>
-  <readLines id="rl1">
+  <record id="rl1">
             XYZ format geometry
             -------------------
-</readLines>
-  <record id="atoms" formatType="FORTRAN" makeArray="true">(I6{natoms},/,A{geom},/)</record>
-  <record formatType="FORTRAN" makeArray="true" linesToRead="*" 
-      id="mol">(1X,A10{atomtype},7x,3F15.8{xyz},/)</record>
+</record>
+  <record id="atoms" formatType="REGEX" makeArray="true" multiple="$">{I6,n:natoms}${A,n:geom}$\s*</record>
+  <record formatType="REGEX" makeArray="true" repeatCount="*" 
+      id="mol">\s{A10,n:atomtype}\s{7}{3F15.8,n:xyz}</record>
 </template>

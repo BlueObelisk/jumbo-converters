@@ -13,13 +13,13 @@
      1    2    4    6    9
 
   </comment>
-  <readLines id="rl1" linesToRead="3"/>
-  <record formatType="FORTRAN" id="symminfo">
-(23X,A99{name},/,
-23X,I5{number},/,
-23X,I5{order},/,
-23X,I5{centers})
+  <record id="rl1" repeatCount="3"/>
+  <record formatType="REGEX" id="symminfo">
+\s{23}{A99,n:name}$
+\s{23}{I5,n:number}$
+\s{23}{I5,n:order}$
+\s{23}{I5,n:centers}
   </record>
-  <readLines id="rl1" linesToRead="3"/>
-  <record id="symminfo" linesToRead="*" formatType="FORTRAN">(1X,*I5{row})</record>
+  <record id="rl1" repeatCount="3"/>
+  <record id="symminfo" repeatCount="*" formatType="REGEX">\s*{I5,n:row}</record>
  </template>

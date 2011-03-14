@@ -23,11 +23,11 @@
 
 
 </comment>
-  <readLines id="r1" linesToRead="5"/>
+  <record id="r1" repeatCount="5"/>
   <!--  
-  <record id="orbs" formatType="FORTRAN" linesToRead="*"
-      >(5x,I1{l},2x,I2{x},I2{y},I2{z},F14.6{total},F14.6{alpha},F14.6{beta},F14.6{nuclear})</record>
+  <record id="orbs" formatType="REGEX" repeatCount="*"
+      >(5x,I1{l}ssI2{x},I2{y},I2{z},F14.6{total},F14.6{alpha},F14.6{beta},F14.6{nuclear})</record>
       -->
-  <record id="orbs" formatType="REGEX" linesToRead="*" names="l x y z total alpha beta nuclear"
+  <record id="orbs" formatType="REGEX" repeatCount="*" names="l x y z total alpha beta nuclear"
       >(?:\s{4}([ \d]\d)\s{2}([ \d]\d)([ \d]\d)([ \d]\d)\s{2}(\s*\-?\d+\.\d+)\s{2}(\s*\-?\d+\.\d+)\s{2}(\s*\-?\d+\.\d+)\s{2}(\s*\-?\d+\.\d+))|^\s*$</record>
 </template>

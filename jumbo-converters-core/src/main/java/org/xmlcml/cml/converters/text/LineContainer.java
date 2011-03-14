@@ -124,7 +124,7 @@ public class LineContainer {
 				}
 			}
 		}
-		LOG.debug("Range to match: "+range);
+		LOG.trace("Range to match: "+range);
 		return range;
 	}
 
@@ -134,7 +134,7 @@ public class LineContainer {
 			Node node = linesElement.getChild(i + startIndex);
 			String value = node.getValue();
 			Pattern pattern = contiguousPatterns.get(i);
-			LOG.debug("contiguous pattern matching ["+value+"] against ["+pattern+"]");
+			LOG.trace("contiguous pattern matching ["+value+"] against ["+pattern+"]");
 			Matcher matcher = pattern.matcher(value);
 			if (!matcher.matches()) {
 				return false;
