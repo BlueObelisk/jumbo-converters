@@ -1,9 +1,11 @@
-package org.xml.cml.converters.cif.dict.units;
+package org.xmlcml.converters.cif.dict.units;
 
 import static org.junit.Assert.*;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.xmlcml.converters.cif.dict.units.CIFUnitMapper;
+import org.xmlcml.converters.cif.dict.units.CifUnit;
 
 public class CIFUnitMapperTest {
 

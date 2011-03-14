@@ -1,4 +1,4 @@
-package org.xml.cml.converters.cif.dict.units;
+package org.xmlcml.converters.cif.dict.units;
 
 public enum UnitDictionaries {
     nonSi("nonSi","http://www.xml-cml.org/unit/nonSi/"),

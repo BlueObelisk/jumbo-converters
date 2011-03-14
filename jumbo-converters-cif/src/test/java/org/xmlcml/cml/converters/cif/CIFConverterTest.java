@@ -15,6 +15,7 @@ import nu.xom.Serializer;
 import nu.xom.XPathContext;
 
 import org.apache.commons.io.IOUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xmlcml.cif.CIF;
 import org.xmlcml.cif.CIFDataBlock;
@@ -80,6 +81,21 @@ public class CIFConverterTest {
         CMLElement cml = (CMLElement) conv.convertToXML(raw);
         Nodes nodes=cml.query("//cml:property/cml:scalar[@dataType=\"xsd:double\"]", CMLConstants.CML_XPATH);
         Assert.assertEquals(83, nodes.size());
+    }
+ 
+    @Ignore
+    @Test
+    public void convertRawToComplete2() throws IOException {
+        List<String> stringList = (List<String>) IOUtils.readLines(this.getClass().getResourceAsStream("/zs2096.cif"));
+        CIF2CIFXMLConverter cif2cifxml = new CIF2CIFXMLConverter();
+        CIF cif = cif2cifxml.parseLegacy(stringList);
+        CIFXML2CMLConverter cifxml2cml = new CIFXML2CMLConverter();
+        Element raw = cifxml2cml.convertToXML(cif);
+        RawCML2CompleteCMLConverter conv = new RawCML2CompleteCMLConverter();
+        CMLElement cml = (CMLElement) conv.convertToXML(raw);
+        Serializer ser= new Serializer(new FileOutputStream(new File("target/zs2096.cml")));
+        ser.setIndent(2);
+        ser.write(new Document(cml));
     }
     
 }

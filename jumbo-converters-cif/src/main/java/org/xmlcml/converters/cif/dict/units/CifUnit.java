@@ -1,4 +1,4 @@
-package org.xml.cml.converters.cif.dict.units;
+package org.xmlcml.converters.cif.dict.units;
 
 import org.xmlcml.cml.converters.cif.dict.UnitsDictionary;
 
