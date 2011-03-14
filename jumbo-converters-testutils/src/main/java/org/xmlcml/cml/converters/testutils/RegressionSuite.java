@@ -45,15 +45,26 @@ public class RegressionSuite {
 	private String inputSuffix;
 	private String outputSuffix;
 	private Converter converter;
+	private boolean normalizeWhite;
 
 	public static void run(String localDirName, String inputSuffix,
-			String outputSuffix, Converter converter) {
+			String outputSuffix, Converter converter, boolean normalizeWhite) {
 		RegressionSuite rs = new RegressionSuite();
 		rs.setLocalDirName(localDirName);
 		rs.setInputSuffix(inputSuffix);
 		rs.setOutputSuffix(outputSuffix);
 		rs.setConverter(converter);
+		rs.setNormalizeWhite(normalizeWhite);
 		rs.run();
+	}
+
+	private void setNormalizeWhite(boolean normalizeWhite) {
+		this.normalizeWhite = normalizeWhite;
+	}
+
+	public static void run(String localDirName, String inputSuffix,
+			String outputSuffix, Converter converter) {
+		run(localDirName, inputSuffix, outputSuffix, converter, false);
 	}
 
 	private void compare(File refFile, File outFile) {

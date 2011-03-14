@@ -25,7 +25,7 @@
    19    -.0460
  
 </comment>
-<readLines linesToRead="3" id="rl1"/>
-<record id="r1" linesToRead="1" formatType="FORTRAN">(5x,I10{col})</record>
-<record id="r2" linesToRead="*" formatType="FORTRAN">(I5{row},F10.4{value})</record>
+<record repeatCount="3" id="rl1"/>
+<record id="r1" repeatCount="1" formatType="REGEX">\s{5}{I10,n:col}</record>
+<record id="r2" repeatCount="*" formatType="REGEX">{I5,n:row},{F10.4,n:value}</record>
 </template>

@@ -5,7 +5,7 @@
  x =   0.00000000 y =   0.00000000 z =   0.00000000
 
   </comment>
-  <readLines id="rl1" linesToRead="2"/>
-  <record formatType="FORTRAN" id="centermass" linesToRead="*" output="NONE"
-      >(' x =',F13.8{x},' y =',F13.8{y},' z =',F13.8{z})</record>
+  <record id="rl1" repeatCount="2"/>
+  <record formatType="REGEX" id="centermass" repeatCount="*" output="NONE"
+      >\s*x ={F,n:x}\s*y ={F,n:y}\s*z ={F,n:z}</record>
 </template>

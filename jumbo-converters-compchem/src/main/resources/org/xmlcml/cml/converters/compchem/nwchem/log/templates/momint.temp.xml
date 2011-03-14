@@ -1,4 +1,4 @@
-<template id="momint" name="moments of inertia" pattern="(moments of inertia).*">
+<template id="momint" name="moments of inertia" pattern="\s+moments of inertia.*" endPattern="\s*">
   <comment>
  moments of inertia (a.u.)
  ------------------
@@ -7,7 +7,7 @@
            0.000000000000           0.000000000000        1950.260605202691
 
   </comment>    
-  <readLines id="rl1" linesToRead="2"/>
-  <record id="mat" formatType="FORTRAN" linesToRead="3">(3F25.12{row})</record>
+  <record id="rl1" repeatCount="2">{X,a:b}</record>
+  <record id="mat" formatType="REGEX" repeatCount="3">{F25.12,n:mx}{F25.12,n:my}{F25.12,n:mz}</record>
 
 </template>

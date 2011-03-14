@@ -1,0 +1,30 @@
+<template id="momint" name="internuclear distances" multiple="$" pattern="\s*internuclear distances\s*" 
+endPattern="\s=*">
+  <comment>
+ ==============================================================================
+                                internuclear distances
+ ------------------------------------------------------------------------------
+       center one      |      center two      | atomic units |       a.u.
+ ------------------------------------------------------------------------------
+    2 c                |   1 fe               |     3.41436  |     3.41436
+    3 c                |   1 fe               |     3.41436  |     3.41436
+    4 o                |   2 c                |     2.17697  |     2.17697
+    5 o                |   3 c                |     2.17697  |     2.17697
+    6 c                |   1 fe               |     3.45310  |     3.45310
+    7 c                |   1 fe               |     3.45310  |     3.45310
+    8 c                |   1 fe               |     3.45310  |     3.45310
+    9 o                |   6 c                |     2.17696  |     2.17696
+   10 o                |   7 c                |     2.17696  |     2.17696
+   11 o                |   8 c                |     2.17696  |     2.17696
+ ------------------------------------------------------------------------------
+                         number of included internuclear distances:         10
+ ==============================================================================
+  </comment>    
+  <record id="rl1" repeatCount="4">{X,a:b}</record>
+  <record id="dist" formatType="REGEX" makeArray="true" repeatCount="*"
+  >{I,n:ser1}{A,n:elem1}\s*\|\s*{I,n:ser2}{A,n:elem2}\|{F,n:dist1}\|{F,n:dist1}</record>
+  <record id="rl1" >.*{X,a:b}</record>
+  <record id="rl1" >\s*number of included internuclear distances.*\s*{I,a:b}</record>
+  <record id="rl1" >.*{X,a:b}</record>
+
+</template>

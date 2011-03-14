@@ -20,15 +20,15 @@
   </comment>
   <record id="type" names="type" formatType="REGEX" output="VERBOSE"
       > *Symmetry analysis of molecular orbitals \- (.*)</record>
-  <readLines id="rl1" linesToRead="4" output="VERBOSE"/>
+  <record id="rl1" repeatCount="4" output="VERBOSE"/>
   <!-- does not work -->
   <!-- 
-   <record id="irred" linesToRead="*" formatType="FORTRAN" output="VERBOSE"
-    >(*(I6{serial},1x,A7{ir}))</record>
+   <record id="irred" repeatCount="*" formatType="REGEX" output="VERBOSE"
+    >*({I6,n:serial},\s{A7,n:ir})</record>
     -->
-  <record id="irred" linesToRead="*" formatType="FORTRAN" output="VERBOSE"
-    >(I6{serial},1x,A7{ir},I6{serial},1x,A7{ir},I6{serial},1x,A7{ir},I6{serial},1x,A7{ir},I6{serial},1x,A7{ir})</record>
-  <readLines id="rl2" linesToRead="3"/>
-  <record id="orbsym" linesToRead="*" formatType="FORTRAN" output="VERBOSE"
-    >(I6{serial},1x,A7{ir},I6{serial},1x,A7{ir},I6{serial},1x,A7{ir},I6{serial},1x,A7{ir},I6{serial},1x,A7{ir})</record>
+  <record id="irred" repeatCount="*" formatType="REGEX" output="VERBOSE"
+    >{I6,n:serial}\s{A7,n:ir}{I6,n:serial}\s{A7,n:ir}{I6,n:serial}\s{A7,n:ir}{I6,n:serial}\s{A7,n:ir}{I6,n:serial}\s{A7,n:ir}</record>
+  <record id="rl2" repeatCount="3"/>
+  <record id="orbsym" repeatCount="*" formatType="REGEX" output="VERBOSE"
+    >{I6,n:serial}\s{A7,n:ir}{I6,n:serial}\s{A7,n:ir}{I6,n:serial}\s{A7,n:ir}{I6,n:serial}\s{A7,n:ir}{I6,n:serial}\s{A7,n:ir}</record>
 </template>

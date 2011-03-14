@@ -1,0 +1,24 @@
+<template id="momint" name="internuclear distances" multiple="$" pattern="\s*internuclear distances\s*" 
+endPattern="\s=*">
+  <comment>
+ ==============================================================================
+                                 internuclear angles
+ ------------------------------------------------------------------------------
+        center 1       |       center 2       |       center 3       |  degrees
+ ------------------------------------------------------------------------------
+    2 c                |   1 fe               |   3 c                |   180.00
+    2 c                |   1 fe               |   6 c                |    90.00
+    1 fe               |   7 c                |  10 o                |   180.00
+    1 fe               |   8 c                |  11 o                |   180.00
+ ------------------------------------------------------------------------------
+                            number of included internuclear angles:         15
+ ==============================================================================
+  </comment>    
+  <record id="rl1" repeatCount="4">{X,a:b}</record>
+  <record id="dist" formatType="REGEX" makeArray="true" repeatCount="*"
+  >{I,n:ser1}{A,n:elem1}\s*\|\s*{I,n:ser2}{A,n:elem2}\|{I,n:ser3}{A,n:elem3}\s*\|{F,n:ang1}</record>
+  <record id="rl1" >.*{X,a:b}</record>
+  <record id="rl1" >\s*number of included internuclear distances.*\s*{I,a:b}</record>
+  <record id="rl1" >.*{X,a:b}</record>
+
+</template>

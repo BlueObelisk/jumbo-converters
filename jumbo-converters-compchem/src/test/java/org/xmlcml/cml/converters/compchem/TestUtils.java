@@ -25,6 +25,7 @@ public class TestUtils {
 		Assert.assertTrue(true);
 	}
 	
+	
 	/**
 	 * runs test on name.in input against ref name.xml 
 	 * generates full resourcename from class of converter
@@ -32,11 +33,23 @@ public class TestUtils {
 	 * @param name
 	 */
 	public static void runConverterTest(Converter converter, String resourcePathLines, String resourcePathXML) {
+		runConverterTest(converter, resourcePathLines, resourcePathXML, false);
+	}
+
+	/**
+	 * runs test on name.in input against ref name.xml 
+	 * generates full resourcename from class of converter
+	 * @param converter
+	 * @param name
+	 */
+	public static void runConverterTest(Converter converter, String resourcePathLines, String resourcePathXML, boolean normalizeText) {
 		List<String> lines = readLines(resourcePathLines);
 		Element xmlOut = converter.convertToXML(lines);
-		CMLUtil.debug(xmlOut, "XX");
 		Element xmlRef = readXml(resourcePathXML);
 		try {
+			if (normalizeText) {
+				CMLUtil.normalizeWhitespaceInTextNodes(xmlOut);
+			}
 			JumboTestUtils.assertEqualsIncludingFloat(resourcePathLines, xmlRef, xmlOut, true, 0.00000001);
 		} catch (Exception e) {
 			System.out.println("============XMLDIFF failure=============");

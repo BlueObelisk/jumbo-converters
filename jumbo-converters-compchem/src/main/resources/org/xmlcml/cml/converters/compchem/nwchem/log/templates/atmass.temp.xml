@@ -7,9 +7,7 @@
       c                 12.000000
       o                 15.994910
   </comment>
-  <readLines id="rl1" formatType="FORTRAN">
-('      Atomic Mass',/,'      -----------',/)
-  </readLines>
-  <record formatType="FORTRAN" id="atmass" makeArray="true" linesToRead="*"
-      >('      ',A10{tag},F17.6{mass})</record>
+  <record id="rl1" formatType="REGEX">{X}</record>
+  <record formatType="REGEX" id="atmass" makeArray="true" 
+     repeatCount="*">\s*{A,n:tag}{F,n:mass}</record>
 </template>
