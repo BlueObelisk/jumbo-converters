@@ -1,4 +1,4 @@
-package org.xml.cml.converters.cif.dict.units;
+package org.xmlcml.converters.cif.dict.units;
 
 import java.util.HashMap;
 import java.util.Map;
