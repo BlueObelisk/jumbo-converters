@@ -261,6 +261,9 @@ public class Template implements MarkupApplier {
 			} else if (TemplateListElement.TAG.equals(name)) {
 				TemplateListElement templateContainer = new TemplateListElement(childElement);
 				markerList.add(templateContainer);
+			} else if (TransformElement.TAG.equals(name)) {
+				TransformElement transformer = new TransformElement(childElement);
+				markerList.add(transformer);
 			} else {
 				CMLUtil.debug(theElement, "UNKNOWN CHILD");
 				throw new RuntimeException("unknown child: "+name);

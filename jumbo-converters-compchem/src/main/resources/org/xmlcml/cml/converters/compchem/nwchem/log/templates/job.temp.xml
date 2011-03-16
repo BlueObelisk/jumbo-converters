@@ -19,8 +19,17 @@
         time left     =     -1s
 
     </comment>
-<record repeatCount="3">{X,n:skip}</record>
-<record repeatCount="*">\s*{X,n:name}\s*\=\s*{X,n:value}\s*</record>
-<record>{X,n:skip}</record>
-<record repeatCount="*">\s*{X,n:name}\s*\=\s*{X,n:value}\s*</record>
+  <record repeatCount="3">{X,n:skip}</record>
+  <record id="list1" repeatCount="*">\s*{X,n:name}\s*\=\s*{X,n:value}\s*</record>
+  <record>{X,n:skip}</record>
+  <record id="list2" repeatCount="*">\s*{X,n:name}\s*\=\s*{X,n:value}\s*</record>
+  <transform>
+  <!-- 
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:name">compiled</scalar> 
+      <scalar dataType="xsd:string" dictRef="n:value">Fri_Aug_06_13:42:42_2010</scalar> 
+    </list>
+   -->
+    
+  </transform>
 </template>
