@@ -1,10 +1,44 @@
-<template id="basis" name="Basis" pattern=".*Basis .*">
+<template repeatCount="*"  id="basis" name="Basis" 
+  pattern=".*Basis .*$\s+\-+.*" multiple="$" endPattern="\s*$\s*$\s*">
   <comment>
                       Basis "ao basis" -> "" (cartesian)
                       -----
-</comment>
-  <record id="basis" formatType="REGEX" repeatCount="1" 
-    names="basis geom">\s*Basis\s"([^"]+)"\s\-&gt;\s\"\"\s\(([^\)]*)\)\s*</record>
-<!-- FIXME -->
-  <record id="r1" repeatCount="2"/>
+  o (Oxygen)
+  ----------
+            Exponent  Coefficients 
+       -------------- ---------------------------------------------------------
+  1 S  5.22290220E+03 -0.001936
+  1 S  7.82539940E+02 -0.014851
+  1 S  1.77267430E+02 -0.073319
+  1 S  4.95166880E+01 -0.245116
+  1 S  1.56664400E+01 -0.480285
+  1 S  5.17935990E+00 -0.335943
+
+  2 S  1.06014410E+01  0.078806
+  2 S  9.42317000E-01 -0.567695
+
+  3 S  2.77474600E-01  1.000000
+  </comment>
+  <record repeatCount="2">{X,n:top}</record>
+  <templateList>
+  <!-- 
+  o (Oxygen)
+  - - - - - 
+ -->
+     <template repeatCount="*" id="exponent" pattern="\s*Exponent.*$\s*\-+\s*\-+\s*" 
+         multiple="$" endPattern=".*$\s*\-+\s*">
+       <record repeatCount="2">{X,n:exp}</record>
+       <templateList>
+         <template id="shell" repeatCount="*" pattern="\s*\d+\s*\S+\s*.*" 
+            endPattern="\s*">
+           <record id="aaa" repeatCount="*">\s*{I,n:shell}\s*{A,n:orb}\s*{E,n:exp}\s*{F,n:wt}.*</record>
+         </template>
+       </templateList>
+     </template> 
+     <template repeatCount="*" id="elem" multiple="$"
+       pattern="\s*\S+\s*\([^\)]*\).*$\s*\-+\s*\-+\s*">
+       <record id="elem">\s*{A,n:tag}\s*\({A,n:elem}\).*</record>
+       <record>{X}</record>
+     </template> 
+  </templateList>
 </template>

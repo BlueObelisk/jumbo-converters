@@ -1,4 +1,5 @@
-<template id="xyz" name="XYZ format geometry" pattern="XYZ format geometry">
+<template repeatCount="*"  id="xyz" name="XYZ format geometry" 
+  pattern="\s*XYZ format geometry$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
   <comment>
             XYZ format geometry
             -------------------
@@ -10,10 +11,7 @@
  o                     0.77109980    -2.87778364     0.00000000
 
   </comment>
-  <record id="rl1">
-            XYZ format geometry
-            -------------------
-</record>
+  <record repeatCount="2">{X}</record>
   <record id="atoms" formatType="REGEX" makeArray="true" multiple="$">{I6,n:natoms}${A,n:geom}$\s*</record>
   <record formatType="REGEX" makeArray="true" repeatCount="*" 
       id="mol">\s{A10,n:atomtype}\s{7}{3F15.8,n:xyz}</record>

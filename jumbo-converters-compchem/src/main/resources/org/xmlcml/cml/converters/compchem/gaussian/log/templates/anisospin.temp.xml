@@ -14,12 +14,25 @@
      2 O(17)  Bbb     0.0000     0.000     0.000     0.000 -0.0071  0.9993 -0.0358
               Bcc     0.0000     0.000     0.000     0.000  0.5898  0.0331  0.8069
   </comment>
-  <record repeatCount="5" formatType="REGEX">(.*)</record>
-  <record formatType="REGEX" id="baa" multiple="$" repeatCount="*"
+  <record repeatCount="5">{X,g:x}</record>
+  <record formatType="REGEX" id="AAA" multiple="$" repeatCount="*"
+        >{A,g:baa}{F,gau:au}{F,gau:mhz}{F,gau:gauss}{F,gau:cm-1}{F,gau:x}{F,gau:y}{F,gau:z}</record>
+ <!-- 
+  <record formatType="REGEX" id="AAA" multiple="$" repeatCount="1" >
+        {I,gau:ser}{A,gau:elem}{A,gau:bbb}{A,gau:au}{A,gau:mhz}{A,gau:gauss}{A,gau:cm1}{A,gau:x}{A,gau:y}{F,gau:z}
+        </record>
+        -->
+  <record id="test" repeatCount="*" >\s*{I,gau:elem}{X,x:nnn}</record>
+         <!-- 
+  <record formatType="REGEX" id="baa" multiple="$" repeatCount="1" 
         >{A,g:baa}{F,gau:au}{F,gau:mhz}{F,gau:gauss}{F,gau:cm-1}{F,gau:x}{F,gau:y}{F,gau:z}$
-        {I,gau:ser}{A,gau:elem}{A,gau:bbb}{A,gau:au}{A,gau:mhz}{A,gau:gauss}{A,gau:cm1}{A,gau:x}{A,gau:y}{F,gau:z}$
+        {I,gau:ser}{A,gau:elem}{A,gau:bbb}{A,gau:au}{A,gau:mhz}{A,gau:gauss}{A,gau:cm1}{A,gau:x}{A,gau:y}{F,gau:z}
+        </record>
+        -->
+        <!-- 
         {A,gau:bcc}{F,gau:au}{F,gau:mhz}{F,gau:gauss}{F,gau:cm-1}{F,gau:x}{F,gau:y}{F,gau:z}$
         \s*</record>
+         -->
   <record/>
-</template>
+ </template>
  

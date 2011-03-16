@@ -1,5 +1,6 @@
-<template id="momint" name="internuclear distances" multiple="$" pattern="\s*internuclear distances\s*" 
-endPattern="\s=*">
+<template repeatCount="*"  id="internuc" name="internuclear distances" multiple="$"
+  pattern="\s*\=+$\s*internuclear distances\s*"  endPattern="\s*\=+\s*"
+  endOffset="1">
   <comment>
  ==============================================================================
                                 internuclear distances
@@ -20,11 +21,11 @@ endPattern="\s=*">
                          number of included internuclear distances:         10
  ==============================================================================
   </comment>    
-  <record id="rl1" repeatCount="4">{X,a:b}</record>
+  <record repeatCount="2">{X}</record>
   <record id="dist" formatType="REGEX" makeArray="true" repeatCount="*"
   >{I,n:ser1}{A,n:elem1}\s*\|\s*{I,n:ser2}{A,n:elem2}\|{F,n:dist1}\|{F,n:dist1}</record>
   <record id="rl1" >.*{X,a:b}</record>
-  <record id="rl1" >\s*number of included internuclear distances.*\s*{I,a:b}</record>
-  <record id="rl1" >.*{X,a:b}</record>
+  <record id="rlx" >\s*number of included internuclear distances.*\s*{I,a:b}</record>
+  <record>{X}</record>
 
 </template>

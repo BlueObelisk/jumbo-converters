@@ -35,7 +35,7 @@ public class ConverterTest {
 	@Test   public void testNonvar()          {testConverter("nonvar");}
 
     @Test
-    @Ignore    
+    @Ignore // need whitespace comparison
     public void nwchemOut2XML() {
 		TemplateConverter converter = createConverter("org/xmlcml/cml/converters/compchem/nwchem/log/templateList.xml");
         RegressionSuite.run("compchem/nwchem/log", "out", "xml", converter, true);

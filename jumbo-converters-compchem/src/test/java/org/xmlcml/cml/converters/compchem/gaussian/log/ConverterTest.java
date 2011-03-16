@@ -20,14 +20,18 @@ public class ConverterTest {
 	private String fileType = "log";
 	
 //	@Test   public void test101zmat()          {testConverter("l101","zmat");}
+	@Ignore
 	@Test   public void testAnisospin()        {testConverter("anisospin");}
+	@Ignore
 	@Test   public void testAtomicCharges()    {testConverter("atomiccharges");}
 	@Test   public void testCoordinates()      {testConverter("coord");}
+	@Ignore
 	@Test   public void testMulliken()         {testConverter("mulliken");}
 	@Ignore // still some bugs
 	@Test   public void testl716()             {testConverter("l716");}
 
     @Test
+	@Ignore
     public void gaussianOut2XML() {
 		TemplateConverter converter = createConverter("org/xmlcml/cml/converters/compchem/gaussian/log/templateList.xml");
         RegressionSuite.run("compchem/gaussian/log", "log", "xml", converter);

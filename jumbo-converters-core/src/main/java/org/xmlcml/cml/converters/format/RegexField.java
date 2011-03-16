@@ -12,8 +12,8 @@ public class RegexField {
 	private static final String D = "D";
 	private static final String F = "F";
 	private static final String I = "I";
-	static final String X = "X";
-	static final String E = "E";    // scientific notation
+	public static final String X = "X";
+	public static final String E = "E";    // scientific notation
 	
 	private Integer multiplier;
 	private String type;
@@ -98,6 +98,7 @@ public class RegexField {
 		} else if (string.equals(E)) {
 			type = E;
 		} else if (string.equals(X)) {
+//			type = CMLConstants.XSD_STRING;
 			type = X;
 		} else {
 			throw new RuntimeException("bad type: "+string);
@@ -120,7 +121,7 @@ public class RegexField {
 		} else if (type.equals(CMLConstants.XSD_DATE)) {
 			expandedField = RegexProcessor.createDateField(width);
 		} else if (type.equals(X)) {
-			expandedField = RegexProcessor.createSkipField(width);
+			expandedField = RegexProcessor.createAnyField(width);
 		} else {
 			throw new RuntimeException("bad type in: "+context);
 		}

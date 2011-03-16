@@ -1,4 +1,6 @@
-<template id="nwcheminp" name="NWChem Input Module" pattern=".*NWChem Input Module.*">
+<template repeatCount="*"  id="nwcheminpmod" name="NWChem Input Module" 
+  pattern="\s*NWChem Input Module\s*$\s+\-+\s*" 
+  multiple="$" endPattern=".*$\s*\-+\s*">
   <comment>
                                 NWChem Input Module
                                 -------------------
@@ -8,4 +10,5 @@
  SYMMETRY directive was detected!
 
 </comment>
+  <record repeatCount="2">{X}</record>
 </template>
