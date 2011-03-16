@@ -18,8 +18,12 @@
 ..
    55 Torsion                  1     8     7    10         180.00000
   </comment>
-  <record id="type" names="type" formatType="REGEX">(.*Z\-matrix \((.*)\))</record>
-<record id="rl1" repeatCount="6" output="VERBOSE"/>
-  <record id="stretch" formatType="REGEX" repeatCount="*" output="VERBOSE"
-     >{I5,n:serial}\s{A11,n:type}\s{A8,n:name}\s\s{I4,n:i}\s\s{I4,n:j}\s\s{I4,n:k}\s\s{I4,n:l}\s\s{I4,n:m}\s\s{F10.5,n:coordvalue}</record>
+  <record id="type" >\s*Z\-matrix\s*\({X,n:type}\)\s*</record>
+<record repeatCount="6">{X}</record>
+  <record id="stretch" repeatCount="*"
+     >\s*{I5,n:serial}\s*Stretch\s*{I4,n:i}\s*{I4,n:j}\s*{F10.5,n:coordvalue}</record>
+  <record id="bend" repeatCount="*"
+     >\s*{I5,n:serial}\s*Bend\s*{I4,n:i}\s*{I4,n:j}\s*{I4,n:k}\s*{F10.5,n:coordvalue}</record>
+  <record id="torsion" repeatCount="*"
+     >\s*{I5,n:serial}\s*Torsion\s*{I4,n:i}\s*{I4,n:j}\s*{I4,n:k}\s*{F10.5,n:coordvalue}</record>
 </template>

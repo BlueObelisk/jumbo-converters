@@ -19,17 +19,8 @@
         time left     =     -1s
 
     </comment>
-<record id="rl1">
-               Job information
-               ---------------
-    
-</record>
-<!-- <record formatType="PATTERN" id="job" repeatCount="*"> *(.*){A,n:nnname},' *= *',{A,n:vvvalue})</record> -->
-<!--  <record names="__name1 __value1" repeatCount="*" formatType="REGEX" 
-         id="args"> *([^ ][^=]+[^ ]) *= *(.*)</record>-->
-<record names="__name1 __value1" repeatCount="*" formatType="REGEX" 
-         id="args">([^=]*)=(.*)</record>
-<record id="rl1" repeatCount="1"/>
-<record names="__name1 __value1" repeatCount="*" formatType="REGEX" 
-         id="args"> *([^ ][^=]+[^ ]) *= *(.*)</record>
+<record repeatCount="3">{X,n:skip}</record>
+<record repeatCount="*">\s*{X,n:name}\s*\=\s*{X,n:value}\s*</record>
+<record>{X,n:skip}</record>
+<record repeatCount="*">\s*{X,n:name}\s*\=\s*{X,n:value}\s*</record>
 </template>

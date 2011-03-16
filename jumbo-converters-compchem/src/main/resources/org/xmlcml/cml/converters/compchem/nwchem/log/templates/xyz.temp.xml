@@ -11,8 +11,9 @@
  o                     0.77109980    -2.87778364     0.00000000
 
   </comment>
-  <record repeatCount="2">{X}</record>
-  <record id="atoms" formatType="REGEX" makeArray="true" multiple="$">{I6,n:natoms}${A,n:geom}$\s*</record>
-  <record formatType="REGEX" makeArray="true" repeatCount="*" 
-      id="mol">\s{A10,n:atomtype}\s{7}{3F15.8,n:xyz}</record>
+  <record repeatCount="2">{X}\s*</record>
+  <record id="atoms">\s*{I,n:natoms}\s*</record>
+  <record id="geo">\s*{A,n:type}\s*</record>
+  <record makeArray="true" repeatCount="*" 
+      id="mol">\s*{A,n:atomtype}\s*{F,n:x}\s*{F,n:y}\s*{F,n:z}\s*</record>
 </template>

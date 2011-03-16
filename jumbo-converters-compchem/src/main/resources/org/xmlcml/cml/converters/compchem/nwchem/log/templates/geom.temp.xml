@@ -1,4 +1,5 @@
-<template repeatCount="*"  id="geom" name="Geometry" pattern=".*(Geometry).*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeatCount="*"  id="geom" name="Geometry" pattern="\s*Geometry.*$\s+\-+.*"
+ multiple="$" endPattern=".*$\s*\-+\s*">
 <comment>
                              Geometry "geometry" -> ""
                              -------------------------
@@ -12,7 +13,7 @@
     3 c                    6.0000     0.00000000     0.00000000    -3.41435800
     ...
 </comment>
-<record id="rl1" repeatCount="7"/>
+<record id="rl1" repeatCount="7">{X}</record>
 <record id="geom" repeatCount="*" makeArray="true" 
-    formatType="REGEX">{I5,n:x}\s{A16,n:tag}\s{F10.4,n:charge}\s{F14.8,n:x}\s{F14.8,n:y}\s{F14.8,n:z}</record>
+    formatType="REGEX">\s*{I,n:x}\s*{A,n:tag}\s*{F,n:charge}\s*{F,n:x}\s*{F,n:y}\s*{F,n:z}\s*</record>
 </template>
