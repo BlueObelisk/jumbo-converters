@@ -134,7 +134,7 @@ public class LineContainer {
 			Node node = linesElement.getChild(i + startIndex);
 			String value = node.getValue();
 			Pattern pattern = contiguousPatterns.get(i);
-			LOG.trace("contiguous pattern matching ["+value+"] against ["+pattern+"]");
+//			LOG.trace("contiguous pattern matching ["+value+"] against ["+pattern+"]");
 			Matcher matcher = pattern.matcher(value);
 			if (!matcher.matches()) {
 				return false;

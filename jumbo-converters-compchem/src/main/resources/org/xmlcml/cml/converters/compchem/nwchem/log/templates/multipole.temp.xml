@@ -1,4 +1,5 @@
-<template id="multipole" name="Multipole analysis of the density" pattern=".*Multipole analysis of the density.*">
+<template repeatCount="*"  id="multipole" name="Multipole analysis of the density" 
+  pattern=".*Multipole analysis of the density.*$\s*\-+\s*" multiple="$" endPattern=".*$\s*\-+\s*">
   <comment>
      Multipole analysis of the density
      ---------------------------------
@@ -23,11 +24,12 @@
 
 
 </comment>
-  <record id="r1" repeatCount="5"/>
-  <!--  
-  <record id="orbs" formatType="REGEX" repeatCount="*"
-      >(5x,I1{l}ssI2{x},I2{y},I2{z},F14.6{total},F14.6{alpha},F14.6{beta},F14.6{nuclear})</record>
-      -->
-  <record id="orbs" formatType="REGEX" repeatCount="*" names="l x y z total alpha beta nuclear"
-      >(?:\s{4}([ \d]\d)\s{2}([ \d]\d)([ \d]\d)([ \d]\d)\s{2}(\s*\-?\d+\.\d+)\s{2}(\s*\-?\d+\.\d+)\s{2}(\s*\-?\d+\.\d+)\s{2}(\s*\-?\d+\.\d+))|^\s*$</record>
+  <record id="r1" repeatCount="5">{X}</record>
+     2   2 0 0    -53.003653   -270.344905   -270.344905    487.686157
+  <templateList>
+    <template repeatCount="*" id="shell" pattern="\s*\d\s*.*" endPattern="\s*">
+      <record id="orbs" repeatCount="*"
+      >{I,n:i}{I,n:j}{I,n:k}{I,n:l}{F,n:a}{F,n:b}{F,n:c}{F,n:d}.*</record>
+    </template>
+  </templateList>
 </template>

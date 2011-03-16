@@ -1,6 +1,5 @@
-<!--  <template id="ignore" name="Ignore block" pattern=".*DISCLAIMER.*">-->
-<template id="ignore" name="Ignore block" 
-    pattern=".*(?:(?:DISCLAIMER)|(?:LIMITED USE)|(?:ACKNOWLEDGEMENT)).*">
+<template repeatCount="*"  id="ignore" name="Ignore block" 
+    pattern="\s*(?:(?:DISCLAIMER)|(?:LIMITED USE)|(?:CITATION)|(?:ACKNOWLEDGMENT)).*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
   <comment>usable for a range of sections - ignores them all</comment>
   <comment>
                                     DISCLAIMER
@@ -16,6 +15,6 @@
             SOFTWARE, OR PROCESS DISCLOSED, OR REPRESENTS THAT ITS USE
             WOULD NOT INFRINGE PRIVATELY OWNED RIGHTS.
 </comment>
-<record id="r1" formatType="REGEX" names="block">\s*(.*)\s*</record>
-<record repeatCount="1" id="rl1"/>
+<record id="r1" >{X,n:title}</record>
+<record repeatCount="*" id="rl1">{X}</record>
 </template>

@@ -1,5 +1,6 @@
-<template id="nccp" name="Northwest Computational Chemistry Package" 
-        pattern=".*(Northwest Computational Chemistry Package) .*">
+<template repeatCount="*"  id="nccp" name="Northwest Computational Chemistry Package" 
+        pattern=".*(Northwest Computational Chemistry Package) .*$\s+\-+.*" 
+multiple="$" endPattern=".*$\s*\-+\s*">">
   <comment>
       Northwest Computational Chemistry Package (NWChem) 6.0
       ------------------------------------------------------
@@ -17,4 +18,6 @@
       in the LICENSE.TXT file
 
   </comment>
+  <record>{X,n:title}</record>
+  <record repeatCount="*">{X}</record>
 </template>

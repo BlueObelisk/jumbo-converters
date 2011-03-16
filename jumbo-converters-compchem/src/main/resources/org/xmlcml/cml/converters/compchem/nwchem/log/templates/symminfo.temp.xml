@@ -1,4 +1,5 @@
-<template name="Symmetry information" id="symminfo" pattern="Symmetry information">
+<template repeatCount="*"  name="Symmetry information" id="symminfo" 
+  pattern="\s*Symmetry information\s*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
   <comment>
       Symmetry information
       --------------------
@@ -20,6 +21,6 @@
 \s{23}{I5,n:order}$
 \s{23}{I5,n:centers}
   </record>
-  <record id="rl1" repeatCount="3"/>
+  <record repeatCount="3">{X}</record>
   <record id="symminfo" repeatCount="*" formatType="REGEX">\s*{I5,n:row}</record>
  </template>

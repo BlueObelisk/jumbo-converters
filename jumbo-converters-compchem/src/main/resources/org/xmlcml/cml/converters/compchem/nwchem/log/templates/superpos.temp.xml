@@ -1,5 +1,5 @@
-<template id="superpos" name="Superposition of Atomic Density Guess" 
-    pattern="Superposition of Atomic Density Guess.*">
+<template repeatCount="*"  id="screen" name="Superposition of Atomic Density Guess" 
+  pattern="\s*Superposition of Atomic Density Guess.*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
   <comment>
       Superposition of Atomic Density Guess
       -------------------------------------
@@ -7,6 +7,5 @@
  Sum of atomic energies:       -1824.13130503
 
 </comment>
-<record repeatCount="3" id="r1"/>
-<record id="sumatomener" formatType="REGEX">\s*Sum of atomic energies:\s*{F20.12,n:sum}</record>
+  <record repeatCount="2">{X}</record>
 </template>

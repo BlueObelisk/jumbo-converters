@@ -111,21 +111,21 @@ public class RegexProcessor {
 		if (!matcher.matches()) {
 			throw new RuntimeException("Bad symbolic regex: "+string);
 		}
-		if (isSkip(matcher)) {
-			addMultiplier0(null);
-			addType0(RegexField.X);
-			addWidth(matcher);
-			addDecimal0(null);
-			addName0(X_NAME);
-			addUnits0(null);
-		} else {
+//		if (isSkip(matcher)) {
+//			addMultiplier0(null);
+//			addType0(RegexField.X);
+//			addWidth(matcher);
+//			addDecimal0(null);
+//			addName0(X_NAME);
+//			addUnits0(null);
+//		} else {
 			addMultiplier(matcher);
 			addType(matcher);
 			addWidth(matcher);
 			addDecimal(matcher);
 			addName(matcher);
 			addUnits(matcher);
-		}
+//		}
 		String newString = regexField.createExpandedField(string);
 		return newString;
 	}
@@ -190,11 +190,11 @@ public class RegexProcessor {
 		units += " "+unit;
 	}
 
-	public static String createSkipField(Integer width) {
+	public static String createAnyField(Integer width) {
 		String newString;
 		if (width == null || width == 0) {
 			// obviously dangerous if misused
-			newString = ".*";
+			newString = "(.*)";
 		} else {
 			newString = "([.]{"+width+"})";
 		}

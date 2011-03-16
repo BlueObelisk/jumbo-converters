@@ -227,15 +227,18 @@ public abstract class LineReader extends Element implements MarkupApplier {
 	}
 
 	private void processAttributeFormatType() {
-		String formatTypeS = lineReaderElement.getAttributeValue(FORMAT_TYPE);
 		formatType = null;
-		if (formatTypeS != null) {
+		String formatTypeS = lineReaderElement.getAttributeValue(FORMAT_TYPE);
+		if (formatTypeS == null) {
+			formatType = FormatType.REGEX;
+			formatTypeS = formatType.toString();
+		} else {
 			formatType = FormatType.valueOf(formatTypeS);
 			if (formatType == null) {
 				throw new RuntimeException("Unknown formatType: "+formatType);
 			}
-			this.addAttribute(new Attribute(FORMAT_TYPE, formatTypeS));
 		}
+		this.addAttribute(new Attribute(FORMAT_TYPE, formatTypeS));
 	}
 
 	private void processAttributeLinesToRead() {
@@ -327,6 +330,8 @@ public abstract class LineReader extends Element implements MarkupApplier {
 			scalar = new CMLScalar(new Integer(value));
 		} else if (dType.equals(CMLConstants.XSD_DATE)) {
 			scalar = new CMLScalar(JodaDate.parseDate(value));
+		} else if (dType.equals(RegexField.X)) {
+			scalar = new CMLScalar(value);
 		} else {
 			throw new RuntimeException("unsupported data type in creating scalar: "+dType);
 		}

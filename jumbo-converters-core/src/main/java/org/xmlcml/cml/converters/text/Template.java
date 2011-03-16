@@ -1,7 +1,5 @@
 package org.xmlcml.cml.converters.text;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -10,11 +8,6 @@ import nu.xom.Attribute;
 import nu.xom.Element;
 import nu.xom.Elements;
 import nu.xom.Nodes;
-import nu.xom.ParsingException;
-import nu.xom.xinclude.BadParseAttributeException;
-import nu.xom.xinclude.InclusionLoopException;
-import nu.xom.xinclude.NoIncludeLocationException;
-import nu.xom.xinclude.XIncludeException;
 import nu.xom.xinclude.XIncluder;
 
 import org.apache.log4j.Logger;
@@ -28,7 +21,6 @@ import org.xmlcml.cml.converters.format.LineReader.LineType;
 import org.xmlcml.cml.converters.format.RecordReader;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLScalar;
-import org.xmlcml.cml.tools.DisorderToolControls.RemoveControl;
 import org.xmlcml.euclid.Int2;
 
 public class Template implements MarkupApplier {
@@ -150,7 +142,7 @@ public class Template implements MarkupApplier {
 			// special end-of-information symbol
 			endPatternString = EOI;
 		}
-		multipleS = theElement.getAttributeValue(MULTIPLE);
+		processMultiple();
 		
 		outputLevel = Outputter.extractOutputLevel(this.theElement);
 		LOG.trace(outputLevel+"/"+this.theElement.getAttributeValue(Outputter.OUTPUT));
@@ -164,6 +156,20 @@ public class Template implements MarkupApplier {
 		
 		startChunker = new PatternContainer(patternString, multipleS, offset);
 		endChunker = new PatternContainer(endPatternString, multipleS, endOffset);
+	}
+
+	private void processMultiple() {
+		multipleS = theElement.getAttributeValue(MULTIPLE);
+		if (multipleS != null) {
+			multipleS = escape(multipleS);
+		}
+	}
+
+	public static String escape(String s) {
+		if ("\"$%^*-+.".contains(s)) {
+			s =  CMLConstants.S_BACKSLASH+s;
+		}
+		return s;
 	}
 
 	private String[] getStringsFromAttribute(String names) {
