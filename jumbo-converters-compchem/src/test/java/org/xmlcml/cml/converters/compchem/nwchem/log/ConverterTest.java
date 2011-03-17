@@ -5,6 +5,7 @@ import java.io.InputStream;
 import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.xmlcml.cml.converters.compchem.CompchemTemplateConverter;
 import org.xmlcml.cml.converters.compchem.TestUtils;
 import org.xmlcml.cml.converters.testutils.RegressionSuite;
 import org.xmlcml.cml.converters.text.TemplateConverter;
@@ -35,7 +36,7 @@ public class ConverterTest {
 	@Test   public void testNonvar()          {testConverter("nonvar");}
 
     @Test
-    //@Ignore // need whitespace comparison
+    @Ignore // need whitespace comparison
     public void nwchemOut2XML() {
 		TemplateConverter converter = createConverter("org/xmlcml/cml/converters/compchem/nwchem/log/templateList.xml");
         RegressionSuite.run("compchem/nwchem/log", "out", "xml", converter, true);
@@ -54,7 +55,7 @@ public class ConverterTest {
 		TemplateConverter converter = null;
 		try {
 			InputStream templateStream = Util.getInputStreamFromResource(templateXML);
-			converter = TemplateConverter.createTemplateConverter(templateStream, "nwchem", "log");
+			converter = CompchemTemplateConverter.createTemplateConverter(templateStream, "nwchem", "log");
 		} catch (Exception e) {
 			throw new RuntimeException("Cannot make template ", e);
 		}

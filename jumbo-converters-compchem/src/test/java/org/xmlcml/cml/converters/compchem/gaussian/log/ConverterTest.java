@@ -5,6 +5,7 @@ import java.io.InputStream;
 import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.xmlcml.cml.converters.compchem.CompchemTemplateConverter;
 import org.xmlcml.cml.converters.compchem.TestUtils;
 import org.xmlcml.cml.converters.testutils.RegressionSuite;
 import org.xmlcml.cml.converters.text.TemplateConverter;
@@ -57,7 +58,7 @@ public class ConverterTest {
 		TemplateConverter converter = null;
 		try {
 			InputStream templateStream = Util.getInputStreamFromResource(templateXML);
-			converter = TemplateConverter.createTemplateConverter(templateStream, "gaussian", "log");
+			converter = CompchemTemplateConverter.createTemplateConverter(templateStream, "gaussian", "log");
 		} catch (Exception e) {
 			throw new RuntimeException("Cannot make template ", e);
 		}
