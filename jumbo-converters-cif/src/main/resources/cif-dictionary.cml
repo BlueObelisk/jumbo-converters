@@ -19,12 +19,6 @@
         <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">Biso</enumeration>
         <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">Bovl</enumeration>
     </entry>
-    <entry dataType="xsd:float" units="cifUnit:A2">
-        <definition>
-            <xhtml:p> These are the standard anisotropic atomic displacement components in angstroms squared which appear in the structure-factor term T = exp{-(1/4) sum~i~ [ sum~j~ (B^ij^ h~i~ h~j~ a*~i~ a*~j~) ] } h = the Miller indices a* = the reciprocal-space cell lengths The unique elements of the real symmetric matrix are entered by row. The IUCr Commission on Nomenclature recommends against the use of B for reporting atomic displacement parameters. U, being directly proportional to B, is preferred. </xhtml:p>
-        </definition>
-        <superclass xmlns="">atom_site</superclass>
-    </entry>
     <entry dataType="xsd:float" units="cifUnit:A2" term="atom_site_aniso_b_11" id="atom_site_aniso_b_11">
         <definition>
             <xhtml:p> These are the standard anisotropic atomic displacement components in angstroms squared which appear in the structure-factor term T = exp{-(1/4) sum~i~ [ sum~j~ (B^ij^ h~i~ h~j~ a*~i~ a*~j~) ] } h = the Miller indices a* = the reciprocal-space cell lengths The unique elements of the real symmetric matrix are entered by row. The IUCr Commission on Nomenclature recommends against the use of B for reporting atomic displacement parameters. U, being directly proportional to B, is preferred. </xhtml:p>
@@ -103,12 +97,6 @@
         </description>
         <definition>
             <xhtml:p> This _atom_type_symbol code links the anisotropic atom parameters to the atom-type data associated with this site and must match one of the _atom_type_symbol codes in this list. </xhtml:p>
-        </definition>
-        <superclass xmlns="">atom_site</superclass>
-    </entry>
-    <entry dataType="xsd:float" units="cifUnit:A2">
-        <definition>
-            <xhtml:p> These are the standard anisotropic atomic displacement components in angstroms squared which appear in the structure-factor term T = exp{-2pi^2^ sum~i~ [sum~j~ (U^ij^ h~i~ h~j~ a*~i~ a*~j~) ] } h = the Miller indices a* = the reciprocal-space cell lengths The unique elements of the real symmetric matrix are entered by row. </xhtml:p>
         </definition>
         <superclass xmlns="">atom_site</superclass>
     </entry>
@@ -215,12 +203,6 @@
         <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">c</enumeration>
         <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">dum</enumeration>
     </entry>
-    <entry dataType="xsd:float" units="cifUnit:A">
-        <definition>
-            <xhtml:p> The atom-site coordinates in angstroms specified according to a set of orthogonal Cartesian axes related to the cell axes as specified by the _atom_sites_Cartn_transform_axes description. </xhtml:p>
-        </definition>
-        <superclass xmlns="">atom_site</superclass>
-    </entry>
     <entry dataType="xsd:float" units="cifUnit:A" term="atom_site_cartn_x" id="atom_site_cartn_x">
         <definition>
             <xhtml:p> The atom-site coordinates in angstroms specified according to a set of orthogonal Cartesian axes related to the cell axes as specified by the _atom_sites_Cartn_transform_axes description. </xhtml:p>
@@ -293,12 +275,6 @@
         </definition>
         <superclass xmlns="">atom_site</superclass>
     </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> Atom-site coordinates as fractions of the _cell_length_ values. </xhtml:p>
-        </definition>
-        <superclass xmlns="">atom_site</superclass>
-    </entry>
     <entry dataType="xsd:float" term="atom_site_fract_x" id="atom_site_fract_x">
         <definition>
             <xhtml:p> Atom-site coordinates as fractions of the _cell_length_ values. </xhtml:p>
@@ -332,12 +308,6 @@
         </description>
         <definition>
             <xhtml:p> The _atom_site_label is a unique identifier for a particular site in the crystal. This code is made up of a sequence of up to seven components, _atom_site_label_component_0 to *_6, which may be specified as separate data items. Component 0 usually matches one of the specified _atom_type_symbol codes. This is not mandatory if an _atom_site_type_symbol item is included in the atom-site list. The _atom_site_type_symbol always takes precedence over an _atom_site_label in the identification of the atom type. The label components 1 to 6 are optional, and normally only components 0 and 1 are used. Note that components 0 and 1 are concatenated, while all other components, if specified, are separated by an underscore. Underscores are only used if higher-order components exist. If an intermediate component is not used, it may be omitted provided the underscore separators are inserted. For example, the label 'C233__ggg' is acceptable and represents the components C, 233, '' and ggg. Different labels may have a different number of components. </xhtml:p>
-        </definition>
-        <superclass xmlns="">atom_site</superclass>
-    </entry>
-    <entry dataType="xsd:string">
-        <definition>
-            <xhtml:p> Component 0 is normally a code which matches identically with one of the _atom_type_symbol codes. If this is the case, then the rules governing the _atom_type_symbol code apply. If, however, the data item _atom_site_type_symbol is also specified in the atom-site list, component 0 need not match this symbol or adhere to any of the _atom_type_symbol rules. Component 1 is referred to as the "atom number". When component 0 is the atom-type code, it is used to number the sites with the same atom type. This component code must start with at least one digit which is not followed by a + or - sign (to distinguish it from the component 0 rules). Components 2 to 6 contain the identifier, residue, sequence, asymmetry identifier and alternate codes, respectively. These codes may be composed of any characters except an underscore. </xhtml:p>
         </definition>
         <superclass xmlns="">atom_site</superclass>
     </entry>
@@ -549,12 +519,6 @@
         </definition>
         <superclass xmlns="">atom_site</superclass>
     </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> Matrix elements used to transform fractional coordinates in the ATOM_SITE category to Cartesian coordinates. The axial alignments of this transformation are described in _atom_sites_Cartn_transform_axes. The 3 x 1 translation is defined in _atom_sites_Cartn_tran_vector_. x' |11 12 13| x | 1 | ( y' ) Cartesian = |21 22 23| ( y ) fractional + | 2 | z' |31 32 33| z | 3 | </xhtml:p>
-        </definition>
-        <superclass xmlns="">atom_sites</superclass>
-    </entry>
     <entry dataType="xsd:float" term="atom_sites_cartn_tran_matrix_11" id="atom_sites_cartn_tran_matrix_11">
         <definition>
             <xhtml:p> Matrix elements used to transform fractional coordinates in the ATOM_SITE category to Cartesian coordinates. The axial alignments of this transformation are described in _atom_sites_Cartn_transform_axes. The 3 x 1 translation is defined in _atom_sites_Cartn_tran_vector_. x' |11 12 13| x | 1 | ( y' ) Cartesian = |21 22 23| ( y ) fractional + | 2 | z' |31 32 33| z | 3 | </xhtml:p>
@@ -636,12 +600,6 @@
             <xhtml:p>Corresponds to the _atom_sites_cartn_tran_matrix_33 term in the IUCr Core CIF dictionary.</xhtml:p>
         </description>
     </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> Elements of a 3 x 1 translation vector used in the transformation of fractional coordinates in the ATOM_SITE category to Cartesian coordinates. The axial alignments of this transformation are described in _atom_sites_Cartn_transform_axes. x' |11 12 13| x | 1 | ( y' ) Cartesian = |21 22 23| ( y ) fractional + | 2 | z' |31 32 33| z | 3 | </xhtml:p>
-        </definition>
-        <superclass xmlns="">atom_sites</superclass>
-    </entry>
     <entry dataType="xsd:float" term="atom_sites_cartn_tran_vector_1" id="atom_sites_cartn_tran_vector_1">
         <definition>
             <xhtml:p> Elements of a 3 x 1 translation vector used in the transformation of fractional coordinates in the ATOM_SITE category to Cartesian coordinates. The axial alignments of this transformation are described in _atom_sites_Cartn_transform_axes. x' |11 12 13| x | 1 | ( y' ) Cartesian = |21 22 23| ( y ) fractional + | 2 | z' |31 32 33| z | 3 | </xhtml:p>
@@ -675,12 +633,6 @@
         </description>
         <definition>
             <xhtml:p> A description of the relative alignment of the crystal cell axes to the Cartesian orthogonal axes as applied in the transformation matrix _atom_sites_Cartn_tran_matrix_. </xhtml:p>
-        </definition>
-        <superclass xmlns="">atom_sites</superclass>
-    </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> Matrix elements used to transform Cartesian coordinates in the ATOM_SITE category to fractional coordinates. The axial alignments of this transformation are described in _atom_sites_Cartn_transform_axes. The 3 x 1 translation is defined in _atom_sites_fract_tran_vector_. x' |11 12 13| x | 1 | ( y' ) fractional = |21 22 23| ( y ) Cartesian + | 2 | z' |31 32 33| z | 3 | </xhtml:p>
         </definition>
         <superclass xmlns="">atom_sites</superclass>
     </entry>
@@ -765,12 +717,6 @@
             <xhtml:p>Corresponds to the _atom_sites_fract_tran_matrix_33 term in the IUCr Core CIF dictionary.</xhtml:p>
         </description>
     </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> Elements of a 3 x 1 translation vector used in the transformation of Cartesian coordinates in the ATOM_SITE category to fractional coordinates. The axial alignments of this transformation are described in _atom_sites_Cartn_transform_axes. x' |11 12 13| x | 1 | ( y' ) fractional = |21 22 23| ( y ) Cartesian + | 2 | z' |31 32 33| z | 3 | </xhtml:p>
-        </definition>
-        <superclass xmlns="">atom_sites</superclass>
-    </entry>
     <entry dataType="xsd:float" term="atom_sites_fract_tran_vector_1" id="atom_sites_fract_tran_vector_1">
         <definition>
             <xhtml:p> Elements of a 3 x 1 translation vector used in the transformation of Cartesian coordinates in the ATOM_SITE category to fractional coordinates. The axial alignments of this transformation are described in _atom_sites_Cartn_transform_axes. x' |11 12 13| x | 1 | ( y' ) fractional = |21 22 23| ( y ) Cartesian + | 2 | z' |31 32 33| z | 3 | </xhtml:p>
@@ -797,22 +743,6 @@
         <description>
             <xhtml:p>Corresponds to the _atom_sites_fract_tran_vector_3 term in the IUCr Core CIF dictionary.</xhtml:p>
         </description>
-    </entry>
-    <entry dataType="xsd:string">
-        <definition>
-            <xhtml:p> Codes which identify the methods used to locate the initial atom sites. The *_primary code identifies how the first atom sites were determined; the *_secondary code identifies how the remaining non-hydrogen sites were located; and the *_hydrogens code identifies how the hydrogen sites were located. Ref: Sheldrick, G. M., Hauptman, H. A., Weeks, C. M., Miller, R. and Us\'on, I. (2001). Ab initio phasing. In International Tables for Crystallography, Vol. F. Crystallography of biological macromolecules, edited by M. G. Rossmann and E. Arnold, ch. 16.1. Dordrecht: Kluwer Academic Publishers. </xhtml:p>
-        </definition>
-        <superclass xmlns="">atom_sites</superclass>
-        <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">difmap</enumeration>
-        <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">vecmap</enumeration>
-        <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">heavy</enumeration>
-        <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">direct</enumeration>
-        <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">geom</enumeration>
-        <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">disper</enumeration>
-        <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">isomor</enumeration>
-        <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">notdet</enumeration>
-        <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">dual</enumeration>
-        <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">other</enumeration>
     </entry>
     <entry dataType="xsd:string" term="atom_sites_solution_primary" id="atom_sites_solution_primary">
         <definition>
@@ -916,12 +846,6 @@
         </definition>
         <superclass xmlns="">atom_type</superclass>
     </entry>
-    <entry dataType="xsd:float" units="cifUnit:A">
-        <definition>
-            <xhtml:p> The effective intra- and intermolecular bonding radii in angstroms of this atom type. </xhtml:p>
-        </definition>
-        <superclass xmlns="">atom_type</superclass>
-    </entry>
     <entry dataType="xsd:float" units="cifUnit:A" term="atom_type_radius_bond" id="atom_type_radius_bond">
         <definition>
             <xhtml:p> The effective intra- and intermolecular bonding radii in angstroms of this atom type. </xhtml:p>
@@ -939,12 +863,6 @@
         <description>
             <xhtml:p>Corresponds to the _atom_type_radius_contact term in the IUCr Core CIF dictionary.</xhtml:p>
         </description>
-    </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> The Cromer-Mann scattering-factor coefficients used to calculate the scattering factors for this atom type. Ref: International Tables for X-ray Crystallography (1974). Vol. IV, Table 2.2B or International Tables for Crystallography (2004). Vol. C, Tables 6.1.1.4 and 6.1.1.5 </xhtml:p>
-        </definition>
-        <superclass xmlns="">atom_type</superclass>
     </entry>
     <entry dataType="xsd:float" term="atom_type_scat_cromer_mann_a1" id="atom_type_scat_cromer_mann_a1">
         <definition>
@@ -1026,12 +944,6 @@
         <description>
             <xhtml:p>Corresponds to the _atom_type_scat_cromer_mann_c term in the IUCr Core CIF dictionary.</xhtml:p>
         </description>
-    </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> The imaginary and real components of the anomalous-dispersion scattering factor, f'' and f', in electrons for this atom type and the radiation given in _diffrn_radiation_wavelength. </xhtml:p>
-        </definition>
-        <superclass xmlns="">atom_type</superclass>
     </entry>
     <entry dataType="xsd:float" term="atom_type_scat_dispersion_imag" id="atom_type_scat_dispersion_imag">
         <definition>
@@ -1240,12 +1152,6 @@
         </definition>
         <superclass xmlns="">audit_link</superclass>
     </entry>
-    <entry dataType="xsd:float" units="cifUnit:deg">
-        <definition>
-            <xhtml:p> Unit-cell angles of the reported structure in degrees. The values of _refln_index_h, *_k, *_l must correspond to the cell defined by these values and _cell_length_a, *_b and *_c. The values of _diffrn_refln_index_h, *_k, *_l may not correspond to these values if a cell transformation took place following the measurement of the diffraction intensities. See also _diffrn_reflns_transf_matrix_. </xhtml:p>
-        </definition>
-        <superclass xmlns="">cell</superclass>
-    </entry>
     <entry dataType="xsd:float" units="cifUnit:deg" term="cell_angle_alpha" id="cell_angle_alpha">
         <definition>
             <xhtml:p> Unit-cell angles of the reported structure in degrees. The values of _refln_index_h, *_k, *_l must correspond to the cell defined by these values and _cell_length_a, *_b and *_c. The values of _diffrn_refln_index_h, *_k, *_l may not correspond to these values if a cell transformation took place following the measurement of the diffraction intensities. See also _diffrn_reflns_transf_matrix_. </xhtml:p>
@@ -1279,12 +1185,6 @@
         </description>
         <definition>
             <xhtml:p> The number of the formula units in the unit cell as specified by _chemical_formula_structural, _chemical_formula_moiety or _chemical_formula_sum. </xhtml:p>
-        </definition>
-        <superclass xmlns="">cell</superclass>
-    </entry>
-    <entry dataType="xsd:float" units="cifUnit:A">
-        <definition>
-            <xhtml:p> Unit-cell lengths in angstroms corresponding to the structure reported. The values of _refln_index_h, *_k, *_l must correspond to the cell defined by these values and _cell_angle_ values. The values of _diffrn_refln_index_h, *_k, *_l may not correspond to these values if a cell transformation took place following the measurement of the diffraction intensities. See also _diffrn_reflns_transf_matrix_. </xhtml:p>
         </definition>
         <superclass xmlns="">cell</superclass>
     </entry>
@@ -1351,12 +1251,6 @@
         </definition>
         <superclass xmlns="">cell</superclass>
     </entry>
-    <entry dataType="xsd:float" units="cifUnit:deg">
-        <definition>
-            <xhtml:p> The maximum and minimum theta angles of reflections used to measure the unit cell in degrees. </xhtml:p>
-        </definition>
-        <superclass xmlns="">cell</superclass>
-    </entry>
     <entry dataType="xsd:float" units="cifUnit:deg" term="cell_measurement_theta_max" id="cell_measurement_theta_max">
         <definition>
             <xhtml:p> The maximum and minimum theta angles of reflections used to measure the unit cell in degrees. </xhtml:p>
@@ -1381,12 +1275,6 @@
         </description>
         <definition>
             <xhtml:p> The wavelength in angstroms of the radiation used to measure the unit cell. If this is not specified, the wavelength is assumed to be the same as that given in _diffrn_radiation_wavelength. </xhtml:p>
-        </definition>
-        <superclass xmlns="">cell</superclass>
-    </entry>
-    <entry dataType="xsd:float" units="cifUnit:deg">
-        <definition>
-            <xhtml:p> The angles defining the reciprocal cell in degrees. These are related to those in the real cell by: cos(recip-alpha) = [cos(beta)*cos(gamma) - cos(alpha)]/[sin(beta)*sin(gamma)] cos(recip-beta) = [cos(gamma)*cos(alpha) - cos(beta)]/[sin(gamma)*sin(alpha)] cos(recip-gamma) = [cos(alpha)*cos(beta) - cos(gamma)]/[sin(alpha)*sin(beta)] Ref: Buerger, M. J. (1942). X-ray Crystallography, p. 360. New York: John Wiley &amp; Sons Inc. </xhtml:p>
         </definition>
         <superclass xmlns="">cell</superclass>
     </entry>
@@ -1416,12 +1304,6 @@
         <description>
             <xhtml:p>Corresponds to the _cell_reciprocal_angle_gamma term in the IUCr Core CIF dictionary.</xhtml:p>
         </description>
-    </entry>
-    <entry dataType="xsd:float" units="cifUnit:A-1">
-        <definition>
-            <xhtml:p> The reciprocal-cell lengths in inverse angstroms. These are related to the real cell by: recip-a = b*c*sin(alpha)/V recip-b = c*a*sin(beta)/V recip-c = a*b*sin(gamma)/V where V is the cell volume. Ref: Buerger, M. J. (1942). X-ray Crystallography, p. 360. New York: John Wiley &amp; Sons Inc. </xhtml:p>
-        </definition>
-        <superclass xmlns="">cell</superclass>
     </entry>
     <entry dataType="xsd:float" units="cifUnit:A-1" term="cell_reciprocal_length_a" id="cell_reciprocal_length_a">
         <definition>
@@ -1467,12 +1349,6 @@
             <xhtml:p> Cell volume V in angstroms cubed. V = a b c [1 - cos^2^(alpha) - cos^2^(beta) - cos^2^(gamma) + 2 cos(alpha) cos(beta) cos(gamma) ] ^1/2^ a = _cell_length_a b = _cell_length_b c = _cell_length_c alpha = _cell_angle_alpha beta = _cell_angle_beta gamma = _cell_angle_gamma </xhtml:p>
         </definition>
         <superclass xmlns="">cell</superclass>
-    </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> Miller indices of a reflection used for measurement of the unit cell. </xhtml:p>
-        </definition>
-        <superclass xmlns="">cell_measurement_refln</superclass>
     </entry>
     <entry dataType="xsd:float" term="cell_measurement_refln_index_h" id="cell_measurement_refln_index_h">
         <definition>
@@ -1586,12 +1462,6 @@
         </definition>
         <superclass xmlns="">chemical</superclass>
     </entry>
-    <entry dataType="xsd:float" units="cifUnit:K">
-        <definition>
-            <xhtml:p> A temperature in kelvins below which (*_lt) or above which (*_gt) the melting point (the temperature at which the crystalline solid changes to a liquid) lies. These items allow a range of temperatures to be given. _chemical_melting_point should always be used in preference to these items whenever possible. </xhtml:p>
-        </definition>
-        <superclass xmlns="">chemical</superclass>
-    </entry>
     <entry dataType="xsd:float" units="cifUnit:K" term="chemical_melting_point_gt" id="chemical_melting_point_gt">
         <definition>
             <xhtml:p> A temperature in kelvins below which (*_lt) or above which (*_gt) the melting point (the temperature at which the crystalline solid changes to a liquid) lies. These items allow a range of temperatures to be given. _chemical_melting_point should always be used in preference to these items whenever possible. </xhtml:p>
@@ -1682,12 +1552,6 @@
         </definition>
         <superclass xmlns="">chemical</superclass>
     </entry>
-    <entry dataType="xsd:float" units="cifUnit:K">
-        <definition>
-            <xhtml:p> A temperature in kelvins below which (*_lt) or above which (*_gt) the solid is known to decompose. These items allow a range of temperatures to be given. _chemical_temperature_decomposition should always be used in preference to these items whenever possible. </xhtml:p>
-        </definition>
-        <superclass xmlns="">chemical</superclass>
-    </entry>
     <entry dataType="xsd:float" units="cifUnit:K" term="chemical_temperature_decomposition_gt" id="chemical_temperature_decomposition_gt">
         <definition>
             <xhtml:p> A temperature in kelvins below which (*_lt) or above which (*_gt) the solid is known to decompose. These items allow a range of temperatures to be given. _chemical_temperature_decomposition should always be used in preference to these items whenever possible. </xhtml:p>
@@ -1715,12 +1579,6 @@
         </definition>
         <superclass xmlns="">chemical</superclass>
     </entry>
-    <entry dataType="xsd:float" units="cifUnit:K">
-        <definition>
-            <xhtml:p> A temperature in kelvins below which (*_lt) or above which (*_gt) the solid is known to sublime. These items allow a range of temperatures to be given. _chemical_temperature_sublimation should always be used in preference to these items whenever possible. </xhtml:p>
-        </definition>
-        <superclass xmlns="">chemical</superclass>
-    </entry>
     <entry dataType="xsd:float" units="cifUnit:K" term="chemical_temperature_sublimation_gt" id="chemical_temperature_sublimation_gt">
         <definition>
             <xhtml:p> A temperature in kelvins below which (*_lt) or above which (*_gt) the solid is known to sublime. These items allow a range of temperatures to be given. _chemical_temperature_sublimation should always be used in preference to these items whenever possible. </xhtml:p>
@@ -1745,12 +1603,6 @@
         </description>
         <definition>
             <xhtml:p> The net integer charge assigned to this atom. This is the formal charge assignment normally found in chemical diagrams. </xhtml:p>
-        </definition>
-        <superclass xmlns="">chemical_conn_atom</superclass>
-    </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> The 2D Cartesian coordinates (x,y) of the position of this atom in a recognizable chemical diagram. The coordinate origin is at the lower left corner, the x axis is horizontal and the y axis is vertical. The coordinates must lie in the range 0.0 to 1.0. These coordinates can be obtained from projections of a suitable uncluttered view of the molecular structure. </xhtml:p>
         </definition>
         <superclass xmlns="">chemical_conn_atom</superclass>
     </entry>
@@ -1807,12 +1659,6 @@
             <xhtml:p> A code identifying the atom type. This code must match an _atom_type_symbol code in the _atom_type_ list or be a recognizable element symbol. </xhtml:p>
         </definition>
         <superclass xmlns="">chemical_conn_atom</superclass>
-    </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> Atom numbers which must match with chemical sequence numbers specified as _chemical_conn_atom_number values. These link the bond connection to the chemical numbering and atom sites. </xhtml:p>
-        </definition>
-        <superclass xmlns="">chemical_conn_bond</superclass>
     </entry>
     <entry dataType="xsd:float" term="chemical_conn_bond_atom_1" id="chemical_conn_bond_atom_1">
         <definition>
@@ -2087,12 +1933,6 @@
         </definition>
         <superclass xmlns="">citation</superclass>
     </entry>
-    <entry dataType="xsd:string">
-        <definition>
-            <xhtml:p> The first and last pages of the citation; relevant for journal articles, books and book chapters. </xhtml:p>
-        </definition>
-        <superclass xmlns="">citation</superclass>
-    </entry>
     <entry dataType="xsd:string" term="citation_page_first" id="citation_page_first">
         <definition>
             <xhtml:p> The first and last pages of the citation; relevant for journal articles, books and book chapters. </xhtml:p>
@@ -2192,12 +2032,6 @@
         </definition>
         <superclass xmlns="">citation_editor</superclass>
     </entry>
-    <entry dataType="xsd:string">
-        <definition>
-            <xhtml:p> Software used in the processing of the data. Give the program or package name and a brief reference. </xhtml:p>
-        </definition>
-        <superclass xmlns="">computing</superclass>
-    </entry>
     <entry dataType="xsd:string" term="computing_cell_refinement" id="computing_cell_refinement">
         <definition>
             <xhtml:p> Software used in the processing of the data. Give the program or package name and a brief reference. </xhtml:p>
@@ -2260,12 +2094,6 @@
         <description>
             <xhtml:p>Corresponds to the _computing_structure_solution term in the IUCr Core CIF dictionary.</xhtml:p>
         </description>
-    </entry>
-    <entry dataType="xsd:string">
-        <definition>
-            <xhtml:p> The codes are assigned by databases: Chemical Abstracts; Cambridge Structural Database (organic and metal-organic compounds); Inorganic Crystal Structure Database; Metals Data File (metal structures); NBS (NIST) Crystal Data Database (lattice parameters); Protein Data Bank; and the Powder Diffraction File (JCPDS/ICDD). </xhtml:p>
-        </definition>
-        <superclass xmlns="">database</superclass>
     </entry>
     <entry dataType="xsd:string" term="database_code_cas" id="database_code_cas">
         <definition>
@@ -2366,12 +2194,6 @@
         </definition>
         <superclass xmlns="">database</superclass>
     </entry>
-    <entry dataType="xsd:string">
-        <definition>
-            <xhtml:p> The ASTM CODEN designator for a journal as given in the Chemical Source List maintained by the Chemical Abstracts Service, and the journal code used in the Cambridge Structural Database. </xhtml:p>
-        </definition>
-        <superclass xmlns="">database</superclass>
-    </entry>
     <entry dataType="xsd:string" term="database_journal_astm" id="database_journal_astm">
         <definition>
             <xhtml:p> The ASTM CODEN designator for a journal as given in the Chemical Source List maintained by the Chemical Abstracts Service, and the journal code used in the Cambridge Structural Database. </xhtml:p>
@@ -2408,12 +2230,6 @@
         </definition>
         <superclass xmlns="">diffrn</superclass>
     </entry>
-    <entry dataType="xsd:float" units="cifUnit:kPa">
-        <definition>
-            <xhtml:p> The mean hydrostatic pressure in kilopascals above which (*_gt) or below which (*_lt) the intensities were measured. These items allow for a pressure range to be given. _diffrn_ambient_pressure should always be used in preference to these items whenever possible. </xhtml:p>
-        </definition>
-        <superclass xmlns="">diffrn</superclass>
-    </entry>
     <entry dataType="xsd:float" units="cifUnit:kPa" term="diffrn_ambient_pressure_gt" id="diffrn_ambient_pressure_gt">
         <definition>
             <xhtml:p> The mean hydrostatic pressure in kilopascals above which (*_gt) or below which (*_lt) the intensities were measured. These items allow for a pressure range to be given. _diffrn_ambient_pressure should always be used in preference to these items whenever possible. </xhtml:p>
@@ -2438,12 +2254,6 @@
         </description>
         <definition>
             <xhtml:p> The mean temperature in kelvins at which the intensities were measured. </xhtml:p>
-        </definition>
-        <superclass xmlns="">diffrn</superclass>
-    </entry>
-    <entry dataType="xsd:float" units="cifUnit:K">
-        <definition>
-            <xhtml:p> The mean temperature in kelvins above which (*_gt) or below which (*_lt) the intensities were measured. These items allow a range of temperatures to be given. _diffrn_ambient_temperature should always be used in preference to these items whenever possible. </xhtml:p>
         </definition>
         <superclass xmlns="">diffrn</superclass>
     </entry>
@@ -2663,12 +2473,6 @@
         </definition>
         <superclass xmlns="">diffrn_orient_matrix</superclass>
     </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> The elements of the diffractometer orientation matrix. These define the dimensions of the reciprocal cell and its orientation to the local diffractometer axes. See _diffrn_orient_matrix_type. </xhtml:p>
-        </definition>
-        <superclass xmlns="">diffrn_orient_matrix</superclass>
-    </entry>
     <entry dataType="xsd:float" term="diffrn_orient_matrix_ub_11" id="diffrn_orient_matrix_ub_11">
         <definition>
             <xhtml:p> The elements of the diffractometer orientation matrix. These define the dimensions of the reciprocal cell and its orientation to the local diffractometer axes. See _diffrn_orient_matrix_type. </xhtml:p>
@@ -2750,12 +2554,6 @@
             <xhtml:p>Corresponds to the _diffrn_orient_matrix_ub_33 term in the IUCr Core CIF dictionary.</xhtml:p>
         </description>
     </entry>
-    <entry dataType="xsd:float" units="cifUnit:deg">
-        <definition>
-            <xhtml:p> Diffractometer angles of a reflection used to define the orientation matrix in degrees. See _diffrn_orient_matrix_UB_ and _diffrn_orient_refln_index_h, *_k and *_l. </xhtml:p>
-        </definition>
-        <superclass xmlns="">diffrn_orient_refln</superclass>
-    </entry>
     <entry dataType="xsd:float" units="cifUnit:deg" term="diffrn_orient_refln_angle_chi" id="diffrn_orient_refln_angle_chi">
         <definition>
             <xhtml:p> Diffractometer angles of a reflection used to define the orientation matrix in degrees. See _diffrn_orient_matrix_UB_ and _diffrn_orient_refln_index_h, *_k and *_l. </xhtml:p>
@@ -2809,12 +2607,6 @@
         <description>
             <xhtml:p>Corresponds to the _diffrn_orient_refln_angle_theta term in the IUCr Core CIF dictionary.</xhtml:p>
         </description>
-    </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> The indices of a reflection used to define the orientation matrix. See _diffrn_orient_matrix_. </xhtml:p>
-        </definition>
-        <superclass xmlns="">diffrn_orient_refln</superclass>
     </entry>
     <entry dataType="xsd:float" term="diffrn_orient_refln_index_h" id="diffrn_orient_refln_index_h">
         <definition>
@@ -2971,12 +2763,6 @@
         </definition>
         <superclass xmlns="">diffrn_radiation_wavelength</superclass>
     </entry>
-    <entry dataType="xsd:float" units="cifUnit:deg">
-        <definition>
-            <xhtml:p> The diffractometer angles of a reflection in degrees. These correspond to the specified orientation matrix and the original measured cell before any subsequent cell transformations. </xhtml:p>
-        </definition>
-        <superclass xmlns="">diffrn_refln</superclass>
-    </entry>
     <entry dataType="xsd:float" units="cifUnit:deg" term="diffrn_refln_angle_chi" id="diffrn_refln_angle_chi">
         <definition>
             <xhtml:p> The diffractometer angles of a reflection in degrees. These correspond to the specified orientation matrix and the original measured cell before any subsequent cell transformations. </xhtml:p>
@@ -3049,12 +2835,6 @@
         </definition>
         <superclass xmlns="">diffrn_refln</superclass>
     </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> The diffractometer counts for the measurements: background before the peak, background after the peak, net counts after background removed, counts for peak scan or position, and the total counts (background plus peak). </xhtml:p>
-        </definition>
-        <superclass xmlns="">diffrn_refln</superclass>
-    </entry>
     <entry dataType="xsd:float" term="diffrn_refln_counts_bg_1" id="diffrn_refln_counts_bg_1">
         <definition>
             <xhtml:p> The diffractometer counts for the measurements: background before the peak, background after the peak, net counts after background removed, counts for peak scan or position, and the total counts (background plus peak). </xhtml:p>
@@ -3109,12 +2889,6 @@
         </definition>
         <superclass xmlns="">diffrn_refln</superclass>
     </entry>
-    <entry dataType="xsd:float" units="cifUnit:deg">
-        <definition>
-            <xhtml:p> Total slit apertures in degrees in the diffraction plane (*_horiz) and perpendicular to the diffraction plane (*_vert). </xhtml:p>
-        </definition>
-        <superclass xmlns="">diffrn_refln</superclass>
-    </entry>
     <entry dataType="xsd:float" units="cifUnit:deg" term="diffrn_refln_detect_slit_horiz" id="diffrn_refln_detect_slit_horiz">
         <definition>
             <xhtml:p> Total slit apertures in degrees in the diffraction plane (*_horiz) and perpendicular to the diffraction plane (*_vert). </xhtml:p>
@@ -3139,12 +2913,6 @@
         </description>
         <definition>
             <xhtml:p> Elapsed time in minutes from the start of the diffraction experiment to the measurement of this intensity. </xhtml:p>
-        </definition>
-        <superclass xmlns="">diffrn_refln</superclass>
-    </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> Miller indices of a measured reflection. These need not match the _refln_index_h, *_k, *_l values if a transformation of the original measured cell has taken place. Details of the cell transformation are given in _diffrn_reflns_reduction_process. See also _diffrn_reflns_transf_matrix_. </xhtml:p>
         </definition>
         <superclass xmlns="">diffrn_refln</superclass>
     </entry>
@@ -3342,12 +3110,6 @@
         </definition>
         <superclass xmlns="">diffrn_reflns</superclass>
     </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> The limits on the Miller indices of the intensities specified by _diffrn_refln_index_h, *_k, *_l. </xhtml:p>
-        </definition>
-        <superclass xmlns="">diffrn_reflns</superclass>
-    </entry>
     <entry dataType="xsd:float" term="diffrn_reflns_limit_h_max" id="diffrn_reflns_limit_h_max">
         <definition>
             <xhtml:p> The limits on the Miller indices of the intensities specified by _diffrn_refln_index_h, *_k, *_l. </xhtml:p>
@@ -3480,12 +3242,6 @@
         </description>
         <definition>
             <xhtml:p> Minimum theta angle in degrees for the measured intensities. </xhtml:p>
-        </definition>
-        <superclass xmlns="">diffrn_reflns</superclass>
-    </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> Elements of the matrix used to transform the diffraction reflection indices _diffrn_refln_index_h, *_k, *_l into the _refln_index_h, *_k, *_l indices. |11 12 13| (h k l) diffraction |21 22 23| = (h' k' l') |31 32 33| </xhtml:p>
         </definition>
         <superclass xmlns="">diffrn_reflns</superclass>
     </entry>
@@ -3862,12 +3618,6 @@
         </definition>
         <superclass xmlns="">diffrn_standard_refln</superclass>
     </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> Miller indices of standard reflections used in the diffraction measurement process. </xhtml:p>
-        </definition>
-        <superclass xmlns="">diffrn_standard_refln</superclass>
-    </entry>
     <entry dataType="xsd:float" term="diffrn_standard_refln_index_h" id="diffrn_standard_refln_index_h">
         <definition>
             <xhtml:p> Miller indices of standard reflections used in the diffraction measurement process. </xhtml:p>
@@ -3901,12 +3651,6 @@
         </description>
         <definition>
             <xhtml:p> The percentage decrease in the mean intensity of the set of standard reflections measured at the start of the measurement process and at the finish. This value usually affords a measure of the overall decay in crystal quality during the diffraction measurement process. Negative values are used in exceptional instances where the final intensities are greater than the initial ones. If no measurable decay has occurred, the standard uncertainty should be quoted to indicate the maximum possible value the decay might have. A range of 3 standard uncertainties is considered possible. Thus 0.0(1) would indicate a decay of less than 0.3% or an enhancement of less than 0.3%. </xhtml:p>
-        </definition>
-        <superclass xmlns="">diffrn_standards</superclass>
-    </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> The number of reflection intensities, or the time in minutes, between the measurement of standard reflection intensities. </xhtml:p>
         </definition>
         <superclass xmlns="">diffrn_standards</superclass>
     </entry>
@@ -3961,12 +3705,6 @@
         </description>
         <definition>
             <xhtml:p> The absorption coefficient mu in reciprocal millimetres calculated from the atomic content of the cell, the density and the radiation wavelength. </xhtml:p>
-        </definition>
-        <superclass xmlns="">exptl</superclass>
-    </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> The maximum and minimum transmission factors applied to the diffraction pattern measured in this experiment. These factors are also referred to as the absorption correction A or 1/A*. As this value is the one that is applied to the measured intensities, it includes the correction for absorption by the specimen mount and diffractometer as well as by the specimen itself. </xhtml:p>
         </definition>
         <superclass xmlns="">exptl</superclass>
     </entry>
@@ -4242,12 +3980,6 @@
         </definition>
         <superclass xmlns="">exptl_crystal</superclass>
     </entry>
-    <entry dataType="xsd:float" units="cifUnit:mm">
-        <definition>
-            <xhtml:p> The maximum, medial and minimum dimensions in millimetres of the crystal. If the crystal is a sphere, then the *_rad item is its radius. If the crystal is a cylinder, then the *_rad item is its radius and the *_length item is its length. These may appear in a list with _exptl_crystal_id if multiple crystals are used in the experiment. </xhtml:p>
-        </definition>
-        <superclass xmlns="">exptl_crystal</superclass>
-    </entry>
     <entry dataType="xsd:float" units="cifUnit:mm" term="exptl_crystal_size_length" id="exptl_crystal_size_length">
         <definition>
             <xhtml:p> The maximum, medial and minimum dimensions in millimetres of the crystal. If the crystal is a sphere, then the *_rad item is its radius. If the crystal is a cylinder, then the *_rad item is its radius and the *_length item is its length. These may appear in a list with _exptl_crystal_id if multiple crystals are used in the experiment. </xhtml:p>
@@ -4302,12 +4034,6 @@
         </definition>
         <superclass xmlns="">exptl_crystal</superclass>
     </entry>
-    <entry dataType="xsd:float" units="cifUnit:deg">
-        <definition>
-            <xhtml:p> The goniometer angle settings in degrees when the perpendicular to the specified crystal face is aligned along a specified direction (e.g. the bisector of the incident and reflected beams in an optical goniometer). </xhtml:p>
-        </definition>
-        <superclass xmlns="">exptl_crystal_face</superclass>
-    </entry>
     <entry dataType="xsd:float" units="cifUnit:deg" term="exptl_crystal_face_diffr_chi" id="exptl_crystal_face_diffr_chi">
         <definition>
             <xhtml:p> The goniometer angle settings in degrees when the perpendicular to the specified crystal face is aligned along a specified direction (e.g. the bisector of the incident and reflected beams in an optical goniometer). </xhtml:p>
@@ -4343,12 +4069,6 @@
         <description>
             <xhtml:p>Corresponds to the _exptl_crystal_face_diffr_psi term in the IUCr Core CIF dictionary.</xhtml:p>
         </description>
-    </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> Miller indices of the crystal face associated with the value _exptl_crystal_face_perp_dist. </xhtml:p>
-        </definition>
-        <superclass xmlns="">exptl_crystal_face</superclass>
     </entry>
     <entry dataType="xsd:float" term="exptl_crystal_face_index_h" id="exptl_crystal_face_index_h">
         <definition>
@@ -4404,12 +4124,6 @@
         </definition>
         <superclass xmlns="">geom_angle</superclass>
     </entry>
-    <entry dataType="xsd:string">
-        <definition>
-            <xhtml:p> The labels of the three atom sites which define the angle given by _geom_angle. These must match labels specified as _atom_site_label in the atom list. Label 2 identifies the site at the apex of the angle. </xhtml:p>
-        </definition>
-        <superclass xmlns="">geom_angle</superclass>
-    </entry>
     <entry dataType="xsd:string" term="geom_angle_atom_site_label_1" id="geom_angle_atom_site_label_1">
         <definition>
             <xhtml:p> The labels of the three atom sites which define the angle given by _geom_angle. These must match labels specified as _atom_site_label in the atom list. Label 2 identifies the site at the apex of the angle. </xhtml:p>
@@ -4450,12 +4164,6 @@
         <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">yes</enumeration>
         <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">y</enumeration>
     </entry>
-    <entry dataType="xsd:string">
-        <definition>
-            <xhtml:p> The symmetry code of each atom site as the symmetry-equivalent position number 'n' and the cell translation number 'klm'. These numbers are combined to form the code 'n klm' or n_klm. The character string n_klm is composed as follows: n refers to the symmetry operation that is applied to the coordinates stored in _atom_site_fract_x, _atom_site_fract_y and _atom_site_fract_z. It must match a number given in _space_group_symop_id. k, l and m refer to the translations that are subsequently applied to the symmetry-transformed coordinates to generate the atom used in calculating the angle. These translations (x,y,z) are related to (k,l,m) by the relations k = 5 + x l = 5 + y m = 5 + z By adding 5 to the translations, the use of negative numbers is avoided. </xhtml:p>
-        </definition>
-        <superclass xmlns="">geom_angle</superclass>
-    </entry>
     <entry dataType="xsd:string" term="geom_angle_site_symmetry_1" id="geom_angle_site_symmetry_1">
         <definition>
             <xhtml:p> The symmetry code of each atom site as the symmetry-equivalent position number 'n' and the cell translation number 'klm'. These numbers are combined to form the code 'n klm' or n_klm. The character string n_klm is composed as follows: n refers to the symmetry operation that is applied to the coordinates stored in _atom_site_fract_x, _atom_site_fract_y and _atom_site_fract_z. It must match a number given in _space_group_symop_id. k, l and m refer to the translations that are subsequently applied to the symmetry-transformed coordinates to generate the atom used in calculating the angle. These translations (x,y,z) are related to (k,l,m) by the relations k = 5 + x l = 5 + y m = 5 + z By adding 5 to the translations, the use of negative numbers is avoided. </xhtml:p>
@@ -4482,12 +4190,6 @@
         <description>
             <xhtml:p>Corresponds to the _geom_angle_site_symmetry_3 term in the IUCr Core CIF dictionary.</xhtml:p>
         </description>
-    </entry>
-    <entry dataType="xsd:string">
-        <definition>
-            <xhtml:p> The labels of two atom sites that form a bond. These must match labels specified as _atom_site_label in the atom list. </xhtml:p>
-        </definition>
-        <superclass xmlns="">geom_bond</superclass>
     </entry>
     <entry dataType="xsd:string" term="geom_bond_atom_site_label_1" id="geom_bond_atom_site_label_1">
         <definition>
@@ -4538,12 +4240,6 @@
         <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">yes</enumeration>
         <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">y</enumeration>
     </entry>
-    <entry dataType="xsd:string">
-        <definition>
-            <xhtml:p> The symmetry code of each atom site as the symmetry-equivalent position number 'n' and the cell translation number 'klm'. These numbers are combined to form the code 'n klm' or n_klm. The character string n_klm is composed as follows: n refers to the symmetry operation that is applied to the coordinates stored in _atom_site_fract_x, _atom_site_fract_y and _atom_site_fract_z. It must match a number given in _space_group_symop_id. k, l and m refer to the translations that are subsequently applied to the symmetry-transformed coordinates to generate the atom used in calculating the bond. These translations (x,y,z) are related to (k,l,m) by the relations k = 5 + x l = 5 + y m = 5 + z By adding 5 to the translations, the use of negative numbers is avoided. </xhtml:p>
-        </definition>
-        <superclass xmlns="">geom_bond</superclass>
-    </entry>
     <entry dataType="xsd:string" term="geom_bond_site_symmetry_1" id="geom_bond_site_symmetry_1">
         <definition>
             <xhtml:p> The symmetry code of each atom site as the symmetry-equivalent position number 'n' and the cell translation number 'klm'. These numbers are combined to form the code 'n klm' or n_klm. The character string n_klm is composed as follows: n refers to the symmetry operation that is applied to the coordinates stored in _atom_site_fract_x, _atom_site_fract_y and _atom_site_fract_z. It must match a number given in _space_group_symop_id. k, l and m refer to the translations that are subsequently applied to the symmetry-transformed coordinates to generate the atom used in calculating the bond. These translations (x,y,z) are related to (k,l,m) by the relations k = 5 + x l = 5 + y m = 5 + z By adding 5 to the translations, the use of negative numbers is avoided. </xhtml:p>
@@ -4570,12 +4266,6 @@
             <xhtml:p> The bond valence calculated from _geom_bond_distance. </xhtml:p>
         </definition>
         <superclass xmlns="">geom_bond</superclass>
-    </entry>
-    <entry dataType="xsd:string">
-        <definition>
-            <xhtml:p> The labels of two atom sites that are within contact distance. The labels must match _atom_site_label codes in the atom list. </xhtml:p>
-        </definition>
-        <superclass xmlns="">geom_contact</superclass>
     </entry>
     <entry dataType="xsd:string" term="geom_contact_atom_site_label_1" id="geom_contact_atom_site_label_1">
         <definition>
@@ -4617,12 +4307,6 @@
         <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">yes</enumeration>
         <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">y</enumeration>
     </entry>
-    <entry dataType="xsd:string">
-        <definition>
-            <xhtml:p> The symmetry code of each atom site as the symmetry-equivalent position number 'n' and the cell translation number 'klm'. These numbers are combined to form the code 'n klm' or n_klm. The character string n_klm is composed as follows: n refers to the symmetry operation that is applied to the coordinates stored in _atom_site_fract_x, _atom_site_fract_y and _atom_site_fract_z. It must match a number given in _space_group_symop_id. k, l and m refer to the translations that are subsequently applied to the symmetry-transformed coordinates to generate the atom used in calculating the contact. These translations (x,y,z) are related to (k,l,m) by the relations k = 5 + x l = 5 + y m = 5 + z By adding 5 to the translations, the use of negative numbers is avoided. </xhtml:p>
-        </definition>
-        <superclass xmlns="">geom_contact</superclass>
-    </entry>
     <entry dataType="xsd:string" term="geom_contact_site_symmetry_1" id="geom_contact_site_symmetry_1">
         <definition>
             <xhtml:p> The symmetry code of each atom site as the symmetry-equivalent position number 'n' and the cell translation number 'klm'. These numbers are combined to form the code 'n klm' or n_klm. The character string n_klm is composed as follows: n refers to the symmetry operation that is applied to the coordinates stored in _atom_site_fract_x, _atom_site_fract_y and _atom_site_fract_z. It must match a number given in _space_group_symop_id. k, l and m refer to the translations that are subsequently applied to the symmetry-transformed coordinates to generate the atom used in calculating the contact. These translations (x,y,z) are related to (k,l,m) by the relations k = 5 + x l = 5 + y m = 5 + z By adding 5 to the translations, the use of negative numbers is avoided. </xhtml:p>
@@ -4647,12 +4331,6 @@
         </description>
         <definition>
             <xhtml:p> Angle in degrees defined by the three sites _geom_hbond_atom_site_label_D, *_H and *_A. The site at *_H (the hydrogen atom participating in the interaction) is at the apex of the angle. </xhtml:p>
-        </definition>
-        <superclass xmlns="">geom_hbond</superclass>
-    </entry>
-    <entry dataType="xsd:string">
-        <definition>
-            <xhtml:p> The labels of three atom sites (respectively, the donor atom, hydrogen atom and acceptor atom) participating in a hydrogen bond. These must match labels specified as _atom_site_label in the atom list. </xhtml:p>
         </definition>
         <superclass xmlns="">geom_hbond</superclass>
     </entry>
@@ -4682,12 +4360,6 @@
         <description>
             <xhtml:p>Corresponds to the _geom_hbond_atom_site_label_a term in the IUCr Core CIF dictionary.</xhtml:p>
         </description>
-    </entry>
-    <entry dataType="xsd:float" units="cifUnit:A">
-        <definition>
-            <xhtml:p> Distances in angstroms between the donor and hydrogen (*_DH), hydrogen and acceptor (*_HA) and donor and acceptor (*_DA) sites in a hydrogen bond. </xhtml:p>
-        </definition>
-        <superclass xmlns="">geom_hbond</superclass>
     </entry>
     <entry dataType="xsd:float" units="cifUnit:A" term="geom_hbond_distance_dh" id="geom_hbond_distance_dh">
         <definition>
@@ -4729,12 +4401,6 @@
         <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">yes</enumeration>
         <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">y</enumeration>
     </entry>
-    <entry dataType="xsd:string">
-        <definition>
-            <xhtml:p> The symmetry code of each atom site as the symmetry-equivalent position number 'n' and the cell translation number 'klm'. These numbers are combined to form the code 'n klm' or n_klm. The character string n_klm is composed as follows: n refers to the symmetry operation that is applied to the coordinates stored in _atom_site_fract_x, _atom_site_fract_y and _atom_site_fract_z. It must match a number given in _space_group_symop_id. k, l and m refer to the translations that are subsequently applied to the symmetry-transformed coordinates to generate the atom used in calculating the hydrogen bond. These translations (x,y,z) are related to (k,l,m) by the relations k = 5 + x l = 5 + y m = 5 + z By adding 5 to the translations, the use of negative numbers is avoided. </xhtml:p>
-        </definition>
-        <superclass xmlns="">geom_hbond</superclass>
-    </entry>
     <entry dataType="xsd:string" term="geom_hbond_site_symmetry_d" id="geom_hbond_site_symmetry_d">
         <definition>
             <xhtml:p> The symmetry code of each atom site as the symmetry-equivalent position number 'n' and the cell translation number 'klm'. These numbers are combined to form the code 'n klm' or n_klm. The character string n_klm is composed as follows: n refers to the symmetry operation that is applied to the coordinates stored in _atom_site_fract_x, _atom_site_fract_y and _atom_site_fract_z. It must match a number given in _space_group_symop_id. k, l and m refer to the translations that are subsequently applied to the symmetry-transformed coordinates to generate the atom used in calculating the hydrogen bond. These translations (x,y,z) are related to (k,l,m) by the relations k = 5 + x l = 5 + y m = 5 + z By adding 5 to the translations, the use of negative numbers is avoided. </xhtml:p>
@@ -4768,12 +4434,6 @@
         </description>
         <definition>
             <xhtml:p> The torsion angle in degrees bounded by the four atom sites identified by the _geom_torsion_atom_site_label_ codes. These must match labels specified as _atom_site_label in the atom list. The torsion-angle definition should be that of Klyne and Prelog. Ref: Klyne, W. &amp; Prelog, V. (1960). Experientia, 16, 521-523. </xhtml:p>
-        </definition>
-        <superclass xmlns="">geom_torsion</superclass>
-    </entry>
-    <entry dataType="xsd:string">
-        <definition>
-            <xhtml:p> The labels of the four atom sites which define the torsion angle specified by _geom_torsion. These must match codes specified as _atom_site_label in the atom list. The torsion-angle definition should be that of Klyne and Prelog. The vector direction *_label_2 to *_label_3 is the viewing direction, and the torsion angle is the angle of twist required to superimpose the projection of the vector between site 2 and site 1 onto the projection of the vector between site 3 and site 4. Clockwise torsions are positive, anticlockwise torsions are negative. Ref: Klyne, W. &amp; Prelog, V. (1960). Experientia, 16, 521-523. </xhtml:p>
         </definition>
         <superclass xmlns="">geom_torsion</superclass>
     </entry>
@@ -4826,12 +4486,6 @@
         <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">yes</enumeration>
         <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">y</enumeration>
     </entry>
-    <entry dataType="xsd:string">
-        <definition>
-            <xhtml:p> The symmetry code of each atom site as the symmetry-equivalent position number 'n' and the cell translation number 'klm'. These numbers are combined to form the code 'n klm' or n_klm. The character string n_klm is composed as follows: n refers to the symmetry operation that is applied to the coordinates stored in _atom_site_fract_x, _atom_site_fract_y and _atom_site_fract_z. It must match a number given in _space_group_symop_id. k, l and m refer to the translations that are subsequently applied to the symmetry-transformed coordinates to generate the atom used in calculating the angle. These translations (x,y,z) are related to (k,l,m) by the relations k = 5 + x l = 5 + y m = 5 + z By adding 5 to the translations, the use of negative numbers is avoided. </xhtml:p>
-        </definition>
-        <superclass xmlns="">geom_torsion</superclass>
-    </entry>
     <entry dataType="xsd:string" term="geom_torsion_site_symmetry_1" id="geom_torsion_site_symmetry_1">
         <definition>
             <xhtml:p> The symmetry code of each atom site as the symmetry-equivalent position number 'n' and the cell translation number 'klm'. These numbers are combined to form the code 'n klm' or n_klm. The character string n_klm is composed as follows: n refers to the symmetry operation that is applied to the coordinates stored in _atom_site_fract_x, _atom_site_fract_y and _atom_site_fract_z. It must match a number given in _space_group_symop_id. k, l and m refer to the translations that are subsequently applied to the symmetry-transformed coordinates to generate the atom used in calculating the angle. These translations (x,y,z) are related to (k,l,m) by the relations k = 5 + x l = 5 + y m = 5 + z By adding 5 to the translations, the use of negative numbers is avoided. </xhtml:p>
@@ -4867,12 +4521,6 @@
         <description>
             <xhtml:p>Corresponds to the _geom_torsion_site_symmetry_4 term in the IUCr Core CIF dictionary.</xhtml:p>
         </description>
-    </entry>
-    <entry dataType="xsd:string">
-        <definition>
-            <xhtml:p> Data items specified by the journal staff. </xhtml:p>
-        </definition>
-        <superclass xmlns="">journal</superclass>
     </entry>
     <entry dataType="xsd:string" term="journal_coden_astm" id="journal_coden_astm">
         <definition>
@@ -5207,12 +4855,6 @@
             <xhtml:p>Corresponds to the _journal_year term in the IUCr Core CIF dictionary.</xhtml:p>
         </description>
     </entry>
-    <entry dataType="xsd:string">
-        <definition>
-            <xhtml:p> Indexing terms supplied by the journal staff. </xhtml:p>
-        </definition>
-        <superclass xmlns="">journal_index</superclass>
-    </entry>
     <entry dataType="xsd:string" term="journal_index_subterm" id="journal_index_subterm">
         <definition>
             <xhtml:p> Indexing terms supplied by the journal staff. </xhtml:p>
@@ -5378,12 +5020,6 @@
         </description>
         <definition>
             <xhtml:p> The name of the journal to which the manuscript is being submitted. </xhtml:p>
-        </definition>
-        <superclass xmlns="">publ</superclass>
-    </entry>
-    <entry dataType="xsd:string">
-        <definition>
-            <xhtml:p> The sections of a manuscript if submitted in parts. As an alternative, see _publ_manuscript_text and _publ_manuscript_processed. The _publ_section_exptl_prep, _publ_section_exptl_refinement and _publ_section_exptl_solution items are preferred for separating the chemical preparation, refinement and structure solution aspects of the experimental description. </xhtml:p>
         </definition>
         <superclass xmlns="">publ</superclass>
     </entry>
@@ -5672,12 +5308,6 @@
             <xhtml:p> Specifies the inclusion of specific data into a manuscript which are not normally requested by the journal. The values of this item are the extra data names (which MUST be enclosed in single quotes) that will be added to the journal request list. </xhtml:p>
         </definition>
         <superclass xmlns="">publ_manuscript_incl</superclass>
-    </entry>
-    <entry dataType="xsd:float" units="cifUnit:e_A-3">
-        <definition>
-            <xhtml:p> The largest and smallest values and the root-mean-square deviation, in electrons per angstrom cubed, of the final difference electron density. The *_rms value is measured with respect to the arithmetic mean density and is derived from summations over each grid point in the asymmetric unit of the cell. This quantity is useful for assessing the significance of *_min and *_max values, and also for defining suitable contour levels. </xhtml:p>
-        </definition>
-        <superclass xmlns="">refine</superclass>
     </entry>
     <entry dataType="xsd:float" units="cifUnit:e_A-3" term="refine_diff_density_max" id="refine_diff_density_max">
         <definition>
@@ -6139,12 +5769,6 @@
         </definition>
         <superclass xmlns="">refine_ls_class</superclass>
     </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> For each reflection class, the residual factors for all reflections, and for significantly intense reflections (see _reflns_threshold_expression), included in the refinement. The reflections also satisfy the resolution limits established by _refine_ls_class_d_res_high and _refine_ls_class_d_res_low. This is the conventional R factor. sum | F(obs) - F(calc) | R = ------------------------ sum | F(obs) | F(obs) = the observed structure-factor amplitudes F(calc) = the calculated structure-factor amplitudes and the sum is taken over the reflections of this class. See also _refine_ls_class_wR_factor_all definitions. </xhtml:p>
-        </definition>
-        <superclass xmlns="">refine_ls_class</superclass>
-    </entry>
     <entry dataType="xsd:float" term="refine_ls_class_r_factor_all" id="refine_ls_class_r_factor_all">
         <definition>
             <xhtml:p> For each reflection class, the residual factors for all reflections, and for significantly intense reflections (see _reflns_threshold_expression), included in the refinement. The reflections also satisfy the resolution limits established by _refine_ls_class_d_res_high and _refine_ls_class_d_res_low. This is the conventional R factor. sum | F(obs) - F(calc) | R = ------------------------ sum | F(obs) | F(obs) = the observed structure-factor amplitudes F(calc) = the calculated structure-factor amplitudes and the sum is taken over the reflections of this class. See also _refine_ls_class_wR_factor_all definitions. </xhtml:p>
@@ -6190,12 +5814,6 @@
         </definition>
         <superclass xmlns="">refine_ls_class</superclass>
     </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> The calculated and measured structure-factor component A (in electrons for X-ray diffraction). A =|F|cos(phase) </xhtml:p>
-        </definition>
-        <superclass xmlns="">refln</superclass>
-    </entry>
     <entry dataType="xsd:float" term="refln_a_calc" id="refln_a_calc">
         <definition>
             <xhtml:p> The calculated and measured structure-factor component A (in electrons for X-ray diffraction). A =|F|cos(phase) </xhtml:p>
@@ -6213,12 +5831,6 @@
         <description>
             <xhtml:p>Corresponds to the _refln_a_meas term in the IUCr Core CIF dictionary.</xhtml:p>
         </description>
-    </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> The calculated and measured structure-factor component B (in electrons for X-ray diffraction). B =|F|sin(phase) </xhtml:p>
-        </definition>
-        <superclass xmlns="">refln</superclass>
     </entry>
     <entry dataType="xsd:float" term="refln_b_calc" id="refln_b_calc">
         <definition>
@@ -6265,12 +5877,6 @@
         </definition>
         <superclass xmlns="">refln</superclass>
     </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> The calculated, measured and standard uncertainty (derived from measurement) of the structure factors (in electrons for X-ray diffraction). </xhtml:p>
-        </definition>
-        <superclass xmlns="">refln</superclass>
-    </entry>
     <entry dataType="xsd:float" term="refln_f_calc" id="refln_f_calc">
         <definition>
             <xhtml:p> The calculated, measured and standard uncertainty (derived from measurement) of the structure factors (in electrons for X-ray diffraction). </xhtml:p>
@@ -6297,12 +5903,6 @@
         <description>
             <xhtml:p>Corresponds to the _refln_f_sigma term in the IUCr Core CIF dictionary.</xhtml:p>
         </description>
-    </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> Calculated, measured and estimated standard uncertainty (derived from measurement) of the squared structure factors (in electrons squared for X-ray diffraction). </xhtml:p>
-        </definition>
-        <superclass xmlns="">refln</superclass>
     </entry>
     <entry dataType="xsd:float" term="refln_f_squared_calc" id="refln_f_squared_calc">
         <definition>
@@ -6346,12 +5946,6 @@
         <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">h</enumeration>
         <enumeration xmlns="http://www.xml-cml.org/schema/cmlx">l</enumeration>
     </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> Miller indices of the reflection. The values of the Miller indices in the REFLN category must correspond to the cell defined by the cell lengths and cell angles in the CELL category. </xhtml:p>
-        </definition>
-        <superclass xmlns="">refln</superclass>
-    </entry>
     <entry dataType="xsd:float" term="refln_index_h" id="refln_index_h">
         <definition>
             <xhtml:p> Miller indices of the reflection. The values of the Miller indices in the REFLN category must correspond to the cell defined by the cell lengths and cell angles in the CELL category. </xhtml:p>
@@ -6378,12 +5972,6 @@
         <description>
             <xhtml:p>Corresponds to the _refln_index_l term in the IUCr Core CIF dictionary.</xhtml:p>
         </description>
-    </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> The calculated, measured and standard uncertainty (derived from measurement) of the intensity, all in the same arbitrary units as _refln_intensity_meas. </xhtml:p>
-        </definition>
-        <superclass xmlns="">refln</superclass>
     </entry>
     <entry dataType="xsd:float" term="refln_intensity_calc" id="refln_intensity_calc">
         <definition>
@@ -6520,12 +6108,6 @@
         </definition>
         <superclass xmlns="">refln</superclass>
     </entry>
-    <entry dataType="xsd:float" units="cifUnit:A">
-        <definition>
-            <xhtml:p> The highest and lowest resolution in angstroms for the reflections. These are the smallest and largest d values. </xhtml:p>
-        </definition>
-        <superclass xmlns="">reflns</superclass>
-    </entry>
     <entry dataType="xsd:float" units="cifUnit:A" term="reflns_d_resolution_high" id="reflns_d_resolution_high">
         <definition>
             <xhtml:p> The highest and lowest resolution in angstroms for the reflections. These are the smallest and largest d values. </xhtml:p>
@@ -6550,12 +6132,6 @@
         </description>
         <definition>
             <xhtml:p> The proportion of Friedel-related reflections present in the number of 'independent' reflections specified by the item _reflns_number_total. This proportion is calculated as the ratio: [N(crystal class) - N(Laue symmetry)] / N(Laue symmetry) where, working from the _diffrn_refln_ list, N(crystal class) is the number of reflections obtained on averaging under the symmetry of the crystal class N(Laue symmetry) is the number of reflections obtained on averaging under the Laue symmetry. Examples: (a) For centrosymmetric structures, _reflns_Friedel_coverage is necessarily equal to 0.0 as the crystal class is identical to the Laue symmetry. (b) For whole-sphere data for a crystal in the space group P1, _reflns_Friedel_coverage is equal to 1.0, as no reflection h k l is equivalent to -h -k -l in the crystal class and all Friedel pairs {h k l; -h -k -l} have been measured. (c) For whole-sphere data in space group Pmm2, _reflns_Friedel_coverage will be &lt; 1.0 because although reflections h k l and -h -k -l are not equivalent when h k l indices are nonzero, they are when l=0. (d) For a crystal in the space group Pmm2, measurements of the two inequivalent octants h &gt;= 0, k &gt;=0, l lead to the same value as in (c), whereas measurements of the two equivalent octants h &gt;= 0, k, l &gt;= 0 will lead to a value of zero for _reflns_Friedel_coverage. </xhtml:p>
-        </definition>
-        <superclass xmlns="">reflns</superclass>
-    </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> Miller indices limits for the reported reflections. These need not be the same as the _diffrn_reflns_limit_ values. </xhtml:p>
         </definition>
         <superclass xmlns="">reflns</superclass>
     </entry>
@@ -6721,12 +6297,6 @@
         </definition>
         <superclass xmlns="">reflns_class</superclass>
     </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> For each reflection class, the residual factors for all reflections, and for significantly intense reflections (see _reflns_threshold_expression), included in the refinement. The reflections also satisfy the resolution limits established by _reflns_class_d_res_high and _reflns_class_d_res_low. This is the conventional R factor. sum | F(obs) - F(calc) | R = ------------------------ sum | F(obs) | F(obs) = the observed structure-factor amplitudes F(calc) = the calculated structure-factor amplitudes and the sum is taken over the reflections of this class. See also _reflns_class_wR_factor_all definitions. </xhtml:p>
-        </definition>
-        <superclass xmlns="">reflns_class</superclass>
-    </entry>
     <entry dataType="xsd:float" term="reflns_class_r_factor_all" id="reflns_class_r_factor_all">
         <definition>
             <xhtml:p> For each reflection class, the residual factors for all reflections, and for significantly intense reflections (see _reflns_threshold_expression), included in the refinement. The reflections also satisfy the resolution limits established by _reflns_class_d_res_high and _reflns_class_d_res_low. This is the conventional R factor. sum | F(obs) - F(calc) | R = ------------------------ sum | F(obs) | F(obs) = the observed structure-factor amplitudes F(calc) = the calculated structure-factor amplitudes and the sum is taken over the reflections of this class. See also _reflns_class_wR_factor_all definitions. </xhtml:p>
@@ -6778,12 +6348,6 @@
         </description>
         <definition>
             <xhtml:p> The code identifying a scale _reflns_scale_meas_. These are linked to the _refln_ list by the _refln_scale_group_code. These codes need not correspond to those in the _diffrn_scale_ list. </xhtml:p>
-        </definition>
-        <superclass xmlns="">reflns_scale</superclass>
-    </entry>
-    <entry dataType="xsd:float">
-        <definition>
-            <xhtml:p> Scales associated with _reflns_scale_group_code. </xhtml:p>
         </definition>
         <superclass xmlns="">reflns_scale</superclass>
     </entry>
