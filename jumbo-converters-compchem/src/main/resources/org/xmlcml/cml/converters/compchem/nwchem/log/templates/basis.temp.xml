@@ -19,7 +19,7 @@
 
   3 S  2.77474600E-01  1.000000
   </comment>
-  <record repeatCount="2">{X,n:top}</record>
+  <record repeatCount="2">{X}</record>
   <templateList>
   <!-- 
   o (Oxygen)
@@ -27,7 +27,7 @@
  -->
      <template repeatCount="*" id="exponent" pattern="\s*Exponent.*$\s*\-+\s*\-+\s*" 
          multiple="$" endPattern=".*$\s*\-+\s*">
-       <record repeatCount="2">{X,n:exp}</record>
+       <record repeatCount="2">{X}</record>
        <templateList>
          <template id="shell" repeatCount="*" pattern="\s*\d+\s*\S+\s*.*" 
             endPattern="\s*">
@@ -39,6 +39,7 @@
        pattern="\s*\S+\s*\([^\)]*\).*$\s*\-+\s*\-+\s*">
        <record id="elem">\s*{A,n:tag}\s*\({A,n:elem}\).*</record>
        <record>{X}</record>
+       <transform process="pullupSingleton" name="./cml:list[@templateRef='elem']"/> 
      </template> 
   </templateList>
 </template>

@@ -66,7 +66,7 @@ public class RecordReader extends LineReader {
 
 
 	private CMLList readRecordList() {
-		LOG.debug("Current node in: "+lineContainer.getCurrentNodeIndex()+ " rptCnt: "+repeatCount);
+		LOG.trace("Current node in: "+lineContainer.getCurrentNodeIndex()+ " rptCnt: "+repeatCount);
 		CMLList list = new CMLList();
 		for (int i = 0; i < repeatCount; i++) {
 			CMLList list0 = readRecord();
