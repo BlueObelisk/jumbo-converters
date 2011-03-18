@@ -83,9 +83,10 @@ public class CifDictionaryBuilder {
                 mapUnits(extraEntry);
                 dictionary.appendChild(extraEntry);
             }
-            if (entry.getId() != null)
+            if (entry.getId() != null) {
                 mapUnits(entry);
-            dictionary.appendChild(entry);
+                dictionary.appendChild(entry);
+            }
             this.unitMap.put(CIFFields.getLastUnit(), CIFFields.getLastUnitDesc());
         }
         // writeUnitsUsed(System.out);
@@ -94,7 +95,7 @@ public class CifDictionaryBuilder {
 
     protected void mapUnits(CMLEntry entry) {
         CMLAttribute att = entry.getUnitsAttribute();
-        if(att==null){
+        if (att == null) {
             return;
         }
         String id = att.getValue();
