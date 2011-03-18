@@ -288,7 +288,7 @@ public class Template implements MarkupApplier {
 	public void applyMarkup(LineContainer lineContainer) {
 		this.lineContainer = lineContainer;
 		for (MarkupApplier marker : markerList) {
-			LOG.debug("Applying: "+marker.getClass().getSimpleName()+" "+marker.getId());
+			LOG.trace("Applying: "+marker.getClass().getSimpleName()+" "+marker.getId());
 			marker.applyMarkup(lineContainer);
 		}
 		Element linesElement = lineContainer.getLinesElement();

@@ -46,9 +46,9 @@ public class TemplateListElement implements MarkupApplier {
 	public void applyMarkup(LineContainer lineContainer) {
 		for (Template childTemplate : this.getTemplateList()) {
 			List<Element> elements = childTemplate.resetNodeIndexAndApplyChunkers(lineContainer);
-			LOG.debug("template start+end wrapped "+elements.size()+" child elements");
+			LOG.trace("template start+end wrapped "+elements.size()+" child elements");
 			for (Element element : elements) {
-				CMLUtil.debug(element, "WRAPPED elements");
+//				CMLUtil.debug(element, "WRAPPED elements");
 			}
 			for (Element element : elements) {
 				element.addAttribute(new Attribute(Template.TEMPLATE_REF, childTemplate.getId()));
@@ -56,7 +56,6 @@ public class TemplateListElement implements MarkupApplier {
 				childTemplate.applyMarkup(childLineContainer);
 			}
 		}
-//		throw new RuntimeException("NYI");
 		
 	}
 	

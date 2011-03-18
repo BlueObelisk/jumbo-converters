@@ -20,19 +20,18 @@
         time left     =     -1s
 
     </comment>
-  <record repeatCount="3">{X,n:skip}</record>
+  <record repeatCount="3">{X}</record>
   <record id="list1" repeatCount="*">\s*{X,n:name}\s*\=\s*{X,n:value}\s*</record>
   <record>{X,n:skip}</record>
   <record id="list2" repeatCount="*">\s*{X,n:name}\s*\=\s*{X,n:value}\s*</record>
-  <transform xmlns:cml="http://www.xml-cml.org/schema">
-    <type name="nproc">xsd:integer</type>
-    <type name="nproc">xsd:integer</type>
-<!--    
-    <xsl:template match="list[@templateRef='job']">
-      <xsl:for-each select="list">
-        <cml:scalar dictRef="{./scalar[@name='n:name']}"><xsl:value-of select="./scalar[@name='n:value']"/></cml:scalar>
-      </xsl:for-each>
-    </xsl:template>
-    -->
-  </transform>
+  <transform process="nameValue" parent="cml:list[@templateRef='list2']/cml:list" 
+      name="cml:scalar[@dictRef='n:name']" value="cml:scalar[@dictRef='n:value']"/>
+  <transform process="nameValue" parent="cml:list[@templateRef='list1']/cml:list" 
+      name="cml:scalar[@dictRef='n:name']" value="cml:scalar[@dictRef='n:value']"/>
+  <transform process="rename"    from="nwchem branch" value="branch"/>
+  <transform process="rename"    from="data base" value="database"/>
+  <transform process="rename"    from="time left" value="timeLeft"/>
+  <transform process="dataType" name="nproc" value="xsd:integer"/>
+  <transform process="dataType" name="compiled" value="xsd:date"/>
+  <transform process="dataType" name="date" value="xsd:date"/>
 </template>
