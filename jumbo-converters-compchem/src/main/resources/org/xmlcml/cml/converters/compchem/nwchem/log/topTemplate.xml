@@ -22,6 +22,8 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
       <xi:include href="authors.temp.xml"/>
       <xi:include href="ccsd.temp.xml"/>
       <xi:include href="ccsdt.temp.xml"/>
+      <!--  this must come before center23 -->
+      <xi:include href="convergeiter.temp.xml"/>
       <xi:include href="center23.temp.xml"/>
       <xi:include href="centermass.temp.xml"/>
       <xi:include href="citation.temp.xml"/>
@@ -69,4 +71,20 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
       <xi:include href="zmat.temp.xml"/>
       <xi:include href="basis.temp.xml"/>
   </templateList>
+  <!--  don't worry if you don't understand all of this. It's almost boilerplate -->
+  <!--  Do the grouping after all the main body has been  processed
+   -->
+   <!--  this finds all modules with given templateRef and groups them an all sibligs into a new 
+   higher level module. Each modules geeedily eats sibling till the next module
+    -->
+  <transform process="group" name="./*[@templateRef='nwcheminpmod']"/>
+  <!--  labels the first group as the initial one -->
+  <transform process="addRole" name="./*[@role='group'][1]" value="initial"/>
+  <!--  labels the last group as final (typical XPath/XSL construction to get the number of
+  the last group -->
+  <transform process="addRole" name="./*[@role='group'][count(//*[@role='group'])]" value="final"/>
+  <!--  labels the new leading group as calculation -->
+  <transform process="addRole" name="./*[@role='group'][1]" value="calculation"/>
+  <!--  and groups it and its siblings not yet working -->
+  <!-- <transform process="group" name="./*[@role='calculation']"/> -->
 </template>

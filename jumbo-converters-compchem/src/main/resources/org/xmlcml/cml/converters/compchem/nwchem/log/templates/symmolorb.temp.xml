@@ -1,5 +1,6 @@
 <template repeatCount="*"  id="symmolorb" name="Symmetry analysis of molecular orbitals" 
-    pattern=".*Symmetry analysis of molecular orbitals.*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+    pattern=".*Symmetry analysis of molecular orbitals.*$\s+\-+.*" multiple="$" 
+      endPattern=".*$\s*\-+\s*">
   <comment>
       Symmetry analysis of molecular orbitals - initial
       -------------------------------------------------
@@ -18,17 +19,21 @@
 
    Time after variat. SCF:     22.6
   </comment>
-  <record id="type" names="type" formatType="REGEX" output="VERBOSE"
-      > *Symmetry analysis of molecular orbitals \- (.*)</record>
-  <record id="rl1" repeatCount="4" output="VERBOSE"/>
-  <!-- does not work -->
-  <!-- 
-   <record id="irred" repeatCount="*" formatType="REGEX" output="VERBOSE"
-    >*({I6,n:serial},\s{A7,n:ir})</record>
-    -->
-  <record id="irred" repeatCount="*" formatType="REGEX" output="VERBOSE"
-    >{I6,n:serial}\s{A7,n:ir}{I6,n:serial}\s{A7,n:ir}{I6,n:serial}\s{A7,n:ir}{I6,n:serial}\s{A7,n:ir}{I6,n:serial}\s{A7,n:ir}</record>
-  <record id="rl2" repeatCount="3"/>
-  <record id="orbsym" repeatCount="*" formatType="REGEX" output="VERBOSE"
-    >{I6,n:serial}\s{A7,n:ir}{I6,n:serial}\s{A7,n:ir}{I6,n:serial}\s{A7,n:ir}{I6,n:serial}\s{A7,n:ir}{I6,n:serial}\s{A7,n:ir}</record>
+  <record repeatCount="3">{X,n:debug}</record>
+  <templateList id="symm">
+    <template id="numbering" pattern=".*Numbering.*$\s*" 
+       multiple="$" endPattern="\s*">
+      <record repeatCount="2">{X}</record>
+      <record repeatCount="*" id="symmList">{X,n:symm}</record>
+    </template>
+    <template id="orbitalSymmetry" pattern=".*Orbital.*$\s*" 
+      multiple="$" endPattern="\s*">
+      <record repeatCount="2">{X}</record>
+      <record repeatCount="*" id="symmList">{X,n:symm}</record>
+    </template>
+    <template id="time" pattern=".*Time after.*">
+      <record id="time">.*Time after.*{F,n:time}\s*</record>
+    </template>
+  </templateList>
+  
 </template>

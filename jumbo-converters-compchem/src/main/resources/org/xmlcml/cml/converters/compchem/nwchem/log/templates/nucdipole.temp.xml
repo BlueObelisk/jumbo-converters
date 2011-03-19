@@ -8,7 +8,7 @@
      0.0000000000     0.0000000000     0.0000000000
   </comment>
   <record repeatCount="4">{X}</record>
-  <record formatType="REGEX" id="nucdipole">{F,n:x}{F,n:y}{F,n:z}</record>
+  <record id="nucdipole">{F,n:x}{F,n:y}{F,n:z}</record>
   <transform process="pullupSingleton" name="./cml:list[count(*)=1]"/> 
   <transform process="vector3" parent="./*[@templateRef='nucdipole']" 
       name="*[@dictRef='n:x' or @dictRef='n:y' or @dictRef='n:z']"/>

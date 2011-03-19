@@ -9,4 +9,7 @@
   <record repeatCount="2">{X}</record>
   <record formatType="REGEX" id="centermass" repeatCount="*" output="NONE"
       >\s*x ={F,n:x}\s*y ={F,n:y}\s*z ={F,n:z}</record>
+  <transform process="pullupSingleton" name="./cml:list[count(*)=1]"/> 
+  <transform process="vector3" parent="./*[@templateRef='centermass']" 
+      name="*[@dictRef='n:x' or @dictRef='n:y' or @dictRef='n:z']"/>
 </template>

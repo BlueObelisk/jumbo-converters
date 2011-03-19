@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="three-center2elect" name="3 Center 2 Electron Integral Information" 
-  pattern="\s*3 Center 2 Electron Integral Information\s*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeatCount="*"  id="threecenter2" name="3 Center 2 Electron Integral Information" 
+  pattern="\s*3 Center 2 Electron Integral Information\s*$\s+\-+.*" multiple="$" endPattern="\s*Stack .*" endOffset="1">
   <comment>
       3 Center 2 Electron Integral Information
       ----------------------------------------
@@ -26,23 +26,15 @@
            Heap Space remaining (MW):       12.87            12872215
           Stack Space remaining (MW):       11.31            11305115
 
-   convergence    iter        energy       DeltaE   RMS-Dens  Diis-err    time
- ---------------- ----- ----------------- --------- --------- ---------  ------
- d= 0,ls=0.0,diis     1  -1822.8247493675 -2.62D+03  6.20D-02  9.95D+00     1.9
- d= 0,ls=0.0,diis     2  -1811.2270745263  1.16D+01  7.18D-02  6.78D+01     2.3
-...
- d= 0,ls=0.0,diis    19  -1823.6801961701 -2.41D-07  9.79D-07  1.05D-07     8.4
-
-
-         Total DFT energy =    -1823.680196170071
-      One electron energy =    -4105.874590431184
-           Coulomb energy =     1601.844762163483
-    Exchange-Corr. energy =     -118.145985996560
- Nuclear repulsion energy =      798.495618094190
-
- Numeric. integr. density =       95.999997053934
-
-     Total iterative time =      6.9s  
    </comment>
-  <record repeatCount="2">{X}</record>
+  <record repeatCount="*">{X}</record>
+  <templateList>
+    <template id="conv" pattern="\s*convergence.*" endPattern="\sTotal iterative.*">
+      <record repeatCount="2">{X,n:XXXXXXXXXXX}</record>
+      <!-- 
+      <record repeatCount="*">\s*d\=\s*{I,n:d}\,ls={F,n:ls}\,diis\s*{I,n:iter}\s*{F,n:ener}\s*{E,n:deltae}\s*{E,n:rms}\s*{E,n:diserr}\s*{F,n:time}</record>
+ -->
+     </template>
+  </templateList>
+  <record repeatCount="*">\s*{X,n:name}\s*\:\s*{X,n:value}\.?\s*</record>
 </template>

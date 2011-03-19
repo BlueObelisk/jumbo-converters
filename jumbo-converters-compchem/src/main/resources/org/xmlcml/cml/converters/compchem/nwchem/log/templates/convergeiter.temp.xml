@@ -1,0 +1,35 @@
+<template repeatCount="*"  id="convergenceiter" name="Convergence Iteration" 
+  pattern="\s*convergence    iter.*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+  <comment>
+   convergence    iter        energy       DeltaE   RMS-Dens  Diis-err    time
+ ---------------- ----- ----------------- --------- --------- ---------  ------
+ d= 0,ls=0.0,diis     1  -1822.8247493675 -2.62D+03  6.20D-02  9.95D+00     1.9
+ d= 0,ls=0.0,diis     2  -1811.2270745263  1.16D+01  7.18D-02  6.78D+01     2.3
+...
+ d= 0,ls=0.0,diis    19  -1823.6801961701 -2.41D-07  9.79D-07  1.05D-07     8.4
+
+
+         Total DFT energy =    -1823.680196170071
+      One electron energy =    -4105.874590431184
+           Coulomb energy =     1601.844762163483
+    Exchange-Corr. energy =     -118.145985996560
+ Nuclear repulsion energy =      798.495618094190
+
+ Numeric. integr. density =       95.999997053934
+
+     Total iterative time =      6.9s  
+   </comment>
+  <record repeatCount="2">{X}</record>
+  <record repeatCount="*">\s*d\=\s*{I,n:d}\,ls={F,n:ls}\,diis\s*{I,n:iter}\s*{F,n:ener}\s*{E,n:deltae}\s*{E,n:rms}\s*{E,n:diserr}\s*{F,n:time}</record>
+  <record repeatCount="2">{X}</record>
+  <record id="energies">\s*Total DFT energy =\s*{F,n:totdft}</record>
+  <record>\s*One electron energy =\s*{F,n:oneelec}</record>
+  <record>\s*Coulomb energy =\s*{F,n:coulomb}</record>
+  <record>\s*Exchange\-Corr. energy =\s*{F,n:xcener}</record>
+  <record>\s*Nuclear repulsion energy =\s*{F,n:nucrep}</record>
+  <record>{X}</record>
+  <record>\s*Numeric\. integr\. density =\s*{F,n:numintegdens}</record>
+  <record>{X}</record>
+  <record>\s*Total iterative time =\s*{F,n:totitertime}s\s*</record>  
+  
+</template>
