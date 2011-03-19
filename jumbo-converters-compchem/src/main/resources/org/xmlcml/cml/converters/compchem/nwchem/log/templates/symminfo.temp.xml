@@ -14,13 +14,9 @@
      1    2    4    6    9
 
   </comment>
-  <record id="rl1" repeatCount="3"/>
-  <record formatType="REGEX" id="symminfo">
-\s{23}{A99,n:name}$
-\s{23}{I5,n:number}$
-\s{23}{I5,n:order}$
-\s{23}{I5,n:centers}
-  </record>
-  <record repeatCount="3">{X}</record>
-  <record id="symminfo" repeatCount="*" formatType="REGEX">\s*{I5,n:row}</record>
+  <record id="rl1" repeatCount="3">{X}</record>
+  <record id="symminfo" repeatCount="*">\s*{X,n:name}\s\s\s\s\s*{A,n:value}\s*</record>
+  <record>\s*</record>
+  <record repeatCount="2">{X}</record>
+  <record id="symmuniqatom" repeatCount="*">\s*{X,n:row}\s*</record>
  </template>

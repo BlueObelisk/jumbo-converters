@@ -14,9 +14,7 @@
   library file name is: &lt;/home/d3y133/nwchem-releases/nwchem-6.0-gfortran/QA/../src/basis/libraries/&gt;
   
 </comment>
-  <record id="basis" formatType="REGEX" repeatCount="*" names="basis geom">\s*Summary of\s"([^"]+)"\s\-&gt;\s\"\"\s\(([^\)]*)\)\s*</record>
- <!-- FIXME -->
-  <record id="r1" repeatCount="3"/>
-  <record id="orbs" formatType="REGEX" repeatCount="*"
-      >\s{A16,n:tag},\s{A30,n:desc}\s\s{A6,n:shell}\s\s{I5,n:functions},{A16,n:type}</record>
+  <record id="basis">\s*Summary of\s*{X,n:title}</record>
+  <record id="r1" repeatCount="3">{X}</record>
+  <record id="orbs" repeatCount="*">\s*{A,n:tag}\s+{X,n:desc}\s+{I,n:shell}\s+{I,n:func}\s+{A,n:type}\s*</record>
 </template>

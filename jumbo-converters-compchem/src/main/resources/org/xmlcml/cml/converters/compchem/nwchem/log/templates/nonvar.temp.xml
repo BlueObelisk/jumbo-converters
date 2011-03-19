@@ -12,5 +12,9 @@
 
 </comment>
   <record id="rl1" repeatCount="3">{X}</record>
-  <record id="ener" repeatCount="*" formatType="REGEX">\s{A13,n:enername}\s*=\*{F16.6,n:ener}</record>
+  <record id="ener" repeatCount="*" formatType="REGEX">\s*{X,n:name}\s*=\s*{F,n:value}</record>
+  <transform process="pullupSingleton" name=".//*[@templateRef='ener']"/>
+  <transform process="nameValue" parent=".//*[@templateRef='ener']/cml:list"
+    name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>
+  <transform process="pullupSingleton" name=".//*[@templateRef='ener']/cml:list"/>
 </template>
