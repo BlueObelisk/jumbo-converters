@@ -1,0 +1,22 @@
+<template repeatCount="*"  id="interatomsep" name="Interatomic separations (in Angstroms):" 
+  pattern="\s*Interatomic separations \(in Angstroms\)\:\s*$\s*\-+\s*" multiple="$"
+  endPattern="\s*\S+\s*.*$\s*\-{5,50}\s*">
+  <comment>
+   Interatomic separations (in Angstroms):
+   ---------------------------------------
+
+            OS          OP   1      OP   2
+            ------      ------      ------
+ OS    :    0.000000
+ OP   1:    1.272001    0.000000
+ OP   2:    1.272001    2.164231    0.000000
+
+
+  Max interatomic separation is    2.1642 Angstroms
+  between atoms "OP   2" and "OP   1".
+
+
+  </comment>
+  <record repeatCount="3">{X}</record>
+  <record repeatCount="*">{X,n:symmcoor}</record>
+</template>

@@ -1,0 +1,18 @@
+<template repeatCount="*"  id="newthresh" name="New thresholds:" 
+  pattern=".*New thresholds:.*" multiple="$" 
+  endPattern="\s*$\s*">
+  <comment>
+ New thresholds:
+
+                    Gradient norm  0.00002000
+                    Step norm      0.00002000
+                    Energy change  0.00002000
+
+
+  </comment>
+  <record repeatCount="2">{X}</record>
+  <record>\s*Gradient norm\s*{X,n:gradnorm}</record>
+  <record>\s*Step norm\s*{X,n:stepnorm}</record>
+  <record>\s*Energy change\s*{X,n:enerchange}</record>
+  <record repeatCount="*">{X}</record>
+</template>

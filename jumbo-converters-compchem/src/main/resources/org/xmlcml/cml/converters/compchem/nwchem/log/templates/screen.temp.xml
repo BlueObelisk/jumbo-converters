@@ -12,4 +12,7 @@
 </comment>
 <record repeatCount="2">{X}</record>
 <record repeatCount="*">\s*{X,n:name}\:\s*{X,n:value}</record>
+<transform process="nameValue" parent="cml:list/cml:list" 
+      name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>
+<transform process="pullupSingleton" name="./cml:list/cml:list"/>
 </template>

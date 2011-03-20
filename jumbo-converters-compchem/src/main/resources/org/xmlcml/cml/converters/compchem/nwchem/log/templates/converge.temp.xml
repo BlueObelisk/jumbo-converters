@@ -21,4 +21,7 @@
 <record repeatCount="9">{X}</record>
 <record>.*\:{X,n:deon}</record>
 <record>.*\:{X,n:deoff}</record>
+<transform process="nameValue" parent="cml:list/cml:list" 
+      name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>
+<transform process="pullupSingleton" name="./cml:list"/>
 </template>

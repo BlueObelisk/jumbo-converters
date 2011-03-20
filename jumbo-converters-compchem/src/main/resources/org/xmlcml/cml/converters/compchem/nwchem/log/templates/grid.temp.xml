@@ -21,8 +21,9 @@
 <record>\s*Radial quadrature:\s*{A,n:radquad}</record>    
 <record>\s*Angular quadrature:\s*{A,n:angquad}</record>    
 <record repeatCount="2">{X}</record>
-<record repeatCount="3">\s*{A,n:tag}\s*{F,n:bsrad}\s*{I,n:radpts}\s*{F,n:radcut}\s*{I,n:angpts}\s*</record>
+<record repeatCount="3" makeArray="true">\s*{A,n:tag}\s*{F,n:bsrad}\s*{I,n:radpts}\s*{F,n:radcut}\s*{I,n:angpts}\s*</record>
 <record>\s*Grid pruning is:\s*{A,n:gridprun}\s</record>    
 <record>\s*Number of quadrature shells:\s*{I,n:quadshells}</record>    
 <record>\s*Spatial weights used:\s*{A,n:spatwt}</record>    
+<transform process="pullupSingleton" name="./cml:list"/>
 </template>

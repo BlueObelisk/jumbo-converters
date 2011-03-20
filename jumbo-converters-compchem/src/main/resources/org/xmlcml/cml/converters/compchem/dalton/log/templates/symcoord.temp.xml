@@ -1,0 +1,35 @@
+<template repeatCount="*"  id="symcoord" name="Symmetry Coordinates" 
+  pattern="\s*Symmetry Coordinates\s*$\s*\-+\s*" multiple="$"
+  endPattern="\s*\S+\s*.*$\s*\-{5,50}\s*">
+  <comment>
+  Symmetry Coordinates
+  --------------------
+
+  Number of coordinates in each symmetry:   3  3  2  1
+
+  Symmetry  A1  ( 1)
+
+   1   OS    x    1
+   2   OP    x    [  4  +   7 ]/2
+   3   OP    y    [  5  -   8 ]/2
+
+  Symmetry  B1  ( 2)
+
+   4   OS    y    2
+   5   OP    x    [  4  -   7 ]/2
+   6   OP    y    [  5  +   8 ]/2
+
+  Symmetry  B2  ( 3)
+
+   7   OS    z    3
+   8   OP    z    [  6  +   9 ]/2
+
+  Symmetry  A2  ( 4)
+
+   9   OP    z    [  6  -   9 ]/2
+
+
+  </comment>
+  <record repeatCount="3">{X}</record>
+  <record repeatCount="*">{X,n:symmcoor}</record>
+</template>

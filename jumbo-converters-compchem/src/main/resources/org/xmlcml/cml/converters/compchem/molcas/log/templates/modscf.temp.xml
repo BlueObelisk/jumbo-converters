@@ -1,0 +1,15 @@
+<template repeatCount="*"  id="modscf" name="scf Module" 
+  pattern="\-\-\-\s*Start Module: scf\s+.*" endPattern="\-\-\- Stop Module:  scf\s+.*" endOffset="1">
+  <comment>
+--- Start Module: scf at Sat Mar 19 20:58:37 2011
+ ... 
+--- Stop Module:  scf at Sat Mar 19 20:58:39 2011 /rc=0 ---
+  </comment>
+  <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
+    <xi:include href="executing.temp.xml"/>
+    <xi:include href="convergence.temp.xml"/>
+    <xi:include href="chunker.temp.xml"/>
+  </templateList>
+  <record repeatCount="*">{X,n:dbg}</record>
+  <transform process="pullupSingleton" name="./cml:list"/>
+</template>

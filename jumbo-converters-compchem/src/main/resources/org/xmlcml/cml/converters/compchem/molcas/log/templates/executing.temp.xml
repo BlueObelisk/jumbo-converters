@@ -1,0 +1,14 @@
+<template repeatCount="*"  id="executing" name="Execution banner" multiple="$" 
+  pattern="\(\)\(\).*" endPattern="\(\)\(\).*$\s*" endOffset="1">
+  <comment>
+()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()
+                                  MOLCAS executing module GATEWAY with 256 MB of memory
+                                              at 20:58:37 Sat Mar 19 2011
+()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()
+  </comment>
+  <record>{X}</record>
+  <record id="title">\s*{X,m:title}</record>
+  <record id="date">\s*at\s*{X,m:date}</record>
+  <record repeatCount="*">{X}</record>
+  <transform process="pullupSingleton" name="./cml:list"/>
+</template>

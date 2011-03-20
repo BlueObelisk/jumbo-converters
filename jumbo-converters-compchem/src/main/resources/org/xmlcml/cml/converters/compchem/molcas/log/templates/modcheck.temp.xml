@@ -1,0 +1,14 @@
+<template repeatCount="*"  id="modcheck" name="check Module" 
+  pattern="\-\-\-\s*Start Module: check\s+.*" endPattern="\-\-\- Stop Module:  check\s+.*" endOffset="1">
+  <comment>
+--- Start Module: check at Sat Mar 19 20:58:37 2011
+ ... 
+--- Stop Module:  check at Sat Mar 19 20:58:39 2011 /rc=0 ---
+  </comment>
+  <record id="check">\-\-\-\s*Start Module: {A,m:check} at\s*{X,m:date}</record>
+  <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
+    <xi:include href="executing.temp.xml"/>
+    <xi:include href="chunker.temp.xml"/>
+  </templateList>
+  <record repeatCount="*">{X,n:dbg}</record>
+</template>

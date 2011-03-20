@@ -1,0 +1,39 @@
+<template repeatCount="*"  id="atombas" name=" Atoms and basis sets" 
+  pattern="\s*Atoms and basis sets\s*$\s*\-+\s*" multiple="$"
+  endPattern="\s*\S+\s*.*$\s*\-{5,50}\s*">
+  <comment>
+  Atoms and basis sets
+  --------------------
+
+  Number of atom types:     1
+  Total number of atoms:    3
+
+  Basis set used is "aug-cc-pVDZ" from the basis set library.
+
+  label    atoms   charge   prim    cont     basis
+  ----------------------------------------------------------------------
+  OS          1       8      35      23      [10s5p2d|4s3p2d]                             
+  OP          2       8      35      23      [10s5p2d|4s3p2d]                             
+  ----------------------------------------------------------------------
+  total:      3      24     105      69
+  ----------------------------------------------------------------------
+  Spherical harmonic basis used.
+
+  Threshold for integrals:  1.00D-15
+
+
+  </comment>
+  <record repeatCount="3">{X}</record>
+  <record >\s*Number of atom types\:\s*{I,n:ntypes}\s*</record>
+  <record >\s*Total number of atoms\:\s*{I,n:natom}\s*</record>
+  <record >{X}</record>
+  <record >\s*Basis set used is\s*{X,n:basisname}\s*</record>
+  <record repeatCount="3">{X}</record>
+  <record repeatCount="*">\s*{A,d:label}{I,d:natoms}{I,c:atnumb}{I,d:prim}{I,d:cont}{A,n:basis}\s*</record>
+  <record >{X}</record>
+  <record >\s*total: {I,d:totnatoms}{I,c:totatnumb}{I,d:totprim}{I,d:totcont}\s*</record>
+  <record >{X}</record>
+  <record >{X,n:used}</record>
+  <record >{X}</record>
+  <record >\s*Threshold for integrals\:\s*{E,d:intthresh}\s*</record>
+</template>
