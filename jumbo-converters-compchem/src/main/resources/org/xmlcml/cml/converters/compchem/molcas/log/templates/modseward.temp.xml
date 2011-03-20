@@ -1,0 +1,15 @@
+<template repeatCount="*"  id="modseward" name="seward Module" 
+  pattern="\-\-\-\s*Start Module: seward\s+.*" endPattern="\-\-\- Stop Module:  seward\s+.*" endOffset="1">
+  <comment>
+--- Start Module: seward at Sat Mar 19 20:58:37 2011
+ ... 
+--- Stop Module:  seward at Sat Mar 19 20:58:39 2011 /rc=0 ---
+  </comment>
+  <record id="seward">\-\-\-\s*Start Module: {A,m:seward} at\s*{X,m:date}</record>
+  <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
+    <xi:include href="executing.temp.xml"/>
+    <xi:include href="convergence.temp.xml"/>
+    <xi:include href="chunker.temp.xml"/>
+  </templateList>
+  <record repeatCount="*">{X,n:dbg}</record>
+</template>

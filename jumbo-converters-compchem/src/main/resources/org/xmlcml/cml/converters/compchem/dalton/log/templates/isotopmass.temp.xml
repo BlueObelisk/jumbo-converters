@@ -1,0 +1,27 @@
+<template repeatCount="*"  id="isotopmass" name="Isotopic Masses" 
+  pattern="\s*Isotopic Masses\s*$\s*\-+\s*" multiple="$"
+  endPattern="\s*\S+\s*.*$\s*\-+\s*">
+  <comment>
+                             Isotopic Masses
+                             ---------------
+
+                           OS         15.994915
+                           OP   1     15.994915
+                           OP   2     15.994915
+
+                       Total mass:    47.984745 amu
+                       Natural abundance:  99.282 %
+
+ Center-of-mass coordinates (A):    0.842300    0.000000    0.000000
+
+
+  </comment>
+  <record repeatCount="3">{X}</record>
+  <record>{A30,n:atom}{A4,n:num}{F,n:mass}</record>
+  <record >{X}</record>
+  <record >\s*Total mass\:\s*{F,n:mass}\s*amu\s*</record>
+  <record >\s*Natural abundance\:\s*{F,n:mass}\s*%\s*</record>
+  <record >{X}</record>
+  <record>\s*Center\-of\-mass coordinates \(A\)\:{F,n:x}{F,n:y}{F,n:z}\s*</record>
+  <record repeatCount="*">{X}</record>
+</template>

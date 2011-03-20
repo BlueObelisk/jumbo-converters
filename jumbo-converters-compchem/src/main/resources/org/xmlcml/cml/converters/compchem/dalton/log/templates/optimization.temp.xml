@@ -1,0 +1,20 @@
+<template repeatCount="*"  id="optimization" name="Optimization information" 
+  pattern=".*Optimization information.*$\s*\-+\s*" 
+  multiple="$" endPattern="\s*$\s*">
+  <comment>
+                         Optimization information
+                         ------------------------
+
+ Iteration number               :       0
+ End of optimization            :       F 
+ Energy at this geometry is     :    -224.518524
+ Norm of gradient               :       0.018088
+ Norm of step                   :       0.021122
+ Updated trust radius           :       0.500000
+ Total Hessian index            :       3
+
+
+  </comment>
+  <record repeatCount="3">{X}</record>
+  <record repeatCount="*">{X,n:name}\s*\:\s+{X,n:value}</record>
+</template>

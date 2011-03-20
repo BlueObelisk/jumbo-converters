@@ -22,16 +22,19 @@
     </comment>
   <record repeatCount="3">{X}</record>
   <record id="list1" repeatCount="*">\s*{X,n:name}\s*\=\s*{X,n:value}\s*</record>
-  <record>{X,n:skip}</record>
+  <record>{X}</record>
   <record id="list2" repeatCount="*">\s*{X,n:name}\s*\=\s*{X,n:value}\s*</record>
   <transform process="nameValue" parent="cml:list[@templateRef='list2']/cml:list" 
       name="cml:scalar[@dictRef='n:name']" value="cml:scalar[@dictRef='n:value']"/>
   <transform process="nameValue" parent="cml:list[@templateRef='list1']/cml:list" 
       name="cml:scalar[@dictRef='n:name']" value="cml:scalar[@dictRef='n:value']"/>
+  <transform process="pullupSingleton" name="./*[@templateRef='list1' or @templateRef='list2']/cml:list"/>
+      <!-- 
   <transform process="rename"    from="nwchem branch" value="branch"/>
   <transform process="rename"    from="data base" value="database"/>
   <transform process="rename"    from="time left" value="timeLeft"/>
   <transform process="dataType" name="nproc" value="xsd:integer"/>
   <transform process="dataType" name="compiled" value="xsd:date"/>
   <transform process="dataType" name="date" value="xsd:date"/>
+  -->
 </template>

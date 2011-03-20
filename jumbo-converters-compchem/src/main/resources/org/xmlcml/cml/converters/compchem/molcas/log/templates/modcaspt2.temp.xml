@@ -1,0 +1,15 @@
+<template repeatCount="*"  id="modcaspt2" name="CASPT2 Module" 
+  pattern="\-\-\-\s*Start Module: caspt2\s+.*" endPattern="\-\-\- Stop Module:  caspt2\s+.*" endOffset="1">
+  <comment>
+--- Start Module: caspt2 at Sat Mar 19 20:58:37 2011
+ ... 
+--- Stop Module:  caspt2 at Sat Mar 19 20:58:39 2011 /rc=0 ---
+  </comment>
+  <record id="caspt2">\-\-\-\s*Start Module: {A,m:caspt2} at\s*{X,m:date}</record>
+  <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
+    <xi:include href="executing.temp.xml"/>
+    <xi:include href="chunker.temp.xml"/>
+  </templateList>
+  <record repeatCount="*">{X,n:dbg}</record>
+  <transform process="pullupSingleton" name="./cml:list"/>
+</template>

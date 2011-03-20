@@ -1,0 +1,13 @@
+<template repeatCount="*"  id="modauto" name="auto Module" 
+  pattern="\-\-\-\s*Start Module: auto\s+.*" endPattern="\-\-\- Stop Module:  auto\s+.*" endOffset="1">
+  <comment>
+--- Start Module: auto at Sat Mar 19 20:58:37 2011
+ ... seems to be the main module
+--- Stop Module:  auto at Sat Mar 19 20:58:39 2011 /rc=0 ---
+  </comment>
+  <record id="auto">\-\-\-\s*Start Module: {A,m:auto} at\s*{X,m:date}</record>
+  <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
+    <xi:include href="chunker.temp.xml"/>
+  </templateList>
+  <record repeatCount="*">{X,n:dbg}</record>
+</template>

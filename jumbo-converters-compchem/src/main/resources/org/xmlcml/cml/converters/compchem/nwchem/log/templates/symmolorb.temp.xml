@@ -19,7 +19,7 @@
 
    Time after variat. SCF:     22.6
   </comment>
-  <record repeatCount="3">{X,n:debug}</record>
+  <record repeatCount="3">{X}</record>
   <templateList id="symm">
     <template id="numbering" pattern=".*Numbering.*$\s*" 
        multiple="$" endPattern="\s*">
@@ -33,7 +33,9 @@
     </template>
     <template id="time" pattern=".*Time after.*">
       <record id="time">.*Time after.*{F,n:time}\s*</record>
+      <transform process="pullupSingleton" name="./cml:list"/>
     </template>
+    
   </templateList>
   
 </template>

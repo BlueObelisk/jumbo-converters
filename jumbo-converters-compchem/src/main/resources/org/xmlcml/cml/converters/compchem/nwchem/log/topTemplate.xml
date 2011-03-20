@@ -68,7 +68,8 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
       <xi:include href="tensor.temp.xml"/>
       <xi:include href="xc.temp.xml"/>
       <xi:include href="xyz.temp.xml"/>
-      <xi:include href="zmat.temp.xml"/>
+      <xi:include href="zmatautoz.temp.xml"/>
+      <xi:include href="zmatuser.temp.xml"/>
       <xi:include href="basis.temp.xml"/>
   </templateList>
   <!--  don't worry if you don't understand all of this. It's almost boilerplate -->
@@ -84,7 +85,7 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
   the last group -->
   <transform process="addRole" name="./*[@role='group'][count(//*[@role='group'])]" value="final"/>
   <!--  labels the new leading group as calculation -->
-  <transform process="addRole" name="./*[@role='group'][1]" value="calculation"/>
+  <transform process="addRole" name="./*[@role='group']" value="calculation"/>
   <!--  and groups it and its siblings not yet working -->
   <!-- <transform process="group" name="./*[@role='calculation']"/> -->
 </template>

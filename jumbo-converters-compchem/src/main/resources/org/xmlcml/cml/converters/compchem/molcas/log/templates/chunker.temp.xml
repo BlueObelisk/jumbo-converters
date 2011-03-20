@@ -1,0 +1,13 @@
+<template repeatCount="*"  id="chunker" name="Chunker" 
+  pattern="\+\+.*" endPattern="\-\-\s*" endOffset="1">
+  <comment>
+++       Molecular structure info:
+       -------------------------
+...
+        2      H1            -0.661404       0.000000       0.000000             -0.350000       0.000000       0.000000
+--
+  </comment>
+  <record id="title">\+\+\s*{X,n:title}</record>
+  <record repeatCount="*">{X}</record>
+  <transform process="pullupSingleton" name="./cml:list"/>
+</template>

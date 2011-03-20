@@ -1,0 +1,18 @@
+<template repeatCount="*"  id="bondang" name="Bond angles (degrees):" 
+  pattern="\s*Bond angles \(degrees\)\:\s*$\s*\-+\s*" multiple="$"
+  endPattern="\s*\S+\s*.*$\s*\-+\s*">
+  <comment>
+  Bond angles (degrees):
+  ----------------------
+
+                  atom 1     atom 2     atom 3         angle
+                  ------     ------     ------         -----
+  bond angle:     OP   1     OS         OP   2       116.580
+
+
+
+
+  </comment>
+  <record repeatCount="3">{X}</record>
+  <record repeatCount="*">{X,n:ang}</record>
+</template>

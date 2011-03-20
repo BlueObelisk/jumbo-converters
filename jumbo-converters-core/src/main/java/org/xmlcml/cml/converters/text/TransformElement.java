@@ -1,5 +1,8 @@
 package org.xmlcml.cml.converters.text;
 
+import java.lang.reflect.Array;
+import java.util.List;
+
 import nu.xom.Attribute;
 import nu.xom.Element;
 import nu.xom.Elements;
@@ -13,11 +16,15 @@ import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.Outputter;
 import org.xmlcml.cml.converters.Outputter.OutputLevel;
+import org.xmlcml.cml.element.CMLArray;
+import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLMatrix;
 import org.xmlcml.cml.element.CMLModule;
+import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.element.CMLVector3;
 import org.xmlcml.cml.interfacex.HasDictRef;
+import org.xmlcml.molutil.ChemicalElement;
 
 public class TransformElement implements MarkupApplier {
 	private final static Logger LOG = Logger.getLogger(TransformElement.class);
@@ -25,6 +32,7 @@ public class TransformElement implements MarkupApplier {
 	public static final String TAG = "transform";
 
 	private static final String FROM = "from";
+	private static final String MOLECULE = "molecule";
 	private static final String NAME = "name";
 	private static final String OUTPUT = "output";
 	private static final String PARENT = "parent";
@@ -54,6 +62,12 @@ public class TransformElement implements MarkupApplier {
 	private String to;
 	private String value;
 	private Element parsedElement;
+
+	private String idMethod;
+	private String elementMethod;
+	private CMLMolecule molecule;
+
+	private List<CMLAtom> atoms;
 
 
 	public TransformElement(Element element) {
@@ -119,6 +133,8 @@ public class TransformElement implements MarkupApplier {
 			addDataType();
 		} else if (GROUP.equals(process)) {
 			makeGroup();
+		} else if (process.startsWith(MOLECULE)) {
+			createMolecule();
 		} else if (MATRIX33.equals(process)) {
 			createMatrix33();
 		} else if (NAMEVALUE.equals(process)) {
@@ -181,7 +197,6 @@ public class TransformElement implements MarkupApplier {
 		Nodes names = parsedElement.query(name, CMLConstants.CML_XPATH);
 		for (int i = 0; i < names.size(); i++) {
 			Element nameElement = (Element)names.get(i);
-//			CMLUtil.debug(nameElement, "NNNNN");
 			Elements childElements = nameElement.getChildElements();
 			if (childElements.size() == 1) {
 				Element child = childElements.get(0);
@@ -294,6 +309,162 @@ public class TransformElement implements MarkupApplier {
 			} else {
 				CMLUtil.debug(parent, "PAR");
 				throw new RuntimeException("No vector3 here");
+			}
+		}
+	}
+	
+	private void createMolecule() {
+		createMethodNames();
+		Nodes arrays = parsedElement.query(name, CMLConstants.CML_XPATH);
+		CMLArray array0 = (CMLArray) arrays.get(0);
+		int natoms = array0.getSize();
+		molecule = new CMLMolecule();
+		ParentNode parent = array0.getParent();
+		parent.replaceChild(array0, molecule);
+		for (int iatom = 0; iatom < natoms; iatom++) {
+			id = "a"+(iatom+1);
+			CMLAtom atom = new CMLAtom(id);
+			molecule.addAtom(atom);
+		}
+		atoms = molecule.getAtoms();
+		for (int i = 0; i < arrays.size(); i++) {
+			Node node = arrays.get(i);
+			if (!(node instanceof CMLArray)) {
+				CMLUtil.debug((Element) node, "ELEM:"+name);
+				throw new RuntimeException("molecule only operates on arrays");
+			}
+			CMLArray array = (CMLArray) arrays.get(i);
+			processDictRef(array);
+			array.detach();
+		}
+	}
+
+	private void processDictRef(CMLArray array) {
+		int size = array.getSize();
+		DictRefAttribute dictRefAttribute = (DictRefAttribute) array.getDictRefAttribute();
+		if (dictRefAttribute == null) {
+			throw new RuntimeException("Array must have dictRef");
+		}
+		String localValue = DictRefAttribute.getLocalValue(array);
+		if (
+			localValue.equals("x3") ||
+			localValue.equals("y3") ||
+			localValue.equals("z3") ||
+			localValue.equals("id") ||
+			localValue.equals("elementType") ||
+			localValue.equals("label") ||
+			localValue.equals("atomTypeRef")
+			) {
+			addScalar(array, localValue);
+		} else {
+			addCMLAttribute(array, localValue);
+		}
+	}
+
+	private void addScalar(CMLArray array, String localName) {
+		String[] values = array.getStrings();
+		double[] doubles = array.getDoubles();
+		int[] ints = array.getInts();
+		for (int i = 0; i < atoms.size(); i++) {
+			CMLAtom atom = atoms.get(i);
+			if (localName.equals("x3")) {
+				atom.setX3(doubles[i]);
+			} else if (localName.equals("y3")) {
+				atom.setY3(doubles[i]);
+			} else if (localName.equals("z3")) {
+				atom.setZ3(doubles[i]);
+			} else if (localName.equals("id")) {
+				addId(array, values, ints, i, atom);
+			} else if (localName.equals("elementType")) {
+				addElementType(array, values, doubles, ints, i, atom);
+			}
+		}
+	}
+
+	private void addId(CMLArray array, String[] values, int[] ints, int i,
+			CMLAtom atom) {
+		String id = null;
+		if (array.getDataType().equals(CMLConstants.XSD_STRING)) {
+			id = values[i];
+		} else if (array.getDataType().equals(CMLConstants.XSD_INTEGER)){
+			id = "a"+ints[i];
+		}
+		if (id == null) {
+			throw new RuntimeException("Cannot make id");
+		}
+		atom.setId(id);
+	}
+
+	private void addElementType(CMLArray array, String[] values,
+			double[] doubles, int[] ints, int i, CMLAtom atom) {
+		String elem = null;
+		ChemicalElement chemicalElement = null;
+		if (array.getDataType().equals(CMLConstants.XSD_STRING)) {
+			elem = values[i];
+			if (elem.length() > 2) {
+				elem = elem.substring(0,2);
+			}
+			if (elem.length() == 2) {
+				if (Character.isLetter(elem.charAt(1))) {
+					elem = elem.substring(0, 1)+elem.substring(1,2).toLowerCase();
+				} else {
+					elem = elem.substring(0, 1);
+				}
+			}
+			chemicalElement = ChemicalElement.getChemicalElement(elem);
+			if (chemicalElement == null) {
+				throw new RuntimeException("Unknown element: "+values[i]);
+			}
+		} else if (array.getDataType().equals(CMLConstants.XSD_INTEGER)){
+			chemicalElement = ChemicalElement.getElement(ints[i]);
+		} else if (array.getDataType().equals(CMLConstants.XSD_DOUBLE)){
+			chemicalElement = ChemicalElement.getElement((int)doubles[i]);
+		}
+		if (chemicalElement == null) {
+			throw new RuntimeException("Cannot make chemical element");
+		}
+		atom.setElementType(chemicalElement.getSymbol());
+	}
+
+	private void addCMLAttribute(CMLArray array, String localName) {
+		String[] values = array.getStrings();
+		double[] doubles = array.getDoubles();
+		int[] ints = array.getInts();
+		String dictRef = array.getDictRef();
+		// we need a getScalar method
+		for (int i = 0; i < array.getSize(); i++) {
+			CMLScalar scalar = null;
+			String dataType = array.getDataType();
+			if (dataType.equals(CMLConstants.XSD_STRING)) {
+				scalar = new CMLScalar(values[i]);
+			} else if (dataType.equals(CMLConstants.XSD_DOUBLE)) {
+				scalar = new CMLScalar(doubles[i]);
+			} else if (dataType.equals(CMLConstants.XSD_INTEGER)) {
+				scalar = new CMLScalar(ints[i]);
+			}
+			scalar.setDictRef(dictRef);
+			atoms.get(i).addScalar(scalar);
+		}
+	}
+
+	private void createMethodNames() {
+		String argx = process.substring(MOLECULE.length()).trim();
+		String[] args = argx.split(" ");
+		idMethod = null;
+		elementMethod = null;
+		for (String arg : args) {
+			String[] atts = arg.split("=");
+			if (atts.length != 2) {
+				throw new RuntimeException("Cannot parse: "+argx);
+			}
+			String name = atts[0];
+			String value = atts[1];
+			if (name.equals("id")) {
+				idMethod = value;
+			} else if (name.equals("elementType")) {
+				elementMethod = value;
+			} else {
+				throw new RuntimeException("Unknown methodType: "+name);
 			}
 		}
 	}

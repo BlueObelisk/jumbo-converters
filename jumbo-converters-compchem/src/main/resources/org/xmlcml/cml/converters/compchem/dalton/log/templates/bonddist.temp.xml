@@ -1,0 +1,17 @@
+<template repeatCount="*"  id="bonddist" name="Bond distances (angstroms):" 
+  pattern="\s*Bond distances \(angstroms\):\s*$\s*\-+\s*" multiple="$"
+  endPattern="\s*\S+\s*.*$\s*\-+\s*">
+  <comment>
+  Bond distances (angstroms):
+  ---------------------------
+
+                  atom 1     atom 2       distance
+                  ------     ------       --------
+  bond distance:  OP   1     OS           1.272001
+  bond distance:  OP   2     OS           1.272001
+
+
+  </comment>
+  <record repeatCount="3">{X}</record>
+  <record repeatCount="*">{X,n:dist}</record>
+</template>
