@@ -7,12 +7,12 @@ import org.xmlcml.cml.converters.cml.RawXML2CMLProcessor;
 import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
 import org.xmlcml.cml.element.CMLModule;
 
-public class GamessUSLogXMLProcessor extends RawXML2CMLProcessor {
+public class GamessUSLogXMLProcessorOld extends RawXML2CMLProcessor {
 	@SuppressWarnings("unused")
-	private static Logger LOG = Logger.getLogger(GamessUSLogXMLProcessor.class);
+	private static Logger LOG = Logger.getLogger(GamessUSLogXMLProcessorOld.class);
 	private CMLModule job;
 	
-	public GamessUSLogXMLProcessor() {
+	public GamessUSLogXMLProcessorOld() {
 		
 	}
 	@Override

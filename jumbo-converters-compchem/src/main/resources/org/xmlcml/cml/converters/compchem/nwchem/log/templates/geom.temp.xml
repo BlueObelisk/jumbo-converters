@@ -12,8 +12,9 @@
     2 c                    6.0000     0.00000000     0.00000000     3.41435800
     3 c                    6.0000     0.00000000     0.00000000    -3.41435800
     ...
-</comment>
-<record id="rl1" repeatCount="7">{X}</record>
-<record id="geom" repeatCount="*" makeArray="true" 
-    formatType="REGEX">\s*{I,n:x}\s*{A,n:tag}\s*{F,n:charge}\s*{F,n:x}\s*{F,n:y}\s*{F,n:z}\s*</record>
+  </comment>
+  <record id="rl1" repeatCount="7">{X}</record>
+  <record id="geom" repeatCount="*" makeArray="true" 
+    >\s*{I,n:id}\s*{A,n:atomtypeRef}\s*{F,n:elementType}\s*{F,n:x3}\s*{F,n:y3}\s*{F,n:z3}\s*</record>
+  <transform process="molecule" name="cml:list/cml:array"/>    
 </template>

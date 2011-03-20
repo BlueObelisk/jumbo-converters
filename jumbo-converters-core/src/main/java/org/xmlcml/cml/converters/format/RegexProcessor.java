@@ -289,7 +289,12 @@ public class RegexProcessor {
 //						field.debug();
 						CMLScalar scalar = null;
 						if (field != null) {
-							scalar = field.createNamedTypedScalar(matcher, i, matcherGroup);
+							try {
+								scalar = field.createNamedTypedScalar(matcher, i, matcherGroup);
+							} catch (Exception e){
+								LOG.error("Field "+field+"; matcher|"+matcherGroup+"|"+line+"|");
+								throw new RuntimeException("cannot create scalar", e);
+							}
 						} else {
 							scalar = new CMLScalar(matcherGroup);
 						}

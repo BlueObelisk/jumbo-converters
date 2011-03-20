@@ -316,26 +316,28 @@ public class TransformElement implements MarkupApplier {
 	private void createMolecule() {
 		createMethodNames();
 		Nodes arrays = parsedElement.query(name, CMLConstants.CML_XPATH);
-		CMLArray array0 = (CMLArray) arrays.get(0);
-		int natoms = array0.getSize();
-		molecule = new CMLMolecule();
-		ParentNode parent = array0.getParent();
-		parent.replaceChild(array0, molecule);
-		for (int iatom = 0; iatom < natoms; iatom++) {
-			id = "a"+(iatom+1);
-			CMLAtom atom = new CMLAtom(id);
-			molecule.addAtom(atom);
-		}
-		atoms = molecule.getAtoms();
-		for (int i = 0; i < arrays.size(); i++) {
-			Node node = arrays.get(i);
-			if (!(node instanceof CMLArray)) {
-				CMLUtil.debug((Element) node, "ELEM:"+name);
-				throw new RuntimeException("molecule only operates on arrays");
+		if (arrays.size() > 0) {
+			CMLArray array0 = (CMLArray) arrays.get(0);
+			int natoms = array0.getSize();
+			molecule = new CMLMolecule();
+			ParentNode parent = array0.getParent();
+			parent.replaceChild(array0, molecule);
+			for (int iatom = 0; iatom < natoms; iatom++) {
+				id = "a"+(iatom+1);
+				CMLAtom atom = new CMLAtom(id);
+				molecule.addAtom(atom);
 			}
-			CMLArray array = (CMLArray) arrays.get(i);
-			processDictRef(array);
-			array.detach();
+			atoms = molecule.getAtoms();
+			for (int i = 0; i < arrays.size(); i++) {
+				Node node = arrays.get(i);
+				if (!(node instanceof CMLArray)) {
+					CMLUtil.debug((Element) node, "ELEM:"+name);
+					throw new RuntimeException("molecule only operates on arrays");
+				}
+				CMLArray array = (CMLArray) arrays.get(i);
+				processDictRef(array);
+				array.detach();
+			}
 		}
 	}
 
@@ -453,18 +455,20 @@ public class TransformElement implements MarkupApplier {
 		idMethod = null;
 		elementMethod = null;
 		for (String arg : args) {
-			String[] atts = arg.split("=");
-			if (atts.length != 2) {
-				throw new RuntimeException("Cannot parse: "+argx);
-			}
-			String name = atts[0];
-			String value = atts[1];
-			if (name.equals("id")) {
-				idMethod = value;
-			} else if (name.equals("elementType")) {
-				elementMethod = value;
-			} else {
-				throw new RuntimeException("Unknown methodType: "+name);
+			if (arg.trim().length() > 0) {
+				String[] atts = arg.split("=");
+				if (atts.length != 2) {
+					throw new RuntimeException("Cannot parse: "+argx);
+				}
+				String name = atts[0];
+				String value = atts[1];
+				if (name.equals("id")) {
+					idMethod = value;
+				} else if (name.equals("elementType")) {
+					elementMethod = value;
+				} else {
+					throw new RuntimeException("Unknown methodType: "+name);
+				}
 			}
 		}
 	}

@@ -1,0 +1,21 @@
+<template id="atoms" repeatCount="*" name="COORDINATES OF ALL ATOMS" 
+  pattern="\s* COORDINATES OF ALL ATOMS ARE \(ANGS\)\s*"  endPattern="\s*">
+  <comment>
+ COORDINATES OF ALL ATOMS ARE (ANGS)
+   ATOM   CHARGE       X              Y              Z
+ ------------------------------------------------------------
+ H1          1.0  -2.9805271364    .9147039208    .1059830464
+ C2          6.0  -2.0999914660    .2907269834   -.0395326325
+ N3          7.0   -.9976813639   1.0413606479   -.1642905198
+ ...
+ H15         1.0    .8862540998  -2.4282130682    .6268551582
+ H16         1.0   -.5854990105  -1.5842704744    .5426395725
+
+  </comment>
+  <record repeatCount="3">{X,x:zzzq}</record>
+  <record repeatCount="3" id="atom">\s{A6,n:label}{F,c:elementType}\s{F,m:x3}\s{F,m:y3}\s{F,m:z3}.*</record>
+  <!-- 
+  <record repeatCount="1"3id="atom">\s{A6,n:label}{F9.1,c:elementType}{F15.10,m:x3}{F15.10,m:y3}{F15.10,m:z3}.*</record>
+   -->
+  <record repeatCount="*">{X,x:xxxaa}</record>
+</template>
