@@ -5,6 +5,7 @@ import org.junit.Test;
 
 @Ignore // till we fix templates
 public class ConverterTest {
+	@Ignore
 	@Test         public void testBasisOpt()    {testConverter("basisopt");}
 
 	private void testConverter(String name) {

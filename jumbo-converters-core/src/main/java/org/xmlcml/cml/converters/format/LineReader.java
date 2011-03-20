@@ -324,8 +324,12 @@ public abstract class LineReader extends Element implements MarkupApplier {
 		if (dType == null || dType.equals(CMLConstants.XSD_STRING)) {
 			scalar = new CMLScalar(value);
 		} else if (dType.equals(CMLConstants.XSD_DOUBLE) || dType.equals(RegexField.E)) {
-			double dd = Real.parseDouble(value);
-			scalar = new CMLScalar(dd);
+			try {
+				double dd = Real.parseDouble(value);
+				scalar = new CMLScalar(dd);
+			} catch (Exception e) {
+				throw new RuntimeException("bad float", e);
+			}
 		} else if (dType.equals(CMLConstants.XSD_INTEGER)) {
 			scalar = new CMLScalar(new Integer(value));
 		} else if (dType.equals(CMLConstants.XSD_DATE)) {

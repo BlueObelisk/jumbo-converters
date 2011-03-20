@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  this is the top template file for Molcas log files.
+It should generally be found in the directory structure
+  src/main/resources/org/xmlcml/cml/converters/compchem/gamessus/log
+It uses include files from 
+  src/main/resources/org/xmlcml/cml/converters/compchem/gamessus/log/templates
+  (though I am not quite sure why the subdirectories are not explcit here)
+  
+The ORDER of the subtemplates may be important. Templates are processed in the order 
+  in this files and the subtemplates. Some of the files are marked with comments
+ -->
+ 
+<template id='gamessus.log' output="VERBOSE"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:c="http://www.xml-cml.org/dictionary"
+  xmlns:m="http://www.xml-cml.org/dictionary/gamessus">
+  <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
+  <!-- major sections -->
+      <xi:include href="script.temp.xml"/> 
+      <xi:include href="proginfo.temp.xml"/> 
+      <xi:include href="input.temp.xml"/> 
+      <xi:include href="coords.temp.xml"/> 
+      
+      <xi:include href="chunker.temp.xml"/> 
+  </templateList>
+  
+  <!--  don't worry if you don't understand all of this. It's almost boilerplate -->
+  <!--  Do the grouping after all the main body has been  processed
+   -->
+   <!--  this finds all modules with given templateRef and groups them an all sibligs into a new 
+   higher level module. Each modules geeedily eats sibling till the next module
+    -->
+  <transform process="group" name="./*[@templateRef='gamessusmod']"/>
+  <!--  labels the first group as the initial one -->
+  <transform process="addRole" name="./*[@role='group'][1]" value="initial"/>
+  <!--  labels the last group as final (typical XPath/XSL construction to get the number of
+  the last group -->
+  <transform process="addRole" name="./*[@role='group'][count(//*[@role='group'])]" value="final"/>
+  <!--  labels the new leading group as calculation -->
+  <transform process="addRole" name="./*[@role='group']" value="calculation"/>
+  <!--  and groups it and its siblings not yet working -->
+  <!-- <transform process="group" name="./*[@role='calculation']"/> -->
+</template>
