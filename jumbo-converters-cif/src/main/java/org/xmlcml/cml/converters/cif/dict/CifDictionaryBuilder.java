@@ -33,7 +33,7 @@ import org.xmlcml.converters.cif.dict.units.CIFUnitMapper;
  */
 public class CifDictionaryBuilder {
 
-    public static final String URI = "http://www.xml-cml.org/dict/cif/";
+    public static final String URI = "http://www.xml-cml.org/dictionary/cif/";
     public static final String PREFIX = "iucr";
     private static final String conv_URI = "http://www.xml-cml.org/convention/";
     private static final String conv_PREFIX = "convention";
