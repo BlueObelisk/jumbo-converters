@@ -13,6 +13,10 @@ public class CIFUnitMapper {
         init();
     }
 
+    public CifUnit getUnitForId(String cifId){
+        return this.cifUnitMap.get(cifId);
+    }
+    
     public String getCompleteIdFor(String cifId) {
         CifUnit unit = this.cifUnitMap.get(cifId);
         if (unit == null) {

@@ -26,6 +26,7 @@ import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.element.CMLEntry;
 import org.xmlcml.converters.cif.dict.units.CIFUnitMapper;
+import org.xmlcml.converters.cif.dict.units.CifUnit;
 
 /**
  * @author sea36
@@ -100,8 +101,10 @@ public class CifDictionaryBuilder {
         }
         String id = att.getValue();
         id = id.substring(id.indexOf(':') != -1 ? (id.indexOf(':') + 1) : 0, id.length());
-        String value = mapper.getCompleteIdFor(id);
+        CifUnit unit = mapper.getUnitForId(id);
+        String value = unit.toString();
         att.setValue(value);
+        unit.type.setUnitType(entry);
     }
 
     private CMLDictionary createUnitsDictionary(Map<String, String> unitMap) {
