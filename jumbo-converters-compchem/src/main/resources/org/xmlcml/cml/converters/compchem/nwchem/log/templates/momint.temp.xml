@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="momint" name="moments of inertia" 
-  pattern="\s+moments of inertia.*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="momint" name="moments of inertia" 
+  pattern="\s+moments of inertia.*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
  moments of inertia (a.u.)
  ------------------
@@ -8,8 +8,8 @@
            0.000000000000           0.000000000000        1950.260605202691
 
   </comment>    
-  <record repeatCount="2">{X}</record>
-  <record id="mat" formatType="REGEX" repeatCount="3">{F25.12,n:mx}{F25.12,n:my}{F25.12,n:mz}</record>
+  <record repeat="2">{X}</record>
+  <record id="mat" formatType="REGEX" repeat="3">{F25.12,n:mx}{F25.12,n:my}{F25.12,n:mz}</record>
   <!-- 
 - <module lineCount="6" templateRef="momint">
 - <list templateRef="mat">

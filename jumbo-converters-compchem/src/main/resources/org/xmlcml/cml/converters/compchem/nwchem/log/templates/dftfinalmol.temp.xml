@@ -1,4 +1,4 @@
-<template repeatCount="*"  id="dftfinalmolorb" name="DFT" pattern=".*DFT Final Molecular Orbital Analysis.*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="dftfinalmolorb" name="DFT" pattern=".*DFT Final Molecular Orbital Analysis.*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
                        DFT Final Molecular Orbital Analysis
                        ------------------------------------
@@ -20,15 +20,15 @@
     28      0.164725   2 C  s                43      0.164725   3 C  s         
 
   </comment>
-  <record repeatCount="3">{X}</record>
+  <record repeat="3">{X}</record>
   <templateList>
-    <template repeatCount="*" id="vector"
+    <template repeat="*" id="vector"
       pattern="\s*Vector\s*.*" endPattern="\s*">
       <record id="vv">\s*Vector\s*{I,n:v}\s+Occ={E,n:occ}\s+E={E,n:e}\s+Symmetry={A,n:sym}.*</record>
       <record id="vv2">\s*MO\s+Center=\s*{E,n:mo1},\s*{E,n:mo2},\s*{E,n:mo3},\s*r\^2={E,n:r2}.*</record>
-      <record id="junk" repeatCount="2">{X}</record>
-      <record id="orb2" repeatCount="*">{I,n:i}{F,n:f}{I,n:j}{A,n:a}{A,n:orb}{I,n:i}{F,n:f}{I,n:j}{A,n:a}{A,n:orb}</record>
-      <record id="orb1" repeatCount="*">{I,n:i}{F,n:f}{I,n:j}{A,n:a}{A,n:orb}</record>
+      <record id="junk" repeat="2">{X}</record>
+      <record id="orb2" repeat="*">{I,n:i}{F,n:f}{I,n:j}{A,n:a}{A,n:orb}{I,n:i}{F,n:f}{I,n:j}{A,n:a}{A,n:orb}</record>
+      <record id="orb1" repeat="*">{I,n:i}{F,n:f}{I,n:j}{A,n:a}{A,n:orb}</record>
     </template>
   </templateList>
   <transform process="vector3" parent=".//*[@templateRef='vv2']/*" 

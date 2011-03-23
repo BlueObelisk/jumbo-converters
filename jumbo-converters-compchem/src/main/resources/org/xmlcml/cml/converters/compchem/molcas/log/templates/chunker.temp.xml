@@ -1,4 +1,4 @@
-<template repeatCount="*"  id="chunker" name="Chunker" 
+<template repeat="*"  id="chunker" name="Chunker" 
   pattern="\+\+.*" endPattern="\-\-\s*" endOffset="1">
   <comment>
 ++       Molecular structure info:
@@ -8,6 +8,6 @@
 --
   </comment>
   <record id="title">\+\+\s*{X,n:title}</record>
-  <record repeatCount="*">{X}</record>
+  <record repeat="*">{X}</record>
   <transform process="pullupSingleton" name="./cml:list"/>
 </template>

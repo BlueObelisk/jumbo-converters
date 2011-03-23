@@ -1,4 +1,4 @@
-<template repeatCount="*"  id="convergence" name="Convergence information" 
+<template repeat="*"  id="convergence" name="Convergence information" 
   pattern="\+\+\s*Convergence information.*" endPattern="\-\-\s*" endOffset="1">
   <comment>
 ++ Convergence information
@@ -18,8 +18,8 @@ Iter     Tot. SCF       One-electron     Two-electron   Energy   Max Dij or  Max
 
 --
   </comment>
-  <record repeatCount="5">{X}</record>
-  <record id="iter" makeArray="true" repeatCount="*"
+  <record repeat="5">{X}</record>
+  <record id="iter" makeArray="true" repeat="*"
     >{I4,d:iter}{F16.8,d:totscf}{F16.8,d:oneel}{F16.8,d:twoel}{A,m:deltae}{A,m:maxdij}{A,m:maxfij}{F,m:dnorm}{F,m:tnorm}{A,m:accon}{F,m:time}.*</record>
-  <record repeatCount="*">{X,m:dbg}</record>
+  <record repeat="*">{X,m:dbg}</record>
 </template>

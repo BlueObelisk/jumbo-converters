@@ -1,4 +1,4 @@
-<template repeatCount="*"  id="atmass" name="Atomic Mass" pattern=".*Atomic Mass.*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="atmass" name="Atomic Mass" pattern=".*Atomic Mass.*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
       Atomic Mass 
       ----------- 
@@ -7,7 +7,7 @@
       c                 12.000000
       o                 15.994910
   </comment>
-  <record repeatCount="3">{X}</record>
+  <record repeat="3">{X}</record>
   <record formatType="REGEX" id="atmass" makeArray="true" 
-     repeatCount="*">\s*{A,n:tag}\s*{F,n:mass}\s*</record>
+     repeat="*">\s*{A,n:tag}\s*{F,n:mass}\s*</record>
 </template>

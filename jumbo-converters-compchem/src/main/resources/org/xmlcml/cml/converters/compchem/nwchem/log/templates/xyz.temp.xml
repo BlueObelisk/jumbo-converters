@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="xyz" name="XYZ format geometry" 
-  pattern="\s*XYZ format geometry$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="xyz" name="XYZ format geometry" 
+  pattern="\s*XYZ format geometry$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
             XYZ format geometry
             -------------------
@@ -11,10 +11,10 @@
  o                     0.77109980    -2.87778364     0.00000000
 
   </comment>
-  <record repeatCount="2">{X}\s*</record>
+  <record repeat="2">{X}\s*</record>
   <record id="atoms">\s*{I,n:natoms}\s*</record>
   <record id="geo">\s*{A,n:type}\s*</record>
-  <record makeArray="true" repeatCount="*" 
+  <record makeArray="true" repeat="*" 
       id="mol">\s*{A,n:atomtype}\s*{F,n:x}\s*{F,n:y}\s*{F,n:z}\s*</record>
   <transform process="pullupSingleton" name="./cml:list"/>
 </template>

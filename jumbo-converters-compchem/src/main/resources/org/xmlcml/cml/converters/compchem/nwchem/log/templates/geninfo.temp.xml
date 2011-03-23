@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="geninfo" name="General Information" 
-    pattern="\s*General Information.*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="geninfo" name="General Information" 
+    pattern="\s*General Information.*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
 <!-- this output is a mess ; work on it if you want -->
   <comment>
             General Information
@@ -26,6 +26,6 @@
           Convergence on density requested: 1.00D-05
           Convergence on gradient requested: 5.00D-04
 </comment>
-  <record repeatCount="2">{X}</record>
-  <record id="property" repeatCount="*">{X,n:name}</record>
+  <record repeat="2">{X}</record>
+  <record id="property" repeat="*">{X,n:name}</record>
 </template>

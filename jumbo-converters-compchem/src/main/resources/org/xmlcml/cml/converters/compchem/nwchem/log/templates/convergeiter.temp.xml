@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="convergenceiter" name="Convergence Iteration" 
-  pattern="\s*convergence    iter.*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="convergenceiter" name="Convergence Iteration" 
+  pattern="\s*convergence    iter.*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
    convergence    iter        energy       DeltaE   RMS-Dens  Diis-err    time
  ---------------- ----- ----------------- --------- --------- ---------  ------
@@ -19,9 +19,9 @@
 
      Total iterative time =      6.9s  
    </comment>
-  <record repeatCount="2">{X}</record>
-  <record id="converge" repeatCount="*" makeArray="true">\s*d\=\s*{I,n:d}\,ls={F,n:ls}\,diis\s*{I,n:iter}\s*{F,n:ener}\s*{E,n:deltae}\s*{E,n:rms}\s*{E,n:diserr}\s*{F,n:time}</record>
-  <record repeatCount="2">{X}</record>
+  <record repeat="2">{X}</record>
+  <record id="converge" repeat="*" makeArray="true">\s*d\=\s*{I,n:d}\,ls={F,n:ls}\,diis\s*{I,n:iter}\s*{F,n:ener}\s*{E,n:deltae}\s*{E,n:rms}\s*{E,n:diserr}\s*{F,n:time}</record>
+  <record repeat="2">{X}</record>
   <record id="energies">\s*Total DFT energy =\s*{F,n:totdft}</record>
   <record>\s*One electron energy =\s*{F,n:oneelec}</record>
   <record>\s*Coulomb energy =\s*{F,n:coulomb}</record>

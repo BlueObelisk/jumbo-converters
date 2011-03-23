@@ -1,5 +1,5 @@
-<template repeatCount="*"  name="Job information" id="job" 
-  pattern=" *Job information *$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*"
+<template repeat="*"  name="Job information" id="job" 
+  pattern=" *Job information *$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*"
   >
   <comment>
                Job information
@@ -20,21 +20,25 @@
         time left     =     -1s
 
     </comment>
-  <record repeatCount="3">{X}</record>
-  <record id="list1" repeatCount="*">\s*{X,n:name}\s*\=\s*{X,n:value}\s*</record>
-  <record>{X}</record>
-  <record id="list2" repeatCount="*">\s*{X,n:name}\s*\=\s*{X,n:value}\s*</record>
-  <transform process="nameValue" parent="cml:list[@templateRef='list2']/cml:list" 
-      name="cml:scalar[@dictRef='n:name']" value="cml:scalar[@dictRef='n:value']"/>
-  <transform process="nameValue" parent="cml:list[@templateRef='list1']/cml:list" 
-      name="cml:scalar[@dictRef='n:name']" value="cml:scalar[@dictRef='n:value']"/>
+  <record repeat="3">{X}</record>
+  <record id="host">\s*hostname\s*\=\s*{X,compchem:hostname}\s*</record>
+  <record id="prog">\s*program\s*\=\s*{X,compchem:executable}\s*</record>
+  <record id="prog">\s*date\s*\=\s*{X,compchem:date}\s*</record>
+  <record >{X}</record>
+  <record >{X}</record>
+  <record >{X}</record>
+  <record id="version">\s*nwchem branch\s*\=\s*{X,compchem:version}\s*</record>
+  <record id="inpu">\s*input\s*\=\s*{X,compchem:input}\s*</record>
+  <record >{X}</record>
+  <record >{X}</record>
+  <record >{X}</record>
+  <record id="nproc">\s*nproc\s*\=\s*{X,compchem:nproc}\s*</record>
+  <record >{X}</record>
   <transform process="pullupSingleton" name="./*[@templateRef='list1' or @templateRef='list2']/cml:list"/>
-      <!-- 
-  <transform process="rename"    from="nwchem branch" value="branch"/>
-  <transform process="rename"    from="data base" value="database"/>
-  <transform process="rename"    from="time left" value="timeLeft"/>
-  <transform process="dataType" name="nproc" value="xsd:integer"/>
-  <transform process="dataType" name="compiled" value="xsd:date"/>
-  <transform process="dataType" name="date" value="xsd:date"/>
-  -->
+  <transform process="integer" name="cml:list/cml:scalar[@dictRef='n:nproc']" />
+  <!-- Wed Jul  8 10:53:24 PDT 1998 -->
+  <transform process="date" name="cml:list/cml:scalar[@dictRef='n:compiled']" 
+     value="xsd:date" format="EEE MMM d HH:mm:ss ZZZ yyyy"/>
+  <!-- Wed Jul  8 14:40:23 1998 -->
+  <transform process="date" name="cml:list/cml:scalar[@dictRef='n:date']" value="xsd:date"/>
 </template>

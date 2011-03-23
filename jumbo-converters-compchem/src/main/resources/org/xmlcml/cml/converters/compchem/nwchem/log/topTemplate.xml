@@ -12,6 +12,7 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
 <template id='nwchem.log' output="VERBOSE"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:c="http://www.xml-cml.org/dictionary"
+  xmlns:compchem="http://www.xml-cml.org/dictionary/compchem/"
   xmlns:n="http://www.xml-cml.org/dictionary/nwchem">
   <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
       <xi:include href="echoinput.temp.xml"/> <!-- do this early on -->
@@ -80,12 +81,30 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
     -->
   <transform process="group" name="./*[@templateRef='nwcheminpmod']"/>
   <!--  labels the first group as the initial one -->
-  <transform process="addRole" name="./*[@role='group'][1]" value="initial"/>
+  <transform process="addRole" name="./*[@role='group'][1]" value="initialization"/>
   <!--  labels the last group as final (typical XPath/XSL construction to get the number of
   the last group -->
-  <transform process="addRole" name="./*[@role='group'][count(//*[@role='group'])]" value="final"/>
+  <transform process="addRole" name="./*[@role='group'][count(//*[@role='group'])]" value="finalization"/>
   <!--  labels the new leading group as calculation -->
-  <transform process="addRole" name="./*[@role='group']" value="calculation"/>
   <!--  and groups it and its siblings not yet working -->
   <!-- <transform process="group" name="./*[@role='calculation']"/> -->
+
+  <transform process="addDictRef" name="./*[@role='initialization'][1]" value="compchem:initialization"/>
+  <transform process="addParameterList" name="./*[@dictRef='compchem:initialization']" id="initialParams"/>
+  <transform process="move" name=".//*[@dictRef='compchem:date'][1]" to=".//*[@id='initialParams']"/>
+  <transform process="move" name=".//*[@dictRef='compchem:program'][1]" to=".//*[@id='initialParams']"/>
+  <transform process="move" name=".//*[@dictRef='compchem:version'][1]" to=".//*[@id='initialParams']"/>
+  <transform process="move" name=".//*[@dictRef='compchem:hostname'][1]" to=".//*[@id='initialParams']"/>
+  <transform process="wrap" name=".//*[@id='initialParams']"/>
+  
+  <transform process="addDictRef" name="./*[@role='finalization']" value="compchem:finalization"/>
+  <transform process="addPropertyList" name="./*[@dictRef='compchem:finalization']" id="finalProperties"/>
+  <transform process="move" name=".//*[@dictRef='compchem:nuclearEnergy'][1]" to=".//*[@id='finalProperties']"/>
+<!--   <transform process="move" name=".//*[@dictRef='compchem:nuclearDipole'][count(//*[@dictRef='compchem:nuclearDipole'])]" to=".//*[@id='finalProperties']"/>-->
+  <transform process="move" name=".//*[@dictRef='compchem:nuclearDipole'][1]" to=".//*[@id='finalProperties']"/>
+  <transform process="wrap" name=".//*[@id='finalProperties']"/>
+
+  <transform process="move" name=".//*[local-name()='molecule']" to="./*[@dictRef='compchem:finalization']"/>
+  
+  <transform process="addDictRef" name="./*[@role='group']" value="compchem:calculation"/>
 </template>

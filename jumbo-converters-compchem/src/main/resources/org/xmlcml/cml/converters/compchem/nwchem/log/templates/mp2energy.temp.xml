@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="mp2energy" name="MP2 Energy (coupled cluster initial guess)" 
-pattern="\s*MP2 Energy \(coupled cluster initial guess\)\s*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="mp2energy" name="MP2 Energy (coupled cluster initial guess)" 
+pattern="\s*MP2 Energy \(coupled cluster initial guess\)\s*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
  MP2 Energy (coupled cluster initial guess)
  ------------------------------------------
@@ -37,6 +37,6 @@ pattern="\s*MP2 Energy \(coupled cluster initial guess\)\s*$\s+\-+.*" multiple="
   Using MP2 initial guess vector 
 
 </comment>
-<record repeatCount="2" id="rl1"/>
-<record id="r1" repeatCount="*" formatType="REGEX" names="__name __value">\s*(.*)\s*:\s*(.*)\s*</record>
+<record repeat="2" id="rl1"/>
+<record id="r1" repeat="*" formatType="REGEX" names="__name __value">\s*(.*)\s*:\s*(.*)\s*</record>
 </template>

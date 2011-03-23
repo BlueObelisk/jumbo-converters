@@ -1,1 +1,14 @@
-    <template id='crystax' name='crystax' pattern='.*\s+Crystallographic axes.*' endPattern='\s*'/>
+    <template id='crystax' name='crystax' pattern='.*\s+Crystallographic axes.*' 
+    repeat="*" endPattern='\s*'>
+    <comment>
+     crystal axes: (cart. coord. in units of a_0)
+               a(1) = ( -0.500000  0.000000  0.500000 )  
+               a(2) = (  0.000000  0.500000  0.500000 )  
+               a(3) = ( -0.500000  0.500000  0.000000 )  
+
+    </comment>
+    <record/>
+    <record id="ax1">\s*a\(1\) = \( {F,q:ax}{F,q:ay}{F,q:az} \)</record>
+    <record id="ax2">\s*a\(1\) = \( {F,q:bx}{F,q:by}{F,q:bz} \)</record>  
+    <record id="ax3">\s*a\(1\) = \( {F,q:cx}{F,q:cy}{F,q:cz} \)</record>  
+    </template>

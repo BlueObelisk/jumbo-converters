@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="zmatautoz" name="Z-Matrix autoz" 
-  pattern=".*Z\-matrix \(autoz\).*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="zmatautoz" name="Z-Matrix autoz" 
+  pattern=".*Z\-matrix \(autoz\).*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
                                 Z-matrix (autoz)
                                 -------- 
@@ -20,11 +20,11 @@
    
   </comment>
   <record id="type" >\s*Z\-matrix\s*\({X,n:type}\)\s*</record>
-<record repeatCount="6">{X}</record>
-  <record id="stretch" repeatCount="*" makeArray="true"
+<record repeat="6">{X}</record>
+  <record id="stretch" repeat="*" makeArray="true"
      >\s*{I,n:serial}\s*Stretch\s*{I,n:i}\s*{I,n:j}\s*{F,n:len,u:angst}</record>
-  <record id="bend" repeatCount="*" makeArray="true"
+  <record id="bend" repeat="*" makeArray="true"
      >\s*{I,n:serial}\s*Bend\s*{I,n:i}\s*{I,n:j}\s*{I,n:k}\s*{F,n:ang,u:deg}</record>
-  <record id="torsion" repeatCount="*" makeArray="true"
+  <record id="torsion" repeat="*" makeArray="true"
      >\s*{I,n:serial}\s*Torsion\s*{I,n:i}\s*{I,n:j}\s*{I,n:k}\s*{I,n:l}\s*{F,n:tor,u:deg}</record>
 </template>

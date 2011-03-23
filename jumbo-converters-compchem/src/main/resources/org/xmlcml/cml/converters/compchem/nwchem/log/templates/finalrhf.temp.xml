@@ -1,8 +1,8 @@
-<template repeatCount="*"  id="finalrhf" name="Final RHF  
+<template repeatCount="*"  id="finalrhf" name="Final RHF
   results" pattern="\s*Final RHF  results\s*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
   <comment>
-       Final RHF  results 
-       ------------------ 
+       Final RHF  results
+       ------------------
 
          Total SCF energy =   -134.684334043866
       One-electron energy =   -233.466922651842
@@ -12,8 +12,12 @@
         Time for solution =     81.8s
 
 </comment>
-<record repeatCount="3" id="rl1"/>
-<record id="r1" repeatCount="*" formatType="REGEX" names="__name __value">\s*(.*) = (.*)\s*</record>
-<record repeatCount="1" id="rl2" output="VERBOSE"/>
-<record id="r2" repeatCount="1" formatType="REGEX" names="time units">.*=\s*(.*)(s)</record>
+<record repeatCount="3" id="rl1">{X}</record>
+<record id="e_scf" >\s*Total SCF energy\s*=\s*{F,n:e_scf}\s*</record>
+<record id="e_1electron" >\s*One-electron energy\s*=\s*{F,n:e_1electron}\s*</record>
+<record id="e_2electron" >\s*Two-electron energy\s*=\s*{F,n:e_2electron}\s*</record>
+<record id="e_nuclear" >\s*Nuclear repulsion energy\s*=\s*{F,compchem:nuclearEnergy}\s*</record>
+<record  id="rl2" output="VERBOSE">{X}</record>
+<record id="r2" >\s*Time for solution =\s*{F,n:tscf}s\s*</record>
+<transform process="pullupSingleton" name="./cml:list"/>
 </template>

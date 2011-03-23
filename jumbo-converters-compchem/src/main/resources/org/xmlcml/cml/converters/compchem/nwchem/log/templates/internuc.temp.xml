@@ -1,4 +1,4 @@
-<template repeatCount="*"  id="internuc" name="internuclear distances" multiple="$"
+<template repeat="*"  id="internuc" name="internuclear distances" newline="$"
   pattern="\s*\=+$\s*internuclear distances\s*"  endPattern="\s*\=+\s*"
   endOffset="1">
   <comment>
@@ -21,8 +21,8 @@
                          number of included internuclear distances:         10
  ==============================================================================
   </comment>    
-  <record repeatCount="5">{X}</record>
-  <record id="dist" formatType="REGEX" makeArray="true" repeatCount="*"
+  <record repeat="5">{X}</record>
+  <record id="dist" formatType="REGEX" makeArray="true" repeat="*"
   >{I,n:ser1}{A,n:elem1}\s*\|\s*{I,n:ser2}{A,n:elem2}\|{F,n:dist1}\|{F,n:dist1}</record>
   <record>{X}</record>
   <record id="rlx" >\s*number of included internuclear distances:\s*{I,n:count}</record>

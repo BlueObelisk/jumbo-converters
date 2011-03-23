@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="basis" name="Basis" 
-  pattern=".*Basis .*$\s+\-+.*" multiple="$" endPattern="\s*$\s*$\s*">
+<template repeat="*"  id="basis" name="Basis" 
+  pattern=".*Basis .*$\s+\-+.*" newline="$" endPattern="\s*$\s*$\s*">
   <comment>
                       Basis "ao basis" -> "" (cartesian)
                       -----
@@ -19,24 +19,24 @@
 
   3 S  2.77474600E-01  1.000000
   </comment>
-  <record repeatCount="2">{X}</record>
+  <record repeat="2">{X}</record>
   <templateList>
   <!-- 
   o (Oxygen)
   - - - - - 
  -->
-     <template repeatCount="*" id="exponent" pattern="\s*Exponent.*$\s*\-+\s*\-+\s*" 
-         multiple="$" endPattern=".*$\s*\-+\s*">
-       <record repeatCount="2">{X}</record>
+     <template repeat="*" id="exponent" pattern="\s*Exponent.*$\s*\-+\s*\-+\s*" 
+         newline="$" endPattern=".*$\s*\-+\s*">
+       <record repeat="2">{X}</record>
        <templateList>
-         <template id="shell" repeatCount="*" pattern="\s*\d+\s*\S+\s*.*" 
+         <template id="shell" repeat="*" pattern="\s*\d+\s*\S+\s*.*" 
             endPattern="\s*">
-           <record id="aaa" repeatCount="*">\s*{I,n:shell}\s*{A,n:orb}\s*{E,n:exp}\s*{F,n:wt}.*</record>
+           <record id="aaa" repeat="*">\s*{I,n:shell}\s*{A,n:orb}\s*{E,n:exp}\s*{F,n:wt}.*</record>
          </template>
        </templateList>
        <transform process="pullupSingleton" name=".//cml:list[@templateRef='aaa']"/> 
      </template> 
-     <template repeatCount="*" id="elem" multiple="$"
+     <template repeat="*" id="elem" newline="$"
        pattern="\s*\S+\s*\([^\)]*\).*$\s*\-+\s*\-+\s*">
        <record id="elem">\s*{A,n:tag}\s*\({A,n:elem}\).*</record>
        <record>{X}</record>

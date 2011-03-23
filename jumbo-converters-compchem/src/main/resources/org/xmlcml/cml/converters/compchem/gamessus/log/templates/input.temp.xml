@@ -1,6 +1,6 @@
-<template id="chunker" repeatCount="*" name="Input" 
+<template id="chunker" repeat="*" name="Input" 
   pattern="\s* EXECUTION OF GAMESS BEGUN.*$\s*$\s*ECHO OF THE FIRST FEW.*" 
-  multiple="$" endPattern="\s*">
+  newline="$" endPattern="\s*">
   <comment>
  EXECUTION OF GAMESS BEGUN Thu Jun 12 13:14:45 2008
 
@@ -57,7 +57,7 @@
  INPUT CARD>rH16N13       0.9941599400                                                      
   </comment>
   <record >\s*EXECUTION OF GAMESS BEGUN {X,g:date}\s*</record>
-  <record repeatCount="2">{X}</record>
+  <record repeat="2">{X}</record>
   <record id="card">\s*INPUT CARD>{X,g:card}\s*</record>
-  <record repeatCount="*">{X}</record>
+  <record repeat="*">{X}</record>
 </template>

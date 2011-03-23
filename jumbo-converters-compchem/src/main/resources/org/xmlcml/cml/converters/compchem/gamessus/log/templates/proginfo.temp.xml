@@ -1,5 +1,5 @@
-<template id="chunker" repeatCount="*" name="Program Info" pattern="\s*\*+\s*$\s*\*\s*+\s*GAMESS VERSION.*" 
-  multiple="$" endPattern="\s*UNIVERSITY OF NOTRE DAME.*" endOffset="1">
+<template id="chunker" repeat="*" name="Program Info" pattern="\s*\*+\s*$\s*\*\s*+\s*GAMESS VERSION.*" 
+  newline="$" endPattern="\s*UNIVERSITY OF NOTRE DAME.*" endOffset="1">
   <comment>
           ******************************************************
           *         GAMESS VERSION = 22 FEB 2006 (R2)          *
@@ -19,5 +19,5 @@
   </comment>
   <record >{X}</record>
   <record id="version">\s*\*\s*GAMESS VERSION = {X,g:version}\s*\*\s*</record>
-  <record repeatCount="*">{X}</record>
+  <record repeat="*">{X}</record>
 </template>

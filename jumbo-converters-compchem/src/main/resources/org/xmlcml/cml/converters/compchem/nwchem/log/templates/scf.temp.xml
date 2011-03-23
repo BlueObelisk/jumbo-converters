@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="scf" name="NWChem SCF Module" 
-  pattern="\s*NWChem SCF Module\s*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="scf" name="NWChem SCF Module" 
+  pattern="\s*NWChem SCF Module\s*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
                                  NWChem SCF Module
                                  -----------------
@@ -22,8 +22,8 @@
   symmetry adapt  = T
 
 </comment>
-<record repeatCount="4" id="rl1"/>
-<record id="r1" repeatCount="*" formatType="REGEX" names="from to">\s*(.*) \-> (.*)\s*</record>
-<record repeatCount="3" id="rl2"/>
-<record id="r2" repeatCount="*" formatType="REGEX" names="__name __value">\s*(.*)\s*=\s*(.*)</record>
+<record repeat="4" id="rl1"/>
+<record id="r1" repeat="*" formatType="REGEX" names="from to">\s*(.*) \-> (.*)\s*</record>
+<record repeat="3" id="rl2"/>
+<record id="r2" repeat="*" formatType="REGEX" names="__name __value">\s*(.*)\s*=\s*(.*)</record>
 </template>

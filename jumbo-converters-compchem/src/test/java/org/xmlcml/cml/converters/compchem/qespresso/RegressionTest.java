@@ -2,7 +2,7 @@
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.xmlcml.cml.converters.compchem.qespresso.log.QuantumEspressoLog2XMLConverter;
+import org.xmlcml.cml.converters.compchem.qespresso.log.QuantumEspressoLog2XMLConverterOld;
 import org.xmlcml.cml.converters.testutils.RegressionSuite;
 
 /**
@@ -15,7 +15,7 @@ public class RegressionTest {
 	   @Ignore
 	   public void nwchemOut2XML() {
 	      RegressionSuite.run("compchem/qespresso/log", "out", "xml",
-	                          new QuantumEspressoLog2XMLConverter());
+	                          new QuantumEspressoLog2XMLConverterOld());
 	                              
 	   }
 }

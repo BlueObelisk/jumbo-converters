@@ -1,5 +1,5 @@
-<template repeatCount="*"  name="Symmetry information" id="symminfo" 
-  pattern="\s*Symmetry information\s*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  name="Symmetry information" id="symminfo" 
+  pattern="\s*Symmetry information\s*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
       Symmetry information
       --------------------
@@ -14,11 +14,11 @@
      1    2    4    6    9
 
   </comment>
-  <record id="rl1" repeatCount="3">{X}</record>
-  <record id="symminfo" repeatCount="*">\s*{X,n:name}\s\s\s\s\s*{A,n:value}\s*</record>
+  <record id="rl1" repeat="3">{X}</record>
+  <record id="symminfo" repeat="*">\s*{X,n:name}\s\s\s\s\s*{A,n:value}\s*</record>
   <record>\s*</record>
-  <record repeatCount="2">{X}</record>
-  <record id="symmuniqatom" repeatCount="*">\s*{X,n:row}\s*</record>
+  <record repeat="2">{X}</record>
+  <record id="symmuniqatom" repeat="*">\s*{X,n:row}\s*</record>
   <transform process="nameValue" parent="*[@templateRef='symminfo']/cml:list" 
       name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>
   <transform process="pullupSingleton" name="./*/cml:list"/>

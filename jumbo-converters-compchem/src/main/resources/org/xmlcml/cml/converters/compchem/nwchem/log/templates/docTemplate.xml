@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  this is the top template file for NWChem log files.
+It should generally be found in the directory structure
+  src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log
+It uses include files from 
+  src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/log/templates
+  (though I am not quite sure why the subdirectories are not explcit here)
+  
+The ORDER of the subtemplates may be important. Templates are processed in the order 
+  in this files and the subtemplates. Some of the files are marked with comments
+ -->
+<template id='nwchem.log' output="VERBOSE"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:c="http://www.xml-cml.org/dictionary"
+  xmlns:n="http://www.xml-cml.org/dictionary/nwchem">
+  <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
+      <xi:include href="echoinput.temp.xml"/> <!-- do this early on -->
+      <xi:include href="totaltimes.temp.xml"/> <!--  the last line of input - may need special treatment -->
+      <xi:include href="argument.temp.xml"/>
+      <xi:include href="atmass.temp.xml"/>
+      <xi:include href="atombasis.temp.xml"/>
+      <xi:include href="authors.temp.xml"/>
+      <xi:include href="ccsd.temp.xml"/>
+      <xi:include href="ccsdt.temp.xml"/>
+      <!--  this must come before center23 -->
+      <xi:include href="convergeiter.temp.xml"/>
+      <xi:include href="center23.temp.xml"/>
+      <xi:include href="centermass.temp.xml"/>
+      <xi:include href="citation.temp.xml"/>
+      <xi:include href="converge.temp.xml"/>
+      <xi:include href="cphf.temp.xml"/>
+      <xi:include href="directmp2.temp.xml"/>
+      <xi:include href="dirinfo.temp.xml"/>
+      <xi:include href="dft.temp.xml"/>
+      <xi:include href="dftfinalmol.temp.xml"/>
+      <xi:include href="dftvector.temp.xml"/>
+      <xi:include href="eigen.temp.xml"/>
+      <xi:include href="finalrhf.temp.xml"/>
+      <xi:include href="fourindex.temp.xml"/>
+      <xi:include href="gastats.temp.xml"/>
+      <xi:include href="geninfo.temp.xml"/>    
+      <xi:include href="geom.temp.xml"/>    
+      <xi:include href="grid.temp.xml"/>    
+      <xi:include href="ignore.temp.xml"/>
+      <xi:include href="internuc.temp.xml"/>
+      <xi:include href="internucang.temp.xml"/>
+      <xi:include href="job.temp.xml"/>
+      <xi:include href="memory.temp.xml"/>
+      <xi:include href="momint.temp.xml"/>
+      <xi:include href="mp2energy.temp.xml"/>
+      <xi:include href="mulliken.temp.xml"/>
+      <xi:include href="multipole.temp.xml"/>
+      <xi:include href="nccp.temp.xml"/>
+      <xi:include href="nonvar.temp.xml"/>
+      <xi:include href="nucdipole.temp.xml"/>
+      <xi:include href="nwcheminp.temp.xml"/>
+      <xi:include href="property.temp.xml"/>
+      <xi:include href="rohffinal.temp.xml"/>
+      <xi:include href="scf.temp.xml"/>
+      <xi:include href="screen.temp.xml"/>
+      <xi:include href="shielding.temp.xml"/>
+      <xi:include href="summary.temp.xml"/>
+      <xi:include href="summaryalloc.temp.xml"/>
+      <xi:include href="superposatomguess.temp.xml"/>
+      <xi:include href="symbas.temp.xml"/>
+      <xi:include href="symminfo.temp.xml"/>
+      <xi:include href="symmolorb.temp.xml"/>
+      <xi:include href="tensor.temp.xml"/>
+      <xi:include href="xc.temp.xml"/>
+      <xi:include href="xyz.temp.xml"/>
+      <xi:include href="zmatautoz.temp.xml"/>
+      <xi:include href="zmatuser.temp.xml"/>
+      <xi:include href="basis.temp.xml"/>
+  </templateList>
+  <!--  don't worry if you don't understand all of this. It's almost boilerplate -->
+  <!--  Do the grouping after all the main body has been  processed
+   -->
+   <!--  this finds all modules with given templateRef and groups them an all sibligs into a new 
+   higher level module. Each modules geeedily eats sibling till the next module
+    -->
+  <transform process="group" name="./*[@templateRef='nwcheminpmod']"/>
+  <!--  labels the first group as the initial one -->
+  <transform process="addRole" name="./*[@role='group'][1]" value="initial"/>
+  <!--  labels the last group as final (typical XPath/XSL construction to get the number of
+  the last group -->
+  <transform process="addRole" name="./*[@role='group'][count(//*[@role='group'])]" value="final"/>
+  <!--  labels the new leading group as calculation -->
+  <transform process="addRole" name="./*[@role='group']" value="calculation"/>
+  <!--  and groups it and its siblings not yet working -->
+  <!-- <transform process="group" name="./*[@role='calculation']"/> -->
+</template>

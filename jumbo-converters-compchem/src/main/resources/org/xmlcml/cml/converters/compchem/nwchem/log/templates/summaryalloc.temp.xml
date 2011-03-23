@@ -1,6 +1,6 @@
-<template repeatCount="1"  id="summaryalloc" name="Total times" 
+<template repeat="1"  id="summaryalloc" name="Total times" 
   pattern="\s*Summary of allocated global arrays.*$\s*\-+\s*" 
-  multiple="$"  endPattern=".*$\s*\-+\s">
+  newline="$"  endPattern=".*$\s*\-+\s">
   <comment>
 Summary of allocated global arrays
 -----------------------------------
@@ -8,6 +8,6 @@ Summary of allocated global arrays
 
 
 </comment>
-  <record repeatCount="2">{X}</record>
-  <record repeatCount="*">{X,n:glob}</record>
+  <record repeat="2">{X}</record>
+  <record repeat="*">{X,n:glob}</record>
 </template>

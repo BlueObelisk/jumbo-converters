@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="tensor" name="Magnetic Tensors" 
-  pattern="\s*Atom\:\s*\d+\s*[A-Za-z]+\s*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="tensor" name="Magnetic Tensors" 
+  pattern="\s*Atom\:\s*\d+\s*[A-Za-z]+\s*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
       Atom:    1  C 
         Diamagnetic
@@ -62,7 +62,7 @@
 </comment>
 <!--   >('      Atom:',{I5,n:serial},{A3,n:elem}/8x,A80{type}/3F12.4{row}/3F12.4{row}/3F12.4{row}//8x,A80{type}/3F12.4{row}/3F12.4{row}/3F12.4{row}//8x,A80{type}/3F12.4{row}/3F12.4{row}/3F12.4{row}//'          Principal Components and Axis System'/6x,3I12{col}/10x,3F12.4{values}//I7{row},3X,3F12.4{values})</record>
  -->
-<record id="r1" formatType="REGEX" repeatCount="*" names="serial elem" multiple="$"
+<record id="r1" formatType="REGEX" repeat="*" names="serial elem" newline="$"
   >      Atom:{I5,n:serial}{A3,n:elem}$
   \s{8}{A,n:type}$
   {3F12.4,n:row}$

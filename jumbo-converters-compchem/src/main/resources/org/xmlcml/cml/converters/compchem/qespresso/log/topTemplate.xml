@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  this is the top template file for Molcas log files.
+It should generally be found in the directory structure
+  src/main/resources/org/xmlcml/cml/converters/compchem/qespresso/log
+It uses include files from 
+  src/main/resources/org/xmlcml/cml/converters/compchem/qespresso/log/templates
+  (though I am not quite sure why the subdirectories are not explcit here)
+  
+The ORDER of the subtemplates may be important. Templates are processed in the order 
+  in this files and the subtemplates. Some of the files are marked with comments
+ -->
+ 
+<template id='qespresso.log' output="VERBOSE"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:c="http://www.xml-cml.org/dictionary"
+  xmlns:m="http://www.xml-cml.org/dictionary/qespresso">
+  <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
+  <!-- major sections -->
+    <xi:include href="jobdone.temp.xml"/>
+    <!-- 
+    <xi:include href="terminated.temp.xml"/>
+    <xi:include href="self.temp.xml"/>
+    <xi:include href="prog.temp.xml"/>
+    <xi:include href="prog1.temp.xml"/>
+    <xi:include href="para.temp.xml"/>
+    <xi:include href="curdim.temp.xml"/>
+    <xi:include href="proc.temp.xml"/>
+    <xi:include href="pspot.temp.xml"/>
+    <xi:include href="planes.temp.xml"/>
+    <xi:include href="proc1.temp.xml"/>
+    <xi:include href="brav.temp.xml"/>
+    <xi:include href="celldm.temp.xml"/>
+    <xi:include href="cart.temp.xml"/>
+    <xi:include href="recip.temp.xml"/>
+    <xi:include href="pspot1.temp.xml"/>
+    <xi:include href="pspot2.temp.xml"/>
+    <xi:include href="atomic1.temp.xml"/>
+    <xi:include href="symops.temp.xml"/>
+    <xi:include href="site.temp.xml"/>
+    <xi:include href="cartax.temp.xml"/>
+    -->
+    <xi:include href="crystax.temp.xml"/>
+    <!-- 
+    <xi:include href="kpoints.temp.xml"/>
+    <xi:include href="gcut.temp.xml"/>
+    <xi:include href="isym.temp.xml"/>
+    <xi:include href="fractrans.temp.xml"/>
+    <xi:include href="pointgroup.temp.xml"/>
+    <xi:include href="symops1.temp.xml"/>
+    <xi:include href="cryst1.temp.xml"/>
+    <xi:include href="cart1.temp.xml"/>
+    <xi:include href="array.temp.xml"/>
+    <xi:include href="renormalized.temp.xml"/>
+    <xi:include href="initpot.temp.xml"/>
+    <xi:include href="startchg.temp.xml"/>
+    <xi:include href="totcpu.temp.xml"/>
+    <xi:include href="vdwstress.temp.xml"/>
+    <xi:include href="dynmem.temp.xml"/>
+    <xi:include href="nonloc.temp.xml"/>
+    <xi:include href="nqs.temp.xml"/>
+    <xi:include href="dim.temp.xml"/>
+    <xi:include href="eig.temp.xml"/>
+    <xi:include href="magnetic.temp.xml"/>
+    <xi:include href="fermi.temp.xml"/>
+    <xi:include href="toten.temp.xml"/>
+    <xi:include href="k.temp.xml"/>
+    <xi:include href="toten1.temp.xml"/>
+    <xi:include href="energies.temp.xml"/>
+    <xi:include href="conv.temp.xml"/>
+    <xi:include href="force.temp.xml"/>
+    <xi:include href="atom.temp.xml"/>
+    <xi:include href="totforce.temp.xml"/>
+    <xi:include href="stress.temp.xml"/>
+    <xi:include href="stress0.temp.xml"/>
+    <xi:include href="stress1.temp.xml"/>
+    <xi:include href="outfile.temp.xml"/>
+    <xi:include href="pwscf.temp.xml"/>
+    <xi:include href="initrun.temp.xml"/>
+    <xi:include href="calledby.temp.xml"/>
+    <xi:include href="gen.temp.xml"/>
+    <xi:include href="pararout.temp.xml"/>
+    <xi:include href="xcfunct.temp.xml"/>
+-->
+    </templateList>
+  <!--  don't worry if you don't understand all of this. It's almost boilerplate -->
+  <!--  Do the grouping after all the main body has been  processed
+   -->
+   <!--  this finds all modules with given templateRef and groups them an all sibligs into a new 
+   higher level module. Each modules geeedily eats sibling till the next module
+    -->
+  <transform process="group" name="./*[@templateRef='qespressomod']"/>
+  <!--  labels the first group as the initial one -->
+  <transform process="addRole" name="./*[@role='group'][1]" value="initial"/>
+  <!--  labels the last group as final (typical XPath/XSL construction to get the number of
+  the last group -->
+  <transform process="addRole" name="./*[@role='group'][count(//*[@role='group'])]" value="final"/>
+  <!--  labels the new leading group as calculation -->
+  <transform process="addRole" name="./*[@role='group']" value="calculation"/>
+  <!--  and groups it and its siblings not yet working -->
+  <!-- <transform process="group" name="./*[@role='calculation']"/> -->
+</template>
