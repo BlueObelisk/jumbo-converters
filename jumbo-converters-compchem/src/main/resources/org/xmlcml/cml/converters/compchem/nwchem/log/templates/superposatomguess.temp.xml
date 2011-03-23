@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="superposatomguess" name="Superposition of Atomic Density Guess" 
-  pattern="\s*Superposition of Atomic Density Guess.*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="superposatomguess" name="Superposition of Atomic Density Guess" 
+  pattern="\s*Superposition of Atomic Density Guess.*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
       Superposition of Atomic Density Guess
       -------------------------------------
@@ -7,7 +7,7 @@
  Sum of atomic energies:       -1824.13130503
 
 </comment>
-<record repeatCount="3">{X}</record>
+<record repeat="3">{X}</record>
 <record>\s*Sum of atomic energies\:\s*{F,n:sumatomener}</record>
   <transform process="nameValue" parent="cml:list[@templateRef='list2']/cml:list" 
       name="cml:scalar[@dictRef='n:name']" value="cml:scalar[@dictRef='n:value']"/>

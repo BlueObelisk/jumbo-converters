@@ -29,7 +29,8 @@ public abstract class LineReader extends Element implements MarkupApplier {
 
 	protected static final String ELEMENT_TYPE = "elementType";
 	private static final String FORMAT_TYPE = "formatType";
-	private static final String MULTIPLE = "multiple";
+	private static final String NEWLINE = "newline";
+	private static final String MULTIPLE = "multiple"; // deprecated
 	private static final String NAME = "name";    // obsolete
 	private static final String NAMES = "names";
 	private static final String OUTPUT = "output";
@@ -39,6 +40,14 @@ public abstract class LineReader extends Element implements MarkupApplier {
 	private static final String WHILE = "while";
 	private static final String LINES_TO_READ = "linesToRead"; // obsolete
 	public static final String T_FLAG = CMLConstants.S_TILDE;
+	private static final String LINE_READER = "lineReader";
+	protected static final String TRUE = "true";
+	private static final FormatType DEFAULT_FORMAT_TYPE = FormatType.NONE;
+	private static final String REPEAT = "repeat";
+	private static final String REPEAT_COUNT = "repeatCount"; // deprecated
+//	private static String DEFAULT_CONTENT = ".*";
+	private static String DEFAULT_CONTENT = "{X}";
+	
 
 	public enum FormatType {
 		FORTRAN,
@@ -77,12 +86,6 @@ public abstract class LineReader extends Element implements MarkupApplier {
         }
     }
 		
-	private static final String LINE_READER = "lineReader";
-	protected static final String TRUE = "true";
-	private static final FormatType DEFAULT_FORMAT_TYPE = FormatType.NONE;
-	private static final String REPEAT_COUNT = "repeatCount";
-	private static String DEFAULT_CONTENT = ".*";
-	
 	protected Integer repeatCount = null;
 	protected List<Field> fieldList;
 	private   LineType lineType;
@@ -98,7 +101,7 @@ public abstract class LineReader extends Element implements MarkupApplier {
 	protected String delimiter = CMLConstants.S_TILDE;
 	protected boolean trim = true;
 	protected String id;
-	protected String multiple;
+	protected String newlineSymbol;
 	protected String makeArray = null;
 	protected String names;
 	protected LineContainer lineContainer;
@@ -187,12 +190,14 @@ public abstract class LineReader extends Element implements MarkupApplier {
 			LINES_TO_READ,
 			MAKE_ARRAY,
 			MULTIPLE,
+			NEWLINE,
 			NAME,
 			NAMES,
 			OUTPUT,
+			REPEAT,
 			REPEAT_COUNT,
 		});
-		processAttributeMultiple();
+		processAttributeNewline();
 		processAttributeFormatType();
 		processAttributeLinesToRead();
 		processAttributeRepeatCount();
@@ -211,11 +216,17 @@ public abstract class LineReader extends Element implements MarkupApplier {
 		}
 	}
 
-	private void processAttributeMultiple() {
-		this.multiple = lineReaderElement.getAttributeValue(MULTIPLE);
-		if (multiple != null) {
-			multiple = Template.regexEscape(multiple);
-			this.addAttribute(new Attribute(MULTIPLE, multiple));
+	private void processAttributeNewline() {
+		this.newlineSymbol = lineReaderElement.getAttributeValue(NEWLINE);
+		if (newlineSymbol == null) {
+			this.newlineSymbol = lineReaderElement.getAttributeValue(MULTIPLE);
+			if (newlineSymbol != null) {
+				LOG.warn("multiple is deprecated - use newline");
+			}
+		}
+		if (newlineSymbol != null) {
+			newlineSymbol = Template.regexEscape(newlineSymbol);
+			this.addAttribute(new Attribute(NEWLINE, newlineSymbol));
 		}
 	}
 
@@ -244,14 +255,20 @@ public abstract class LineReader extends Element implements MarkupApplier {
 	private void processAttributeLinesToRead() {
 		String linesToReadS = lineReaderElement.getAttributeValue(LINES_TO_READ);
 		if (linesToReadS != null) {
-			LOG.warn("@linesToRead is deprecated, use @repeatCount");
-			lineReaderElement.addAttribute(new Attribute(REPEAT_COUNT, linesToReadS));
+			LOG.warn("@linesToRead is deprecated, use @repeat");
+			lineReaderElement.addAttribute(new Attribute(REPEAT, linesToReadS));
 		}
 	}
 		
 	private void processAttributeRepeatCount() {
 		repeatCount = null;
-		String repeatCountS = lineReaderElement.getAttributeValue(REPEAT_COUNT);
+		String repeatCountS = lineReaderElement.getAttributeValue(REPEAT);
+		if (repeatCountS == null) {
+			repeatCountS = lineReaderElement.getAttributeValue(REPEAT_COUNT);
+			if (repeatCountS != null) {
+				LOG.warn("repeatCount is deprecated, use reapeat");
+			}
+		}
 		if (repeatCountS != null) {
 			if (repeatCountS.equals("*")) {
 				repeatCount = Integer.MAX_VALUE-1;
@@ -262,7 +279,7 @@ public abstract class LineReader extends Element implements MarkupApplier {
 					throw new RuntimeException("bad @repeatCount: "+repeatCountS);
 				}
 			}
-			this.addAttribute(new Attribute(REPEAT_COUNT, repeatCountS));
+			this.addAttribute(new Attribute(REPEAT, repeatCountS));
 		}
 	}
 
@@ -287,7 +304,10 @@ public abstract class LineReader extends Element implements MarkupApplier {
 		} else if (FormatType.FORTRAN.equals(formatType)) {
 			createFortranFields();
 		} else if (FormatType.REGEX.equals(formatType)) {
-			regexProcessor = new RegexProcessor(content, multiple);
+//			if (content == null || content.trim().length() == 0) {
+//				content = DEFAULT_REGEX_CONTENT;
+//			}
+			regexProcessor = new RegexProcessor(content, newlineSymbol);
 		} else if (FormatType.NONE.equals(formatType)) {
 			// no-op
 		} else {

@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="interatomsep" name="Interatomic separations (in Angstroms):" 
-  pattern="\s*Interatomic separations \(in Angstroms\)\:\s*$\s*\-+\s*" multiple="$"
+<template repeat="*"  id="interatomsep" name="Interatomic separations (in Angstroms):" 
+  pattern="\s*Interatomic separations \(in Angstroms\)\:\s*$\s*\-+\s*" newline="$"
   endPattern="\s*\S+\s*.*$\s*\-{5,50}\s*">
   <comment>
    Interatomic separations (in Angstroms):
@@ -17,6 +17,6 @@
 
 
   </comment>
-  <record repeatCount="3">{X}</record>
-  <record repeatCount="*">{X,n:symmcoor}</record>
+  <record repeat="3">{X}</record>
+  <record repeat="*">{X,n:symmcoor}</record>
 </template>

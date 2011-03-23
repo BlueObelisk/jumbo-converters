@@ -9,14 +9,14 @@ public class ConverterTest {
 //	@Test         public void testBravais()    {testConverter("bravais");}
 
 	private void testConverter(String name) {
-		TestUtils.runConverterTest(new QuantumEspressoLog2XMLConverter(), name, null/*FIXME*/);
+		TestUtils.runConverterTest(new QuantumEspressoLog2XMLConverterOld(), name, null/*FIXME*/);
 	}
 	
 	   @Test
 	   @Ignore
 	   public void qespressoOut2XML() {
 	      RegressionSuite.run("compchem/qespresso/log", "out", "xml",
-	                          new QuantumEspressoLog2XMLConverter());
+	                          new QuantumEspressoLog2XMLConverterOld());
 	   }
 
 }

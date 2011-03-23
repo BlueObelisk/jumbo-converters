@@ -1,4 +1,4 @@
-<template repeatCount="*"  id="ccsd" name="CCSD Energy" pattern="\s*CCSD Energy\s*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="ccsd" name="CCSD Energy" pattern="\s*CCSD Energy\s*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
  CCSD Energy
  -----------
@@ -27,8 +27,8 @@ nkpass= 1; nvpass=  1; memdrv=  611830; memtrn= 4400205; memavail=11035399
         e(t)     -.20150171786859E-01
 
 </comment>
-<record repeatCount="2" id="rl1"/>
-<record id="r1" repeatCount="*" formatType="REGEX" names="__name __value">\s*(.*):\s{8}\s*([-\d\.]+)\s*</record>
-<record repeatCount="1" id="rl2" output="VERBOSE"/>
-<record id="r2" repeatCount="*" formatType="REGEX">{I,n:row}{F,n:value}</record>
+<record repeat="2" id="rl1"/>
+<record id="r1" repeat="*" formatType="REGEX" names="__name __value">\s*(.*):\s{8}\s*([-\d\.]+)\s*</record>
+<record repeat="1" id="rl2" output="VERBOSE"/>
+<record id="r2" repeat="*" formatType="REGEX">{I,n:row}{F,n:value}</record>
 </template>

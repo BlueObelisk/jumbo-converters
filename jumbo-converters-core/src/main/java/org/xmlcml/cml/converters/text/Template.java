@@ -37,13 +37,15 @@ public class Template implements MarkupApplier {
 	private static final String END_OFFSET = "endOffset";
 	private static final String END_PATTERN = "endPattern";
 	private static final String ID = "id";
-	private static final String MULTIPLE = "multiple";
+	private static final String MULTIPLE = "multiple"; // deprecated
 	private static final String NAME = "name";
 	private static final String NAMES = "names";
+	private static final String NEWLINE = "newline";
 	private static final String OFFSET = "offset";
 	private static final String OUTPUT = "output";
 	private static final String PATTERN = "pattern";
-	private static final String REPEAT_COUNT = "repeatCount";
+	private static final String REPEAT = "repeat";
+	private static final String REPEAT_COUNT = "repeatCount"; // deprecated
 	public  static final String TEMPLATE_REF = "templateRef";
 
 	private static final String BASE = "base"; // left by XInclude
@@ -125,9 +127,11 @@ public class Template implements MarkupApplier {
 			MULTIPLE,
 			NAME,
 			NAMES,
+			NEWLINE,
 			OFFSET,
 			OUTPUT,
 			PATTERN,
+			REPEAT,
 			REPEAT_COUNT,
 		});
 				
@@ -159,7 +163,13 @@ public class Template implements MarkupApplier {
 	}
 
 	private void processMultiple() {
-		multipleS = theElement.getAttributeValue(MULTIPLE);
+		multipleS = theElement.getAttributeValue(NEWLINE);
+		if (multipleS == null) {
+			multipleS = theElement.getAttributeValue(MULTIPLE);
+			if (multipleS != null) {
+				LOG.warn("multiple is deprecated, use newline");
+			}
+		}
 		if (multipleS != null) {
 			multipleS = escape(multipleS);
 		}
@@ -182,7 +192,13 @@ public class Template implements MarkupApplier {
 	}
 
 	private void processRepeatCount() {
-		String repeatCountS = theElement.getAttributeValue(REPEAT_COUNT); 
+		String repeatCountS = theElement.getAttributeValue(REPEAT); 
+		if (repeatCountS == null) {
+			repeatCountS = theElement.getAttributeValue(REPEAT_COUNT); 
+			if (repeatCountS != null) {
+				LOG.warn("repeatCount is deprecated, use repeat");
+			}
+		}
 		minRepeatCount = 1;
 		maxRepeatCount = 1;
 		if (ZERO_OR_ONE.equals(repeatCountS)) {
@@ -294,10 +310,19 @@ public class Template implements MarkupApplier {
 		Element linesElement = lineContainer.getLinesElement();
 		linesElement.addAttribute(new Attribute(Template.TEMPLATE_REF, this.getId()));
 		removeEmptyLists(linesElement);
-		removeNamelessScalars(linesElement);
+		copyNamespaces(linesElement);
+//		removeNamelessScalars(linesElement);
 //		tidyUnusedLines(lineContainer, linesElement);
 	}
 	
+	private void copyNamespaces(Element targetElement) {
+		int count = theElement.getNamespaceDeclarationCount();
+		for (int i = 0; i < count; i++) {
+			String prefix = theElement.getNamespacePrefix(i);
+			String namespaceURI = theElement.getNamespaceURI(prefix);
+			targetElement.addNamespaceDeclaration(prefix, namespaceURI);
+		}
+	}
 
 	public List<Element> resetNodeIndexAndApplyChunkers(LineContainer lineContainer) {
 //		if (resetCounter) {

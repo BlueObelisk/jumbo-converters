@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="symbas" name="Symmetry analysis of basis" 
-  pattern="\s*Symmetry analysis of basis\s*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="symbas" name="Symmetry analysis of basis" 
+  pattern="\s*Symmetry analysis of basis\s*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
       Symmetry analysis of basis
       --------------------------
@@ -17,8 +17,8 @@
  Forming initial guess at      24.1s
 
 </comment>
-<record repeatCount="4" id="rl1"/>
-<record id="r1" repeatCount="*" formatType="REGEX" >\s{8}{A7,n:ir}{I6,n:count}</record>
-<record repeatCount="2" id="rl2"/>
-<record id="r2" repeatCount="1" formatType="REGEX" >\s{25}{F10.1,n:guess}\s</record>
+<record repeat="4" id="rl1"/>
+<record id="r1" repeat="*" formatType="REGEX" >\s{8}{A7,n:ir}{I6,n:count}</record>
+<record repeat="2" id="rl2"/>
+<record id="r2" repeat="1" formatType="REGEX" >\s{25}{F10.1,n:guess}\s</record>
 </template>

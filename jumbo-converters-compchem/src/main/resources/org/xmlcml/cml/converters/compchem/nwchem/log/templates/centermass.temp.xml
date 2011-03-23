@@ -1,13 +1,13 @@
-<template repeatCount="*"  name="center of mass" id="centermass" 
-  pattern=".*center of mass.*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*" output="NONE">
+<template repeat="*"  name="center of mass" id="centermass" 
+  pattern=".*center of mass.*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*" output="NONE">
   <comment>
  center of mass
  --------------
  x =   0.00000000 y =   0.00000000 z =   0.00000000
 
   </comment>
-  <record repeatCount="2">{X}</record>
-  <record formatType="REGEX" id="centermass" repeatCount="*" output="NONE"
+  <record repeat="2">{X}</record>
+  <record formatType="REGEX" id="centermass" repeat="*" output="NONE"
       >\s*x ={F,n:x}\s*y ={F,n:y}\s*z ={F,n:z}</record>
   <transform process="pullupSingleton" name="./cml:list[count(*)=1]"/> 
   <transform process="vector3" parent="./*[@templateRef='centermass']" 

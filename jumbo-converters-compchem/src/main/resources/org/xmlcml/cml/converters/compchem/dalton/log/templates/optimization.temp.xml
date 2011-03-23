@@ -1,6 +1,6 @@
-<template repeatCount="*"  id="optimization" name="Optimization information" 
+<template repeat="*"  id="optimization" name="Optimization information" 
   pattern=".*Optimization information.*$\s*\-+\s*" 
-  multiple="$" endPattern="\s*$\s*">
+  newline="$" endPattern="\s*$\s*">
   <comment>
                          Optimization information
                          ------------------------
@@ -15,6 +15,6 @@
 
 
   </comment>
-  <record repeatCount="3">{X}</record>
-  <record repeatCount="*">{X,n:name}\s*\:\s+{X,n:value}</record>
+  <record repeat="3">{X}</record>
+  <record repeat="*">{X,n:name}\s*\:\s+{X,n:value}</record>
 </template>

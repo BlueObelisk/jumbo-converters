@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="geom" name="Geometry" pattern="\s*Geometry.*$\s+\-+.*"
- multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="geom" name="Geometry" pattern="\s*Geometry.*$\s+\-+.*"
+ newline="$" endPattern=".*$\s*\-+\s*">
 <comment>
                              Geometry "geometry" -> ""
                              -------------------------
@@ -13,8 +13,8 @@
     3 c                    6.0000     0.00000000     0.00000000    -3.41435800
     ...
   </comment>
-  <record id="rl1" repeatCount="7">{X}</record>
-  <record id="geom" repeatCount="*" makeArray="true" 
+  <record id="rl1" repeat="7">{X}</record>
+  <record id="geom" repeat="*" makeArray="true" 
     >\s*{I,n:id}\s*{A,n:atomtypeRef}\s*{F,n:elementType}\s*{F,n:x3}\s*{F,n:y3}\s*{F,n:z3}\s*</record>
   <transform process="molecule" name="cml:list/cml:array"/>    
 </template>

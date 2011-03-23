@@ -1,6 +1,6 @@
-<template repeatCount="*"  id="project" name="Project info" 
+<template repeat="*"  id="project" name="Project info" 
   pattern="\s*\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+.*$\s*\|\s*$\s*\|\s*Project.*" 
-  multiple="$" endPattern="\s*\|\s*$\s*\-\-*.*" endOffset="2">
+  newline="$" endPattern="\s*\|\s*$\s*\-\-*.*" endOffset="2">
   <comment>
 
    -------------------------------------------------------------------
@@ -17,10 +17,10 @@
   |                                                                   
    -------------------------------------------------------------------
   </comment>
-  <record repeatCount="2">{X}</record>
+  <record repeat="2">{X}</record>
   <record id="project">\s*\|\s*Project\s*\=\s{X,m:project}</record>
   <record id="submittedfrom">\s*\|\s*Submitted from\s*\=\s{X,m:submittedfrom}</record>
   <record id="scratch">\s*\|\s*Scratch area\s*\=\s{X,m:scratch}</record>
   <record id="saveto">\s*\|\s*Save outputs to\s*\=\s{X,m:saveto}</record>
-  <record repeatCount="*" id="misc">{X,n:debug}</record>
+  <record repeat="*" id="misc">{X,n:debug}</record>
 </template>

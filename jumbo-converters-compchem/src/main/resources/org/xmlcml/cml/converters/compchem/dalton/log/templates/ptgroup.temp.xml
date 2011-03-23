@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="ptgroup" name="SYMGRP:Point group information" 
-  pattern="\s*SYMGRP\:Point group information\s*$\s*\-+\s*" multiple="$"
+<template repeat="*"  id="ptgroup" name="SYMGRP:Point group information" 
+  pattern="\s*SYMGRP\:Point group information\s*$\s*\-+\s*" newline="$"
   endPattern="\s*\S+\s*.*$\s*\-+\s*">
   <comment>
                       SYMGRP:Point group information
@@ -41,7 +41,7 @@ Point group: C2v
 
 
   </comment>
-  <record repeatCount="3">{X}</record>
+  <record repeat="3">{X}</record>
   <record>\s*Point group:\s*{A,n:ptgrp}</record>
-  <record repeatCount="*">{X}</record>
+  <record repeat="*">{X}</record>
 </template>

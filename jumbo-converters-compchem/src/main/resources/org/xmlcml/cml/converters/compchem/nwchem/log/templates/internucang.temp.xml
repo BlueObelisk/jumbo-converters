@@ -1,4 +1,4 @@
-<template repeatCount="*"  id="internucang" name="internuclear angles" multiple="$"
+<template repeat="*"  id="internucang" name="internuclear angles" newline="$"
   pattern="\s*internuclear angles\s*$\s+\-+.*" endPattern="\s*\=+\s*"
   endOffset="1">
   <comment>
@@ -15,8 +15,8 @@
                             number of included internuclear angles:         15
  ==============================================================================
   </comment>    
-  <record repeatCount="5">{X}</record>
-  <record id="dist" formatType="REGEX" makeArray="true" repeatCount="*"
+  <record repeat="5">{X}</record>
+  <record id="dist" formatType="REGEX" makeArray="true" repeat="*"
   >\s*{I,n:ser1}\s*{A,n:elem1}\s*\|\s*{I,n:ser2}\s*{A,n:elem2}\|\s*{I,n:ser3}\s*{A,n:elem3}\s*\|\s*{F,n:ang1}\s*</record>
   <record >{X}</record>
   <record id="rl1" >\s*number of included internuclear angles:\s*{I,n:nangle}</record>

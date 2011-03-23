@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="screentol" name="Screening Tolerance Information" 
-  pattern="\s*Screening Tolerance Information.*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="screentol" name="Screening Tolerance Information" 
+  pattern="\s*Screening Tolerance Information.*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
       Screening Tolerance Information
       -------------------------------
@@ -10,8 +10,8 @@
           Schwarz screening/accCoul: 1.00D-08
 
 </comment>
-<record repeatCount="2">{X}</record>
-<record repeatCount="*">\s*{X,n:name}\:\s*{X,n:value}</record>
+<record repeat="2">{X}</record>
+<record repeat="*">\s*{X,n:name}\:\s*{X,n:value}</record>
 <transform process="nameValue" parent="cml:list/cml:list" 
       name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>
 <transform process="pullupSingleton" name="./cml:list/cml:list"/>

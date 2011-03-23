@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="mulliken" name="Mulliken analysis of the total density" 
-  pattern="\s*Mulliken analysis of the total density\s*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="mulliken" name="Mulliken analysis of the total density" 
+  pattern="\s*Mulliken analysis of the total density\s*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
   Mulliken analysis of the total density
   --------------------------------------
@@ -12,8 +12,8 @@
  Parallel integral file used     182 records with       0 large values
 
 </comment>
-<record repeatCount="5" id="rl1"/>
-<record id="r1" repeatCount="*" formatType="REGEX">{I,n:serial}{A,n:elem}{I,n:num}{F,n:charge}\s*{25F6.2,n:shell}${25F6.2,n:shell}</record>
-<record repeatCount="1" id="rl2" output="VERBOSE"/>
-<record id="r2" repeatCount="*" formatType="REGEX">\s*{I,n:record}\s*{I,n:large}</record>
+<record repeat="5" id="rl1"/>
+<record id="r1" repeat="*" formatType="REGEX">{I,n:serial}{A,n:elem}{I,n:num}{F,n:charge}\s*{25F6.2,n:shell}${25F6.2,n:shell}</record>
+<record repeat="1" id="rl2" output="VERBOSE"/>
+<record id="r2" repeat="*" formatType="REGEX">\s*{I,n:record}\s*{I,n:large}</record>
 </template>

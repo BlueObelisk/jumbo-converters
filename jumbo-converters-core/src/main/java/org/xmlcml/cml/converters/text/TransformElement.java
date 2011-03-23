@@ -1,6 +1,5 @@
 package org.xmlcml.cml.converters.text;
 
-import java.lang.reflect.Array;
 import java.util.List;
 
 import nu.xom.Attribute;
@@ -11,19 +10,29 @@ import nu.xom.Nodes;
 import nu.xom.ParentNode;
 
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
+import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.Outputter;
 import org.xmlcml.cml.converters.Outputter.OutputLevel;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtom;
+import org.xmlcml.cml.element.CMLFormula;
 import org.xmlcml.cml.element.CMLMatrix;
 import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLMolecule;
+import org.xmlcml.cml.element.CMLParameter;
+import org.xmlcml.cml.element.CMLParameterList;
+import org.xmlcml.cml.element.CMLProperty;
+import org.xmlcml.cml.element.CMLPropertyList;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.element.CMLVector3;
 import org.xmlcml.cml.interfacex.HasDictRef;
+import org.xmlcml.cml.tools.MoleculeTool;
+import org.xmlcml.euclid.JodaDate;
+import org.xmlcml.euclid.Real;
 import org.xmlcml.molutil.ChemicalElement;
 
 public class TransformElement implements MarkupApplier {
@@ -31,8 +40,13 @@ public class TransformElement implements MarkupApplier {
 	
 	public static final String TAG = "transform";
 
+	private static final String DATE = "date";
+	private static final String DOUBLE = "double";
+	private static final String FORMAT = "format";
 	private static final String FROM = "from";
+	private static final String INTEGER = "integer";
 	private static final String MOLECULE = "molecule";
+	private static final String MOVE = "move";
 	private static final String NAME = "name";
 	private static final String OUTPUT = "output";
 	private static final String PARENT = "parent";
@@ -50,6 +64,16 @@ public class TransformElement implements MarkupApplier {
 	private static final String RENAME = "rename";
 	private static final String TEMPLATE_REF = "templateRef";
 	private static final String VECTOR3 = "vector3";
+	private static final String UNIT_SI_URI = "http://www.xml-cml.org/unit/si/";
+	private static final String COMPCHEM_URI = "http://www.xml-cml.org/unit/dictionary/compchem";
+	private static final String COMPCHEM = "compchem";
+
+	private static final String ADD_DICTREF = "addDictRef";
+	private static final String ADDPARAMETERLIST = "addParameterList";
+	private static final String ADDPROPERTYLIST = "addPropertyList";
+	private static final String WRAP = "wrap";
+
+
 
 	
 	private Element element;
@@ -68,6 +92,7 @@ public class TransformElement implements MarkupApplier {
 	private CMLMolecule molecule;
 
 	private List<CMLAtom> atoms;
+	private String format;
 
 
 	public TransformElement(Element element) {
@@ -96,6 +121,7 @@ public class TransformElement implements MarkupApplier {
 	
 	private void processAttributes() {
 		Template.checkIfAttributeNamesAreAllowed(element, new String[]{
+			FORMAT, 
 			FROM, 
 			ID, 
 			NAME,
@@ -106,6 +132,7 @@ public class TransformElement implements MarkupApplier {
 			VALUE,
 		});
 				
+		format = element.getAttributeValue(FORMAT);
 		from = element.getAttributeValue(FROM);
 		id = element.getAttributeValue(ID);
 		name = element.getAttributeValue(NAME);
@@ -127,16 +154,28 @@ public class TransformElement implements MarkupApplier {
 	public void applyMarkup(LineContainer lineContainer) {
 		
 		parsedElement = lineContainer.getLinesElement();
-		if (ADDROLE.equals(process)) {
+		if (ADD_DICTREF.equals(process)) {
+			addDictRef();
+		} else if (ADDROLE.equals(process)) {
 			addRole();
-		} else if (DATATYPE.equals(process)) {
-			addDataType();
+		} else if (ADDPARAMETERLIST.equals(process)) {
+			addParameterList();
+		} else if (ADDPROPERTYLIST.equals(process)) {
+			addPropertyList();
+		} else if (DATE.equals(process)) {
+			addDate();
+		} else if (DOUBLE.equals(process)) {
+			addDouble();
 		} else if (GROUP.equals(process)) {
 			makeGroup();
+		} else if (INTEGER.equals(process)) {
+			addInteger();
 		} else if (process.startsWith(MOLECULE)) {
 			createMolecule();
 		} else if (MATRIX33.equals(process)) {
 			createMatrix33();
+		} else if (MOVE.equals(process)) {
+			move();
 		} else if (NAMEVALUE.equals(process)) {
 			createNameValue();
 		} else if (PULLUP_SINGLETON.equals(process)) {
@@ -145,9 +184,74 @@ public class TransformElement implements MarkupApplier {
 			rename();
 		} else if (VECTOR3.equals(process)) {
 			createVector3();
+		} else if (WRAP.equals(process)) {
+			wrapPropertiesAndParameters();
+		} else {
+			throw new RuntimeException("Unknown process: "+process);
 		}
 	}
 	
+	private void wrapPropertiesAndParameters() {
+		Nodes names = parsedElement.query(name, CMLConstants.CML_XPATH);
+		for (int i = 0; i < names.size(); i++) {
+			Element pp = (Element) names.get(i);
+			Elements scalars = pp.getChildElements();
+			for (int j = 0; j < scalars.size(); j++) {
+				Element scalar = scalars.get(j);
+				if (scalar instanceof CMLScalar) {
+					CMLElement wrapper = (pp instanceof CMLPropertyList) ? new CMLProperty() : new CMLParameter();
+					ParentNode parent = scalar.getParent();
+					parent.replaceChild(scalar, wrapper);
+					((HasDictRef)wrapper).setDictRef(((CMLScalar)scalar).getDictRef());
+					wrapper.appendChild(scalar);
+				}
+			}
+		}
+	}
+
+	private void addPropertyList() {
+		Nodes names = parsedElement.query(name, CMLConstants.CML_XPATH);
+		for (int i = 0; i < names.size(); i++) {
+			CMLPropertyList propertyList = new CMLPropertyList();
+			propertyList.setId(id);
+			((Element)names.get(i)).appendChild(propertyList);
+		}
+	}
+
+	private void addParameterList() {
+		Nodes names = parsedElement.query(name, CMLConstants.CML_XPATH);
+		for (int i = 0; i < names.size(); i++) {
+			CMLParameterList parameterList = new CMLParameterList();
+			parameterList.setId(id);
+			((Element)names.get(i)).appendChild(parameterList);
+			
+		}
+		
+	}
+
+	private void addDictRef() {
+		if (name == null) {
+			throw new RuntimeException("Must give name");
+		}
+		Nodes names = parsedElement.query(name, CMLConstants.CML_XPATH);
+		for (int i = 0; i < names.size(); i++) {
+			((Element)names.get(i)).addAttribute(new Attribute("dictRef", value));
+		}
+	}
+
+	private void move() {
+		Nodes names = parsedElement.query(name, CMLConstants.CML_XPATH);
+		Nodes toParents = parsedElement.query(to, CMLConstants.CML_XPATH);
+		ParentNode toParent = (toParents.size() == 1) ? (ParentNode) toParents.get(0) : null;
+		if (toParent != null) {
+			for (int i = 0; i < names.size(); i++) {
+				Node fromNode = names.get(i);
+				fromNode.detach();
+				toParent.appendChild(fromNode);
+			}
+		}
+	}
+
 	private void addRole() {
 		if (name == null) {
 			throw new RuntimeException("Must give name");
@@ -304,7 +408,14 @@ public class TransformElement implements MarkupApplier {
 					}
 				}
 				CMLVector3 v3 = new CMLVector3(dd);
-				node0.getParent().replaceChild(node0, v3);
+				double length = v3.getLength();
+				CMLProperty property = new CMLProperty();
+				property.setDictRef(DictRefAttribute.createValue(COMPCHEM, "nuclearDipole"));
+				CMLScalar lengthScalar = new CMLScalar(length);
+				property.appendChild(lengthScalar);
+//				property.appendChild(lengthScalar.copy());
+				property.appendChild(v3);
+				node0.getParent().replaceChild(node0, property);
 			} else if (scalarNodes.size() == 0) {
 			} else {
 				CMLUtil.debug(parent, "PAR");
@@ -338,6 +449,28 @@ public class TransformElement implements MarkupApplier {
 				processDictRef(array);
 				array.detach();
 			}
+			for (CMLAtom atom : atoms) {
+				String elementType = atom.getElementType();
+				if (elementType != null) {
+					ChemicalElement chemicalElement = ChemicalElement.getChemicalElement(elementType);
+					CMLScalar scalar = new CMLScalar(chemicalElement.getAtomicNumber());
+					scalar.setDictRef(DictRefAttribute.createValue(COMPCHEM, "atomicNumber"));
+					atom.addScalar(scalar);
+				}
+			}
+			CMLFormula formula = CMLFormula.createFormula(molecule);
+			molecule.addFormula(formula);
+			MoleculeTool moleculeTool = MoleculeTool.getOrCreateTool(molecule);
+			moleculeTool.calculateBondedAtoms();
+			moleculeTool.adjustBondOrdersToValency();
+			double mwt = moleculeTool.getCalculatedMolecularMass();
+			CMLScalar scmwt = new CMLScalar(mwt);
+			scmwt.setUnits("unit", "dalton", UNIT_SI_URI);
+			CMLProperty mmprop = new CMLProperty(); 
+			mmprop.setDictRef("cml:molmass");
+			mmprop.appendChild(scmwt);
+			molecule.appendChild(mmprop);
+			molecule.debug("SSSSSSSSSS");
 		}
 	}
 
@@ -474,9 +607,64 @@ public class TransformElement implements MarkupApplier {
 	}
 	
 	private void rename() {
+		throw new RuntimeException("rename NYI");
 	}
 
-	private void addDataType() {
+	private void addDate() {
+		Nodes nodes = parsedElement.query(name, CMLConstants.CML_XPATH);
+		for (int i = 0; i < nodes.size(); i++) {
+			Node node = nodes.get(i);
+			if (node instanceof CMLScalar) {
+				CMLScalar scalar = (CMLScalar) node;
+				String val = scalar.getValue();
+				try {
+					DateTime dateTime = null;
+					if (format != null) {
+						format = "EEE MMM  d HH:mm:ss zzz yyyy";
+						dateTime = JodaDate.parseDate(val, format);
+					} else {
+						dateTime = JodaDate.parseDate(val);
+					}
+					scalar.setValue(dateTime);
+				} catch (Exception e) {
+					LOG.error("Cannot parse/set date: "+val+ " (format='"+format+"'); "+e);
+				}
+			}
+		}
+	}
+
+	private void addInteger() {
+		Nodes nodes = parsedElement.query(name, CMLConstants.CML_XPATH);
+		for (int i = 0; i < nodes.size(); i++) {
+			Node node = nodes.get(i);
+			if (node instanceof CMLScalar) {
+				CMLScalar scalar = (CMLScalar) node;
+				String val = scalar.getValue();
+				try {
+					Integer ii = new Integer(val);
+					scalar.setValue(ii);
+				} catch (Exception e) {
+					LOG.error("bad integer: "+e);
+				}
+			}
+		}
+	}
+
+	private void addDouble() {
+		Nodes nodes = parsedElement.query(name, CMLConstants.CML_XPATH);
+		for (int i = 0; i < nodes.size(); i++) {
+			Node node = nodes.get(i);
+			if (node instanceof CMLScalar) {
+				CMLScalar scalar = (CMLScalar) node;
+				String val = scalar.getValue();
+				try {
+					Double d = Real.parseDouble(val);
+					scalar.setValue(d);
+				} catch (Exception e) {
+					LOG.error("bad double: "+e);
+				}
+			}
+		}
 	}
 
 	public void debug() {

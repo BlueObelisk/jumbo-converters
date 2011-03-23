@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="converge" name="Convergence Information" 
-  pattern="\s*Convergence Information.*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="converge" name="Convergence Information" 
+  pattern="\s*Convergence Information.*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
           Convergence Information
           -----------------------
@@ -17,8 +17,8 @@
 
 
 </comment>
-<record repeatCount="2">{X}</record>
-<record repeatCount="9">{X}</record>
+<record repeat="2">{X}</record>
+<record repeat="9">{X}</record>
 <record>.*\:{X,n:deon}</record>
 <record>.*\:{X,n:deoff}</record>
 <transform process="nameValue" parent="cml:list/cml:list" 

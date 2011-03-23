@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="newthresh" name="New thresholds:" 
-  pattern=".*New thresholds:.*" multiple="$" 
+<template repeat="*"  id="newthresh" name="New thresholds:" 
+  pattern=".*New thresholds:.*" newline="$" 
   endPattern="\s*$\s*">
   <comment>
  New thresholds:
@@ -10,9 +10,9 @@
 
 
   </comment>
-  <record repeatCount="2">{X}</record>
+  <record repeat="2">{X}</record>
   <record>\s*Gradient norm\s*{X,n:gradnorm}</record>
   <record>\s*Step norm\s*{X,n:stepnorm}</record>
   <record>\s*Energy change\s*{X,n:enerchange}</record>
-  <record repeatCount="*">{X}</record>
+  <record repeat="*">{X}</record>
 </template>

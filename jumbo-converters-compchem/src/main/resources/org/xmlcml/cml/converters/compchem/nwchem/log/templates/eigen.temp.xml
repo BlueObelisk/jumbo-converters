@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="eigen" name="Final eigenvalues" 
-pattern="\s*Final eigenvalues\s*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="eigen" name="Final eigenvalues" 
+pattern="\s*Final eigenvalues\s*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
              Final eigenvalues
              -----------------
@@ -26,7 +26,7 @@ pattern="\s*Final eigenvalues\s*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*
    19    -.0460
  
 </comment>
-<record repeatCount="3" id="rl1"/>
-<record id="r1" repeatCount="1" formatType="REGEX">\s{5}{I10,n:col}</record>
-<record id="r2" repeatCount="*" formatType="REGEX">{I5,n:row},{F10.4,n:value}</record>
+<record repeat="3" id="rl1"/>
+<record id="r1" repeat="1" formatType="REGEX">\s{5}{I10,n:col}</record>
+<record id="r2" repeat="*" formatType="REGEX">{I5,n:row},{F10.4,n:value}</record>
 </template>

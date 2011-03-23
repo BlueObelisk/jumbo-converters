@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="threecenter2" name="3 Center 2 Electron Integral Information" 
-  pattern="\s*3 Center 2 Electron Integral Information\s*$\s+\-+.*" multiple="$" endPattern="\s*Stack .*" endOffset="1">
+<template repeat="*"  id="threecenter2" name="3 Center 2 Electron Integral Information" 
+  pattern="\s*3 Center 2 Electron Integral Information\s*$\s+\-+.*" newline="$" endPattern="\s*Stack .*" endOffset="1">
   <comment>
       3 Center 2 Electron Integral Information
       ----------------------------------------
@@ -27,14 +27,14 @@
           Stack Space remaining (MW):       11.31            11305115
 
    </comment>
-  <record repeatCount="*">{X}</record>
+  <record repeat="*">{X}</record>
   <templateList>
     <template id="conv" pattern="\s*convergence.*" endPattern="\sTotal iterative.*">
-      <record repeatCount="2">{X,n:XXXXXXXXXXX}</record>
+      <record repeat="2">{X,n:XXXXXXXXXXX}</record>
       <!-- 
-      <record repeatCount="*">\s*d\=\s*{I,n:d}\,ls={F,n:ls}\,diis\s*{I,n:iter}\s*{F,n:ener}\s*{E,n:deltae}\s*{E,n:rms}\s*{E,n:diserr}\s*{F,n:time}</record>
+      <record repeat="*">\s*d\=\s*{I,n:d}\,ls={F,n:ls}\,diis\s*{I,n:iter}\s*{F,n:ener}\s*{E,n:deltae}\s*{E,n:rms}\s*{E,n:diserr}\s*{F,n:time}</record>
  -->
      </template>
   </templateList>
-  <record repeatCount="*">\s*{X,n:name}\s*\:\s*{X,n:value}\.?\s*</record>
+  <record repeat="*">\s*{X,n:name}\s*\:\s*{X,n:value}\.?\s*</record>
 </template>

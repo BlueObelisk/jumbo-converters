@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="nwchemmp2" name="NWChem MP2 Semi-direct Energy/Gradient Module"
-  pattern="\s*NWChem MP2 Semi-direct Energy/Gradient Module\s*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="nwchemmp2" name="NWChem MP2 Semi-direct Energy/Gradient Module"
+  pattern="\s*NWChem MP2 Semi-direct Energy/Gradient Module\s*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
                    NWChem MP2 Semi-direct Energy/Gradient Module
                    ---------------------------------------------
@@ -35,10 +35,10 @@ Node 0 wrote      2.5 Mb in       .0 s     Agg I/O rate:    NaNQ Mb/s
  Done multipass loop at      550.2s
 
 </comment>
-<record repeatCount="4" id="rl1"/>
-<record id="r1" repeatCount="1" formatType="REGEX" names="from to">\s*(.*)\s*->\s*(.*)\s*</record>
-<record repeatCount="3" id="rl2" output="VERBOSE"/>
-<record id="r2" repeatCount="1" formatType="REGEX" names="file">\s*Read molecular orbitals from\s*(.*)\s*</record>
-<record repeatCount="1" id="rl3" output="VERBOSE"/>
-<record id="r3" repeatCount="*" formatType="REGEX" names="__name __value">\s*(.*)\s*=\s*(.*)\s*</record>
+<record repeat="4" id="rl1"/>
+<record id="r1" repeat="1" formatType="REGEX" names="from to">\s*(.*)\s*->\s*(.*)\s*</record>
+<record repeat="3" id="rl2" output="VERBOSE"/>
+<record id="r2" repeat="1" formatType="REGEX" names="file">\s*Read molecular orbitals from\s*(.*)\s*</record>
+<record repeat="1" id="rl3" output="VERBOSE"/>
+<record id="r3" repeat="*" formatType="REGEX" names="__name __value">\s*(.*)\s*=\s*(.*)\s*</record>
 </template>

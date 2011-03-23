@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="nonvarinitener" name="Non-variational initial energy" 
-  pattern=".*Non\-variational initial energy.*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="nonvarinitener" name="Non-variational initial energy" 
+  pattern=".*Non\-variational initial energy.*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
       Non-variational initial energy
       ------------------------------
@@ -11,8 +11,8 @@
  LUMO         =      -0.090738
 
 </comment>
-  <record id="rl1" repeatCount="3">{X}</record>
-  <record id="ener" repeatCount="*" formatType="REGEX">\s*{X,n:name}\s*=\s*{F,n:value}</record>
+  <record id="rl1" repeat="3">{X}</record>
+  <record id="ener" repeat="*" formatType="REGEX">\s*{X,n:name}\s*=\s*{F,n:value}</record>
   <transform process="pullupSingleton" name=".//*[@templateRef='ener']"/>
   <transform process="nameValue" parent=".//*[@templateRef='ener']/cml:list"
     name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>

@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="property" name="NWChem Property Module" 
-  pattern="\s*NWChem Property Module\s*$\s+\-+.*" multiple="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="property" name="NWChem Property Module" 
+  pattern="\s*NWChem Property Module\s*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
                               NWChem Property Module
                               ----------------------
@@ -10,8 +10,8 @@
   itol2e modified to match energy
   convergence criterion.
 </comment>
-<record repeatCount="4" id="rl1"/>
-<record id="r1" repeatCount="1" formatType="REGEX" names="title">\s*(.*)\s*</record>
-<record repeatCount="1" id="rl2"/>
-<record id="r2" repeatCount="*" formatType="REGEX" names="property">\s*(.*)\s*</record>
+<record repeat="4" id="rl1"/>
+<record id="r1" repeat="1" formatType="REGEX" names="title">\s*(.*)\s*</record>
+<record repeat="1" id="rl2"/>
+<record id="r2" repeat="*" formatType="REGEX" names="property">\s*(.*)\s*</record>
 </template>

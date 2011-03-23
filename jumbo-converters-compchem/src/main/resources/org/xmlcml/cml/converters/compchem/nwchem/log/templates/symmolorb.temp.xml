@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="symmolorb" name="Symmetry analysis of molecular orbitals" 
-    pattern=".*Symmetry analysis of molecular orbitals.*$\s+\-+.*" multiple="$" 
+<template repeat="*"  id="symmolorb" name="Symmetry analysis of molecular orbitals" 
+    pattern=".*Symmetry analysis of molecular orbitals.*$\s+\-+.*" newline="$" 
       endPattern=".*$\s*\-+\s*">
   <comment>
       Symmetry analysis of molecular orbitals - initial
@@ -19,17 +19,17 @@
 
    Time after variat. SCF:     22.6
   </comment>
-  <record repeatCount="3">{X}</record>
+  <record repeat="3">{X}</record>
   <templateList id="symm">
     <template id="numbering" pattern=".*Numbering.*$\s*" 
-       multiple="$" endPattern="\s*">
-      <record repeatCount="2">{X}</record>
-      <record repeatCount="*" id="symmList">{X,n:symm}</record>
+       newline="$" endPattern="\s*">
+      <record repeat="2">{X}</record>
+      <record repeat="*" id="symmList">{X,n:symm}</record>
     </template>
     <template id="orbitalSymmetry" pattern=".*Orbital.*$\s*" 
-      multiple="$" endPattern="\s*">
-      <record repeatCount="2">{X}</record>
-      <record repeatCount="*" id="symmList">{X,n:symm}</record>
+      newline="$" endPattern="\s*">
+      <record repeat="2">{X}</record>
+      <record repeat="*" id="symmList">{X,n:symm}</record>
     </template>
     <template id="time" pattern=".*Time after.*">
       <record id="time">.*Time after.*{F,n:time}\s*</record>

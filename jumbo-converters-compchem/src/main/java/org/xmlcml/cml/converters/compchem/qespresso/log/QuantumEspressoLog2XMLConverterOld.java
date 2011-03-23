@@ -7,9 +7,9 @@ import nu.xom.Element;
 import org.xmlcml.cml.converters.LegacyProcessor;
 import org.xmlcml.cml.converters.text.Text2XMLConverter;
 
-public class QuantumEspressoLog2XMLConverter extends Text2XMLConverter {
+public class QuantumEspressoLog2XMLConverterOld extends Text2XMLConverter {
 	
-	public QuantumEspressoLog2XMLConverter() {
+	public QuantumEspressoLog2XMLConverterOld() {
 		super();
 	}
 	

@@ -1,5 +1,5 @@
-<template repeatCount="*"  id="symcoord" name="Symmetry Coordinates" 
-  pattern="\s*Symmetry Coordinates\s*$\s*\-+\s*" multiple="$"
+<template repeat="*"  id="symcoord" name="Symmetry Coordinates" 
+  pattern="\s*Symmetry Coordinates\s*$\s*\-+\s*" newline="$"
   endPattern="\s*\S+\s*.*$\s*\-{5,50}\s*">
   <comment>
   Symmetry Coordinates
@@ -30,6 +30,6 @@
 
 
   </comment>
-  <record repeatCount="3">{X}</record>
-  <record repeatCount="*">{X,n:symmcoor}</record>
+  <record repeat="3">{X}</record>
+  <record repeat="*">{X,n:symmcoor}</record>
 </template>

@@ -1,0 +1,54 @@
+<template repeat="*"  id="elecmoment" name="Atomic coordinate, charge and isotop information"
+  newline="$"
+  pattern="\s*\=+\s*$\s*electrostatic moments\s*$\s*\=+\s*"
+  endPattern="\s*\=+\s*" endOffset="1">
+  <comment>
+ ==============================================================================
+                           electrostatic moments
+ ==============================================================================
+ 
+              nuc           elec       ->  total
+ ------------------------------------------------------------------------------
+                              charge      
+ ------------------------------------------------------------------------------
+          10.000000     -10.000000       0.000000
+ 
+ ------------------------------------------------------------------------------
+                       dipole moment  
+ ------------------------------------------------------------------------------
+   x       0.000000       0.000000       0.000000
+   y       0.000000       0.000000       0.000000
+   z      -4.980843       5.844549       0.863706
+ 
+   | dipole moment | =     0.8637 a.u. =     2.1953 debye 
+ 
+ ------------------------------------------------------------------------------
+                     quadrupole moment
+ ------------------------------------------------------------------------------
+  xx       4.059378      -7.142080      -3.082702
+  yy       0.000000      -5.498840      -5.498840
+  zz       4.303566      -9.799002      -5.495436
+  xy       0.000000       0.000000       0.000000
+  xz       0.000000       0.000000       0.000000
+  yz       0.000000       0.000000       0.000000
+ 
+     1/3  trace=      -4.692326
+     anisotropy=       2.414438
+ 
+ ==============================================================================
+  </comment>
+  <record repeat="8">{X}</record>
+  <record >{F,t:nucchrg}{F,t:elecchrg}{F,t:totchrg}</record>
+  <record repeat="4">{X}</record>
+  <record >\s*x\s*{F,t:x.x}{F,t:x.y}{F,t:x.z}</record>
+  <record >\s*y\s*{F,t:y.x}{F,t:y.y}{F,t:y.z}</record>
+  <record >\s*z\s*{F,t:z.x}{F,t:z.y}{F,t:z.z}</record>
+  <record />
+   | dipole moment | =     0.8637 a.u. =     2.1953 debye 
+  <record makeArray="true" repeat="*">{F,t:x3}{F,t:y3}{F,t:z3}{A,t:atomTypeRef}{I,t:shells}{F,c:elementType}{I,t:pseudo}{I,t:isotop}</record>
+  <record repeat="2">{X,t:xxx}</record>
+  <record id="centnuclmass">\s*center of nuclear mass\s*:\s*{F,t:x3}{F,t:y3}{F,t:z3}</record>
+  <record>{X,t:xxx}</record>
+  <record id="centnuclcharge">\s*center of nuclear charge:\s*{F,t:x3}{F,t:y3}{F,t:z3}</record>
+  <transform process="molecule" name="./cml:list/cml:array"/>
+</template>

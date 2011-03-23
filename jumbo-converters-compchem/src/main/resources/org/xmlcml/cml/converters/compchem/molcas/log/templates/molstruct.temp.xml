@@ -1,4 +1,4 @@
-<template repeatCount="*"  id="molstruct" name="Molecular structure info" 
+<template repeat="*"  id="molstruct" name="Molecular structure info" 
   pattern="\+\+\s*Molecular structure info.*" endPattern="\-\-\s*" endOffset="1">
   <comment>
 ++       Molecular structure info:
@@ -14,9 +14,9 @@
         2      H1            -0.661404       0.000000       0.000000             -0.350000       0.000000       0.000000
 --
   </comment>
-  <record repeatCount="9">{X}</record>
-  <record id="atom" makeArray="true" repeatCount="*"
+  <record repeat="9">{X}</record>
+  <record id="atom" makeArray="true" repeat="*"
     >{I,n:id}{A,n:elementType}{F,n:bohrx}{F,n:bohry}{F,n:bohrz}{F,c:x3}{F,c:y3}{F,c:z3}</record>
-  <record repeatCount="*">{X}</record>
+  <record repeat="*">{X}</record>
   <transform process="molecule id=n:serial elementType=n:label" name="cml:list[@templateRef='atom']/cml:array"/>
 </template>
