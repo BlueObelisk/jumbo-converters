@@ -1,30 +1,23 @@
-<template repeatCount="*"  id="atomcoord" name="Atomic coordinate, charge and isotop information"
+<template repeatCount="*"  id="atomicXYZ" name="Atomic coordinates"
   multiple="$"
   pattern="\s*\+\-+\+\s*$\s*\|\sAtomic coordinate, charge and isotop information\s\|\s*$\s*\+\-+\+\s*.*$\s*"
   endPattern="\s*\+\-+\+\s*.*">
   <comment>
+
               +--------------------------------------------------+
               | Atomic coordinate, charge and isotop information |
               +--------------------------------------------------+
 
 
               atomic coordinates              atom shells charge pseudo isotop
-     0.00000000    0.00000000   -0.71161244    o      9    8.000    0     0
-     1.42446376    0.00000000    0.35580622    h      4    1.000    0     0
-    -1.42446376    0.00000000    0.35580622    h      4    1.000    0     0
- 
-
-     center of nuclear mass  :    0.00000000    0.00000000   -0.59216690
-
-     center of nuclear charge:    0.00000000    0.00000000   -0.49812871
-
+     0.00003283    0.00002522   -0.00001429    c      6    6.000    0     0
+     0.60037661    1.96517277   -0.26844838    h      2    1.000    0     0
+    -0.85889781   -0.70490712   -1.74922132    h      2    1.000    0     0
+    -1.38641429   -0.09489632    1.53733003    h      2    1.000    0     0
+     1.64490283   -1.16539478    0.48035395    h      2    1.000    0     0
 
   </comment>
   <record repeatCount="6">{X}</record>
   <record makeArray="true" repeatCount="*">{F,t:x3}{F,t:y3}{F,t:z3}{A,t:atomTypeRef}{I,t:shells}{F,c:elementType}{I,t:pseudo}{I,t:isotop}</record>
-  <record repeatCount="2">{X,t:xxx}</record>
-  <record id="centnuclmass">\s*center of nuclear mass\s*:\s*{F,t:x3}{F,t:y3}{F,t:z3}</record>
-  <record>{X,t:xxx}</record>
-  <record id="centnuclcharge">\s*center of nuclear charge:\s*{F,t:x3}{F,t:y3}{F,t:z3}</record>
   <transform process="molecule" name="./cml:list/cml:array"/>
 </template>
