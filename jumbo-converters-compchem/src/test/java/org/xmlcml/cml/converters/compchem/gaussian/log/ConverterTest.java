@@ -12,6 +12,8 @@ import org.xmlcml.cml.converters.text.TemplateConverter;
 import org.xmlcml.euclid.Util;
 
 public class ConverterTest {
+
+/*
 	private static Logger LOG = Logger.getLogger(ConverterTest.class);
 
 	private static final String IN_SUFFIX = ".in";
@@ -37,6 +39,7 @@ public class ConverterTest {
 		TemplateConverter converter = createConverter("org/xmlcml/cml/converters/compchem/gaussian/log/templateList.xml");
         RegressionSuite.run("compchem/gaussian/log", "log", "xml", converter);
     }
+*/
    
 //	private void testConverter(String link, String name) {
 //		TemplateConverter converter = createConverter("templateListAll.xml");
@@ -45,7 +48,8 @@ public class ConverterTest {
 //		// later turn this to subdirectory after we separate packages
 //		TestUtils.runConverterTest(converter, link+"."+name, null/*FIXME*/);
 //	}
-		
+
+/*		
 	private void testConverter(String name) {
 		String templateXML = "org/xmlcml/cml/converters/compchem/gaussian/log/templateListAll.xml";
 		TemplateConverter converter = createConverter(templateXML);
@@ -64,5 +68,6 @@ public class ConverterTest {
 		}
 		return converter;
 	}
+*/
 
 }
