@@ -140,6 +140,7 @@ public class OutPutModuleBuilder {
         } catch (ParsingException e) {
             logger.error("Could not parse dictionary: "+_dict_path);
             logger.error(e);
+            e.printStackTrace();
             this.dict = null;
         } catch (IOException e) {
             logger.error("IOException reading dictionary: "+_dict_path);
