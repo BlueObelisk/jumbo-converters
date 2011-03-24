@@ -1,0 +1,19 @@
+<template id="initcoord" repeatCount="1"   pattern="\s*coordinates \(a.u.\) \- prior to orientation\s*$\s*\-{72}\s*" newline="$"
+  endPattern="\s*\-{72}\s*" endOffset="1">
+  <comment>
+                              coordinates (a.u.) - prior to orientation
+ ------------------------------------------------------------------------
+                 atom                x              y              z
+
+              1  c                0.000000       0.000000       0.000000
+              2  o                0.000000       0.000000       2.273340
+              3  h                1.765065       0.000000      -1.094386
+              4  h               -1.765065       0.000000      -1.094386
+
+ ------------------------------------------------------------------------
+  </comment>
+  <!-- skip 4 lines to coords -->
+  <record repeatCount="4">{X}</record>
+  <record repeatCount="*" id="initcoord" makeArray="true">\s*{I,guk:id}\s*{A,guk:atomtypeRef}\s*{F,guk:x3}\s*{F,guk:y3}\s*{F,guk:z3}\s*</record>
+  <!-- <transform process="molecule" name="cml:list/cml:array"/> -->
+</template>
