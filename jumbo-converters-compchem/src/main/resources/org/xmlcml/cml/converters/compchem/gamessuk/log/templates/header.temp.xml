@@ -1,0 +1,66 @@
+<template id="header"   
+  pattern="\s*\*+\s*$\s*\*\*\*\* GAMESS-UK Input Data Set \*\*\*\*\s*$\s*\*+\s*" newline="$"
+  endPattern="\s*\-{104}\s*" endOffset="1">
+  <comment>
+ **********************************
+ **** GAMESS-UK Input Data Set ****
+ **********************************
+
+ >>>>> title
+ >>>>> h2co - 3-21g - closed shell SCF
+ >>>>> zmatrix angstrom
+ >>>>> c
+ >>>>> o 1 1.203
+ >>>>> h 1 1.099 2 121.8
+ >>>>> h 1 1.099 2 121.8 3 180.0
+ >>>>> end
+ >>>>> enter
+
+
+                                   ****************************************************************
+                                   *                                                              *
+                                   *               ===  G A M E S S - U K    ===                  *
+                                   *                                                              *
+                                   * Generalised Atomic and Molecular Electronic Structure System *
+                                   *                                                              *
+                                   *               ===   Opteron version  8.0  ===                *
+                                   *                                                              *
+                                   ****************************************************************
+
+                                        Hostname  : csevst1                                     
+                                        GAMESS-UK Executable: ../../bin/gamess                                                      
+                                        Revision    6207M     
+                                        Compiled on 02-11-2010 11:50 by jmht      
+                                        job name   jmht    
+                                        date    Nov  2 2010
+                                        time       11:51:10
+                                        acct          13545
+
+                                        job time specified      60000 minutes
+
+                                        main store requested  50000000 real*8  words
+
+
+
+ local       status  external file name
+ file name 
+ ********************************************************************************
+ ed2         new      mfged2                                                                          
+ ed3         old      mfged3                                                                          
+
+
+          ******************************************************************************************
+          *                                                                                        *
+          *    h2co - 3-21g - closed shell scf                                                     *
+          *                                                                                        *
+          ******************************************************************************************
+
+
+
+ --------------------------------------------------------------------------------------------------------
+  </comment>
+        <!-- skip to where input starts -->
+	<record repeatCount="4">{X}</record>
+	<!-- suck in echoed input -->
+	<record repeatCount="*" id="input">\s>>>>>{X,guk:input}.*</record>
+</template>
