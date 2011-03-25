@@ -88,7 +88,7 @@ public class LineContainer {
 	}
 	
 	public Node peekCurrentNode() {
-		return (hasMoreNodes()) ? linesElement.getChild(currentNodeIndex) : null;
+		return (hasMoreNodes() && currentNodeIndex >= 0) ? linesElement.getChild(currentNodeIndex) : null;
 	}
 	
 	public boolean hasMoreNodes() {
