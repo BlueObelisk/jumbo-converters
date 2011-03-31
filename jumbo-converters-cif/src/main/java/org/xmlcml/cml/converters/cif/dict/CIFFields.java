@@ -1,13 +1,17 @@
 package org.xmlcml.cml.converters.cif.dict;
 
+import java.util.List;
+
 import nu.xom.Attribute;
 import nu.xom.Element;
 
 import org.xmlcml.cif.CIFDataBlock;
 import org.xmlcml.cif.CIFItem;
+import org.xmlcml.cif.CIFLoop;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLEntry;
+import org.xmlcml.converters.cif.dict.units.CIFUnitMapper;
 
 public enum CIFFields {
 
@@ -60,6 +64,7 @@ public enum CIFFields {
                 System.out.println(cifItem.toXML());
             }
             String newUnit = mungeUnitID(unit);
+            
             entry.addAttribute(new Attribute("units", newUnit));
             CIFFields.lastUnit = unit;
         }
@@ -75,7 +80,6 @@ public enum CIFFields {
             // entry.appendChild(elem);
             CIFFields.lastUnitDesc = unitDesc;
         }
-
     };
 
     final String cifName;
@@ -102,7 +106,7 @@ public enum CIFFields {
         }
         this.custom(cifItem, entry);
     }
-
+    
     abstract void custom(CIFItem cifItem, CMLEntry entry);
 
     public static CMLEntry parseToEntry(CIFDataBlock dataBlock) {

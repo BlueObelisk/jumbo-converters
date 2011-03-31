@@ -26,7 +26,7 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 import org.xmlcml.cml.base.CMLBuilder;
 
-public class IOUtils {
+public class CIFIOUtils {
 
 	public static void appendToFile(File file, String content) {
 		FileWriter fw = null;

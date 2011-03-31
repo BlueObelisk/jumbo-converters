@@ -1,17 +1,15 @@
 package org.xmlcml.cml.converters.cif;
 
-import javax.print.attribute.standard.OutputDeviceAssigned;
-
 import nu.xom.Element;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.xmlcml.cml.converters.cif.dict.CifDictionaryBuilder;
-import org.xmlcml.cml.converters.cif.dict.UnitsDictionary;
 import org.xmlcml.cml.element.CMLEntry;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
+import org.xmlcml.converters.cif.dict.units.UnitDictionaries;
 
 public class OutPutModuleBuilderTest {
 
@@ -27,7 +25,7 @@ public class OutPutModuleBuilderTest {
         Assert.assertEquals(false, builder.isFinalised);
         builder.finalise();
         Assert.assertEquals(true, builder.isFinalised);
-        Assert.assertTrue(builder.moleculeModule.getParent() == builder.crystalModule);
+        Assert.assertTrue(builder.molecule.getParent() == builder.crystalModule);
         Assert.assertTrue(builder.crystalModule.getParent() == builder.topModule);
     }
 
@@ -52,7 +50,7 @@ public class OutPutModuleBuilderTest {
         OutPutModuleBuilder builder = new OutPutModuleBuilder();
         CMLMolecule mol = new CMLMolecule();
         builder.addToMolecule(mol);
-        Assert.assertTrue(mol.getParent() == builder.moleculeModule);
+        Assert.assertTrue(mol.getParent() == builder.molecule);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -78,12 +76,12 @@ public class OutPutModuleBuilderTest {
     public void testIndexDictionary() {
         OutPutModuleBuilder builder = new OutPutModuleBuilder();
         int sizeOfMap = builder.idMap.keySet().size();
-        System.out.println(sizeOfMap);
+        System.out.println(sizeOfMap+" Entries in dictionary");
         // CMLEntry entry=builder.idMap.get("cell_measurement_theta_max");
         CMLEntry entry = builder.idMap.get("cell_measurement_wavelength");
-        for (CMLEntry test : builder.idMap.values()) {
-            System.out.println(test.getId());
-        }
+//        for (CMLEntry test : builder.idMap.values()) {
+//            System.out.println(test.getId());
+//        }
         Assert.assertNotNull(entry);
     }
 
@@ -145,5 +143,11 @@ public class OutPutModuleBuilderTest {
         Assert.assertEquals("xsd:double", type);
         Assert.assertEquals(0.0045, prop.getScalarElements().get(0).getErrorValue(),0.000001);
         Assert.assertEquals("0.0622", prop.getScalarElements().get(0).getValue());
+    }
+    @Test
+    public void testAddDictURIS(){
+        OutPutModuleBuilder builder = new OutPutModuleBuilder();
+        builder.addDictionaryURIs();
+        Assert.assertEquals(UnitDictionaries.nonSi.URI, builder.cml.getNamespaceURIForPrefix(UnitDictionaries.nonSi.prefix));
     }
 }
