@@ -38,7 +38,8 @@ public class CompchemTemplateConverter extends TemplateConverter {
 	}
 
 	public static String createBaseURI(String codeBase, String fileType) {
-		return "src/main/resources/org/xmlcml/cml/converters/compchem/"+codeBase+"/"+fileType+"/templates/";
+//		return "src/main/resources/org/xmlcml/cml/converters/compchem/"+codeBase+"/"+fileType+"/templates/";
+        return "classpath:/org/xmlcml/cml/converters/compchem/"+codeBase+"/"+fileType+"/templates/";
 	}
 
 	public static void usage() {

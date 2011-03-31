@@ -1,15 +1,9 @@
 package org.xmlcml.cml.converters.text;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
-
 import nu.xom.Attribute;
 import nu.xom.Element;
 import nu.xom.Elements;
 import nu.xom.Nodes;
-import nu.xom.xinclude.XIncluder;
-
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
@@ -22,6 +16,10 @@ import org.xmlcml.cml.converters.format.RecordReader;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.euclid.Int2;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class Template implements MarkupApplier {
 	private final static Logger LOG = Logger.getLogger(Template.class);
@@ -71,8 +69,8 @@ public class Template implements MarkupApplier {
 
 	public Template(Element element) {
 		this.theElement = element;
-		try {
-			XIncluder.resolveInPlace(theElement.getDocument());
+        try {
+            ClassPathXIncludeResolver.resolveIncludes(element.getDocument());
 		} catch (Exception e) {
 			throw new RuntimeException("Bad XInclude", e);
 		}
