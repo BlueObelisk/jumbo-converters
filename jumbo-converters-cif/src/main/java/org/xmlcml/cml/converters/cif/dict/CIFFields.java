@@ -1,17 +1,13 @@
 package org.xmlcml.cml.converters.cif.dict;
 
-import java.util.List;
-
 import nu.xom.Attribute;
 import nu.xom.Element;
 
 import org.xmlcml.cif.CIFDataBlock;
 import org.xmlcml.cif.CIFItem;
-import org.xmlcml.cif.CIFLoop;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLEntry;
-import org.xmlcml.converters.cif.dict.units.CIFUnitMapper;
 
 public enum CIFFields {
 
@@ -52,7 +48,7 @@ public enum CIFFields {
     type("_type") {
         @Override
         public void custom(CIFItem cifItem, CMLEntry entry) {
-            String type = ("numb".equals(cifItem.getValue())) ? CMLUtil.XSD_FLOAT : CMLUtil.XSD_STRING;
+            String type = ("numb".equals(cifItem.getValue())) ? CMLUtil.XSD_DOUBLE : CMLUtil.XSD_STRING;
             entry.addAttribute(new Attribute("dataType", type));
         }
     },
