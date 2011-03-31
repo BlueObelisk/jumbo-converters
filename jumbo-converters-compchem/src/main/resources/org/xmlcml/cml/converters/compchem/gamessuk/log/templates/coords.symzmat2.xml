@@ -1,0 +1,21 @@
+<template id="symzmat2" pattern="\s*\=+\s*$\s*z\-matrix \(angstroms and degrees\)\s*" newline="$"
+  endPattern="\s*\=+\s*$\s*" >
+  <comment>
+ ========================================================================
+                         z-matrix (angstroms and degrees)
+  cd cent  atom  n1       length      n2     alpha       n3      beta        j
+ ------------------------------------------------------------------------
+   1    1   c 
+   2    2   o     1   1.203000 (   1)
+   3    3   h     1   1.099000 (   2)   2  121.800 (   4)
+   4    4   h     1   1.099000 (   3)   2  121.800 (   5)   3  180.000 (   6)   0
+ ========================================================================
+
+
+  </comment>
+  <record repeat="4" id="skip">{X}</record>
+  <record repeat="*">{I,guk:cd}{I,guk:cent}{A,guk:tag}</record>
+  <record repeat="*">{I,guk:cd}{I,guk:cent}{A,guk:tag}{I,cc:at1ser}{F,cc:dist,u:angst}\(\s*{I,guk:unk}\)\s*</record>
+  <record repeat="*">{I,guk:cd}{I,guk:cent}{A,guk:tag}{I,cc:at1ser}{F,cc:dist,u:angst}\(\s*{I,guk:unk}\){I,cc:at2ser}{F,cc:dist,u:angst}\(\s*{I,guk:unk}\)\s*</record>
+  <record repeat="*">{I,guk:cd}{I,guk:cent}{A,guk:tag}{I,cc:at1ser}{F,cc:dist,u:angst}\(\s*{I,guk:unk}\){I,cc:at2ser}{F,cc:dist,u:angst}\(\s*{I,guk:unk}\){I,cc:at3ser}{F,cc:dist,u:angst}\(\s*{I,guk:unk}\){I,guk:unk1}\s*</record>
+</template>

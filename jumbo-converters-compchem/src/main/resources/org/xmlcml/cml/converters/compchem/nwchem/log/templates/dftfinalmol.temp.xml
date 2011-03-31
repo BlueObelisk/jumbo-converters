@@ -31,7 +31,8 @@
       <record id="orb1" repeat="*">{I,n:i}{F,n:f}{I,n:j}{A,n:a}{A,n:orb}</record>
     </template>
   </templateList>
-  <transform process="vector3" parent=".//*[@templateRef='vv2']/*" 
-      name="*[@dictRef='n:mo1' or @dictRef='n:mo2' or @dictRef='n:mo3']"/>
-  <transform process="pullupSingleton" name=".//cml:list[count(*)=1]"/> 
+  <transform process="vector3" xpath=".//*[@templateRef='vv2']/*" 
+      from="*[@dictRef='n:mo1' or @dictRef='n:mo2' or @dictRef='n:mo3']"
+      dictRef="n:mocenter"/>
+  <transform process="pullupSingleton" xpath=".//cml:list[count(*)=1]"/> 
 </template>
