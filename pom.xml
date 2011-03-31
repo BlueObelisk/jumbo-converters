@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
-		<groupId>uk.ac.cam.ch.wwmm</groupId>
-		<artifactId>wwmm-parent</artifactId>
-		<version>3</version>
-	</parent>
+        <groupId>uk.ac.cam.ch.wwmm</groupId>
+        <artifactId>wwmm-parent</artifactId>
+        <version>3</version>
+    </parent>
 
     <groupId>cml</groupId>
-	<artifactId>jumbo-converters</artifactId>
+    <artifactId>jumbo-converters</artifactId>
     <version>0.3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Jumbo-Converters</name>
     <description>Converts from and to CML</description>
-	<url>http://www.xml-cml.org/</url>
-	<developers>
-		<developer>
-			<id>jimdowning</id>
-			<name>Jim Downing</name>
-			<email>ojd20@cam.ac.uk</email>
-		</developer>
-	</developers>
-	<scm />
-	<modules>
-		<module>jumbo-converters-core</module>
-<!-- 		<module>jumbo-converters-cli</module> -->
-  		<module>jumbo-converters-cif</module>
-		<module>jumbo-converters-chemdraw</module>
-		<module>jumbo-converters-compchem</module>
-		<module>jumbo-converters-rdf</module>
-		<module>jumbo-converters-epo</module>
-		<module>jumbo-converters-graphics</module>
-		<module>jumbo-converters-spectrum</module>
-		<module>jumbo-converters-molecule</module>
-		<module>jumbo-converters-reaction</module>
-		<module>jumbo-converters-testutils</module>
-	</modules>
-	<repositories>
-		<repository>
-			<id>ucc-repo</id>
-			<url>https://maven.ch.cam.ac.uk/m2repo</url>
-		</repository>
-	</repositories>
+    <url>http://www.xml-cml.org/</url>
+    <developers>
+        <developer>
+            <id>jimdowning</id>
+            <name>Jim Downing</name>
+            <email>ojd20@cam.ac.uk</email>
+        </developer>
+    </developers>
+    <scm />
+    <modules>
+        <module>jumbo-converters-core</module>
+        <!-- 		<module>jumbo-converters-cli</module> -->
+        <module>jumbo-converters-cif</module>
+        <module>jumbo-converters-chemdraw</module>
+        <module>jumbo-converters-compchem</module>
+        <module>jumbo-converters-rdf</module>
+        <module>jumbo-converters-epo</module>
+        <module>jumbo-converters-graphics</module>
+        <module>jumbo-converters-spectrum</module>
+        <module>jumbo-converters-molecule</module>
+        <module>jumbo-converters-reaction</module>
+        <module>jumbo-converters-testutils</module>
+    </modules>
+    <repositories>
+        <repository>
+            <id>ucc-repo</id>
+            <url>https://maven.ch.cam.ac.uk/m2repo</url>
+        </repository>
+    </repositories>
     <properties>
         <cdk.version>1.2.0</cdk.version>
-	    <project.build.sourceEncoding>
-	      UTF-8
-	    </project.build.sourceEncoding>
-	    <project.reporting.outputEncoding>
-	      UTF-8
-	    </project.reporting.outputEncoding>
+        <project.build.sourceEncoding>
+            UTF-8
+        </project.build.sourceEncoding>
+        <project.reporting.outputEncoding>
+            UTF-8
+        </project.reporting.outputEncoding>
     </properties>
     <dependencyManagement>
         <!-- Keep these alphabetical, please! -->
@@ -193,6 +193,11 @@
                 <artifactId>junit</artifactId>
                 <version>4.8.2</version>
             </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>1.8.0</version>
+            </dependency>
 
             <dependency>
                 <groupId>cml</groupId>
@@ -209,7 +214,16 @@
                 <artifactId>jumbo-converters-testutils</artifactId>
                 <version>0.3-SNAPSHOT</version>
             </dependency>
-
+            <dependency>
+                <groupId>cml</groupId>
+                <artifactId>jumbo-converters-molecule</artifactId>
+                <version>0.3-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>cml</groupId>
+                <artifactId>jumbo-converters-graphics</artifactId>
+                <version>0.3-SNAPSHOT</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
