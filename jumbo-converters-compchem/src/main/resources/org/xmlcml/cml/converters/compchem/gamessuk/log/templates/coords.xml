@@ -1,4 +1,4 @@
-<template id="symzmat" repeatCount="1"   pattern="\s*\*+\s*$\s*symbolic z-matrix\s*$\s*\*+\s*" newline="$"
+<template id="coords" pattern="\s*\*+\s*$\s*symbolic z-matrix\s*$\s*\*+\s*" newline="$"
   endPattern="\s*\-{104}\s*" endOffset="1">
   <comment>
                                         *****************
@@ -44,9 +44,10 @@
 
  --------------------------------------------------------------------------------------------------------
   </comment>
-	<!-- <record repeatCount="1">{X}</record> -->
-	<!-- <record repeatCount="*" id="header_line">\s{X,guk:header_line}.*</record> -->
-	<templateList id='symzmatl' xmlns:xi="http://www.w3.org/2001/XInclude">
-	    <xi:include href="initcoord.temp.xml"/>
-        </templateList>
+	<templateList id='coords_inc' xmlns:xi="http://www.w3.org/2001/XInclude">
+        <xi:include href="coords.symzmat1.xml"/>
+        <xi:include href="coords.symzmat2.xml"/>
+        <xi:include href="coords.initcoord.xml"/>
+        <xi:include href="coords.startup.xml"/>
+    </templateList>
 </template>
