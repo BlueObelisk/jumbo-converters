@@ -1,0 +1,41 @@
+<template id="molbasis.geo" newline="$" pattern="\s{9}\*{79}\s*$\s{9}\*\s+.*" 
+  endPattern="\s{9}\*{79}\s*$\s*" endOffset="1">
+  <comment>
+         *******************************************************************************
+         *                                                                             *
+         *     atom   atomic                coordinates                 number of      *
+         *            charge       x             y              z       shells         *
+         *                                                                             *
+         *******************************************************************************
+         *                                                                             *
+         *                                                                             *
+         *    c         6.0   0.0000000      0.0000000      0.9998719       3          *
+         *                                                                1s  2sp 2sp  *
+         *                                                                             *
+         *                                                                             *
+         *    o         8.0  -0.0000000     -0.0000000     -1.2734685       3          *
+         *                                                                1s  2sp 2sp  *
+         ...
+         *******************************************************************************
+
+
+                                        *******************
+                                        molecular basis set
+                                        *******************
+
+
+
+  </comment>
+  <record repeat="6">{X,x:sss}</record>
+  <templateList>
+    <template repeat="*" id="coordxyz" pattern="\s{9}\*\s{77}\*\s*$\s{9}\*\s*\S*" multiple="$" 
+    endPattern="\s{9}\*\s{77}\*\s*" endOffset="1">
+      <record repeat="2">{X}</record>
+      <record id="coordx">\s{9}\*{A,guk:tag}{F,guk:elementType}{F,guk:x3}{F,guk:y3}{F,guk:z3}{I,guk:nshells}\s+\*\s*</record>
+      <record id="shells">\s{9}\*{X,guk:shells}\s+\*\s*</record>
+    </template>
+   </templateList>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+</template>

@@ -1,0 +1,46 @@
+<template id="molbasis.geo" repeat="*" newline="$" pattern="\s+\=+\s*$\s+contracted.*$\s+\=+\s*$\s*$\satom.*$\s\={113}\s*" 
+  endPattern="\s\={113}\s*$\s*">
+  <comment>
+                                        ==============================
+                                        contracted primitive functions
+                                        ==============================
+
+ atom        shell   type  prim       exponents            contraction coefficients
+ =================================================================================================================
+
+ c       
+
+
+                 1   1s       1      172.256000       2.093132  (    0.061767  )
+                 1   1s       2       25.910900       2.936751  (    0.358794  )
+                 1   1s       3        5.533350       1.801737  (    0.700713  )
+
+
+                 2   2sp      4        3.664980      -0.747384  (   -0.395897  )       1.709178  (    0.236460  )
+                 2   2sp      5        0.770545       0.712661  (    1.215840  )       0.885622  (    0.860619  )
+
+
+                 3   2sp      6        0.195857       0.209828  (    1.000000  )       0.185722  (    1.000000  )
+
+ o       
+ ...
+                10   1s      15        0.183192       0.199567  (    1.000000  )
+ =================================================================================================================
+  </comment>
+  <record repeat="6">{X,x:sss}</record>
+  <templateList>
+    <template id="element" repeat="*" newline="$" pattern="\s*$\s\S+\s*$\s*$\s*"
+      endPattern="\s*$\s\S+\s*$\s*$\s*">
+      <templateList>
+        <template id="shell" repeat="*" pattern="\s*$\s*" newline="$" endPattern="\s*">
+          <record repeat="2">\s*</record>
+          <record repeat="*">\s{12}{I,guk:shell}{A,guk:type}{I,guk:prim}{F,cc:basisexponent}{F,cc:contracta}\(\s*{F,cc:contractb}\s*\){F,cc:contractc}\(\s*{F,cc:contractd}\s*\)</record>
+          <record repeat="*">\s{12}{I,guk:shell}{A,guk:type}{I,guk:prim}{F,cc:basisexponent}{F,cc:contractaa}\(\s*{F,cc:contractbb}\s*\)</record>
+        </template>
+      </templateList>
+    </template>
+  </templateList>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+</template>

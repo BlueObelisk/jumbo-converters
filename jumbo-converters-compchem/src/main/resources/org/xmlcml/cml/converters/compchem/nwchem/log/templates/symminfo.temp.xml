@@ -19,7 +19,7 @@
   <record>\s*</record>
   <record repeat="2">{X}</record>
   <record id="symmuniqatom" repeat="*">\s*{X,n:row}\s*</record>
-  <transform process="nameValue" parent="*[@templateRef='symminfo']/cml:list" 
+  <transform process="nameValue" xpath="*[@templateRef='symminfo']/cml:list" 
       name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>
-  <transform process="pullupSingleton" name="./*/cml:list"/>
+  <transform process="pullupSingleton" xpath="./*/cml:list"/>
  </template>

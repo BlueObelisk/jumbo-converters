@@ -1,0 +1,24 @@
+<template id="molbasis.scfconverge" pattern="\s\*{54}\s*$\s\*\s+SCF CONVERGENCE CONTROLS in EFFECT\s+\*\s*" 
+ newline="$" endPattern="\s*">
+  <comment>
+ ****************************************************** 
+ *        SCF CONVERGENCE CONTROLS in EFFECT          * 
+ ****************************************************** 
+ * Wavefunction convergence                    1.0e-5 *
+ * Level shifting                                     *
+ * Level shifter =    1.000 to cycle  5 then    0.300 *
+ * Commence diis treatment at threshold of    0.10000 *
+ * Finish diis when residuum less than   0.100000E-09 *
+ ****************************************************** 
+
+  </comment>
+  <record repeat="3">{X}</record>
+  <record >\s\*\sWavefunction convergence\s+{A,guk:runtype}\s+\*\s*</record>
+  <record >\s\*\sLevel shifting\s+\*\s*</record>
+  <record >\s\*\sLevel shifter =\s+{F,guk:levelshifter} to cycle\s+{I,guk:cycle} then \s+{F,guk:A,guk:molorbstart}\s+\*\s*</record>
+  <record >\s\*\sCommence diis treatment at threshold of\s+{F,guk:diisthresh}\s+\*\s*</record>
+  <record >\s\*\sFinish diis when residuum less than\s+{E,guk:diisresiduum}\s+\*\s*</record>
+  <record repeat="*">{X}</record>
+
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

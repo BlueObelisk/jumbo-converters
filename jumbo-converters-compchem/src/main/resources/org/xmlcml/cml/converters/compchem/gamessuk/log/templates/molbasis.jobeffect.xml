@@ -1,0 +1,22 @@
+<template id="molbasis.jobeffect" pattern="\s\*{52}\s*$\s\*\s+JOB OPTIONS in EFFECT\s+\*\s*" 
+ newline="$" endPattern="\s*">
+  <comment>
+ **************************************************** 
+ *            JOB OPTIONS in EFFECT                 * 
+ **************************************************** 
+ * RUN TYPE                                scf      *
+ * SCF TYPE                                rhf      *
+ * Molecular orbital starting point        atoms    *
+ * Route   a-vectors to section                   1 *
+ **************************************************** 
+
+  </comment>
+  <record repeat="3">{X}</record>
+  <record >\s\*\sRUN TYPE\s+{A,guk:runtype}\s+\*\s*</record>
+  <record >\s\*\sSCF TYPE\s+{A,guk:scftype}\s+\*\s*</record>
+  <record >\s\*\sMolecular orbital starting point\s+{A,guk:molorbstart}\s+\*\s*</record>
+  <record >\s\*\sRoute\s+a\-vectors to section\s+{I,guk:avectors}\s+\*\s*</record>
+  <record repeat="*">{X}</record>
+
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

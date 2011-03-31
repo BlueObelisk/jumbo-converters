@@ -1,38 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<template id='gaussian.log' output="VERBOSE"
-  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:c="http://www.xml-cml.org/dictionary"
-  xmlns:compchem="http://www.xml-cml.org/dictionary/compchem/"
-  xmlns:gaussian="http://www.xml-cml.org/dictionary/gaussian/"
->
+<template id='gaussian.log' output="VERBOSE">
   <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
-    <xi:include href="l1.temp.xml"/>
-    <xi:include href="l101.temp.xml"/>
-    <xi:include href="l202.temp.xml"/>
-    <xi:include href="l301.temp.xml"/>
-    <xi:include href="l601.temp.xml"/>
+    <xi:include href="pmr/l702.temp.xml"/>
+    <xi:include href="pmr/l000.temp.xml"/>
+    <xi:include href="pmr/l1.xml"/>
+    <xi:include href="pmr/l101.xml"/>
+    <xi:include href="pmr/l102.temp.xml"/>
+    <xi:include href="pmr/l103.temp.xml"/>
+    <xi:include href="pmr/l202.temp.xml"/>
+    <xi:include href="pmr/l301.temp.xml"/>
+    <xi:include href="pmr/l302.temp.xml"/>
+    <xi:include href="pmr/l303.temp.xml"/>
+    <xi:include href="pmr/l401.temp.xml"/>
+    <xi:include href="pmr/l502.xml"/>
+    <xi:include href="pmr/l601.temp.xml"/>
+    <xi:include href="pmr/l701.temp.xml"/>
+    <xi:include href="pmr/l702.temp.xml"/>
+    <xi:include href="pmr/l703.temp.xml"/>
+    <xi:include href="pmr/l716.temp.xml"/> 
+    <xi:include href="pmr/l801.temp.xml"/> 
+    <xi:include href="pmr/l802.temp.xml"/> 
+    <xi:include href="pmr/l1002.temp.xml"/> 
+    <xi:include href="pmr/l1101.temp.xml"/> 
+    <xi:include href="pmr/l1102.temp.xml"/> 
+    <xi:include href="pmr/l1110.temp.xml"/> 
+    <xi:include href="pmr/l9999.temp.xml"/> 
+    <xi:include href="pmr/lany.temp.xml"/> 
   </templateList>
-  <!-- 
-  <transform process="group" name="./*[@templateRef='nwcheminpmod']"/>
-  <transform process="addRole" name="./*[@role='group'][1]" value="initialization"/>
-  <transform process="addRole" name="./*[@role='group'][count(//*[@role='group'])]" value="finalization"/>
--->
-  <transform process="addDictRef" name="./*[@templateRef='l1'][1]" value="compchem:initialization"/>
-  <transform process="addParameterList" name="./*[@dictRef='compchem:initialization']" id="initialParams"/>
-  <transform process="move" name=".//*[@dictRef='compchem:date'][1]" to=".//*[@id='initialParams']"/>
-  <transform process="move" name=".//*[@dictRef='compchem:program'][1]" to=".//*[@id='initialParams']"/>
-  <transform process="move" name=".//*[@dictRef='compchem:version'][1]" to=".//*[@id='initialParams']"/>
-  <transform process="move" name=".//*[@dictRef='compchem:hostname'][1]" to=".//*[@id='initialParams']"/>
-  <transform process="wrap" name=".//*[@id='initialParams']"/>
-  
-  <transform process="addDictRef" name="./*[@templateRef='l601']" value="compchem:finalization"/>
-  <transform process="addPropertyList" name="./*[@dictRef='compchem:finalization']" id="finalProperties"/>
-  <transform process="move" name=".//*[@dictRef='compchem:nuclearEnergy'][1]" to=".//*[@id='finalProperties']"/>
-  
-  <transform process="move" name=".//*[@dictRef='compchem:nuclearDipole'][1]" to=".//*[@id='finalProperties']"/>
-  <transform process="wrap" name=".//*[@id='finalProperties']"/>
-
-  <transform process="move" name=".//*[local-name()='molecule']" to="./*[@dictRef='compchem:finalization']"/>
-  
-  <transform process="addDictRef" name="./*[@role='group']" value="compchem:calculation"/>
 </template>

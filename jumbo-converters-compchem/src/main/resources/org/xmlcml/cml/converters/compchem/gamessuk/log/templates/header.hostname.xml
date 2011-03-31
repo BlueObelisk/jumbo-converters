@@ -1,32 +1,6 @@
-<template id="header"   
-  pattern="\s*\*+\s*$\s*\*\*\*\* GAMESS-UK Input Data Set \*\*\*\*\s*$\s*\*+\s*" newline="$"
-  endPattern="\s*\-{104}\s*" endOffset="1">
+<template id="header.hostname" 
+  pattern="\s*Hostname\s*\:.*" newline="$" endPattern="\s{10}\*\s{88}\*\s*$\s{10}\*{90}.*" endOffset="2">
   <comment>
- **********************************
- **** GAMESS-UK Input Data Set ****
- **********************************
-
- >>>>> title
- >>>>> h2co - 3-21g - closed shell SCF
- >>>>> zmatrix angstrom
- >>>>> c
- >>>>> o 1 1.203
- >>>>> h 1 1.099 2 121.8
- >>>>> h 1 1.099 2 121.8 3 180.0
- >>>>> end
- >>>>> enter
-
-
-                                   ****************************************************************
-                                   *                                                              *
-                                   *               ===  G A M E S S - U K    ===                  *
-                                   *                                                              *
-                                   * Generalised Atomic and Molecular Electronic Structure System *
-                                   *                                                              *
-                                   *               ===   Opteron version  8.0  ===                *
-                                   *                                                              *
-                                   ****************************************************************
-
                                         Hostname  : csevst1                                     
                                         GAMESS-UK Executable: ../../bin/gamess                                                      
                                         Revision    6207M     
@@ -39,9 +13,21 @@
                                         job time specified      60000 minutes
 
                                         main store requested  50000000 real*8  words
-
-
-
+  </comment>
+    
+  <record>\s*Hostname\s+\:\s*{A,guk:hostname}\s*</record>
+  <record>\s*GAMESS\-UK Executable\:\s*{A,guk:exe}\s*</record>
+  <record>\s*Revision\s*{A,guk:revision}</record> 
+  <record>\s*Compiled on\s*{X,guk:compiled}\s*by\s*{X,guk:programauth}\s*</record>    
+  <record>\s*job name\s*{A,guk:jobname}</record>    
+  <record>\s*date\s*{X,guk:date}\s*</record>   
+  <record>\s*time\s*{X,guk:time}\s*</record>
+  <record>\s*acct\s*{X,guk:acct}\s*</record>
+  <record>{X}</record>
+  <record>\s*job time specified\s*{I,guk:timespec}\s*{A,guk:units}\s*</record>
+  <record>{X}</record>
+  <record>\s*main store requested\s*{I,guk:mainstore}\s*{X,guk:units}\s*</record>
+   <comment>
  local       status  external file name
  file name 
  ********************************************************************************
@@ -59,8 +45,12 @@
 
  --------------------------------------------------------------------------------------------------------
   </comment>
-        <!-- skip to where input starts -->
-	<record repeatCount="4">{X}</record>
-	<!-- suck in echoed input -->
-	<record repeatCount="*" id="input">\s>>>>>{X,guk:input}.*</record>
+  <record repeat="3">{X}</record>
+  <record repeat="3">{X}</record>
+  <record repeat="*" makeArray="true">\s*{A,guk:localfilename}\s*{A,guk:filestatus}\s*{A,guk:extfilename}\s*</record>
+  <record repeat="4">{X}</record>
+  <record>\s*\*\s*{X,cc:title}\s*\*\s*</record>
+  <record repeat="*">{X}</record>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
 </template>
