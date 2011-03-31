@@ -1,0 +1,65 @@
+@prefix cml: <http://www.xmlcml.org/rdf-schema#> .
+@prefix qm: <http://www.xmlcml.org/qm-rdf-schema#> .
+@prefix jim: <tag:ojd20@cam.ac.uk,2010-02-04:#> .
+@prefix chem: <http://whatever.com/chemaxiom/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+# The tag uris would be replaced by UUID URIs
+
+<./target/CH4.cml> a cml:dataResource.
+
+jim:computation
+    a qm:Computation;
+    cml:representedBy <./target/CH4.cml>;
+    qm:jobs ( jim:job1 ).
+# I've used a list for the jobs. This is very neat in Turtle. Not so much in RDF/XML.
+
+jim:job1
+    a qm:ComputationalJob;
+    qm:hasInitialisation jim:j1init;
+    qm:hasOptimization jim:j1opt;
+    qm:hasFinalResult jim:final1.
+
+jim:j1init
+    a qm:Initialization;
+    qm:hasGeometry [
+        a chem:MolecularEntity;
+        cml:representedBy <./target/CH4init.cml> ] ;
+    qm:cmdGeom [
+        a cml:Parameter ;
+        cml:hasValue "Geometry optimization" ] ;
+    qm:qmMethod [
+        a cml:Parameter ;
+        cml:hasValue "uB97-1" ] .
+
+jim:j1opt
+    a qm:Optimization;
+    qm:hasSteps ( jim:step1 jim:step2 ) .
+
+# The scfEnergies could use blank nodes, or UUID URIs as with the parameters above. Doesn't really matter too much.
+jim:step1
+    a qm:OptimizationStep;
+    qm:scfEnergy [
+        a cml:Property ;
+        cml:hasValue "-40.5111727871"^^xsd:double;
+        cml:hasUnits cml:molarEnergy ] .
+
+jim:step2
+    a qm:OptimizationStep;
+    cam:scfEnergy [
+        a cml:Property ;
+        cml:hasValue "-40.5111790287"^^xsd:double;
+        cml:hasUnits cml:molarEnergy ] .
+
+jim:final1
+    a qm:FinalResult;
+    qm:hasGeometry jim:mol2;
+# What should we do about "unknown:unknown" units?
+    qm:dipole [
+        a cml:Vector3 ;
+        cml:hasValue ("1.51313187E-6" "-2.06531504E-7" "-1.331166E-7") ] .
+
+jim:mol2
+    a chem:MolecularEntity;
+    cml:representedBy <./target/CH4final.cml> .
+

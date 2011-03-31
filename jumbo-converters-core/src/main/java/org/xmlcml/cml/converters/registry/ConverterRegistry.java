@@ -27,6 +27,7 @@ public class ConverterRegistry {
             ClassLoader ldr = Thread.currentThread().getContextClassLoader();
             Enumeration<URL> e = ldr.getResources(CONVERTER_FILE);
             for (URL url : Collections.list(e)) {
+                System.err.println("reading "+url);
                 InputStream is = url.openStream();
                 try {
                     for (String line : IOUtils.readLines(is)) {
@@ -36,10 +37,15 @@ public class ConverterRegistry {
                         }
                         String s = line.trim();
                         if (s.length() > 0) {
-                            Class<?> clazz = (Class<?>) Class.forName(s);
-                            ConverterList list = (ConverterList) clazz.newInstance();
-                            for (ConverterInfo converter : list.listConverters()) {
-                                register(converter);
+                            try {
+                                Class<?> clazz = Class.forName(s);
+                                ConverterList list = (ConverterList) clazz.newInstance();
+                                for (ConverterInfo converter : list.listConverters()) {
+                                    register(converter);
+                                }
+                            } catch (Exception ex) {
+                                System.err.println("Error loading converter");
+                                ex.printStackTrace();
                             }
                         }
                     }
