@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-   <modelVersion>4.0.0</modelVersion>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>cml</groupId>
         <artifactId>jumbo-converters</artifactId>
         <version>0.3-SNAPSHOT</version>
     </parent>
-    
-   <artifactId>jumbo-converters-compchem</artifactId>
 
-   <name>jumbo-converters-gaussian</name>
+    <artifactId>jumbo-converters-compchem</artifactId>
 
-   <dependencies>
+    <name>jumbo-converters-gaussian</name>
+
+    <dependencies>
         <dependency>
             <groupId>cml</groupId>
             <artifactId>jumbo</artifactId>
         </dependency>
-      <dependency>
-         <groupId>cml</groupId>
-         <artifactId>jumbo-converters-core</artifactId>
-      </dependency>
-      <dependency>
-         <groupId>cml</groupId>
-         <artifactId>jumbo-converters-rdf</artifactId>
-      </dependency>
+        <dependency>
+            <groupId>cml</groupId>
+            <artifactId>jumbo-converters-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cml</groupId>
+            <artifactId>jumbo-converters-rdf</artifactId>
+        </dependency>
         <dependency>
             <groupId>gigadot.semsci</groupId>
             <artifactId>semsci-chemistry</artifactId>
@@ -48,31 +48,31 @@
             </exclusions>
         </dependency>
         <dependency>
-              <groupId>joda-time</groupId>
-              <artifactId>joda-time</artifactId>
-              <version>1.6</version>
-        </dependency>   
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>1.6</version>
+        </dependency>
 
-       <dependency>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
-          <scope>test</scope>
-       </dependency>
-      <dependency>
-         <groupId>cml</groupId>
-         <artifactId>jumbo-converters-testutils</artifactId>
-         <scope>test</scope>
-      </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>cml</groupId>
+            <artifactId>jumbo-converters-testutils</artifactId>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
-    
+
     <repositories>
         <repository>
             <id>com.hp.hpl.jena</id>
             <url>http://openjena.org/repo</url>
         </repository>
     </repositories>
-    
+
     <build>
         <plugins>
             <plugin>
@@ -92,14 +92,14 @@
                         <id>make-assembly</id>
                         <phase>package</phase>
                         <goals>
-                          <goal>single</goal>
+                            <goal>single</goal>
                         </goals>
-                      </execution>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
-    
+
 </project>
 
 
