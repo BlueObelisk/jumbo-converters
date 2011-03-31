@@ -4,6 +4,7 @@ import nu.xom.Attribute;
 import nu.xom.Element;
 import nu.xom.Elements;
 import nu.xom.Nodes;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
@@ -23,6 +24,10 @@ import java.util.regex.Pattern;
 
 public class Template implements MarkupApplier {
 	private final static Logger LOG = Logger.getLogger(Template.class);
+	
+	static{
+	    LOG.setLevel(Level.ERROR);
+	}
 	
 	public static final String EOI = "$";
 	public static final String TAG = "template";

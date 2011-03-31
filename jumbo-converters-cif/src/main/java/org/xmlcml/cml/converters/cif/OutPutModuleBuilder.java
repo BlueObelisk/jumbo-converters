@@ -1,7 +1,13 @@
 package org.xmlcml.cml.converters.cif;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import nu.xom.Attribute;
@@ -12,6 +18,9 @@ import nu.xom.Nodes;
 import nu.xom.ParsingException;
 import nu.xom.ValidityException;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
@@ -20,26 +29,31 @@ import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.element.CMLEntry;
 import org.xmlcml.cml.element.CMLModule;
+import org.xmlcml.cml.element.CMLMolecule;
+import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
-
-import org.apache.commons.io.IOUtils;
+import org.xmlcml.converters.cif.dict.units.UnitDictionaries;
 
 public class OutPutModuleBuilder {
+    
+    private static final Logger logger = Logger.getLogger(OutPutModuleBuilder.class);
+    static {
+        logger.setLevel(Level.INFO);
+    }
+    
     public static final String CONVETION_URI = "http://www.xml-cml.org/convention/";
     public static final String CONVETION_PREFIX = "convention";
-    public static final String CONVENTION_CRYSTALOGRAPHY = "CrystalographyExperiment";
+    public static final String CONVENTION_CRYSTALOGRAPHY = "crystallographyExperiment";
     public static final String CONVENTION_CRYSTAL = "crystalStructure";
     public static final String CONVENTION_MOLECULAR = "molecular";
     public static final String IUCR_DICT_URI = CifDictionaryBuilder.URI;
     public static final String IUCR_DICT_PREFIX = CifDictionaryBuilder.PREFIX;
-    public static final String XHTML_PREFIX = "xhtml";
-    public static final String XHTML_URI = "http://www.w3.org/1999/xhtml";
     private String _dict_path = "/cif-dictionary.cml";
     CMLDictionary dict;
     Map<String, CMLEntry> idMap;
     CMLModule topModule;
     CMLModule crystalModule;
-    CMLModule moleculeModule;
+    CMLMolecule molecule;
     CMLCml cml;
 
     public CMLModule getTopModule() {
@@ -50,8 +64,8 @@ public class OutPutModuleBuilder {
         return crystalModule;
     }
 
-    public CMLModule getMoleculeModule() {
-        return moleculeModule;
+    public CMLMolecule getMolecule() {
+        return molecule;
     }
 
     public CMLCml getCml() {
@@ -112,38 +126,48 @@ public class OutPutModuleBuilder {
         topModule.addAttribute(new Attribute("convention", CONVETION_PREFIX + ":" + CONVENTION_CRYSTALOGRAPHY));
         crystalModule = new CMLModule();
         crystalModule.addAttribute(new Attribute("convention", CONVETION_PREFIX + ":" + CONVENTION_CRYSTAL));
-        moleculeModule = new CMLModule();
-        moleculeModule.addAttribute(new Attribute("convention", CONVETION_PREFIX + ":" + CONVENTION_MOLECULAR));
+        molecule = new CMLMolecule();
+        molecule.addAttribute(new Attribute("convention", CONVETION_PREFIX + ":" + CONVENTION_MOLECULAR));
 
         cml.addNamespaceDeclaration(IUCR_DICT_PREFIX, IUCR_DICT_URI);
-        cml.addNamespaceDeclaration(XHTML_PREFIX, XHTML_URI);
         cml.appendChild(topModule);
         try {
             this.loadDict(_dict_path);
         } catch (ValidityException e) {
-            System.err.println("Dictionary not valid");
-            e.printStackTrace();
+            logger.error("Dictionary not valid: "+_dict_path);
+            logger.error(e);
             this.dict = null;
         } catch (ParsingException e) {
-            System.err.println("Cannot parse dictionary");
-            e.printStackTrace();
+            logger.error("Could not parse dictionary: "+_dict_path);
+            logger.error(e);
             this.dict = null;
         } catch (IOException e) {
-            System.err.println("IOException reading dictionary");
-            e.printStackTrace();
+            logger.error("IOException reading dictionary: "+_dict_path);
+            logger.error(e);
             this.dict = null;
         }
     }
 
     public void finalise() {
         if (!isFinalised) {
+            this.addDictionaryURIs();
             topModule.appendChild(crystalModule);
-            crystalModule.appendChild(moleculeModule);
+            crystalModule.appendChild(molecule);
             Nodes nodes = this.cml.query("//cml:*[@dictRef]", CMLConstants.CML_XPATH);
             for (int x = 0; x < nodes.size(); x++) {
                 CMLElement elem = (CMLElement) nodes.get(x);
                 fetchDataType(elem);
             }
+            List<CMLElement> children=molecule.getChildCMLElements();
+            if(children.size()==1){
+                CMLElement child=children.get(0);
+                child.detach();
+                molecule.copyAttributesFrom(child);
+                molecule.copyChildrenFrom(child);
+                molecule.copyNamespaces(child);
+                molecule.copyProperties(child);
+            }
+            
         }
         isFinalised = true;
     }
@@ -157,6 +181,19 @@ public class OutPutModuleBuilder {
         return type;
     }
     
+    public String getUnitsStringorNull(String id){
+        CMLEntry dictEntry = idMap.get(id);
+        if(dictEntry==null){
+            return null;
+        }
+        Attribute units = dictEntry.getUnitsAttribute();
+        if(units==null){
+            return null;
+        }
+        String unit = units.getValue();
+        return unit;
+    }
+    
     protected void fetchDataType(CMLElement element) {
         Attribute dictURI = element.getAttribute("dictRef");
         // If no dictRef, don't do anything
@@ -166,27 +203,36 @@ public class OutPutModuleBuilder {
         String dictRef = dictURI.getValue();
         int pos = dictRef.indexOf(':');
         if (pos == -1) {
-            System.err.println("Cannot dereference non-namespaced reference: " + dictRef);
+            logger.error("Cannot dereference non-namespaced reference: " + dictRef);
             return;
         }
         String prefix = dictRef.substring(0, pos);
         String id = dictRef.substring(pos + 1);
         
         if (!CifDictionaryBuilder.PREFIX.equals(prefix)) {
-            System.err.println("Dictionary Prefix: " + CifDictionaryBuilder.PREFIX + " does not match " + prefix + " from file");
+            logger.error("Dictionary Prefix: " + CifDictionaryBuilder.PREFIX + " does not match " + prefix + " from file");
             return;
         }
         CMLEntry dictEntry = idMap.get(id);
         
         //Ignore dictrefs which aren't from the CIF dictionary
         if (dictEntry == null) {
-           // System.err.println("No entry matches " + id);
             return;
         }
+        
+        String unit = dictEntry.getUnits();
+        String type = dictEntry.getDataType();
+        
         Elements elems = element.getChildCMLElements("scalar");
         for (int x = 0; x < elems.size(); x++) {
             CMLScalar scalar = (CMLScalar) elems.get(x);
-            String type = dictEntry.getDataType();
+            if(scalar.getValue().equals(".")){
+                scalar.detach();
+            }
+            
+            if(unit!=null){
+                scalar.setUnits(unit);
+            }
             if ("xsd:float".equals(type) || "xsd:double".equals(type)) {
                 double d = getDoubleFromString(scalar.getValue());
                 Double e = getErrorFromString(scalar.getValue());
@@ -197,6 +243,11 @@ public class OutPutModuleBuilder {
             } else if ("xsd:string".equals(type)) {
                 String s = scalar.getValue();
                 scalar.setValue(s);
+            }
+        }
+        if(element.getCMLChildCount("scalar")==0){
+            if (element instanceof CMLProperty) {
+                element.detach();
             }
         }
     }
@@ -258,7 +309,7 @@ public class OutPutModuleBuilder {
             fetchDataType((CMLElement) element);
         }
         fetchDataTypeOfScalarChildren(element);
-        this.moleculeModule.appendChild(element);
+        this.molecule.appendChild(element);
     }
 
     protected void fetchDataTypeOfScalarChildren(Element element) {
@@ -296,5 +347,12 @@ public class OutPutModuleBuilder {
             this.topModule.setTitle(title);
         }
     }
+    
+    protected void addDictionaryURIs(){
+        for(UnitDictionaries dict:UnitDictionaries.values()){
+            this.cml.addNamespaceDeclaration(dict.prefix,dict.URI);
+        }
+    }
+    
 
 }
