@@ -49,6 +49,8 @@ public class Template implements MarkupApplier {
 	public  static final String TEMPLATE_REF = "templateRef";
 
 	private static final String BASE = "base"; // left by XInclude
+
+	private static final String NULL_ID = "NULL_ID";
 	
 	protected Element theElement;
 	private String id;
@@ -136,6 +138,9 @@ public class Template implements MarkupApplier {
 		});
 				
 		id = theElement.getAttributeValue(ID);
+		if (id == null) {
+			id = NULL_ID;
+		}
 		name = theElement.getAttributeValue(NAME);
 		names = getStringsFromAttribute(NAMES);
 		this.dictRef = theElement.getAttributeValue(DICT_REF);
@@ -303,14 +308,14 @@ public class Template implements MarkupApplier {
 	
 	public void applyMarkup(LineContainer lineContainer) {
 		this.lineContainer = lineContainer;
+		Element linesElement = lineContainer.getLinesElement();
+		copyNamespaces(lineContainer.getLinesElement());
+		linesElement.addAttribute(new Attribute(Template.TEMPLATE_REF, this.getId()));
 		for (MarkupApplier marker : markerList) {
 			LOG.trace("Applying: "+marker.getClass().getSimpleName()+" "+marker.getId());
 			marker.applyMarkup(lineContainer);
 		}
-		Element linesElement = lineContainer.getLinesElement();
-		linesElement.addAttribute(new Attribute(Template.TEMPLATE_REF, this.getId()));
 		removeEmptyLists(linesElement);
-		copyNamespaces(linesElement);
 //		removeNamelessScalars(linesElement);
 //		tidyUnusedLines(lineContainer, linesElement);
 	}

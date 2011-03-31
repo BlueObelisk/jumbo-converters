@@ -19,20 +19,20 @@
 -->
   <transform process="addDictRef" name="./*[@templateRef='l1'][1]" value="compchem:initialization"/>
   <transform process="addParameterList" name="./*[@dictRef='compchem:initialization']" id="initialParams"/>
-  <transform process="move" name=".//*[@dictRef='compchem:date'][1]" to=".//*[@id='initialParams']"/>
-  <transform process="move" name=".//*[@dictRef='compchem:program'][1]" to=".//*[@id='initialParams']"/>
-  <transform process="move" name=".//*[@dictRef='compchem:version'][1]" to=".//*[@id='initialParams']"/>
-  <transform process="move" name=".//*[@dictRef='compchem:hostname'][1]" to=".//*[@id='initialParams']"/>
+  <transform process="move" name=".//*[@dictRef='compchem:date'][1]" toXpath=".//*[@id='initialParams']"/>
+  <transform process="move" name=".//*[@dictRef='compchem:program'][1]" toXpath=".//*[@id='initialParams']"/>
+  <transform process="move" name=".//*[@dictRef='compchem:version'][1]" toXpath=".//*[@id='initialParams']"/>
+  <transform process="move" name=".//*[@dictRef='compchem:hostname'][1]" toXpath".//*[@id='initialParams']"/>
   <transform process="wrap" name=".//*[@id='initialParams']"/>
   
   <transform process="addDictRef" name="./*[@templateRef='l601']" value="compchem:finalization"/>
   <transform process="addPropertyList" name="./*[@dictRef='compchem:finalization']" id="finalProperties"/>
-  <transform process="move" name=".//*[@dictRef='compchem:nuclearEnergy'][1]" to=".//*[@id='finalProperties']"/>
+  <transform process="move" name=".//*[@dictRef='compchem:nuclearEnergy'][1]" toXpath".//*[@id='finalProperties']"/>
   
-  <transform process="move" name=".//*[@dictRef='compchem:nuclearDipole'][1]" to=".//*[@id='finalProperties']"/>
+  <transform process="move" name=".//*[@dictRef='compchem:nuclearDipole'][1]" toXpath".//*[@id='finalProperties']"/>
   <transform process="wrap" name=".//*[@id='finalProperties']"/>
 
-  <transform process="move" name=".//*[local-name()='molecule']" to="./*[@dictRef='compchem:finalization']"/>
+  <transform process="move" name=".//*[local-name()='molecule']" toXpath"./*[@dictRef='compchem:finalization']"/>
   
   <transform process="addDictRef" name="./*[@role='group']" value="compchem:calculation"/>
 </template>

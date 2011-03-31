@@ -20,6 +20,11 @@
 
  --------------------------------------------------------------------------------------------------------
   </comment>
-	<!-- <record repeatCount="1">{X}</record> -->
-	<!-- <record repeatCount="*" id="header_line">\s{X,guk:header_line}.*</record> -->
+	<record repeatCount="5">{X}</record>
+    <record >\s*molecular point group\s*{A,cc:pointgroup}</record>
+    <record >\s*order of principal axis\s*{I,cc:princaxisorder}</record>
+    <record repeatCount="3">{X}</record>
+    <record repeatCount="*">\s*point\s*{I,cc:ser}\s*\:\s*{F,cc:x}{F,cc:y}{F,cc:z}</record>
+    <record>{X}</record>
+    <record>\s*directional parameter \-{X,guk:dirparam}</record>
 </template>
