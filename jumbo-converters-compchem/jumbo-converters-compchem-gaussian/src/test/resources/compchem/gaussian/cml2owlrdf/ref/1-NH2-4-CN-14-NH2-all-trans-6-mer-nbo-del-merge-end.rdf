@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xml:base="http://www.xml-cml.org/schema" xmlns:schema="http://www.xml-cml.org/schema#" xmlns="http://www.xml-cml.org/schema#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:owl2="http://www.w3.org/2006/12/owl2#" xmlns:cmlx="http://www.xml-cml.org/cmlx#">
+  <owl:Ontology rdf:about=""/>
+  <!-- /////////////////////////////////////////////////////////////////////////////////////// // // Object Properties // /////////////////////////////////////////////////////////////////////////////////////// -->
+  <!-- http://www.xml-cml.org/schema#hasCmlChild -->
+  <owl:ObjectProperty rdf:about="#hasCmlChild"/>
+  <!-- http://www.xml-cml.org/schema#hasEntry -->
+  <owl:ObjectProperty rdf:about="#hasEntry"/>
+  <!-- /////////////////////////////////////////////////////////////////////////////////////// // // Data properties // /////////////////////////////////////////////////////////////////////////////////////// -->
+  <!-- http://www.xml-cml.org/schema#hasConcise_att -->
+  <owl:DatatypeProperty rdf:about="#hasConcise_att"/>
+  <!-- http://www.xml-cml.org/schema#hasConvention_att -->
+  <owl:DatatypeProperty rdf:about="#hasConvention_att"/>
+  <!-- http://www.xml-cml.org/schema#hasDictref_att -->
+  <owl:DatatypeProperty rdf:about="#hasDictref_att"/>
+  <!-- http://www.xml-cml.org/schema#hasFormalcharge_att -->
+  <owl:DatatypeProperty rdf:about="#hasFormalcharge_att"/>
+  <!-- http://www.xml-cml.org/schema#hasID -->
+  <owl:DatatypeProperty rdf:about="#hasID"/>
+  <!-- http://www.xml-cml.org/schema#hasId -->
+  <owl:DatatypeProperty rdf:about="#hasId"/>
+  <!-- http://www.xml-cml.org/schema#hasInline_att -->
+  <owl:DatatypeProperty rdf:about="#hasInline_att"/>
+  <!-- http://www.xml-cml.org/schema#hasSpinmultiplicity_att -->
+  <owl:DatatypeProperty rdf:about="#hasSpinmultiplicity_att"/>
+  <!-- http://www.xml-cml.org/schema#hasTitle_att -->
+  <owl:DatatypeProperty rdf:about="#hasTitle_att"/>
+  <!-- http://www.xml-cml.org/schema#hasValue -->
+  <owl:DatatypeProperty rdf:about="#hasValue"/>
+  <!-- /////////////////////////////////////////////////////////////////////////////////////// // // Classes // /////////////////////////////////////////////////////////////////////////////////////// -->
+  <!-- http://www.xml-cml.org/cmlx#basis -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#basis">
+    <rdfs:label>basis</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#calculationType"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">def: The basis set</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: needs a description</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/cmlx#calctype -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#calctype">
+    <rdfs:label>calctype</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#calculationType"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">def: Type of the calculation</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: needs a description</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/cmlx#calculationType -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#calculationType">
+    <rdfs:label>calculationType</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+    <rdfs:comment xml:lang="en">def: calculationType</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: needs a description</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/cmlx#date -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#date">
+    <rdfs:label>date</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#metadata"/>
+    <rdfs:comment xml:lang="en">def: date of calculation</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: needs a description</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/cmlx#dipolevalue -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#dipolevalue">
+    <rdfs:label>dipolevalue</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#property"/>
+    <rdfs:comment xml:lang="en">def: needs a definition</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: needs a description</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/cmlx#ginc -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#ginc">
+    <rdfs:label>ginc</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#metadata"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">def: site or user</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: a locally supplied mnemonic (site, name, etc.)</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/cmlx#hfvalue -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#hfvalue">
+    <rdfs:label>hfvalue</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#property"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">def: Hartree-Fock energy</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: needs a description</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/cmlx#keyword -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#keyword">
+    <rdfs:label>keyword</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#misc"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">def: keywords associated with calculation</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: not sure whether this is useful</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/cmlx#metadata -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#metadata">
+    <rdfs:label>metadata</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+    <rdfs:comment xml:lang="en">def: metadata</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: needs a description</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/cmlx#method -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#method">
+    <rdfs:label>method</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#calculationType"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">def: describes algorithm</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: may represent functional, minimiser, etc.</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/cmlx#misc -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#misc">
+    <rdfs:label>misc</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+    <rdfs:comment xml:lang="en">def: miscellaneous</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: needs a description</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/cmlx#parameter -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#parameter">
+    <rdfs:label>parameter</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+    <rdfs:comment xml:lang="en">def: parameter</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: needs a description</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/cmlx#pgvalue -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#pgvalue">
+    <rdfs:label>pgvalue</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#property"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">def: Schoenfliess point group symbol</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: Currently enumerated, but might use a regular expression</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/cmlx#pop -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#pop">
+    <rdfs:label>pop</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#parameter"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">def: needs a definition</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: needs a description</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/cmlx#property -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#property">
+    <rdfs:label>property</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Entry"/>
+    <rdfs:comment xml:lang="en">def: property</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: needs a description</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/cmlx#rmsdvalue -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#rmsdvalue">
+    <rdfs:label>rmsdvalue</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#property"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">def: RMS deviation</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: units and derivation unknown</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/cmlx#rmsfvalue -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#rmsfvalue">
+    <rdfs:label>rmsfvalue</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#property"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">def: RMS for force??</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: needs a description</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/cmlx#thermalvalue -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#thermalvalue">
+    <rdfs:label>thermalvalue</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#property"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">def: some sort of energy?</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: needs a description</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/cmlx#user -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#user">
+    <rdfs:label>user</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#metadata"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">def: user name</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: No controlled vocabulary</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/cmlx#versionvalue -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#versionvalue">
+    <rdfs:label>versionvalue</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#metadata"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasValue"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">def: version of program</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/cmlx#zero -->
+  <owl:Class rdf:about="http://www.xml-cml.org/cmlx#zero">
+    <rdfs:label>zero</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.xml-cml.org/cmlx#misc"/>
+    <rdfs:comment xml:lang="en">def: no idea</rdfs:comment>
+    <rdfs:comment xml:lang="en">desc: can be 1,2,4</rdfs:comment>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#Cml -->
+  <owl:Class rdf:about="#Cml">
+    <rdfs:subClassOf rdf:resource="#element"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#Dictionary -->
+  <owl:Class rdf:about="#Dictionary">
+    <rdfs:subClassOf rdf:resource="#element"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasID"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasEntry"/>
+        <owl:someValuesFrom rdf:resource="#Entry"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#Entry -->
+  <owl:Class rdf:about="#Entry">
+    <rdfs:subClassOf rdf:resource="#element"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasID"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#Formula -->
+  <owl:Class rdf:about="#Formula">
+    <rdfs:subClassOf rdf:resource="#element"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#Molecule -->
+  <owl:Class rdf:about="#Molecule">
+    <rdfs:subClassOf rdf:resource="#element"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#Property -->
+  <owl:Class rdf:about="#Property">
+    <rdfs:subClassOf rdf:resource="#element"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#Scalar -->
+  <owl:Class rdf:about="#Scalar">
+    <rdfs:subClassOf rdf:resource="#element"/>
+  </owl:Class>
+  <!-- http://www.xml-cml.org/schema#element -->
+  <owl:Class rdf:about="#element"/>
+  <!-- /////////////////////////////////////////////////////////////////////////////////////// // // Individuals // /////////////////////////////////////////////////////////////////////////////////////// -->
+  <!-- cmlcalculatedFormula_45456b2b95054ecc9b9d89391a032564 -->
+  <Formula rdf:about="cmlcalculatedFormula_45456b2b95054ecc9b9d89391a032564">
+    <hasFormalcharge_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0</hasFormalcharge_att>
+    <hasConcise_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">C 27 H 15 N 3</hasConcise_att>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cml:calculatedFormula</hasDictref_att>
+  </Formula>
+  <!-- formula_1226c37ce01d441180077903f57b172b -->
+  <Formula rdf:about="formula_1226c37ce01d441180077903f57b172b">
+    <hasInline_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">C27H15N3</hasInline_att>
+    <hasConvention_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gauss:archive</hasConvention_att>
+  </Formula>
+  <!-- gaussbasis_c1c2f7f636f34ae7941488acb8e21cbb -->
+  <cmlx:basis rdf:about="gaussbasis_c1c2f7f636f34ae7941488acb8e21cbb">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CC-pVDZ</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gauss:basis</hasDictref_att>
+  </cmlx:basis>
+  <!-- gaussbasis_e60b478cede642d3ad7e2ae914347eba -->
+  <cmlx:basis rdf:about="gaussbasis_e60b478cede642d3ad7e2ae914347eba">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cc-pvdz</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gauss:basis</hasDictref_att>
+  </cmlx:basis>
+  <!-- gausscalctype_6a41e91808664516aa1887dba03365fb -->
+  <cmlx:calctype rdf:about="gausscalctype_6a41e91808664516aa1887dba03365fb">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FOpt</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gauss:calctype</hasDictref_att>
+  </cmlx:calctype>
+  <!-- gaussdate_fda130816175410ab4c514ed4492bb61 -->
+  <cmlx:date rdf:about="gaussdate_fda130816175410ab4c514ed4492bb61">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2000-07-12T00:00:00+01:00</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gauss:date</hasDictref_att>
+  </cmlx:date>
+  <!-- gaussdipolevalue_ff173bac5e294573907e10634ce95473 -->
+  <cmlx:dipolevalue rdf:about="gaussdipolevalue_ff173bac5e294573907e10634ce95473">
+    <rdf:type rdf:resource="#Property"/>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gauss:dipolevalue</hasDictref_att>
+  </cmlx:dipolevalue>
+  <!-- gaussginc_ef118df30f534fe78853bb99b4cd364f -->
+  <cmlx:ginc rdf:about="gaussginc_ef118df30f534fe78853bb99b4cd364f">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NODE008</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gauss:ginc</hasDictref_att>
+  </cmlx:ginc>
+  <!-- gausshfvalue_023d0fcd72234144bbb5530e6921279e -->
+  <cmlx:hfvalue rdf:about="gausshfvalue_023d0fcd72234144bbb5530e6921279e">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-1201.7062</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gauss:hfvalue</hasDictref_att>
+  </cmlx:hfvalue>
+  <!-- gausskeyword_38dbd55b07bf4cf6b46c6ba72abd503f -->
+  <Scalar rdf:about="gausskeyword_38dbd55b07bf4cf6b46c6ba72abd503f">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#keyword"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OPT</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gauss:keyword</hasDictref_att>
+  </Scalar>
+  <!-- gaussmethod_1d1518a81e01476780679c60036faa12 -->
+  <Scalar rdf:about="gaussmethod_1d1518a81e01476780679c60036faa12">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#method"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">RB3LYP</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gauss:method</hasDictref_att>
+  </Scalar>
+  <!-- gaussmethod_e29eab5a4bba46c98a451902651df904 -->
+  <Scalar rdf:about="gaussmethod_e29eab5a4bba46c98a451902651df904">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#method"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b3lyp</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gauss:method</hasDictref_att>
+  </Scalar>
+  <!-- gausspgvalue_0a712ce2d02d40e28a20f685c938dc92 -->
+  <Scalar rdf:about="gausspgvalue_0a712ce2d02d40e28a20f685c938dc92">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#pgvalue"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SG(C27H15N3)</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gauss:pgvalue</hasDictref_att>
+  </Scalar>
+  <!-- gausspop_0445173b1a514664a4e4da6afed72cdf -->
+  <cmlx:pop rdf:about="gausspop_0445173b1a514664a4e4da6afed72cdf">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NONE</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gauss:pop</hasDictref_att>
+  </cmlx:pop>
+  <!-- gaussrmsdvalue_37707a7e34de4933b289ed1447790448 -->
+  <Scalar rdf:about="gaussrmsdvalue_37707a7e34de4933b289ed1447790448">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#rmsdvalue"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4.838E-9</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gauss:rmsdvalue</hasDictref_att>
+  </Scalar>
+  <!-- gaussrmsfvalue_059665d52c4c459699b5f6b45551b4d7 -->
+  <Scalar rdf:about="gaussrmsfvalue_059665d52c4c459699b5f6b45551b4d7">
+    <rdf:type rdf:resource="http://www.xml-cml.org/cmlx#rmsfvalue"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">5.174E-5</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gauss:rmsfvalue</hasDictref_att>
+  </Scalar>
+  <!-- gaussthermalvalue_507aa1c0a5274091b5399d0c745079e9 -->
+  <cmlx:thermalvalue rdf:about="gaussthermalvalue_507aa1c0a5274091b5399d0c745079e9">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gauss:thermalvalue</hasDictref_att>
+  </cmlx:thermalvalue>
+  <!-- gaussuser_310e31acb28b4f8b98faff84bd1c9ad7 -->
+  <cmlx:user rdf:about="gaussuser_310e31acb28b4f8b98faff84bd1c9ad7">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PETERLI</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gauss:user</hasDictref_att>
+  </cmlx:user>
+  <!-- gaussversionvalue_84d14fffa5534a65974df609e2167c43 -->
+  <cmlx:versionvalue rdf:about="gaussversionvalue_84d14fffa5534a65974df609e2167c43">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">AM64L-G03RevD.01</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gauss:versionvalue</hasDictref_att>
+  </cmlx:versionvalue>
+  <!-- gausszero_838be4afcae54085803e45b2b3e863fc -->
+  <cmlx:zero rdf:about="gausszero_838be4afcae54085803e45b2b3e863fc">
+    <rdf:type rdf:resource="#Scalar"/>
+    <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0</hasValue>
+    <hasDictref_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gauss:zero</hasDictref_att>
+  </cmlx:zero>
+  <!-- httpwww.xmlcml.orgschema1NH24CN14NH2alltrans6mernbodelmergeend -->
+  <Cml rdf:about="httpwww.xmlcml.orgschema1NH24CN14NH2alltrans6mernbodelmergeend">
+    <hasId rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1-NH2-4-CN-14-NH2-all-trans-6-mer-nbo-del-merge-end</hasId>
+    <hasCmlChild rdf:resource="molecule_c271ca198593466e83213345102332d2"/>
+  </Cml>
+  <!-- molecule_c271ca198593466e83213345102332d2 -->
+  <Molecule rdf:about="molecule_c271ca198593466e83213345102332d2">
+    <hasFormalcharge_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0</hasFormalcharge_att>
+    <hasSpinmultiplicity_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1</hasSpinmultiplicity_att>
+    <hasTitle_att rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Generated from file 1-NH2-4-CN-14-NH2-all-trans-6-mer-nbo-del-merge-end.xml</hasTitle_att>
+    <hasCmlChild rdf:resource="cmlcalculatedFormula_45456b2b95054ecc9b9d89391a032564"/>
+    <hasCmlChild rdf:resource="formula_1226c37ce01d441180077903f57b172b"/>
+    <hasCmlChild rdf:resource="gaussbasis_c1c2f7f636f34ae7941488acb8e21cbb"/>
+    <hasCmlChild rdf:resource="gaussbasis_e60b478cede642d3ad7e2ae914347eba"/>
+    <hasCmlChild rdf:resource="gausscalctype_6a41e91808664516aa1887dba03365fb"/>
+    <hasCmlChild rdf:resource="gaussdate_fda130816175410ab4c514ed4492bb61"/>
+    <hasCmlChild rdf:resource="gaussdipolevalue_ff173bac5e294573907e10634ce95473"/>
+    <hasCmlChild rdf:resource="gaussginc_ef118df30f534fe78853bb99b4cd364f"/>
+    <hasCmlChild rdf:resource="gausshfvalue_023d0fcd72234144bbb5530e6921279e"/>
+    <hasCmlChild rdf:resource="gausskeyword_38dbd55b07bf4cf6b46c6ba72abd503f"/>
+    <hasCmlChild rdf:resource="gaussmethod_1d1518a81e01476780679c60036faa12"/>
+    <hasCmlChild rdf:resource="gaussmethod_e29eab5a4bba46c98a451902651df904"/>
+    <hasCmlChild rdf:resource="gausspgvalue_0a712ce2d02d40e28a20f685c938dc92"/>
+    <hasCmlChild rdf:resource="gausspop_0445173b1a514664a4e4da6afed72cdf"/>
+    <hasCmlChild rdf:resource="gaussrmsdvalue_37707a7e34de4933b289ed1447790448"/>
+    <hasCmlChild rdf:resource="gaussrmsfvalue_059665d52c4c459699b5f6b45551b4d7"/>
+    <hasCmlChild rdf:resource="gaussthermalvalue_507aa1c0a5274091b5399d0c745079e9"/>
+    <hasCmlChild rdf:resource="gaussuser_310e31acb28b4f8b98faff84bd1c9ad7"/>
+    <hasCmlChild rdf:resource="gaussversionvalue_84d14fffa5534a65974df609e2167c43"/>
+    <hasCmlChild rdf:resource="gausszero_838be4afcae54085803e45b2b3e863fc"/>
+  </Molecule>
+  <!-- file:/C:/Users/pm286/workspace/jumbo-converters2/target/classes/org/xmlcml/cml/converters/rdf/cml/ontologies/gaussianArchiveDict.owl -->
+  <rdf:Description rdf:about="file:/C:/Users/pm286/workspace/jumbo-converters2/target/classes/org/xmlcml/cml/converters/rdf/cml/ontologies/gaussianArchiveDict.owl">
+    <hasCmlChild rdf:resource="httpwww.xmlcml.orgschema1NH24CN14NH2alltrans6mernbodelmergeend"/>
+  </rdf:Description>
+  <!-- http://www.xml-cml.org/schema#dictionary1 -->
+  <Dictionary rdf:about="#dictionary1"/>
+</rdf:RDF>

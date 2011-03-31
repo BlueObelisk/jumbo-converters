@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cml xmlns:md="http://www.xml-cml.org/schema/dictionaries/md-Dict.cml" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:units="http://www.xml-cml.org/units/units" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+   <module role="joblist">
+      <module role="job" title="minimization">
+         <module role="init">
+            <parameterList>
+               <parameter dictRef="md:minimizerAlgorithm">
+                  <scalar dataType="xsd:string">Steepest descent</scalar>
+               </parameter>
+               <parameter dictRef="md:min.tolerance">
+                  <scalar dataType="xsd:double">1.0</scalar>
+               </parameter>
+               <parameter dictRef="md:min.stepsize">
+                  <scalar dataType="xsd:double">0.1</scalar>
+               </parameter>
+               
+               <parameter dictRef="md:ElectrostaticsAlgorithm">
+                  <scalar dataType="xsd:string">PME</scalar>
+               </parameter>
+               <parameter dictRef="md:ESA.outerRadius">
+                  <scalar dataType="xsd:double">1.0</scalar>
+               </parameter>
+               
+               <parameter dictRef="md:VdWA.outerRadius">
+                  <scalar dataType="xsd:double">1.0</scalar>
+               </parameter>
+               
+               <parameter dictRef="md:NumberOfSteps">
+                  <scalar dataType="xsd:integer">500</scalar>
+               </parameter>
+               
+               <parameter dictRef="md:NeighbourSearchingAlgorithm">
+                  <scalar dataType="xsd:string">Grid</scalar>
+               </parameter>
+               <parameter dictRef="md:NSA.radius">
+                  <scalar dataType="xsd:double">1.0</scalar>
+               </parameter>
+               <parameter dictRef="md:NSA.updateFrequency">
+                  <scalar dataType="xsd:integer">1</scalar>
+               </parameter>
+               <parameter dictRef="md:NSA.PBC">
+                  <scalar dataType="xsd:string">XYZ</scalar>
+               </parameter>
+            </parameterList>
+            <molecule>
+               <atomArray>
+               </atomArray>
+               <bondArray>
+               </bondArray>
+            </molecule>
+         </module>
+      </module>
+   </module>
+</cml>
