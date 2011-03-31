@@ -34,13 +34,13 @@
            <record id="aaa" repeat="*">\s*{I,n:shell}\s*{A,n:orb}\s*{E,n:exp}\s*{F,n:wt}.*</record>
          </template>
        </templateList>
-       <transform process="pullupSingleton" name=".//cml:list[@templateRef='aaa']"/> 
+       <transform process="pullupSingleton" xpath=".//cml:list[@templateRef='aaa']"/> 
      </template> 
      <template repeat="*" id="elem" newline="$"
        pattern="\s*\S+\s*\([^\)]*\).*$\s*\-+\s*\-+\s*">
        <record id="elem">\s*{A,n:tag}\s*\({A,n:elem}\).*</record>
        <record>{X}</record>
-       <transform process="pullupSingleton" name="./cml:list[@templateRef='elem']"/> 
+       <transform process="pullupSingleton" xpath="./cml:list[@templateRef='elem']"/> 
      </template> 
   </templateList>
 </template>

@@ -1,5 +1,6 @@
 package org.xmlcml.cml.converters.text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import nu.xom.Attribute;
@@ -21,7 +22,6 @@ import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLFormula;
 import org.xmlcml.cml.element.CMLMatrix;
-import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLParameter;
 import org.xmlcml.cml.element.CMLParameterList;
@@ -36,6 +36,10 @@ import org.xmlcml.euclid.Real;
 import org.xmlcml.molutil.ChemicalElement;
 
 public class TransformElement implements MarkupApplier {
+	private static final String ROLE = "role";
+	private static final String LAST = "LAST";
+	private static final String ATOMIC_NUMBER = "atomicNumber";
+
 	private final static Logger LOG = Logger.getLogger(TransformElement.class);
 	
 	public static final String TAG = "transform";
@@ -47,15 +51,15 @@ public class TransformElement implements MarkupApplier {
 	private static final String INTEGER = "integer";
 	private static final String MOLECULE = "molecule";
 	private static final String MOVE = "move";
-	private static final String NAME = "name";
 	private static final String OUTPUT = "output";
-	private static final String PARENT = "parent";
 	private static final String PROCESS = "process";
-	private static final String TO = "to";
+	private static final String TO_XPATH = "toXpath";
 	private static final String VALUE = "value";
+	private static final String XPATH = "xpath";
 
 	// process values
 	private static final String ADDROLE = "addRole";
+	private static final Object CREATE = "createChild";
 	private static final String DATATYPE = "dataType";
 	private static final String GROUP = "group";
 	private static final String MATRIX33 = "matrix33";
@@ -72,16 +76,19 @@ public class TransformElement implements MarkupApplier {
 	private static final String ADDPARAMETERLIST = "addParameterList";
 	private static final String ADDPROPERTYLIST = "addPropertyList";
 	private static final String WRAP = "wrap";
+	private static final String POSITION = "position";
+	private static final String DICTREF = "dictRef";
+	private static final String NAME = "name";
+	private static final String ELEMENT_NAME = "elementName";
+	private static final String FOLLOW_BEFORE = "followingSiblingsBefore";
+	private static final String PREVIOUS_AFTER = "previousSiblingsAfter";
 
-
-
-	
 	private Element element;
 	private OutputLevel outputLevel;
 	private String from;
 	private String id;
 	private String name;
-	private String parentXpath;
+	private String position;
 	private String process;
 	private String to;
 	private String value;
@@ -93,6 +100,12 @@ public class TransformElement implements MarkupApplier {
 
 	private List<CMLAtom> atoms;
 	private String format;
+
+	private String dictRef;
+	private String xpath;
+	private String followingSiblingsBefore;
+	private String previousSiblingsAfter;
+	private String elementName;
 
 
 	public TransformElement(Element element) {
@@ -121,33 +134,43 @@ public class TransformElement implements MarkupApplier {
 	
 	private void processAttributes() {
 		Template.checkIfAttributeNamesAreAllowed(element, new String[]{
+			DICTREF, 
+			ELEMENT_NAME, 
 			FORMAT, 
 			FROM, 
 			ID, 
 			NAME,
 			OUTPUT,
-			PARENT,
+			POSITION,
 			PROCESS,
-			TO,
+			FOLLOW_BEFORE,
+			PREVIOUS_AFTER,
+			TO_XPATH,
 			VALUE,
+			XPATH,
 		});
 				
+		dictRef = element.getAttributeValue(DICTREF);
+		elementName = element.getAttributeValue(ELEMENT_NAME);
 		format = element.getAttributeValue(FORMAT);
 		from = element.getAttributeValue(FROM);
 		id = element.getAttributeValue(ID);
 		name = element.getAttributeValue(NAME);
-		parentXpath = element.getAttributeValue(PARENT);
+		position = element.getAttributeValue(POSITION);
 		process = element.getAttributeValue(PROCESS);
 		if (process == null) {
 			throw new RuntimeException("Must give process attribute");
 		}
-		to = element.getAttributeValue(TO);
+		followingSiblingsBefore = element.getAttributeValue(FOLLOW_BEFORE);
+		previousSiblingsAfter = element.getAttributeValue(PREVIOUS_AFTER);
+		to = element.getAttributeValue(TO_XPATH);
 		value = element.getAttributeValue(VALUE);
+		xpath = element.getAttributeValue(XPATH);
 		
 		outputLevel = Outputter.extractOutputLevel(this.element);
 		LOG.trace(outputLevel+"/"+this.element.getAttributeValue(Outputter.OUTPUT));
 		if (!OutputLevel.NONE.equals(outputLevel)) {
-			System.out.println("OUTPUT "+outputLevel);
+			LOG.debug("OUTPUT "+outputLevel);
 		}
 	}
 
@@ -162,6 +185,8 @@ public class TransformElement implements MarkupApplier {
 			addParameterList();
 		} else if (ADDPROPERTYLIST.equals(process)) {
 			addPropertyList();
+		} else if (CREATE.equals(process)) {
+			createElement();
 		} else if (DATE.equals(process)) {
 			addDate();
 		} else if (DOUBLE.equals(process)) {
@@ -191,8 +216,73 @@ public class TransformElement implements MarkupApplier {
 		}
 	}
 	
+	private void createElement() {
+		Nodes parents = getNodeList();
+		assertRequired(ID, id);
+		assertRequired(XPATH, xpath);
+		assertRequired(ELEMENT_NAME, elementName);
+		Object pos = (position == null) ? LAST : getPosition(position);
+		String[] names = elementName.split(CMLConstants.S_COLON);
+		String prefix = (names.length == 2) ? names[0] : null;
+		String local = (names.length == 2) ? names[1] : elementName;
+		Element element = null;
+		for (int i = 0; i < parents.size(); i++) {
+			Element parent = (Element) parents.get(i);
+			try {
+				element = new Element(local);
+			} catch (Exception e) {
+				CMLUtil.debug(this.element, "BAD ELEMENT");
+				throw new RuntimeException("Cannot create element: "+element, e);
+			}
+			if (prefix == null) {
+				element = new CMLElement(local);
+			} else {
+				String namespaceURI = parsedElement.getNamespaceURI(prefix);
+				if (namespaceURI == null) {
+					throw new RuntimeException("no namespace given for: "+prefix);
+				}
+				element = new Element(prefix, local);
+			}
+			element.addAttribute(new Attribute(ID, id));
+			if (LAST.equals(pos)) {
+				parent.appendChild(element);
+			} else if (pos instanceof Integer){
+				parent.insertChild(element, (Integer)pos);
+			}
+		}
+	}
+
+	private Nodes getNodeList() {
+		if (followingSiblingsBefore != null) {
+			
+		}
+//		if (name == null && xpath)
+		Nodes nodes = parsedElement.query(xpath, CMLConstants.CML_XPATH);
+		return nodes;
+	}
+
+	private int getPosition(String attVal) {
+		try {
+			int value = Integer.parseInt(attVal);
+			if (value < 0 || value > Integer.MAX_VALUE) {
+				throw new RuntimeException(
+					"position must be non-negative; found:"+value);
+			}
+			return value;
+		} catch (Exception e) {
+			throw new RuntimeException("must give integer for position; found: "+attVal);
+		}
+	}
+
+	private void assertRequired(String attName, String attVal) {
+		if (attVal == null) {
+			CMLUtil.debug(this.element, "BAD Transform");
+			throw new RuntimeException("Must give "+attName+" attribute");
+		}
+	}
+
 	private void wrapPropertiesAndParameters() {
-		Nodes names = parsedElement.query(name, CMLConstants.CML_XPATH);
+		Nodes names = createXpathNodes();
 		for (int i = 0; i < names.size(); i++) {
 			Element pp = (Element) names.get(i);
 			Elements scalars = pp.getChildElements();
@@ -210,7 +300,7 @@ public class TransformElement implements MarkupApplier {
 	}
 
 	private void addPropertyList() {
-		Nodes names = parsedElement.query(name, CMLConstants.CML_XPATH);
+		Nodes names = createXpathNodes();
 		for (int i = 0; i < names.size(); i++) {
 			CMLPropertyList propertyList = new CMLPropertyList();
 			propertyList.setId(id);
@@ -219,7 +309,7 @@ public class TransformElement implements MarkupApplier {
 	}
 
 	private void addParameterList() {
-		Nodes names = parsedElement.query(name, CMLConstants.CML_XPATH);
+		Nodes names = createXpathNodes();
 		for (int i = 0; i < names.size(); i++) {
 			CMLParameterList parameterList = new CMLParameterList();
 			parameterList.setId(id);
@@ -230,77 +320,100 @@ public class TransformElement implements MarkupApplier {
 	}
 
 	private void addDictRef() {
-		if (name == null) {
-			throw new RuntimeException("Must give name");
-		}
-		Nodes names = parsedElement.query(name, CMLConstants.CML_XPATH);
+		assertRequired(XPATH, xpath);
+		Nodes names = createXpathNodes();
 		for (int i = 0; i < names.size(); i++) {
 			((Element)names.get(i)).addAttribute(new Attribute("dictRef", value));
 		}
 	}
 
 	private void move() {
-		Nodes names = parsedElement.query(name, CMLConstants.CML_XPATH);
+//		assertRequired(NAME, name);
+		assertRequired(TO_XPATH, to);
+		Nodes nodes = createXpathNodes();
 		Nodes toParents = parsedElement.query(to, CMLConstants.CML_XPATH);
 		ParentNode toParent = (toParents.size() == 1) ? (ParentNode) toParents.get(0) : null;
 		if (toParent != null) {
-			for (int i = 0; i < names.size(); i++) {
-				Node fromNode = names.get(i);
+			for (int i = 0; i < nodes.size(); i++) {
+				Node fromNode = nodes.get(i);
 				fromNode.detach();
 				toParent.appendChild(fromNode);
 			}
 		}
 	}
 
-	private void addRole() {
-		if (name == null) {
-			throw new RuntimeException("Must give name");
+	private Nodes createXpathNodes() {
+		try {
+			Nodes xpaths = parsedElement.query(xpath, CMLConstants.CML_XPATH);
+			return xpaths;
+		} catch (Exception e) {
+			throw new RuntimeException("error in name Xpath: "+xpath, e);
 		}
-		Nodes names = parsedElement.query(name, CMLConstants.CML_XPATH);
-		for (int i = 0; i < names.size(); i++) {
-			((Element)names.get(i)).addAttribute(new Attribute("role", value));
+	}
+
+	private void addRole() {
+		assertRequired(XPATH, xpath);
+		assertRequired(VALUE, value);
+		Nodes nodes = createXpathNodes();
+		for (int i = 0; i < nodes.size(); i++) {
+			((Element)nodes.get(i)).addAttribute(new Attribute(ROLE, value));
 		}
 	}
 
 	private void makeGroup() {
-		if (name == null) {
-			throw new RuntimeException("Must give name");
+		assertRequired(XPATH, xpath);
+		if (previousSiblingsAfter == null && followingSiblingsBefore == null) {
+			CMLUtil.debug(this.element, "Transform");
+			LOG.warn("should give previousSiblingsAfter or followingSiblingsBefore");
 		}
-		Nodes names = parsedElement.query(name, CMLConstants.CML_XPATH);
-		if (names.size() != 0) {
-			ParentNode parent = names.get(0).getParent();
-			for (int i = 0; i < names.size(); i++) {
-				groupFollowingSiblings(names, parent, i);
+		Nodes nodes = createXpathNodes();
+		for (int i = 0; i < nodes.size(); i++) {
+			groupPreviousSiblings((Element)nodes.get(i));
+			groupFollowingSiblings((Element)nodes.get(i));
+		}
+	}
+
+	private void groupPreviousSiblings(Element element) {
+		if (previousSiblingsAfter != null) {
+			ParentNode parent = element.getParent();
+			Nodes afterNodes = element.query(previousSiblingsAfter, CMLConstants.CML_XPATH);
+			int afterIndex = (afterNodes.size() == 0) ? -1 : parent.indexOf(afterNodes.get(0));
+			int elementIdx = parent.indexOf(element);
+			int minIndex = (afterIndex == -1) ? 0 : afterIndex + 1;
+			List<Node> nodeList = new ArrayList<Node>();
+			for (int i = minIndex; i < elementIdx; i++) {
+				nodeList.add(parent.getChild(i));
+			}
+			for (int i = nodeList.size()-1; i >= 0; i--) {
+				nodeList.get(i).detach();
+				element.insertChild(nodeList.get(i), 0);
 			}
 		}
 	}
 
-	private void groupFollowingSiblings(Nodes names, ParentNode parent, int i) {
-		Element nameElement = (Element)names.get(i);
-		CMLModule module = new CMLModule();
-		module.setRole("group");
-		int index = parent.indexOf(nameElement);
-		parent.insertChild(module, index);
-		index++;
-		int nextIndex = (i == names.size()-1) ? parent.getChildCount() :
-			parent.indexOf((Element)names.get(i+1));
-		for (int j = nextIndex - 1; j >= index; j--) {
-			Node node = parent.getChild(j);
-			if (node == null) {
-				break;
+	private void groupFollowingSiblings(Element element) {
+		if (followingSiblingsBefore != null) {
+			ParentNode parent = element.getParent();
+			Nodes beforeNodes = element.query(followingSiblingsBefore, CMLConstants.CML_XPATH);
+			int beforeIndex = (beforeNodes.size() == 0) ? -1 : parent.indexOf(beforeNodes.get(0));
+			int elementIdx = parent.indexOf(element);
+			int maxIndex = (beforeIndex == -1) ? parent.getChildCount() : beforeIndex;
+			List<Node> nodeList = new ArrayList<Node>();
+			for (int i = elementIdx+1; i < maxIndex; i++) {
+				nodeList.add(parent.getChild(i));
 			}
-			node.detach();
-			module.insertChild(node, 0);
+			for (int i = 0; i < nodeList.size(); i++) {
+				nodeList.get(i).detach();
+				element.appendChild(nodeList.get(i));
+			}
 		}
 	}
 
 	private void pullupSingleton() {
-		if (name == null) {
-			throw new RuntimeException("Must give name");
-		}
-		Nodes names = parsedElement.query(name, CMLConstants.CML_XPATH);
-		for (int i = 0; i < names.size(); i++) {
-			Element nameElement = (Element)names.get(i);
+		assertRequired(XPATH, xpath);
+		Nodes nodes = createXpathNodes();
+		for (int i = 0; i < nodes.size(); i++) {
+			Element nameElement = (Element)nodes.get(i);
 			Elements childElements = nameElement.getChildElements();
 			if (childElements.size() == 1) {
 				Element child = childElements.get(0);
@@ -326,15 +439,14 @@ public class TransformElement implements MarkupApplier {
 		if (parsedElement == null) {
 			throw new RuntimeException("Null parsedElement");
 		}
-		if (parentXpath == null) {
-			CMLUtil.debug(this.element, "DBG");
-			throw new RuntimeException("Null parentXpath "+this.getId());
-		}
-		Nodes parents = parsedElement.query(parentXpath, CMLConstants.CML_XPATH);
-		for (int i = 0; i < parents.size(); i++) {
-			Element parent = (Element)parents.get(i);
-			Nodes nameNodes = parent.query(name, CMLConstants.CML_XPATH);
-			Nodes valueNodes = parent.query(value, CMLConstants.CML_XPATH);
+		assertRequired(NAME, name);
+		assertRequired(XPATH, xpath);
+		assertRequired(VALUE, value);
+		Nodes nodes = createXpathNodes();
+		for (int i = 0; i < nodes.size(); i++) {
+			Element element = (Element)nodes.get(i);
+			Nodes nameNodes = element.query(name, CMLConstants.CML_XPATH);
+			Nodes valueNodes = element.query(value, CMLConstants.CML_XPATH);
 			if (nameNodes.size() == 1 && valueNodes.size() == 1) {
 				createNameValue(nameNodes, valueNodes);
 			}
@@ -354,10 +466,12 @@ public class TransformElement implements MarkupApplier {
 	}
 
 	private void createMatrix33() {
-		Nodes parents = parsedElement.query(parentXpath, CMLConstants.CML_XPATH);
-		for (int i = 0; i < parents.size(); i++) {
-			Element parent = (Element)parents.get(i);
-			Nodes scalarNodes = parent.query(name, CMLConstants.CML_XPATH);
+		assertRequired(FROM, from);
+		assertRequired(XPATH, xpath);
+		Nodes nodes = getNodeList();
+		for (int i = 0; i < nodes.size(); i++) {
+			Element element = (Element)nodes.get(i);
+			Nodes scalarNodes = element.query(from, CMLConstants.CML_XPATH);
 			double[] dd = new double[3*3];
 			Node node0 = null;
 			if (scalarNodes.size() == 3*3) {
@@ -374,7 +488,7 @@ public class TransformElement implements MarkupApplier {
 				node0.getParent().replaceChild(node0, mat);
 			} else if (scalarNodes.size() == 0) {
 			} else {
-				CMLUtil.debug(parent, "PAR");
+				CMLUtil.debug(element, "PAR");
 				throw new RuntimeException("No matrix here");
 			}
 		}
@@ -391,10 +505,14 @@ public class TransformElement implements MarkupApplier {
   </list>
   </list>
 		 */
-		Nodes parents = parsedElement.query(parentXpath, CMLConstants.CML_XPATH);
-		for (int i = 0; i < parents.size(); i++) {
-			Element parent = (Element)parents.get(i);
-			Nodes scalarNodes = parent.query(name, CMLConstants.CML_XPATH);
+		assertRequired(DICTREF, dictRef);
+		assertRequired(FROM, from);
+		assertRequired(XPATH, xpath);
+		String[] dictRefNames = splitDictRef();
+		Nodes nodes = getNodeList();
+		for (int i = 0; i < nodes.size(); i++) {
+			Element element = (Element)nodes.get(i);
+			Nodes scalarNodes = element.query(from, CMLConstants.CML_XPATH);
 			double[] dd = new double[3];
 			Node node0 = null;
 			if (scalarNodes.size() == 3) {
@@ -410,23 +528,31 @@ public class TransformElement implements MarkupApplier {
 				CMLVector3 v3 = new CMLVector3(dd);
 				double length = v3.getLength();
 				CMLProperty property = new CMLProperty();
-				property.setDictRef(DictRefAttribute.createValue(COMPCHEM, "nuclearDipole"));
+				property.setDictRef(DictRefAttribute.createValue(dictRefNames[0], dictRefNames[1]));
 				CMLScalar lengthScalar = new CMLScalar(length);
 				property.appendChild(lengthScalar);
-//				property.appendChild(lengthScalar.copy());
 				property.appendChild(v3);
 				node0.getParent().replaceChild(node0, property);
 			} else if (scalarNodes.size() == 0) {
 			} else {
-				CMLUtil.debug(parent, "PAR");
+				CMLUtil.debug(element, "PAR");
 				throw new RuntimeException("No vector3 here");
 			}
 		}
 	}
+
+	private String[]  splitDictRef() {
+		String[] dictRefNames = dictRef.split(CMLConstants.S_COLON);
+		if (dictRefNames.length != 2) {
+			throw new RuntimeException("dictRef must be qualified name; found: "+dictRef);
+		}
+		return dictRefNames;
+	}
 	
 	private void createMolecule() {
+		assertRequired(XPATH, xpath);
 		createMethodNames();
-		Nodes arrays = parsedElement.query(name, CMLConstants.CML_XPATH);
+		Nodes arrays = createXpathNodes();
 		if (arrays.size() > 0) {
 			CMLArray array0 = (CMLArray) arrays.get(0);
 			int natoms = array0.getSize();
@@ -442,7 +568,7 @@ public class TransformElement implements MarkupApplier {
 			for (int i = 0; i < arrays.size(); i++) {
 				Node node = arrays.get(i);
 				if (!(node instanceof CMLArray)) {
-					CMLUtil.debug((Element) node, "ELEM:"+name);
+					CMLUtil.debug((Element) node, "ELEM:"+from);
 					throw new RuntimeException("molecule only operates on arrays");
 				}
 				CMLArray array = (CMLArray) arrays.get(i);
@@ -454,7 +580,7 @@ public class TransformElement implements MarkupApplier {
 				if (elementType != null) {
 					ChemicalElement chemicalElement = ChemicalElement.getChemicalElement(elementType);
 					CMLScalar scalar = new CMLScalar(chemicalElement.getAtomicNumber());
-					scalar.setDictRef(DictRefAttribute.createValue(COMPCHEM, "atomicNumber"));
+					scalar.setDictRef(DictRefAttribute.createValue(COMPCHEM, ATOMIC_NUMBER));
 					atom.addScalar(scalar);
 				}
 			}
@@ -611,7 +737,8 @@ public class TransformElement implements MarkupApplier {
 	}
 
 	private void addDate() {
-		Nodes nodes = parsedElement.query(name, CMLConstants.CML_XPATH);
+		assertRequired(XPATH, xpath);
+		Nodes nodes = createXpathNodes();
 		for (int i = 0; i < nodes.size(); i++) {
 			Node node = nodes.get(i);
 			if (node instanceof CMLScalar) {
@@ -620,7 +747,6 @@ public class TransformElement implements MarkupApplier {
 				try {
 					DateTime dateTime = null;
 					if (format != null) {
-						format = "EEE MMM  d HH:mm:ss zzz yyyy";
 						dateTime = JodaDate.parseDate(val, format);
 					} else {
 						dateTime = JodaDate.parseDate(val);
@@ -634,7 +760,8 @@ public class TransformElement implements MarkupApplier {
 	}
 
 	private void addInteger() {
-		Nodes nodes = parsedElement.query(name, CMLConstants.CML_XPATH);
+		assertRequired(XPATH, xpath);
+		Nodes nodes = createXpathNodes();
 		for (int i = 0; i < nodes.size(); i++) {
 			Node node = nodes.get(i);
 			if (node instanceof CMLScalar) {
@@ -651,7 +778,8 @@ public class TransformElement implements MarkupApplier {
 	}
 
 	private void addDouble() {
-		Nodes nodes = parsedElement.query(name, CMLConstants.CML_XPATH);
+		assertRequired(XPATH, xpath);
+		Nodes nodes = createXpathNodes();
 		for (int i = 0; i < nodes.size(); i++) {
 			Node node = nodes.get(i);
 			if (node instanceof CMLScalar) {
