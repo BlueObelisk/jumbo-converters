@@ -1,0 +1,25 @@
+<template repeat="*"  id="convergence" name="Convergence information" 
+  pattern="\+\+\s*Convergence information.*" endPattern="\-\-\s*" endOffset="1">
+  <comment>
+++ Convergence information
+                                   SCF        iterations: Energy and convergence statistics
+
+Iter     Tot. SCF       One-electron     Two-electron   Energy   Max Dij or  Max Fij    DNorm      TNorm     AccCon    Time
+           Energy          Energy          Energy       Change   Delta Norm                                          in Sec.
+   1     -1.10953766     -2.47844000      0.61293490  0.00E+00   0.14E+00*  0.77E-01*   0.84E+00   0.17E+01   NoneDa    0.
+   2     -1.12233194     -2.53563585      0.65733647 -0.13E-01*  0.26E-01*  0.14E-01*   0.19E+00   0.42E-01   Damp      0.
+   3     -1.12274989     -2.54402696      0.66530963 -0.42E-03*  0.24E-02*  0.14E-01*   0.43E-02   0.49E-02   QNRc2D    0.
+   4     -1.12276488     -2.54554602      0.66681369 -0.15E-04*  0.58E-03*  0.50E-03*   0.99E-14   0.11E-13   QNRc2D    0.
+   5     -1.12276546     -2.54590502      0.66717212 -0.58E-06*  0.50E-06   0.43E-06    0.99E-14   0.11E-13   QNRc2D    0.
+   6     -1.12276546     -2.54590533      0.66717243 -0.43E-12   0.47E-06   0.29E-09    0.99E-14   0.11E-13   QNRc2D    0.
+
+       Convergence after  6 Macro Iterations and  0 additional LS Iterations...
+
+
+--
+  </comment>
+  <record repeat="5">{X}</record>
+  <record id="iter" makeArray="true" repeat="*"
+    >{I4,d:iter}{F16.8,d:totscf}{F16.8,d:oneel}{F16.8,d:twoel}{A,m:deltae}{A,m:maxdij}{A,m:maxfij}{F,m:dnorm}{F,m:tnorm}{A,m:accon}{F,m:time}.*</record>
+  <record repeat="*">{X,m:dbg}</record>
+</template>

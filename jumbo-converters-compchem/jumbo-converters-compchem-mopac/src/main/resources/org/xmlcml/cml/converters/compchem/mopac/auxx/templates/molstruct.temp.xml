@@ -1,0 +1,22 @@
+<template repeat="*"  id="molstruct" name="Molecular structure info" 
+  pattern="\+\+\s*Molecular structure info.*" endPattern="\-\-\s*" endOffset="1">
+  <comment>
+++       Molecular structure info:
+       -------------------------
+
+
+                    ************************************************ 
+                    **** Cartesian Coordinates / Bohr, Angstrom **** 
+                    ************************************************ 
+
+     Center  Label                x              y              z                     x              y              z
+        1      H1             0.661404       0.000000       0.000000              0.350000       0.000000       0.000000
+        2      H1            -0.661404       0.000000       0.000000             -0.350000       0.000000       0.000000
+--
+  </comment>
+  <record repeat="9">{X}</record>
+  <record id="atom" makeArray="true" repeat="*"
+    >{I,n:id}{A,n:elementType}{F,n:bohrx}{F,n:bohry}{F,n:bohrz}{F,c:x3}{F,c:y3}{F,c:z3}</record>
+  <record repeat="*">{X}</record>
+  <transform process="molecule id=n:serial elementType=n:label" name="cml:list[@templateRef='atom']/cml:array"/>
+</template>
