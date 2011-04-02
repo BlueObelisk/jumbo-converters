@@ -1,9 +1,13 @@
 package org.xmlcml.cml.converters.text;
 
-import nu.xom.Attribute;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
 import nu.xom.Element;
 import nu.xom.Elements;
 import nu.xom.Nodes;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
@@ -17,10 +21,6 @@ import org.xmlcml.cml.converters.format.RecordReader;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.euclid.Int2;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
 
 public class Template implements MarkupApplier {
 	private final static Logger LOG = Logger.getLogger(Template.class);
@@ -36,6 +36,7 @@ public class Template implements MarkupApplier {
 	public static final String ONE_OR_MORE = "+";
 	// attributes
 	public static final String CMLX_UNREAD = "cmlx:unread";
+	static final String CONVENTION = "convention";
 	private static final String DICT_REF = "dictRef";
 	private static final String END_OFFSET = "endOffset";
 	private static final String END_PATTERN = "endPattern";
@@ -51,6 +52,7 @@ public class Template implements MarkupApplier {
 	private static final String REPEAT_COUNT = "repeatCount"; // deprecated
 	public  static final String TEMPLATE_REF = "templateRef";
 
+	private static final String DEBUG = "debug"; // maybe somewhere better?
 	private static final String BASE = "base"; // left by XInclude
 
 	private static final String NULL_ID = "NULL_ID";
@@ -125,6 +127,7 @@ public class Template implements MarkupApplier {
 	private void processAttributes() {
 		checkIfAttributeNamesAreAllowed(theElement, new String[]{
 			BASE,
+			CONVENTION,
 			DICT_REF,
 			END_OFFSET,
 			END_PATTERN,
@@ -286,8 +289,10 @@ public class Template implements MarkupApplier {
 				TemplateListElement templateContainer = new TemplateListElement(childElement);
 				markerList.add(templateContainer);
 			} else if (TransformElement.TAG.equals(name)) {
-				TransformElement transformer = new TransformElement(childElement);
+				TransformElement transformer = new TransformElement(childElement, this);
 				markerList.add(transformer);
+			} else if (Template.DEBUG.equals(name)) {
+				markerList.add(new Debug(this));
 			} else {
 				CMLUtil.debug(theElement, "UNKNOWN CHILD");
 				throw new RuntimeException("unknown child: "+name);
@@ -305,7 +310,7 @@ public class Template implements MarkupApplier {
 		
 	public void applyMarkup(String line) {
 		LOG.trace("LINE: "+line+" / "+line.split(CMLConstants.S_NEWLINE).length);
-		lineContainer = new LineContainer(line);
+		lineContainer = new LineContainer(line, this);
 		applyMarkup(lineContainer);
 	}
 	
@@ -313,14 +318,12 @@ public class Template implements MarkupApplier {
 		this.lineContainer = lineContainer;
 		Element linesElement = lineContainer.getLinesElement();
 		copyNamespaces(lineContainer.getLinesElement());
-		linesElement.addAttribute(new Attribute(Template.TEMPLATE_REF, this.getId()));
+		CMLElement.addCMLXAttribute(linesElement, Template.TEMPLATE_REF, this.getId());
 		for (MarkupApplier marker : markerList) {
 			LOG.trace("Applying: "+marker.getClass().getSimpleName()+" "+marker.getId());
 			marker.applyMarkup(lineContainer);
 		}
 		removeEmptyLists(linesElement);
-//		removeNamelessScalars(linesElement);
-//		tidyUnusedLines(lineContainer, linesElement);
 	}
 	
 	private void copyNamespaces(Element targetElement) {
@@ -343,7 +346,7 @@ public class Template implements MarkupApplier {
 			if (chunk == null) {
 				break;
 			}
-			chunk.addAttribute(new Attribute(TEMPLATE_REF, this.id));
+			CMLElement.addCMLXAttribute(chunk, Template.TEMPLATE_REF, this.getId());
 			chunkedElements.add(chunk);
 			repeatCount++;
 		}
@@ -456,5 +459,13 @@ public class Template implements MarkupApplier {
 		}
 		return multiple;
 	}
+
+	public String getConvention() {
+		return theElement.getAttributeValue(CONVENTION);
+	}
+
+//	public static void addTemplateRef(Element element, String value) {
+//		element.addAttribute(new Attribute(Template.TEMPLATE_REF, CMLConstants.CMLX_NS, value));
+//	}
 	
 }

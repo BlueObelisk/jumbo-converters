@@ -55,7 +55,7 @@ public class RecordReader extends LineReader {
 		} else {
 			element = readRecordList();
 			if (element != null) {
-				element.addAttribute(new Attribute(Template.TEMPLATE_REF, this.getId()));
+				CMLElement.addCMLXAttribute(element, Template.TEMPLATE_REF, this.getId());
 				lineContainer.insertChunk(element, originalNodeIndex);
 			} else {
 				LOG.debug("null chunk");
@@ -137,7 +137,7 @@ public class RecordReader extends LineReader {
 	}
 
 	private void recordSizeOfOriginalArrays(CMLList list, int size) {
-		list.addAttribute(new Attribute(LineContainer.LINE_COUNT, ""+size));
+		CMLElement.addCMLXAttribute(list, LineContainer.LINE_COUNT, ""+size);
 	}
 
 	@SuppressWarnings("unused")

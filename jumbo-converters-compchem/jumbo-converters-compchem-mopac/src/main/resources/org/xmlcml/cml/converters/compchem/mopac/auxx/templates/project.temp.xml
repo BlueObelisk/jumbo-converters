@@ -1,0 +1,26 @@
+<template repeat="*"  id="project" name="Project info" 
+  pattern="\s*\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+.*$\s*\|\s*$\s*\|\s*Project.*" 
+  newline="$" endPattern="\s*\|\s*$\s*\-\-*.*" endOffset="2">
+  <comment>
+
+   -------------------------------------------------------------------
+  |                                                                   
+  |   Project         = test000
+  |   Submitted from  = /home/valera/7.6.dev/Test/tmp/test000
+  |   Scratch area    = /home/valera/7.6.dev/Test/tmp/test000
+  |   Save outputs to = WORKDIR
+  |                                                                   
+  |   Scratch area is empty
+  |                                                                   
+  |       MOLCAS_TIME = YES                 
+  |       MOLCAS_GRID = NO                  
+  |                                                                   
+   -------------------------------------------------------------------
+  </comment>
+  <record repeat="2">{X}</record>
+  <record id="project">\s*\|\s*Project\s*\=\s{X,m:project}</record>
+  <record id="submittedfrom">\s*\|\s*Submitted from\s*\=\s{X,m:submittedfrom}</record>
+  <record id="scratch">\s*\|\s*Scratch area\s*\=\s{X,m:scratch}</record>
+  <record id="saveto">\s*\|\s*Save outputs to\s*\=\s{X,m:saveto}</record>
+  <record repeat="*" id="misc">{X,n:debug}</record>
+</template>

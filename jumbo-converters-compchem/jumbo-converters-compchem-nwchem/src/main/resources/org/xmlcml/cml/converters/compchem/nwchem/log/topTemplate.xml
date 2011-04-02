@@ -9,12 +9,16 @@ It uses include files from
 The ORDER of the subtemplates may be important. Templates are processed in the order 
   in this files and the subtemplates. Some of the files are marked with comments
  -->
-<template id='nwchem.log' output="VERBOSE"
+<template id='nwchem.log' 
+  output="VERBOSE"
+  convention='conventions:compchem'
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:c="http://www.xml-cml.org/dictionary"
   xmlns:compchem="http://www.xml-cml.org/dictionary/compchem/"
-  xmlns:n="http://www.xml-cml.org/dictionary/nwchem">
+  xmlns:conventions="http://www.xml-cml.org/convention/"
+  xmlns:n="http://www.xml-cml.org/dictionary/nwchem"
   xmlns:cml="http://www.xml-cml.org/schema">
+  
   <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
       <xi:include href="echoinput.temp.xml"/> <!-- do this early on -->
       <xi:include href="totaltimes.temp.xml"/> <!--  the last line of input - may need special treatment -->
@@ -74,54 +78,55 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
       <xi:include href="zmatuser.temp.xml"/>
       <xi:include href="basis.temp.xml"/>
   </templateList>
-  <transform process="createChild" elementName="module" xpath="/*" id="environment" position="0"/>
-  <transform process="addDictRef" xpath="//cml:module[@id='environment']" value="environment"/>
+
+<!-- I have struggled with the Xpath and don't understand why other ones don't work. but this does -->  
+  <transform process="createWrapper" elementName="scalar" 
+    xpath="//*[not(local-name()='scalar' or local-name()='array' or local-name()='matrix') and count(text())>0]/text()" 
+      dictRef="cmlx:unparsed"/>
+  
+  <transform process="createChild" elementName="module" xpath="/*" id="environment" 
+      position="0" dictRef="compchem:environment"/>
   <transform process="group" 
       followingSiblingsBefore="../*[@templateRef='nwcheminpmod'][1]"
-      xpath="//cml:module[@dictRef='environment']"/>
-  <transform process="createChild" elementName="module" xpath="/*" id="initial" position="1"/>
-  <transform process="addDictRef" xpath="//cml:module[@id='initial']" value="initialization"/>
+      xpath="//cml:module[@dictRef='compchem:environment']"/>
+      
+  <transform process="createChild" elementName="module" xpath="/*" id="initialization" position="1"/>
+  <transform process="addDictRef" xpath="//cml:module[@id='initialization']" value="compchem:initialization"/>
   <transform process="group" 
       followingSiblingsBefore="../*[@templateRef='nwcheminpmod'][2]"
-      xpath="//cml:module[@dictRef='initialization']"/>
+      xpath="//cml:module[@dictRef='compchem:initialization']"/>
 
   <transform process="createChild" elementName="module" xpath="/*" id="calculation" position="2"/>
-  <transform process="addDictRef" xpath="//cml:module[@id='calculation']" value="calculation"/>
+  <transform process="addDictRef" xpath="//cml:module[@id='calculation']" value="compchem:calculation"/>
   <transform process="group" 
       followingSiblingsBefore="../*[@templateRef='nwcheminpmod'][count(../*[@templateRef='nwcheminpmod'])]"
-      xpath="//cml:module[@dictRef='calculation']"/>
+      xpath="//cml:module[@dictRef='compchem:calculation']"/>
 
-  <transform process="createChild" elementName="module" xpath="/*" id="final" position="3"/>
-  <transform process="addDictRef" xpath="//cml:module[@id='final']" value="finalization"/>
+  <transform process="createChild" elementName="module" xpath="/*" id="finalization" position="3"/>
+  <transform process="addDictRef" xpath="//cml:module[@id='finalization']" value="compchem:finalization"/>
   <transform process="group" 
       followingSiblingsBefore="ALL"
-      xpath="//cml:module[@dictRef='finalization']"/>
-<!--    
-  <transform process="createChild" elementName="module" xpath="/*" id="final" position="0"/>
-  <transform process="addDictRef" xpath="//cml:module[@id='final']" value="finalization"/>
-  -->
-  <!-- 
-  <transform process="group" xpath="./*[@templateRef='nwcheminpmod']"/>
-  <transform process="move" xpath="./*[@role='group'][1]" toXpath="//*[@id='initial']"/>
-  <transform process="move" xpath="./*[@role='group'][1]" toXpath="//*[@id='initial']"/>
-  <transform process="addRole" xpath="./*[@role='group'][1]" value="initialization"/>
-  <transform process="addRole" xpath="./*[@role='group'][count(//*[@role='group'])]" value="finalization"/>
-  <transform process="addDictRef" xpath="./*[@role='initialization'][1]" value="compchem:initialization"/>
+      xpath="//cml:module[@dictRef='compchem:finalization']"/>
+      
   <transform process="addParameterList" xpath="./*[@dictRef='compchem:initialization']" id="initialParams"/>
-  <transform process="move" xpath=".//*[@dictRef='compchem:date'][1]" toXpath=".//*[@id='initialParams']"/>
-  <transform process="move" xpath=".//*[@dictRef='compchem:program'][1]" toXpath=".//*[@id='initialParams']"/>
-  <transform process="move" xpath=".//*[@dictRef='compchem:version'][1]" toXpath=".//*[@id='initialParams']"/>
+  <transform process="move" xpath=".//*[@dictRef='compchem:date'][1]"     toXpath=".//*[@id='initialParams']"/>
+  <transform process="move" xpath=".//*[@dictRef='compchem:program'][1]"  toXpath=".//*[@id='initialParams']"/>
+  <transform process="move" xpath=".//*[@dictRef='compchem:version'][1]"  toXpath=".//*[@id='initialParams']"/>
   <transform process="move" xpath=".//*[@dictRef='compchem:hostname'][1]" toXpath=".//*[@id='initialParams']"/>
   <transform process="wrap" xpath=".//*[@id='initialParams']"/>
   
-  <transform process="addDictRef" xpath="./*[@role='finalization']" value="compchem:finalization"/>
   <transform process="addPropertyList" xpath="./*[@dictRef='compchem:finalization']" id="finalProperties"/>
   <transform process="move" xpath=".//*[@dictRef='compchem:nuclearEnergy'][1]" toXpath=".//*[@id='finalProperties']"/>
   <transform process="move" xpath=".//*[@dictRef='compchem:nuclearDipole'][1]" toXpath=".//*[@id='finalProperties']"/>
   <transform process="wrap" xpath=".//*[@id='finalProperties']"/>
 
   <transform process="move" xpath=".//*[local-name()='molecule']" toXpath="./*[@dictRef='compchem:finalization']"/>
-  
-  <transform process="addDictRef" xpath="./*[@role='group']" value="compchem:calculation"/>
+
+<!--  remove empty delimiter attributes - doesn't work they get put back...
+  <transform process="delete" xpath="//@delimiter[normalize-space(.)='']"/>
   -->
+  <!--  delete empty scalars -->
+  <transform process="delete" xpath="//cml:scalar[normalize-space(.)='']"/>
+  <!--  remove hydrogenCount attributes -->
+  <transform process="delete" xpath="//@hydrogenCount"/>
 </template>
