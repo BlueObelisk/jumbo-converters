@@ -45,6 +45,7 @@ public class ClassPathXIncludeResolver {
             Element include = doc.getRootElement();
             doc.setRootElement(new Element("foo"));
             ParentNode parent = element.getParent();
+            include.setBaseURI("classpath://"+uri);
             parent.replaceChild(element, include);
 
         } else {
