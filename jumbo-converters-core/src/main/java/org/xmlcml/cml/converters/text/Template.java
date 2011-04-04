@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 import nu.xom.Element;
 import nu.xom.Elements;
 import nu.xom.Nodes;
+import nu.xom.XPathContext;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -56,6 +57,13 @@ public class Template implements MarkupApplier {
 	private static final String BASE = "base"; // left by XInclude
 
 	private static final String NULL_ID = "NULL_ID";
+
+	public static XPathContext CML_CMLX_CONTEXT = null;
+	static {
+		CML_CMLX_CONTEXT = new XPathContext();
+		CML_CMLX_CONTEXT.addNamespace(CMLConstants.CML_PREFIX, CMLConstants.CML_NS);
+		CML_CMLX_CONTEXT.addNamespace(CMLConstants.CMLX_PREFIX, CMLConstants.CMLX_NS);
+	}
 	
 	protected Element theElement;
 	private String id;
@@ -327,10 +335,14 @@ public class Template implements MarkupApplier {
 	}
 	
 	private void copyNamespaces(Element targetElement) {
-		int count = theElement.getNamespaceDeclarationCount();
+		copyNamespaces(this.theElement, targetElement);
+	}
+
+	public static void copyNamespaces(Element fromElement, Element targetElement) {
+		int count = fromElement.getNamespaceDeclarationCount();
 		for (int i = 0; i < count; i++) {
-			String prefix = theElement.getNamespacePrefix(i);
-			String namespaceURI = theElement.getNamespaceURI(prefix);
+			String prefix = fromElement.getNamespacePrefix(i);
+			String namespaceURI = fromElement.getNamespaceURI(prefix);
 			targetElement.addNamespaceDeclaration(prefix, namespaceURI);
 		}
 	}

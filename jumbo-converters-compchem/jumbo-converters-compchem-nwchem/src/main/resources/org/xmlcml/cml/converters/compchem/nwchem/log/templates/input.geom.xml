@@ -1,0 +1,16 @@
+<template repeat="*" id="geometry" pattern="\s*geometry\s*" endPattern="\s*end\s*" endOffset="1">
+  <comment>
+    geometry
+ C            .052902     .711852     .000000
+ ...
+ H           -.423217   -1.094815    -.824662
+ symmetry c1
+end
+  </comment>
+  <record>{X,n:startgeom}</record>
+  <record repeat="*" id="geom">\s*{A,n:elem}\s+{F,n:x}\s*{F,n:y}\s*{F,n:z}\s*</record>
+  <!-- 
+  <record repeat="*" id="symm">\s*symmetry\s+{A,n:pg}\s*</record>
+  -->
+  <record>{X,n:endgeom}</record>
+</template>

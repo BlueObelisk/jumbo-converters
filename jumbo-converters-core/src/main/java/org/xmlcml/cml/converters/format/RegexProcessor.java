@@ -1,28 +1,101 @@
 package org.xmlcml.cml.converters.format;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import nu.xom.Builder;
+import nu.xom.Element;
+import nu.xom.Elements;
+
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.text.LineContainer;
 import org.xmlcml.cml.converters.text.PatternContainer;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.interfacex.HasDataType;
+import org.xmlcml.euclid.Util;
 
 public class RegexProcessor {
-	private final static Logger LOG = Logger.getLogger(RegexProcessor.class);
+	private static final String REGEX_LIST = "org/xmlcml/cml/converters/format/regexList.xml";
 
-	private static final String X_NAME = "dummy:dummy";
-
-	private Pattern FIELD_PATTERN = Pattern.compile("\\{(\\d*[FIAXE][^\\}]*)\\}");
-	private Pattern FIELD_PATTERN_1 = Pattern.compile(
+	private static final String NAME = "name";
+	
+	private static String ANY_START_REGEX;
+	private static String ANY_FIELD_REGEX;
+	private static String EXPONENTIAL_END_REGEX;
+	private static String EXPONENT_NOWIDTH_REGEX;
+	private static String DATE_START_REGEX;
+	private static String FLOAT_MID_REGEX;
+	private static String FLOAT_NOWIDTH_REGEX;
+	private static String INTEGER_NOWIDTH_REGEX;
+	private static String INTEGER_WIDTH_START_REGEX;
+	private static String STRING_NOWIDTH_REGEX;
+	private static String STRING_WIDTH_START_REGEX;
+	private static String WIDTH_END_REGEX;
+	
+	private static Pattern FIELD_PATTERN = Pattern.compile("\\{(\\d*[FIAXE][^\\}]*)\\}");
+	private static Pattern FIELD_PATTERN_1 = Pattern.compile(
 		"\\{(\\d*)([FIAXE])(\\d*)\\.?(\\d*)" +
 		"\\,?(([A-Za-z0-9]+:[A-Za-z0-9][A-Za-z0-9\\-\\.\\_]*)?)" +
 		"\\,?(([A-Za-z0-9]+:[A-Za-z0-9][A-Za-z0-9\\-\\.\\_]*)?)" +
 		"\\}");
+
+	static {
+		Element regexList = null;
+		try {
+			InputStream is = Util.getResourceUsingContextClassLoader(
+				REGEX_LIST, RegexProcessor.class);
+			regexList = new Builder().build(is).getRootElement();
+		} catch (Exception e) {
+			throw new RuntimeException("Cannot read regexes", e);
+		}
+		Elements childElements = regexList.getChildElements();
+		for (int i = 0; i < childElements.size(); i++) {
+			Element regexElement = childElements.get(i);
+			String name = regexElement.getAttributeValue(NAME);
+			String regex = regexElement.getValue();
+			if (name == null) {
+				throw new RuntimeException("no name given");
+			} else if (name.equals("ANY_START")) {
+				ANY_START_REGEX = regex;
+			} else if (name.equals("ANY_FIELD")) {
+				ANY_FIELD_REGEX = regex;
+			} else if (name.equals("EXPONENTIAL_END")) {
+				EXPONENTIAL_END_REGEX = regex;
+			} else if (name.equals("EXPONENT_NOWIDTH")) {
+				EXPONENT_NOWIDTH_REGEX = regex;
+			} else if (name.equals("DATE_START")) {
+				DATE_START_REGEX = regex;
+			} else if (name.equals("FLOAT_MID")) {
+				FLOAT_MID_REGEX = regex;
+			} else if (name.equals("FLOAT_NOWIDTH")) {
+				FLOAT_NOWIDTH_REGEX = regex;
+			} else if (name.equals("INTEGER_NOWIDTH")) {
+				INTEGER_NOWIDTH_REGEX = regex;
+			} else if (name.equals("INTEGER_WIDTH_START")) {
+				INTEGER_WIDTH_START_REGEX = regex;
+			} else if (name.equals("STRING_NOWIDTH")) {
+				STRING_NOWIDTH_REGEX = regex;
+			} else if (name.equals("STRING_WIDTH_START")) {
+				STRING_WIDTH_START_REGEX = regex;
+			} else if (name.equals("WIDTH_END")) {
+				WIDTH_END_REGEX = regex;
+			} else if (name.equals("FIELD_PATTERN_STRING")) {
+				FIELD_PATTERN  = Pattern.compile(regex);
+			} else if (name.equals("FIELD_PATTERN_STRING_1")) {
+				FIELD_PATTERN_1  = Pattern.compile(regex);
+			} else {			
+				throw new RuntimeException("unknown name: "+name);
+			}
+			System.out.println("____"+regex+"____");
+		}
+	}
+
+	private final static Logger LOG = Logger.getLogger(RegexProcessor.class);
+
+	private static final String X_NAME = "dummy:dummy";
 
 	private List<RegexField> fieldList;
 	private String content;
@@ -47,7 +120,7 @@ public class RegexProcessor {
 		if (content == null) {
 			throw new RuntimeException("null content");
 		}
-		// remove all newlines+immediatewhitespace but not other whitespace
+		// remove all newlines+immediate whitespace but not other whitespace
 		this.content = content.replaceAll("\\s*\\n\\s*", "");
 		this.multipleLineDelimiter = multipleLineDelimiter;
 		createRegexFields();
@@ -111,28 +184,19 @@ public class RegexProcessor {
 		if (!matcher.matches()) {
 			throw new RuntimeException("Bad symbolic regex: "+string);
 		}
-//		if (isSkip(matcher)) {
-//			addMultiplier0(null);
-//			addType0(RegexField.X);
-//			addWidth(matcher);
-//			addDecimal0(null);
-//			addName0(X_NAME);
-//			addUnits0(null);
-//		} else {
-			addMultiplier(matcher);
-			addType(matcher);
-			addWidth(matcher);
-			addDecimal(matcher);
-			addName(matcher);
-			addUnits(matcher);
-//		}
+		addMultiplier(matcher);
+		addType(matcher);
+		addWidth(matcher);
+		addDecimal(matcher);
+		addName(matcher);
+		addUnits(matcher);
 		String newString = regexField.createExpandedField(string);
 		return newString;
 	}
 
-	private boolean isSkip(Matcher matcher) {
-		return RegexField.X.equals(matcher.group(2));
-	}
+//	private boolean isSkip(Matcher matcher) {
+//		return RegexField.X.equals(matcher.group(2));
+//	}
 
 	private void addMultiplier(Matcher matcher) {
 		multiplier = (matcher.group(1).equals("")) ? null : new Integer(matcher.group(1));
@@ -194,9 +258,9 @@ public class RegexProcessor {
 		String newString;
 		if (width == null || width == 0) {
 			// obviously dangerous if misused
-			newString = "(.*)";
+			newString = ANY_FIELD_REGEX;
 		} else {
-			newString = "([.]{"+width+"})";
+			newString = ANY_START_REGEX+width+WIDTH_END_REGEX;
 		}
 		return newString;
 	}
@@ -204,9 +268,9 @@ public class RegexProcessor {
 	public static String createStringField(Integer width) {
 		String newString;
 		if (width == null || width == 0) {
-			newString = "\\s*(\\S+)\\s*";
+			newString = STRING_NOWIDTH_REGEX;
 		} else {
-			newString = "((?=[ ]*\\S+)[ \\S]{"+width+"})";
+			newString = STRING_WIDTH_START_REGEX+width+WIDTH_END_REGEX;
 		}
 		return newString;
 	}
@@ -215,9 +279,9 @@ public class RegexProcessor {
 	public static String createIntegerField(Integer width) {
 		String newString;
 		if (width == null || width == 0) {
-			newString = "\\s*(\\-?\\d+)\\s*";
+			newString = INTEGER_NOWIDTH_REGEX;
 		} else {
-			newString = "((?=[ ]*\\-?\\d+)[ \\-\\d]{"+width+"})";
+			newString = INTEGER_WIDTH_START_REGEX+width+WIDTH_END_REGEX;
 		}
 		return newString;
 	}
@@ -225,7 +289,7 @@ public class RegexProcessor {
 	public static String createFloatField(Integer width, Integer decimal) {
 		String newString;
 		if (width == null || width == 0) {
-			newString = "\\s*(\\-?\\d+\\.?\\d*)\\s*";
+			newString = FLOAT_NOWIDTH_REGEX;
 		} else {
 			if (decimal == null) {
 				throw new RuntimeException("decimal must be given: ");
@@ -234,7 +298,7 @@ public class RegexProcessor {
 			if (first < 1) {
 				throw new RuntimeException("bad width/decimal: ");
 			}
-			newString = "((?=[ ]*\\-?\\d+)[ \\-\\d]{"+first+"}\\.\\d{"+decimal+"})";
+			newString = INTEGER_WIDTH_START_REGEX+first+FLOAT_MID_REGEX+decimal+WIDTH_END_REGEX;
 		}
 		return newString;
 	}
@@ -244,7 +308,7 @@ public class RegexProcessor {
 		if (width == null || width == 0) {
 			throw new RuntimeException("width must be given: ");
 		} else {
-			newString = "([A-Za-z0-9\\-\\+\\:]{"+width+"})";
+			newString = DATE_START_REGEX+width+WIDTH_END_REGEX;
 		}
 		return newString;
 	}
@@ -252,7 +316,7 @@ public class RegexProcessor {
 	public static String createExponentialField(Integer width, Integer decimal) {
 		String newString;
 		if (width == null || width == 0) {
-			newString = "\\s*(\\-?\\d+\\.\\d+[DE][\\+\\-]\\d\\d)\\s*";
+			newString = EXPONENT_NOWIDTH_REGEX;
 		} else {
 			if (decimal == null) {
 				throw new RuntimeException("decimal must be given: ");
@@ -261,7 +325,7 @@ public class RegexProcessor {
 			if (first < 1) {
 				throw new RuntimeException("bad width/decimal: ");
 			}
-			newString = "((?=[ ]*\\-?\\d+)[ \\-\\d]{"+first+"}\\.\\d{"+decimal+"}[DE][\\+\\-]\\d\\d)";
+			newString = INTEGER_WIDTH_START_REGEX+first+FLOAT_MID_REGEX+decimal+EXPONENTIAL_END_REGEX;
 		}
 		return newString;
 	}
