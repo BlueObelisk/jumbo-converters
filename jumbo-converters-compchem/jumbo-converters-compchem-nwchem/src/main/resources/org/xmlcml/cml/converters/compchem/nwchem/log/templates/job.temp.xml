@@ -28,13 +28,16 @@
   <record >{X}</record>
   <record >{X}</record>
   <record id="version">\s*nwchem branch\s*\=\s*{X,compchem:version}\s*</record>
-  <record id="inpu">\s*input\s*\=\s*{X,compchem:input}\s*</record>
+  <record id="input">\s*input\s*\=\s*{X,compchem:input}\s*</record>
   <record >{X}</record>
   <record >{X}</record>
   <record >{X}</record>
   <record id="nproc">\s*nproc\s*\=\s*{X,compchem:nproc}\s*</record>
   <record >{X}</record>
-  <transform process="pullupSingleton" xpath="./*[@templateRef='list1' or @templateRef='list2']/cml:list"/>
+  
+  <transform process="pullupSingleton" xpath="./*[@cmlx:templateRef='list1' or @cmlx:templateRef='list2']/cml:list"/>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  <transform process="pullupSingleton" xpath="./cml:module"/>
   <transform process="integer" xpath="cml:list/cml:scalar[@dictRef='n:nproc']" />
   <!-- Wed Jul  8 10:53:24 PDT 1998 -->
   <transform process="date" xpath="cml:list/cml:scalar[@dictRef='n:compiled']" 

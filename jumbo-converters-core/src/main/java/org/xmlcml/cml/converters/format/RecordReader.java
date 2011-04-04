@@ -2,7 +2,6 @@ package org.xmlcml.cml.converters.format;
 
 import java.util.List;
 
-import nu.xom.Attribute;
 import nu.xom.Element;
 import nu.xom.Nodes;
 
@@ -12,6 +11,7 @@ import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.Outputter.OutputLevel;
 import org.xmlcml.cml.converters.text.LineContainer;
 import org.xmlcml.cml.converters.text.Template;
+import org.xmlcml.cml.converters.text.TransformElement;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLScalar;
@@ -92,8 +92,8 @@ public class RecordReader extends LineReader {
 	}
 	
 	private CMLElement resolveSymbolicVariables(CMLElement newElement) {
-		Nodes names = newElement.query(".//*[local-name()='scalar' and contains(@dictRef,':"+DOLLAR_NAME+"')]");
-		Nodes values = newElement.query(".//*[local-name()='scalar' and contains(@dictRef,':"+DOLLAR_VALUE+"')]");
+		Nodes names = TransformElement.queryUsingNamespaces(newElement, ".//cml:scalar[contains(@dictRef,':"+DOLLAR_NAME+"')]");
+		Nodes values = TransformElement.queryUsingNamespaces(newElement, ".//cml:scalar[contains(@dictRef,':"+DOLLAR_VALUE+"')]");
 		if (names.size() != values.size()) {
 			newElement.debug("name/value");
 			throw new RuntimeException("mismatched counts name ("+names.size()+") values ("+values.size()+")");

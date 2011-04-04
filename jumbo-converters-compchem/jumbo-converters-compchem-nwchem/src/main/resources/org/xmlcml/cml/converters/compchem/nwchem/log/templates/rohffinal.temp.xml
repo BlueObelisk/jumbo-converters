@@ -17,9 +17,43 @@
     22       .309698  1 Au py                28       .220256  1 Au py         
  
 ...
-</comment>
-<record repeat="3" id="rl1"/>
-<record id="r1" repeat="1" formatType="REGEX" >\s{7}{I5,n:junk}\s{6}{E12.6,n:occ}\s{4}{E13.6,n:e}1\s{A10,n:symm}</record>
-<record repeat="2" id="rl2" output="VERBOSE"/>
-<record id="r2" repeat="*" formatType="REGEX">{I6,n:bfn}{F14.6,n:coeff}{I3,n:atom}{A3,n:elem}{A6,n:funct}\s{9}{I6,n:bfn}{F14.6,n:coeff}{I3,n:atom}{A3,n:elem}{A6,n:funct}</record>
+or...
+ Vector    2  Occ=2.000000D+00  E=-1.118262D+01
+              MO Center=  5.3D-02,  7.1D-01, -1.3D-17, r^2= 2.8D-02
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    16      0.543111  2 N  px                12      0.412271  2 N  px         
+    15      0.262843  2 N  s                 20      0.210201  3 H  s          
+    17     -0.204476  2 N  py         
+
+  </comment>
+  <record repeat="3" id="rl1"/>
+  <templateList>
+  <!--  the endOffset is needed to make the parsing work for the last item -->
+    <template repeat="*" id="vectorx" pattern="\s*Vector.*" endPattern="\s*" endOffset="1">
+      <templateList>
+        <template id="vector2" newline="$" pattern="\s*Vector\s+.*$\s*MO Center.*" endPattern="\s*Bfn.*">
+          <record id="vectorprops">\s*Vector\s+{I,cc:serial}\s*Occ=\s*{E,n:occ}\s*E=\s*{E,n:eee}\s*</record>
+          <record id="mocenter">\s*MO Center\=\s*{E,n:x}\,\s*{E,n:y}\,\s*{E,n:z}\,\s*r\^2=\s*{E,n:rsup2}\s*</record>
+        </template>
+        <template id="vector1" pattern="\s*Vector.*Symmetry.*" endPattern=".*">
+          <record>\s*Vector\s+{I,cc:serial}\s*Occ=\s*{E,n:occ}\s*E=\s*{E,n:eee}\s*Symmetry=\s*{A,cc:irrep}\s*</record>
+        </template>
+      </templateList>
+      <!--  this may be a bug - should be able to eat records here -->
+      <templateList>
+        <template id="bfn" pattern="\s*Bfn.*" endPattern="\s*\-+\s*\-+\s*.*" endOffset="1">
+          <record repeat="2">{X}</record>
+         </template>
+      </templateList>
+      <templateList>
+        <template id="twocol" repeat="*" pattern="\s*\d+.*\s{10}\d+.*" endPattern=".*">
+          <record repeat="*">\s*{I,n:bfn}\s*{F,n:coeff}\s*{I,n:atom1}\s*{A,n:atom2}\s*{A,n:orb}\s*{I,n:bfn}\s*{F,n:coeff}\s*{I,n:atom1}\s*{A,n:atom2}\s*{A,n:orb}\s*</record>
+        </template>
+        <template id="onecol" pattern=".*" endPattern=".*">
+          <record>\s*{I,n:bfn}\s*{F,n:coeff}\s*{I,n:atom1}\s*{A,n:atom2}\s*{A,n:orb}\s*</record>
+        </template>
+      </templateList>
+    </template>
+  </templateList>
 </template>

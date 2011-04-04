@@ -1,0 +1,126 @@
+<template repeat="*"  name="echo of input deck" id="input" 
+   pattern="\s*\=+\s+echo of input deck \=+\s*" endPattern="\s*\=+\s*" endOffset="1">
+    <comment>
+============================== echo of input deck ==============================
+echo
+
+start dft_feco5
+
+# test of DFT with Fe(CO)5 using cd basis and xc basis
+
+# There are 2 million integrals
+
+...
+dft
+  xc b3lyp
+end
+title "case t23 --- (b3lyp) DFT (energy)"
+task dft energy
+
+
+
+================================================================================
+    </comment>
+    <record>{X}</record>
+    
+  <templateList xmlns:xi="http://www.w3.org/2001/XInclude">
+
+<!-- BASIS -->
+<!--  at present includes DONT work -->  
+<!-- 
+     <xi:include href="input.basis.xml"/>
+     -->
+<template repeat="*" id="basis" pattern="\s*basis\s*" endPattern="\s*end\s*" endOffset="1">
+  <comment>
+basis
+ C library 3-21g
+ N library 3-21g
+ H library 3-21g
+end
+  </comment>
+  <record>{X}</record>
+  <record repeat="*" id="basisx">\s*{A,n:elem}\s+{A,n:source}\s+{A,n:basis}.*\s*</record>
+  <record>{X}</record>
+</template>
+
+<!-- PROPERTY -->
+<template repeat="*" id="property" pattern="\s*property\s*" endPattern="\s*end\s*" endOffset="1">
+  <comment>
+property
+ nbofile
+end
+  </comment>
+  <record repeat="1">{X,n:propst}</record>
+  <record repeat="*" id="propertyx">\s*{X,n:prop}\s*</record>
+ </template>
+
+<!-- DFT -->
+<template repeat="*" id="dft" pattern="\s*dft\s*" endPattern="\s*end\s*" endOffset="1">
+  <comment>
+dft
+ ??
+end
+  </comment>
+  <record>{X}</record>
+  <record repeat="*" id="dftx">\s*{X,n:dftx}\s*</record>
+  <record>{X}</record>
+</template>
+
+<!-- GEOMETRY -->
+<!--     <xi:include href="input.geom.xml"/>-->
+<template repeat="*" id="geometry" pattern="\s*geometry\s*" endPattern="\s*end\s*" endOffset="1">
+  <comment>
+    geometry
+ C            .052902     .711852     .000000
+ ...
+ H           -.423217   -1.094815    -.824662
+ symmetry c1
+end
+  </comment>
+  <record>{X,n:startgeom}</record>
+  <record repeat="*" id="atoms" makeArray="true">\s*{A,n:elementType}\s*{F,n:x3}\s*{F,n:y3}\s*{F,n:z3}.*</record>
+  <record repeat="*" id="symm">\s*symmetry\s+{A,n:pg}\s*</record>
+  <record repeat="*">{X,n:endgeom}</record>
+  
+  <transform process="molecule" xpath="./cml:list/cml:array" id="inputMol"/>
+</template>
+    
+    <template repeat="*" id="start" pattern="\s*start\s+.*" endPattern=".*" >
+      <record id="start">\s*start\s+{X,n:startid}</record>
+    </template>
+    
+    <template repeat="*" id="title" pattern="\s*title\s+.*" endPattern=".*" >
+      <record id="title">\s*title\s+{X,n:title}</record>
+    </template>
+    
+    <template repeat="*" id="task" pattern="\s*task\s+.*" endPattern=".*" >
+      <record id="task">\s*task\s+{X,n:task}</record>
+    </template>
+    
+    <template repeat="*" id="memory" pattern="\s*memory\s+.*" endPattern=".*" >
+      <record id="memory">\s*memory\s+{X,n:memory}</record>
+    </template>
+    
+    <template repeat="*" id="echo" pattern="\s*echo\s*" endPattern=".*" >
+      <record id="echo">\s*echo\s*</record>
+    </template>
+    
+    <!--  clean loose ends -->
+    <template repeat="*" id="end" pattern="\s*end\s*" endPattern=".*" >
+      <record id="end">\s*end\s*</record>
+    </template>
+    
+    <!--  and whitespace -->
+    <template repeat="*" id="end" pattern="\s*" endPattern=".*" />
+    
+    <!--  and the =========  --> <!--  FAILS? -->
+    <template repeat="*" id="equals" pattern="\s*\=+\s*" endPattern=".*" />
+  </templateList>
+  <!-- 
+   <transform process="pullupSingleton" xpath=".//cml:list"/>
+   <transform process="pullupSingleton" xpath=".//cml:module"/>
+   -->
+   <!-- 
+   <transform process="debug" xpath="."/>
+   -->
+ </template>

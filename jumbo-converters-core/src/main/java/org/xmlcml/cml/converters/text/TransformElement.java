@@ -10,6 +10,7 @@ import nu.xom.Node;
 import nu.xom.Nodes;
 import nu.xom.ParentNode;
 import nu.xom.Text;
+import nu.xom.XPathContext;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
@@ -285,32 +286,34 @@ public class TransformElement implements MarkupApplier {
 
 
 	private Element createNewElement() {
+		
 		String[] names = elementName.split(CMLConstants.S_COLON);
 		String prefix = (names.length == 2) ? names[0] : null;
 		String local = (names.length == 2) ? names[1] : elementName;
-		Element element = null;
+		Element newElement = null;
 		try {
-			element = new Element(local);
+			newElement = new Element(local);
 		} catch (Exception e) {
 			CMLUtil.debug(this.element, "BAD ELEMENT");
-			throw new RuntimeException("Cannot create element: "+element, e);
+			throw new RuntimeException("Cannot create element: "+newElement, e);
 		}
 		if (prefix == null) {
-			element = new CMLElement(local);
+			newElement = new CMLElement(local);
 		} else {
 			String namespaceURI = parsedElement.getNamespaceURI(prefix);
 			if (namespaceURI == null) {
 				throw new RuntimeException("no namespace given for: "+prefix);
 			}
-			element = new Element(prefix, local);
+			newElement = new Element(prefix, local);
 		}
 		if (id != null) {
-			element.addAttribute(new Attribute(ID, id));
+			newElement.addAttribute(new Attribute(ID, id));
 		}
 		if (dictRef != null) {
-			element.addAttribute(new Attribute(DICT_REF, dictRef));
+			newElement.addAttribute(new Attribute(DICT_REF, dictRef));
 		}
-		return element;
+		Template.copyNamespaces(this.element, newElement);
+		return newElement;
 	}
 
 	private void createWrapper() {
@@ -330,7 +333,7 @@ public class TransformElement implements MarkupApplier {
 
 	private Nodes getXpathQueryResults() {
 		assertRequired(XPATH, xpath);
-		return parsedElement.query(xpath, CMLConstants.CML_XPATH);
+		return TransformElement.queryUsingNamespaces(parsedElement, xpath);
 	}
 
 	private int getPosition(String attVal) {
@@ -403,7 +406,7 @@ public class TransformElement implements MarkupApplier {
 //		assertRequired(NAME, name);
 		assertRequired(TO_XPATH, to);
 		Nodes nodes = createXpathNodes();
-		Nodes toParents = parsedElement.query(to, CMLConstants.CML_XPATH);
+		Nodes toParents = TransformElement.queryUsingNamespaces(parsedElement, to);
 		ParentNode toParent = (toParents.size() == 1) ? (ParentNode) toParents.get(0) : null;
 		if (toParent != null) {
 			for (int i = 0; i < nodes.size(); i++) {
@@ -416,7 +419,7 @@ public class TransformElement implements MarkupApplier {
 
 	private Nodes createXpathNodes() {
 		try {
-			Nodes xpaths = parsedElement.query(xpath, CMLConstants.CML_XPATH);
+			Nodes xpaths = TransformElement.queryUsingNamespaces(parsedElement, xpath);
 			return xpaths;
 		} catch (Exception e) {
 			throw new RuntimeException("error in name Xpath: "+xpath, e);
@@ -448,7 +451,7 @@ public class TransformElement implements MarkupApplier {
 	private void groupPreviousSiblings(Element element) {
 		if (previousSiblingsAfter != null) {
 			ParentNode parent = element.getParent();
-			Nodes afterNodes = element.query(previousSiblingsAfter, CMLConstants.CML_XPATH);
+			Nodes afterNodes = queryUsingNamespaces(element, previousSiblingsAfter);
 			int afterIndex = (afterNodes.size() == 0) ? -1 : parent.indexOf(afterNodes.get(0));
 			int elementIdx = parent.indexOf(element);
 			int minIndex = (afterIndex == -1) ? 0 : afterIndex + 1;
@@ -466,7 +469,7 @@ public class TransformElement implements MarkupApplier {
 	private void groupFollowingSiblings(Element element) {
 		if (followingSiblingsBefore != null) {
 			ParentNode parent = element.getParent();
-			Nodes beforeNodes = element.query(followingSiblingsBefore, CMLConstants.CML_XPATH);
+			Nodes beforeNodes = queryUsingNamespaces(element, followingSiblingsBefore);
 			int beforeIndex = (beforeNodes.size() == 0) ? -1 : parent.indexOf(beforeNodes.get(0));
 			int elementIdx = parent.indexOf(element);
 			int maxIndex = (beforeIndex == -1) ? parent.getChildCount() : beforeIndex;
@@ -479,6 +482,16 @@ public class TransformElement implements MarkupApplier {
 				element.appendChild(nodeList.get(i));
 			}
 		}
+	}
+
+	public static Nodes queryUsingNamespaces(Element element, String xpath) {
+		Nodes nodes = null;
+		try {
+			nodes = element.query(xpath, Template.CML_CMLX_CONTEXT);
+		} catch (Exception e) {
+			throw new RuntimeException("query fails: "+xpath, e);
+		}
+		return nodes;
 	}
 
 	private void pullupSingleton() {
@@ -517,8 +530,8 @@ public class TransformElement implements MarkupApplier {
 		Nodes nodes = createXpathNodes();
 		for (int i = 0; i < nodes.size(); i++) {
 			Element element = (Element)nodes.get(i);
-			Nodes nameNodes = element.query(name, CMLConstants.CML_XPATH);
-			Nodes valueNodes = element.query(value, CMLConstants.CML_XPATH);
+			Nodes nameNodes = TransformElement.queryUsingNamespaces(element, name);
+			Nodes valueNodes = TransformElement.queryUsingNamespaces(element, value);
 			if (nameNodes.size() == 1 && valueNodes.size() == 1) {
 				createNameValue(nameNodes, valueNodes);
 			}
@@ -543,7 +556,7 @@ public class TransformElement implements MarkupApplier {
 		Nodes nodes = getXpathQueryResults();
 		for (int i = 0; i < nodes.size(); i++) {
 			Element element = (Element)nodes.get(i);
-			Nodes scalarNodes = element.query(from, CMLConstants.CML_XPATH);
+			Nodes scalarNodes = TransformElement.queryUsingNamespaces(element, from);
 			double[] dd = new double[3*3];
 			Node node0 = null;
 			if (scalarNodes.size() == 3*3) {
@@ -584,7 +597,7 @@ public class TransformElement implements MarkupApplier {
 		Nodes nodes = getXpathQueryResults();
 		for (int i = 0; i < nodes.size(); i++) {
 			Element element = (Element)nodes.get(i);
-			Nodes scalarNodes = element.query(from, CMLConstants.CML_XPATH);
+			Nodes scalarNodes = TransformElement.queryUsingNamespaces(element, from);
 			double[] dd = new double[3];
 			Node node0 = null;
 			if (scalarNodes.size() == 3) {
@@ -602,6 +615,7 @@ public class TransformElement implements MarkupApplier {
 				CMLProperty property = new CMLProperty();
 				property.setDictRef(DictRefAttribute.createValue(dictRefNames[0], dictRefNames[1]));
 				CMLScalar lengthScalar = new CMLScalar(length);
+				lengthScalar.setDictRef("cmlx:length");
 				property.appendChild(lengthScalar);
 				property.appendChild(v3);
 				node0.getParent().replaceChild(node0, property);
@@ -623,53 +637,75 @@ public class TransformElement implements MarkupApplier {
 	
 	private void createMolecule() {
 		assertRequired(XPATH, xpath);
+		assertRequired(ID, id);
 		createMethodNames();
 		Nodes arrays = createXpathNodes();
 		if (arrays.size() > 0) {
-			CMLArray array0 = (CMLArray) arrays.get(0);
+			Element element = (Element) arrays.get(0);
+			if (!(element instanceof CMLArray)) {
+				throw new RuntimeException(
+						"Molecule requires list of arrays, but found: "+element.getClass().getName());
+			}
+			CMLArray array0 = (CMLArray) element;
 			int natoms = array0.getSize();
 			molecule = new CMLMolecule();
+			molecule.setId(id);
 			ParentNode parent = array0.getParent();
 			parent.replaceChild(array0, molecule);
-			for (int iatom = 0; iatom < natoms; iatom++) {
-				id = "a"+(iatom+1);
-				CMLAtom atom = new CMLAtom(id);
-				molecule.addAtom(atom);
-			}
+			createAndAddAtoms(natoms);
 			atoms = molecule.getAtoms();
-			for (int i = 0; i < arrays.size(); i++) {
-				Node node = arrays.get(i);
-				if (!(node instanceof CMLArray)) {
-					CMLUtil.debug((Element) node, "ELEM:"+from);
-					throw new RuntimeException("molecule only operates on arrays");
-				}
-				CMLArray array = (CMLArray) arrays.get(i);
-//				array.debug("TRANSFORM");
-				processDictRef(array);
-				array.detach();
-			}
-			for (CMLAtom atom : atoms) {
-				String elementType = atom.getElementType();
-				if (elementType != null) {
-					ChemicalElement chemicalElement = ChemicalElement.getChemicalElement(elementType);
-					CMLScalar scalar = new CMLScalar(chemicalElement.getAtomicNumber());
-					scalar.setDictRef(DictRefAttribute.createValue(COMPCHEM, ATOMIC_NUMBER));
-					atom.addScalar(scalar);
-				}
-			}
-			CMLFormula formula = CMLFormula.createFormula(molecule);
-			molecule.addFormula(formula);
-			MoleculeTool moleculeTool = MoleculeTool.getOrCreateTool(molecule);
-			moleculeTool.calculateBondedAtoms();
-			moleculeTool.adjustBondOrdersToValency();
-			double mwt = moleculeTool.getCalculatedMolecularMass();
-			CMLScalar scmwt = new CMLScalar(mwt);
-			scmwt.setUnits("unit", "dalton", UNIT_SI_URI);
-			CMLProperty mmprop = new CMLProperty(); 
-			mmprop.setDictRef("cml:molmass");
-			mmprop.appendChild(scmwt);
-			molecule.appendChild(mmprop);
+			addArrays(arrays);
+			addElementTypes();
+			addFormulaAndProperties();
 		}
+	}
+
+	private void createAndAddAtoms(int natoms) {
+		for (int iatom = 0; iatom < natoms; iatom++) {
+			id = "a"+(iatom+1);
+			CMLAtom atom = new CMLAtom(id);
+			molecule.addAtom(atom);
+		}
+	}
+
+	private void addArrays(Nodes arrays) {
+		for (int i = 0; i < arrays.size(); i++) {
+			Node node = arrays.get(i);
+			if (!(node instanceof CMLArray)) {
+				CMLUtil.debug((Element) node, "ELEM:"+from);
+				throw new RuntimeException("molecule only operates on arrays");
+			}
+			CMLArray array = (CMLArray) arrays.get(i);
+			processDictRef(array);
+			array.detach();
+		}
+	}
+
+	private void addElementTypes() {
+		for (CMLAtom atom : atoms) {
+			String elementType = atom.getElementType();
+			if (elementType != null) {
+				ChemicalElement chemicalElement = ChemicalElement.getChemicalElement(elementType);
+				CMLScalar scalar = new CMLScalar(chemicalElement.getAtomicNumber());
+				scalar.setDictRef(DictRefAttribute.createValue(COMPCHEM, ATOMIC_NUMBER));
+				atom.addScalar(scalar);
+			}
+		}
+	}
+
+	private void addFormulaAndProperties() {
+		CMLFormula formula = CMLFormula.createFormula(molecule);
+		molecule.addFormula(formula);
+		MoleculeTool moleculeTool = MoleculeTool.getOrCreateTool(molecule);
+		moleculeTool.calculateBondedAtoms();
+		moleculeTool.adjustBondOrdersToValency();
+		double mwt = moleculeTool.getCalculatedMolecularMass();
+		CMLScalar scmwt = new CMLScalar(mwt);
+		scmwt.setUnits("unit", "dalton", UNIT_SI_URI);
+		CMLProperty mmprop = new CMLProperty(); 
+		mmprop.setDictRef("cml:molmass");
+		mmprop.appendChild(scmwt);
+		molecule.appendChild(mmprop);
 	}
 
 	private void processDictRef(CMLArray array) {
