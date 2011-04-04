@@ -37,8 +37,10 @@ public class RecordReaderTest {
 		List<Pattern> patternList = regexProcessor.getPatternList();
 		Assert.assertEquals("patterns", 1, patternList.size());
 		Assert.assertEquals("pattern 0", 
-				"line\\s*(\\S+)\\s*junk\\s*(\\-?\\d+)\\s*grot\\s*(\\-?\\d+\\.?\\d*)\\s*", 
+				"line\\s*(\\S+)\\s*junk\\s*(\\-?\\d+)\\s*grot\\s*((?:\\-?\\d+\\.?\\d*)|(?:\\-?\\d*\\.?\\d+))\\s*", 
 				patternList.get(0).toString());
+
+		
 		Assert.assertEquals("names", "a:line a:junk a:grot", regexProcessor.getNames());
 		Assert.assertEquals("types", 
 				CMLConstants.XSD_STRING+" "+CMLConstants.XSD_INTEGER+" "+CMLConstants.XSD_DOUBLE,
