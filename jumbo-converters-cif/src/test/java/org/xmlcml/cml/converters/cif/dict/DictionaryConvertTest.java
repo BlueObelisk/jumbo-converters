@@ -33,15 +33,6 @@ public class DictionaryConvertTest {
         ser.write(cifDict);
     }
 
-    @Test
-    public void testCreateDictionaryPeter() throws IOException {
-        File in = new File("src/main/resources/cif_core.dic");
-        CIFDict2CMLConverter dictConv = new CIFDict2CMLConverter();
-        Element xml = dictConv.convertToXML(in);
-        Serializer ser = new Serializer(new FileOutputStream(new File("src/test/resources/dict/peter.xml")));
-        ser.setIndent(2);
-        ser.write(new Document(xml));
-    }
 
     @Before
     public void createCIFResource() throws CIFException, IOException {
