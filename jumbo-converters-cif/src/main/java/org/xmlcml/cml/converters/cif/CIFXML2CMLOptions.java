@@ -2,7 +2,7 @@ package org.xmlcml.cml.converters.cif;
 
 import java.io.File;
 
-import org.xmlcml.cml.converters.cif.dict.CIFDictionary;
+import org.xmlcml.cml.element.CMLDictionary;
 
 /**
  * Helper class for CIFXML2CMLConverter to hold all the possible processing options.
@@ -14,7 +14,7 @@ public class CIFXML2CMLOptions {
 	
 	private SpaceGroupTool spaceGroupTool;
 
-	private CIFDictionary dictionary;
+	private CMLDictionary dictionary;
 
 	private boolean skipErrors;
 	private boolean checkDoubles;
@@ -45,11 +45,11 @@ public class CIFXML2CMLOptions {
 		return addMissingSymmetry;
 	}
 	
-	public CIFDictionary getDictionary() {
+	public CMLDictionary getDictionary() {
 		return dictionary;
 	}
 
-	public void setDictionary(CIFDictionary dictionary) {
+	public void setDictionary(CMLDictionary dictionary) {
 		this.dictionary = dictionary;
 	}
 
