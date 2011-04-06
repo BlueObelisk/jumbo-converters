@@ -12,15 +12,26 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
 <template id='nwchem.log' 
   output="VERBOSE"
   convention='conventions:compchem'
-  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:c="http://www.xml-cml.org/dictionary"
-  xmlns:compchem="http://www.xml-cml.org/dictionary/compchem/"
   xmlns:conventions="http://www.xml-cml.org/convention/"
-  xmlns:n="http://www.xml-cml.org/dictionary/nwchem"
-  xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"
-  xmlns:cml="http://www.xml-cml.org/schema">
   
-  <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
+  xmlns:compchem="http://www.xml-cml.org/dictionary/compchem/"
+  xmlns:n="http://www.xml-cml.org/dictionary/nwchem/"
+  xmlns:x="http://www.xml-cml.org/dictionary/cmlx/"
+  
+  xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"
+  xmlns:cml="http://www.xml-cml.org/schema"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+   >
+<!--   
+  <dictionary uri="http://www.xml-cml.org/dictionary/cmlx/"
+      href="org/xmlcml/cml/converters/compchem/cmlxDict.xml"/>
+      -->
+  <dictionary uri="http://www.xml-cml.org/dictionary/compchem/"
+      href="org/xmlcml/cml/converters/compchem/compchemDict.xml"/>
+  <dictionary uri="http://www.xml-cml.org/dictionary/nwchem/" 
+      href="org/xmlcml/cml/converters/compchem/nwchem/nwchemDict.xml"/>
+      
+  <templateList id='main'>
       <xi:include href="input.xml"/> <!-- do this early on -->
       <xi:include href="totaltimes.temp.xml"/> <!--  the last line of input - may need special treatment -->
       <xi:include href="argument.temp.xml"/>
@@ -146,4 +157,9 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
   
   <!--  remove hydrogenCount attributes -->
   <transform process="delete" xpath="//@hydrogenCount"/>
+  
+  <xi:include href="dictRefConversion.xml"/>  
+
+  <transform process="checkDictionary" xpath=".//@dictRef"/>
+  
 </template>

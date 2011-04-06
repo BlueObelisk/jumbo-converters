@@ -1,883 +1,326 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cml xmlns="http://www.xml-cml.org/schema">
-<!--  first try at NWChem dictionary  -->
+  <!-- first try at NWChem dictionary -->
   <dictionary 
-      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-      xmlns:h="http://www.w3.org/1999/xhtml"
-      namespace="http://www.xml-cml.org/dictionary/compchem/nwchem/"
-      xmlns:convention="http://www.xml-cml.org/convention/" 
-      convention="convention:dictionary"
-      dictionaryPrefix="nwchem" 
-      title="NWChem dictionary" 
-      xmlns="http://www.xml-cml.org/schema"
-      xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"
-      xmlns:unit="http://www.xml-cml.org/dictionary/unit/" 
-      xmlns:unitType="http://www.xml-cml.org/dictionary/unitType/"
-      xmlns:dc="http://purl.org/dc/elements/1.1/" 
-      xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      
->
-  <entry id="calculationType" term="Type of calculation">
-    <definition><h:p>calculationType</h:p></definition>
-    <description><h:p>Type of calculation</h:p>
-    <h:p class="example">TODO MOVE</h:p></description>
-  </entry>
-  <entry id="misc" term="miscellaneous markup">
-    <definition><h:p>miscellaneous</h:p></definition>
-    <description><h:p>TODO MOVE</h:p></description>
-  </entry>
-  <entry id="metadata" term="metadata">
-    <definition><h:p>metadata</h:p></definition>
-    <description><h:p>Metadata TODO MOVE</h:p></description>
-  </entry>
-  <entry id="parameter" term="parameter">
-    <definition><h:p>parameter</h:p></definition>
-    <description><h:p>TODO MOVE</h:p></description>
-  </entry>
-  <entry id="property" term="property">
-    <definition><h:p>property</h:p></definition>
-    <description><h:p>TODO MOVE</h:p></description>
-  </entry>
-  
-  <entry id="data" term="data"  dataType="xsd:string">
-    <definition><h:p>data</h:p></definition>
-    <description><h:p>TODO MOVE</h:p></description>
-  </entry>
-  <entry id="title" term="title"  dataType="xsd:string">
-    <definition><h:p>an arbitrary title</h:p></definition>
-    <description><h:p>title is not used for reference, though could be used for lexical indexing (e.g. by Solr) TODO MOVE</h:p></description>
-  </entry>
-  <entry id="dictRefNext" term="dictRefNext"  dataType="xsd:string">
-    <definition><h:p>pointer to next element</h:p></definition>
-    <description><h:p>applies this string as dictRef of next scalar TODO MOVE</h:p></description>
-  </entry>
-  <entry id="iter" term="serial number of iteration"  dataType="xsd:integer">
-    <definition><h:p>serial number of iteration</h:p></definition>
-    <description><h:p>serial number of iteration TODO MOVE</h:p></description>
-  </entry>
-  <!--  unitType should be added to entry attributes
-  <entry id="energy" term="energy"  dataType="xsd:double" unitType="unitType:energy">
-    <definition><h:p>energy</h:p></definition>
-    <description><h:p>energy of unspecified typeTODO MOVE</h:p></description>
-  </entry>
+    xmlns:h="http://www.w3.org/1999/xhtml" 
+    namespace="http://www.xml-cml.org/dictionary/nwchem/"
+    xmlns:convention="http://www.xml-cml.org/convention/" 
+    convention="convention:dictionary"
+    dictionaryPrefix="nwchem" 
+    title="NWChem dictionary" 
+    xmlns="http://www.xml-cml.org/schema"
+    xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"
+    >
+    
+      <definition>
+        <h:p>NWChem dictionary</h:p>
+      </definition>
+      <description>
+        <h:p>terms specific to NWChem</h:p>
+      </description>
+
+    <entry id="calculationType" term="Type of calculation">
+      <definition>
+        <h:p>calculationType</h:p>
+      </definition>
+      <description>
+        <h:p>Type of calculation</h:p>
+        <h:p class="example">TODO MOVE</h:p>
+      </description>
+    </entry>
+    <entry id="misc" term="miscellaneous markup">
+      <definition>
+        <h:p>miscellaneous</h:p>
+      </definition>
+      <description>
+        <h:p>TODO MOVE</h:p>
+      </description>
+    </entry>
+    <entry id="metadata" term="metadata">
+      <definition>
+        <h:p>metadata</h:p>
+      </definition>
+      <description>
+        <h:p>Metadata TODO MOVE</h:p>
+      </description>
+    </entry>
+    <entry id="parameter" term="parameter">
+      <definition>
+        <h:p>parameter</h:p>
+      </definition>
+      <description>
+        <h:p>TODO MOVE</h:p>
+      </description>
+    </entry>
+    <entry id="property" term="property">
+      <definition>
+        <h:p>property</h:p>
+      </definition>
+      <description>
+        <h:p>TODO MOVE</h:p>
+      </description>
+    </entry>
+
+    <entry id="data" term="data" dataType="xsd:string">
+      <definition>
+        <h:p>data</h:p>
+      </definition>
+      <description>
+        <h:p>TODO MOVE</h:p>
+      </description>
+    </entry>
+    <entry id="title" term="title" dataType="xsd:string">
+      <definition>
+        <h:p>an arbitrary title</h:p>
+      </definition>
+      <description>
+        <h:p>title is not used for reference, though could be used for
+          lexical indexing (e.g. by Solr) TODO MOVE</h:p>
+      </description>
+    </entry>
+    <entry id="dictRefNext" term="dictRefNext" dataType="xsd:string">
+      <definition>
+        <h:p>pointer to next element</h:p>
+      </definition>
+      <description>
+        <h:p>applies this string as dictRef of next scalar TODO MOVE
+        </h:p>
+      </description>
+    </entry>
+    <entry id="iter" term="serial number of iteration" dataType="xsd:integer">
+      <definition>
+        <h:p>serial number of iteration</h:p>
+      </definition>
+      <description>
+        <h:p>serial number of iteration TODO MOVE</h:p>
+      </description>
+    </entry>
+    <!-- unitType should be added to entry attributes <entry id="energy" 
+      term="energy" dataType="xsd:double" unitType="unitType:energy"> <definition><h:p>energy</h:p></definition> 
+      <description><h:p>energy of unspecified typeTODO MOVE</h:p></description> 
+      </entry> -->
+    <entry id="energy" term="energy" dataType="xsd:double"
+      cmlx:unitType="unitType:energy">
+      <definition>
+        <h:p>energy</h:p>
+      </definition>
+      <description>
+        <h:p>energy of unspecified typeTODO MOVE</h:p>
+      </description>
+    </entry>
+    <entry id="deltae" term="deltae" dataType="xsd:double"
+      cmlx:unitType="unitType:energy">
+      <definition>
+        <h:p>change in energy between cycles</h:p>
+      </definition>
+      <description>
+        <h:p>change in energy between cycles</h:p>
+      </description>
+    </entry>
+    <entry id="rmsdens" term="RMS electron density" dataType="xsd:double">
+      <definition>
+        <h:p>rms density</h:p>
+      </definition>
+      <description>
+        <h:p>RMS electron density</h:p>
+      </description>
+    </entry>
+    <entry id="diiserr" term="diiserr" dataType="xsd:double">
+      <definition>
+        <h:p>error in DIIS</h:p>
+      </definition>
+      <description>
+        <h:p>error in DIIS</h:p>
+      </description>
+    </entry>
+    <entry id="time" term="cumulative time" dataType="xsd:double">
+      <definition>
+        <h:p>cumulative time</h:p>
+      </definition>
+      <description>
+        <h:p>TODO MOVE</h:p>
+      </description>
+    </entry>
+
+    <entry id="count" term="">
+      <definition>
+        <h:p>TODO</h:p>
+      </definition>
+      <description>
+        <h:p>TODO</h:p>
+        <h:p class="example">TODO</h:p>
+      </description>
+    </entry>
+    <entry id="libfile" term="">
+      <definition>
+        <h:p>TODO</h:p>
+      </definition>
+      <description>
+        <h:p>TODO</h:p>
+        <h:p class="example">TODO</h:p>
+      </description>
+    </entry>
+    <entry id="libname" term="">
+      <definition>
+        <h:p>TODO</h:p>
+      </definition>
+      <description>
+        <h:p>TODO</h:p>
+        <h:p class="example">TODO</h:p>
+      </description>
+    </entry>
+    <entry id="nangle" term="">
+      <definition>
+        <h:p>TODO</h:p>
+      </definition>
+      <description>
+        <h:p>TODO</h:p>
+        <h:p class="example">TODO</h:p>
+      </description>
+    </entry>
+    <entry id="startid" term="">
+      <definition>
+        <h:p>TODO</h:p>
+      </definition>
+      <description>
+        <h:p>TODO</h:p>
+        <h:p class="example">TODO</h:p>
+      </description>
+    </entry>
+    <entry id="sumatomener" term="">
+      <definition>
+        <h:p>TODO</h:p>
+      </definition>
+      <description>
+        <h:p>TODO</h:p>
+        <h:p class="example">TODO</h:p>
+      </description>
+    </entry>
+    <entry id="task" term="">
+      <definition>
+        <h:p>TODO</h:p>
+      </definition>
+      <description>
+        <h:p>TODO</h:p>
+        <h:p class="example">TODO</h:p>
+      </description>
+    </entry>
+    <entry id="totdft" term="">
+      <definition>
+        <h:p>TODO</h:p>
+      </definition>
+      <description>
+        <h:p>TODO</h:p>
+        <h:p class="example">TODO</h:p>
+      </description>
+    </entry>
+    <entry id="type" term="">
+      <definition>
+        <h:p>TODO</h:p>
+      </definition>
+      <description>
+        <h:p>TODO</h:p>
+        <h:p class="example">TODO</h:p>
+      </description>
+    </entry>
+    
+    <entry id="occ" term="Occupancy">
+      <definition>
+        <h:p>Occupancy?</h:p>
+      </definition>
+      <description>
+        <h:p>TODO</h:p>
+        <h:p class="example">TODO</h:p>
+      </description>
+    </entry>
+
+    <entry id="r2mo" term="r-squared">
+      <definition>
+        <h:p>An r-squared for a molecular orbital</h:p>
+      </definition>
+      <description>
+        <h:p>TODO - fill this in</h:p>
+        <h:p class="example">TODO</h:p>
+      </description>
+    </entry>
+
+    <entry id="mocoeff" term="molecular orbital coefficient">
+      <definition>
+        <h:p>molecular orbital coefficient</h:p>
+      </definition>
+      <description>
+        <h:p>TODO</h:p>
+        <h:p class="example">TODO</h:p>
+      </description>
+    </entry>
+
+    <entry id="atomserial" term="serial number of atom">
+      <definition>
+        <h:p>serial number of atom</h:p>
+      </definition>
+      <description>
+        <h:p>in range 1...n</h:p>
+        <h:p class="example">TODO</h:p>
+      </description>
+    </entry>
+
+    <entry id="orbital" term="orbital">
+      <definition>
+        <h:p>orbital designated by symbol</h:p>
+      </definition>
+      <description>
+        <h:p>in range 1...n</h:p>
+        <h:p class="example">TODO</h:p>
+      </description>
+    </entry>
+
+    <entry id="basisfuncserial" term="serial number of basis function">
+      <definition>
+        <h:p>serial number of basis function</h:p>
+      </definition>
+      <description>
+        <h:p>in range 1...n</h:p>
+        <h:p class="example">TODO</h:p>
+      </description>
+    </entry>
+
+    <entry id="geomtype" term="type of geometry">
+      <definition>
+        <h:p>type of geometry</h:p>
+      </definition>
+      <description>
+        <h:p>TODO</h:p>
+        <h:p class="example">TODO</h:p>
+      </description>
+    </entry>
+
+    <entry id="globalarrays" term="global arrays">
+      <definition>
+        <h:p>global arrays</h:p>
+      </definition>
+      <description>
+        <h:p>TODO</h:p>
+        <h:p class="example">TODO</h:p>
+      </description>
+    </entry>
+
+
+<!-- 
+ dictRef="n:a" 
+ dictRef="n:b" 
+ dictRef="n:c" 
+ dictRef="n:cpu" 
+ dictRef="n:d" 
+ dictRef="n:e" 
+ dictRef="n:occ" 
+ dictRef="n:r2" 
+ dictRef="n:wall" 
+dictRef="n:i" 
+dictRef="n:j" 
+dictRef="n:k" 
+dictRef="n:l" 
+dictRef="n:v" 
+dictRef="n:sym" 
  -->
-   <entry id="energy" term="energy"  dataType="xsd:double" cmlx:unitType="unitType:energy">
-    <definition><h:p>energy</h:p></definition>
-    <description><h:p>energy of unspecified typeTODO MOVE</h:p></description>
-  </entry>
-  <entry id="deltae" term="deltae"  dataType="xsd:double" cmlx:unitType="unitType:energy">
-    <definition><h:p>change in energy between cycles</h:p></definition>
-   <description><h:p>change in energy between cycles</h:p></description>
-  </entry>
-  <entry id="rmsdens" term="RMS electron density"  dataType="xsd:double">
-    <definition><h:p>rms density</h:p></definition>
-    <description><h:p>RMS electron density</h:p></description>
-  </entry>
-  <entry id="diiserr" term="diiserr"  dataType="xsd:double">
-    <definition><h:p>error in DIIS</h:p></definition>
-    <description><h:p>error in DIIS</h:p></description>
-  </entry>
-  <entry id="time" term="cumulative time"  dataType="xsd:double">
-    <definition><h:p>cumulative time</h:p></definition>
-    <description><h:p>TODO MOVE</h:p></description>
-  </entry>
-
-
-  <entry id="sumatomener" term="Sum of atom energies"  dataType="xsd:double">
-    <definition><h:p>Sum of atom energies</h:p></definition> 
-    <description><h:p>Sum of atom energies</h:p></description>
-  </entry>
-  <entry id="totener" term="Total energy"  dataType="xsd:double">
-    <definition><h:p>Total energy</h:p></definition> 
-    <description><h:p>TODO MOVE</h:p></description>
-  </entry>
-  <entry id="ener1e" term="1-electron energy"  dataType="xsd:double">
-    <definition><h:p>1-electron energy</h:p></definition> 
-    <description><h:p>1-electron energy</h:p></description>
-  </entry>
-  <entry id="ener2e" term="TODO ener2e"  dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="homo" term="HOMO"  dataType="xsd:double">
-    <definition><h:p>Highest Occupied Molecular Orbital</h:p></definition> 
-    <description><h:p>TODO MOVE</h:p></description>
-  </entry>
-  <entry id="lumo" term="LUMO"  dataType="xsd:double">
-    <definition><h:p>Lowest Occupied Moecular Orbital</h:p></definition> 
-    <description><h:p>TODO MOVE</h:p></description>
-  </entry>
-  <entry id="totaldft" term="Total DFT energy"  dataType="xsd:double">
-    <definition><h:p>Total DFT energy</h:p></definition> 
-    <description><h:p>TODO MOVE</h:p></description>
-  </entry>
-   
-  <entry id="oneelecener" term="1-electron energy"  dataType="xsd:double">
-    <definition><h:p>1-electron energy</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="coulomb" term="Coulomb energy"  dataType="xsd:double">
-    <definition><h:p>Coulomb energy</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="nucrepener" term="Nuclear repulsion energy"  dataType="xsd:double">
-    <definition><h:p>Nuclear repulsion energy</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  
-  <entry id="atomsym" term="Atom symbol"  dataType="cml:elementType">
-    <definition><h:p>Symbol of the atom</h:p></definition> 
-    <description><h:p>This may not always be a CML elementType TODO</h:p></description>
-  </entry>
-  <entry id="atommass" term="Mass of the atom"  dataType="xsd:double">
-    <definition><h:p>Mass of the atom</h:p></definition> 
-    <description><h:p>May not always be that from a table of atomic masses TODO</h:p></description>
-  </entry>
-  <entry id="echangecorr" term="Exchange correlation energy"  dataType="xsd:double">
-    <definition><h:p>Exchange correlation energy</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="basis" term="basis set?" dataType="xsd:none">
-    <definition><h:p>The basis set</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="natoms" term="TODO natoms"  dataType="xsd:integer">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="elsym" term="TODO elsym"  dataType="cml:elementType">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="elemname" term="TODO elemname"  dataType="cml:elementType">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  
-  <entry id="atnum" term="TODO atnum"  dataType="xsd:integer">
-    <definition><h:p>serial number of atom</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  
-  <entry id="bfn" term="TODO bfn" dataType="xsd:integer">
-    <definition><h:p>basis function</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="coeff" term="TODO coeff" dataType="xsd:double">
-    <definition><h:p>basis function</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="atsym" term="TODO atsym" dataType="xsd:string">
-    <definition><h:p>atomic symbol</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="orb" term="TODO orb" dataType="xsd:string">
-    <definition><h:p>orbital</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  
-  <entry id="totitertime" term="TODO totitertime" dataType="xsd:double">
-    <definition><h:p>total iterative time</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="vector" term="TODO vector" dataType="xsd:integer">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="occ" term="TODO occ" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="e" term="TODO e" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="symmetry" term="TODO symmetry" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="v1" term="TODO v1" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="v2" term="TODO v2" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="v3" term="TODO v3" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="rsquared" term="TODO rsquared" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="basis1" term="TODO basis1" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="coordtype" term="TODO coordtype" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="numiterdens" term="TODO numiterdens" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-
-  <entry id="shells" term="TODO shells" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="functions" term="TODO functions" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="types" term="TODO types" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  
-
-  <entry id="charge" term="TODO charge" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="x" term="TODO x" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="y" term="TODO y" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="z" term="TODO z" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="shells" term="TODO shells" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="functions" term="TODO functions" dataType="xsd:integer">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="types" term="TODO types" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  
-  <entry id="total" term="TODO total" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="alpha" term="TODO alpha" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="beta" term="TODO beta" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="l" term="TODO l" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="nuclear" term="TODO nuclear" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  
-  <entry id="tag" term="TODO tag" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="group.name" term="TODO group.name" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="group.number" term="TODO group.number" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="group.order" term="TODO group.order" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="group.uniquecenter" term="TODO group.uniquecenter" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-
-  <entry id="cpu" term="TODO cpu" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="wall" term="TODO wall" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="momint" term="TODO momint" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  
-  <entry id="mag.a"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="mag.b"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="mag.c"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="serial"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="diamagnetic"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="paramagnetic"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="totalshieldingtensor"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="anisotropy"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="magnetic"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  
-  <entry id="bsrad"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="radpts"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="radcut"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="angpts"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="grid_pruning_is"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="number_of_quadrature_shells"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="spatial_weights_used"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="de__on"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="de_off"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="density_screening_tol_rho"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="ao_gaussian_exp_screening_on_grid_accaofunc"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="cd_gaussian_exp_screening_on_grid_acccdfunc"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="xc_gaussian_exp_screening_on_grid_accxcfun"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  
-  <entry id="angular_quadrature"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="maximum_number_of_iterations"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="use_of_symmetry_is"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="spin_multiplicity"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="beta_electrons"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="alpha_electrons"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="no._of_electrons"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="no._of_atoms"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="wavefunction_type"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  
-  <entry id="radial_quadrature"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="ao_basis_-_number_of_functions"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="number_of_shells"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="grid_used_for_xc_integration"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="xc_gaussian_exp_screening_on_grid_accxcfunc"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="incore_requires_a_per_proc_buffer_size_of"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="the_minimum_integral_buffer_size_is"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="minimum_dble_words_available__all_nodes__is"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="this_is_reduced__for_later_use__to"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="suggested_buffer_size_is"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="maximum_number_of_3-center_2e-_integrals_is"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="schwarz_screening_acccoul"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="scf_calculation_type"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="this_is_reduced_with_schwarz_screening_to"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="argument__1"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="argument__2"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="argument__3"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="argument__4"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="argument__5"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="convergence_on_energy_requested"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="convergence_on_density_requested"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="convergence_on_gradient_requested"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="scftype"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="nclosed"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="nopen"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="variables"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="list__of_vectors"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="tolerance"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="level_shift"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="max_iterations"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="max_subspace"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="no._of_variables"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="no._of_equations"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="maximum_subspace"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="iterations"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="convergence"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="start_time"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="nsub"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="residual"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="isotropic"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="atoms"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="ao_basis"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="closed_shells"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="open_shells"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="wavefunction"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="symmetry_adapt"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="input_vectors"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="output_vectors"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="use_symmetry"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="total_scf_energy"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="symmetry_adapt"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="one-electron_energy"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="two-electron_energy"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="nuclear_repulsion_energy"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="eigenval"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="time_for_solution"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="host"  term="TODO" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="prog"  term="TODO" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="date"  term="TODO" dataType="xsd:date">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="comp"  term="TODO" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="src"  term="TODO" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="branch"  term="TODO" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="input"  term="TODO" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="pref"  term="TODO" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="db"  term="TODO" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="stat"  term="TODO" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="nproc"  term="TODO" dataType="xsd:integer">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="geom"  term="TODO" dataType="xsd:integer">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  
-  <entry id="mass"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  
-  <entry id="row"  term="TODO" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="name"  term="TODO" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="number"  term="TODO" dataType="xsd:integer">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="order"  term="TODO" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="centers"  term="TODO" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="xyz"  term="TODO" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="atomtype"  term="TODO" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <!-- zmat -->
-  <entry id="type"  term="TODO" dataType="xsd:string">
-    <definition><h:p>type of zmat coordinate</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-    <!-- 
-   <cmlx:enumeration><h:p>Stretch</cmlx:enumeration><h:p>
-   <cmlx:enumeration><h:p>Bend</cmlx:enumeration><h:p>
-   <cmlx:enumeration><h:p>Torsion</cmlx:enumeration><h:p>
-   -->
-  </entry>
-  <entry id="i"  term="TODO" dataType="xsd:integer">
-    <definition><h:p>index of atom 0 in zmat coord</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="j"  term="TODO" dataType="xsd:integer">
-    <definition><h:p>index of atom 1 in zmat coord</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="k"  term="TODO" dataType="xsd:integer">
-    <definition><h:p>index of atom 2 in zmat coord</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="l"  term="TODO" dataType="xsd:integer">
-    <definition><h:p>index of atom 3 in zmat coord</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="m"  term="TODO" dataType="xsd:integer">
-    <definition><h:p>index of atom 4 in zmat coord</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="coordvalue"  term="TODO" dataType="xsd:double">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="ir"  term="TODO" dataType="xsd:string">
-    <definition><h:p>Irreducible representation</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  
-  <entry id="element"  term="TODO" dataType="xsd:string">
-    <definition><h:p>name of element e.g. 'Carbon'</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="morb"  term="TODO" dataType="xsd:string">
-    <definition><h:p>shell (SPD...)</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="weight"  term="TODO" dataType="xsd:double">
-    <definition><h:p>weight (of coefficient)</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  
-  <!--  move these elsewhere -->
-  
-  <entry id="field0"  term="TODO" dataType="xsd:string">
-    <definition><h:p>anonymous field</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="field1"  term="TODO" dataType="xsd:string">
-    <definition><h:p>anonymous field</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="field2"  term="TODO" dataType="xsd:string">
-    <definition><h:p>anonymous field</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="field3"  term="TODO" dataType="xsd:string">
-    <definition><h:p>anonymous field</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="field4"  term="TODO" dataType="xsd:string">
-    <definition><h:p>anonymous field</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="field5"  term="TODO" dataType="xsd:string">
-    <definition><h:p>anonymous field</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="field6"  term="TODO" dataType="xsd:string">
-    <definition><h:p>anonymous field</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="field7"  term="TODO" dataType="xsd:string">
-    <definition><h:p>anonymous field</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="field8"  term="TODO" dataType="xsd:string">
-    <definition><h:p>anonymous field</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="field9"  term="TODO" dataType="xsd:string">
-    <definition><h:p>anonymous field</h:p></definition>
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="x__record"  term="TODO" dataType="xsd:string">
-    <definition><h:p>TODO</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="x__name"  term="TODO" dataType="xsd:string">
-    <definition><h:p>temporary storage for name</h:p></definition>
-    <description><h:p>A sibling p[air of __name and __value should be combined to give a dictRef based on __name and a string value based on __value]</h:p></description>
-  </entry>
-  <entry id="x__value" term="TODO" dataType="xsd:string">
-    <definition><h:p>temporary storage for value</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="x__name1"  term="TODO" dataType="xsd:string">
-    <definition><h:p>temporary storage for name</h:p></definition>
-    <description><h:p>A sibling p[air of __name and __value should be combined to give a dictRef based on __name and a string value based on __value]</h:p></description>
-  </entry>
-  <entry id="x__value1"  term="TODO" dataType="xsd:string">
-    <definition><h:p>temporary storage for value</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="x_all"  term="TODO" dataType="xsd:string">
-    <definition><h:p>temporary storage for value</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  <entry id="x__dummy"  term="TODO" dataType="xsd:string">
-    <definition><h:p>temporary storage for value</h:p></definition> 
-    <description><h:p>TODO</h:p></description>
-  </entry>
-  
-</dictionary>
+  </dictionary>
 </cml>

@@ -8,6 +8,7 @@ import nu.xom.Nodes;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.Outputter.OutputLevel;
 import org.xmlcml.cml.converters.text.LineContainer;
 import org.xmlcml.cml.converters.text.Template;
@@ -127,8 +128,23 @@ public class RecordReader extends LineReader {
 						throw new RuntimeException("size of childElements ("+size+") != recordList.size() ("+recordList.size()+")");
 					}
 					for (int i = 0; i < size; i++) {
+						CMLArray theArray = (CMLArray)list.getChild(i);
 						HasDictRef hasDictRef = (HasDictRef) recordList.get(i);
-						((CMLArray)list.getChild(i)).append(hasDictRef);
+						try {
+							((CMLArray)list.getChild(i)).append(hasDictRef);
+						} catch (Exception e) {
+							String msg = e.getMessage();
+							if (msg.contains("cannot delimit")) {
+								String[] strings = theArray.getStrings();
+								CMLArray newArray = new CMLArray();
+								newArray.setDictRef(theArray.getDictRef());
+								newArray.setDelimiter("~");
+								newArray.setArray(strings);
+								newArray.append(hasDictRef);
+							} else {
+								throw new RuntimeException("Failed to append to array", e);
+							}
+						}
 					}
 				}
 			}

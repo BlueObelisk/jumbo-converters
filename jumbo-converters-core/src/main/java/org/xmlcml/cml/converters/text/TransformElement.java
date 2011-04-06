@@ -1,7 +1,9 @@
 package org.xmlcml.cml.converters.text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import nu.xom.Attribute;
 import nu.xom.Element;
@@ -10,7 +12,6 @@ import nu.xom.Node;
 import nu.xom.Nodes;
 import nu.xom.ParentNode;
 import nu.xom.Text;
-import nu.xom.XPathContext;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
@@ -22,6 +23,8 @@ import org.xmlcml.cml.converters.Outputter;
 import org.xmlcml.cml.converters.Outputter.OutputLevel;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtom;
+import org.xmlcml.cml.element.CMLDictionary;
+import org.xmlcml.cml.element.CMLEntry;
 import org.xmlcml.cml.element.CMLFormula;
 import org.xmlcml.cml.element.CMLMatrix;
 import org.xmlcml.cml.element.CMLMolecule;
@@ -38,15 +41,16 @@ import org.xmlcml.euclid.Real;
 import org.xmlcml.molutil.ChemicalElement;
 
 public class TransformElement implements MarkupApplier {
+	private final static Logger LOG = Logger.getLogger(TransformElement.class);
+	
+	public static final String TAG = "transform";
+
 	private static final String DICT_REF = "dictRef";
 	private static final String ROLE = "role";
 	private static final String LAST = "LAST";
 	private static final String ATOMIC_NUMBER = "atomicNumber";
 
-	private final static Logger LOG = Logger.getLogger(TransformElement.class);
-	
-	public static final String TAG = "transform";
-
+	private static final String CONVERT = "convert";
 	private static final String DATE = "date";
 	private static final String DOUBLE = "double";
 	private static final String FORMAT = "format";
@@ -65,6 +69,7 @@ public class TransformElement implements MarkupApplier {
 	private static final String ADDPARAMETERLIST = "addParameterList";
 	private static final String ADDPROPERTYLIST = "addPropertyList";
 	private static final String ADDROLE = "addRole";
+	private static final String CHECK_DICTIONARY = "checkDictionary";
 	private static final String CREATE_CHILD = "createChild";
 	private static final String CREATE_WRAPPER = "createWrapper";
 	private static final String DATATYPE = "dataType";
@@ -88,6 +93,7 @@ public class TransformElement implements MarkupApplier {
 	private static final String ELEMENT_NAME = "elementName";
 	private static final String FOLLOW_BEFORE = "followingSiblingsBefore";
 	private static final String PREVIOUS_AFTER = "previousSiblingsAfter";
+
 
 	private Element element;
 	private OutputLevel outputLevel;
@@ -133,13 +139,8 @@ public class TransformElement implements MarkupApplier {
 	
 	private void processChildElementsAndAttributes() {
 		processAttributes();
-//		createSubclassedElementsFromChildElements();
-//		if (!OutputLevel.NONE.equals(outputLevel)) {
-//			this.debug();
-//		}
 	}
 
-	
 	private void processAttributes() {
 		Template.checkIfAttributeNamesAreAllowed(element, new String[]{
 			DICTREF, 
@@ -193,6 +194,14 @@ public class TransformElement implements MarkupApplier {
 			addParameterList();
 		} else if (ADDPROPERTYLIST.equals(process)) {
 			addPropertyList();
+		} else if (CHECK_DICTIONARY.equals(process)) {
+//			try {
+				checkDictionary();
+//			} catch (Exception e) {
+//				LOG.error("missing id: "+e);
+//			}
+		} else if (CONVERT.equals(process)) {
+			convert();
 		} else if (CREATE_CHILD.equals(process)) {
 			createChild();
 		} else if (CREATE_WRAPPER.equals(process)) {
@@ -230,6 +239,88 @@ public class TransformElement implements MarkupApplier {
 		}
 	}
 	
+	private /*List<Element>*/ void checkDictionary() {
+//		assertRequired(XPATH, xpath);
+		xpath = "//*[@dictRef]";
+		Nodes nodes = getXpathQueryResults();
+//		Multimap<String, String> map = new Multimap<String, String>();
+//		Set<String> set = new HashSet<String>();
+		Map<String, List<Element>> dictRefNodes = new HashMap<String, List<Element>>();
+		for (int i = 0; i < nodes.size(); i++) {
+			Node node = nodes.get(i);
+			Element element = (Element) node;
+			Attribute att = element.getAttribute(DICT_REF);
+			String value = att.getValue();
+			String prefix = DictRefAttribute.getPrefix(value);
+			if (CMLConstants.CMLX_PREFIX.equals(prefix)) {
+				continue;
+			}
+			String templateRef = element.getAttributeValue(Template.TEMPLATE_REF, CMLConstants.CMLX_NS);
+			String id = element.getAttributeValue(ID);
+			if ((templateRef == null || templateRef.equals("nullId")) && id == null) {
+//				CMLUtil.debug(element, "EEEEE"+prefix);
+//				throw new RuntimeException("Null templateRef and id");
+				continue;
+			}
+	    	try {
+	    		checkAttval(att);
+			} catch (Exception e) {
+				List<Element> elementList = dictRefNodes.get(value);
+				if (elementList == null) {
+					elementList = new ArrayList<Element>();
+					dictRefNodes.put(value, elementList);
+				}
+				elementList.add(element);
+			}
+		}
+		for (String s : dictRefNodes.keySet()) {
+			System.out.println(">>>>>>>>>>>>>>>>>"+s);
+			for (Element element : dictRefNodes.get(s)) {
+//				CMLUtil.debug(element, "QQQQQQQQ");
+			}
+		}
+	}
+
+	private void checkAttval(Attribute att) {
+		DictRefAttribute dictRefAtt = new DictRefAttribute(att);
+		String prefix = dictRefAtt.getPrefix();
+		String value = DictRefAttribute.getLocalName(dictRefAtt.getValue());
+		String namespace = template.theElement.getNamespaceURI(prefix);
+		if (namespace == null) {
+			throw new RuntimeException("Cannot discover namespace for: "+prefix);
+		}
+		boolean found = false;
+		for (DictionaryContainer dictionaryContainer : template.getDictionaryContainerList()) {
+			CMLDictionary dictionary = dictionaryContainer.getDictionary();
+			if (namespace.equals(dictionary.getNamespace())) {
+				found = true;
+				CMLEntry entry = dictionary.getCMLEntry(value);
+				if (entry == null) {
+					throw new RuntimeException("Cannot find entry ("+value+") in dictionary "+namespace);
+				}
+			}
+		}
+		if (!found) {
+			throw new RuntimeException("cannot find dictionary namespace: "+namespace);
+		}
+	}
+
+	private void convert() {
+		assertRequired(XPATH, xpath);
+		Nodes nodes = getXpathQueryResults();
+		if (value != null) {
+			for (int i = 0; i < nodes.size(); i++) {
+				Node node = nodes.get(i);
+				if (node instanceof Attribute) {
+					Attribute att = (Attribute) nodes.get(i);
+					att.setValue(value);
+				} else {
+					throw new RuntimeException("Cannot convert: "+node.getClass().getName());
+				}
+			}
+		}
+	}
+
 	private void debugNodes() {
 		assertRequired(XPATH, xpath);
 		Nodes nodes = getXpathQueryResults();
