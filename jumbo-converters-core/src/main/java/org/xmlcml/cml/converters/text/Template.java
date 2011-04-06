@@ -19,6 +19,7 @@ import org.xmlcml.cml.converters.Outputter.OutputLevel;
 import org.xmlcml.cml.converters.format.LineReader;
 import org.xmlcml.cml.converters.format.LineReader.LineType;
 import org.xmlcml.cml.converters.format.RecordReader;
+import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.euclid.Int2;
@@ -83,6 +84,7 @@ public class Template implements MarkupApplier {
 	private LineContainer lineContainer;
 	private String dictRef;
 	private String[] names;
+	private List<DictionaryContainer> dictionaryList;
 
 	public Template(Element element) {
 		this.theElement = element;
@@ -285,6 +287,8 @@ public class Template implements MarkupApplier {
 			} else if (Deleter.TAG.equals(name)) {
 				Deleter deleter = new Deleter(childElement);
 				markerList.add(deleter);
+			} else if (DictionaryContainer.TAG.equals(name)) {
+				addDictionary(new DictionaryContainer(childElement));
 			} else if (LineType.READLINES.getTag().equals(name)) {
 				throw new RuntimeException("readLines is deprecated");
 			} else if (LineType.RECORD.getTag().equals(name)) {
@@ -299,6 +303,9 @@ public class Template implements MarkupApplier {
 			} else if (TransformElement.TAG.equals(name)) {
 				TransformElement transformer = new TransformElement(childElement, this);
 				markerList.add(transformer);
+			} else if (TransformListElement.TAG.equals(name)) {
+				TransformListElement transformerList = new TransformListElement(childElement, this);
+				markerList.add(transformerList);
 			} else if (Template.DEBUG.equals(name)) {
 				markerList.add(new Debug(this));
 			} else {
@@ -306,6 +313,11 @@ public class Template implements MarkupApplier {
 				throw new RuntimeException("unknown child: "+name);
 			}
 		}
+	}
+
+	private void addDictionary(DictionaryContainer dictionary) {
+		ensureDictionaryList();
+		this.getDictionaryContainerList().add(dictionary);
 	}
 
 	private void ignore() {
@@ -476,8 +488,19 @@ public class Template implements MarkupApplier {
 		return theElement.getAttributeValue(CONVENTION);
 	}
 
-//	public static void addTemplateRef(Element element, String value) {
-//		element.addAttribute(new Attribute(Template.TEMPLATE_REF, CMLConstants.CMLX_NS, value));
-//	}
-	
+
+	private void ensureDictionaryList() {
+		if (this.getDictionaryContainerList() == null) {
+			this.setDictionaryList(new ArrayList<DictionaryContainer>());
+		}
+	}
+
+	public void setDictionaryList(List<DictionaryContainer> dictionaryList) {
+		this.dictionaryList = dictionaryList;
+	}
+
+	public List<DictionaryContainer> getDictionaryContainerList() {
+		return dictionaryList;
+	}
+
 }
