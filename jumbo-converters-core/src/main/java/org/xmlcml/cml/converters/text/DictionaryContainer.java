@@ -1,15 +1,20 @@
 package org.xmlcml.cml.converters.text;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
 import nu.xom.Element;
+import nu.xom.ParsingException;
+import nu.xom.ValidityException;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
+import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLElements;
+import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.element.CMLEntry;
@@ -29,6 +34,7 @@ public class DictionaryContainer {
 
 	public DictionaryContainer(Element refElement) {
 		this.refElement = refElement;
+		CMLUtil.debug(this.refElement, "DICTIONARY");
 		processChildElementsAndAttributes();
 	}
 
@@ -42,24 +48,12 @@ public class DictionaryContainer {
 		this.href = refElement.getAttributeValue(HREF);
 		if (this.cmlDictionary == null && href != null) {
 			try {
-				InputStream is = null;
-				try {
-					is = new URL(href).openStream();
-				} catch (Exception e) {
-					// not a URL
-				}
+				InputStream is = tryAsURL();
 				if (is == null) {
 					is = Util.getResourceUsingContextClassLoader(href, this.getClass());
 				}
 				if (is != null) {
-					Element element = new CMLBuilder().build(is).getRootElement();
-					if (element != null && element instanceof CMLCml) {
-						Element child = element.getChildElements().get(0);
-						if (child == null || !(child instanceof CMLDictionary)) {
-							throw new RuntimeException("Not a well-formed dictionary: "+uri+" or "+href);
-						}
-						cmlDictionary = (CMLDictionary) child;
-					}
+					createDictionary(is);
 				}
 			} catch (Exception e) {
 				throw new RuntimeException("cannot create dictionary", e);
@@ -70,15 +64,40 @@ public class DictionaryContainer {
 			checkDuplicates();
 		}
 	}
+
+	private void createDictionary(InputStream is) throws ParsingException,
+			ValidityException, IOException {
+		Element element = new CMLBuilder().build(is).getRootElement();
+		((CMLElement)element).debug("XXXXXXXX");
+		if (element != null && element instanceof CMLCml) {
+			Element child = element.getChildElements().get(0);
+			if (child == null || !(child instanceof CMLDictionary)) {
+				throw new RuntimeException("Not a well-formed dictionary: "+uri+" or "+href);
+			}
+			cmlDictionary = (CMLDictionary) child;
+		}
+	}
+
+	private InputStream tryAsURL() {
+		InputStream is = null;
+		try {
+			is = new URL(href).openStream();
+		} catch (Exception e) {
+			// not a URL
+			LOG.warn("Cannot open as URL: "+href);
+		}
+		return is;
+	}
 	
 	private void checkDuplicates() {
 		CMLElements<CMLEntry> entryElements = cmlDictionary.getEntryElements();
 		Set<String> idSet = new HashSet<String>();
-		System.out.println(">>>>>Dictionary: "+cmlDictionary.getNamespace());
+//		System.out.println(">>>>>Dictionary: "+cmlDictionary.getNamespace());
 		for (CMLEntry entry : entryElements) {
 			String id = entry.getId();
 			if (idSet.contains(id)) {
 				System.out.println("    Duplicate id in dictionary: "+id); 
+				throw new RuntimeException("    Duplicate id in dictionary: "+id); 
 			}
 			idSet.add(id);
 		}

@@ -34,10 +34,10 @@ or...
       <templateList>
         <template id="vector2" newline="$" pattern="\s*Vector\s+.*$\s*MO Center.*" endPattern="\s*Bfn.*">
           <record id="vectorprops">\s*Vector\s+{I,cc:serial}\s*Occ=\s*{E,n:occ}\s*E=\s*{E,n:eee}\s*</record>
-          <record id="mocenter">\s*MO Center\=\s*{E,n:x}\,\s*{E,n:y}\,\s*{E,n:z}\,\s*r\^2=\s*{E,n:rsup2}\s*</record>
+          <record id="mocenter">\s*MO Center\=\s*{E,x:x}\,\s*{E,x:y}\,\s*{E,x:z}\,\s*r\^2=\s*{E,n:rsup2}\s*</record>
         </template>
         <template id="vector1" pattern="\s*Vector.*Symmetry.*" endPattern=".*">
-          <record>\s*Vector\s+{I,cc:serial}\s*Occ=\s*{E,n:occ}\s*E=\s*{E,n:eee}\s*Symmetry=\s*{A,cc:irrep}\s*</record>
+          <record id="eee">\s*Vector\s+{I,cc:serial}\s*Occ=\s*{E,n:occ}\s*E=\s*{E,n:eee}\s*Symmetry=\s*{A,cc:irrep}\s*</record>
         </template>
       </templateList>
       <!--  this may be a bug - should be able to eat records here -->
@@ -48,10 +48,10 @@ or...
       </templateList>
       <templateList>
         <template id="twocol" repeat="*" pattern="\s*\d+.*\s{10}\d+.*" endPattern=".*">
-          <record repeat="*">\s*{I,n:bfn}\s*{F,n:coeff}\s*{I,n:atom1}\s*{A,n:atom2}\s*{A,n:orb}\s*{I,n:bfn}\s*{F,n:coeff}\s*{I,n:atom1}\s*{A,n:atom2}\s*{A,n:orb}\s*</record>
+          <record repeat="*" id="bfn1">\s*{I,n:bfn}\s*{F,n:coeff}\s*{I,n:atom1}\s*{A,n:atom2}\s*{A,n:orb}\s*{I,n:bfn}\s*{F,n:coeff}\s*{I,n:atom1}\s*{A,n:atom2}\s*{A,n:orb}\s*</record>
         </template>
         <template id="onecol" pattern=".*" endPattern=".*">
-          <record>\s*{I,n:bfn}\s*{F,n:coeff}\s*{I,n:atom1}\s*{A,n:atom2}\s*{A,n:orb}\s*</record>
+          <record id="bfn0">\s*{I,n:bfn}\s*{F,n:coeff}\s*{I,n:atom1}\s*{A,n:atom2}\s*{A,n:orb}\s*</record>
         </template>
       </templateList>
     </template>

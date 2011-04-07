@@ -10,6 +10,7 @@ import nu.xom.Element;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
+import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.Outputter;
 import org.xmlcml.cml.converters.Outputter.OutputLevel;
 import org.xmlcml.cml.converters.text.LineContainer;
@@ -287,6 +288,11 @@ public abstract class LineReader extends Element implements MarkupApplier {
 		this.id = lineReaderElement.getAttributeValue(ID);
 		if (id != null) {
 			this.addAttribute(new Attribute(ID, id));
+		} else {
+			if (content.contains(CMLConstants.S_COLON)) {
+				CMLUtil.debug(lineReaderElement, "LINEREADER"); 
+				throw new RuntimeException("Missing id");
+			}
 		}
 		LOG.trace("ID: "+id);
 	}

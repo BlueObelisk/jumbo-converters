@@ -7,11 +7,15 @@
 
   </comment>
   <record repeat="2" id="junk">{X}</record>
-  <record id="centermass">\s*x =\s*{F,n:x}\s*y =\s*{F,n:y}\s*z =\s*{F,n:z}\s*</record>
+  <record id="centermassx">\s*x =\s*{F,x:x}\s*y =\s*{F,x:y}\s*z =\s*{F,x:z}\s*</record>
   <transform process="pullupSingleton" xpath="./cml:list[@cmlx:templateRef='centermass']"/> 
+  <!-- 
   <transform process="debug" xpath="." />
+  -->
   <transform process="vector3" xpath="./cml:list[@cmlx:templateRef='centermass']" 
-      from="*[@dictRef='n:x' or @dictRef='n:y' or @dictRef='n:z']"
+      from="*[@dictRef='x:x' or @dictRef='x:y' or @dictRef='x:z']"
        dictRef="compchem:centerofmass"/>
+<!-- 
   <transform process="debug" xpath="." />
+ -->
 </template>
