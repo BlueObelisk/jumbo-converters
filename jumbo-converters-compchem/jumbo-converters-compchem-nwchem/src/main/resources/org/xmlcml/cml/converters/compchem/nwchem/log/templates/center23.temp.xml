@@ -30,11 +30,9 @@
   <record repeat="*">{X}</record>
   <templateList>
     <template id="conv" pattern="\s*convergence.*" endPattern="\sTotal iterative.*">
-      <record repeat="2">{X,n:XXXXXXXXXXX}</record>
-      <!-- 
-      <record repeat="*">\s*d\=\s*{I,n:d}\,ls={F,n:ls}\,diis\s*{I,n:iter}\s*{F,n:ener}\s*{E,n:deltae}\s*{E,n:rms}\s*{E,n:diserr}\s*{F,n:time}</record>
- -->
+      <record repeat="2">{X}</record>
+      <record repeat="*" id="conv">\s*d\=\s*{I,n:d}\,ls={F,n:ls}\,diis\s*{I,n:iter}\s*{F,n:ener}\s*{E,n:deltae}\s*{E,n:rms}\s*{E,n:diserr}\s*{F,n:time}</record>
      </template>
   </templateList>
-  <record repeat="*">\s*{X,n:name}\s*\:\s*{X,n:value}\.?\s*</record>
+  <record repeat="*" id="namevalue">\s*{X,n:name}\s*\:\s*{X,n:value}\.?\s*</record>
 </template>

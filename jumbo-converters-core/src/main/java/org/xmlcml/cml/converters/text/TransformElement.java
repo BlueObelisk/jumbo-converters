@@ -240,11 +240,8 @@ public class TransformElement implements MarkupApplier {
 	}
 	
 	private /*List<Element>*/ void checkDictionary() {
-//		assertRequired(XPATH, xpath);
 		xpath = "//*[@dictRef]";
 		Nodes nodes = getXpathQueryResults();
-//		Multimap<String, String> map = new Multimap<String, String>();
-//		Set<String> set = new HashSet<String>();
 		Map<String, List<Element>> dictRefNodes = new HashMap<String, List<Element>>();
 		for (int i = 0; i < nodes.size(); i++) {
 			Node node = nodes.get(i);
@@ -257,11 +254,11 @@ public class TransformElement implements MarkupApplier {
 			}
 			String templateRef = element.getAttributeValue(Template.TEMPLATE_REF, CMLConstants.CMLX_NS);
 			String id = element.getAttributeValue(ID);
-			if ((templateRef == null || templateRef.equals("nullId")) && id == null) {
+//			if ((templateRef == null || templateRef.equals("nullId")) && id == null) {
 //				CMLUtil.debug(element, "EEEEE"+prefix);
 //				throw new RuntimeException("Null templateRef and id");
-				continue;
-			}
+////				continue;
+//			}
 	    	try {
 	    		checkAttval(att);
 			} catch (Exception e) {
@@ -292,7 +289,8 @@ public class TransformElement implements MarkupApplier {
 		boolean found = false;
 		for (DictionaryContainer dictionaryContainer : template.getDictionaryContainerList()) {
 			CMLDictionary dictionary = dictionaryContainer.getDictionary();
-			if (namespace.equals(dictionary.getNamespace())) {
+			String dictionaryNamespace = dictionary.getNamespace();
+			if (namespace.equals(dictionaryNamespace)) {
 				found = true;
 				CMLEntry entry = dictionary.getCMLEntry(value);
 				if (entry == null) {
