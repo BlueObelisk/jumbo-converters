@@ -54,33 +54,19 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
      * @param rawCml
      */
     private Element processCif(Element rawCml) {
-        ByteArrayOutputStream os = null;
-        ByteArrayInputStream is = null;
-        CMLCml cml = null;
+        CMLCml cml = readRawCml(rawCml);
 
-        try {
-            os = new ByteArrayOutputStream();
-            CMLUtil.debug(rawCml, os, 0);
-            is = new ByteArrayInputStream(os.toByteArray());
-            cml = (CMLCml) new CMLBuilder().build(is).getRootElement();
-        } catch (Exception e1) {
-            runtimeException("bad CML element: " + e1.getMessage(), e1);
-        } finally {
-            IOUtils.closeQuietly(os);
-            IOUtils.closeQuietly(is);
-        }
-
-        boolean IS_MULTI_FILE;
-        Nodes nodes = rawCml.query(CMLCml.NS, CMLConstants.CML_XPATH);
+        boolean multiFile;
+        Nodes nodes = rawCml.query("cml:cml", CMLConstants.CML_XPATH);
         List<CMLCml> cmls = new ArrayList<CMLCml>(nodes.size());
         if (nodes.size() > 0) {
-            IS_MULTI_FILE = true;
+            multiFile = true;
             for (int x = 0; x < nodes.size(); x++) {
                 CMLCml subCml = (CMLCml) nodes.get(x);
                 cmls.add(subCml);
             }
         } else if (nodes.size() == 0) {
-            IS_MULTI_FILE = false;
+            multiFile = false;
         } else {
             System.err.println(rawCml.toXML());
             throw new RuntimeException("No CMLcml in file");
@@ -89,7 +75,7 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
         CMLMolecule molecule = null;
         List<CMLMolecule> mols = new ArrayList<CMLMolecule>(cmls.size());
 
-        if (IS_MULTI_FILE) {
+        if (multiFile) {
             for (CMLCml c : cmls) {
                 try {
                     molecule = getMolecule(c);
@@ -135,6 +121,25 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
             root.appendChild(crystal);
         }
         return root;
+    }
+
+    private CMLCml readRawCml(Element rawCml) {
+        ByteArrayOutputStream os = null;
+        ByteArrayInputStream is = null;
+        CMLCml cml = null;
+
+        try {
+            os = new ByteArrayOutputStream();
+            CMLUtil.debug(rawCml, os, 0);
+            is = new ByteArrayInputStream(os.toByteArray());
+            cml = (CMLCml) new CMLBuilder().build(is).getRootElement();
+        } catch (Exception e1) {
+            runtimeException("bad CML element: " + e1.getMessage(), e1);
+        } finally {
+            IOUtils.closeQuietly(os);
+            IOUtils.closeQuietly(is);
+        }
+        return cml;
     }
 
     private CMLCml createModules(CMLCml cml, CMLMolecule molecule) {
