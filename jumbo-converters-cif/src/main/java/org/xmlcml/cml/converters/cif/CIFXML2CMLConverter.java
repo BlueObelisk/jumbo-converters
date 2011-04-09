@@ -157,25 +157,15 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 	}
 
 	private CMLElement processGlobalBlocks(List<CIFDataBlock> globalBlocks) {
-		CIFDataBlock block = null;
-		if (globalBlocks.size() > 1) {
-			block = globalBlocks.get(0);
-			for (int i = 1; i < globalBlocks.size(); i++) {
-				CIFDataBlock b = globalBlocks.get(i);
-				copyElementChildren(b, block);
-			}
-		} else if (globalBlocks.size() == 1) {
-			block = globalBlocks.get(0);
-		} else {
-			return null;
-		}
-		CMLCml cml = new CMLCml();
-		processNonCMLItems(block, cml);
-		processNonCMLLoops(block, cml);
+        CMLCml cml = new CMLCml();
+        for (CIFDataBlock block : globalBlocks) {
+            processNonCMLItems(block, cml);
+            processNonCMLLoops(block, cml);
+        }
 		return cml;
 	}
 
-	private void copyElementChildren(Element from, Element to) {
+    private void copyElementChildren(Element from, Element to) {
 		Elements els = from.getChildElements();
 		for (int i = 0; i < els.size(); i++) {
 			Element el = els.get(i);
@@ -274,7 +264,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 			if (entry == null) {
 				warn("Cannot find dictionary item: "+name);
 			}
-			if (entry != null && XSD_DOUBLE.equals(entry.getDataType())) {
+            else if (XSD_DOUBLE.equals(entry.getDataType())) {
 				isNumeric = NUMERIC;
 			}
 		}
@@ -438,7 +428,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 			if (category != null) {
 				continue;
 			}
-			addItem((CMLElement)cml, item);
+			addItem(cml, item);
 		}
 	}
 
@@ -638,7 +628,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 	}
 
 	private CMLProperty makeScalarProperty(CIFItem item, boolean numeric) {
-		CMLProperty property = null;
+		CMLProperty property;
 		String value = item.getValue();
 		if (CIFUtil.isIndeterminateValue(value)) {
 			// omit "?"
