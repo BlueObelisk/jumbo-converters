@@ -48,6 +48,9 @@ public class CIFConverterTest {
         CMLElement raw = (CMLElement)cifxml2cml.convertToXML(cif);
         Nodes nodes=raw.query("//cml:array[@dataType=\"xsd:double\"]", CMLConstants.CML_XPATH);
         Assert.assertEquals(14, nodes.size());
+        Serializer ser = new Serializer(System.out);
+        ser.setIndent(2);
+        ser.write(new Document(raw));
     }
     
     @Test

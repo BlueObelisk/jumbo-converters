@@ -36,19 +36,7 @@ import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.Type;
-import org.xmlcml.cml.element.CMLArray;
-import org.xmlcml.cml.element.CMLAtom;
-import org.xmlcml.cml.element.CMLAtomArray;
-import org.xmlcml.cml.element.CMLCml;
-import org.xmlcml.cml.element.CMLCrystal;
-import org.xmlcml.cml.element.CMLEntry;
-import org.xmlcml.cml.element.CMLFormula;
-import org.xmlcml.cml.element.CMLLabel;
-import org.xmlcml.cml.element.CMLMolecule;
-import org.xmlcml.cml.element.CMLProperty;
-import org.xmlcml.cml.element.CMLScalar;
-import org.xmlcml.cml.element.CMLSymmetry;
-import org.xmlcml.cml.element.CMLTable;
+import org.xmlcml.cml.element.*;
 import org.xmlcml.cml.element.CMLTable.TableType;
 import org.xmlcml.molutil.ChemicalElement;
 
@@ -117,46 +105,34 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 	 * data and adds it to the CML.
 	 * Selects blocks in sequence.
 	 */
-	private CMLElement processCIF(CIF cif) {
-		List<CIFDataBlock> blocks = cif.getDataBlockList();
-		List<CIFDataBlock> globalBlocks = new ArrayList<CIFDataBlock>(1);
-		List<CIFDataBlock> structureBlocks = new ArrayList<CIFDataBlock>(1);
-		for (CIFDataBlock block : blocks) {
-			if (CIF2CMLUtils.isGlobalBlock(block)) {
-				globalBlocks.add(block);
+	private CMLCml processCIF(CIF cif) {
+        CMLCml cml = new CMLCml();
+        cml.addNamespaceDeclaration("iucr", "http://www.iucr.org/dictionary/cif");
+
+		for (CIFDataBlock block : cif.getDataBlockList()) {
+            CMLModule module;
+            if (CIF2CMLUtils.isGlobalBlock(block)) {
+				module = processGlobalBlock(block);
 			} else {
-				structureBlocks.add(block);
+				module = processStructureDataBlock(block);
 			}
-		}
+            cml.appendChild(module);
+        }
 
-		List<CMLElement> outputCmls = new ArrayList<CMLElement>(structureBlocks.size());
-		for (CIFDataBlock block : structureBlocks) {
-			outputCmls.add(processStructureDataBlock(block));
-		}
-		CMLElement globalCml = processGlobalBlocks(globalBlocks);
-		for (CMLElement cml : outputCmls) {
-			if (globalCml != null) {
-				copyElementChildren(globalCml, cml);
-			}
-		}
-
-		return createFinalCml(outputCmls);
+        return cml;
 	}
 
-	private CMLElement createFinalCml(List<CMLElement> cmls) {
-		CMLElement cmlRoot = new CMLCml();
-		if (cmls.size() == 1) {
-			cmlRoot = cmls.get(0);
-		} else if (cmls.size() > 1) {
-			for (CMLElement cml : cmls) {
-				cmlRoot.appendChild(cml);
-			}
-		}
-		cmlRoot.addNamespaceDeclaration("iucr", "http://www.iucr.org/dictionary/cif");
-		return cmlRoot;
-	}
+    private CMLModule processGlobalBlock(CIFDataBlock block) {
+        CMLModule module = new CMLModule();
+        module.setRole("global");
+        String id = makeAcceptableId(block.getId());
+        module.setId(id);
+        processNonCMLItems(block, module);
+        processNonCMLLoops(block, module);
+        return module;
+    }
 
-	private CMLElement processGlobalBlocks(List<CIFDataBlock> globalBlocks) {
+    private CMLElement processGlobalBlocks(List<CIFDataBlock> globalBlocks) {
         CMLCml cml = new CMLCml();
         for (CIFDataBlock block : globalBlocks) {
             processNonCMLItems(block, cml);
@@ -182,11 +158,12 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 	 * 
 	 * @return CML or null
 	 */
-	private CMLCml processStructureDataBlock(CIFDataBlock block) {
-		CMLCml cml = new CMLCml();
+	private CMLModule processStructureDataBlock(CIFDataBlock block) {
+		CMLModule cml = new CMLModule();
 		String blockId = block.getId();
 		String acceptableId = makeAcceptableId(blockId);
 		cml.setId(acceptableId);
+        cml.setRole("structure");
 		cml.setTitle(acceptableId);
 
 		processNonCMLItems(block, cml);
@@ -421,18 +398,18 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		return sb.toString();
 	}
 
-	private void processNonCMLItems(CIFDataBlock block, CMLCml cml) {
+	private void processNonCMLItems(CIFDataBlock block, CMLElement target) {
 		for (CIFItem item : block.getItemList()) {
 			// omit CML
 			CIFCategory category = getCMLCategory(item.getName());
 			if (category != null) {
 				continue;
 			}
-			addItem(cml, item);
+			addItem(target, item);
 		}
 	}
 
-	private void processNonCMLLoops(CIFDataBlock block, CMLCml cml) {
+	private void processNonCMLLoops(CIFDataBlock block, CMLElement target) {
 		for (CIFLoop loop : block.getLoopList()) {
 			// omit CML
 			CIFCategory cmlCategory = getCMLCategory(loop.getNameList());
@@ -441,7 +418,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 			}
 			String name = loop.getNameList().get(0);
 			String categoryName = getCategoryFromDictionary(name);
-			addLoop(cml, loop, categoryName);
+			addLoop(target, loop, categoryName);
 		}
 	}
 
@@ -463,7 +440,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		return categoryName;
 	}
 
-	private void processCMLItems(CIFDataBlock block, CMLCml cml, CMLMolecule molecule, CMLCrystal crystal, CMLSymmetry symmetry) {
+	private void processCMLItems(CIFDataBlock block, CMLElement target, CMLMolecule molecule, CMLCrystal crystal, CMLSymmetry symmetry) {
 		for (CIFItem item : block.getItemList()) {
 			String name = item.getName();
 			CIFCategory category = getCMLCategory(name);
@@ -472,15 +449,15 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 				if (categoryName.equals("cell")) {
 					addCell(item, crystal, symmetry);
 				} else if (categoryName.equals("chemical_name")) {
-					addChemicalName(item, cml);
+					addChemicalName(item, target);
 				} else if (categoryName.equals("chemical_formula")) {
 					try {
-						addChemicalFormula(item, cml);
+						addChemicalFormula(item, target);
 					} catch (RuntimeException e) {
 						runtimeException("JUMBO cannot parse formula: ", e);
 					}
 				} else if (categoryName.equals("atom_sites_solution")) {
-					addAtomSitesSolution(item, cml);
+					addAtomSitesSolution(item, target);
 				} else {
 					warn("Unprocessed CML item: "+name);
 				}
@@ -488,7 +465,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		}
 	}
 
-	private void processCMLLoops(CIFDataBlock block, CMLCml cml, CMLMolecule molecule, CMLCrystal crystal, CMLSymmetry symmetry) {
+	private void processCMLLoops(CIFDataBlock block, CMLElement target, CMLMolecule molecule, CMLCrystal crystal, CMLSymmetry symmetry) {
 		for (CIFLoop loop : block.getLoopList()) {
 			int deletedColumns = deleteDefaultAndIndeterminates(loop);
 			List<String> nameList = loop.getNameList();
@@ -497,17 +474,17 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 				if (category.equals(CIFCategory.SYMMETRY_EQUIV)) {
 					addSymmetry(loop, symmetry);
 				} else if (category.equals(CIFCategory.ATOM_SITE_ANISO)) {
-					addAtomSiteAniso(loop, cml);
+					addAtomSiteAniso(loop, target);
 				} else if (category.equals(CIFCategory.ATOM_SITE)) {
 					addAtomSite(loop, molecule);
 				} else if (category.equals(CIFCategory.ATOM_TYPE)) {
-					addAtomType(loop, cml);
+					addAtomType(loop, target);
 				} else if (category.equals(CIFCategory.GEOM_BOND)) {
-					addGeomBond(loop, cml);
+					addGeomBond(loop, target);
 				} else if (category.equals(CIFCategory.GEOM_ANGLE)) {
-					addGeomAngle(loop, cml);
+					addGeomAngle(loop, target);
 				} else if (category.equals(CIFCategory.GEOM_TORSION)) {
-					addGeomTorsion(loop, cml);
+					addGeomTorsion(loop, target);
 				} else {
 					String message = "Unknown loopable category: "+category.getName();
 					runtimeException(message);
@@ -658,7 +635,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		return makeScalarProperty(dictRef, ""+value);
 	}
 
-	private void addChemicalName(CIFItem item, CMLCml cml0) {
+	private void addChemicalName(CIFItem item, CMLElement target) {
 		String[] names = {
 				"_chemical_name_common",
 				"_chemical_name_systematic",
@@ -671,11 +648,11 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		}
 		CMLProperty property = makeScalarProperty(item, NON_NUMERIC);
 		if (property != null) {
-			cml0.appendChild(property);
+			target.appendChild(property);
 		}
 	}
 
-	private void addChemicalFormula(CIFItem item, CMLCml cml) {
+	private void addChemicalFormula(CIFItem item, CMLElement target) {
 		String[] names = {
 				"_chemical_formula_moiety",
 				"_chemical_formula_sum",
@@ -738,7 +715,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 			} else if (idx == 4) {
 				CMLProperty property = makeScalarProperty(item, NUMERIC);
 				if (property != null) {
-					cml.appendChild(property);
+					target.appendChild(property);
 				}
 			}
 		}
@@ -749,11 +726,11 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 			if (atomArray != null) {
 				formula.removeChild(atomArray);
 			}
-			cml.appendChild(formula);
+			target.appendChild(formula);
 		}
 	}
 
-	private void addAtomSitesSolution(CIFItem item, CMLCml cml0) {
+	private void addAtomSitesSolution(CIFItem item, CMLElement target) {
 		String[] names = {
 				"_atom_sites_solution_hydrogens",
 		};
@@ -765,7 +742,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		}
 		CMLProperty property = makeScalarProperty(item, NON_NUMERIC);
 		if (property != null) {
-			cml0.appendChild(property);
+			target.appendChild(property);
 		}
 	}
 
@@ -785,7 +762,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		return symmetry;
 	}
 
-	private void addAtomSiteAniso(CIFLoop loop, CMLCml cml) {
+	private void addAtomSiteAniso(CIFLoop loop, CMLElement target) {
 		String[] names = {
 				"_atom_site_aniso_label",
 				"_atom_site_aniso_u_11",
@@ -800,7 +777,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		checkLoop(loop, names, 0, category);
 		//		CMLTable table = createTable(loop, category);
 		CMLTable table = makeTable(loop, category);
-		cml.appendChild(table);
+		target.appendChild(table);
 	}
 
 	private void addAtomSite(CIFLoop loop, CMLMolecule molecule) {
@@ -984,7 +961,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		return s;
 	}
 
-	private void addAtomType(CIFLoop loop, CMLCml cml) {
+	private void addAtomType(CIFLoop loop, CMLElement target) {
 		String[] names = {
 				"_atom_type_symbol",
 				"_atom_type_description",
@@ -1008,7 +985,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		String category = "atom_type";
 		checkLoop(loop, names, 0, category);
 		CMLTable table = makeTable(loop, category);
-		cml.appendChild(table);
+		target.appendChild(table);
 	}
 
 	private void checkLoop(CIFLoop loop, String[] names, int keyPos, String categoryName) {
@@ -1026,7 +1003,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		}
 	}
 
-	private void addGeomBond(CIFLoop loop, CMLCml cml) {
+	private void addGeomBond(CIFLoop loop, CMLElement target) {
 		String[] names = {
 				"_geom_bond_atom_site_label_1",
 				"_geom_bond_atom_site_label_2",
@@ -1038,10 +1015,10 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		String category = "geom_bond";
 		checkLoop(loop, names, 0, category);
 		CMLTable table = makeTable(loop, category);
-		cml.appendChild(table);
+		target.appendChild(table);
 	}
 
-	private void addGeomAngle(CIFLoop loop, CMLCml cml) {
+	private void addGeomAngle(CIFLoop loop, CMLElement target) {
 		String[] names = {
 				"_geom_angle_atom_site_label_1",
 				"_geom_angle_atom_site_label_2",
@@ -1055,10 +1032,10 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		String category = "geom_angle";
 		checkLoop(loop, names, 0, category);
 		CMLTable table = makeTable(loop, category);
-		cml.appendChild(table);
+		target.appendChild(table);
 	}
 
-	private void addGeomTorsion(CIFLoop loop, CMLCml cml) {
+	private void addGeomTorsion(CIFLoop loop, CMLElement target) {
 		String[] names = {
 				"_geom_torsion_atom_site_label_1",
 				"_geom_torsion_atom_site_label_2",
@@ -1073,7 +1050,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		String category = "geom_torsion";
 		checkLoop(loop, names, 0, category);
 		CMLTable table = makeTable(loop, category);
-		cml.appendChild(table);
+		target.appendChild(table);
 	}
 	
 }
