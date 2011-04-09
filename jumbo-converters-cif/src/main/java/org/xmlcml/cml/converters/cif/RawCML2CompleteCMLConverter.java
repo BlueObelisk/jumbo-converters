@@ -1,23 +1,6 @@
 package org.xmlcml.cml.converters.cif;
 
-import static org.xmlcml.cml.base.CMLConstants.CML_XPATH;
-import static org.xmlcml.euclid.EuclidConstants.S_UNDER;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import nu.xom.Attribute;
-import nu.xom.Element;
-import nu.xom.Node;
-import nu.xom.Nodes;
-import nu.xom.Text;
-
+import nu.xom.*;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -29,37 +12,24 @@ import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.cif.CIF2CMLUtils.CompoundClass;
 import org.xmlcml.cml.converters.exception.ConverterException;
-import org.xmlcml.cml.element.CMLAtom;
-import org.xmlcml.cml.element.CMLAtomArray;
-import org.xmlcml.cml.element.CMLBond;
-import org.xmlcml.cml.element.CMLBondStereo;
-import org.xmlcml.cml.element.CMLCml;
-import org.xmlcml.cml.element.CMLCrystal;
-import org.xmlcml.cml.element.CMLFormula;
-import org.xmlcml.cml.element.CMLMetadata;
-import org.xmlcml.cml.element.CMLMetadataList;
-import org.xmlcml.cml.element.CMLMolecule;
-import org.xmlcml.cml.element.CMLProperty;
-import org.xmlcml.cml.element.CMLScalar;
+import org.xmlcml.cml.element.*;
 import org.xmlcml.cml.element.CMLMolecule.HydrogenControl;
-import org.xmlcml.cml.tools.ConnectionTableTool;
-import org.xmlcml.cml.tools.CrystalTool;
-import org.xmlcml.cml.tools.DisorderTool;
-import org.xmlcml.cml.tools.DisorderToolControls;
-import org.xmlcml.cml.tools.MoleculeTool;
-import org.xmlcml.cml.tools.StereochemistryTool;
-import org.xmlcml.cml.tools.ValencyTool;
+import org.xmlcml.cml.tools.*;
 import org.xmlcml.cml.tools.DisorderToolControls.ProcessControl;
 import org.xmlcml.euclid.RealRange;
 import org.xmlcml.molutil.ChemicalElement;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.util.*;
+
+import static org.xmlcml.cml.base.CMLConstants.CML_XPATH;
+import static org.xmlcml.euclid.EuclidConstants.S_UNDER;
 
 public class RawCML2CompleteCMLConverter extends AbstractConverter {
 
     public static final String POLYMERIC_FLAG_DICTREF = "ned24:isPolymeric";
     public static final String NO_BONDS_OR_CHARGES_FLAG_DICTREF = "ned24:noBondsOrChargesSet";
-
-    List<OutPutModuleBuilder> outMols = new ArrayList<OutPutModuleBuilder>();
-    CMLCml cml;
 
     public Type getInputType() {
         return Type.CML;
@@ -72,7 +42,7 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
     /**
      * converts a CIF object to CML. returns cml:cml/cml:molecule
      * 
-     * @param lines
+     * @param rawCml
      */
     public Element convertToXML(Element rawCml) {
         return processCif(rawCml);
@@ -81,15 +51,12 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
     /**
      * Process a single non-splitable cif.
      * 
-     * @param id
-     *            molecule id string
-     * @param pathMinusMime
-     *            path to root for this cif file
+     * @param rawCml
      */
     private Element processCif(Element rawCml) {
         ByteArrayOutputStream os = null;
         ByteArrayInputStream is = null;
-        cml = null;
+        CMLCml cml = null;
 
         try {
             os = new ByteArrayOutputStream();
@@ -109,8 +76,8 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
         if (nodes.size() > 0) {
             IS_MULTI_FILE = true;
             for (int x = 0; x < nodes.size(); x++) {
-                CMLCml cml = (CMLCml) nodes.get(x);
-                cmls.add(cml);
+                CMLCml subCml = (CMLCml) nodes.get(x);
+                cmls.add(subCml);
             }
         } else if (nodes.size() == 0) {
             IS_MULTI_FILE = false;
@@ -123,9 +90,9 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
         List<CMLMolecule> mols = new ArrayList<CMLMolecule>(cmls.size());
 
         if (IS_MULTI_FILE) {
-            for (CMLCml cml : cmls) {
+            for (CMLCml c : cmls) {
                 try {
-                    molecule = getMolecule(cml);
+                    molecule = getMolecule(c);
                 } catch (ConverterException e) {
                     runtimeException(e.getMessage());
                     continue;
@@ -150,8 +117,12 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
             }
         }
 
+        List<OutPutModuleBuilder> outMols = new ArrayList<OutPutModuleBuilder>();
         for (CMLMolecule mol : mols) {
-            createModules(mol);
+            OutPutModuleBuilder out = createModules(cml, mol);
+            if (out != null) {
+                outMols.add(out);
+            }
         }
         if(outMols.size()==1){
             return outMols.get(0).getCml();
@@ -169,10 +140,10 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
         }
     }
 
-    private void createModules(CMLMolecule molecule) {
+    private OutPutModuleBuilder createModules(CMLCml cml, CMLMolecule molecule) {
         OutPutModuleBuilder outMol = new OutPutModuleBuilder();
         CompoundClass compoundClass = CIF2CMLUtils.getCompoundClass(molecule);
-        addCompoundClass((CMLCml) cml, compoundClass);
+        addCompoundClass(cml, compoundClass);
         addSpaceGroupMultiplicities(molecule);
         try {
             processDisorder(molecule, compoundClass);
@@ -181,7 +152,7 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
                 mergedMolecule = createFinalStructure(molecule, compoundClass);
             } catch (Exception e) {
                 warn("Could not calculate final structure.");
-                return;
+                return null;
             }
             boolean isPolymeric = false;
             if (!compoundClass.equals(CompoundClass.INORGANIC)) {
@@ -217,7 +188,7 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
         outMol.cloneIdsFromElement(cml);
         outMol.finalise();
         makeCMLLiteCompatible(outMol.cml);
-        outMols.add(outMol);
+        return outMol;
     }
 
     private void makeCMLLiteCompatible(CMLCml cml) {
