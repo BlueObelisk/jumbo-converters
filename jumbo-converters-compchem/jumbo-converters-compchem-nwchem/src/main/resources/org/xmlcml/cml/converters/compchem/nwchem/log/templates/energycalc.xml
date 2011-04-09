@@ -1,0 +1,45 @@
+<template repeat="*"  id="energycalc" name="energycalc" 
+  pattern="\s*== Energy Calculation ==\s*" 
+  newline="$" endPattern="\s*>>>\s*ITERATION ENDED.*" endOffset="1">
+  <comment>
+== Energy Calculation ==
+
+
+          ============ Grassmann lmbfgs iteration ============
+     >>>  ITERATION STARTED AT Fri Aug  6 14:00:18 2010  &lt;&lt;&lt;
+    iter.           Energy         DeltaE       DeltaRho 
+    ------------------------------------------------------
+     -  15 steepest descent iterations performed
+      10   -0.4511269825E+02   -0.30112E+00    0.22417E+01
+     -  10 steepest descent iterations performed
+      20   -0.4648853474E+02   -0.66635E-01    0.83498E-01
+     -  10 steepest descent iterations performed
+      30   -0.4668325778E+02   -0.65612E-02    0.13946E-01
+      ...
+      80   -0.4670736121E+02   -0.92963E-07    0.23769E-08
+  *** tolerance ok. iteration terminated
+     >>>  ITERATION ENDED   AT Fri Aug  6 14:00:19 2010  &lt;&lt;&lt;
+
+</comment>
+  <record repeat="3">{X,x:x}</record>
+  <record id="type">\s*\=+\s*{X,n:type}\s*\=+\s*</record>
+  <record id="time">\s*>>>\s+ITERATION STARTED AT\s*{X,cc:date}\s*&lt;&lt;&lt;</record>
+  <record id="iter">\s*iter\.\s+Energy\s+DeltaE\s+DeltaRho</record> 
+  <record id="x">{X,x:x}</record>
+  <templateList>
+    <template id="t1" repeat="*" pattern=".*steepest descent iterations performed.*"
+      endPattern=".*">
+      <record id="r1">\s+\-{I,n:niter}steepest descent iterations performed</record>
+    </template>
+    <template id="t2" repeat="*" pattern=".*\d+.*"
+      endPattern=".*">
+      <record id="r1">{I,n:niterx}{E,n:ener}{E,n:deltae}{E,n:deltarho}</record>
+    </template>
+    <template id="t2" repeat="*" pattern=".*terminated.*"
+      endPattern=".*">
+      <record id="r1"> \s*\*\*\* tolerance ok\. iteration terminated</record>
+    </template>
+  </templateList>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

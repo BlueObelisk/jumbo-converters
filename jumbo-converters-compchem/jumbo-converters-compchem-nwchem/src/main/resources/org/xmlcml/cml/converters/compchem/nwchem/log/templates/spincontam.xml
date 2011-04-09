@@ -1,0 +1,17 @@
+<template repeat="*"  id="spincontam" name="Summary of Results" 
+  pattern="\s*=== Spin Contamination ===\s*$\s*" 
+  newline="$" endPattern="\s*$\s*" endOffset="1">
+  <comment>
+=== Spin Contamination ===
+
+ &lt;Sexact^2> =    0.00000000000000     
+ &lt;S^2>      =    0.00000000000000     
+
+</comment>
+  <record repeat="2" id="x">{X}</record>
+  <record id="sexact">\s*&lt;Sexact^2&gt; ={F,n:sexact}</record>
+  <record id="s2">\s*&lt;S^2&gt; ={F,n:s2}</record>
+  <record id="x">{X}</record>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>
