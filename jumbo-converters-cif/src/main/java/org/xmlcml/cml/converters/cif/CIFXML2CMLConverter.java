@@ -60,15 +60,6 @@ import org.xmlcml.molutil.ChemicalElement;
  */
 public class CIFXML2CMLConverter extends AbstractConverter {
 	
-	public static void main(String[] args) {
-		//TODO FIX!
-		String inpath = "c:/workspace/lensfield-cif-example/data/wj9904/wj9904-cif.xml";
-		String outpath = "c:/workspace/lensfield-cif-example/data/wj9904/test.cml";
-		
-		CIFXML2CMLConverter converter = new CIFXML2CMLConverter();
-		converter.convert(new File(inpath), new File(outpath));
-	}
-
 	private CIFXML2CMLOptions converterOptions;
 	OutPutModuleBuilder helper = new OutPutModuleBuilder();
 
