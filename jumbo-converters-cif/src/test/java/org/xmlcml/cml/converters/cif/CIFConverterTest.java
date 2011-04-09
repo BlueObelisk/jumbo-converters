@@ -26,7 +26,7 @@ public class CIFConverterTest {
     @Test
     public void convertToXML() throws IOException {
         InputStream stream=CIFConverterTest.class.getResourceAsStream("/cif/test.cif");
-        List<String> stringList = (List<String>) IOUtils.readLines(stream);
+        List<String> stringList = IOUtils.readLines(stream);
         CIF2CIFXMLConverter cif2cifxml = new CIF2CIFXMLConverter();
         CIF cif = cif2cifxml.parseLegacy(stringList);
         List<CIFDataBlock> a = cif.getDataBlockList();
@@ -41,7 +41,7 @@ public class CIFConverterTest {
 
     @Test
     public void testCIFXOMtoCMLRaw() throws IOException{
-        List<String> stringList = (List<String>) IOUtils.readLines(this.getClass().getResourceAsStream("/cif/test.cif"));
+        List<String> stringList = IOUtils.readLines(this.getClass().getResourceAsStream("/cif/test.cif"));
         CIF2CIFXMLConverter cif2cifxml = new CIF2CIFXMLConverter();
         CIF cif = cif2cifxml.parseLegacy(stringList);
         CIFXML2CMLConverter cifxml2cml = new CIFXML2CMLConverter();
@@ -52,7 +52,7 @@ public class CIFConverterTest {
     
     @Test
     public void convertRawToComplete() throws IOException {
-        List<String> stringList = (List<String>) IOUtils.readLines(this.getClass().getResourceAsStream("/cif/test.cif"));
+        List<String> stringList = IOUtils.readLines(this.getClass().getResourceAsStream("/cif/test.cif"));
         CIF2CIFXMLConverter cif2cifxml = new CIF2CIFXMLConverter();
         CIF cif = cif2cifxml.parseLegacy(stringList);
         CIFXML2CMLConverter cifxml2cml = new CIFXML2CMLConverter();
@@ -71,7 +71,7 @@ public class CIFConverterTest {
 
     @Test
     public void testGettingNewDataType() throws IOException{
-        List<String> stringList = (List<String>) IOUtils.readLines(this.getClass().getResourceAsStream("/cif/cif/in/actaEtest.cif"));
+        List<String> stringList = IOUtils.readLines(this.getClass().getResourceAsStream("/cif/cif/in/actaEtest.cif"));
         CIF2CIFXMLConverter cif2cifxml = new CIF2CIFXMLConverter();
         CIF cif = cif2cifxml.parseLegacy(stringList);
         CIFXML2CMLConverter cifxml2cml = new CIFXML2CMLConverter();
@@ -85,7 +85,7 @@ public class CIFConverterTest {
     @Ignore
     @Test
     public void convertRawToComplete2() throws IOException {
-        List<String> stringList = (List<String>) IOUtils.readLines(this.getClass().getResourceAsStream("/zs2096.cif"));
+        List<String> stringList = IOUtils.readLines(this.getClass().getResourceAsStream("/zs2096.cif"));
         CIF2CIFXMLConverter cif2cifxml = new CIF2CIFXMLConverter();
         CIF cif = cif2cifxml.parseLegacy(stringList);
         CIFXML2CMLConverter cifxml2cml = new CIFXML2CMLConverter();
