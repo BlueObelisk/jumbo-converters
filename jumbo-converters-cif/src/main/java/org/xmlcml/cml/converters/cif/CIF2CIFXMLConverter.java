@@ -29,8 +29,6 @@ public class CIF2CIFXMLConverter extends AbstractConverter {
 
 	private static final Logger LOG = Logger.getLogger(CIF2CIFXMLConverter.class);
 
-	private CIFParser parser = new CIFParser();
-
 	public CIF2CIFXMLConverter() {
 	}
 	
@@ -62,12 +60,9 @@ public class CIF2CIFXMLConverter extends AbstractConverter {
 	/** 
 	 * read CIF.
 	 * 
-	 * @param reader
-	 * @param fileId
-	 * @throws IOException
-	 * 
-	 * @return document (CMLCml root with CMLCml children from each CIF
-	 * currently null as no CML
+	 * @param stringList
+	 *
+	 * @return CIF
 	 */
 	public CIF parseLegacy(List<String> stringList) {
 		init();
@@ -79,6 +74,7 @@ public class CIF2CIFXMLConverter extends AbstractConverter {
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new StringReader(sb.toString()));
+            CIFParser parser = new CIFParser();
 			Document document = parser.parse(br);
 			cif = (CIF) document.getRootElement();
 		} catch (IOException e) {
