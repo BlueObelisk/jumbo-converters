@@ -117,30 +117,27 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
             }
         }
 
-        List<OutPutModuleBuilder> outMols = new ArrayList<OutPutModuleBuilder>();
+        List<CMLCml> outMols = new ArrayList<CMLCml>();
         for (CMLMolecule mol : mols) {
-            OutPutModuleBuilder out = createModules(cml, mol);
+            CMLCml out = createModules(cml, mol);
             if (out != null) {
                 outMols.add(out);
             }
         }
-        if(outMols.size()==1){
-            return outMols.get(0).getCml();
-        }else if(outMols.size()>1){
-            CMLCml root = new CMLCml();
-            for(OutPutModuleBuilder outMol:outMols){
-                root.appendChild(outMol.getCml());
-            }
-            return root;
-        }
-        else{
+        if (outMols.isEmpty()) {
             Logger log=Logger.getLogger(this.getClass());
             log.error("No output molecules in file"+rawCml.toXML());
             return null;
         }
+        CMLCml root = outMols.get(0);
+        for (int i = 1; i < outMols.size(); i++) {
+            CMLCml crystal = outMols.get(0);
+            root.appendChild(crystal);
+        }
+        return root;
     }
 
-    private OutPutModuleBuilder createModules(CMLCml cml, CMLMolecule molecule) {
+    private CMLCml createModules(CMLCml cml, CMLMolecule molecule) {
         OutPutModuleBuilder outMol = new OutPutModuleBuilder();
         CompoundClass compoundClass = CIF2CMLUtils.getCompoundClass(molecule);
         addCompoundClass(cml, compoundClass);
@@ -188,7 +185,7 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
         outMol.cloneIdsFromElement(cml);
         outMol.finalise();
         makeCMLLiteCompatible(outMol.cml);
-        return outMol;
+        return outMol.getCml();
     }
 
     private void makeCMLLiteCompatible(CMLCml cml) {
