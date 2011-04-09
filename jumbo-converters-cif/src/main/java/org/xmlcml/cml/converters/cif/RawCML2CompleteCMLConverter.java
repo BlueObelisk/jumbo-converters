@@ -28,6 +28,8 @@ import static org.xmlcml.euclid.EuclidConstants.S_UNDER;
 
 public class RawCML2CompleteCMLConverter extends AbstractConverter {
 
+    private static final Logger LOG = Logger.getLogger(RawCML2CompleteCMLConverter.class);
+
     public static final String POLYMERIC_FLAG_DICTREF = "ned24:isPolymeric";
     public static final String NO_BONDS_OR_CHARGES_FLAG_DICTREF = "ned24:noBondsOrChargesSet";
 
@@ -56,72 +58,117 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
     private Element processCif(Element rawCml) {
         CMLCml cml = readRawCml(rawCml);
 
-        boolean multiFile;
-        Nodes nodes = rawCml.query("cml:cml", CMLConstants.CML_XPATH);
-        List<CMLCml> cmls = new ArrayList<CMLCml>(nodes.size());
-        if (nodes.size() > 0) {
-            multiFile = true;
-            for (int x = 0; x < nodes.size(); x++) {
-                CMLCml subCml = (CMLCml) nodes.get(x);
-                cmls.add(subCml);
+        List<CMLModule> globalModules = new ArrayList<CMLModule>();
+        List<CMLModule> structureModules = new ArrayList<CMLModule>();
+        for (CMLModule module : getModules(cml)) {
+            String role = module.getRole();
+            if ("global".equals(role)) {
+                globalModules.add(module);
             }
-        } else if (nodes.size() == 0) {
-            multiFile = false;
-        } else {
-            System.err.println(rawCml.toXML());
-            throw new RuntimeException("No CMLcml in file");
-        }
-
-        CMLMolecule molecule = null;
-        List<CMLMolecule> mols = new ArrayList<CMLMolecule>(cmls.size());
-
-        if (multiFile) {
-            for (CMLCml c : cmls) {
-                try {
-                    molecule = getMolecule(c);
-                } catch (ConverterException e) {
-                    runtimeException(e.getMessage());
-                    continue;
-                }
-                mols.add(molecule);
-            }
-        } else {
-            try {
-                molecule = getMolecule(cml);
-                mols.add(molecule);
-            } catch (ConverterException e1) {
-                runtimeException(e1.getMessage());
+            else if ("structure".equals(role)) {
+                structureModules.add(module);
+            } else {
+                LOG.warn("Unknown module role: "+role);
             }
         }
 
-        // don't want to do molecules that are too large, so if > 1000 atoms,
-        // then pass
-        for (CMLMolecule mol : mols) {
+        System.err.println("Structure modules: "+structureModules.size()+"  Global modules: "+globalModules.size());
 
-            if (mol.getAtomCount() > 1000) {
-                mols.remove(mol);
+        List<CMLModule> crystals = new ArrayList<CMLModule>();
+        for (CMLModule module : structureModules) {
+
+            CMLModule output = createModules(module);
+            if (output != null) {
+                crystals.add(output);
             }
+
         }
 
-        List<CMLCml> outMols = new ArrayList<CMLCml>();
-        for (CMLMolecule mol : mols) {
-            CMLCml out = createModules(cml, mol);
-            if (out != null) {
-                outMols.add(out);
-            }
-        }
-        if (outMols.isEmpty()) {
-            Logger log=Logger.getLogger(this.getClass());
-            log.error("No output molecules in file"+rawCml.toXML());
-            return null;
-        }
-        CMLCml root = outMols.get(0);
-        for (int i = 1; i < outMols.size(); i++) {
-            CMLCml crystal = outMols.get(0);
-            root.appendChild(crystal);
+        CMLCml root = new CMLCml();
+        for (CMLModule module : crystals) {
+            root.appendChild(module);
         }
         return root;
+
+
+//        System.out.println(globalModules.size());
+//
+//        boolean multiFile;
+//        Nodes nodes = rawCml.query("cml:cml", CMLConstants.CML_XPATH);
+//        List<CMLCml> cmls = new ArrayList<CMLCml>(nodes.size());
+//        if (nodes.size() > 0) {
+//            multiFile = true;
+//            for (int x = 0; x < nodes.size(); x++) {
+//                CMLCml subCml = (CMLCml) nodes.get(x);
+//                cmls.add(subCml);
+//            }
+//        } else if (nodes.size() == 0) {
+//            multiFile = false;
+//        } else {
+//            System.err.println(rawCml.toXML());
+//            throw new RuntimeException("No CMLcml in file");
+//        }
+//
+//        CMLMolecule molecule = null;
+//        List<CMLMolecule> mols = new ArrayList<CMLMolecule>(cmls.size());
+//
+//        if (multiFile) {
+//            for (CMLCml c : cmls) {
+//                try {
+//                    molecule = getMolecule(c);
+//                } catch (ConverterException e) {
+//                    runtimeException(e.getMessage());
+//                    continue;
+//                }
+//                mols.add(molecule);
+//            }
+//        } else {
+//            try {
+//                molecule = getMolecule(cml);
+//                mols.add(molecule);
+//            } catch (ConverterException e1) {
+//                runtimeException(e1.getMessage());
+//            }
+//        }
+//
+//        // don't want to do molecules that are too large, so if > 1000 atoms,
+//        // then pass
+//        for (CMLMolecule mol : mols) {
+//            if (mol.getAtomCount() > 1000) {
+//                mols.remove(mol);
+//            }
+//        }
+//
+//        List<CMLCml> outMols = new ArrayList<CMLCml>();
+//        for (CMLMolecule mol : mols) {
+//            CMLCml out = createModules(cml, mol);
+//            if (out != null) {
+//                outMols.add(out);
+//            }
+//        }
+//        if (outMols.isEmpty()) {
+//            Logger log=Logger.getLogger(this.getClass());
+//            log.error("No output molecules in file"+rawCml.toXML());
+//            return null;
+//        }
+//        CMLCml root = outMols.get(0);
+//        for (int i = 1; i < outMols.size(); i++) {
+//            CMLCml crystal = outMols.get(0);
+//            root.appendChild(crystal);
+//        }
+//        return root;
+
     }
+
+    private List<CMLModule> getModules(CMLCml cml) {
+        Nodes nodes = cml.query("cml:module", CML_XPATH);
+        List<CMLModule> modules = new ArrayList<CMLModule>(nodes.size());
+        for (int i = 0; i < nodes.size(); i++) {
+            modules.add((CMLModule) nodes.get(i));
+        }
+        return modules;
+    }
+
 
     private CMLCml readRawCml(Element rawCml) {
         ByteArrayOutputStream os = null;
@@ -142,7 +189,14 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
         return cml;
     }
 
-    private CMLCml createModules(CMLCml cml, CMLMolecule molecule) {
+    private CMLModule createModules(CMLModule module) {
+        CMLMolecule molecule = (CMLMolecule) module.getFirstCMLChild("molecule");
+        if (molecule.getAtomCount() > 1000) {
+            return null;
+        }
+
+        CMLCml cml = new CMLCml();
+
         OutPutModuleBuilder outMol = new OutPutModuleBuilder();
         CompoundClass compoundClass = CIF2CMLUtils.getCompoundClass(molecule);
         addCompoundClass(cml, compoundClass);
@@ -190,7 +244,7 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
         outMol.cloneIdsFromElement(cml);
         outMol.finalise();
         makeCMLLiteCompatible(outMol.cml);
-        return outMol.getCml();
+        return outMol.getTopModule();
     }
 
     private void makeCMLLiteCompatible(CMLCml cml) {
@@ -279,18 +333,17 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
     /**
      * Appends to CML
      * 
-     * @param cml
+     * @param target
      * @param compoundClass
      */
-    private void addCompoundClass(CMLCml cml, CompoundClass compoundClass) {
+    private void addCompoundClass(CMLElement target, CompoundClass compoundClass) {
         CMLProperty property = new CMLProperty();
         property.setDictRef("iucr:compoundClass");
         CMLScalar scalar = new CMLScalar();
         property.appendChild(scalar);
         scalar.setDataType("xsd:string");
-        scalar.setDictRef("iucr:compoundClass");
-        scalar.appendChild(new Text(compoundClass.toString()));
-        cml.appendChild(scalar);
+        scalar.appendChild(compoundClass.toString());
+        target.appendChild(property);
     }
 
     /**
