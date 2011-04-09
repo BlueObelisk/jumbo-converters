@@ -1,0 +1,84 @@
+<template repeat="*"  id="timing" name="timing" 
+  pattern="\s*\=+\s*Timing\s*\=+\s*$\s*" 
+  newline="$" endPattern="\s*qmmm\s+residual.*" endOffset="1">
+  <comment>
+== Timing ==
+
+cputime in seconds
+  prologue    :   0.700637E+00
+  main loop   :   0.709391E-01
+  epilogue    :   0.404596E-02
+  total       :   0.775622E+00
+  cputime/step:   0.506708E-02       (      14 evalulations,       1 linesearches)
+
+
+Time spent doing                        total          step
+  FFTs                       :   0.220870E-02  0.157764E-03
+  dot products               :   0.173096E-01  0.123640E-02
+  geodesic                   :   0.308776E-02  0.220554E-03
+  ffm_dgemm                  :   0.000000E+00  0.000000E+00
+  fmf_dgemm                  :   0.000000E+00  0.000000E+00
+  m_diagonalize              :   0.000000E+00  0.000000E+00
+    - m_tredq                :   0.000000E+00  0.000000E+00
+    - m_getdiags             :   0.000000E+00  0.000000E+00
+    - m_tqliq                :   0.000000E+00  0.000000E+00
+    - m_eigsrt               :   0.000000E+00  0.000000E+00
+  exchange correlation       :   0.477076E-02  0.340768E-03
+  local pseudopotentials     :   0.650883E-04  0.464916E-05
+  non-local pseudopotentials :   0.131516E-01  0.939403E-03
+  hartree potentials         :   0.128511E-03  0.917933E-05
+  ion-ion interaction        :   0.113330E-01  0.809499E-03
+  structure factors          :   0.330921E-03  0.236372E-04
+  phase factors              :   0.000000E+00  0.000000E+00
+  masking and packing        :   0.382081E-02  0.272915E-03
+  queue fft                  :   0.217137E-01  0.155098E-02
+  queue fft (serial)         :   0.134014E-01  0.957240E-03
+  queue fft (message passing):   0.705953E-02  0.504252E-03
+  HFX potential              :   0.000000E+00  0.000000E+00
+  qmmm LJ                    :   0.000000E+00  0.000000E+00
+  qmmm residual Q            :   0.000000E+00  0.000000E+00
+
+     >>>  JOB COMPLETED     AT Fri Aug  6 14:00:19 2010  &lt;&lt;&lt;
+
+ Task  times  cpu:        0.8s     wall:        0.8s
+
+
+</comment>
+<!-- 
+cputime in seconds
+  prologue    :   0.700637E+00
+  main loop   :   0.709391E-01
+  epilogue    :   0.404596E-02
+  total       :   0.775622E+00
+  cputime/step:   0.506708E-02       (      14 evalulations,       1 linesearches)
+
+-->  
+  <record id="timingstuff" repeat="2">{X}</record>
+  <record id="timingstuff">cputime in seconds\s*</record>
+  <record id="times" repeat="*">\s*{X,x:name}\s*:\s*{E,x:value}</record>
+  <record id="cputime">\s*cputime/step:{E,n:cpu}\(\s*{I,n:neval}evalulations,{I,n:linesearch}linesearches\)\s*</record>
+
+<!-- 
+Time spent doing                        total          step
+  FFTs                       :   0.220870E-02  0.157764E-03
+  dot products               :   0.173096E-01  0.123640E-02
+  ..
+  m_diagonalize              :   0.000000E+00  0.000000E+00
+    - m_tredq                :   0.000000E+00  0.000000E+00
+    - m_getdiags             :   0.000000E+00  0.000000E+00
+    - m_tqliq                :   0.000000E+00  0.000000E+00
+    - m_eigsrt               :   0.000000E+00  0.000000E+00
+  exchange correlation       :   0.477076E-02  0.340768E-03
+  local pseudopotentials     :   0.650883E-04  0.464916E-05
+  ..
+  qmmm residual Q            :   0.000000E+00  0.000000E+00
+ -->  
+  <record id="timingstuff" repeat="2">{X}</record>
+  <record>\s*Time spent doing\s+total\s+step</record>
+  <record id="times" repeat="*">\s*\-?\s*{X,x:name}\s*:\s*{E,x:total}\s*{E,x:step}</record>
+  <record>{X}</record>
+  <record id="job">\s*>>>\s*JOB COMPLETED\s*AT\s*{X,n:date}\s*&lt;&lt;&lt;\s*</record>
+  <record>{X}</record>
+  <record id="task">\s*Task\s+times\s+cpu:{F,cc:cputime}s\s*wall:{F,cc:walltime}s</record>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

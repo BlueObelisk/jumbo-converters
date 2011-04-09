@@ -1,0 +1,43 @@
+<template repeat="*"  id="latticex" name="lattice" 
+  pattern="\s*Lattice Parameters\s*" newline="$" 
+    endPattern="\s*b3\=.*$\s*" endOffset="1">
+  <comment>
+      Lattice Parameters 
+      ------------------ 
+
+      lattice vectors in a.u. (scale by  1.000000000 to convert to a.u.)
+
+      a1=&lt;   5.920   0.000   0.000 >
+      a2=&lt;   0.000  10.255   0.000 >
+      a3=&lt;   0.000   0.000   9.653 >
+      a=       5.920 b=     10.255 c=       9.653
+      alpha=  90.000 beta=  90.000 gamma=  90.000
+      omega=   586.0
+
+      reciprocal lattice vectors in a.u.
+
+      b1=&lt;   1.061   0.000   0.000 >
+      b2=&lt;   0.000   0.613   0.000 >
+      b3=&lt;   0.000   0.000   0.651 >
+
+</comment>
+  <record id="x" repeat="3">{X}</record>
+  <record id="lattice.scale" >\s*lattice vectors in {A,n:lattice.units}\s*\(scale by\s*{F,n:lattice.scale}\s*to convert to a\.u\.\)</record>
+  <record>{X}</record>
+  <record id="lattice.vect.a1" >\s*a1=&lt;{F,x:x}{F,x:y}{F,x:z}></record>
+  <record id="lattice.vect.a2" >\s*a2=&lt;{F,x:x}{F,x:y}{F,x:z}></record>
+  <record id="lattice.vect.a3" >\s*a3=&lt;{F,x:x}{F,x:y}{F,x:z}></record>
+  <record id="lattice.vect.abc" >\s*a=\s*{F,cc:cell.a}\s*b=\s*{F,cc:cell.b}\s*c=\s*{F,cc:cell.c}\s*</record>
+  <record id="lattice.vect.ang" >\s*alpha=\s*{F,cc:cell.alpha}\s*beta=\s*{F,cc:cell.beta}\s*gamma=\s*{F,cc:cell.gamma}\s*</record>
+  <record id="lattice.vect.omega" >\s*omega=\s*{F,cc:cell.omega}\s*</record>
+  <record>{X}</record>
+  <record id="lattice.recip.units">\s*reciprocal lattice vectors in {X,cc:lattice.recip.units}</record>
+  <record>{X}</record>
+  <record id="lattice.vect.b1" >\s*b1=&lt;{F,x:x}{F,x:y}{F,x:z}></record>
+  <record id="lattice.vect.b2" >\s*b2=&lt;{F,x:x}{F,x:y}{F,x:z}></record>
+  <record id="lattice.vect.b3" >\s*b3=&lt;{F,x:x}{F,x:y}{F,x:z}></record>
+  
+  <transform process="vector3" xpath="./cml:list[@templateRef='lattice.vect.a1']" 
+      from="*[@dictRef='x:x' or @dictRef='x:y' or @dictRef='x:z']"
+             dictRef="cc:latticexx"/>
+</template>
