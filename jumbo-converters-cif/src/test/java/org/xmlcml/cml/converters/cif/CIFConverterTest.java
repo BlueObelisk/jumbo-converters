@@ -59,7 +59,6 @@ public class CIFConverterTest {
         Element raw = cifxml2cml.convertToXML(cif);
         RawCML2CompleteCMLConverter conv = new RawCML2CompleteCMLConverter();
         CMLElement cml = (CMLElement) conv.convertToXML(raw);
-        Assert.assertEquals(0, conv.cml.getChildCount());
         XPathContext context = new XPathContext();
         context.addNamespace(CMLConstants.CML_PREFIX, CMLConstants.CML_NS);
         String XQuery = "/cml:cml/cml:module[@convention=\"convention:" + OutPutModuleBuilder.CONVENTION_CRYSTALOGRAPHY + "\"]/cml:module[@convention=\"convention:"
