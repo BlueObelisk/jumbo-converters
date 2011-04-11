@@ -8,11 +8,7 @@ import static org.xmlcml.cml.converters.cif.CIFConstants.IUCR_CATEGORY;
 import static org.xmlcml.cml.converters.cif.CIFConstants.IUCR_PREFIX;
 import static org.xmlcml.cml.converters.cif.CIFConstants.NON_NUMERIC;
 import static org.xmlcml.cml.converters.cif.CIFConstants.NUMERIC;
-import static org.xmlcml.euclid.EuclidConstants.S_COLON;
-import static org.xmlcml.euclid.EuclidConstants.S_MINUS;
-import static org.xmlcml.euclid.EuclidConstants.S_PLUS;
-import static org.xmlcml.euclid.EuclidConstants.S_SLASH;
-import static org.xmlcml.euclid.EuclidConstants.S_UNDER;
+import static org.xmlcml.euclid.EuclidConstants.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -49,7 +45,8 @@ import org.xmlcml.molutil.ChemicalElement;
 public class CIFXML2CMLConverter extends AbstractConverter {
 	
 	private CIFXML2CMLOptions converterOptions;
-	OutPutModuleBuilder helper = new OutPutModuleBuilder();
+//	OutPutModuleBuilder helper = new OutPutModuleBuilder();
+    private CIFDictionary cifDict = CIFDictionary.getInstance();
 
 	private static CIFCategory[] CML_CATEGORIES = new CIFCategory[] {
 		CIFCategory.ATOM_SITE_ANISO,
@@ -176,9 +173,8 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		processCMLItems(block, cml, molecule, crystal, symmetry);
 		processCMLLoops(block, cml, molecule, crystal, symmetry);
 
-		cml.appendChild(molecule);
-		molecule.insertChild(crystal, 0);
-		crystal.addSymmetry(symmetry);
+        cml.appendChild(crystal);
+        cml.appendChild(molecule);
 
 		return cml;
 	}
@@ -187,8 +183,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 	 * by underscores and prepends "c" if the first character is not a letter.
 	 * Null and zero-length id strings are returned as cif_s or otherwise "unknown".
 	 *
-	 * @param s String to substitute.
-	 * @param cif_s The id string on the source CIF file.
+	 * @param ss String to substitute.
 	 * @return A munged string.
 	 */
 	private static String makeAcceptableId(String ss) {
@@ -290,8 +285,8 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 			CMLArray arrayFromColumn = new CMLArray();
 			String dataType = XSD_STRING;
 			String mungedId=columnName.toLowerCase().substring(1);
-			String type=helper.getDataType(mungedId);
-			String units = helper.getUnitsStringorNull(mungedId);
+			String type = cifDict.getDataType(mungedId);
+			String units = cifDict.getUnits(mungedId);
 			if(type!=null){
 			    if("xsd:float".equals(type)){
 			        type=XSD_DOUBLE;
@@ -314,7 +309,8 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 //			}
 			arrayFromColumn.setDictRef(makeDictRef(columnName));
 			arrayFromColumn.setDelimiter(DELIM);
-			StringBuilder errorValueBuilder = new StringBuilder(DELIM);
+//			StringBuilder errorValueBuilder = new StringBuilder(DELIM);
+            StringBuilder errorValueBuilder = new StringBuilder(S_SPACE);
 			boolean atLeastOneError=false;
 			for (CIFTableCell cell : cellList) {
 				String value = cell.getValue();
@@ -338,10 +334,12 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 					if(error!=null && !error.isNaN()){
 					    atLeastOneError=true;
 					    errorValueBuilder.append(error);
-					    errorValueBuilder.append(DELIM);
+//					    errorValueBuilder.append(DELIM);
+                        errorValueBuilder.append(S_SPACE);
 					}
 					else{
-					    errorValueBuilder.append(DELIM);
+//					    errorValueBuilder.append(DELIM);
+                        errorValueBuilder.append(S_SPACE);
 					}
 				} else {
                     if (cell.getValue().equals(".")) {
@@ -352,8 +350,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
                 }
 			}
 			if(atLeastOneError){
-			    Attribute errorAttribute=new Attribute("errorValues",errorValueBuilder.toString());
-			    arrayFromColumn.addAttribute(errorAttribute);
+                arrayFromColumn.setErrorValueArray(errorValueBuilder.toString());
 			}
 			Attribute sz = arrayFromColumn.getSizeAttribute();
 			if (sz != null) {
