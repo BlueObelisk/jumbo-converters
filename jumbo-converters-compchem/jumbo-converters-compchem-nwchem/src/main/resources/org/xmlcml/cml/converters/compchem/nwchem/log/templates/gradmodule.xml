@@ -1,0 +1,33 @@
+<template repeat="*"  id="gradmodule" name="NWChem Gradients Module" 
+  pattern="\s*NWChem Gradients Module\s*$\s*\-+\s*$\s*$\s*$\s*" 
+  newline="$" endPattern="\s*$\s*">
+  <comment>
+                              NWChem Gradients Module
+                              -----------------------
+
+
+
+                         RHF ENERGY GRADIENTS
+
+    atom               coordinates                        gradient
+                 x          y          z           x          y          z
+   1 C       0.791881  -2.739226   1.279990    0.010475  -0.035386   0.006452
+   2 C       0.791881  -2.739226  -1.279990    0.010475  -0.035386  -0.006452
+   ...
+  17 H       0.444143   4.574733  -2.153391    0.010611   0.012286   0.006384
+
+
+@ Step       Energy      Delta E   Gmax     Grms     Xrms     Xmax   Walltime
+@ ---- ---------------- -------- -------- -------- -------- -------- --------
+@    0    -269.21179667  0.0D+00  0.03357  0.00625  0.00000  0.00000      1.8
+                                                       ok       ok  
+
+  Internal coordinate gradient before constraints
+
+  </comment>
+  <record repeat="5"/>
+  <record repeat="4">{X,n:unread}</record>
+  <record repeat="*" makeArray="true">{I,cc:serial}{A,cc:elementType}{F,cc:x3}{F,cc:y3}{F,cc:z3}{F,cc:grad.x3}{F,cc:grad.y3}{F,cc:grad.z3}</record>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

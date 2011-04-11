@@ -20,20 +20,41 @@
    55 Torsion                  1     8     7    10         180.00000
    
   </comment>
+  <comment>
+  
+
+                                Z-matrix (autoz)
+                                -------- 
+
+ Units are Angstrom for bonds and degrees for angles
+
+  Constants are marked with an asterisk (*).
+
+  Constrained variables are marked with a plus sign (+).
+
+
+      Type          Name      I     J     K     L     M      Value     Gradient
+      ----------- --------  ----- ----- ----- ----- ----- ---------- ----------
+    1 Stretch                  1     2                       1.35468    0.01148
+    2 Stretch                  1     3                       1.54014    0.03447
+    3 Stretch                  1    14                       1.06984    0.00038
+    4 Stretch                  2     4                       1.54014    0.03447
+    5 Stretch                  2    13                       1.06984    0.00038
+    6*Stretch      r           3     6                       2.20000    0.07669
+    7 Stretch                  3     5                       1.58908    0.02455
+    8 Stretch                  3     9                       1.07776    0.00175
+    9*Stretch      r           4     7                       2.20000    0.07669
+   10 Stretch                  4     5                       1.58908    0.02455
+   11 Stretch                  4     8                       1.07776    0.00175
+   12 Stretch                  5    10                       1.08360    0.00182
+  
+  </comment>
   <record id="type" >\s*Z\-matrix\s*\({X,n:type}\)\s*</record>
-  <record repeat="6">{X}</record>
-  <templateList>
-    <template id="stretch" repeat="*" pattern=".*Stretch.*" endPattern=".*">
-      <record id="stretch" repeat="*" 
-       >\s*{I,n:serial}\s*Stretch\s*{I,n:i}\s*{I,n:j}\s*{F,n:len,u:angst}</record>
-    </template>
-    <template id="bend" repeat="*" pattern=".*Bend.*" endPattern=".*">
-      <record id="bend" repeat="*"
-           >\s*{I,n:serial}\s*Bend\s*{I,n:i}\s*{I,n:j}\s*{I,n:k}\s*{F,n:ang,u:deg}</record>
-    </template>
-    <template id="torsion" repeat="*" pattern=".*Torsion.*" endPattern=".*">
-      <record id="torsion" repeat="*"
-        >\s*{I,n:serial}\s*Torsion\s*{I,n:i}\s*{I,n:j}\s*{I,n:k}\s*{I,n:l}\s*{F,n:tor,u:deg}</record>
-    </template>
-   </templateList>
+  <record repeat="2">{X}</record>
+  <record repeat="*">\s*</record>
+  <record id="asterisk" repeat="*">\s*Constants are marked with an asterisk.*</record>
+  <record repeat="*">\s*</record>
+  <record id="plus" repeat="*">\s*  Constrained variables are marked with a plus sign.*</record>
+  <record repeat="*">\s*</record>
+  
 </template>

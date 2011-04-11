@@ -1,0 +1,12 @@
+<template repeat="*"  id="pspw.densitycut" name="PSPW density cutoff" 
+  pattern="\s*density cutoff=.*" 
+  newline="$" endPattern="\s*wavefnc.*" endOffset="1">
+  <comment>
+      density cutoff= 10.000  fft= 16x 16x 16(      446 waves      112 per task)
+      wavefnc cutoff= 10.000  fft= 16x 16x 16(      446 waves      112 per task)
+</comment>
+  <record id="cutoff1">\s*density cutoff= {F,n:densitycut}fft={I,n:gridx}x{I,n:gridy}x{I,n:gridz}\({I,n:waves}waves{I,n:task}per task\)\s*</record>
+  <record id="cutoff2">\s*wavefnc cutoff= {F,n:wavefncut}fft={I,n:gridx}x{I,n:gridy}x{I,n:gridz}\({I,n:waves}waves{I,n:task}per task\)\s*</record>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

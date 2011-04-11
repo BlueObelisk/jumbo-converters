@@ -341,7 +341,11 @@ public class Template implements MarkupApplier {
 		CMLElement.addCMLXAttribute(linesElement, Template.TEMPLATE_REF, this.getId());
 		for (MarkupApplier marker : markerList) {
 			LOG.trace("Applying: "+marker.getClass().getSimpleName()+" "+marker.getId());
-			marker.applyMarkup(lineContainer);
+			try {
+				marker.applyMarkup(lineContainer);
+			} catch (Exception e) {
+				throw new RuntimeException("Bad line: "+lineContainer.peekLine(), e);
+			}
 		}
 		removeEmptyLists(linesElement);
 	}

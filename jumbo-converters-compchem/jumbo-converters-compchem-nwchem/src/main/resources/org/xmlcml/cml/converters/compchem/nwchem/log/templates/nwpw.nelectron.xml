@@ -1,0 +1,20 @@
+<template repeat="*"  id="pspw.neclectron" name="PSPW electrons and orbitals" 
+  pattern="\s*number of electrons:.*" 
+  newline="$" endPattern="\s*" endOffset="1">
+  <comment>
+ number of electrons: spin up=    16 (  16 per task)  down=    16 (  16 per task) (fourier space)
+ number of orbitals : spin up=    16 (  16 per task)  down=    16 (  16 per task) (fourier space)
+
+</comment>
+  <comment>
+ number of electrons: spin up=   16.00  spin down=   16.00 (fourier space)
+ number of orbitals:  spin up=      16  spin down=      16 (fourier space)
+
+</comment>
+  <record id="electron" repeat="*">\s*number of electrons\s*:\s*spin up=\s*{I,n:spinup}\s*\(\s*{I,n:spinup1}\s*per task\)\s*down={I,n:spindown}\({I,n:spindown1}per task\)\s*\(fourier space\)\s*</record>
+  <record id="electron" repeat="*">\s*number of electrons\s*:\s*spin up=\s*{F,n:spinup}\s*spin down={F,n:spindown}\s*\(fourier space\)\s*</record>
+  <record id="orbital" repeat="*">\s*number of orbitals\s*:\s*spin up=\s*{I,n:spinup}\s*\(\s*{I,n:spinup1}\s*per task\)\s*down={I,n:spindown}\({I,n:spindown1}per task\)\s*\(fourier space\)\s*</record>
+  <record id="orbital" repeat="*">\s*number of orbitals\s*:\s*spin up=\s*{I,n:spinup}\s*spin down={I,n:spindown}\s*\(fourier space\)\s*</record>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

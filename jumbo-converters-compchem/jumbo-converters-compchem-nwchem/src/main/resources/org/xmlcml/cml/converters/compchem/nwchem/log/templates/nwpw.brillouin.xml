@@ -1,0 +1,16 @@
+<template repeat="*"  id="nwpw.brillouin" name="NWPW  brillouin zone" 
+  pattern="\s*brillouin zone\:\s*" 
+  newline="$" endPattern="\s*">
+<comment>
+ brillouin zone:
+      number of zone points:     3
+      weight=   0.333  ks=&lt;   0.222   0.000   0.250 >, k=&lt;   0.236   0.000   0.163>
+      weight=   0.333  ks=&lt;   0.444   0.000   0.250 >, k=&lt;   0.472   0.000   0.163>
+      weight=   0.333  ks=&lt;   0.556   0.333   0.250 >, k=&lt;   0.590   0.204   0.163>
+</comment>
+  <record/>
+  <record id="npoint">\s*number of zone points:{I,n:nzonepoint}\s*</record>
+  <record id="kpoint" repeat="*" makeArray="true">\s*weight={F,cc:weight}\s*ks=\s*&lt;{Fcc:ks.x}{Fcc:ks.y}{Fcc:ks.z}>,\s*k=\s*&lt;{Fcc:k.x}{Fcc:k.y}{Fcc:k.z}>\s*</record>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

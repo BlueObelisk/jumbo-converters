@@ -1,6 +1,6 @@
 <template repeat="*"  id="moleculardipole" name="Molecular Dipole wrt Center of Mass" 
-  pattern="\s*== Molecular Dipole wrt Center of Mass ==\s*" 
-  newline="$" endPattern="\s*$\s*">
+  pattern="\s*== Molecular Dipole wrt Center of Mass ==\s*$\s*" 
+  newline="$" endPattern="\s*">
   <comment>
 == Molecular Dipole wrt Center of Mass ==
 
@@ -11,6 +11,10 @@ mu   =  (   47.3589,   39.4586,   32.5917 ) au
 
 
 </comment>
-  <record repeat="*" id="moleculardipole.unparsed">{X,x:x}</record>
+  <record repeat="2"/>
+  <record id="mu">\s*mu\s*=\s*\(\s*{F,n:mu.x},\s*{F,n:mu.y},\s*{F,n:mu.z}\s*\)\s*au\s*</record>
+  <record id="mumod">\s*\|mu\|\s*=\s*{F,n:mumod.au} au,{F,n:mumod.debye}\s*Debye\s*</record>
+<!--   
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  -->
 </template>

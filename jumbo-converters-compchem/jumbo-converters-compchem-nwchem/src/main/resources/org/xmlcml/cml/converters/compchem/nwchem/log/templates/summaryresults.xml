@@ -1,6 +1,8 @@
 <template repeat="*"  id="summaryresults" name="Summary of Results" 
   pattern="\s*\=+\s+[Ss]ummary [Oo]f [Rr]esults\s+\=+\s*$\s*" 
-  newline="$" endPattern="\s*$\s*">
+  newline="$" endPattern="\s*$\s*"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
   <comment>
           =============  [Ss]ummary [Oo]f [Rr]esults  =================
 
@@ -20,57 +22,30 @@
  K.S. V_so energy    :   0.0000000000E+00 (    0.00000E+00/electron)
  Virial Coefficient  :  -0.9281068186E+00
 
- Brillouin zone point:      1
-    weight=  1.000000
-    k     =&lt;   0.000   0.000   0.000> . &lt;b1,b2,b3> 
-          =&lt;   0.000   0.000   0.000>
 
- orbital energies:
-     0.2993371E+00 (   8.145eV) occ=1.000
-     0.2990276E+00 (   8.137eV) occ=1.000
-     ...
-    -0.2865663E+00 (  -7.798eV) occ=1.000
-    -0.3684618E+00 ( -10.026eV) occ=1.000
-
- Total BAND energy   :  -0.4670736126E+02
+</comment>
+<comment>
+ kinetic (planewave) :   0.2846763780E+02 (    0.17792E+01/electron)
+ V_local (planewave) :  -0.2934398068E+02 (   -0.18340E+01/electron)
+ V_nl    (planewave) :   0.5050216234E+00 (    0.31564E-01/electron)
+ V_Coul  (planewave) :   0.1980599286E+02 (    0.12379E+01/electron)
+ V_xc.   (planewave) :  -0.1738804054E+02 (   -0.10868E+01/electron)
+ Virial Coefficient  :  -0.9281067477E+00
 
 
 </comment>
   <record repeat="2" id="x">{X}</record>
   <record id="electrons">\snumber of electrons: spin up=\s*{F,n:elecup}\s*down=\s*{F,n:elecdown}\s*{X,n:space}</record>
   <record id="x">{X}</record>
-  <record id="totener">\s*total\s+energy\s+\:\s*{E,n:ener}\s*\(\s*{E,n:ener1}\s*\/\s*{A,n:species}\s*\)\s*</record>
-  <record id="totorbener">\s*total\s+orbital\s+energy\:\s*{E,n:ener}\s*\(\s*{E,n:ener1}\s*\/\s*{A,n:species}\s*\)\s*</record>
-  <record id="hartreeener">\s*hartree\s+energy\s+\:{E,n:ener}\({E,n:ener1}/{A,n:species}\)</record>
-  <record id="xcener">\s*exc\-corr\s+energy\s+\:{E,n:ener}\({E,n:ener1}/{A,n:species}\)</record>
-  <record id="ionionener">\s*ion\-ion\s+energy\s+\:{E,n:ener}\({E,n:ener1}/{A,n:species}\)</record>
+  <record id="energy1" repeat="*">\s{X,n:type}\s*:\s*{E,n:ener}\s*\(\s*{E,n:ener1}\s*/{A,n:species}\)</record>
   <record id="x">{X}</record>
-  <record id="kskinetic">\s*K\.S\. kinetic energy\s+\:{E,n:ener}\({E,n:ener1}/{A,n:species}\)</record>
-  <record id="ksvl">\s*K\.S\. V_l  energy\s+\:{E,n:ener}\({E,n:ener1}/{A,n:species}\)</record>
-  <record id="ksvnl">\s*K\.S\. V_nl energy\s+\:{E,n:ener}\({E,n:ener1}/{A,n:species}\)</record>
-  <record id="ksvhart">\s*K\.S\. V_Hart energy\s+\:{E,n:ener}\({E,n:ener1}/{A,n:species}\)</record>
-  <record id="ksvxc">\s*K\.S\. V_xc energy\s+\:{E,n:ener}\({E,n:ener1}/{A,n:species}\)</record>
-  <record id="kxvso">\s*K\.S\. V_so energy\s+\:{E,n:ener}\({E,n:ener1}/{A,n:species}\)</record>
+  <record id="energy2" repeat="*">\s{X,n:type}\s*:\s*{E,n:ener}\s*\(\s*{E,n:ener1}\s*/{A,n:species}\)</record>
   <record id="vircoeff">\s*Virial Coefficient\s+\:{E,n:ener}</record>
-  <record id="x">{X}</record>
-<!-- 
- Brillouin zone point:      1
-    weight=  1.000000
-    k     =&lt;   0.000   0.000   0.000> . &lt;b1,b2,b3> 
-          =&lt;   0.000   0.000   0.000>
-
-  <record id="x">{X,x:x}</record>
- -->  
-  <record id="brill">\s*Brillouin zone point\:{I,n:brill.zone}</record>
-  <record id="weight">\s*weight={F,n:brill.wt}</record>
-  <record id="k">\s*k\s*=&lt;\s*{F,n:brill.h}{F,n:brill.k}{F,n:brill.l}>.*</record>
-  <record id="k1">\s*=&lt;{F,n:brill.h}{F,n:brill.k}{F,n:brill.l}>.*</record>
-  <record id="x">{X}</record>
-  <record id="orb0">\s*orbital energies:\s*</record>
-  <record id="orb" repeat="*" makeArray="true">\s*{E,n:ener}\s*\(\s*{F,n:ener,units:ev}eV\)\s*occ={F,n:occ}</record>
-  <record id="x">{X}</record>
-  <record id="x">\s*Total BAND energy\s+\:{E,n:totbandener}</record>
-  
+  <templateList>
+      <xi:include href="orbitalener.xml"/>
+      <xi:include href="totalbandener.xml"/>
+      <xi:include href="brillouinzp.xml"/>
+  </templateList>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
 </template>

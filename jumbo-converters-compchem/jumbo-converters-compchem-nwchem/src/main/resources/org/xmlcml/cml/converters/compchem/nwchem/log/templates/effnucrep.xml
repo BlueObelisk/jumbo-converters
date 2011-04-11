@@ -1,0 +1,10 @@
+<template repeat="*"  id="effnucrep" name="Effective nuclear repulsion energy" 
+  pattern="\s* Effective nuclear repulsion energy.*" 
+  newline="$" endPattern=".*">
+  <comment>
+ Effective nuclear repulsion energy (a.u.)     307.7650672208
+</comment>
+  <record id="ceffnucrep">\s*Effective nuclear repulsion energy \(a\.u\.\){F,n:effnucrep}\s*</record>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

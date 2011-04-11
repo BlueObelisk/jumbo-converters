@@ -46,7 +46,6 @@ public abstract class LineReader extends Element implements MarkupApplier {
 	private static final FormatType DEFAULT_FORMAT_TYPE = FormatType.NONE;
 	private static final String REPEAT = "repeat";
 	private static final String REPEAT_COUNT = "repeatCount"; // deprecated
-//	private static String DEFAULT_CONTENT = ".*";
 	private static String DEFAULT_CONTENT = "{X}";
 
 
@@ -173,9 +172,6 @@ public abstract class LineReader extends Element implements MarkupApplier {
 	}
 
 	private void addDefaults() {
-		if (content == null || content.trim().equals("")) {
-			content = DEFAULT_CONTENT;
-		}
 		if (formatType == null) {
 			formatType = DEFAULT_FORMAT_TYPE;
 		}
@@ -312,9 +308,9 @@ public abstract class LineReader extends Element implements MarkupApplier {
 		} else if (FormatType.FORTRAN.equals(formatType)) {
 			createFortranFields();
 		} else if (FormatType.REGEX.equals(formatType)) {
-//			if (content == null || content.trim().length() == 0) {
-//				content = DEFAULT_REGEX_CONTENT;
-//			}
+			if (content == null || content.trim().equals("")) {
+				content = DEFAULT_CONTENT;
+			}
 			regexProcessor = new RegexProcessor(content, newlineSymbol);
 		} else if (FormatType.NONE.equals(formatType)) {
 			// no-op

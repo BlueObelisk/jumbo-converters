@@ -1,0 +1,10 @@
+<template repeat="*"  id="nwpw.psifile" name="NWPW psi file" 
+  pattern="\s*input psi filename.*" 
+  newline="$" endPattern=".*">
+  <comment>
+ input psi filename:./band.movecs
+</comment>
+  <record id="psifile">\s*input psi filename:{X,n:psifile}\s*</record>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

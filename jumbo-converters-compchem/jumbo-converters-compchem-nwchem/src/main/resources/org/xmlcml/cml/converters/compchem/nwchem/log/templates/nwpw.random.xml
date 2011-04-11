@@ -1,0 +1,13 @@
+<template repeat="*"  id="pspw.random" name="PSPW random guess" 
+  pattern="\s*random planewave guess.*" 
+  newline="$" endPattern="\s*">
+  <comment>
+ random planewave guess, initial psi:band.movecs                   
+ -   spin, nalpha, nbeta:                    1                   16                    0
+
+</comment>
+  <record id="random">\s* random planewave guess, initial psi:{X,n:initpsi}\s*</record>
+  <record id="spin">\s*\-\s+spin, nalpha, nbeta:{I,cc:spin}{I,cc:nalpha}{I,cc:nbeta}\s*</record>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

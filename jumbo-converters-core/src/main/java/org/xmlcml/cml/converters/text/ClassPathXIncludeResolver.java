@@ -39,6 +39,8 @@ public class ClassPathXIncludeResolver {
             Document doc;
             try {
                 doc = builder.build(in);
+            } catch (Exception e) {
+            	throw new RuntimeException("cannot parse: "+uri, e);
             } finally {
                 in.close();
             }

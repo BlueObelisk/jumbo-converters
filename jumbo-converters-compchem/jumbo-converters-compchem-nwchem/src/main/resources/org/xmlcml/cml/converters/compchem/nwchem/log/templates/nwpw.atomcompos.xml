@@ -1,0 +1,13 @@
+<template repeat="*"  id="pspw.atomcompos" name="PSPW atomic composition" 
+  pattern="\s*atomic composition:\s*" 
+  newline="$" endPattern="\s*">
+  <comment>
+ atomic composition:
+     Ga  :  4     N   :  4
+
+</comment>
+  <record id="atcomp">\s*atomic composition:\s*</record>
+  <record id="atomcompos">\s*{X,n:atomcompos}\s*</record>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

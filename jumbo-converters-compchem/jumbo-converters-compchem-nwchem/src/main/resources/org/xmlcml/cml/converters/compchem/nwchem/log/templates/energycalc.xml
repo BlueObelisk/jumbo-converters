@@ -1,6 +1,6 @@
 <template repeat="*"  id="energycalc" name="energycalc" 
-  pattern="\s*== Energy Calculation ==\s*" 
-  newline="$" endPattern="\s*>>>\s*ITERATION ENDED.*" endOffset="1">
+  pattern="\s*\=+\s*[Ee]nergy [Cc]alculation\s*==?\s*" 
+  newline="$" endPattern="\s*>>>\s*ITERATION\s*ENDED.*" endOffset="1">
   <comment>
 == Energy Calculation ==
 
@@ -21,25 +21,40 @@
      >>>  ITERATION ENDED   AT Fri Aug  6 14:00:19 2010  &lt;&lt;&lt;
 
 </comment>
+  <comment>
+= energy calculation =
+
+
+          ======== bundled Grassmann lmbfgs iteration ========
+     >>>  ITERATION STARTED AT Fri Aug  6 14:00:19 2010  &lt;&lt;&lt;
+    iter.           Energy         DeltaE       DeltaRho 
+    ------------------------------------------------------
+     -  10 steepest descent iterations performed
+      10   -0.4670736126E+02   -0.32554E-07    0.18769E-09
+  *** tolerance ok.    iteration terminated.
+     >>>  ITERATION ENDED   AT Fri Aug  6 14:00:19 2010  &lt;&lt;&lt;
+
+  </comment>
   <record repeat="3">{X,x:x}</record>
   <record id="type">\s*\=+\s*{X,n:type}\s*\=+\s*</record>
   <record id="time">\s*>>>\s+ITERATION STARTED AT\s*{X,cc:date}\s*&lt;&lt;&lt;</record>
   <record id="iter">\s*iter\.\s+Energy\s+DeltaE\s+DeltaRho</record> 
   <record id="x">{X,x:x}</record>
   <templateList>
-    <template id="t1" repeat="*" pattern=".*steepest descent iterations performed.*"
+    <template id="steepest" repeat="*" pattern=".*steepest descent iterations performed.*"
       endPattern=".*">
-      <record id="r1">\s+\-{I,n:niter}steepest descent iterations performed</record>
+      <record id="steepest">\s+\-{I,n:niter}steepest descent iterations performed</record>
     </template>
-    <template id="t2" repeat="*" pattern=".*\d+.*"
+    <template id="iteration" repeat="*" pattern=".*\d+.*"
       endPattern=".*">
-      <record id="r1">{I,n:niterx}{E,n:ener}{E,n:deltae}{E,n:deltarho}</record>
+      <record id="iteration">{I,n:niterx}{E,n:ener}{E,n:deltae}{E,n:deltarho}</record>
     </template>
-    <template id="t2" repeat="*" pattern=".*terminated.*"
+    <template id="terminated" repeat="*" pattern=".*terminated.*"
       endPattern=".*">
-      <record id="r1"> \s*\*\*\* tolerance ok\. iteration terminated</record>
+      <record id="terminated"> \s*\*\*\* tolerance ok\. iteration terminated</record>
     </template>
   </templateList>
+  <record id="enddate">.*ITERATION\s*ENDED\s*AT\s*{X,cc:date}&lt;&lt;&lt;.*</record>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
 </template>
