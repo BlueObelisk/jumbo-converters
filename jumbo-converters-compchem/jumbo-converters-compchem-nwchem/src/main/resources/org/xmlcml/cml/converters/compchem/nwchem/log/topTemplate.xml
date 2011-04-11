@@ -18,6 +18,7 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
   xmlns:cc="http://www.xml-cml.org/dictionary/compchem/"
   xmlns:n="http://www.xml-cml.org/dictionary/nwchem/"
   xmlns:x="http://www.xml-cml.org/dictionary/cmlx/"
+  xmlns:h="http://www.w3.org/1999/xhtml"
   
   xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"
   xmlns:cml="http://www.xml-cml.org/schema"
@@ -35,7 +36,8 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
       <xi:include href="totaltimes.temp.xml"/> <!--  the last line of input - may need special treatment -->
       <xi:include href="argument.xml"/>
       <xi:include href="internuc.xml"/>
-      <xi:include href="atmass.temp.xml"/>
+      <xi:include href="zmat.xml"/>
+      <xi:include href="atmass.xml"/>
       <xi:include href="atombasis.temp.xml"/>
       <xi:include href="authors.temp.xml"/>
       <xi:include href="ccsd.temp.xml"/>
@@ -50,11 +52,13 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
       <xi:include href="cphf.temp.xml"/>
       <xi:include href="crystaldipole.xml"/>
       <xi:include href="directmp2.temp.xml"/>
-      <xi:include href="dirinfo.temp.xml"/>
+      <xi:include href="dirinfo.xml"/>
       <xi:include href="dft.temp.xml"/>
       <xi:include href="dftfinalmol.temp.xml"/>
       <xi:include href="dftvector.temp.xml"/>
+      <xi:include href="effnucrep.xml"/>
       <xi:include href="energycalc.xml"/>
+      <xi:include href="energymin.xml"/>
       <xi:include href="filebalance.xml"/>
       <xi:include href="finaleigen.xml"/>
       <xi:include href="finalrhf.temp.xml"/>
@@ -62,11 +66,14 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
       <xi:include href="gastats.temp.xml"/>
       <xi:include href="geninfo.temp.xml"/>    
       <xi:include href="geom.temp.xml"/>    
+      <xi:include href="geomopt.xml"/>    
       <xi:include href="globarrays.xml"/>    
+      <xi:include href="gradmodule.xml"/>    
+      <xi:include href="gradmodulestep.xml"/>    
       <xi:include href="grid.temp.xml"/>    
       <xi:include href="ignore.temp.xml"/>
       <xi:include href="integralfile.xml"/>
-      <xi:include href="internucang.temp.xml"/>
+      <xi:include href="internucang.xml"/>
       <xi:include href="iter.xml"/>
       <xi:include href="job.temp.xml"/>
       <xi:include href="lattice.xml"/>
@@ -79,9 +86,10 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
       <xi:include href="nccp.temp.xml"/>
       <xi:include href="nonvar.temp.xml"/>
       <xi:include href="nucdipole.temp.xml"/>
-      <xi:include href="nwcheminp.temp.xml"/>
+      <xi:include href="nwcheminpnwpw.xml"/> <!--  must precede nwcheminp.xml -->
+      <xi:include href="nwcheminp.xml"/>
       <xi:include href="property.temp.xml"/>
-      <xi:include href="pspw.xml"/>
+      <xi:include href="nwpw.xml"/>
       <xi:include href="quadrohf.xml"/>
       <xi:include href="quartets.xml"/>
       <xi:include href="rohffinal.temp.xml"/>
@@ -92,7 +100,9 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
       <xi:include href="spincontam.xml"/>
       <xi:include href="summary.temp.xml"/>
       <xi:include href="summaryalloc.temp.xml"/>
+
       <xi:include href="summaryresults.xml"/>
+      
       <xi:include href="superposatomguess.temp.xml"/>
       <xi:include href="symbas.temp.xml"/>
       <xi:include href="symminfo.temp.xml"/>
@@ -104,10 +114,12 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
       <xi:include href="xyz.temp.xml"/>
       <xi:include href="zmatautoz.temp.xml"/>
       <xi:include href="zmatuser.temp.xml"/>
+      <xi:include href="zmatgrad.xml"/>
       <xi:include href="basis.temp.xml"/>
       <xi:include href="libraryfile.xml"/>
       <xi:include href="libraryname.xml"/>
       <xi:include href="title.xml"/>
+      <xi:include href="cleanup.xml"/>
   </templateList>
 
   <transform process="pullupSingleton" xpath=".//cml:list"/>

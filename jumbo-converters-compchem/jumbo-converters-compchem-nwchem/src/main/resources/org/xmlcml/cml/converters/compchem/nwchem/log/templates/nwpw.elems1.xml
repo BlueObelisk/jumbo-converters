@@ -1,0 +1,30 @@
+<template repeat="*"  id="pspw.elems1" name="PSPW elements with spaces" 
+  pattern="\s*elements involved in the cluster.*" 
+  newline="$" endPattern="\s*cutoff.*$\s*$\s*" endOffset="1"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
+  <comment>This variant has spaces after each atom block. Run BEFORE elems.xml</comment>
+  <comment>
+ elements involved in the cluster:
+      1: Ga    core charge:  3.0000  lmax=  2
+             comment    : Hamann pseudopotential
+             pseudpotential type            :   0
+             highest angular component      :   2
+             local potential used           :   2
+             number of non-local projections:   4
+             cutoff =   1.128   1.506   2.118
+
+      2: N     core charge:  5.0000  lmax=  2
+             comment    : Hamann pseudopotential
+             pseudpotential type            :   0
+             highest angular component      :   2
+             local potential used           :   2
+             number of non-local projections:   4
+             cutoff =   0.700   0.700   0.700
+
+</comment>
+  <record id="x">{X,x:xelem}</record>
+  <xi:include href="nwpw.elems.atom.xml"/>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

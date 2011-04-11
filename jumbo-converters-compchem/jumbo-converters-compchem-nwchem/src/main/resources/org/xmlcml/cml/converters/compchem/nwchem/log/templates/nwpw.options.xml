@@ -1,0 +1,17 @@
+<template repeat="*"  id="pspw.options" name="PSPW options" 
+  pattern="\s*options:.*" 
+  newline="$" endPattern="\s*">
+  <comment>
+ options:
+      boundary conditions  = periodic    (version3)
+      electron spin        = restricted
+      exchange-correlation = LDA (Vosko et al) parameterization
+
+</comment>
+  <record/>
+  <record id="boundary">\s*boundary conditions\s+={X,n:boundary}\s*</record>
+  <record id="spin">\s*electron spin\s+={X,n:spin}\s*</record>
+  <record id="xccorr">\s*exchange-correlation\s+={X,n:xccorr}\s*</record>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

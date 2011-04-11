@@ -1,0 +1,45 @@
+<template repeat="*"  id="zmat" name="Z-Matrix" 
+  pattern="\s*Type\s+Name\s+I\s+J\s+K\s+L\s+M\s+Value\s*$\s*\-+\s*\-+.*" 
+  newline="$" endPattern="\s*">
+  <comment>
+      Type          Name      I     J     K     L     M      Value
+      ----------- --------  ----- ----- ----- ----- ----- ----------
+    1 Stretch                  1     2                       1.80680
+..
+   10 Stretch                  8    11                       1.15200
+   11 Bend                     2     1     6                90.00000
+..
+   37 Bend                    11     1     7               120.00000
+   38 Torsion                  1     2     6     9         180.00000
+..
+   55 Torsion                  1     8     7    10         180.00000
+   
+  </comment>
+  <record repeat="*">\s*Type\s+Name\s+I.*</record>
+  <record />
+  
+  <templateList>
+    <template id="stretch" repeat="*" pattern=".*Stretch.*" endPattern=".*">
+      <record id="stretch" repeat="*" 
+       >\s*{I,n:serial}\s*Stretch\s*{I,n:i}\s*{I,n:j}\s*{F,n:len,u:angst}</record>
+    </template>
+    <template id="bend" repeat="*" pattern=".*Bend.*" endPattern=".*">
+      <record id="bend" repeat="*"
+           >\s*{I,n:serial}\s*Bend\s*{I,n:i}\s*{I,n:j}\s*{I,n:k}\s*{F,n:ang,u:deg}</record>
+    </template>
+    <template id="torsion" repeat="*" pattern=".*Torsion.*" endPattern=".*">
+      <record id="torsion" repeat="*"
+        >\s*{I,n:serial}\s*Torsion\s*{I,n:i}\s*{I,n:j}\s*{I,n:k}\s*{I,n:l}\s*{F,n:tor,u:deg}</record>
+    </template>
+    <!--     6*Stretch      r           3     6                       2.20000    0.07669 -->
+    <template id="stretch" repeat="*" pattern=".*Stretch.*" endPattern=".*">
+    <!-- 
+      <record id="stretchcc" repeat="*" 
+       >\s*{I,n:serial}\*Stretch\s*{A,n:name}\s*{I,n:i}\s*{I,n:j}\s*{F,n:len,u:angst}</record>
+       -->
+      <record id="stretchcc" repeat="*" 
+       >\s*{I,n:serial}\*Stretch{X,n:xxx}</record>
+    </template>
+   </templateList>
+  
+</template>

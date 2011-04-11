@@ -1,0 +1,17 @@
+<template repeat="*"  id="brillouinzp" name="Brillouin zone point" 
+  pattern="\s*Brillouin zone point:\s*" 
+  newline="$" endPattern="\s*">
+  <comment>
+ Brillouin zone point:      1
+    weight=  1.000000
+    k     =&lt;   0.000   0.000   0.000> . &lt;b1,b2,b3> 
+          =&lt;   0.000   0.000   0.000>
+
+</comment>
+  <record id="brill">\s*Brillouin zone point\:{I,n:brill.zone}</record>
+  <record id="weight">\s*weight={F,n:brill.wt}</record>
+  <record id="k">\s*k\s*=&lt;\s*{F,n:brill.h}{F,n:brill.k}{F,n:brill.l}>.*</record>
+  <record id="k1">\s*=&lt;{F,n:brill.h}{F,n:brill.k}{F,n:brill.l}>.*</record>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

@@ -1,0 +1,17 @@
+<template repeat="*"  id="pspw.comp" name="PSPW computing" 
+  pattern="\s*number of processors used:.*" 
+  newline="$" endPattern="\s*">
+  <comment>
+ number of processors used:         4
+ processor grid           :   4 x   1
+ parallel mapping         :      slab
+ parallel mapping         :  balanced
+
+
+</comment>
+  <record id="nproc">\s*number of processors used:{I,cc:nproc}\s*</record>
+  <record id="grid">\s*processor grid\s*:{X,n:procgrid}\s*</record>
+  <record id="map" repeat="*">\s*parallel mapping\s*:{X,n:parallelmap}\s*</record>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

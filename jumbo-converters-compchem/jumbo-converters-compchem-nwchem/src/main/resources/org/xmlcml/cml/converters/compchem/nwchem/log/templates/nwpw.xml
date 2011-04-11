@@ -1,6 +1,8 @@
-<template repeat="*"  id="pspw" name="pspw" 
-  pattern="\s*\*+\s*$\s*\*\s+\*\s*$\s*\*\s+NWPW PSPW Calculation\s+\*\s*" 
-  newline="$" endPattern="\s*$\s*$\s*$\s*$\s*">
+<template repeat="*"  id="nwpw" name="nwpw" 
+  pattern="\s*\*+\s*$\s*\*\s+\*\s*$\s*\*\s+NWPW (PSPW|BAND) Calculation\s+\*\s*" 
+  newline="$" endPattern="\s*$\s*$\s*$\s*$\s*"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
   <comment>
 
           ****************************************************
@@ -99,6 +101,30 @@
 
 
 </comment>
+  <templateList>
+    <xi:include href="nwpw.banner.xml"/>
+    <xi:include href="nwpw.library.xml"/>
+    <xi:include href="nwpw.generated.xml"/>
+    <xi:include href="nwpw.inputdata.xml"/>
+    <xi:include href="nwpw.job.xml"/>
+    <xi:include href="nwpw.elems1.xml"/>
+    <xi:include href="nwpw.elems.xml"/>
+    <xi:include href="nwpw.converting.xml"/>
+    <xi:include href="nwpw.random.xml"/>
+    <xi:include href="nwpw.psifile.xml"/>
+    <xi:include href="nwpw.gramschmidt.xml"/>
+    <xi:include href="nwpw.comp.xml"/>
+    <xi:include href="nwpw.options.xml"/>
+    <xi:include href="nwpw.totalcharge.xml"/>
+    <xi:include href="nwpw.atomcompos.xml"/>
+    <xi:include href="nwpw.technical.xml"/>
+    <xi:include href="nwpw.nelectron.xml"/>
+    <xi:include href="nwpw.brillouin.xml"/>
+    <xi:include href="nwpw.supercell.xml"/>
+    <xi:include href="nwpw.lattice.xml"/>
+    <xi:include href="nwpw.ewald.xml"/>
+    <xi:include href="nwpw.densitycut.xml"/>
+  </templateList>  
   <record repeat="*" id="pspwxxxx">{X,x:x}</record>
   <transform process="pullupSingleton" xpath="./cml:list"/>
 </template>
