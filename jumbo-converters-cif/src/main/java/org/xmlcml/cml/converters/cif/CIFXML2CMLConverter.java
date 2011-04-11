@@ -172,6 +172,7 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		CMLSymmetry symmetry = new CMLSymmetry();
 		processCMLItems(block, cml, molecule, crystal, symmetry);
 		processCMLLoops(block, cml, molecule, crystal, symmetry);
+        crystal.appendChild(symmetry);
 
         cml.appendChild(crystal);
         cml.appendChild(molecule);
