@@ -36,15 +36,13 @@ public class FileTest {
 	
 		Element rawCml = new CIFXML2CMLConverter().convertToXML(cif);
 		Element completeCml = new RawCML2CompleteCMLConverter().convertToXML(rawCml);
-	
+
 		CMLMolecule molecule = (CMLMolecule) CMLUtil.getQueryNodes(completeCml, "//cml:molecule", CMLConstants.CML_XPATH).get(0);
 		Assert.assertEquals("multiple molecules", 2, molecule.getChildElements().size());
 		CMLMolecule molecule0 = (CMLMolecule)molecule.getChildElements().get(0);
 		Assert.assertEquals("molecule size 0", 20, molecule0.getAtomCount());
-		CMLUtil.debug(molecule0, new FileOutputStream("o1060a.cml"), 2);
 		CMLMolecule molecule1 = (CMLMolecule)molecule.getChildElements().get(1);
 		Assert.assertEquals("molecule size 1", 5, molecule1.getAtomCount());
-		CMLUtil.debug(molecule1, new FileOutputStream("o1060b.cml"), 2);
 	}
 
 }
