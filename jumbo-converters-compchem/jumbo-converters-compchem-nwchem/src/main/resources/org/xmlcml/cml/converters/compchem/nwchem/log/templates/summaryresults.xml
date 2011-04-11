@@ -1,0 +1,51 @@
+<template repeat="*"  id="summaryresults" name="Summary of Results" 
+  pattern="\s*\=+\s+[Ss]ummary [Oo]f [Rr]esults\s+\=+\s*$\s*" 
+  newline="$" endPattern="\s*$\s*"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
+  <comment>
+          =============  [Ss]ummary [Oo]f [Rr]esults  =================
+
+ number of electrons: spin up=   16.00000  down=   16.00000 (real space)
+
+ total     energy    :  -0.4670736126E+02 (   -0.58384E+01/ion)
+ total orbital energy:   0.2046628579E+01 (    0.12791E+00/electron)
+ hartree   energy    :   0.9902993817E+01 (    0.61894E+00/electron)
+ exc-corr  energy    :  -0.1329222221E+02 (   -0.83076E+00/electron)
+ ion-ion   energy    :  -0.4294681362E+02 (   -0.53684E+01/ion)
+
+ K.S. kinetic energy :   0.2846763128E+02 (    0.17792E+01/electron)
+ K.S. V_l  energy    :  -0.2934397297E+02 (   -0.18340E+01/electron)
+ K.S. V_nl energy    :   0.5050224332E+00 (    0.31564E-01/electron)
+ K.S. V_Hart energy  :   0.1980598763E+02 (    0.12379E+01/electron)
+ K.S. V_xc energy    :  -0.1738803980E+02 (   -0.10868E+01/electron)
+ K.S. V_so energy    :   0.0000000000E+00 (    0.00000E+00/electron)
+ Virial Coefficient  :  -0.9281068186E+00
+
+
+</comment>
+<comment>
+ kinetic (planewave) :   0.2846763780E+02 (    0.17792E+01/electron)
+ V_local (planewave) :  -0.2934398068E+02 (   -0.18340E+01/electron)
+ V_nl    (planewave) :   0.5050216234E+00 (    0.31564E-01/electron)
+ V_Coul  (planewave) :   0.1980599286E+02 (    0.12379E+01/electron)
+ V_xc.   (planewave) :  -0.1738804054E+02 (   -0.10868E+01/electron)
+ Virial Coefficient  :  -0.9281067477E+00
+
+
+</comment>
+  <record repeat="2" id="x">{X}</record>
+  <record id="electrons">\snumber of electrons: spin up=\s*{F,n:elecup}\s*down=\s*{F,n:elecdown}\s*{X,n:space}</record>
+  <record id="x">{X}</record>
+  <record id="energy1" repeat="*">\s{X,n:type}\s*:\s*{E,n:ener}\s*\(\s*{E,n:ener1}\s*/{A,n:species}\)</record>
+  <record id="x">{X}</record>
+  <record id="energy2" repeat="*">\s{X,n:type}\s*:\s*{E,n:ener}\s*\(\s*{E,n:ener1}\s*/{A,n:species}\)</record>
+  <record id="vircoeff">\s*Virial Coefficient\s+\:{E,n:ener}</record>
+  <templateList>
+      <xi:include href="orbitalener.xml"/>
+      <xi:include href="totalbandener.xml"/>
+      <xi:include href="brillouinzp.xml"/>
+  </templateList>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

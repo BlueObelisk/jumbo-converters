@@ -9,17 +9,35 @@ It uses include files from
 The ORDER of the subtemplates may be important. Templates are processed in the order 
   in this files and the subtemplates. Some of the files are marked with comments
  -->
-<template id='nwchem.log' output="VERBOSE"
-  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:c="http://www.xml-cml.org/dictionary"
+<template id='nwchem.log' 
+  output="VERBOSE"
+  convention='conventions:compchem'
+  xmlns:conventions="http://www.xml-cml.org/convention/"
+  
   xmlns:compchem="http://www.xml-cml.org/dictionary/compchem/"
-  xmlns:n="http://www.xml-cml.org/dictionary/nwchem">
-  xmlns:cml="http://www.xml-cml.org/schema">
-  <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
-      <xi:include href="echoinput.temp.xml"/> <!-- do this early on -->
+  xmlns:cc="http://www.xml-cml.org/dictionary/compchem/"
+  xmlns:n="http://www.xml-cml.org/dictionary/nwchem/"
+  xmlns:x="http://www.xml-cml.org/dictionary/cmlx/"
+  xmlns:h="http://www.w3.org/1999/xhtml"
+  
+  xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"
+  xmlns:cml="http://www.xml-cml.org/schema"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+   >
+  <dictionary uri="http://www.xml-cml.org/dictionary/cmlx/"
+      href="org/xmlcml/cml/converters/compchem/cmlxDict.xml"/>
+  <dictionary uri="http://www.xml-cml.org/dictionary/compchem/"
+      href="org/xmlcml/cml/converters/compchem/compchemDict.xml"/>
+  <dictionary uri="http://www.xml-cml.org/dictionary/nwchem/" 
+      href="org/xmlcml/cml/converters/compchem/nwchem/nwchemDict.xml"/>
+      
+  <templateList id='main'>
+      <xi:include href="input.xml"/> <!-- do this early on -->
       <xi:include href="totaltimes.temp.xml"/> <!--  the last line of input - may need special treatment -->
-      <xi:include href="argument.temp.xml"/>
-      <xi:include href="atmass.temp.xml"/>
+      <xi:include href="argument.xml"/>
+      <xi:include href="internuc.xml"/>
+      <xi:include href="zmat.xml"/>
+      <xi:include href="atmass.xml"/>
       <xi:include href="atombasis.temp.xml"/>
       <xi:include href="authors.temp.xml"/>
       <xi:include href="ccsd.temp.xml"/>
@@ -28,26 +46,39 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
       <xi:include href="convergeiter.temp.xml"/>
       <xi:include href="center23.temp.xml"/>
       <xi:include href="centermass.temp.xml"/>
+      <xi:include href="centerofcharge.xml"/>
       <xi:include href="citation.temp.xml"/>
       <xi:include href="converge.temp.xml"/>
       <xi:include href="cphf.temp.xml"/>
+      <xi:include href="crystaldipole.xml"/>
       <xi:include href="directmp2.temp.xml"/>
-      <xi:include href="dirinfo.temp.xml"/>
+      <xi:include href="dirinfo.xml"/>
       <xi:include href="dft.temp.xml"/>
       <xi:include href="dftfinalmol.temp.xml"/>
       <xi:include href="dftvector.temp.xml"/>
-      <xi:include href="eigen.temp.xml"/>
+      <xi:include href="effnucrep.xml"/>
+      <xi:include href="energycalc.xml"/>
+      <xi:include href="energymin.xml"/>
+      <xi:include href="filebalance.xml"/>
+      <xi:include href="finaleigen.xml"/>
       <xi:include href="finalrhf.temp.xml"/>
       <xi:include href="fourindex.temp.xml"/>
       <xi:include href="gastats.temp.xml"/>
       <xi:include href="geninfo.temp.xml"/>    
       <xi:include href="geom.temp.xml"/>    
+      <xi:include href="geomopt.xml"/>    
+      <xi:include href="globarrays.xml"/>    
+      <xi:include href="gradmodule.xml"/>    
+      <xi:include href="gradmodulestep.xml"/>    
       <xi:include href="grid.temp.xml"/>    
       <xi:include href="ignore.temp.xml"/>
-      <xi:include href="internuc.temp.xml"/>
-      <xi:include href="internucang.temp.xml"/>
+      <xi:include href="integralfile.xml"/>
+      <xi:include href="internucang.xml"/>
+      <xi:include href="iter.xml"/>
       <xi:include href="job.temp.xml"/>
+      <xi:include href="lattice.xml"/>
       <xi:include href="memory.temp.xml"/>
+      <xi:include href="moleculardipole.xml"/>
       <xi:include href="momint.temp.xml"/>
       <xi:include href="mp2energy.temp.xml"/>
       <xi:include href="mulliken.temp.xml"/>
@@ -55,73 +86,100 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
       <xi:include href="nccp.temp.xml"/>
       <xi:include href="nonvar.temp.xml"/>
       <xi:include href="nucdipole.temp.xml"/>
-      <xi:include href="nwcheminp.temp.xml"/>
+      <xi:include href="nwcheminpnwpw.xml"/> <!--  must precede nwcheminp.xml -->
+      <xi:include href="nwcheminp.xml"/>
       <xi:include href="property.temp.xml"/>
+      <xi:include href="nwpw.xml"/>
+      <xi:include href="quadrohf.xml"/>
+      <xi:include href="quartets.xml"/>
       <xi:include href="rohffinal.temp.xml"/>
       <xi:include href="scf.temp.xml"/>
+      <xi:include href="scfener.xml"/>
       <xi:include href="screen.temp.xml"/>
       <xi:include href="shielding.temp.xml"/>
+      <xi:include href="spincontam.xml"/>
       <xi:include href="summary.temp.xml"/>
       <xi:include href="summaryalloc.temp.xml"/>
+
+      <xi:include href="summaryresults.xml"/>
+      
       <xi:include href="superposatomguess.temp.xml"/>
       <xi:include href="symbas.temp.xml"/>
       <xi:include href="symminfo.temp.xml"/>
       <xi:include href="symmolorb.temp.xml"/>
       <xi:include href="tensor.temp.xml"/>
+      <xi:include href="times.xml"/>
+      <xi:include href="timing.xml"/>
       <xi:include href="xc.temp.xml"/>
       <xi:include href="xyz.temp.xml"/>
       <xi:include href="zmatautoz.temp.xml"/>
       <xi:include href="zmatuser.temp.xml"/>
+      <xi:include href="zmatgrad.xml"/>
       <xi:include href="basis.temp.xml"/>
+      <xi:include href="libraryfile.xml"/>
+      <xi:include href="libraryname.xml"/>
+      <xi:include href="title.xml"/>
+      <xi:include href="cleanup.xml"/>
   </templateList>
-  <transform process="createChild" elementName="module" xpath="/*" id="environment" position="0"/>
-  <transform process="addDictRef" xpath="//cml:module[@id='environment']" value="environment"/>
-  <transform process="group" 
-      followingSiblingsBefore="../*[@templateRef='nwcheminpmod'][1]"
-      xpath="//cml:module[@dictRef='environment']"/>
-  <transform process="createChild" elementName="module" xpath="/*" id="initial" position="1"/>
-  <transform process="addDictRef" xpath="//cml:module[@id='initial']" value="initialization"/>
-  <transform process="group" 
-      followingSiblingsBefore="../*[@templateRef='nwcheminpmod'][2]"
-      xpath="//cml:module[@dictRef='initialization']"/>
 
+  <transform process="pullupSingleton" xpath=".//cml:list"/>
+  <transform process="pullupSingleton" xpath=".//cml:module"/>
+  
+<!-- I have struggled with the Xpath and don't understand why other ones don't work. but this does -->  
+<!-- I think its because XOM/xpath treats concatenated texts as a single node but the nodes are still there in the XOM -->
+  <transform process="createWrapper" elementName="scalar" 
+    xpath="//*[not(local-name()='scalar' or local-name()='array' or local-name()='matrix') and count(text())>0]/text()" 
+      dictRef="cmlx:unparsed"/>
+  
+  <transform process="createChild" elementName="module" xpath="/*" id="environment" 
+      position="0" dictRef="compchem:environment"/>
+  <transform process="group" 
+      followingSiblingsBefore="../*[@cmlx:templateRef='nwcheminpmod'][1]"
+      xpath="//cml:module[@dictRef='compchem:environment']"/>
+
+  <transform process="createChild" elementName="module" xpath="/*" id="initialization" position="1"/>
+  <transform process="addDictRef" xpath="//cml:module[@id='initialization']" value="compchem:initialization"/>
+  <transform process="group" 
+      followingSiblingsBefore="../*[@cmlx:templateRef='nwcheminpmod'][2]"
+      xpath="//cml:module[@dictRef='compchem:initialization']"/>
+
+<!-- count(a/b[.='tsr']/preceding-sibling::*)+1 -->
   <transform process="createChild" elementName="module" xpath="/*" id="calculation" position="2"/>
-  <transform process="addDictRef" xpath="//cml:module[@id='calculation']" value="calculation"/>
+  <transform process="addDictRef" xpath="//cml:module[@id='calculation']" value="compchem:calculation"/>
   <transform process="group" 
-      followingSiblingsBefore="../*[@templateRef='nwcheminpmod'][count(../*[@templateRef='nwcheminpmod'])]"
-      xpath="//cml:module[@dictRef='calculation']"/>
+      followingSiblingsBefore="../*[@cmlx:templateRef='nwcheminpmod' and 
+        count(../*[@cmlx:templateRef='nwcheminpmod'])=count(./preceding-sibling::*[@cmlx:templateRef='nwcheminpmod'])+1]"
+      xpath="//cml:module[@dictRef='compchem:calculation']"/>
 
-  <transform process="createChild" elementName="module" xpath="/*" id="final" position="3"/>
-  <transform process="addDictRef" xpath="//cml:module[@id='final']" value="finalization"/>
+  <transform process="createChild" elementName="module" xpath="/*" id="finalization" position="3"/>
+  <transform process="addDictRef" xpath="//cml:module[@id='finalization']" value="compchem:finalization"/>
   <transform process="group" 
       followingSiblingsBefore="ALL"
-      xpath="//cml:module[@dictRef='finalization']"/>
-<!--    
-  <transform process="createChild" elementName="module" xpath="/*" id="final" position="0"/>
-  <transform process="addDictRef" xpath="//cml:module[@id='final']" value="finalization"/>
-  -->
-  <!-- 
-  <transform process="group" xpath="./*[@templateRef='nwcheminpmod']"/>
-  <transform process="move" xpath="./*[@role='group'][1]" toXpath="//*[@id='initial']"/>
-  <transform process="move" xpath="./*[@role='group'][1]" toXpath="//*[@id='initial']"/>
-  <transform process="addRole" xpath="./*[@role='group'][1]" value="initialization"/>
-  <transform process="addRole" xpath="./*[@role='group'][count(//*[@role='group'])]" value="finalization"/>
-  <transform process="addDictRef" xpath="./*[@role='initialization'][1]" value="compchem:initialization"/>
+      xpath="//cml:module[@dictRef='compchem:finalization']"/>
+      
   <transform process="addParameterList" xpath="./*[@dictRef='compchem:initialization']" id="initialParams"/>
-  <transform process="move" xpath=".//*[@dictRef='compchem:date'][1]" toXpath=".//*[@id='initialParams']"/>
-  <transform process="move" xpath=".//*[@dictRef='compchem:program'][1]" toXpath=".//*[@id='initialParams']"/>
-  <transform process="move" xpath=".//*[@dictRef='compchem:version'][1]" toXpath=".//*[@id='initialParams']"/>
+  <transform process="move" xpath=".//*[@dictRef='compchem:date'][1]"     toXpath=".//*[@id='initialParams']"/>
+  <transform process="move" xpath=".//*[@dictRef='compchem:program'][1]"  toXpath=".//*[@id='initialParams']"/>
+  <transform process="move" xpath=".//*[@dictRef='compchem:version'][1]"  toXpath=".//*[@id='initialParams']"/>
   <transform process="move" xpath=".//*[@dictRef='compchem:hostname'][1]" toXpath=".//*[@id='initialParams']"/>
   <transform process="wrap" xpath=".//*[@id='initialParams']"/>
   
-  <transform process="addDictRef" xpath="./*[@role='finalization']" value="compchem:finalization"/>
   <transform process="addPropertyList" xpath="./*[@dictRef='compchem:finalization']" id="finalProperties"/>
   <transform process="move" xpath=".//*[@dictRef='compchem:nuclearEnergy'][1]" toXpath=".//*[@id='finalProperties']"/>
   <transform process="move" xpath=".//*[@dictRef='compchem:nuclearDipole'][1]" toXpath=".//*[@id='finalProperties']"/>
   <transform process="wrap" xpath=".//*[@id='finalProperties']"/>
 
-  <transform process="move" xpath=".//*[local-name()='molecule']" toXpath="./*[@dictRef='compchem:finalization']"/>
+  <transform process="move" xpath=".//*[@*[local-name()='templateRef' and .='input']]//*[local-name()='molecule']" toXpath="./*[@dictRef='compchem:initialization']"/>
+
+    
+  <!--  delete empty scalars -->
+  <transform process="delete" xpath="//cml:scalar[normalize-space(.)='']"/>
   
-  <transform process="addDictRef" xpath="./*[@role='group']" value="compchem:calculation"/>
-  -->
+  <!--  remove hydrogenCount attributes -->
+  <transform process="delete" xpath="//@hydrogenCount"/>
+  
+  <xi:include href="dictRefConversion.xml"/>  
+
+  <transform process="checkDictionary" xpath=".//@dictRef"/>
+  
 </template>

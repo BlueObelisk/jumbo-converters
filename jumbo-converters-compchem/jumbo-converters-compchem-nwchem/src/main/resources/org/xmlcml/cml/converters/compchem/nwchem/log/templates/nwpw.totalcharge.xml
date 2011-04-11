@@ -1,0 +1,11 @@
+<template repeat="*"  id="pspw.job" name="PSPW job" 
+  pattern="\s*total charge:.*" 
+  newline="$" endPattern="\s*">
+  <comment>
+ total charge:   0.000
+
+</comment>
+  <record id="totalcharge">\s*total charge:\s*{F,n:totalcharge}</record>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

@@ -24,15 +24,15 @@
   <templateList>
     <template repeat="*" id="vector"
       pattern="\s*Vector\s*.*" endPattern="\s*">
-      <record id="vv">\s*Vector\s*{I,n:v}\s+Occ={E,n:occ}\s+E={E,n:e}\s+Symmetry={A,n:sym}.*</record>
-      <record id="vv2">\s*MO\s+Center=\s*{E,n:mo1},\s*{E,n:mo2},\s*{E,n:mo3},\s*r\^2={E,n:r2}.*</record>
+      <record id="vv">\s*Vector\s*{I,compchem:serial}\s+Occ={E,n:occ}\s+E={E,n:e}\s+Symmetry={A,compchem:irrep}.*</record>
+      <record id="vv2">\s*MO\s+Center=\s*{E,x:x},\s*{E,x:y},\s*{E,x:z},\s*r\^2={E,n:r2mo}.*</record>
       <record id="junk" repeat="2">{X}</record>
-      <record id="orb2" repeat="*">{I,n:i}{F,n:f}{I,n:j}{A,n:a}{A,n:orb}{I,n:i}{F,n:f}{I,n:j}{A,n:a}{A,n:orb}</record>
-      <record id="orb1" repeat="*">{I,n:i}{F,n:f}{I,n:j}{A,n:a}{A,n:orb}</record>
+      <record id="orb2" repeat="*">{I,n:basisfuncserial}{F,n:mocoeff}{I,compchem:atomserial}{A,compchem:elementType}{A,n:orbital}{I,n:basisfuncserial}{F,n:mocoeff}{I,compchem:atomserial}{A,compchem:elementType}{A,n:orbital}</record>
+      <record id="orb1" repeat="*">{I,n:basisfuncserial}{F,n:mocoeff}{I,compchem:atomserial}{A,compchem:elementType}{A,n:orbital}</record>
     </template>
   </templateList>
-  <transform process="vector3" xpath=".//*[@templateRef='vv2']/*" 
-      from="*[@dictRef='n:mo1' or @dictRef='n:mo2' or @dictRef='n:mo3']"
+  <transform process="vector3" xpath=".//*[@cmlx:templateRef='vv2']/*" 
+      from="*[@dictRef='x:x' or @dictRef='x:y' or @dictRef='x:z']"
       dictRef="n:mocenter"/>
   <transform process="pullupSingleton" xpath=".//cml:list[count(*)=1]"/> 
 </template>

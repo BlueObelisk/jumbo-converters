@@ -1,0 +1,19 @@
+<template repeat="*"  id="iter" name="iterations and energy" 
+  pattern="\s*iter\s+energy\s+gnorm\s+gmax\s+time\s*$\s*\-+\s*\-+.*" newline="$" 
+    endPattern="\s*">
+  <comment>
+ #quartets = 2.187D+04 #integrals = 7.148D+04 #direct =  0.0% #cached =100.0%
+
+
+ Integral file          = ./methylamine.aoints.0
+ Record size in doubles =  65536        No. of integs per rec  =  43688
+ Max. records in memory =      2        Max. records in file   =  26331
+ No. of bits per label  =      8        No. of bits per value  =     64
+
+
+File balance: exchanges=     0  moved=     0  time=   0.0
+
+</comment>
+  <record repeat="2">{X}</record>
+  <record id="iter" makeArray="true" repeat="*">\s*{I,n:iter}\s+{F,n:ener}\s+{E,n:gnorm}\s+{E,n:gmax}\s+{F,n:time}</record>
+</template>

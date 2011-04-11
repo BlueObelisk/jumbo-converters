@@ -1,0 +1,15 @@
+<template repeat="*"  id="modgateway" name="gateway Module" 
+  pattern="\-\-\-\s*Start Module: gateway\s+.*" endPattern="\-\-\- Stop Module:  gateway\s+.*" endOffset="1">
+  <comment>
+--- Start Module: gateway at Sat Mar 19 20:58:37 2011
+ ... 
+--- Stop Module:  gateway at Sat Mar 19 20:58:39 2011 /rc=0 ---
+  </comment>
+  <record id="gateway">\-\-\-\s*Start Module: {A,m:gateway} at\s*{X,m:date}</record>
+  <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
+    <xi:include href="executing.temp.xml"/>
+    <xi:include href="molstruct.temp.xml"/>
+    <xi:include href="chunker.temp.xml"/>
+  </templateList>
+  <record repeat="*">{X,n:dbg}</record>
+</template>

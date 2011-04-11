@@ -1,0 +1,14 @@
+<template repeat="*"  id="nwpw.converting" name="NWPW converting wavefunctions" 
+  pattern="\s*\+\s+converting wavefunctions.*" 
+  newline="$" endPattern="\s*pspw.*">
+  <comment>
+ + converting wavefunctions from pspw format to band format
+ filename converted    : band.movecs                   
+ pspw filename moved to: band.movecs.pspw              
+</comment>
+  <record id="converting">\s*\+\s+converting wavefunctions from {X,n:format} format to {X,n:format} format\s*</record>
+  <record id="fromfile">\s*filename converted\s*\:\s*{X,cc:filename}\s*</record>
+  <record id="tofile">\s*pspw filename moved to\:\s*{X,cc:filename}\s*</record>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

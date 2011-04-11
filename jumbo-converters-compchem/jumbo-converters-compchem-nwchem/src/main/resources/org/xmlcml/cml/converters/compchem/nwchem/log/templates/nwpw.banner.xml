@@ -1,0 +1,51 @@
+<template repeat="*"  id="nwpw.banner" name="NWPW banner" 
+  pattern="\s*\*+\s*$\s*\*\s+\*\s*$\s*\*\s+NWPW (PSPW|BAND) Calculation\s+\*\s*" 
+  newline="$" endPattern="\s*\*\s*\*\s*$\s*\*+\s*" endOffset="2">
+  <comment>
+
+          ****************************************************
+          *                                                  *
+          *               NWPW PSPW Calculation              *
+          *                                                  *
+          *  [ (Grassman/Stiefel manifold implementation) ]  *
+          *                                                  *
+          *      [ NorthWest Chemistry implementation ]      *
+          *                                                  *
+          *            version #5.10   06/12/02              *
+          *                                                  *
+          *    This code was developed by Eric J. Bylaska,   *
+          *    and was based upon algorithms and code        *
+          *    developed by the group of Prof. John H. Weare *
+          *                                                  *
+          ****************************************************
+</comment>
+<comment>
+          **********************************************************
+          *                                                        *
+          *                   NWPW BAND Calculation                *
+          *                                                        *
+          *  [(bundled Grassman/Stiefel manifold implementation)]  *
+          *                                                        *
+          *         [ NorthWest Chemistry implementation ]         *
+          *                                                        *
+          *                version #1.10   01/31/03                *
+          *                                                        *
+          *  A pseudopotential plane-wave band structure program   *
+          *  with Brillouin zone sampling for optimizing crystals, *
+          *  slabs, and polymers.  Developed by Eric J. Bylaska    *
+          *  , Edoardo Apra, and Patrick Nichols.                  *
+          *                                                        *
+          **********************************************************
+</comment>
+  <record repeat="2"/>
+  <record id="type">\s*\*\s*NWPW {X,n:pwtype} Calculation\s*\*\s*</record>
+  <record />
+  <record id="impl">\s*\*\s*\[\s*\({X,n:impl}\)\s*\]\s*\*\s*</record>
+  <record/>
+  <record id="impl">\s*\*\s*\[\s*{X,n:impl}\s*\]\s*\*\s*</record>
+  <record/>
+  <record id="version">\s*\*\s*version\s*#{A,cc:version}\s*{X,cc:date}\s*\*\s*</record>
+  <record repeat="*"/>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

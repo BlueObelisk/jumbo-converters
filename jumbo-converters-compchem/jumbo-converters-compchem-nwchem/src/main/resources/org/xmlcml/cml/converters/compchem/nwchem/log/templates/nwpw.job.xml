@@ -1,0 +1,9 @@
+<template repeat="*"  id="pspw.job" name="PSPW job" 
+  pattern="\s*>>>\s+JOB STARTED\s+AT.*" 
+  newline="$" endPattern=".*">
+  <comment>
+     >>>  JOB STARTED       AT Fri Aug  6 14:00:17 2010  &lt;&lt;&lt;
+</comment>
+  <record id="job">\s*>>>\s+JOB STARTED\s+AT\s*{X,cc:date}\s*&lt;&lt;&lt;\s*</record>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

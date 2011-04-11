@@ -1,16 +1,21 @@
 <template repeat="*"  name="center of mass" id="centermass" 
-  pattern=".*center of mass.*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*" output="NONE">
+  pattern=".*center of mass.*$\s+\-+.*" newline="$" endPattern="\s*">
   <comment>
  center of mass
  --------------
  x =   0.00000000 y =   0.00000000 z =   0.00000000
 
   </comment>
-  <record repeat="2">{X}</record>
-  <record formatType="REGEX" id="centermass" repeat="*" output="NONE"
-      >\s*x ={F,n:x}\s*y ={F,n:y}\s*z ={F,n:z}</record>
-  <transform process="pullupSingleton" xpath="./cml:list[count(*)=1]"/> 
-  <transform process="vector3" xpath="./*[@templateRef='centermass']" 
-      from="*[@dictRef='n:x' or @dictRef='n:y' or @dictRef='n:z']"
+  <record repeat="2" id="junk">{X}</record>
+  <record id="centermassx">\s*x =\s*{F,x:x}\s*y =\s*{F,x:y}\s*z =\s*{F,x:z}\s*</record>
+  <transform process="pullupSingleton" xpath="./cml:list[@cmlx:templateRef='centermass']"/> 
+  <!-- 
+  <transform process="debug" xpath="." />
+  -->
+  <transform process="vector3" xpath="./cml:list[@cmlx:templateRef='centermass']" 
+      from="*[@dictRef='x:x' or @dictRef='x:y' or @dictRef='x:z']"
        dictRef="compchem:centerofmass"/>
+<!-- 
+  <transform process="debug" xpath="." />
+ -->
 </template>

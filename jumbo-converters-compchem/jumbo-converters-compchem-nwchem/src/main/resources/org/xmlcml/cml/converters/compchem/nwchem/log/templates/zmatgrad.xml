@@ -1,0 +1,52 @@
+<template repeat="*"  id="zmatgrad" name="Z-Matrix gradient" 
+  pattern="\s*Type\s+Name\s+I\s+J\s+K\s+L\s+M\s+Value\s+(Change|Sadmode|Gradient)\s*$\s*\-+\s*\-+.*" 
+  newline="$" endPattern="\s*">
+  <comment>
+      Type          Name      I     J     K     L     M      Value     Gradient
+      ----------- --------  ----- ----- ----- ----- ----- ---------- ----------
+    1 Stretch                  1     2                       1.35468    0.01148
+    ...
+    5 Stretch                  2    13                       1.06984    0.00038
+    6*Stretch      r           3     6                       2.20000    0.07669
+    7 Stretch                  3     5                       1.58908    0.02455
+    8 Stretch                  3     9                       1.07776    0.00175
+    9*Stretch      r           4     7                       2.20000    0.07669
+   10 Stretch                  4     5                       1.58908    0.02455
+   ...
+   19 Bend                     1     2     4               108.69199   -0.00090
+   20 Bend                     1     2    13               127.02998    0.00054
+   ...
+   54 Bend                    12     6    16               108.36160   -0.00267
+   55 Torsion                  1     2     4     7          72.07754   -0.00025
+   ...
+  115 Torsion                 16     6     7    17           0.00000    0.00000
+
+   
+  </comment>
+  <record id="type">\s*Type\s+Name\s+I\s+J\s+K\s+L\s+M\s+Value\s+{A,n:type}\s*</record>
+  <record />
+  
+  <templateList>
+    <template id="stretch" repeat="*" pattern=".*Stretch.*" endPattern=".*">
+      <record id="stretch" repeat="*" 
+       >\s*{I,n:serial}\s*Stretch\s*{I,n:i}\s*{I,n:j}\s*{F,n:len,u:angst}{F,n:grad,u:angst}</record>
+    </template>
+    <template id="bend" repeat="*" pattern=".*Bend.*" endPattern=".*">
+      <record id="bend" repeat="*"
+           >\s*{I,n:serial}\s*Bend\s*{I,n:i}\s*{I,n:j}\s*{I,n:k}\s*{F,n:ang,u:deg}{F,n:grad,u:deg}</record>
+    </template>
+    <template id="torsion" repeat="*" pattern=".*Torsion.*" endPattern=".*">
+      <record id="torsion" repeat="*"
+        >\s*{I,n:serial}\s*Torsion\s*{I,n:i}\s*{I,n:j}\s*{I,n:k}\s*{I,n:l}\s*{F,n:tor,u:deg}{F,n:grad,u:deg}</record>
+    </template>
+    <template id="stretch" repeat="*" pattern=".*Stretch.*" endPattern=".*">
+    <!-- 
+      <record id="stretchcc" repeat="*" 
+       >\s*{I,n:serial}\*Stretch\s*{A,n:name}\s*{I,n:i}\s*{I,n:j}\s*{F,n:len,u:angst}</record>
+       -->
+      <record id="stretchcc" repeat="*" 
+       >\s*{I,n:serial}\*Stretch{X,n:xxx}</record>
+    </template>
+   </templateList>
+  
+</template>

@@ -1,0 +1,20 @@
+<template repeat="*"  id="quadrohf" name="Quadratically convergent ROHF" 
+  pattern="\s*\-+\s*$\s*Quadratically convergent ROHF\s*" newline="$" 
+    endPattern="\s*\-+\s*" endOffset="1">
+  <comment>
+ ----------------------------------------------
+         Quadratically convergent ROHF
+
+ Convergence threshold     :          1.000E-04
+ Maximum no. of iterations :           30
+ Final Fock-matrix accuracy:          1.000E-07
+ ----------------------------------------------
+
+</comment>
+  <record repeat="3">{X}</record>
+  <record id="r2" repeat="*">\s*{X,n:name}\s*:\s*{X,n:value}</record>
+  <record >{X}</record>
+  <transform process="nameValue" xpath="./cml:list/cml:list" 
+    name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>
+    -->
+</template>

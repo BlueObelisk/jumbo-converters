@@ -1,0 +1,17 @@
+<template repeat="*"  id="centerofcharge" name="Center of Charge" 
+  pattern="\s*== Center of Charge ==\s*" 
+  newline="$" endPattern="\s*$\s*">
+  <comment>
+== Center of Charge ==
+
+spin up     (    0.0000,   -0.3785,    0.6527 )
+spin down   (    0.0000,   -0.3785,    0.6527 )
+     total  (    0.0000,   -0.3785,    0.6527 )
+ionic       (    1.4800,    0.8546,    1.6712 )
+crystal     (    0.0000,    0.0000,    0.1008 )
+
+
+</comment>
+  <record repeat="*" id="centerofcharge.unparsed">{X,x:x}</record>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

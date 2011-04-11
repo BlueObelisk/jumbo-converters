@@ -14,6 +14,7 @@ import nu.xom.Text;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
+import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLModule;
@@ -31,31 +32,52 @@ public class LineContainer {
 
 	private int currentNodeIndex = 0;
 	private Element linesElement;
+	private Template template;
 	
-	public LineContainer() {
+	public LineContainer(Template template) {
+		this.template = template;
 	}
 	
 	/** extracts children of element and destroys element
 	 * @param element
 	 */
-	public LineContainer(Element element) {
-		this();
+	public LineContainer(Element element, Template template) {
+		this(template);
 		this.linesElement = element;
+		ensureNamespacesOnLinesElement();
+	}
+
+	private void ensureNamespacesOnLinesElement() {
+		if (template != null) {
+			String convention = template.getConvention();
+			if (convention != null) {
+				linesElement.addAttribute(new Attribute(Template.CONVENTION, convention));
+			}
+		}
+		linesElement.addNamespaceDeclaration(CMLConstants.CMLX_PREFIX, CMLConstants.CMLX_NS);
+	}
+	
+	/** splits lines at line endings	 * 
+	 * @param s
+	 */
+	public LineContainer(String s, Template template) {
+		this(template);
+		this.setContent(s);
 	}
 	
 	/** splits lines at line endings	 * 
 	 * @param s
 	 */
 	public LineContainer(String s) {
-		this();
+		this(s, null);
 		this.setContent(s);
 	}
 	
 	/** takes list of split lines
 	 * @param lines
 	 */
-	public LineContainer(List<String> lines) {
-		this();
+	public LineContainer(List<String> lines, Template template) {
+		this(template);
 		LOG.trace("lines: "+lines.size());
 		this.setContent(lines);
 	}
@@ -77,6 +99,7 @@ public class LineContainer {
 
 	public void setContent(List<String> lines) {
 		linesElement = new CMLModule();
+		ensureNamespacesOnLinesElement();
 		for (String line : lines) {
 			linesElement.appendChild(line);
 		}
@@ -184,7 +207,7 @@ public class LineContainer {
 	
 	Element createChunk(int start, int end) {
 		LOG.trace("chunk "+start+" | "+end);
-		Element chunk = null;
+		CMLElement chunk = null;
 		int nchunked = 0;
 		for (int i = 0; i < end-start; i++) {
 			Node node = linesElement.getChild(start);
@@ -206,7 +229,7 @@ public class LineContainer {
 			}
 		}
 		if (chunk != null) {
-			chunk.addAttribute(new Attribute(LINE_COUNT, ""+nchunked));
+			chunk.setCMLXAttribute(LINE_COUNT, ""+nchunked);
 //			CMLUtil.debug(chunk, "CH");
 			linesElement.insertChild(chunk, start);
 		}

@@ -1,0 +1,11 @@
+<template repeat="*"  id="unkmod" name="Start/Stop Module" 
+  pattern="\-\-\-\s*Start Module.*" endPattern="\-\-\- Stop Module.*" endOffset="1">
+  <comment>
+--- Start Module: foobar at Sat Mar 19 20:58:37 2011
+ ... unknown module
+--- Stop Module:  foobar at Sat Mar 19 20:58:39 2011 /rc=0 ---
+  </comment>
+  <comment>This is a catchall</comment>
+  <record id="unkmod">\-\-\-\s*Start Module: {A,m:unkmod} at\s*{X,m:date}</record>
+  <record repeat="*">{X}</record>
+</template>

@@ -1,0 +1,25 @@
+<template repeat="*"  id="internucang" name="internuclear angles" newline="$"
+  pattern="\s*\=+\s*$\s*internuclear angles\s*$\s+\-+.*" endPattern="\s*\=+\s*"
+  endOffset="1">
+  <comment>
+ ==============================================================================
+                                 internuclear angles
+ ------------------------------------------------------------------------------
+        center 1       |       center 2       |       center 3       |  degrees
+ ------------------------------------------------------------------------------
+    2 c                |   1 fe               |   3 c                |   180.00
+    2 c                |   1 fe               |   6 c                |    90.00
+    1 fe               |   7 c                |  10 o                |   180.00
+    1 fe               |   8 c                |  11 o                |   180.00
+ ------------------------------------------------------------------------------
+                            number of included internuclear angles:         15
+ ==============================================================================
+  </comment>    
+  <record repeat="5">{X}</record>
+  <record id="dist" formatType="REGEX" makeArray="true" repeat="*"
+  >\s*{I,n:ser1}\s*{A,n:elem1}\s*\|\s*{I,n:ser2}\s*{A,n:elem2}\|\s*{I,n:ser3}\s*{A,n:elem3}\s*\|\s*{F,n:ang1}\s*</record>
+  <record >{X}</record>
+  <record id="rl1" >\s*number of included internuclear angles:\s*{I,n:nangle}</record>
+  <record >{X}</record>
+
+</template>

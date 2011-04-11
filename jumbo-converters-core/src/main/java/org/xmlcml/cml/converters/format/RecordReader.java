@@ -2,16 +2,17 @@ package org.xmlcml.cml.converters.format;
 
 import java.util.List;
 
-import nu.xom.Attribute;
 import nu.xom.Element;
 import nu.xom.Nodes;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.Outputter.OutputLevel;
 import org.xmlcml.cml.converters.text.LineContainer;
 import org.xmlcml.cml.converters.text.Template;
+import org.xmlcml.cml.converters.text.TransformElement;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLScalar;
@@ -55,7 +56,7 @@ public class RecordReader extends LineReader {
 		} else {
 			element = readRecordList();
 			if (element != null) {
-				element.addAttribute(new Attribute(Template.TEMPLATE_REF, this.getId()));
+				CMLElement.addCMLXAttribute(element, Template.TEMPLATE_REF, this.getId());
 				lineContainer.insertChunk(element, originalNodeIndex);
 			} else {
 				LOG.debug("null chunk");
@@ -92,8 +93,8 @@ public class RecordReader extends LineReader {
 	}
 	
 	private CMLElement resolveSymbolicVariables(CMLElement newElement) {
-		Nodes names = newElement.query(".//*[local-name()='scalar' and contains(@dictRef,':"+DOLLAR_NAME+"')]");
-		Nodes values = newElement.query(".//*[local-name()='scalar' and contains(@dictRef,':"+DOLLAR_VALUE+"')]");
+		Nodes names = TransformElement.queryUsingNamespaces(newElement, ".//cml:scalar[contains(@dictRef,':"+DOLLAR_NAME+"')]");
+		Nodes values = TransformElement.queryUsingNamespaces(newElement, ".//cml:scalar[contains(@dictRef,':"+DOLLAR_VALUE+"')]");
 		if (names.size() != values.size()) {
 			newElement.debug("name/value");
 			throw new RuntimeException("mismatched counts name ("+names.size()+") values ("+values.size()+")");
@@ -127,8 +128,23 @@ public class RecordReader extends LineReader {
 						throw new RuntimeException("size of childElements ("+size+") != recordList.size() ("+recordList.size()+")");
 					}
 					for (int i = 0; i < size; i++) {
+						CMLArray theArray = (CMLArray)list.getChild(i);
 						HasDictRef hasDictRef = (HasDictRef) recordList.get(i);
-						((CMLArray)list.getChild(i)).append(hasDictRef);
+						try {
+							((CMLArray)list.getChild(i)).append(hasDictRef);
+						} catch (Exception e) {
+							String msg = e.getMessage();
+							if (msg.contains("cannot delimit")) {
+								String[] strings = theArray.getStrings();
+								CMLArray newArray = new CMLArray();
+								newArray.setDictRef(theArray.getDictRef());
+								newArray.setDelimiter("~");
+								newArray.setArray(strings);
+								newArray.append(hasDictRef);
+							} else {
+								throw new RuntimeException("Failed to append to array", e);
+							}
+						}
 					}
 				}
 			}
@@ -137,7 +153,7 @@ public class RecordReader extends LineReader {
 	}
 
 	private void recordSizeOfOriginalArrays(CMLList list, int size) {
-		list.addAttribute(new Attribute(LineContainer.LINE_COUNT, ""+size));
+		CMLElement.addCMLXAttribute(list, LineContainer.LINE_COUNT, ""+size);
 	}
 
 	@SuppressWarnings("unused")

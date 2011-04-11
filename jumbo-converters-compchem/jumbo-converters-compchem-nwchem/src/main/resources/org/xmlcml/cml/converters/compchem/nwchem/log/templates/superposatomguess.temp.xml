@@ -8,8 +8,8 @@
 
 </comment>
 <record repeat="3">{X}</record>
-<record>\s*Sum of atomic energies\:\s*{F,n:sumatomener}</record>
-  <transform process="nameValue" xpath="cml:list[@templateRef='list2']/cml:list" 
+<record id="sumatomener">\s*Sum of atomic energies\:\s*{F,n:sumatomener}</record>
+  <transform process="nameValue" xpath="cml:list[@cmlx:templateRef='list2']/cml:list" 
       name="cml:scalar[@dictRef='n:name']" value="cml:scalar[@dictRef='n:value']"/>
   <transform process="pullupSingleton" xpath="./cml:list"/>
 </template>

@@ -1,0 +1,9 @@
+<template repeat="*" id="totalband" name="Total BAND energy" 
+  pattern="\s*Total BAND energy.*" newline="$" endPattern=".*">
+  <comment>
+ Total BAND energy   :  -0.4670736126E+02
+</comment>
+  <record id="totbandener">\s*Total BAND energy\s+\:{E,n:totbandener}</record>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

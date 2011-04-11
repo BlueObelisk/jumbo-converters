@@ -37,8 +37,10 @@ public class RecordReaderTest {
 		List<Pattern> patternList = regexProcessor.getPatternList();
 		Assert.assertEquals("patterns", 1, patternList.size());
 		Assert.assertEquals("pattern 0", 
-				"line\\s*(\\S+)\\s*junk\\s*(\\-?\\d+)\\s*grot\\s*(\\-?\\d+\\.?\\d*)\\s*", 
+				"line\\s*(\\S+)\\s*junk\\s*(\\-?\\d+)\\s*grot\\s*((?:\\-?\\d+\\.?\\d*)|(?:\\-?\\d*\\.?\\d+))\\s*", 
 				patternList.get(0).toString());
+
+		
 		Assert.assertEquals("names", "a:line a:junk a:grot", regexProcessor.getNames());
 		Assert.assertEquals("types", 
 				CMLConstants.XSD_STRING+" "+CMLConstants.XSD_INTEGER+" "+CMLConstants.XSD_DOUBLE,
@@ -68,7 +70,7 @@ public class RecordReaderTest {
 	public void getNormalizedLineElement() {
 		LineContainer lineContainer = new LineContainer("line1\nline2\nline3");
 		Element ref = CMLUtil.parseXML( 
-			"<module xmlns='http://www.xml-cml.org/schema'>"+
+			"<module xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>"+
 		      "<l xmlns=''>line1</l>"+
 		      "<l xmlns=''>line2</l>"+
 		      "<l xmlns=''>line3</l>"+
@@ -88,7 +90,7 @@ public class RecordReaderTest {
 		Element ref = CMLUtil.parseXML(
 			"<?xml version='1.0' encoding='UTF-8'?>"+
 			"<module xmlns='http://www.xml-cml.org/schema'>"+
-			"  <list templateRef='i1'>"+
+			"  <list cmlx:templateRef='i1'>"+
 			"    <list>"+
 			"      <scalar dataType='xsd:string'>1</scalar>"+
 			"    </list>"+
@@ -109,7 +111,7 @@ public class RecordReaderTest {
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
 				"<module xmlns='http://www.xml-cml.org/schema'>"+
-				"  <list templateRef='i1'>"+
+				"  <list cmlx:templateRef='i1'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:string'>1</scalar>"+
 				"    </list>"+
@@ -132,8 +134,8 @@ public class RecordReaderTest {
 		recordReader.applyMarkup(lineContainer);
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
-				"<module xmlns='http://www.xml-cml.org/schema'>grot1line2line3"+
-				"<list templateRef='i1'/>"+
+				"<module xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>grot1line2line3"+
+				"<list cmlx:templateRef='i1'/>"+
 				"</module>"+
 				"");
 			JumboTestUtils.assertEqualsCanonically("record1", ref, lineContainer.getLinesElement(), true);
@@ -151,7 +153,7 @@ public class RecordReaderTest {
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
 				"<module xmlns='http://www.xml-cml.org/schema'>"+
-				"  <list templateRef='i1'>"+
+				"  <list cmlx:templateRef='i1'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:string'>1</scalar>"+
 				"    </list>"+
@@ -172,7 +174,7 @@ public class RecordReaderTest {
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
 				"<module xmlns='http://www.xml-cml.org/schema'>"+
-				"  <list templateRef='i1'>"+
+				"  <list cmlx:templateRef='i1'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:string'>1</scalar>"+
 				"    </list>"+
@@ -200,7 +202,7 @@ public class RecordReaderTest {
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
 				"<module xmlns='http://www.xml-cml.org/schema'>"+
-				"  <list templateRef='i1'>"+
+				"  <list cmlx:templateRef='i1'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:string'>1</scalar>"+
 				"    </list>"+
@@ -227,7 +229,7 @@ public class RecordReaderTest {
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
 				"<module xmlns='http://www.xml-cml.org/schema'>"+
-				"  <list templateRef='i1'>"+
+				"  <list cmlx:templateRef='i1'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:string'>1</scalar>"+
 				"    </list>"+
@@ -244,12 +246,12 @@ public class RecordReaderTest {
 		ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
 				"<module xmlns='http://www.xml-cml.org/schema'>"+
-				"  <list templateRef='i1'>"+
+				"  <list cmlx:templateRef='i1'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:string'>1</scalar>"+
 				"    </list>"+
 				"  </list>"+
-				"  <list templateRef='i2'>"+
+				"  <list cmlx:templateRef='i2'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:string'>2</scalar>"+
 				"    </list>"+
@@ -273,7 +275,7 @@ public class RecordReaderTest {
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
 				"<module xmlns='http://www.xml-cml.org/schema'>grot1"+
-				"<list templateRef='i1'>"+
+				"<list cmlx:templateRef='i1'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:string'>2</scalar>"+
 				"    </list>"+
@@ -290,12 +292,12 @@ public class RecordReaderTest {
 		ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
 				"<module xmlns='http://www.xml-cml.org/schema'>grot1"+
-				"<list templateRef='i1'>"+
+				"<list cmlx:templateRef='i1'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:string'>2</scalar>"+
 				"    </list>"+
 				"  </list>"+
-				"  <list templateRef='i2'>"+
+				"  <list cmlx:templateRef='i2'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:string'>3</scalar>"+
 				"    </list>"+
@@ -347,7 +349,7 @@ public class RecordReaderTest {
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
 				"<module xmlns='http://www.xml-cml.org/schema'>"+
-				"<list templateRef='i1'>"+
+				"<list cmlx:templateRef='i1'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:string'>1</scalar>"+
 				"    </list>"+
@@ -372,7 +374,7 @@ public class RecordReaderTest {
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
 				"<module xmlns='http://www.xml-cml.org/schema'>grot1"+
-				"<list templateRef='i1'>"+
+				"<list cmlx:templateRef='i1'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:string'>2</scalar>"+
 				"    </list>"+
@@ -395,7 +397,7 @@ public class RecordReaderTest {
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
 				"<module xmlns='http://www.xml-cml.org/schema'>"+
-				"<list templateRef='i1'>"+
+				"<list cmlx:templateRef='i1'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:string'>1</scalar>"+
 				"      <scalar dataType='xsd:string'>2</scalar>"+
@@ -419,7 +421,7 @@ public class RecordReaderTest {
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
 				"<module xmlns='http://www.xml-cml.org/schema'>"+
-				"<list templateRef='i1'>"+
+				"<list cmlx:templateRef='i1'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:string'>1</scalar>"+
 				"      <scalar dataType='xsd:string'>2</scalar>"+
@@ -444,7 +446,7 @@ public class RecordReaderTest {
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
 				"<module xmlns='http://www.xml-cml.org/schema'>"+
-				"<list templateRef='i1'>"+
+				"<list cmlx:templateRef='i1'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:string'>1</scalar>"+
 				"      <scalar dataType='xsd:string'>2</scalar>"+
@@ -469,7 +471,7 @@ public class RecordReaderTest {
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
 				"<module xmlns='http://www.xml-cml.org/schema'>"+
-				"<list templateRef='i1'>"+
+				"<list cmlx:templateRef='i1'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:string'>1</scalar>"+
 				"      <scalar dataType='xsd:string'>2</scalar>"+
@@ -496,7 +498,7 @@ public class RecordReaderTest {
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
 				"<module xmlns='http://www.xml-cml.org/schema'>"+
-				"<list templateRef='i1'>"+
+				"<list cmlx:templateRef='i1'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:string'>1</scalar>"+
 				"      <scalar dataType='xsd:string'>2</scalar>"+
@@ -525,7 +527,7 @@ public class RecordReaderTest {
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
 				"<module xmlns='http://www.xml-cml.org/schema'>"+
-				"<list templateRef='i1'>"+
+				"<list cmlx:templateRef='i1'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:string'>1</scalar>"+
 				"      <scalar dataType='xsd:string'>2</scalar>"+
@@ -556,7 +558,7 @@ public class RecordReaderTest {
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
 				"<module xmlns='http://www.xml-cml.org/schema'>"+
-				"  <list templateRef='i1'>"+
+				"  <list cmlx:templateRef='i1'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:integer'>123</scalar>"+
 				"    </list>"+
@@ -580,7 +582,7 @@ public class RecordReaderTest {
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
 				"<module xmlns='http://www.xml-cml.org/schema'>"+
-				"  <list templateRef='i1'>"+
+				"  <list cmlx:templateRef='i1'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:integer'>123</scalar>"+
 				"      <scalar dataType='xsd:string'>abc</scalar>"+
@@ -604,8 +606,8 @@ public class RecordReaderTest {
 		recordReader.applyMarkup(lineContainer);
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
-				"<module xmlns='http://www.xml-cml.org/schema'>"+
-				"  <list templateRef='i1'>"+
+				"<module xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>"+
+				"  <list cmlx:templateRef='i1'>"+
 				"    <list>"+
 				"      <scalar dataType='xsd:integer' dictRef='x:i'>123</scalar>"+
 				"      <scalar dataType='xsd:string' dictRef='x:a'>abc</scalar>"+
@@ -649,7 +651,7 @@ public class RecordReaderTest {
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
 				"<module xmlns='http://www.xml-cml.org/schema'>"+
-				"<list templateRef='i1'>"+
+				"<list cmlx:templateRef='i1'>"+
 				"<list/>"+
 				"</list>"+
 				"</module>"+
