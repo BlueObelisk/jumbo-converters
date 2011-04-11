@@ -1,0 +1,12 @@
+<template repeat="*" id="input.basis" pattern="\s*basis\s*" endPattern="\s*end\s*" endOffset="1">
+  <comment>
+basis
+ C library 3-21g
+ N library 3-21g
+ H library 3-21g
+end
+  </comment>
+  <record>{X}</record>
+  <record repeat="*" id="basisx">\s*{A,n:elem}\s+{A,n:source}\s+{A,n:basis}.*\s*</record>
+  <record>{X}</record>
+</template>

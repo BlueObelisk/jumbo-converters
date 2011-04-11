@@ -1,0 +1,13 @@
+<template repeat="*"  id="pspw.library" name="PSPW library" 
+  pattern="\s*library name resolved from.*" 
+  newline="$" endPattern="\s*Generating.*" endOffset="1">
+  <comment>
+  library name resolved from: compiled reference
+  NWCHEM_NWPW_LIBRARY set to: &lt;/home/d3y133/nwchem-releases/nwchem-6.0-gfortran/src/nwpw/libraryps/>
+ Generating 1d pseudopotential for Ga  
+</comment>
+  <record id="libname">\s*library name resolved from:\s*{X,n:libname}\s*</record>
+  <record id="lib">\s*NWCHEM_NWPW_LIBRARY set to: &lt;\s*{X,n:filename}\s*>\s*</record>
+  <record id="pspot">\s*Generating 1d pseudopotential for {X,x:elementType}\s*</record>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

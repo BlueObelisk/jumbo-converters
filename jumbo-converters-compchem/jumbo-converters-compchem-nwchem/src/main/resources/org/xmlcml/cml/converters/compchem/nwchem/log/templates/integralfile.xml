@@ -1,0 +1,14 @@
+<template repeat="*"  id="integralfile" name="integral file" 
+  pattern="\s*Integral file.*" endPattern="\s*">
+  <comment>
+ Integral file          = ./methylamine.aoints.0
+ Record size in doubles =  65536        No. of integs per rec  =  43688
+ Max. records in memory =      2        Max. records in file   =  26331
+ No. of bits per label  =      8        No. of bits per value  =     64
+
+</comment>
+  <record id="integral" >\s*Integral file\s*={A,n:integralfile}</record>
+  <record id="recsize" >\s*Record size in doubles = {I,n:recordsize}\s*No\. of integs per rec  =\s*{I,n:integsperrec}\s*</record>
+  <record id="maxrec" >\s* Max. records in memory =\s*{I,n:maxinmem}\s*Max\. records in file   =\s{I,n:maxrec}</record>
+  <record id="bits" >\s*No. of bits per label  =\s*{I,n:bitslabel}\s*No\. of bits per value  =\s*{I,n:bitsperval}</record>
+</template>

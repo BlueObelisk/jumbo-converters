@@ -1,0 +1,16 @@
+<template repeat="*"  id="iter" name="iterations and energy" 
+  pattern="\s*iter\s+energy\s+gnorm\s+gmax\s+time\s*$\s*\-+\s*\-+.*" newline="$" 
+    endPattern="\s*">
+  <comment>
+              iter       energy          gnorm     gmax       time
+             ----- ------------------- --------- --------- --------
+                 1      -94.6569803631  5.76D-01  1.61D-01      0.1
+                 2      -94.6769427089  2.08D-01  9.60D-02      0.1
+                 3      -94.6794323074  7.27D-03  4.02D-03      0.1
+                 4      -94.6794449267  4.80D-05  1.69D-05      0.1
+
+
+</comment>
+  <record repeat="2">{X}</record>
+  <record id="iter" makeArray="true" repeat="*">\s*{I,n:iter}\s+{F,n:ener}\s+{E,n:gnorm}\s+{E,n:gmax}\s+{F,n:time}</record>
+</template>

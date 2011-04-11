@@ -12,9 +12,12 @@
 
 </comment>
   <record id="rl1" repeat="3">{X}</record>
-  <record id="ener" repeat="*" formatType="REGEX">\s*{X,n:name}\s*=\s*{F,n:value}</record>
-  <transform process="pullupSingleton" xpath=".//*[@templateRef='ener']"/>
-  <transform process="nameValue" xpath=".//*[@templateRef='ener']/cml:list"
+  <record id="ener" repeat="*">\s*{X,n:name}\s*=\s*{F,n:value}</record>
+  <transform process="pullupSingleton" xpath=".//*[@cmlx:templateRef='ener']"/>
+  <transform process="nameValue" xpath=".//*[@cmlx:templateRef='ener']/cml:list"
     name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>
-  <transform process="pullupSingleton" xpath=".//*[@templateRef='ener']/cml:list"/>
+  <transform process="pullupSingleton" xpath=".//*[@cmlx:templateRef='ener']/cml:list"/>
+  <!-- 
+  <transform process="debug" xpath="."/>
+  -->
 </template>

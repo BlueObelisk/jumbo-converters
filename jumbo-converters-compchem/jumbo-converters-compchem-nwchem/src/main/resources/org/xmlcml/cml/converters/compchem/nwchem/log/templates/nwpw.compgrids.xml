@@ -1,0 +1,17 @@
+<template repeat="*"  id="pspw.compgrids" name="PSPW density cutoff" 
+  pattern="\s* computational grids:.*" 
+  newline="$" endPattern="\s*">
+  <comment>
+ computational grids:
+      density     cutoff= 10.000  fft=  16x  16x  16(      891 waves      222 per task)
+      wavefnc   1 cutoff= 10.000  fft=  16x  16x  16(      891 waves      222 per task)
+</comment>
+<comment class="note">
+Very similar to densitycut.xml
+</comment>
+  <record/>
+  <record id="density">\s*density\s*cutoff= {F,n:densitycut}fft={I,n:gridx}x{I,n:gridy}x{I,n:gridz}\({I,n:waves}waves{I,n:task}per task\)\s*</record>
+  <record id="wavefnc" repeat="*" makeArray="true">\s*wavefnc\s*{I,cc:serial}\s*cutoff= {F,n:wavefncut}fft={I,n:gridx}x{I,n:gridy}x{I,n:gridz}\({I,n:waves}waves{I,n:task}per task\)\s*</record>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

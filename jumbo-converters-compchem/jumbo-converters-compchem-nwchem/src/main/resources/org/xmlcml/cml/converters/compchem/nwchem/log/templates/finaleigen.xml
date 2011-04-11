@@ -1,0 +1,18 @@
+<template repeat="*"  id="finaleigen" name="Final eigenvalues" 
+  pattern="\s*Final eigenvalues\s*$\s*\-+\s*$\s*" newline="$" 
+    endPattern="\s*">
+  <comment>
+             Final eigenvalues
+             -----------------
+
+              1      
+    1  -15.4458
+    2  -11.1826
+    ...
+   19    1.2592
+
+</comment>
+  <record repeat="3">{X}</record>
+  <record id="ncolumn">\s*{I,n:column}\s*</record>
+  <record repeat="*" makeArray="true" id="eigval">\s*{I,n:serial}\s*{F,compchem:eigval}</record>
+</template>

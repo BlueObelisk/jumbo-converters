@@ -1,4 +1,4 @@
-<template repeat="*"  id="scf" name="NWChem SCF Module" 
+<template repeat="*"  id="scfx" name="NWChem SCF Module" 
   pattern="\s*NWChem SCF Module\s*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
                                  NWChem SCF Module
@@ -22,8 +22,10 @@
   symmetry adapt  = T
 
 </comment>
-<record repeat="4" id="rl1"/>
-<record id="r1" repeat="*" formatType="REGEX" names="from to">\s*(.*) \-> (.*)\s*</record>
-<record repeat="3" id="rl2"/>
-<record id="r2" repeat="*" formatType="REGEX" names="__name __value">\s*(.*)\s*=\s*(.*)</record>
+  <record repeat="4" id="rl1">{X}</record>
+  <record id="r1" repeat="1" >\s*{X,compchem:title}\s*</record>
+  <record repeat="3" id="rl2">{X}</record>
+  <record id="r2" repeat="*">\s*{X,n:name}\s*=\s*{X,n:value}</record>
+  <transform process="nameValue" xpath="./cml:list/cml:list" 
+    name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>
 </template>

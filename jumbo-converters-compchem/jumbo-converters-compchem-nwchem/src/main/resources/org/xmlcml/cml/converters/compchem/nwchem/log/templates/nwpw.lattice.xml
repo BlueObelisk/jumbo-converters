@@ -1,0 +1,25 @@
+<template repeat="*"  id="nwpw.lattice" name="NWPW lattice" 
+  pattern="\s*lattice:\s+a=.*" 
+  newline="$" endPattern="\s*((omega\=)|(volume\s*\:)).*" endOffset="1"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+  >
+  <comment>
+      lattice:    a=       5.920 b=     10.255 c=       9.653
+                  alpha=  90.000 beta=  90.000 gamma=  90.000
+                  omega=       586.0
+
+</comment>
+  <comment>
+      lattice:    a=   5.920    b=  10.255     c=   9.653
+              alpha=  90.000 beta=  90.000 gamma=  90.000
+      volume :      586.0
+</comment>
+<comment class="note">
+<h:p>Omega and volume seem to be used interchangeably</h:p>
+</comment>
+  <record id="abc">\s*lattice:\s*a={F,cc:cell.a}\s*b={F,cc:cell.b}\s*c={F,cc:cell.c}\s*</record>
+  <record id="alphabeta" repeat="*">\s*alpha=\s*{F,cc:cell.alpha}\s*beta=\s*{F,cc:cell.beta}\s*gamma=\s*{F,cc:cell.gamma}\s*</record>
+  <record id="volume" repeat="*">\s*omega\=\s*{F,cc:cell.volume}\s*</record>
+  <record id="volume" repeat="*">\s*volume\s*\:\s*{F,cc:cell.volume}\s*</record>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

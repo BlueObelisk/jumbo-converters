@@ -34,7 +34,7 @@ public class TemplateProcessor extends LegacyProcessor {
 	}
 
 	public Element applyMarkup(List<String> lines) {
-		template.applyMarkup(new LineContainer(lines));
+		template.applyMarkup(new LineContainer(lines, template));
 		return createLinesElement();
 	}
 

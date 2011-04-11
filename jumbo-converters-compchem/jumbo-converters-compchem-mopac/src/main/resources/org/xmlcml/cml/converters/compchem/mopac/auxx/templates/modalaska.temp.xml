@@ -1,0 +1,15 @@
+<template repeat="*"  id="modalaska" name="alaska Module" 
+  pattern="\-\-\-\s*Start Module: alaska\s+.*" endPattern="\-\-\- Stop Module:  alaska\s+.*" endOffset="1">
+  <comment>
+--- Start Module: alaska at Sat Mar 19 20:58:37 2011
+ ... 
+--- Stop Module:  alaska at Sat Mar 19 20:58:39 2011 /rc=0 ---
+  </comment>
+  <record id="alaska">\-\-\-\s*Start Module: {A,m:alaska} at\s*{X,m:date}</record>
+  <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
+    <xi:include href="executing.temp.xml"/>
+    <xi:include href="chunker.temp.xml"/>
+  </templateList>
+  <record repeat="*">{X,n:dbg}</record>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

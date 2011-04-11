@@ -13,11 +13,11 @@
     <xi:include href="l601.temp.xml"/>
   </templateList>
   <!-- 
-  <transform process="group" name="./*[@templateRef='nwcheminpmod']"/>
+  <transform process="group" name="./*[@cmlx:templateRef='nwcheminpmod']"/>
   <transform process="addRole" name="./*[@role='group'][1]" value="initialization"/>
   <transform process="addRole" name="./*[@role='group'][count(//*[@role='group'])]" value="finalization"/>
 -->
-  <transform process="addDictRef" name="./*[@templateRef='l1'][1]" value="compchem:initialization"/>
+  <transform process="addDictRef" name="./*[@cmlx:templateRef='l1'][1]" value="compchem:initialization"/>
   <transform process="addParameterList" name="./*[@dictRef='compchem:initialization']" id="initialParams"/>
   <transform process="move" name=".//*[@dictRef='compchem:date'][1]" toXpath=".//*[@id='initialParams']"/>
   <transform process="move" name=".//*[@dictRef='compchem:program'][1]" toXpath=".//*[@id='initialParams']"/>
@@ -25,7 +25,7 @@
   <transform process="move" name=".//*[@dictRef='compchem:hostname'][1]" toXpath".//*[@id='initialParams']"/>
   <transform process="wrap" name=".//*[@id='initialParams']"/>
   
-  <transform process="addDictRef" name="./*[@templateRef='l601']" value="compchem:finalization"/>
+  <transform process="addDictRef" name="./*[@cmlx:templateRef='l601']" value="compchem:finalization"/>
   <transform process="addPropertyList" name="./*[@dictRef='compchem:finalization']" id="finalProperties"/>
   <transform process="move" name=".//*[@dictRef='compchem:nuclearEnergy'][1]" toXpath".//*[@id='finalProperties']"/>
   

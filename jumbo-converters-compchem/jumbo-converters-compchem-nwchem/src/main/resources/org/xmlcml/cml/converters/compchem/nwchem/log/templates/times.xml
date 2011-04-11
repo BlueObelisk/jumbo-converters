@@ -1,0 +1,9 @@
+<template repeat="*"  id="times" name="Times" 
+  pattern="\s*.*\s+times\s+cpu:.*" endPattern=".*">
+  <comment>
+ Task  times  cpu:        0.0s     wall:        0.0s
+ or
+ Total times  cpu:        0.1s     wall:        0.2s
+  </comment>
+  <record id="times">\s*{A,n:type}\s+times\s+cpu:\s*{F,cc:cputime}s\s+wall:\s*{F,cc:walltime}s</record>
+</template>

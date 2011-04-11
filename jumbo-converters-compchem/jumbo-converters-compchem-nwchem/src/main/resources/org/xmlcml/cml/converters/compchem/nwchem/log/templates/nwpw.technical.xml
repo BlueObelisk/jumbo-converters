@@ -1,0 +1,15 @@
+<template repeat="*"  id="pspw.technical" name="PSPW technical parameters" 
+  pattern="\s*technical parameters.*\s*" 
+  newline="$" endPattern="\s*maximum.*" endOffset="1">
+  <comment>
+ technical parameters:
+      time step=      5.80     ficticious mass=  400000.0
+      tolerance=.100E-06 (energy)   0.100E-06 (density)
+      maximum iterations =    1000 (   10 inner  100 outer )
+
+</comment>
+  <record/>
+  <record id="param1" repeat="*">\s*time\s*step=\s*{F,n:timestep}\s*ficticious mass={F,n:fictmass}\s*</record>
+  <record id="param2" repeat="*">\s*tolerance={E,n:energy.tol}\s*\(energy\)\s*{E,n:density.tol}\s*\(density\)\s*</record>
+  <record id="param3" repeat="*">\s*maximum iterations\s+=\s*{I,n:maxiter}\s*\(\s*{I,n:inner}\s*inner\s*{I,n:outer}\s*outer\s*\)\s*</record>
+</template>

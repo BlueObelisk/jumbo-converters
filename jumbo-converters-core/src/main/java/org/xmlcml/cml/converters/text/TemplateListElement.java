@@ -8,7 +8,8 @@ import nu.xom.Element;
 import nu.xom.Elements;
 
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.base.CMLUtil;
+import org.xmlcml.cml.base.CMLConstants;
+import org.xmlcml.cml.base.CMLElement;
 
 public class TemplateListElement implements MarkupApplier {
 	private final static Logger LOG = Logger.getLogger(TemplateListElement.class);
@@ -51,8 +52,8 @@ public class TemplateListElement implements MarkupApplier {
 //				CMLUtil.debug(element, "WRAPPED elements");
 			}
 			for (Element element : elements) {
-				element.addAttribute(new Attribute(Template.TEMPLATE_REF, childTemplate.getId()));
-				LineContainer childLineContainer = new LineContainer(element);
+				CMLElement.addCMLXAttribute(element, Template.TEMPLATE_REF, childTemplate.getId());
+				LineContainer childLineContainer = new LineContainer(element, childTemplate);
 				childTemplate.applyMarkup(childLineContainer);
 			}
 		}

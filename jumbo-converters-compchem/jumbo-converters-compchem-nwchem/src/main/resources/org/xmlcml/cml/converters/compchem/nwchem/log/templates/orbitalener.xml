@@ -1,0 +1,31 @@
+<template repeat="*"  id="orbitalenergiesx" name="orbital energies" 
+  pattern="\s*orbital\s+energies.*" 
+  newline="$" endPattern="\s*">
+  <comment>
+ orbital energies:
+     0.2993371E+00 (   8.145eV) occ=1.000
+     0.2990276E+00 (   8.137eV) occ=1.000
+     ...
+    -0.2865663E+00 (  -7.798eV) occ=1.000
+    -0.3684618E+00 ( -10.026eV) occ=1.000
+    
+</comment>
+  <record id="orb0" repeat="*">{X,n:title}</record>
+  <!-- 
+  <templateList>
+    <template id="orb" repeat="*">
+      <record id="orb" repeat="*">\s*{E,n:ener}\s*\(\s*{F,n:ener,units:ev}eV\)\s*</record>
+    </template>
+    <template id="orb1" repeat="*">
+      <record id="orb1" repeat="*">\s*{E,n:ener}\s*\(\s*{F,n:ener,units:ev}eV\)\s*\=\s*{F,n:occ}.*</record>
+    </template>
+    <template id="orb1" repeat="*">
+      <record id="orb2" repeat="*">{X,n:xxx}</record>
+    </template>
+  </templateList>
+  -->
+  <record id="orb1" repeat="*">\s*{E,n:ener}\s*\(\s*{F,n:ener,units:ev}eV\)\s*\=\s*{F,n:occ}.*</record>
+  <record id="orb" repeat="*">\s*{E,n:ener}\s*\(\s*{F,n:ener,units:ev}eV\)\s*</record>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

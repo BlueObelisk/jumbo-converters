@@ -1,0 +1,16 @@
+<template repeat="*"  id="pspw.warning" name="PSPW warning" 
+  pattern="\s*Warning\s*\-\s*Orthogonalization performed.*" 
+  newline="$" endPattern="\s*\- error\(after.*" endOffset="1">
+  <comment>
+Warning - Orthogonalization performed, spin,zone: 1   1
+        - error(before)=  0.728559E-02 (  0.159927E+02)
+        - error(after)=   0.355271E-14 (  0.160000E+02)
+  </comment>
+  <record id="orthog">\s*Warning \- Orthogonalization performed, spin,zone:{I,n:orthog.spin}{I,n:orthog.zone}\s*</record>
+  <record id="orthog.before">\s*\-\s*error\(before\)=\s*{E,n:orthog.error.before}\s*\(\s*{E,n:orthog.error.before1}\)\s*</record>
+  <record id="orthog.after">\s*\-\s*error\(after\)=\s*{E,n:orthog.error.after}\s*\(\s*{E,n:orthog.error.after1}\)\s*</record>
+  
+  <!-- 
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  -->
+</template>

@@ -11,9 +11,22 @@
 
  Parallel integral file used     182 records with       0 large values
 
-</comment>
-<record repeat="5" id="rl1"/>
-<record id="r1" repeat="*" formatType="REGEX">{I,n:serial}{A,n:elem}{I,n:num}{F,n:charge}\s*{25F6.2,n:shell}${25F6.2,n:shell}</record>
-<record repeat="1" id="rl2" output="VERBOSE"/>
-<record id="r2" repeat="*" formatType="REGEX">\s*{I,n:record}\s*{I,n:large}</record>
+  </comment>
+  <comment>
+  Mulliken analysis of the total density
+  --------------------------------------
+
+    Atom       Charge   Shell Charges
+ -----------   ------   -------------------------------------------------------
+    1 C    6     6.39   1.99  0.36  1.59  1.06  1.39
+    2 N    7     7.77   1.99  0.36  1.82  1.35  2.26
+    3 H    1     0.83   0.48  0.35
+    4 H    1     0.79   0.48  0.32
+    5 H    1     0.79   0.48  0.32
+    6 H    1     0.71   0.46  0.25
+    7 H    1     0.71   0.46  0.25
+
+  </comment>
+  <record repeat="5" id="rl1">{X}</record>
+  <record id="r1" repeat="*">\s*{I,n:serial}\s*{A,n:elem}\s*{I,n:atnum}\s*{F,n:charge}\s*{X,n:shells}\s*</record>
 </template>

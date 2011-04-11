@@ -1,0 +1,14 @@
+<template repeat="*" id="geometry" pattern="\s*geometry\s*" endPattern="\s*end\s*" endOffset="1">
+  <comment>
+    geometry
+ C            .052902     .711852     .000000
+ ...
+ H           -.423217   -1.094815    -.824662
+ symmetry c1
+end
+  </comment>
+  <record>{X}</record>
+  <record repeat="*" id="geom">\s*{A,cc:elementType}\s+{F,cc:x3}\s*{F,cc:y3}\s*{F,cc:z3}\s*</record>
+  <record repeat="*" id="symm">\s*symmetry\s+{A,cc:pointgroup}\s*</record>
+  <record>{X}</record>
+</template>

@@ -1,0 +1,41 @@
+<!--   pattern="\s*NWChem Geometry Optimization\s*$\s*\-+\s*$\s*$\s*$\s*$\s*$.*$\s*$\s*"  -->
+<template repeat="*"  name="NWChem Geometry Optimization" id="geomopt" multiple="$"
+  pattern="\s*NWChem Geometry Optimization\s*$\s*\-+\s*$\s*$\s*$\s*$\s*$\s*\S.*$\s*$\s*" 
+  endPattern="\s*$\s*">
+  
+  <comment>
+                           NWChem Geometry Optimization
+                           ----------------------------
+
+
+
+
+      parent diels-alder - constrained geometry optimization + saddle search
+
+
+ maximum gradient threshold         (gmax) =   0.000450
+ rms gradient threshold             (grms) =   0.000300
+ maximum cartesian step threshold   (xmax) =   0.001800
+ rms cartesian step threshold       (xrms) =   0.001200
+ fixed trust radius                (trust) =   0.100000
+ maximum step size to saddle      (sadstp) =   0.100000
+ energy precision                  (eprec) =   1.0D-07
+ maximum number of steps          (nptopt) =   20
+ initial hessian option           (inhess) =    0
+ line search option               (linopt) =    0
+ hessian update option            (modupd) =    2
+ saddle point option              (modsad) =    1
+ initial eigen-mode to follow     (moddir) =    0
+ initial variable to follow       (vardir) =    0
+ follow first negative mode     (firstneg) =    T
+ apply conjugacy                    (opcg) =    F
+ source of zmatrix                         =   autoz   
+
+  </comment>
+  <record repeat="2"/>
+  <record repeat="4"/>
+  <record id="title">{X,cc:title}</record>
+  <record repeat="2"/>
+  <record id="namevalue" repeat="*">{X,n:fullname}\s+\({A,n:name}\)\s+=\s+{A,n:value}</record>
+  <record id="namevalue1" repeat="*">{X,n:name}\s+=\s+{A,n:value}</record>
+</template>

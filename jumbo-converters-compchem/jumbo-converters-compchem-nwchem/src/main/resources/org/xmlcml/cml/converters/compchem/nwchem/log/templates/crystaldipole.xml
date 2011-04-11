@@ -1,0 +1,18 @@
+<template repeat="*"  id="crystaldipole" name="Crystal Dipole" 
+  pattern="\s*== Crystal Dipole ==\s*$\s*" 
+  newline="$" endPattern="\s*">
+  <comment>
+== Crystal Dipole ==
+
+mu   =  (   -0.0011,   12.1120,  -17.6598 ) au
+|mu| =    21.4142 au,      54.4264 Debye
+
+
+</comment>
+  <record repeat="2"/>
+  <record id="mu">\s*mu\s*=\s*\(\s*{F,n:mu.x},\s*{F,n:mu.y},\s*{F,n:mu.z}\s*\)\s*au\s*</record>
+  <record id="mumod">\s*\|mu\|\s*=\s*{F,n:mumod.au} au,{F,n:mumod.debye}\s*Debye\s*</record>
+<!--   
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  -->
+</template>

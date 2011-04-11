@@ -1,0 +1,18 @@
+<template repeat="*"  id="gradmodulestep" name="Steps" 
+  pattern="\s*@\s*Step\s+Energy\s+Delta\s*E.*" 
+  newline="$" endPattern="\s*">
+  <comment>
+@ Step       Energy      Delta E   Gmax     Grms     Xrms     Xmax   Walltime
+@ ---- ---------------- -------- -------- -------- -------- -------- --------
+@    0    -269.21179667  0.0D+00  0.03357  0.00625  0.00000  0.00000      1.8
+                                                       ok       ok  
+
+  Internal coordinate gradient before constraints
+
+  </comment>
+  <record repeat="2"/>
+  <record repeat="*" id="grad">@\s*{I,cc:serial}{F,cc:ener}{E,n:deltae}{F,n:gmax}{F,n:grms}{F,n:xrms}{F,n:xrms}{F,n:xmax}{F,cc:walltime}</record>
+  <record id="ok" >\s{X,n:ok}</record>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

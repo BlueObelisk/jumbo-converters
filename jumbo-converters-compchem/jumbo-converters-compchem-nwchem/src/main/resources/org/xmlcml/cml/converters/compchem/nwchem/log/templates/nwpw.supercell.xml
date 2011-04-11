@@ -1,0 +1,28 @@
+<template repeat="*"  id="pspw.supercell" name="PSPW supercell" 
+  pattern="\s*supercell:.*" 
+  newline="$" endPattern="\s*b3=.*" endOffset="1">
+  <comment>
+ supercell:
+      cell_name:  cell_default                  
+      lattice:    a1=&lt;   5.920   0.000   0.000 >
+                  a2=&lt;   0.000  10.255   0.000 >
+                  a3=&lt;   0.000   0.000   9.653 >
+      reciprocal: b1=&lt;   1.061   0.000   0.000 >
+                  b2=&lt;   0.000   0.613   0.000 >
+                  b3=&lt;   0.000   0.000   0.651 >
+</comment>
+  <record/>
+  <record id="supercell1">\s*cell_name:{X,n:cellname}</record>
+  <record id="lattice1">\s*lattice:\s*a1=&lt;{F,n:a1.x}{F,n:a1.y}{F,n:a1.z}>\s*</record>
+  <record id="lattice2">\s*a2=&lt;{F,n:a2.x}{F,n:a2.y}{F,n:a2.z}>\s*</record>
+  <record id="lattice3">\s*a3=&lt;{F,n:a3.x}{F,n:a3.y}{F,n:a3.z}>\s*</record>
+  <record id="recip1">\s*reciprocal:\s*b1=&lt;{F,n:b1.x}{F,n:b1.y}{F,n:a1.z}>\s*</record>
+  <record id="recip2">\s*b2=&lt;{F,n:b2.x}{F,n:b2.y}{F,n:b2.z}>\s*</record>
+  <record id="recip3">\s*b3=&lt;{F,n:b3.x}{F,n:b3.y}{F,n:b3.z}>\s*</record>
+  <record id="abc">\s*lattice:\s*a={F,cc:cell.a}b={F,cc:cell.b}c={F,cc:cell.c}\s*</record>
+  <record id="alphabeta">\s*alpha={F,cc:cell.alpha}beta={F,cc:cell.beta}gamma={F,cc:cell.gamma}\s*</record>
+  <record id="omega">\s*omega={F,cc:cell.omega}\s*</record>
+  <!-- 
+-->  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

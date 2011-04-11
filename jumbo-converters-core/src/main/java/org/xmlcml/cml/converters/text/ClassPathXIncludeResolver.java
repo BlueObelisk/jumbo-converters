@@ -4,6 +4,7 @@ import nu.xom.*;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 
 /**
  * @author Sam Adams
@@ -24,12 +25,13 @@ public class ClassPathXIncludeResolver {
         if (isIncludeElement(element)) {
             String href = element.getAttributeValue("href");
             String base = element.getBaseURI();
-            if (base.startsWith("classpath://")) {
-                base = base.substring(12);
+            URI u = URI.create(base).resolve(href);
+            String uri = u.toString();
+            if (uri.startsWith("classpath:")) {
+                uri = uri.substring(10);
             } else {
-                throw new RuntimeException("Unsupported base URI: "+base);
+                throw new RuntimeException("Unsupported XInclude URI: "+uri);
             }
-            String uri = base+href;
             InputStream in = ClassPathXIncludeResolver.class.getResourceAsStream(uri);
             if (in == null) {
                 throw new RuntimeException("cannot locate included file: "+uri);
@@ -37,9 +39,13 @@ public class ClassPathXIncludeResolver {
             Document doc;
             try {
                 doc = builder.build(in);
+            } catch (Exception e) {
+            	throw new RuntimeException("cannot parse: "+uri, e);
             } finally {
                 in.close();
             }
+
+            doc.setBaseURI(u.toString());
             resolveIncludes(doc, builder);
 
             Element include = doc.getRootElement();

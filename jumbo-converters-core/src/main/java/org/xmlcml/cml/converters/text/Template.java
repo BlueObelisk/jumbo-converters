@@ -1,9 +1,14 @@
 package org.xmlcml.cml.converters.text;
 
-import nu.xom.Attribute;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
 import nu.xom.Element;
 import nu.xom.Elements;
 import nu.xom.Nodes;
+import nu.xom.XPathContext;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
@@ -14,13 +19,10 @@ import org.xmlcml.cml.converters.Outputter.OutputLevel;
 import org.xmlcml.cml.converters.format.LineReader;
 import org.xmlcml.cml.converters.format.LineReader.LineType;
 import org.xmlcml.cml.converters.format.RecordReader;
+import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.euclid.Int2;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
 
 public class Template implements MarkupApplier {
 	private final static Logger LOG = Logger.getLogger(Template.class);
@@ -36,6 +38,7 @@ public class Template implements MarkupApplier {
 	public static final String ONE_OR_MORE = "+";
 	// attributes
 	public static final String CMLX_UNREAD = "cmlx:unread";
+	static final String CONVENTION = "convention";
 	private static final String DICT_REF = "dictRef";
 	private static final String END_OFFSET = "endOffset";
 	private static final String END_PATTERN = "endPattern";
@@ -51,9 +54,17 @@ public class Template implements MarkupApplier {
 	private static final String REPEAT_COUNT = "repeatCount"; // deprecated
 	public  static final String TEMPLATE_REF = "templateRef";
 
+	private static final String DEBUG = "debug"; // maybe somewhere better?
 	private static final String BASE = "base"; // left by XInclude
 
 	private static final String NULL_ID = "NULL_ID";
+
+	public static XPathContext CML_CMLX_CONTEXT = null;
+	static {
+		CML_CMLX_CONTEXT = new XPathContext();
+		CML_CMLX_CONTEXT.addNamespace(CMLConstants.CML_PREFIX, CMLConstants.CML_NS);
+		CML_CMLX_CONTEXT.addNamespace(CMLConstants.CMLX_PREFIX, CMLConstants.CMLX_NS);
+	}
 	
 	protected Element theElement;
 	private String id;
@@ -73,6 +84,7 @@ public class Template implements MarkupApplier {
 	private LineContainer lineContainer;
 	private String dictRef;
 	private String[] names;
+	private List<DictionaryContainer> dictionaryList;
 
 	public Template(Element element) {
 		this.theElement = element;
@@ -125,6 +137,7 @@ public class Template implements MarkupApplier {
 	private void processAttributes() {
 		checkIfAttributeNamesAreAllowed(theElement, new String[]{
 			BASE,
+			CONVENTION,
 			DICT_REF,
 			END_OFFSET,
 			END_PATTERN,
@@ -274,6 +287,8 @@ public class Template implements MarkupApplier {
 			} else if (Deleter.TAG.equals(name)) {
 				Deleter deleter = new Deleter(childElement);
 				markerList.add(deleter);
+			} else if (DictionaryContainer.TAG.equals(name)) {
+				addDictionary(new DictionaryContainer(childElement));
 			} else if (LineType.READLINES.getTag().equals(name)) {
 				throw new RuntimeException("readLines is deprecated");
 			} else if (LineType.RECORD.getTag().equals(name)) {
@@ -286,13 +301,23 @@ public class Template implements MarkupApplier {
 				TemplateListElement templateContainer = new TemplateListElement(childElement);
 				markerList.add(templateContainer);
 			} else if (TransformElement.TAG.equals(name)) {
-				TransformElement transformer = new TransformElement(childElement);
+				TransformElement transformer = new TransformElement(childElement, this);
 				markerList.add(transformer);
+			} else if (TransformListElement.TAG.equals(name)) {
+				TransformListElement transformerList = new TransformListElement(childElement, this);
+				markerList.add(transformerList);
+			} else if (Template.DEBUG.equals(name)) {
+				markerList.add(new Debug(this));
 			} else {
 				CMLUtil.debug(theElement, "UNKNOWN CHILD");
 				throw new RuntimeException("unknown child: "+name);
 			}
 		}
+	}
+
+	private void addDictionary(DictionaryContainer dictionary) {
+		ensureDictionaryList();
+		this.getDictionaryContainerList().add(dictionary);
 	}
 
 	private void ignore() {
@@ -305,7 +330,7 @@ public class Template implements MarkupApplier {
 		
 	public void applyMarkup(String line) {
 		LOG.trace("LINE: "+line+" / "+line.split(CMLConstants.S_NEWLINE).length);
-		lineContainer = new LineContainer(line);
+		lineContainer = new LineContainer(line, this);
 		applyMarkup(lineContainer);
 	}
 	
@@ -313,21 +338,27 @@ public class Template implements MarkupApplier {
 		this.lineContainer = lineContainer;
 		Element linesElement = lineContainer.getLinesElement();
 		copyNamespaces(lineContainer.getLinesElement());
-		linesElement.addAttribute(new Attribute(Template.TEMPLATE_REF, this.getId()));
+		CMLElement.addCMLXAttribute(linesElement, Template.TEMPLATE_REF, this.getId());
 		for (MarkupApplier marker : markerList) {
 			LOG.trace("Applying: "+marker.getClass().getSimpleName()+" "+marker.getId());
-			marker.applyMarkup(lineContainer);
+			try {
+				marker.applyMarkup(lineContainer);
+			} catch (Exception e) {
+				throw new RuntimeException("Bad line: "+lineContainer.peekLine(), e);
+			}
 		}
 		removeEmptyLists(linesElement);
-//		removeNamelessScalars(linesElement);
-//		tidyUnusedLines(lineContainer, linesElement);
 	}
 	
 	private void copyNamespaces(Element targetElement) {
-		int count = theElement.getNamespaceDeclarationCount();
+		copyNamespaces(this.theElement, targetElement);
+	}
+
+	public static void copyNamespaces(Element fromElement, Element targetElement) {
+		int count = fromElement.getNamespaceDeclarationCount();
 		for (int i = 0; i < count; i++) {
-			String prefix = theElement.getNamespacePrefix(i);
-			String namespaceURI = theElement.getNamespaceURI(prefix);
+			String prefix = fromElement.getNamespacePrefix(i);
+			String namespaceURI = fromElement.getNamespaceURI(prefix);
 			targetElement.addNamespaceDeclaration(prefix, namespaceURI);
 		}
 	}
@@ -343,7 +374,7 @@ public class Template implements MarkupApplier {
 			if (chunk == null) {
 				break;
 			}
-			chunk.addAttribute(new Attribute(TEMPLATE_REF, this.id));
+			CMLElement.addCMLXAttribute(chunk, Template.TEMPLATE_REF, this.getId());
 			chunkedElements.add(chunk);
 			repeatCount++;
 		}
@@ -456,5 +487,24 @@ public class Template implements MarkupApplier {
 		}
 		return multiple;
 	}
-	
+
+	public String getConvention() {
+		return theElement.getAttributeValue(CONVENTION);
+	}
+
+
+	private void ensureDictionaryList() {
+		if (this.getDictionaryContainerList() == null) {
+			this.setDictionaryList(new ArrayList<DictionaryContainer>());
+		}
+	}
+
+	public void setDictionaryList(List<DictionaryContainer> dictionaryList) {
+		this.dictionaryList = dictionaryList;
+	}
+
+	public List<DictionaryContainer> getDictionaryContainerList() {
+		return dictionaryList;
+	}
+
 }

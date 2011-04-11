@@ -10,6 +10,7 @@ import nu.xom.Element;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
+import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.Outputter;
 import org.xmlcml.cml.converters.Outputter.OutputLevel;
 import org.xmlcml.cml.converters.text.LineContainer;
@@ -45,9 +46,8 @@ public abstract class LineReader extends Element implements MarkupApplier {
 	private static final FormatType DEFAULT_FORMAT_TYPE = FormatType.NONE;
 	private static final String REPEAT = "repeat";
 	private static final String REPEAT_COUNT = "repeatCount"; // deprecated
-//	private static String DEFAULT_CONTENT = ".*";
 	private static String DEFAULT_CONTENT = "{X}";
-	
+
 
 	public enum FormatType {
 		FORTRAN,
@@ -62,15 +62,15 @@ public abstract class LineReader extends Element implements MarkupApplier {
 		ONCE,
 		;
 	}
-	 public enum LineType { 
-		COMMENT("comment"), 
+	 public enum LineType {
+		COMMENT("comment"),
 		READLINES("readLines"),
 		RECORD("record"),
 		;
 
         private final String tag;
         private static final Map<String, LineType> lookup = new HashMap<String, LineType>();
-        
+
         static {
             for (LineType d : LineType.values())
                 lookup.put(d.getTag(), d);
@@ -85,7 +85,7 @@ public abstract class LineReader extends Element implements MarkupApplier {
             return lookup.get(tag);
         }
     }
-		
+
 	protected Integer repeatCount = null;
 	protected List<Field> fieldList;
 	private   LineType lineType;
@@ -172,9 +172,6 @@ public abstract class LineReader extends Element implements MarkupApplier {
 	}
 
 	private void addDefaults() {
-		if (content == null || content.trim().equals("")) {
-			content = DEFAULT_CONTENT;
-		}
 		if (formatType == null) {
 			formatType = DEFAULT_FORMAT_TYPE;
 		}
@@ -185,7 +182,7 @@ public abstract class LineReader extends Element implements MarkupApplier {
 
 	private void processAttributesAndContent() {
 		Template.checkIfAttributeNamesAreAllowed(lineReaderElement, new String[]{
-			ID, 
+			ID,
 			FORMAT_TYPE,
 			LINES_TO_READ,
 			MAKE_ARRAY,
@@ -259,7 +256,7 @@ public abstract class LineReader extends Element implements MarkupApplier {
 			lineReaderElement.addAttribute(new Attribute(REPEAT, linesToReadS));
 		}
 	}
-		
+
 	private void processAttributeRepeatCount() {
 		repeatCount = null;
 		String repeatCountS = lineReaderElement.getAttributeValue(REPEAT);
@@ -285,6 +282,13 @@ public abstract class LineReader extends Element implements MarkupApplier {
 
 	private void processAttributeId() {
 		this.id = lineReaderElement.getAttributeValue(ID);
+		if (id == null) {
+			if (content.contains(CMLConstants.S_COLON)) {
+				CMLUtil.debug(lineReaderElement, "LINEREADER");
+				LOG.warn("Missing id on "+this.getLocalName());
+			}
+			id = "missingID";
+		}
 		if (id != null) {
 			this.addAttribute(new Attribute(ID, id));
 		}
@@ -304,9 +308,9 @@ public abstract class LineReader extends Element implements MarkupApplier {
 		} else if (FormatType.FORTRAN.equals(formatType)) {
 			createFortranFields();
 		} else if (FormatType.REGEX.equals(formatType)) {
-//			if (content == null || content.trim().length() == 0) {
-//				content = DEFAULT_REGEX_CONTENT;
-//			}
+			if (content == null || content.trim().equals("")) {
+				content = DEFAULT_CONTENT;
+			}
 			regexProcessor = new RegexProcessor(content, newlineSymbol);
 		} else if (FormatType.NONE.equals(formatType)) {
 			// no-op
@@ -337,7 +341,7 @@ public abstract class LineReader extends Element implements MarkupApplier {
 	}
 
 // ============================== reading ======================
-	
+
 
 	static CMLScalar createScalar(String value, String dType) {
 		CMLScalar scalar = null;
@@ -365,14 +369,14 @@ public abstract class LineReader extends Element implements MarkupApplier {
 	public void applyMarkup(LineContainer lineContainer) {
 		throw new RuntimeException("must override this method in subclass: "+this.getClass());
 	}
-	
+
 
 	public void debug(String string, OutputLevel maxLevel) {
 		if (Outputter.canOutput(outputLevel, maxLevel)) {
 			LOG.debug(this.getClass().getSimpleName()+" ["+this.getId()+"] "+string);
 		}
 	}
-	
+
 	public void debug() {
 		LOG.debug("LINEREADER "+(template == null ? "" : "in "+template.getId())+"\n"+
 				((regexProcessor == null) ? "" : " regexProcessor: "+regexProcessor.toString()+"\n")+
@@ -385,7 +389,7 @@ public abstract class LineReader extends Element implements MarkupApplier {
 			regexProcessor.debug();
 		}
 	}
-	
+
 	public void debugLine(String title, OutputLevel level) {
 //		LOG.debug("LINE "+jumboReader.getCurrentLineNumber());
 //		jumboReader.peekLine();

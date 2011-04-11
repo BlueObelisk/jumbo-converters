@@ -1,0 +1,24 @@
+<template repeat="*"  id="licence" name="Licence" 
+  pattern="\s*This copy of MOLCAS is licensed.*" endPattern="\s*For the author list.*" endOffset="1">
+  <comment>
+   This copy of MOLCAS is licensed to Valera Veryazov
+                                                                                                   
+                                              ^^^^^            M O L C A S                         
+                                             ^^^^^^^           version 7.6 patchlevel 038           
+                               ^^^^^         ^^^^^^^                                               
+                              ^^^^^^^        ^^^ ^^^                                
+                              ...                                    ^^^^^^^^^^^^                                                    
+                                       ^^^^^^                                                      
+
+                           Copyright, all rights, reserved:                                        
+                         Permission is hereby granted to use                                       
+                but not to reproduce or distribute any part of this                                
+             program. The use is restricted to research purposes only.                             
+                            Lund University Sweden, 2010.                                          
+                                                                                                   
+ For the author list and the recommended citation consult section 1.5 of the MOLCAS user's guide.  
+
+  </comment>
+  <record id="user">\s*This copy of MOLCAS is licensed to {X,n:user}</record>
+  <record repeat="*">{X}</record>
+</template>
