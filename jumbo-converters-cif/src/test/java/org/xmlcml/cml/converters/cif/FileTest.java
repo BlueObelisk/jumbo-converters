@@ -1,7 +1,6 @@
 package org.xmlcml.cml.converters.cif;
 
 import java.io.File;
-import java.io.FileOutputStream;
 
 import nu.xom.Element;
 
