@@ -1,0 +1,109 @@
+<template repeat="*"  id="shielding" name="Chemical Shielding Tensors" 
+  pattern="\s+\-+\s*$\s*Chemical Shielding Tensors \(GIAO, in ppm\)\s*$\s+\-+.*" newline="$" 
+  endPattern="\s*$\s*$\s*$\s*"
+  endOffset="4"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
+  <comment>
+          -----------------------------------------
+          Chemical Shielding Tensors (GIAO, in ppm)
+          -----------------------------------------
+
+                                NWChem CPHF Module
+                                ------------------
+ 
+ 
+  scftype          =     RHF 
+  nclosed          =        9
+  nopen            =        0
+  variables        =      234
+  # of vectors     =        3
+  tolerance        = 0.10D-03
+  level shift      = 0.00D+00
+  max iterations   =       50
+  max subspace     =       30
+
+
+ Integral file          = ./ch3f_rot.aoints.0
+ Record size in doubles =  65536        No. of integs per rec  =  43688
+ Max. records in memory =      3        Max. records in file   =   5708
+ No. of bits per label  =      8        No. of bits per value  =     64
+
+
+ #quartets = 3.714D+04 #integrals = 1.965D+05 #direct =  0.0% #cached =100.0%
+
+
+File balance: exchanges=     0  moved=     0  time=   0.0
+
+
+
+Iterative solution of linear equations
+  No. of variables      234
+  No. of equations        3
+  Maximum subspace       30
+        Iterations       50
+       Convergence  1.0D-04
+        Start time      4.5
+
+
+   iter   nsub   residual    time
+   ----  ------  --------  ---------
+     1      3    1.93D-01       5.4
+     2      6    3.38D-03       6.2
+     3      9    2.64D-04       7.1
+     4     12    1.93D-05       8.0
+
+ Parallel integral file used       8 records with       0 large values
+
+      Atom:    1  C 
+        Diamagnetic
+    250.8006     -4.0952      4.8807
+     -4.0945    241.2836     -1.8116
+      4.8811     -1.8120    241.9238
+
+        Paramagnetic
+    -88.2836    -24.1524     28.7618
+    -24.1539   -144.3632    -10.6808
+     28.7610    -10.6799   -140.6136
+
+        Total Shielding Tensor
+    162.5170    -28.2477     33.6425
+    -28.2484     96.9204    -12.4924
+     33.6421    -12.4919    101.3102
+
+           isotropic =     120.2492
+          anisotropy =     101.4478
+
+          Principal Components and Axis System
+                 1           2           3
+              187.8811     86.4350     86.4315
+
+      1         0.8660     -0.4984      0.0404
+      2        -0.3215     -0.4932      0.8083
+      3         0.3829      0.7130      0.5874
+
+...
+
+      Atom:    5  H 
+        Diamagnetic
+     24.8459     -0.8089      1.0630
+...
+      3         0.7755     -0.6247      0.0916
+
+
+
+
+</comment>
+  <record repeat="3"/>
+  <templateList>
+      <xi:include href="integralfile.xml"/>
+      <xi:include href="cphf.xml"/>
+      <xi:include href="quartets.xml"/>
+      <xi:include href="filebalance.xml"/>
+      <xi:include href="itersol.xml"/>
+      <xi:include href="iternsub.xml"/>
+      <xi:include href="parallel.xml"/>
+      <xi:include href="magneticatom.xml"/>
+  </templateList>
+
+</template>

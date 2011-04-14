@@ -1,13 +1,5 @@
 package org.xmlcml.cml.converters.compchem;
 
-import static org.xmlcml.cml.base.CMLConstants.CML_NS;
-import static org.xmlcml.cml.base.CMLConstants.CML_PREFIX;
-import static org.xmlcml.cml.base.CMLConstants.CML_UNITS;
-import static org.xmlcml.cml.base.CMLConstants.CML_XPATH;
-import static org.xmlcml.cml.base.CMLConstants.UNIT_NS;
-import static org.xmlcml.cml.base.CMLConstants.XSD_NS;
-import static org.xmlcml.cml.base.CMLConstants.XSD_PREFIX;
-
 import java.util.List;
 
 import nu.xom.Element;
@@ -26,6 +18,7 @@ import org.xmlcml.cml.element.CMLFormula;
 import org.xmlcml.cml.element.CMLMetadata;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.tools.MoleculeTool;
+
 
 public abstract class AbstractCompchem2CMLConverter extends AbstractConverter {
 
@@ -62,9 +55,9 @@ public abstract class AbstractCompchem2CMLConverter extends AbstractConverter {
 
 	protected void addCommonNamespaces(CMLElement cml) {
 		if (cml != null) {
-			cml.addNamespaceDeclaration(XSD_PREFIX, XSD_NS);
-			cml.addNamespaceDeclaration(CML_UNITS, UNIT_NS);
-			cml.addNamespaceDeclaration(CML_PREFIX, CML_NS);
+			cml.addNamespaceDeclaration(CMLConstants.XSD_PREFIX, CMLConstants.XSD_NS);
+			cml.addNamespaceDeclaration(CMLConstants.CML_UNITS, CMLConstants.UNIT_NS);
+			cml.addNamespaceDeclaration(CMLConstants.CML_PREFIX, CMLConstants.CML_NS);
 			cml.addNamespaceDeclaration(CMLConstants.CMLX_PREFIX, CMLConstants.CMLX_NS);
 		}
 	}
@@ -87,7 +80,7 @@ public abstract class AbstractCompchem2CMLConverter extends AbstractConverter {
 	 */
 	private CMLCml tidyTopCml(CMLCml topCml) {
 		Nodes cmlNodes;
-		cmlNodes = topCml.query("cml:cml", CML_XPATH);
+		cmlNodes = topCml.query("cml:cml", CMLConstants.CML_XPATH);
 		// tidy cml
 		if (cmlNodes.size() == 0) {
 			// keep topCml
@@ -108,12 +101,12 @@ public abstract class AbstractCompchem2CMLConverter extends AbstractConverter {
 	 */
 	private void tidyParametersAndProperties(CMLCml topCml) {
 		// tidy parameters and properties
-		Nodes cmlNodes = topCml.query("cml:cml", CML_XPATH);
+		Nodes cmlNodes = topCml.query("cml:cml", CMLConstants.CML_XPATH);
 		for (int i = 0; i < cmlNodes.size(); i++) {
 			CMLCml cml = (CMLCml) cmlNodes.get(i);
-			Nodes mols = cml.query("cml:molecule", CML_XPATH);
+			Nodes mols = cml.query("cml:molecule", CMLConstants.CML_XPATH);
 			CMLMolecule molecule = (CMLMolecule) mols.get(0);
-			Nodes others = cml.query("*[not(self::cml:molecule)]", CML_XPATH);
+			Nodes others = cml.query("*[not(self::cml:molecule)]", CMLConstants.CML_XPATH);
 			for (int j = 0; j < others.size(); j++) {
 				others.get(j).detach();
 				molecule.appendChild(others.get(j));

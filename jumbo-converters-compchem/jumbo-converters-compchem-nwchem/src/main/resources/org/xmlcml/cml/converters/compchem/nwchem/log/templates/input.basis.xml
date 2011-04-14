@@ -1,12 +1,12 @@
-<template repeat="*" id="input.basis" pattern="\s*basis\s*" endPattern="\s*end\s*" endOffset="1">
+<template repeat="*" id="input.basis" pattern="\s*[bB][aA][sS][iI][sS]\s*.*" endPattern="\s*[eE][nN][Dd]\s*" endOffset="1">
   <comment>
-basis
+BASIS "ao basis" PRINT
  C library 3-21g
  N library 3-21g
  H library 3-21g
 end
   </comment>
-  <record>{X}</record>
+  <record id="basis">\s*[bB][aA][sS][iI][sS]\s*{X,n:basiskeywords}</record>
   <record repeat="*" id="basisx">\s*{A,n:elem}\s+{A,n:source}\s+{A,n:basis}.*\s*</record>
-  <record>{X}</record>
+  <record/>
 </template>

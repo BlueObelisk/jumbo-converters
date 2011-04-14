@@ -1,5 +1,6 @@
 <template repeat="*"  id="multipole" name="Multipole analysis of the density" 
-  pattern=".*Multipole analysis of the density.*$\s*\-+\s*" newline="$" endPattern=".*$\s*\-+\s*">
+  pattern="\s*Multipole analysis of the density\s*$\s*\-+\s*" 
+  newline="$" endPattern="\s*$\s*">
   <comment>
      Multipole analysis of the density
      ---------------------------------
@@ -20,19 +21,15 @@
      2   0 0 2    -51.969478   -346.034925   -346.034925    640.100373
 
 
- Task  times  cpu:        8.4s     wall:        8.6s
-
-
 </comment>
   <record id="r1" repeat="5">{X}</record>
      2   2 0 0    -53.003653   -270.344905   -270.344905    487.686157
   <templateList>
     <template repeat="*" id="shell" pattern="\s*\d\s*.*" endPattern="\s*">
       <record id="orbs" repeat="*"
-      >{I,n:i}{I,n:j}{I,n:k}{I,n:l}{F,n:a}{F,n:b}{F,n:c}{F,n:d}.*</record>
-      <!-- 
-    <transform process="pullupSingleton" xpath="./cml:list"/> 
-    -->
+      >{I,n:l}{I,n:x}{I,n:y}{I,n:z}{F,n:total}{F,n:alpha}{F,n:beta}{F,n:nuclear}.*</record>
     </template>
   </templateList>
+  <record id="orbs" repeat="*"
+  >{I,n:l}{I,n:x}{I,n:y}{I,n:z}{F,n:total}{F,n:alpha}{F,n:beta}{F,n:nuclear}.*</record>
 </template>

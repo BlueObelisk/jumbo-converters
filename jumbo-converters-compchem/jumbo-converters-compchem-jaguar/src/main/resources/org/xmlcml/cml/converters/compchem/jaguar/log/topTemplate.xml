@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  this is the top template file for Jaguar log files.
+It should generally be found in the directory structure
+  src/main/resources/org/xmlcml/cml/converters/compchem/jaguar/log
+It uses include files from 
+  src/main/resources/org/xmlcml/cml/converters/compchem/jaguar/log/templates
+  (though I am not quite sure why the subdirectories are not explcit here)
+  
+The ORDER of the subtemplates may be important. Templates are processed in the order 
+  in this files and the subtemplates. Some of the files are marked with comments
+ -->
+ 
+<template id='jaguar.log' output="VERBOSE"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:c="http://www.xml-cml.org/dictionary"
+  xmlns:cc="http://www.xml-cml.org/dictionary/compchem/"
+  xmlns:j="http://www.xml-cml.org/dictionary/jaguar/">
+  <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
+      <xi:include href="fukui.xml"/> 
+      <xi:include href="molecule.xml"/> 
+  </templateList>
+  <transform process="move" xpath=".//*[@*[local-name()='templateRef' and .='fukui']]/cml:array" 
+      toXpath="*//*[@*[local-name()='templateRef' and .='molecule']]"/>
+  <transform process="molecule" id="molecule" 
+    xpath=".//cml:list[@*[local-name()='templateRef' and .='atom']]/
+  cml:array"/>    
+  <transform process="delete" xpath=".//@hydrogenCount"/> 
+</template>

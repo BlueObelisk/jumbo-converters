@@ -1,0 +1,20 @@
+<template repeatCount="*"  id="molecule" name="Input geometry"
+  multiple="$"
+  pattern="\s*Input geometry:\s*"
+  endPattern="\s*" 
+  >
+  <comment>
+ Input geometry:
+                                   angstroms
+  atom               x                 y                 z
+  C1           -2.7874000000      1.0093000000      0.0350000000 
+  C2           -3.3765000000     -0.2605000000      0.0490000000 
+  ...
+  H27           0.2796000000      3.0270000000     -0.2295000000 
+   
+  </comment>
+  <record/>
+  <record id="units">{A,j:mollenunits}</record>
+  <record/>
+  <record repeat="*" id="atom" makeArray="true">{A,cc:elementType}{F,cc:x3}{F,cc:y3}{F,cc:z3}</record>
+</template>
