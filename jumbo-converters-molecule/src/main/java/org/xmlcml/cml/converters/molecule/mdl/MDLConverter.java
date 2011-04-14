@@ -9,6 +9,7 @@ import static org.xmlcml.euclid.EuclidConstants.S_QUOT;
 import static org.xmlcml.euclid.EuclidConstants.S_RBRAK;
 import static org.xmlcml.euclid.EuclidConstants.S_SPACE;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
@@ -21,8 +22,8 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.attribute.NamespaceRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
-import org.xmlcml.cml.base.CMLElements;
 import org.xmlcml.cml.base.CMLElement.CoordinateType;
+import org.xmlcml.cml.base.CMLElements;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLAtomSet;
 import org.xmlcml.cml.element.CMLBond;
@@ -274,7 +275,7 @@ public class MDLConverter {
     private Map<Integer, CMLBond> bondByNumber = new HashMap<Integer, CMLBond>();
     private Map<CMLAtom, Integer> numberByAtom = new HashMap<CMLAtom, Integer>();
 
-    private int nline;
+    private int nline = 0;
 	private List<String> lines;
 	private CMLMolecule molecule;
 
@@ -293,6 +294,18 @@ public class MDLConverter {
 	 */
 	public MDLConverter() {
 		init();
+	}
+	
+	public int getNline() {
+		return nline;
+	}
+
+	/** constructor
+	 * start reading at given line
+	 */
+	public MDLConverter(int nline) {
+		init();
+		this.nline = nline;
 	}
 	
 	protected void init() {
@@ -570,9 +583,12 @@ public class MDLConverter {
      */
     public CMLMolecule readMOL(List<String> lines) {
     	molecule = new CMLMolecule();
-		nline = 0;
     	this.lines = lines;
         readHeader();
+        // probably EOI
+        if (molecule == null) {
+        	return molecule;
+        }
         if (version.equals(V2000)) {
             readAtoms();
             readBonds();
@@ -622,7 +638,7 @@ public class MDLConverter {
      * in the title, date, comment and counts line
      */
     private void readHeader() {
-        // line 1 TITLE
+        // line 1 TITLE (MIGHT be blank)
         String title = nextLine();
 
         if (title.startsWith("$MDL")) {
@@ -642,6 +658,11 @@ public class MDLConverter {
         // line 2 HEADER
         String date = S_EMPTY;
         String line = nextLine();
+        // blank line indicates EOI  
+        if (line == null) {
+        	molecule = null;
+        	return;
+        }
 
         if (!line.equals(S_EMPTY)) {
             try {
@@ -1263,6 +1284,9 @@ V    6 1
      * @return String the next line
      */
     private String nextLine() {
+    	if (nline >= lines.size()) {
+    		return null;
+    	}
         String nextLine = lines.get(nline++);
         if (nextLine == null) {
             throw new RuntimeException("MDLConverter: Unexpected EOF: Line number:"
@@ -1755,11 +1779,11 @@ V    6 1
     }
 
     
-	public static void usage() {
-//		AbstractLegacyConverter.usage();
-		LOG.info("MDLConverter <options>");
-		LOG.info("   -V3000 (use V3000 format)");
-	}
+//	public static void usage() {
+////		AbstractLegacyConverter.usage();
+//		LOG.info("MDLConverter <options>");
+//		LOG.info("   -V3000 (use V3000 format)");
+//	}
 	
 //	/**
 
@@ -1782,5 +1806,19 @@ V    6 1
 
 	public void setV3000(boolean v3000) {
 		this.v3000 = v3000;
+	}
+	
+	private static void usage() {
+		System.out.println("usage: MDL2CMLConverter <file.mdl> <file.xml>");
+	}
+	
+	public static void main(String[] args) {
+		if (args.length != 2) {
+			usage();
+		} else {
+			MDL2CMLConverter converter = new MDL2CMLConverter();
+			converter.convert(new File(args[0]), new File(args[1]));
+		}
+		
 	}
 }

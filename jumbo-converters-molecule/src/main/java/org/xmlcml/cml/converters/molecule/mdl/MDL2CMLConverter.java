@@ -1,5 +1,6 @@
 package org.xmlcml.cml.converters.molecule.mdl;
 
+import java.io.File;
 import java.util.List;
 
 import nu.xom.Element;
@@ -18,14 +19,6 @@ public class MDL2CMLConverter extends AbstractConverter implements
 	static {
 		LOG.setLevel(Level.INFO);
 	}
-	
-	public final static String[] typicalArgsForConverterCommand = {
-		"-sd", "src/test/resources/mdl",
-		"-odir", "../temp",
-		"-is", "mol",
-		"-os", "cml",
-		"-converter", "org.xmlcml.cml.converters.molecule.mdl.MDL2CMLConverter"
-	};
 	
 	public Type getInputType() {
 		return Type.MDL;
@@ -51,4 +44,17 @@ public class MDL2CMLConverter extends AbstractConverter implements
 		return cml;
 	}
 
+	private static void usage() {
+		System.out.println("usage: MDL2CMLConverter <file.mdl> <file.xml>");
+	}
+	
+	public static void main(String[] args) {
+		if (args.length != 2) {
+			usage();
+		} else {
+			MDL2CMLConverter converter = new MDL2CMLConverter();
+			converter.convert(new File(args[0]), new File(args[1]));
+		}
+		
+	}
 }

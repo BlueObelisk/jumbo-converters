@@ -370,6 +370,10 @@ public abstract class LineReader extends Element implements MarkupApplier {
 		throw new RuntimeException("must override this method in subclass: "+this.getClass());
 	}
 
+	public void applyMarkup(Element element) {
+		// not relevant
+	}
+
 
 	public void debug(String string, OutputLevel maxLevel) {
 		if (Outputter.canOutput(outputLevel, maxLevel)) {

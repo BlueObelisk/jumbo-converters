@@ -44,6 +44,11 @@ public class TemplateListElement implements MarkupApplier {
 		return templateList;
 	}
 	
+	
+	public void applyMarkup(Element element) {
+		// not relevant
+	}
+	
 	public void applyMarkup(LineContainer lineContainer) {
 		for (Template childTemplate : this.getTemplateList()) {
 			List<Element> elements = childTemplate.resetNodeIndexAndApplyChunkers(lineContainer);

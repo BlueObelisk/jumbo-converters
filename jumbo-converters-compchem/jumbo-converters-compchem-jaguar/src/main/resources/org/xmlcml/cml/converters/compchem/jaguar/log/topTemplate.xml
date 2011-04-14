@@ -19,10 +19,10 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
       <xi:include href="fukui.xml"/> 
       <xi:include href="molecule.xml"/> 
   </templateList>
-  <transform process="move" xpath=".//*[@*[local-name()='templateRef' and .='fukui']]/cml:array" 
-      toXpath="*//*[@*[local-name()='templateRef' and .='molecule']]"/>
+  <transform process="move" 
+      xpath=".//*[@cmlx:templateRef='fukui']/cml:array" 
+      toXpath=".//*[@cmlx:templateRef='molecule']/cml:list[@cmlx:templateRef='atom']"/>
   <transform process="molecule" id="molecule" 
-    xpath=".//cml:list[@*[local-name()='templateRef' and .='atom']]/
-  cml:array"/>    
+    xpath=".//cml:list[@cmlx:templateRef='atom']/cml:array"/>    
   <transform process="delete" xpath=".//@hydrogenCount"/> 
 </template>

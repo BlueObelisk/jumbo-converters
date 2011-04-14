@@ -24,7 +24,6 @@ public class CompchemTemplateConverter extends TemplateConverter {
 		this.template = new Template(templateElement);
 	}
 
-	
 	public static TemplateConverter createTemplateConverter(InputStream templateStream, String codeBase, String fileType) {
 		Element templateElement = null;
 		TemplateConverter converter = null;
@@ -52,13 +51,25 @@ public class CompchemTemplateConverter extends TemplateConverter {
 		if (args.length != 2) {
 			usage();
 		} else {
+			TemplateConverter tc = CompchemTemplateConverter.createTemplateConverter(code, fileType, topTemplate);
 			File in = new File(args[0]);
 			File out = new File(args[1]);
-			String templateXML = "org/xmlcml/cml/converters/compchem/"+code+"/"+fileType+"/"+topTemplate;
-			InputStream templateStream = Util.getInputStreamFromResource(templateXML);
-			TemplateConverter tc = CompchemTemplateConverter.createTemplateConverter(templateStream, code, fileType);
 			tc.convert(in, out);
 		}
+	}
+
+	private static TemplateConverter createTemplateConverter(String code,
+			String fileType, String topTemplate) throws IOException {
+		InputStream templateStream = createTemplateStream(code, fileType, topTemplate);
+		TemplateConverter tc = CompchemTemplateConverter.createTemplateConverter(templateStream, code, fileType);
+		return tc;
+	}
+
+	protected static InputStream createTemplateStream(String code,
+			String fileType, String topTemplate) throws IOException {
+		String templateXML = "org/xmlcml/cml/converters/compchem/"+code+"/"+fileType+"/"+topTemplate;
+		InputStream templateStream = Util.getInputStreamFromResource(templateXML);
+		return templateStream;
 	}
 
 }

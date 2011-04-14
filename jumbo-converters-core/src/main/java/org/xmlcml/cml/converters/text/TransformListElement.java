@@ -51,6 +51,13 @@ public class TransformListElement implements MarkupApplier {
 		// no-op
 	}
 
+	public void applyMarkup(Element element) {
+		for (MarkupApplier marker : markerList) {
+			LOG.trace("Applying: "+marker.getClass().getSimpleName()+" "+marker.getId());
+			marker.applyMarkup(element);
+		}
+	}
+
 	public void applyMarkup(LineContainer lineContainer) {
 		for (MarkupApplier marker : markerList) {
 			LOG.trace("Applying: "+marker.getClass().getSimpleName()+" "+marker.getId());
