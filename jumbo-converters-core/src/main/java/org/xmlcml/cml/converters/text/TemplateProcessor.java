@@ -38,6 +38,15 @@ public class TemplateProcessor extends LegacyProcessor {
 		return createLinesElement();
 	}
 
+	/** interlude to deal with pre-formed XML
+	 * 
+	 * @param element
+	 * @return
+	 */
+	public Element applyMarkup(Element element) {
+		return element;
+	}
+
 	@Override
 	protected void preprocessBlocks(CMLElement rootElement) {
 	}

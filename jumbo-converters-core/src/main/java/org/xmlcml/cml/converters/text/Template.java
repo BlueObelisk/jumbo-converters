@@ -350,6 +350,19 @@ public class Template implements MarkupApplier {
 		removeEmptyLists(linesElement);
 	}
 	
+	public void applyMarkup(Element element) {
+		copyNamespaces(element);
+		CMLElement.addCMLXAttribute(element, Template.TEMPLATE_REF, this.getId());
+		for (MarkupApplier marker : markerList) {
+			LOG.trace("Applying: "+marker.getClass().getSimpleName()+" "+marker.getId());
+			try {
+				marker.applyMarkup(element);
+			} catch (Exception e) {
+				throw new RuntimeException("Bad xml element", e);
+			}
+		}
+	}
+	
 	private void copyNamespaces(Element targetElement) {
 		copyNamespaces(this.theElement, targetElement);
 	}
@@ -359,8 +372,19 @@ public class Template implements MarkupApplier {
 		for (int i = 0; i < count; i++) {
 			String prefix = fromElement.getNamespacePrefix(i);
 			String namespaceURI = fromElement.getNamespaceURI(prefix);
-			targetElement.addNamespaceDeclaration(prefix, namespaceURI);
+			if (!hasNamespacePrefix(targetElement, prefix)) {
+				targetElement.addNamespaceDeclaration(prefix, namespaceURI);
+			}
 		}
+	}
+
+	private static boolean hasNamespacePrefix(Element targetElement, String prefix) {
+		for (int i = 0; i < targetElement.getNamespaceDeclarationCount(); i++) {
+			if (prefix.equals(targetElement.getNamespacePrefix(i))) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public List<Element> resetNodeIndexAndApplyChunkers(LineContainer lineContainer) {

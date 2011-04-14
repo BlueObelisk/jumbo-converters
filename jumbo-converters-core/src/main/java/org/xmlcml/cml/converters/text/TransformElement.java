@@ -26,6 +26,8 @@ import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.element.CMLEntry;
 import org.xmlcml.cml.element.CMLFormula;
+import org.xmlcml.cml.element.CMLLabel;
+import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLMatrix;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLParameter;
@@ -36,8 +38,10 @@ import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.element.CMLVector3;
 import org.xmlcml.cml.interfacex.HasDictRef;
 import org.xmlcml.cml.tools.MoleculeTool;
+import org.xmlcml.euclid.IntArray;
 import org.xmlcml.euclid.JodaDate;
 import org.xmlcml.euclid.Real;
+import org.xmlcml.euclid.RealArray;
 import org.xmlcml.molutil.ChemicalElement;
 
 public class TransformElement implements MarkupApplier {
@@ -50,6 +54,7 @@ public class TransformElement implements MarkupApplier {
 	private static final String LAST = "LAST";
 	private static final String ATOMIC_NUMBER = "atomicNumber";
 
+	private static final String ARRAY = "array";
 	private static final String CONVERT = "convert";
 	private static final String DATE = "date";
 	private static final String DOUBLE = "double";
@@ -75,11 +80,13 @@ public class TransformElement implements MarkupApplier {
 	private static final String DATATYPE = "dataType";
 	private static final String DEBUG = "debug";
 	private static final String DELETE = "delete";
+	private static final String LABEL = "label";
 	private static final String GROUP = "group";
 	private static final String MATRIX33 = "matrix33";
 	private static final String NAMEVALUE = "nameValue";
 	private static final String PULLUP_SINGLETON = "pullupSingleton";
 	private static final String RENAME = "rename";
+	private static final String SPLIT = "split";
 	private static final String VECTOR3 = "vector3";
 	private static final String WRAP = "wrap";
 	
@@ -113,6 +120,7 @@ public class TransformElement implements MarkupApplier {
 	private List<CMLAtom> atoms;
 	private String format;
 
+	private String dataType;
 	private String dictRef;
 	private String xpath;
 	private String followingSiblingsBefore;
@@ -124,12 +132,6 @@ public class TransformElement implements MarkupApplier {
 	public TransformElement(Element element, Template template) {
 		this.element = element;
 		this.template = template;
-//		try {
-//			XIncluder.resolveInPlace(element.getDocument());
-//		} catch (Exception e) {
-//			throw new RuntimeException("Bad XInclude", e);
-//		}
-//		CMLUtil.removeWhitespaceNodes(this.theElement);
 		processChildElementsAndAttributes();
 	}
 
@@ -143,6 +145,7 @@ public class TransformElement implements MarkupApplier {
 
 	private void processAttributes() {
 		Template.checkIfAttributeNamesAreAllowed(element, new String[]{
+			DATATYPE, 
 			DICTREF, 
 			ELEMENT_NAME, 
 			FORMAT, 
@@ -159,6 +162,7 @@ public class TransformElement implements MarkupApplier {
 			XPATH,
 		});
 				
+		dataType = element.getAttributeValue(DATATYPE);
 		dictRef = element.getAttributeValue(DICTREF);
 		elementName = element.getAttributeValue(ELEMENT_NAME);
 		format = element.getAttributeValue(FORMAT);
@@ -183,9 +187,18 @@ public class TransformElement implements MarkupApplier {
 		}
 	}
 
+	public void applyMarkup(Element element) {
+		this.parsedElement = element;
+		applyMarkup();
+	}
+
 	public void applyMarkup(LineContainer lineContainer) {
 		
 		parsedElement = lineContainer.getLinesElement();
+		applyMarkup();
+	}
+
+	private void applyMarkup() {
 		if (ADD_DICTREF.equals(process)) {
 			addDictRef();
 		} else if (ADDROLE.equals(process)) {
@@ -194,12 +207,10 @@ public class TransformElement implements MarkupApplier {
 			addParameterList();
 		} else if (ADDPROPERTYLIST.equals(process)) {
 			addPropertyList();
+		} else if (ARRAY.equals(process)) {
+			addArray();
 		} else if (CHECK_DICTIONARY.equals(process)) {
-//			try {
-				checkDictionary();
-//			} catch (Exception e) {
-//				LOG.error("missing id: "+e);
-//			}
+			checkDictionary();
 		} else if (CONVERT.equals(process)) {
 			convert();
 		} else if (CREATE_CHILD.equals(process)) {
@@ -214,6 +225,8 @@ public class TransformElement implements MarkupApplier {
 			deleteNodes();
 		} else if (DOUBLE.equals(process)) {
 			addDouble();
+		} else if (LABEL.equals(process)) {
+			generateLabel();
 		} else if (GROUP.equals(process)) {
 			makeGroup();
 		} else if (INTEGER.equals(process)) {
@@ -230,6 +243,8 @@ public class TransformElement implements MarkupApplier {
 			pullupSingleton();
 		} else if (RENAME.equals(process)) {
 			rename();
+		} else if (SPLIT.equals(process)) {
+			split();
 		} else if (VECTOR3.equals(process)) {
 			createVector3();
 		} else if (WRAP.equals(process)) {
@@ -239,6 +254,44 @@ public class TransformElement implements MarkupApplier {
 		}
 	}
 	
+	private void split() {
+		assertRequired(XPATH, xpath);
+		Nodes nodes = getXpathQueryResults();
+		for (int i = 0; i < nodes.size(); i++) {
+			Node node = nodes.get(i);
+			if (node instanceof CMLArray) {
+				CMLList list = new CMLList();
+				CMLArray array = (CMLArray) node;
+				int size = array.getSize();
+				for (int j = 0; j < array.getSize(); j++) {
+					CMLScalar scalar = array.getElementAt(j);
+					list.appendChild(scalar);
+				}
+				array.getParent().replaceChild(array, list);
+			}
+		}
+	}
+
+	private void generateLabel() {
+		assertRequired(XPATH, xpath);
+		Nodes nodes = getXpathQueryResults();
+		for (int i = 0; i < nodes.size(); i++) {
+			Node node = nodes.get(i);
+			if (node instanceof CMLAtom) {
+				CMLAtom atom = (CMLAtom) node;
+				String id = atom.getId();
+				if (id.startsWith("a")) {
+					String labelS = atom.getElementType() + id.substring(1);
+					CMLLabel label = new CMLLabel();
+					label.setCMLValue(labelS);
+					atom.appendChild(label);
+				}
+			} else {
+				throw new RuntimeException("Cannot convert: "+node.getClass().getName());
+			}
+		}
+	}
+
 	private /*List<Element>*/ void checkDictionary() {
 		xpath = "//*[@dictRef]";
 		Nodes nodes = getXpathQueryResults();
@@ -931,6 +984,33 @@ public class TransformElement implements MarkupApplier {
 	
 	private void rename() {
 		throw new RuntimeException("rename NYI");
+	}
+
+	private void addArray() {
+		assertRequired(XPATH, xpath);
+		assertRequired(DATATYPE, dataType);
+		Nodes nodes = createXpathNodes();
+		for (int i = 0; i < nodes.size(); i++) {
+			Node node = nodes.get(i);
+			if (node instanceof CMLScalar) {
+				CMLScalar scalar = (CMLScalar) node;
+				String val = scalar.getValue();
+				CMLArray array = null;
+				try {
+					if (CMLConstants.XSD_INTEGER.equals(dataType)) {
+						array = new CMLArray(new IntArray(val).getArray());
+					} else if (CMLConstants.XSD_DOUBLE.equals(dataType)) {
+						array = new CMLArray(new RealArray(val).getArray());
+					} else { 
+						array = new CMLArray(val.split(CMLConstants.S_WHITEREGEX));
+					}
+					array.setDictRef(scalar.getDictRef());
+					scalar.getParent().replaceChild(scalar, array);
+				} catch (Exception e) {
+					LOG.error("Cannot parse/set date: "+val+ " (format='"+format+"'); "+e);
+				}
+			}
+		}
 	}
 
 	private void addDate() {

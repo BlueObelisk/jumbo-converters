@@ -24,6 +24,10 @@ public class Debug implements MarkupApplier {
 		debug();
 	}
 
+	public void applyMarkup(Element element) {
+		// not yet relevant
+	}
+
 	public void debug() {
 		if (lineContainer == null) {
 			LOG.debug("Debug instruction");
