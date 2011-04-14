@@ -1,0 +1,34 @@
+<template repeat="*"  id="atombasis" name="Basis for an atom" 
+     pattern="\s*\S+\s*\(.*\).*$\s*\-+\s*" newline="$" 
+  offset="0"
+  endPattern="\s*\S+\s*\(.*\).*$\s*\-+\s*"
+  endOffset="0"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
+  <comment>
+  o (Oxygen)
+  ----------
+            Exponent  Coefficients 
+       -------------- ---------------------------------------------------------
+  1 S  5.22290220E+03 -0.001936
+  1 S  7.82539940E+02 -0.014851
+  ..
+  1 S  5.17935990E+00 -0.335943
+
+  2 S  1.06014410E+01  0.078806
+  2 S  9.42317000E-01 -0.567695
+
+  3 S  2.77474600E-01  1.000000
+  
+  f (Fluorine)
+  ----------
+            Exponent  Coefficients 
+       -------------- ---------------------------------------------------------
+       ... etc
+  </comment>
+  <record id="atom">{A,n:tag}\({A,n:elementName}\)</record>
+  <record repeat="3" id="xxx">{X,x:xxx}</record>
+  <templateList>
+    <xi:include href="basis.shell.xml"/>
+  </templateList>
+</template>

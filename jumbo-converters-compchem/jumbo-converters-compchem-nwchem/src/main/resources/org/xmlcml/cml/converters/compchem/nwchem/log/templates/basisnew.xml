@@ -1,0 +1,48 @@
+<template repeat="*"  id="basisnew" name="Basis" 
+  pattern="\s*Basis\s*.*$\s+\-+.*" newline="$" endPattern="\s*$\s*$\s*"
+  endOffset="3"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
+  <comment>
+                      Basis "ao basis" -> "" (cartesian)
+                      -----
+  o (Oxygen)
+  ----------
+            Exponent  Coefficients 
+       -------------- ---------------------------------------------------------
+  1 S  5.22290220E+03 -0.001936
+  1 S  7.82539940E+02 -0.014851
+  1 S  1.77267430E+02 -0.073319
+  1 S  4.95166880E+01 -0.245116
+  1 S  1.56664400E+01 -0.480285
+  1 S  5.17935990E+00 -0.335943
+
+  2 S  1.06014410E+01  0.078806
+  2 S  9.42317000E-01 -0.567695
+
+  3 S  2.77474600E-01  1.000000
+ 
+  h (Hydrogen)
+  ------------
+            Exponent  Coefficients 
+       -------------- ---------------------------------------------------------
+  1 S  3.38650000E+01  0.025494
+  1 S  5.09479000E+00  0.190373
+  1 S  1.15879000E+00  0.852161
+ 
+  2 S  3.25840000E-01  1.000000
+ 
+  3 S  1.02741000E-01  1.000000
+ 
+
+
+  </comment>
+  <record id="basis.title">\s*Basis\s*{X,n:basis.title}</record>
+  <record/>
+  <templateList>
+    <!--  these atoms are terminated by the next atom -->
+     <xi:include href="atombasis.xml"/>
+    <!--  the last atom is terminated by 2 blank lines -->
+     <xi:include href="atombasisend.xml"/>
+  </templateList>
+</template>

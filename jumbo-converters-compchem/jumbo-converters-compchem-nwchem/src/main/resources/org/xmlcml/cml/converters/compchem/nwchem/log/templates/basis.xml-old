@@ -1,5 +1,7 @@
 <template repeat="*"  id="basis" name="Basis" 
-  pattern=".*Basis .*$\s+\-+.*" newline="$" endPattern="\s*$\s*$\s*">
+  pattern="\s*Basis\s*.*$\s+\-+.*" newline="$" endPattern="\s*$\s*$\s*"
+  endOffset="3"
+  >
   <comment>
                       Basis "ao basis" -> "" (cartesian)
                       -----
@@ -26,7 +28,7 @@
   - - - - - 
  -->
      <template repeat="*" id="exponent" pattern="\s*Exponent.*$\s*\-+\s*\-+\s*" 
-         newline="$" endPattern=".*$\s*\-+\s*">
+         newline="$" endPattern="\s*$\s*" endOffset="2">
        <record repeat="2">{X}</record>
        <templateList>
          <template id="shell" repeat="*" pattern="\s*\d+\s*\S+\s*.*" 
@@ -36,10 +38,16 @@
        </templateList>
        <transform process="pullupSingleton" xpath=".//cml:list[@cmlx:templateRef='aaa']"/> 
      </template> 
+<!-- 
+  h (Hydrogen)
+  ------------
+            Exponent  Coefficients 
+       -------------- ---------------------------------------------------------
+ -->     
      <template repeat="*" id="elem" newline="$"
        pattern="\s*\S+\s*\([^\)]*\).*$\s*\-+\s*\-+\s*">
        <record id="elem">\s*{A,n:tag}\s*\({A,n:elem}\).*</record>
-       <record>{X}</record>
+       <record/>
        <transform process="pullupSingleton" xpath="./cml:list[@cmlx:templateRef='elem']"/> 
      </template> 
   </templateList>

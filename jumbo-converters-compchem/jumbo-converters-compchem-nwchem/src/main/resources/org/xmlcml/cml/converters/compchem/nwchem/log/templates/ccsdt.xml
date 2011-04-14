@@ -1,4 +1,5 @@
-<template repeat="*"  id="ccsdt" name="CCSD(T) Energy" pattern="\s*CCSD\(T\) Energy\s*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  id="ccsdt" name="CCSD(T) Energy" 
+  pattern="\s*CCSD\(T\) Energy\s*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
   <comment>
  CCSD(T) Energy
  --------------
@@ -35,9 +36,9 @@
  Task  times  cpu:     2383.9s     wall:     2402.9s
 </comment>
 <record repeat="2" id="rl1"/>
-<record id="r1" repeat="*" formatType="REGEX" names="__name __value">\s*([^:]+)\s*:\s{8}\s*([-\d\.]+)\s*</record>
+<record id="r1" repeat="*" names="__name __value">\s*([^:]+)\s*:\s{8}\s*([-\d\.]+)\s*</record>
 <record repeat="1" id="rl2" />
-<record id="r2" repeat="*" formatType="REGEX" names="__name __value">\s*([^:]+)\s*:\s{8}\s*([-\d\.]+)\s*</record>
+<record id="r2" repeat="*" names="__name __value">\s*([^:]+)\s*:\s{8}\s*([-\d\.]+)\s*</record>
 <record repeat="1" id="rl3" />
-<record id="r3" repeat="*" formatType="REGEX" names="__name __value">\s*([^:]+)\s*:\s{8}\s*([-\d\.]+)\s*</record>
+<record id="r3" repeat="*" names="__name __value">\s*([^:]+)\s*:\s{8}\s*([-\d\.]+)\s*</record>
 </template>

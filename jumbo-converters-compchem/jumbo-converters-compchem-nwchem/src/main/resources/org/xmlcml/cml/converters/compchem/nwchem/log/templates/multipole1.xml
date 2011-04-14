@@ -1,0 +1,34 @@
+<template repeat="*"  id="multipole1" name="Multipole analysis of the density wrt the origin" 
+  pattern="\s*Multipole analysis of the density wrt the origin\s*$\s*\-+\s*" 
+  newline="$" endPattern="\s*$\s*">
+  <comment>
+       Multipole analysis of the density wrt the origin
+       ------------------------------------------------
+
+     L   x y z        total         open         nuclear
+     -   - - -        -----         ----         -------
+     0   0 0 0      0.000000      0.000000     18.000000
+
+     1   1 0 0     -0.639214      0.000000      0.000000
+     1   0 1 0      0.237259      0.000000      0.000000
+     1   0 0 1      0.000000      0.000000      0.000000
+
+     2   2 0 0    -10.994111      0.000000      7.096194
+     2   1 1 0      1.787392      0.000000      3.722922
+     2   1 0 1      0.000000      0.000000      0.000000
+     2   0 2 0    -10.586845      0.000000     46.171099
+     2   0 1 1      0.000000      0.000000      0.000000
+     2   0 0 2     -9.210448      0.000000     10.514167
+
+
+</comment>
+  <record id="r1" repeat="5"/>
+  <templateList>
+    <template repeat="*" id="shell" pattern="\s*\d\s*.*" endPattern="\s*">
+      <record id="orbs" repeat="*"
+      >{I,n:l}{I,n:x}{I,n:y}{I,n:z}{F,n:total}{F,n:open}{F,n:nuclear}.*</record>
+    </template>
+  </templateList>
+  <record id="orbs" repeat="*"
+  >{I,n:l}{I,n:x}{I,n:y}{I,n:z}{F,n:total}{F,n:open}{F,n:nuclear}.*</record>
+</template>

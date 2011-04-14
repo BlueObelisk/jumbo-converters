@@ -1,5 +1,5 @@
 <template repeat="*"  name="echo of input deck" id="input" 
-   pattern="\s*\=+\s+echo of input deck \=+\s*" endPattern="\s*\=+\s*" endOffset="1">
+   pattern="\s*\=+\s+echo of input deck \=+\s*" endPattern="\s*\=+\s*$\s*" endOffset="2">
     <comment>
 ============================== echo of input deck ==============================
 echo
@@ -25,64 +25,33 @@ task dft energy
     
   <templateList xmlns:xi="http://www.w3.org/2001/XInclude">
 
+    <!--  and the =========  --> 
+    <template repeat="*" id="equals" pattern="\s*\=+\s*" endPattern=".*" >
+      <record/>
+    </template>
+    
 <!-- BASIS -->
      <xi:include href="input.basis.xml"/>
 
 <!-- PROPERTY -->
      <xi:include href="input.property.xml"/>
-     <!-- 
-<template repeat="*" id="property" pattern="\s*property\s*" endPattern="\s*end\s*" endOffset="1">
-  <comment>
-property
- nbofile
-end
-  </comment>
-  <record repeat="1">{X,n:propst}</record>
-  <record repeat="*" id="propertyx">\s*{X,n:prop}\s*</record>
- </template>
- -->
  
 <!-- DFT -->
      <xi:include href="input.dft.xml"/>
-     <!-- 
-<template repeat="*" id="dft" pattern="\s*dft\s*" endPattern="\s*end\s*" endOffset="1">
-  <comment>
-dft
- ??
-end
-  </comment>
-  <record>{X}</record>
-  <record repeat="*" id="dftx">\s*{X,n:dftx}\s*</record>
-  <record>{X}</record>
-</template>
--->
 
 <!-- GEOMETRY -->
      <xi:include href="input.geom.xml"/>
-<!-- 
-<template repeat="*" id="geometry" pattern="\s*geometry\s*" endPattern="\s*end\s*" endOffset="1">
-  <comment>
-    geometry
- C            .052902     .711852     .000000
- ...
- H           -.423217   -1.094815    -.824662
- symmetry c1
-end
-  </comment>
-  <record>{X,n:startgeom}</record>
-  <record repeat="*" id="atoms" makeArray="true">\s*{A,n:elementType}\s*{F,n:x3}\s*{F,n:y3}\s*{F,n:z3}.*</record>
-  <record repeat="*" id="symm">\s*symmetry\s+{A,n:pg}\s*</record>
-  <record repeat="*">{X,n:endgeom}</record>
-  
-  <transform process="molecule" xpath="./cml:list/cml:array" id="inputMol"/>
-</template>
--->    
-    <template repeat="*" id="start" pattern="\s*start\s+.*" endPattern=".*" >
-      <record id="start">\s*start\s+{X,n:startid}</record>
+     
+    <template repeat="*" id="start" pattern="\s*start\s*.*" endPattern=".*" >
+      <record id="start">\s*start\s*{X,n:startid}</record>
     </template>
     
     <template repeat="*" id="title" pattern="\s*title\s+.*" endPattern=".*" >
       <record id="title">\s*title\s+{X,compchem:title}</record>
+    </template>
+    
+    <template repeat="*" id="charge" pattern="\s*charge\s+.*" endPattern=".*" >
+      <record id="charge">\s*charge\s+{I,compchem:charge}</record>
     </template>
     
     <template repeat="*" id="task" pattern="\s*task\s+.*" endPattern=".*" >
@@ -103,10 +72,10 @@ end
     </template>
     
     <!--  and whitespace -->
-    <template repeat="*" id="end" pattern="\s*" endPattern=".*" />
+    <template repeat="*" id="whitespace" pattern="\s*" endPattern=".*" >
+      <record/>
+    </template>
     
-    <!--  and the =========  --> <!--  FAILS? -->
-    <template repeat="*" id="equals" pattern="\s*\=+\s*" endPattern=".*" />
   </templateList>
   <!-- 
    <transform process="pullupSingleton" xpath=".//cml:list"/>

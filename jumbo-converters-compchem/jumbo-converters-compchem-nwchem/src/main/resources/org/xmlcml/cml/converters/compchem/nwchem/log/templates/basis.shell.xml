@@ -1,0 +1,25 @@
+<template repeat="*"  id="basis.shell" name="Shell within a basis" 
+  pattern="\s*\d+\s*\S+.*" newline="$" endPattern="\s*"
+  endOffset="1"
+  >
+  <comment>
+  1 S  5.22290220E+03 -0.001936
+  1 S  7.82539940E+02 -0.014851
+  1 S  1.77267430E+02 -0.073319
+  1 S  4.95166880E+01 -0.245116
+  1 S  1.56664400E+01 -0.480285
+  1 S  5.17935990E+00 -0.335943
+
+  2 S  1.06014410E+01  0.078806
+  2 S  9.42317000E-01 -0.567695
+
+  3 S  2.77474600E-01  1.000000
+  
+  </comment>
+  <templateList id="shells">
+    <template repeat="*" name="shell" id="shell" pattern="\s*\d+\s*\S+.*" 
+      endPattern="\s*" endOffset="1">
+      <record repeat="*" id="row">{I,cc:basis.shellnum}{A,cc:shellsym}{E,cc:basis.exponent}{F,cc:basis.coefficient}</record>
+    </template>
+  </templateList>
+</template>

@@ -33,23 +33,35 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
       
   <templateList id='main'>
       <xi:include href="input.xml"/> <!-- do this early on -->
-      <xi:include href="totaltimes.temp.xml"/> <!--  the last line of input - may need special treatment -->
+      <!--  
+      <xi:include href="totaltimes.temp.xml"/>
+      --> <!--  the last line of input - may need special treatment -->
       <xi:include href="argument.xml"/>
       <xi:include href="internuc.xml"/>
       <xi:include href="zmat.xml"/>
+      <xi:include href="shielding.xml"/>
+      <xi:include href="basisnew.xml"/>
+      
+      <xi:include href="acknow.xml"/>
+      <xi:include href="limited.xml"/>
+      <xi:include href="disclaim.xml"/>
       <xi:include href="atmass.xml"/>
+      <!-- 
       <xi:include href="atombasis.temp.xml"/>
+      -->
       <xi:include href="authors.temp.xml"/>
+      <xi:include href="autosym.xml"/>
+      <xi:include href="caching.xml"/>
       <xi:include href="ccsd.temp.xml"/>
-      <xi:include href="ccsdt.temp.xml"/>
+      <xi:include href="ccsdt.xml"/>
       <!--  this must come before center23 -->
       <xi:include href="convergeiter.temp.xml"/>
       <xi:include href="center23.temp.xml"/>
       <xi:include href="centermass.temp.xml"/>
       <xi:include href="centerofcharge.xml"/>
-      <xi:include href="citation.temp.xml"/>
+      <xi:include href="citation.xml"/>
       <xi:include href="converge.temp.xml"/>
-      <xi:include href="cphf.temp.xml"/>
+      <xi:include href="cphf.xml"/>
       <xi:include href="crystaldipole.xml"/>
       <xi:include href="directmp2.temp.xml"/>
       <xi:include href="dirinfo.xml"/>
@@ -67,58 +79,69 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
       <xi:include href="geninfo.temp.xml"/>    
       <xi:include href="geom.temp.xml"/>    
       <xi:include href="geomopt.xml"/>    
+      <xi:include href="gridpts.xml"/>    
       <xi:include href="globarrays.xml"/>    
       <xi:include href="gradmodule.xml"/>    
       <xi:include href="gradmodulestep.xml"/>    
       <xi:include href="grid.temp.xml"/>    
+      <!-- 
       <xi:include href="ignore.temp.xml"/>
+      -->
       <xi:include href="integralfile.xml"/>
+      <xi:include href="integdens.xml"/>
       <xi:include href="internucang.xml"/>
       <xi:include href="iter.xml"/>
       <xi:include href="job.temp.xml"/>
       <xi:include href="lattice.xml"/>
-      <xi:include href="memory.temp.xml"/>
+      <xi:include href="memory.xml"/>
+      <xi:include href="memory1.xml"/>
       <xi:include href="moleculardipole.xml"/>
       <xi:include href="momint.temp.xml"/>
       <xi:include href="mp2energy.temp.xml"/>
       <xi:include href="mulliken.temp.xml"/>
-      <xi:include href="multipole.temp.xml"/>
+      <xi:include href="multipole.xml"/>
+      <xi:include href="multipole1.xml"/>
       <xi:include href="nccp.temp.xml"/>
       <xi:include href="nonvar.temp.xml"/>
       <xi:include href="nucdipole.temp.xml"/>
       <xi:include href="nwcheminpnwpw.xml"/> <!--  must precede nwcheminp.xml -->
       <xi:include href="nwcheminp.xml"/>
+      <xi:include href="parallel.xml"/>
       <xi:include href="property.temp.xml"/>
       <xi:include href="nwpw.xml"/>
       <xi:include href="quadrohf.xml"/>
       <xi:include href="quartets.xml"/>
+      <xi:include href="recordsize.xml"/>
       <xi:include href="rohffinal.temp.xml"/>
+      <xi:include href="scaling.xml"/>
       <xi:include href="scf.temp.xml"/>
       <xi:include href="scfener.xml"/>
       <xi:include href="screen.temp.xml"/>
-      <xi:include href="shielding.temp.xml"/>
       <xi:include href="spincontam.xml"/>
       <xi:include href="summary.temp.xml"/>
       <xi:include href="summaryalloc.temp.xml"/>
 
       <xi:include href="summaryresults.xml"/>
       
-      <xi:include href="superposatomguess.temp.xml"/>
+      <xi:include href="superposatomguess.xml"/>
       <xi:include href="symbas.temp.xml"/>
       <xi:include href="symminfo.temp.xml"/>
       <xi:include href="symmolorb.temp.xml"/>
       <xi:include href="tensor.temp.xml"/>
       <xi:include href="times.xml"/>
       <xi:include href="timing.xml"/>
-      <xi:include href="xc.temp.xml"/>
+      <xi:include href="xcinfo.xml"/>
       <xi:include href="xyz.temp.xml"/>
       <xi:include href="zmatautoz.temp.xml"/>
       <xi:include href="zmatuser.temp.xml"/>
       <xi:include href="zmatgrad.xml"/>
-      <xi:include href="basis.temp.xml"/>
+      <!-- 
+      <xi:include href="basis.xml"/>
+      -->
       <xi:include href="libraryfile.xml"/>
       <xi:include href="libraryname.xml"/>
       <xi:include href="title.xml"/>
+      <xi:include href="times.xml"/>
       <xi:include href="cleanup.xml"/>
   </templateList>
 
@@ -128,7 +151,7 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
 <!-- I have struggled with the Xpath and don't understand why other ones don't work. but this does -->  
 <!-- I think its because XOM/xpath treats concatenated texts as a single node but the nodes are still there in the XOM -->
   <transform process="createWrapper" elementName="scalar" 
-    xpath="//*[not(local-name()='scalar' or local-name()='array' or local-name()='matrix') and count(text())>0]/text()" 
+    xpath="//*[not(local-name()='scalar' or local-name()='array' or local-name()='matrix' or local-name()='vector3') and count(text())>0]/text()" 
       dictRef="cmlx:unparsed"/>
   
   <transform process="createChild" elementName="module" xpath="/*" id="environment" 
@@ -169,10 +192,13 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
   <transform process="move" xpath=".//*[@dictRef='compchem:nuclearDipole'][1]" toXpath=".//*[@id='finalProperties']"/>
   <transform process="wrap" xpath=".//*[@id='finalProperties']"/>
 
+  <transform process="molecule" id="molecule.geom" xpath=".//cml:list[@*[local-name()='templateRef' and .='geom']]/
+  cml:array"/>    
   <transform process="move" xpath=".//*[@*[local-name()='templateRef' and .='input']]//*[local-name()='molecule']" toXpath="./*[@dictRef='compchem:initialization']"/>
 
     
   <!--  delete empty scalars -->
+  
   <transform process="delete" xpath="//cml:scalar[normalize-space(.)='']"/>
   
   <!--  remove hydrogenCount attributes -->

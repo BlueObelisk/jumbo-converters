@@ -1,0 +1,16 @@
+<template repeat="*"  id="iternsub" name="Iter Nsub" 
+  pattern="\s*iter\s+nsub\s+residual\s+time\s*" newline="$" 
+    endPattern="\s*">
+  <comment>
+   iter   nsub   residual    time
+   ----  ------  --------  ---------
+     1      3    1.93D-01       5.4
+     2      6    3.38D-03       6.2
+     3      9    2.64D-04       7.1
+     4     12    1.93D-05       8.0
+
+</comment>
+  <record/>
+  <record/>
+  <record id="iter" repeat="*" makeArray="true">\s*{I,x:serial}{I,n:nsub}{E,n:resid}{F,cc:time}</record>
+</template>

@@ -1,7 +1,6 @@
 package org.xmlcml.cml.converters.compchem;
 
 import java.io.IOException;
-
 import java.util.List;
 
 import nu.xom.Builder;
@@ -10,11 +9,11 @@ import nu.xom.Element;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Test;
-import org.xmlcml.cml.base.CMLConstants;
-import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.testutil.JumboTestUtils;
 import org.xmlcml.euclid.Util;
+
+import org.xmlcml.cml.base.CMLUtil;
 
 public class TestUtils {
 	
