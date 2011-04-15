@@ -1,0 +1,11 @@
+    <template pattern="\s*Job.*started.*" id="header" newline="$"
+    name="start info" repeat="*" endPattern="\s*">
+      <comment>
+Job jaguar_batch_3 started on rufus at Thu Apr  7 17:04:52 2011
+jobid: rufus-0-4d9de0a1
+
+      </comment>
+      <record id="job">\s*Job{X,cc:jobname} started on {A,cc:hostname} at{X,cc:date}\s*</record>
+      <record id="jobid">\s*jobid:{X,cc:jobid}\s*</record>
+      <record/>
+    </template>

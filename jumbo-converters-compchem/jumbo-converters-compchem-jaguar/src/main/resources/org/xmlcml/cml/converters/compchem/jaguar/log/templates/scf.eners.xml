@@ -1,0 +1,15 @@
+    <template pattern="\s+Energy components.*" id="scf.eners" 
+    name="Energy components" repeat="*" endPattern="\s*">
+      <comment>
+ Energy components, in hartrees:
+   (A)  Nuclear repulsion............     696.39041860826
+   (E)  Total one-electron terms.....   -2085.14356166400
+   (I)  Total two-electron terms.....     868.70205710004
+   (J)    Coulomb....................     944.11627700082
+   (K)    Exchange+Correlation.......     -75.41421990077
+   (L)  Electronic energy............   -1216.44150456396  (E+I)
+   (N)  Total energy.................    -520.05108595570  (A+L)
+      </comment>
+      <record/>
+      <record id="scf.numb" repeat="*">\s*\({A,j:scf.letter}\){X,x:name}\.+\s+{F,x:value}.*</record>
+    </template>

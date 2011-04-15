@@ -1,0 +1,12 @@
+<template pattern="\s*grid\s+grid set.*">
+  <comment>
+   grid     grid set  grid #  grid sym
+  ------    --------  ------  --------
+  coarse        0        0        1
+  medium        2        1        1
+  </comment>
+  <record repeat="2"/>
+  <record id="row" repeat="*" makeArray="true">\s+{X,j:type}\s{3}\s*{I,j:gridset}{I,j:gridnum}{I,j:gridsym}</record>
+  <record repeat="*">\s*end of program.*</record>
+</template>
+    

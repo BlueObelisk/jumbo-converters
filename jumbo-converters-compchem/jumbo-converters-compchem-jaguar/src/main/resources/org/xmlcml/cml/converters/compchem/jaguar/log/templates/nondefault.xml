@@ -1,0 +1,16 @@
+<template repeatCount="*"  id="nondefault" name="Non-default options"
+  multiple="$"  pattern="\s*Non-default options chosen:\s*"
+  endPattern="\s*" 
+  >
+  <comment>
+ Non-default options chosen:
+   SCF calculation type: DFT(b3lyp)      
+   DFT=Becke_3_Parameter/HF+Slater+Becke88+VWN+LYP (B3LYP)
+   Atomic Fukui indices will be calculated
+  
+  </comment>
+  <record/>
+  <record id="scf" repeat="*">\s*SCF calculation type:{A,cc:scftype}</record>
+  <record id="dft">\s*DFT={X,cc:dft}</record>
+  <record id="fukui">\s*Atomic Fukui indices \s*{X,j:fukui}</record>
+</template>

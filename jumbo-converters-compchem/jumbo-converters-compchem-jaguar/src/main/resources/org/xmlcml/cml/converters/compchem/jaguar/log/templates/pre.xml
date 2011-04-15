@@ -1,0 +1,71 @@
+<template repeatCount="*"  id="pre" name="pre"
+  multiple="$"
+  pattern="\s*start of program pre\s*"
+  endPattern="\s*end of program pre\s*" endOffset="1"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
+  <comment>
+  start of program pre
+   
+  Job name: jaguar_batch_3
+  Executables used: /usr/glea/schrodinger2009/jaguar-v76108/bin/Linux-x86
+  Temporary files : /scratch/jdt42/jaguar_batch_3
+  Maestro file (input):  jaguar_batch_3.mae
+  Maestro file (output): jaguar_batch_3.01.mae
+  
+  
+  Dynamic memory assumed available (MB):    3711
+  
+  basis set:             6-31g**         
+  net molecular charge:    0
+  multiplicity:            1
+  
+  number of basis functions....          255
+  
+ Input geometry:
+                                   angstroms
+  atom               x                 y                 z
+  C1           -2.7874000000      1.0093000000      0.0350000000 
+  C2           -3.3765000000     -0.2605000000      0.0490000000 
+  ...
+  H27           0.2796000000      3.0270000000     -0.2295000000 
+   
+  principal moments of inertia:
+        amu*angstrom^2:      404.10641      757.20638     1137.49244
+                g*cm^2: 6.71034398E-38 1.25737062E-37 1.88885040E-37
+   
+  rotational constants:
+               cm^(-1):     0.04171582     0.02226293     0.01481999
+                   GHz:     1.25060874     0.66742571     0.44429219
+   
+  Molecular weight:     165.12 amu
+   
+  Stoichiometry: C10NH15O
+  Molecular Point Group: C1      
+  Point Group used: C1
+  
+  nuclear repulsion energy.......     696.390418608 hartrees
+ 
+ Non-default options chosen:
+   SCF calculation type: DFT(b3lyp)      
+   DFT=Becke_3_Parameter/HF+Slater+Becke88+VWN+LYP (B3LYP)
+   Atomic Fukui indices will be calculated
+  
+  end of program pre
+  </comment>
+  <record/>
+  <templateList>
+    <xi:include href="job.xml"/>
+    <xi:include href="dynmem.xml"/>
+    <xi:include href="basis.xml"/>
+    <xi:include href="numbasis.xml"/>
+    <xi:include href="inpgeom.xml"/>
+    <xi:include href="momint.xml"/>
+    <xi:include href="rotconst.xml"/>
+    <xi:include href="molwt.xml"/>
+    <xi:include href="stoich.xml"/>
+    <xi:include href="nucrep.xml"/>
+    <xi:include href="nondefault.xml"/>
+  </templateList>
+  <record repeat="*">{X,x:unparsed}\s*</record>
+</template>

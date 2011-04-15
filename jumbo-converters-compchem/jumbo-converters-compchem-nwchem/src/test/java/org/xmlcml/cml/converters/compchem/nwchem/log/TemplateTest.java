@@ -5,7 +5,8 @@ import org.junit.Test;
 import org.xmlcml.cml.converters.testutils.RegressionSuite;
 
 @Ignore // till we fix templates
-public class ConverterTestOld {
+public class TemplateTest {
+	
 	@Test         public void testAcknow()    {testConverter("acknow");}
 	@Test         public void testAng()       {testConverter("ang");}
 	@Test         public void testArgument()  {testConverter("argument");}
