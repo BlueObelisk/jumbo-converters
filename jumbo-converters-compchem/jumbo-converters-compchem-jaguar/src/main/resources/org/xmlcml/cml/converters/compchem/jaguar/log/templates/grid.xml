@@ -1,0 +1,44 @@
+<template repeatCount="*"  id="grid" name="grid"
+  multiple="$"
+  pattern="\s*start of program grid\s*"
+  endPattern="\s*end of program grid\s*" endOffset="1"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
+  <comment>
+  start of program grid
+  
+   grid     grid set  grid #  grid sym
+  ------    --------  ------  --------
+  coarse        0        0        1
+  medium        2        1        1
+...
+  LMP2-grad     2        1        1
+  DFT-cphf2     0        0        1
+  
+   
+  number of gridpoints: 
+     atom        C1       C2       C3       C4       C5       C6       O7
+  grid # 1       97       97       97       99       98       97      117
+  grid # 2      334      334      337      362      366      337      448
+  grid # 3     4304     4304     4304     4304     4304     4304     4304
+  grid # 4     1192     1192     1192     1192     1192     1192     1192
+  grid # 5     5226     5226     5226     5226     5226     5226     5226
+
+...   
+  number of gridpoints: 
+     atom       H22      H23      H24      H25      H26      H27    total
+  grid # 1      110      112      110      110      110       99     2765
+  grid # 2      435      433      431      438      440      408    10462
+  grid # 3     4304     4304     4304     4304     4304     4304   116208
+  grid # 4     1192     1192     1192     1192     1192     1192    32184
+  grid # 5     5226     5226     5226     5226     5226     5226   141102
+   
+  end of program grid
+  </comment>
+  <record/>
+  <templateList>
+    <xi:include href="grid.details.xml"/>     
+    <xi:include href="grid.gridset.xml"/>     
+  </templateList>
+  <record/>
+</template>

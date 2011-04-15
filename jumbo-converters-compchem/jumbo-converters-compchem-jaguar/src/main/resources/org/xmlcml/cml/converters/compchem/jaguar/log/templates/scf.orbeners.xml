@@ -1,0 +1,21 @@
+    <template pattern="\s*Orbital energies:.*" id="scf.orbeners" 
+    name="Orbital energies" repeat="*" endPattern="\s*">
+      <comment>
+  Orbital energies: 
+  -19.16790  -14.30812  -10.24740  -10.23672  -10.21310  -10.20009
+  -10.18650  -10.18225  -10.18206  -10.17731  -10.17691  -10.17284
+  ...
+    0.09296    0.10770    0.11931    0.13325    0.13665    0.14022
+    0.14940
+      </comment>
+      <record>{X,x:x}</record>
+      <!--  really tacky - will change asap -->
+      <record id="scf.orbeners" repeat="*" makeArray="true">\s*{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s*</record>
+      <!-- 
+      <record id="scf.orbeners" repeat="*">\s*{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s*</record>
+      <record id="scf.orbeners" repeat="*">\s*{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s*</record>
+      <record id="scf.orbeners" repeat="*">\s*{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s*</record>
+      <record id="scf.orbeners" repeat="*">\s*{F,j:ener}\s+{F,j:ener}\s*</record>
+      -->
+      <record id="scf.orbeners" repeat="*">\s*{F,j:ener}\s*</record>
+    </template>

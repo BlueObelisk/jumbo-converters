@@ -1,0 +1,19 @@
+<template repeatCount="*"  id="job" name="Job name etc."
+  multiple="$"
+  pattern="\s*Job name:.*\s*"
+  endPattern="\s*" 
+  >
+  <comment>
+  Job name: jaguar_batch_3
+  Executables used: /usr/glea/schrodinger2009/jaguar-v76108/bin/Linux-x86
+  Temporary files : /scratch/jdt42/jaguar_batch_3
+  Maestro file (input):  jaguar_batch_3.mae
+  Maestro file (output): jaguar_batch_3.01.mae
+  
+  </comment>
+  <record id="job">\s*Job name: {A,j:jobname}</record>
+  <record id="execut">\s*Executables used: {A,j:execut}</record>
+  <record id="tempfile">\s*Temporary files\s*: {A,j:tempfile}</record>
+  <record id="maestrin">\s*Maestro file \(input\): {A,j:maestrin}</record>
+  <record id="maestrout">\s*Maestro file \(output\): {A,j:maestrout}</record>
+</template>

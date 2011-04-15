@@ -14,10 +14,22 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:c="http://www.xml-cml.org/dictionary"
   xmlns:cc="http://www.xml-cml.org/dictionary/compchem/"
-  xmlns:j="http://www.xml-cml.org/dictionary/jaguar/">
-  <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
-      <xi:include href="fukui.xml"/> 
-      <xi:include href="molecule.xml"/> 
+  xmlns:j="http://www.xml-cml.org/dictionary/jaguar/"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
+  <templateList id='main'>
+      <xi:include href="ch.xml"/> 
+      <xi:include href="footer.xml"/> 
+      <xi:include href="grid.xml"/> 
+      <xi:include href="header.xml"/> 
+      <xi:include href="hfig.xml"/> 
+      <xi:include href="onee.xml"/> 
+      <xi:include href="pre.xml"/> 
+      <xi:include href="probe.xml"/> 
+      <xi:include href="proginfo.xml"/> 
+      <xi:include href="rwr.xml"/> 
+      <xi:include href="scf.xml"/> 
+      <xi:include href="timings.xml"/> 
   </templateList>
   <transform process="move" 
       xpath=".//*[@cmlx:templateRef='fukui']/cml:array" 
