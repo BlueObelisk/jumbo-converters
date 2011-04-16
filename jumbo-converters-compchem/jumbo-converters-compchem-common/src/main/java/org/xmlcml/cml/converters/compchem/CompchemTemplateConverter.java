@@ -42,13 +42,13 @@ public class CompchemTemplateConverter extends TemplateConverter {
 	}
 
 	public static void usage() {
-		System.err.println("Usage : <infile> <outfile>");
+		System.err.println("Usage : <infile> <outfile> [<templateFile>]");
 	}
 
 
 	public static void runMain(String[] args, String code, String fileType,
 			String topTemplate) throws IOException {
-		if (args.length != 2) {
+		if (args.length == 0) {
 			usage();
 		} else {
 			TemplateConverter tc = CompchemTemplateConverter.createTemplateConverter(code, fileType, topTemplate);

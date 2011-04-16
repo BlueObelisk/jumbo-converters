@@ -1,8 +1,9 @@
-<template repeat="*"  name="Parallel integral file" id="parallel" 
-  pattern="\s*Parallel integral file.*" newline="$" endPattern="\s*">
+<template repeat="*"  name="Parallel foo file" id="parallel" 
+  pattern="\s*Parallel .* file.*" newline="$" endPattern="\s*">
    <comment>
 Parallel integral file used 8 records with 0 large values
+Parallel grid_pts file used 8 records with 0 large values
 
   </comment>
-  <record id="parallel">\s*Parallel integral file used\s*{I,n:nrec}\s*records with\s*{I,n:large}\s*large values\s*</record>
+  <record id="parallel">\s*Parallel {X,cc:filetype} file used\s*{I,n:nrec}\s*records with\s*{I,n:large}\s*large values\s*</record>
 </template>

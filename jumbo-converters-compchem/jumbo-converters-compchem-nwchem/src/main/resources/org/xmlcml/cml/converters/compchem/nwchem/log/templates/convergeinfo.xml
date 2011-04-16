@@ -1,0 +1,27 @@
+<template repeat="*"  id="converge" name="Convergence Information" 
+  pattern="\s*Convergence Information.*$\s+\-+.*" newline="$" endPattern="\s*$\s*">
+  <comment>
+          Convergence Information
+          -----------------------
+          Convergence aids based upon iterative change in 
+          total energy or number of iterations. 
+          Levelshifting, if invoked, occurs when the 
+          HOMO/LUMO gap drops below (HL_TOL): 1.00D-02
+          DIIS, if invoked, will attempt to extrapolate 
+          using up to (NFOCK): 10 stored Fock matrices.
+
+                    Damping( 0%)  Levelshifting(0.5)       DIIS
+                  --------------- ------------------- ---------------
+          dE  on:    start            ASAP                start   
+          dE off:    2 iters         30 iters            30 iters 
+
+
+</comment>
+<record repeat="2">{X}</record>
+<record repeat="9">{X}</record>
+<record id="deon">.*\:{X,n:deon}</record>
+<record id="deoff">.*\:{X,n:deoff}</record>
+<transform process="nameValue" xpath="cml:list/cml:list" 
+      name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>
+<transform process="pullupSingleton" xpath="./cml:list"/>
+</template>

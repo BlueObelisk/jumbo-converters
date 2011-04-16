@@ -1,0 +1,16 @@
+<template repeat="*"  id="alphaeigs" name="alpha eigenvalues" 
+  pattern="\s*alpha eigenvalues\s*$\s*\-+\s*$.*$s*\-+\s*$\s*" 
+  newline="$" endPattern="(\s*|\s*alpha foccs\s*)">
+  <comment>
+             alpha eigenvalues
+             -----------------
+      (all occupied plus 10 virtual)
+      ------------------------------
+
+              1      
+    1  -19.2236
+    2  -14.3671
+  </comment>
+  <record repeat="6"/>
+  <record id="alpha" makeArray="true">{I}{F,cc:alphaocc}</record>
+</template>

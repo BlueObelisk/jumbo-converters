@@ -1,0 +1,25 @@
+<template repeat="*"  id="alphabeta" name="Alpha Beta Contributions" 
+  pattern="\s*$\s*Alpha =.* Beta =.s*" 
+  newline="$" endPattern="\s*">
+  <comment>
+
+  Alpha =  44 ; Beta =   0
+  Contributions in atomic units:
+      Orbital Energy =     0.2074
+      Coulomb Integral =     0.1468
+      XC Integral =    -0.6043
+      XC Diff. Energy =     1.1303
+      Ionization potential =  0.8801 a.u.
+                           =   23.95 eV
+
+</comment>
+  <record/>
+  <record id="alphabeta">\s*Alpha ={I,n:alpha} ; Beta = {I,n:beta}</record>
+  <record/>
+  <record id="orbener">\s*Orbital Energy ={F,n:orbener}</record>
+  <record id="coulomb">\s*Coulomb Integrals ={F,n:coulombint}</record>
+  <record id="xcint">\s*XC Integrals ={F,n:xcint}</record>
+  <record id="xcint">\s*XC Diff\. Energy ={F,n:xcdiff}</record>
+  <record id="xcint">\s*Ionization potential ={F,n:ionpot,u:au}</record>
+  <record id="xcint">\s*={F,n:ionpot,u:ev}</record>
+</template>

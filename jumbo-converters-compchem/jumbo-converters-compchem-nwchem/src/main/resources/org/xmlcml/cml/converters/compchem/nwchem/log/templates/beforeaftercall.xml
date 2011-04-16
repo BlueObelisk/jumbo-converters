@@ -1,0 +1,10 @@
+<template repeat="*"  id="beforeaftercall" name="Before After calling" 
+  pattern="\s*&lt;+\s*(Before|After|calling|called|End) .*>+\s*$.*date.*" 
+  newline="$" endPattern=".*">
+  <comment>
+     &lt;&lt;&lt;&lt;&lt;&lt;    Before call to DFT_SCF.    >>>>>>
+     &lt;&lt;&lt;&lt;&lt;&lt; date:  Apr 15  time: 16:46:04 >>>>>>
+  </comment>
+  <record id="before">\s*&lt;&lt;&lt;&lt;&lt;&lt;\s*{X,n:operation}\s*\.?\s*>>>>>>\s*</record>
+  <record id="date">.*date:\s*{X,cc:date}\s*>>>>>>\s*</record>
+</template>

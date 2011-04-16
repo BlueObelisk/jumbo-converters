@@ -1,0 +1,27 @@
+<template repeat="*"  id="alphabeta" name="Alpha Beta Contributions" 
+  pattern="\s*\-+\s*$\s*Alpha =.* Beta =.s*" 
+  newline="$" endPattern="\s*\-+\s*" endOffset="1">
+  <comment>
+  ------------------------------------
+  Alpha =  44 ; Beta =   1
+  Contributions:
+      Orbital Energy =     0.2122
+      Coulomb Integrals =     0.0469
+      XC Integrals =    -0.6043
+      XC Diff. Energy =     1.1303
+      Low Multiplicity =  0.7850 a.u.
+                       =   21.36 eV
+  ------------------------------------
+  
+</comment>
+  <record/>
+  <record id="alphabeta">\s*Alpha ={I,n:alpha} ; Beta = {I,n:beta}</record>
+  <record/>
+  <record id="orbener">\s*Orbital Energy ={F,n:orbener}</record>
+  <record id="coulomb">\s*Coulomb Integrals ={F,n:coulombint}</record>
+  <record id="xcint">\s*XC Integrals ={F,n:xcint}</record>
+  <record id="xcint">\s*XC Diff. Energy ={F,n:xcdiff}</record>
+  <record id="xcint">\s*Low Multiplicity ={F,n:lowmult,u:au}</record>
+  <record id="xcint">\s*={F,n:lowmult,u:ev}</record>
+  <record/>
+</template>

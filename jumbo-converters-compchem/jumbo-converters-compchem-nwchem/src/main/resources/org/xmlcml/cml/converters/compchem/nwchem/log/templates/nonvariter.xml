@@ -1,0 +1,23 @@
+<template repeat="*"  id="nonvarinitener" name="Non-variational initial energy" 
+  pattern=".*Non\-variational initial energy.*$\s+\-+.*$\s*" newline="$" endPattern="\s*">
+  <comment>
+      Non-variational initial energy
+      ------------------------------
+
+ Total energy =   -1827.679833
+ 1-e energy   =   -4099.408592
+ 2-e energy   =    1473.233141
+ HOMO         =      -0.328823
+ LUMO         =      -0.090738
+
+</comment>
+  <record id="rl1" repeat="3">{X}</record>
+  <record id="ener" repeat="*">\s*{X,n:name}\s*=\s*{F,n:value}</record>
+  <transform process="pullupSingleton" xpath=".//*[@cmlx:templateRef='ener']"/>
+  <transform process="nameValue" xpath=".//*[@cmlx:templateRef='ener']/cml:list"
+    name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>
+  <transform process="pullupSingleton" xpath=".//*[@cmlx:templateRef='ener']/cml:list"/>
+  <!-- 
+  <transform process="debug" xpath="."/>
+  -->
+</template>

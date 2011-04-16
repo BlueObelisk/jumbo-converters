@@ -1,0 +1,11 @@
+<template repeat="*"  name="Memory utilization" id="memoryUtil" 
+pattern="\s*Memory utilization after.*" newline="$" endPattern="\s*">
+   <comment>
+           Memory utilization after 1st SCF pass: 
+           Heap Space remaining (MW):       12.69            12687447
+          Stack Space remaining (MW):       13.11            13106861
+  </comment>
+  <record id="memory1a">\s*Memory utilization after{X,n:memory1a}</record>
+  <record id="heap">\s*Heap Space remaining \(MW\):{F,n:heap,u:mw}{F,n:heap,u:bytes}</record>
+  <record id="heap">\s*Stack Space remaining \(MW\):{F,n:stack,u:mw}{F,n:stack,u:bytes}</record>
+</template>

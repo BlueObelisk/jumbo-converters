@@ -1,0 +1,60 @@
+<template repeat="*"  name="Reactivity Parameters" id="fukui"
+  pattern="\s*\-+\s*$\s*Reactivity Parameters\s*$\s*\-+\s*" 
+  newline="$" endPattern="\s*$\s*" 
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
+   <comment>
+     -----------------------
+      Reactivity Parameters 
+     -----------------------
+
+     -----------------------------------
+       Condensed Fukui function [fnn(+)]
+     -----------------------------------
+
+    Atom       Condensed Fukui 
+ -----------   ----------------
+    1 C    6     0.0083
+    2 C    6     0.2191
+    ...
+   27 H    1     0.0008
+
+     ----------------------------------
+      Condensed Fukui function [fnn(-)]
+     ----------------------------------
+
+    Atom       Condensed Fukui 
+ -----------   ----------------
+    1 C    6     0.2284
+    2 C    6     0.0353
+    ...
+   27 H    1     0.0001
+...
+     ----------------------------------
+      Condensed Fukui function [fns(-)]
+     ----------------------------------
+
+    Atom       Condensed Fukui 
+ -----------   ----------------
+    1 C    6     0.1100
+    2 C    6    -0.0919
+    ...
+   27 H    1    -0.0003
+  ------------------------------------
+     mu_n(+)    mu_n(-)    mu_n(0)
+     0.0048    -0.2074    -0.1013
+  ------------------------------------
+     mu_s(+)    mu_s(-)    mu_s(0)
+     0.1061    -0.1061     0.0000
+  ------------------------------------
+
+
+  </comment>
+  
+  <record repeat="4">{X,x:x}</record>
+  <templateList>
+    <xi:include href="condfukui.xml"/>
+    <xi:include href="condfukuimu.xml"/>
+  </templateList>
+    <record/>
+</template>

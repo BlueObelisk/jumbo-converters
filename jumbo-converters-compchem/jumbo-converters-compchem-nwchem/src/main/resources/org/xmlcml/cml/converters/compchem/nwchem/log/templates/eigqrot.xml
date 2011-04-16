@@ -1,0 +1,32 @@
+<template repeat="*"  id="eigqrot" name="Eigen and qrot stuff" 
+  pattern="\s*ratio offdiag/diag.*" newline="$" endPattern="\s*dftinpanae: itol2e.*"
+  endOffset="1">
+  <comment>
+  ratio offdiag/diag   7.42379976040007938E-002
+  nuclear charge qrot: 
+
+              1        2        3      
+    1 1065.2532-316.3019 -25.1091
+    2 -316.30191328.7470  -8.7174
+    3  -25.1091  -8.71742322.2960
+ eig:    853.90641550293776        1539.5860731611485        2322.8036572675437     
+  qrot: 
+
+              1        2        3      
+    1    0.8320  -0.5545  -0.0193
+    2    0.5545   0.8322  -0.0026
+    3    0.0175  -0.0085   0.9998
+  me                     0   done genpts
+  me                     0   done uprt
+  me                     0  done mem
+  dftinpanae: itol2e                     8  iaoacc                    14  tol_rho   1.00000000000000004E-010
+  </comment>
+  <record repeat="4"/>
+  <record repeat="3" id="row">{I}{F,x:x}{F,x:y}{F,x:z}</record>
+  <record id="eig">{F,x:x}{F,x:y}{F,x:z}</record>
+  <record repeat="3"/>
+  <record repeat="3" id="row">{I}{F,x:x}{F,x:y}{F,x:z}</record>
+  <record repeat="3"/>
+  <record/>
+  
+ </template>

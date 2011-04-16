@@ -1,0 +1,15 @@
+<template id="condfukui" pattern="\s*\-+\s*$\s*Condensed Fukui function .*$\s*\-+\s*$\s*"
+  endPattern="(\s*|\s*\-+\s*)" repeat="*" newline="$">
+  <comment>
+     -----------------------------------
+       Condensed Fukui function [fnn(+)]
+     -----------------------------------
+
+    Atom       Condensed Fukui 
+ -----------   ----------------
+    1 C    6     0.1100
+    2 C    6    -0.0919
+  </comment>
+  <record repeat="6"/>
+  <record repeat="*" id="atom" makeArray="true">{I,cc:serial}{A,cc:elementType}{I,cc:elementType}{F,cc:condensedfukui}</record>
+</template>

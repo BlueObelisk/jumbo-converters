@@ -1,0 +1,14 @@
+<template repeat="*"  id="operationtime" name="operation time" 
+  pattern="\s*(Fock_2e Build|Kinetic Matrix|Potential Matrix|Fock_xc Build|Total Fock Matrix Build|Diagonalization) Time:.*s\s*" 
+  newline="$" endPattern=".*">
+  <comment>
+  ANY OF
+    Fock_2e Build Time:         53.5s
+    Kinetic Matrix Time:          0.0s
+    Potential Matrix Time:          0.0s
+    Fock_xc Build Time:         19.2s
+    Total Fock Matrix Build Time:         27.0s
+    Diagonalization Time:          0.1s
+    </comment>
+  <record id="fock2e">\s*{X,n:operation}Time:{F,cc:time}s\s*</record>
+</template>
