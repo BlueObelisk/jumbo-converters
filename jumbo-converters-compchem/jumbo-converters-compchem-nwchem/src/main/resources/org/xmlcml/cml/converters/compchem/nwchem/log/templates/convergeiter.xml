@@ -1,0 +1,16 @@
+<template repeat="*"  id="convergenceiter" name="Convergence Iteration" 
+  pattern="\s*convergence    iter.*$\s+\-+.*" newline="$" endPattern="\s*">
+  <comment>
+   convergence    iter        energy       DeltaE   RMS-Dens  Diis-err    time
+ ---------------- ----- ----------------- --------- --------- ---------  ------
+ d= 0,ls=0.0,diis     1  -1822.8247493675 -2.62D+03  6.20D-02  9.95D+00     1.9
+ d= 0,ls=0.0,diis     2  -1811.2270745263  1.16D+01  7.18D-02  6.78D+01     2.3
+...
+ d= 0,ls=0.0,diis    19  -1823.6801961701 -2.41D-07  9.79D-07  1.05D-07     8.4
+
+
+   </comment>
+  <record repeat="2">{X}</record>
+  <record id="converge" repeat="*" makeArray="true">\s*d\=\s*{I,n:d}\,ls={F,n:ls}\,diis\s*{I,n:iter}\s*{F,n:ener}\s*{E,n:deltae}\s*{E,n:rms}\s*{E,n:diserr}\s*{F,n:time}</record>
+  <transform process="pullupSingleton" xpath="."/>
+</template>

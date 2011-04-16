@@ -19,7 +19,6 @@ import org.xmlcml.cml.converters.Outputter.OutputLevel;
 import org.xmlcml.cml.converters.format.LineReader;
 import org.xmlcml.cml.converters.format.LineReader.LineType;
 import org.xmlcml.cml.converters.format.RecordReader;
-import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.euclid.Int2;
@@ -344,7 +343,18 @@ public class Template implements MarkupApplier {
 			try {
 				marker.applyMarkup(lineContainer);
 			} catch (Exception e) {
-				throw new RuntimeException("Bad line: "+lineContainer.peekLine(), e);
+				lineContainer.debug("DDDDDDDD");
+				String line = lineContainer.peekLine();
+				int nline = lineContainer.getCurrentNodeIndex();
+				System.err.println("PREVIOUS..."+nline);
+				for (int i = (Math.max(0, nline-6)); i < nline; i++) {
+					System.err.println(lineContainer.getLinesElement().getChild(i));
+				}
+				if (line == null) {
+					throw new RuntimeException("Null line ("+nline+")", e);
+				} else {
+					throw new RuntimeException("Bad line ("+nline+")"+line, e);
+				}
 			}
 		}
 		removeEmptyLists(linesElement);

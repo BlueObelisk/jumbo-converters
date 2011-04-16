@@ -13,6 +13,7 @@ public class NWChemLog2XMLConverter extends CompchemTemplateConverter {
 	}
 
 	public static void main(String[] args) throws IOException {
-		runMain(args, "nwchem", "log", "topTemplate.xml");
+		String templateS = (args.length == 3) ? args[2] : "topTemplate.xml";
+		runMain(args, "nwchem", "log", templateS);
 	}
 }

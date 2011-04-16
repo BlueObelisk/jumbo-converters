@@ -1,0 +1,22 @@
+<template repeat="*"  name="Contents of RTDB" id="rtdb" multiple="$"
+  pattern="\s*Contents of RTDB.*" endPattern="\s*$\s*">
+  <comment>
+ Contents of RTDB ./john_fukui.db
+ --------------------------------
+
+ Entry                                   Type[nelem]           Date
+ ---------------------------  ----------------------  ------------------------
+ dft:lcfac                            logical[47]     Fri Apr 15 16:46:03 2011 
+ dft:iXCacc                               int[1]      Fri Apr 15 16:46:03 2011 
+ ...
+ dft:iqrot                                int[1]      Fri Apr 15 16:46:03 2011 
+
+
+  </comment>
+  <record id="rtdb">\s*Contents of RTDB{X,n:rtdb.file}</record>
+  <record repeat="4"/>
+  <!-- if you really want this
+  <record repeat="*">{X,n:rtdb.entry}{X,n:rtdb.type}{X,n:rtdb.date}</record>
+  -->
+  <record repeat="*"/>
+</template>

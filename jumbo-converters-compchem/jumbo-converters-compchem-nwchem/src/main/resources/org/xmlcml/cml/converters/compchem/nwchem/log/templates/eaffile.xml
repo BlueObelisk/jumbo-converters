@@ -1,0 +1,20 @@
+<template repeat="*"  name="EAF file" id="eaffile" multiple="$"
+  pattern="\s*\-+\s*$\s*EAF file.*" endPattern="\s*">
+  <comment>
+------------------------------------------------------------
+EAF file 0: "./john_fukui.aoints.0" size=2107637760 bytes
+------------------------------------------------------------
+               write      read    awrite     aread      wait
+               -----      ----    ------     -----      ----
+     calls:     4020        17         0     68323     68323
+   data(b): 2.11e+09  8.91e+06  0.00e+00  3.58e+10
+   time(s): 2.14e+00  6.86e-03  0.00e+00  1.55e+01  3.90e-02
+rate(mb/s): 9.84e+02  1.30e+03  0.00e+00* 2.31e+03*
+------------------------------------------------------------
+* = Effective rate.  Full wait time used for read and write.
+
+  </comment>
+  <record/>
+  <record id="rtdb">\s*EAF file {I,n:eaffile.no}: "{A,n:eaffile.name}" size={I,n:eaffile.bytes} bytes</record>
+  <record repeat="*">{X,n:eaffile.info}</record>
+</template>

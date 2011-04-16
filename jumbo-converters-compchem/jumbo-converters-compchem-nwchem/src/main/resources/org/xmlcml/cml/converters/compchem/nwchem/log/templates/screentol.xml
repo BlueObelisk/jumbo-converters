@@ -1,0 +1,18 @@
+<template repeat="*"  id="screentol" name="Screening Tolerance Information" 
+  pattern="\s*Screening Tolerance Information.*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
+  <comment>
+      Screening Tolerance Information
+      -------------------------------
+          Density screening/tol_rho: 1.00D-10
+          AO Gaussian exp screening on grid/accAOfunc:  14
+          CD Gaussian exp screening on grid/accCDfunc:  20
+          XC Gaussian exp screening on grid/accXCfunc:  20
+          Schwarz screening/accCoul: 1.00D-08
+
+</comment>
+<record repeat="2">{X}</record>
+<record repeat="*" id="namevalue">\s*{X,n:name}\:\s*{X,n:value}</record>
+<transform process="nameValue" xpath="cml:list/cml:list" 
+      name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>
+<transform process="pullupSingleton" xpath="./cml:list/cml:list"/>
+</template>

@@ -1,0 +1,29 @@
+<template repeat="*"  id="atomicshellscreen" name="Atomic or Shell screening" 
+  pattern="\s*(Atomic|Shell) screening\s*" newline="$" endPattern="\s*$\s*">
+  <comment>
+ Atomic screening 
+
+   value      no.     value      no.     value      no.     value      no.   
+  -------- ------    -------- ------    -------- ------    -------- ------   
+  0.00D+00      0    1.00D-13      0    1.00D-12      0    1.00D-11      0
+  1.00D-10      0    1.00D-09      1    1.00D-08      4    1.00D-07      4
+  1.00D-06     13    1.00D-05     27    1.00D-04     28    1.00D-03     49
+  1.00D-02     66    1.00D-01    118    1.00D+00     68    1.00D+01      0
+
+
+ Shell screening 
+
+   value      no.     value      no.     value      no.     value      no.   
+  -------- ------    -------- ------    -------- ------    -------- ------   
+  0.00D+00    958    1.00D-13     97    1.00D-12    112    1.00D-11    127
+  1.00D-10    161    1.00D-09    200    1.00D-08    267    1.00D-07    276
+  1.00D-06    380    1.00D-05    486    1.00D-04    507    1.00D-03    631
+  1.00D-02    932    1.00D-01   1136    1.00D+00    633    1.00D+01      0
+
+
+  </comment>
+  <record id="screen">\s*{A,n:screen}\s*screening\s*</record>
+  <record repeat="3"/>
+  <record id="valueno" repeat="*">\s*{E,n:value}{I,n:no}{E,n:value}{I,n:no}{E,n:value}{I,n:no}{E,n:value}{I,n:no}</record>
+  
+ </template>

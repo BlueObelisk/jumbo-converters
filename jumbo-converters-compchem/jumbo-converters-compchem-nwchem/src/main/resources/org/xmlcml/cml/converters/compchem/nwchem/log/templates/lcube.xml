@@ -1,0 +1,17 @@
+<template repeat="*"  id="l_cubeinput" name="l_cube input" 
+  pattern="\s*l_cube input.*$\s*" 
+  newline="$" endPattern="\s*">
+  <comment>
+ l_cube input   11.00
+
+  atom type   l_cube   no. cubes   segmts   rad   sub
+ ----------- -------- ----------- -------- ----- -----
+        1     10.80       124         5      27     8
+        2     10.00       124         5      25     8
+        3     10.40       124         5      26     8
+        4     10.40       124         5      26     8
+</comment>
+  <record id="lcube">\s*l_cube input{F,n:lcube}</record>
+  <record repeat="3"/>
+  <record id="lcuberow" repeat="*">{I}{F,n:l_cube}{I,n:no_cube}{I,n:l_cube.segmts}{I,n:l_cube.rad}{I,n:l_cube.sub}</record>
+</template>

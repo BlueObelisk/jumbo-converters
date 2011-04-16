@@ -1,0 +1,40 @@
+<template repeat="*"  id="momint" name="moments of inertia" 
+  pattern="\s+moments of inertia.*$\s+\-+.*" newline="$" endPattern="\s*">
+  <comment>
+ moments of inertia (a.u.)
+ ------------------
+        2255.012792094188           0.000000000000           0.000000000000
+           0.000000000000        2255.012792094188           0.000000000000
+           0.000000000000           0.000000000000        1950.260605202691
+
+  </comment>    
+  <record repeat="2">{X}</record>
+  <record id="mat" formatType="REGEX" repeat="3">{F25.12,n:mx}{F25.12,n:my}{F25.12,n:mz}</record>
+  <!-- 
+- <module lineCount="6" templateRef="momint">
+- <list templateRef="mat">
+- <list>
+  <scalar dataType="xsd:double" dictRef="n:mx">2255.012792094188</scalar> 
+  <scalar dataType="xsd:double" dictRef="n:my">0.0</scalar> 
+  <scalar dataType="xsd:double" dictRef="n:mz">0.0</scalar> 
+  </list>
+- <list>
+  <scalar dataType="xsd:double" dictRef="n:mx">0.0</scalar> 
+  <scalar dataType="xsd:double" dictRef="n:my">2255.012792094188</scalar> 
+  <scalar dataType="xsd:double" dictRef="n:mz">0.0</scalar> 
+  </list>
+- <list>
+  <scalar dataType="xsd:double" dictRef="n:mx">0.0</scalar> 
+  <scalar dataType="xsd:double" dictRef="n:my">0.0</scalar> 
+  <scalar dataType="xsd:double" dictRef="n:mz">1950.260605202691</scalar> 
+  </list>
+  </list>
+  </module>
+   -->
+  <transform process="matrix33" xpath="./*[@cmlx:templateRef='mat']" 
+      from="*/*[@dictRef='n:mx' or @dictRef='n:my' or @dictRef='n:mz']"/>
+  <transform process="pullupSingleton" xpath="./*/cml:list"/> 
+  <!-- does not work -->
+  <transform process="pullupSingleton" xpath="."/> 
+
+</template>

@@ -1,6 +1,6 @@
 <template repeat="*"  id="nwcheminpmod" name="NWChem Input Module" 
   pattern="\s*NWChem Input Module\s*$\s+\-+\s*" 
-  newline="$" endPattern=".*$\s*\-+\s*">
+  newline="$" endPattern=".*">
   <comment>
                                 NWChem Input Module
                                 -------------------
@@ -8,24 +8,7 @@
 
  Turning off AUTOSYM since
  SYMMETRY directive was detected!
-
+  SHOULD COME AFTER nwcheminptitle.xml (maybe combine these)
 </comment>
-<comment>
-                                NWChem Input Module
-                                -------------------
-
-
-              Methylamine...rhf/3-21g//Pople-Gordon standard geometry
-              -------------------------------------------------------
-  library name resolved from: .nwchemrc
-  library file name is: &lt;/home/d3y133/nwchem-releases/nwchem-6.0-gfortran/QA/../src/basis/libraries/>
-  
-</comment>
-  <record repeat="*">{X}</record>
-  <record repeat="*">\s*</record>
-  <templateList>
-    <template id="title" repeat="*" pattern=".*$\s*\-+\s*" newline="$" endPattern="\s*\-+\s*">
-      <record repeat="*">{X}</record>
-    </template>
-  </templateList>
+  <record repeat="*"/>
 </template>
