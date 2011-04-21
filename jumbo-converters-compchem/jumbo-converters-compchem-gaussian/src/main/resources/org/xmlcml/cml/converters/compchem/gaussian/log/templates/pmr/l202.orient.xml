@@ -1,0 +1,27 @@
+<template id="l202.orient" name="input or standard orientation" repeat="*"
+    pattern="\s*(Input|Standard)\s*orientation:\s*$\s*\-+\s*" 
+    endPattern="\s*\d.*$\s*\-+\s*" endOffset="2">
+    
+  <comment class="example.input" id="l202.orient">
+                          Input orientation:                          
+ ---------------------------------------------------------------------
+ Center     Atomic     Atomic              Coordinates (Angstroms)
+ Number     Number      Type              X           Y           Z
+ ---------------------------------------------------------------------
+    1          6             0        0.000000    0.000000    0.000000
+    2          1             0        0.000000    0.000000    1.093266
+    3          1             0        1.030741    0.000000   -0.364422
+    4          1             0       -0.515370   -0.892648   -0.364422
+    5          1             0       -0.515371    0.892648   -0.364422
+ ---------------------------------------------------------------------
+  </comment>
+ 
+  <record id="type">{A,g:type}orientation:\s*</record> 
+  <record repeat="4"/> 
+  <record repeatCount="*" makeArray="true">{I,cc:serial}{I,cc:elementType}{I,g:atomicType}{F,cc:x3}{F,cc:y3}{F,cc:z3}</record>
+  <record/>
+  
+  <comment class="example.output.raw" id="l202.orient">
+ </comment>
+</template>
+ 

@@ -1,0 +1,24 @@
+<template id="condensed" name="condensed" repeat="*"
+    pattern="\s*Condensed to atoms \(all electrons\):\s*$\s*\d+.*" offset="0" 
+    endPattern="\s*Mulliken.*"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    >
+<!--  TODO fails -->    
+  <comment class="example.input" id="condensed">
+           Condensed to atoms (all electrons):
+              1          2          3          4          5
+     1  C    5.098942   0.380069   0.380069   0.380069   0.380069
+     2  H    0.380069   0.544083  -0.026319  -0.026319  -0.026319
+     3  H    0.380069  -0.026319   0.544083  -0.026319  -0.026319
+     4  H    0.380069  -0.026319  -0.026319   0.544083  -0.026319
+     5  H    0.380069  -0.026319  -0.026319  -0.026319   0.544083
+  </comment>
+
+  <record/>
+  <record id="serial">{X,x:intarr}</record>
+  <record repeatCount="*" id="row">{I,cc:serial}{A,cc:elementType}{X,x:floatArr}</record>
+
+  <comment class="example.output.raw" id="condensed">
+ </comment>
+</template>
+ 

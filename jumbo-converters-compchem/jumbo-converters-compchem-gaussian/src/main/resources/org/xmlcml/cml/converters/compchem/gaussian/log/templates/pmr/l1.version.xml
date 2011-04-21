@@ -1,0 +1,14 @@
+<template id="l1.version" pattern="\s*\*+\s*$\s*Gaussian.*\s*" newline="$"
+  endPattern="\s*\*+\s*" endOffset="1"
+  >
+  <comment>
+ *********************************************
+ Gaussian 03:  x86-Linux-G03RevB.04 2-Jun-2003
+                  20-Nov-2006 
+ *********************************************
+  </comment>
+  <record/>
+  <record id="prog">{X,cc:program}:{A,cc:version}\s+{A,cc:program.date}</record>
+  <record id="prog">\s*{A,cc:run.date}\s*</record>
+  <record repeat="*">{X,x:verb}</record>
+</template>

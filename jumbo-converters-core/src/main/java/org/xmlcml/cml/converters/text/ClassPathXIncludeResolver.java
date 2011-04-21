@@ -11,7 +11,9 @@ import java.net.URI;
  */
 public class ClassPathXIncludeResolver {
 
-    public final static String XINCLUDE_NS = "http://www.w3.org/2001/XInclude";
+    private static final String CLASSPATH = "classpath:";
+	private static final String HREF = "href";
+	public final static String XINCLUDE_NS = "http://www.w3.org/2001/XInclude";
 
     public static void resolveIncludes(Document document) throws IOException, ParsingException {
         resolveIncludes(document, new Builder());
@@ -23,12 +25,12 @@ public class ClassPathXIncludeResolver {
 
     private static void resolve(Element element, Builder builder) throws IOException, ParsingException {
         if (isIncludeElement(element)) {
-            String href = element.getAttributeValue("href");
+            String href = element.getAttributeValue(HREF);
             String base = element.getBaseURI();
             URI u = URI.create(base).resolve(href);
             String uri = u.toString();
-            if (uri.startsWith("classpath:")) {
-                uri = uri.substring(10);
+            if (uri.startsWith(CLASSPATH)) {
+                uri = uri.substring(CLASSPATH.length());
             } else {
                 throw new RuntimeException("Unsupported XInclude URI: "+uri);
             }

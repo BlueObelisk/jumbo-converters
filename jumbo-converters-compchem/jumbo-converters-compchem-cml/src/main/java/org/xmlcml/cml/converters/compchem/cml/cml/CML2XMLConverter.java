@@ -25,7 +25,8 @@ public class CML2XMLConverter extends CompchemTemplateConverter {
 	}
 
 	public CML2XMLConverter(Element templateElement) {
-		super(templateElement, "cml", "cml");
+//		super(templateElement, "cml", "cml");
+		super(templateElement);
 	}
 
 	/*

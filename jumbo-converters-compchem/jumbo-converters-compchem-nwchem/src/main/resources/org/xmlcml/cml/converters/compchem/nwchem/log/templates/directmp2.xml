@@ -1,0 +1,26 @@
+<template repeat="*"  id="directmp2" name="Direct MP2" 
+  pattern="\s*Direct MP2\s*$\s+\-+.*" newline="$" endPattern="\s*$\s*">
+  <comment>
+                          Direct MP2
+                          ----------
+          Basis functions:                      131
+          Shells:                                35
+          Block length:                          32
+          Active occupied range:             1 -  9
+          Active virtual range:             10 -131
+          MO coefficients read from:  ./Au+.movecs             
+          Operator matrices in core:             45
+          AO passes required:                     1
+          Use AO Integral blocking
+          Twofold algorithm used
+
+     Pass:    1     Index range:    1  -    9     Time:     81.04
+
+
+</comment>
+<record repeat="2" id="rl1"/>
+<record id="r1" repeat="*">\s*{X,x:name}:\s*{X,x:value}\s*</record>
+<record id="r2">\s*{X,x:aointeg}\s*</record>
+<record id="rl3">\s*{X,n:twofold}used\s*</record>
+<record id="r3" >\s*{I,n:pass}\s*{I,n:from}\s*{I,n:to}\s*{F,cc:time}</record>
+</template>

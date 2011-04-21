@@ -1,0 +1,11 @@
+<template id="l103.trust" pattern="\s*Trust.*\s*"
+    endPattern=".*Number.*\s*" endOffset="1">
+    <comment class="example.input" id="l103.trust">
+ Trust Radius=3.00D-01 FncErr=1.00D-07 GrdErr=1.00D-06
+ Number of steps in this run=  20 maximum allowed number of steps= 100.
+    </comment>
+  <record repeat="*" id="length">\s*Trust Radius={E,g:trustrad} FncErr={E,g:fncerr} GrdErr={E,g:grderr}</record>
+  <record repeat="*" id="angle">\s*Number of steps in this run={I,g:nstep} maximum allowed number of steps= {I,g:allowedstep}\.\s*</record>
+    <comment class="example.output.raw" id="l103.trust">
+    </comment>
+</template>

@@ -1,4 +1,5 @@
-<template repeat="*"  name="Memory information" id="memory" pattern=".*Memory information.*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
+<template repeat="*"  name="Memory information" id="memory" 
+  pattern=".*Memory information.*$\s+\-+.*$\s*" newline="$" endPattern="\s*$\s*">
    <comment>
            Memory information
            ------------------
@@ -11,6 +12,8 @@
     hardfail = no 
 
   </comment>
-  <record repeat="2">{X}</record>
-  <record repeat="*">{X}</record>
+  <record repeat="2"/>
+  <record repeat="*" id="memory">\s*{X,x:name}\s*=\s*{I,cc:storage,u:double}doubles = {F,cc:storgae,u:mbyte} MBytes.*</record>
+  <record id="verify">verify\s*={A,n:verify}</record>
+  <record id="hardfail">hardfail\s*={A,n:hardfail}</record>
 </template>

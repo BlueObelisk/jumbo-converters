@@ -1,0 +1,14 @@
+<template id="l101.zmata" pattern="\s*Charge.*Multiplicity.*$.*" 
+endPattern="[^,]+"
+  >
+  <comment>
+ Charge =  0 Multiplicity = 1
+ C,0,0.,0.,0.
+ H,0,0.0000000995,0.0000001925,1.09326594
+ H,0,1.0307409799,0.0000001096,-0.3644220738
+ H,0,-0.5153703892,-0.8926480531,-0.3644217759
+ H,0,-0.5153706902,0.892647751,-0.3644220902
+  </comment>
+  <record id="chargemult">\s*Charge\s*={I,x:formalCharge}\s*Multiplicity\s*={I,x:multiplicity}</record>
+  <record id="atom" repeat="*" makeArray="true">\s*{A,cc:elementType},{I,g:type},{F,cc:x3},{F,cc:y3},{F,cc:z3}</record>
+</template>

@@ -1,6 +1,6 @@
 <template repeat="*"  id="nccp" name="Northwest Computational Chemistry Package" 
         pattern=".*Northwest Computational Chemistry Package .*$\s+\-+.*" 
-        newline="$" endPattern=".*$\s*\-+\s*">">
+        newline="$" endPattern=".*LICENSE\.TXT.*" endOffset="1">
   <comment>
       Northwest Computational Chemistry Package (NWChem) 6.0
       ------------------------------------------------------
@@ -18,6 +18,6 @@
       in the LICENSE.TXT file
 
   </comment>
-  <record id="title">\s*Northwest Computational Chemistry Package\s*\({A,compchem:program}\)\s*{A,compchem:version}</record>
-  <record repeat="*">{X}</record>
+  <record id="title">\s*Northwest Computational Chemistry Package\s*\({A,cc:program}\)\s*{A,cc:version}</record>
+  <record repeat="*"/>
 </template>

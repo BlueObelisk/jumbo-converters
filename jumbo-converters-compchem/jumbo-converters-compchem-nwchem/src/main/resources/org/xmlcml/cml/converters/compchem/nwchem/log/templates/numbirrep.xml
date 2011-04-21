@@ -1,0 +1,15 @@
+<template repeat="*"  id="numbirrep" name="Numbering of irreducible representations" 
+    pattern=".*Numbering of irreducible representations:.*$\s*" newline="$" 
+      endPattern="\s*">
+  <comment>
+  Numbering of irreducible representations: 
+
+     1 a1'         2 a1"         3 a2'         4 a2"         5 e'      
+     6 e"      
+
+  </comment>
+  <record repeat="2"/>
+  <record repeat="*" id="symmList">{I,n:serial}{A,cc:irrepsym}{I,n:serial}{A,cc:irrepsym}{I,n:serial}{A,cc:irrepsym}{I,n:serial}{A,cc:irrepsym}{I,n:serial}{A,cc:irrepsym}</record>
+  <record id="symmList">{I,n:serial}{A,cc:irrepsym}{X,n:symm}</record>
+  
+</template>

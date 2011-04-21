@@ -1,0 +1,13 @@
+<template id="rfo" 
+    pattern="\s*RFO step.*$.*$.*" repeat="*"
+    endPattern=".[^I][^t].*" endOffset="0">
+    <comment>
+ RFO step:  Lambda=-1.94485150D-03.
+ Linear search not attempted -- first point.
+ Iteration  1 RMS(Cart)=  0.02447047 RMS(Int)=  0.00000000
+ Iteration  2 RMS(Cart)=  0.00000000 RMS(Int)=  0.00000000
+    </comment>
+  <record id="rfo">\s*RFO step:\s+Lambda={E,g:lambda}\.\s*</record>
+  <record id="nolinear">\s*{X,g:linear}\snot attempted.*</record>
+  <record repeat="*" id="iteration" makeArray="true">\s*Iteration\s+{I,cc:serial}\s*RMS\(Cart\)={F,g:rmscart}\s*RMS\(Int\)={F,g:rmsint}\s*</record>
+</template>

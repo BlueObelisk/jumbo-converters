@@ -1,0 +1,42 @@
+<template id="mulliken" name="mulliken" repeat="*"
+    newline="$" pattern="\s*Mulliken atomic charges:\s*" 
+    endPattern="\s*Charge=.*" endOffset="1"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    >
+    
+  <comment class="example.input" id="popanal">
+ Mulliken atomic charges:
+              1
+     1  C   -0.619218
+     2  H    0.154804
+     3  H    0.154804
+     4  H    0.154804
+     5  H    0.154804
+ Sum of Mulliken charges=   0.00000
+ Atomic charges with hydrogens summed into heavy atoms:
+              1
+     1  C    0.000000
+     2  H    0.000000
+     3  H    0.000000
+     4  H    0.000000
+     5  H    0.000000
+ Sum of Mulliken charges=   0.00000
+ Electronic spatial extent (au):  &lt;R**2>=    36.2154
+ Charge=     0.0000 electrons
+  </comment>
+
+  <templateList>
+    <template id="mullik" repeat="*" pattern=".*[Aa]tomic charges.*" endPattern="\s*Sum of.*">
+      <record id="title">{X,g:title}</record>
+      <record id="serial">{I,cc:serial}</record>
+      <record id="row" repeat="*">{I,cc:serial}{A,cc:elementType}{F,x:charge}</record>
+      <record id="sum"> Sum of Mulliken charges={F,x:charge.sum}</record>
+    </template>
+  </templateList>
+  <record id="elect">Electronic spatial extent.*{F,g:electextent2}</record>
+  <record id="charge">\s*Charge={F,g:charge} electrons</record>
+
+  <comment class="example.output.raw" id="anisospin">
+ </comment>
+</template>
+ 

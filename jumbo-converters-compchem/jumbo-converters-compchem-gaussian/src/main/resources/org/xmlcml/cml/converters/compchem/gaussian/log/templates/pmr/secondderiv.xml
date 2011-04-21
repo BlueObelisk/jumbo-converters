@@ -1,0 +1,40 @@
+<template id="secondderiv" 
+    pattern="\s*The second derivative matrix:\s*" repeat="*"
+    endPattern="\s*Eigenvalues.*$.....[^E][^i][^g].*" endOffset="1">
+    <comment>
+ The second derivative matrix:
+                          R1        R2        R3        R4        A1
+           R1           0.32284
+           R2           0.00000   0.32284
+           R3           0.00000   0.00000   0.32284
+           R4           0.00000   0.00000   0.00000   0.32284
+           A1           0.00000   0.00000   0.00000   0.00000   0.16000
+           A2           0.00000   0.00000   0.00000   0.00000   0.00000
+           A3           0.00000   0.00000   0.00000   0.00000   0.00000
+           A4           0.00000   0.00000   0.00000   0.00000   0.00000
+           A5           0.00000   0.00000   0.00000   0.00000   0.00000
+           A6           0.00000   0.00000   0.00000   0.00000   0.00000
+                          A2        A3        A4        A5        A6
+           A2           0.16000
+           A3           0.00000   0.16000
+           A4           0.00000   0.00000   0.16000
+           A5           0.00000   0.00000   0.00000   0.16000
+           A6           0.00000   0.00000   0.00000   0.00000   0.16000
+     Eigenvalues ---    0.16000   0.16000   0.16000   0.16000   0.16000
+     Eigenvalues ---    0.32284   0.32284   0.32284   0.322841000.00000
+    </comment>
+  <record>{X,x:junk}</record>
+  <!--  TODO -->
+  <templateList>
+    <template id="mat" pattern="\s{20}\s*[RAD].*" repeat="*"
+        endPattern="((\s{20}\s*[ARD])|(\s*Eig)).*" 
+        endOffset="1">
+        <record id="row" repeat="*">{X,x:junk1}</record>
+        <!-- 
+        endPattern="\s{7}\s*[ARD].*$(\s{20}\s*[ARD]|\s*Eig).*" 
+        <record id="row" repeat="*">\s*{A,g:variable}{X,x:fields}</record>
+        -->
+    </template>
+  </templateList>
+  <record repeat="*" id="eigen">\s*Eigenvalues \-\-\-\s*{F,cc:distance}{X,x:fields}</record>
+</template>

@@ -1,0 +1,37 @@
+<template repeat="*"  id="zmatuser" name="Z-Matrix (user)" 
+  pattern=".*Z\-matrix \(user\).*$\s+\-+.*" newline="$" 
+  endPattern=".*$\s*\-+\s*">
+  <comment>
+                                Z-matrix (user)
+                                -------- 
+
+ Units are Angstrom for bonds and degrees for angles
+
+  Constrained variables are marked with a plus sign (+).
+
+
+      Type          Name      I     J     K     L     M      Value
+      ----------- --------  ----- ----- ----- ----- ----- ----------
+    1+Stretch      r2          2     1                       0.96200
+    2+Stretch      r2          3     1                       0.96200
+    3 Bend         a3          3     1     2               105.10000
+    4 Stretch      r3          4     1                       2.00000
+    5+Bend         a4          4     1     2               127.45000
+    6+Bend(2)      a4          4     1     3    -1         127.45000
+   
+  </comment>
+<!--   <record id="type" >\s*Z\-matrix\s*\({X,n:type}\)\s*</record>-->
+<record repeat="10">{X}</record>
+  <record id="stretch" repeat="*" makeArray="true"
+     >{I5,n:serial}{A1,n:constr}Stretch      {A7,n:name}.*</record>
+     <!-- 
+  <record id="stretch" repeat="*" makeArray="true"
+     >{I5,n:serial}{X1,n:constr}Stretch      {A7,n:name}{I6,n:i}{I6,n:j}{F18.5,n:len,u:angst}</record>
+     -->
+     <!-- 
+  <record id="bend" repeat="*" makeArray="true"
+     >\s*{I,n:serial}{X1,n:constr}Bend\s*{A,n:name}\s*{I,n:i}\s*{I,n:j}\s*{I,n:k}\s*{F,n:ang,u:deg}</record>
+  <record id="torsion" repeat="*" makeArray="true"
+     >\s*{I,n:serial}{X1,n:constr}Torsion\s*{A,n:name}\s*{I,n:i}\s*{I,n:j}\s*{I,n:k}\s*{I,n:l}\s*{F,n:tor,u:deg}</record>
+     -->
+</template>

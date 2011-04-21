@@ -57,6 +57,7 @@ public class Template implements MarkupApplier {
 	private static final String BASE = "base"; // left by XInclude
 
 	private static final String NULL_ID = "NULL_ID";
+	private static final String DEFAULT_NEWLINE = CMLConstants.S_DOLLAR;
 
 	public static XPathContext CML_CMLX_CONTEXT = null;
 	static {
@@ -68,7 +69,7 @@ public class Template implements MarkupApplier {
 	protected Element theElement;
 	private String id;
 	private String name;
-	private String multipleS;
+	private String newlineS;
 	private String patternString;
 	private String endPatternString;
 	private PatternContainer endChunker;
@@ -166,7 +167,7 @@ public class Template implements MarkupApplier {
 			// special end-of-information symbol
 			endPatternString = EOI;
 		}
-		processMultiple();
+		processNewline();
 		
 		outputLevel = Outputter.extractOutputLevel(this.theElement);
 		LOG.trace(outputLevel+"/"+this.theElement.getAttributeValue(Outputter.OUTPUT));
@@ -178,20 +179,23 @@ public class Template implements MarkupApplier {
 		
 		processRepeatCount();
 		
-		startChunker = new PatternContainer(patternString, multipleS, offset);
-		endChunker = new PatternContainer(endPatternString, multipleS, endOffset);
+		startChunker = new PatternContainer(patternString, newlineS, offset);
+		endChunker = new PatternContainer(endPatternString, newlineS, endOffset);
 	}
 
-	private void processMultiple() {
-		multipleS = theElement.getAttributeValue(NEWLINE);
-		if (multipleS == null) {
-			multipleS = theElement.getAttributeValue(MULTIPLE);
-			if (multipleS != null) {
+	private void processNewline() {
+		newlineS = theElement.getAttributeValue(NEWLINE);
+		if (newlineS == null) {
+			newlineS = theElement.getAttributeValue(MULTIPLE);
+			if (newlineS != null) {
 				LOG.warn("multiple is deprecated, use newline");
 			}
 		}
-		if (multipleS != null) {
-			multipleS = escape(multipleS);
+		if (newlineS == null) {
+			newlineS = DEFAULT_NEWLINE;
+		}
+		if (newlineS != null) {
+			newlineS = escape(newlineS);
 		}
 	}
 
@@ -343,7 +347,7 @@ public class Template implements MarkupApplier {
 			try {
 				marker.applyMarkup(lineContainer);
 			} catch (Exception e) {
-				lineContainer.debug("DDDDDDDD");
+				lineContainer.debug("LINE CONTAINER");
 				String line = lineContainer.peekLine();
 				int nline = lineContainer.getCurrentNodeIndex();
 				System.err.println("PREVIOUS..."+nline);

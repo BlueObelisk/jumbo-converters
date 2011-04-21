@@ -1,0 +1,33 @@
+<template id="l1.zmat" pattern="\s*Symbolic.*" endPattern="\s*"
+  >
+  <comment>
+ Symbolic Z-matrix:
+ Charge =  0 Multiplicity = 1
+ C
+ H                    1    B1
+ H                    1    B2       2    A1
+ H                    1    B3       2    A2       3    D1       0
+ H                    1    B4       2    A3       3    D2       0
+       Variables:
+  B1                    1.113                    
+  B2                    1.113                    
+  B3                    1.113                    
+  B4                    1.113                    
+  A1                  109.47124                  
+  A2                  109.47119                  
+  D1                  120.                       
+  A3                  109.47123                  
+  D2                 -120.                       
+ 
+     3 tetrahedral angles replaced.
+
+  </comment>
+  <record/>
+  <record id="chargemult">\s*Charge\s*={I,x:formalCharge}\s*Multiplicity\s*={I,x:multiplicity}</record>
+  <record id="atom1">\s*{A,cc:elementType}</record>
+  <record id="atom2">\s*{A,cc:elementType}{I,cc:serial}{A,cc:name}</record>
+  <record id="atom3">\s*{A,cc:elementType}{I,cc:serial}{A,cc:name}{I,cc:serial}{A,cc:name}</record>
+  <record id="atom4" repeat="*">\s*{A,cc:elementType}{I,cc:serial}{A,cc:name}{I,cc:serial}{A,cc:name}{I,cc:serial}{A,cc:name}{I,cc:serial}</record>
+  <record/>
+  <record id="variable" repeat="*">\s*{A,x:name}{F,x:value}</record>
+</template>
