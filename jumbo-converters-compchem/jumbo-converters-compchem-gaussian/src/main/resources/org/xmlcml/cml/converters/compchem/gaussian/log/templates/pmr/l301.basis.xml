@@ -1,0 +1,33 @@
+<template id="l301.basis" name="basis" repeat="*"
+    pattern="\s*Standard basis.*" endPattern="\s*NAtoms=.*"
+    endOffset="1"
+    >
+    
+  <comment class="example.input" id="l301.basis">
+ Standard basis: 6-31G(d) (6D, 7F)
+ There are     8 symmetry adapted basis functions of A   symmetry.
+ There are     5 symmetry adapted basis functions of B1  symmetry.
+ There are     5 symmetry adapted basis functions of B2  symmetry.
+ There are     5 symmetry adapted basis functions of B3  symmetry.
+ Integral buffers will be    262144 words long.
+ Raffenetti 2 integral format.
+ Two-electron integral symmetry is turned on.
+    23 basis functions,    44 primitive gaussians,    23 cartesian basis functions
+     5 alpha electrons        5 beta electrons
+       nuclear repulsion energy        13.1577484238 Hartrees.
+ NAtoms=    5 NActive=    5 NUniq=    2 SFac= 5.66D+00 NAtFMM=   60 Big=F
+  </comment>
+  <record id="basis">\s*Standard basis: {A,cc:basis} {X,cc:diffuse}</record> 
+  <record id="symmadapt" repeat="*">\s* There are{I,cc:adapted} symmetry adapted basis functions of{A,cc:symm}symmetry.</record> 
+  <record id="buffer">\s*Integral buffers will be {I,g:buffer}\s*words long\.</record> 
+  <record id="raff">\s*{A,g:raffenetti} 2 integral format\.</record> 
+  <record id="twoe">\s*{X,g:twoe} integral symmetry is turned on\.</record> 
+  <record id="basiscount">\s*{I,cc:basiscount}basis functions,{I,g:primbasis}primitive gaussians,{I,cc:cartesianbasis}cartesian basis functions\s*</record> 
+  <record id="alphabeta">\s*{I,cc:alphae}alpha electrons{I,cc:betae}beta electrons\s*</record> 
+  <record id="nucrep">\s*nuclear repulsion energy{F,cc:nucrepener}Hartrees\.\s*</record> 
+  <record id="counts">\s*NAtoms={I,cc:natoms}NActive={I,cc:nactiveatoms}NUniq={I,cc:uniqatoms}SFac={F,g:sfac} NAtFMM={I,g:natfmm}Big={I,g:big}\s*</record> 
+  
+  <comment class="example.output.raw" id="l301.basis">
+ </comment>
+</template>
+ 

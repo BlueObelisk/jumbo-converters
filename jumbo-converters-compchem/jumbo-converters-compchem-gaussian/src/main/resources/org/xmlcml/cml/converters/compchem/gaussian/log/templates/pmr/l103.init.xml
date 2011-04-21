@@ -1,0 +1,48 @@
+<template id="l103.init" repeat="*"
+    pattern="\s*\-+\s*$\s*\!\s*Initial Parameters\s*\!\s*"
+    endPattern=".*(estimate|calculate).*$\s*\-+\s*" endOffset="1">
+    <comment>
+                           ----------------------------
+                           !    Initial Parameters    !
+                           ! (Angstroms and Degrees)  !
+ --------------------------                            --------------------------
+ ! Name  Definition              Value          Derivative Info.                !
+ --------------------------------------------------------------------------------
+ ! R1    R(1,2)                  1.113          estimate D2E/DX2                !
+ ! R2    R(1,3)                  1.113          estimate D2E/DX2                !
+ ! R3    R(1,4)                  1.113          estimate D2E/DX2                !
+ ! R4    R(1,5)                  1.113          estimate D2E/DX2                !
+ ! A1    A(2,1,3)              109.4712         estimate D2E/DX2                !
+ ! A2    A(2,1,4)              109.4712         estimate D2E/DX2                !
+ ! A3    A(2,1,5)              109.4712         estimate D2E/DX2                !
+ ! A4    A(3,1,4)              109.4712         estimate D2E/DX2                !
+ ! A5    A(3,1,5)              109.4712         estimate D2E/DX2                !
+ ! A6    A(4,1,5)              109.4712         estimate D2E/DX2                !
+ --------------------------------------------------------------------------------
+    </comment>
+    <comment>
+                           ----------------------------
+                           !    Initial Parameters    !
+                           ! (Angstroms and Degrees)  !
+ --------------------------                            --------------------------
+ ! Name  Definition              Value          Derivative Info.                !
+ --------------------------------------------------------------------------------
+ ! R1    R(1,2)                  1.0933         calculate D2E/DX2 analytically  !
+ ! R2    R(1,3)                  1.0933         calculate D2E/DX2 analytically  !
+ ! R3    R(1,4)                  1.0933         calculate D2E/DX2 analytically  !
+ ! R4    R(1,5)                  1.0933         calculate D2E/DX2 analytically  !
+ ! A1    A(2,1,3)              109.4712         calculate D2E/DX2 analytically  !
+ ! A2    A(2,1,4)              109.4712         calculate D2E/DX2 analytically  !
+ ! A3    A(2,1,5)              109.4712         calculate D2E/DX2 analytically  !
+ ! A4    A(3,1,4)              109.4712         calculate D2E/DX2 analytically  !
+ ! A5    A(3,1,5)              109.4712         calculate D2E/DX2 analytically  !
+ ! A6    A(4,1,5)              109.4712         calculate D2E/DX2 analytically  !
+ --------------------------------------------------------------------------------
+    </comment>
+  <record repeat="6"/>
+  <record repeat="*" id="length">\s*\!\s*{A,g:symbol}\s*R\({I,g:atom1},{I,g:atom2}\)\s*{F,cc:distance}\s*{X,g:deriv}\s*\!\s*</record>
+  <record repeat="*" id="angle">\s*\!\s*{A,g:symbol}\s*A\({I,g:atom1},{I,g:atom2},{I,g:atom3}\)\s*{F,cc:angle}\s*{X,g:deriv}\s*\!\s*</record>
+  <!-- 
+  <record repeat="*" id="dihed">\s*\!\s*{A,g:symbol}\s*D\({I,g:atom1},{I,g:atom2},{I,g:atom3},{I,g:atom4}\)\s*{F,cc:dihed}\s*estimate\s*{A,g:deriv}\s*\!\s*</record>
+-->
+</template>

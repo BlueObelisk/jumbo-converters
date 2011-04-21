@@ -1,0 +1,16 @@
+<template repeat="*"  id="orbitalsym" name="Orbital symmetries" 
+    pattern=".*Orbital symmetries:.*$\s*" newline="$" endPattern="\s*">
+  <comment>
+  Orbital symmetries:
+
+     1 a1'         2 a1'         3 a2"         4 e'          5 e'      
+     6 a1'         7 a2"         8 a1'         9 e'         10 e'      
+     ...
+    56 e'         57 e'         58 e"      
+
+  </comment>
+  <record repeat="2"/>
+  <record repeat="*" id="symmList">{I,n:serial}{A,cc:irrepsym}{I,n:serial}{A,cc:irrepsym}{I,n:serial}{A,cc:irrepsym}{I,n:serial}{A,cc:irrepsym}{I,n:serial}{A,cc:irrepsym}</record>
+  <record id="symmList">{I,n:serial}{A,cc:irrepsym}{X,n:symm}</record>
+  
+</template>

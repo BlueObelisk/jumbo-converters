@@ -1,0 +1,23 @@
+<template id="link1a" name="Second or later Link1" repeat="*"
+    pattern="\sLink1.*" 
+    endPattern="\s*" endOffset="0"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    >
+    
+  <comment class="example.input" id="link1a">
+ Link1:  Proceeding to internal job step number  2.
+...
+  </comment>
+  <record id="link1">{X,g:link1}</record>
+  <templateList>
+    <xi:include href="l1.keywords.xml"/>
+    <xi:include href="l1.control.xml"/>
+    <xi:include href="l101.title1.xml"/>
+    <xi:include href="l101.redundantcoords.xml"/>
+    <xi:include href="l101.zmata.xml"/>
+  </templateList>  
+  <record repeat="*">{X,g:link1a}</record>
+  <comment class="example.output.raw" id="link1a">
+ </comment>
+</template>
+ 

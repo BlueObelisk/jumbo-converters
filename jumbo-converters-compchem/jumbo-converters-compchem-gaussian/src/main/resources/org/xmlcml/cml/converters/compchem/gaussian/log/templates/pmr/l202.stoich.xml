@@ -1,0 +1,22 @@
+<template id="l202.stoich" name="stoichiometry" repeat="*"
+    pattern="\s*Stoichiometry.*\s*" 
+    endPattern="\s*Largest concise.*" endOffset="1">
+    
+  <comment class="example.input" id="l202.stoich">
+ Stoichiometry    CH4
+ Framework group  TD[O(C),4C3(H)]
+ Deg. of freedom     1
+ Full point group                 TD      NOp  24
+ Largest Abelian subgroup         D2      NOp   4
+ Largest concise Abelian subgroup D2      NOp   4
+  </comment>
+  <record id="stoich">\s*Stoichiometry\s*{A,cc:formula}</record>
+  <record id="framework">\s*Framework group\s*{A,cc:frameworkgroup}</record>
+  <record id="degfreedom">\s*Deg\. of freedom\s*{I,cc:degfreedom}</record>
+  <record id="pointgroup">\s*Full point group\s*{A,cc:pointgroup}NOp{I,cc:operatorcount}</record>
+  <record id="largestabelian">\s*Largest Abelian subgroup\s*{A,cc:largestabelian}NOp{I,cc:operatorcount}</record>
+  <record id="largestconciseabelian">\s*Largest concise Abelian subgroup\s*{A,cc:largestconciseabelian}NOp{I,cc:operatorcount}</record>
+  <comment class="example.output.raw" id="l202.stoich">
+ </comment>
+</template>
+ 

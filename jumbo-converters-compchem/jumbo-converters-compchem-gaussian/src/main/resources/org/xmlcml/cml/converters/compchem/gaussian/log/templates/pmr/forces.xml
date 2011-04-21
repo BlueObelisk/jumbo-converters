@@ -1,0 +1,22 @@
+<template id="forces" repeat="*"
+    pattern="\s*\-+\s*$\s*Center\s+Atomic\s+Forces \(Hartrees/Bohr\)\s*"
+    endPattern="\s*Cartesian Forces:.*" endOffset="1">
+    <comment>
+ -------------------------------------------------------------------
+ Center     Atomic                   Forces (Hartrees/Bohr)
+ Number     Number              X              Y              Z
+ -------------------------------------------------------------------
+    1          6           0.000000000    0.000000000    0.000000000
+    2          1          -0.000000001   -0.000000002   -0.012566491
+    3          1          -0.011847801   -0.000000001    0.004188832
+    4          1           0.005923900    0.010260499    0.004188828
+    5          1           0.005923903   -0.010260496    0.004188832
+ -------------------------------------------------------------------
+ Cartesian Forces:  Max     0.012566491 RMS     0.006489308
+  </comment> 
+    
+  <record repeat="4"/>
+  <record repeat="*" id="force">\s*{I,x:serial}{I,x:elementType}{F,x:x3}{F,x:y3}{F,x:z3}\s*</record>
+  <record/>
+  <record id="cartesianforce">\s*Cartesian Forces:\s+Max{F,cc:maxforce}\s*RMS{F,cc:rmsforce}\s*</record>
+</template>

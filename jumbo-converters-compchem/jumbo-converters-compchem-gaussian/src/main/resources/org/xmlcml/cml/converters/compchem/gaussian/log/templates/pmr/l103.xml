@@ -1,0 +1,42 @@
+<template id="l103" name="l103" repeat="*"
+    newline="$" pattern=".*GradGrad.*$\s*Berny.*" 
+    endPattern="\s*GradGrad.*$\s*" endOffset="1"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+        >
+    
+  <comment class="example.input" id="l103">
+ Berny optimization.
+ Initialization pass.
+                           ----------------------------
+                           !    Initial Parameters    !
+                           ! (Angstroms and Degrees)  !
+ --------------------------                            --------------------------
+ ! Name  Definition              Value          Derivative Info.                !
+ --------------------------------------------------------------------------------
+ ! R1    R(1,2)                  1.113          estimate D2E/DX2                !
+ ! R2    R(1,3)                  1.113          estimate D2E/DX2                !
+ ! R3    R(1,4)                  1.113          estimate D2E/DX2                !
+ ! R4    R(1,5)                  1.113          estimate D2E/DX2                !
+ ! A1    A(2,1,3)              109.4712         estimate D2E/DX2                !
+ ! A2    A(2,1,4)              109.4712         estimate D2E/DX2                !
+ ! A3    A(2,1,5)              109.4712         estimate D2E/DX2                !
+ ! A4    A(3,1,4)              109.4712         estimate D2E/DX2                !
+ ! A5    A(3,1,5)              109.4712         estimate D2E/DX2                !
+ ! A6    A(4,1,5)              109.4712         estimate D2E/DX2                !
+ --------------------------------------------------------------------------------
+ Trust Radius=3.00D-01 FncErr=1.00D-07 GrdErr=1.00D-06
+ Number of steps in this run=  20 maximum allowed number of steps= 100.
+  </comment>
+  <record repeat="*">\s*GradGradGrad.*</record>
+  <record/>
+  <record id="berny">{X,g:optimization}</record>
+  <templateList>
+    <xi:include href="l103.trust.xml"/>
+    <xi:include href="l103.init.xml"/>
+    <xi:include href="l103.deltas.xml"/>
+    <xi:include href="l103.itemconverge.xml"/>
+  </templateList>  
+  <comment class="example.output.raw" id="l103">
+ </comment>
+</template>
+ 

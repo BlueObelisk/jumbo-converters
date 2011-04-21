@@ -1,7 +1,8 @@
 <template repeat="*"  id="brillouinzp" name="Brillouin zone point" 
   pattern="\s*Brillouin zone point:\s*" 
   newline="$" endPattern="\s*">
-  <comment>
+  
+  <comment class="example.input" id="brillouinzp.1">
  Brillouin zone point:      1
     weight=  1.000000
     k     =&lt;   0.000   0.000   0.000> . &lt;b1,b2,b3> 
@@ -12,6 +13,26 @@
   <record id="weight">\s*weight={F,n:brill.wt}</record>
   <record id="k">\s*k\s*=&lt;\s*{F,n:brill.h}{F,n:brill.k}{F,n:brill.l}>.*</record>
   <record id="k1">\s*=&lt;{F,n:brill.h}{F,n:brill.k}{F,n:brill.l}>.*</record>
+
+  <comment class="example.output.raw" id="brillouinzp.1">
+    <module cmlx:templateRef="brillouinzp" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:integer" dictRef="n:brill.zone" cmlx:templateRef="brill">1</scalar>
+      <scalar dataType="xsd:double" dictRef="n:brill.wt" cmlx:templateRef="weight">1.0</scalar>
+      <list cmlx:templateRef="k">
+        <scalar dataType="xsd:double" dictRef="n:brill.h">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:brill.k">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:brill.l">0.0</scalar>
+      </list>
+      <list cmlx:templateRef="k1">
+        <scalar dataType="xsd:double" dictRef="n:brill.h">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:brill.k">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:brill.l">0.0</scalar>
+      </list>
+    </module>
+  </comment>
   
+<!--
+   <transform process="vector3" xpath="./cml:list" from="./cml:list/cml:scalar" dictRef="n:bz"/>
+-->
   <transform process="pullupSingleton" xpath="./cml:list"/>
 </template>

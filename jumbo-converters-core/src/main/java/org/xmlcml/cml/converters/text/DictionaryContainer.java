@@ -68,7 +68,7 @@ public class DictionaryContainer {
 	private void createDictionary(InputStream is) throws ParsingException,
 			ValidityException, IOException {
 		Element element = new CMLBuilder().build(is).getRootElement();
-		((CMLElement)element).debug("XXXXXXXX");
+//		((CMLElement)element).debug("XXXXXXXX");
 		if (element != null && element instanceof CMLCml) {
 			Element child = element.getChildElements().get(0);
 			if (child == null || !(child instanceof CMLDictionary)) {

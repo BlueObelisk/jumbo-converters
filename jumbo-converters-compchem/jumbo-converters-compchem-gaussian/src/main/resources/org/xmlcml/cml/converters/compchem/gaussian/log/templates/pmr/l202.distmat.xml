@@ -1,0 +1,19 @@
+<template id="l202.distmat" name="Distance matrix" repeat="*"
+    pattern="\s*Distance matrix.*\s*$\s{20}\s*\d.*s*" 
+    endPattern=".....\d\s\s[A-Z].*$.....[^\d].*" endOffset="1">
+    
+  <comment class="example.input" id="grad.distmat">
+                    Distance matrix (angstroms):
+                    1          2          3          4          5
+     1  C    0.000000
+     2  H    1.113000   0.000000
+     3  H    1.113000   1.817522   0.000000
+     4  H    1.113000   1.817521   1.817522   0.000000
+     5  H    1.113000   1.817522   1.817522   1.817522   0.000000
+  </comment>
+  <record repeat="2"/> 
+  <record repeatCount="*">{I,cc:serial}{A,cc:elementType}{X,cc:distances}</record>
+  <comment class="example.output.raw" id="grad.distmat">
+ </comment>
+</template>
+ 

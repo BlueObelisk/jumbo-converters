@@ -1,0 +1,20 @@
+<template id="l103.deltas" repeat="*"
+    pattern="\s*Variable\s+Old X.*$\s*\(Linear\).*"
+    endPattern=".[^ARD][^ARD][^ARD][^ARD].*" endOffset="0">
+    <comment class="example.input" id="l103.deltas">
+ Variable       Old X    -DE/DX   Delta X   Delta X   Delta X     New X
+                                 (Linear)    (Quad)   (Total)
+    R1        2.10327  -0.01257   0.00000  -0.03869  -0.03869   2.06457
+    R2        2.10327  -0.01257   0.00000  -0.03869  -0.03869   2.06457
+    R3        2.10327  -0.01257   0.00000  -0.03869  -0.03869   2.06457
+    R4        2.10327  -0.01257   0.00000  -0.03869  -0.03869   2.06457
+    A1        1.91063   0.00000   0.00000   0.00000   0.00000   1.91063
+    A2        1.91063   0.00000   0.00000   0.00000   0.00000   1.91063
+    A3        1.91063   0.00000   0.00000   0.00000   0.00000   1.91063
+    A4        1.91063   0.00000   0.00000   0.00000   0.00000   1.91063
+    A5        1.91063   0.00000   0.00000   0.00000   0.00000   1.91063
+    A6        1.91063   0.00000   0.00000   0.00000   0.00000   1.91063
+    </comment>
+  <record repeat="2"/>
+  <record repeat="*" id="delta" makeArray="true">\s*{A,cc:variable}{F,g:lastval}{F,cc:deriv}{F,cc:delta.linear}{F,cc:delta.quad}{F,cc:delta.total}{F,cc:newval}\s*</record>
+</template>

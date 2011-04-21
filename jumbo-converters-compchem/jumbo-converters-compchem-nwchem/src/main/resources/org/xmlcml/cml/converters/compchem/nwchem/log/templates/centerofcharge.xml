@@ -1,7 +1,8 @@
 <template repeat="*"  id="centerofcharge" name="Center of Charge" 
   pattern="\s*== Center of Charge ==\s*" 
   newline="$" endPattern="\s*$\s*">
-  <comment>
+  
+  <comment class="example.input" id="centerofcharge">
 == Center of Charge ==
 
 spin up     (    0.0000,   -0.3785,    0.6527 )
@@ -12,6 +13,55 @@ crystal     (    0.0000,    0.0000,    0.1008 )
 
 
 </comment>
-  <record repeat="*" id="centerofcharge.unparsed">{X,x:x}</record>
+  <record repeat="2"/>
+  <record repeat="*" id="centerofcharge">{X,x:name}\s*\(\s*{F,x:x},\s*{F,x:y},\s*{F,x:z}\)</record>
+  <transform process="vector3" xpath="./cml:list/cml:list" 
+      from="./cml:scalar[contains(@dictRef,':x') or contains(@dictRef,':y') or contains(@dictRef,':z')]"
+      dictRef="n:centerofcharge"/>
+  <!-- 
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  -->
+  
+  <comment class="example.output.raw" id="centerofcharge">
+    <module cmlx:templateRef="centerofcharge" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="centerofcharge">
+        <list>
+          <scalar dataType="xsd:string" dictRef="x:name">spin up</scalar>
+          <property dictRef="n:centerofcharge">
+            <scalar dataType="xsd:double" dictRef="cmlx:length">0.754506156369847</scalar>
+            <vector3>0.0 -0.3785 0.6527</vector3>
+          </property>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="x:name">spin down</scalar>
+          <property dictRef="n:centerofcharge">
+            <scalar dataType="xsd:double" dictRef="cmlx:length">0.754506156369847</scalar>
+            <vector3>0.0 -0.3785 0.6527</vector3>
+          </property>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="x:name">total</scalar>
+          <property dictRef="n:centerofcharge">
+            <scalar dataType="xsd:double" dictRef="cmlx:length">0.754506156369847</scalar>
+            <vector3>0.0 -0.3785 0.6527</vector3>
+          </property>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="x:name">ionic</scalar>
+          <property dictRef="n:centerofcharge">
+            <scalar dataType="xsd:double" dictRef="cmlx:length">2.39032437129357</scalar>
+            <vector3>1.48 0.8546 1.6712</vector3>
+          </property>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="x:name">crystal</scalar>
+          <property dictRef="n:centerofcharge">
+            <scalar dataType="xsd:double" dictRef="cmlx:length">0.1008</scalar>
+            <vector3>0.0 0.0 0.1008</vector3>
+          </property>
+        </list>
+      </list>
+    </module>
+  </comment>
+  
 </template>

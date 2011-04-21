@@ -526,6 +526,7 @@ public class TransformElement implements MarkupApplier {
 	}
 
 	private void addParameterList() {
+		assertRequired(XPATH, xpath);
 		Nodes names = createXpathNodes();
 		for (int i = 0; i < names.size(); i++) {
 			CMLParameterList parameterList = new CMLParameterList();
@@ -545,7 +546,7 @@ public class TransformElement implements MarkupApplier {
 	}
 
 	private void move() {
-//		assertRequired(NAME, name);
+		assertRequired(XPATH, xpath);
 		assertRequired(TO_XPATH, to);
 		Nodes nodes = createXpathNodes();
 		Nodes toParents = TransformElement.queryUsingNamespaces(parsedElement, to);
@@ -556,10 +557,15 @@ public class TransformElement implements MarkupApplier {
 				fromNode.detach();
 				toParent.appendChild(fromNode);
 			}
+		} else {
+			LOG.debug("null toXpath: "+to);
 		}
 	}
 
 	private Nodes createXpathNodes() {
+		if (xpath == null) {
+			throw new RuntimeException("xpath attribute must not be null");
+		}
 		try {
 			Nodes xpaths = TransformElement.queryUsingNamespaces(parsedElement, xpath);
 			return xpaths;
@@ -627,11 +633,14 @@ public class TransformElement implements MarkupApplier {
 	}
 
 	public static Nodes queryUsingNamespaces(Element element, String xpath) {
+		if (xpath == null) {
+			throw new RuntimeException("null xpath attribute");
+		}
 		Nodes nodes = null;
 		try {
 			nodes = element.query(xpath, Template.CML_CMLX_CONTEXT);
 		} catch (Exception e) {
-			throw new RuntimeException("query fails: "+xpath, e);
+			throw new RuntimeException("bad query: "+xpath, e);
 		}
 		return nodes;
 	}
@@ -724,13 +733,13 @@ public class TransformElement implements MarkupApplier {
 
 	private void createVector3() {
 		/**
-- <list templateRef="vv2">
-- <list>
-  <scalar dataType="xsd:double" dictRef="n:mo1">1.2</scalar> 
-  <scalar dataType="xsd:double" dictRef="n:mo2">-0.061</scalar> 
-  <scalar dataType="xsd:double" dictRef="n:mo3">-2.7E-15</scalar> 
+ <list templateRef="vv2">
+   <list>
+     <scalar dataType="xsd:double" dictRef="n:mo1">1.2</scalar> 
+     <scalar dataType="xsd:double" dictRef="n:mo2">-0.061</scalar> 
+     <scalar dataType="xsd:double" dictRef="n:mo3">-2.7E-15</scalar> 
   </list>
-  </list>
+</list>
 		 */
 		assertRequired(DICTREF, dictRef);
 		assertRequired(FROM, from);
@@ -743,10 +752,10 @@ public class TransformElement implements MarkupApplier {
 			double[] dd = new double[3];
 			Node node0 = null;
 			if (scalarNodes.size() == 3) {
-				for (i = 0; i < 3; i++) {
-					CMLScalar scalar = (CMLScalar) scalarNodes.get(i);
-					dd[i] = scalar.getDouble();
-					if (i == 0) {
+				for (int j = 0; j < 3; j++) {
+					CMLScalar scalar = (CMLScalar) scalarNodes.get(j);
+					dd[j] = scalar.getDouble();
+					if (j == 0) {
 						node0 = scalar;
 					} else {
 						scalar.detach();
@@ -764,7 +773,7 @@ public class TransformElement implements MarkupApplier {
 			} else if (scalarNodes.size() == 0) {
 			} else {
 				CMLUtil.debug(element, "PAR");
-				throw new RuntimeException("No vector3 here");
+				throw new RuntimeException("No vector3 can be made");
 			}
 		}
 	}

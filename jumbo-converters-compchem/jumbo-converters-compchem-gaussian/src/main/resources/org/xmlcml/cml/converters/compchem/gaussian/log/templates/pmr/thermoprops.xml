@@ -1,0 +1,46 @@
+<template id="thermoprops" name="Thermochemistry properties" repeat="*"
+    pattern="\s*E \(Thermal\).*" 
+    endPattern="\s*" endOffset="1"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    >
+    
+  <comment class="example.input" id="thermoprops">
+                     E (Thermal)             CV                S
+                      KCal/Mol        Cal/Mol-Kelvin    Cal/Mol-Kelvin
+ Total                   30.180              6.417             44.475
+ Electronic               0.000              0.000              0.000
+ Translational            0.889              2.981             34.261
+ Rotational               0.889              2.981             10.138
+ Vibrational             28.402              0.455              0.076
+                       Q            Log10(Q)             Ln(Q)
+ Total Bot       0.145771D-12        -12.836328        -29.556739
+ Total V=0       0.929180D+08          7.968100         18.347228
+ Vib (Bot)       0.157650D-20        -20.802307        -47.899081
+ Vib (V=0)       0.100490D+01          0.002122          0.004885
+ Electronic      0.100000D+01          0.000000          0.000000
+ Translational   0.252295D+07          6.401908         14.740939
+ Rotational      0.366497D+02          1.564070          3.601404
+  </comment>
+
+  <record repeat="2">{X,x:xxx}</record>
+  <record id="total">\s*Total\s*{F,cc:ethermo.total}{F,cc:cv.total}{F,cc:s.total}</record>
+  <record id="elect">\s*Electronic\s*{F,cc:ethermo.elect}{F,cc:cv.elect}{F,cc:s.elect}</record>
+  <record id="trans">\s*Translational\s*{F,cc:ethermo.trans}{F,cc:cv.trans}{F,cc:s.trans}</record>
+  <record id="rot">\s*Rotational\s*{F,cc:ethermo.rot}{F,cc:cv.rot}{F,cc:s.rot}</record>
+  <record id="vib">\s*Vibrational\s*{F,cc:ethermo.vib}{F,cc:cv.vib}{F,cc:s.vob}</record>
+  <record/>
+  <record id="totalbot">\s*Total Bot\s*{E,cc:q.total}{F,cc:logq.total}{F,cc:lnq.total}</record>
+  <record id="totalv0">\s*Total V=0\s*{E,cc:q.v0}{F,cc:logq.v0}{F,cc:lnq.v0}</record>
+  <record id="vibbot">\s*Vib \(Bot\)\s*{E,cc:q.vibbot}{F,cc:logq.vibbot}{F,cc:lnq.vibbot}</record>
+  <record id="vibv0">\s*Vib \(V=0\)\s*{E,cc:q.vibv0}{F,cc:logq.vibv0}{F,cc:lnq.vibv0}</record>
+  <record id="elect">\s*Electronic\s*{E,cc:q.elect}{F,cc:logq.elect}{F,cc:lnq.elect}</record>
+  <record id="trans">\s*Translational\s*{E,cc:q.trans}{F,cc:logq.trans}{F,cc:lnq.trans}</record>
+  <record id="rot">\s*Rotational\s*{E,cc:q.rot}{F,cc:logq.rot}{F,cc:lnq.rot}</record>
+  <templateList>
+    <xi:include href="forces.xml"/>
+  </templateList>
+
+  <comment class="example.output.raw" id="thermoprops">
+ </comment>
+</template>
+ 

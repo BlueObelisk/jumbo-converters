@@ -1,0 +1,15 @@
+<template id="l103.itemconverge" repeat="*"
+    pattern="\s*Item\s+Value.*" endOffset="1"
+    endPattern="\s*RMS\s+Displacement.*">
+  <comment>
+         Item               Value     Threshold  Converged?
+ Maximum Force            0.012566     0.000450     NO 
+ RMS     Force            0.007948     0.000300     NO 
+ Maximum Displacement     0.038691     0.001800     NO 
+ RMS     Displacement     0.024470     0.001200     NO 
+  </comment>
+  <!--  TODO fix string arrays -->
+  <record/>
+  <record id="nolinear">\s*{X,g:linear}\snot attempted.*</record>
+  <record repeat="*" id="components" makeArray="true">\s*{X,g:itemconverge}\s{4}\s*{F,x:value}{F,x:threshold}{A,g:converged}\s*</record>
+</template>
