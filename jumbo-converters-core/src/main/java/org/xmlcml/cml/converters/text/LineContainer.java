@@ -101,7 +101,12 @@ public class LineContainer {
 		linesElement = new CMLModule();
 		ensureNamespacesOnLinesElement();
 		for (String line : lines) {
-			linesElement.appendChild(line);
+			try {
+				linesElement.appendChild(line);
+			} catch (Exception e) {
+				LOG.error("line: "+line);
+				throw new RuntimeException("Bad line (probably null or non-xml character?)");
+			}
 		}
 		LOG.trace(linesElement.getChildCount());
 	}
@@ -197,6 +202,10 @@ public class LineContainer {
 		@SuppressWarnings("unused")
 		Int2 range = null;
 		int index = start;
+		if (index < 0) {
+			LOG.warn("BUG: negative index for lineContainer");
+			index = 0;
+		}
 		for (; index < linesElement.getChildCount(); index++) {
 			if (!(linesElement.getChild(index) instanceof Text)) {
 				break;
@@ -212,12 +221,12 @@ public class LineContainer {
 		for (int i = 0; i < end-start; i++) {
 			Node node = linesElement.getChild(start);
 			if (node == null) {
-				LOG.error("null node: "+start);
+				LOG.trace("null node: "+start);
 				continue;
 			}
 			if (!(node instanceof Text)) {
 //				throw new RuntimeException("making chunk: expected text node, found "+node.toXML());
-				LOG.error("making chunk: expected text node at: "+start+", found "+node.toXML());
+				LOG.trace("making chunk: expected text node at: "+start+", found "+node.toXML());
 				break;
 			} else {
 				if (chunk == null) {

@@ -1,0 +1,19 @@
+<template id="l716.dipole" name="Dipole" 
+    repeat="*" pattern="\s*Dipole\s{8}=.*" 
+    endPattern=".*" endOffset="1"
+    >
+    
+  <comment class="example.input" id="l716.dipole">
+ Dipole        = 2.73597500D+00 1.09823786D-04 3.46020958D-01
+  </comment>
+  <record id="dipole" repeat="*">\sDipole\s*={3E,x:d}</record>
+  <transform process="pullupSingleton" dictRef="cc:dipole" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="l716.dipole">
+    <module cmlx:templateRef="l716.dipole" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:double" size="3" dictRef="x:d" cmlx:templateRef="dipole">2.735975 1.09823786E-4 0.346020958</array>
+    </module>
+  </comment> 
+ 
+</template>
+ 

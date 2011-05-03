@@ -1,0 +1,90 @@
+<template id="l716.freq.chunkx" pattern="\sHarmonic frequencies.*" repeat="*"
+  endPattern="\s*">
+  <comment class="example.input" id="l716.freq.chunk">
+ Harmonic frequencies (cm**-1), IR intensities (KM/Mole), Raman scattering
+ activities (A**4/AMU), depolarization ratios for plane and unpolarized
+ incident light, reduced masses (AMU), force constants (mDyne/A),
+ and normal coordinates:
+                     1                      2                      3
+                    T2                     T2                     T2
+ Frequencies --  1373.4987              1373.4987              1373.4987
+ Red. masses --     1.1787                 1.1787                 1.1787
+ Frc consts  --     1.3101                 1.3101                 1.3101
+ IR Inten    --    15.4253                15.4253                15.4253
+ Atom AN      X      Y      Z        X      Y      Z        X      Y      Z
+   1   6     0.00   0.00   0.12     0.03   0.12   0.00     0.12  -0.03   0.00
+   2   1     0.23   0.23  -0.36     0.11  -0.30   0.30    -0.43   0.32   0.17
+   3   1    -0.24  -0.24  -0.39     0.13  -0.28  -0.27    -0.42   0.33  -0.15
+   4   1     0.21  -0.25  -0.37    -0.34  -0.41  -0.14    -0.30  -0.11   0.30
+   5   1    -0.25   0.21  -0.37    -0.32  -0.43   0.17    -0.29  -0.13  -0.28
+                     4                      5                      6
+                     E                      E                     A1
+ Frequencies --  1593.9619              1593.9619              3053.5976
+ Red. masses --     1.0078                 1.0078                 1.0078
+ Frc consts  --     1.5087                 1.5087                 5.5368
+ IR Inten    --     0.0000                 0.0000                 0.0000
+ Atom AN      X      Y      Z        X      Y      Z        X      Y      Z
+   1   6     0.00   0.00   0.00     0.00   0.00   0.00     0.00   0.00   0.00
+   2   1     0.40  -0.28  -0.12    -0.09  -0.30   0.39    -0.29  -0.29  -0.29
+   3   1    -0.40   0.28  -0.12     0.09   0.30   0.39     0.29   0.29  -0.29
+   4   1    -0.40  -0.28   0.12     0.09  -0.30  -0.39     0.29  -0.29   0.29
+   5   1     0.40   0.28   0.12    -0.09   0.30  -0.39    -0.29   0.29   0.29
+                     7                      8                      9
+                    T2                     T2                     T2
+ Frequencies --  3163.9228              3163.9228              3163.9228
+ Red. masses --     1.1019                 1.1019                 1.1019
+ Frc consts  --     6.4991                 6.4991                 6.4991
+ IR Inten    --    26.4210                26.4210                26.4210
+ Atom AN      X      Y      Z        X      Y      Z        X      Y      Z
+   1   6     0.09   0.00   0.00     0.00   0.09   0.00     0.00   0.00   0.09
+   2   1    -0.28  -0.30  -0.30    -0.28  -0.26  -0.28    -0.30  -0.30  -0.28
+   3   1    -0.28  -0.30   0.30    -0.29  -0.28   0.29     0.29   0.29  -0.27
+   4   1    -0.27   0.29  -0.29     0.31  -0.29   0.31    -0.29   0.29  -0.27
+   5   1    -0.27   0.29   0.29     0.29  -0.27  -0.29     0.30  -0.30  -0.28
+
+  </comment>
+  <record repeat="4"/>
+  <templateList>
+    <template repeat="*" pattern="\s{15}\s*\S[\s\d]*$\s{15}\s*.*" 
+      endPattern="((\s*)|(\s{15}\s*\S[\s\d]*))">
+      <record id="serial">{1_3I,x:serial}</record>
+      <record id="irrep">{1_3A,cc:irrep}</record>
+      <record id="freq">\sFrequencies\s*\-\-\s*{1_3F,cc:frequency}</record>
+      <record id="redmass">\s*Red\.\s*masses\s*\-\-\s*{1_3F,cc:redmass}</record>
+      <record id="frcconst">\s*Frc\s*consts\s*\-\-\s*{1_3F,cc:forceconst}</record>
+      <record id="irinten">\sIR Inten\s+\-\-{1_3F,cc:irintensity}</record>
+      <record id="atom"/>
+      <record id="coords" repeat="*">{I,x:serial}{I,x:atomicNumber}{3_99F,cc:displacement}</record>
+    </template>
+  </templateList>  
+
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='x:serial']"/>
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='cc:irrep']"/>
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='cc:frequency']"/>
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='cc:redmass']"/>
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='cc:forceconst']"/>
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='cc:irintensity']"/>
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='cc:displacement']"/>
+  <transform process="createArray" 
+     xpath=".//cml:list[@cmlx:templateRef='coords' and cml:list[cml:array[@dictRef='cc:displacement']]]"
+     from=".//cml:scalar[@dictRef='x:atomicNumber']" dictRef="cc:atomicNumber"/>
+  <transform process="createArray" 
+     xpath=".//cml:list[@cmlx:templateRef='coords' and cml:list[cml:array[@dictRef='cc:displacement']]]"
+     from=".//cml:scalar[@dictRef='x:serial']" dictRef="x:serial"/>
+  <transform process="pullup" xpath=".//cml:array" repeat="3"/>
+  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='NULL_ID']"/>
+    
+  <comment class="example.output" id="l716.freq.chunk">
+    <module cmlx:templateRef="l716.freq.chunkx" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:integer" size="9" dictRef="x:serial">1 2 3 4 5 6 7 8 9</array>
+      <array delimiter="|" dataType="xsd:string" size="9" dictRef="cc:irrep">|T2|T2|T2|E|E|A1|T2|T2|T2|</array>
+      <array dataType="xsd:double" size="9" dictRef="cc:frequency">1373.4987 1373.4987 1373.4987 1593.9619 1593.9619 3053.5976 3163.9228 3163.9228 3163.9228</array>
+      <array dataType="xsd:double" size="9" dictRef="cc:redmass">1.1787 1.1787 1.1787 1.0078 1.0078 1.0078 1.1019 1.1019 1.1019</array>
+      <array dataType="xsd:double" size="9" dictRef="cc:forceconst">1.3101 1.3101 1.3101 1.5087 1.5087 5.5368 6.4991 6.4991 6.4991</array>
+      <array dataType="xsd:double" size="9" dictRef="cc:irintensity">15.4253 15.4253 15.4253 0.0 0.0 0.0 26.421 26.421 26.421</array>
+      <array dataType="xsd:integer" size="5" dictRef="x:serial">1 2 3 4 5</array>
+      <array dataType="xsd:integer" size="5" dictRef="cc:atomicNumber">6 1 1 1 1</array>
+      <array dataType="xsd:double" size="135" dictRef="cc:displacement">0.0 0.0 0.12 0.03 0.12 0.0 0.12 -0.03 0.0 0.23 0.23 -0.36 0.11 -0.3 0.3 -0.43 0.32 0.17 -0.24 -0.24 -0.39 0.13 -0.28 -0.27 -0.42 0.33 -0.15 0.21 -0.25 -0.37 -0.34 -0.41 -0.14 -0.3 -0.11 0.3 -0.25 0.21 -0.37 -0.32 -0.43 0.17 -0.29 -0.13 -0.28 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.4 -0.28 -0.12 -0.09 -0.3 0.39 -0.29 -0.29 -0.29 -0.4 0.28 -0.12 0.09 0.3 0.39 0.29 0.29 -0.29 -0.4 -0.28 0.12 0.09 -0.3 -0.39 0.29 -0.29 0.29 0.4 0.28 0.12 -0.09 0.3 -0.39 -0.29 0.29 0.29 0.09 0.0 0.0 0.0 0.09 0.0 0.0 0.0 0.09 -0.28 -0.3 -0.3 -0.28 -0.26 -0.28 -0.3 -0.3 -0.28 -0.28 -0.3 0.3 -0.29 -0.28 0.29 0.29 0.29 -0.27 -0.27 0.29 -0.29 0.31 -0.29 0.31 -0.29 0.29 -0.27 -0.27 0.29 0.29 0.29 -0.27 -0.29 0.3 -0.3 -0.28</array>
+    </module>
+  </comment>
+</template>

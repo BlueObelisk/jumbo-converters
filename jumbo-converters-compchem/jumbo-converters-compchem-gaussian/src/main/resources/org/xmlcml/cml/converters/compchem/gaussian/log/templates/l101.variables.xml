@@ -1,0 +1,46 @@
+<template id="l101.variables" repeat="*" pattern="\s{7}Variables:\s*"
+  endPattern="\s*">
+  <comment class="example.input" id="l1.variables">
+       Variables:
+  rC2H1                 1.08154                  
+  rN3C2                 1.34368                  
+  rO4C2                 1.227                    
+  pH16N13C7H15       -162.02357                  
+       Constants:
+  dC7C5N3C2           -15.                       
+  dN13C7C5N3          -15.                       
+ 
+  </comment>
+  <record>\s*Variables.*</record>
+  <record id="var" repeat="*">{A,g:variable}{F,g:value}</record>
+  <record>\s*Constants.*</record>
+  <record id="const" repeat="*">{A,g:const}{F,g:value}</record>
+  <record id="junk"/>
+
+  <transform process="addMap" xpath="." id="variableMap"/>
+  <transform process="addLink" xpath="./cml:list[@cmlx:templateRef='var']/cml:list" 
+    from="./cml:scalar[@dictRef='g:variable']" toXpath="./cml:scalar[@dictRef='g:value']" 
+    value="value" map="./cml:map[@id='variableMap']"/>
+  <transform process="delete" xpath="./cml:list[@cmlx:templateRef='var']"/>
+  <transform process="addMap" xpath="." id="constantMap"/>
+  <transform process="addLink" xpath="./cml:list[@cmlx:templateRef='const']/cml:list" 
+    from="./cml:scalar[@dictRef='g:const']" toXpath="./cml:scalar[@dictRef='g:value']" 
+    value="value" map="./cml:map[@id='constantMap']"/>
+  <transform process="delete" xpath="./cml:list[@cmlx:templateRef='const']"/>
+  
+  
+  <comment class="example.output" id="l1.variables">
+    <module cmlx:templateRef="l101.variables" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <map id="variableMap">
+        <link to="1.08154" from="rC2H1"/>
+        <link to="1.34368" from="rN3C2"/>
+        <link to="1.227" from="rO4C2"/>
+        <link to="-162.02357" from="pH16N13C7H15"/>
+      </map>
+      <map id="constantMap">
+        <link to="-15.0" from="dC7C5N3C2"/>
+        <link to="-15.0" from="dN13C7C5N3"/>
+      </map>
+    </module>
+  </comment>
+</template>

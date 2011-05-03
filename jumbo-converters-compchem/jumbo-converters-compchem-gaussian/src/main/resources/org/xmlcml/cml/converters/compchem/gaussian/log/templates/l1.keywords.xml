@@ -1,0 +1,26 @@
+<template id="l1.keywords" pattern="\s*\-+\s*$.*"
+  endPattern="\s*\-+\s*" endOffset="1"
+  >
+  <comment class="example.input" id="l1.keywords">
+ --------------------------
+ #N B3LYP/6-31G(d) OPT FREQ
+ --------------------------
+  </comment>
+  <record/>
+  <record id="prog" repeat="*">{X,cc:keywords}</record>
+  <transform process="delete" xpath=".//cml:scalar[contains(.,'------')]"/>
+  <transform process="delete" xpath=".//cml:scalar[string-length(.)=0]"/>
+  <transform process="pullup" xpath=".//cml:scalar"/>
+  <transform process="split" xpath="./cml:scalar" dictRef="cc:keyword"/>
+  <transform process="pullup" xpath=".//cml:scalar"/>
+  
+  <comment class="example.output" id="l1.keywords">
+    <module cmlx:templateRef="l1.keywords" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="cc:keyword">#N</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:keyword">B3LYP/6-31G(d)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:keyword">OPT</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:keyword">FREQ</scalar>
+    </module>
+  </comment>
+  
+</template>

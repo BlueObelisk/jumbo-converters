@@ -1,0 +1,14 @@
+<template id="l716.thermochemistry.temperature" repeat="*" pattern="\s*Temperature.*Kelvin.*" 
+  endPattern=".*">
+  <comment class="example.input" id="l716.thermochemistry.temperature">
+ Temperature   298.150 Kelvin.  Pressure   1.00000 Atm.
+  </comment>
+  <record id="temperature">\s*Temperature{F,cc:temp,u:kelvin} Kelvin\.\s+Pressure{F,cc:press,u:atm} Atm\.\s*</record>
+  <transform process="pullup" xpath=".//cml:scalar" repeat="2"/>
+  <comment class="example.output" id="l716.thermochemistry.temperature">
+    <module cmlx:templateRef="l716.thermochemistry.temperature" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:double" dictRef="cc:temp">298.15</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:press">1.0</scalar>
+    </module>
+  </comment>
+</template>

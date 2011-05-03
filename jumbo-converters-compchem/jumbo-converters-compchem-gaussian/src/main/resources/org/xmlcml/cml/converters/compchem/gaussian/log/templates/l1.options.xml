@@ -1,0 +1,26 @@
+<template id="l1.options" pattern="\s*\%.*"
+  endPattern="\s*\-+\s*" endOffset="1"
+  >
+  <comment class="example.input" id="l1.options">
+ %nprocshared=4
+ Will use up to    4 processors via shared memory.
+ %mem=10500MB
+ %NoSave
+ %Chk=chk.chk
+ %rwf=/tmp/pbs.3528793.cx1/rwf
+  </comment>
+  <record/>
+  <record id="prog" repeat="*">{X,g:options}</record>
+  <comment class="example.output" id="l1.options">
+    <module cmlx:templateRef="l1.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="prog">
+        <scalar dataType="xsd:string" dictRef="g:options">Will use up to 4 processors via shared memory.</scalar>
+        <scalar dataType="xsd:string" dictRef="g:options">%mem=10500MB</scalar>
+        <scalar dataType="xsd:string" dictRef="g:options">%NoSave</scalar>
+        <scalar dataType="xsd:string" dictRef="g:options">%Chk=chk.chk</scalar>
+        <scalar dataType="xsd:string" dictRef="g:options">%rwf=/tmp/pbs.3528793.cx1/rwf</scalar>
+        <scalar dataType="xsd:string" dictRef="g:options"/>
+      </list>
+    </module>
+  </comment>
+</template>

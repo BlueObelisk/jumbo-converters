@@ -21,6 +21,7 @@ public class RegressionTest {
    }
 
    @Test
+   @Ignore
    public void cmlFreq2gauIn() {
       RegressionSuite.run("compchem/gaussian/input/freq", "cml", "gau.in",
                           new CML2GaussianInputConverter());

@@ -1,0 +1,20 @@
+<template id="l601.alphabetaeigen" pattern="\s*(Alpha|Beta)\s+(occ|virt)\. eigenvalues.*"
+  repeat="*"
+  endPattern="\s[^AB].*" endOffset="0">
+  <comment class="example.input" id="l601.alphabeta">
+ Alpha  occ. eigenvalues --  -10.17514  -0.68437  -0.38581  -0.38581  -0.38581
+ Alpha virt. eigenvalues --    0.11292   0.17036   0.17036   0.17036   0.53917
+ Alpha virt. eigenvalues --    0.53917   0.53917   0.88316   0.88316   0.88316
+ Alpha virt. eigenvalues --    0.91927   1.09380   1.66027   1.66027   2.21731
+ Alpha virt. eigenvalues --    2.21731   2.21731   4.16488
+  </comment>
+  <record id="eigen" repeat="*">\s*Alpha\s+occ\.\s*eigenvalues \-\-{1_5F,g:alphaocceigen}</record>
+  <record id="eigen" repeat="*">\s*Alpha\s+virt\.\s*eigenvalues \-\-{1_5F,g:alphavirteigen}.*</record>
+  <record id="eigen" repeat="*">\s*Beta\s+occ\.\s*eigenvalues \-\-{1_5F,g:betaocceigen}</record>
+  <record id="eigen" repeat="*">\s*Beta\s+virt\.\s*eigenvalues \-\-{1_5F,g:betavirteigen}</record>
+  
+  <comment class="example.output" id="l601.alphabeta">
+    <m/>
+  </comment>
+</template>
+ 

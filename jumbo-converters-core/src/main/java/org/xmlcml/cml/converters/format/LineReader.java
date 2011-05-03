@@ -344,6 +344,7 @@ public abstract class LineReader extends Element implements MarkupApplier {
 
 
 	static CMLScalar createScalar(String value, String dType) {
+		value = value.trim();
 		CMLScalar scalar = null;
 		if (dType == null || dType.equals(CMLConstants.XSD_STRING)) {
 			scalar = new CMLScalar(value);

@@ -1,0 +1,38 @@
+<template id="l202.stoich" name="stoichiometry" repeat="*"
+    pattern="\s*Stoichiometry.*\s*" 
+    endPattern="\s*Largest concise.*" endOffset="1">
+    
+  <comment class="example.input" id="l202.stoich">
+ Stoichiometry    CH4
+ Framework group  TD[O(C),4C3(H)]
+ Deg. of freedom     1
+ Full point group                 TD      NOp  24
+ Largest Abelian subgroup         D2      NOp   4
+ Largest concise Abelian subgroup D2      NOp   4
+  </comment>
+  <record id="stoich">\s*Stoichiometry\s*{A,cc:formula}</record>
+  <record id="framework">\s*Framework group\s*{A,cc:frameworkgroup}</record>
+  <record id="degfreedom">\s*Deg\. of freedom\s*{I,cc:degfreedom}</record>
+  <record id="pointgroup">\s*Full point group\s*{A,cc:pointgroup}NOp{I,cc:operatorcount}</record>
+  <record id="largestabelian">\s*Largest Abelian subgroup\s*{A,cc:largestabelian}NOp{I,cc:operatorcount}</record>
+  <record id="largestconciseabelian">\s*Largest concise Abelian subgroup\s*{A,cc:largestconciseabelian}NOp{I,cc:operatorcount}</record>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  <transform process="pullup" xpath="./cml:list/cml:scalar"/>
+  <transform process="delete" xpath="./cml:list[count(*)=0]"/>
+  
+  <comment class="example.output" id="l202.stoich">
+    <module cmlx:templateRef="l202.stoich" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="cc:formula" cmlx:templateRef="stoich">CH4</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:frameworkgroup" cmlx:templateRef="framework">TD[O(C),4C3(H)]</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:degfreedom" cmlx:templateRef="degfreedom">1</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:pointgroup">TD</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:operatorcount">24</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:largestabelian">D2</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:operatorcount">4</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:largestconciseabelian">D2</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:operatorcount">4</scalar>
+    </module>
+  </comment>
+</template>
+ 

@@ -37,7 +37,7 @@
       <record id="orb1" repeat="*">{I,n:basisfuncserial}{F,n:mocoeff}{I,compchem:atomserial}{A,compchem:elementType}{A,n:orbital}</record>
     </template>
   </templateList>
-  <transform process="vector3" xpath=".//*[@cmlx:templateRef='vv2']/*" 
+  <transform process="createVector3" xpath=".//*[@cmlx:templateRef='vv2']/*" 
       from="*[@dictRef='x:x' or @dictRef='x:y' or @dictRef='x:z']"
       dictRef="n:mocenter"/>
   <transform process="pullupSingleton" xpath=".//cml:list[count(*)=1]"/> 

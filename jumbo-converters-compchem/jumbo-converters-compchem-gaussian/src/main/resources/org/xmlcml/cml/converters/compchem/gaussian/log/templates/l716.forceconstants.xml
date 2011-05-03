@@ -1,0 +1,113 @@
+<template id="l716.forceconstants" name="Force constants in Cartesian coordinates" 
+    repeat="*"
+    pattern="\s*Force constants in Cartesian coordinates\:\s*$.*" 
+    endPattern="\s[A-Z].*" endOffset="0"
+    >
+    
+  <comment class="example.input" id="l716.forcematrix">
+ Force constants in Cartesian coordinates: 
+                1             2             3             4             5
+      1  0.689838D+00
+      2  0.445029D-01  0.114828D+00
+      3  0.466401D-01  0.330342D-01  0.635420D+00
+      4 -0.121492D+00 -0.733650D-02  0.250599D-01  0.734159D+00
+      5 -0.671330D-02 -0.562373D-01  0.943886D-03 -0.147929D-02  0.135546D+00
+      6 -0.159967D-01 -0.161412D-01 -0.303638D+00 -0.261338D-01  0.544142D-02
+      7  0.187056D-01  0.844417D-02 -0.550369D-01 -0.289816D+00 -0.394231D-02
+     39 -0.519384D-03 -0.979001D-03  0.119685D-02 -0.236603D-03  0.320606D-02
+                6             7             8             9            10
+      6  0.649588D+00
+      7 -0.669973D-01  0.634954D+00
+     39 -0.301824D-02 -0.315586D-02  0.652038D-03  0.151831D-03  0.250385D-02
+               36            37            38            39
+     36  0.360436D+00
+     37 -0.195204D-03  0.356505D-02
+     38  0.311862D-03 -0.381845D-02  0.187766D-01
+     39  0.116608D-03  0.112730D-02 -0.247205D-02  0.241853D-02
+  </comment>
+
+  <record id="forceconstants" >{X,x:forceconstants}</record>
+  <templateList>
+    <template id="l716.forceconst.chunk" pattern="\s{10}\s*\d+\s*[\d\s]*$.*" 
+      endPattern="\s{10}\s*\d+\s*[\d\s]*" repeat="*">
+      <record id="serial">{1_5I,x:serials}</record>
+      <record id="consts" repeat="*">\s*{I,cc:serial}\s+{1_5E,x:consts}</record>
+    </template>
+    <!-- 
+    <template id="l716.forceconst.chunk.end" pattern="\s[\s\d]{5}\d.*" 
+      endPattern="\s[A-Z].*" repeat="*">
+      <record id="consts" repeat="*">\s*{I,cc:serial}\s+{X,x:consts}</record>
+    </template>
+    -->
+  </templateList>
+  <transform process="addAttribute" xpath=".//cml:array" name="id" 
+      value="string(.//cml:scalar[../cml:array])"/>
+
+  <comment class="example.output" id="l716.forcematrix">
+<module cmlx:templateRef="l716.forceconstants" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="forceconstants">
+    <scalar dataType="xsd:string" dictRef="x:forceconstants">Force constants in Cartesian coordinates:</scalar>
+  </list>
+  <module cmlx:lineCount="9" cmlx:templateRef="l716.forceconst.chunk">
+    <list cmlx:templateRef="serial">
+      <array dataType="xsd:integer" size="5" dictRef="x:serials" id="1">1 2 3 4 5</array>
+    </list>
+    <list cmlx:templateRef="consts">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+        <array dataType="xsd:double" size="1" dictRef="x:consts" id="1">0.689838</array>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">2</scalar>
+        <array dataType="xsd:double" size="2" dictRef="x:consts" id="1">0.0445029 0.114828</array>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">3</scalar>
+        <array dataType="xsd:double" size="3" dictRef="x:consts" id="1">0.0466401 0.0330342 0.63542</array>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">4</scalar>
+        <array dataType="xsd:double" size="4" dictRef="x:consts" id="1">-0.121492 -0.0073365 0.0250599 0.734159</array>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">5</scalar>
+        <array dataType="xsd:double" size="5" dictRef="x:consts" id="1">-0.0067133 -0.0562373 9.43886E-4 -0.00147929 0.135546</array>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">6</scalar>
+        <array dataType="xsd:double" size="5" dictRef="x:consts" id="1">-0.0159967 -0.0161412 -0.303638 -0.0261338 0.00544142</array>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">7</scalar>
+        <array dataType="xsd:double" size="5" dictRef="x:consts" id="1">0.0187056 0.00844417 -0.0550369 -0.289816 -0.00394231</array>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">39</scalar>
+        <array dataType="xsd:double" size="5" dictRef="x:consts" id="1">-5.19384E-4 -9.79001E-4 0.00119685 -2.36603E-4 0.00320606</array>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="4" cmlx:templateRef="l716.forceconst.chunk">
+    <list cmlx:templateRef="serial">
+      <array dataType="xsd:integer" size="5" dictRef="x:serials" id="1">6 7 8 9 10</array>
+    </list>
+    <list cmlx:templateRef="consts">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">6</scalar>
+        <array dataType="xsd:double" size="1" dictRef="x:consts" id="1">0.649588</array>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">7</scalar>
+        <array dataType="xsd:double" size="2" dictRef="x:consts" id="1">-0.0669973 0.634954</array>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">39</scalar>
+        <array dataType="xsd:double" size="5" dictRef="x:consts" id="1">-0.00301824 -0.00315586 6.52038E-4 1.51831E-4 0.00250385</array>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="l716.forceconst.chunk"/> 36 0.360436D+00 37 -0.195204D-03 0.356505D-02 38 0.311862D-03 -0.381845D-02 0.187766D-01 39 0.116608D-03 0.112730D-02 -0.247205D-02 0.241853D-02
+</module>
+  </comment>
+</template>
+ 

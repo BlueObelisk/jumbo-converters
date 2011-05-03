@@ -1,0 +1,62 @@
+<template id="l101.isotope" pattern="\s*$\s*Atom.*$\s*IAtWgt.*" repeat="*"
+  endPattern="\s*AtGFac=.*" endOffset="1"
+  >
+  <comment class="example.input" id="l101.isotope">
+                     Isotopes and Nuclear Properties:
+
+  Atom         1           2           3           4           5           6           7           8           9          10
+ IAtWgt=          12          12          12          12          12          12          12           1           1           1
+ AtmWgt=  12.0000000  12.0000000  12.0000000  12.0000000  12.0000000  12.0000000  12.0000000   1.0078250   1.0078250   1.0078250
+ IAtSpn=           0           0           0           0           0           0           0           1           1           1
+ AtZEff=   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000
+ AtQMom=   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000
+ AtGFac=   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000   2.7928460   2.7928460   2.7928460
+
+  Atom        11          12          13          14          15
+ IAtWgt=           1           1           1           1           1
+ AtmWgt=   1.0078250   1.0078250   1.0078250   1.0078250   1.0078250
+ IAtSpn=           1           1           1           1           1
+ AtZEff=   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000
+ AtQMom=   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000
+ AtGFac=   2.7928460   2.7928460   2.7928460   2.7928460   2.7928460
+  </comment>
+  
+  <record/>
+  <templateList>
+    <template id="l101.isotope" pattern="\s*$\s*Atom.*$\s*IAtWgt.*" repeat="*"
+      endPattern="\s*AtGFac=.*" endOffset="1">
+      <record/>
+      <record id="atom">\s*Atom {1_10I,x:x}</record>
+      <record id="iatwgt">\s*IAtWgt={1_10I,x:x}</record>
+      <record id="atmwgt">\s*AtmWgt={1_10F,x:x}</record>
+      <record id="iatspn">\s*IAtSpn={1_10I,x:x}</record>
+      <record id="atzeff">\s*AtZEff={1_10F,x:x}</record>
+      <record id="atqmom">\s*AtQMom={1_10F,x:x}</record>
+      <record id="atgfac">\s*AtGFac={1_10F,x:x}</record>
+    </template>
+  </templateList>
+
+  <transform process="joinArrays" xpath=".//cml:list[@cmlx:templateRef='atom']/cml:array" from="."/>
+  <transform process="joinArrays" xpath=".//cml:list[@cmlx:templateRef='iatwgt']/cml:array" from="."/>
+  <transform process="joinArrays" xpath=".//cml:list[@cmlx:templateRef='atmwgt']/cml:array" from="."/>
+  <transform process="joinArrays" xpath=".//cml:list[@cmlx:templateRef='iatspn']/cml:array" from="."/>
+  <transform process="joinArrays" xpath=".//cml:list[@cmlx:templateRef='atzeff']/cml:array" from="."/>
+  <transform process="joinArrays" xpath=".//cml:list[@cmlx:templateRef='atqmom']/cml:array" from="."/>
+  <transform process="joinArrays" xpath=".//cml:list[@cmlx:templateRef='atgfac']/cml:array" from="."/>
+  <transform process="pullupSingleton" xpath=".//cml:list"/>  
+  <transform process="delete" xpath=".//cml:module[not(cml:array)]"/>  
+  <transform process="pullup" xpath=".//cml:array"/>  
+  <transform process="delete" xpath=".//cml:module[not(cml:array)]"/>  
+  
+  <comment class="example.output" id="l101.isotope">
+    <module cmlx:templateRef="l101.isotope" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:integer" size="15" dictRef="x:x" cmlx:templateRef="atom">1 2 3 4 5 6 7 8 9 10 11 12 13 14 15</array>
+      <array dataType="xsd:integer" size="15" dictRef="x:x" cmlx:templateRef="iatwgt">12 12 12 12 12 12 12 1 1 1 1 1 1 1 1</array>
+      <array dataType="xsd:double" size="15" dictRef="x:x" cmlx:templateRef="atmwgt">12.0 12.0 12.0 12.0 12.0 12.0 12.0 1.007825 1.007825 1.007825 1.007825 1.007825 1.007825 1.007825 1.007825</array>
+      <array dataType="xsd:integer" size="15" dictRef="x:x" cmlx:templateRef="iatspn">0 0 0 0 0 0 0 1 1 1 1 1 1 1 1</array>
+      <array dataType="xsd:double" size="15" dictRef="x:x" cmlx:templateRef="atzeff">0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0</array>
+      <array dataType="xsd:double" size="15" dictRef="x:x" cmlx:templateRef="atqmom">0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0</array>
+      <array dataType="xsd:double" size="15" dictRef="x:x" cmlx:templateRef="atgfac">0.0 0.0 0.0 0.0 0.0 0.0 0.0 2.792846 2.792846 2.792846 2.792846 2.792846 2.792846 2.792846 2.792846</array>
+    </module>
+  </comment>
+</template>

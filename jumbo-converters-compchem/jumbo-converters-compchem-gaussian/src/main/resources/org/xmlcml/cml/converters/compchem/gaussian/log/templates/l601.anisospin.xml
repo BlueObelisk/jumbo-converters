@@ -1,0 +1,106 @@
+<template id="l601.anisospin" name="Anisotropic Spin Dipole Couplings (Include)" repeat="*"
+    newline="$" pattern="\s*\-+\s*$.*Anisotropic Spin Dipole.*" endPattern="\s*$\s*">
+
+  <comment>because this looks like a title it must come early. 
+  It will also be separate from the main l601</comment>    
+  <comment class="example.input" id="l601.anisospin">
+ ---------------------------------------------------------------------------------
+              Anisotropic Spin Dipole Couplings in Principal Axis System
+ ---------------------------------------------------------------------------------
+
+       Atom             a.u.   MegaHertz   Gauss  10(-4) cm-1        Axes
+
+              Baa     0.0000     0.000     0.000     0.000  0.4655  0.8233 -0.3247
+     1 Si(29) Bbb     0.0000     0.000     0.000     0.000  0.6169 -0.5649 -0.5480
+              Bcc     0.0000     0.000     0.000     0.000  0.6346 -0.0547  0.7709
+ 
+              Baa     0.0000     0.000     0.000     0.000  0.8075 -0.0154 -0.5897
+     2 O(17)  Bbb     0.0000     0.000     0.000     0.000 -0.0071  0.9993 -0.0358
+              Bcc     0.0000     0.000     0.000     0.000  0.5898  0.0331  0.8069
+              
+              
+  </comment>
+  
+  <record repeat="6"/>
+  <templateList>
+    <template id="atom" name="atom" pattern="\s*Baa.*" endPattern="\s*" repeat="*">
+      <record id="baa"                                                       >\s*Baa{F,g:aniso.a.au}{F,g:aniso.a.mhz}{F,g:aniso.a.gauss}{F,g:aniso.a.ten-4cml-1}{F,x:x.x}{F,x:x.y}{F,x:x.z}</record>
+      <record id="bbb">\s*{I,x:serial}{A,x:elementType}\({I,x:isotopeNumber}\)\s*Bbb{F,g:aniso.b.au}{F,g:aniso.b.mhz}{F,g:aniso.b.gauss}{F,g:aniso.b.ten-4cml-1}{F,x:y.x}{F,x:y.y}{F,x:y.z}</record>
+      <record id="bcc"                                                       >\s*Bcc{F,g:aniso.c.au}{F,g:aniso.c.mhz}{F,g:aniso.c.gauss}{F,g:aniso.c.ten-4cml-1}{F,x:z.x}{F,x:z.y}{F,x:z.z}</record>
+
+      <!-- group axes into matrix -->
+      <transform process="createMatrix33" xpath="." dictRef="g:axis"
+          from=".//cml:scalar[contains(@dictRef,':x.') or contains(@dictRef,':y.') or contains(@dictRef,':z.')]" 
+          />
+      <!--  make vector3 for each coupling vector (differ only in units) -->
+      <transform process="createVector3" xpath="." dictRef="g:coupling.g"
+          from="./cml:list/cml:list/cml:scalar[contains(@dictRef,'.a.g') or contains(@dictRef,'.b.g') or contains(@dictRef,'.c.g')]" 
+          />
+      <transform process="createVector3" xpath="." dictRef="g:coupling.au"
+          from="./cml:list/cml:list/cml:scalar[contains(@dictRef,'.a.a') or contains(@dictRef,'.b.a') or contains(@dictRef,'.c.a')]" 
+          />
+      <transform process="createVector3" xpath="." dictRef="g:coupling.mhz"
+          from="./cml:list/cml:list/cml:scalar[contains(@dictRef,'.a.m') or contains(@dictRef,'.b.m') or contains(@dictRef,'.c.m')]" 
+          />
+      <transform process="createVector3" xpath="." dictRef="g:coupling.ten"
+          from="./cml:list/cml:list/cml:scalar[contains(@dictRef,'.a.t') or contains(@dictRef,'.b.t') or contains(@dictRef,'.c.t')]" 
+          />
+      <!--  tidy serial and atom to toplevel -->
+      <transform process="move" toXpath="."
+          xpath=".//*[contains(@dictRef,':serial') or contains(@dictRef,':elementType') or contains(@dictRef,':isotop') or contains(@dictRef,':coupling')]" 
+          />
+      <transform process="pullupSingleton" xpath="./cml:list/cml:list"/>
+      <transform process="pullupSingleton" xpath="./cml:list"/>
+    </template>
+  </templateList>
+
+  <comment class="example.output.raw" id="anisospin">
+    <module cmlx:templateRef="gau:anuisospin" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <module cmlx:lineCount="3" cmlx:templateRef="atom">
+        <matrix rows="3" columns="3" dataType="xsd:double" cmlx:templateRef="baa">0.4655 0.8233 -0.3247 0.6169 -0.5649 -0.548 0.6346 -0.0547 0.7709</matrix>
+        <property dictRef="g:coupling.au">
+          <scalar dataType="xsd:double" dictRef="cmlx:length">0.0</scalar>
+          <vector3>0.0 0.0 0.0</vector3>
+        </property>
+        <property dictRef="g:coupling.mhz">
+          <scalar dataType="xsd:double" dictRef="cmlx:length">0.0</scalar>
+          <vector3>0.0 0.0 0.0</vector3>
+        </property>
+        <property dictRef="g:coupling.g">
+          <scalar dataType="xsd:double" dictRef="cmlx:length">0.0</scalar>
+          <vector3>0.0 0.0 0.0</vector3>
+        </property>
+        <property dictRef="g:coupling.ten">
+          <scalar dataType="xsd:double" dictRef="cmlx:length">0.0</scalar>
+          <vector3>0.0 0.0 0.0</vector3>
+        </property>
+        <scalar dataType="xsd:integer" dictRef="x:serial">1</scalar>
+        <scalar dataType="xsd:string" dictRef="x:elementType">Si</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:isotopeNumber">29</scalar>
+      </module>
+      <module cmlx:lineCount="3" cmlx:templateRef="atom">
+        <matrix rows="3" columns="3" dataType="xsd:double" cmlx:templateRef="baa">0.8075 -0.0154 -0.5897 -0.0071 0.9993 -0.0358 0.5898 0.0331 0.8069</matrix>
+        <property dictRef="g:coupling.au">
+          <scalar dataType="xsd:double" dictRef="cmlx:length">0.0</scalar>
+          <vector3>0.0 0.0 0.0</vector3>
+        </property>
+        <property dictRef="g:coupling.mhz">
+          <scalar dataType="xsd:double" dictRef="cmlx:length">0.0</scalar>
+          <vector3>0.0 0.0 0.0</vector3>
+        </property>
+        <property dictRef="g:coupling.g">
+          <scalar dataType="xsd:double" dictRef="cmlx:length">0.0</scalar>
+          <vector3>0.0 0.0 0.0</vector3>
+        </property>
+        <property dictRef="g:coupling.ten">
+          <scalar dataType="xsd:double" dictRef="cmlx:length">0.0</scalar>
+          <vector3>0.0 0.0 0.0</vector3>
+        </property>
+        <scalar dataType="xsd:integer" dictRef="x:serial">2</scalar>
+        <scalar dataType="xsd:string" dictRef="x:elementType">O</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:isotopeNumber">17</scalar>
+      </module>
+    </module>
+  </comment>
+</template>
+ 

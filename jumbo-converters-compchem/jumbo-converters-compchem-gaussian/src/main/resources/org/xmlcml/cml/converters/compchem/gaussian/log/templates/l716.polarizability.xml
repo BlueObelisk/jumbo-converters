@@ -1,0 +1,23 @@
+<template id="l716.polarizability" name="Polarizability" 
+    repeat="*" pattern="\s*Polarizability=.*" 
+    endPattern="\s{16}.*" endOffset="1"
+    >
+    
+  <comment class="example.input" id="l716.polarizability">
+ Polarizability= 1.80172759D+02 9.64366159D-02 8.96067492D+01
+                 1.42853847D+01 2.32604318D-02 8.23087172D+01
+  </comment>
+  <record id="polariz">\sPolarizability={3E,cc:polarizability}</record>
+  <record id="polariz">\s*{3E,x:d}</record>
+
+  <transform process="joinArrays" xpath=".//cml:array"/>
+  <transform process="pullupSingleton" dictRef="cc:polarizability" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="l716.polarizability">
+    <module cmlx:templateRef="l716.polarizability" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:double" size="6" dictRef="cc:polarizability" cmlx:templateRef="polariz">180.172759 0.0964366159 89.6067492 14.2853847 0.0232604318 82.3087172</array>
+    </module>
+  </comment> 
+ 
+</template>
+ 

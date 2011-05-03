@@ -1,0 +1,119 @@
+<template id="l716.thermoprops" name="Thermochemistry properties" repeat="*"
+    pattern="\s*E \(Thermal\).*" 
+    endPattern="\s*" endOffset="1"
+    >
+    
+  <comment class="example.input" id="l716.thermoprops">
+                     E (Thermal)             CV                S
+                      KCal/Mol        Cal/Mol-Kelvin    Cal/Mol-Kelvin
+ Total                   30.180              6.417             44.475
+ Electronic               0.000              0.000              0.000
+ Translational            0.889              2.981             34.261
+ Rotational               0.889              2.981             10.138
+ Vibrational             28.402              0.455              0.076
+                       Q            Log10(Q)             Ln(Q)
+ Total Bot       0.145771D-12        -12.836328        -29.556739
+ Total V=0       0.929180D+08          7.968100         18.347228
+ Vib (Bot)       0.157650D-20        -20.802307        -47.899081
+ Vib (V=0)       0.100490D+01          0.002122          0.004885
+ Electronic      0.100000D+01          0.000000          0.000000
+ Translational   0.252295D+07          6.401908         14.740939
+ Rotational      0.366497D+02          1.564070          3.601404
+  </comment>
+  <comment>
+                     E (Thermal)             CV                S
+                      KCal/Mol        Cal/Mol-Kelvin    Cal/Mol-Kelvin
+ Total                   62.119             26.952             91.823
+ Electronic               0.000              0.000              1.377
+ Translational            0.889              2.981             40.866
+ Rotational               0.889              2.981             29.827
+ Vibrational             60.342             20.991             19.753
+ Vibration  1             0.596              1.976              4.623
+ Vibration  2             0.599              1.967              4.075
+ Vibration  9             0.974              1.000              0.425
+                       Q            Log10(Q)             Ln(Q)
+ Total Bot       0.125789D-25        -25.900357        -59.637776
+ Total V=0       0.116124D+17         16.064923         36.990851
+ Vib (Bot)       0.121941D-39        -39.913852        -91.905040
+ Vib (Bot)  1    0.374552D+01          0.573512          1.320560
+ Vib (Bot)  2    0.283089D+01          0.451922          1.040590
+ Vib (Bot)  9    0.239087D+00         -0.621444         -1.430927
+ Vib (V=0)       0.112571D+03          2.051428          4.723587
+ Vib (V=0)  1    0.427875D+01          0.631316          1.453660
+ Vib (V=0)  2    0.337470D+01          0.528235          1.216307
+ Vib (V=0)  9    0.105422D+01          0.022932          0.052804
+ Electronic      0.200000D+01          0.301030          0.693147
+ Translational   0.700372D+08          7.845328         18.064536
+ Rotational      0.736438D+06          5.867136         13.509580
+ 
+  </comment>
+  <record repeat="2" id="xxx"/>
+  <record id="total">\s*Total\s*{F,cc:ethermo.total}{F,cc:cv.total}{F,cc:s.total}</record>
+  <record id="elect">\s*Electronic\s*{F,cc:ethermo.elect}{F,cc:cv.elect}{F,cc:s.elect}</record>
+  <record id="trans">\s*Translational\s*{F,cc:ethermo.trans}{F,cc:cv.trans}{F,cc:s.trans}</record>
+  <record id="rot">\s*Rotational\s*{F,cc:ethermo.rot}{F,cc:cv.rot}{F,cc:s.rot}</record>
+  <record id="vib">\s*Vibrational\s*{F,cc:ethermo.vib}{F,cc:cv.vib}{F,cc:s.vob}</record>
+  <record id="vibn" repeat="*">\s*Vibration\s*{I,g:nvib}{F,cc:ethermo.vib}{F,cc:cv.vib}{F,cc:s.vob}</record>
+  <record/>
+  <record id="totalbot">\s*Total Bot\s*{E,cc:q.total}{F,cc:logq.total}{F,cc:lnq.total}</record>
+  <record id="totalv0">\s*Total V=0\s*{E,cc:q.v0}{F,cc:logq.v0}{F,cc:lnq.v0}</record>
+  <record id="vibbot">\s*Vib \(Bot\)\s*{E,cc:q.vibbot}{F,cc:logq.vibbot}{F,cc:lnq.vibbot}</record>
+  <record id="vibbot" repeat="*">\s*Vib \(Bot\){I,g:nvib}\s*{E,cc:q.vibbot}{F,cc:logq.vibbot}{F,cc:lnq.vibbot}</record>
+  <record id="vibv0">\s*Vib \(V=0\)\s*{E,cc:q.vibv0}{F,cc:logq.vibv0}{F,cc:lnq.vibv0}</record>
+  <record id="vibv0" repeat="*">\s*Vib \(V=0\){I,g:nvib}\s*{E,cc:q.vibv0}{F,cc:logq.vibv0}{F,cc:lnq.vibv0}</record>
+  <record id="elect">\s*Electronic\s*{E,cc:q.elect}{F,cc:logq.elect}{F,cc:lnq.elect}</record>
+  <record id="trans">\s*Translational\s*{E,cc:q.trans}{F,cc:logq.trans}{F,cc:lnq.trans}</record>
+  <record id="rot">\s*Rotational\s*{E,cc:q.rot}{F,cc:logq.rot}{F,cc:lnq.rot}</record>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="l716.thermoprops">
+    <module cmlx:templateRef="l716.thermoprops" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="total">
+        <scalar dataType="xsd:double" dictRef="cc:ethermo.total">30.18</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:cv.total">6.417</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:s.total">44.475</scalar>
+      </list>
+      <list cmlx:templateRef="elect">
+        <scalar dataType="xsd:double" dictRef="cc:ethermo.elect">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:cv.elect">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:s.elect">0.0</scalar>
+      </list>
+      <list cmlx:templateRef="trans">
+        <scalar dataType="xsd:double" dictRef="cc:ethermo.trans">0.889</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:cv.trans">2.981</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:s.trans">34.261</scalar>
+      </list>
+      <list cmlx:templateRef="rot">
+        <scalar dataType="xsd:double" dictRef="cc:ethermo.rot">0.889</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:cv.rot">2.981</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:s.rot">10.138</scalar>
+      </list>
+      <list cmlx:templateRef="totalbot">
+        <scalar dataType="xsd:double" dictRef="cc:q.total">1.45771E-13</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.total">-12.836328</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.total">-29.556739</scalar>
+      </list>
+      <list cmlx:templateRef="totalv0">
+        <scalar dataType="xsd:double" dictRef="cc:q.v0">9.2918E7</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.v0">7.9681</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.v0">18.347228</scalar>
+      </list>
+      <list cmlx:templateRef="elect">
+        <scalar dataType="xsd:double" dictRef="cc:q.elect">1.0</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.elect">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.elect">0.0</scalar>
+      </list>
+      <list cmlx:templateRef="trans">
+        <scalar dataType="xsd:double" dictRef="cc:q.trans">2522950.0</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.trans">6.401908</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.trans">14.740939</scalar>
+      </list>
+      <list cmlx:templateRef="rot">
+        <scalar dataType="xsd:double" dictRef="cc:q.rot">36.6497</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.rot">1.56407</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.rot">3.601404</scalar>
+      </list>
+    </module>
+  </comment>
+</template>
+ 

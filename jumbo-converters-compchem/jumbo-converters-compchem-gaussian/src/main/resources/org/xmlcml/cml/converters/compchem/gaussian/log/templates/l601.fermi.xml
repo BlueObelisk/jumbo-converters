@@ -1,0 +1,37 @@
+<template id="l601.fermi" name="Isotropic Fermi Contact Couplings" 
+    pattern="\s*Isotropic Fermi Contact Couplings.*" repeat="*"
+    endPattern="\s*">
+
+  <comment class="example.input" id="l601.fermi">
+                          Isotropic Fermi Contact Couplings
+        Atom                 a.u.       MegaHertz       Gauss      10(-4) cm-1
+     1  C(13)              0.02539      28.54777      10.18656       9.52251
+     2  C(13)              0.00582       6.54434       2.33518       2.18296
+    13  Cl(35)             0.05688      24.94015       8.89927       8.31914
+ --------------------------------------------------------
+       Center         ----  Spin Dipole Couplings  ----
+                      3XX-RR        3YY-RR        3ZZ-RR
+ --------------------------------------------------------
+     1   Atom        0.005300     -0.061839      0.056540
+     2   Atom       -0.039723     -0.068059      0.107782
+    13   Atom        0.621221     -2.038530      1.417309
+ --------------------------------------------------------
+                        XY            XZ            YZ
+ --------------------------------------------------------
+     1   Atom        0.000010      0.095387      0.000013
+     2   Atom        0.005157      0.081893      0.006262
+    13   Atom        0.000344      3.043747      0.000390
+ --------------------------------------------------------
+
+  </comment>
+  
+  <record repeat="2"/>
+  <record id="fermi.atom" repeat="*" makeArray="true">\s*{I,cc:serial}{A,x:elementType}\({I,x:isotopeNumber}\){F,cc:coupling,u:au}{F,cc:coupling,u:au}{F,cc:coupling,u:mhz}{F,cc:coupling,u:gauss}{F,cc:coupling,u:ten4cm-1}</record>
+  <record repeat="4"/>
+  <record id="fermi.spindipole" repeat="*" makeArray="true">\s*{I,cc:serial}\s*Atom\s*{F,g:spindipole.xx}{F,g:spindipole.yy}{F,g:spindipole.zz}</record>
+  <record repeat="3"/>
+  <record id="fermi.spindipole" repeat="*" makeArray="true">\s*{I,cc:serial}\s*Atom\s*{F,g:spindipole.xy}{F,g:spindipole.xz}{F,g:spindipole.yz}</record>
+  <record repeat="1"/>
+
+</template>
+ 

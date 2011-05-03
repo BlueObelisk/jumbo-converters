@@ -1,0 +1,52 @@
+<template id="l716.thermochemistry" name="Thermochemistry" repeat="*"
+    pattern="\s*\-+\s*$\s*\-\s*Thermochemistry\s*\-\s*$\s*\-+\s*" 
+    endPattern="\s*" endOffset="1"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    >
+    
+  <comment class="example.input" id="l716.thermochemistry">
+ -------------------
+ - Thermochemistry -
+ -------------------
+ Temperature   298.150 Kelvin.  Pressure   1.00000 Atm.
+ Atom  1 has atomic number  6 and mass  12.00000
+ Atom  2 has atomic number  1 and mass   1.00783
+ Atom  3 has atomic number  1 and mass   1.00783
+ Atom  4 has atomic number  1 and mass   1.00783
+ Atom  5 has atomic number  1 and mass   1.00783
+ Molecular mass:    16.03130 amu.
+ Principal axes and moments of inertia in atomic units:
+                           1         2         3
+     EIGENVALUES --    11.47105  11.47105  11.47105
+           X            0.00000   0.00000   1.00000
+           Y            0.00000   1.00000   0.00000
+           Z            1.00000   0.00000   0.00000
+ This molecule is a spherical top.
+ Rotational symmetry number 12.
+ Rotational temperatures (Kelvin)      7.55064     7.55064     7.55064
+ Rotational constants (GHZ):         157.33005   157.33005   157.33005
+ Zero-point vibrational energy     118752.0 (Joules/Mol)
+                                   28.38241 (Kcal/Mol)
+ Vibrational temperatures:   1976.16  1976.16  1976.16  2293.35  2293.35
+          (Kelvin)           4393.44  4552.17  4552.17  4552.17
+ 
+  </comment>
+  <templateList>
+    <xi:include href="l716.thermochemistry.temperature.xml"/>
+    <xi:include href="l716.thermochemistry.mass.xml"/>
+    <xi:include href="l716.thermochemistry.moi.xml"/>
+    <xi:include href="l716.thermochemistry.top.xml"/>
+    <xi:include href="l716.thermochemistry.rotsymnum.xml"/>
+    <xi:include href="l716.thermochemistry.rottemp.xml"/>
+    <xi:include href="l716.thermochemistry.rotconsts.xml"/>
+    <xi:include href="l716.thermochemistry.zpe.xml"/>
+    <xi:include href="l716.thermochemistry.vibtemp.xml"/>
+    
+  </templateList>
+  <transform process="pullup" xpath="./cml:module/*"/>
+  <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
+  <comment class="example.output" id="l716.thermochemistry">
+    <module/>
+  </comment>
+</template>
+ 

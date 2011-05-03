@@ -1,0 +1,40 @@
+<template id="l502" name="l502" repeat="*"
+    pattern="\s*(Closed|UHF open)\s+shell SCF:.*" 
+    endPattern="\s*KE=.*PE=.*EE=.*" endOffset="1"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    >
+    
+  <comment class="example.input" id="l502">
+ Closed shell SCF:
+ Requested convergence on RMS density matrix=1.00D-08 within 128 cycles.
+ Requested convergence on MAX density matrix=1.00D-06.
+ Requested convergence on             energy=1.00D-06.
+...  
+ KE= 2.703895691388D+02 PE=-1.168579154050D+03 EE= 3.570202403265D+02
+  </comment>
+  <comment>
+ UHF open shell SCF:
+ Requested convergence on RMS density matrix=1.00D-08 within 128 cycles.
+ Requested convergence on MAX density matrix=1.00D-06.
+ Requested convergence on             energy=1.00D-06.
+ No special actions if energy rises.
+ Using DIIS extrapolation, IDIIS=  1040.
+ Integral symmetry usage will be decided dynamically.
+       111319 words used for storage of precomputed grid.
+ IEnd=    316322 IEndB=    316322 NGot=   6291456 MDV=   6044905
+ LenX=   6044905
+ Fock matrices will be formed incrementally for  20 cycles.
+
+ Cycle   1  Pass 1  IDiag  1:
+ Petite list used in FoFDir.
+  </comment>
+  <record id="l502.type">\s*{X,g:l502.type}\s*shell SCF:</record>
+  <templateList>
+    <xi:include href="l502.cycle.xml"/>
+    <xi:include href="l502.footer.xml"/>
+  </templateList>
+  <record id="l502" repeat="*">{X,g:l502}</record>
+  <comment class="example.output.raw" id="l502">
+ </comment>
+</template>
+ 

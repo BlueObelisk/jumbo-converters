@@ -1,6 +1,7 @@
 package org.xmlcml.cml.converters.compchem.gaussian.log;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 
 import nu.xom.Builder;
@@ -18,10 +19,12 @@ public class GaussianLog2XMLConverterTest {
 	@Test
 	public void test1() throws Exception {
 		InputStream templateStream = Util.getInputStreamFromResource(
-				"org/xmlcml/cml/converters/compchem/gaussian/log/templateList.xml");
+				"org/xmlcml/cml/converters/compchem/gaussian/log/topTemplate.xml");
 		Element templateXML = new Builder().build(templateStream).getRootElement();
-		InputStream inputStream = Util.getInputStreamFromResource(
-		        "compchem/gaussian/log/in/test1.log");
+//		InputStream inputStream = Util.getInputStreamFromResource(
+//        "compchem/gaussian/log/in/test1.log");
+		InputStream inputStream = new FileInputStream(
+        "src/test/resources/compchem/gaussian/log/in/to-2246.log");
 		TemplateConverter glc = new GaussianLog2XMLConverter(templateXML);
         File out = new File(new File("."), "target/test/compchem/gaussian/test1.xml");
 		glc.convert(inputStream, out);

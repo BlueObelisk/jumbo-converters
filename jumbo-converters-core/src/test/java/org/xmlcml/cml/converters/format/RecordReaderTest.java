@@ -37,13 +37,15 @@ public class RecordReaderTest {
 		List<Pattern> patternList = regexProcessor.getPatternList();
 		Assert.assertEquals("patterns", 1, patternList.size());
 		Assert.assertEquals("pattern 0", 
-				"line\\s*(\\S+)\\s*junk\\s*(\\-?\\d+)\\s*grot\\s*((?:\\-?\\d+\\.?\\d*)|(?:\\-?\\d*\\.?\\d+))\\s*", 
+				"line((?:\\s*(?:\\S+)\\s*){1,1})junk((?:\\s*(?:\\-?\\d+)\\s*){1,1})grot((?:\\s*(?:(?:\\-?\\d+\\.?\\d*)|(?:\\-?\\d*\\.?\\d+))\\s*){1,1})", 
 				patternList.get(0).toString());
 
 		
 		Assert.assertEquals("names", "a:line a:junk a:grot", regexProcessor.getNames());
-		Assert.assertEquals("types", 
-				CMLConstants.XSD_STRING+" "+CMLConstants.XSD_INTEGER+" "+CMLConstants.XSD_DOUBLE,
+//		Assert.assertEquals("types", 
+//				CMLConstants.XSD_STRING+" "+CMLConstants.XSD_INTEGER+" "+CMLConstants.XSD_DOUBLE,
+//				regexProcessor.getTypes());
+		Assert.assertEquals("types", "A I F",
 				regexProcessor.getTypes());
 	}
 	
@@ -58,12 +60,13 @@ public class RecordReaderTest {
 		List<Pattern> patternList = regexProcessor.getPatternList();
 		Assert.assertEquals("patterns", 1, patternList.size());
 		Assert.assertEquals("pattern 0", 
-				"line((?=[ ]*\\S+)[ \\S]{5})junk((?=[ ]*\\-?\\d+)[ \\-\\d]{8})grot((?=[ ]*\\-?\\d+)[ \\-\\d]{6}\\.\\d{3})", 
+				"line((?:(?:(?=[ ]*\\S+)[ \\S]{5})){1,1})junk((?:(?:(?=[ ]*\\-?\\d+)[ \\-\\d]{8})){1,1})grot((?:(?:(?=[ ]*\\-?\\d+)[ \\-\\d]{6}\\.\\d{3})){1,1})", 
 				patternList.get(0).toString());
 		Assert.assertEquals("names", "a:line a:junk a:grot", regexProcessor.getNames());
-		Assert.assertEquals("types", 
-				CMLConstants.XSD_STRING+" "+CMLConstants.XSD_INTEGER+" "+CMLConstants.XSD_DOUBLE,
-				regexProcessor.getTypes());
+//		Assert.assertEquals("types", 
+//				CMLConstants.XSD_STRING+" "+CMLConstants.XSD_INTEGER+" "+CMLConstants.XSD_DOUBLE,
+//				regexProcessor.getTypes());
+		Assert.assertEquals("types", "A I F", regexProcessor.getTypes());
 	}
 
 	@Test
@@ -331,10 +334,11 @@ public class RecordReaderTest {
 		recordReader.debug();
 		RegexProcessor regexProcessor = recordReader.getRegexProcessor();
 		Assert.assertEquals("patterns", 2, regexProcessor.getPatternList().size());
-		Assert.assertEquals("pattern0", "grot\\s*(\\-?\\d+)\\s*", regexProcessor.getPatternList().get(0).toString());
-		Assert.assertEquals("pattern1", "junk\\s*(\\S+)\\s*", regexProcessor.getPatternList().get(1).toString());
+		Assert.assertEquals("pattern0", "grot((?:\\s*(?:\\-?\\d+)\\s*){1,1})", regexProcessor.getPatternList().get(0).toString());
+		Assert.assertEquals("pattern1", "junk((?:\\s*(?:\\S+)\\s*){1,1})", regexProcessor.getPatternList().get(1).toString());
 		Assert.assertEquals("names", "a:grot a:junk", regexProcessor.getNames());
-		Assert.assertEquals("types", CMLConstants.XSD_INTEGER+" "+CMLConstants.XSD_STRING, regexProcessor.getTypes());
+//		Assert.assertEquals("types", CMLConstants.XSD_INTEGER+" "+CMLConstants.XSD_STRING, regexProcessor.getTypes());
+		Assert.assertEquals("types", "I A", regexProcessor.getTypes());
 	}
 	
 	@Test

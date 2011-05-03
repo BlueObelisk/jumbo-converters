@@ -1,0 +1,234 @@
+<processList>
+  <desc>names of actions are private methods in TransformElement class</desc>
+  <desc>most methods are applied to a set of nodes created by the xpath argument</desc>
+  <desc>"addFoo" creates a new element and adds it</desc>
+  <desc>"createFoo" transforms existing nodes into a new element</desc>
+
+  <desc>common args are listed here</desc>
+
+  <arg name="dataType">dataType attribute value of new element</arg>
+  <arg name="dictRef">dictRef attribute value</arg>
+  <arg name="elementName">local name of new element</arg>
+  <arg name="followBefore">following nodes in group</arg>
+  <arg name="format">format?</arg>
+  <arg name="from">nodes to move information from</arg>
+  <arg name="id">id attribute value of new element</arg>
+  <arg name="name">name of attribute</arg>
+  <arg name="output">level of output</arg>
+  <arg name="position">position of child (counting from zero). If omitted defaults to after last child</arg>
+  <arg name="previousAfter">previous elements for group</arg>
+  <arg name="repeat">times to repeat (default = 1)</arg>
+  <arg name="toXpath">nodes to move information to</arg>
+  <arg name="value">value to set</arg>
+  <arg name="xpath">Xpath which generates a list of nodes on which the primary action takes place</arg>
+  
+  <process name="addAttribute">
+    <desc>adds attribute to element. Replaces any existing attribute of same name.\n
+    Currently no check is made on names and values.
+    </desc>
+    <node>*</node>
+    <arg name="name" mandatory="yes">attribute name </arg>
+    <arg name="value" mandatory="yes">attribute value</arg>
+    <arg name="xpath" mandatory="yes">node to add attribute to</arg>
+  </process>
+  
+  <process name="addChild">
+    <desc>creates new element and adds as child. Optionally adds id and dictRef.</desc>
+    <node>*</node>
+    <arg name="dictRef">dictRef attribute value of new element</arg>
+    <arg name="elementName" mandatory="yes">local name of new element</arg>
+    <arg name="id">id attribute value of new element</arg>
+    <arg name="position">position of child (counting from zero). If omitted defaults to after last child</arg>
+    <arg name="xpath" mandatory="yes">node to add child to</arg>
+  </process>
+  
+  <process name="addDictRef">
+    <desc>adds dictRef attribute to any CML element. Use instead of addAttribute</desc>
+    <node>*</node>
+    <arg name="value" mandatory="yes">value of dictRef attribute</arg>
+    <arg name="xpath" mandatory="yes">node to add dictRef to</arg>
+  </process>  
+  
+  <process name="addLabel">
+    <desc>create CMLLabel element from existing id and add as child of node</desc>
+    <node>atom</node>
+    <arg name="xpath" mandatory="yes">nodes to process</arg>
+  </process>  
+  
+  <process name="checkDictionary">
+    <desc>checks whether dictionary is consistent</desc>
+    <arg name="todo">TODO</arg>
+  </process>  
+  
+  <process name="createArray">
+    <desc>create array by parsing strings in scalars. Normally assumes whitespace separators for array.
+      uses existing attributes (dictRef, dataType, units) on the FIRST scalar for the arrays. This
+      can be overridden for dictRef and dataType</desc>
+    <node>scalar</node>
+    <arg name="dictRef">dictRef attribute value; overrides first scalar.dictRef</arg>
+    <arg name="dataType">dataType attribute (xsd:string, xsd:double, xsd:integer); overrides first scalar.dataType</arg>
+    <arg name="from" mandatory="yes">nodes relative to xPath node; will become the array</arg>
+    <arg name="xpath" mandatory="yes">nodes to process</arg>
+  </process>  
+  
+  <process name="createDate">
+    <desc>transforms string value of scalar into a date using JodaTime. Gradually this will
+    become intelligent enough to recognize most date formats</desc>
+    <node>scalar</node>
+    <arg name="format">format of date. (uses Joda format). 
+    Note, if it's wrong you may get wrong answer!</arg>
+    <arg name="xpath" mandatory="yes">nodes to process</arg>
+  </process>  
+  
+  <process name="createDouble">
+    <desc>transforms string value of scalar into a double</desc>
+    <node>scalar</node>
+    <arg name="xpath" mandatory="yes">nodes to process</arg>
+  </process>  
+  
+  <process name="createFormula">
+    <desc>transforms string value of scalar into a CMLFormula</desc>
+    <node>scalar</node>
+    <arg name="xpath" mandatory="yes">nodes to process</arg>
+  </process>  
+  
+  <process name="createGroup">
+    <desc>groups elements (still under development</desc>
+    <node>*</node>
+    <arg name="xpath" mandatory="yes">nodes to process</arg>
+  </process>  
+  
+  <process name="createInteger">
+    <desc>transforms string value of scalar into a integer</desc>
+    <node>scalar</node>
+    <arg name="xpath" mandatory="yes">nodes to process</arg>
+  </process>  
+  
+  <process name="createMatrix33">
+    <desc>for each node locates a further 9 nodes and creates a matrix element
+    from the values of those. Replaces the original node with the matrix and destroys
+    the 9 scalar elements</desc>
+    <node>*</node>
+    <arg name="from" mandatory="yes">xpathExpression relative to result of "xpath"=generated
+    nodes, resulting in 9 = 3*3 for each (else no-op)</arg>
+    <arg name="xpath" mandatory="yes">nodes to process</arg>
+  </process>  
+  
+  <process name="createMolecule">
+    <desc>uses a tabular set of arrays to creat a molecule. These are often created by
+    parsing a table. Uses arrays with local dictRef names x3,y3,z3,id,elementType,label 
+    and atomTypeRef. Other arrays form lists of scalars which are added as children to atoms</desc>
+    <node>array</node>
+    <arg name="id" mandatory="yes">id value of created molecule</arg>
+    <arg name="xpath" mandatory="yes">nodes to process</arg>
+  </process>  
+  
+  <process name="createNameValue">
+    <desc>for each xpath node uses the name and value relative xpaths to find a single 
+    nameScalar and a single valueScalar.
+    Transforms the dictRef on the nameScalar to hold the name and sets the value. Deletes the valueScalar</desc>
+    <node>*</node>
+    <arg name="name" mandatory="yes">xPath relative to "xpath" to create single node carrying name</arg>
+    <arg name="value" mandatory="yes">xPath relative to "xpath" to create single node carrying value</arg>
+    <arg name="xpath" mandatory="yes">nodes to process</arg>
+  </process>  
+  
+  <process name="createString">
+    <desc>create string by concatenating strings in scalars WITHOUT delimiter. 
+      uses existing attributes (dictRef, dataType, units) on the FIRST scalar (which is retained). This
+      can be overridden for dictRef and dataType. Trivially will change the dataType on a single scalar.
+      scalars beyond the first are deleted</desc>
+    <node>scalar</node>
+    <arg name="dictRef">dictRef attribute value; overrides first scalar.dictRef</arg>
+    <arg name="dataType">dataType attribute (xsd:string, xsd:double, xsd:integer); overrides first scalar.dataType</arg>
+    <arg name="from" mandatory="yes">nodes relative to xPath node; will become the array</arg>
+    <arg name="xpath" mandatory="yes">nodes to process</arg>
+  </process>  
+  
+  <process name="createVector3">
+    <desc>for each node locates a further 3 nodes and creates a vector3 element
+    from the values of those. Replaces the original node with the vector3 and destroys
+    the 3 scalar elements</desc>
+    <node>*</node>
+    <arg name="from" mandatory="yes">xpathExpression relative to result of "xpath"=generated
+    nodes, resulting in 3 for each (else no-op)</arg>
+    <arg name="xpath" mandatory="yes">nodes to process</arg>
+  </process>  
+  
+  <process name="createWrapper">
+    <desc>creates a new element, copying namespaces, id from template; replaces xpathNode and adds 
+    it as child (i.e. P{-A becomes P{-N{-A where N is new element</desc>
+    <node>*</node>
+    <arg name="elementName" mandatory="yes">name of new element</arg>
+    <arg name="xpath" mandatory="yes">nodes to process</arg>
+  </process>  
+  
+  <process name="debugNodes">
+    <desc>debugs the xpathNodes</desc>
+    <node>*</node>
+    <arg name="xpath" mandatory="yes">nodes to debug</arg>
+  </process>  
+  
+  <process name="delete">
+    <desc>deletes the xpathNodes</desc>
+    <node>*</node>
+    <arg name="xpath" mandatory="yes">nodes to delete</arg>
+  </process>  
+  
+  <process name="joinArrays">
+    <desc>joins all the arrays from xpathNodes and deletes old ones</desc>
+    <node>array</node>
+    <arg name="xpath" mandatory="yes">nodes to join</arg>
+  </process>  
+  
+  <process name="move">
+    <desc>moves xpathNodes to "toXpath"</desc>
+    <node>*</node>
+    <arg name="toXpath" mandatory="yes">relative xpath giving single target for each xpathNode</arg>
+    <arg name="xpath" mandatory="yes">nodes to delete</arg>
+  </process>  
+  
+  <process name="pullup">
+    <desc>pulls up the node to be immediate following sibling of former parent
+    i.e. P(-A(-X)) becomes P(-A)(-X). This is currently not recursive. The nodes to pullup
+    need not be single children. The original parent is currently kept</desc>
+    <node>*</node>
+    <arg name="xpath" mandatory="yes">nodes to pullup</arg>
+  </process>  
+  
+  <process name="pullupSingleton">
+    <desc>if any xpathNode is a single child it replaces its parent, i.e. P{-A{-X becomes
+    P{-X. This is currently not recursive</desc>
+    <node>*</node>
+    <arg name="xpath" mandatory="yes">nodes to pull up</arg>
+  </process>  
+  
+  <process name="rename">
+    <desc>not yet implemented</desc>
+    <node>*</node>
+    <arg name="xpath" mandatory="yes">nodes to pull up</arg>
+  </process>  
+  
+  <process name="setValue">
+    <desc>sets value of attribute or empty/textOnly element. Overwrites any previous
+    value</desc>
+    <node>*</node>
+    <arg name="value" mandatory="yes">value to set</arg>
+    <arg name="xpath" mandatory="yes">node to set value on</arg>
+  </process>  
+  
+  <process name="split">
+    <desc>split array into scalar nodes which are wrapped in a new CMLList which replaces the 
+    array</desc>
+    <node>array</node>
+    <arg name="xpath" mandatory="yes">nodes to split</arg>
+  </process>
+  
+  <process name="wrapPropertiesAndParameters">
+    <desc>naked scalars are wrapped with inserted parameter or property elements. Not yet
+    finalized</desc>
+    <node>scalar</node>
+    <arg name="xpath" mandatory="yes">nodes to wrap</arg>
+  </process>  
+  
+</processList>

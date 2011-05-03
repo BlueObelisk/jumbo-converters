@@ -1,0 +1,18 @@
+<template id="l101.redundantcoords" pattern="\s*Redundant internal coordinates.*$.*"
+  endPattern=".*" 
+  >
+  <comment class="example.input" id="l1.redundantcoords">
+ Redundant internal coordinates taken from checkpoint file:
+ /tmp/webmo/1/Gau-28333.chk
+  </comment>
+  <record id="redundant">{X,g:redundant}</record>
+  <record id="checkpoint">{X,g:checkpoint}</record>
+  <transform process="pullupSingleton" xpath=".//cml:list"/>
+  
+  <comment class="example.output" id="l1.redundantcoords">
+    <module cmlx:templateRef="l101.redundantcoords" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="g:redundant" cmlx:templateRef="redundant">Redundant internal coordinates taken from checkpoint file:</scalar>
+      <scalar dataType="xsd:string" dictRef="g:checkpoint" cmlx:templateRef="checkpoint">/tmp/webmo/1/Gau-28333.chk</scalar>
+    </module>
+  </comment>
+</template>

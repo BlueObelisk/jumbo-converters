@@ -1,0 +1,17 @@
+<template id="l716.thermochemistry.top" repeat="*" pattern="\s*This molecule is.*"
+  endPattern=".*">
+  <comment class="example.input" id="l716.thermochemistry.top">
+ This molecule is a spherical top.
+  </comment>
+  
+  <record id="type" >\s*This molecule is a\s*{A,g:top}\s*top\.\s*</record>
+  
+  <transform process="pullup" xpath=".//cml:scalar"/>
+  
+  <comment class="example.output" id="l716.thermochemistry.top">
+    <module cmlx:templateRef="l716.thermochemistry.top" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="g:top">spherical</scalar>
+    </module>
+  </comment>
+  
+</template>

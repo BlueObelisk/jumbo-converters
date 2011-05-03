@@ -11,7 +11,7 @@
   <record repeat="4">{X}</record>
   <record id="nucdipole">{F,x:x}{F,x:y}{F,x:z}</record>
   <transform process="pullupSingleton" xpath="./cml:list[count(*)=1]"/> 
-  <transform process="vector3" xpath="./*[@cmlx:templateRef='nucdipole']" 
+  <transform process="createVector3" xpath="./*[@cmlx:templateRef='nucdipole']" 
       from="*[@dictRef='x:x' or @dictRef='x:y' or @dictRef='x:z']"
       dictRef="cc:nuclearDipole"/>
 <!-- <transform process="pullupSingleton" xpath="./cml:list"/> -->

@@ -1,0 +1,18 @@
+<template id="l101.title" pattern="\s*\-+\s*$.*"
+  endPattern="\s*\-+\s*" endOffset="1"
+  >
+  <comment class="example.input" id="l1.redundantcoords">
+ ---
+ CH4
+ ---
+  </comment>
+  <record/>
+  <record id="title">{X,cc:title}</record>
+  <record/>
+  <transform process="pullupSingleton" xpath=".//cml:list"/>
+  <comment class="example.output" id="l1.redundantcoords">
+    <module cmlx:templateRef="l101.title" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="cc:title" cmlx:templateRef="title">CH4</scalar>
+    </module>
+  </comment>
+</template>

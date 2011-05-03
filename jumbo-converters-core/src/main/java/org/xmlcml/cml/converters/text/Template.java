@@ -30,14 +30,14 @@ public class Template implements MarkupApplier {
 	    LOG.setLevel(Level.ERROR);
 	}
 	
-	public static final String EOI = "$";
+	public static final String EOI = "~";
 	public static final String TAG = "template";
 	public static final String ZERO_OR_ONE = "?";
 	public static final String ZERO_OR_MORE = "*";
 	public static final String ONE_OR_MORE = "+";
 	// attributes
 	public static final String CMLX_UNREAD = "cmlx:unread";
-	static final String CONVENTION = "convention";
+	public static final String CONVENTION = "convention";
 	private static final String DICT_REF = "dictRef";
 	private static final String END_OFFSET = "endOffset";
 	private static final String END_PATTERN = "endPattern";
@@ -74,6 +74,7 @@ public class Template implements MarkupApplier {
 	private String endPatternString;
 	private PatternContainer endChunker;
 	protected PatternContainer startChunker;
+	private boolean debug = false;
 	private Integer offset;
 	private Integer endOffset;
 	private Integer minRepeatCount = 1;
@@ -101,7 +102,7 @@ public class Template implements MarkupApplier {
 		processAttributes();
 		createSubclassedElementsFromChildElements();
 		if (!OutputLevel.NONE.equals(outputLevel)) {
-			this.debug();
+//			this.debug();
 		}
 	}
 
@@ -138,6 +139,7 @@ public class Template implements MarkupApplier {
 		checkIfAttributeNamesAreAllowed(theElement, new String[]{
 			BASE,
 			CONVENTION,
+			DEBUG,
 			DICT_REF,
 			END_OFFSET,
 			END_PATTERN,
@@ -172,8 +174,9 @@ public class Template implements MarkupApplier {
 		outputLevel = Outputter.extractOutputLevel(this.theElement);
 		LOG.trace(outputLevel+"/"+this.theElement.getAttributeValue(Outputter.OUTPUT));
 		if (!OutputLevel.NONE.equals(outputLevel)) {
-			System.out.println("OUTPUT "+outputLevel);
+//			System.out.println("OUTPUT "+outputLevel);
 		}
+		debug = (theElement.getAttributeValue(DEBUG) != null);
 		offset = readIntegerAttribute(theElement, OFFSET);
 		endOffset = readIntegerAttribute(theElement, END_OFFSET);
 		
@@ -269,6 +272,10 @@ public class Template implements MarkupApplier {
 				}
 			}
 			if (!allowed) {
+				System.out.println("Allowed options:");
+				for (String name : allowedNames) {
+					System.out.println(">     "+name);
+				}
 				CMLUtil.debug(theElement, "FORBIDDEN ATT "+attName);
 				throw new RuntimeException("Forbidden attribute name: "+attName);
 			}
@@ -354,10 +361,17 @@ public class Template implements MarkupApplier {
 				for (int i = (Math.max(0, nline-6)); i < nline; i++) {
 					System.err.println(lineContainer.getLinesElement().getChild(i));
 				}
+				System.out.println("========DEBUG======="+marker.getId()+">>>>>");
+				marker.debug();
+				System.out.println("<<<<<"+marker.getId()+"========DEBUG=======");
 				if (line == null) {
-					throw new RuntimeException("Null line ("+nline+")", e);
+					if (debug) {
+						LOG.error("Null line ("+nline+")", e);
+					} else {
+						throw new RuntimeException("Null line ("+nline+")", e);
+					}
 				} else {
-					throw new RuntimeException("Bad line ("+nline+")"+line, e);
+					throw new RuntimeException("Failed; current line ("+nline+")"+line, e);
 				}
 			}
 		}

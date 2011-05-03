@@ -15,7 +15,7 @@ crystal     (    0.0000,    0.0000,    0.1008 )
 </comment>
   <record repeat="2"/>
   <record repeat="*" id="centerofcharge">{X,x:name}\s*\(\s*{F,x:x},\s*{F,x:y},\s*{F,x:z}\)</record>
-  <transform process="vector3" xpath="./cml:list/cml:list" 
+  <transform process="createVector3" xpath="./cml:list/cml:list" 
       from="./cml:scalar[contains(@dictRef,':x') or contains(@dictRef,':y') or contains(@dictRef,':z')]"
       dictRef="n:centerofcharge"/>
   <!-- 

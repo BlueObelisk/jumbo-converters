@@ -1,0 +1,17 @@
+<template id="gau:atomiccharges" name="Atomic charges" 
+    pattern=".*Atomic charges.*" endPattern=".*Sum of Mulliken charges=.*" endOffset="1">
+  <comment class="example">
+ Atomic charges with hydrogens summed into heavy atoms:
+              1
+     1  H    0.000000
+     2  C    0.429651
+     3  N   -0.176275
+    16  H    0.000000
+ Sum of Mulliken charges=   0.00000
+ </comment>
+  <record/>
+  <record id="serial">.{10}{I5,gau:col}</record>
+  <record id="charges"  makeArray="true" 
+      repeat="*">{I,gau:ser} {A,gau:elem} {F,gau:charge}</record>
+  <record id="rlx">.*Sum of Mulliken charges= *{F,gau:sum}.*</record>
+</template> 

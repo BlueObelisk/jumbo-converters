@@ -1,0 +1,62 @@
+<template id="l202.distmat" name="Distance matrix" repeat="*"
+    pattern="\s*Distance matrix.*\s*$\s{20}\s*\d.*s*" 
+    endPattern="\s\s...\d\s\s[A-Z].*$.[^\s].*" endOffset="1">
+    
+  <comment class="example.input" id="l202.distmat">
+                    Distance matrix (angstroms):
+                    1          2          3          4          5
+     1  Al   0.000000
+     2  Al   1.534811   0.000000
+     3  Al   2.965253   1.534811   0.000000
+     4  Al   4.193182   2.964801   1.534811   0.000000
+     5  Al   5.135969   4.193182   2.965253   1.534811   0.000000
+     6  Al   5.727993   5.135187   4.193182   2.964801   1.534811
+     7  Al   5.930507   5.727993   5.135969   4.193182   2.965253
+     8  Al   5.727993   5.929603   5.727993   5.135187   4.193182
+     9  Al   5.135969   5.727993   5.930507   5.727993   5.135969
+    10  Al   4.193182   5.135187   5.727993   5.929603   5.727993
+    11  Al   2.965253   4.193182   5.135969   5.727993   5.930507
+    12  Al   1.534811   2.964801   4.193182   5.135187   5.727993
+                    6          7          8          9         10
+     6  Al   0.000000
+     7  Al   1.534811   0.000000
+     8  Al   2.964801   1.534811   0.000000
+     9  Al   4.193182   2.965253   1.534811   0.000000
+    10  Al   5.135187   4.193182   2.964801   1.534811   0.000000
+    11  Al   5.727993   5.135969   4.193182   2.965253   1.534811
+    12  Al   5.929603   5.727993   5.135187   4.193182   2.964801
+                   11         12
+    11  Al   0.000000
+    12  Al   1.534811   0.000000
+  </comment>
+  <record repeat="1"/> 
+  <templateList>
+    <template repeat="*" pattern="\s{15}\s[\d\s]*$.*" 
+    endPattern="\s\s...\d\s\s[A-Z].*$(([\d\s]*)|(\s\S.*))" endOffset="1">
+    <!-- 
+      <record id="serial">{1_5I,cc:serial}</record>
+      <record repeat="*" id="atom">{I,cc:serialx}{A,cc:elementType}{1_5F,cc:distances}</record>
+      -->
+    </template>
+  </templateList>
+
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='cc:distances']"/>
+  <transform process="createArray" 
+    xpath=".//cml:list[@cmlx:templateRef='atom' and cml:list[cml:array[@dictRef='cc:distances']]]" 
+    from="./cml:list/cml:scalar[@dictRef='cc:elementType']"
+   />
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='cc:serial']"/>
+  <transform process="delete" xpath=".//cml:scalar"/>
+  <transform process="pullupSingleton" xpath=".//cml:list"/>
+  <transform process="pullup" xpath=".//cml:array" repeat="3"/>
+  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='NULL_ID']"/>
+  
+  <comment class="example.output" id="l202.distmat">
+    <module cmlx:templateRef="l202.distmat" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:integer" size="12" dictRef="cc:serial" cmlx:templateRef="serial">1 2 3 4 5 6 7 8 9 10 11 12</array>
+      <array delimiter="|" dataType="xsd:string" size="12" dictRef="cc:elementType">|Al|Al|Al|Al|Al|Al|Al|Al|Al|Al|Al|Al|</array>
+      <array dataType="xsd:double" size="78" dictRef="cc:distances">0.0 1.534811 0.0 2.965253 1.534811 0.0 4.193182 2.964801 1.534811 0.0 5.135969 4.193182 2.965253 1.534811 0.0 5.727993 5.135187 4.193182 2.964801 1.534811 5.930507 5.727993 5.135969 4.193182 2.965253 5.727993 5.929603 5.727993 5.135187 4.193182 5.135969 5.727993 5.930507 5.727993 5.135969 4.193182 5.135187 5.727993 5.929603 5.727993 2.965253 4.193182 5.135969 5.727993 5.930507 1.534811 2.964801 4.193182 5.135187 5.727993 0.0 1.534811 0.0 2.964801 1.534811 0.0 4.193182 2.965253 1.534811 0.0 5.135187 4.193182 2.964801 1.534811 0.0 5.727993 5.135969 4.193182 2.965253 1.534811 5.929603 5.727993 5.135187 4.193182 2.964801 0.0 1.534811 0.0</array>
+    </module>
+  </comment>
+</template>
+ 
