@@ -1,0 +1,24 @@
+<template id="l716.thermochemistry.mass" repeat="*" pattern="\s* Atom.*has atomic number.*and mass.*"
+  endPattern="\s*Molecular mass.*" endOffset="1">
+  <comment class="example.input" id="l716.thermochemistry.mass">
+ Atom  1 has atomic number  6 and mass  12.00000
+ Atom  2 has atomic number  6 and mass  12.00000
+ Atom 13 has atomic number 17 and mass  34.96885
+ Molecular mass:   146.97683 amu.
+ </comment>
+  
+  <record id="mass" repeat="*" makeArray="true">\s* Atom{I,cc:serial}has atomic number{I,x:elementType} and mass{F,cc:atomicmass}\s*</record>
+  <record id="molmass">\s*Molecular mass:{F,cc:molmass}amu\.\s*</record>
+  <transform process="pullupSingleton" xpath="./cml:list[@cmlx:templateRef='molmass']"/>
+  
+  <comment class="example.output" id="l716.thermochemistry.mass">
+    <module cmlx:templateRef="l716.thermochemistry.mass" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:lineCount="3" cmlx:templateRef="mass">
+        <array dataType="xsd:integer" dictRef="cc:serial" size="3">1 2 13</array>
+        <array dataType="xsd:integer" dictRef="x:elementType" size="3">6 6 17</array>
+        <array dataType="xsd:double" dictRef="cc:atomicmass" size="3">12.0 12.0 34.96885</array>
+      </list>
+      <scalar dataType="xsd:double" dictRef="cc:molmass" cmlx:templateRef="molmass">146.97683</scalar>
+    </module>
+  </comment>
+</template>

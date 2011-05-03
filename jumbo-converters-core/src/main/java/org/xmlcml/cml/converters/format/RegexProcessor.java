@@ -11,6 +11,7 @@ import nu.xom.Element;
 import nu.xom.Elements;
 
 import org.apache.log4j.Logger;
+import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.text.LineContainer;
 import org.xmlcml.cml.converters.text.PatternContainer;
 import org.xmlcml.cml.element.CMLScalar;
@@ -34,13 +35,12 @@ public class RegexProcessor {
 	private static String STRING_NOWIDTH_REGEX;
 	private static String STRING_WIDTH_START_REGEX;
 	private static String WIDTH_END_REGEX;
-	
-	private static Pattern FIELD_PATTERN = Pattern.compile("\\{(\\d*[FIAXE][^\\}]*)\\}");
-	private static Pattern FIELD_PATTERN_1 = Pattern.compile(
-		"\\{(\\d*)([FIAXE])(\\d*)\\.?(\\d*)" +
-		"\\,?(([A-Za-z0-9]+:[A-Za-z0-9][A-Za-z0-9\\-\\.\\_]*)?)" +
-		"\\,?(([A-Za-z0-9]+:[A-Za-z0-9][A-Za-z0-9\\-\\.\\_]*)?)" +
-		"\\}");
+
+	// this is hard-coded and must be kept consistent with the external file
+	private static final String MULTIPLIER_SEPARATOR = CMLConstants.S_UNDER;
+	// these are now read in
+	private static Pattern FIELD_PATTERN_0 = null;
+	private static Pattern FIELD_PATTERN_1 = null;
 
 	static {
 		Element regexList = null;
@@ -82,14 +82,14 @@ public class RegexProcessor {
 				STRING_WIDTH_START_REGEX = regex;
 			} else if (name.equals("WIDTH_END")) {
 				WIDTH_END_REGEX = regex;
-			} else if (name.equals("FIELD_PATTERN_STRING")) {
-				FIELD_PATTERN  = Pattern.compile(regex);
+			} else if (name.equals("FIELD_PATTERN_STRING_0")) {
+				FIELD_PATTERN_0  = Pattern.compile(regex);
 			} else if (name.equals("FIELD_PATTERN_STRING_1")) {
 				FIELD_PATTERN_1  = Pattern.compile(regex);
 			} else {			
 				throw new RuntimeException("unknown name: "+name);
 			}
-			System.out.println("____"+regex+"____");
+//			System.out.println("____"+regex+"____");
 		}
 	}
 
@@ -97,12 +97,13 @@ public class RegexProcessor {
 
 	private static final String X_NAME = "dummy:dummy";
 
+
 	private List<RegexField> fieldList;
 	private String content;
 	private String multipleLineDelimiter;
 	protected PatternContainer patternContainer;
 	
-	private String multipliers = "";
+//	private String multipliers = "";
 	private String types = "";
 	private String decimals = "";
 	private String widths = "";
@@ -113,7 +114,8 @@ public class RegexProcessor {
 	private List<Pattern> patternList;
 	private RegexField regexField;
 
-	private Integer multiplier;
+	private Integer minMultiplier;
+	private Integer maxMultiplier;
 
 
 	public RegexProcessor(String content, String multipleLineDelimiter) {
@@ -123,7 +125,7 @@ public class RegexProcessor {
 		// remove all newlines+immediate whitespace but not other whitespace
 		this.content = content.replaceAll("\\s*\\n\\s*", "");
 		this.multipleLineDelimiter = multipleLineDelimiter;
-		createRegexFields();
+		expandSymbolsToRegexes();
 		createPatternContainer();
 	}
 	
@@ -139,10 +141,6 @@ public class RegexProcessor {
 		return types.trim();
 	}
 	
-	private void createRegexFields() {
-		expandSymbolsToRegexes();
-	}
-
 	private void createPatternContainer() {
 		this.patternContainer = null;
 		try {
@@ -156,7 +154,7 @@ public class RegexProcessor {
 	private void expandSymbolsToRegexes() {
 		int start = 0;
 		StringBuilder sb = new StringBuilder();
-		Matcher matcher = FIELD_PATTERN.matcher(content);
+		Matcher matcher = FIELD_PATTERN_0.matcher(content);
 		start = replaceSymbolsByRegexes(start, sb, matcher);
 		sb.append(content.substring(start));
 		content = sb.toString();
@@ -184,48 +182,62 @@ public class RegexProcessor {
 		if (!matcher.matches()) {
 			throw new RuntimeException("Bad symbolic regex: "+string);
 		}
-		addMultiplier(matcher);
-		addType(matcher);
-		addWidth(matcher);
-		addDecimal(matcher);
-		addName(matcher);
-		addUnits(matcher);
+		int matchCount = matcher.groupCount();
+		String multiplierField = matcher.group(1);
+		String type = matcher.group(2);
+		String width = matcher.group(3);
+		String decimal = matcher.group(4);
+		String name = matcher.group(5);
+		String units = matcher.group(6);
+		addMultipliers(multiplierField);
+		addType(type);
+		addWidth(width);
+		addDecimal(decimal);
+		addName(name);
+		addUnits(units);
+		string = removeMultiplierFieldFromString(string, multiplierField);
 		String newString = regexField.createExpandedField(string);
 		return newString;
+	}
+
+	private String removeMultiplierFieldFromString(String string,
+			String multiplierField) {
+		string = string.substring(0,1)+string.substring(1+multiplierField.length());
+		return string;
 	}
 
 //	private boolean isSkip(Matcher matcher) {
 //		return RegexField.X.equals(matcher.group(2));
 //	}
 
-	private void addMultiplier(Matcher matcher) {
-		multiplier = (matcher.group(1).equals("")) ? null : new Integer(matcher.group(1));
-		addMultiplier0(multiplier);
+	private void addMultipliers(String multiplierGroup) {
+		Pattern MULTIPLIER_MATCHER = Pattern.compile("(\\d+)"+MULTIPLIER_SEPARATOR+"(\\d*)");
+		Matcher matcher = MULTIPLIER_MATCHER.matcher(multiplierGroup);
+		if (matcher.matches()) {
+			minMultiplier = new Integer(matcher.group(1));
+			maxMultiplier = (CMLConstants.S_EMPTY.equals(matcher.group(2))) ? Integer.MAX_VALUE :
+				new Integer(matcher.group(2));
+		} else {
+			minMultiplier = (multiplierGroup.equals("")) ? 1 : new Integer(multiplierGroup);
+			maxMultiplier = minMultiplier;
+		}
+		regexField.setMinMultiplier(minMultiplier);
+		regexField.setMaxMultiplier(maxMultiplier);
 	}
 
-	private void addMultiplier0(Integer multiplierI) {
-		regexField.setMultiplier(multiplierI);
-		multipliers += " "+multiplierI;
-	}
-
-	private void addType(Matcher matcher) {
-		String type = RegexField.createType(matcher.group(2));
-		addType0(type);
-	}
-
-	private void addType0(String type) {
+	private void addType(String type) {
 		regexField.setType(type);
 		types += " "+type;
 	}
 
-	private void addWidth(Matcher matcher) {
-		Integer width = (matcher.group(3).equals("")) ? 0 : new Integer(matcher.group(3)); 
+	private void addWidth(String widthS) {
+		Integer width = (widthS.equals("")) ? 0 : new Integer(widthS); 
 		regexField.setWidth(width);
 		widths += " "+width;
 	}
 
-	private void addDecimal(Matcher matcher) {
-		Integer decimal = (matcher.group(4).equals("")) ? 0 : new Integer(matcher.group(4)); 
+	private void addDecimal(String decimalS) {
+		Integer decimal = (decimalS.equals("")) ? 0 : new Integer(decimalS); 
 		addDecimal0(decimal);
 	}
 
@@ -234,24 +246,14 @@ public class RegexProcessor {
 		decimals = " "+decimal;
 	}
 
-	private void addName(Matcher matcher) {
-		String name = matcher.group(5);
-		addName0(name);
+	private void addName(String nameS) {
+		regexField.setName(nameS);
+		names += " "+nameS;
 	}
 
-	private void addName0(String name) {
-		regexField.setName(name);
-		names += " "+name;
-	}
-
-	private void addUnits(Matcher matcher) {
-		String unit = matcher.group(7);
-		addUnits0(unit);
-	}
-
-	private void addUnits0(String unit) {
-		regexField.setUnit(unit);
-		units += " "+unit;
+	private void addUnits(String unitsS) {
+		regexField.setUnit(unitsS);
+		units += " "+unitsS;
 	}
 
 	public static String createAnyField(Integer width) {
@@ -345,24 +347,25 @@ public class RegexProcessor {
 			boolean matches = matcher.matches();
 			LOG.trace("<match?>"+pattern+">>["+line+"]"+matches+" "+matcher.groupCount());
 			if (matches) {
-				for (int i = 1; i <= matcher.groupCount(); i++) {
+				int groupCount = matcher.groupCount();
+				for (int i = 1; i <= groupCount; i++) {
 					String matcherGroup = matcher.group(i);
 					LOG.trace("matcher "+matcherGroup);
 					if (matcherGroup != null) {
 						RegexField field = (fieldList.size() >= i) ? fieldList.get(fieldCounter) : null;
 //						field.debug();
-						CMLScalar scalar = null;
+						HasDataType hasDataType = null;
 						if (field != null) {
 							try {
-								scalar = field.createNamedTypedScalar(matcher, i, matcherGroup);
+								hasDataType = field.createNamedTypedScalar(matcher, i, matcherGroup);
 							} catch (Exception e){
 								LOG.error("Field "+field+"; matcher|"+matcherGroup+"|"+line+"|");
-								throw new RuntimeException("cannot create scalar", e);
+								throw new RuntimeException("cannot create scalar/array", e);
 							}
 						} else {
-							scalar = new CMLScalar(matcherGroup);
+							hasDataType = new CMLScalar(matcherGroup);
 						}
-						list.add(scalar);
+						list.add(hasDataType);
 					}
 					fieldCounter++;
 				}

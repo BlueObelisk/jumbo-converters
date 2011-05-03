@@ -1,0 +1,13 @@
+<template id="l716.thermochemistry.rotsymnum" repeat="*" pattern="\s*Rotational symmetry number.*"
+  endPattern=".*">
+  <comment class="example.input" id="l716.thermochemistry.rotsymnum">
+ Rotational symmetry number 12.
+  </comment>
+  <record id="number" >\s*Rotational symmetry number\s*{I,cc:symmnumber}\.\s*</record>
+  <transform process="pullup" xpath=".//cml:scalar"/>
+  <comment class="example.output" id="l716.thermochemistry.rotsymnum">
+    <module cmlx:templateRef="l716.thermochemistry.rotsymnum" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:integer" dictRef="cc:symmnumber">12</scalar>
+    </module>
+  </comment>
+</template>

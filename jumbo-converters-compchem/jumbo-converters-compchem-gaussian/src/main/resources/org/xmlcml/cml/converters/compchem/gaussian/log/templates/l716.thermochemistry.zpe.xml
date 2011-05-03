@@ -1,0 +1,18 @@
+<template id="l716.thermochemistry.zpe" repeat="*" pattern="\s*Zero\-point vibrational energy.*$.*"
+  endPattern="\s[A-Z].*">
+  <comment class="example.input" id="l716.thermochemistry.zpe">
+ Zero-point vibrational energy     118752.0 (Joules/Mol)
+                                 28.38241 (Kcal/Mol)
+  </comment>
+  <record id="zpejmol" >\s*Zero\-point vibrational energy\s*{F,cc:zpe,u:jmol-1}\s*\(Joules/Mol\)\s*</record>
+  <record id="zpekcal" >\s*.*\(Kcal/Mol\)\s*</record>
+  <transform process="pullup" xpath=".//cml:scalar"/>
+  <transform process="addUnits" xpath=".//cml:scalar" value="u:jmol-1"/>
+  
+  <comment class="example.output" id="l716.thermochemistry.zpe">
+    <module cmlx:templateRef="l716.thermochemistry.zpe" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:double" dictRef="cc:zpe" units="u:jmol-1">118752.0</scalar>
+    </module>
+  </comment>
+  
+</template>

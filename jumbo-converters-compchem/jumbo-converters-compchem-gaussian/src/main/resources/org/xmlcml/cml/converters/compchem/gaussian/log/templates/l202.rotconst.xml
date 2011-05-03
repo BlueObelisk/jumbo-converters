@@ -1,0 +1,18 @@
+<template id="l202.rotconst" name="Rotational constants" repeat="*"
+    pattern="\s*Rotational constants.*\s*" 
+    endPattern=".*">
+    
+  <comment class="example.input" id="l202.rotconst">
+ Rotational constants (GHZ):    151.8004222    151.8004222    151.8004222
+  </comment>
+ 
+  <record id="rotconst">\s*Rotational constants \(GHZ\):{3F,cc:rotconst}</record>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="l202.rotconst">
+    <module cmlx:templateRef="l202.rotconst" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:double" size="3" dictRef="cc:rotconst" cmlx:templateRef="rotconst">151.8004222 151.8004222 151.8004222</array>
+    </module>
+  </comment>
+</template>
+ 

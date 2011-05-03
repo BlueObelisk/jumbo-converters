@@ -1,0 +1,57 @@
+<template id="l103.localmin" repeat="*" name="Predicted change in Energy"
+    pattern="\s*Search for a local minimum\..*" 
+    endPattern="\sIteration.*$\s[^I].*" endOffset="1"
+    >
+  <comment class="example.input" id="l103.localmin">
+ Search for a local minimum.
+ Step number   1 out of a maximum of   2
+ All quantities printed in internal units (Hartrees-Bohrs-Radians)
+ Second derivative matrix not updated -- analytic derivatives used.
+     Eigenvalues ---    0.00306   0.00490   0.00781   0.01202   0.01359
+     Eigenvalues ---    0.01462   0.01717   0.01847   0.02014   0.02079
+     Eigenvalues --- 1000.000001000.000001000.000001000.000001000.00000
+     Eigenvalues --- 1000.000001000.00000
+ Angle between quadratic step and forces=  73.42 degrees.
+ Linear search not attempted -- first point.
+ Iteration  1 RMS(Cart)=  0.00231359 RMS(Int)=  0.00000714
+ Iteration  2 RMS(Cart)=  0.00000484 RMS(Int)=  0.00000202
+ Iteration  3 RMS(Cart)=  0.00000000 RMS(Int)=  0.00000202
+  </comment>
+  <templateList>
+    <template id="iterationList" repeat="*" pattern="\s*Iteration.*" 
+      endPattern="\sIteration.*$\s*[^I].*" endOffset="1">
+      <record makeArray="true" repeat="*" id="iteration" 
+      >\s*Iteration{I,cc:serial}RMS\(Cart\)={F,g:rmscart}RMS\(Int\)={F,g:rmsint}</record>
+    </template>
+    <template id="eigenvaluelist" repeat="*" pattern="\s*Eigenvalues\s*\-\-\-\s.*" 
+      endPattern="\s*E.*$\s\S.*" endOffset="1">
+      <record repeat="*" id="eigenvalue">\s*Eigenvalues\s*\-\-\-\s{1_5F10.5}</record>
+    </template>
+    <template pattern="\s*((Angle between)|(Linear search)|(Search for)|(Step number)|(All quant)|(Second deriv)).*" endPattern=".*" repeat="*">
+      <record id="foo">{X,x:junk}</record>
+    </template>
+  </templateList>
+  
+  <transform process="joinArrays"
+     xpath=".//cml:list[@cmlx:templateRef='eigenvalue']/cml:list/cml:array"/>
+  <transform process="addDictRef" xpath=".//cml:array[not(@dictRef)]" value="cc:eigenvalues"/>
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='cc:serial']"/>
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='g:rmscart']"/>
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='g:rmsint']"/>
+  <transform process="delete" xpath=".//cml:module[not(cml:list)]"/>
+  <transform process="delete" xpath=".//cml:scalar[@dictRef='x:junk']"/>
+  <transform process="pullupSingleton" xpath=".//cml:module[cml:list]"/>
+  <transform process="pullupSingleton" xpath=".//cml:list"/>
+  <transform process="pullup" xpath=".//cml:list[@cmlx:templateRef='eigenvaluelist']/cml:array"/>
+  
+  <comment class="example.output" id="l103.localmin">
+<module cmlx:templateRef="l103.localmin" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <array dataType="xsd:double" size="17" dictRef="cc:eigenvalues">0.00306 0.0049 0.00781 0.01202 0.01359 0.01462 0.01717 0.01847 0.02014 0.02079 1000.0 1000.0 1000.0 1000.0 1000.0 1000.0 1000.0</array>
+  <list cmlx:lineCount="2" cmlx:templateRef="iterationList">
+    <array dataType="xsd:integer" size="3" dictRef="cc:serial">1 2 3</array>
+    <array dataType="xsd:double" size="3" dictRef="g:rmscart">0.00231359 4.84E-6 0.0</array>
+    <array dataType="xsd:double" size="3" dictRef="g:rmsint">7.14E-6 2.02E-6 2.02E-6</array>
+  </list>
+</module>
+  </comment>
+</template>

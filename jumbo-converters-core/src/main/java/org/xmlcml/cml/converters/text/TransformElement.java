@@ -1,11 +1,16 @@
 package org.xmlcml.cml.converters.text;
 
+import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import nu.xom.Attribute;
+import nu.xom.Builder;
 import nu.xom.Element;
 import nu.xom.Elements;
 import nu.xom.Node;
@@ -15,6 +20,7 @@ import nu.xom.Text;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
@@ -27,116 +33,212 @@ import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.element.CMLEntry;
 import org.xmlcml.cml.element.CMLFormula;
 import org.xmlcml.cml.element.CMLLabel;
+import org.xmlcml.cml.element.CMLLink;
 import org.xmlcml.cml.element.CMLList;
+import org.xmlcml.cml.element.CMLMap;
 import org.xmlcml.cml.element.CMLMatrix;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLParameter;
-import org.xmlcml.cml.element.CMLParameterList;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLPropertyList;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.element.CMLVector3;
+import org.xmlcml.cml.element.CMLMolecule.HydrogenControl;
 import org.xmlcml.cml.interfacex.HasDictRef;
+import org.xmlcml.cml.interfacex.HasUnits;
 import org.xmlcml.cml.tools.MoleculeTool;
 import org.xmlcml.euclid.IntArray;
 import org.xmlcml.euclid.JodaDate;
 import org.xmlcml.euclid.Real;
 import org.xmlcml.euclid.RealArray;
+import org.xmlcml.euclid.Util;
 import org.xmlcml.molutil.ChemicalElement;
 
 public class TransformElement implements MarkupApplier {
+
 	private final static Logger LOG = Logger.getLogger(TransformElement.class);
 	
 	public static final String TAG = "transform";
 
-	private static final String DICT_REF = "dictRef";
-	private static final String ROLE = "role";
-	private static final String LAST = "LAST";
-	private static final String ATOMIC_NUMBER = "atomicNumber";
+	// processList
+	private static final String ARG                 = "arg";
+	private static final String DESC                = "desc";
+	private static final String MANDATORY           = "mandatory";
+	private static final String NODE                = "node";
 
-	private static final String ARRAY = "array";
-	private static final String CONVERT = "convert";
-	private static final String DATE = "date";
-	private static final String DOUBLE = "double";
-	private static final String FORMAT = "format";
-	private static final String FROM = "from";
-	private static final String INTEGER = "integer";
-	private static final String MOLECULE = "molecule";
-	private static final String MOVE = "move";
-	private static final String OUTPUT = "output";
-	private static final String PROCESS = "process";
-	private static final String TO_XPATH = "toXpath";
-	private static final String VALUE = "value";
-	private static final String XPATH = "xpath";
+	// attributes
+	private static final String DATA_TYPE           = "dataType";
+	private static final String DELIMITER           = "delimiter";
+	private static final String DICT_REF            = "dictRef";
+	private static final String ELEMENT_NAME        = "elementName";
+	private static final String FOLLOW_BEFORE       = "followingSiblingsBefore";
+	private static final String FORMAT              = "format";
+	private static final String FROM                = "from";
+	private static final String FROM_POSITION       = "fromPosition";
+	private static final String MAP                 = "map";
+	private static final String NAME                = "name";
+	private static final String OUTPUT              = "output";
+	private static final String POSITION            = "position";
+	private static final String PROCESS             = "process";
+	private static final String PREVIOUS_AFTER      = "previousSiblingsAfter";
+	private static final String REGEX              = "regex";
+	private static final String REPEAT              = "repeat";
+	private static final String TO_XPATH            = "toXpath";
+	private static final String VALUE               = "value";
+	private static final String XPATH               = "xpath";
+
+	public static String[] OPTIONS = 
+		new String[]{
+		DATA_TYPE, 
+		DELIMITER, 
+		DICT_REF, 
+		ELEMENT_NAME, 
+		FOLLOW_BEFORE,
+		FORMAT, 
+		FROM, 
+		FROM_POSITION, 
+		ID, 
+		MAP,
+		NAME,
+		OUTPUT,
+		POSITION,
+		PREVIOUS_AFTER,
+		REGEX,
+		REPEAT,
+		TO_XPATH,
+		VALUE,
+		XPATH,
+// because it is always required		
+		PROCESS,
+	};
+	
+	// attribute values
+	private static final String ATOMIC_NUMBER = "atomicNumber";
+	private static final String LAST = "LAST";
 
 	// process values
-	private static final String ADD_DICTREF = "addDictRef";
-	private static final String ADDPARAMETERLIST = "addParameterList";
-	private static final String ADDPROPERTYLIST = "addPropertyList";
-	private static final String ADDROLE = "addRole";
-	private static final String CHECK_DICTIONARY = "checkDictionary";
-	private static final String CREATE_CHILD = "createChild";
-	private static final String CREATE_WRAPPER = "createWrapper";
-	private static final String DATATYPE = "dataType";
-	private static final String DEBUG = "debug";
-	private static final String DELETE = "delete";
-	private static final String LABEL = "label";
-	private static final String GROUP = "group";
-	private static final String MATRIX33 = "matrix33";
-	private static final String NAMEVALUE = "nameValue";
-	private static final String PULLUP_SINGLETON = "pullupSingleton";
-	private static final String RENAME = "rename";
-	private static final String SPLIT = "split";
-	private static final String VECTOR3 = "vector3";
-	private static final String WRAP = "wrap";
+	private static final String ADD_ATTRIBUTE          = "addAttribute";
+	private static final String ADD_CHILD              = "addChild";
+	private static final String ADD_DICTREF            = "addDictRef";
+	private static final String ADD_LABEL              = "addLabel";
+	private static final String ADD_LINK               = "addLink";
+	private static final String ADD_MAP                = "addMap";
+	private static final String CHECK_DICTIONARY       = "checkDictionary";
+	private static final String CREATE_ARRAY           = "createArray";
+	private static final String CREATE_DATE            = "createDate";
+	private static final String CREATE_DOUBLE          = "createDouble";
+	private static final String CREATE_FORMULA         = "createFormula";
+	private static final String CREATE_GROUP           = "group";
+	private static final String CREATE_INTEGER         = "createInteger";
+	private static final String CREATE_MATRIX33        = "createMatrix33";
+	private static final String CREATE_MOLECULE        = "createMolecule";
+	private static final String CREATE_NAMEVALUE       = "createNameValue";
+	private static final String CREATE_STRING          = "createString";
+	private static final String CREATE_VECTOR3         = "createVector3";
+	private static final String CREATE_WRAPPER         = "createWrapper";
+	private static final String CREATE_ZMATRIX         = "createZMatrix";
+	private static final String DEBUG_NODES            = "debugNodes";
+	private static final String DELETE                 = "delete";
+	private static final String JOIN_ARRAYS            = "joinArrays";
+	private static final String MOVE                   = "move";
+	private static final String PULLUP                 = "pullup";
+	private static final String PULLUP_SINGLETON       = "pullupSingleton";
+	private static final String RENAME                 = "rename";
+	private static final String SET_VALUE              = "setValue";
+	private static final String SPLIT                  = "split";
+	private static final String WRAP                   = "wrap";
+	private static final String HELP                   = "help";
 	
 	private static final String UNIT_SI_URI = "http://www.xml-cml.org/unit/si/";
 	private static final String COMPCHEM_URI = "http://www.xml-cml.org/unit/dictionary/compchem";
 	private static final String COMPCHEM = "compchem";
 
-	private static final String POSITION = "position";
-	private static final String DICTREF = DICT_REF;
-	private static final String NAME = "name";
-	private static final String ELEMENT_NAME = "elementName";
-	private static final String FOLLOW_BEFORE = "followingSiblingsBefore";
-	private static final String PREVIOUS_AFTER = "previousSiblingsAfter";
+	private static final String PROCESS_LIST_URI = 
+		"org/xmlcml/cml/converters/text/processList.xml";
 
+	private static final String DEFAULT_DELIMITER = CMLConstants.S_PIPE;
 
-	private Element element;
+	private static final String STRING = "string(";
+	private static final String NUMBER = "number(";
+
+	private static final String UNITS = "units";
+
+	private static final String DHMS = "DHMS";
+
+	private static String[] PROCESS_NAMES = new String[] {
+		ADD_ATTRIBUTE,
+		ADD_CHILD,
+		ADD_DICTREF,
+		ADD_LABEL,
+		ADD_LINK,
+		ADD_MAP,
+		CHECK_DICTIONARY,
+		CREATE_ARRAY,
+		CREATE_DATE,
+		CREATE_DOUBLE,
+		CREATE_GROUP,
+		CREATE_INTEGER,
+		CREATE_MOLECULE,
+		CREATE_MATRIX33,
+		CREATE_NAMEVALUE,
+		CREATE_STRING,
+		CREATE_VECTOR3,
+		CREATE_WRAPPER,
+		CREATE_ZMATRIX,
+		DEBUG_NODES,
+		DELETE,
+		HELP,
+		JOIN_ARRAYS,
+		MOVE,
+		PULLUP_SINGLETON,
+		RENAME,
+		SET_VALUE,
+		SPLIT,
+		WRAP,
+	};
+	
+	
+	private Template template;
+	private Element processListElement;
+	private Element transformElement;
 	private OutputLevel outputLevel;
-	private String from;
-	private String id;
-	private String name;
-	private String position;
-	private String process;
-	private String to;
-	private String value;
 	private Element parsedElement;
+
+	private CMLMolecule molecule;
+	private List<CMLAtom> atoms;
 
 	private String idMethod;
 	private String elementMethod;
-	private CMLMolecule molecule;
-
-	private List<CMLAtom> atoms;
-	private String format;
-
+	
+	private String delimiter;
 	private String dataType;
 	private String dictRef;
-	private String xpath;
-	private String followingSiblingsBefore;
-	private String previousSiblingsAfter;
 	private String elementName;
-	private Template template;
-
+	private String followingSiblingsBefore;
+	private String format;
+	private String from;
+	private String fromPosition;
+	private String id;
+	private String map;
+	private String name;
+	private String position;
+	private String previousSiblingsAfter;
+	private String process;
+	private String regex;
+	private String repeat;
+	private String to;
+	private String value;
+	private String xpath;
+	
 
 	public TransformElement(Element element, Template template) {
-		this.element = element;
+		this.transformElement = element;
 		this.template = template;
 		processChildElementsAndAttributes();
 	}
 
 	public String getId() {
-		return element.getAttributeValue(ID);
+		return transformElement.getAttributeValue(ID);
 	}
 	
 	private void processChildElementsAndAttributes() {
@@ -144,139 +246,208 @@ public class TransformElement implements MarkupApplier {
 	}
 
 	private void processAttributes() {
-		Template.checkIfAttributeNamesAreAllowed(element, new String[]{
-			DATATYPE, 
-			DICTREF, 
-			ELEMENT_NAME, 
-			FORMAT, 
-			FROM, 
-			ID, 
-			NAME,
-			OUTPUT,
-			POSITION,
-			PROCESS,
-			FOLLOW_BEFORE,
-			PREVIOUS_AFTER,
-			TO_XPATH,
-			VALUE,
-			XPATH,
-		});
+		Template.checkIfAttributeNamesAreAllowed(transformElement, OPTIONS);
 				
-		dataType = element.getAttributeValue(DATATYPE);
-		dictRef = element.getAttributeValue(DICTREF);
-		elementName = element.getAttributeValue(ELEMENT_NAME);
-		format = element.getAttributeValue(FORMAT);
-		from = element.getAttributeValue(FROM);
-		id = element.getAttributeValue(ID);
-		name = element.getAttributeValue(NAME);
-		position = element.getAttributeValue(POSITION);
-		process = element.getAttributeValue(PROCESS);
+		process = transformElement.getAttributeValue(PROCESS);
 		if (process == null) {
 			throw new RuntimeException("Must give process attribute");
 		}
-		followingSiblingsBefore = element.getAttributeValue(FOLLOW_BEFORE);
-		previousSiblingsAfter = element.getAttributeValue(PREVIOUS_AFTER);
-		to = element.getAttributeValue(TO_XPATH);
-		value = element.getAttributeValue(VALUE);
-		xpath = element.getAttributeValue(XPATH);
 		
-		outputLevel = Outputter.extractOutputLevel(this.element);
-		LOG.trace(outputLevel+"/"+this.element.getAttributeValue(Outputter.OUTPUT));
+		dataType               = addAndIndexAttribute(DATA_TYPE);
+		delimiter              = addAndIndexAttribute(DELIMITER);
+		dictRef                = addAndIndexAttribute(DICT_REF);
+		elementName            = addAndIndexAttribute(ELEMENT_NAME);
+		followingSiblingsBefore= addAndIndexAttribute(FOLLOW_BEFORE);
+		format                 = addAndIndexAttribute(FORMAT);
+		from                   = addAndIndexAttribute(FROM);
+		fromPosition           = addAndIndexAttribute(FROM_POSITION);
+		id                     = addAndIndexAttribute(ID);
+		map                    = addAndIndexAttribute(MAP);
+		name                   = addAndIndexAttribute(NAME);
+		position               = addAndIndexAttribute(POSITION);
+		previousSiblingsAfter  = addAndIndexAttribute(PREVIOUS_AFTER);
+		regex                  = addAndIndexAttribute(REGEX);
+		repeat                 = addAndIndexAttribute(REPEAT);
+		to                     = addAndIndexAttribute(TO_XPATH);
+		value                  = addAndIndexAttribute(VALUE);
+		xpath                  = addAndIndexAttribute(XPATH);
+		
+		outputLevel = Outputter.extractOutputLevel(this.transformElement);
+		LOG.trace(outputLevel+"/"+transformElement.getAttributeValue(Outputter.OUTPUT));
 		if (!OutputLevel.NONE.equals(outputLevel)) {
 			LOG.debug("OUTPUT "+outputLevel);
 		}
 	}
 
+	private String addAndIndexAttribute(String attName) {
+		String attVal = transformElement.getAttributeValue(attName);
+//		if (attVal != null) {
+//			attValMap.add(attName, attVal);
+//		}
+		return attVal;
+	}
+
+// ================ markup ================
+	
 	public void applyMarkup(Element element) {
 		this.parsedElement = element;
 		applyMarkup();
 	}
 
 	public void applyMarkup(LineContainer lineContainer) {
-		
 		parsedElement = lineContainer.getLinesElement();
 		applyMarkup();
 	}
 
 	private void applyMarkup() {
-		if (ADD_DICTREF.equals(process)) {
+		checkProcessExists(process);
+		if (process == null) {
+			// never reach here
+		} else if (ADD_ATTRIBUTE.equals(process)) {
+			addAttribute();
+		} else if (ADD_CHILD.equals(process)) {
+			addChild();
+		} else if (ADD_DICTREF.equals(process)) {
 			addDictRef();
-		} else if (ADDROLE.equals(process)) {
-			addRole();
-		} else if (ADDPARAMETERLIST.equals(process)) {
-			addParameterList();
-		} else if (ADDPROPERTYLIST.equals(process)) {
-			addPropertyList();
-		} else if (ARRAY.equals(process)) {
-			addArray();
+		} else if (ADD_LABEL.equals(process)) {
+			addLabel();
+		} else if (ADD_LINK.equals(process)) {
+			addLink();
+		} else if (ADD_MAP.equals(process)) {
+			addMap();
 		} else if (CHECK_DICTIONARY.equals(process)) {
 			checkDictionary();
-		} else if (CONVERT.equals(process)) {
-			convert();
-		} else if (CREATE_CHILD.equals(process)) {
-			createChild();
+		} else if (CREATE_ARRAY.equals(process)) {
+			createArray();
+		} else if (CREATE_DATE.equals(process)) {
+			createDate();
+		} else if (CREATE_DOUBLE.equals(process)) {
+			createDouble();
+		} else if (CREATE_FORMULA.equals(process)) {
+			createFormula();
+		} else if (CREATE_GROUP.equals(process)) {
+			createGroup();
+		} else if (CREATE_INTEGER.equals(process)) {
+			createInteger();
+		} else if (CREATE_MOLECULE.equals(process)) {
+			try {
+				createMolecule();
+			} catch (Exception e) {
+				LOG.error("CANNOT CREATE MOLECULE - CONTINUING");
+			}
+		} else if (CREATE_MATRIX33.equals(process)) {
+			createMatrix33();
+		} else if (CREATE_NAMEVALUE.equals(process)) {
+			createNameValue();
+		} else if (CREATE_STRING.equals(process)) {
+			createString();
+		} else if (CREATE_VECTOR3.equals(process)) {
+			createVector3();
 		} else if (CREATE_WRAPPER.equals(process)) {
 			createWrapper();
-		} else if (DATE.equals(process)) {
-			addDate();
-		} else if (DEBUG.equals(process)) {
+		} else if (CREATE_ZMATRIX.equals(process)) {
+			createZMatrix();
+		} else if (DEBUG_NODES.equals(process)) {
 			debugNodes();
 		} else if (DELETE.equals(process)) {
-			deleteNodes();
-		} else if (DOUBLE.equals(process)) {
-			addDouble();
-		} else if (LABEL.equals(process)) {
-			generateLabel();
-		} else if (GROUP.equals(process)) {
-			makeGroup();
-		} else if (INTEGER.equals(process)) {
-			addInteger();
-		} else if (process.startsWith(MOLECULE)) {
-			createMolecule();
-		} else if (MATRIX33.equals(process)) {
-			createMatrix33();
+			delete();
+		} else if (HELP.equals(process)) {
+			help();
+		} else if (JOIN_ARRAYS.equals(process)) {
+			joinArrays();
 		} else if (MOVE.equals(process)) {
 			move();
-		} else if (NAMEVALUE.equals(process)) {
-			createNameValue();
+		} else if (PULLUP.equals(process)) {
+			pullup();
 		} else if (PULLUP_SINGLETON.equals(process)) {
 			pullupSingleton();
 		} else if (RENAME.equals(process)) {
 			rename();
+		} else if (SET_VALUE.equals(process)) {
+			setValue();
 		} else if (SPLIT.equals(process)) {
 			split();
-		} else if (VECTOR3.equals(process)) {
-			createVector3();
 		} else if (WRAP.equals(process)) {
 			wrapPropertiesAndParameters();
 		} else {
-			throw new RuntimeException("Unknown process: "+process);
+			if (processExists(process)) {
+				invokeProcess(process);
+			} else {
+				help();
+				throw new RuntimeException("Unknown process: "+process);
+			}
 		}
 	}
 	
-	private void split() {
+// ========================== methods ===============================
+	
+	
+	private void addAttribute() {
 		assertRequired(XPATH, xpath);
-		Nodes nodes = getXpathQueryResults();
-		for (int i = 0; i < nodes.size(); i++) {
-			Node node = nodes.get(i);
-			if (node instanceof CMLArray) {
-				CMLList list = new CMLList();
-				CMLArray array = (CMLArray) node;
-				int size = array.getSize();
-				for (int j = 0; j < array.getSize(); j++) {
-					CMLScalar scalar = array.getElementAt(j);
-					list.appendChild(scalar);
+		assertRequired(NAME, name);
+		assertRequired(VALUE, value);
+		String[] attnames = name.split(CMLConstants.S_COLON);
+		String prefix = null;
+//		String localname = null;
+		String uri = null;
+		Integer fromPos = (fromPosition == null) ? null : new Integer(fromPosition);
+		if (attnames.length == 2) {
+			prefix = attnames[0];
+//			localname = attnames[1];
+			if (prefix.equals(CMLConstants.CMLX_PREFIX)) {
+				uri = CMLConstants.CMLX_NS;
+			}
+		}
+		String valuex = evaluateValue(value);
+		if (valuex != null) {
+			List<Node> nodeList = getXpathQueryResults();
+			for (Node node : nodeList) {
+				Element element = (Element) node;
+				List<Node> fromNodeList = TransformElement.queryUsingNamespaces(element, from, fromPos);
+				for (Node fromNode : fromNodeList) {
+					Element fromElement = (Element) fromNode;
+					if (uri != null) {
+						fromElement.addAttribute(new Attribute(name, uri, valuex));
+					} else {
+						fromElement.addAttribute(new Attribute(name, valuex));
+					}
 				}
-				array.getParent().replaceChild(array, list);
 			}
 		}
 	}
 
-	private void generateLabel() {
+	private void addChild() {
+		assertRequired(POSITION, position);
 		assertRequired(XPATH, xpath);
-		Nodes nodes = getXpathQueryResults();
-		for (int i = 0; i < nodes.size(); i++) {
-			Node node = nodes.get(i);
+		assertRequired(ELEMENT_NAME, elementName);
+		List<Node> nodeList = getXpathQueryResults();
+		Object pos = (position == null) ? LAST : getPosition(position);
+		Element templateElement = createNewElement(elementName, id, dictRef);
+		for (Node node : nodeList) {
+			Element parent = (Element) node;
+			transformElement = (Element) templateElement.copy();
+			if (LAST.equals(pos)) {
+				parent.appendChild(transformElement);
+			} else if (pos instanceof Integer){
+				parent.insertChild(transformElement, (Integer)pos);
+			}
+		}
+	}
+
+	private void addDictRef() {
+		assertRequired(XPATH, xpath);
+		assertRequired(VALUE, value);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			Element element = (Element) node;
+			element.addAttribute(new Attribute(DICT_REF, value));
+		}
+	}
+
+	private void addLabel() {
+		assertRequired(XPATH, xpath);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
 			if (node instanceof CMLAtom) {
 				CMLAtom atom = (CMLAtom) node;
 				String id = atom.getId();
@@ -292,12 +463,821 @@ public class TransformElement implements MarkupApplier {
 		}
 	}
 
-	private /*List<Element>*/ void checkDictionary() {
-		xpath = "//*[@dictRef]";
-		Nodes nodes = getXpathQueryResults();
-		Map<String, List<Element>> dictRefNodes = new HashMap<String, List<Element>>();
+	private void addLink() {
+		assertRequired(XPATH, xpath);
+		assertRequired(XPATH, from);
+		assertRequired(XPATH, to);
+		assertRequired(XPATH, map);
+		assertRequired(XPATH, value);
+		List<Node> nodeList = getXpathQueryResults();
+		Nodes mapNodes = TransformElement.queryUsingNamespaces(parsedElement, map);
+		CMLMap map = (mapNodes.size() != 1) ? null : (CMLMap) mapNodes.get(0);
+		if (map == null) {
+			throw new RuntimeException("Cannot create map for link");
+		}
+		for (Node node : nodeList) {
+			Element element = (Element)node;
+			Nodes toNodes = TransformElement.queryUsingNamespaces(element, to);
+			Nodes fromNodes = TransformElement.queryUsingNamespaces(element, from);
+			String toRef = null;
+			String[] toRefs = null;
+			String fromRef = null;
+			String[] fromRefs = null;
+			if (toNodes.size() == 1) {
+				toRef = makeToFromAttribute(toNodes.get(0));
+			} else if (toNodes.size() > 0) {
+				toRefs = makeToFromAttribute(toNodes);
+			}
+			if (fromNodes.size() == 1) {
+				fromRef = makeToFromAttribute(fromNodes.get(0));
+			} else if (fromNodes.size() > 0) {
+				fromRefs = makeToFromAttribute(fromNodes);
+			}
+			if ((toRef == null && toRefs == null) ||
+				(fromRef == null && fromRefs == null)) {
+				throw new RuntimeException("link requires toRef(s) and fromRef(s)");
+			}
+			CMLLink link = new CMLLink();
+			setToRefRefs(toRef, toRefs, link);
+			setFromRefRefs(fromRef, fromRefs, link);
+			map.addLink(link);
+		}
+	}
+
+	private void setFromRefRefs(String fromRef, String[] fromRefs, CMLLink link) {
+		if (fromRefs != null) {
+			link.setFromSet(fromRefs);
+		} else if (fromRef != null) {
+			link.setFrom(fromRef);
+		} else {
+			throw new RuntimeException("link requires fromRef(s)");
+		}
+	}
+
+	private void setToRefRefs(String toRef, String[] toRefs, CMLLink link) {
+		if (toRefs != null) {
+			link.setToSet(toRefs);
+		} else if (toRef != null) {
+			link.setTo(toRef);
+		} else {
+			throw new RuntimeException("link requires toRef(s)");
+		}
+	}
+
+	private String makeToFromAttribute(Node node) {
+		String toFrom = null;
+		if (value.equals(VALUE)) {
+			toFrom = node.getValue();
+		} else if (value.equals(ID)) {
+			toFrom = ((Element)node).getAttributeValue(ID);
+		}
+		return toFrom;
+	}
+
+	private String[] makeToFromAttribute(Nodes nodes) {
+		String[] refs = (nodes.size() == 0) ? null : new String[nodes.size()];
 		for (int i = 0; i < nodes.size(); i++) {
-			Node node = nodes.get(i);
+			refs[i] = makeToFromAttribute(nodes.get(i));
+		}
+		return refs;
+	}
+
+	private void addUnits() {
+		assertRequired(XPATH, xpath);
+		assertRequired(VALUE, value);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			if (node instanceof HasUnits) {
+				Element element = (Element) node;
+//				((HasUnits)element).setUnits("units", value, );
+				element.addAttribute(new Attribute(UNITS, value));
+			}
+		}
+	}
+
+	private void createArray() {
+		assertRequired(XPATH, xpath);
+		assertRequired(FROM, from);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			Element element = (Element)node;
+			Nodes scalarNodes = TransformElement.queryUsingNamespaces(element, from);
+			if (scalarNodes.size() > 0) {
+				CMLArray array = null;
+				CMLScalar scalar0 = (CMLScalar) scalarNodes.get(0);
+				String dataTypex = (dataType !=  null) ? dataType : scalar0.getDataType();
+				String dictRefx = (dictRef != null) ? dictRef : scalar0.getDictRef();
+				String[] values = null;
+				if (scalarNodes.size() == 1) {
+					// splits scalar 
+					String value = scalarNodes.get(0).getValue();
+					String delimiterx = (delimiter == null) ? CMLConstants.S_WHITEREGEX : delimiter;
+					values = value.split(delimiterx);
+				} else if (scalarNodes.size() > 0) {
+					// collects all values into scalars
+					values = new String[scalarNodes.size()];
+					for (int j = 0; j < scalarNodes.size(); j++) {
+						values[j] = scalarNodes.get(j).getValue();
+					}
+				}
+				if (values.length > 1) {
+					delimiter = (delimiter == null) ? DEFAULT_DELIMITER : delimiter;
+					if (CMLConstants.XSD_INTEGER.equals(dataTypex)) {
+						array = new CMLArray(new IntArray(values).getArray());
+					} else if (CMLConstants.XSD_DOUBLE.equals(dataTypex)) {
+						array = new CMLArray(new RealArray(values).getArray());
+					} else { 
+						array = new CMLArray(values, delimiter);
+					}
+					array.setDictRef(dictRefx);
+					scalar0.getParent().replaceChild(scalar0, array);
+					for (int j = 1; j < scalarNodes.size(); j++) {
+						values[j] = scalarNodes.get(j).getValue();
+						scalarNodes.get(j).detach();
+					}
+				}
+			}
+		}
+	}
+
+	private void createDate() {
+		assertRequired(XPATH, xpath);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			if (node instanceof CMLScalar) {
+				CMLScalar scalar = (CMLScalar) node;
+				String val = scalar.getValue();
+				try {
+					Object dateTimeDuration = null;
+					if (DHMS.equals(format)) {
+						dateTimeDuration = createDMHS(val);
+//						System.out.println(dateTimeDuration);
+					} else if (format != null) {
+						dateTimeDuration = JodaDate.parseDate(val, format);
+					} else {
+						dateTimeDuration = JodaDate.parseDate(val);
+					}
+					scalar.setValue(dateTimeDuration.toString());
+					if (dictRef != null) {
+						scalar.setDictRef(dictRef);
+					}
+				} catch (Exception e) {
+					LOG.error("Cannot parse/set date/duration: "+val+ " (format='"+format+"'); "+e);
+				}
+			}
+		}
+	}
+
+	private Duration createDMHS(String val) {
+		Pattern ELAPSED = Pattern.compile(
+				"\\s*(\\d+)\\s*days\\s*(\\d+)\\s*hours\\s*(\\d+)\\s*minutes\\s*([\\d\\.]+)\\s*seconds\\.?\\s*");
+		Matcher matcher = ELAPSED.matcher(val);
+		Duration duration = null;
+		if (matcher.matches()) {
+			double secs = new Integer(matcher.group(1))*86400 +
+			    new Integer(matcher.group(2))*3600 +
+			    new Integer(matcher.group(3))*60 +
+			    new Double(matcher.group(4));
+			long millis = (long)(1000*secs);
+			duration = new Duration(millis);
+		}
+		return duration;
+	}
+
+	private void createDouble() {
+		assertRequired(XPATH, xpath);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			if (node instanceof CMLScalar) {
+				CMLScalar scalar = (CMLScalar) node;
+				String val = scalar.getValue();
+				String dictRefx = (dictRef != null) ? dictRef : scalar.getDictRef();
+				try {
+					Double d = Real.parseDouble(val);
+					scalar.setValue(d);
+					scalar.setDictRef(dictRefx);
+				} catch (Exception e) {
+					LOG.error("bad double: "+e);
+				}
+			}
+		}
+	}
+
+	private void createFormula() {
+		assertRequired(XPATH, xpath);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			if (node instanceof CMLScalar) {
+				CMLScalar scalar = (CMLScalar) node;
+				String val = scalar.getValue();
+				try {
+					CMLFormula formula = CMLFormula.createFormula(val);
+					scalar.getParent().replaceChild(scalar, formula);
+				} catch (Exception e) {
+					LOG.error("bad formula: "+e);
+				}
+			}
+		}
+	}
+
+	private void createGroup() {
+		assertRequired(XPATH, xpath);
+		if (previousSiblingsAfter == null && followingSiblingsBefore == null) {
+			CMLUtil.debug(this.transformElement, "Transform");
+			LOG.warn("should give previousSiblingsAfter or followingSiblingsBefore");
+		}
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			groupPreviousSiblings((Element)node);
+			groupFollowingSiblings((Element)node);
+		}
+	}
+
+	private void createInteger() {
+		assertRequired(XPATH, xpath);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			if (node instanceof CMLScalar) {
+				CMLScalar scalar = (CMLScalar) node;
+				String val = scalar.getValue();
+				try {
+					Integer ii = new Integer(val);
+					scalar.setValue(ii);
+				} catch (Exception e) {
+					LOG.error("bad integer: "+e);
+				}
+			}
+		}
+	}
+
+	private void createMatrix33() {
+		assertRequired(DICT_REF, dictRef);
+		assertRequired(FROM, from);
+		assertRequired(XPATH, xpath);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			Element element = (Element)node;
+			Nodes nodes = TransformElement.queryUsingNamespaces(element, from);
+			if (nodes.size() == 3*3 && (nodes.get(0) instanceof CMLScalar)) {
+				addScalarsToMatrix33(nodes);
+			} else if (nodes.size() == 3 && (nodes.get(0) instanceof CMLArray)) {
+				addArraysToMatrix33(nodes);
+			} else if (nodes.size() == 0) {
+			} else {
+				CMLUtil.debug(element, "PARENT");
+				throw new RuntimeException("Cannot create matrix33 found "+nodes.size()+" nodes of type: "+nodes.get(0).getClass());
+			}
+		}
+	}
+
+	private void addScalarsToMatrix33(Nodes nodes) {
+		double[] dd = new double[3*3];
+		Node node0 = null;
+		for (int i = 0; i < 3*3; i++) {
+			Node nodex = nodes.get(i);
+			if (!(nodex instanceof CMLScalar)) {
+				throw new RuntimeException("Expected scalar in 'from', found: "+nodex.getClass());
+			}
+			CMLScalar scalar = (CMLScalar) nodex;
+			dd[i] = scalar.getDouble();
+			if (i == 0) {
+				node0 = scalar;
+			} else {
+				scalar.detach();
+			}
+		}
+		CMLMatrix mat = new CMLMatrix(3, 3, dd);
+		mat.setDictRef(dictRef);
+		node0.getParent().replaceChild(node0, mat);
+	}
+
+	private void addArraysToMatrix33(Nodes nodes) {
+		CMLArray array0 = (CMLArray) nodes.get(0);
+		for (int i = 1; i < 3; i++) {
+			Node nodex = nodes.get(i);
+			if (!(nodex instanceof CMLArray)) {
+				throw new RuntimeException("Expected array in 'from', found: "+nodex.getClass());
+			}
+			CMLArray array = (CMLArray) nodex;
+			if (array.getSize() != 3 || !(CMLConstants.XSD_DOUBLE.equals(array.getDataType()))) {
+				throw new RuntimeException("createMatrix33 requires arrays of 3 doubles");
+			}
+			array0.append(array);
+			array.detach();
+		}
+		CMLMatrix mat = new CMLMatrix(3, 3, array0.getDoubles());
+		mat.setDictRef(dictRef);
+		ParentNode parent = array0.getParent();
+		parent.replaceChild(array0, mat);
+	}
+
+	private void addMap() {
+		assertRequired(XPATH, xpath);
+		assertRequired(ID, id);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			CMLMap map = new CMLMap();
+			map.setId(id);
+			((ParentNode)node).appendChild(map);
+		}
+	}
+
+	private void createMolecule() {
+		assertRequired(XPATH, xpath);
+		assertRequired(ID, id);
+		createMethodNames();
+		List<Node> nodeList = getXpathQueryResults();
+		if (nodeList.size() > 0) {
+			Element element = (Element) nodeList.get(0);
+			if (!(element instanceof CMLArray)) {
+				throw new RuntimeException(
+						"Molecule requires list of arrays, but found: "+element.getClass().getName());
+			}
+			CMLArray array0 = (CMLArray) element;
+			int natoms = array0.getSize();
+			molecule = new CMLMolecule();
+			molecule.setId(id);
+			ParentNode parent = array0.getParent();
+			parent.replaceChild(array0, molecule);
+			createAndAddAtoms(natoms);
+			atoms = molecule.getAtoms();
+			try {
+				addArrays(nodeList, natoms);
+			} catch (Exception e) {
+				CMLUtil.debug(parsedElement, "PARSED ELEMENT");
+				throw new RuntimeException(e);
+			}
+			addElementTypes();
+			addFormulaAndProperties();
+			removeExplicitHydrogenCounts(molecule);
+		}
+	}
+
+	private void createNameValue() {
+			/**
+	  <list templateRef="list1">
+	    <list>
+	      <scalar dataType="xsd:string" dictRef="n:name">hostname</scalar>
+	      <scalar dataType="xsd:string" dictRef="n:value">arcen</scalar>
+	    </list>
+	    ...
+	  </list>
+			 */
+			if (parsedElement == null) {
+				throw new RuntimeException("Null parsedElement");
+			}
+			assertRequired(XPATH, xpath);
+			Pattern pattern = null;
+			if (regex == null) {
+				assertRequired(NAME, name);
+				assertRequired(VALUE, value);
+			} else {
+				pattern = Pattern.compile(regex);
+			}
+			List<Node> nodeList = getXpathQueryResults();
+			for (Node node : nodeList) {
+				Element element = (Element)node;
+				if (pattern != null) {
+					String value = node.getValue();
+					Matcher matcher = pattern.matcher(value);
+					if (matcher.matches() && matcher.groupCount() == 2) {
+						String nam = matcher.group(1);
+						String val = matcher.group(2);
+						CMLScalar scalar = new CMLScalar(val);
+						scalar.setDictRef("x:"+nam);
+						element.getParent().replaceChild(element, scalar);
+					}
+				} else {
+					Nodes nameNodes = TransformElement.queryUsingNamespaces(element, name);
+					Nodes valueNodes = TransformElement.queryUsingNamespaces(element, value);
+					if (nameNodes.size() == 1 && valueNodes.size() == 1) {
+						CMLScalar nameScalar = (CMLScalar)nameNodes.get(0);
+						CMLScalar valueScalar = (CMLScalar)valueNodes.get(0);
+						createNameValue(nameScalar, valueScalar);
+					}
+				}
+			}
+		}
+
+	private void createString() {
+		assertRequired(XPATH, xpath);
+		List<Node> nodeList = getXpathQueryResults();
+		if (nodeList.size() > 0 && nodeList.get(0) instanceof CMLScalar) {
+			StringBuilder sb = new StringBuilder();
+			for (Node node : nodeList) {
+				sb.append(node.getValue());
+			}
+			((CMLScalar)nodeList.get(0)).setValue(sb.toString());
+			for (int i = 1; i < nodeList.size(); i++) {
+				nodeList.get(i).detach();
+			}
+		}
+	}
+
+	private void createVector3() {
+		/**
+ <list templateRef="vv2">
+   <list>
+     <scalar dataType="xsd:double" dictRef="n:mo1">1.2</scalar> 
+     <scalar dataType="xsd:double" dictRef="n:mo2">-0.061</scalar> 
+     <scalar dataType="xsd:double" dictRef="n:mo3">-2.7E-15</scalar> 
+  </list>
+</list>
+		 */
+		assertRequired(DICT_REF, dictRef);
+		assertRequired(FROM, from);
+		assertRequired(XPATH, xpath);
+		String[] dictRefNames = splitDictRef();
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			Element element = (Element)node;
+			Nodes scalarNodes = TransformElement.queryUsingNamespaces(element, from);
+			double[] dd = new double[3];
+			Node node0 = null;
+			if (scalarNodes.size() == 3) {
+				for (int j = 0; j < 3; j++) {
+					CMLScalar scalar = (CMLScalar) scalarNodes.get(j);
+					dd[j] = scalar.getDouble();
+					if (j == 0) {
+						node0 = scalar;
+					} else {
+						scalar.detach();
+					}
+				}
+				CMLVector3 v3 = new CMLVector3(dd);
+//				double length = v3.getLength();
+//				CMLProperty property = new CMLProperty();
+//				property.setDictRef(DictRefAttribute.createValue(dictRefNames[0], dictRefNames[1]));
+//				CMLScalar lengthScalar = new CMLScalar(length);
+//				lengthScalar.setDictRef("cmlx:length");
+//				property.appendChild(lengthScalar);
+//				property.appendChild(v3);
+				node0.getParent().replaceChild(node0, v3);
+			} else if (scalarNodes.size() == 0) {
+			} else {
+				CMLUtil.debug(element, "PAR");
+				throw new RuntimeException("No vector3 can be made");
+			}
+		}
+	}
+
+	private void createWrapper() {
+		assertRequired(XPATH, xpath);
+		assertRequired(ELEMENT_NAME, elementName);
+		Element templateElement = createNewElement(elementName, id, dictRef);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			ParentNode parent = node.getParent();
+			Element element = (Element) templateElement.copy();
+			parent.replaceChild(node, element);
+			element.appendChild(node);
+		}
+	}
+
+	private void createZMatrix() {
+/*
+- <list cmlx:templateRef="atom1">
+  <scalar dataType="xsd:string" dictRef="cc:elementType">C</scalar> 
+  </list>
+- <list cmlx:templateRef="atom2">
+  <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar> 
+  <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar> 
+  <scalar dataType="xsd:string" dictRef="cc:name">B1</scalar> 
+  </list>
+- <list cmlx:templateRef="atom3">
+  <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar> 
+  <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar> 
+  <scalar dataType="xsd:string" dictRef="cc:name">B2</scalar> 
+  <scalar dataType="xsd:integer" dictRef="cc:serial">2</scalar> 
+  <scalar dataType="xsd:string" dictRef="cc:name">A1</scalar> 
+  </list>
+- <list cmlx:template="atom4">
+  <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar> 
+  <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar> 
+  <scalar dataType="xsd:string" dictRef="cc:name">B3</scalar> 
+  <scalar dataType="xsd:integer" dictRef="cc:serial">2</scalar> 
+  <scalar dataType="xsd:string" dictRef="cc:name">A2</scalar> 
+  <scalar dataType="xsd:integer" dictRef="cc:serial">3</scalar> 
+  <scalar dataType="xsd:string" dictRef="cc:name">D1</scalar> 
+  <scalar dataType="xsd:integer" dictRef="cc:serial">0</scalar> 
+  </list>
+ */
+		assertRequired(XPATH, xpath);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			Element element = (Element) node;
+			ZMatrixElement zMatrixElement = new ZMatrixElement(element, value);
+			element.getParent().appendChild(zMatrixElement.getMolecule());
+		}
+	}
+
+	private void debugNodes() {
+		assertRequired(XPATH, xpath);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			debug(node);
+		}
+	}
+
+	private void delete() {
+		assertRequired(XPATH, xpath);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			node.detach();
+		}
+	}
+
+	private void joinArrays() {
+		assertRequired(XPATH, xpath);
+		List<Node> nodeList = getXpathQueryResults();
+		if (nodeList.size() > 1 && nodeList.get(0) instanceof CMLArray) {
+			CMLArray baseArray = (CMLArray) nodeList.get(0);
+			String dictRef = baseArray.getDictRef();
+			String dataType = baseArray.getDataType();
+			List<String> stringList = new ArrayList<String>();
+			RealArray realArray = new RealArray();
+			IntArray intArray = new IntArray();
+			for (int i = 0; i < nodeList.size(); i++) {
+				CMLArray array = (CMLArray) nodeList.get(i);
+				if (CMLConstants.XSD_INTEGER.equals(dataType)) {
+					intArray.addArray(new IntArray(array.getInts()));
+				} else if (CMLConstants.XSD_DOUBLE.equals(dataType)) {
+					realArray.addArray(new RealArray(array.getDoubles()));
+				} else {
+					stringList.addAll(array.getStringValues());
+				}
+				if (i > 0) {
+					array.detach();
+				}
+			}
+			CMLArray newArray = null;
+			if (CMLConstants.XSD_INTEGER.equals(dataType)) {
+				newArray = new CMLArray(intArray.getArray());
+			} else if (CMLConstants.XSD_DOUBLE.equals(dataType)) {
+				newArray = new CMLArray(realArray.getArray());
+			} else {
+				newArray = new CMLArray(stringList.toArray(new String[0]), DEFAULT_DELIMITER);
+			}
+			newArray.setDictRef(dictRef);
+			baseArray.getParent().replaceChild(baseArray, newArray);
+		}
+	}
+
+	private void move() {
+		assertRequired(XPATH, xpath);
+		assertRequired(TO_XPATH, to);
+		List<Node> nodeList = getXpathQueryResults();
+		Nodes toParents = TransformElement.queryUsingNamespaces(parsedElement, to);
+		ParentNode toParent = (toParents.size() == 1) ? (ParentNode) toParents.get(0) : null;
+		if (toParent != null) {
+			for (Node node : nodeList) {
+				node.detach();
+				toParent.appendChild(node);
+			}
+		} else {
+			LOG.debug("null toXpath: "+to);
+		}
+	}
+
+	private void pullup() {
+		assertRequired(XPATH, xpath);
+		int repeatCount = (repeat == null) ? 1 : new Integer(repeat);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			for (int i = 0; i < repeatCount; i++) {
+				Element element = (Element)node;
+				ParentNode parent = element.getParent();
+				ParentNode grandParent = parent.getParent();
+				if (grandParent != null) {
+					int idx = grandParent.indexOf(parent);
+					element.detach();
+					grandParent.insertChild(element, idx);
+				}
+			}
+		}
+	}
+
+
+	private void pullupSingleton() {
+		assertRequired(XPATH, xpath);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			Element nameElement = (Element)node;
+			Elements childElements = nameElement.getChildElements();
+			if (childElements.size() == 1) {
+				Element child = childElements.get(0);
+				nameElement.getParent().replaceChild(nameElement, child);
+				String templateRef = ((CMLElement)nameElement).getCMLXAttribute(Template.TEMPLATE_REF);
+				if (templateRef != null) {
+					CMLElement.addCMLXAttribute(child, Template.TEMPLATE_REF, templateRef);
+				}
+			}
+		}
+	}
+
+	private void rename() {
+		throw new RuntimeException("rename NYI");
+	}
+
+	private void setValue() {
+		assertRequired(XPATH, xpath);
+		assertRequired(VALUE, value);
+		List<Node> nodeList = getXpathQueryResults();
+		if (value != null) {
+			for (Node node : nodeList) {
+				if (node instanceof Attribute) {
+					Attribute att = (Attribute) node;
+					att.setValue(value);
+				} else if (node instanceof Element) {
+					Element element = (Element) node;
+					if (element.getChildElements().size() == 0) {
+						for (int j = 0; j < element.getChildCount(); j++) {
+							element.getChild(0).detach();
+						}
+						element.appendChild(value);
+					}
+				} else {
+					throw new RuntimeException("Cannot set value on: "+node.getClass().getName());
+				}
+			}
+		}
+	}
+
+	private void split() {
+		assertRequired(XPATH, xpath);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			if (node instanceof CMLArray) {
+				splitArrayToScalars((CMLArray)node);
+			} else if (node instanceof CMLScalar) {
+				splitScalarValueToScalars((CMLScalar)node);
+			}
+		}
+	}
+
+	private void splitScalarValueToScalars(CMLScalar scalar) {
+		if (delimiter == null) {
+			delimiter = CMLConstants.S_WHITEREGEX;
+		}
+		String s = scalar.getValue();
+		String[] ss = s.split(delimiter);
+		if (ss.length > 1) {
+			CMLList list = new CMLList();
+			list.setDictRef((dictRef != null) ? dictRef : scalar.getDictRef());
+			scalar.getParent().replaceChild(scalar, list);
+			for (String sss : ss) {
+				CMLScalar scalarx = new CMLScalar(sss);
+				if (dictRef != null) {
+					scalarx.setDictRef(dictRef);
+				}
+				list.appendChild(scalarx);
+			}
+		}
+	}
+
+	private void splitArrayToScalars(CMLArray array) {
+		CMLList list = new CMLList();
+		int size = array.getSize();
+		for (int j = 0; j < size; j++) {
+			CMLScalar scalar = array.getElementAt(j);
+			if (dictRef != null) {
+				scalar.setDictRef(dictRef);
+			}
+			list.appendChild(scalar);
+		}
+		array.getParent().replaceChild(array, list);
+	}
+
+	private void wrapPropertiesAndParameters() {
+		assertRequired(XPATH, xpath);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			Element pp = (Element) node;
+			Elements scalars = pp.getChildElements();
+			for (int j = 0; j < scalars.size(); j++) {
+				Element scalar = scalars.get(j);
+				if (scalar instanceof CMLScalar) {
+					CMLElement wrapper = (pp instanceof CMLPropertyList) ? new CMLProperty() : new CMLParameter();
+					ParentNode parent = scalar.getParent();
+					parent.replaceChild(scalar, wrapper);
+					((HasDictRef)wrapper).setDictRef(((CMLScalar)scalar).getDictRef());
+					wrapper.appendChild(scalar);
+				}
+			}
+		}
+	}
+
+// ==================== end of methods ============	
+
+	private String evaluateValue(String valuex) {
+		if (valuex != null) {
+			String function = null;
+			if (valuex.startsWith(STRING) && valuex.endsWith(CMLConstants.S_RBRAK)) {
+				function = STRING;
+			} else if (valuex.startsWith(NUMBER) && valuex.endsWith(CMLConstants.S_RBRAK)) {
+				function = NUMBER;
+			}
+			if (function != null) {
+				String xpath = valuex.substring(function.length(), valuex.length()-1);
+				Nodes nodes = TransformElement.queryUsingNamespaces(parsedElement, xpath);
+				valuex = (nodes.size() == 0) ? null : nodes.get(0).getValue();
+			}
+		}
+		return valuex;
+	}
+
+	private void help(String processName) {
+		Element element = getProcessElement(processName);
+		if (!processExists(processName)) {
+			throw new RuntimeException("no process with name: "+processName);
+		}
+		Elements descs = element.getChildElements(DESC);
+		System.out.println("========"+processName+"========");
+		for (int i = 0; i < descs.size(); i++) {
+			System.out.println("description .. "+descs.get(i).getValue());
+		}
+		Elements nodes = element.getChildElements(NODE);
+		for (int i = 0; i < nodes.size(); i++) {
+			System.out.println("applies to .. "+nodes.get(i).getValue());
+		}
+		Elements args = element.getChildElements(ARG);
+		for (int i = 0; i < args.size(); i++) {
+			Element arg = args.get(i);
+			String mandatory = arg.getAttributeValue(MANDATORY);
+			System.out.println("     >> "+arg.getAttributeValue(NAME)+" "+((mandatory != null) ? MANDATORY : "")+" : "+arg.getValue());
+		}
+	}
+
+	private Element getProcessElement(String processName) {
+		Nodes elements = processListElement.query("*[@name='"+processName+"']");
+		if (elements.size() != 1) {
+			throw new RuntimeException("No help for: "+processName);
+		}
+		return (elements.size() == 1) ? (Element) elements.get(0) : null;
+	}
+
+	private boolean processExists(String processName) {
+		boolean ok = true;
+		try {
+			this.getClass().getDeclaredMethod(processName);
+		} catch (Exception e) {
+			ok = false;
+		}
+		return ok;
+	}
+	
+	private boolean invokeProcess(String processName) {
+		boolean ok = true;
+		try {
+			Method method = this.getClass().getDeclaredMethod(processName);
+			method.setAccessible(true);
+			Object retobj = method.invoke(this, new Object[0]);
+		} catch (Exception e) {
+			ok = false;
+			throw new RuntimeException("no method: "+process, e);
+		}
+		return ok;
+	}
+	
+	private void checkProcessExists(String processName) {
+		boolean ok = false;
+//		for (String process : PROCESS_NAMES) {
+//			if (process.equals(processName)) {
+//				ok = true;
+//				break;
+//			}
+//		}
+		if (!ok) {
+			if (!processExists(processName)) {
+				throw new RuntimeException("Unknown process: "+processName);
+			}
+		}
+	}
+
+	private void help() {
+		ensureProcessListElement();
+		for (String processName : PROCESS_NAMES) {
+			help(processName);
+		}
+	}
+
+	private void ensureProcessListElement() {
+		if (processListElement == null) {
+			try {
+				InputStream is = Util.getResourceUsingContextClassLoader(PROCESS_LIST_URI, TransformElement.class);
+				processListElement = new Builder().build(is).getRootElement();
+				CMLUtil.removeWhitespaceNodes(processListElement);
+			} catch (Exception e) {
+				throw new RuntimeException("cannot make help: "+PROCESS_LIST_URI, e);
+			}
+		}
+	}
+
+	private void checkDictionary() {
+		xpath = "//*[@dictRef]";
+		List<Node> nodeList = getXpathQueryResults();
+		Map<String, List<Element>> dictRefNodes = new HashMap<String, List<Element>>();
+		for (Node node : nodeList) {
 			Element element = (Element) node;
 			Attribute att = element.getAttribute(DICT_REF);
 			String value = att.getValue();
@@ -307,11 +1287,6 @@ public class TransformElement implements MarkupApplier {
 			}
 			String templateRef = element.getAttributeValue(Template.TEMPLATE_REF, CMLConstants.CMLX_NS);
 			String id = element.getAttributeValue(ID);
-//			if ((templateRef == null || templateRef.equals("nullId")) && id == null) {
-//				CMLUtil.debug(element, "EEEEE"+prefix);
-//				throw new RuntimeException("Null templateRef and id");
-////				continue;
-//			}
 	    	try {
 	    		checkAttval(att);
 			} catch (Exception e) {
@@ -356,31 +1331,6 @@ public class TransformElement implements MarkupApplier {
 		}
 	}
 
-	private void convert() {
-		assertRequired(XPATH, xpath);
-		Nodes nodes = getXpathQueryResults();
-		if (value != null) {
-			for (int i = 0; i < nodes.size(); i++) {
-				Node node = nodes.get(i);
-				if (node instanceof Attribute) {
-					Attribute att = (Attribute) nodes.get(i);
-					att.setValue(value);
-				} else {
-					throw new RuntimeException("Cannot convert: "+node.getClass().getName());
-				}
-			}
-		}
-	}
-
-	private void debugNodes() {
-		assertRequired(XPATH, xpath);
-		Nodes nodes = getXpathQueryResults();
-		LOG.debug("Nodes for "+xpath+": "+nodes.size());
-		for (int i = 0; i < nodes.size(); i++) {
-			debug(nodes.get(i));
-		}
-	}
-
 	private void debug(Node node) {
 		if (node instanceof Text) {
 			LOG.debug("text in "+template.getId()+": "+node.getValue());
@@ -400,34 +1350,7 @@ public class TransformElement implements MarkupApplier {
 		}
 	}
 
-	private void deleteNodes() {
-		assertRequired(XPATH, xpath);
-		Nodes nodes = getXpathQueryResults();
-		for (int i = 0; i < nodes.size(); i++) {
-			nodes.get(i).detach();
-		}
-	}
-	
-	private void createChild() {
-		assertRequired(ID, id);
-		assertRequired(XPATH, xpath);
-		assertRequired(ELEMENT_NAME, elementName);
-		Nodes parents = getXpathQueryResults();
-		Object pos = (position == null) ? LAST : getPosition(position);
-		Element templateElement = createNewElement();
-		for (int i = 0; i < parents.size(); i++) {
-			Element parent = (Element) parents.get(i);
-			element = (Element) templateElement.copy();
-			if (LAST.equals(pos)) {
-				parent.appendChild(element);
-			} else if (pos instanceof Integer){
-				parent.insertChild(element, (Integer)pos);
-			}
-		}
-	}
-
-
-	private Element createNewElement() {
+	private Element createNewElement(String elementName, String id, String dictRef) {
 		
 		String[] names = elementName.split(CMLConstants.S_COLON);
 		String prefix = (names.length == 2) ? names[0] : null;
@@ -436,7 +1359,7 @@ public class TransformElement implements MarkupApplier {
 		try {
 			newElement = new Element(local);
 		} catch (Exception e) {
-			CMLUtil.debug(this.element, "BAD ELEMENT");
+			CMLUtil.debug(this.transformElement, "BAD ELEMENT");
 			throw new RuntimeException("Cannot create element: "+newElement, e);
 		}
 		if (prefix == null) {
@@ -454,28 +1377,30 @@ public class TransformElement implements MarkupApplier {
 		if (dictRef != null) {
 			newElement.addAttribute(new Attribute(DICT_REF, dictRef));
 		}
-		Template.copyNamespaces(this.element, newElement);
+		Template.copyNamespaces(this.transformElement, newElement);
 		return newElement;
 	}
 
-	private void createWrapper() {
+	private List<Node> getXpathQueryResults() {
 		assertRequired(XPATH, xpath);
-		assertRequired(ELEMENT_NAME, elementName);
-		Element templateElement = createNewElement();
-		Nodes nodes = getXpathQueryResults();
-		for (int i = 0; i < nodes.size(); i++) {
-			Node node = nodes.get(i);
-//			System.out.println("****["+node.getValue()+"]****");
-			ParentNode parent = node.getParent();
-			Element element = (Element) templateElement.copy();
-			parent.replaceChild(node, element);
-			element.appendChild(node);
+		Nodes nodes = TransformElement.queryUsingNamespaces(parsedElement, xpath);
+		List<Node> nodeList = new ArrayList<Node>();
+		if (position != null) {
+			int pos = 0;
+			try {
+				pos = Integer.parseInt(position);
+			} catch (NumberFormatException nfe) {
+				throw new RuntimeException("bad integer: "+position);
+			}
+			if (pos > 0 && pos <= nodes.size()) {
+				nodeList.add(nodes.get(pos-1));
+			}
+		} else {
+			for (int i = 0; i < nodes.size(); i++) {
+				nodeList.add(nodes.get(i));
+			}
 		}
-	}
-
-	private Nodes getXpathQueryResults() {
-		assertRequired(XPATH, xpath);
-		return TransformElement.queryUsingNamespaces(parsedElement, xpath);
+		return nodeList;
 	}
 
 	private int getPosition(String attVal) {
@@ -493,108 +1418,22 @@ public class TransformElement implements MarkupApplier {
 
 	private void assertRequired(String attName, String attVal) {
 		if (attVal == null) {
-			CMLUtil.debug(this.element, "BAD Transform");
+			CMLUtil.debug(this.transformElement, "BAD Transform");
 			throw new RuntimeException("Must give "+attName+" attribute");
 		}
 	}
 
-	private void wrapPropertiesAndParameters() {
-		Nodes names = createXpathNodes();
-		for (int i = 0; i < names.size(); i++) {
-			Element pp = (Element) names.get(i);
-			Elements scalars = pp.getChildElements();
-			for (int j = 0; j < scalars.size(); j++) {
-				Element scalar = scalars.get(j);
-				if (scalar instanceof CMLScalar) {
-					CMLElement wrapper = (pp instanceof CMLPropertyList) ? new CMLProperty() : new CMLParameter();
-					ParentNode parent = scalar.getParent();
-					parent.replaceChild(scalar, wrapper);
-					((HasDictRef)wrapper).setDictRef(((CMLScalar)scalar).getDictRef());
-					wrapper.appendChild(scalar);
-				}
-			}
-		}
-	}
-
-	private void addPropertyList() {
-		Nodes names = createXpathNodes();
-		for (int i = 0; i < names.size(); i++) {
-			CMLPropertyList propertyList = new CMLPropertyList();
-			propertyList.setId(id);
-			((Element)names.get(i)).appendChild(propertyList);
-		}
-	}
-
-	private void addParameterList() {
-		assertRequired(XPATH, xpath);
-		Nodes names = createXpathNodes();
-		for (int i = 0; i < names.size(); i++) {
-			CMLParameterList parameterList = new CMLParameterList();
-			parameterList.setId(id);
-			((Element)names.get(i)).appendChild(parameterList);
-			
-		}
-		
-	}
-
-	private void addDictRef() {
-		assertRequired(XPATH, xpath);
-		Nodes names = createXpathNodes();
-		for (int i = 0; i < names.size(); i++) {
-			((Element)names.get(i)).addAttribute(new Attribute(DICT_REF, value));
-		}
-	}
-
-	private void move() {
-		assertRequired(XPATH, xpath);
-		assertRequired(TO_XPATH, to);
-		Nodes nodes = createXpathNodes();
-		Nodes toParents = TransformElement.queryUsingNamespaces(parsedElement, to);
-		ParentNode toParent = (toParents.size() == 1) ? (ParentNode) toParents.get(0) : null;
-		if (toParent != null) {
-			for (int i = 0; i < nodes.size(); i++) {
-				Node fromNode = nodes.get(i);
-				fromNode.detach();
-				toParent.appendChild(fromNode);
-			}
-		} else {
-			LOG.debug("null toXpath: "+to);
-		}
-	}
-
-	private Nodes createXpathNodes() {
-		if (xpath == null) {
-			throw new RuntimeException("xpath attribute must not be null");
-		}
-		try {
-			Nodes xpaths = TransformElement.queryUsingNamespaces(parsedElement, xpath);
-			return xpaths;
-		} catch (Exception e) {
-			throw new RuntimeException("error in name Xpath: "+xpath, e);
-		}
-	}
-
-	private void addRole() {
-		assertRequired(XPATH, xpath);
-		assertRequired(VALUE, value);
-		Nodes nodes = createXpathNodes();
-		for (int i = 0; i < nodes.size(); i++) {
-			((Element)nodes.get(i)).addAttribute(new Attribute(ROLE, value));
-		}
-	}
-
-	private void makeGroup() {
-		assertRequired(XPATH, xpath);
-		if (previousSiblingsAfter == null && followingSiblingsBefore == null) {
-			CMLUtil.debug(this.element, "Transform");
-			LOG.warn("should give previousSiblingsAfter or followingSiblingsBefore");
-		}
-		Nodes nodes = createXpathNodes();
-		for (int i = 0; i < nodes.size(); i++) {
-			groupPreviousSiblings((Element)nodes.get(i));
-			groupFollowingSiblings((Element)nodes.get(i));
-		}
-	}
+//	private Nodes createXpathNodes() {
+//		if (xpath == null) {
+//			throw new RuntimeException("xpath attribute must not be null");
+//		}
+//		try {
+//			Nodes xpaths = TransformElement.queryUsingNamespaces(parsedElement, xpath);
+//			return xpaths;
+//		} catch (Exception e) {
+//			throw new RuntimeException("error in name Xpath: "+xpath, e);
+//		}
+//	}
 
 	private void groupPreviousSiblings(Element element) {
 		if (previousSiblingsAfter != null) {
@@ -645,137 +1484,36 @@ public class TransformElement implements MarkupApplier {
 		return nodes;
 	}
 
-	private void pullupSingleton() {
-		assertRequired(XPATH, xpath);
-		Nodes nodes = createXpathNodes();
-		for (int i = 0; i < nodes.size(); i++) {
-			Element nameElement = (Element)nodes.get(i);
-			Elements childElements = nameElement.getChildElements();
-			if (childElements.size() == 1) {
-				Element child = childElements.get(0);
-				nameElement.getParent().replaceChild(nameElement, child);
-				String templateRef = ((CMLElement)nameElement).getCMLXAttribute(Template.TEMPLATE_REF);
-				if (templateRef != null) {
-					CMLElement.addCMLXAttribute(child, Template.TEMPLATE_REF, templateRef);
+	public static List<Node> queryUsingNamespaces(Element element, String xpath, Integer position) {
+		List<Node> nodeList = new ArrayList<Node>();
+		// if no query return element
+		if (xpath == null) {
+			nodeList.add(element);
+		} else {
+			Nodes nodes = null;
+			try {
+				nodes = element.query(xpath, Template.CML_CMLX_CONTEXT);
+			} catch (Exception e) {
+				throw new RuntimeException("bad query: "+xpath, e);
+			}
+			for (int i = 0; i < nodes.size(); i++) {
+				// add +1 for difference in counting
+				if (position == null || position == i+1) {
+					nodeList.add(nodes.get(i));
 				}
 			}
 		}
+		return nodeList;
 	}
 
-	private void createNameValue() {
-		/**
-  <list templateRef="list1">
-    <list>
-      <scalar dataType="xsd:string" dictRef="n:name">hostname</scalar>
-      <scalar dataType="xsd:string" dictRef="n:value">arcen</scalar>
-    </list>
-    ...
-  </list>
-		 */
-		if (parsedElement == null) {
-			throw new RuntimeException("Null parsedElement");
-		}
-		assertRequired(NAME, name);
-		assertRequired(XPATH, xpath);
-		assertRequired(VALUE, value);
-		Nodes nodes = createXpathNodes();
-		for (int i = 0; i < nodes.size(); i++) {
-			Element element = (Element)nodes.get(i);
-			Nodes nameNodes = TransformElement.queryUsingNamespaces(element, name);
-			Nodes valueNodes = TransformElement.queryUsingNamespaces(element, value);
-			if (nameNodes.size() == 1 && valueNodes.size() == 1) {
-				createNameValue(nameNodes, valueNodes);
-			}
-		}
-	}
-
-	private void createNameValue(Nodes nameNodes, Nodes valueNodes) {
-		Element nameElement = (Element) nameNodes.get(0);
-		String nameValue = nameElement.getValue().trim();
-		DictRefAttribute nameDictRef = (DictRefAttribute)((HasDictRef) nameElement).getDictRefAttribute(); 
+	private void createNameValue(CMLScalar nameScalar, CMLScalar valueScalar) {
+		String nameValue = nameScalar.getValue().trim();
+		DictRefAttribute nameDictRef = (DictRefAttribute)((HasDictRef) nameScalar).getDictRefAttribute(); 
 		String namePrefix = nameDictRef.getPrefix();
-		((HasDictRef)nameElement).setDictRef(DictRefAttribute.createValue(namePrefix, nameValue));
-		Element valueElement = (Element) valueNodes.get(0);
-		String valueValue = valueElement.getValue().trim();
-		valueElement.detach();
-		((CMLScalar)nameElement).setValue(valueValue);
-	}
-
-	private void createMatrix33() {
-		assertRequired(FROM, from);
-		assertRequired(XPATH, xpath);
-		Nodes nodes = getXpathQueryResults();
-		for (int i = 0; i < nodes.size(); i++) {
-			Element element = (Element)nodes.get(i);
-			Nodes scalarNodes = TransformElement.queryUsingNamespaces(element, from);
-			double[] dd = new double[3*3];
-			Node node0 = null;
-			if (scalarNodes.size() == 3*3) {
-				for (i = 0; i < 3*3; i++) {
-					CMLScalar scalar = (CMLScalar) scalarNodes.get(i);
-					dd[i] = scalar.getDouble();
-					if (i == 0) {
-						node0 = scalar;
-					} else {
-						scalar.detach();
-					}
-				}
-				CMLMatrix mat = new CMLMatrix(3, 3, dd);
-				node0.getParent().replaceChild(node0, mat);
-			} else if (scalarNodes.size() == 0) {
-			} else {
-				CMLUtil.debug(element, "PAR");
-				throw new RuntimeException("No matrix here");
-			}
-		}
-	}
-
-
-	private void createVector3() {
-		/**
- <list templateRef="vv2">
-   <list>
-     <scalar dataType="xsd:double" dictRef="n:mo1">1.2</scalar> 
-     <scalar dataType="xsd:double" dictRef="n:mo2">-0.061</scalar> 
-     <scalar dataType="xsd:double" dictRef="n:mo3">-2.7E-15</scalar> 
-  </list>
-</list>
-		 */
-		assertRequired(DICTREF, dictRef);
-		assertRequired(FROM, from);
-		assertRequired(XPATH, xpath);
-		String[] dictRefNames = splitDictRef();
-		Nodes nodes = getXpathQueryResults();
-		for (int i = 0; i < nodes.size(); i++) {
-			Element element = (Element)nodes.get(i);
-			Nodes scalarNodes = TransformElement.queryUsingNamespaces(element, from);
-			double[] dd = new double[3];
-			Node node0 = null;
-			if (scalarNodes.size() == 3) {
-				for (int j = 0; j < 3; j++) {
-					CMLScalar scalar = (CMLScalar) scalarNodes.get(j);
-					dd[j] = scalar.getDouble();
-					if (j == 0) {
-						node0 = scalar;
-					} else {
-						scalar.detach();
-					}
-				}
-				CMLVector3 v3 = new CMLVector3(dd);
-				double length = v3.getLength();
-				CMLProperty property = new CMLProperty();
-				property.setDictRef(DictRefAttribute.createValue(dictRefNames[0], dictRefNames[1]));
-				CMLScalar lengthScalar = new CMLScalar(length);
-				lengthScalar.setDictRef("cmlx:length");
-				property.appendChild(lengthScalar);
-				property.appendChild(v3);
-				node0.getParent().replaceChild(node0, property);
-			} else if (scalarNodes.size() == 0) {
-			} else {
-				CMLUtil.debug(element, "PAR");
-				throw new RuntimeException("No vector3 can be made");
-			}
-		}
+		nameScalar.setDictRef(DictRefAttribute.createValue(namePrefix, nameValue));
+		String valueValue = valueScalar.getValue().trim();
+		valueScalar.detach();
+		nameScalar.setValue(valueValue);
 	}
 
 	private String[]  splitDictRef() {
@@ -786,31 +1524,6 @@ public class TransformElement implements MarkupApplier {
 		return dictRefNames;
 	}
 	
-	private void createMolecule() {
-		assertRequired(XPATH, xpath);
-		assertRequired(ID, id);
-		createMethodNames();
-		Nodes arrays = createXpathNodes();
-		if (arrays.size() > 0) {
-			Element element = (Element) arrays.get(0);
-			if (!(element instanceof CMLArray)) {
-				throw new RuntimeException(
-						"Molecule requires list of arrays, but found: "+element.getClass().getName());
-			}
-			CMLArray array0 = (CMLArray) element;
-			int natoms = array0.getSize();
-			molecule = new CMLMolecule();
-			molecule.setId(id);
-			ParentNode parent = array0.getParent();
-			parent.replaceChild(array0, molecule);
-			createAndAddAtoms(natoms);
-			atoms = molecule.getAtoms();
-			addArrays(arrays);
-			addElementTypes();
-			addFormulaAndProperties();
-		}
-	}
-
 	private void createAndAddAtoms(int natoms) {
 		for (int iatom = 0; iatom < natoms; iatom++) {
 			id = "a"+(iatom+1);
@@ -819,16 +1532,20 @@ public class TransformElement implements MarkupApplier {
 		}
 	}
 
-	private void addArrays(Nodes arrays) {
-		for (int i = 0; i < arrays.size(); i++) {
-			Node node = arrays.get(i);
+	private void addArrays(List<Node> nodeList, int natoms) {
+		int i = 0;
+		for (Node node : nodeList) {
 			if (!(node instanceof CMLArray)) {
 				CMLUtil.debug((Element) node, "ELEM:"+from);
 				throw new RuntimeException("molecule only operates on arrays");
 			}
-			CMLArray array = (CMLArray) arrays.get(i);
+			CMLArray array = (CMLArray) node;
+			if (array.getSize() != natoms) {
+				throw new RuntimeException("addArrays ("+i+")out of sync with atoms: "+array.getSize()+" != "+natoms);
+			}
 			processDictRef(array);
 			array.detach();
+			i++;
 		}
 	}
 
@@ -850,13 +1567,24 @@ public class TransformElement implements MarkupApplier {
 		MoleculeTool moleculeTool = MoleculeTool.getOrCreateTool(molecule);
 		moleculeTool.calculateBondedAtoms();
 		moleculeTool.adjustBondOrdersToValency();
-		double mwt = moleculeTool.getCalculatedMolecularMass();
+		double mwt = moleculeTool.getCalculatedMolecularMass(HydrogenControl.USE_HYDROGEN_COUNT);
+//		double mwt = moleculeTool.getCalculatedMolecularMass();
 		CMLScalar scmwt = new CMLScalar(mwt);
 		scmwt.setUnits("unit", "dalton", UNIT_SI_URI);
 		CMLProperty mmprop = new CMLProperty(); 
 		mmprop.setDictRef("cml:molmass");
 		mmprop.appendChild(scmwt);
 		molecule.appendChild(mmprop);
+	}
+
+	private void removeExplicitHydrogenCounts(CMLMolecule molecule) {
+		Nodes hydrogenCounts = molecule.query(".//@hydrogenCount");
+//		if (hydrogenCounts.size() > 1) {
+//			throw new RuntimeException("HYDROGEN "+hydrogenCounts.size());
+//		}
+		for (int i = 0; i < hydrogenCounts.size(); i++) {
+			hydrogenCounts.get(i).detach();
+		}
 	}
 
 	private void processDictRef(CMLArray array) {
@@ -885,6 +1613,7 @@ public class TransformElement implements MarkupApplier {
 		String[] values = array.getStrings();
 		double[] doubles = array.getDoubles();
 		int[] ints = array.getInts();
+		try {
 		for (int i = 0; i < atoms.size(); i++) {
 			CMLAtom atom = atoms.get(i);
 			if (localName.equals("x3")) {
@@ -898,6 +1627,11 @@ public class TransformElement implements MarkupApplier {
 			} else if (localName.equals("elementType")) {
 				addElementType(array, values, doubles, ints, i, atom);
 			}
+		}
+		} catch (Exception e) {
+//			CMLUtil.debug()
+			System.err.println(""+localName+doubles);
+			throw new RuntimeException("problem", e);
 		}
 	}
 
@@ -968,7 +1702,7 @@ public class TransformElement implements MarkupApplier {
 	}
 
 	private void createMethodNames() {
-		String argx = process.substring(MOLECULE.length()).trim();
+		String argx = process.substring(CREATE_MOLECULE.length()).trim();
 		String[] args = argx.split(" ");
 		idMethod = null;
 		elementMethod = null;
@@ -991,96 +1725,6 @@ public class TransformElement implements MarkupApplier {
 		}
 	}
 	
-	private void rename() {
-		throw new RuntimeException("rename NYI");
-	}
-
-	private void addArray() {
-		assertRequired(XPATH, xpath);
-		assertRequired(DATATYPE, dataType);
-		Nodes nodes = createXpathNodes();
-		for (int i = 0; i < nodes.size(); i++) {
-			Node node = nodes.get(i);
-			if (node instanceof CMLScalar) {
-				CMLScalar scalar = (CMLScalar) node;
-				String val = scalar.getValue();
-				CMLArray array = null;
-				try {
-					if (CMLConstants.XSD_INTEGER.equals(dataType)) {
-						array = new CMLArray(new IntArray(val).getArray());
-					} else if (CMLConstants.XSD_DOUBLE.equals(dataType)) {
-						array = new CMLArray(new RealArray(val).getArray());
-					} else { 
-						array = new CMLArray(val.split(CMLConstants.S_WHITEREGEX));
-					}
-					array.setDictRef(scalar.getDictRef());
-					scalar.getParent().replaceChild(scalar, array);
-				} catch (Exception e) {
-					LOG.error("Cannot parse/set date: "+val+ " (format='"+format+"'); "+e);
-				}
-			}
-		}
-	}
-
-	private void addDate() {
-		assertRequired(XPATH, xpath);
-		Nodes nodes = createXpathNodes();
-		for (int i = 0; i < nodes.size(); i++) {
-			Node node = nodes.get(i);
-			if (node instanceof CMLScalar) {
-				CMLScalar scalar = (CMLScalar) node;
-				String val = scalar.getValue();
-				try {
-					DateTime dateTime = null;
-					if (format != null) {
-						dateTime = JodaDate.parseDate(val, format);
-					} else {
-						dateTime = JodaDate.parseDate(val);
-					}
-					scalar.setValue(dateTime);
-				} catch (Exception e) {
-					LOG.error("Cannot parse/set date: "+val+ " (format='"+format+"'); "+e);
-				}
-			}
-		}
-	}
-
-	private void addInteger() {
-		assertRequired(XPATH, xpath);
-		Nodes nodes = createXpathNodes();
-		for (int i = 0; i < nodes.size(); i++) {
-			Node node = nodes.get(i);
-			if (node instanceof CMLScalar) {
-				CMLScalar scalar = (CMLScalar) node;
-				String val = scalar.getValue();
-				try {
-					Integer ii = new Integer(val);
-					scalar.setValue(ii);
-				} catch (Exception e) {
-					LOG.error("bad integer: "+e);
-				}
-			}
-		}
-	}
-
-	private void addDouble() {
-		assertRequired(XPATH, xpath);
-		Nodes nodes = createXpathNodes();
-		for (int i = 0; i < nodes.size(); i++) {
-			Node node = nodes.get(i);
-			if (node instanceof CMLScalar) {
-				CMLScalar scalar = (CMLScalar) node;
-				String val = scalar.getValue();
-				try {
-					Double d = Real.parseDouble(val);
-					scalar.setValue(d);
-				} catch (Exception e) {
-					LOG.error("bad double: "+e);
-				}
-			}
-		}
-	}
-
 	public void debug() {
 //		CMLUtil.debug(this.element, "DEBUG");
 	}

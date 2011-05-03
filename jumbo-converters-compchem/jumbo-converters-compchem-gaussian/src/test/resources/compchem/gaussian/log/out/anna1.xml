@@ -14,7 +14,7 @@
    <list cmlx:templateRef="prog">
     <scalar dataType="xsd:string" dictRef="cc:run.date">20-Nov-2006</scalar>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="verb">
     <scalar dataType="xsd:string" dictRef="x:verb">*********************************************</scalar>
    </list>
   </module>
@@ -138,6 +138,9 @@
     </list>
    </list>
   </module>
+  <list cmlx:templateRef="rest">
+   <scalar dataType="xsd:string" dictRef="x:l1.end"/>
+  </list>
  </module> 3 tetrahedral angles replaced.
  <module cmlx:lineCount="23" cmlx:templateRef="l103" xmlns:xi="http://www.w3.org/2001/XInclude">
   <list cmlx:templateRef="berny">
@@ -174,56 +177,6 @@
      <scalar dataType="xsd:string" dictRef="g:deriv">estimate D2E/DX2</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="angle">
-    <list>
-     <scalar dataType="xsd:string" dictRef="g:symbol">A1</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom1">2</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom2">1</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom3">3</scalar>
-     <scalar dataType="xsd:double" dictRef="cc:angle">109.4712</scalar>
-     <scalar dataType="xsd:string" dictRef="g:deriv">estimate D2E/DX2</scalar>
-    </list>
-    <list>
-     <scalar dataType="xsd:string" dictRef="g:symbol">A2</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom1">2</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom2">1</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom3">4</scalar>
-     <scalar dataType="xsd:double" dictRef="cc:angle">109.4712</scalar>
-     <scalar dataType="xsd:string" dictRef="g:deriv">estimate D2E/DX2</scalar>
-    </list>
-    <list>
-     <scalar dataType="xsd:string" dictRef="g:symbol">A3</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom1">2</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom2">1</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom3">5</scalar>
-     <scalar dataType="xsd:double" dictRef="cc:angle">109.4712</scalar>
-     <scalar dataType="xsd:string" dictRef="g:deriv">estimate D2E/DX2</scalar>
-    </list>
-    <list>
-     <scalar dataType="xsd:string" dictRef="g:symbol">A4</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom1">3</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom2">1</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom3">4</scalar>
-     <scalar dataType="xsd:double" dictRef="cc:angle">109.4712</scalar>
-     <scalar dataType="xsd:string" dictRef="g:deriv">estimate D2E/DX2</scalar>
-    </list>
-    <list>
-     <scalar dataType="xsd:string" dictRef="g:symbol">A5</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom1">3</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom2">1</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom3">5</scalar>
-     <scalar dataType="xsd:double" dictRef="cc:angle">109.4712</scalar>
-     <scalar dataType="xsd:string" dictRef="g:deriv">estimate D2E/DX2</scalar>
-    </list>
-    <list>
-     <scalar dataType="xsd:string" dictRef="g:symbol">A6</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom1">4</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom2">1</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom3">5</scalar>
-     <scalar dataType="xsd:double" dictRef="cc:angle">109.4712</scalar>
-     <scalar dataType="xsd:string" dictRef="g:deriv">estimate D2E/DX2</scalar>
-    </list>
-   </list>
   </module> --------------------------------------------------------------------------------
   <module cmlx:lineCount="2" cmlx:templateRef="l103.trust">
    <list cmlx:templateRef="length">
@@ -245,7 +198,7 @@
   <list cmlx:templateRef="type">
    <scalar dataType="xsd:string" dictRef="g:type">Input</scalar>
   </list>
-  <list cmlx:lineCount="5" cmlx:templateRef="missingID">
+  <list cmlx:lineCount="5" cmlx:templateRef="atom">
    <array dataType="xsd:integer" dictRef="cc:serial" size="5">1 2 3 4 5</array>
    <array dataType="xsd:integer" dictRef="cc:elementType" size="5">6 1 1 1 1</array>
    <array dataType="xsd:integer" dictRef="g:atomicType" size="5">0 0 0 0 0</array>
@@ -255,7 +208,7 @@
   </list>
  </module>
  <module cmlx:lineCount="7" cmlx:templateRef="l202.distmat">
-  <list cmlx:templateRef="missingID">
+  <list cmlx:templateRef="atom">
    <list>
     <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
     <scalar dataType="xsd:string" dictRef="cc:elementType">C</scalar>
@@ -316,7 +269,7 @@
   <list cmlx:templateRef="type">
    <scalar dataType="xsd:string" dictRef="g:type">Standard</scalar>
   </list>
-  <list cmlx:lineCount="5" cmlx:templateRef="missingID">
+  <list cmlx:lineCount="5" cmlx:templateRef="atom">
    <array dataType="xsd:integer" dictRef="cc:serial" size="5">1 2 3 4 5</array>
    <array dataType="xsd:integer" dictRef="cc:elementType" size="5">6 1 1 1 1</array>
    <array dataType="xsd:integer" dictRef="g:atomicType" size="5">0 0 0 0 0</array>
@@ -390,7 +343,7 @@
  </module> Requested convergence on RMS density matrix=1.00D-08 within 128 cycles. Requested convergence on MAX density matrix=1.00D-06. Requested convergence on energy=1.00D-06. No special actions if energy rises. Keep R1 integrals in memory in canonical form, NReq= 533869. Integral accuracy reduced to 1.0D-05 until final iterations. Initial convergence to 1.0D-05 achieved. Increase integral accuracy. SCF Done: E(RB+HF-LYP) = -40.5174348543 A.U. after 10 cycles Convg = 0.8264D-09 -V/T = 2.0136 S**2 = 0.0000
  <module cmlx:lineCount="59" cmlx:templateRef="l601.popanal" xmlns:xi="http://www.w3.org/2001/XInclude"> ********************************************************************** Population analysis using the SCF density. **********************************************************************
   <module cmlx:lineCount="1" cmlx:templateRef="orbitalsym"/>
-  <list cmlx:templateRef="missingID">
+  <list cmlx:templateRef="popanal">
    <scalar dataType="xsd:string" dictRef="x:popanal">Occupied (A1) (A1) (T2) (T2) (T2)</scalar>
    <scalar dataType="xsd:string" dictRef="x:popanal">Virtual (A1) (T2) (T2) (T2) (T2) (T2) (T2) (T2) (T2) (T2)</scalar>
    <scalar dataType="xsd:string" dictRef="x:popanal">(A1) (A1) (E) (E) (T2) (T2) (T2) (A1)</scalar>
@@ -444,10 +397,10 @@
    </module> Sum of Mulliken charges= 0.00000 Sum of Mulliken charges= 0.00000 Electronic spatial extent (au): &lt;R**2&gt;= 36.2154 Charge= 0.0000 electrons
   </module>
   <module cmlx:lineCount="18" cmlx:templateRef="multipole">
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="dipoletype">
     <scalar dataType="xsd:string" dictRef="g:dipoletype">field-independent basis, Debye</scalar>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="dipole">
     <list>
      <scalar dataType="xsd:double" dictRef="x:x">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:y">0.0</scalar>
@@ -455,44 +408,44 @@
      <scalar dataType="xsd:double" dictRef="x:dipole">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="quadrupoletype">
     <scalar dataType="xsd:string" dictRef="g:quadpoletype">field-independent basis, Debye-Ang</scalar>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="quadrupol">
     <list>
      <scalar dataType="xsd:double" dictRef="x:x">-8.3036</scalar>
      <scalar dataType="xsd:double" dictRef="x:y">-8.3036</scalar>
      <scalar dataType="xsd:double" dictRef="x:z">-8.3036</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xy">
     <list>
      <scalar dataType="xsd:double" dictRef="x:x">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:y">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:z">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="quadrupoletypea">
     <scalar dataType="xsd:string" dictRef="g:quadpoletype">field-independent basis, Debye-Ang</scalar>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xx">
     <list>
      <scalar dataType="xsd:double" dictRef="x:x">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:y">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:z">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xya">
     <list>
      <scalar dataType="xsd:double" dictRef="x:x">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:y">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:z">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="octapoletype">
     <scalar dataType="xsd:string" dictRef="g:octapoletype">field-independent basis, Debye-Ang**2</scalar>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xxx">
     <list>
      <scalar dataType="xsd:double" dictRef="x:xxx">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:yyy">0.0</scalar>
@@ -500,7 +453,7 @@
      <scalar dataType="xsd:double" dictRef="x:xyy">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xxy">
     <list>
      <scalar dataType="xsd:double" dictRef="x:xxy">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:xxz">0.0</scalar>
@@ -508,16 +461,16 @@
      <scalar dataType="xsd:double" dictRef="x:xzz">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="yyz">
     <list>
      <scalar dataType="xsd:double" dictRef="x:yyz">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:xyz">-0.7195</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="hexadecapoletype">
     <scalar dataType="xsd:string" dictRef="g:hexadecapoletype">field-independent basis, Debye-Ang**3</scalar>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xxxx">
     <list>
      <scalar dataType="xsd:double" dictRef="x:xxxx">-16.2252</scalar>
      <scalar dataType="xsd:double" dictRef="x:yyyy">-16.2252</scalar>
@@ -525,7 +478,7 @@
      <scalar dataType="xsd:double" dictRef="x:xxxy">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xxxz">
     <list>
      <scalar dataType="xsd:double" dictRef="x:xxxz">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:yyyx">0.0</scalar>
@@ -533,7 +486,7 @@
      <scalar dataType="xsd:double" dictRef="x:zzzx">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="zzzy">
     <list>
      <scalar dataType="xsd:double" dictRef="x:zzzy">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:xxyy">-4.9297</scalar>
@@ -541,7 +494,7 @@
      <scalar dataType="xsd:double" dictRef="x:yyzz">-4.9297</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xzz">
     <scalar dataType="xsd:string" dictRef="x:xzz">N-N= 1.315774842379D+01 E-N=-1.192852991071D+02 KE= 3.997282125544D+01</scalar>
    </list>
   </module>
@@ -636,7 +589,7 @@
   <list cmlx:templateRef="type">
    <scalar dataType="xsd:string" dictRef="g:type">Input</scalar>
   </list>
-  <list cmlx:lineCount="5" cmlx:templateRef="missingID">
+  <list cmlx:lineCount="5" cmlx:templateRef="atom">
    <array dataType="xsd:integer" dictRef="cc:serial" size="5">1 2 3 4 5</array>
    <array dataType="xsd:integer" dictRef="cc:elementType" size="5">6 1 1 1 1</array>
    <array dataType="xsd:integer" dictRef="g:atomicType" size="5">0 0 0 0 0</array>
@@ -646,7 +599,7 @@
   </list>
  </module>
  <module cmlx:lineCount="7" cmlx:templateRef="l202.distmat">
-  <list cmlx:templateRef="missingID">
+  <list cmlx:templateRef="atom">
    <list>
     <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
     <scalar dataType="xsd:string" dictRef="cc:elementType">C</scalar>
@@ -707,7 +660,7 @@
   <list cmlx:templateRef="type">
    <scalar dataType="xsd:string" dictRef="g:type">Standard</scalar>
   </list>
-  <list cmlx:lineCount="5" cmlx:templateRef="missingID">
+  <list cmlx:lineCount="5" cmlx:templateRef="atom">
    <array dataType="xsd:integer" dictRef="cc:serial" size="5">1 2 3 4 5</array>
    <array dataType="xsd:integer" dictRef="cc:elementType" size="5">6 1 1 1 1</array>
    <array dataType="xsd:integer" dictRef="g:atomicType" size="5">0 0 0 0 0</array>
@@ -854,7 +807,7 @@
   <list cmlx:templateRef="type">
    <scalar dataType="xsd:string" dictRef="g:type">Input</scalar>
   </list>
-  <list cmlx:lineCount="5" cmlx:templateRef="missingID">
+  <list cmlx:lineCount="5" cmlx:templateRef="atom">
    <array dataType="xsd:integer" dictRef="cc:serial" size="5">1 2 3 4 5</array>
    <array dataType="xsd:integer" dictRef="cc:elementType" size="5">6 1 1 1 1</array>
    <array dataType="xsd:integer" dictRef="g:atomicType" size="5">0 0 0 0 0</array>
@@ -864,7 +817,7 @@
   </list>
  </module>
  <module cmlx:lineCount="7" cmlx:templateRef="l202.distmat">
-  <list cmlx:templateRef="missingID">
+  <list cmlx:templateRef="atom">
    <list>
     <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
     <scalar dataType="xsd:string" dictRef="cc:elementType">C</scalar>
@@ -925,7 +878,7 @@
   <list cmlx:templateRef="type">
    <scalar dataType="xsd:string" dictRef="g:type">Standard</scalar>
   </list>
-  <list cmlx:lineCount="5" cmlx:templateRef="missingID">
+  <list cmlx:lineCount="5" cmlx:templateRef="atom">
    <array dataType="xsd:integer" dictRef="cc:serial" size="5">1 2 3 4 5</array>
    <array dataType="xsd:integer" dictRef="cc:elementType" size="5">6 1 1 1 1</array>
    <array dataType="xsd:integer" dictRef="g:atomicType" size="5">0 0 0 0 0</array>
@@ -1152,7 +1105,7 @@
   <list cmlx:templateRef="type">
    <scalar dataType="xsd:string" dictRef="g:type">Input</scalar>
   </list>
-  <list cmlx:lineCount="5" cmlx:templateRef="missingID">
+  <list cmlx:lineCount="5" cmlx:templateRef="atom">
    <array dataType="xsd:integer" dictRef="cc:serial" size="5">1 2 3 4 5</array>
    <array dataType="xsd:integer" dictRef="cc:elementType" size="5">6 1 1 1 1</array>
    <array dataType="xsd:integer" dictRef="g:atomicType" size="5">0 0 0 0 0</array>
@@ -1162,7 +1115,7 @@
   </list>
  </module>
  <module cmlx:lineCount="7" cmlx:templateRef="l202.distmat">
-  <list cmlx:templateRef="missingID">
+  <list cmlx:templateRef="atom">
    <list>
     <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
     <scalar dataType="xsd:string" dictRef="cc:elementType">C</scalar>
@@ -1223,7 +1176,7 @@
   <list cmlx:templateRef="type">
    <scalar dataType="xsd:string" dictRef="g:type">Standard</scalar>
   </list>
-  <list cmlx:lineCount="5" cmlx:templateRef="missingID">
+  <list cmlx:lineCount="5" cmlx:templateRef="atom">
    <array dataType="xsd:integer" dictRef="cc:serial" size="5">1 2 3 4 5</array>
    <array dataType="xsd:integer" dictRef="cc:elementType" size="5">6 1 1 1 1</array>
    <array dataType="xsd:integer" dictRef="g:atomicType" size="5">0 0 0 0 0</array>
@@ -1235,7 +1188,7 @@
  <module cmlx:lineCount="1" cmlx:templateRef="l202.rotconst"/>
  <module cmlx:lineCount="59" cmlx:templateRef="l601.popanal" xmlns:xi="http://www.w3.org/2001/XInclude"> ********************************************************************** Population analysis using the SCF density. **********************************************************************
   <module cmlx:lineCount="1" cmlx:templateRef="orbitalsym"/>
-  <list cmlx:templateRef="missingID">
+  <list cmlx:templateRef="popanal">
    <scalar dataType="xsd:string" dictRef="x:popanal">Occupied (A1) (A1) (T2) (T2) (T2)</scalar>
    <scalar dataType="xsd:string" dictRef="x:popanal">Virtual (A1) (T2) (T2) (T2) (T2) (T2) (T2) (T2) (T2) (T2)</scalar>
    <scalar dataType="xsd:string" dictRef="x:popanal">(A1) (A1) (E) (E) (T2) (T2) (T2) (A1)</scalar>
@@ -1289,10 +1242,10 @@
    </module> Sum of Mulliken charges= 0.00000 Sum of Mulliken charges= 0.00000 Electronic spatial extent (au): &lt;R**2&gt;= 35.4771 Charge= 0.0000 electrons
   </module>
   <module cmlx:lineCount="18" cmlx:templateRef="multipole">
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="dipoletype">
     <scalar dataType="xsd:string" dictRef="g:dipoletype">field-independent basis, Debye</scalar>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="dipole">
     <list>
      <scalar dataType="xsd:double" dictRef="x:x">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:y">0.0</scalar>
@@ -1300,44 +1253,44 @@
      <scalar dataType="xsd:double" dictRef="x:dipole">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="quadrupoletype">
     <scalar dataType="xsd:string" dictRef="g:quadpoletype">field-independent basis, Debye-Ang</scalar>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="quadrupol">
     <list>
      <scalar dataType="xsd:double" dictRef="x:x">-8.2514</scalar>
      <scalar dataType="xsd:double" dictRef="x:y">-8.2514</scalar>
      <scalar dataType="xsd:double" dictRef="x:z">-8.2514</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xy">
     <list>
      <scalar dataType="xsd:double" dictRef="x:x">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:y">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:z">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="quadrupoletypea">
     <scalar dataType="xsd:string" dictRef="g:quadpoletype">field-independent basis, Debye-Ang</scalar>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xx">
     <list>
      <scalar dataType="xsd:double" dictRef="x:x">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:y">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:z">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xya">
     <list>
      <scalar dataType="xsd:double" dictRef="x:x">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:y">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:z">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="octapoletype">
     <scalar dataType="xsd:string" dictRef="g:octapoletype">field-independent basis, Debye-Ang**2</scalar>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xxx">
     <list>
      <scalar dataType="xsd:double" dictRef="x:xxx">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:yyy">0.0</scalar>
@@ -1345,7 +1298,7 @@
      <scalar dataType="xsd:double" dictRef="x:xyy">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xxy">
     <list>
      <scalar dataType="xsd:double" dictRef="x:xxy">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:xxz">0.0</scalar>
@@ -1353,16 +1306,16 @@
      <scalar dataType="xsd:double" dictRef="x:xzz">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="yyz">
     <list>
      <scalar dataType="xsd:double" dictRef="x:yyz">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:xyz">0.6711</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="hexadecapoletype">
     <scalar dataType="xsd:string" dictRef="g:hexadecapoletype">field-independent basis, Debye-Ang**3</scalar>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xxxx">
     <list>
      <scalar dataType="xsd:double" dictRef="x:xxxx">-15.7513</scalar>
      <scalar dataType="xsd:double" dictRef="x:yyyy">-15.7513</scalar>
@@ -1370,7 +1323,7 @@
      <scalar dataType="xsd:double" dictRef="x:xxxy">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xxxz">
     <list>
      <scalar dataType="xsd:double" dictRef="x:xxxz">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:yyyx">0.0</scalar>
@@ -1378,7 +1331,7 @@
      <scalar dataType="xsd:double" dictRef="x:zzzx">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="zzzy">
     <list>
      <scalar dataType="xsd:double" dictRef="x:zzzy">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:xxyy">-4.8059</scalar>
@@ -1386,25 +1339,44 @@
      <scalar dataType="xsd:double" dictRef="x:yyzz">-4.8059</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xzz">
     <scalar dataType="xsd:string" dictRef="x:xzz">N-N= 1.339525332293D+01 E-N=-1.198300348205D+02 KE= 4.007106437468D+01</scalar>
    </list>
   </module>
  </module> Symmetry A KE= 3.429162328199D+01 Symmetry B1 KE= 1.926480364229D+00 Symmetry B2 KE= 1.926480364229D+00 Symmetry B3 KE= 1.926480364229D+00
- <module cmlx:lineCount="1" cmlx:templateRef="ginc1" xmlns:xi="http://www.w3.org/2001/XInclude">
-  <list cmlx:templateRef="missingID">
-   <scalar dataType="xsd:string" dictRef="g:final">Final structure in terms of initial Z-matrix:</scalar>
+ <module cmlx:lineCount="22" cmlx:templateRef="l9999" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <module cmlx:lineCount="1" cmlx:templateRef="ginc1">
+   <list cmlx:templateRef="final">
+    <scalar dataType="xsd:string" dictRef="g:final">Final structure in terms of initial Z-matrix:</scalar>
+   </list>
+  </module>
+  <list cmlx:templateRef="l9999">
+   <scalar dataType="xsd:string" dictRef="x:l9999">C</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l9999">H,1,B1</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l9999">H,1,B2,2,A1</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l9999">H,1,B3,2,A2,3,D1,0</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l9999">H,1,B4,2,A3,3,D2,0</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l9999">Variables:</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l9999">B1=1.09326594</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l9999">B2=1.09326594</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l9999">B3=1.09326594</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l9999">B4=1.09326594</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l9999">A1=109.47122063</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l9999">A2=109.47122063</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l9999">D1=120.</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l9999">A3=109.47122063</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l9999">D2=-120.</scalar>
   </list>
- </module> C H,1,B1 H,1,B2,2,A1 H,1,B3,2,A2,3,D1,0 H,1,B4,2,A3,3,D2,0 Variables: B1=1.09326594 B2=1.09326594 B3=1.09326594 B4=1.09326594 A1=109.47122063 A2=109.47122063 D1=120. A3=109.47122063 D2=-120.
- <module cmlx:lineCount="6" cmlx:templateRef="ginc1" xmlns:xi="http://www.w3.org/2001/XInclude">
-  <list cmlx:templateRef="missingID">
-   <scalar dataType="xsd:string" dictRef="g:ginc1">1\1\GINC-DEEPTHOUGHT\FOpt\RB3LYP\6-31G(d)\C1H4\WWW-DATA\20-Nov-2006\0\</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">\#N B3LYP/6-31G(D) OPT FREQ\\CH4\\0,1\C,0.,0.,0.\H,0.0000000995,0.0000</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">001925,1.09326594\H,1.0307409799,0.0000001096,-0.3644220738\H,-0.51537</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">03892,-0.8926480531,-0.3644217759\H,-0.5153706902,0.892647751,-0.36442</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">20902\\Version=x86-Linux-G03RevB.04\State=1-A1\HF=-40.5183892\RMSD=2.7</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">82e-09\RMSF=8.238e-08\Dipole=0.,0.,0.\PG=TD [O(C1),4C3(H1)]\\@</scalar>
-  </list>
+  <module cmlx:lineCount="6" cmlx:templateRef="ginc1">
+   <list cmlx:templateRef="ginc">
+    <scalar dataType="xsd:string" dictRef="g:ginc1">1\1\GINC-DEEPTHOUGHT\FOpt\RB3LYP\6-31G(d)\C1H4\WWW-DATA\20-Nov-2006\0\</scalar>
+    <scalar dataType="xsd:string" dictRef="g:ginc1">\#N B3LYP/6-31G(D) OPT FREQ\\CH4\\0,1\C,0.,0.,0.\H,0.0000000995,0.0000</scalar>
+    <scalar dataType="xsd:string" dictRef="g:ginc1">001925,1.09326594\H,1.0307409799,0.0000001096,-0.3644220738\H,-0.51537</scalar>
+    <scalar dataType="xsd:string" dictRef="g:ginc1">03892,-0.8926480531,-0.3644217759\H,-0.5153706902,0.892647751,-0.36442</scalar>
+    <scalar dataType="xsd:string" dictRef="g:ginc1">20902\\Version=x86-Linux-G03RevB.04\State=1-A1\HF=-40.5183892\RMSD=2.7</scalar>
+    <scalar dataType="xsd:string" dictRef="g:ginc1">82e-09\RMSF=8.238e-08\Dipole=0.,0.,0.\PG=TD [O(C1),4C3(H1)]\\@</scalar>
+   </list>
+  </module>
  </module> THE WHOLE OF SCIENCE IS NOTHING MORE THAN A REFINEMENT OF EVEYDAY THINKING. -- A. EINSTEIN
  <module cmlx:lineCount="3" cmlx:templateRef="jobcpu">
   <list cmlx:templateRef="jobcpu">
@@ -1467,7 +1439,7 @@
     <array dataType="xsd:double" dictRef="cc:z3" size="5">0.0 1.09326594 -0.3644220738 -0.3644217759 -0.3644220902</array>
    </list>
   </module>
-  <list cmlx:templateRef="missingID">
+  <list cmlx:templateRef="link1a">
    <scalar dataType="xsd:string" dictRef="g:link1a">Recover connectivity data from disk.</scalar>
   </list>
  </module>
@@ -1506,56 +1478,6 @@
      <scalar dataType="xsd:string" dictRef="g:deriv">calculate D2E/DX2 analytically</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="angle">
-    <list>
-     <scalar dataType="xsd:string" dictRef="g:symbol">A1</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom1">2</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom2">1</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom3">3</scalar>
-     <scalar dataType="xsd:double" dictRef="cc:angle">109.4712</scalar>
-     <scalar dataType="xsd:string" dictRef="g:deriv">calculate D2E/DX2 analytically</scalar>
-    </list>
-    <list>
-     <scalar dataType="xsd:string" dictRef="g:symbol">A2</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom1">2</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom2">1</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom3">4</scalar>
-     <scalar dataType="xsd:double" dictRef="cc:angle">109.4712</scalar>
-     <scalar dataType="xsd:string" dictRef="g:deriv">calculate D2E/DX2 analytically</scalar>
-    </list>
-    <list>
-     <scalar dataType="xsd:string" dictRef="g:symbol">A3</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom1">2</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom2">1</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom3">5</scalar>
-     <scalar dataType="xsd:double" dictRef="cc:angle">109.4712</scalar>
-     <scalar dataType="xsd:string" dictRef="g:deriv">calculate D2E/DX2 analytically</scalar>
-    </list>
-    <list>
-     <scalar dataType="xsd:string" dictRef="g:symbol">A4</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom1">3</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom2">1</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom3">4</scalar>
-     <scalar dataType="xsd:double" dictRef="cc:angle">109.4712</scalar>
-     <scalar dataType="xsd:string" dictRef="g:deriv">calculate D2E/DX2 analytically</scalar>
-    </list>
-    <list>
-     <scalar dataType="xsd:string" dictRef="g:symbol">A5</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom1">3</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom2">1</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom3">5</scalar>
-     <scalar dataType="xsd:double" dictRef="cc:angle">109.4712</scalar>
-     <scalar dataType="xsd:string" dictRef="g:deriv">calculate D2E/DX2 analytically</scalar>
-    </list>
-    <list>
-     <scalar dataType="xsd:string" dictRef="g:symbol">A6</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom1">4</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom2">1</scalar>
-     <scalar dataType="xsd:integer" dictRef="g:atom3">5</scalar>
-     <scalar dataType="xsd:double" dictRef="cc:angle">109.4712</scalar>
-     <scalar dataType="xsd:string" dictRef="g:deriv">calculate D2E/DX2 analytically</scalar>
-    </list>
-   </list>
   </module> --------------------------------------------------------------------------------
   <module cmlx:lineCount="2" cmlx:templateRef="l103.trust">
    <list cmlx:templateRef="length">
@@ -1577,7 +1499,7 @@
   <list cmlx:templateRef="type">
    <scalar dataType="xsd:string" dictRef="g:type">Input</scalar>
   </list>
-  <list cmlx:lineCount="5" cmlx:templateRef="missingID">
+  <list cmlx:lineCount="5" cmlx:templateRef="atom">
    <array dataType="xsd:integer" dictRef="cc:serial" size="5">1 2 3 4 5</array>
    <array dataType="xsd:integer" dictRef="cc:elementType" size="5">6 1 1 1 1</array>
    <array dataType="xsd:integer" dictRef="g:atomicType" size="5">0 0 0 0 0</array>
@@ -1587,7 +1509,7 @@
   </list>
  </module>
  <module cmlx:lineCount="7" cmlx:templateRef="l202.distmat">
-  <list cmlx:templateRef="missingID">
+  <list cmlx:templateRef="atom">
    <list>
     <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
     <scalar dataType="xsd:string" dictRef="cc:elementType">C</scalar>
@@ -1648,7 +1570,7 @@
   <list cmlx:templateRef="type">
    <scalar dataType="xsd:string" dictRef="g:type">Standard</scalar>
   </list>
-  <list cmlx:lineCount="5" cmlx:templateRef="missingID">
+  <list cmlx:lineCount="5" cmlx:templateRef="atom">
    <array dataType="xsd:integer" dictRef="cc:serial" size="5">1 2 3 4 5</array>
    <array dataType="xsd:integer" dictRef="cc:elementType" size="5">6 1 1 1 1</array>
    <array dataType="xsd:integer" dictRef="g:atomicType" size="5">0 0 0 0 0</array>
@@ -1718,7 +1640,7 @@
  </module> Occupied (A1) (A1) (T2) (T2) (T2) Virtual (A1) (T2) (T2) (T2) (T2) (T2) (T2) (T2) (T2) (T2) (A1) (A1) (E) (E) (T2) (T2) (T2) (A1) Requested convergence on RMS density matrix=1.00D-08 within 128 cycles. Requested convergence on MAX density matrix=1.00D-06. Requested convergence on energy=1.00D-06. No special actions if energy rises. Keep R1 integrals in memory in canonical form, NReq= 533869. A guess orbital has undefined symmetry, so N**3 symmetry is turned off. SCF Done: E(RB+HF-LYP) = -40.5183891676 A.U. after 1 cycles Convg = 0.8723D-10 -V/T = 2.0112 S**2 = 0.0000 Range of M.O.s used for correlation: 1 23 NBasis= 23 NAE= 5 NBE= 5 NFC= 0 NFV= 0 NROrb= 23 NOA= 5 NOB= 5 NVA= 18 NVB= 18 Symmetrizing basis deriv contribution to polar: IMax=3 JMax=2 DiffMx= 0.00D+00 G2DrvN: will do 6 centers at a time, making 1 passes doing MaxLOS=2. FoFDir/FoFCou used for L=0 through L=2. Differentiating once with respect to electric field. with respect to dipole field. Differentiating once with respect to nuclear coordinates. Store integrals in memory, NReq= 468998. There are 9 degrees of freedom in the 1st order CPHF. 9 vectors were produced by pass 0. AX will form 9 AO Fock derivatives at one time. 9 vectors were produced by pass 1. 9 vectors were produced by pass 2. 9 vectors were produced by pass 3. 9 vectors were produced by pass 4. 4 vectors were produced by pass 5. Inv2: IOpt= 1 Iter= 1 AM= 9.24D-16 Conv= 1.00D-12. Inverted reduced A of dimension 49 with in-core refinement. Isotropic polarizability for W= 0.000000 12.35 Bohr**3. End of Minotr Frequency-dependent properties file 721 does not exist.
  <module cmlx:lineCount="75" cmlx:templateRef="l601.popanal" xmlns:xi="http://www.w3.org/2001/XInclude"> ********************************************************************** Population analysis using the SCF density. **********************************************************************
   <module cmlx:lineCount="1" cmlx:templateRef="orbitalsym"/>
-  <list cmlx:templateRef="missingID">
+  <list cmlx:templateRef="popanal">
    <scalar dataType="xsd:string" dictRef="x:popanal">Occupied (A1) (A1) (T2) (T2) (T2)</scalar>
    <scalar dataType="xsd:string" dictRef="x:popanal">Virtual (A1) (T2) (T2) (T2) (T2) (T2) (T2) (T2) (T2) (T2)</scalar>
    <scalar dataType="xsd:string" dictRef="x:popanal">(A1) (A1) (E) (E) (T2) (T2) (T2) (A1)</scalar>
@@ -1788,10 +1710,10 @@
    </module> Sum of APT charges= 0.00000 Sum of APT charges= 0.00000 Electronic spatial extent (au): &lt;R**2&gt;= 35.4771 Charge= 0.0000 electrons
   </module>
   <module cmlx:lineCount="18" cmlx:templateRef="multipole">
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="dipoletype">
     <scalar dataType="xsd:string" dictRef="g:dipoletype">field-independent basis, Debye</scalar>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="dipole">
     <list>
      <scalar dataType="xsd:double" dictRef="x:x">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:y">0.0</scalar>
@@ -1799,44 +1721,44 @@
      <scalar dataType="xsd:double" dictRef="x:dipole">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="quadrupoletype">
     <scalar dataType="xsd:string" dictRef="g:quadpoletype">field-independent basis, Debye-Ang</scalar>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="quadrupol">
     <list>
      <scalar dataType="xsd:double" dictRef="x:x">-8.2514</scalar>
      <scalar dataType="xsd:double" dictRef="x:y">-8.2514</scalar>
      <scalar dataType="xsd:double" dictRef="x:z">-8.2514</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xy">
     <list>
      <scalar dataType="xsd:double" dictRef="x:x">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:y">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:z">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="quadrupoletypea">
     <scalar dataType="xsd:string" dictRef="g:quadpoletype">field-independent basis, Debye-Ang</scalar>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xx">
     <list>
      <scalar dataType="xsd:double" dictRef="x:x">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:y">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:z">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xya">
     <list>
      <scalar dataType="xsd:double" dictRef="x:x">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:y">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:z">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="octapoletype">
     <scalar dataType="xsd:string" dictRef="g:octapoletype">field-independent basis, Debye-Ang**2</scalar>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xxx">
     <list>
      <scalar dataType="xsd:double" dictRef="x:xxx">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:yyy">0.0</scalar>
@@ -1844,7 +1766,7 @@
      <scalar dataType="xsd:double" dictRef="x:xyy">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xxy">
     <list>
      <scalar dataType="xsd:double" dictRef="x:xxy">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:xxz">0.0</scalar>
@@ -1852,16 +1774,16 @@
      <scalar dataType="xsd:double" dictRef="x:xzz">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="yyz">
     <list>
      <scalar dataType="xsd:double" dictRef="x:yyz">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:xyz">0.6711</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="hexadecapoletype">
     <scalar dataType="xsd:string" dictRef="g:hexadecapoletype">field-independent basis, Debye-Ang**3</scalar>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xxxx">
     <list>
      <scalar dataType="xsd:double" dictRef="x:xxxx">-15.7513</scalar>
      <scalar dataType="xsd:double" dictRef="x:yyyy">-15.7513</scalar>
@@ -1869,7 +1791,7 @@
      <scalar dataType="xsd:double" dictRef="x:xxxy">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xxxz">
     <list>
      <scalar dataType="xsd:double" dictRef="x:xxxz">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:yyyx">0.0</scalar>
@@ -1877,7 +1799,7 @@
      <scalar dataType="xsd:double" dictRef="x:zzzx">0.0</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="zzzy">
     <list>
      <scalar dataType="xsd:double" dictRef="x:zzzy">0.0</scalar>
      <scalar dataType="xsd:double" dictRef="x:xxyy">-4.8059</scalar>
@@ -1885,7 +1807,7 @@
      <scalar dataType="xsd:double" dictRef="x:yyzz">-4.8059</scalar>
     </list>
    </list>
-   <list cmlx:templateRef="missingID">
+   <list cmlx:templateRef="xzz">
     <scalar dataType="xsd:string" dictRef="x:xzz">N-N= 1.339525332293D+01 E-N=-1.198300348401D+02 KE= 4.007106438429D+01</scalar>
    </list>
   </module>
@@ -1941,11 +1863,33 @@
   </list>
  </module>
  <module cmlx:lineCount="25" cmlx:templateRef="l101" xmlns:xi="http://www.w3.org/2001/XInclude">
-  <module cmlx:lineCount="3" cmlx:templateRef="l1.title">
-   <list cmlx:templateRef="title">
-    <scalar dataType="xsd:string" dictRef="cc:title">- Thermochemistry -</scalar>
-   </list>
-  </module> Temperature 298.150 Kelvin. Pressure 1.00000 Atm. Atom 1 has atomic number 6 and mass 12.00000 Atom 2 has atomic number 1 and mass 1.00783 Atom 3 has atomic number 1 and mass 1.00783 Atom 4 has atomic number 1 and mass 1.00783 Atom 5 has atomic number 1 and mass 1.00783 Molecular mass: 16.03130 amu. Principal axes and moments of inertia in atomic units: 1 2 3 EIGENVALUES -- 11.47105 11.47105 11.47105 X 0.00000 0.00000 1.00000 Y 0.00000 1.00000 0.00000 Z 1.00000 0.00000 0.00000 This molecule is a spherical top. Rotational symmetry number 12. Rotational temperatures (Kelvin) 7.55064 7.55064 7.55064 Rotational constants (GHZ): 157.33005 157.33005 157.33005 Zero-point vibrational energy 118752.0 (Joules/Mol) 28.38241 (Kcal/Mol) Vibrational temperatures: 1976.16 1976.16 1976.16 2293.35 2293.35 (Kelvin) 4393.44 4552.17 4552.17 4552.17 
+  <list cmlx:templateRef="rest">
+   <scalar dataType="xsd:string" dictRef="x:l101">-------------------</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">- Thermochemistry -</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">-------------------</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">Temperature 298.150 Kelvin. Pressure 1.00000 Atm.</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">Atom 1 has atomic number 6 and mass 12.00000</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">Atom 2 has atomic number 1 and mass 1.00783</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">Atom 3 has atomic number 1 and mass 1.00783</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">Atom 4 has atomic number 1 and mass 1.00783</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">Atom 5 has atomic number 1 and mass 1.00783</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">Molecular mass: 16.03130 amu.</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">Principal axes and moments of inertia in atomic units:</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">1 2 3</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">EIGENVALUES -- 11.47105 11.47105 11.47105</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">X 0.00000 0.00000 1.00000</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">Y 0.00000 1.00000 0.00000</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">Z 1.00000 0.00000 0.00000</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">This molecule is a spherical top.</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">Rotational symmetry number 12.</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">Rotational temperatures (Kelvin) 7.55064 7.55064 7.55064</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">Rotational constants (GHZ): 157.33005 157.33005 157.33005</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">Zero-point vibrational energy 118752.0 (Joules/Mol)</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">28.38241 (Kcal/Mol)</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">Vibrational temperatures: 1976.16 1976.16 1976.16 2293.35 2293.35</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101">(Kelvin) 4393.44 4552.17 4552.17 4552.17</scalar>
+   <scalar dataType="xsd:string" dictRef="x:l101"/>
+  </list>
  </module>
  <module cmlx:lineCount="9" cmlx:templateRef="zeropoint" xmlns:xi="http://www.w3.org/2001/XInclude">
   <list cmlx:templateRef="zeropoint">
@@ -1984,7 +1928,7 @@
   </list>
  </module>
  <module cmlx:lineCount="28" cmlx:templateRef="thermoprops" xmlns:xi="http://www.w3.org/2001/XInclude">
-  <list cmlx:templateRef="missingID">
+  <list cmlx:templateRef="xxx">
    <scalar dataType="xsd:string" dictRef="x:xxx">E (Thermal) CV S</scalar>
    <scalar dataType="xsd:string" dictRef="x:xxx">KCal/Mol Cal/Mol-Kelvin Cal/Mol-Kelvin</scalar>
   </list>
@@ -2225,44 +2169,7 @@
     <scalar dataType="xsd:double" dictRef="cc:deriv">0.0</scalar>
    </list>
   </list>
- </module> -------------------------------------------------------------------------------- GradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGrad
- <module cmlx:lineCount="33" cmlx:templateRef="ginc1" xmlns:xi="http://www.w3.org/2001/XInclude">
-  <list cmlx:templateRef="missingID">
-   <scalar dataType="xsd:string" dictRef="g:ginc1">1\1\GINC-DEEPTHOUGHT\Freq\RB3LYP\6-31G(d)\C1H4\WWW-DATA\20-Nov-2006\0\</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">\#N GEOM=ALLCHECK GUESS=READ SCRF=CHECK GENCHK RB3LYP/6-31G(D) FREQ\\C</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">H4\\0,1\C,0.,0.,0.\H,0.0000000995,0.0000001925,1.09326594\H,1.03074097</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">99,0.0000001096,-0.3644220738\H,-0.5153703892,-0.8926480531,-0.3644217</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">759\H,-0.5153706902,0.892647751,-0.3644220902\\Version=x86-Linux-G03Re</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">vB.04\State=1-A1\HF=-40.5183892\RMSD=8.723e-11\RMSF=8.224e-08\Dipole=0</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">.,0.,0.\DipoleDeriv=0.0007872,0.,0.,0.,0.0007871,0.,0.,0.,0.0007871,0.</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">0733391,0.,0.,0.,0.0733391,0.,0.,0.,-0.1472685,-0.1227565,0.,0.0693303</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">,0.,0.0733391,0.,0.0693303,0.,0.0488271,0.0243152,-0.0849119,-0.034665</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">1,-0.0849119,-0.0737327,-0.0600418,-0.0346651,-0.0600418,0.0488271,0.0</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">243151,0.0849119,-0.0346652,0.0849119,-0.0737326,0.0600418,-0.0346652,</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">0.0600418,0.0488271\Polar=12.3528403,0.,12.3528403,0.,0.,12.3528403\PG</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">=TD [O(C1),4C3(H1)]\NImag=0\\0.55936081,0.,0.55936081,0.,0.,0.55936081</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">,-0.04828560,0.,-0.00000003,0.04683066,0.,-0.04828560,-0.00000005,0.,0</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">.04683066,-0.00000003,-0.00000005,-0.32294941,0.00000003,0.00000005,0.</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">34888521,-0.29243119,-0.00000003,0.08631853,0.00266595,0.,-0.00067139,</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">0.31532358,-0.00000003,-0.04828560,0.,0.,-0.00169598,0.,0.00000003,0.0</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">4683066,0.08631853,0.,-0.07880382,0.03266432,0.,-0.00864527,-0.0949266</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">1,-0.00000001,0.08039229,-0.10932197,-0.10571814,-0.04315922,-0.000605</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">50,0.00188877,0.00033570,-0.01277916,-0.02604072,-0.01202812,0.1139538</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">6,-0.10571814,-0.23139487,-0.07475399,0.00188877,0.00157546,0.00058144</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">,0.00117778,0.00157546,0.00158693,0.11626084,0.24820043,-0.04315922,-0</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">.07475399,-0.07880377,-0.01633216,-0.02828814,-0.00864526,0.00463974,0</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">.01121013,0.00352839,0.04746326,0.08220880,0.08039224,-0.10932205,0.10</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">571817,-0.04315928,-0.00060550,-0.00188877,0.00033570,-0.01277917,0.02</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">604071,-0.01202812,0.00875278,-0.01360924,0.00738839,0.11395394,0.1057</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">1817,-0.23139475,0.07475403,-0.00188877,0.00157547,-0.00058144,-0.0011</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">7778,0.00157546,-0.00158694,0.01360926,-0.01995648,0.00962320,-0.11626</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">087,0.24820029,-0.04315928,0.07475403,-0.07880382,-0.01633217,0.028288</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">13,-0.00864527,0.00463974,-0.01121013,0.00352840,0.00738838,-0.0096231</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">9,0.00352839,0.04746332,-0.08220885,0.08039230\\0.,0.,0.,0.,0.,0.00000</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">016,0.00000015,0.,-0.00000005,-0.00000008,-0.00000013,-0.00000005,-0.0</scalar>
-   <scalar dataType="xsd:string" dictRef="g:ginc1">0000008,0.00000013,-0.00000005\\\@</scalar>
-  </list>
- </module> ARSENIC FOR SMELTER FUMES HAVE I BEEN NAMED, I AM AN EVIL POISONOUS SMOKE... BUT WHEN FROM POISON I AM FREED, THROUGH ART AND SLEIGHT OF HAND, THEN CAN I CURE BOTH MAN AND BEAST, FROM DIRE DISEASE OFTTIMES DIRECT THEM; BUT PREPARE ME CORRECTLY, AND TAKE GREAT CARE THAT YOU FAITHFULLY KEEP WATCHFUL GUARD OVER ME; FOR ELSE I AM POISON, AND POISON REMAIN, THAT PIERCES THE HEART OF MANY A ONE. ATTRIBUTED TO THE PROBABLY MYTHICAL 15TH CENTURY MONK, BASILIUS VALENTINUS
+ </module> -------------------------------------------------------------------------------- GradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGrad 1\1\GINC-DEEPTHOUGHT\Freq\RB3LYP\6-31G(d)\C1H4\WWW-DATA\20-Nov-2006\0\ \#N GEOM=ALLCHECK GUESS=READ SCRF=CHECK GENCHK RB3LYP/6-31G(D) FREQ\\C H4\\0,1\C,0.,0.,0.\H,0.0000000995,0.0000001925,1.09326594\H,1.03074097 99,0.0000001096,-0.3644220738\H,-0.5153703892,-0.8926480531,-0.3644217 759\H,-0.5153706902,0.892647751,-0.3644220902\\Version=x86-Linux-G03Re vB.04\State=1-A1\HF=-40.5183892\RMSD=8.723e-11\RMSF=8.224e-08\Dipole=0 .,0.,0.\DipoleDeriv=0.0007872,0.,0.,0.,0.0007871,0.,0.,0.,0.0007871,0. 0733391,0.,0.,0.,0.0733391,0.,0.,0.,-0.1472685,-0.1227565,0.,0.0693303 ,0.,0.0733391,0.,0.0693303,0.,0.0488271,0.0243152,-0.0849119,-0.034665 1,-0.0849119,-0.0737327,-0.0600418,-0.0346651,-0.0600418,0.0488271,0.0 243151,0.0849119,-0.0346652,0.0849119,-0.0737326,0.0600418,-0.0346652, 0.0600418,0.0488271\Polar=12.3528403,0.,12.3528403,0.,0.,12.3528403\PG =TD [O(C1),4C3(H1)]\NImag=0\\0.55936081,0.,0.55936081,0.,0.,0.55936081 ,-0.04828560,0.,-0.00000003,0.04683066,0.,-0.04828560,-0.00000005,0.,0 .04683066,-0.00000003,-0.00000005,-0.32294941,0.00000003,0.00000005,0. 34888521,-0.29243119,-0.00000003,0.08631853,0.00266595,0.,-0.00067139, 0.31532358,-0.00000003,-0.04828560,0.,0.,-0.00169598,0.,0.00000003,0.0 4683066,0.08631853,0.,-0.07880382,0.03266432,0.,-0.00864527,-0.0949266 1,-0.00000001,0.08039229,-0.10932197,-0.10571814,-0.04315922,-0.000605 50,0.00188877,0.00033570,-0.01277916,-0.02604072,-0.01202812,0.1139538 6,-0.10571814,-0.23139487,-0.07475399,0.00188877,0.00157546,0.00058144 ,0.00117778,0.00157546,0.00158693,0.11626084,0.24820043,-0.04315922,-0 .07475399,-0.07880377,-0.01633216,-0.02828814,-0.00864526,0.00463974,0 .01121013,0.00352839,0.04746326,0.08220880,0.08039224,-0.10932205,0.10 571817,-0.04315928,-0.00060550,-0.00188877,0.00033570,-0.01277917,0.02 604071,-0.01202812,0.00875278,-0.01360924,0.00738839,0.11395394,0.1057 1817,-0.23139475,0.07475403,-0.00188877,0.00157547,-0.00058144,-0.0011 7778,0.00157546,-0.00158694,0.01360926,-0.01995648,0.00962320,-0.11626 087,0.24820029,-0.04315928,0.07475403,-0.07880382,-0.01633217,0.028288 13,-0.00864527,0.00463974,-0.01121013,0.00352840,0.00738838,-0.0096231 9,0.00352839,0.04746332,-0.08220885,0.08039230\\0.,0.,0.,0.,0.,0.00000 016,0.00000015,0.,-0.00000005,-0.00000008,-0.00000013,-0.00000005,-0.0 0000008,0.00000013,-0.00000005\\\@ ARSENIC FOR SMELTER FUMES HAVE I BEEN NAMED, I AM AN EVIL POISONOUS SMOKE... BUT WHEN FROM POISON I AM FREED, THROUGH ART AND SLEIGHT OF HAND, THEN CAN I CURE BOTH MAN AND BEAST, FROM DIRE DISEASE OFTTIMES DIRECT THEM; BUT PREPARE ME CORRECTLY, AND TAKE GREAT CARE THAT YOU FAITHFULLY KEEP WATCHFUL GUARD OVER ME; FOR ELSE I AM POISON, AND POISON REMAIN, THAT PIERCES THE HEART OF MANY A ONE. ATTRIBUTED TO THE PROBABLY MYTHICAL 15TH CENTURY MONK, BASILIUS VALENTINUS
  <module cmlx:lineCount="3" cmlx:templateRef="jobcpu">
   <list cmlx:templateRef="jobcpu">
    <scalar dataType="xsd:string" dictRef="x:junk">Job cpu time: 0 days 0 hours 0 minutes 12.7 seconds.</scalar>

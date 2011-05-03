@@ -1,0 +1,61 @@
+<template id="l301.basis" name="basis" repeat="*"
+    pattern="\s*Standard basis.*" endPattern="\s*NAtoms=.*"
+    endOffset="1"
+    >
+    
+  <comment class="example.input" id="l301.basis">
+ Standard basis: 6-31G(d) (6D, 7F)
+ There are     8 symmetry adapted basis functions of A   symmetry.
+ There are     5 symmetry adapted basis functions of B1  symmetry.
+ There are     5 symmetry adapted basis functions of B2  symmetry.
+ There are     5 symmetry adapted basis functions of B3  symmetry.
+ Integral buffers will be    262144 words long.
+ Raffenetti 2 integral format.
+ Two-electron integral symmetry is turned on.
+    23 basis functions,    44 primitive gaussians,    23 cartesian basis functions
+     5 alpha electrons        5 beta electrons
+       nuclear repulsion energy        13.1577484238 Hartrees.
+ NAtoms=    5 NActive=    5 NUniq=    2 SFac= 5.66D+00 NAtFMM=   60 Big=F
+  </comment>
+  <record id="basis">\s*Standard basis: {A,cc:basis} {X,cc:diffuse}</record> 
+  <record id="symmadapt" repeat="*" makeArray="true">\s* There are{I,cc:adapted} symmetry adapted basis functions of{A,cc:symm}symmetry.</record> 
+  <record id="buffer">\s*Integral buffers will be {I,g:buffer}\s*words long\.</record> 
+  <record id="raff">\s*{A,g:raffenetti} 2 integral format\.</record> 
+  <record id="twoe">\s*{X,g:twoe} integral symmetry is turned on\.</record> 
+  <record id="basiscount">\s*{I,cc:basiscount}basis functions,{I,g:primbasis}primitive gaussians,{I,cc:cartesianbasis}cartesian basis functions\s*</record> 
+  <record id="alphabeta">\s*{I,cc:alphae}alpha electrons\s*{I,cc:betae}beta electrons\s*</record> 
+  <record id="nucrep">\s*nuclear repulsion energy\s*{F,cc:nucrepener}Hartrees\.\s*</record>
+  <record id="counts">\s*NAtoms={I,cc:natoms}NActive={I,cc:nactiveatoms}NUniq={I,cc:uniqatoms}SFac={E,g:sfac} NAtFMM={I,g:natfmm}Big={A,g:big}\s*</record> 
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  <transform process="pullup" xpath=".//cml:scalar"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  
+  <comment class="example.output" id="l301.basis">
+    <module cmlx:templateRef="l301.basis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="cc:basis">6-31G(d)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:diffuse">(6D, 7F)</scalar>
+      <list cmlx:lineCount="4" cmlx:templateRef="symmadapt">
+        <array dataType="xsd:integer" dictRef="cc:adapted" size="4">8 5 5 5</array>
+        <array dataType="xsd:string" dictRef="cc:symm" size="4">A B1 B2 B3</array>
+      </list>
+      <scalar dataType="xsd:integer" dictRef="g:buffer" cmlx:templateRef="buffer">262144</scalar>
+      <scalar dataType="xsd:string" dictRef="g:raffenetti" cmlx:templateRef="raff">Raffenetti</scalar>
+      <scalar dataType="xsd:string" dictRef="g:twoe" cmlx:templateRef="twoe">Two-electron</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:basiscount">23</scalar>
+      <scalar dataType="xsd:integer" dictRef="g:primbasis">44</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:cartesianbasis">23</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:alphae">5</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:betae">5</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:nucrepener" cmlx:templateRef="nucrep">13.1577484238</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:natoms">5</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:nactiveatoms">5</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:uniqatoms">2</scalar>
+      <scalar dataType="xsd:double" dictRef="g:sfac">5.66</scalar>
+      <scalar dataType="xsd:integer" dictRef="g:natfmm">60</scalar>
+      <scalar dataType="xsd:string" dictRef="g:big">F</scalar>
+    </module>
+  </comment>
+</template>
+ 

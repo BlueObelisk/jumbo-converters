@@ -1,0 +1,33 @@
+<template id="l601.popanal" name="Population analysis using the SCF density"
+    repeat="*" 
+    pattern="\s*\*+\s*$\s*$\s*Population analysis using the SCF density.*" 
+    endPattern="\sN\-N\=.*" endOffset="1"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    >
+    
+  <comment class="example.input" id="l601.popanal">
+ **********************************************************************
+
+            Population analysis using the SCF density.
+
+ **********************************************************************
+ ...
+ N-N= 1.315774842379D+01 E-N=-1.192852991071D+02  KE= 3.997282125544D+01
+  </comment>
+
+  <record repeat="5"/>
+  <templateList>
+    <xi:include href="l601.condensed.xml"/>
+    <xi:include href="l4601.virtual.xml"/>
+    <xi:include href="l4601.occupied.xml"/>
+    <xi:include href="l601.alphabetaeigen.xml"/>
+    <xi:include href="l601.mulliken.xml"/>
+    <xi:include href="l601.multipole.xml"/>
+    <xi:include href="l601.state.xml"/>
+  </templateList>
+  <record repeat="*" id="popanal">{X,x:popanal}</record>
+
+  <comment class="example.output.raw" id="l601.popanal">
+ </comment>
+</template>
+ 

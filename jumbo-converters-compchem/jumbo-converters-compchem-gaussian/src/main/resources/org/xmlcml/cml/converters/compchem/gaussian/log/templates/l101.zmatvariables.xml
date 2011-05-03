@@ -1,0 +1,112 @@
+<template id="l101.zmatvariables" pattern="\s*Symbolic.*" endPattern="\s*" repeat="*"
+  >
+  <comment class="example.input" id="l101.zmatvariables">
+ Symbolic Z-matrix:
+ Charge =  0 Multiplicity = 1
+ C
+ H                    1    B1
+ H                    1    B2       2    A1
+ H                    1    B3       2    A2       3    D1       0
+ H                    1    B4       2    A3       3    D2       0
+       Variables:
+  B1                    1.113                    
+  B2                    1.113                    
+  B3                    1.113                    
+  B4                    1.113                    
+  A1                  109.47124                  
+  A2                  109.47119                  
+  D1                  120.                       
+  A3                  109.47123                  
+  D2                 -120.                       
+ 
+  </comment>
+  <record/>
+  <record id="chargemult">\s*Charge\s*={I,x:formalCharge}\s*Multiplicity\s*={I,x:multiplicity}</record>
+  <!-- serial numbers appear to be redundant -->
+  <!-- internals appear to be (a2, a1), (a3, a2, a1), (a4, a3, a2, a1) -->
+  <record id="atom1">\s*{A,cc:elementType}</record>
+  <record id="atom2">\s*{A,cc:elementType}{I,x:junk}{A,cc:name}</record>
+  <record id="atom3">\s*{A,cc:elementType}{I,x:junk}{A,cc:name}{I,x:junk}{A,cc:name}</record>
+  <record id="atom4" repeat="*">\s*{A,cc:elementType}{I,x:junk}{A,cc:name}{I,x:junk}{A,cc:name}{I,x:junk}{A,cc:name}{I,g:unknown}</record>
+  <record/>
+  <record id="variable" repeat="*">\s*{A,x:name}{F,x:value}</record>
+
+  <transform process="addMap" xpath="." id="variableMap"/>
+  <transform process="addLink" xpath="./cml:list[@cmlx:templateRef='variable']/cml:list" 
+    from="./cml:scalar[@dictRef='x:name']" toXpath="./cml:scalar[@dictRef='x:value']" 
+    value="value" map="./cml:map[@id='variableMap']"/>
+  <transform process="delete" xpath="./cml:list[@cmlx:templateRef='variable']"/>
+  <transform process="pullup" xpath=".//cml:list[@cmlx:templateRef='atom2' or @cmlx:templateRef='atom3']//cml:scalar"/>
+  <transform process="addAttribute" xpath=".//cml:list[@cmlx:templateRef='atom4']//cml:list" 
+      name="cmlx:templateRef" value="atom4"/>
+  <transform process="pullup" xpath=".//cml:list[@cmlx:templateRef='atom4']//cml:list"/>
+  <transform process="pullup" xpath=".//cml:list[@cmlx:templateRef='chargemult']//cml:scalar" repeat="2"/>
+  <transform process="createZMatrix" xpath="." value="implicit321"/>
+  <transform process="move" xpath=".//cml:map" toXpath="../cml:molecule/cml:zMatrix"/>
+  <transform process="addAttribute" xpath="../cml:molecule" name="spinMultiplicity" value="number(.//cml:scalar[@dictRef='x:multiplicity'])"/>
+  <transform process="addAttribute" xpath="../cml:molecule" name="formalCharge" value="number(.//cml:scalar[@dictRef='x:formalCharge'])"/>
+  <transform process="delete" xpath="."/>
+  
+  <comment class="example.output" id="l101.zmatvariables">
+    <module cmlx:templateRef="l101.zmatvariables" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="chargemult">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="x:formalCharge">0</scalar>
+          <scalar dataType="xsd:integer" dictRef="x:multiplicity">1</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="atom1">
+        <scalar dataType="xsd:string" dictRef="cc:elementType">C</scalar>
+      </list>
+      <list cmlx:templateRef="atom2">
+        <list>
+          <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
+          <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+          <scalar dataType="xsd:string" dictRef="cc:name">B1</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="atom3">
+        <list>
+          <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
+          <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+          <scalar dataType="xsd:string" dictRef="cc:name">B2</scalar>
+          <scalar dataType="xsd:integer" dictRef="cc:serial">2</scalar>
+          <scalar dataType="xsd:string" dictRef="cc:name">A1</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="atom4">
+        <list>
+          <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
+          <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+          <scalar dataType="xsd:string" dictRef="cc:name">B3</scalar>
+          <scalar dataType="xsd:integer" dictRef="cc:serial">2</scalar>
+          <scalar dataType="xsd:string" dictRef="cc:name">A2</scalar>
+          <scalar dataType="xsd:integer" dictRef="cc:serial">3</scalar>
+          <scalar dataType="xsd:string" dictRef="cc:name">D1</scalar>
+          <scalar dataType="xsd:integer" dictRef="cc:serial">0</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
+          <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+          <scalar dataType="xsd:string" dictRef="cc:name">B4</scalar>
+          <scalar dataType="xsd:integer" dictRef="cc:serial">2</scalar>
+          <scalar dataType="xsd:string" dictRef="cc:name">A3</scalar>
+          <scalar dataType="xsd:integer" dictRef="cc:serial">3</scalar>
+          <scalar dataType="xsd:string" dictRef="cc:name">D2</scalar>
+          <scalar dataType="xsd:integer" dictRef="cc:serial">0</scalar>
+        </list>
+      </list>
+      <map id="variableMap">
+        <link to="1.113" from="B1"/>
+        <link to="1.113" from="B2"/>
+        <link to="1.113" from="B3"/>
+        <link to="1.113" from="B4"/>
+        <link to="109.47124" from="A1"/>
+        <link to="109.47119" from="A2"/>
+        <link to="120.0" from="D1"/>
+        <link to="109.47123" from="A3"/>
+        <link to="-120.0" from="D2"/>
+      </map>
+    </module>
+  </comment>
+</template>

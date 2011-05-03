@@ -1,0 +1,78 @@
+<template id="l716.forces" repeat="*"
+    pattern="\s*\-+\s*$\s*Center\s+Atomic\s+Forces \(Hartrees/Bohr\)\s*"
+    endPattern="\s*Cartesian Forces:.*" endOffset="1">
+  <comment class="example.input" id="l716.forces">
+ -------------------------------------------------------------------
+ Center     Atomic                   Forces (Hartrees/Bohr)
+ Number     Number              X              Y              Z
+ -------------------------------------------------------------------
+    1          6           0.000000000    0.000000000    0.000000000
+    2          1          -0.000000001   -0.000000002   -0.012566491
+    3          1          -0.011847801   -0.000000001    0.004188832
+    4          1           0.005923900    0.010260499    0.004188828
+    5          1           0.005923903   -0.010260496    0.004188832
+ -------------------------------------------------------------------
+ Cartesian Forces:  Max     0.012566491 RMS     0.006489308
+  </comment> 
+    
+  <record repeat="4"/>
+  <record repeat="*" id="force" makeArray="true">\s*{I,x:serial}{I,x:elementType}{F,x:dx3}{F,x:dy3}{F,x:dz3}\s*</record>
+  <record/>
+  <record id="cartesianforce">\s*Cartesian Forces:\s+Max{F,cc:maxforce}\s*RMS{F,cc:rmsforce}\s*</record>
+  <transform process="createMolecule" id="l716.forces" xpath=".//cml:array"/>
+  <transform process="pullupSingleton" xpath=".//cml:list"/>
+  
+  <comment class="example.output" id="l716.forces">
+<module cmlx:templateRef="l716.forces" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <molecule id="l716.forces" cmlx:templateRef="force">
+    <atomArray>
+      <atom id="a1" elementType="C">
+        <scalar dataType="xsd:integer" dictRef="x:serial">1</scalar>
+        <scalar dataType="xsd:double" dictRef="x:dx3">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="x:dy3">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="x:dz3">0.0</scalar>
+        <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">6</scalar>
+      </atom>
+      <atom id="a2" elementType="H">
+        <scalar dataType="xsd:integer" dictRef="x:serial">2</scalar>
+        <scalar dataType="xsd:double" dictRef="x:dx3">-1.0E-9</scalar>
+        <scalar dataType="xsd:double" dictRef="x:dy3">-2.0E-9</scalar>
+        <scalar dataType="xsd:double" dictRef="x:dz3">-0.012566491</scalar>
+        <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
+      </atom>
+      <atom id="a3" elementType="H">
+        <scalar dataType="xsd:integer" dictRef="x:serial">3</scalar>
+        <scalar dataType="xsd:double" dictRef="x:dx3">-0.011847801</scalar>
+        <scalar dataType="xsd:double" dictRef="x:dy3">-1.0E-9</scalar>
+        <scalar dataType="xsd:double" dictRef="x:dz3">0.004188832</scalar>
+        <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
+      </atom>
+      <atom id="a4" elementType="H">
+        <scalar dataType="xsd:integer" dictRef="x:serial">4</scalar>
+        <scalar dataType="xsd:double" dictRef="x:dx3">0.0059239</scalar>
+        <scalar dataType="xsd:double" dictRef="x:dy3">0.010260499</scalar>
+        <scalar dataType="xsd:double" dictRef="x:dz3">0.004188828</scalar>
+        <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
+      </atom>
+      <atom id="a5" elementType="H">
+        <scalar dataType="xsd:integer" dictRef="x:serial">5</scalar>
+        <scalar dataType="xsd:double" dictRef="x:dx3">0.005923903</scalar>
+        <scalar dataType="xsd:double" dictRef="x:dy3">-0.010260496</scalar>
+        <scalar dataType="xsd:double" dictRef="x:dz3">0.004188832</scalar>
+        <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
+      </atom>
+    </atomArray>
+    <formula formalCharge="0" concise="C 1 H 4">
+      <atomArray elementType="C H" count="1.0 4.0"/>
+    </formula>
+    <property dictRef="cml:molmass">
+      <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">12.0107</scalar>
+    </property>
+  </molecule>
+  <list cmlx:templateRef="cartesianforce">
+    <scalar dataType="xsd:double" dictRef="cc:maxforce">0.012566491</scalar>
+    <scalar dataType="xsd:double" dictRef="cc:rmsforce">0.006489308</scalar>
+  </list>
+</module>
+  </comment>
+</template>

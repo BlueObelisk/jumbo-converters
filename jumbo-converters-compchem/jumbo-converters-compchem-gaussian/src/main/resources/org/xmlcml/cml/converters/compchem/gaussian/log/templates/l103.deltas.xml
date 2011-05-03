@@ -1,0 +1,33 @@
+<template id="l103.deltas" repeat="*"
+    pattern="\s*Variable\s+Old X.*$\s*\(Linear\).*"
+    endPattern=".[^ARD][^ARD][^ARD][^ARD].*" endOffset="0">
+    <comment class="example.input" id="l103.deltas">
+ Variable       Old X    -DE/DX   Delta X   Delta X   Delta X     New X
+                                 (Linear)    (Quad)   (Total)
+    R1        2.10327  -0.01257   0.00000  -0.03869  -0.03869   2.06457
+    R2        2.10327  -0.01257   0.00000  -0.03869  -0.03869   2.06457
+    R3        2.10327  -0.01257   0.00000  -0.03869  -0.03869   2.06457
+    R4        2.10327  -0.01257   0.00000  -0.03869  -0.03869   2.06457
+    A1        1.91063   0.00000   0.00000   0.00000   0.00000   1.91063
+    A2        1.91063   0.00000   0.00000   0.00000   0.00000   1.91063
+    A3        1.91063   0.00000   0.00000   0.00000   0.00000   1.91063
+    A4        1.91063   0.00000   0.00000   0.00000   0.00000   1.91063
+    A5        1.91063   0.00000   0.00000   0.00000   0.00000   1.91063
+    A6        1.91063   0.00000   0.00000   0.00000   0.00000   1.91063
+    </comment>
+  <record repeat="2"/>
+  <record repeat="*" id="delta" makeArray="true">\s*{A,cc:variable}{F,g:lastval}{F,cc:deriv}{F,cc:delta.linear}{F,cc:delta.quad}{F,cc:delta.total}{F,cc:newval}\s*</record>
+  <comment class="example.output" id="l103.deltas">
+    <module cmlx:templateRef="l103.deltas" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:lineCount="10" cmlx:templateRef="delta">
+        <array dataType="xsd:string" dictRef="cc:variable" size="10">R1 R2 R3 R4 A1 A2 A3 A4 A5 A6</array>
+        <array dataType="xsd:double" dictRef="g:lastval" size="10">2.10327 2.10327 2.10327 2.10327 1.91063 1.91063 1.91063 1.91063 1.91063 1.91063</array>
+        <array dataType="xsd:double" dictRef="cc:deriv" size="10">-0.01257 -0.01257 -0.01257 -0.01257 0.0 0.0 0.0 0.0 0.0 0.0</array>
+        <array dataType="xsd:double" dictRef="cc:delta.linear" size="10">0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0</array>
+        <array dataType="xsd:double" dictRef="cc:delta.quad" size="10">-0.03869 -0.03869 -0.03869 -0.03869 0.0 0.0 0.0 0.0 0.0 0.0</array>
+        <array dataType="xsd:double" dictRef="cc:delta.total" size="10">-0.03869 -0.03869 -0.03869 -0.03869 0.0 0.0 0.0 0.0 0.0 0.0</array>
+        <array dataType="xsd:double" dictRef="cc:newval" size="10">2.06457 2.06457 2.06457 2.06457 1.91063 1.91063 1.91063 1.91063 1.91063 1.91063</array>
+      </list>
+    </module>
+  </comment>
+</template>

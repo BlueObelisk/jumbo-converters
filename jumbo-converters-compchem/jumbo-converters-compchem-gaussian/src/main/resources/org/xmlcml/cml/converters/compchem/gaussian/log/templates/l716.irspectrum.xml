@@ -1,0 +1,36 @@
+<template id="l716.irspectrum" name="Thermochemistry properties" repeat="*"
+    pattern=".*$\s+IR Spectrum\s*" 
+    endPattern="\s*X[\sX]+$\s*" endOffset="1"
+    >
+    
+  <comment class="example.input" id="l716.irspectrum">
+                                                       chlorobz/cl complex basis
+                                                             IR Spectrum
+ 
+   33333                                                             1 1 11    1 1   11 11 11                                        
+   22211                                                             6 5 44    3 3   21 00 0099 9   8 7 76  6     4 44   3  2  1     
+   20099                                                             1 6 88    5 1   08 99 2098 2   2 8 19  1     6 10   0  2  3 75  
+   09962                                                             0 4 91    4 4   03 54 6816 8   6 1 06  5     6 62   1  0  8 35  
+ 
+   XXXXX                                                             X X XX    X X   XX XX XXXX X   X X XX  X     X X    X  X    XX  
+                                                                     X   X              X    X        X             X                
+                                                                     X   X              X             X                              
+                                                                     X   X              X             X                              
+                                                                     X   X              X             X                              
+                                                                     X                  X             X                              
+                                                                     X                  X                                            
+                                                                     X                                                               
+                                                                     X                                                               
+ 
+ </comment>
+  <record id="discard">{X,g:irspectrum}</record>
+  <record repeat="*"/>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+
+  <comment class="example.output" id="l716.irspectrum">
+    <module cmlx:templateRef="l716.irspectrum" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="g:irspectrum" cmlx:templateRef="discard">chlorobz/cl complex basis</scalar>
+    </module>
+  </comment>
+</template>
+ 

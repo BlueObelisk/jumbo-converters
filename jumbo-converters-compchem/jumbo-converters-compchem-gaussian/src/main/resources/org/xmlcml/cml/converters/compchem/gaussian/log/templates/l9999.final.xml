@@ -1,0 +1,99 @@
+<template id="l9999.final" name="Final structure" repeat="*"
+    pattern="\s*Final structure.*" 
+    endPattern="\s*([^ABD][^\d].*)?"
+    >
+    
+  <comment class="example.input" id="l9999.final">
+ Final structure in terms of initial Z-matrix:
+ C
+ C,1,B1
+ C,1,B2,2,A1
+ C,1,B3,2,A2,3,D1,0
+ C,1,B4,2,A3,3,D2,0
+ H,1,B14,2,A13,3,D12,0
+      Variables:
+ A10=144.25020869
+ A11=116.31414116
+ A12=96.15014513
+ B1=1.39971945
+ A9=98.08838206
+  </comment>
+  <record id="final"/>
+  <record id="atom1">{A,g:elementType}</record>
+  <record id="atom2" repeat="1">{A,g:elementType},{I,x:atomid},{A,x:varid}</record>
+  <record id="atom3" repeat="1">{A,g:elementType},{I,x:atomid},{A,x:varid},{I,x:atomid},{A,x:varid}</record>
+  <record id="atom4" repeat="*">{A,g:elementType},{I,x:atomid},{A,x:varid},{I,x:atomid},{A,x:varid},{I,x:atomid},{A,x:varid},{I,g:xxx}</record>
+  <record id="variables">\s*Variables:\s*</record>
+  <record id="map" repeat="*">\s*{A,g:name}\s*=\s*{F,g:value}</record>
+  
+  <transform process="addMap" xpath="." id="variableMap"/>
+  <transform process="addLink" xpath="./cml:list[@cmlx:templateRef='map']/cml:list" 
+    from="./cml:scalar[@dictRef='g:name']" toXpath="./cml:scalar[@dictRef='g:value']" 
+    value="value" map="./cml:map"/>
+  <transform process="delete" xpath="./cml:list[@cmlx:templateRef='map']"/>
+  
+  <comment class="example.output" id="l9999.final">
+    <module cmlx:templateRef="l9999.final" xmlns="http://www.xml-cml.org/schema" 
+      xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="atom1">
+        <scalar dataType="xsd:string" dictRef="g:elementType">C</scalar>
+      </list>
+      <list cmlx:templateRef="atom2">
+        <list>
+          <scalar dataType="xsd:string" dictRef="g:elementType">C</scalar>
+          <scalar dataType="xsd:integer" dictRef="x:atomid">1</scalar>
+          <scalar dataType="xsd:string" dictRef="x:varid">B1</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="atom3">
+        <list>
+          <scalar dataType="xsd:string" dictRef="g:elementType">C</scalar>
+          <scalar dataType="xsd:integer" dictRef="x:atomid">1</scalar>
+          <scalar dataType="xsd:string" dictRef="x:varid">B2</scalar>
+          <scalar dataType="xsd:integer" dictRef="x:atomid">2</scalar>
+          <scalar dataType="xsd:string" dictRef="x:varid">A1</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="atom4">
+        <list>
+          <scalar dataType="xsd:string" dictRef="g:elementType">C</scalar>
+          <scalar dataType="xsd:integer" dictRef="x:atomid">1</scalar>
+          <scalar dataType="xsd:string" dictRef="x:varid">B3</scalar>
+          <scalar dataType="xsd:integer" dictRef="x:atomid">2</scalar>
+          <scalar dataType="xsd:string" dictRef="x:varid">A2</scalar>
+          <scalar dataType="xsd:integer" dictRef="x:atomid">3</scalar>
+          <scalar dataType="xsd:string" dictRef="x:varid">D1</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:xxx">0</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="g:elementType">C</scalar>
+          <scalar dataType="xsd:integer" dictRef="x:atomid">1</scalar>
+          <scalar dataType="xsd:string" dictRef="x:varid">B4</scalar>
+          <scalar dataType="xsd:integer" dictRef="x:atomid">2</scalar>
+          <scalar dataType="xsd:string" dictRef="x:varid">A3</scalar>
+          <scalar dataType="xsd:integer" dictRef="x:atomid">3</scalar>
+          <scalar dataType="xsd:string" dictRef="x:varid">D2</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:xxx">0</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="g:elementType">H</scalar>
+          <scalar dataType="xsd:integer" dictRef="x:atomid">1</scalar>
+          <scalar dataType="xsd:string" dictRef="x:varid">B14</scalar>
+          <scalar dataType="xsd:integer" dictRef="x:atomid">2</scalar>
+          <scalar dataType="xsd:string" dictRef="x:varid">A13</scalar>
+          <scalar dataType="xsd:integer" dictRef="x:atomid">3</scalar>
+          <scalar dataType="xsd:string" dictRef="x:varid">D12</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:xxx">0</scalar>
+        </list>
+      </list>
+      <map id="variableMap">
+        <link to="144.25020869" from="A10"/>
+        <link to="116.31414116" from="A11"/>
+        <link to="96.15014513" from="A12"/>
+        <link to="1.39971945" from="B1"/>
+        <link to="98.08838206" from="A9"/>
+      </map>
+    </module>
+  </comment>
+</template>
+ 

@@ -1,0 +1,30 @@
+<template id="l716.thermochemistry.moi" repeat="*" pattern="\s*Principal axes and moments of inertia in atomic units:.*"
+  endPattern="\s*Z\s*.*" endOffset="1">
+  <comment class="example.input" id="l716.thermochemistry.moi">
+ Principal axes and moments of inertia in atomic units:
+                           1         2         3
+     EIGENVALUES --   621.711322597.891062620.41387
+           X            0.99993   0.00000  -0.01211
+           Y            0.00000   1.00000  -0.00020
+           Z            0.01211   0.00020   0.99993
+  </comment>
+  
+  <record repeat="2"/>
+  <record id="eigen" >\s*EIGENVALUES \-\-\s{2}{3F10.5,cc:moi}\s*</record>
+  <record id="m" repeat="3">\s*[XYZ]{3F,cc:moimatrix}\s*</record>
+  
+  <transform process="createVector3" xpath="./cml:list[@cmlx:templateRef='eigen']" 
+     from=".//cml:scalar" dictRef="cc:moi.eigenvalues"/>
+  <transform process="pullupSingleton" xpath=".//cml:list[@cmlx:templateRef='eigen']"/>
+  <transform process="createMatrix33" xpath="./cml:list[@cmlx:templateRef='m']" 
+     from=".//cml:array" dictRef="cc:moi.eigenvectors"/>
+  <transform process="pullup" xpath=".//cml:matrix"/>
+  <transform process="pullup" xpath=".//cml:matrix"/>
+  
+  <comment class="example.output" id="l716.thermochemistry.moi">
+    <module cmlx:templateRef="l716.thermochemistry.moi" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:double" size="3" dictRef="cc:moi" cmlx:templateRef="eigen">621.71132 2597.89106 2620.41387</array>
+      <matrix rows="3" columns="3" dataType="xsd:double" dictRef="cc:moi.eigenvectors">0.99993 0.0 -0.01211 0.0 1.0 -2.0E-4 0.01211 2.0E-4 0.99993</matrix>
+    </module>
+  </comment>
+</template>

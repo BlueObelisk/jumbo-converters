@@ -1,0 +1,36 @@
+  <template id="l1prog" repeat="*" pattern="\s\*{42}.*" 
+      endPattern="\s\-{30}\-*+" endOffset="1">
+  <comment class="example.input" id="l1.prog">
+ ******************************************
+ Gaussian 03:  EM64L-G03RevE.01 11-Sep-2007
+                 1-Mar-2011 
+ ******************************************
+ %nproc=8
+ Will use up to    8 processors via shared memory.
+ %mem=900MB
+ -------------------------------------------------------
+  </comment>
+  <record/>
+  <record id="prog">{X,g:prog}</record>
+  <record id="date">{X,g:date}</record>
+  <record/>
+  <record repeat="*" id="compdata">{X,g:compdata}</record>
+  <comment class="example.output" id="l1.prog">
+    <module cmlx:templateRef="l1prog" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="prog">
+        <scalar dataType="xsd:string" dictRef="g:prog">Gaussian 03: EM64L-G03RevE.01 11-Sep-2007</scalar>
+      </list>
+      <list cmlx:templateRef="date">
+        <scalar dataType="xsd:string" dictRef="g:date">1-Mar-2011</scalar>
+      </list>
+      <list cmlx:templateRef="compdata">
+        <scalar dataType="xsd:string" dictRef="g:compdata">%nproc=8</scalar>
+        <scalar dataType="xsd:string" dictRef="g:compdata">Will use up to 8 processors via shared memory.</scalar>
+        <scalar dataType="xsd:string" dictRef="g:compdata">%mem=900MB</scalar>
+        <scalar dataType="xsd:string" dictRef="g:compdata">-------------------------------------------------------</scalar>
+        <scalar dataType="xsd:string" dictRef="g:compdata"/>
+      </list>
+    </module>
+  </comment>
+  
+</template>

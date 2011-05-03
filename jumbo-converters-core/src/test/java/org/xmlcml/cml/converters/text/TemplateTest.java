@@ -219,7 +219,7 @@ public class TemplateTest {
 			"<template pattern='.*1.*' offset='2' id='t1' name='template 1' />";
 		Template template = new Template(CMLUtil.parseXML(templateS));
 		String s = template.toString();
-		Assert.assertEquals("template", "startChunker [.*1.*] | 2\nendChunker [] | 0\n", s);
+		Assert.assertEquals("template", "startChunker [.*1.*] | 2\nendChunker [~] | 0\n", s);
 	}
 	
 	@Test
@@ -228,7 +228,7 @@ public class TemplateTest {
 			"<template pattern='.*1.*' id='t1' name='template 1' />";
 		Template template = new Template(CMLUtil.parseXML(templateS));
 		String s = template.toString();
-		Assert.assertEquals("template", "startChunker [.*1.*] | 0\nendChunker [] | 0\n", s);
+		Assert.assertEquals("template", "startChunker [.*1.*] | 0\nendChunker [~] | 0\n", s);
 	}
 	
 	@Test
@@ -237,7 +237,7 @@ public class TemplateTest {
 			"<template pattern='.*1.*' id='t1' name='template 1' endOffset='1'/>";
 		Template template = new Template(CMLUtil.parseXML(templateS));
 		String s = template.toString();
-		Assert.assertEquals("template", "startChunker [.*1.*] | 0\nendChunker [] | 1\n", s);
+		Assert.assertEquals("template", "startChunker [.*1.*] | 0\nendChunker [~] | 1\n", s);
 	}
 	
 	@Test

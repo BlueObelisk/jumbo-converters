@@ -1,0 +1,89 @@
+<template id="l502.cycle" repeat="*" pattern="\s*Cycle .*" 
+        endPattern="\s*" endOffset="1">
+  <comment class="example.input" id="l502.basis">
+ Cycle   1  Pass 0  IDiag  1:
+ E= -416.922513179685    
+ DIIS: error= 2.67D-02 at cycle   1 NSaved=   1.
+ NSaved= 1 IEnMin= 1 EnMin= -416.922513179685     IErMin= 1 ErrMin= 2.67D-02
+ ErrMax= 2.67D-02 EMaxC= 1.00D-01 BMatC= 3.45D-01 BMatP= 3.45D-01
+ IDIUse=3 WtCom= 7.33D-01 WtEn= 2.67D-01
+ Coeff-Com:  0.100D+01
+ Coeff-En:   0.100D+01
+ Coeff:      0.100D+01
+ Gap=     0.238 Goal=   None    Shift=    0.000
+ GapD=    0.238 DampG=1.000 DampE=0.500 DampFc=0.5000 IDamp=-1.
+ Damping current iteration by 5.00D-01
+ RMSDP=9.59D-03 MaxDP=2.30D-01              OVMax= 2.42D-01
+
+ Cycle   2  Pass 1  IDiag  1:
+ RMSU=  1.75D-04    CP:  9.90D-01
+ E= -271.638809156166     Delta-E=       -0.000013827246 Rises=F Damp=F
+ DIIS: error= 1.91D-04 at cycle   2 NSaved=   2.
+ NSaved= 2 IEnMin= 2 EnMin= -271.638809156166     IErMin= 2 ErrMin= 1.91D-04
+ ErrMax= 1.91D-04 EMaxC= 1.00D-01 BMatC= 3.55D-06 BMatP= 1.92D-05
+ IDIUse=3 WtCom= 9.98D-01 WtEn= 1.91D-03
+ Coeff-Com:  0.226D+00 0.774D+00
+ Coeff-En:   0.000D+00 0.100D+01
+ Coeff:      0.226D+00 0.774D+00
+ Gap=     0.232 Goal=   None    Shift=    0.000
+ RMSDP=3.58D-05 MaxDP=1.35D-03 DE=-1.38D-05 OVMax= 6.41D-04
+
+  </comment>
+  <comment>
+   Cycle   1  Pass 1  IDiag  1:
+ Petite list used in FoFDir.
+ MinBra= 0 MaxBra= 2 Meth= 1.
+ IRaf=       0 NMat=   1 IRICut=       1 DoRegI=T DoRafI=F ISym2E= 1 JSym2E=1.
+ E= -1152.11674488931    
+ DIIS: error= 2.35D-04 at cycle   1 NSaved=   1.
+ NSaved= 1 IEnMin= 1 EnMin= -1152.11674488931     IErMin= 1 ErrMin= 2.35D-04
+ ErrMax= 2.35D-04 EMaxC= 1.00D-01 BMatC= 9.83D-05 BMatP= 9.83D-05
+ IDIUse=3 WtCom= 9.98D-01 WtEn= 2.35D-03
+ Coeff-Com:  0.100D+01
+ Coeff-En:   0.100D+01
+ Coeff:      0.100D+01
+ Gap=     0.206 Goal=   None    Shift=    0.000
+ Gap=     0.095 Goal=   None    Shift=    0.000
+ RMSDP=8.31D-04 MaxDP=5.06D-02              OVMax= 2.17D-03
+
+  </comment> 
+  
+  <record id="cycle" repeat="*">\s*Cycle\s*{I,cc:cycle}\s*Pass{I,g:pass}\s*IDiag{I,g:idiag}\:\s*</record>
+  <templateList>
+    <template id="l502.ediff" pattern="\sE\=.*Delta\-E.*" repeat="*" endPattern=".*">
+      <record id="l502.ediff" repeat="*">\s*E={F,g:l502.e}\s+Delta\-E={F,g:l502.deltae}.*</record>
+    </template>
+    <template id="l502.e" pattern="\sE\=.*" repeat="*" endPattern=".*">
+      <record id="l502.e" repeat="*">\s*E=\s*{F,g:l502.e}\s*</record>
+    </template>
+    <template id="l502.discard" repeat="*" pattern="\s*((Petite)|(MinBra)|(IRaf)|(DIIS)|(NSaved)|(ErrMax)|(IDIUse)|(Coeff)|(Gap)|(Damping)|(RMSDP)|(RMSU)).*" endPattern=".*">
+      <record id="l502.discard" repeat="*"
+          >\s*((Petite)|(MinBra)|(IRaf)|(DIIS)|(NSaved)|(ErrMax)|(IDIUse)|(Coeff)|(Gap)|(Damping)|(RMSDP)|(RMSU)).*</record>
+    </template>
+  </templateList>
+  <transform process="delete" xpath=".//*[@cmlx:templateRef='l502.discard']"/>
+  <comment class="example.output" id="l502.basis">
+<module cmlx:templateRef="l502.cycle" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="cycle">
+    <list>
+      <scalar dataType="xsd:integer" dictRef="cc:cycle">1</scalar>
+      <scalar dataType="xsd:integer" dictRef="g:pass">0</scalar>
+      <scalar dataType="xsd:integer" dictRef="g:idiag">1</scalar>
+    </list>
+  </list>
+  <module cmlx:lineCount="1" cmlx:templateRef="l502.e">
+    <list cmlx:templateRef="l502.e">
+      <scalar dataType="xsd:double" dictRef="g:l502.e">-416.922513179685</scalar>
+    </list>
+  </module> Cycle 2 Pass 1 IDiag 1:
+  <module cmlx:lineCount="1" cmlx:templateRef="l502.ediff">
+    <list cmlx:templateRef="l502.ediff">
+      <list>
+        <scalar dataType="xsd:double" dictRef="g:l502.e">-271.638809156166</scalar>
+        <scalar dataType="xsd:double" dictRef="g:l502.deltae">-1.3827246E-5</scalar>
+      </list>
+    </list>
+  </module>
+</module>
+  </comment>
+</template>

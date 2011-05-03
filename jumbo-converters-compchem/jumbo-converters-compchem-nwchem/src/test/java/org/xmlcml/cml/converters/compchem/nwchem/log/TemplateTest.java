@@ -2,8 +2,8 @@ package org.xmlcml.cml.converters.compchem.nwchem.log;
 
 import nu.xom.Element;
 
+import org.junit.Ignore;
 import org.junit.Test;
-
 import org.xmlcml.cml.converters.text.TemplateTestUtils;
 
 public class TemplateTest {
@@ -18,13 +18,19 @@ public class TemplateTest {
 	static String BASE_URI = "classpath:/"+BASE_DIR;
 	
 	@Test
-	public void templateTester() {
+	public void dummy() {
+		
+	}
+	
+	@Test
+	@Ignore
+	public void templateTesterEXAMPLE() {
 		TemplateTestUtils.runCommentExamples(INPUT_TEMPLATE_S, BASE_URI);
 	}
 
-	@Test	public void testAtmass()              {runTemplateTest("atmass");}
-	@Test	public void testBrillouinzp()         {runTemplateTest("brillouinzp");}
-	@Test	public void testCenterOfCharge()      {runTemplateTest("centerofcharge");}
+	@Test	@Ignore public void testAtmassEXAMPLE()              {runTemplateTest("atmass");}
+	@Test	@Ignore public void testBrillouinzpEXAMPLE()         {runTemplateTest("brillouinzp");}
+	@Test	@Ignore public void testCenterOfChargeEXAMPLE()      {runTemplateTest("centerofcharge");}
 
 	private void runTemplateTest(String templateName) {
 		Element template = TemplateTestUtils.getTemplate(TEMPLATE_DIR+templateName+".xml", BASE_URI);
