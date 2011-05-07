@@ -1,0 +1,61 @@
+<template id="amberTest.example">
+  <templateList>
+  
+    <template id="angle" pattern="ANGLE" endPattern="\s*">
+      <comment class="example">
+cd-c2-cd 100.211 121.085 k (16_1_25: 5 points at 1 degree 0-&gt;0.8 Kcal) angle from mp2/6-31G*
+      </comment>
+      <record id="dummy"/>
+      <record id="angle.record" repeat="*"
+        >{A,cc:atomType}\-{A,cc:atomType}\-{A,cc:atomType}\s*{F,cc:angle.harmonic.const}\s*{F,cc:angle.ref}\s*{A,am:const}\s*\({I,am:serial}_{I,am:serial}_{I,am:serial}:{I,am:npoints} points at {F,am:deltang} degree {F,am:ang.min}\-&gt;?{F,am:ang.max} Kcal\),? angle from {A,am:basis}</record>
+    </template>
+    
+    <template id="bond" pattern="BOND" endPattern="\s*">
+      <comment class="example">
+cq-ca 428.1 1.397 k (3_2: 5 points @0.01A == 0-1 Kcal), dist from mp2/6-31G*
+      </comment>
+      <record id="dummy"/>
+      <record id="bond.record" repeat="*">{A,cc:atomType}\-{A,cc:atomType}{F,cc:bond.harmonic.const}{F,cc:length.ref}\s*{A,am:const}\({I,am:serial}_{I,am:serial}\s*:\s*{I,am:npoints}\s*points \@{F,am:deltalen}A\s*\=\=\s*{F,am:ang.min}\-&gt;?{F,am:ang.max} Kcal\),? dist from {A,am:basis}.*</record>
+    </template>
+    
+    <template id="dihed" pattern="DIHE.*" endPattern="\s*">
+      <comment class="example">
+c3-nh-cc-cc 4 14.500 180.000 2.000 (X -ca-ca-X)
+      </comment>
+      <comment class="example">
+cd-c2-cq-ca 1 1.5 268.6 2.
+      </comment>
+      <record id="dummy"/>
+      <record id="dihed.record" repeat="*">{A,cc:atomType}\-{A,cc:atomType}\-{A,cc:atomType}\-{A,cc:atomType}{I,cc:dihedral.number}{F,cc:dihed.barrier}{F,cc:dihed.ref}{F,am:dihed.unk}{X,am:text}</record>
+    </template>
+    
+    <template id="improper" pattern="IMPR.*" endPattern="\s*">
+      <comment class="example">
+      </comment>
+      <record id="dummy"/>
+      <record id="improper.record" repeat="*">{X,x:any}</record>
+    </template>
+    
+    <template id="mass" pattern="MASS" endPattern="\s*">
+      <comment class="example">
+      </comment>
+      <record id="dummy"/>
+      <record id="mass.record" repeat="*">{X,x:any}</record>
+    </template>
+    
+    <template id="nonbond" pattern="NONB.*" endPattern="\s*">
+      <comment class="example">
+      </comment>
+      <record id="dummy"/>
+      <record id="nonbond.record" repeat="*">{X,x:any}</record>
+    </template>
+    
+    <template id="unknown" pattern=".*" endPattern="\s*">
+      <comment class="example">
+      </comment>
+      <record id="dummy"/>
+      <record id="unknown.record" repeat="*">{X,x:any}</record>
+    </template>
+    
+  </templateList>
+</template>
