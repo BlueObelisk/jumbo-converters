@@ -1,0 +1,195 @@
+<html>
+<head>
+<title>JUMBOParser: Tutorial 1</title>
+</head>
+<body>
+  <div class="title">
+    <h1>Tutorial 1: the components of parsing and how to use them</h1>
+  </div>
+  <div class="section">
+    <h2>Setting up the environment</h2>
+    <p>
+      The environment has been set up for you so that you do not need to
+      understand or explore any Java code. You need to be able to <b>run</b>
+      it but no more. We'll use a windows environment and UNIX hackers
+      should be able to adjust. The first set of examples are in a directory with a name like:
+    <pre>
+
+D:\workspace\jumbo-converters\jumbo-converters-core\examples
+
+</pre>
+    Yours will probably be different and should find your own jumbo-converters hierarchy. From now on
+    we'll use syntax like
+    <pre>
+
+<i>&lt;workspace&gt;</i>/jumbo-converters/jumbo-converters-core/examples
+
+</pre>
+    The forward slashes will work on Windows inside the Java/JUMBO/maven
+    environment. If ylou are running the system from an IDE (e.g. Eclipse) or from
+    the
+    <code>jumbo-converters-core</code>
+    directory or under Maven the filename
+    <code>examples/myfile.txt</code>
+    will be converted automatically into the correct filename.
+    </p>
+    <p>To test the setup:
+    <pre>
+  cd <i>&lt;workspace&gt;</i>
+  cd examples
+</pre>
+    and check you have files:
+    <pre>
+  amber.inp
+  amber.template.xml
+  amber.ref.xml
+</pre>
+<div class="section">
+<p>This is the file (<code>amber.inp</code>) that will be parsed...
+  <pre>
+MASS
+
+BOND
+cq-ca 428.1   1.397 k (3_2: 5 points @0.01A == 0-1 Kcal), dist from mp2/6-31G*
+c2-cq 330.1   1.461 k (1_2: 5 points @0.01A == 0->1.2 Kcal) dist from mp2/6-31G*
+c2-cd 364.0   1.424 k (1_16: 10 points @0.01A == 0->3.5 Kcal) dist from mp2/6-31G*
+cc-nh 495.0   1.352 k (33_28: 5 points @0.01A == 0->1.5 Kcal) dist from mp2/6-31G*
+
+ANGLE
+cd-c2-cd   100.211    121.085 k (16_1_25: 5 points at 1 degree 0->0.8 Kcal) angle from mp2/6-31G*
+cd-c2-cq   102.736    119.194 k (25_1_2: 5 points at 1 degree 0->0.8 Kcal) angle from mp2/6-31G*
+c2-cq-ca   102.012    120.340 k (1_2_3: 5 points at 1 degree 0->0.8 Kcal) angle from mp2/6-31G*
+c3-nh-c3   119.542    119.218 k (47_33_43: 5 points at 1 degree 0->0.9 Kcal) angle from mp2/6-31G*
+
+DIHE
+cd-cd-c2-cq   1   2.0          236.4             2.
+cd-c2-cd-cd   1   2.0          236.4             2.
+cd-c2-cq-ca   1   1.5          268.6             2.
+c3-nh-cc-cc   4   14.500       180.000           2.000      (X -ca-ca-X)
+
+IMPROPER
+
+NONBON
+
+  </pre>
+  I've written the parser WITHOUT looking at any manuals - this often gets the parser writer into the 
+  "mind" of the programmer. Here we can see several sections, and within each is a (fairly) standard format of
+  information. The first half of each line ("the first columns") appear to be column-formatted; the second half 
+  is a freer format (or possibly irregular). Note that each section is terminated by a blank line.
+</div>
+    Run the
+    <code>org.xmlcml.cml.converters.text.Examples</code>
+    program. If it is not given any arguments it will use the first two
+    files as default input and also create
+    <code>amber.out.xml</code>
+    .
+    </p>
+
+
+  </div>
+  <div class="section">
+  <p>Look at <code>amber.out.xml</code> in  a browser 
+  (most will display XML in a structured manner). A typical display (in IE, with some lines omitted for brevity) looks like:</p>
+  <pre>
+  <![CDATA[
+  &lt;?xml version="1.0" encoding="UTF-8" ?> 
+   &lt;module cmlx:templateRef="amber1.example" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+    &lt;module cmlx:lineCount="1" cmlx:templateRef="mass" /> 
+    &lt;module cmlx:lineCount="1" cmlx:templateRef="unknown" /> 
+    &lt;module cmlx:lineCount="5" cmlx:templateRef="bond">
+      &lt;list cmlx:templateRef="bond.record">
+       &lt;list>
+          &lt;scalar dataType="xsd:string" dictRef="cc:atomType">cq&lt;/scalar> 
+          &lt;scalar dataType="xsd:string" dictRef="cc:atomType">ca&lt;/scalar> 
+          &lt;scalar dataType="xsd:double" dictRef="cc:bond.harmonic.const">428.1&lt;/scalar> 
+          &lt;scalar dataType="xsd:double" dictRef="cc:length.ref">1.397&lt;/scalar> 
+          &lt;scalar dataType="xsd:string" dictRef="am:text">k (3_2: 5 points @0.01A == 0-1 Kcal), dist from mp2/6-31G*&lt;/scalar> 
+        &lt;/list>
+        &lt;list>
+          &lt;scalar dataType="xsd:string" dictRef="cc:atomType">c2&lt;/scalar> 
+    ...
+          &lt;scalar dataType="xsd:string" dictRef="am:text">k (33_28: 5 points @0.01A == 0->1.5 Kcal) dist from mp2/6-31G*&lt;/scalar> 
+        &lt;/list>
+      &lt;/list>
+    &lt;/module>
+    &lt;module cmlx:lineCount="5" cmlx:templateRef="angle">
+      ...
+    &lt;/module>
+    &lt;module cmlx:lineCount="5" cmlx:templateRef="dihed">
+      &lt;list cmlx:templateRef="dihed.record">
+        &lt;list>
+          &lt;scalar dataType="xsd:string" dictRef="cc:atomType">cd&lt;/scalar> 
+          &lt;scalar dataType="xsd:string" dictRef="cc:atomType">cd&lt;/scalar> 
+          &lt;scalar dataType="xsd:string" dictRef="cc:atomType">c2&lt;/scalar> 
+          &lt;scalar dataType="xsd:string" dictRef="cc:atomType">cq&lt;/scalar> 
+          &lt;scalar dataType="xsd:integer" dictRef="cc:dihedral.number">1&lt;/scalar> 
+          &lt;scalar dataType="xsd:double" dictRef="cc:dihed.barrier">2.0&lt;/scalar> 
+          &lt;scalar dataType="xsd:double" dictRef="cc:dihed.ref">236.4&lt;/scalar> 
+          &lt;scalar dataType="xsd:double" dictRef="am:dihed.unk">2.0&lt;/scalar> 
+          &lt;scalar dataType="xsd:string" dictRef="am:text" /> 
+        &lt;/list>
+        &lt;list>
+          ...
+        &lt;/list>
+    &lt;/list>
+  &lt;/module>
+  &lt;module cmlx:lineCount="1" cmlx:templateRef="improper" /> 
+  &lt;module cmlx:lineCount="1" cmlx:templateRef="nonbond" /> 
+&lt;/module>
+    ]]>
+    </pre>
+    This is a well-formed XML file (though not yet a conformant CML one as we shall see later). Note the following:
+    <ul>
+      <li>The input has been completely parsed and nothing is lost.</li>
+      <li>Additional typing information has been added, such as <code>xsd:integer</code>, etc.)</li>
+      <li>Fields have been linked to dictionary references (<code>dictRef</code>) which adds the semantic information.</li>
+      <li>Elements (<code>module</code>, <code>list</code>) have been added to reflect the semantic 
+      structure of the input.</li>
+    </ul>
+Later we shall see how to create the dictionary entries, and the namespaces that bind to them and the schema languages.</p>
+<p>Try to edit the input file see the result in the XML. For example, take a copy of the input <code>amberTest.inp</code>.
+Make simple edits such as adding a line (CA-CA):
+<pre>
+...
+BOND
+cq-ca 428.1   1.397 k (3_2: 5 points @0.01A == 0-1 Kcal), dist from mp2/6-31G*
+c2-cq 330.1   1.461 k (1_2: 5 points @0.01A == 0->1.2 Kcal) dist from mp2/6-31G*
+c2-cd 364.0   1.424 k (1_16: 10 points @0.01A == 0->3.5 Kcal) dist from mp2/6-31G*
+cc-nh 495.0   1.352 k (33_28: 5 points @0.01A == 0->1.5 Kcal) dist from mp2/6-31G*
+CA-CA 220.0   1.542 k made up values
+...
+</pre>
+and rerun. (You will have to use explicit arguments when running the program to reflect the different filenames).
+and see how the output changes. 
+<pre>
+      &lt;list>
+        &lt;scalar dataType="xsd:string" dictRef="cc:atomType">CA&lt;/scalar>
+        &lt;scalar dataType="xsd:string" dictRef="cc:atomType">CA&lt;/scalar>
+        &lt;scalar dataType="xsd:double" dictRef="cc:bond.harmonic.const">220.0&lt;/scalar>
+        &lt;scalar dataType="xsd:double" dictRef="cc:length.ref">1.542&lt;/scalar>
+        &lt;scalar dataType="xsd:string" dictRef="am:text">k made up values&lt;/scalar>
+      &lt;/list>
+</pre>
+Now make an edit which is not conformant <code>amber.bad.inp</code> with the template.
+<pre>
+BOND
+cq-ca unknown   1.397 k (3_2: 5 points @0.01A == 0-1 Kcal), dist from mp2/6-31G*
+</pre>
+Here the string "unknown" is incompatible with the requirement for a  double in the template and 
+you will see the bonds (as a whole) fail to parse...
+<pre>
+&lt;module cmlx:lineCount="5" cmlx:templateRef="bond"
+   >cq-ca unknown   1.397 k (3_2: 5 points @0.01A == 0-1 Kcal), dist from mp2/6-31G*c2-cq 330.1   1.461 k (1_2: 5 points @0.01A ... from mp2/6-31G*</module>
+</pre>
+Note that the information is still there, but unparsed. This means it could be parsed with a different template later. 
+</p>
+
+  </div>
+  <div>
+    <p>Different parsers can be run by changing the second argument, e.g:<br/>
+Run:    <tt>amber.templateTest.xml</tt> on <tt>amber.inp</tt> 
+</pre>    
+This shows a greater level of detail in parsing (probably unnecessary), but it's a good abstract example.
+  </div>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<html>
+<head>
+<title>JUMBOParser: Tutorial 3</title>
+</head>
+<body>
+  <div class="title">
+    <h1>Tutorial 3: Regular Expressions</h1>
+  </div>
+  <div class="section">
+    <h2>Regular expressions</h2>
+    <p>in almost all cases the material to be parsed will be variable (e.g. values of real numbers)
+    and this is captured through <i>regular expressions</i> or <i>regexes</i>. No matter what programming language 
+    is used (Perl, Python, Java, etc.) there is no escape from these, but we have tried to make them
+    as simple and error-free as possible. As an example let's assume that all keywords can be
+    truncated to 4 characters (this is quite a common length) so that all the following are valid<br/>
+    <code>
+    DIHE, DIHED, DIHEDR, DIHEDRA, DIHEDRAL</code> and possibly <code>DIHEDRALS</code>
+    <br/>
+    It would be possible , but very inefficient, to write a template for each case. Regexes allow
+    us to express this by<br/>
+        <code>DIHE.*</code><br/>
+    . This means:
+    <br/>
+    <i>Look for exactly 4 characters in order </i>(<code>D I H E</code>) <i>and then allow any character</i> (<b><tt>.</tt></b>) <i>any number
+    of times including 0 </i>(<tt>*</tt>).<br/>
+     The symbols (<b><tt>.</tt></b>) and (<tt>*</tt>) are known as "metacharacters".
+     </p>
+     <p>Regexes are now fairly standardised and the Java syntax is common (see the 
+     <a href="http://download.oracle.com/javase/tutorial/essential/regex/">Java tutorial</a>). It's worth
+     following these tutorials to get a basic understanding. You'll also benefit from online tutorials such 
+     as listed on <a href="http://stackoverflow.com/questions/476714/is-there-a-good-online-interactive-regex-tutorial">StackOverflow</a>
+     as <a href="http://www.regular-expressions.info/tutorial.html">Regular-expressions.info</a>. However 
+     you can go a long way with JUMBOParser with only a small amount. Here's 99% of what I use in writing parsers. Note
+     that the backslash is necessary and fairly common.
+     <table border="1">
+     <tr><th>Metacharacter</th><th>Meaning</th></tr>
+     <tr><td><b><tt>.</tt></b></td><td>any character</td></tr>
+     <tr><td><b><tt>\s</tt></b></td><td>a single space</td></tr>
+     <tr><td><b><tt>\S</tt></b></td><td>a non-space character</td></tr>
+     <tr><td><b><tt>\d</tt></b></td><td>any single digit</td></tr>
+     <tr><td><b><tt>[JUMBO]</tt></b></td><td>any of the characters J, U, M, B, O</td></tr>
+     <tr><td><b><tt>[A-Z]</tt></b></td><td>any of the characters A,B,C...Z</td></tr>
+     <tr><td><b><tt>[A-Za-z]</tt></b></td><td>any of the characters A,B,C...Z and a,b,c,...z</td></tr>
+     <tr><td></td><td></td></tr>
+     <tr><td><b><tt>?</tt></b></td><td>optional: count of 0 or 1</td></tr>
+     <tr><td><b><tt>*</tt></b></td><td>count of 0 or more</td></tr>
+     <tr><td><b><tt>+</tt></b></td><td>count of 1 or more</td></tr>
+     </table>
+     <p>The downside of this is that when metacharacters (<code>. [ ] { } ( ) - + * \</code> - not a complete list) occur normally they have to be escaped with a backslash. 
+     So you will frequently see <code>\. \[ \] \{ \} \( \) \- \+ \* \\</code> . This can be tedious and
+     is also error-prone so we have created a number of macros that make it easier for you.</p>
+     <p>Here are some examples:
+<pre>
+ Charge =  0 Multiplicity = 1
+</pre>    
+is matched by
+<pre>
+ Charge =  \d Multiplicity = \d
+</pre>
+In this the whitespace is fragile, so I tend to write:
+<pre>
+\s*Charge\s*=\s*\d\s*Multiplicity\s*=\s*\d\s*
+</pre>
+which means that if space is stripped by any tool in the chain, it's still parsed. However it's not pretty.
+Therefore we have a series of macros (symbols for common regexes) which manage the spaces and avoid many of the
+backslashes.
+<pre>
+\s*Charge ={I}Multiplicity ={I}
+</pre>
+where the JUMBO-specific syntax {I} denotes an integer. The power comes when we include floats and capture.
+Another example with an ASCII-formatted table:
+<pre>
+ --------------------------------------------------------------------------------
+ ! R1    R(1,2)                  1.394          calculate D2E/DX2 analytically  !
+ ! R41   R(22,23)                1.066          calculate D2E/DX2 analytically  !
+ ! A1    A(2,1,3)              110.8657         calculate D2E/DX2 analytically  !
+</pre>
+is matched by:
+<pre>
+\s\-+\s*
+</pre>
+This is read as: <i>1 space; followed by 1-or-more minus signs (escaped as it's a metacharacter);followed by 0-or-more spaces</i>.
+ (We cannot be sure that there aren't trailing spaces so we almost always end regexes with <tt>\s*</tt>).
+ 
+<pre>
+\s!\s[RAD]\d+\s+\S+\s+[\d\.]+\s+.*!\s*
+</pre>
+
+ This is read as: <i>1 space; one shriek; 1 space; an A, R or D followed by one or more digits;
+ 1-or-more spaces; 1-or-more non-spaces; 1-or-more spaces; a mixture of digits and periods; 1-or-more
+ spaces; anything; 1 shriek; optional trailing whitespace.</i>
+ </p>
+ <p>You may have thought that there are better ways to do this - there are almost always many 
+ different regexes which can parse the files and the best strategy will depend on the variability
+ in the corpus. In the current example we almost certainly want to capture the values and the next section shows us how.
+ </p>
+ <p>
+The macros will protect you from raw regexes from JUMBO, but here are the basics of how fields are captured. In the above example
+we can capture the name and the value by:
+<pre>
+\s!\s([RAD]\d+)\s+\S+\s+([\d\.]+)\s+.*!\s*
+</pre>
+This gives two captureGroups (1 and 2 - the whole string is captureGroup 0). Normally you need access to the Java code
+to pick them up but JUMBO does this for you. It can also, optionally, give symbolic names (and even units).
+So in JUMBO specifically we can write:
+<pre>
+\s!\s(A,am:name)\s+\S+\s+(F,am:distance)\s+.*!\s*
+</pre>
+This captures the names (R12, D3, A32, etc.) into the symbolic variable <tt>am:name</tt> and the
+distances into <tt>am:distance</tt>. There are a a small number of these macros, and we'll add more gradually:
+<table border="1">
+<tr><th>macro</th><th>captures</th><th>examples</th></tr>
+<tr><td><tt><b>I</b></tt></td><td>any integer</td><td><tt>123 -34 0</tt></td></tr>
+<tr><td><tt><b>F</b></tt></td><td>real number</td><td><tt>1.23 2. 3 -13.4 -4</tt></td></tr>
+<tr><td><tt><b>E</b></tt></td><td>scientific notation</td><td><tt>1.23E+02 1.23D-04 2.1 -1.34 </tt></td></tr>
+<tr><td><tt><b>A</b></tt></td><td>string without spaces</td><td><tt>A23 -12Z df=3.2</tt></td></tr>
+<tr><td><tt><b>X</b></tt></td><td>any string</td><td><tt>"A23 -12Z df=3.2"</tt></td></tr>
+</table>
+Note that the macros have optional leading and trailing spaces so you can usually omit them.
+We may also introduce dates and booleans. Just for interest here is the regex for floats:
+<pre>
+\s*((?:\-?\d+\.?\d*)|(?:\-?\d*\.?\d+))\s*
+</pre>
+(The exponential is worse!). That's more advanced than you need to know and the macros protect you from it!
+</p> 
+<p>Sometimes fields are repeated horizontally and here JUMBO allows for repeated fields:
+<pre>
+ Rotational constants (GHZ):      1.2383395      0.8928269      0.6713269
+</pre>
+is matched by:
+<pre>
+\s*Rotational constants \(GHZ\):{3F,g:rotconst}
+</pre>
+which extracts exactly 3 floats into an array. Sometimes the number varies, as in:
+<pre>
+     Eigenvalues ---    0.35005   0.35915   0.36224   0.36629   0.37167
+     Eigenvalues ---    0.51910   1.01166   1.02582
+</pre>
+and we write
+<pre>
+\s*Eigenvalues \-\-\- {1_5F,g:eigenval}
+</pre>
+where <tt>1_5</tt> means 1 to5.
+Sometimes we need precise columns, as in:
+<pre>
+     Eigenvalues ---    0.37456   0.37560   0.38218   0.38586   0.39602
+     Eigenvalues ---    0.40148   0.40211   0.40329   0.46257   0.48142
+     Eigenvalues ---    0.51910   1.01166   1.025821000.000001000.00000
+</pre>
+where the floats have run into each other. Counting the columns shows F10.5 
+with one space after the dashes. The following will capture this:
+<pre>
+\s*Eigenvalues \-\-\-\s{1_5F10.5,g:eigenval}
+</pre>
+  </div>
+</body>
+</html>
+
+
+
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,222 @@
+<html>
+<head>
+<title>JUMBOParser: Tutorial 2</title>
+</head>
+<body>
+  <div class="title">
+    <h1>Tutorial 2: writing a parser</h1>
+  </div>
+  <div class="section">
+    <h2>Analysing the files to be parsed</h2>
+    <p>We assume that we <b>don't</b> know the precise form of the program that output the information, although
+    it's useful to guess it's FORTRAN and assume that most output is column-formattted. This means that fields 
+    can run together. For example MDL Molfiles have (3I3) for the bond numbers and orders giving an output like:
+    <pre>
+  1  2  1
+  2  3  1
+</pre>
+However with 100 or more atoms the fields run together, e.g. atom 102 bonded to 121 would be:
+    <pre>
+101121  1
+</pre>
+so that relying on whitespace would fail. However in most cases whitespace-parsing can be used and is easier than
+ counting the column numbers - but you will will probably need both
+ </p>
+ <p>It's worth looking at a small number of files to see how much they vary. JUMBOParsers don't have to be complete
+ or completely correct at first and we can add new details when we get more documents. In general we start simple and 
+ add more details as we get a better understanding.
+ </p>
+ <p>
+ We'll use the same file as before:
+<pre>
+MASS
+
+BOND
+cq-ca 428.1   1.397 k (3_2: 5 points @0.01A == 0-1 Kcal), dist from mp2/6-31G*
+c2-cq 330.1   1.461 k (1_2: 5 points @0.01A == 0->1.2 Kcal) dist from mp2/6-31G*
+c2-cd 364.0   1.424 k (1_16: 10 points @0.01A == 0->3.5 Kcal) dist from mp2/6-31G*
+cc-nh 495.0   1.352 k (33_28: 5 points @0.01A == 0->1.5 Kcal) dist from mp2/6-31G*
+
+ANGLE
+cd-c2-cd   100.211    121.085 k (16_1_25: 5 points at 1 degree 0->0.8 Kcal) angle from mp2/6-31G*
+cd-c2-cq   102.736    119.194 k (25_1_2: 5 points at 1 degree 0->0.8 Kcal) angle from mp2/6-31G*
+c2-cq-ca   102.012    120.340 k (1_2_3: 5 points at 1 degree 0->0.8 Kcal) angle from mp2/6-31G*
+c3-nh-c3   119.542    119.218 k (47_33_43: 5 points at 1 degree 0->0.9 Kcal) angle from mp2/6-31G*
+
+DIHE
+cd-cd-c2-cq   1   2.0          236.4             2.
+cd-c2-cd-cd   1   2.0          236.4             2.
+cd-c2-cq-ca   1   1.5          268.6             2.
+c3-nh-cc-cc   4   14.500       180.000           2.000      (X -ca-ca-X)
+
+IMPROPER
+
+NONBON
+
+</pre>
+Here's how I think about a simple parser.
+<ul>
+  <li>The file is neatly chunked into blocks which start with a unique keyword and are terminated by a 
+  blank. Note: We <b>always</b> bear in mind that it could be more complex than we think and I'll put these caveats
+ like (<i>"watch out for abbreviations"</i>). There are six keywords (<i>"but there might be more"</i>) and 
+ they are all uppercase - FORTRAN is often uppercase - (<i>"but they may not always be"</i>). 
+ It's possible they may be abbreviated (<i>"DIHE looks like an abbreviation"</i>) and we'll allow for that. 
+ The bonds, angles and dihedrals (I sometimes call these "torsions" and so does CML) are all very similar
+ dealing with 2,3,and 4 atomTypes respectively, so we'll start with BOND and if that works expand to the others.
+ We know nothing of MASS, IMPROPER and NBOND and so can't write any parser at this stage.
+ </li>
+ <li>All blocks end with a blank line. This is very useful - it would be slightly harder if they didn't.
+ </li>
+ <li>There is a wide variation of the floating-point numbers (number of decimals) and we should assume that
+ they will not be very regular.</li>
+ <li>The trailing information in the fields seems to be irregular (note the optional commas and &gt; in BOND) and
+ it may have been typed by hand (and should be avoided);
+</ul> 
+ </div>
+ <div class="section">
+    <h2>A minimal parser</h2>
+    <p>Parsers are based on <b>template</b>s which attempt to identify "chunk"s of information and extract the free text
+    into them. Not surprisingly the whole parser is a single template, and templates can be nested and referenced
+    so the approach is very flexible. The simplest parser (amber.minimal.template.xml)is therefore:
+    <pre>
+    &lt;template id="amber">
+    &lt;/template>
+    
+    </pre>
+Run: <code>amber.minimal.template.xml</code> on <code>amber.inp</code> => <code>amber.minimal.out.xml</code></p>
+<p>The output (cut down) is:
+<pre>
+<?xml version="1.0" encoding="UTF-8"?>
+&lt;module 
+  cmlx:templateRef="amber.minimal.example" 
+  xmlns="http://www.xml-cml.org/schema" 
+  xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"
+  >MASSBONDcq-ca 428.1   1.397 k (3_2: 5 points @0.01A == 0-1 Kcal), dist from mp2/6-31G*c2-cq 330.1
+  ...
+     IMPROPERNONBON&lt;/module>
+</pre>
+  Note:
+  <ul>
+    <li>Whitespace has been elided. Whitespace is very fragile and you should NEVER rely on it. 
+    JUMBOParser has robust methods for it.</li>
+    <li>The parser has added the namespaces (CML (http://www.xml-cml.org/schema) and CMLX (http://www.xml-cml.org/schema/cmlx)). 
+    Many parsed files contain a long list of namespaces and attributes on the root element.</li>
+    <li>All elements belong to the CML namespace; attributes which are NOT part of CML are
+    usually represented by CMLX attributes (e.g. <tt>templateRef</tt>).</li>
+    <li>The <tt>template</tt> elements normally map onto <tt>cml:module</tt> elements and their <tt>id</tt>s map onto
+    <tt>templateRef</tt> attributes. The result will always have a root element of type <tt>cml:module</tt></li>
+  </ul>
+ </div>
+ <div class="section">
+    <h2>Chunking a file into modules</h2>
+    <p>We now look at how to split the file into the natural chunks. Our current example is straightforward; it's easy to see where the
+    blocks are and also easy to write a template. To create a template we need:
+    <ul>
+      <li>a startPattern (<tt><b>pattern</b></tt>). This is virtually mandatory.</li>
+      <li>an endPattern (<tt><b>endPattern</b></tt>). This is frequent but can sometimes 
+      be omitted. In the examples we shall always have one.</li>
+      <li>an id (<tt><b>id</b></tt>). This should be unique within the template and its descendants
+      and ideally unique within the root tenmplate. Careful naming of the identifier is very valuable in later steps.</li>
+      <li>a repeat count (<tt><b>repeat</b></tt>). By default the template can only be triggered once (<tt>repeat="1"</tt>),
+       and it's common for most templates to be trigged as often as wanted (<tt>repeat="*"</tt>) .</li>
+    </ul>
+    There are also other attributes (<tt>offset</tt>, <tt>endOffset</tt> and <tt>newline</tt>) which you will encounter later.
+    </p>
+    <p>For all except the simplest files we need to nest templates, if necessarily to 3 or even more levels. The
+    general structure is:
+    <pre>
+      &lt;template id="top">
+        &lt;templateList>
+          &lt;template id="level1.1">...&lt;/template>
+          &lt;template id="level1.2">...&lt;/template>
+          &lt;template id="level1.3">
+	        &lt;templateList>
+	          &lt;template id="level1.3.1">...&lt;/template>
+	          &lt;template id="level1.3.2">...&lt;/template>
+	        &lt;/templateList>
+          &lt;/template>
+        &lt;/templateList>
+      &lt;/template>
+    </pre>
+    and these will produce nested modules. Note that one <tt>template</tt> can, with an indefinite <tt>repeat</tt>
+    count, produce many <tt>cml:module</tt>s.
+    </p>
+    <p>
+    The next step is to create nested templates (<tt>amber.chunk.template.xml</tt>) that represent the chunk structure:
+    <pre>
+	&lt;template id="amber.example">
+	  &lt;templateList>
+	    &lt;template id="angle" pattern="ANGLE" endPattern="\s*">
+	      &lt;comment class="example">
+	cd-c2-cd 100.211 121.085 k (16_1_25: 5 points at 1 degree 0-&gt;0.8 Kcal) angle from mp2/6-31G*
+	      &lt;/comment>
+	    &lt;/template>
+	    
+	    &lt;template id="bond" pattern="BOND" endPattern="\s*">
+	      &lt;comment class="example">
+	cq-ca 428.1 1.397 k (3_2: 5 points @0.01A == 0-1 Kcal), dist from mp2/6-31G*
+	      &lt;/comment>
+	    &lt;/template>
+	    
+	    &lt;template id="dihed" pattern="DIHE.*" endPattern="\s*">
+	      &lt;comment class="example">
+	c3-nh-cc-cc 4 14.500 180.000 2.000 (X -ca-ca-X)
+	      &lt;/comment>
+	    &lt;/template>
+	    
+	    &lt;template id="improper" pattern="IMPR.*" endPattern="\s*"/>
+	    &lt;template id="mass" pattern="MASS" endPattern="\s*"/>
+	    &lt;template id="nonbond" pattern="NONB.*" endPattern="\s*"/>
+	  &lt;/templateList>
+	&lt;/template>
+    </pre>
+    The <tt>comment</tt> elements have an important purpose. Not only do they contain examples which
+    help to remind the author but they also support unit tests as we shall see. We'll explain the Patterns 
+    and their regular expressions later.
+    </p>
+    <p>Run this<br/>
+<tt>amber.chunk.template.xml</tt> on <tt>amber.inp</tt> => <tt>amber.chunk.out.xml</tt>    
+</p>
+<p>Here's the result (<tt>amber.chunk.out.xml</tt>)
+<pre>
+&lt;module cmlx:templateRef="amber.example" xmlns="http://www.xml-cml.org/schema"
+  xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  &lt;module cmlx:lineCount="1" cmlx:templateRef="mass">MASS&lt;/module>
+  &lt;module cmlx:lineCount="5" cmlx:templateRef="bond">BONDcq-ca 428.1
+    1.397 k (3_2: 5 points @0.01A == 0-1 Kcal), dist from
+    mp2/6-31G*c2-cq 330.1 1.461 k (1_2: 5 points @0.01A == 0-&gt;1.2
+    Kcal) dist from mp2/6-31G*c2-cd 364.0 1.424 k (1_16: 10 points
+    @0.01A == 0-&gt;3.5 Kcal) dist from mp2/6-31G*cc-nh 495.0 1.352 k
+    (33_28: 5 points @0.01A == 0-&gt;1.5 Kcal) dist from mp2/6-31G*
+  &lt;/module>
+  &lt;module cmlx:lineCount="5" cmlx:templateRef="angle">ANGLEcd-c2-cd
+    100.211 121.085 k (16_1_25: 5 points at 1 degree 0-&gt;0.8 Kcal)
+    angle from mp2/6-31G*cd-c2-cq 102.736 119.194 k (25_1_2: 5 points at
+    1 degree 0-&gt;0.8 Kcal) angle from mp2/6-31G*c2-cq-ca 102.012
+    120.340 k (1_2_3: 5 points at 1 degree 0-&gt;0.8 Kcal) angle from
+    mp2/6-31G*c3-nh-c3 119.542 119.218 k (47_33_43: 5 points at 1 degree
+    0-&gt;0.9 Kcal) angle from mp2/6-31G*&lt;/module>
+  &lt;module cmlx:lineCount="5" cmlx:templateRef="dihed">DIHEcd-cd-c2-cq 1
+    2.0 236.4 2.cd-c2-cd-cd 1 2.0 236.4 2.cd-c2-cq-ca 1 1.5 268.6
+    2.c3-nh-cc-cc 4 14.500 180.000 2.000 (X -ca-ca-X)&lt;/module>
+  &lt;module cmlx:lineCount="1" cmlx:templateRef="improper">IMPROPER&lt;/module>
+  &lt;module cmlx:lineCount="1" cmlx:templateRef="nonbond">NONBON&lt;/module>
+</module>
+
+</pre>
+Note:
+<ul>
+  <li>The ORDER of the input information is preserved. This is universal within 
+  JUMBOParser (which can never alter the order of characters and lines - the 
+  <tt>transform</tt> element can do that.</li>
+  <li>All the blocks , even those with minimal content, have been identified. No content (other than
+  whitespace) has been lost or changed.</li>
+  <li>The mapping between <tt>template</tt>s and <tt>cml:module</tt>s is exact in this case. The <tt>cmlx:templateRef</tt>
+  is derived from the <tt>id</tt>. These attributes can be easily transformed or
+  removed later.</li>
+</ul>
+
+</div>
+    
+</body>
+</html>
