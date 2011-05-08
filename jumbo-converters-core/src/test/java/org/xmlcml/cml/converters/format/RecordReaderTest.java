@@ -8,7 +8,6 @@ import nu.xom.Element;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.text.LineContainer;
 import org.xmlcml.cml.testutil.JumboTestUtils;
@@ -20,7 +19,6 @@ public class RecordReaderTest {
 	public void createRecord() {
 		Element recordElement = CMLUtil.parseXML("<record id='i1' formatType='REGEX'>line(.*)</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
-		recordReader.debug();
 		RegexProcessor regexProcessor = recordReader.getRegexProcessor();
 		Assert.assertEquals("patterns", 1, regexProcessor.getPatternList().size());
 		Assert.assertEquals("names", "", regexProcessor.getNames());
@@ -32,7 +30,6 @@ public class RecordReaderTest {
 		Element recordElement = CMLUtil.parseXML("<record id='i1' " +
 				"formatType='REGEX'>line{A,a:line}junk{I,a:junk}grot{F,a:grot}</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
-		recordReader.debug();
 		RegexProcessor regexProcessor = recordReader.getRegexProcessor();
 		List<Pattern> patternList = regexProcessor.getPatternList();
 		Assert.assertEquals("patterns", 1, patternList.size());
@@ -55,7 +52,6 @@ public class RecordReaderTest {
 		Element recordElement = CMLUtil.parseXML(
 				"<record id='i1' formatType='REGEX'>line{A5,a:line}junk{I8,a:junk}grot{F10.3,a:grot}</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
-		recordReader.debug();
 		RegexProcessor regexProcessor = recordReader.getRegexProcessor();
 		List<Pattern> patternList = regexProcessor.getPatternList();
 		Assert.assertEquals("patterns", 1, patternList.size());
@@ -108,7 +104,7 @@ public class RecordReaderTest {
 	@Ignore // FIXME
 	public void readRecordRepeat() {
 		LineContainer lineContainer = new LineContainer("line1\nline2\nline3");
-		Element recordElement = CMLUtil.parseXML("<record id='i1' repeatCount='2' formatType='REGEX'>line(.*)</record>");
+		Element recordElement = CMLUtil.parseXML("<record id='i1' repeat='2' formatType='REGEX'>line(.*)</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
 		recordReader.applyMarkup(lineContainer);
 		Element ref = CMLUtil.parseXML(
@@ -132,7 +128,7 @@ public class RecordReaderTest {
 	@Test
 	public void readRecordFail() {
 		LineContainer lineContainer = new LineContainer("grot1\nline2\nline3");
-		Element recordElement = CMLUtil.parseXML("<record id='i1' repeatCount='2' formatType='REGEX'>line(.*)</record>");
+		Element recordElement = CMLUtil.parseXML("<record id='i1' repeat='2' formatType='REGEX'>line(.*)</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
 		recordReader.applyMarkup(lineContainer);
 		Element ref = CMLUtil.parseXML(
@@ -149,7 +145,7 @@ public class RecordReaderTest {
 	@Ignore // FIXME
 	public void readRecordRepeat2() {
 		LineContainer lineContainer = new LineContainer("line1\ngrot2\nline3");
-		Element recordElement = CMLUtil.parseXML("<record id='i1' repeatCount='2' " +
+		Element recordElement = CMLUtil.parseXML("<record id='i1' repeat='2' " +
 				"formatType='REGEX'>line(.*)</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
 		recordReader.applyMarkup(lineContainer);
@@ -171,7 +167,7 @@ public class RecordReaderTest {
 	@Ignore // loops
 	public void readRecordRepeatStar() {
 		LineContainer lineContainer = new LineContainer("line1\nline2\nline3");
-		Element recordElement = CMLUtil.parseXML("<record id='i1' repeatCount='*' formatType='REGEX'>line(.*)</record>");
+		Element recordElement = CMLUtil.parseXML("<record id='i1' repeat='*' formatType='REGEX'>line(.*)</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
 		recordReader.applyMarkup(lineContainer);
 		Element ref = CMLUtil.parseXML(
@@ -198,7 +194,7 @@ public class RecordReaderTest {
 	@Ignore // FIXME
 	public void readRecordMid() {
 		LineContainer lineContainer = new LineContainer("line1\nline2\nline3");
-		Element recordElement = CMLUtil.parseXML("<record id='i1' repeatCount='*' " +
+		Element recordElement = CMLUtil.parseXML("<record id='i1' repeat='*' " +
 				"formatType='REGEX'>line(.*)</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
 		recordReader.applyMarkup(lineContainer);
@@ -243,7 +239,7 @@ public class RecordReaderTest {
 		// note than line count is after the adjustment for matched lines
 		Assert.assertEquals("repeat", 1, lineContainer.getCurrentNodeIndex());
 		// now read next line
-		recordElement = CMLUtil.parseXML("<record id='i2' repeatCount='2' formatType='REGEX'>grot(.*)</record>");
+		recordElement = CMLUtil.parseXML("<record id='i2' repeat='2' formatType='REGEX'>grot(.*)</record>");
 		recordReader = new RecordReader(recordElement, null);
 		recordReader.applyMarkup(lineContainer);
 		ref = CMLUtil.parseXML(
@@ -308,16 +304,15 @@ public class RecordReaderTest {
 				"</module>"+
 				"");
 		JumboTestUtils.assertEqualsCanonically("record2", ref, lineContainer.getLinesElement(), true);
-		CMLUtil.debug(lineContainer.getNormalizedLinesElement(), "AAA");
+//		CMLUtil.debug(lineContainer.getNormalizedLinesElement(), "AAA");
 		// note than line count is after the adjustment for matched lines
 		Assert.assertEquals("repeat", 3, lineContainer.getCurrentNodeIndex());
 	}
 	
 	@Test
 	public void createMultipleRecord() {
-		Element recordElement = CMLUtil.parseXML("<record id='i1' multiple='$' formatType='REGEX'>grot(.*)$junk(.*)</record>");
+		Element recordElement = CMLUtil.parseXML("<record id='i1' newline='$' formatType='REGEX'>grot(.*)$junk(.*)</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
-		recordReader.debug();
 		RegexProcessor regexProcessor = recordReader.getRegexProcessor();
 		Assert.assertEquals("patterns", 2, regexProcessor.getPatternList().size());
 		Assert.assertEquals("pattern0", "grot(.*)", regexProcessor.getPatternList().get(0).toString());
@@ -328,10 +323,9 @@ public class RecordReaderTest {
 	
 	@Test
 	public void createMultipleRecord1() {
-		Element recordElement = CMLUtil.parseXML("<record id='i1' multiple='$' " +
+		Element recordElement = CMLUtil.parseXML("<record id='i1' newline='$' " +
 				"formatType='REGEX'>grot{I,a:grot}$junk{A,a:junk}</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
-		recordReader.debug();
 		RegexProcessor regexProcessor = recordReader.getRegexProcessor();
 		Assert.assertEquals("patterns", 2, regexProcessor.getPatternList().size());
 		Assert.assertEquals("pattern0", "grot((?:\\s*(?:\\-?\\d+)\\s*){1,1})", regexProcessor.getPatternList().get(0).toString());
@@ -346,7 +340,7 @@ public class RecordReaderTest {
 	// just to check against the next
 	public void readMultipleRecord0() {
 		LineContainer lineContainer = new LineContainer("grot1\nline2\njunk3");
-		Element recordElement = CMLUtil.parseXML("<record id='i1' multiple='$' " +
+		Element recordElement = CMLUtil.parseXML("<record id='i1' newline='$' " +
 				"formatType='REGEX'>grot(.*)</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
 		recordReader.applyMarkup(lineContainer);
@@ -371,7 +365,7 @@ public class RecordReaderTest {
 	public void readMultipleRecord00() {
 		LineContainer lineContainer = new LineContainer("grot1\nline2\njunk3");
 		lineContainer.setCurrentNodeIndex(1);
-		Element recordElement = CMLUtil.parseXML("<record id='i1' multiple='$' " +
+		Element recordElement = CMLUtil.parseXML("<record id='i1' newline='$' " +
 				"formatType='REGEX'>line(.*)</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
 		recordReader.applyMarkup(lineContainer);
@@ -394,7 +388,7 @@ public class RecordReaderTest {
 	@Ignore // FIXME
 	public void readMultipleRecord() {
 		LineContainer lineContainer = new LineContainer("grot1\nline2\njunk3");
-		Element recordElement = CMLUtil.parseXML("<record id='i1' multiple='$' " +
+		Element recordElement = CMLUtil.parseXML("<record id='i1' newline='$' " +
 				"formatType='REGEX'>grot(.*)$line(.*)</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
 		recordReader.applyMarkup(lineContainer);
@@ -418,7 +412,7 @@ public class RecordReaderTest {
 	@Ignore // FIXME
 	public void readMultipleRecord1() {
 		LineContainer lineContainer = new LineContainer("grot1\nline2\njunk3\nfoo4");
-		Element recordElement = CMLUtil.parseXML("<record id='i1' multiple='$' " +
+		Element recordElement = CMLUtil.parseXML("<record id='i1' newline='$' " +
 				"formatType='REGEX'>grot(.*)$line(.*)$junk(.*)</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
 		recordReader.applyMarkup(lineContainer);
@@ -443,7 +437,7 @@ public class RecordReaderTest {
 	@Ignore // FIXME
 	public void readMultipleRecordWithBlank() {
 		LineContainer lineContainer = new LineContainer("grot1\nline2\n\njunk4\ngrot5\n");
-		Element recordElement = CMLUtil.parseXML("<record id='i1' multiple='$' " +
+		Element recordElement = CMLUtil.parseXML("<record id='i1' newline='$' " +
 				"formatType='REGEX'>grot(.*)$line(.*)$$junk(.*)</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
 		recordReader.applyMarkup(lineContainer);
@@ -469,7 +463,7 @@ public class RecordReaderTest {
 	@Ignore // FIXME
 	public void readRepeatedMultipleRecord() {
 		LineContainer lineContainer = new LineContainer("grot1\nline2\ngrot3\nline4\ngrot5");
-		Element recordElement = CMLUtil.parseXML("<record id='i1' multiple='$' repeatCount='2' formatType='REGEX'>grot(.*)$line(.*)</record>");
+		Element recordElement = CMLUtil.parseXML("<record id='i1' newline='$' repeat='2' formatType='REGEX'>grot(.*)$line(.*)</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
 		recordReader.applyMarkup(lineContainer);
 		Element ref = CMLUtil.parseXML(
@@ -496,7 +490,7 @@ public class RecordReaderTest {
 	@Ignore
 	public void readMultipleRecordWithBlank1() {
 		LineContainer lineContainer = new LineContainer("grot1\nline2\n\ngrot3\nline4\n\ngrot5");
-		Element recordElement = CMLUtil.parseXML("<record id='i1' multiple='$' formatType='REGEX'>grot(.*)$line(.*)$</record>");
+		Element recordElement = CMLUtil.parseXML("<record id='i1' newline='$' formatType='REGEX'>grot(.*)$line(.*)$</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
 		recordReader.applyMarkup(lineContainer);
 		Element ref = CMLUtil.parseXML(
@@ -523,10 +517,9 @@ public class RecordReaderTest {
 	@Ignore // FIXME
 	public void readRepeatedMultipleRecordWithBlank() {
 		LineContainer lineContainer = new LineContainer("grot1\nline2\n\ngrot3\nline4\n\ngrot5");
-		Element recordElement = CMLUtil.parseXML("<record id='i1' multiple='$' repeatCount='2' " +
+		Element recordElement = CMLUtil.parseXML("<record id='i1' newline='$' repeat='2' " +
 				"formatType='REGEX'>grot(.*)$line(.*)$(\\s*)</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
-		recordReader.debug();
 		recordReader.applyMarkup(lineContainer);
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
@@ -557,7 +550,6 @@ public class RecordReaderTest {
 		Element recordElement = CMLUtil.parseXML("<record id='i1' " +
 				"formatType='REGEX' >{I3}.*</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
-		recordReader.debug();
 		recordReader.applyMarkup(lineContainer);
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
@@ -581,7 +573,6 @@ public class RecordReaderTest {
 		Element recordElement = CMLUtil.parseXML("<record id='i1' " +
 				"formatType='REGEX' >{I3} {A3} {F6.2}</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
-		recordReader.debug();
 		recordReader.applyMarkup(lineContainer);
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
@@ -606,7 +597,6 @@ public class RecordReaderTest {
 		Element recordElement = CMLUtil.parseXML("<record id='i1' " +
 				"formatType='REGEX' >{I3,x:i} {A3,x:a} {F6.2,x:f}</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
-		recordReader.debug();
 		recordReader.applyMarkup(lineContainer);
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
@@ -631,7 +621,7 @@ public class RecordReaderTest {
 				"formatType='REGEX'>{3I2,x:a,u:g}</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
 		RegexProcessor regexProcessor = recordReader.getRegexProcessor();
-		System.out.println("RR "+regexProcessor);
+//		System.out.println("RR "+regexProcessor);
 	}
 	
 	@Test
@@ -639,9 +629,8 @@ public class RecordReaderTest {
 		Element recordElement = CMLUtil.parseXML("<record id='i1' " +
 				"formatType='REGEX'>{3I2,x:a}{A4,x:aa}</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
-		recordReader.debug();
 		RegexProcessor regexProcessor = recordReader.getRegexProcessor();
-		System.out.println("RR "+regexProcessor);
+//		System.out.println("RR "+regexProcessor);
 	}
 	
 	@Test

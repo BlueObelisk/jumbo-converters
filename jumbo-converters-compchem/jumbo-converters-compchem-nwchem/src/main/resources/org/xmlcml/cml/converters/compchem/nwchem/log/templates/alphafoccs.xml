@@ -1,17 +1,26 @@
 <template repeat="*"  id="alphafoccs" name="alpha foccs" 
   pattern="\s*alpha foccs\s*$\s*\-+\s*$\s*" 
   newline="$" endPattern="\s*">
-  <comment>
+  
+  <comment class="example.input" id="alphafoccs">
                 alpha foccs
                 -----------
 
               1      
     1    2.0000
     2    2.0000
-    ...
    45    2.0000
 
   </comment>
   <record repeat="4"/>
   <record id="alpha" makeArray="true" repeat="*">{I}{F,cc:alphaocc}</record>
+  
+  <comment class="example.output" id="alphafoccs">
+    <module cmlx:templateRef="alphafoccs" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:lineCount="3" cmlx:templateRef="alpha">
+        <array dataType="xsd:integer" size="3">1 2 45</array>
+        <array dataType="xsd:double" dictRef="cc:alphaocc" size="3">2.0 2.0 2.0</array>
+      </list>
+    </module>
+  </comment>
 </template>

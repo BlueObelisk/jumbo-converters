@@ -53,8 +53,9 @@ public class TemplateTest {
 	@Test	public void testl103Deltas()             {runTemplateTest("l103.deltas");}
 	@Test	public void testl103Init()               {runTemplateTest("l103.init");}
 	@Test	public void testl103ItemConverge()       {runTemplateTest("l103.itemconverge");}
-	@Test	public void testl103Localmin()           {runTemplateTest("l103.localmin");}
-	@Test	public void testl103OptimizedParam()     {runTemplateTest("l103.optimizedparam");}
+//	@Test	public void testl103LocalminSaddle()     {runTemplateTest("l103.localmin");}
+	@Test	public void testl103LocalminNegeig()     {runTemplateTest("l103.localmin.negativeeig");}
+	@Test	@Ignore public void testl103OptimizedParamWHITE()     {runTemplateTest("l103.optimizedparam");}
 //	@Test	public void testl103PreddeltaNOFILE()          {runTemplateTest("l103.predelta");}
 	@Test	@Ignore public void testl103RfoEXAMPLE()                {runTemplateTest("l103.rfo");}
 	@Test	@Ignore public void testl103TrustEXAMPLE()              {runTemplateTest("l103.trust");}
@@ -113,7 +114,7 @@ public class TemplateTest {
 	@Test	public void testl801Zeropoint()          {runTemplateTest("l801");}
 
 	@Test	public void testl9999Final()             {runTemplateTest("l9999.final");}
-	@Test	public void testl9999Archive()           {runTemplateTest("l9999.archive");}
+	@Test	@Ignore public void testl9999ArchiveFORMULA()           {runTemplateTest("l9999.archive");}
 	@Test	public void testl9999Jobcpu()            {runTemplateTest("jobcpu");}
 
 	@Test

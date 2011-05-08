@@ -1,9 +1,21 @@
 <template repeat="*"  name="argument" id="argument" pattern="\s*argument.*" 
   endPattern="\s*">
-    <comment>
+  
+  <comment class="example.input" id="argument">
       argument 1 = dft_feco5.nw
 
     </comment>
-    <record names="__name1 __value1" repeat="*"  
-         id="argsx">.*argument\s*([^=]*)\s*=\s*(.*)</record>
+    
+    <record  repeat="*"  id="argsx">.*argument\s*{I,x:serial}\s*=\s*{X,x:arg}</record>
+         
+    <comment class="example.output" id="argument">
+      <module cmlx:templateRef="argument" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+        <list cmlx:templateRef="argsx">
+          <list>
+            <scalar dataType="xsd:integer" dictRef="x:serial">1</scalar>
+            <scalar dataType="xsd:string" dictRef="x:arg">dft_feco5.nw</scalar>
+          </list>
+        </list>
+      </module>
+    </comment>
 </template>

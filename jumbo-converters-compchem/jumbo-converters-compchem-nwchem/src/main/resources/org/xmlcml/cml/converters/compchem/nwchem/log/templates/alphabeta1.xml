@@ -1,7 +1,7 @@
 <template repeat="*"  id="alphabeta" name="Alpha Beta Contributions" 
   pattern="\s*$\s*Alpha =.* Beta =.s*" 
   newline="$" endPattern="\s*">
-  <comment>
+  <comment class="example.input" id="alphabeta1">
 
   Alpha =  44 ; Beta =   0
   Contributions in atomic units:
@@ -19,7 +19,18 @@
   <record id="orbener">\s*Orbital Energy ={F,n:orbener}</record>
   <record id="coulomb">\s*Coulomb Integrals ={F,n:coulombint}</record>
   <record id="xcint">\s*XC Integrals ={F,n:xcint}</record>
-  <record id="xcint">\s*XC Diff\. Energy ={F,n:xcdiff}</record>
-  <record id="xcint">\s*Ionization potential ={F,n:ionpot,u:au}</record>
-  <record id="xcint">\s*={F,n:ionpot,u:ev}</record>
+  <record id="xcdiff">\s*XC Diff\. Energy ={F,n:xcdiff}</record>
+  <record id="ionpot">\s*Ionization potential ={F,n:ionpot,u:au}\s*a\.u\.\s*</record>
+  <record id="ionpot1">\s*={F,n:ionpot,u:ev}\s*eV\s*</record>
+  
+  <comment class="example.output" id="alphabeta1">
+<module cmlx:templateRef="alphabeta" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="alphabeta">
+    <list>
+      <scalar dataType="xsd:integer" dictRef="n:alpha">44</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:beta">0</scalar>
+    </list>
+  </list> Coulomb Integral = 0.1468 XC Integral = -0.6043 XC Diff. Energy = 1.1303 Ionization potential = 0.8801 a.u. = 23.95 eV
+</module>
+  </comment>
 </template>

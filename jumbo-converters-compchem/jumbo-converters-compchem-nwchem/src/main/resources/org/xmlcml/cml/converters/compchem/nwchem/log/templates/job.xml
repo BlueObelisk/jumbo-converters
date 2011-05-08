@@ -38,10 +38,10 @@
   <transform process="pullupSingleton" xpath="./*[@cmlx:templateRef='list1' or @cmlx:templateRef='list2']/cml:list"/>
   <transform process="pullupSingleton" xpath="./cml:list"/>
   <transform process="pullupSingleton" xpath="./cml:module"/>
-  <transform process="integer" xpath="cml:list/cml:scalar[@dictRef='n:nproc']" />
+  <transform process="createInteger" xpath="cml:list/cml:scalar[@dictRef='n:nproc']" />
   <!-- Wed Jul  8 10:53:24 PDT 1998 -->
-  <transform process="date" xpath="cml:list/cml:scalar[@dictRef='n:compiled']" 
+  <transform process="createDate" xpath="cml:list/cml:scalar[@dictRef='n:compiled']" 
      value="xsd:date" format="EEE MMM d HH:mm:ss ZZZ yyyy"/>
   <!-- Wed Jul  8 14:40:23 1998 -->
-  <transform process="date" xpath="cml:list/cml:scalar[@dictRef='n:date']" value="xsd:date"/>
+  <transform process="createDate" xpath="cml:list/cml:scalar[@dictRef='n:date']" value="xsd:date"/>
 </template>

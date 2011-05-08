@@ -1,7 +1,8 @@
 <template repeat="*"  id="alphaeigs" name="alpha eigenvalues" 
   pattern="\s*alpha eigenvalues\s*$\s*\-+\s*$.*$s*\-+\s*$\s*" 
   newline="$" endPattern="(\s*|\s*alpha foccs\s*)">
-  <comment>
+  
+  <comment class="example.input" id="acknow">
              alpha eigenvalues
              -----------------
       (all occupied plus 10 virtual)
@@ -12,5 +13,14 @@
     2  -14.3671
   </comment>
   <record repeat="6"/>
-  <record id="alpha" makeArray="true">{I}{F,cc:alphaocc}</record>
+  <record id="alpha" makeArray="true" repeat="*">{I}{F,cc:alphaocc}</record>
+  
+  <comment class="example.output" id="acknow">
+    <module cmlx:templateRef="alphaeigs" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:lineCount="2" cmlx:templateRef="alpha">
+        <array dataType="xsd:integer" size="2">1 2</array>
+        <array dataType="xsd:double" dictRef="cc:alphaocc" size="2">-19.2236 -14.3671</array>
+      </list>
+    </module>
+  </comment>
 </template>

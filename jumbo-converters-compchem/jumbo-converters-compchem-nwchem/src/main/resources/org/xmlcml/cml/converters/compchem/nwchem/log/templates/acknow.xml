@@ -1,6 +1,6 @@
 <template repeat="*"  name="ACKNOWLEDGMENT" id="acknow" pattern="\s*ACKNOWLEDGMENT\s*$\s*\-+\s*"
   newline="$" endPattern="\s*$\s*">
-  <comment>
+  <comment class="example.input" id="acknow">
                                   ACKNOWLEDGMENT
                                   --------------
 
@@ -16,4 +16,12 @@
   </comment>
   <record id="citation">{X,cc:citation}</record>
   <record repeat="*"/>
+  
+  <transform process="pullup" xpath=".//cml:scalar"/>
+  
+  <comment class="example.output" id="acknow">
+    <module cmlx:templateRef="acknow" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="cc:citation">ACKNOWLEDGMENT</scalar>
+    </module>
+  </comment>
 </template>

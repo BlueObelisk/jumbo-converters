@@ -3,12 +3,10 @@ package org.xmlcml.cml.converters.text;
 import java.util.ArrayList;
 import java.util.List;
 
-import nu.xom.Attribute;
 import nu.xom.Element;
 import nu.xom.Elements;
 
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 
 public class TemplateListElement implements MarkupApplier {

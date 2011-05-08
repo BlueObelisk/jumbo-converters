@@ -1,0 +1,47 @@
+<template id="l103.localmin.negativeeig" repeat="*" name="Negative Eigenvalues"
+    pattern="\s*Search for a (local minimum)|(saddle point)\..*" 
+    endPattern="\sIteration.*$\s[^I].*" endOffset="1"
+    >
+  <comment class="example.input" id="l103.localmin.negativeeig">
+ Eigenvectors required to have negative eigenvalues:
+                          R25       R14       R27       R16       D47
+   1                    0.36641   0.36640   0.22975   0.22974  -0.19160
+                          D48       D8        D11       D6        D9
+   1                    0.19153   0.16306  -0.16304   0.15371  -0.15366
+  </comment>  
+
+  <record id="eigenvalue">\s*Eigenvectors required.*</record>
+  <templateList>
+    <template repeat="*" pattern="\s*.*" endPattern="\s*\d+\s*[\-\.\d\s]+" endOffset="1">
+      <record id="vars">{1_5A,g:variable}</record>
+      <record id="eigs">\s*{I,g:serial}\s*{1_5F,g:eigs}</record>
+    </template>
+  </templateList>
+  
+  <transform process="joinArrays"
+     xpath=".//cml:list/cml:array[@dictRef='g:variable']"/>
+  <transform process="createArray" 
+     xpath="." from=".//cml:scalar[@dictRef='g:serial']"/>
+  <transform process="joinArrays"
+     xpath=".//cml:list/cml:array[@dictRef='g:eigs']"/>
+     <!-- 
+  <transform process="addDictRef" xpath=".//cml:array[not(@dictRef)]" value="cc:eigenvalues"/>
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='cc:serial']"/>
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='g:rmscart']"/>
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='g:rmsint']"/>
+  <transform process="delete" xpath=".//cml:module[not(cml:list)]"/>
+  <transform process="delete" xpath=".//cml:scalar[@dictRef='x:junk']"/>
+  <transform process="pullupSingleton" xpath=".//cml:module[cml:list]"/>
+  <transform process="pullupSingleton" xpath=".//cml:list"/>
+  -->
+  <transform process="pullup" repeat="3" xpath=".//cml:array"/>
+  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='NULL_ID']"/>
+  
+  <comment class="example.output" id="l103.localmin.negativeeig">
+    <module cmlx:templateRef="l103.localmin.negativeeig" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array delimiter="|" dataType="xsd:string" size="10" dictRef="g:variable">|R25|R14|R27|R16|D47|D48|D8|D11|D6|D9|</array>
+      <array dataType="xsd:integer" size="2" dictRef="g:serial">1 1</array>
+      <array dataType="xsd:double" size="10" dictRef="g:eigs">0.36641 0.3664 0.22975 0.22974 -0.1916 0.19153 0.16306 -0.16304 0.15371 -0.15366</array>
+    </module>
+  </comment>
+</template>
