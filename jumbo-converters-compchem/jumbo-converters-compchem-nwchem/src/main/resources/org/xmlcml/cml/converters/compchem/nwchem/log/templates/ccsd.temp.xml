@@ -1,6 +1,7 @@
 <template repeat="*" id="ccsd" name="CCSD Energy" pattern="\s*CCSD Energy\s*$\s+\-+.*" 
   newline="$" endPattern=".*$\s*\-+\s*">
-  <comment>
+  
+  <comment class="example.input" id="ccsd">
  CCSD Energy
  -----------
  Reference energy:            -134.684334043866102
@@ -32,4 +33,9 @@ nkpass= 1; nvpass=  1; memdrv=  611830; memtrn= 4400205; memavail=11035399
 <record id="r1" repeat="*" names="__name __value">\s*(.*):\s{8}\s*([-\d\.]+)\s*</record>
 <record repeat="1" id="rl2">{X}</record>
 <record repeat="*" id="namevalue">{I,n:row}{F,n:value}</record>
+
+  <comment class="example.output" id="ccsd">
+    <module cmlx:templateRef="ccsd" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">*********triples calculation*********nkpass= 1; nvpass= 1; memdrv= 611830; memtrn= 4400205; memavail=11035399 memory available/node 11035399 total number of virtual orbitals 122 number of virtuals per integral pass 122 number of integral evaluations 1 number of occupied per triples pass 9 number of triples passes 1 commencing integral evaluation 1 Time for integral evaluation pass 1 149.12 Time for triples evaluation pass 1 231.47 pseudo-e(mp4) -.20388563010252E-01 pseudo-e(mp5) .23839122339290E-03 e(t) -.20150171786859E-01</module>
+  </comment>
+
 </template>

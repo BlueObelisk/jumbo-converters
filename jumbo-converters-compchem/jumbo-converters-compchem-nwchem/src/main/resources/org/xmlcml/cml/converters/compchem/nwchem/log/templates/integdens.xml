@@ -1,9 +1,23 @@
 <template repeat="*"  name="error on integrated density" id="integdens" 
 pattern="\s*WARNING\: error on integrated density.*" newline="$" endPattern="\s*">
-   <comment>
+
+  <comment class="example.input" id="integdens">
  WARNING: error on integrated density =  0.12D-06
  greater than required accuracy of  0.10D-06
   </comment>
   <record id="integdens">\s*WARNING\: error on integrated density\s*={E,n:integdenserr}</record>
   <record id="reqdacc">\s*greater than required accuracy of {E,n:reqdacc}</record>
+
+  <comment class="example.output" id="integdens">
+<module cmlx:templateRef="integdens" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="integdens">
+    <scalar dataType="xsd:double" dictRef="n:integdenserr">1.2E-7</scalar>
+  </list>
+  <list cmlx:templateRef="reqdacc">
+    <scalar dataType="xsd:double" dictRef="n:reqdacc">1.0E-7</scalar>
+  </list>
+</module>
+    </comment>
+
+
 </template>

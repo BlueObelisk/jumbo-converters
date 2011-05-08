@@ -1,6 +1,7 @@
 <template repeat="*"  id="nucdipole" name="Nuclear Dipole moment" 
   pattern="\s*Nuclear Dipole moment.*$\s+\-+\s*" newline="$" endPattern="\s*">
-  <comment>
+
+  <comment class="example.input" id="nucdipole">
             Nuclear Dipole moment (a.u.) 
             ----------------------------
         X                 Y               Z
@@ -15,4 +16,13 @@
       from="*[@dictRef='x:x' or @dictRef='x:y' or @dictRef='x:z']"
       dictRef="cc:nuclearDipole"/>
 <!-- <transform process="pullupSingleton" xpath="./cml:list"/> -->
+
+  <comment class="example.output" id="nucdipole">
+<module cmlx:templateRef="nucdipole" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="nucdipole">
+    <vector3>0.0 0.0 0.0</vector3>
+  </list>
+</module>
+        </comment>
+
 </template>

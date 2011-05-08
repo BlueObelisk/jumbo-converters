@@ -1,6 +1,7 @@
 <template id="condfukui" pattern="\s*\-+\s*$\s*Condensed Fukui function .*$\s*\-+\s*$\s*"
   endPattern="(\s*|\s*\-+\s*)" repeat="*" newline="$">
-  <comment>
+  
+  <comment class="example.input" id="condfukui">
      -----------------------------------
        Condensed Fukui function [fnn(+)]
      -----------------------------------
@@ -12,4 +13,16 @@
   </comment>
   <record repeat="6"/>
   <record repeat="*" id="atom" makeArray="true">{I,cc:serial}{A,cc:elementType}{I,cc:elementType}{F,cc:condensedfukui}</record>
+  
+  <comment class="example.output" id="condfukui">
+<module cmlx:templateRef="condfukui" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:lineCount="2" cmlx:templateRef="atom">
+    <array dataType="xsd:integer" dictRef="cc:serial" size="2">1 2</array>
+    <array dataType="xsd:string" dictRef="cc:elementType" size="2">C C</array>
+    <array dataType="xsd:integer" dictRef="cc:elementType" size="2">6 6</array>
+    <array dataType="xsd:double" dictRef="cc:condensedfukui" size="2">0.11 -0.0919</array>
+  </list>
+</module>
+    </comment>
+
 </template>

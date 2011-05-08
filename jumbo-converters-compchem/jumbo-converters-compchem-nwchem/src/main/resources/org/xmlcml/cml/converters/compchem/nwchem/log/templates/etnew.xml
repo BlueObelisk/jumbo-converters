@@ -1,10 +1,30 @@
 <template repeat="*"  name="etnew" id="etnew" 
   pattern="\s*Etnew, Ecore.*" newline="$" endPattern="\s*">
-   <comment>
+
+  <comment class="example.input" id="etnew">
  Etnew, Ecore, Ecoul, Exc(1), Exc(2), Totsic:   -1216.4416943308913       -2085.0318599517109        943.99473833291222       -75.404572712092730        0.0000000000000000        0.0000000000000000     
   delta =  -4.08951824776977446E-002
   
   </comment>
   <record id="et">\s*Etnew, Ecore, Ecoul, Exc\(1\), Exc\(2\), Totsic:{F,n:etnew}{F,n:ecore}{F,n:ecoul}{F,n:exc1}{F,n:exc2}{F,n:totsic}</record>
   <record id="et.delta">\s*delta ={A,n:delta}</record>
+  
+  <comment class="example.output" id="etnew">
+<module cmlx:templateRef="etnew" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="et">
+    <list>
+      <scalar dataType="xsd:double" dictRef="n:etnew">-1216.4416943308913</scalar>
+      <scalar dataType="xsd:double" dictRef="n:ecore">-2085.031859951711</scalar>
+      <scalar dataType="xsd:double" dictRef="n:ecoul">943.9947383329122</scalar>
+      <scalar dataType="xsd:double" dictRef="n:exc1">-75.40457271209273</scalar>
+      <scalar dataType="xsd:double" dictRef="n:exc2">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:totsic">0.0</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="et.delta">
+    <scalar dataType="xsd:string" dictRef="n:delta">-4.08951824776977446E-002</scalar>
+  </list>
+</module>
+    </comment>
+
 </template>

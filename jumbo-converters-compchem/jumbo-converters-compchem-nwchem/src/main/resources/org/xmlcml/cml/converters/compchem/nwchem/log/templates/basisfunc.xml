@@ -1,6 +1,7 @@
 <template repeat="*"  id="basisfunc" name="Basis functions" 
   pattern="\s*Basis functions\s+=.*" newline="$" endPattern="\s*">
-  <comment>
+  
+  <comment class="example.input" id="basisfunc">
   Basis functions       =    131
   Molecular orbitals    =    131
   Frozen core           =      0
@@ -14,4 +15,52 @@
 
   </comment>
   <record id="basis" repeat="*">\s*{X,x:name}\s*=\s*{X,x:value}\s*</record>
+  
+  <comment class="example.output" id="basisfunc">
+<module cmlx:templateRef="basisfunc" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="basis">
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Basis functions</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">131</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Molecular orbitals</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">131</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Frozen core</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">0</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Frozen virtuals</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">0</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Active alpha occupied</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">9</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Active beta occupied</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">9</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Active alpha virtual</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">122</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Active beta virtual</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">122</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Use MO symmetry</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">T</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Use skeleton AO sym</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">T</scalar>
+    </list>
+  </list>
+</module>
+    </comment>
+
 </template>

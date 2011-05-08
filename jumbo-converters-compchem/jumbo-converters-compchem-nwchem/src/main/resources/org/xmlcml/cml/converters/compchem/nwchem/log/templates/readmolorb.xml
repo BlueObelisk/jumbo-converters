@@ -1,7 +1,17 @@
 <template repeat="*"  id="readmolorb" name="Read molecular orbitals" 
   pattern="\s*Read molecular orbitals.*" newline="$" endPattern=".*">
-  <comment>
+
+  <comment class="example.input" id="readmolorb">
  Read molecular orbitals from ./Au+.movecs
 </comment>
 <record id="molorb">\s*Read molecular orbitals from {X,n:molorbfile}\s*</record>
+
+  <comment class="example.output" id="readmolorb">
+<module cmlx:templateRef="readmolorb" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="molorb">
+    <scalar dataType="xsd:string" dictRef="n:molorbfile">./Au+.movecs</scalar>
+  </list>
+</module>
+    </comment>
+
 </template>

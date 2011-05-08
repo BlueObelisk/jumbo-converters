@@ -1,7 +1,17 @@
 <template repeat="*"  name="wrotemolorb" id="gridpts" pattern="\s*Wrote molecular orbitals.*" 
   newline="$" endPattern="\s*">
-   <comment>
+
+  <comment class="example.input" id="wrotemolorb">
  Wrote molecular orbitals to ./john_fukui.movecs
   </comment>
   <record id="molorb">\s*Wrote molecular orbitals to *{X,cc:filename}</record>
+  
+  <comment class="example.output" id="wrotemolorb">
+<module cmlx:templateRef="gridpts" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="molorb">
+    <scalar dataType="xsd:string" dictRef="cc:filename">./john_fukui.movecs</scalar>
+  </list>
+</module>
+    </comment>
+
 </template>

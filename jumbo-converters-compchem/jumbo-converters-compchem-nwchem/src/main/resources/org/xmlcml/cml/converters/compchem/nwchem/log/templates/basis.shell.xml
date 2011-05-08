@@ -2,7 +2,7 @@
   pattern="\s*\d+\s*\S+.*" newline="$" endPattern="\s*"
   endOffset="1"
   >
-  <comment>
+  <comment class="example.input" id="basis.shell">
   1 S  5.22290220E+03 -0.001936
   1 S  7.82539940E+02 -0.014851
   1 S  1.77267430E+02 -0.073319
@@ -22,4 +22,76 @@
       <record repeat="*" id="row">{I,cc:basis.shellnum}{A,cc:shellsym}{E,cc:basis.exponent}{F,cc:basis.coefficient}</record>
     </template>
   </templateList>
+  
+  <comment class="example.output" id="basis.shell">
+<module cmlx:templateRef="basis.shell" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <module cmlx:lineCount="7" cmlx:templateRef="shell">
+    <list cmlx:templateRef="row">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">5222.9022</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.001936</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">782.53994</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.014851</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">177.26743</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.073319</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">49.516688</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.245116</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">15.66644</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.480285</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">5.1793599</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.335943</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="3" cmlx:templateRef="shell">
+    <list cmlx:templateRef="row">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">2</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">10.601441</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">0.078806</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">2</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">0.942317</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.567695</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="2" cmlx:templateRef="shell">
+    <list cmlx:templateRef="row">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">3</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">0.2774746</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">1.0</scalar>
+      </list>
+    </list>
+  </module>
+</module>
+    </comment>
+
 </template>

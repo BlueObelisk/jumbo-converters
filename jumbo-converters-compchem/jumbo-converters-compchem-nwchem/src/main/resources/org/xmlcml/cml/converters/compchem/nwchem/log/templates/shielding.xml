@@ -4,7 +4,7 @@
   endOffset="4"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   >
-  <comment>
+  <comment class="example.input" id="shielding">
           -----------------------------------------
           Chemical Shielding Tensors (GIAO, in ppm)
           -----------------------------------------
@@ -105,5 +105,136 @@ Iterative solution of linear equations
       <xi:include href="parallel.xml"/>
       <xi:include href="magneticatom.xml"/>
   </templateList>
+
+  <comment class="example.output" id="shielding">
+<module cmlx:templateRef="shielding" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <module cmlx:lineCount="13" cmlx:templateRef="cphf">
+    <list cmlx:templateRef="r1">
+      <list>
+        <scalar dataType="xsd:string" dictRef="n:nnname">scftype</scalar>
+        <scalar dataType="xsd:string" dictRef="n:vvvalue">RHF</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="n:nnname">nclosed</scalar>
+        <scalar dataType="xsd:string" dictRef="n:vvvalue">9</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="n:nnname">nopen</scalar>
+        <scalar dataType="xsd:string" dictRef="n:vvvalue">0</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="n:nnname">variables</scalar>
+        <scalar dataType="xsd:string" dictRef="n:vvvalue">234</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="n:nnname"># of vectors</scalar>
+        <scalar dataType="xsd:string" dictRef="n:vvvalue">3</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="n:nnname">tolerance</scalar>
+        <scalar dataType="xsd:string" dictRef="n:vvvalue">0.10D-03</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="n:nnname">level shift</scalar>
+        <scalar dataType="xsd:string" dictRef="n:vvvalue">0.00D+00</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="n:nnname">max iterations</scalar>
+        <scalar dataType="xsd:string" dictRef="n:vvvalue">50</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="n:nnname">max subspace</scalar>
+        <scalar dataType="xsd:string" dictRef="n:vvvalue">30</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="4" cmlx:templateRef="integralfile">
+    <list cmlx:templateRef="integral">
+      <scalar dataType="xsd:string" dictRef="n:integralfile">./ch3f_rot.aoints.0</scalar>
+    </list> Record size in doubles = 65536 No. of integs per rec = 43688 Max. records in memory = 3 Max. records in file = 5708 No. of bits per label = 8 No. of bits per value = 64
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="quartets">
+    <list cmlx:templateRef="quartets">
+      <list>
+        <scalar dataType="xsd:double" dictRef="n:quartet">37140.0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:integrals">196500.0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:direct">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:cached">100.0</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="filebalance">
+    <list cmlx:templateRef="file">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:exchanges">0</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:moved">0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:time">0.0</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="7" cmlx:templateRef="itersol">
+    <list cmlx:templateRef="iter">
+      <list>
+        <scalar dataType="xsd:string" dictRef="x:name">No. of variables</scalar>
+        <scalar dataType="xsd:string" dictRef="x:value">234</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="x:name">No. of equations</scalar>
+        <scalar dataType="xsd:string" dictRef="x:value">3</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="x:name">Maximum subspace</scalar>
+        <scalar dataType="xsd:string" dictRef="x:value">30</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="x:name">Iterations</scalar>
+        <scalar dataType="xsd:string" dictRef="x:value">50</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="x:name">Convergence</scalar>
+        <scalar dataType="xsd:string" dictRef="x:value">1.0D-04</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="x:name">Start time</scalar>
+        <scalar dataType="xsd:string" dictRef="x:value">4.5</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="6" cmlx:templateRef="iternsub">
+    <list cmlx:lineCount="4" cmlx:templateRef="iter">
+      <array dataType="xsd:integer" dictRef="x:serial" size="4">1 2 3 4</array>
+      <array dataType="xsd:integer" dictRef="n:nsub" size="4">3 6 9 12</array>
+      <array dataType="xsd:double" dictRef="n:resid" size="4">0.193 0.00338 2.64E-4 1.93E-5</array>
+      <array dataType="xsd:double" dictRef="cc:time" size="4">5.4 6.2 7.1 8.0</array>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="parallel">
+    <list cmlx:templateRef="parallel">
+      <list>
+        <scalar dataType="xsd:string" dictRef="cc:filetype">integral</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:nrec">8</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:large">0</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="2" cmlx:templateRef="magneticatom">
+    <list cmlx:templateRef="atomid">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+        <scalar dataType="xsd:string" dictRef="x:elementType">C</scalar>
+      </list>
+    </list> Diamagnetic
+  </module> 250.8006 -4.0952 4.8807 -4.0945 241.2836 -1.8116 4.8811 -1.8120 241.9238 Paramagnetic -88.2836 -24.1524 28.7618 -24.1539 -144.3632 -10.6808 28.7610 -10.6799 -140.6136 Total Shielding Tensor 162.5170 -28.2477 33.6425 -28.2484 96.9204 -12.4924 33.6421 -12.4919 101.3102 isotropic = 120.2492 anisotropy = 101.4478 Principal Components and Axis System 1 2 3 187.8811 86.4350 86.4315 1 0.8660 -0.4984 0.0404 2 -0.3215 -0.4932 0.8083 3 0.3829 0.7130 0.5874...
+  <module cmlx:lineCount="2" cmlx:templateRef="magneticatom">
+    <list cmlx:templateRef="atomid">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">5</scalar>
+        <scalar dataType="xsd:string" dictRef="x:elementType">H</scalar>
+      </list>
+    </list> Diamagnetic
+  </module> 24.8459 -0.8089 1.0630... 3 0.7755 -0.6247 0.0916
+</module>
+    </comment>
+
 
 </template>

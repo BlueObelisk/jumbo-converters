@@ -1,7 +1,8 @@
 <template repeat="*"  id="pspw.atomcompos" name="PSPW atomic composition" 
   pattern="\s*atomic composition:\s*" 
   newline="$" endPattern="\s*">
-  <comment>
+
+  <comment class="example.input" id="pspw.atomcompos">
  atomic composition:
      Ga  :  4     N   :  4
 
@@ -10,4 +11,11 @@
   <record id="atomcompos">\s*{X,n:atomcompos}\s*</record>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="pspw.atomcompos">
+<module cmlx:templateRef="pspw.atomcompos" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:string" dictRef="n:atomcompos" cmlx:templateRef="atomcompos">Ga : 4 N : 4</scalar>
+</module>
+  </comment>
+
 </template>

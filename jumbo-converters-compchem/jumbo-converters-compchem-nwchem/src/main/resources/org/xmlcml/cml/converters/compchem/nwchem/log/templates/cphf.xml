@@ -1,7 +1,8 @@
 <template repeat="*"  id="cphf" name="NWChem CPHF Module" 
   pattern="\s*NWChem CPHF Module\s*$\s+\-+\s*$\s*$\s*" 
   newline="$" endPattern="\s*$\s*">
-  <comment>
+  
+  <comment class="example.input" id="cphf">
                                 NWChem CPHF Module
                                 ------------------
  
@@ -20,4 +21,48 @@
 </comment>
 <record repeat="4" id="rl1"/>
 <record id="r1" formatType="REGEX" repeat="*">\s*{X,n:nnname}\s*=\s*{A,n:vvvalue}</record>
+
+  <comment class="example.output" id="cphf">
+<module cmlx:templateRef="cphf" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="r1">
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:nnname">scftype</scalar>
+      <scalar dataType="xsd:string" dictRef="n:vvvalue">RHF</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:nnname">nclosed</scalar>
+      <scalar dataType="xsd:string" dictRef="n:vvvalue">9</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:nnname">nopen</scalar>
+      <scalar dataType="xsd:string" dictRef="n:vvvalue">0</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:nnname">variables</scalar>
+      <scalar dataType="xsd:string" dictRef="n:vvvalue">234</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:nnname"># of vectors</scalar>
+      <scalar dataType="xsd:string" dictRef="n:vvvalue">3</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:nnname">tolerance</scalar>
+      <scalar dataType="xsd:string" dictRef="n:vvvalue">0.10D-03</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:nnname">level shift</scalar>
+      <scalar dataType="xsd:string" dictRef="n:vvvalue">0.00D+00</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:nnname">max iterations</scalar>
+      <scalar dataType="xsd:string" dictRef="n:vvvalue">50</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:nnname">max subspace</scalar>
+      <scalar dataType="xsd:string" dictRef="n:vvvalue">30</scalar>
+    </list>
+  </list>
+</module>
+    </comment>
+
 </template>

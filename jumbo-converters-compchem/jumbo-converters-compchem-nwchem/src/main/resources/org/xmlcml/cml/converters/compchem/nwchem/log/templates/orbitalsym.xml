@@ -1,6 +1,7 @@
 <template repeat="*"  id="orbitalsym" name="Orbital symmetries" 
     pattern=".*Orbital symmetries:.*$\s*" newline="$" endPattern="\s*">
-  <comment>
+
+  <comment class="example.input" id="orbitalsym">
   Orbital symmetries:
 
      1 a1'         2 a1'         3 a2"         4 e'          5 e'      
@@ -13,4 +14,8 @@
   <record repeat="*" id="symmList">{I,n:serial}{A,cc:irrepsym}{I,n:serial}{A,cc:irrepsym}{I,n:serial}{A,cc:irrepsym}{I,n:serial}{A,cc:irrepsym}{I,n:serial}{A,cc:irrepsym}</record>
   <record id="symmList">{I,n:serial}{A,cc:irrepsym}{X,n:symm}</record>
   
+  <comment class="example.output" id="orbitalsym">
+<module cmlx:templateRef="orbitalsym" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"> ... 56 e' 57 e' 58 e" </module>
+    </comment>
+
 </template>

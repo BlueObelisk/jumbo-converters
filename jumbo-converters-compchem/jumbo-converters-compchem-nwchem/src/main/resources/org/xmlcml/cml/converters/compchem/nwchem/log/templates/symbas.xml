@@ -1,7 +1,8 @@
 <template repeat="*"  id="symbas" name="Symmetry analysis of basis" 
   pattern="\s*Symmetry analysis of basis\s*$\s+\-+.*" newline="$" 
     endPattern=".*$\s*\-+\s*">
-  <comment>
+
+  <comment class="example.input" id="symbas">
       Symmetry analysis of basis
       --------------------------
  
@@ -22,4 +23,40 @@
 <record id="r1" repeat="*" formatType="REGEX" >\s{8}{A7,n:ir}{I6,n:count}</record>
 <record repeat="2" id="rl2"/>
 <record id="r2" repeat="1" formatType="REGEX" >\s{25}{F10.1,n:guess}\s</record>
+
+  <comment class="example.output" id="symbas">
+<module cmlx:templateRef="symbas" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="r1">
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:ir">au</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:count">5</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:ir">b1g</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:count">12</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:ir">b1u</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:count">19</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:ir">b2g</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:count">12</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:ir">b2u</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:count">19</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:ir">b3g</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:count">12</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:ir">b3u</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:count">19</scalar>
+    </list>
+  </list> Forming initial guess at 24.1s
+</module>
+    </comment>
+
 </template>

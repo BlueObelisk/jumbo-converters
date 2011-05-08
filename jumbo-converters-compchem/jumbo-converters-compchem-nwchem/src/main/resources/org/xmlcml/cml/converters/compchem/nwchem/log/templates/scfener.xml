@@ -1,7 +1,17 @@
 <template repeat="*"  name="Total SCF energy" id="scfener" 
   pattern="\s*Total SCF energy.*" endPattern=".*">
-  <comment>
+
+  <comment class="example.input" id="scfener">
          Total SCF energy =    -94.679444926652
   </comment>
   <record id="scfener">\s*Total SCF energy =\s*{F,compchem:scfener}</record>
+  
+  <comment class="example.output" id="scfener">
+<module cmlx:templateRef="scfener" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="scfener">
+    <scalar dataType="xsd:double" dictRef="compchem:scfener">-94.679444926652</scalar>
+  </list>
+</module>
+    </comment>
+
 </template>

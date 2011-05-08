@@ -1,7 +1,8 @@
 <template repeat="*"  id="lindeptol" name="tolerance for linear dependence" 
   pattern="\s*Setting tolerance for linear dependence.*" 
   newline="$" endPattern="\s*$\s*">
-  <comment>
+
+  <comment class="example.input" id="lindeptol">
  Setting tolerance for linear dependence to 1.00D-05
   lindep tolerance =   1.00000000000000008E-005
 
@@ -11,4 +12,9 @@
   <record id="lindep">\s*Setting tolerance for linear dependence to{E,n:lindeptol}</record>
   <record/>
   <record repeat="2"/>
+  
+  <comment class="example.output" id="lindeptol">
+<module cmlx:templateRef="lindeptol" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"/>
+        </comment>
+
 </template>

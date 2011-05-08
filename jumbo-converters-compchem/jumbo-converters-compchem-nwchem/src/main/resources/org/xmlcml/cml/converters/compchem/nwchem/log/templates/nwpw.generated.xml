@@ -1,7 +1,8 @@
 <template repeat="*"  id="pspw.generated" name="PSPW generated" 
   pattern="\s*Generated formatted_filename:.*" 
   newline="$" endPattern=".*" >
-  <comment>
+
+  <comment class="example.input" id="pspw.generated">
  Generated formatted_filename: ./Ga.vpp
   </comment>
   <record id="formatfile">\s*Generated formatted_filename\:\s*{X,cc:filename}\s*</record>
@@ -9,4 +10,13 @@
   <!-- 
   <transform process="pullupSingleton" xpath="./cml:list"/>
   -->
+  
+  <comment class="example.output" id="pspw.generated">
+<module cmlx:templateRef="pspw.generated" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="formatfile">
+    <scalar dataType="xsd:string" dictRef="cc:filename">./Ga.vpp</scalar>
+  </list>
+</module>
+    </comment>
+
 </template>

@@ -1,10 +1,18 @@
 <template repeat="*"  id="effnucrep" name="Effective nuclear repulsion energy" 
   pattern="\s* Effective nuclear repulsion energy.*" 
   newline="$" endPattern=".*">
-  <comment>
+
+  <comment class="example.input" id="effnucrep">
  Effective nuclear repulsion energy (a.u.)     307.7650672208
 </comment>
   <record id="ceffnucrep">\s*Effective nuclear repulsion energy \(a\.u\.\){F,n:effnucrep}\s*</record>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="effnucrep">
+<module cmlx:templateRef="effnucrep" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:double" dictRef="n:effnucrep" cmlx:templateRef="ceffnucrep">307.7650672208</scalar>
+</module>
+    </comment>
+
 </template>

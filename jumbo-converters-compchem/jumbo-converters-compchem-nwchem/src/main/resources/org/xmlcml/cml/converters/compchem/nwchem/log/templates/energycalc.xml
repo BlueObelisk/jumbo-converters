@@ -1,7 +1,8 @@
 <template repeat="*"  id="energycalc" name="energycalc" 
   pattern="\s*\=+\s*[Ee]nergy [Cc]alculation\s*==?\s*" 
   newline="$" endPattern="\s*>>>\s*ITERATION\s*ENDED.*" endOffset="1">
-  <comment>
+  
+  <comment class="example.input" id="energycalc">
 == Energy Calculation ==
 
 
@@ -57,4 +58,74 @@
   <record id="enddate">.*ITERATION\s*ENDED\s*AT\s*{X,cc:date}&lt;&lt;&lt;.*</record>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="energycalc">
+<module cmlx:templateRef="energycalc" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="missingID">
+    <scalar dataType="xsd:string" dictRef="x:x">== Energy Calculation ==</scalar>
+    <scalar dataType="xsd:string" dictRef="x:x"/>
+    <scalar dataType="xsd:string" dictRef="x:x"/>
+  </list>
+  <scalar dataType="xsd:string" dictRef="n:type" cmlx:templateRef="type">Grassmann lmbfgs iteration ===========</scalar>
+  <scalar dataType="xsd:string" dictRef="x:x" cmlx:templateRef="x">iter. Energy DeltaE DeltaRho</scalar> ------------------------------------------------------
+  <module cmlx:lineCount="1" cmlx:templateRef="steepest">
+    <list cmlx:templateRef="steepest">
+      <scalar dataType="xsd:integer" dictRef="n:niter">15</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="iteration">
+    <list cmlx:templateRef="iteration">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:niterx">10</scalar>
+        <scalar dataType="xsd:double" dictRef="n:ener">-45.11269825</scalar>
+        <scalar dataType="xsd:double" dictRef="n:deltae">-0.30112</scalar>
+        <scalar dataType="xsd:double" dictRef="n:deltarho">2.2417</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="steepest">
+    <list cmlx:templateRef="steepest">
+      <scalar dataType="xsd:integer" dictRef="n:niter">10</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="iteration">
+    <list cmlx:templateRef="iteration">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:niterx">20</scalar>
+        <scalar dataType="xsd:double" dictRef="n:ener">-46.48853474</scalar>
+        <scalar dataType="xsd:double" dictRef="n:deltae">-0.066635</scalar>
+        <scalar dataType="xsd:double" dictRef="n:deltarho">0.083498</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="steepest">
+    <list cmlx:templateRef="steepest">
+      <scalar dataType="xsd:integer" dictRef="n:niter">10</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="iteration">
+    <list cmlx:templateRef="iteration">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:niterx">30</scalar>
+        <scalar dataType="xsd:double" dictRef="n:ener">-46.68325778</scalar>
+        <scalar dataType="xsd:double" dictRef="n:deltae">-0.0065612</scalar>
+        <scalar dataType="xsd:double" dictRef="n:deltarho">0.013946</scalar>
+      </list>
+    </list>
+  </module> ...
+  <module cmlx:lineCount="1" cmlx:templateRef="iteration">
+    <list cmlx:templateRef="iteration">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:niterx">80</scalar>
+        <scalar dataType="xsd:double" dictRef="n:ener">-46.70736121</scalar>
+        <scalar dataType="xsd:double" dictRef="n:deltae">-9.2963E-8</scalar>
+        <scalar dataType="xsd:double" dictRef="n:deltarho">2.3769E-9</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="terminated"/>
+  <scalar dataType="xsd:string" dictRef="cc:date" cmlx:templateRef="enddate">Fri Aug 6 14:00:19 2010</scalar>
+</module>
+    </comment>
+
 </template>

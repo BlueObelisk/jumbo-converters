@@ -1,6 +1,7 @@
 <template repeat="*" id="gastats" name="GA Statistics for process" 
     pattern="\s*GA Statistics for process.*$\s+\-+\s*" newline="$" endPattern="\s*$\s*">
-<comment>
+
+  <comment class="example.input" id="gastats">
                          GA Statistics for process    0
                          ------------------------------
 
@@ -26,4 +27,34 @@ MA usage statistics:
 
 </comment>
 <record repeat="*">{X,n:gastats}</record>
+
+  <comment class="example.output" id="gastats">
+<module cmlx:templateRef="gastats" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="missingID">
+    <scalar dataType="xsd:string" dictRef="n:gastats">GA Statistics for process 0</scalar>
+    <scalar dataType="xsd:string" dictRef="n:gastats">------------------------------</scalar>
+    <scalar dataType="xsd:string" dictRef="n:gastats"/>
+    <scalar dataType="xsd:string" dictRef="n:gastats">create destroy get put acc scatter gather read&amp;inc</scalar>
+    <scalar dataType="xsd:string" dictRef="n:gastats">calls: 1590 1590 1.88e+05 1.35e+05 8.20e+04 0 0 2.96e+04</scalar>
+    <scalar dataType="xsd:string" dictRef="n:gastats">number of processes/call 1.17e+00 1.06e+00 1.01e+00 0.00e+00 0.00e+00</scalar>
+    <scalar dataType="xsd:string" dictRef="n:gastats">bytes total: 6.13e+08 2.92e+08 1.44e+08 0.00e+00 0.00e+00 2.37e+05</scalar>
+    <scalar dataType="xsd:string" dictRef="n:gastats">bytes remote: 3.92e+08 1.79e+08 1.03e+08 0.00e+00 0.00e+00 0.00e+00</scalar>
+    <scalar dataType="xsd:string" dictRef="n:gastats">Max memory consumed for GA by this process: 2399456 bytes</scalar>
+    <scalar dataType="xsd:string" dictRef="n:gastats">MA_summarize_allocated_blocks: starting scan ...</scalar>
+    <scalar dataType="xsd:string" dictRef="n:gastats">MA_summarize_allocated_blocks: scan completed: 0 heap blocks, 0 stack blocks</scalar>
+    <scalar dataType="xsd:string" dictRef="n:gastats">MA usage statistics:</scalar>
+    <scalar dataType="xsd:string" dictRef="n:gastats"/>
+    <scalar dataType="xsd:string" dictRef="n:gastats">allocation statistics:</scalar>
+    <scalar dataType="xsd:string" dictRef="n:gastats">heap stack</scalar>
+    <scalar dataType="xsd:string" dictRef="n:gastats">---- -----</scalar>
+    <scalar dataType="xsd:string" dictRef="n:gastats">current number of blocks 0 0</scalar>
+    <scalar dataType="xsd:string" dictRef="n:gastats">maximum number of blocks 36 63</scalar>
+    <scalar dataType="xsd:string" dictRef="n:gastats">current total bytes 0 0</scalar>
+    <scalar dataType="xsd:string" dictRef="n:gastats">maximum total bytes 55925040 36479104</scalar>
+    <scalar dataType="xsd:string" dictRef="n:gastats">maximum total K-bytes 55926 36480</scalar>
+    <scalar dataType="xsd:string" dictRef="n:gastats">maximum total M-bytes 56 37</scalar>
+  </list>
+</module>
+    </comment>
+
     </template>

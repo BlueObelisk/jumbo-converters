@@ -1,7 +1,8 @@
 <template repeat="*"  id="nwcheminpmod" name="NWChem Input Module" 
   pattern="\s*NWChem Input Module\s*$\s+\-+\s*" 
   newline="$" endPattern=".*">
-  <comment>
+
+  <comment class="example.input" id="nwcheminpmod">
                                 NWChem Input Module
                                 -------------------
 
@@ -11,4 +12,9 @@
   SHOULD COME AFTER nwcheminptitle.xml (maybe combine these)
 </comment>
   <record repeat="*"/>
+  
+  <comment class="example.output" id="nwcheminpmod">
+<module cmlx:templateRef="nwcheminpmod" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"/>
+  </comment>
+
 </template>

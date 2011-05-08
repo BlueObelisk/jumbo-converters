@@ -1,11 +1,11 @@
 <template repeat="*"  id="convergenceiter" name="Convergence Iteration" 
   pattern="\s*convergence    iter.*$\s+\-+.*" newline="$" endPattern="\s*">
-  <comment>
+
+  <comment class="example.input" id="convergenceiter">
    convergence    iter        energy       DeltaE   RMS-Dens  Diis-err    time
  ---------------- ----- ----------------- --------- --------- ---------  ------
  d= 0,ls=0.0,diis     1  -1822.8247493675 -2.62D+03  6.20D-02  9.95D+00     1.9
  d= 0,ls=0.0,diis     2  -1811.2270745263  1.16D+01  7.18D-02  6.78D+01     2.3
-...
  d= 0,ls=0.0,diis    19  -1823.6801961701 -2.41D-07  9.79D-07  1.05D-07     8.4
 
 
@@ -13,4 +13,20 @@
   <record repeat="2">{X}</record>
   <record id="converge" repeat="*" makeArray="true">\s*d\=\s*{I,n:d}\,ls={F,n:ls}\,diis\s*{I,n:iter}\s*{F,n:ener}\s*{E,n:deltae}\s*{E,n:rms}\s*{E,n:diserr}\s*{F,n:time}</record>
   <transform process="pullupSingleton" xpath="."/>
+  
+  <comment class="example.output" id="convergenceiter">
+	<module cmlx:templateRef="convergenceiter" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+	  <list cmlx:lineCount="3" cmlx:templateRef="converge">
+	    <array dataType="xsd:integer" dictRef="n:d" size="3">0 0 0</array>
+	    <array dataType="xsd:double" dictRef="n:ls" size="3">0.0 0.0 0.0</array>
+	    <array dataType="xsd:integer" dictRef="n:iter" size="3">1 2 19</array>
+	    <array dataType="xsd:double" dictRef="n:ener" size="3">-1822.8247493675 -1811.2270745263 -1823.6801961701</array>
+	    <array dataType="xsd:double" dictRef="n:deltae" size="3">-2620.0 11.6 -2.41E-7</array>
+	    <array dataType="xsd:double" dictRef="n:rms" size="3">0.062 0.0718 9.79E-7</array>
+	    <array dataType="xsd:double" dictRef="n:diserr" size="3">9.95 67.8 1.05E-7</array>
+	    <array dataType="xsd:double" dictRef="n:time" size="3">1.9 2.3 8.4</array>
+	  </list>
+	</module>
+    </comment>
+
 </template>

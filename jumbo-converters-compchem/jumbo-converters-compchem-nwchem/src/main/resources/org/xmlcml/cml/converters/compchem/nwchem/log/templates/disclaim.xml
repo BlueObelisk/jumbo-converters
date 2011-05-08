@@ -1,6 +1,7 @@
 <template repeat="*"  name="DISCLAIMER" id="disclaim" pattern="\s*DISCLAIMER\s*$\s*\-+\s*"
   newline="$" endPattern="\s*$\s*">
-  <comment>
+
+  <comment class="example.input" id="disclaim">
                                     DISCLAIMER
                                     ----------
 
@@ -18,4 +19,13 @@
   </comment>
   <record id="disclaimer">{X,cc:citation}</record>
   <record repeat="*"/>
+  
+  <comment class="example.output" id="disclaim">
+<module cmlx:templateRef="disclaim" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="disclaimer">
+    <scalar dataType="xsd:string" dictRef="cc:citation">DISCLAIMER</scalar>
+  </list>
+</module>
+    </comment>
+
 </template>

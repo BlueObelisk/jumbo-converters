@@ -1,7 +1,8 @@
 <template repeat="*"  id="spincontam" name="Summary of Results" 
   pattern="\s*=== Spin Contamination ===\s*$\s*" 
   newline="$" endPattern="\s*" endOffset="1">
-  <comment>
+
+  <comment class="example.input" id="spincontam">
 === Spin Contamination ===
 
  &lt;Sexact^2> =    0.00000000000000     
@@ -13,4 +14,12 @@
   <record id="s2">\s*&lt;S\^2&gt;\s*={F,n:s2}</record>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="spincontam">
+<module cmlx:templateRef="spincontam" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:double" dictRef="n:sexact" cmlx:templateRef="sexact">0.0</scalar>
+  <scalar dataType="xsd:double" dictRef="n:s2" cmlx:templateRef="s2">0.0</scalar>
+</module>
+    </comment>
+
 </template>

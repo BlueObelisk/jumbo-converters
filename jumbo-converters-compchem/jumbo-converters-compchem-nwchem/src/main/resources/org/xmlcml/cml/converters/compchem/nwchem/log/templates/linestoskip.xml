@@ -1,9 +1,14 @@
 <template repeat="*"  id="linestoskip" name="Lines to skip" 
   pattern="\s*(.*nuse=.*avail=.*|\s*\*\*\* grid_quadv0.*)" 
   newline="$" endPattern=".*">
-  <comment>
+
+  <comment class="example.input" id="linestoskip">
    0: nuse=   1(   1.0) avail=    17300Mb (out of    17300Mb) on .
   *** grid_quadv0:.*
 </comment>
   <record/>
+  <comment class="example.output" id="linestoskip">
+<module cmlx:templateRef="linestoskip" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"> *** grid_quadv0:.*</module>
+        </comment>
+
 </template>

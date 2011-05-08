@@ -1,7 +1,21 @@
 <template repeat="*"  id="homolumo" name="HOMO and LUMO" 
   pattern="\s*HOMO = .*LUMO = .*" endPattern=".*">
-  <comment>
+  
+  <comment class="example.input" id="homolumo">
            HOMO =  -0.203 LUMO =  -0.016 RLSHIFT =   0.000 HL_GAP =   0.187
   </comment>
   <record id="homolumo">\s*HOMO = {F,cc:homo}LUMO ={F,cc:lumo} RLSHIFT ={F,n:rlshift} HL_GAP ={F,cc:homolumogap}</record>
+  <comment class="example.output" id="homolumo">
+<module cmlx:templateRef="homolumo" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="homolumo">
+    <list>
+      <scalar dataType="xsd:double" dictRef="cc:homo">-0.203</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:lumo">-0.016</scalar>
+      <scalar dataType="xsd:double" dictRef="n:rlshift">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:homolumogap">0.187</scalar>
+    </list>
+  </list>
+</module>
+    </comment>
+
 </template>

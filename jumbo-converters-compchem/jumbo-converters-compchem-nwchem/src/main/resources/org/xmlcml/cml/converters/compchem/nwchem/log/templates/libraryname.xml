@@ -1,7 +1,16 @@
 <template repeat="*"  name="library name" id="libraryname"
   pattern="\s*library name\s+.*" endPattern=".*">
-  <comment>
+  
+  <comment class="example.input" id="libraryname">
   library name resolved from: .nwchemrc
   </comment>
   <record repeat="*" id="libname">\s*  library name resolved from:\s*{X,n:libname}</record>
+  <comment class="example.output" id="libraryname">
+<module cmlx:templateRef="libraryname" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="libname">
+    <scalar dataType="xsd:string" dictRef="n:libname">.nwchemrc</scalar>
+  </list>
+</module>
+        </comment>
+
 </template>

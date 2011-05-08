@@ -1,7 +1,8 @@
 <template repeat="*"  id="nwpw.brillouin" name="NWPW  brillouin zone" 
   pattern="\s*brillouin zone\:\s*" 
   newline="$" endPattern="\s*">
-<comment>
+
+    <comment class="example.input" id="nwpw.brillouin">
  brillouin zone:
       number of zone points:     3
       weight=   0.333  ks=&lt;   0.222   0.000   0.250 >, k=&lt;   0.236   0.000   0.163>
@@ -13,4 +14,20 @@
   <record id="kpoint" repeat="*" makeArray="true">\s*weight={F,cc:weight}\s*ks=\s*&lt;{Fcc:ks.x}{Fcc:ks.y}{Fcc:ks.z}>,\s*k=\s*&lt;{Fcc:k.x}{Fcc:k.y}{Fcc:k.z}>\s*</record>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
+      <comment class="example.output" id="nwpw.brillouin">
+<module cmlx:templateRef="nwpw.brillouin" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:integer" dictRef="n:nzonepoint" cmlx:templateRef="npoint">3</scalar>
+  <list cmlx:lineCount="3" cmlx:templateRef="kpoint">
+    <array dataType="xsd:double" dictRef="cc:weight" size="3">0.333 0.333 0.333</array>
+    <array dataType="xsd:double" dictRef="cc:ks.x" size="3">0.222 0.444 0.556</array>
+    <array dataType="xsd:double" dictRef="cc:ks.y" size="3">0.0 0.0 0.333</array>
+    <array dataType="xsd:double" dictRef="cc:ks.z" size="3">0.25 0.25 0.25</array>
+    <array dataType="xsd:double" dictRef="cc:k.x" size="3">0.236 0.472 0.59</array>
+    <array dataType="xsd:double" dictRef="cc:k.y" size="3">0.0 0.0 0.204</array>
+    <array dataType="xsd:double" dictRef="cc:k.z" size="3">0.163 0.163 0.163</array>
+  </list>
+</module>
+            </comment>
+
+
 </template>

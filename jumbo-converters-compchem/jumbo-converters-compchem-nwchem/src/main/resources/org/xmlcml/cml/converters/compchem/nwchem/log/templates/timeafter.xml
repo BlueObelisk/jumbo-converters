@@ -1,8 +1,21 @@
 <template repeat="*"  id="timeafter" name="Time after" 
   pattern="\s*Time after.*" 
   newline="$" endPattern=".*">
-  <comment>
+
+  <comment class="example.input" id="timeafter">
    Time after variat. SCF:      9.9
 </comment>
   <record id="timeafter">\s*Time after{X,n:module}:{F,cc:time}</record>
+  
+  <comment class="example.output" id="timeafter">
+<module cmlx:templateRef="timeafter" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="timeafter">
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:module">variat. SCF</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:time">9.9</scalar>
+    </list>
+  </list>
+</module>
+    </comment>
+
 </template>

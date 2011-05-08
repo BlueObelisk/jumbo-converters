@@ -1,6 +1,7 @@
 <template repeat="*"  name="LIMITED USE" id="limited" pattern="\s*LIMITED USE\s*$\s*\-+\s*"
   newline="$" endPattern="\s*$\s*">
-  <comment>
+
+  <comment class="example.input" id="limited">
                                     LIMITED USE
                                     -----------
 
@@ -23,4 +24,12 @@
   </comment>
   <record id="limited">{X,cc:citation}</record>
   <record repeat="*"/>
+  <comment class="example.output" id="limited">
+<module cmlx:templateRef="limited" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="limited">
+    <scalar dataType="xsd:string" dictRef="cc:citation">LIMITED USE</scalar>
+  </list>
+</module>
+        </comment>
+
 </template>

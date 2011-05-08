@@ -1,6 +1,7 @@
 <template repeat="*"  name="Symmetry information" id="symminfo" 
   pattern="\s*Symmetry information\s*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
-  <comment>
+
+  <comment class="example.input" id="symminfo">
       Symmetry information
       --------------------
 
@@ -22,4 +23,21 @@
   <transform process="createNameValue" xpath="*[@cmlx:templateRef='symminfo']/cml:list" 
       name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>
   <transform process="pullupSingleton" xpath="./*/cml:list"/>
+  
+  <comment class="example.output" id="symminfo">
+<module cmlx:templateRef="symminfo" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="symminfo">
+    <scalar dictRef="n:Group name" dataType="xsd:string">D3h</scalar>
+    <scalar dictRef="n:Group number" dataType="xsd:string">27</scalar>
+    <scalar dictRef="n:Group order" dataType="xsd:string">12</scalar>
+    <scalar dictRef="n:No. of unique centers" dataType="xsd:string">5</scalar>
+  </list>
+  <list cmlx:templateRef="symmuniqatom">
+    <scalar dataType="xsd:string" dictRef="n:row">1 2 4 6 9</scalar>
+    <scalar dataType="xsd:string" dictRef="n:row"/>
+    <scalar dataType="xsd:string" dictRef="n:row"/>
+  </list>
+</module>
+    </comment>
+
  </template>

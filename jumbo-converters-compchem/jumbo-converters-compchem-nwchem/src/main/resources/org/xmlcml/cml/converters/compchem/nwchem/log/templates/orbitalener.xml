@@ -1,7 +1,8 @@
 <template repeat="*"  id="orbitalenergiesx" name="orbital energies" 
   pattern="\s*orbital\s+energies.*" 
   newline="$" endPattern="\s*">
-  <comment>
+
+  <comment class="example.input" id="orbitalenergiesx">
  orbital energies:
      0.2993371E+00 (   8.145eV) occ=1.000
      0.2990276E+00 (   8.137eV) occ=1.000
@@ -28,4 +29,9 @@
   <record id="orb" repeat="*">\s*{E,n:ener}\s*\(\s*{F,n:ener,units:ev}eV\)\s*</record>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="orbitalenergiesx">
+<module cmlx:templateRef="orbitalenergiesx" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"/>
+    </comment>
+
 </template>

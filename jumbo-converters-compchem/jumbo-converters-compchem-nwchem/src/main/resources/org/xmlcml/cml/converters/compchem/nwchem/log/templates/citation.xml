@@ -1,6 +1,7 @@
 <template repeat="*"  name="CITATION" id="citation" pattern="\s*CITATION\s*$\s*\-+\s*$.*$.*$\s*"
   newline="$" endPattern="\s*">
-  <comment>
+  
+  <comment class="example.input" id="citation">
                                      CITATION
                                      --------
                 Please cite the following reference when publishing
@@ -16,4 +17,9 @@
  
   </comment>
   <record repeat="*"/>
+  
+  <comment class="example.output" id="citation">
+<module cmlx:templateRef="citation" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"/>
+    </comment>
+
 </template>

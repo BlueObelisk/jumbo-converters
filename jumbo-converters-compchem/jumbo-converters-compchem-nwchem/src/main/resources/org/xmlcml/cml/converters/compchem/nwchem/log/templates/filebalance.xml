@@ -1,8 +1,22 @@
 <template repeat="*"  id="filebalance" name="File balance" 
   pattern="\s*File balance:.*"  endPattern="\s*">
-  <comment>
+
+  <comment class="example.input" id="filebalance">
 File balance: exchanges=     0  moved=     0  time=   0.0
 
 </comment>
   <record id="file" >\s*File balance: exchanges=\s*{I,n:exchanges}\s*moved=\s*{I,n:moved}\s*time=\s*{F,n:time}\s*</record>
+  
+  <comment class="example.output" id="filebalance">
+<module cmlx:templateRef="filebalance" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="file">
+    <list>
+      <scalar dataType="xsd:integer" dictRef="n:exchanges">0</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:moved">0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:time">0.0</scalar>
+    </list>
+  </list>
+</module>
+    </comment>
+
 </template>

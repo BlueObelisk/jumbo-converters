@@ -1,6 +1,7 @@
 <template repeat="*" name="center of mass" id="centermass" 
   pattern=".*center of mass.*$\s+\-+.*" newline="$" endPattern="\s*">
-  <comment>
+  
+  <comment class="example.input" id="centermass">
  center of mass
  --------------
  x =   0.00000000 y =   0.00000000 z =   0.00000000
@@ -18,4 +19,17 @@
 <!-- 
   <transform process="debug" xpath="." />
  -->
+ 
+  <comment class="example.output" id="centermass">
+<module cmlx:templateRef="centermass" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="centermassx">
+    <list>
+      <scalar dataType="xsd:double" dictRef="x:x">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:y">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:z">0.0</scalar>
+    </list>
+  </list>
+</module>
+  </comment>
+ 
 </template>

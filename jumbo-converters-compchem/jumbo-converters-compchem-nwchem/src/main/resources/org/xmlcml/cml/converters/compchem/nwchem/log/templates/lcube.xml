@@ -1,7 +1,7 @@
 <template repeat="*"  id="l_cubeinput" name="l_cube input" 
   pattern="\s*l_cube input.*$\s*" 
   newline="$" endPattern="\s*">
-  <comment>
+  <comment class="example.input" id="l_cubeinput">
  l_cube input   11.00
 
   atom type   l_cube   no. cubes   segmts   rad   sub
@@ -14,4 +14,42 @@
   <record id="lcube">\s*l_cube input{F,n:lcube}</record>
   <record repeat="3"/>
   <record id="lcuberow" repeat="*">{I}{F,n:l_cube}{I,n:no_cube}{I,n:l_cube.segmts}{I,n:l_cube.rad}{I,n:l_cube.sub}</record>
+  <comment class="example.output" id="l_cubeinput">
+<module cmlx:templateRef="l_cubeinput" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="lcube">
+    <scalar dataType="xsd:double" dictRef="n:lcube">11.0</scalar>
+  </list>
+  <list cmlx:templateRef="lcuberow">
+    <list>
+      <scalar dataType="xsd:double" dictRef="n:l_cube">10.8</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:no_cube">124</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:l_cube.segmts">5</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:l_cube.rad">27</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:l_cube.sub">8</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:double" dictRef="n:l_cube">10.0</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:no_cube">124</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:l_cube.segmts">5</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:l_cube.rad">25</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:l_cube.sub">8</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:double" dictRef="n:l_cube">10.4</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:no_cube">124</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:l_cube.segmts">5</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:l_cube.rad">26</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:l_cube.sub">8</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:double" dictRef="n:l_cube">10.4</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:no_cube">124</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:l_cube.segmts">5</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:l_cube.rad">26</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:l_cube.sub">8</scalar>
+    </list>
+  </list>
+</module>
+        </comment>
+
 </template>

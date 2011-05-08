@@ -1,6 +1,7 @@
 <template repeat="*"  id="fourindex" name="Four-Index Transformation" 
   pattern="\s*Four\-Index Transformation\s*$\s+\-+.*" newline="$" endPattern="\s*$\s*">>
-  <comment>
+
+  <comment class="example.input" id="fourindex">
                    Four-Index Transformation
                    -------------------------
           Number of basis functions:            131
@@ -18,4 +19,51 @@
 <record repeat="2"/>
 <record id="r1" repeat="*">\s*{X,x:name}\s*:\s*{X,x:value}\s*</record>
 <record id="r2">\s*{X,n:half}produced\s*</record>
+
+  <comment class="example.output" id="fourindex">
+<module cmlx:templateRef="fourindex" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="r1">
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Number of basis functions</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">131</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Number of shells</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">35</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Number of occupied orbitals</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">9</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Number of occ. correlated orbitals</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">9</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Block length</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">16</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Superscript MO index range</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">1 - 9</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Subscript MO index range</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">1 -131</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">MO coefficients read from</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">./Au+.movecs</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Number of operator matrices in core</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">90</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="r2">
+    <scalar dataType="xsd:string" dictRef="n:half">Half-transformed integrals</scalar>
+  </list>
+</module>
+    </comment>
+
 </template>

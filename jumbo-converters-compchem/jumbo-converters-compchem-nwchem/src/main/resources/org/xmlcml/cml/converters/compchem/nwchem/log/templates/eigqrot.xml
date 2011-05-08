@@ -1,7 +1,8 @@
 <template repeat="*"  id="eigqrot" name="Eigen and qrot stuff" 
   pattern="\s*ratio offdiag/diag.*" newline="$" endPattern="\s*dftinpanae: itol2e.*"
   endOffset="1">
-  <comment>
+  
+  <comment class="example.input" id="eigqrot">
   ratio offdiag/diag   7.42379976040007938E-002
   nuclear charge qrot: 
 
@@ -29,4 +30,8 @@
   <record repeat="3"/>
   <record/>
   
+  <comment class="example.output" id="eigqrot">
+<module cmlx:templateRef="eigqrot" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"> me 0 done genpts me 0 done uprt me 0 done mem dftinpanae: itol2e 8 iaoacc 14 tol_rho 1.00000000000000004E-010</module>
+    </comment>
+
  </template>

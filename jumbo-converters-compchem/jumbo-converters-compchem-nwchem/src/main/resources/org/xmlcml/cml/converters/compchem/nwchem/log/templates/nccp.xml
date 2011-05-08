@@ -1,7 +1,8 @@
 <template repeat="*"  id="nccp" name="Northwest Computational Chemistry Package" 
         pattern=".*Northwest Computational Chemistry Package .*$\s+\-+.*" 
         newline="$" endPattern=".*LICENSE\.TXT.*" endOffset="1">
-  <comment>
+
+  <comment class="example.input" id="nccp">
       Northwest Computational Chemistry Package (NWChem) 6.0
       ------------------------------------------------------
 
@@ -20,4 +21,16 @@
   </comment>
   <record id="title">\s*Northwest Computational Chemistry Package\s*\({A,cc:program}\)\s*{A,cc:version}</record>
   <record repeat="*"/>
+  
+  <comment class="example.output" id="nccp">
+<module cmlx:templateRef="nccp" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="title">
+    <list>
+      <scalar dataType="xsd:string" dictRef="cc:program">NWChem</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:version">6.0</scalar>
+    </list>
+  </list>
+</module>
+        </comment>
+
 </template>

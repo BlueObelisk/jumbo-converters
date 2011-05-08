@@ -1,8 +1,18 @@
 <template repeat="*"  id="integralfile" name="integral file" 
   pattern="\s*Integral file.*" endPattern="\s*">
-  <comment>
+  
+  <comment class="example.input" id="integralfile">
  Integral file          = ./methylamine.aoints.0
 
 </comment>
   <record id="integral" >\s*Integral file\s*={A,n:integralfile}</record>
+  
+  <comment class="example.output" id="integralfile">
+<module cmlx:templateRef="integralfile" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="integral">
+    <scalar dataType="xsd:string" dictRef="n:integralfile">./methylamine.aoints.0</scalar>
+  </list>
+</module>
+    </comment>
+
 </template>

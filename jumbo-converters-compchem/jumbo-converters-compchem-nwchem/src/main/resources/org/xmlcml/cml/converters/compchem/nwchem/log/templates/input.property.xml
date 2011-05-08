@@ -1,9 +1,24 @@
 <template repeat="*" id="input.property" pattern="\s*property\s*" endPattern="\s*end\s*" endOffset="1">
-  <comment>
+
+  <comment class="example.input" id="input.property">
 property
  nbofile
 end
   </comment>
   <record repeat="1" id="property">{X,n:propst}</record>
   <record repeat="*" id="propertyx">\s*{X,n:prop}\s*</record>
+  
+  <comment class="example.output" id="input.property">
+<module cmlx:templateRef="input.property" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="property">
+    <scalar dataType="xsd:string" dictRef="n:propst">property</scalar>
+  </list>
+  <list cmlx:templateRef="propertyx">
+    <scalar dataType="xsd:string" dictRef="n:prop">nbofile</scalar>
+    <scalar dataType="xsd:string" dictRef="n:prop">end</scalar>
+    <scalar dataType="xsd:string" dictRef="n:prop"/>
+  </list>
+</module>
+    </comment>
+
  </template>

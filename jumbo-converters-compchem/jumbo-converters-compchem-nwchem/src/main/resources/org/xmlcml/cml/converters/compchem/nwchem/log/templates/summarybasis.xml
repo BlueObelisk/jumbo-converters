@@ -1,6 +1,7 @@
 <template repeat="*"  id="summarybasis" name="NWSummary of Basis" 
   pattern=".*Summary of .*$\s+\-+.*" newline="$" endPattern="\s*">
-  <comment>
+
+  <comment class="example.input" id="summarybasis">
  Summary of "ao basis" -> "" (cartesian)
  ------------------------------------------------------------------------------
        Tag                 Description            Shells   Functions and Types
@@ -14,4 +15,18 @@
   <record id="r1" repeat="3">{X}</record>
   <record id="orbs" repeat="*" makeArray="true">\s*{A,n:tag}\s+{X,n:desc}\s+{I,n:shell}\s+{I,n:func}\s+{A,n:type}\s*</record>
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="summarybasis">
+<module cmlx:templateRef="summarybasis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:string" dictRef="compchem:title" cmlx:templateRef="basis">"ao basis" -&gt; "" (cartesian)</scalar>
+  <list cmlx:lineCount="3" cmlx:templateRef="orbs">
+    <array dataType="xsd:string" dictRef="n:tag" size="3">o c fe</array>
+    <array dataType="xsd:string" dictRef="n:desc"/>
+    <array dataType="xsd:integer" dictRef="n:shell" size="3">6 6 10</array>
+    <array dataType="xsd:integer" dictRef="n:func" size="3">15 15 26</array>
+    <array dataType="xsd:string" dictRef="n:type" size="3">3s2p1d 3s2p1d 5s3p2d</array>
+  </list>
+</module>
+    </comment>
+
 </template>

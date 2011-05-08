@@ -1,6 +1,7 @@
 <template repeat="*"  id="nonvarinitener" name="Non-variational initial energy" 
   pattern=".*Non\-variational initial energy.*$\s+\-+.*$\s*" newline="$" endPattern="\s*">
-  <comment>
+
+  <comment class="example.input" id="nonvarinitener">
       Non-variational initial energy
       ------------------------------
 
@@ -20,4 +21,17 @@
   <!-- 
   <transform process="debug" xpath="."/>
   -->
+  
+  <comment class="example.output" id="nonvarinitener">
+<module cmlx:templateRef="nonvarinitener" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="ener">
+    <scalar dictRef="n:Total energy" dataType="xsd:string">-1827.679833</scalar>
+    <scalar dictRef="n:1-e energy" dataType="xsd:string">-4099.408592</scalar>
+    <scalar dictRef="n:2-e energy" dataType="xsd:string">1473.233141</scalar>
+    <scalar dictRef="n:HOMO" dataType="xsd:string">-0.328823</scalar>
+    <scalar dictRef="n:LUMO" dataType="xsd:string">-0.090738</scalar>
+  </list>
+</module>
+        </comment>
+
 </template>

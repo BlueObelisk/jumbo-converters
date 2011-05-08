@@ -1,7 +1,8 @@
 <template repeat="*"  id="pspw.supercell" name="PSPW supercell" 
   pattern="\s*supercell:.*" 
   newline="$" endPattern="\s*b3=.*" endOffset="1">
-  <comment>
+
+  <comment class="example.input" id="pspw.supercell">
  supercell:
       cell_name:  cell_default                  
       lattice:    a1=&lt;   5.920   0.000   0.000 >
@@ -25,4 +26,36 @@
   <!-- 
 -->  
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="pspw.supercell">
+<module cmlx:templateRef="pspw.supercell" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:string" dictRef="n:cellname" cmlx:templateRef="supercell1">cell_default</scalar>
+  <list cmlx:templateRef="lattice1">
+    <scalar dataType="xsd:double" dictRef="n:a1.x">5.92</scalar>
+    <scalar dataType="xsd:double" dictRef="n:a1.y">0.0</scalar>
+    <scalar dataType="xsd:double" dictRef="n:a1.z">0.0</scalar>
+  </list>
+  <list cmlx:templateRef="lattice2">
+    <scalar dataType="xsd:double" dictRef="n:a2.x">0.0</scalar>
+    <scalar dataType="xsd:double" dictRef="n:a2.y">10.255</scalar>
+    <scalar dataType="xsd:double" dictRef="n:a2.z">0.0</scalar>
+  </list>
+  <list cmlx:templateRef="lattice3">
+    <scalar dataType="xsd:double" dictRef="n:a3.x">0.0</scalar>
+    <scalar dataType="xsd:double" dictRef="n:a3.y">0.0</scalar>
+    <scalar dataType="xsd:double" dictRef="n:a3.z">9.653</scalar>
+  </list>
+  <list cmlx:templateRef="recip1">
+    <scalar dataType="xsd:double" dictRef="n:b1.x">1.061</scalar>
+    <scalar dataType="xsd:double" dictRef="n:b1.y">0.0</scalar>
+    <scalar dataType="xsd:double" dictRef="n:a1.z">0.0</scalar>
+  </list>
+  <list cmlx:templateRef="recip2">
+    <scalar dataType="xsd:double" dictRef="n:b2.x">0.0</scalar>
+    <scalar dataType="xsd:double" dictRef="n:b2.y">0.613</scalar>
+    <scalar dataType="xsd:double" dictRef="n:b2.z">0.0</scalar>
+  </list>
+</module>
+    </comment>
+
 </template>

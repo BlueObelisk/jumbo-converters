@@ -1,10 +1,25 @@
 <template repeat="*"  id="quartets" name="quartest" 
   pattern="\s*#quartets.*" newline="$" 
     endPattern="\s*">
-  <comment>
+
+  <comment class="example.input" id="quartets">
  #quartets = 2.187D+04 #integrals = 7.148D+04 #direct =  0.0% #cached =100.0%
 
 </comment>
   <record id="quartets" >\s*#quartets ={E,n:quartet}\s*#integrals = {E,n:integrals}\s*#direct =\s*{F,n:direct}% #cached ={F,n:cached}%
 </record>
+
+  <comment class="example.output" id="quartets">
+<module cmlx:templateRef="quartets" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="quartets">
+    <list>
+      <scalar dataType="xsd:double" dictRef="n:quartet">21870.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:integrals">71480.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:direct">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:cached">100.0</scalar>
+    </list>
+  </list>
+</module>
+    </comment>
+
 </template>

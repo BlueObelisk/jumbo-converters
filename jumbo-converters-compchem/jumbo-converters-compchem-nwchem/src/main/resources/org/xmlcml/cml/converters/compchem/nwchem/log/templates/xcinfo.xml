@@ -1,6 +1,7 @@
 <template repeat="*" id="xcinfo" name="XC Information" 
     pattern="\s*XC Information.*$\s+\-+.*" newline="$" endPattern="\s*">
-  <comment class="example">
+
+  <comment class="example.input" id="xcinfo">
               XC Information
               --------------
                     Becke 1988 Exchange Functional  1.000          
@@ -10,4 +11,24 @@
   </comment>
   <record repeat="2">{X}</record>
   <record repeat="*" id="functional">\s*{X,n:functional}\s*\s\s{X,n:value}</record>
+  
+  <comment class="example.output" id="xcinfo">
+<module cmlx:templateRef="xcinfo" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="functional">
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:functional">Becke 1988 Exchange Functional 1.000</scalar>
+      <scalar dataType="xsd:string" dictRef="n:value"/>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:functional">Perdew 1981 Correlation Functional 1.000 local</scalar>
+      <scalar dataType="xsd:string" dictRef="n:value"/>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:functional">Perdew 1986 Correlation Functional</scalar>
+      <scalar dataType="xsd:string" dictRef="n:value">1.000 non-local</scalar>
+    </list>
+  </list>
+</module>
+    </comment>
+
 </template>

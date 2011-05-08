@@ -1,6 +1,7 @@
 <template repeat="*"  name="Memory utilization" id="memoryUtil" 
 pattern="\s*Memory utilization after.*" newline="$" endPattern="\s*">
-   <comment>
+
+  <comment class="example.input" id="memoryUtil">
            Memory utilization after 1st SCF pass: 
            Heap Space remaining (MW):       12.69            12687447
           Stack Space remaining (MW):       13.11            13106861
@@ -8,4 +9,25 @@ pattern="\s*Memory utilization after.*" newline="$" endPattern="\s*">
   <record id="memory1a">\s*Memory utilization after{X,n:memory1a}</record>
   <record id="heap">\s*Heap Space remaining \(MW\):{F,n:heap,u:mw}{F,n:heap,u:bytes}</record>
   <record id="heap">\s*Stack Space remaining \(MW\):{F,n:stack,u:mw}{F,n:stack,u:bytes}</record>
+  
+  <comment class="example.output" id="memoryUtil">
+<module cmlx:templateRef="memoryUtil" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="memory1a">
+    <scalar dataType="xsd:string" dictRef="n:memory1a">1st SCF pass:</scalar>
+  </list>
+  <list cmlx:templateRef="heap">
+    <list>
+      <scalar dataType="xsd:double" dictRef="n:heap">12.69</scalar>
+      <scalar dataType="xsd:double" dictRef="n:heap">1.2687447E7</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="heap">
+    <list>
+      <scalar dataType="xsd:double" dictRef="n:stack">13.11</scalar>
+      <scalar dataType="xsd:double" dictRef="n:stack">1.3106861E7</scalar>
+    </list>
+  </list>
+</module>
+        </comment>
+
 </template>

@@ -1,6 +1,7 @@
 <template repeat="*"  id="converge" name="Convergence Information" 
   pattern="\s*Convergence Information.*$\s+\-+.*" newline="$" endPattern="\s*$\s*">
-  <comment>
+  
+  <comment class="example.input" id="converge">
           Convergence Information
           -----------------------
           Convergence aids based upon iterative change in 
@@ -24,4 +25,12 @@
 <transform process="createNameValue" xpath="cml:list/cml:list" 
       name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>
 <transform process="pullupSingleton" xpath="./cml:list"/>
+
+  <comment class="example.output" id="converge">
+<module cmlx:templateRef="converge" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:string" dictRef="n:deon" cmlx:templateRef="deon">start            ASAP                start</scalar>
+  <scalar dataType="xsd:string" dictRef="n:deoff" cmlx:templateRef="deoff">2 iters         30 iters            30 iters</scalar>
+</module>
+  </comment>
+
 </template>

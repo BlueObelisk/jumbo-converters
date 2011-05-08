@@ -1,7 +1,8 @@
 <template repeat="*"  id="multipole" name="Multipole analysis of the density" 
   pattern="\s*Multipole analysis of the density\s*$\s*\-+\s*" 
   newline="$" endPattern="\s*$\s*">
-  <comment>
+
+  <comment class="example.input" id="multipole">
      Multipole analysis of the density
      ---------------------------------
 
@@ -32,4 +33,120 @@
   </templateList>
   <record id="orbs" repeat="*"
   >{I,n:l}{I,n:x}{I,n:y}{I,n:z}{F,n:total}{F,n:alpha}{F,n:beta}{F,n:nuclear}.*</record>
+  
+  <comment class="example.output" id="multipole">
+<module cmlx:templateRef="multipole" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <module cmlx:lineCount="1" cmlx:templateRef="shell">
+    <list cmlx:templateRef="orbs">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:l">0</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:x">0</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:y">0</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:z">0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:total">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:alpha">-48.0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:beta">-48.0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:nuclear">96.0</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="3" cmlx:templateRef="shell">
+    <list cmlx:templateRef="orbs">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:l">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:x">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:y">0</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:z">0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:total">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:alpha">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:beta">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:nuclear">0.0</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:l">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:x">0</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:y">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:z">0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:total">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:alpha">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:beta">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:nuclear">0.0</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:l">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:x">0</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:y">0</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:z">1</scalar>
+        <scalar dataType="xsd:double" dictRef="n:total">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:alpha">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:beta">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:nuclear">0.0</scalar>
+      </list>
+    </list>
+  </module>
+  <list cmlx:templateRef="orbs">
+    <list>
+      <scalar dataType="xsd:integer" dictRef="n:l">2</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:x">2</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:y">0</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:z">0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:total">-53.003653</scalar>
+      <scalar dataType="xsd:double" dictRef="n:alpha">-270.344905</scalar>
+      <scalar dataType="xsd:double" dictRef="n:beta">-270.344905</scalar>
+      <scalar dataType="xsd:double" dictRef="n:nuclear">487.686157</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:integer" dictRef="n:l">2</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:x">1</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:y">1</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:z">0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:total">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:alpha">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:beta">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:nuclear">0.0</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:integer" dictRef="n:l">2</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:x">1</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:y">0</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:z">1</scalar>
+      <scalar dataType="xsd:double" dictRef="n:total">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:alpha">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:beta">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:nuclear">0.0</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:integer" dictRef="n:l">2</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:x">0</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:y">2</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:z">0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:total">-53.003653</scalar>
+      <scalar dataType="xsd:double" dictRef="n:alpha">-270.344905</scalar>
+      <scalar dataType="xsd:double" dictRef="n:beta">-270.344905</scalar>
+      <scalar dataType="xsd:double" dictRef="n:nuclear">487.686157</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:integer" dictRef="n:l">2</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:x">0</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:y">1</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:z">1</scalar>
+      <scalar dataType="xsd:double" dictRef="n:total">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:alpha">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:beta">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:nuclear">0.0</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:integer" dictRef="n:l">2</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:x">0</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:y">0</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:z">2</scalar>
+      <scalar dataType="xsd:double" dictRef="n:total">-51.969478</scalar>
+      <scalar dataType="xsd:double" dictRef="n:alpha">-346.034925</scalar>
+      <scalar dataType="xsd:double" dictRef="n:beta">-346.034925</scalar>
+      <scalar dataType="xsd:double" dictRef="n:nuclear">640.100373</scalar>
+    </list>
+  </list>
+</module>
+        </comment>
+
 </template>

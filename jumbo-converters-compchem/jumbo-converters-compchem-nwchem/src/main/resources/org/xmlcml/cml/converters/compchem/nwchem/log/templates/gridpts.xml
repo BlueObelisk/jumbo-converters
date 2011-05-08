@@ -1,7 +1,17 @@
 <template repeat="*"  name="Grid_pts file" id="gridpts" pattern="\s*Grid_pts file.*" 
   newline="$" endPattern=".*">
-   <comment>
+  
+  <comment class="example.input" id="gridpts">
  Grid_pts file          = ./ch3f_rot.gridpts.0
   </comment>
   <record id="gridpts">\s*Grid_pts file\s+=\s*{A,n:gridfile}</record>
+  
+  <comment class="example.output" id="gridpts">
+<module cmlx:templateRef="gridpts" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="gridpts">
+    <scalar dataType="xsd:string" dictRef="n:gridfile">./ch3f_rot.gridpts.0</scalar>
+  </list>
+</module>
+    </comment>
+
 </template>

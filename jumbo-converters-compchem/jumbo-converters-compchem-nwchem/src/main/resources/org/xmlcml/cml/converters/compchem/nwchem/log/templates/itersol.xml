@@ -1,7 +1,7 @@
 <template repeat="*"  id="itersol" name="Iterative solution of linear equations" 
   pattern="\s*Iterative solution of linear equations\s*" newline="$" 
     endPattern="\s*$\s*">
-  <comment>
+  <comment class="example.input" id="itersol">
 Iterative solution of linear equations
   No. of variables      234
   No. of equations        3
@@ -14,4 +14,35 @@ Iterative solution of linear equations
 </comment>
   <record/>
   <record id="iter" repeat="*">\s*{X,x:name}\s\s+{X,x:value}</record>
+  <comment class="example.output" id="itersol">
+<module cmlx:templateRef="itersol" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="iter">
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">No. of variables</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">234</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">No. of equations</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">3</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Maximum subspace</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">30</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Iterations</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">50</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Convergence</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">1.0D-04</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Start time</scalar>
+      <scalar dataType="xsd:string" dictRef="x:value">4.5</scalar>
+    </list>
+  </list>
+</module>
+    </comment>
+
 </template>

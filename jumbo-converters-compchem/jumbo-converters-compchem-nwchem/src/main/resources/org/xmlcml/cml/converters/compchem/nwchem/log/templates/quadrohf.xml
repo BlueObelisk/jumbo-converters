@@ -1,7 +1,8 @@
 <template repeat="*"  id="quadrohf" name="Quadratically convergent ROHF" 
   pattern="\s*\-+\s*$\s*Quadratically convergent ROHF\s*" newline="$" 
     endPattern="\s*\-+\s*" endOffset="1">
-  <comment>
+
+  <comment class="example.input" id="quadrohf">
  ----------------------------------------------
          Quadratically convergent ROHF
 
@@ -17,4 +18,21 @@
   <transform process="createNameValue" xpath="./cml:list/cml:list" 
     name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>
     -->
+    
+  <comment class="example.output" id="quadrohf">
+<module cmlx:templateRef="quadrohf" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="r2">
+    <list>
+      <scalar dictRef="n:Convergence threshold" dataType="xsd:string">1.000E-04</scalar>
+    </list>
+    <list>
+      <scalar dictRef="n:Maximum no. of iterations" dataType="xsd:string">30</scalar>
+    </list>
+    <list>
+      <scalar dictRef="n:Final Fock-matrix accuracy" dataType="xsd:string">1.000E-07</scalar>
+    </list>
+  </list>
+</module>
+  </comment>
+
 </template>

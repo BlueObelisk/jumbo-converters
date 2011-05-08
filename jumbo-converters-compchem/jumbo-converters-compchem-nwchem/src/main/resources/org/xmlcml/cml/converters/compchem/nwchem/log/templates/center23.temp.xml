@@ -1,7 +1,8 @@
 <template repeat="*"  id="threecenter2" name="3 Center 2 Electron Integral Information" 
   pattern="\s*3 Center 2 Electron Integral Information\s*$\s+\-+.*" newline="$" 
      endPattern="\s*Stack .*" endOffset="1">
-  <comment>
+     
+  <comment class="example.input" id="threecenter2">
   NEEDS WORK
       3 Center 2 Electron Integral Information
       ----------------------------------------
@@ -28,4 +29,9 @@
      </template>
   </templateList>
   <record repeat="*" id="namevalue">\s*{X,n:name}\s*\:\s*{X,n:value}\.?\s*</record>
+  
+  <comment class="example.output" id="threecenter2">
+    <module cmlx:templateRef="threecenter2" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"/>
+  </comment>
+
 </template>

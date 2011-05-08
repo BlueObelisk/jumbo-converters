@@ -1,7 +1,7 @@
 <template repeat="*"  name="Job information" id="job" 
   pattern=" *Job information *$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*"
   >
-  <comment>
+  <comment class="example.input" id="job">
                Job information
                ---------------
     
@@ -44,4 +44,16 @@
      value="xsd:date" format="EEE MMM d HH:mm:ss ZZZ yyyy"/>
   <!-- Wed Jul  8 14:40:23 1998 -->
   <transform process="createDate" xpath="cml:list/cml:scalar[@dictRef='n:date']" value="xsd:date"/>
+  
+  <comment class="example.output" id="job">
+<module cmlx:templateRef="job" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:string" dictRef="compchem:hostname" cmlx:templateRef="host">arcen</scalar>
+  <scalar dataType="xsd:string" dictRef="compchem:executable" cmlx:templateRef="prog">/home/d3y133/nwchem-releases/nwchem-6.0-gfortran/bin/LINUX64/nwchem</scalar>
+  <scalar dataType="xsd:string" dictRef="compchem:date" cmlx:templateRef="prog">Fri Aug 6 13:47:30 2010</scalar>
+  <scalar dataType="xsd:string" dictRef="compchem:version" cmlx:templateRef="version">6.0</scalar>
+  <scalar dataType="xsd:string" dictRef="compchem:input" cmlx:templateRef="input">dft_feco5.nw</scalar>
+  <scalar dataType="xsd:string" dictRef="compchem:nproc" cmlx:templateRef="nproc">4</scalar>
+</module>
+        </comment>
+
 </template>

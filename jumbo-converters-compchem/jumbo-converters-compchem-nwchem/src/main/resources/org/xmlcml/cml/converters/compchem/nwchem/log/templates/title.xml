@@ -1,9 +1,19 @@
 <template repeat="*"  name="title" id="titlex" multiple="$"
   pattern=".*\S.*$\s*\-+\s*" endPattern=".*">
-  <comment>
+  
+  <comment class="example.input" id="titlex">
               Methylamine...rhf/3-21g//Pople-Gordon standard geometry
               -------------------------------------------------------
   </comment>
   <record id="title">{X,compchem:title}</record>
   <record>{X}</record>
+  
+  <comment class="example.output" id="titlex">
+<module cmlx:templateRef="titlex" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="title">
+    <scalar dataType="xsd:string" dictRef="compchem:title">Methylamine...rhf/3-21g//Pople-Gordon standard geometry</scalar>
+  </list>
+</module>
+    </comment>
+
 </template>

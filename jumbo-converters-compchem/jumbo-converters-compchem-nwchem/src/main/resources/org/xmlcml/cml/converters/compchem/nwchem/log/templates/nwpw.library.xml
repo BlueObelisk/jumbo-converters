@@ -1,7 +1,8 @@
 <template repeat="*"  id="pspw.library" name="PSPW library" 
   pattern="\s*library name resolved from.*" 
   newline="$" endPattern="\s*Generating.*" endOffset="1">
-  <comment>
+
+  <comment class="example.input" id="pspw.library">
   library name resolved from: compiled reference
   NWCHEM_NWPW_LIBRARY set to: &lt;/home/d3y133/nwchem-releases/nwchem-6.0-gfortran/src/nwpw/libraryps/>
  Generating 1d pseudopotential for Ga  
@@ -10,4 +11,13 @@
   <record id="lib">\s*NWCHEM_NWPW_LIBRARY set to: &lt;\s*{X,n:filename}\s*>\s*</record>
   <record id="pspot">\s*Generating 1d pseudopotential for {X,x:elementType}\s*</record>
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="pspw.library">
+<module cmlx:templateRef="pspw.library" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:string" dictRef="n:libname" cmlx:templateRef="libname">compiled reference</scalar>
+  <scalar dataType="xsd:string" dictRef="n:filename" cmlx:templateRef="lib">/home/d3y133/nwchem-releases/nwchem-6.0-gfortran/src/nwpw/libraryps/</scalar>
+  <scalar dataType="xsd:string" dictRef="x:elementType" cmlx:templateRef="pspot">Ga</scalar>
+</module>
+    </comment>
+
 </template>

@@ -1,6 +1,7 @@
 <template repeat="*"  name="HDBM usage statistics" id="hdbm" multiple="$"
   pattern="\s*HDBM usage statistics\s*$\s*\-+\s*" endPattern="\s*IO nwrite.*" endOffset="1">
-  <comment>
+
+  <comment class="example.input" id="hdbm">
  HDBM usage statistics
  ---------------------
  Reads         = 1358
@@ -22,4 +23,32 @@
  IO nwrite     = 2072614
   </comment>
   <record id="hdbm" repeat="*">{X,n:hdbm}</record>
+  
+  <comment class="example.output" id="hdbm">
+<module cmlx:templateRef="hdbm" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="hdbm">
+    <scalar dataType="xsd:string" dictRef="n:hdbm">HDBM usage statistics</scalar>
+    <scalar dataType="xsd:string" dictRef="n:hdbm">---------------------</scalar>
+    <scalar dataType="xsd:string" dictRef="n:hdbm">Reads = 1358</scalar>
+    <scalar dataType="xsd:string" dictRef="n:hdbm">Inserts = 808</scalar>
+    <scalar dataType="xsd:string" dictRef="n:hdbm">Replaces = 284</scalar>
+    <scalar dataType="xsd:string" dictRef="n:hdbm">Extracts = 0</scalar>
+    <scalar dataType="xsd:string" dictRef="n:hdbm">Deletes = 1596</scalar>
+    <scalar dataType="xsd:string" dictRef="n:hdbm">Reuses = 22</scalar>
+    <scalar dataType="xsd:string" dictRef="n:hdbm"/>
+    <scalar dataType="xsd:string" dictRef="n:hdbm">Memory allocs = 7166</scalar>
+    <scalar dataType="xsd:string" dictRef="n:hdbm">Memory frees = 7166</scalar>
+    <scalar dataType="xsd:string" dictRef="n:hdbm">Memory max = 1348658</scalar>
+    <scalar dataType="xsd:string" dictRef="n:hdbm">Memory in use = 0</scalar>
+    <scalar dataType="xsd:string" dictRef="n:hdbm"/>
+    <scalar dataType="xsd:string" dictRef="n:hdbm">IO seeks = 2835</scalar>
+    <scalar dataType="xsd:string" dictRef="n:hdbm">IO reads = 2000</scalar>
+    <scalar dataType="xsd:string" dictRef="n:hdbm">IO writes = 2449</scalar>
+    <scalar dataType="xsd:string" dictRef="n:hdbm">IO nread = 2079342</scalar>
+    <scalar dataType="xsd:string" dictRef="n:hdbm">IO nwrite = 2072614</scalar>
+    <scalar dataType="xsd:string" dictRef="n:hdbm"/>
+  </list>
+</module>
+    </comment>
+
 </template>

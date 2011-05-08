@@ -1,5 +1,7 @@
-<templateList>
   <template repeat="*" id="atom" pattern="\s*\d+\s*\:.*" endPattern="\s*cutoff\s*\=.*" endOffset="1">
+      <comment class="example.input" id="pspw.densitycut">
+      </comment>
+
     <record id="atom1">\s*{I,cc:serial}\s*:\s*{A,x:elementType}\s*core charge:{F,n:corecharge}\s*lmax={I,n:lmax}\s*</record>
     <record id="comment">\s*comment\s*:{X,n:comment}\s*</record>
     <record id="pspot">\s*pseudpotential type\s*:{I,n:pspottype}\s*</record>
@@ -7,5 +9,9 @@
     <record id="local">\s*local potential used\s*:{I,n:localpot}\s*</record>
     <record id="nonlocal">\s*number of non\-local projections\s*:\s*{I,n:nonlocal}\s*</record>
     <record id="cutoff">\s*cutoff\s*\=\s*{F,n:cutoff.x}\s*{F,n:cutoff.y}\s*{F,n:cutoff.z}\s*</record>
+
+      <comment class="example.output" id="pspw.densitycut">
+<module cmlx:templateRef="atom" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"/>
+      </comment>
+
   </template>
-</templateList>
