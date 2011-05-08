@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.xmlcml.cml.converters.testutils.RegressionSuite;
 
 @Ignore // till we fix templates
-public class TemplateTest1 {
+public class TemplateTest1Old {
 	
 	@Test         public void testAcknow()    {testConverter("acknow");}
 	@Test         public void testAng()       {testConverter("ang");}
@@ -62,6 +62,7 @@ public class TemplateTest1 {
 	private void testConverter(String name) {
 //		TestUtils.runConverterTest(new NWChemLog2XMLConverter(), name);
 	}
+	
 	
 	   @Test
 	   public void nwchemOut2XML() {

@@ -1,12 +1,12 @@
 package org.xmlcml.cml.converters.compchem.nwchem;
 
-import org.xmlcml.cml.converters.compchem.nwchem.log.NWChemLog2XMLConverter;
-import org.xmlcml.cml.converters.registry.ConverterInfo;
-import org.xmlcml.cml.converters.registry.ConverterList;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.xmlcml.cml.converters.compchem.nwchem.log.NWChemLog2XMLConverter;
+import org.xmlcml.cml.converters.registry.ConverterInfo;
+import org.xmlcml.cml.converters.registry.ConverterList;
 
 /**
  * @author Sam Adams

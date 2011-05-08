@@ -12,7 +12,6 @@ import nu.xom.ValidityException;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
-import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLElements;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLCml;

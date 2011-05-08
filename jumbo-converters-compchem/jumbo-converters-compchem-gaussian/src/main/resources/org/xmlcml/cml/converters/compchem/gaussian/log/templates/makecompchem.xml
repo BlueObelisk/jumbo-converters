@@ -1,0 +1,71 @@
+<transformList>
+
+  <!-- structuring for the compchem convention -->
+  <transform process="createWrapperParameter" 
+      xpath=".//cml:scalar[@dictRef='cc:hostname' or 
+                           @dictRef='cc:jobname' or
+                           @dictRef='g:operation' or
+                           @dictRef='g:keyword' or
+                           @dictRef='cc:method' or
+                           @dictRef='cc:basis'
+                           ]"/>
+  <transform process="createWrapperMetadata" 
+      xpath=".//cml:scalar[@dictRef='cc:version' or
+                           @dictRef='cc:date' or
+                           @dictRef='cc:title']"/>
+  <transform process="createWrapperProperty" 
+      xpath=".//*[@dictRef='cc:electronicstate' or
+                           @dictRef='cc:hfenergy' or
+                           @dictRef='cc:dipole' or
+                           @dictRef='cc:dipolederiv' or
+                           @dictRef='cc:polarizability' or
+                           @dictRef='cc:pointgroup' or
+                           @dictRef='g:archive' or
+                           @dictRef='cc:rmsd' or
+                           @dictRef='x:unknown' or
+                           @dictRef='cc:rmsf']"/>
+  
+
+  <!--  wrap scalars and arrays -->
+  <transform process="addChild" xpath="." elementName="parameterList"/>
+  <transform process="move" xpath=".//cml:parameter" toXpath="./cml:parameterList"/>
+  <transform process="addChild" xpath="." elementName="propertyList"/>
+  <transform process="move" xpath=".//cml:property" toXpath="./cml:propertyList"/>
+  <transform process="addChild" xpath="." elementName="metadataList"/>
+  <transform process="move" xpath=".//cml:metadata" toXpath="./cml:metadataList"/>
+
+  <!-- manage conventions -->  
+  <transform process="addAttribute" xpath="./cml:molecule" name="convention" value="convention:molecular"/>
+  <transform process="addAttribute" xpath="." name="convention" value="convention:compchem"/>
+  <transform process="addNamespace" xpath="." name="convention" value="http://www.xml-cml.org/convention/"/>
+  
+  <!--  finalization -->  
+  <transform process="addDictRef" xpath="." value="compchem:finalization"/>
+  <transform process="addNamespace" xpath="." name="compchem" value="http://www.xml-cml.org/dictionary/compchem/"/>
+
+  <!--  create other parts of cmlcomp -->
+  <!--  job -->
+  <transform process="createWrapper" elementName="module" xpath="." id="job"/>
+  <transform process="createWrapper" elementName="module" xpath="/*" id="jobList"/>
+  <!--  initialization -->
+  <transform process="addChild" elementName="module" xpath="//cml:module[@id='job']" id="initialization"/>
+  <transform process="move" xpath=".//cml:parameterList" toXpath="//cml:module[@id='initialization']"/>
+  <transform process="addDictRef" xpath="//cml:module[@id='initialization']" value="compchem:initialization"/>
+  <!--  environment -->
+  <transform process="addChild" elementName="module" xpath="//cml:module[@id='job']" id="environment"/>
+  <transform process="move" xpath=".//cml:metadataList" toXpath="//cml:module[@id='environment']"/>
+  <transform process="addDictRef" xpath="//cml:module[@id='environment']" value="compchem:environment"/>
+  <!--  calculation -->
+  <transform process="addChild" elementName="module" xpath="//cml:module[@id='job']" id="calculation"/>
+  <transform process="addDictRef" xpath="//cml:module[@id='calculation']" value="compchem:calculation"/>
+  <transform process="move" xpath="//cml:module[@dictRef='compchem:finalization']" toXpath="//cml:module[@id='job']"/>
+  <!--  add namespaces -->  
+  <transform process="addNamespace" xpath="/*" name="cc" value="http://www.xml-cml.org/dictionary/compchem/"/>
+  <transform process="addNamespace" xpath="/*" name="g" value="http://www.xml-cml.org/dictionary/gaussian/"/>
+  <transform process="addNamespace" xpath="/*" name="x" value="http://www.xml-cml.org/dictionary/cmlx/"/>
+  <transform process="addNamespace" xpath="/*" name="si" value="http://www.xml-cml.org/unit/si/"/>
+  <transform process="addNamespace" xpath="/*" name="nonsi" value="http://www.xml-cml.org/unit/nonsi/"/>
+
+  
+</transformList>    
+ 

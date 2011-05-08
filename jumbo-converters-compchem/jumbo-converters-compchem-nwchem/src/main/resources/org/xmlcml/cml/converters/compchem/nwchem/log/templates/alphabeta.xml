@@ -1,7 +1,8 @@
 <template repeat="*"  id="alphabeta" name="Alpha Beta Contributions" 
   pattern="\s*\-+\s*$\s*Alpha =.* Beta =.s*" 
   newline="$" endPattern="\s*\-+\s*" endOffset="1">
-  <comment>
+  
+  <comment class="example.input" id="alphabeta">
   ------------------------------------
   Alpha =  44 ; Beta =   1
   Contributions:
@@ -13,15 +14,31 @@
                        =   21.36 eV
   ------------------------------------
   
-</comment>
+  </comment>
+
   <record/>
   <record id="alphabeta">\s*Alpha ={I,n:alpha} ; Beta = {I,n:beta}</record>
   <record/>
   <record id="orbener">\s*Orbital Energy ={F,n:orbener}</record>
   <record id="coulomb">\s*Coulomb Integrals ={F,n:coulombint}</record>
   <record id="xcint">\s*XC Integrals ={F,n:xcint}</record>
-  <record id="xcint">\s*XC Diff. Energy ={F,n:xcdiff}</record>
-  <record id="xcint">\s*Low Multiplicity ={F,n:lowmult,u:au}</record>
-  <record id="xcint">\s*={F,n:lowmult,u:ev}</record>
-  <record/>
+  <record id="xdiff">\s*XC Diff\. Energy ={F,n:xcdiff}</record>
+  <record id="xlowmult">\s*Low Multiplicity ={F,n:lowmult,u:au}\s*a\.u\.\s*</record>
+  <record id="xlowmultx">\s*=\s*{F,n:lowmult,u:ev}\s*eV\s*</record>
+  <record id="xend">\s*\-+\s*</record>
+
+  <transform process="pullup" xpath=".//cml:scalar" repeat="2"/>
+  
+  <comment class="example.output" id="alphabeta">
+    <module cmlx:templateRef="alphabeta" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:integer" dictRef="n:alpha">44</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:beta">1</scalar>
+      <scalar dataType="xsd:double" dictRef="n:orbener">0.2122</scalar>
+      <scalar dataType="xsd:double" dictRef="n:coulombint">0.0469</scalar>
+      <scalar dataType="xsd:double" dictRef="n:xcint">-0.6043</scalar>
+      <scalar dataType="xsd:double" dictRef="n:xcdiff">1.1303</scalar>
+      <scalar dataType="xsd:double" dictRef="n:lowmult">0.785</scalar>
+      <scalar dataType="xsd:double" dictRef="n:lowmult">21.36</scalar>
+    </module>
+  </comment>
 </template>

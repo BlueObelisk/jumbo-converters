@@ -1,7 +1,7 @@
 <template repeat="*"  id="ccsdt" name="CCSD(T) Energy" 
-  pattern="\s*CCSD\(T\) Energy\s*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
-  <comment>
- CCSD(T) Energy
+  pattern="\s*CCSD\(T\) Energy\s*$\s+\-+.*" newline="$" endPattern="\s*Total.*">
+ <comment class="example.input" id="ccsdt">
+  CCSD(T) Energy
  --------------
  Reference energy:                    -134.684334043866102
 
@@ -41,4 +41,8 @@
 <record id="r2" repeat="*" names="__name __value">\s*([^:]+)\s*:\s{8}\s*([-\d\.]+)\s*</record>
 <record repeat="1" id="rl3" />
 <record id="r3" repeat="*" names="__name __value">\s*([^:]+)\s*:\s{8}\s*([-\d\.]+)\s*</record>
-</template>
+
+ <comment class="example.output" id="alphabeta">
+  <m/>
+ </comment>
+ </template>

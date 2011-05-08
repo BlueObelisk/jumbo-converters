@@ -1,10 +1,15 @@
 package org.xmlcml.cml.converters.text;
 
-import nu.xom.*;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+
+import nu.xom.Builder;
+import nu.xom.Document;
+import nu.xom.Element;
+import nu.xom.Elements;
+import nu.xom.ParentNode;
+import nu.xom.ParsingException;
 
 /**
  * @author Sam Adams

@@ -4,7 +4,6 @@ import nu.xom.Element;
 import nu.xom.Nodes;
 
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLAngle;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLLength;
@@ -55,7 +54,7 @@ public class ZMatrixElement {
 		zmatrix = new CMLZMatrix();
 		molecule = new CMLMolecule();
 		molecule.appendChild(zmatrix);
-		CMLUtil.debug(element, "ELEM");
+//		CMLUtil.debug(element, "ELEM");
 		atom1Nodes = TransformElement.queryUsingNamespaces(element, "./cml:list[@cmlx:templateRef='atom1' and cml:scalar]");
 		atom2Nodes = TransformElement.queryUsingNamespaces(element, "./cml:list[@cmlx:templateRef='atom2' and cml:scalar]");
 		atom3Nodes = TransformElement.queryUsingNamespaces(element, "./cml:list[@cmlx:templateRef='atom3' and cml:scalar]");
@@ -189,7 +188,7 @@ public class ZMatrixElement {
 
 	private void addAtom(String id, Element atomElement) {
 		CMLAtom atom = new CMLAtom(id);
-		CMLUtil.debug(atomElement,"X");
+//		CMLUtil.debug(atomElement,"X");
 		Nodes elementTypeNodes = TransformElement.queryUsingNamespaces(atomElement, "cml:scalar[@dictRef='"+CC_ELEMENT_TYPE+"']");
 		String elementType = (elementTypeNodes.size() == 0) ? null : elementTypeNodes.get(0).getValue();
 		if (elementType != null) {
