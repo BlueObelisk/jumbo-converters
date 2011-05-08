@@ -1,6 +1,7 @@
 <template id="condfukuimu" pattern="\s*\-+\s*$\s*mu.*$.*"
   endPattern=".*" repeat="*" newline="$">
-  <comment>
+  
+  <comment class="example.input" id="condfukuimu">
   ------------------------------------
      mu_n(+)    mu_n(-)    mu_n(0)
      0.0048    -0.2074    -0.1013
@@ -13,5 +14,25 @@
   <record/>
   <record id="mu.sym">{A,cc:fukui.sym1}{A,cc:fukui.sym2}{A,cc:fukui.sym3}</record>
   <record id="mu.val">{A,cc:fukui.val1}{A,cc:fukui.val2}{A,cc:fukui.val3}</record>
+  
+  <comment class="example.output" id="condfukuimu">
+<module cmlx:templateRef="condfukuimu" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="mu.sym">
+    <list>
+      <scalar dataType="xsd:string" dictRef="cc:fukui.sym1">mu_n(+)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:fukui.sym2">mu_n(-)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:fukui.sym3">mu_n(0)</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="mu.val">
+    <list>
+      <scalar dataType="xsd:string" dictRef="cc:fukui.val1">0.0048</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:fukui.val2">-0.2074</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:fukui.val3">-0.1013</scalar>
+    </list>
+  </list> ------------------------------------ mu_s(+) mu_s(-) mu_s(0) 0.1061 -0.1061 0.0000 ------------------------------------
+</module>
+    </comment>
+
   
 </template>

@@ -1,5 +1,6 @@
 <template repeat="*" id="input.basis" pattern="\s*[bB][aA][sS][iI][sS]\s*.*" endPattern="\s*[eE][nN][Dd]\s*" endOffset="1">
-  <comment>
+
+  <comment class="example.input" id="input.basis">
 BASIS "ao basis" PRINT
  C library 3-21g
  N library 3-21g
@@ -9,4 +10,29 @@ end
   <record id="basis">\s*[bB][aA][sS][iI][sS]\s*{X,n:basiskeywords}</record>
   <record repeat="*" id="basisx">\s*{A,n:elem}\s+{A,n:source}\s+{A,n:basis}.*\s*</record>
   <record/>
+  <comment class="example.output" id="input.basis">
+<module cmlx:templateRef="input.basis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="basis">
+    <scalar dataType="xsd:string" dictRef="n:basiskeywords">"ao basis" PRINT</scalar>
+  </list>
+  <list cmlx:templateRef="basisx">
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:elem">C</scalar>
+      <scalar dataType="xsd:string" dictRef="n:source">library</scalar>
+      <scalar dataType="xsd:string" dictRef="n:basis">3-21g</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:elem">N</scalar>
+      <scalar dataType="xsd:string" dictRef="n:source">library</scalar>
+      <scalar dataType="xsd:string" dictRef="n:basis">3-21g</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:elem">H</scalar>
+      <scalar dataType="xsd:string" dictRef="n:source">library</scalar>
+      <scalar dataType="xsd:string" dictRef="n:basis">3-21g</scalar>
+    </list>
+  </list>
+</module>
+    </comment>
+
 </template>

@@ -1,8 +1,16 @@
 <template repeat="*"  id="kineticenergy" name="Kinetic energy" 
   pattern="\s*Kinetic energy.*" 
   newline="$" endPattern=".*">
-  <comment>
+  <comment class="example.input" id="kineticenergy">
            Kinetic energy =    516.494525001477
 </comment>
   <record id="kinenergy">\s*Kinetic energy = {F,cc:kineticenergy}</record>
+  <comment class="example.output" id="kineticenergy">
+<module cmlx:templateRef="kineticenergy" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="kinenergy">
+    <scalar dataType="xsd:double" dictRef="cc:kineticenergy">516.494525001477</scalar>
+  </list>
+</module>
+        </comment>
+
 </template>

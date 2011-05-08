@@ -1,5 +1,6 @@
 <template repeat="*" id="input.dft" pattern="\s*dft\s*" endPattern="\s*end\s*" endOffset="1">
-  <comment>
+
+  <comment class="example.input" id="input.dft">
 dft
  ??
 end
@@ -7,4 +8,9 @@ end
   <record>{X}</record>
   <record repeat="*" id="dftx">\s*{X,n:dftx}\s*</record>
   <record>{X}</record>
+  
+  <comment class="example.output" id="input.dft">
+<module cmlx:templateRef="input.dft" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"/>
+    </comment>
+
 </template>

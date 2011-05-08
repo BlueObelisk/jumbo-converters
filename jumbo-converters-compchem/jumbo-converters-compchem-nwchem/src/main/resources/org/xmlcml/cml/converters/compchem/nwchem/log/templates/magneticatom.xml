@@ -3,7 +3,7 @@
     endPattern="\s*$\s*" endOffset="2"
   xmlns:xi="http://www.w3.org/2001/XInclude"
     >
-  <comment>
+  <comment class="example.input" id="magneticatom">
       Atom:    1  C 
         Diamagnetic
     250.8006     -4.0952      4.8807
@@ -39,4 +39,90 @@
     <xi:include href="isotrop.xml"/>
     <xi:include href="namedtensor.xml"/>
   </templateList>
+  
+  <comment class="example.output" id="magneticatom">
+<module cmlx:templateRef="magneticatom" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <list cmlx:templateRef="atomid">
+    <list>
+      <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+      <scalar dataType="xsd:string" dictRef="x:elementType">C</scalar>
+    </list>
+  </list>
+  <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
+    <list cmlx:templateRef="name">
+      <scalar dataType="xsd:string" dictRef="cc:tensorname">Diamagnetic</scalar>
+    </list>
+    <list cmlx:templateRef="row">
+      <list>
+        <scalar dataType="xsd:double" dictRef="x:x">250.8006</scalar>
+        <scalar dataType="xsd:double" dictRef="x:y">-4.0952</scalar>
+        <scalar dataType="xsd:double" dictRef="x:z">4.8807</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:double" dictRef="x:x">-4.0945</scalar>
+        <scalar dataType="xsd:double" dictRef="x:y">241.2836</scalar>
+        <scalar dataType="xsd:double" dictRef="x:z">-1.8116</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:double" dictRef="x:x">4.8811</scalar>
+        <scalar dataType="xsd:double" dictRef="x:y">-1.812</scalar>
+        <scalar dataType="xsd:double" dictRef="x:z">241.9238</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
+    <list cmlx:templateRef="name">
+      <scalar dataType="xsd:string" dictRef="cc:tensorname">Paramagnetic</scalar>
+    </list>
+    <list cmlx:templateRef="row">
+      <list>
+        <scalar dataType="xsd:double" dictRef="x:x">-88.2836</scalar>
+        <scalar dataType="xsd:double" dictRef="x:y">-24.1524</scalar>
+        <scalar dataType="xsd:double" dictRef="x:z">28.7618</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:double" dictRef="x:x">-24.1539</scalar>
+        <scalar dataType="xsd:double" dictRef="x:y">-144.3632</scalar>
+        <scalar dataType="xsd:double" dictRef="x:z">-10.6808</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:double" dictRef="x:x">28.761</scalar>
+        <scalar dataType="xsd:double" dictRef="x:y">-10.6799</scalar>
+        <scalar dataType="xsd:double" dictRef="x:z">-140.6136</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
+    <list cmlx:templateRef="name">
+      <scalar dataType="xsd:string" dictRef="cc:tensorname">Total Shielding Tensor</scalar>
+    </list>
+    <list cmlx:templateRef="row">
+      <list>
+        <scalar dataType="xsd:double" dictRef="x:x">162.517</scalar>
+        <scalar dataType="xsd:double" dictRef="x:y">-28.2477</scalar>
+        <scalar dataType="xsd:double" dictRef="x:z">33.6425</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:double" dictRef="x:x">-28.2484</scalar>
+        <scalar dataType="xsd:double" dictRef="x:y">96.9204</scalar>
+        <scalar dataType="xsd:double" dictRef="x:z">-12.4924</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:double" dictRef="x:x">33.6421</scalar>
+        <scalar dataType="xsd:double" dictRef="x:y">-12.4919</scalar>
+        <scalar dataType="xsd:double" dictRef="x:z">101.3102</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="2" cmlx:templateRef="isotrop">
+    <list cmlx:templateRef="isotrop">
+      <scalar dataType="xsd:double" dictRef="n:isotropic">120.2492</scalar>
+    </list>
+    <list cmlx:templateRef="anisotrop">
+      <scalar dataType="xsd:double" dictRef="n:anisotropy">101.4478</scalar>
+    </list>
+  </module> Principal Components and Axis System 1 2 3 187.8811 86.4350 86.4315 1 0.8660 -0.4984 0.0404 2 -0.3215 -0.4932 0.8083 3 0.3829 0.7130 0.5874
+</module>
+        </comment>
+
 </template>

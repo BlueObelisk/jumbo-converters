@@ -1,10 +1,23 @@
 <template repeat="*"  id="beforeaftercall" name="Before After calling" 
   pattern="\s*&lt;+\s*(Before|After|calling|called|End) .*>+\s*$.*date.*" 
   newline="$" endPattern=".*">
-  <comment>
+  
+  <comment class="example.input" id="beforeaftercall">
      &lt;&lt;&lt;&lt;&lt;&lt;    Before call to DFT_SCF.    >>>>>>
      &lt;&lt;&lt;&lt;&lt;&lt; date:  Apr 15  time: 16:46:04 >>>>>>
   </comment>
   <record id="before">\s*&lt;&lt;&lt;&lt;&lt;&lt;\s*{X,n:operation}\s*\.?\s*>>>>>>\s*</record>
   <record id="createDate">.*date:\s*{X,cc:date}\s*>>>>>>\s*</record>
+  
+  <comment class="example.output" id="beforeaftercall">
+<module cmlx:templateRef="beforeaftercall" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="before">
+    <scalar dataType="xsd:string" dictRef="n:operation">Before call to DFT_SCF.</scalar>
+  </list>
+  <list cmlx:templateRef="createDate">
+    <scalar dataType="xsd:string" dictRef="cc:date">Apr 15  time: 16:46:04</scalar>
+  </list>
+</module>
+    </comment>
+
 </template>

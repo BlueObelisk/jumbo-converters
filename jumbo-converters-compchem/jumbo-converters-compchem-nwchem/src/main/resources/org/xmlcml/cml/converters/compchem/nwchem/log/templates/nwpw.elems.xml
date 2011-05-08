@@ -4,7 +4,7 @@
   xmlns:xi="http://www.w3.org/2001/XInclude"
   >
   <comment>This variant has no spaces after atom block. Run it AFTER elems1</comment>
-<comment>
+  <comment class="example.input" id="pspw.elems">
  elements involved in the cluster:
       1: Ga    core charge: 3.0  lmax=2
              comment    : Hamann pseudopotential
@@ -21,8 +21,81 @@
              number of non-local projections:   4
              cutoff =   0.700   0.700   0.700
 
-</comment>
+  </comment>
   <record id="x">{X,x:xelem}</record>
-  <xi:include href="nwpw.elems.atom.xml"/>
+  <templateList>
+    <xi:include href="nwpw.elems.atom.xml"/>
+  </templateList>
   
+  <comment class="example.output" id="pspw.elems">
+<module cmlx:templateRef="pspw.elems" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <list cmlx:templateRef="x">
+    <scalar dataType="xsd:string" dictRef="x:xelem">elements involved in the cluster:</scalar>
+  </list>
+  <module cmlx:lineCount="7" cmlx:templateRef="atom">
+    <list cmlx:templateRef="atom1">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+        <scalar dataType="xsd:string" dictRef="x:elementType">Ga</scalar>
+        <scalar dataType="xsd:double" dictRef="n:corecharge">3.0</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:lmax">2</scalar>
+      </list>
+    </list>
+    <list cmlx:templateRef="comment">
+      <scalar dataType="xsd:string" dictRef="n:comment">Hamann pseudopotential</scalar>
+    </list>
+    <list cmlx:templateRef="pspot">
+      <scalar dataType="xsd:integer" dictRef="n:pspottype">0</scalar>
+    </list>
+    <list cmlx:templateRef="hangle">
+      <scalar dataType="xsd:integer" dictRef="n:hangularcomp">2</scalar>
+    </list>
+    <list cmlx:templateRef="local">
+      <scalar dataType="xsd:integer" dictRef="n:localpot">2</scalar>
+    </list>
+    <list cmlx:templateRef="nonlocal">
+      <scalar dataType="xsd:integer" dictRef="n:nonlocal">4</scalar>
+    </list>
+    <list cmlx:templateRef="cutoff">
+      <list>
+        <scalar dataType="xsd:double" dictRef="n:cutoff.x">1.128</scalar>
+        <scalar dataType="xsd:double" dictRef="n:cutoff.y">1.506</scalar>
+        <scalar dataType="xsd:double" dictRef="n:cutoff.z">2.118</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="7" cmlx:templateRef="atom">
+    <list cmlx:templateRef="atom1">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">2</scalar>
+        <scalar dataType="xsd:string" dictRef="x:elementType">N</scalar>
+        <scalar dataType="xsd:double" dictRef="n:corecharge">5.0</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:lmax">2</scalar>
+      </list>
+    </list>
+    <list cmlx:templateRef="comment">
+      <scalar dataType="xsd:string" dictRef="n:comment">Hamann pseudopotential</scalar>
+    </list>
+    <list cmlx:templateRef="pspot">
+      <scalar dataType="xsd:integer" dictRef="n:pspottype">0</scalar>
+    </list>
+    <list cmlx:templateRef="hangle">
+      <scalar dataType="xsd:integer" dictRef="n:hangularcomp">2</scalar>
+    </list>
+    <list cmlx:templateRef="local">
+      <scalar dataType="xsd:integer" dictRef="n:localpot">2</scalar>
+    </list>
+    <list cmlx:templateRef="nonlocal">
+      <scalar dataType="xsd:integer" dictRef="n:nonlocal">4</scalar>
+    </list>
+    <list cmlx:templateRef="cutoff">
+      <list>
+        <scalar dataType="xsd:double" dictRef="n:cutoff.x">0.7</scalar>
+        <scalar dataType="xsd:double" dictRef="n:cutoff.y">0.7</scalar>
+        <scalar dataType="xsd:double" dictRef="n:cutoff.z">0.7</scalar>
+      </list>
+    </list>
+  </module>
+</module>
+  </comment>
 </template>

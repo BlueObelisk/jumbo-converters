@@ -1,7 +1,8 @@
 <template repeat="*"  id="operationtime" name="operation time" 
   pattern="\s*(Fock_2e Build|Kinetic Matrix|Potential Matrix|Fock_xc Build|Total Fock Matrix Build|Diagonalization) Time:.*s\s*" 
   newline="$" endPattern=".*">
-  <comment>
+
+  <comment class="example.input" id="operationtime">
   ANY OF
     Fock_2e Build Time:         53.5s
     Kinetic Matrix Time:          0.0s
@@ -11,4 +12,9 @@
     Diagonalization Time:          0.1s
     </comment>
   <record id="fock2e">\s*{X,n:operation}Time:{F,cc:time}s\s*</record>
+  
+  <comment class="example.output" id="operationtime">
+<module cmlx:templateRef="operationtime" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"> ANY OF Fock_2e Build Time: 53.5s Kinetic Matrix Time: 0.0s Potential Matrix Time: 0.0s Fock_xc Build Time: 19.2s Total Fock Matrix Build Time: 27.0s Diagonalization Time: 0.1s</module>
+    </comment>
+
 </template>

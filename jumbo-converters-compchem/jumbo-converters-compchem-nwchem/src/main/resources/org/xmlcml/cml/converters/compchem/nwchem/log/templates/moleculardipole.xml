@@ -1,7 +1,8 @@
 <template repeat="*"  id="moleculardipole" name="Molecular Dipole wrt Center of Mass" 
   pattern="\s*== Molecular Dipole wrt Center of Mass ==\s*$\s*" 
   newline="$" endPattern="\s*">
-  <comment>
+  
+  <comment class="example.input" id="moleculardipole">
 == Molecular Dipole wrt Center of Mass ==
 
 mu   =  (   47.3589,   39.4586,   32.5917 ) au
@@ -17,4 +18,23 @@ mu   =  (   47.3589,   39.4586,   32.5917 ) au
 <!--   
   <transform process="pullupSingleton" xpath="./cml:list"/>
   -->
+  
+  <comment class="example.output" id="moleculardipole">
+<module cmlx:templateRef="moleculardipole" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="mu">
+    <list>
+      <scalar dataType="xsd:double" dictRef="n:mu.x">47.3589</scalar>
+      <scalar dataType="xsd:double" dictRef="n:mu.y">39.4586</scalar>
+      <scalar dataType="xsd:double" dictRef="n:mu.z">32.5917</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="mumod">
+    <list>
+      <scalar dataType="xsd:double" dictRef="n:mumod.au">69.7286</scalar>
+      <scalar dataType="xsd:double" dictRef="n:mumod.debye">177.2221</scalar>
+    </list>
+  </list> output psi filename:./band.movecs
+</module>
+  </comment>
+
 </template>

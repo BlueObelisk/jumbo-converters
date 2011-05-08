@@ -3,7 +3,7 @@
   newline="$" endPattern="\s*((omega\=)|(volume\s*\:)).*" endOffset="1"
     xmlns:h="http://www.w3.org/1999/xhtml"
   >
-  <comment>
+  <comment class="example.input" id="nwpw.lattice">
       lattice:    a=       5.920 b=     10.255 c=       9.653
                   alpha=  90.000 beta=  90.000 gamma=  90.000
                   omega=       586.0
@@ -22,4 +22,20 @@
   <record id="volume" repeat="*">\s*omega\=\s*{F,cc:cell.volume}\s*</record>
   <record id="volume" repeat="*">\s*volume\s*\:\s*{F,cc:cell.volume}\s*</record>
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="nwpw.lattice">
+<module cmlx:templateRef="nwpw.lattice" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" xmlns:h="http://www.w3.org/1999/xhtml">
+  <list cmlx:templateRef="abc">
+    <scalar dataType="xsd:double" dictRef="cc:cell.a">5.92</scalar>
+    <scalar dataType="xsd:double" dictRef="cc:cell.b">10.255</scalar>
+    <scalar dataType="xsd:double" dictRef="cc:cell.c">9.653</scalar>
+  </list>
+  <list cmlx:templateRef="alphabeta">
+    <scalar dataType="xsd:double" dictRef="cc:cell.alpha">90.0</scalar>
+    <scalar dataType="xsd:double" dictRef="cc:cell.beta">90.0</scalar>
+    <scalar dataType="xsd:double" dictRef="cc:cell.gamma">90.0</scalar>
+  </list>
+</module>
+    </comment>
+
 </template>

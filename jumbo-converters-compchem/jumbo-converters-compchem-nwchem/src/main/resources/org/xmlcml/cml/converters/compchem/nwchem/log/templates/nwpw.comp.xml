@@ -1,7 +1,8 @@
 <template repeat="*"  id="pspw.comp" name="PSPW computing" 
   pattern="\s*number of processors used:.*" 
   newline="$" endPattern="\s*">
-  <comment>
+  
+    <comment class="example.input" id="pspw.comp">
  number of processors used:         4
  processor grid           :   4 x   1
  parallel mapping         :      slab
@@ -14,4 +15,15 @@
   <record id="map" repeat="*">\s*parallel mapping\s*:{X,n:parallelmap}\s*</record>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
+    <comment class="example.output" id="pspw.comp">
+<module cmlx:templateRef="pspw.comp" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:integer" dictRef="cc:nproc" cmlx:templateRef="nproc">4</scalar>
+  <scalar dataType="xsd:string" dictRef="n:procgrid" cmlx:templateRef="grid">4 x   1</scalar>
+  <list cmlx:templateRef="map">
+    <scalar dataType="xsd:string" dictRef="n:parallelmap">slab</scalar>
+    <scalar dataType="xsd:string" dictRef="n:parallelmap">balanced</scalar>
+  </list>
+</module>
+          </comment>
+
 </template>

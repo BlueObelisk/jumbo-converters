@@ -1,6 +1,7 @@
 <template repeat="*"  id="schwarz" name="Schwarz integral screening summary" 
   pattern="\s*Schwarz integral screening summary\s*$\s*\-+\s*$\s*" newline="$" endPattern="\s*">
-  <comment>
+
+  <comment class="example.input" id="schwarz">
  Schwarz integral screening summary 
  ---------------------------------- 
 
@@ -12,4 +13,15 @@
   <record id="atompairs">\s*No\. of atom pairs ={I,j:atompair}</record>
   <record id="atompairs">\s*No\. of shell pairs ={I,j:shellpair}</record>
   
+  <comment class="example.output" id="schwarz">
+<module cmlx:templateRef="schwarz" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="atompairs">
+    <scalar dataType="xsd:integer" dictRef="j:atompair">378</scalar>
+  </list>
+  <list cmlx:templateRef="atompairs">
+    <scalar dataType="xsd:integer" dictRef="j:shellpair">6903</scalar>
+  </list>
+</module>
+    </comment>
+
  </template>

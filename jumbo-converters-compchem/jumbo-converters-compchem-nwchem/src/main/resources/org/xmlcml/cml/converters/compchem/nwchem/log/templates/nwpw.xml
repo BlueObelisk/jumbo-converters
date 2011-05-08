@@ -3,7 +3,8 @@
   newline="$" endPattern="\s*$\s*$\s*$\s*$\s*"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   >
-  <comment>
+  
+  <comment class="example.input" id="nwpw">
 
           ****************************************************
           *                                                  *
@@ -127,4 +128,235 @@
   </templateList>  
   <record repeat="*" id="pspwxxxx">{X,x:x}</record>
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="nwpw">
+<module cmlx:templateRef="nwpw" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <module cmlx:lineCount="15" cmlx:templateRef="nwpw.banner">
+    <scalar dataType="xsd:string" dictRef="n:pwtype" cmlx:templateRef="type">PSPW</scalar>
+    <scalar dataType="xsd:string" dictRef="n:impl" cmlx:templateRef="impl">Grassman/Stiefel manifold implementation</scalar>
+    <scalar dataType="xsd:string" dictRef="n:impl" cmlx:templateRef="impl">NorthWest Chemistry implementation</scalar>
+    <list cmlx:templateRef="version">
+      <scalar dataType="xsd:string" dictRef="cc:version">5.10</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:date">06/12/02</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="pspw.job">
+    <scalar dataType="xsd:string" dictRef="cc:date" cmlx:templateRef="job">Fri Aug 6 14:00:17 2010</scalar>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="pspw.inputdata"/>
+  <module cmlx:lineCount="3" cmlx:templateRef="pspw.library">
+    <scalar dataType="xsd:string" dictRef="n:libname" cmlx:templateRef="libname">compiled reference</scalar>
+    <scalar dataType="xsd:string" dictRef="n:filename" cmlx:templateRef="lib">/home/d3y133/nwchem-releases/nwchem-6.0-gfortran/src/nwpw/libraryps/</scalar>
+    <scalar dataType="xsd:string" dictRef="x:elementType" cmlx:templateRef="pspot">Ga</scalar>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="pspw.generated">
+    <list cmlx:templateRef="formatfile">
+      <scalar dataType="xsd:string" dictRef="cc:filename">./Ga.vpp</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="3" cmlx:templateRef="pspw.library">
+    <scalar dataType="xsd:string" dictRef="n:libname" cmlx:templateRef="libname">compiled reference</scalar>
+    <scalar dataType="xsd:string" dictRef="n:filename" cmlx:templateRef="lib">/home/d3y133/nwchem-releases/nwchem-6.0-gfortran/src/nwpw/libraryps/</scalar>
+    <scalar dataType="xsd:string" dictRef="x:elementType" cmlx:templateRef="pspot">N</scalar>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="pspw.generated">
+    <list cmlx:templateRef="formatfile">
+      <scalar dataType="xsd:string" dictRef="cc:filename">./N.vpp</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="2" cmlx:templateRef="pspw.random">
+    <scalar dataType="xsd:string" dictRef="n:initpsi" cmlx:templateRef="random">band.movecs</scalar>
+    <list cmlx:templateRef="spin">
+      <scalar dataType="xsd:integer" dictRef="cc:spin">1</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:nalpha">16</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:nbeta">0</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="nwpw.psifile">
+    <scalar dataType="xsd:string" dictRef="n:psifile" cmlx:templateRef="psifile">./band.movecs</scalar>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="nwpw.gramschmidt">
+    <list cmlx:templateRef="gramschmidt">
+      <scalar dataType="xsd:double" dictRef="n:psi1">16.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:psi2">10.8210191970224</scalar>
+      <scalar dataType="xsd:double" dictRef="n:psi3">16.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:psi4">5.17898080297764</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="4" cmlx:templateRef="pspw.comp">
+    <scalar dataType="xsd:integer" dictRef="cc:nproc" cmlx:templateRef="nproc">4</scalar>
+    <scalar dataType="xsd:string" dictRef="n:procgrid" cmlx:templateRef="grid">4 x 1</scalar>
+    <list cmlx:templateRef="map">
+      <scalar dataType="xsd:string" dictRef="n:parallelmap">slab</scalar>
+      <scalar dataType="xsd:string" dictRef="n:parallelmap">balanced</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="4" cmlx:templateRef="pspw.options">
+    <scalar dataType="xsd:string" dictRef="n:boundary" cmlx:templateRef="boundary">periodic (version3)</scalar>
+    <scalar dataType="xsd:string" dictRef="n:spin" cmlx:templateRef="spin">restricted</scalar>
+    <scalar dataType="xsd:string" dictRef="n:xccorr" cmlx:templateRef="xccorr">LDA (Vosko et al) parameterization</scalar>
+  </module>
+  <module cmlx:lineCount="16" cmlx:templateRef="pspw.elems1">
+    <scalar dataType="xsd:string" dictRef="x:xelem" cmlx:templateRef="x">elements involved in the cluster:</scalar>
+    <module cmlx:lineCount="7" cmlx:templateRef="atom">
+      <list cmlx:templateRef="atom1">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+          <scalar dataType="xsd:string" dictRef="x:elementType">Ga</scalar>
+          <scalar dataType="xsd:double" dictRef="n:corecharge">3.0</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:lmax">2</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="comment">
+        <scalar dataType="xsd:string" dictRef="n:comment">Hamann pseudopotential</scalar>
+      </list>
+      <list cmlx:templateRef="pspot">
+        <scalar dataType="xsd:integer" dictRef="n:pspottype">0</scalar>
+      </list>
+      <list cmlx:templateRef="hangle">
+        <scalar dataType="xsd:integer" dictRef="n:hangularcomp">2</scalar>
+      </list>
+      <list cmlx:templateRef="local">
+        <scalar dataType="xsd:integer" dictRef="n:localpot">2</scalar>
+      </list>
+      <list cmlx:templateRef="nonlocal">
+        <scalar dataType="xsd:integer" dictRef="n:nonlocal">4</scalar>
+      </list>
+      <list cmlx:templateRef="cutoff">
+        <list>
+          <scalar dataType="xsd:double" dictRef="n:cutoff.x">1.128</scalar>
+          <scalar dataType="xsd:double" dictRef="n:cutoff.y">1.506</scalar>
+          <scalar dataType="xsd:double" dictRef="n:cutoff.z">2.118</scalar>
+        </list>
+      </list>
+    </module>
+    <module cmlx:lineCount="7" cmlx:templateRef="atom">
+      <list cmlx:templateRef="atom1">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="cc:serial">2</scalar>
+          <scalar dataType="xsd:string" dictRef="x:elementType">N</scalar>
+          <scalar dataType="xsd:double" dictRef="n:corecharge">5.0</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:lmax">2</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="comment">
+        <scalar dataType="xsd:string" dictRef="n:comment">Hamann pseudopotential</scalar>
+      </list>
+      <list cmlx:templateRef="pspot">
+        <scalar dataType="xsd:integer" dictRef="n:pspottype">0</scalar>
+      </list>
+      <list cmlx:templateRef="hangle">
+        <scalar dataType="xsd:integer" dictRef="n:hangularcomp">2</scalar>
+      </list>
+      <list cmlx:templateRef="local">
+        <scalar dataType="xsd:integer" dictRef="n:localpot">2</scalar>
+      </list>
+      <list cmlx:templateRef="nonlocal">
+        <scalar dataType="xsd:integer" dictRef="n:nonlocal">4</scalar>
+      </list>
+      <list cmlx:templateRef="cutoff">
+        <list>
+          <scalar dataType="xsd:double" dictRef="n:cutoff.x">0.7</scalar>
+          <scalar dataType="xsd:double" dictRef="n:cutoff.y">0.7</scalar>
+          <scalar dataType="xsd:double" dictRef="n:cutoff.z">0.7</scalar>
+        </list>
+      </list>
+    </module>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="pspw.job">
+    <scalar dataType="xsd:double" dictRef="n:totalcharge" cmlx:templateRef="totalcharge">0.0</scalar>
+  </module>
+  <module cmlx:lineCount="2" cmlx:templateRef="pspw.atomcompos">
+    <scalar dataType="xsd:string" dictRef="n:atomcompos" cmlx:templateRef="atomcompos">Ga : 4 N : 4</scalar>
+  </module>
+  <module cmlx:lineCount="3" cmlx:templateRef="pspw.neclectron"/>
+  <module cmlx:lineCount="8" cmlx:templateRef="pspw.supercell">
+    <scalar dataType="xsd:string" dictRef="n:cellname" cmlx:templateRef="supercell1">cell_default</scalar>
+    <list cmlx:templateRef="lattice1">
+      <scalar dataType="xsd:double" dictRef="n:a1.x">5.92</scalar>
+      <scalar dataType="xsd:double" dictRef="n:a1.y">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:a1.z">0.0</scalar>
+    </list>
+    <list cmlx:templateRef="lattice2">
+      <scalar dataType="xsd:double" dictRef="n:a2.x">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:a2.y">10.255</scalar>
+      <scalar dataType="xsd:double" dictRef="n:a2.z">0.0</scalar>
+    </list>
+    <list cmlx:templateRef="lattice3">
+      <scalar dataType="xsd:double" dictRef="n:a3.x">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:a3.y">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:a3.z">9.653</scalar>
+    </list>
+    <list cmlx:templateRef="recip1">
+      <scalar dataType="xsd:double" dictRef="n:b1.x">1.061</scalar>
+      <scalar dataType="xsd:double" dictRef="n:b1.y">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:a1.z">0.0</scalar>
+    </list>
+    <list cmlx:templateRef="recip2">
+      <scalar dataType="xsd:double" dictRef="n:b2.x">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="n:b2.y">0.613</scalar>
+      <scalar dataType="xsd:double" dictRef="n:b2.z">0.0</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="3" cmlx:templateRef="nwpw.lattice" xmlns:h="http://www.w3.org/1999/xhtml">
+    <list cmlx:templateRef="abc">
+      <scalar dataType="xsd:double" dictRef="cc:cell.a">5.92</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:cell.b">10.255</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:cell.c">9.653</scalar>
+    </list>
+    <list cmlx:templateRef="alphabeta">
+      <scalar dataType="xsd:double" dictRef="cc:cell.alpha">90.0</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:cell.beta">90.0</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:cell.gamma">90.0</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="2" cmlx:templateRef="pspw.densitycut">
+    <list cmlx:templateRef="cutoff1">
+      <scalar dataType="xsd:double" dictRef="n:densitycut">10.0</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:gridx">16</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:gridy">16</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:gridz">16</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:waves">446</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:task">112</scalar>
+    </list>
+    <list cmlx:templateRef="cutoff2">
+      <scalar dataType="xsd:double" dictRef="n:wavefncut">10.0</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:gridx">16</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:gridy">16</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:gridz">16</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:waves">446</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:task">112</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="2" cmlx:templateRef="pspw.ewald">
+    <list cmlx:templateRef="ewald">
+      <scalar dataType="xsd:double" dictRef="n:ewaldrad1">1.88</scalar>
+      <scalar dataType="xsd:double" dictRef="n:ewaldrad2">8.0</scalar>
+    </list>
+    <scalar dataType="xsd:double" dictRef="n:madelung" cmlx:templateRef="madelung">1.58898112</scalar>
+  </module>
+  <module cmlx:lineCount="4" cmlx:templateRef="pspw.technical">
+    <list cmlx:templateRef="param1">
+      <list>
+        <scalar dataType="xsd:double" dictRef="n:timestep">5.8</scalar>
+        <scalar dataType="xsd:double" dictRef="n:fictmass">400000.0</scalar>
+      </list>
+    </list>
+    <list cmlx:templateRef="param2">
+      <list>
+        <scalar dataType="xsd:double" dictRef="n:energy.tol">1.0E-7</scalar>
+        <scalar dataType="xsd:double" dictRef="n:density.tol">1.0E-7</scalar>
+      </list>
+    </list>
+    <list cmlx:templateRef="param3">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:maxiter">1000</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:inner">10</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:outer">100</scalar>
+      </list>
+    </list>
+  </module>
+</module>
+    </comment>
+
 </template>

@@ -1,7 +1,8 @@
 <template repeat="*"  id="fockbuild" name="etting fock-build" 
   pattern="\s*Setting fock\-build task_bf.*\s*" 
   newline="$" endPattern="\s*$\s*">
-  <comment>
+
+  <comment class="example.input" id="fockbuild">
  Setting fock-build task_bf   :      -1
                     maxquartet:   10000
                     maxeri    :  129600
@@ -13,4 +14,9 @@
 
   </comment>
   <record repeat="*"/>
+  
+  <comment class="example.output" id="fockbuild">
+<module cmlx:templateRef="fockbuild" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"/>
+    </comment>
+
 </template>

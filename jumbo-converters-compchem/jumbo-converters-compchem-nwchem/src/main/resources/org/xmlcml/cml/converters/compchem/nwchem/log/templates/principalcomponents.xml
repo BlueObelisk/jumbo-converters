@@ -2,7 +2,8 @@
   pattern="\s*Principal Components and Axis System\s*" newline="$" 
     endPattern="\s*$\s*"
     >
-  <comment>
+
+  <comment class="example.input" id="principalcomponents">
           Principal Components and Axis System
                  1           2           3
               187.8811     86.4350     86.4315
@@ -19,4 +20,40 @@
   
   <record/>
   <record id="rows" repeat="3">{I,cc:serial}{F,cc:row.x}{F,cc:row.y}{F,cc:row.z}</record>
+
+  <comment class="example.output" id="principalcomponents">
+<module cmlx:templateRef="principalcomponents" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="missingID">
+    <scalar dataType="xsd:string" dictRef="x:x">Principal Components and Axis System</scalar>
+  </list>
+  <list cmlx:templateRef="comps">
+    <list>
+      <scalar dataType="xsd:double" dictRef="cc:compx">187.8811</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:compy">86.435</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:compz">86.4315</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="rows">
+    <list>
+      <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:row.x">0.866</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:row.y">-0.4984</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:row.z">0.0404</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:integer" dictRef="cc:serial">2</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:row.x">-0.3215</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:row.y">-0.4932</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:row.z">0.8083</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:integer" dictRef="cc:serial">3</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:row.x">0.3829</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:row.y">0.713</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:row.z">0.5874</scalar>
+    </list>
+  </list>
+</module>
+    </comment>
+
 </template>

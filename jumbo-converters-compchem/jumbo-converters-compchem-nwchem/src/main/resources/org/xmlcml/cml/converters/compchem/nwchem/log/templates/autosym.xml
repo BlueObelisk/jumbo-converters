@@ -1,11 +1,20 @@
 <template repeat="*"  name="Turning off AUTOSYM" id="autosym" 
   pattern="\s*Turning off AUTOSYM since\s*$\s*SYMMETRY directive was detected\!\s*" 
   newline="$" endPattern="\s*">
-   <comment>
+  
+  <comment class="example.input" id="autosym">
  Turning off AUTOSYM since
  SYMMETRY directive was detected!
   </comment>
   <record id="autosym">\s*{X1,n:auto}urning off AUTOSYM.*</record>
   <record id="autosym">\s*{A,n:autox}.*</record>
+  
+  <comment class="example.output" id="autosym">
+<module cmlx:templateRef="autosym" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="autosym">
+    <scalar dataType="xsd:string" dictRef="n:autox">Turning</scalar>
+  </list> SYMMETRY directive was detected!
+</module>
+  </comment>
 
 </template>

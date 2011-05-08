@@ -1,6 +1,7 @@
 <template repeat="*"  id="geninfo" name="General Information" 
     pattern="\s*General Information.*$\s+\-+.*" newline="$" endPattern="\s*">
-  <comment>
+
+  <comment class="example.input" id="geninfo">
             General Information
             -------------------
           SCF calculation type: DFT
@@ -28,4 +29,34 @@
 </comment>
   <record repeat="2">{X}</record>
   <record id="property" repeat="*">{X,n:name}</record>
+  
+  <comment class="example.output" id="geninfo">
+<module cmlx:templateRef="geninfo" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="property">
+    <scalar dataType="xsd:string" dictRef="n:name">SCF calculation type: DFT</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name">Wavefunction type: closed shell.</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name">No. of atoms : 11</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name">No. of electrons : 96</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name">Alpha electrons : 48</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name">Beta electrons : 48</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name">Charge : 0</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name">Spin multiplicity: 1</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name">Use of symmetry is: on ; symmetry adaption is: on</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name">Maximum number of iterations: 30</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name">AO basis - number of functions: 176</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name">number of shells: 70</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name">A Charge density fitting basis will be used.</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name">CD basis - number of functions: 395</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name">number of shells: 150</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name">An Exch-Corr fitting basis will be used.</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name">XC basis - number of functions: 395</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name">number of shells: 150</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name">Convergence on energy requested: 1.00D-06</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name">Convergence on density requested: 1.00D-05</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name">Convergence on gradient requested: 5.00D-04</scalar>
+    <scalar dataType="xsd:string" dictRef="n:name"/>
+  </list>
+</module>
+    </comment>
+
 </template>

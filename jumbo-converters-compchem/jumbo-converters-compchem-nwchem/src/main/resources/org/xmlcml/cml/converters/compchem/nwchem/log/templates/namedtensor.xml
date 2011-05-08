@@ -2,7 +2,8 @@
   pattern="\s*\S+.*\s*$\s*\S.*$\s*\S.*$\s*\S.*" newline="$" 
     endPattern="\s*"
     >
-  <comment>
+
+  <comment class="example.input" id="namedtensor">
         Diamagnetic
     250.8006     -4.0952      4.8807
      -4.0945    241.2836     -1.8116
@@ -11,4 +12,30 @@
 </comment>
   <record id="name">\s*{X,cc:tensorname}\s*</record> 
   <record repeat="3" id="row">{F,x:x}{F,x:y}{F,x:z}</record>
+
+  <comment class="example.output" id="namedtensor">
+<module cmlx:templateRef="namedtensor" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="name">
+    <scalar dataType="xsd:string" dictRef="cc:tensorname">Diamagnetic</scalar>
+  </list>
+  <list cmlx:templateRef="row">
+    <list>
+      <scalar dataType="xsd:double" dictRef="x:x">250.8006</scalar>
+      <scalar dataType="xsd:double" dictRef="x:y">-4.0952</scalar>
+      <scalar dataType="xsd:double" dictRef="x:z">4.8807</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:double" dictRef="x:x">-4.0945</scalar>
+      <scalar dataType="xsd:double" dictRef="x:y">241.2836</scalar>
+      <scalar dataType="xsd:double" dictRef="x:z">-1.8116</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:double" dictRef="x:x">4.8811</scalar>
+      <scalar dataType="xsd:double" dictRef="x:y">-1.812</scalar>
+      <scalar dataType="xsd:double" dictRef="x:z">241.9238</scalar>
+    </list>
+  </list>
+</module>
+  </comment>
+
 </template>

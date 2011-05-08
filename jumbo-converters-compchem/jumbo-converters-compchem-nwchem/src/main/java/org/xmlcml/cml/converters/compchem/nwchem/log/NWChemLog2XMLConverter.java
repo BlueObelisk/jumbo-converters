@@ -10,7 +10,7 @@ import org.xmlcml.cml.converters.compchem.CompchemTemplateConverter;
 public class NWChemLog2XMLConverter extends CompchemTemplateConverter {
 	
 	public NWChemLog2XMLConverter() {
-		this(getDefaultTemplate("nwchem", "log", "topTemplate.xml", NWChemLog2XMLConverter.class));
+		this(getDefaultTemplate("nwchem", "log", "templates/topTemplate.xml", NWChemLog2XMLConverter.class));
 	}
 	
 	public NWChemLog2XMLConverter(Element templateElement) {

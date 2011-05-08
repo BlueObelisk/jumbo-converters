@@ -1,7 +1,8 @@
 <template repeat="*"  id="pspw.ewald" name="PSPW ewald" 
   pattern="\s*ewald summation:.*" 
   newline="$" endPattern="\s*madelung.*" endOffset="1">
-  <comment>
+  
+  <comment class="example.input" id="pspw.ewald">
       ewald summation: cut radius=    1.88  and  8
                         madelung= 1.58898112
 
@@ -10,4 +11,15 @@
   <record id="madelung">\s*madelung={F,n:madelung}\s*</record>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="pspw.ewald">
+<module cmlx:templateRef="pspw.ewald" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="ewald">
+    <scalar dataType="xsd:double" dictRef="n:ewaldrad1">1.88</scalar>
+    <scalar dataType="xsd:double" dictRef="n:ewaldrad2">8.0</scalar>
+  </list>
+  <scalar dataType="xsd:double" dictRef="n:madelung" cmlx:templateRef="madelung">1.58898112</scalar>
+</module>
+    </comment>
+
 </template>

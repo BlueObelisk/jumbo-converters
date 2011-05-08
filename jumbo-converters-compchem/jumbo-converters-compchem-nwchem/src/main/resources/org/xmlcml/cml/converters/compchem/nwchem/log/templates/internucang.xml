@@ -1,7 +1,8 @@
 <template repeat="*"  id="internucang" name="internuclear angles" newline="$"
   pattern="\s*\=+\s*$\s*internuclear angles\s*$\s+\-+.*" endPattern="\s*\=+\s*"
   endOffset="1">
-  <comment>
+
+  <comment class="example.input" id="internucang">
  ==============================================================================
                                  internuclear angles
  ------------------------------------------------------------------------------
@@ -21,5 +22,22 @@
   <record >{X}</record>
   <record id="rl1" >\s*number of included internuclear angles:\s*{I,n:nangle}</record>
   <record >{X}</record>
+
+  <comment class="example.output" id="internucang">
+<module cmlx:templateRef="internucang" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:lineCount="4" cmlx:templateRef="dist">
+    <array dataType="xsd:integer" dictRef="n:ser1" size="4">2 2 1 1</array>
+    <array dataType="xsd:string" dictRef="n:elem1" size="4">c c fe fe</array>
+    <array dataType="xsd:integer" dictRef="n:ser2" size="4">1 1 7 8</array>
+    <array dataType="xsd:string" dictRef="n:elem2" size="4">fe fe c c</array>
+    <array dataType="xsd:integer" dictRef="n:ser3" size="4">3 6 10 11</array>
+    <array dataType="xsd:string" dictRef="n:elem3" size="4">c c o o</array>
+    <array dataType="xsd:double" dictRef="n:ang1" size="4">180.0 90.0 180.0 180.0</array>
+  </list>
+  <list cmlx:templateRef="rl1">
+    <scalar dataType="xsd:integer" dictRef="n:nangle">15</scalar>
+  </list>
+</module>
+    </comment>
 
 </template>

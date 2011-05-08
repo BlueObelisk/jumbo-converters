@@ -1,7 +1,8 @@
 <template repeat="*"  id="crystaldipole" name="Crystal Dipole" 
   pattern="\s*== Crystal Dipole ==\s*$\s*" 
   newline="$" endPattern="\s*">
-  <comment>
+  
+  <comment class="example.input" id="crystaldipole">
 == Crystal Dipole ==
 
 mu   =  (   -0.0011,   12.1120,  -17.6598 ) au
@@ -15,4 +16,22 @@ mu   =  (   -0.0011,   12.1120,  -17.6598 ) au
 <!--   
   <transform process="pullupSingleton" xpath="./cml:list"/>
   -->
+  
+  <comment class="example.output" id="crystaldipole">
+<module cmlx:templateRef="crystaldipole" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="mu">
+    <list>
+      <scalar dataType="xsd:double" dictRef="n:mu.x">-0.0011</scalar>
+      <scalar dataType="xsd:double" dictRef="n:mu.y">12.112</scalar>
+      <scalar dataType="xsd:double" dictRef="n:mu.z">-17.6598</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="mumod">
+    <list>
+      <scalar dataType="xsd:double" dictRef="n:mumod.au">21.4142</scalar>
+      <scalar dataType="xsd:double" dictRef="n:mumod.debye">54.4264</scalar>
+    </list>
+  </list>
+</module>
+  </comment>
 </template>

@@ -2,11 +2,23 @@
   pattern="\s*isotropic.*" newline="$" 
     endPattern="\s*"
     >
-  <comment>
+  <comment class="example.input" id="isotrop">
            isotropic =     120.2492
           anisotropy =     101.4478
 
 </comment>
   <record id="isotrop">\s*isotropic\s*\={F,n:isotropic}\s*</record> 
   <record id="anisotrop">\s*anisotropy\s*\={F,n:anisotropy}\s*</record> 
+  <comment class="example.output" id="isotrop">
+<module cmlx:templateRef="isotrop" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="isotrop">
+    <scalar dataType="xsd:double" dictRef="n:isotropic">120.2492</scalar>
+  </list>
+  <list cmlx:templateRef="anisotrop">
+    <scalar dataType="xsd:double" dictRef="n:anisotropy">101.4478</scalar>
+  </list>
+</module>
+    </comment>
+
+  
 </template>

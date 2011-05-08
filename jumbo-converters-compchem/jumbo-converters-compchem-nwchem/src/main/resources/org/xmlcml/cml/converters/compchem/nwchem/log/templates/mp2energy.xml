@@ -1,7 +1,8 @@
 <template repeat="*"  id="mp2energy" name="MP2 Energy (coupled cluster initial guess)" 
 pattern="\s*MP2 Energy \(coupled cluster initial guess\)\s*$\s+\-+.*" 
   newline="$" endPattern="\s*$\s*">
-  <comment>
+
+  <comment class="example.input" id="mp2energy">
  MP2 Energy (coupled cluster initial guess)
  ------------------------------------------
  Reference energy:           -134.684334043866102
@@ -12,4 +13,24 @@ pattern="\s*MP2 Energy \(coupled cluster initial guess\)\s*$\s+\-+.*"
 </comment>
 <record repeat="2"/>
 <record id="r1" repeat="*">\s*{X,x:name}\s*:\s*{F,x:value}\s*</record>
+
+  <comment class="example.output" id="mp2energy">
+<module cmlx:templateRef="mp2energy" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="r1">
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Reference energy</scalar>
+      <scalar dataType="xsd:double" dictRef="x:value">-134.6843340438661</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">MP2 Corr. energy</scalar>
+      <scalar dataType="xsd:double" dictRef="x:value">-0.67799380910358</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">Total MP2 energy</scalar>
+      <scalar dataType="xsd:double" dictRef="x:value">-135.36232785296968</scalar>
+    </list>
+  </list>
+</module>
+        </comment>
+
 </template>

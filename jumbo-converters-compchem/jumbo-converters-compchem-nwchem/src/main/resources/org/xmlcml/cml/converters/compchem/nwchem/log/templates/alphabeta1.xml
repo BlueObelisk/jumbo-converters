@@ -13,12 +13,13 @@
                            =   23.95 eV
 
 </comment>
+
   <record/>
   <record id="alphabeta">\s*Alpha ={I,n:alpha} ; Beta = {I,n:beta}</record>
   <record/>
   <record id="orbener">\s*Orbital Energy ={F,n:orbener}</record>
-  <record id="coulomb">\s*Coulomb Integrals ={F,n:coulombint}</record>
-  <record id="xcint">\s*XC Integrals ={F,n:xcint}</record>
+  <record id="coulomb">\s*Coulomb Integral ={F,n:coulombint}</record>
+  <record id="xcint">\s*XC Integral ={F,n:xcint}</record>
   <record id="xcdiff">\s*XC Diff\. Energy ={F,n:xcdiff}</record>
   <record id="ionpot">\s*Ionization potential ={F,n:ionpot,u:au}\s*a\.u\.\s*</record>
   <record id="ionpot1">\s*={F,n:ionpot,u:ev}\s*eV\s*</record>
@@ -30,7 +31,25 @@
       <scalar dataType="xsd:integer" dictRef="n:alpha">44</scalar>
       <scalar dataType="xsd:integer" dictRef="n:beta">0</scalar>
     </list>
-  </list> Coulomb Integral = 0.1468 XC Integral = -0.6043 XC Diff. Energy = 1.1303 Ionization potential = 0.8801 a.u. = 23.95 eV
+  </list>
+  <list cmlx:templateRef="orbener">
+    <scalar dataType="xsd:double" dictRef="n:orbener">0.2074</scalar>
+  </list>
+  <list cmlx:templateRef="coulomb">
+    <scalar dataType="xsd:double" dictRef="n:coulombint">0.1468</scalar>
+  </list>
+  <list cmlx:templateRef="xcint">
+    <scalar dataType="xsd:double" dictRef="n:xcint">-0.6043</scalar>
+  </list>
+  <list cmlx:templateRef="xcdiff">
+    <scalar dataType="xsd:double" dictRef="n:xcdiff">1.1303</scalar>
+  </list>
+  <list cmlx:templateRef="ionpot">
+    <scalar dataType="xsd:double" dictRef="n:ionpot">0.8801</scalar>
+  </list>
+  <list cmlx:templateRef="ionpot1">
+    <scalar dataType="xsd:double" dictRef="n:ionpot">23.95</scalar>
+  </list>
 </module>
   </comment>
 </template>

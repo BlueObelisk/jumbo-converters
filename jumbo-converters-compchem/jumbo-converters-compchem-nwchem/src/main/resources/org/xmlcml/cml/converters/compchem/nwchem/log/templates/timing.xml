@@ -1,7 +1,8 @@
 <template repeat="*"  id="timing" name="timing" 
   pattern="\s*\=+\s*Timing\s*\=+\s*$\s*" 
   newline="$" endPattern="\s*qmmm\s+residual.*" endOffset="1">
-  <comment>
+
+  <comment class="example.input" id="timing">
 == Timing ==
 
 cputime in seconds
@@ -81,4 +82,160 @@ Time spent doing                        total          step
   <record>{X}</record>
   <record id="task">\s*Task\s+times\s+cpu:{F,cc:cputime}s\s*wall:{F,cc:walltime}s</record>
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="timing">
+<module cmlx:templateRef="timing" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="times">
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">prologue</scalar>
+      <scalar dataType="xsd:double" dictRef="x:value">0.700637</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">main loop</scalar>
+      <scalar dataType="xsd:double" dictRef="x:value">0.0709391</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">epilogue</scalar>
+      <scalar dataType="xsd:double" dictRef="x:value">0.00404596</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">total</scalar>
+      <scalar dataType="xsd:double" dictRef="x:value">0.775622</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="cputime">
+    <scalar dataType="xsd:double" dictRef="n:cpu">0.00506708</scalar>
+    <scalar dataType="xsd:integer" dictRef="n:neval">14</scalar>
+    <scalar dataType="xsd:integer" dictRef="n:linesearch">1</scalar>
+  </list>
+  <list cmlx:templateRef="times">
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">FFTs</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.0022087</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">1.57764E-4</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">dot products</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.0173096</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">0.0012364</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">geodesic</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.00308776</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">2.20554E-4</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">ffm_dgemm</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">0.0</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">fmf_dgemm</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">0.0</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">m_diagonalize</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">0.0</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">m_tredq</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">0.0</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">m_getdiags</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">0.0</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">m_tqliq</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">0.0</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">m_eigsrt</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">0.0</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">exchange correlation</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.00477076</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">3.40768E-4</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">local pseudopotentials</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">6.50883E-5</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">4.64916E-6</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">non-local pseudopotentials</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.0131516</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">9.39403E-4</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">hartree potentials</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">1.28511E-4</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">9.17933E-6</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">ion-ion interaction</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.011333</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">8.09499E-4</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">structure factors</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">3.30921E-4</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">2.36372E-5</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">phase factors</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">0.0</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">masking and packing</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.00382081</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">2.72915E-4</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">queue fft</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.0217137</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">0.00155098</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">queue fft (serial)</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.0134014</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">9.5724E-4</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">queue fft (message passing)</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.00705953</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">5.04252E-4</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">HFX potential</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">0.0</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">qmmm LJ</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">0.0</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="x:name">qmmm residual Q</scalar>
+      <scalar dataType="xsd:double" dictRef="x:total">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:step">0.0</scalar>
+    </list>
+  </list>
+  <scalar dataType="xsd:string" dictRef="n:date" cmlx:templateRef="job">Fri Aug 6 14:00:19 2010</scalar>
+  <list cmlx:templateRef="task">
+    <scalar dataType="xsd:double" dictRef="cc:cputime">0.8</scalar>
+    <scalar dataType="xsd:double" dictRef="cc:walltime">0.8</scalar>
+  </list>
+</module>
+    </comment>
+
 </template>

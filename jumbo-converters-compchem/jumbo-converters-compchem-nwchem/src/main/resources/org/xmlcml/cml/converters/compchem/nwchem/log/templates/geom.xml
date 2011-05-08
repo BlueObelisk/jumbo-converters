@@ -1,6 +1,7 @@
 <template repeat="*"  id="geom" name="Geometry" pattern="\s*Geometry.*$\s+\-+.*"
  newline="$" endPattern=".*$\s*\-+\s*">
-  <comment>
+
+  <comment class="example.input" id="geom">
                              Geometry "geometry" -> ""
                              -------------------------
 
@@ -11,7 +12,6 @@
     1 fe                  26.0000     0.00000000     0.00000000     0.00000000
     2 c                    6.0000     0.00000000     0.00000000     3.41435800
     3 c                    6.0000     0.00000000     0.00000000    -3.41435800
-    ...
   </comment>
   <record id="rl1" repeat="7">{X}</record>
   <record id="geom" repeat="*" makeArray="true" 
@@ -19,4 +19,17 @@
     <!-- 
   <transform process="molecule" xpath="cml:list/cml:array"/>    
   -->
+  <comment class="example.output" id="geom">
+<module cmlx:templateRef="geom" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:lineCount="3" cmlx:templateRef="geom">
+    <array dataType="xsd:integer" dictRef="cc:id" size="3">1 2 3</array>
+    <array dataType="xsd:string" dictRef="cc:atomtypeRef" size="3">fe c c</array>
+    <array dataType="xsd:double" dictRef="cc:elementType" size="3">26.0 6.0 6.0</array>
+    <array dataType="xsd:double" dictRef="cc:x3" size="3">0.0 0.0 0.0</array>
+    <array dataType="xsd:double" dictRef="cc:y3" size="3">0.0 0.0 0.0</array>
+    <array dataType="xsd:double" dictRef="cc:z3" size="3">0.0 3.414358 -3.414358</array>
+  </list>
+</module>
+    </comment>
+
 </template>

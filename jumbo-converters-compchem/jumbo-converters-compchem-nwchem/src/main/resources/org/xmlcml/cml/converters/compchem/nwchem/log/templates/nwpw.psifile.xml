@@ -1,10 +1,19 @@
 <template repeat="*"  id="nwpw.psifile" name="NWPW psi file" 
   pattern="\s*input psi filename.*" 
   newline="$" endPattern=".*">
-  <comment>
+
+  <comment class="example.input" id="nwpw.psifile">
  input psi filename:./band.movecs
 </comment>
   <record id="psifile">\s*input psi filename:{X,n:psifile}\s*</record>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+
+  <comment class="example.output" id="nwpw.psifile">
+<module cmlx:templateRef="nwpw.psifile" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:string" dictRef="n:psifile" cmlx:templateRef="psifile">./band.movecs</scalar>
+</module>
+    </comment>
+
 </template>

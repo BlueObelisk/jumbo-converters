@@ -1,7 +1,8 @@
 <template repeat="*"  id="pspw.options" name="PSPW options" 
   pattern="\s*options:.*" 
   newline="$" endPattern="\s*">
-  <comment>
+
+  <comment class="example.input" id="pspw.options">
  options:
       boundary conditions  = periodic    (version3)
       electron spin        = restricted
@@ -14,4 +15,13 @@
   <record id="xccorr">\s*exchange-correlation\s+={X,n:xccorr}\s*</record>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="pspw.options">
+<module cmlx:templateRef="pspw.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:string" dictRef="n:boundary" cmlx:templateRef="boundary">periodic (version3)</scalar>
+  <scalar dataType="xsd:string" dictRef="n:spin" cmlx:templateRef="spin">restricted</scalar>
+  <scalar dataType="xsd:string" dictRef="n:xccorr" cmlx:templateRef="xccorr">LDA (Vosko et al) parameterization</scalar>
+</module>
+    </comment>
+
 </template>

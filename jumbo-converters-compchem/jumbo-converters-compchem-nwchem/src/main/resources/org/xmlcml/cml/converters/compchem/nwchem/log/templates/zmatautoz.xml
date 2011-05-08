@@ -1,7 +1,8 @@
 <template repeat="*"  id="zmatautoz" name="Z-Matrix autoz" 
   pattern=".*Z\-matrix \(autoz\).*$\s+\-+.*$\s*$.*$\s*$.*$\s+\-+.*" 
   newline="$" endPattern="\s*" endOffset="1">
-  <comment>
+
+  <comment class="example.input" id="zmatautoz">
                                 Z-matrix (autoz)
                                 -------- 
 
@@ -56,5 +57,13 @@
   <record repeat="*">\s*</record>
   <record id="plus" repeat="*">\s*  Constrained variables are marked with a plus sign.*</record>
   <record repeat="*">\s*</record>
+
+  <comment class="example.output" id="zmatautoz">
+<module cmlx:templateRef="zmatautoz" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="type">
+    <scalar dataType="xsd:string" dictRef="n:type">autoz</scalar>
+  </list> Units are Angstrom for bonds and degrees for angles Type Name I J K L M Value ----------- -------- ----- ----- ----- ----- ----- ---------- 1 Stretch 1 2 1.80680.. 10 Stretch 8 11 1.15200 11 Bend 2 1 6 90.00000.. 37 Bend 11 1 7 120.00000 38 Torsion 1 2 6 9 180.00000.. 55 Torsion 1 8 7 10 180.00000
+</module>
+  </comment>
   
 </template>

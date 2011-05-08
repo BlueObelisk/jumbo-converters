@@ -1,11 +1,19 @@
 <template repeat="*"  id="pspw.job" name="PSPW job" 
   pattern="\s*total charge:.*" 
   newline="$" endPattern="\s*">
-  <comment>
+
+  <comment class="example.input" id="pspw.job">
  total charge:   0.000
 
 </comment>
   <record id="totalcharge">\s*total charge:\s*{F,n:totalcharge}</record>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="pspw.job">
+<module cmlx:templateRef="pspw.job" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:double" dictRef="n:totalcharge" cmlx:templateRef="totalcharge">0.0</scalar>
+</module>
+    </comment>
+
 </template>

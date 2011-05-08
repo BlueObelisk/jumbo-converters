@@ -1,18 +1,32 @@
 <template repeat="*"  id="finaleigen" name="Final eigenvalues" 
   pattern="\s*Final eigenvalues\s*$\s*\-+\s*$\s*" newline="$" 
     endPattern="\s*">
-  <comment>
+
+  <comment class="example.input" id="finaleigen">
              Final eigenvalues
              -----------------
 
               1      
     1  -15.4458
     2  -11.1826
-    ...
    19    1.2592
 
 </comment>
   <record repeat="3">{X}</record>
   <record id="ncolumn">\s*{I,n:column}\s*</record>
   <record repeat="*" makeArray="true" id="eigval">\s*{I,n:serial}\s*{F,compchem:eigval}</record>
+
+  <comment class="example.output" id="finaleigen">
+<module cmlx:templateRef="finaleigen" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="ncolumn">
+    <scalar dataType="xsd:integer" dictRef="n:column">1</scalar>
+  </list>
+  <list cmlx:lineCount="3" cmlx:templateRef="eigval">
+    <array dataType="xsd:integer" dictRef="n:serial" size="3">1 2 19</array>
+    <array dataType="xsd:double" dictRef="compchem:eigval" size="3">-15.4458 -11.1826 1.2592</array>
+  </list>
+</module>
+    </comment>
+
+
 </template>

@@ -1,5 +1,6 @@
 <template repeat="*" id="geometry" pattern="\s*geometry\s*.*" endPattern="\s*end\s*" endOffset="1">
-  <comment>
+
+  <comment class="example.input" id="geometry">
     geometry
  C            .052902     .711852     .000000
  ...
@@ -11,4 +12,9 @@ end
   <record repeat="*" id="geom">\s*{A,cc:elementType}\s+{F,cc:x3}\s*{F,cc:y3}\s*{F,cc:z3}\s*</record>
   <record repeat="*" id="symm">\s*symmetry\s+{A,cc:pointgroup}\s*</record>
   <record>{X}</record>
+  
+  <comment class="example.output" id="geometry">
+<module cmlx:templateRef="geometry" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"> H -.423217 -1.094815 -.824662 symmetry c1end</module>
+    </comment>
+
 </template>

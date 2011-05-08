@@ -1,7 +1,8 @@
 <template repeat="*"  id="pspw.warning" name="PSPW warning" 
   pattern="\s*Warning\s*\-\s*Orthogonalization performed.*" 
   newline="$" endPattern="\s*\- error\(after.*" endOffset="1">
-  <comment>
+
+  <comment class="example.input" id="pspw.warning">
 Warning - Orthogonalization performed, spin,zone: 1   1
         - error(before)=  0.728559E-02 (  0.159927E+02)
         - error(after)=   0.355271E-14 (  0.160000E+02)
@@ -13,4 +14,28 @@ Warning - Orthogonalization performed, spin,zone: 1   1
   <!-- 
   <transform process="pullupSingleton" xpath="./cml:list"/>
   -->
+    <comment class="example.output" id="pspw.warning">
+<module cmlx:templateRef="pspw.warning" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="orthog">
+    <list>
+      <scalar dataType="xsd:integer" dictRef="n:orthog.spin">1</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:orthog.zone">1</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="orthog.before">
+    <list>
+      <scalar dataType="xsd:double" dictRef="n:orthog.error.before">0.00728559</scalar>
+      <scalar dataType="xsd:double" dictRef="n:orthog.error.before1">15.9927</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="orthog.after">
+    <list>
+      <scalar dataType="xsd:double" dictRef="n:orthog.error.after">3.55271E-15</scalar>
+      <scalar dataType="xsd:double" dictRef="n:orthog.error.after1">16.0</scalar>
+    </list>
+  </list>
+</module>
+      </comment>
+
+
 </template>

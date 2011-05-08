@@ -1,7 +1,8 @@
 <template repeat="*"  id="pspw.technical" name="PSPW technical parameters" 
   pattern="\s*technical parameters.*\s*" 
   newline="$" endPattern="\s*maximum.*" endOffset="1">
-  <comment>
+
+  <comment class="example.input" id="pspw.technical">
  technical parameters:
       time step=      5.80     ficticious mass=  400000.0
       tolerance=.100E-06 (energy)   0.100E-06 (density)
@@ -12,4 +13,29 @@
   <record id="param1" repeat="*">\s*time\s*step=\s*{F,n:timestep}\s*ficticious mass={F,n:fictmass}\s*</record>
   <record id="param2" repeat="*">\s*tolerance={E,n:energy.tol}\s*\(energy\)\s*{E,n:density.tol}\s*\(density\)\s*</record>
   <record id="param3" repeat="*">\s*maximum iterations\s+=\s*{I,n:maxiter}\s*\(\s*{I,n:inner}\s*inner\s*{I,n:outer}\s*outer\s*\)\s*</record>
+  
+  <comment class="example.output" id="pspw.technical">
+<module cmlx:templateRef="pspw.technical" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="param1">
+    <list>
+      <scalar dataType="xsd:double" dictRef="n:timestep">5.8</scalar>
+      <scalar dataType="xsd:double" dictRef="n:fictmass">400000.0</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="param2">
+    <list>
+      <scalar dataType="xsd:double" dictRef="n:energy.tol">1.0E-7</scalar>
+      <scalar dataType="xsd:double" dictRef="n:density.tol">1.0E-7</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="param3">
+    <list>
+      <scalar dataType="xsd:integer" dictRef="n:maxiter">1000</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:inner">10</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:outer">100</scalar>
+    </list>
+  </list>
+</module>
+    </comment>
+
 </template>

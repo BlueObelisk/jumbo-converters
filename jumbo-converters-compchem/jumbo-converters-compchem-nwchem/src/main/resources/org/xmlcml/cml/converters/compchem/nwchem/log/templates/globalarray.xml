@@ -1,6 +1,7 @@
 <template repeat="*"  id="globalarray" name="global array" 
   pattern=".* global array: .*" newline="$" endPattern="\s*$\s*">
-  <comment>
+
+  <comment class="example.input" id="globalarray">
  global array: fock transf[1:255,1:255],  handle: -967 
 
             1           2           3           4           5           6  
@@ -14,4 +15,9 @@
    
   </comment>
   <transform process="delete" xpath="./node()"/>
+  <comment class="example.output" id="globalarray">
+<module cmlx:templateRef="globalarray" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"/>
+    </comment>
+
+  
  </template>

@@ -1,7 +1,8 @@
 <template repeat="*"  id="gradmodulestep" name="Steps" 
   pattern="\s*@\s*Step\s+Energy\s+Delta\s*E.*" 
   newline="$" endPattern="\s*">
-  <comment>
+  
+  <comment class="example.input" id="gradmodulestep">
 @ Step       Energy      Delta E   Gmax     Grms     Xrms     Xmax   Walltime
 @ ---- ---------------- -------- -------- -------- -------- -------- --------
 @    0    -269.21179667  0.0D+00  0.03357  0.00625  0.00000  0.00000      1.8
@@ -15,4 +16,22 @@
   <record id="ok" >\s{X,n:ok}</record>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="gradmodulestep">
+<module cmlx:templateRef="gradmodulestep" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="grad">
+    <scalar dataType="xsd:integer" dictRef="cc:serial">0</scalar>
+    <scalar dataType="xsd:double" dictRef="cc:ener">-269.21179667</scalar>
+    <scalar dataType="xsd:double" dictRef="n:deltae">0.0</scalar>
+    <scalar dataType="xsd:double" dictRef="n:gmax">0.03357</scalar>
+    <scalar dataType="xsd:double" dictRef="n:grms">0.00625</scalar>
+    <scalar dataType="xsd:double" dictRef="n:xrms">0.0</scalar>
+    <scalar dataType="xsd:double" dictRef="n:xrms">0.0</scalar>
+    <scalar dataType="xsd:double" dictRef="n:xmax">1.0</scalar>
+    <scalar dataType="xsd:double" dictRef="cc:walltime">8.0</scalar>
+  </list>
+  <scalar dataType="xsd:string" dictRef="n:ok" cmlx:templateRef="ok">ok ok</scalar> Internal coordinate gradient before constraints
+</module>
+    </comment>
+
 </template>

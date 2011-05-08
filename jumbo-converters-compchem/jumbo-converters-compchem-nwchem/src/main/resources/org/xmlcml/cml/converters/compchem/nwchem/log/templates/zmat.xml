@@ -1,7 +1,8 @@
 <template repeat="*"  id="zmat" name="Z-Matrix" 
   pattern="\s*Type\s+Name\s+I\s+J\s+K\s+L\s+M\s+Value\s*$\s*\-+\s*\-+.*" 
   newline="$" endPattern="\s*">
-  <comment>
+  
+  <comment class="example.input" id="zmat">
       Type          Name      I     J     K     L     M      Value
       ----------- --------  ----- ----- ----- ----- ----- ----------
     1 Stretch                  1     2                       1.80680
@@ -44,5 +45,76 @@
    <!--  catch unread -->
    <record id="torsion" repeat="*"
         >\s*{I,n:serial}\s*Torsion\s*{I,n:i}\s*{I,n:j}\s*{I,n:k}\s*{I,n:l}\s*{F,n:tor,u:deg}</record>
-  
+
+  <comment class="example.output" id="zmat">
+<module cmlx:templateRef="zmat" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <module cmlx:lineCount="1" cmlx:templateRef="stretch">
+    <list cmlx:templateRef="stretch">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:serial">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:i">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:j">2</scalar>
+        <scalar dataType="xsd:double" dictRef="n:len">1.8068</scalar>
+      </list>
+    </list>
+  </module>..
+  <module cmlx:lineCount="1" cmlx:templateRef="stretch">
+    <list cmlx:templateRef="stretch">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:serial">10</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:i">8</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:j">11</scalar>
+        <scalar dataType="xsd:double" dictRef="n:len">1.152</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="bend">
+    <list cmlx:templateRef="bend">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:serial">11</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:i">2</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:j">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:k">6</scalar>
+        <scalar dataType="xsd:double" dictRef="n:ang">90.0</scalar>
+      </list>
+    </list>
+  </module>..
+  <module cmlx:lineCount="1" cmlx:templateRef="bend">
+    <list cmlx:templateRef="bend">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:serial">37</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:i">11</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:j">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:k">7</scalar>
+        <scalar dataType="xsd:double" dictRef="n:ang">120.0</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="torsion">
+    <list cmlx:templateRef="torsion">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:serial">38</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:i">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:j">2</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:k">6</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:l">9</scalar>
+        <scalar dataType="xsd:double" dictRef="n:tor">180.0</scalar>
+      </list>
+    </list>
+  </module>..
+  <module cmlx:lineCount="1" cmlx:templateRef="torsion">
+    <list cmlx:templateRef="torsion">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:serial">55</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:i">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:j">8</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:k">7</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:l">10</scalar>
+        <scalar dataType="xsd:double" dictRef="n:tor">180.0</scalar>
+      </list>
+    </list>
+  </module>
+</module>
+    </comment>
+
 </template>

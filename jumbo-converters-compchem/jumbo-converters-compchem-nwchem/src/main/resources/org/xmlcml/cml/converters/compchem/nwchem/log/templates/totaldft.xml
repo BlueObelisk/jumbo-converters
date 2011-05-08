@@ -1,6 +1,7 @@
 <template repeat="*"  id="totaldft" name="Total DFT energy" 
   pattern="\s*Total DFT energy.*" newline="$" endPattern="\s*$\s*">
-  <comment>
+
+  <comment class="example.input" id="totaldft">
          Total DFT energy =    -1823.680196170071
       One electron energy =    -4105.874590431184
            Coulomb energy =     1601.844762163483
@@ -23,4 +24,31 @@
   <record/>
   <record id="totitertime">\s*Total iterative time =\s*{F,n:totitertime}s\s*</record>  
   <transform process="pullupSingleton" xpath="."/>
+  
+  <comment class="example.output" id="totaldft">
+<module cmlx:templateRef="totaldft" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="energies">
+    <scalar dataType="xsd:double" dictRef="n:totdft">-1823.680196170071</scalar>
+  </list>
+  <list cmlx:templateRef="oneelec">
+    <scalar dataType="xsd:double" dictRef="n:oneelec">-4105.874590431184</scalar>
+  </list>
+  <list cmlx:templateRef="coulomb">
+    <scalar dataType="xsd:double" dictRef="n:coulomb">1601.844762163483</scalar>
+  </list>
+  <list cmlx:templateRef="xcener">
+    <scalar dataType="xsd:double" dictRef="n:xcener">-118.14598599656</scalar>
+  </list>
+  <list cmlx:templateRef="nucrep">
+    <scalar dataType="xsd:double" dictRef="n:nucrep">798.49561809419</scalar>
+  </list>
+  <list cmlx:templateRef="numintegdens">
+    <scalar dataType="xsd:double" dictRef="n:numintegdens">95.999997053934</scalar>
+  </list>
+  <list cmlx:templateRef="totitertime">
+    <scalar dataType="xsd:double" dictRef="n:totitertime">6.9</scalar>
+  </list>
+</module>
+    </comment>
+
 </template>

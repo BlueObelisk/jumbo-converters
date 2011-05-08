@@ -1,7 +1,8 @@
 <template repeat="*"  id="pspw.densitycut" name="PSPW density cutoff" 
   pattern="\s*density cutoff=.*" 
   newline="$" endPattern="\s*wavefnc.*" endOffset="1">
-  <comment>
+
+    <comment class="example.input" id="pspw.densitycut">
       density cutoff= 10.000  fft= 16x 16x 16(      446 waves      112 per task)
       wavefnc cutoff= 10.000  fft= 16x 16x 16(      446 waves      112 per task)
 </comment>
@@ -9,4 +10,26 @@
   <record id="cutoff2">\s*wavefnc cutoff= {F,n:wavefncut}fft={I,n:gridx}x{I,n:gridy}x{I,n:gridz}\({I,n:waves}waves{I,n:task}per task\)\s*</record>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+    <comment class="example.output" id="pspw.densitycut">
+<module cmlx:templateRef="pspw.densitycut" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="cutoff1">
+    <scalar dataType="xsd:double" dictRef="n:densitycut">10.0</scalar>
+    <scalar dataType="xsd:integer" dictRef="n:gridx">16</scalar>
+    <scalar dataType="xsd:integer" dictRef="n:gridy">16</scalar>
+    <scalar dataType="xsd:integer" dictRef="n:gridz">16</scalar>
+    <scalar dataType="xsd:integer" dictRef="n:waves">446</scalar>
+    <scalar dataType="xsd:integer" dictRef="n:task">112</scalar>
+  </list>
+  <list cmlx:templateRef="cutoff2">
+    <scalar dataType="xsd:double" dictRef="n:wavefncut">10.0</scalar>
+    <scalar dataType="xsd:integer" dictRef="n:gridx">16</scalar>
+    <scalar dataType="xsd:integer" dictRef="n:gridy">16</scalar>
+    <scalar dataType="xsd:integer" dictRef="n:gridz">16</scalar>
+    <scalar dataType="xsd:integer" dictRef="n:waves">446</scalar>
+    <scalar dataType="xsd:integer" dictRef="n:task">112</scalar>
+  </list>
+</module>
+          </comment>
+
 </template>

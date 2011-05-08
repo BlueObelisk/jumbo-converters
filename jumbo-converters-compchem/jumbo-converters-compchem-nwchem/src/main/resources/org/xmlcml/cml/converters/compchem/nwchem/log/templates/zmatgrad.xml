@@ -1,7 +1,8 @@
 <template repeat="*"  id="zmatgrad" name="Z-Matrix gradient" 
   pattern="\s*Type\s+Name\s+I\s+J\s+K\s+L\s+M\s+Value\s+(Change|Sadmode|Gradient)\s*$\s*\-+\s*\-+.*" 
   newline="$" endPattern="\s*">
-  <comment>
+
+  <comment class="example.input" id="zmatgrad">
       Type          Name      I     J     K     L     M      Value     Gradient
       ----------- --------  ----- ----- ----- ----- ----- ---------- ----------
     1 Stretch                  1     2                       1.35468    0.01148
@@ -48,5 +49,132 @@
        >\s*{I,n:serial}\*Stretch{X,n:xxx}</record>
     </template>
    </templateList>
+
+  <comment class="example.output" id="zmatgrad">
+<module cmlx:templateRef="zmatgrad" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="type">
+    <scalar dataType="xsd:string" dictRef="n:type">Gradient</scalar>
+  </list>
+  <module cmlx:lineCount="1" cmlx:templateRef="stretch">
+    <list cmlx:templateRef="stretch">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:serial">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:i">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:j">2</scalar>
+        <scalar dataType="xsd:double" dictRef="n:len">1.35468</scalar>
+        <scalar dataType="xsd:double" dictRef="n:grad">0.01148</scalar>
+      </list>
+    </list>
+  </module> ...
+  <module cmlx:lineCount="1" cmlx:templateRef="stretch">
+    <list cmlx:templateRef="stretch">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:serial">5</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:i">2</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:j">13</scalar>
+        <scalar dataType="xsd:double" dictRef="n:len">1.06984</scalar>
+        <scalar dataType="xsd:double" dictRef="n:grad">3.8E-4</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="stretch"> 6*Stretch r 3 6 2.20000 0.07669</module>
+  <module cmlx:lineCount="1" cmlx:templateRef="stretch">
+    <list cmlx:templateRef="stretch">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:serial">7</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:i">3</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:j">5</scalar>
+        <scalar dataType="xsd:double" dictRef="n:len">1.58908</scalar>
+        <scalar dataType="xsd:double" dictRef="n:grad">0.02455</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="stretch">
+    <list cmlx:templateRef="stretch">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:serial">8</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:i">3</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:j">9</scalar>
+        <scalar dataType="xsd:double" dictRef="n:len">1.07776</scalar>
+        <scalar dataType="xsd:double" dictRef="n:grad">0.00175</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="stretch"> 9*Stretch r 4 7 2.20000 0.07669</module>
+  <module cmlx:lineCount="1" cmlx:templateRef="stretch">
+    <list cmlx:templateRef="stretch">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:serial">10</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:i">4</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:j">5</scalar>
+        <scalar dataType="xsd:double" dictRef="n:len">1.58908</scalar>
+        <scalar dataType="xsd:double" dictRef="n:grad">0.02455</scalar>
+      </list>
+    </list>
+  </module> ...
+  <module cmlx:lineCount="1" cmlx:templateRef="bend">
+    <list cmlx:templateRef="bend">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:serial">19</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:i">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:j">2</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:k">4</scalar>
+        <scalar dataType="xsd:double" dictRef="n:ang">108.69199</scalar>
+        <scalar dataType="xsd:double" dictRef="n:grad">-9.0E-4</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="bend">
+    <list cmlx:templateRef="bend">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:serial">20</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:i">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:j">2</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:k">13</scalar>
+        <scalar dataType="xsd:double" dictRef="n:ang">127.02998</scalar>
+        <scalar dataType="xsd:double" dictRef="n:grad">5.4E-4</scalar>
+      </list>
+    </list>
+  </module> ...
+  <module cmlx:lineCount="1" cmlx:templateRef="bend">
+    <list cmlx:templateRef="bend">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:serial">54</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:i">12</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:j">6</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:k">16</scalar>
+        <scalar dataType="xsd:double" dictRef="n:ang">108.3616</scalar>
+        <scalar dataType="xsd:double" dictRef="n:grad">-0.00267</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="torsion">
+    <list cmlx:templateRef="torsion">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:serial">55</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:i">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:j">2</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:k">4</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:l">7</scalar>
+        <scalar dataType="xsd:double" dictRef="n:tor">72.07754</scalar>
+        <scalar dataType="xsd:double" dictRef="n:grad">-2.5E-4</scalar>
+      </list>
+    </list>
+  </module> ...
+  <module cmlx:lineCount="1" cmlx:templateRef="torsion">
+    <list cmlx:templateRef="torsion">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="n:serial">115</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:i">16</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:j">6</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:k">7</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:l">17</scalar>
+        <scalar dataType="xsd:double" dictRef="n:tor">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="n:grad">0.0</scalar>
+      </list>
+    </list>
+  </module>
+</module>
+  </comment>
   
 </template>

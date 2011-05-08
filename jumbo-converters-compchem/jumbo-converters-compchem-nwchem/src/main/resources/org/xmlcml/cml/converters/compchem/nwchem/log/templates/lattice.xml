@@ -1,7 +1,8 @@
 <template repeat="*"  id="latticex" name="lattice" 
   pattern="\s*Lattice Parameters\s*" newline="$" 
     endPattern="\s*b3\=.*$\s*" endOffset="1">
-  <comment>
+    
+  <comment class="example.input" id="latticex">
       Lattice Parameters 
       ------------------ 
 
@@ -40,4 +41,77 @@
   <transform process="createVector3" xpath="./cml:list[@templateRef='lattice.vect.a1']" 
       from="*[@dictRef='x:x' or @dictRef='x:y' or @dictRef='x:z']"
              dictRef="cc:latticexx"/>
+  <comment class="example.output" id="latticex">
+<module cmlx:templateRef="latticex" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="lattice.scale">
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:lattice.units">a.u.</scalar>
+      <scalar dataType="xsd:double" dictRef="n:lattice.scale">1.0</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="lattice.vect.a1">
+    <list>
+      <scalar dataType="xsd:double" dictRef="x:x">5.92</scalar>
+      <scalar dataType="xsd:double" dictRef="x:y">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:z">0.0</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="lattice.vect.a2">
+    <list>
+      <scalar dataType="xsd:double" dictRef="x:x">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:y">10.255</scalar>
+      <scalar dataType="xsd:double" dictRef="x:z">0.0</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="lattice.vect.a3">
+    <list>
+      <scalar dataType="xsd:double" dictRef="x:x">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:y">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:z">9.653</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="lattice.vect.abc">
+    <list>
+      <scalar dataType="xsd:double" dictRef="cc:cell.a">5.92</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:cell.b">10.255</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:cell.c">9.653</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="lattice.vect.ang">
+    <list>
+      <scalar dataType="xsd:double" dictRef="cc:cell.alpha">90.0</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:cell.beta">90.0</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:cell.gamma">90.0</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="lattice.vect.omega">
+    <scalar dataType="xsd:double" dictRef="cc:cell.omega">586.0</scalar>
+  </list>
+  <list cmlx:templateRef="lattice.recip.units">
+    <scalar dataType="xsd:string" dictRef="cc:lattice.recip.units">a.u.</scalar>
+  </list>
+  <list cmlx:templateRef="lattice.vect.b1">
+    <list>
+      <scalar dataType="xsd:double" dictRef="x:x">1.061</scalar>
+      <scalar dataType="xsd:double" dictRef="x:y">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:z">0.0</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="lattice.vect.b2">
+    <list>
+      <scalar dataType="xsd:double" dictRef="x:x">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:y">0.613</scalar>
+      <scalar dataType="xsd:double" dictRef="x:z">0.0</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="lattice.vect.b3">
+    <list>
+      <scalar dataType="xsd:double" dictRef="x:x">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:y">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="x:z">0.651</scalar>
+    </list>
+  </list>
+</module>
+        </comment>
+
 </template>

@@ -1,7 +1,8 @@
 <template repeat="*"  id="pspw.random" name="PSPW random guess" 
   pattern="\s*random planewave guess.*" 
   newline="$" endPattern="\s*">
-  <comment>
+
+  <comment class="example.input" id="pspw.random">
  random planewave guess, initial psi:band.movecs                   
  -   spin, nalpha, nbeta:                    1                   16                    0
 
@@ -10,4 +11,16 @@
   <record id="spin">\s*\-\s+spin, nalpha, nbeta:{I,cc:spin}{I,cc:nalpha}{I,cc:nbeta}\s*</record>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="pspw.random">
+<module cmlx:templateRef="pspw.random" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:string" dictRef="n:initpsi" cmlx:templateRef="random">band.movecs</scalar>
+  <list cmlx:templateRef="spin">
+    <scalar dataType="xsd:integer" dictRef="cc:spin">1</scalar>
+    <scalar dataType="xsd:integer" dictRef="cc:nalpha">16</scalar>
+    <scalar dataType="xsd:integer" dictRef="cc:nbeta">0</scalar>
+  </list>
+</module>
+    </comment>
+
 </template>
