@@ -35,12 +35,12 @@ public class TemplateTest {
   @Test  public void testAlphaeigs()                           {runTemplateTest("alphaeigs");}
   @Test  public void testAlphafoccs()                           {runTemplateTest("alphafoccs");}
   @Test  public void testArgument()                           {runTemplateTest("argument");}
-  @Test   public void testAtmass()                             {runTemplateTest("atmass");}
+  @Test  public void testAtmass()                             {runTemplateTest("atmass");}
   @Test   @Ignore public void testAtombasisINCLUDE()                          {runTemplateTest("atombasis");}
   @Test   @Ignore public void testAuthorsEXAMPLE()                            {runTemplateTest("authors");}
   @Test   @Ignore public void testBasisINCLUDE()                              {runTemplateTest("basis");}
   @Test  public void testBrillouinzp()                        {runTemplateTest("brillouinzp");}
-  @Test   @Ignore public void testCcsdtEXAMPLE()                              {runTemplateTest("ccsdt");}
+  @Test   @Ignore public void testCcsdtTBD()                              {runTemplateTest("ccsdt");}
 //  @Test   public void testCenter23()                           {runTemplateTest("center23");}
   @Test  @Ignore public void testCenterOfChargeEXAMPLE()              {runTemplateTest("centerofcharge");}
   @Test   @Ignore public void testCentermassEXAMPLE()                         {runTemplateTest("centermass");}
