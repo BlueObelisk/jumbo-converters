@@ -72,23 +72,27 @@ public class CompchemTemplateConverter extends TemplateConverter {
 	}
 
 	protected static Element getDefaultTemplate(String codeType, String fileType,
-			String templateName, Class<?> clazz) {
-				try {
-					InputStream in = clazz.getResourceAsStream(templateName);
-					if (in == null) {
-						throw new FileNotFoundException("File not found: "+templateName);
-					}
-					try {
-						Builder builder = new Builder();
-						String baseUri = "classpath:/org/xmlcml/cml/converters/compchem/"+codeType+"/"+fileType+"/topTemplate.xml";
-						Document doc = builder.build(in, baseUri);
-						return doc.getRootElement();
-					} finally {
-						IOUtils.closeQuietly(in);
-					}
-				} catch (Exception e) {
-					throw new RuntimeException("Error loading default template", e);
-				}
+		String templateName, Class<?> clazz) {
+		String baseUri = "classpath:/org/xmlcml/cml/converters/compchem/"+codeType+"/"+fileType+"/topTemplate.xml";
+		return getDefaultTemplate(baseUri, templateName, clazz);
+	}
+
+	protected static Element getDefaultTemplate(String baseUri, String templateName, Class<?> clazz) {
+		try {
+			InputStream in = clazz.getResourceAsStream(templateName);
+			if (in == null) {
+				throw new FileNotFoundException("File not found: "+templateName);
 			}
+			try {
+				Builder builder = new Builder();
+				Document doc = builder.build(in, baseUri);
+				return doc.getRootElement();
+			} finally {
+				IOUtils.closeQuietly(in);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("Error loading default template", e);
+		}
+	}
 
 }

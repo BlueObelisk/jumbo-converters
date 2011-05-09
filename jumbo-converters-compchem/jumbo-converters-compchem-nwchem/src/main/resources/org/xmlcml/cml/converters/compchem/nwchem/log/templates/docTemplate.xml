@@ -78,7 +78,7 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
    <!--  this finds all modules with given templateRef and groups them an all sibligs into a new 
    higher level module. Each modules geeedily eats sibling till the next module
     -->
-  <transform process="group" name="./*[@cmlx:templateRef='nwcheminpmod']"/>
+  <transform process="createGroup" name="./*[@cmlx:templateRef='nwcheminpmod']"/>
   <!--  labels the first group as the initial one -->
   <transform process="addRole" name="./*[@role='group'][1]" value="initial"/>
   <!--  labels the last group as final (typical XPath/XSL construction to get the number of
@@ -87,5 +87,5 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
   <!--  labels the new leading group as calculation -->
   <transform process="addRole" name="./*[@role='group']" value="calculation"/>
   <!--  and groups it and its siblings not yet working -->
-  <!-- <transform process="group" name="./*[@role='calculation']"/> -->
+  <!-- <transform process="createGroup" name="./*[@role='calculation']"/> -->
 </template>
