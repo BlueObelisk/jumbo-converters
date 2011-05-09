@@ -68,9 +68,9 @@ public class TemplateUnitTests {
    @Test public void testCrystaldipoleOK()         {runTemplateTest("crystaldipole");}
    @Ignore @Test public void testDamping()               {runTemplateTest("damping");}
    @Test public void testDftOK()                   {runTemplateTest("dft");}
-   @Test public void testDftfinalmolorb()        {runTemplateTest("dftfinalmolorb");}
+   @Ignore @Test public void testDftfinalmolorbWHITE()        {runTemplateTest("dftfinalmolorb");}
    @Ignore @Test public void testDirectmp2WHITE()             {runTemplateTest("directmp2");}
-   @Test public void testDirinfo()               {runTemplateTest("dirinfo");}
+   @Ignore @Test public void testDirinfoWHITE()               {runTemplateTest("dirinfo");}
    @Test public void testDisclaim()              {runTemplateTest("disclaim");}
    @Ignore @Test public void testEaffileWHITE()               {runTemplateTest("eaffile");}
    @Ignore @Test public void testEchoall()               {runTemplateTest("echoall");}
