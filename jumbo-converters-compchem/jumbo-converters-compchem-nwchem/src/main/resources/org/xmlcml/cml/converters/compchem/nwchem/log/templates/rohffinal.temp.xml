@@ -48,10 +48,16 @@ or...
       </templateList>
       <templateList>
         <template id="twocol" repeat="*" pattern="\s*\d+.*\s{10}\d+.*" endPattern=".*">
+<!-- 
           <record repeat="*" id="bfn1">\s*{I,n:bfn}\s*{F,n:coeff}\s*{I,n:atom1}\s*{A,n:atom2}\s*{A,n:orb}\s*{I,n:bfn}\s*{F,n:coeff}\s*{I,n:atom1}\s*{A,n:atom2}\s*{A,n:orb}\s*</record>
+          -->
+          <record repeat="*" id="bfn1">{X,x:bfn1}</record>
         </template>
         <template id="onecol" pattern=".*" endPattern=".*">
+          <record id="bfn0">{X,x:bfn1}</record>
+<!-- 
           <record id="bfn0">\s*{I,n:bfn}\s*{F,n:coeff}\s*{I,n:atom1}\s*{A,n:atom2}\s*{A,n:orb}\s*</record>
+          -->
         </template>
       </templateList>
     </template>

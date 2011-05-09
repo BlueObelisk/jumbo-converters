@@ -5,38 +5,51 @@ import java.io.IOException;
 
 import nu.xom.Element;
 
+import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.compchem.CompchemTemplateConverter;
 
 public class NWChemLog2XMLConverter extends CompchemTemplateConverter {
 
+	private static Logger LOG = Logger.getLogger(NWChemLog2XMLConverter.class);
+	private static final String BASE_URI = "classpath:/org/xmlcml/cml/converters/compchem/nwchem/log/templates/topTemplate.xml";
 	public NWChemLog2XMLConverter() {
-//		this(getDefaultTemplate("nwchem", "log", "topTemplate.xml", NWChemLog2XMLConverter.class));
-		this(getDefaultTemplate("classpath:/org/xmlcml/cml/converters/compchem/nwchem/log/templates/topTemplate.xml",
-				"templates/topTemplate.xml", NWChemLog2XMLConverter.class));
+		this(BASE_URI, "templates/topTemplate.xml");
+	}
+	
+	public NWChemLog2XMLConverter(String baseUri, String templateName) {
+		this(getDefaultTemplate(baseUri, templateName, NWChemLog2XMLConverter.class));
 	}
 	
 	public NWChemLog2XMLConverter(Element templateElement) {
 		super(templateElement);
 	}
 	
-	private static void runNWTests() {
-		String allfileName = "D:/projects/nwchem-tests/allfiles";
-		File allfileDir = new File(allfileName);
-		File[] files = allfileDir.listFiles();
-		CompchemTemplateConverter converter = new NWChemLog2XMLConverter();
+	private void runNWTests(String dirName) {
+		File dir = new File(dirName);
+		File[] files = dir.listFiles();
+		if (files == null) {
+			throw new RuntimeException("No files found in "+dir.getAbsolutePath());
+		}
+		LOG.info("Processing "+files.length+" files");
 		for (File file : files) {
 			if (file.getAbsolutePath().endsWith(".out")) {
 				File out = new File(file.getAbsolutePath()+".cml");
-				if (!out.exists()) {
+//				if (!out.exists()) {
 					System.out.println("converting "+file+" to "+out);
-					converter.convert(file, out);
-				}
+					this.convert(file, out);
+//				}
 			}
 		}
 	}
 	public static void main(String[] args) throws IOException {
-		if (args.length == 1 && "ALL".equals(args[0])) {
-			runNWTests();
+		// e.g. nwchem/parsable
+		if (args.length == 1) {
+			NWChemLog2XMLConverter converter = new NWChemLog2XMLConverter();
+			converter.runNWTests(args[0]);
+		} else if (args.length == 2) {
+			NWChemLog2XMLConverter converter = new NWChemLog2XMLConverter(BASE_URI,
+			"templates/"+args[1]);
+			converter.runNWTests(args[0]);
 		} else {
 			CompchemTemplateConverter converter = new NWChemLog2XMLConverter();
 			File in = new File("D:\\projects\\nwchem-tests\\in\\ch3f_rot\\ch3f_rot.out");
