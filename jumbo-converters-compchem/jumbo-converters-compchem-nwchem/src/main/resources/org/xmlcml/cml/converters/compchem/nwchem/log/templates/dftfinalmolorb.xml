@@ -1,5 +1,5 @@
 <template repeat="*"  id="dftfinalmolorb" name="DFT" 
-  pattern=".*DFT Final Molecular Orbital Analysis.*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
+  pattern=".*DFT Final Molecular Orbital Analysis.*$\s+\-+.*" newline="$" endPattern="\s*$\s*">
 
   <comment class="example.input" id="dftfinalmolorb">
                        DFT Final Molecular Orbital Analysis
@@ -21,27 +21,33 @@
     47     -0.167651   3 C  pz               32      0.167651   2 C  pz        
     28      0.164725   2 C  s                43      0.164725   3 C  s         
 
+
   </comment>
   <comment>
  Vector    1  Occ=2.000000D+00  E=-2.464176D+01
               MO Center=  1.2D+00, -4.4D-01,  5.3D-01, r^2= 1.2D-02
   </comment>
-  <record repeat="3">{X}</record>
+  <record repeat="3"/>
   <templateList>
     <template repeat="*" id="vector"
       pattern="\s*Vector\s*.*" endPattern="\s*">
       <record id="vv" repeat="*">\s*Vector\s*{I,compchem:serial}\s+Occ={E,n:occ}\s+E={E,n:e}\s+Symmetry={A,compchem:irrep}.*</record>
       <record id="vv1" repeat="*">\s*Vector\s*{I,compchem:serial}\s+Occ={E,n:occ}\s+E={E,n:e}\s*</record>
       <record id="vv2">\s*MO\s+Center=\s*{E,x:x},\s*{E,x:y},\s*{E,x:z},\s*r\^2={E,n:r2mo}.*</record>
-      <record id="junk" repeat="2">{X}</record>
-      <record id="orb2" repeat="*">{I,n:basisfuncserial}{F,n:mocoeff}{I,compchem:atomserial}{A,compchem:elementType}{A,n:orbital}{I,n:basisfuncserial}{F,n:mocoeff}{I,compchem:atomserial}{A,compchem:elementType}{A,n:orbital}</record>
+      <record id="junk" repeat="2"/>
+      <record id="orb2" repeat="*">{X,n:basisfuncserial}</record>
+      <!-- 
+      THESE ARE VERY SLOW
+      <record id="orb2" repeat="*">{I6,n:basisfuncserial}{F14.6,n:mocoeff}{I4,compchem:atomserial}{A2,compchem:elementType}\s{2}{A6,n:orbital}\s{7}{I6,n:basisfuncserial}{F14.6,n:mocoeff}{I4,compchem:atomserial}{A2,compchem:elementType}\s{2}{A6,n:orbital}\s*</record>
       <record id="orb1" repeat="*">{I,n:basisfuncserial}{F,n:mocoeff}{I,compchem:atomserial}{A,compchem:elementType}{A,n:orbital}</record>
+      -->
     </template>
   </templateList>
   <transform process="createVector3" xpath=".//*[@cmlx:templateRef='vv2']/*" 
-      from="*[@dictRef='x:x' or @dictRef='x:y' or @dictRef='x:z']"
+      from="*[contains(@dictRef,'x:')]"
       dictRef="n:mocenter"/>
   <transform process="pullupSingleton" xpath=".//cml:list[count(*)=1]"/> 
+  
   <comment class="example.output" id="dftfinalmolorb">
 <module cmlx:templateRef="dftfinalmolorb" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <module cmlx:lineCount="6" cmlx:templateRef="vector">
