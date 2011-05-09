@@ -41,6 +41,7 @@ public class NWChemLog2XMLConverter extends CompchemTemplateConverter {
 			}
 		}
 	}
+	
 	public static void main(String[] args) throws IOException {
 		// e.g. nwchem/parsable
 		if (args.length == 1) {
@@ -52,7 +53,7 @@ public class NWChemLog2XMLConverter extends CompchemTemplateConverter {
 			converter.runNWTests(args[0]);
 		} else {
 			CompchemTemplateConverter converter = new NWChemLog2XMLConverter();
-			File in = new File("D:\\projects\\nwchem-tests\\in\\ch3f_rot\\ch3f_rot.out");
+			File in = new File("nwtests/parsable/ch3f_rot.out");
 			File out = new File("ch3f_rot.xml");
 			converter.convert(in, out);
 		}
