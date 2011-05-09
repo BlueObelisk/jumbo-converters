@@ -8,25 +8,28 @@
     0 permanent = .
     0 scratch = .
 
-</comment>
+  </comment>
   <record repeat="3">{X}</record>
-  <record repeat="*" id="disk">\s*{I,n:unknown}{A,n:disk}\s*\=\s*{X,n:directory}</record>
+  <record repeat="*" id="disk">\s*{I,n:unknown}{A,n:disk}\s*\=\s*{X,n:directory}
+  </record>
 
   <comment class="example.output" id="dirinfo">
-<module cmlx:templateRef="dirinfo" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <list cmlx:templateRef="missingID">
-    <list>
-      <scalar dataType="xsd:integer" dictRef="n:unknown">0</scalar>
-      <scalar dataType="xsd:string" dictRef="n:disk">permanent</scalar>
-      <scalar dataType="xsd:string" dictRef="n:directory">.</scalar>
-    </list>
-    <list>
-      <scalar dataType="xsd:integer" dictRef="n:unknown">0</scalar>
-      <scalar dataType="xsd:string" dictRef="n:disk">scratch</scalar>
-      <scalar dataType="xsd:string" dictRef="n:directory">.</scalar>
-    </list>
-  </list>
-</module>
-    </comment>
+    <module cmlx:templateRef="dirinfo" xmlns="http://www.xml-cml.org/schema"
+      xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="disk">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="n:unknown">0</scalar>
+          <scalar dataType="xsd:string" dictRef="n:disk">permanent
+          </scalar>
+          <scalar dataType="xsd:string" dictRef="n:directory">.</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:integer" dictRef="n:unknown">0</scalar>
+          <scalar dataType="xsd:string" dictRef="n:disk">scratch</scalar>
+          <scalar dataType="xsd:string" dictRef="n:directory">.</scalar>
+        </list>
+      </list>
+    </module>
+  </comment>
 
 </template>
