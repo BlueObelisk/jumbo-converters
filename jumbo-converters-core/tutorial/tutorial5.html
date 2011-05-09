@@ -1,0 +1,160 @@
+<html>
+<head>
+<title>JUMBOParser: Tutorial 5</title>
+</head>
+<body>
+  <div class="title">
+    <h1>Tutorial 5: records and fields</h1>
+  </div>
+  <div class="section">
+    <h2>Patterns</h2>
+    <p>JUMBOParser is based on record-oriented input ("lines"). By default we assume that these are separated by a newline
+    and generally we parse one record at a time (i.e. we do not use newlines in the regexes). This might change at some time.
+    The <code>&lt;template></code>s are used to group lines into what will become <code>&lt;cml:module></code>s. 
+    <ul>
+    <li>Each template is restricted to the records/lines it has captured.</li>
+    <li>No line can belong to more than one template/module.</li>
+    <li>The lines are kept in the same order as they are read.</li>
+    <li>Lines are preserved unless they are specifically consumed or deleted.</li>
+    </ul>
+    Let's take part of an NWChem input:
+    <pre>
+geometry noautoz noautosym nocenter units au
+ He     0.0 0.0 0.0
+end
+    </pre>
+    and capture it with the template:
+    <pre>
+&lt;template repeat="*"  id="input.geometry" name="geometry" 
+  pattern="\s*geometry.*" endPattern="\s*end\s*" endOffset="1">
+&lt;/template>
+    </pre>
+    (Because there may be other fields after "geometry" we use ".*"; we may also wish to capture these; We set an endOffset 
+    because the "end" is part of the captured material - here it doesn't matter, but it might). So the result of a parse
+    might be:
+    <pre>
+&lt;cml:module cmlx:templateRef="input.geometry">
+geometry noautoz noautosym nocenter units au
+ He     0.0 0.0 0.0
+end
+&lt;/cml:module>
+    </pre>
+    If serialized this might be:
+    <pre>
+&lt;cml:module cmlx:templateRef="input.geometry">geometry He 0.0 0.0 0.0end&lt;/cml:module>
+    </pre>
+    which is not what we normally want. Here we have 3 records with 4 fields (He, 0.0, 0.0, 0.0) that we want to keep and the rest should be thrown away 
+    (the information is all contained in the module). So the template might contain:
+    <pre>
+&lt;template repeat="*"  id="input.geometry" name="geometry" 
+  pattern="\s*geometry.*" endPattern="\s*end\s*" endOffset="1">
+  &lt;record id="input.geometry.start">\s*geometry{X,n:geometry.start)</record>
+  &lt;record id="input.geometry.element">\s*{A,cc:elementType}{F,cc:x3}{F,cc:y3}{F,cc:z3}</record>
+  &lt;record/>
+&lt;/template>
+    </pre>
+    <ul>
+    <li>
+    The FIRST record will read the "geometry noautoz noautosym nocenter units au" record. The field "geometry" is assumed
+    to be constant (we can deal with abbreviation and case later!). We don't need it (the templateRef indicates the semantics).
+    So we capture the rest of the line into a single string (X), with symbolic name "geometry.start". 
+    This might have 0, 1 or many whitespace-separated tokens; the parser eats insignificant whitespace so the result is
+    <code>geometry.start</code> has a value of "noautoz noautosym nocenter units au" (you should not rely on internal whitespace).
+    </li>
+    <li>
+    The SECOND record eats the next record, IFF it parses as a single token(A) followed by 3 floats (F). If the record is NOT this, 
+    then the parse will fail (and in early versions we may lose information). If it succeeds we have the result:
+    <pre>
+      cc:elementType = "He"
+      cc:x3          = 0.0 (float)
+      cc:y3          = 0.0
+      cc:z3          = 0.0
+    </pre>
+    Note that the symbolic fields (A, F) have whitespace-padding so you don't have to worry about whether there is more than one space 
+    between them.
+    </li>
+    
+    <li>
+    The THIRD record has no capture group and will eat the record without trace. It's a good  idea when first writing a template 
+    to capture everything explicitly (we can always discard it later), such as:
+    <pre>
+  &lt;record id="">{X,n:geometry.start)</record>
+    </pre>
+  It should, of course contains the string "end" but if it doesn't then we have a good start to debugging.
+    </li>
+    </ul>
+    The template isn't much use in practice as most molecules have more than one atom. If we had (say)
+    <pre>
+geometry
+ Be     0.0 0.0 0.0
+ F     1.2 0.0 0.0
+ F     -1.2 0.0 0.0
+end
+    </pre>
+    it would capture the first "F" as the "input.geometry.end" field and not capture the last two records. So in many cases we can
+    specify that a record is read more than once:
+    <pre>
+&lt;template repeat="*"  id="input.geometry" name="geometry" 
+  pattern="\s*geometry.*" endPattern="\s*end\s*" endOffset="1">
+  &lt;record id="input.geometry.start">\s*geometry{X,n:geometry.start)</record>
+  &lt;record id="input.geometry.element" repeat="*">\s*{A,cc:elementType}{F,cc:x3}{F,cc:y3}{F,cc:z3}</record>
+  &lt;record/>
+&lt;/template>
+    </pre>
+    <code>repeat</code> can take either an integer or "*" (zero-or-many). This means that all molecules in this format
+    can be read with a single template = that's the power of the parser. It may look slightly verbose but that's because
+    we are saving the values explicitly.</p>
+    <p>JUMBO has the dataTypes:
+    <ul>
+      <li><code>A</code>. Any string without whitespace (e.g. 4 fields in <code>Wombats! 12.3 TB-L 65%+-3</code>).</li>
+      <li><code>X</code>. Any string; by default this will eat the whole record.</li>
+      <li><code>I</code>. Any integer <code>12 -3 0</code></li>
+      <li><code>F</code>. Any real number <code>12.3 -17 3. +21.9 11 0</code></li>
+      <li><code>E</code>. Any scientific number (note FORTRAN often uses D as well as E, and that F and I types are subsets
+          <code>1.3E+05 -1.88D-03 112.3 -17 3. +21.9 17</code></li>
+      <li><code>B</code>. Boolean (NOT YET Implemented) <code>YES T Y N no 1 0</code></li>
+      <li><code>D</code>. Date (NOT YET Implemented) It may be possible to combine the commonest versions in logfiles.</li>
+    </ul>
+    JUMBO also has the data structures:
+    <ul>
+    <li><code>cml:scalar</code> a single instance of one of the above dataTypes.</li>
+    <li><code>cml:array</code> an array of 0, 1 or many instances of one of the above dataTypes.</li>
+    <li><code>cml:matrix</code> a matrix of I or F or E types. Note that the current parser normally parses into arrays 
+    and creates the matrix later thorugh <code>&lt;transform></code>.</li>
+    
+    
+    </ul>
+    </p>
+    <p>Here's an example from NWChem (eigen/vectors):
+    <pre>
+ Vector   36  Occ=0.000000D+00  E= 2.839268D-01
+              MO Center=  2.9D-08,  2.9D-08, -3.9D-08, r^2= 1.9D+00
+    </pre>
+    We parse this with two records (note the spaces will adjust to variations in formatting):
+    <pre>
+  &lt;record id="vector1">\s*Vector\s*{I,cc:serial}\s*Occ={E,n:occ}\s*E={E,n:e}</record>
+  &lt;record id="vector2">\s*MO Center={E,n:mo.x},{E,n:mo.y},{E,n:mo.z}, r^2={E,n:mo.r2}</record>
+    </pre>
+    and here's an example of an array of known size:
+    <pre>
+ Effective nuclear repulsion energy (a.u.)       0.0000000000
+
+            Nuclear Dipole moment (a.u.) 
+            ----------------------------
+        X                 Y               Z
+ ---------------- ---------------- ----------------
+     0.0000000000     0.0000000000     0.0000000000
+    </pre>
+    parsed by
+        <pre>
+  &lt;record id="effnucrep">\s*Effective nuclear repulsion energy \(a\.u\.\){F,n:effnucrep}</record>
+  &lt;record repeat="5"/>
+  &lt;record id="nucdip">\s*{3F,n:nucleardipole}</record>
+    </pre>
+    Note the use of the 3-array, and the need to escape the "(" ")" and "." as they are metacharacters. Tedious, but
+    it's worth it.
+    </p>
+    </div>
+    
+</body>
+</html>
