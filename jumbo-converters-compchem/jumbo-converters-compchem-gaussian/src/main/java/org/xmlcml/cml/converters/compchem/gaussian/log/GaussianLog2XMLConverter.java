@@ -22,6 +22,7 @@ public class GaussianLog2XMLConverter extends CompchemTemplateConverter {
 	
 	public static void main(String[] args) throws IOException {
 		CompchemTemplateConverter converter = new GaussianLog2XMLConverter();
+		//TODO fix filenames
 		File in = new File("D:\\projects\\anna-gaussian\\in\\1\\output.log");
 		File out = new File("test-out.anna.xml");
 		converter.convert(in, out);
