@@ -132,7 +132,7 @@ public class TransformElement implements MarkupApplier {
 	private static final String CREATE_DATE            = "createDate";
 	private static final String CREATE_DOUBLE          = "createDouble";
 	private static final String CREATE_FORMULA         = "createFormula";
-	private static final String CREATE_GROUP           = "group";
+	private static final String CREATE_GROUP           = "createGroup";
 	private static final String CREATE_INTEGER         = "createInteger";
 	private static final String CREATE_MATRIX33        = "createMatrix33";
 	private static final String CREATE_MOLECULE        = "createMolecule";
@@ -153,7 +153,7 @@ public class TransformElement implements MarkupApplier {
 	private static final String RENAME                 = "rename";
 	private static final String SET_VALUE              = "setValue";
 	private static final String SPLIT                  = "split";
-	private static final String WRAP                   = "wrap";
+	private static final String WRAP_PROPERTIES_AND_PARAMETERS = "wrapPropertiesAndParameters";
 	private static final String HELP                   = "help";
 	
 	private static final String UNIT_SI_URI = "http://www.xml-cml.org/unit/si/";
@@ -205,7 +205,7 @@ public class TransformElement implements MarkupApplier {
 		RENAME,
 		SET_VALUE,
 		SPLIT,
-		WRAP,
+		WRAP_PROPERTIES_AND_PARAMETERS,
 	};
 	
 	
@@ -390,7 +390,7 @@ public class TransformElement implements MarkupApplier {
 			setValue();
 		} else if (SPLIT.equals(process)) {
 			split();
-		} else if (WRAP.equals(process)) {
+		} else if (WRAP_PROPERTIES_AND_PARAMETERS.equals(process)) {
 			wrapPropertiesAndParameters();
 		} else {
 			if (processExists(process)) {

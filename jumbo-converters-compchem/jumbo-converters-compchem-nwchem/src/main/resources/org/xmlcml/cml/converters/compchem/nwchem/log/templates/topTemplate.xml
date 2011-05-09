@@ -156,45 +156,45 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
     xpath="//*[not(local-name()='scalar' or local-name()='array' or local-name()='matrix' or local-name()='vector3') and count(text())>0]/text()" 
       dictRef="cmlx:unparsed"/>
   
-  <transform process="createChild" elementName="module" xpath="/*" id="environment" 
+  <transform process="addChild" elementName="module" xpath="/*" id="environment" 
       position="0" dictRef="compchem:environment"/>
-  <transform process="group" 
+  <transform process="createGroup" 
       followingSiblingsBefore="../*[@cmlx:templateRef='nwcheminpmod'][1]"
       xpath="//cml:module[@dictRef='compchem:environment']"/>
 
-  <transform process="createChild" elementName="module" xpath="/*" id="initialization" position="1"/>
+  <transform process="addChild" elementName="module" xpath="/*" id="initialization" position="1"/>
   <transform process="addDictRef" xpath="//cml:module[@id='initialization']" value="compchem:initialization"/>
-  <transform process="group" 
+  <transform process="createGroup" 
       followingSiblingsBefore="../*[@cmlx:templateRef='nwcheminpmod'][2]"
       xpath="//cml:module[@dictRef='compchem:initialization']"/>
 
 <!-- count(a/b[.='tsr']/preceding-sibling::*)+1 -->
-  <transform process="createChild" elementName="module" xpath="/*" id="calculation" position="2"/>
+  <transform process="addChild" elementName="module" xpath="/*" id="calculation" position="2"/>
   <transform process="addDictRef" xpath="//cml:module[@id='calculation']" value="compchem:calculation"/>
-  <transform process="group" 
+  <transform process="createGroup" 
       followingSiblingsBefore="../*[@cmlx:templateRef='nwcheminpmod' and 
         count(../*[@cmlx:templateRef='nwcheminpmod'])=count(./preceding-sibling::*[@cmlx:templateRef='nwcheminpmod'])+1]"
       xpath="//cml:module[@dictRef='compchem:calculation']"/>
 
-  <transform process="createChild" elementName="module" xpath="/*" id="finalization" position="3"/>
+  <transform process="addChild" elementName="module" xpath="/*" id="finalization" position="3"/>
   <transform process="addDictRef" xpath="//cml:module[@id='finalization']" value="compchem:finalization"/>
-  <transform process="group" 
+  <transform process="createGroup" 
       followingSiblingsBefore="ALL"
       xpath="//cml:module[@dictRef='compchem:finalization']"/>
       
-  <transform process="addParameterList" xpath="./*[@dictRef='compchem:initialization']" id="initialParams"/>
+  <transform process="addChild" elementName="parameterList" xpath="./*[@dictRef='compchem:initialization']" id="initialParams"/>
   <transform process="move" xpath=".//*[@dictRef='compchem:date'][1]"     toXpath=".//*[@id='initialParams']"/>
   <transform process="move" xpath=".//*[@dictRef='compchem:program'][1]"  toXpath=".//*[@id='initialParams']"/>
   <transform process="move" xpath=".//*[@dictRef='compchem:version'][1]"  toXpath=".//*[@id='initialParams']"/>
   <transform process="move" xpath=".//*[@dictRef='compchem:hostname'][1]" toXpath=".//*[@id='initialParams']"/>
-  <transform process="wrap" xpath=".//*[@id='initialParams']"/>
+  <transform process="wrapPropertiesAndParameters" xpath=".//*[@id='initialParams']"/>
   
-  <transform process="addPropertyList" xpath="./*[@dictRef='compchem:finalization']" id="finalProperties"/>
+  <transform process="addChild" elementName="propertyList" xpath="./*[@dictRef='compchem:finalization']" id="finalProperties"/>
   <transform process="move" xpath=".//*[@dictRef='compchem:nuclearEnergy'][1]" toXpath=".//*[@id='finalProperties']"/>
   <transform process="move" xpath=".//*[@dictRef='compchem:nuclearDipole'][1]" toXpath=".//*[@id='finalProperties']"/>
-  <transform process="wrap" xpath=".//*[@id='finalProperties']"/>
+  <transform process="wrapPropertiesAndParameters" xpath=".//*[@id='finalProperties']"/>
 
-  <transform process="molecule" id="molecule.geom" xpath=".//cml:list[@*[local-name()='templateRef' and .='geom']]/
+  <transform process="createMolecule" id="molecule.geom" xpath=".//cml:list[@*[local-name()='templateRef' and .='geom']]/
   cml:array"/>    
   <transform process="move" xpath=".//*[@*[local-name()='templateRef' and .='input']]//*[local-name()='molecule']" toXpath="./*[@dictRef='compchem:initialization']"/>
 

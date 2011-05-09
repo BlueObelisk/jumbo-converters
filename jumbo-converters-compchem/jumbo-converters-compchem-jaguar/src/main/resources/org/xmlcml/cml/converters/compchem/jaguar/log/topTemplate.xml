@@ -34,7 +34,7 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
   <transform process="move" 
       xpath=".//*[@cmlx:templateRef='fukui']/cml:array" 
       toXpath=".//*[@cmlx:templateRef='molecule']/cml:list[@cmlx:templateRef='atom']"/>
-  <transform process="molecule" id="molecule" 
+  <transform process="createMolecule" id="molecule" 
     xpath=".//cml:list[@cmlx:templateRef='atom']/cml:array"/>    
   <transform process="delete" xpath=".//@hydrogenCount"/> 
 </template>
