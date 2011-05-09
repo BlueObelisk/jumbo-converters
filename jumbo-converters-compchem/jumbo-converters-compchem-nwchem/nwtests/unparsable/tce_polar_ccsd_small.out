@@ -1,0 +1,1570 @@
+ argument  1 = tce_polar_ccsd_small.nw
+
+
+
+============================== echo of input deck ==============================
+echo
+
+start tce_polar_ccsd_small
+
+geometry units au
+ symmetry d2h
+ N  0  0 -1.034
+ N  0  0  1.034
+end
+
+basis spherical
+ * library aug-cc-pVDZ
+end
+
+scf
+  singlet
+  rhf
+  thresh 1e-8
+end
+
+tce
+  scf
+  ccsd
+  io ga
+  2eorb
+end
+
+set tce:lineresp T
+set tce:respaxis T F T
+set tce:afreq 0.00000000 0.08855851 0.104551063 0.12977315 0.15187784 # INF, 514.5, 435.8, 351.1, and 300 nm, respectively
+
+task tce energy
+================================================================================
+
+
+                                         
+                                         
+
+
+              Northwest Computational Chemistry Package (NWChem) 6.0
+              ------------------------------------------------------
+
+
+                    Environmental Molecular Sciences Laboratory
+                       Pacific Northwest National Laboratory
+                                Richland, WA 99352
+
+                              Copyright (c) 1994-2010
+                       Pacific Northwest National Laboratory
+                            Battelle Memorial Institute
+
+             NWChem is an open-source computational chemistry package
+                        distributed under the terms of the
+                      Educational Community License (ECL) 2.0
+             A copy of the license is included with this distribution
+                              in the LICENSE.TXT file
+
+                                  ACKNOWLEDGMENT
+                                  --------------
+
+            This software and its documentation were developed at the
+            EMSL at Pacific Northwest National Laboratory, a multiprogram
+            national laboratory, operated for the U.S. Department of Energy
+            by Battelle under Contract Number DE-AC05-76RL01830. Support
+            for this work was provided by the Department of Energy Office
+            of Biological and Environmental Research, Office of Basic
+            Energy Sciences, and the Office of Advanced Scientific Computing.
+
+
+           Job information
+           ---------------
+
+    hostname      = arcen
+    program       = /home/d3y133/nwchem-releases/nwchem-6.0-gfortran/bin/LINUX64/nwchem
+    date          = Thu Aug 19 10:20:43 2010
+
+    compiled      = Thu_Aug_19_10:20:35_2010
+    source        = /home/d3y133/nwchem-releases/nwchem-6.0-gfortran
+    nwchem branch = 6.0
+    input         = tce_polar_ccsd_small.nw
+    prefix        = tce_polar_ccsd_small.
+    data base     = ./tce_polar_ccsd_small.db
+    status        = startup
+    nproc         =        4
+    time left     =     -1s
+
+
+
+           Memory information
+           ------------------
+
+    heap     =   13107201 doubles =    100.0 Mbytes
+    stack    =   13107201 doubles =    100.0 Mbytes
+    global   =   26214400 doubles =    200.0 Mbytes (distinct from heap & stack)
+    total    =   52428802 doubles =    400.0 Mbytes
+    verify   = yes
+    hardfail = no 
+
+
+           Directory information
+           ---------------------
+
+  0 permanent = .
+  0 scratch   = .
+
+
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+ Turning off AUTOSYM since
+ SYMMETRY directive was detected!
+
+
+          ------
+          auto-z
+          ------
+
+
+                             Geometry "geometry" -> ""
+                             -------------------------
+
+ Output coordinates in a.u. (scale by  1.000000000 to convert to a.u.)
+
+  No.       Tag          Charge          X              Y              Z
+ ---- ---------------- ---------- -------------- -------------- --------------
+    1 N                    7.0000     0.00000000     0.00000000    -1.03400000
+    2 N                    7.0000     0.00000000     0.00000000     1.03400000
+
+      Atomic Mass 
+      ----------- 
+
+      N                 14.003070
+
+
+ Effective nuclear repulsion energy (a.u.)      23.6943907157
+
+            Nuclear Dipole moment (a.u.) 
+            ----------------------------
+        X                 Y               Z
+ ---------------- ---------------- ----------------
+     0.0000000000     0.0000000000     0.0000000000
+
+      Symmetry information
+      --------------------
+
+ Group name             D2h       
+ Group number             26
+ Group order               8
+ No. of unique centers     1
+
+      Symmetry unique atoms
+
+     1
+
+
+
+                                Z-matrix (autoz)
+                                -------- 
+
+ Units are Angstrom for bonds and degrees for angles
+
+      Type          Name      I     J     K     L     M      Value
+      ----------- --------  ----- ----- ----- ----- ----- ----------
+    1 Stretch                  1     2                       1.09434
+
+
+            XYZ format geometry
+            -------------------
+     2
+ geometry
+ N                     0.00000000     0.00000000    -0.54716928
+ N                     0.00000000     0.00000000     0.54716928
+
+ ==============================================================================
+                                internuclear distances
+ ------------------------------------------------------------------------------
+       center one      |      center two      | atomic units |       a.u.
+ ------------------------------------------------------------------------------
+    2 N                |   1 N                |     2.06800  |     2.06800
+ ------------------------------------------------------------------------------
+                         number of included internuclear distances:          1
+ ==============================================================================
+
+
+
+  library name resolved from: .nwchemrc
+  library file name is: </home/d3y133/nwchem-releases/nwchem-6.0-gfortran/QA/../src/basis/libraries/>
+  
+
+
+ Summary of "ao basis" -> "" (spherical)
+ ------------------------------------------------------------------------------
+       Tag                 Description            Shells   Functions and Types
+ ---------------- ------------------------------  ------  ---------------------
+ *                        aug-cc-pVDZ                 on all atoms 
+
+
+                      Basis "ao basis" -> "ao basis" (spherical)
+                      -----
+  N (Nitrogen)
+  ------------
+            Exponent  Coefficients 
+       -------------- ---------------------------------------------------------
+  1 S  9.04600000E+03  0.000700
+  1 S  1.35700000E+03  0.005389
+  1 S  3.09300000E+02  0.027406
+  1 S  8.77300000E+01  0.103207
+  1 S  2.85600000E+01  0.278723
+  1 S  1.02100000E+01  0.448540
+  1 S  3.83800000E+00  0.278238
+  1 S  7.46600000E-01  0.015440
+
+  2 S  9.04600000E+03 -0.000153
+  2 S  1.35700000E+03 -0.001208
+  2 S  3.09300000E+02 -0.005992
+  2 S  8.77300000E+01 -0.024544
+  2 S  2.85600000E+01 -0.067459
+  2 S  1.02100000E+01 -0.158078
+  2 S  3.83800000E+00 -0.121831
+  2 S  7.46600000E-01  0.549003
+
+  3 S  2.24800000E-01  1.000000
+
+  4 S  6.12400000E-02  1.000000
+
+  5 P  1.35500000E+01  0.039919
+  5 P  2.91700000E+00  0.217169
+  5 P  7.97300000E-01  0.510319
+
+  6 P  2.18500000E-01  1.000000
+
+  7 P  5.61100000E-02  1.000000
+
+  8 D  8.17000000E-01  1.000000
+
+  9 D  2.30000000E-01  1.000000
+
+
+
+ Summary of "ao basis" -> "ao basis" (spherical)
+ ------------------------------------------------------------------------------
+       Tag                 Description            Shells   Functions and Types
+ ---------------- ------------------------------  ------  ---------------------
+ N                        aug-cc-pVDZ                9       23   4s3p2d
+
+
+                                 NWChem SCF Module
+                                 -----------------
+
+
+
+  ao basis        = "ao basis"
+  functions       =    46
+  atoms           =     2
+  closed shells   =     7
+  open shells     =     0
+  charge          =   0.00
+  wavefunction    = RHF 
+  input vectors   = atomic
+  output vectors  = ./tce_polar_ccsd_small.movecs
+  use symmetry    = T
+  symmetry adapt  = T
+
+
+ Summary of "ao basis" -> "ao basis" (spherical)
+ ------------------------------------------------------------------------------
+       Tag                 Description            Shells   Functions and Types
+ ---------------- ------------------------------  ------  ---------------------
+ N                        aug-cc-pVDZ                9       23   4s3p2d
+
+
+      Symmetry analysis of basis
+      --------------------------
+
+        ag         11
+        au          2
+        b1g         2
+        b1u        11
+        b2g         5
+        b2u         5
+        b3g         5
+        b3u         5
+
+
+ Forming initial guess at       0.0s
+
+
+      Superposition of Atomic Density Guess
+      -------------------------------------
+
+ Sum of atomic energies:        -108.60542303
+
+      Non-variational initial energy
+      ------------------------------
+
+ Total energy =    -109.121516
+ 1-e energy   =    -193.901020
+ 2-e energy   =      61.085114
+ HOMO         =      -0.432336
+ LUMO         =       0.013451
+
+
+      Symmetry analysis of molecular orbitals - initial
+      -------------------------------------------------
+
+
+ !! scf_movecs_sym_adapt:   28 vectors were symmetry contaminated
+
+  Symmetry fudging
+
+ !! scf_movecs_sym_adapt:   26 vectors were symmetry contaminated
+
+  Numbering of irreducible representations: 
+
+     1 ag          2 au          3 b1g         4 b1u         5 b2g     
+     6 b2u         7 b3g         8 b3u     
+
+  Orbital symmetries:
+
+     1 ag          2 b1u         3 ag          4 b1u         5 b3u     
+     6 b2u         7 ag          8 b3g         9 b2g        10 b1u     
+    11 ag         12 b2u        13 b3u        14 ag         15 b2g     
+    16 b3g        17 b1u     
+
+
+ Starting SCF solution at       0.1s
+
+
+
+ ----------------------------------------------
+         Quadratically convergent ROHF
+
+ Convergence threshold     :          1.000E-08
+ Maximum no. of iterations :           30
+ Final Fock-matrix accuracy:          1.000E-10
+ ----------------------------------------------
+
+
+ #quartets = 1.003D+04 #integrals = 9.881D+04 #direct =  0.0% #cached =100.0%
+
+
+ Integral file          = ./tce_polar_ccsd_small.aoints.0
+ Record size in doubles =  65536        No. of integs per rec  =  43688
+ Max. records in memory =      2        Max. records in file   =  26306
+ No. of bits per label  =      8        No. of bits per value  =     64
+
+
+File balance: exchanges=     0  moved=     0  time=   0.0
+
+
+              iter       energy          gnorm     gmax       time
+             ----- ------------------- --------- --------- --------
+                 1     -108.9486857421  4.13D-01  1.45D-01      0.2
+                 2     -108.9602424947  1.06D-01  4.84D-02      0.2
+                 3     -108.9610447565  1.75D-03  8.17D-04      0.2
+                 4     -108.9610449572  6.99D-07  3.07D-07      0.2
+                 5     -108.9610449572  4.75D-10  2.50D-10      0.3
+
+
+       Final RHF  results 
+       ------------------ 
+
+         Total SCF energy =   -108.961044957236
+      One-electron energy =   -194.267846072014
+      Two-electron energy =     61.612410399111
+ Nuclear repulsion energy =     23.694390715667
+
+        Time for solution =      0.2s
+
+
+
+       Symmetry analysis of molecular orbitals - final
+       -----------------------------------------------
+
+  Numbering of irreducible representations: 
+
+     1 ag          2 au          3 b1g         4 b1u         5 b2g     
+     6 b2u         7 b3g         8 b3u     
+
+  Orbital symmetries:
+
+     1 ag          2 b1u         3 ag          4 b1u         5 ag      
+     6 b3u         7 b2u         8 b1u         9 b2g        10 b3g     
+    11 ag         12 b2u        13 b3u        14 ag         15 b2g     
+    16 b3g        17 b1u     
+
+             Final eigenvalues
+             -----------------
+
+              1      
+    1  -15.6974
+    2  -15.6939
+    3   -1.4818
+    4   -0.7801
+    5   -0.6346
+    6   -0.6169
+    7   -0.6169
+    8    0.1038
+    9    0.1254
+   10    0.1254
+   11    0.1402
+   12    0.1503
+   13    0.1503
+   14    0.1962
+   15    0.2541
+   16    0.2541
+   17    0.3254
+
+                       ROHF Final Molecular Orbital Analysis
+                       -------------------------------------
+
+ Vector    2  Occ=2.000000D+00  E=-1.569387D+01  Symmetry=b1u
+              MO Center=  9.2D-38,  1.6D-39,  3.0D-16, r^2= 3.2D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    24      0.709315  2 N  s                  1     -0.709315  1 N  s          
+
+ Vector    3  Occ=2.000000D+00  E=-1.481824D+00  Symmetry=ag
+              MO Center=  2.7D-18,  1.6D-19,  1.7D-17, r^2= 4.4D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     2      0.330356  1 N  s                 25      0.330356  2 N  s          
+    30     -0.218300  2 N  pz                 7      0.218300  1 N  pz         
+    26      0.200192  2 N  s                  3      0.200192  1 N  s          
+
+ Vector    4  Occ=2.000000D+00  E=-7.800642D-01  Symmetry=b1u
+              MO Center=  1.8D-35,  1.2D-34,  1.0D-16, r^2= 1.3D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     3     -0.609381  1 N  s                 26      0.609381  2 N  s          
+    25      0.320583  2 N  s                  2     -0.320583  1 N  s          
+     7      0.215901  1 N  pz                30      0.215901  2 N  pz         
+    27      0.158541  2 N  s                  4     -0.158541  1 N  s          
+
+ Vector    5  Occ=2.000000D+00  E=-6.346215D-01  Symmetry=ag
+              MO Center=  7.0D-18, -4.6D-18,  9.7D-16, r^2= 1.3D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    30      0.452658  2 N  pz                 7     -0.452658  1 N  pz         
+     3      0.281393  1 N  s                 26      0.281393  2 N  s          
+    33      0.202493  2 N  pz                10     -0.202493  1 N  pz         
+
+ Vector    6  Occ=2.000000D+00  E=-6.168799D-01  Symmetry=b3u
+              MO Center=  2.0D-18,  1.8D-33,  0.0D+00, r^2= 9.1D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     5      0.427869  1 N  px                28      0.427869  2 N  px         
+    31      0.242100  2 N  px                 8      0.242100  1 N  px         
+
+ Vector    7  Occ=2.000000D+00  E=-6.168799D-01  Symmetry=b2u
+              MO Center= -4.1D-34, -2.5D-18, -2.9D-17, r^2= 9.1D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     6      0.427869  1 N  py                29      0.427869  2 N  py         
+     9      0.242100  1 N  py                32      0.242100  2 N  py         
+
+ Vector    8  Occ=0.000000D+00  E= 1.037986D-01  Symmetry=b1u
+              MO Center=  9.6D-35, -3.1D-33,  2.4D-14, r^2= 1.3D+01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     4     14.058615  1 N  s                 27    -14.058615  2 N  s          
+    13      4.090047  1 N  pz                36      4.090047  2 N  pz         
+     3      1.461231  1 N  s                 26     -1.461231  2 N  s          
+    10      0.921300  1 N  pz                33      0.921300  2 N  pz         
+    21      0.234248  1 N  d  0              44     -0.234248  2 N  d  0       
+
+ Vector    9  Occ=0.000000D+00  E= 1.254421D-01  Symmetry=b2g
+              MO Center= -1.2D-19,  4.6D-36, -2.2D-16, r^2= 5.0D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    11      1.394782  1 N  px                34     -1.394782  2 N  px         
+    31     -0.367545  2 N  px                 8      0.367545  1 N  px         
+     5      0.302587  1 N  px                28     -0.302587  2 N  px         
+
+ Vector   10  Occ=0.000000D+00  E= 1.254421D-01  Symmetry=b3g
+              MO Center= -2.9D-36, -7.7D-34,  2.2D-16, r^2= 5.0D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    12      1.394782  1 N  py                35     -1.394782  2 N  py         
+    32     -0.367545  2 N  py                 9      0.367545  1 N  py         
+     6      0.302587  1 N  py                29     -0.302587  2 N  py         
+
+ Vector   11  Occ=0.000000D+00  E= 1.402293D-01  Symmetry=ag
+              MO Center= -3.7D-16,  1.1D-16, -2.0D-14, r^2= 8.2D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    13      0.856642  1 N  pz                36     -0.856642  2 N  pz         
+    27     -0.837014  2 N  s                  4     -0.837014  1 N  s          
+     3      0.483171  1 N  s                 26      0.483171  2 N  s          
+    33      0.220185  2 N  pz                10     -0.220185  1 N  pz         
+
+ Vector   12  Occ=0.000000D+00  E= 1.502733D-01  Symmetry=b2u
+              MO Center=  7.1D-35, -1.1D-16, -5.6D-17, r^2= 7.6D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    12      0.606535  1 N  py                35      0.606535  2 N  py         
+    32     -0.227010  2 N  py                 9     -0.227010  1 N  py         
+
+ Vector   13  Occ=0.000000D+00  E= 1.502733D-01  Symmetry=b3u
+              MO Center=  3.7D-16, -1.2D-34,  0.0D+00, r^2= 7.6D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    11      0.606535  1 N  px                34      0.606535  2 N  px         
+    31     -0.227010  2 N  px                 8     -0.227010  1 N  px         
+
+ Vector   14  Occ=0.000000D+00  E= 1.961877D-01  Symmetry=ag
+              MO Center= -5.0D-19,  2.1D-19,  5.1D-15, r^2= 7.6D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    36      1.566936  2 N  pz                13     -1.566936  1 N  pz         
+    26      0.695645  2 N  s                  3      0.695645  1 N  s          
+    27     -0.304391  2 N  s                  4     -0.304391  1 N  s          
+    21     -0.190472  1 N  d  0              44     -0.190472  2 N  d  0       
+    10     -0.151940  1 N  pz                33      0.151940  2 N  pz         
+
+ Vector   15  Occ=0.000000D+00  E= 2.540548D-01  Symmetry=b2g
+              MO Center=  8.8D-34, -1.0D-36, -2.2D-16, r^2= 6.3D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    11      1.897091  1 N  px                34     -1.897091  2 N  px         
+    31      0.440349  2 N  px                 8     -0.440349  1 N  px         
+     5     -0.343532  1 N  px                28      0.343532  2 N  px         
+    22     -0.158411  1 N  d  1              45     -0.158411  2 N  d  1       
+
+ Vector   16  Occ=0.000000D+00  E= 2.540548D-01  Symmetry=b3g
+              MO Center=  2.0D-36, -1.4D-32, -8.9D-16, r^2= 6.3D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    12      1.897091  1 N  py                35     -1.897091  2 N  py         
+    32      0.440349  2 N  py                 9     -0.440349  1 N  py         
+     6     -0.343532  1 N  py                29      0.343532  2 N  py         
+    20      0.158411  1 N  d -1              43      0.158411  2 N  d -1       
+
+ Vector   17  Occ=0.000000D+00  E= 3.253842D-01  Symmetry=b1u
+              MO Center= -4.3D-23, -1.9D-34, -5.4D-14, r^2= 9.7D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     4     27.676230  1 N  s                 27    -27.676230  2 N  s          
+    36      6.506164  2 N  pz                13      6.506164  1 N  pz         
+     3      4.321371  1 N  s                 26     -4.321371  2 N  s          
+    10      3.364630  1 N  pz                33      3.364630  2 N  pz         
+    44     -0.712452  2 N  d  0              21      0.712452  1 N  d  0       
+
+ Vector   18  Occ=0.000000D+00  E= 5.862061D-01  Symmetry=b1g
+              MO Center= -9.4D-34,  3.8D-33,  0.0D+00, r^2= 2.3D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    19      0.558912  1 N  d -2              42      0.558912  2 N  d -2       
+
+
+ center of mass
+ --------------
+ x =   0.00000000 y =   0.00000000 z =   0.00000000
+
+ moments of inertia (a.u.)
+ ------------------
+          29.942932617840           0.000000000000           0.000000000000
+           0.000000000000          29.942932617840           0.000000000000
+           0.000000000000           0.000000000000           0.000000000000
+
+  Mulliken analysis of the total density
+  --------------------------------------
+
+    Atom       Charge   Shell Charges
+ -----------   ------   -------------------------------------------------------
+    1 N    7     7.00   2.00  0.85  1.01  0.08  2.13  0.86  0.00  0.06  0.01
+    2 N    7     7.00   2.00  0.85  1.01  0.08  2.13  0.86  0.00  0.06  0.01
+
+       Multipole analysis of the density wrt the origin
+       ------------------------------------------------
+
+     L   x y z        total         open         nuclear
+     -   - - -        -----         ----         -------
+     0   0 0 0      0.000000      0.000000     14.000000
+
+     1   1 0 0      0.000000      0.000000      0.000000
+     1   0 1 0      0.000000      0.000000      0.000000
+     1   0 0 1      0.000000      0.000000      0.000000
+
+     2   2 0 0     -7.760736      0.000000      0.000000
+     2   1 1 0      0.000000      0.000000      0.000000
+     2   1 0 1      0.000000      0.000000      0.000000
+     2   0 2 0     -7.760736      0.000000      0.000000
+     2   0 1 1      0.000000      0.000000      0.000000
+     2   0 0 2     -8.664980      0.000000     14.968184
+
+
+ Parallel integral file used       4 records with       0 large values
+
+                   NWChem Extensible Many-Electron Theory Module
+                   ---------------------------------------------
+
+              ======================================================
+                   This portion of the program was automatically
+                  generated by a Tensor Contraction Engine (TCE).
+                  The development of this portion of the program
+                 and TCE was supported by US Department of Energy,
+                Office of Science, Office of Basic Energy Science.
+                      TCE is a product of Battelle and PNNL.
+              Please cite: S.Hirata, J.Phys.Chem.A 107, 9887 (2003).
+              ======================================================
+
+            General Information
+            -------------------
+      Number of processors :     4
+         Wavefunction type : Restricted Hartree-Fock
+          No. of electrons :    14
+           Alpha electrons :     7
+            Beta electrons :     7
+           No. of orbitals :    92
+            Alpha orbitals :    46
+             Beta orbitals :    46
+        Alpha frozen cores :     0
+         Beta frozen cores :     0
+     Alpha frozen virtuals :     0
+      Beta frozen virtuals :     0
+         Spin multiplicity : singlet 
+    Number of AO functions :    46
+       Number of AO shells :    18
+        Use of symmetry is : on 
+      Symmetry adaption is : on 
+         Schwarz screening : 0.10D-09
+
+          Correlation Information
+          -----------------------
+          Calculation type : Coupled-cluster singles & doubles                           
+   Perturbative correction : none                                                        
+            Max iterations :      100
+        Residual threshold : 0.10D-06
+     T(0) DIIS level shift : 0.00D+00
+     L(0) DIIS level shift : 0.00D+00
+     T(1) DIIS level shift : 0.00D+00
+     L(1) DIIS level shift : 0.00D+00
+     T(R) DIIS level shift : 0.00D+00
+     T(I) DIIS level shift : 0.00D+00
+   CC-T/L Amplitude update :  5-th order DIIS
+    CC-LR Amplitude update :  5-th order DIIS
+                I/O scheme : Global Array Library
+
+            Memory Information
+            ------------------
+          Available GA space size is     104855484 doubles
+          Available MA space size is      26212459 doubles
+
+ Maximum block size        45 doubles
+
+ tile_dim =      9
+
+ Block   Spin    Irrep     Size     Offset   Alpha
+ -------------------------------------------------
+   1    alpha     ag     3 doubles       0       1
+   2    alpha     b1u    2 doubles       3       2
+   3    alpha     b2u    1 doubles       5       3
+   4    alpha     b3u    1 doubles       6       4
+   5    beta      ag     3 doubles       7       1
+   6    beta      b1u    2 doubles      10       2
+   7    beta      b2u    1 doubles      12       3
+   8    beta      b3u    1 doubles      13       4
+   9    alpha     ag     8 doubles      14       9
+  10    alpha     au     2 doubles      22      10
+  11    alpha     b1g    2 doubles      24      11
+  12    alpha     b1u    9 doubles      26      12
+  13    alpha     b2g    5 doubles      35      13
+  14    alpha     b2u    4 doubles      40      14
+  15    alpha     b3g    5 doubles      44      15
+  16    alpha     b3u    4 doubles      49      16
+  17    beta      ag     8 doubles      53       9
+  18    beta      au     2 doubles      61      10
+  19    beta      b1g    2 doubles      63      11
+  20    beta      b1u    9 doubles      65      12
+  21    beta      b2g    5 doubles      74      13
+  22    beta      b2u    4 doubles      79      14
+  23    beta      b3g    5 doubles      83      15
+  24    beta      b3u    4 doubles      88      16
+
+ Global array virtual files algorithm will be used
+
+ Parallel file system coherency ......... OK
+
+ SCF dipole moments / hartree & Debye
+ ------------------------------------
+   X         0.0000000      0.0000000
+   Y         0.0000000      0.0000000
+   Z         0.0000000      0.0000000
+ Total       0.0000000      0.0000000
+ ------------------------------------
+
+ Cpu & wall time / sec            0.0            0.0
+
+ X   axis ( b3u symmetry)
+
+ dipole file size   =              260
+ dipole file name   = ./tce_polar_ccsd_sma
+
+ Y   axis ( b2u symmetry)
+
+ dipole file size   =              260
+ dipole file name   = ./tce_polar_ccsd_sma
+
+ Z   axis ( b1u symmetry)
+
+ dipole file size   =              350
+ dipole file name   = ./tce_polar_ccsd_sma
+
+ #quartets = 1.471D+04 #integrals = 1.425D+05 #direct =  0.0% #cached =100.0%
+
+
+ Integral file          = ./tce_polar_ccsd_small.aoints.0
+ Record size in doubles =  65536        No. of integs per rec  =  43688
+ Max. records in memory =      2        Max. records in file   =  26306
+ No. of bits per label  =      8        No. of bits per value  =     64
+
+
+File balance: exchanges=     0  moved=     0  time=   0.0
+
+
+ Fock matrix recomputed
+ 1-e file size   =              350
+ 1-e file name   = ./tce_polar_ccsd_sma
+ Cpu & wall time / sec            0.1            0.2
+ 4-electron integrals stored in orbital form
+
+ v2    file size   =           121711
+ 4-index algorithm nr.   1 is used
+ imaxsize =       30
+ imaxsize ichop =        0
+ v2int file size   =          1231259
+ Cpu & wall time / sec           14.2           14.2
+ do_pt =  F
+ do_lam_pt =  F
+ do_cr_pt =  F
+ do_lcr_pt =  F
+ do_2t_pt =  F
+ T1-number-of-tasks                    4
+
+ t1 file size   =               50
+ t1 file name   = ./tce_polar_ccsd_sma
+ t1 file handle =       -997
+ T2-number-of-boxes                  184
+
+ t2 file size   =            15635
+ t2 file name   = ./tce_polar_ccsd_sma
+ t2 file handle =       -988
+
+ CCSD iterations
+ -----------------------------------------------------------------
+ Iter          Residuum       Correlation     Cpu    Wall    V2*C2
+ -----------------------------------------------------------------
+    1   0.1584388737224  -0.3208497990205     0.2     0.3     0.0
+    2   0.0441622073367  -0.3122811736187     0.2     0.3     0.0
+    3   0.0162223516519  -0.3218062590095     0.2     0.3     0.0
+    4   0.0080143589183  -0.3219694756041     0.2     0.3     0.0
+    5   0.0039879912736  -0.3228509380022     0.2     0.3     0.0
+ MICROCYCLE DIIS UPDATE:                    5                    5
+    6   0.0008021941633  -0.3232462561226     0.2     0.3     0.0
+    7   0.0002953980461  -0.3232933551165     0.2     0.3     0.0
+    8   0.0001369930936  -0.3232964125157     0.2     0.3     0.0
+    9   0.0000718961752  -0.3232976139499     0.2     0.3     0.0
+   10   0.0000383195018  -0.3232995629838     0.2     0.3     0.0
+ MICROCYCLE DIIS UPDATE:                   10                    5
+   11   0.0000066218300  -0.3233017858254     0.2     0.3     0.0
+   12   0.0000023210758  -0.3233018854828     0.2     0.3     0.0
+   13   0.0000010081008  -0.3233021499047     0.2     0.3     0.0
+   14   0.0000004893076  -0.3233021927964     0.2     0.3     0.0
+   15   0.0000002466400  -0.3233022265473     0.2     0.3     0.0
+ MICROCYCLE DIIS UPDATE:                   15                    5
+   16   0.0000000578598  -0.3233022480223     0.2     0.3     0.0
+ -----------------------------------------------------------------
+ Iterations converged
+ CCSD correlation energy / hartree =        -0.323302248022268
+ CCSD total energy / hartree       =      -109.284347205258427
+
+ Singles contributions
+
+ Doubles contributions
+
+ CCSD Lambda iterations
+ ---------------------------------------------
+ Iter          Residuum            Cpu    Wall
+ ---------------------------------------------
+    1          1.0711494114495     0.5     0.7
+    2          0.0260879962324     0.5     0.7
+    3          0.0026926386824     0.5     0.7
+    4          0.0002814386929     0.5     0.7
+    5          0.0000740117236     0.5     0.7
+ MICROCYCLE DIIS UPDATE:                    5                    5
+    6          0.0000093205676     0.5     0.7
+    7          0.0000012769031     0.5     0.7
+    8          0.0000003367900     0.5     0.7
+    9          0.0000000947038     0.5     0.7
+ ---------------------------------------------
+ Iterations converged
+
+ Singles contributions
+
+ Doubles contributions
+
+ CCSD dipole moments / hartree & Debye
+ ------------------------------------
+   X         0.0000000      0.0000000
+   Y         0.0000000      0.0000000
+   Z         0.0000000      0.0000000
+ Total       0.0000000      0.0000000
+ ------------------------------------
+
+ X   axis ( b3u symmetry)
+
+ Frequency =       0.0000000 / au
+
+ CCSD-LR iterations
+ ---------------------------------------------
+ Iter          Residuum            Cpu    Wall
+ ---------------------------------------------
+    1          0.7299083443307     0.4     0.6
+    2          0.7414388573390     0.4     0.6
+    3          0.2572053710365     0.4     0.6
+    4          0.1485997166994     0.4     0.6
+    5          0.0769177988743     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                    5                    5
+    6          0.0178329745057     0.4     0.6
+    7          0.0095773389646     0.4     0.6
+    8          0.0046432092818     0.4     0.6
+    9          0.0028293741549     0.4     0.6
+   10          0.0016128973865     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   10                    5
+   11          0.0001164709456     0.4     0.6
+   12          0.0000574190371     0.4     0.6
+   13          0.0000237591703     0.4     0.6
+   14          0.0000128131403     0.4     0.6
+   15          0.0000065851326     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   15                    5
+   16          0.0000015894758     0.4     0.6
+   17          0.0000008211997     0.4     0.6
+   18          0.0000004261935     0.4     0.6
+   19          0.0000002526792     0.4     0.6
+   20          0.0000001455844     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   20                    5
+   21          0.0000000128211     0.4     0.6
+ ---------------------------------------------
+ Iterations converged
+
+ Z   axis ( b1u symmetry)
+
+ Frequency =       0.0000000 / au
+
+ CCSD-LR iterations
+ ---------------------------------------------
+ Iter          Residuum            Cpu    Wall
+ ---------------------------------------------
+    1          0.8138400965185     0.4     0.6
+    2          1.0640759409319     0.4     0.6
+    3          0.2990616349519     0.4     0.6
+    4          0.1874915691779     0.4     0.6
+    5          0.0755025706168     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                    5                    5
+    6          0.0146442735466     0.4     0.6
+    7          0.0052684816223     0.4     0.6
+    8          0.0022870506359     0.4     0.6
+    9          0.0010947884730     0.4     0.6
+   10          0.0005317817646     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   10                    5
+   11          0.0000564258216     0.4     0.6
+   12          0.0000345260054     0.4     0.6
+   13          0.0000109356899     0.4     0.6
+   14          0.0000061441845     0.4     0.6
+   15          0.0000025746104     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   15                    5
+   16          0.0000005919962     0.4     0.6
+   17          0.0000002261092     0.4     0.6
+   18          0.0000000984154     0.4     0.6
+ ---------------------------------------------
+ Iterations converged
+
+ CCSD-LR dipole moments / hartree & Debye
+ --------------------------------
+ X       0.0000000      0.0000000
+ Y       0.0000000      0.0000000
+ Z       0.0000000      0.0000000
+ --------------------------------
+
+ Warning: you have not solved the response equations for all axes.  Please analyze the results carefully as the average and anisotropic polarizabilities are surely wrong.
+
+
+ CCSD Linear Response polarizability / au 
+ Frequency  =       0.0000000 / au
+ Wavelength =       +Infinity / nm
+ -------------------------------------------------------|-----------------------------------------------
+                     atomic units (bohr^3)              |                   angstroms^3           
+                  X              Y              Z       |             X              Y              Z
+ -------------------------------------------------------|-----------------------------------------------
+ X           10.0028407      0.0000000      0.0000000   |      1.4822684      0.0000000      0.0000000
+ Y            0.0000000      0.0000000      0.0000000   |      0.0000000      0.0000000      0.0000000
+ Z            0.0000000      0.0000000     14.6103272   |      0.0000000      0.0000000      2.1650276
+ -------------------------------------------------------|-----------------------------------------------
+ Eigs =      10.0028407      0.0000000     14.6103272   |      1.4822684      0.0000000      2.1650276
+ Isotropic   =               8.2043893                  |                     1.2157653
+ Anisotropic =              12.9372991                  |                     1.9171103
+ -------------------------------------------------------|-----------------------------------------------
+ Cpu & wall time / sec            3.7            5.4
+
+ X   axis ( b3u symmetry)
+
+ Frequency =       0.0885585 / au
+
+ CCSD-LR iterations
+ ---------------------------------------------
+ Iter          Residuum            Cpu    Wall
+ ---------------------------------------------
+    1          0.0817891819857     0.4     0.6
+    2          0.1023642265528     0.4     0.6
+    3          0.0597835362945     0.4     0.6
+    4          0.0390397048260     0.4     0.6
+    5          0.0254433949409     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                    5                    5
+    6          0.0036728842555     0.4     0.6
+    7          0.0020921382808     0.4     0.6
+    8          0.0012398309452     0.4     0.6
+    9          0.0008052682296     0.4     0.6
+   10          0.0005244416070     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   10                    5
+   11          0.0000398897778     0.4     0.6
+   12          0.0000263255176     0.4     0.6
+   13          0.0000151411932     0.4     0.6
+   14          0.0000097980145     0.4     0.6
+   15          0.0000063287796     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   15                    5
+   16          0.0000010728100     0.4     0.6
+   17          0.0000006330121     0.4     0.6
+   18          0.0000003800160     0.4     0.6
+   19          0.0000002473771     0.4     0.6
+   20          0.0000001614637     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   20                    5
+   21          0.0000000139055     0.4     0.6
+ ---------------------------------------------
+ Iterations converged
+
+ Frequency =      -0.0885585 / au
+
+ CCSD-LR iterations
+ ---------------------------------------------
+ Iter          Residuum            Cpu    Wall
+ ---------------------------------------------
+    1          0.7299083443307     0.4     0.6
+    2          0.7922204282012     0.4     0.6
+    3          0.1403322520072     0.4     0.6
+    4          0.1097001815102     0.4     0.6
+    5          0.0307898889134     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                    5                    5
+    6          0.0138471526254     0.4     0.6
+    7          0.0064846125705     0.4     0.6
+    8          0.0025142520429     0.4     0.6
+    9          0.0014320250865     0.4     0.6
+   10          0.0006219857571     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   10                    5
+   11          0.0000678910287     0.4     0.6
+   12          0.0000268885797     0.4     0.6
+   13          0.0000084529070     0.4     0.6
+   14          0.0000038840673     0.4     0.6
+   15          0.0000014496126     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   15                    5
+   16          0.0000005524325     0.4     0.6
+   17          0.0000002552474     0.4     0.6
+   18          0.0000001089802     0.4     0.6
+   19          0.0000000583757     0.4     0.6
+ ---------------------------------------------
+ Iterations converged
+
+ Z   axis ( b1u symmetry)
+
+ Frequency =       0.0885585 / au
+
+ CCSD-LR iterations
+ ---------------------------------------------
+ Iter          Residuum            Cpu    Wall
+ ---------------------------------------------
+    1          0.1042627327599     0.4     0.6
+    2          0.1411558796280     0.4     0.6
+    3          0.0714874530228     0.4     0.6
+    4          0.0443566382729     0.4     0.6
+    5          0.0262511031066     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                    5                    5
+    6          0.0032340294179     0.4     0.6
+    7          0.0013946577107     0.4     0.6
+    8          0.0007484927806     0.4     0.6
+    9          0.0004214702187     0.4     0.6
+   10          0.0002419530530     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   10                    5
+   11          0.0000164149619     0.4     0.6
+   12          0.0000120772834     0.4     0.6
+   13          0.0000057784438     0.4     0.6
+   14          0.0000035091129     0.4     0.6
+   15          0.0000020417903     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   15                    5
+   16          0.0000003325867     0.4     0.6
+   17          0.0000001549107     0.4     0.6
+   18          0.0000000833550     0.4     0.6
+ ---------------------------------------------
+ Iterations converged
+
+ Frequency =      -0.0885585 / au
+
+ CCSD-LR iterations
+ ---------------------------------------------
+ Iter          Residuum            Cpu    Wall
+ ---------------------------------------------
+    1          0.8138400965185     0.4     0.6
+    2          1.1624867199685     0.4     0.6
+    3          0.2859170223958     0.4     0.6
+    4          0.2215942934949     0.4     0.6
+    5          0.0850274319084     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                    5                    5
+    6          0.0120236029028     0.4     0.6
+    7          0.0034658044895     0.4     0.6
+    8          0.0013215188792     0.4     0.6
+    9          0.0004935539006     0.4     0.6
+   10          0.0002047174501     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   10                    5
+   11          0.0000366363780     0.4     0.6
+   12          0.0000197352988     0.4     0.6
+   13          0.0000058516144     0.4     0.6
+   14          0.0000036444652     0.4     0.6
+   15          0.0000014120584     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   15                    5
+   16          0.0000003107575     0.4     0.6
+   17          0.0000000976103     0.4     0.6
+ ---------------------------------------------
+ Iterations converged
+
+ CCSD-LR dipole moments / hartree & Debye
+ --------------------------------
+ X       0.0000000      0.0000000
+ Y       0.0000000      0.0000000
+ Z       0.0000000      0.0000000
+ --------------------------------
+
+ Warning: you have not solved the response equations for all axes.  Please analyze the results carefully as the average and anisotropic polarizabilities are surely wrong.
+
+
+ CCSD Linear Response polarizability / au 
+ Frequency  =      -0.0885585 / au
+ Wavelength =    -514.4999955 / nm
+ -------------------------------------------------------|-----------------------------------------------
+                     atomic units (bohr^3)              |                   angstroms^3           
+                  X              Y              Z       |             X              Y              Z
+ -------------------------------------------------------|-----------------------------------------------
+ X           10.1844057      0.0000000      0.0000000   |      1.5091736      0.0000000      0.0000000
+ Y            0.0000000      0.0000000      0.0000000   |      0.0000000      0.0000000      0.0000000
+ Z            0.0000000      0.0000000     14.9171214   |      0.0000000      0.0000000      2.2104898
+ -------------------------------------------------------|-----------------------------------------------
+ Eigs =      10.1844057      0.0000000     14.9171214   |      1.5091736      0.0000000      2.2104898
+ Isotropic   =               8.3671757                  |                     1.2398878
+ Anisotropic =              13.2030532                  |                     1.9564911
+ -------------------------------------------------------|-----------------------------------------------
+ Cpu & wall time / sec            3.8            5.4
+
+ X   axis ( b3u symmetry)
+
+ Frequency =       0.1045511 / au
+
+ CCSD-LR iterations
+ ---------------------------------------------
+ Iter          Residuum            Cpu    Wall
+ ---------------------------------------------
+    1          0.0172492453729     0.4     0.6
+    2          0.0219265953636     0.4     0.6
+    3          0.0135782960571     0.4     0.6
+    4          0.0091036473784     0.4     0.6
+    5          0.0061023661605     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                    5                    5
+    6          0.0008467708870     0.4     0.6
+    7          0.0004910828417     0.4     0.6
+    8          0.0002999073770     0.4     0.6
+    9          0.0001982164307     0.4     0.6
+   10          0.0001317822889     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   10                    5
+   11          0.0000100567348     0.4     0.6
+   12          0.0000068222606     0.4     0.6
+   13          0.0000041168103     0.4     0.6
+   14          0.0000027330193     0.4     0.6
+   15          0.0000018164679     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   15                    5
+   16          0.0000003040522     0.4     0.6
+   17          0.0000001827846     0.4     0.6
+   18          0.0000001127052     0.4     0.6
+   19          0.0000000746290     0.4     0.6
+ ---------------------------------------------
+ Iterations converged
+
+ Frequency =      -0.1045511 / au
+
+ CCSD-LR iterations
+ ---------------------------------------------
+ Iter          Residuum            Cpu    Wall
+ ---------------------------------------------
+    1          0.0129774548204     0.4     0.6
+    2          0.0182737426080     0.4     0.6
+    3          0.0034815192486     0.4     0.6
+    4          0.0029407061158     0.4     0.6
+    5          0.0008018674926     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                    5                    5
+    6          0.0003180487779     0.4     0.6
+    7          0.0001234779826     0.4     0.6
+    8          0.0000500803125     0.4     0.6
+    9          0.0000251324313     0.4     0.6
+   10          0.0000109176512     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   10                    5
+   11          0.0000015273582     0.4     0.6
+   12          0.0000007630447     0.4     0.6
+   13          0.0000002169204     0.4     0.6
+   14          0.0000001238774     0.4     0.6
+   15          0.0000000419458     0.4     0.6
+ ---------------------------------------------
+ Iterations converged
+
+ Z   axis ( b1u symmetry)
+
+ Frequency =       0.1045511 / au
+
+ CCSD-LR iterations
+ ---------------------------------------------
+ Iter          Residuum            Cpu    Wall
+ ---------------------------------------------
+    1          0.0221973497318     0.4     0.6
+    2          0.0298668520747     0.4     0.6
+    3          0.0162693350225     0.4     0.6
+    4          0.0103200955976     0.4     0.6
+    5          0.0063412163859     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                    5                    5
+    6          0.0007548175870     0.4     0.6
+    7          0.0003355352179     0.4     0.6
+    8          0.0001857798572     0.4     0.6
+    9          0.0001074583687     0.4     0.6
+   10          0.0000633485680     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   10                    5
+   11          0.0000041942576     0.4     0.6
+   12          0.0000031344888     0.4     0.6
+   13          0.0000016153353     0.4     0.6
+   14          0.0000010049013     0.4     0.6
+   15          0.0000006083728     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   15                    5
+   16          0.0000000950300     0.4     0.6
+ ---------------------------------------------
+ Iterations converged
+
+ Frequency =      -0.1045511 / au
+
+ CCSD-LR iterations
+ ---------------------------------------------
+ Iter          Residuum            Cpu    Wall
+ ---------------------------------------------
+    1          0.0164020430092     0.4     0.6
+    2          0.0266802094643     0.4     0.6
+    3          0.0066798387567     0.4     0.6
+    4          0.0055077603232     0.4     0.6
+    5          0.0023480917996     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                    5                    5
+    6          0.0002837511479     0.4     0.6
+    7          0.0000882742759     0.4     0.6
+    8          0.0000326336750     0.4     0.6
+    9          0.0000131918196     0.4     0.6
+   10          0.0000054640792     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   10                    5
+   11          0.0000009407599     0.4     0.6
+   12          0.0000004859255     0.4     0.6
+   13          0.0000001443479     0.4     0.6
+   14          0.0000000898907     0.4     0.6
+ ---------------------------------------------
+ Iterations converged
+
+ CCSD-LR dipole moments / hartree & Debye
+ --------------------------------
+ X       0.0000000      0.0000000
+ Y       0.0000000      0.0000000
+ Z       0.0000000      0.0000000
+ --------------------------------
+
+ Warning: you have not solved the response equations for all axes.  Please analyze the results carefully as the average and anisotropic polarizabilities are surely wrong.
+
+
+ CCSD Linear Response polarizability / au 
+ Frequency  =      -0.1045511 / au
+ Wavelength =    -435.7999976 / nm
+ -------------------------------------------------------|-----------------------------------------------
+                     atomic units (bohr^3)              |                   angstroms^3           
+                  X              Y              Z       |             X              Y              Z
+ -------------------------------------------------------|-----------------------------------------------
+ X           10.2585552      0.0000000      0.0000000   |      1.5201614      0.0000000      0.0000000
+ Y            0.0000000      0.0000000      0.0000000   |      0.0000000      0.0000000      0.0000000
+ Z            0.0000000      0.0000000     15.0424822   |      0.0000000      0.0000000      2.2290664
+ -------------------------------------------------------|-----------------------------------------------
+ Eigs =      10.2585552      0.0000000     15.0424822   |      1.5201614      0.0000000      2.2290664
+ Isotropic   =               8.4336791                  |                     1.2497426
+ Anisotropic =              13.3116524                  |                     1.9725838
+ -------------------------------------------------------|-----------------------------------------------
+ Cpu & wall time / sec            3.8            5.4
+
+ X   axis ( b3u symmetry)
+
+ Frequency =       0.1297732 / au
+
+ CCSD-LR iterations
+ ---------------------------------------------
+ Iter          Residuum            Cpu    Wall
+ ---------------------------------------------
+    1          0.0280801166514     0.4     0.6
+    2          0.0354153602060     0.4     0.6
+    3          0.0235377716304     0.4     0.6
+    4          0.0163527718965     0.4     0.6
+    5          0.0113859098483     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                    5                    5
+    6          0.0015595823488     0.4     0.6
+    7          0.0009306825827     0.4     0.6
+    8          0.0005945662184     0.4     0.6
+    9          0.0004051414483     0.4     0.6
+   10          0.0002784701457     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   10                    5
+   11          0.0000220223277     0.4     0.6
+   12          0.0000150864242     0.4     0.6
+   13          0.0000097180858     0.4     0.6
+   14          0.0000066818339     0.4     0.6
+   15          0.0000046172107     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   15                    5
+   16          0.0000007801446     0.4     0.6
+   17          0.0000004797518     0.4     0.6
+   18          0.0000003082847     0.4     0.6
+   19          0.0000002100379     0.4     0.6
+   20          0.0000001443270     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   20                    5
+   21          0.0000000128835     0.4     0.6
+ ---------------------------------------------
+ Iterations converged
+
+ Frequency =      -0.1297732 / au
+
+ CCSD-LR iterations
+ ---------------------------------------------
+ Iter          Residuum            Cpu    Wall
+ ---------------------------------------------
+    1          0.0200360546271     0.4     0.6
+    2          0.0287914821605     0.4     0.6
+    3          0.0053402219813     0.4     0.6
+    4          0.0048176843093     0.4     0.6
+    5          0.0012385109226     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                    5                    5
+    6          0.0004791880828     0.4     0.6
+    7          0.0001777567099     0.4     0.6
+    8          0.0000750100819     0.4     0.6
+    9          0.0000369013865     0.4     0.6
+   10          0.0000163626583     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   10                    5
+   11          0.0000021264587     0.4     0.6
+   12          0.0000010935944     0.4     0.6
+   13          0.0000002971387     0.4     0.6
+   14          0.0000001839941     0.4     0.6
+   15          0.0000000607795     0.4     0.6
+ ---------------------------------------------
+ Iterations converged
+
+ Z   axis ( b1u symmetry)
+
+ Frequency =       0.1297732 / au
+
+ CCSD-LR iterations
+ ---------------------------------------------
+ Iter          Residuum            Cpu    Wall
+ ---------------------------------------------
+    1          0.0361992933834     0.4     0.6
+    2          0.0478585909476     0.4     0.6
+    3          0.0284802823481     0.4     0.6
+    4          0.0187194622850     0.4     0.6
+    5          0.0120874214450     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                    5                    5
+    6          0.0014308602579     0.4     0.6
+    7          0.0006652127450     0.4     0.6
+    8          0.0003861736556     0.4     0.6
+    9          0.0002335704180     0.4     0.6
+   10          0.0001439603431     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   10                    5
+   11          0.0000097378488     0.4     0.6
+   12          0.0000072772449     0.4     0.6
+   13          0.0000041308142     0.4     0.6
+   14          0.0000026645506     0.4     0.6
+   15          0.0000016986451     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   15                    5
+   16          0.0000002556683     0.4     0.6
+   17          0.0000001305788     0.4     0.6
+   18          0.0000000768484     0.4     0.6
+ ---------------------------------------------
+ Iterations converged
+
+ Frequency =      -0.1297732 / au
+
+ CCSD-LR iterations
+ ---------------------------------------------
+ Iter          Residuum            Cpu    Wall
+ ---------------------------------------------
+    1          0.0252865945194     0.4     0.6
+    2          0.0423961187295     0.4     0.6
+    3          0.0133059703567     0.4     0.6
+    4          0.0110128779745     0.4     0.6
+    5          0.0060868203060     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                    5                    5
+    6          0.0004435810543     0.4     0.6
+    7          0.0001389609839     0.4     0.6
+    8          0.0000548631958     0.4     0.6
+    9          0.0000244186943     0.4     0.6
+   10          0.0000118530369     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   10                    5
+   11          0.0000015778023     0.4     0.6
+   12          0.0000007699225     0.4     0.6
+   13          0.0000002606507     0.4     0.6
+   14          0.0000001642725     0.4     0.6
+   15          0.0000000849327     0.4     0.6
+ ---------------------------------------------
+ Iterations converged
+
+ CCSD-LR dipole moments / hartree & Debye
+ --------------------------------
+ X       0.0000000      0.0000000
+ Y       0.0000000      0.0000000
+ Z       0.0000000      0.0000000
+ --------------------------------
+
+ Warning: you have not solved the response equations for all axes.  Please analyze the results carefully as the average and anisotropic polarizabilities are surely wrong.
+
+
+ CCSD Linear Response polarizability / au 
+ Frequency  =      -0.1297732 / au
+ Wavelength =    -351.1000003 / nm
+ -------------------------------------------------------|-----------------------------------------------
+                     atomic units (bohr^3)              |                   angstroms^3           
+                  X              Y              Z       |             X              Y              Z
+ -------------------------------------------------------|-----------------------------------------------
+ X           10.4049140      0.0000000      0.0000000   |      1.5418495      0.0000000      0.0000000
+ Y            0.0000000      0.0000000      0.0000000   |      0.0000000      0.0000000      0.0000000
+ Z            0.0000000      0.0000000     15.2900244   |      0.0000000      0.0000000      2.2657483
+ -------------------------------------------------------|-----------------------------------------------
+ Eigs =      10.4049140      0.0000000     15.2900244   |      1.5418495      0.0000000      2.2657483
+ Isotropic   =               8.5649794                  |                     1.2691993
+ Anisotropic =              13.5261115                  |                     2.0043634
+ -------------------------------------------------------|-----------------------------------------------
+ Cpu & wall time / sec            3.8            5.4
+
+ X   axis ( b3u symmetry)
+
+ Frequency =       0.1518778 / au
+
+ CCSD-LR iterations
+ ---------------------------------------------
+ Iter          Residuum            Cpu    Wall
+ ---------------------------------------------
+    1          0.0259448304000     0.4     0.6
+    2          0.0326477399653     0.4     0.6
+    3          0.0229584175901     0.4     0.6
+    4          0.0164714487941     0.4     0.6
+    5          0.0118398703006     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                    5                    5
+    6          0.0016192928960     0.4     0.6
+    7          0.0009871069193     0.4     0.6
+    8          0.0006539068888     0.4     0.6
+    9          0.0004573479859     0.4     0.6
+   10          0.0003231251498     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   10                    5
+   11          0.0000266373129     0.4     0.6
+   12          0.0000184317415     0.4     0.6
+   13          0.0000124991673     0.4     0.6
+   14          0.0000088647764     0.4     0.6
+   15          0.0000063257662     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   15                    5
+   16          0.0000011037815     0.4     0.6
+   17          0.0000006849049     0.4     0.6
+   18          0.0000004556179     0.4     0.6
+   19          0.0000003177412     0.4     0.6
+   20          0.0000002239652     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   20                    5
+   21          0.0000000212254     0.4     0.6
+ ---------------------------------------------
+ Iterations converged
+
+ Frequency =      -0.1518778 / au
+
+ CCSD-LR iterations
+ ---------------------------------------------
+ Iter          Residuum            Cpu    Wall
+ ---------------------------------------------
+    1          0.0169989070017     0.4     0.6
+    2          0.0248459534820     0.4     0.6
+    3          0.0053567909289     0.4     0.6
+    4          0.0046499769483     0.4     0.6
+    5          0.0015461857766     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                    5                    5
+    6          0.0004027011073     0.4     0.6
+    7          0.0001459649287     0.4     0.6
+    8          0.0000674364420     0.4     0.6
+    9          0.0000345955380     0.4     0.6
+   10          0.0000175860930     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   10                    5
+   11          0.0000016607593     0.4     0.6
+   12          0.0000009233008     0.4     0.6
+   13          0.0000002558908     0.4     0.6
+   14          0.0000001746088     0.4     0.6
+   15          0.0000000646472     0.4     0.6
+ ---------------------------------------------
+ Iterations converged
+
+ Z   axis ( b1u symmetry)
+
+ Frequency =       0.1518778 / au
+
+ CCSD-LR iterations
+ ---------------------------------------------
+ Iter          Residuum            Cpu    Wall
+ ---------------------------------------------
+    1          0.0335410541568     0.4     0.6
+    2          0.0437405364716     0.4     0.6
+    3          0.0279194273316     0.4     0.6
+    4          0.0189728121765     0.4     0.6
+    5          0.0127501002201     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                    5                    5
+    6          0.0015214779446     0.4     0.6
+    7          0.0007354302186     0.4     0.6
+    8          0.0004440668934     0.4     0.6
+    9          0.0002789772800     0.4     0.6
+   10          0.0001785659047     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   10                    5
+   11          0.0000128862230     0.4     0.6
+   12          0.0000094687825     0.4     0.6
+   13          0.0000057968646     0.4     0.6
+   14          0.0000038645847     0.4     0.6
+   15          0.0000025658268     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   15                    5
+   16          0.0000003812687     0.4     0.6
+   17          0.0000002045009     0.4     0.6
+   18          0.0000001261149     0.4     0.6
+   19          0.0000000800783     0.4     0.6
+ ---------------------------------------------
+ Iterations converged
+
+ Frequency =      -0.1518778 / au
+
+ CCSD-LR iterations
+ ---------------------------------------------
+ Iter          Residuum            Cpu    Wall
+ ---------------------------------------------
+    1          0.0214058531604     0.4     0.6
+    2          0.0368848404937     0.4     0.6
+    3          0.0143777682923     0.4     0.6
+    4          0.0121162145118     0.4     0.6
+    5          0.0079684481022     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                    5                    5
+    6          0.0003843872414     0.4     0.6
+    7          0.0001232914576     0.4     0.6
+    8          0.0000542694583     0.4     0.6
+    9          0.0000280334600     0.4     0.6
+   10          0.0000161845398     0.4     0.6
+ MICROCYCLE DIIS UPDATE:                   10                    5
+   11          0.0000014653471     0.4     0.6
+   12          0.0000006949769     0.4     0.6
+   13          0.0000002630572     0.4     0.6
+   14          0.0000001702580     0.4     0.6
+   15          0.0000000998271     0.4     0.6
+ ---------------------------------------------
+ Iterations converged
+
+ CCSD-LR dipole moments / hartree & Debye
+ --------------------------------
+ X       0.0000000      0.0000000
+ Y       0.0000000      0.0000000
+ Z       0.0000000      0.0000000
+ --------------------------------
+
+ Warning: you have not solved the response equations for all axes.  Please analyze the results carefully as the average and anisotropic polarizabilities are surely wrong.
+
+
+ CCSD Linear Response polarizability / au 
+ Frequency  =      -0.1518778 / au
+ Wavelength =    -300.0000066 / nm
+ -------------------------------------------------------|-----------------------------------------------
+                     atomic units (bohr^3)              |                   angstroms^3           
+                  X              Y              Z       |             X              Y              Z
+ -------------------------------------------------------|-----------------------------------------------
+ X           10.5658205      0.0000000      0.0000000   |      1.5656934      0.0000000      0.0000000
+ Y            0.0000000      0.0000000      0.0000000   |      0.0000000      0.0000000      0.0000000
+ Z            0.0000000      0.0000000     15.5623025   |      0.0000000      0.0000000      2.3060958
+ -------------------------------------------------------|-----------------------------------------------
+ Eigs =      10.5658205      0.0000000     15.5623025   |      1.5656934      0.0000000      2.3060958
+ Isotropic   =               8.7093743                  |                     1.2905964
+ Anisotropic =              13.7620248                  |                     2.0393221
+ -------------------------------------------------------|-----------------------------------------------
+ Cpu & wall time / sec            3.8            5.4
+
+ Parallel integral file used       4 records with       0 large values
+
+
+ Task  times  cpu:      172.6s     wall:      242.6s
+ Summary of allocated global arrays
+-----------------------------------
+  No active global arrays
+
+
+
+                         GA Statistics for process    0
+                         ------------------------------
+
+       create   destroy   get      put      acc     scatter   gather  read&inc
+calls: 6.08e+04 6.08e+04 7.66e+06 5.02e+04 1.73e+06    0        0     3.51e+07 
+number of processes/call 1.09e+00 1.11e+00 1.03e+00 0.00e+00 0.00e+00
+bytes total:             6.39e+09 1.07e+08 8.23e+08 0.00e+00 0.00e+00 2.81e+08
+bytes remote:            3.79e+09 7.96e+07 6.06e+08 0.00e+00 0.00e+00 0.00e+00
+Max memory consumed for GA by this process: 2712632 bytes
+MA_summarize_allocated_blocks: starting scan ...
+MA_summarize_allocated_blocks: scan completed: 0 heap blocks, 0 stack blocks
+MA usage statistics:
+
+	allocation statistics:
+					      heap	     stack
+					      ----	     -----
+	current number of blocks	         0	         0
+	maximum number of blocks	        18	        46
+	current total bytes		         0	         0
+	maximum total bytes		   1062392	  22509976
+	maximum total K-bytes		      1063	     22510
+	maximum total M-bytes		         2	        23
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+
+
+
+                                     CITATION
+                                     --------
+                Please cite the following reference when publishing
+                           results obtained with NWChem:
+
+                 M. Valiev, E.J. Bylaska, N. Govind, K. Kowalski,
+              T.P. Straatsma, H.J.J. van Dam, D. Wang, J. Nieplocha,
+                        E. Apra, T.L. Windus, W.A. de Jong
+                 "NWChem: a comprehensive and scalable open-source
+                  solution for large scale molecular simulations"
+                      Comput. Phys. Commun. 181, 1477 (2010)
+                           doi:10.1016/j.cpc.2010.04.018
+
+                              AUTHORS & CONTRIBUTORS
+                              ----------------------
+      E. J. Bylaska, W. A. de Jong, N. Govind, K. Kowalski, T. P. Straatsma,
+     M. Valiev, H. J. J. Van Dam, D. Wang, E. Apra, T. L. Windus, J. Hammond,
+     J. Autschbach, P. Nichols, S. Hirata, M. T. Hackler, Y. Zhao, P.-D. Fan,
+      R. J. Harrison, M. Dupuis, D. M. A. Smith, K. Glaesemann, J. Nieplocha,
+      V. Tipparaju, M. Krishnan, A. Vazquez-Mayagoitia, L. Jensen, M. Swart,
+      Q. Wu, T. Van Voorhis, A. A. Auer, M. Nooijen, L. D. Crosby, E. Brown,
+             G. Cisneros, G. I. Fann, H. Fruchtl, J. Garza, K. Hirao,
+        R. Kendall, J. A. Nichols, K. Tsemekhman, K. Wolinski, J. Anchell,
+       D. Bernholdt, P. Borowski, T. Clark, D. Clerc, H. Dachsel, M. Deegan,
+        K. Dyall, D. Elwood, E. Glendening, M. Gutowski, A. Hess, J. Jaffe,
+        B. Johnson, J. Ju, R. Kobayashi, R. Kutteh, Z. Lin, R. Littlefield,
+    X. Long, B. Meng, T. Nakajima, S. Niu, L. Pollack, M. Rosing, G. Sandrone,
+       M. Stave, H. Taylor, G. Thomas, J. H. van Lenthe, A. Wong, Z. Zhang.
+
+ Total times  cpu:      172.6s     wall:      242.6s

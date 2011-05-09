@@ -1,0 +1,1493 @@
+ argument  1 = grad_ozone.nw
+
+
+
+============================== echo of input deck ==============================
+echo
+
+start grad_ozone
+
+#
+# Ozone --- check C2V symmetry for all analytic gradient methods
+#           SCF RHF/ROHF/UHF
+#           MP2 RHF/UHF
+#
+
+geometry units au noprint  # 3-21g RHF singlet optimized geometry
+  symmetry c2v
+  O       0.000000   0.000000  -0.769844
+  O       0.000000   1.961067   0.384922
+end
+
+basis noprint
+  O library 6-31g*
+end
+
+title "case s7: Ozone --- RHF SCF energy without symmetry"
+scf; print low; sym off; adapt off; end
+task scf
+
+title "case s1: Ozone --- RHF SCF energy with symmetry"
+scf; sym on; adapt on; end
+task scf
+
+title "case s5: Ozone --- RHF SCF analytic gradients with symmetry"
+task scf gradient
+
+title "case s6: Ozone --- RHF SCF numerical gradients with symmetry"
+scf; print none; end
+task scf gradient numerical
+
+title "case m1: Ozone --- Semi-direct MP2 energy with symmetry"
+task mp2
+
+title "case m2: Ozone --- Direct MP2 energy with symmetry"
+task direct_mp2
+
+title "case m3: Ozone --- Semi-direct analytic MP2 gradient with symmetry"
+task mp2 gradient
+
+title "case m4: Ozone --- Semi-direct numerical MP2 gradient with symmetry"
+mp2; print none; end
+task mp2 gradient numerical
+
+title "case s11: Ozone --- ROHF triplet SCF energy without symmetry"
+scf; print low; triplet; sym off; adapt off; end
+task scf
+
+title "case s8: Ozone --- ROHF triplet SCF energy with symmetry"
+scf; sym on; adapt on; end
+task scf
+
+title "case s9: Ozone --- ROHF triplet SCF analytic gradients with symmetry"
+task scf gradient
+
+title "case s10: Ozone --- ROHF triplet SCF numerical gradients with symmetry"
+scf; print none; end
+task scf gradient numerical
+
+title "case s16: Ozone --- UHF triplet SCF energy without symmetry"
+scf; print low; uhf; sym off; adapt off; end
+task scf
+
+title "case s12: Ozone --- UHF triplet SCF energy with symmetry"
+scf; sym on; adapt on; end
+task scf
+
+title "case s14: Ozone --- UHF triplet SCF analytic gradients with symmetry"
+task scf gradient
+
+title "case s15: Ozone --- UHF triplet SCF numerical gradients with symmetry"
+scf; print none; end
+task scf gradient numerical
+
+title "case m5: Ozone --- Semi-direct analytic UMP2 gradient with symmetry"
+mp2; print default; end
+task mp2 gradient
+
+title "case m6: Ozone --- Semi-direct numerical UMP2 gradient with symmetry"
+mp2; print none; end
+task mp2 gradient numerical
+
+================================================================================
+
+
+                                         
+                                         
+
+
+              Northwest Computational Chemistry Package (NWChem) 6.0
+              ------------------------------------------------------
+
+
+                    Environmental Molecular Sciences Laboratory
+                       Pacific Northwest National Laboratory
+                                Richland, WA 99352
+
+                              Copyright (c) 1994-2010
+                       Pacific Northwest National Laboratory
+                            Battelle Memorial Institute
+
+             NWChem is an open-source computational chemistry package
+                        distributed under the terms of the
+                      Educational Community License (ECL) 2.0
+             A copy of the license is included with this distribution
+                              in the LICENSE.TXT file
+
+                                  ACKNOWLEDGMENT
+                                  --------------
+
+            This software and its documentation were developed at the
+            EMSL at Pacific Northwest National Laboratory, a multiprogram
+            national laboratory, operated for the U.S. Department of Energy
+            by Battelle under Contract Number DE-AC05-76RL01830. Support
+            for this work was provided by the Department of Energy Office
+            of Biological and Environmental Research, Office of Basic
+            Energy Sciences, and the Office of Advanced Scientific Computing.
+
+
+           Job information
+           ---------------
+
+    hostname      = arcen
+    program       = /home/d3y133/nwchem-releases/nwchem-6.0-gfortran/bin/LINUX64/nwchem
+    date          = Fri Aug  6 13:53:18 2010
+
+    compiled      = Fri_Aug_06_13:42:42_2010
+    source        = /home/d3y133/nwchem-releases/nwchem-6.0-gfortran
+    nwchem branch = 6.0
+    input         = grad_ozone.nw
+    prefix        = grad_ozone.
+    data base     = ./grad_ozone.db
+    status        = startup
+    nproc         =        4
+    time left     =     -1s
+
+
+
+           Memory information
+           ------------------
+
+    heap     =   13107201 doubles =    100.0 Mbytes
+    stack    =   13107201 doubles =    100.0 Mbytes
+    global   =   26214400 doubles =    200.0 Mbytes (distinct from heap & stack)
+    total    =   52428802 doubles =    400.0 Mbytes
+    verify   = yes
+    hardfail = no 
+
+
+           Directory information
+           ---------------------
+
+  0 permanent = .
+  0 scratch   = .
+
+
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+ Turning off AUTOSYM since
+ SYMMETRY directive was detected!
+
+  library name resolved from: .nwchemrc
+  library file name is: </home/d3y133/nwchem-releases/nwchem-6.0-gfortran/QA/../src/basis/libraries/>
+  
+                case s7: Ozone --- RHF SCF energy without symmetry
+                --------------------------------------------------
+                                 NWChem SCF Module
+                                 -----------------
+
+
+                case s7: Ozone --- RHF SCF energy without symmetry
+
+
+
+  ao basis        = "ao basis"
+  functions       =    45
+  atoms           =     3
+  closed shells   =    12
+  open shells     =     0
+  charge          =   0.00
+  wavefunction    = RHF 
+  input vectors   = atomic
+  output vectors  = ./grad_ozone.movecs
+  use symmetry    = F
+  symmetry adapt  = F
+
+
+ Forming initial guess at       0.0s
+
+
+ Starting SCF solution at       0.1s
+
+
+
+       Final RHF  results 
+       ------------------ 
+
+         Total SCF energy =   -224.261436389902
+      One-electron energy =   -452.039969252247
+      Two-electron energy =    155.216941615407
+ Nuclear repulsion energy =     72.561591246938
+
+        Time for solution =      0.2s
+
+
+
+ Task  times  cpu:        0.2s     wall:        0.3s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+                  case s1: Ozone --- RHF SCF energy with symmetry
+                  -----------------------------------------------
+                                 NWChem SCF Module
+                                 -----------------
+
+
+                  case s1: Ozone --- RHF SCF energy with symmetry
+
+
+
+  ao basis        = "ao basis"
+  functions       =    45
+  atoms           =     3
+  closed shells   =    12
+  open shells     =     0
+  charge          =   0.00
+  wavefunction    = RHF 
+  input vectors   = ./grad_ozone.movecs
+  output vectors  = ./grad_ozone.movecs
+  use symmetry    = T
+  symmetry adapt  = T
+
+
+ Forming initial guess at       0.3s
+
+
+ Starting SCF solution at       0.3s
+
+
+
+       Final RHF  results 
+       ------------------ 
+
+         Total SCF energy =   -224.261436419304
+      One-electron energy =   -452.039969252247
+      Two-electron energy =    155.216941586005
+ Nuclear repulsion energy =     72.561591246938
+
+        Time for solution =      0.0s
+
+
+
+ Task  times  cpu:        0.1s     wall:        0.1s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+            case s5: Ozone --- RHF SCF analytic gradients with symmetry
+            -----------------------------------------------------------
+                                 NWChem SCF Module
+                                 -----------------
+
+
+            case s5: Ozone --- RHF SCF analytic gradients with symmetry
+
+
+
+  ao basis        = "ao basis"
+  functions       =    45
+  atoms           =     3
+  closed shells   =    12
+  open shells     =     0
+  charge          =   0.00
+  wavefunction    = RHF 
+  input vectors   = ./grad_ozone.movecs
+  output vectors  = ./grad_ozone.movecs
+  use symmetry    = T
+  symmetry adapt  = T
+
+
+  The SCF is already converged 
+
+         Total SCF energy =   -224.261436419304
+
+                              NWChem Gradients Module
+                              -----------------------
+
+
+
+                         RHF ENERGY GRADIENTS
+
+    atom               coordinates                        gradient
+                 x          y          z           x          y          z
+   1 O       0.000000   0.000000  -0.769844    0.000000   0.000000   0.000077
+   2 O       0.000000   1.961067   0.384922    0.000000   0.000008  -0.000038
+   3 O       0.000000  -1.961067   0.384922    0.000000  -0.000008  -0.000038
+
+
+ Task  times  cpu:        0.1s     wall:        0.1s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+           case s6: Ozone --- RHF SCF numerical gradients with symmetry
+           ------------------------------------------------------------
+                         NWChem Numerical Gradients Module
+                         ---------------------------------
+
+
+ No. of totally-symmetric internal modes =   2
+
+ Reference energy        -224.26143642
+
+
+ Saving state for scf with suffix numg
+        ./grad_ozone.movecs
+
+ Finite difference step  1.00000D-02
+ Use five point formula F
+
+ step     1 energy        -224.26139687
+ step    -1 energy        -224.26139627
+            gradient        -0.000030
+ step     2 energy        -224.26138177
+ step    -2 energy        -224.26138396
+            gradient         0.000109
+
+
+                         SCF ENERGY GRADIENTS
+
+    atom               coordinates                        gradient
+                 x          y          z           x          y          z
+   1 O       0.000000   0.000000  -0.769844    0.000000   0.000000   0.000089
+   2 O       0.000000   1.961067   0.384922    0.000000  -0.000021  -0.000045
+   3 O       0.000000  -1.961067   0.384922    0.000000   0.000021  -0.000045
+
+
+
+ Deleting state for scf with suffix numg
+        ./grad_ozone.movecs
+
+
+ Task  times  cpu:        0.6s     wall:        0.8s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+              case m1: Ozone --- Semi-direct MP2 energy with symmetry
+              -------------------------------------------------------
+                   NWChem MP2 Semi-direct Energy/Gradient Module
+                   ---------------------------------------------
+
+
+              case m1: Ozone --- Semi-direct MP2 energy with symmetry
+
+
+  Basis functions       =     45
+  Molecular orbitals    =     45
+  Frozen core           =      0
+  Frozen virtuals       =      0
+  Active alpha occupied =     12
+  Active beta occupied  =     12
+  Active alpha virtual  =     33
+  Active beta virtual   =     33
+  Use MO symmetry       = T
+  Use skeleton AO sym   = T
+
+  AO/Fock/Back tols     =   1.0D-09  1.0D-09  1.0D-09
+
+ GA uses MA = F    GA memory limited = T
+
+ Available: 
+  local mem=  2.62D+07
+ global mem=  2.62D+07
+ local disk=  1.82D+09
+   1 passes of  12:         667271                      15573                    114963.
+
+ Semi-direct pass number   1 of   1  for RHF alpha+beta  at        1.6s
+Node 0 wrote      0.9 Mb in      0.0 s     Agg I/O rate:   794.1 Mb/s
+ Done moints_semi at        1.7s
+ Done maket at        1.8s
+ Done multipass loop at        1.8s
+
+
+          -------------------------------------------
+          SCF energy                -224.261436419704
+          Correlation energy          -0.595170661772
+          Singlet pairs               -0.344465967669
+          Triplet pairs               -0.250704694103
+          Total MP2 energy          -224.856607081476
+          -------------------------------------------
+
+ -----------------------
+ Performance information
+ -----------------------
+
+ Timer overhead =  3.00D-07 seconds/call
+
+               Nr. of calls         CPU time (s)                 Wall time (s)                GFlops
+             ---------------    -------------------     ------------------------------   -------------------
+Name         Min   Avg   Max    Min     Avg     Max     Min     Avg     Max   Mx/calls   Min     Max     Sum
+mp2: moin     1     1     1   0.15    0.15    0.15     0.15    0.15    0.15    0.15      0.0     0.0     0.0   
+mp2: make     1     1     1   1.70E-2 1.87E-2 2.10E-2  2.16E-2 2.16E-2 2.16E-2 2.16E-2   0.0     0.0     0.0   
+mp2: tota     1     1     1   0.20    0.20    0.21     0.24    0.24    0.24    0.24      0.0     0.0     0.0   
+
+ The average no. of pstat calls per process was 3.00D+00
+ with a timing overhead of 9.00D-07s
+
+
+ Task  times  cpu:        0.3s     wall:        0.4s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+                case m2: Ozone --- Direct MP2 energy with symmetry
+                --------------------------------------------------
+                          Direct MP2
+                          ----------
+          Basis functions:                       45
+          Shells:                                18
+          Block length:                          32
+          Active occupied range:           1 -   12
+          Active virtual range:           13 -   45
+          MO coefficients read from:  ./grad_ozone.movecs      
+          Operator matrices in core:             78
+          AO passes required:                     1
+          Use AO Integral blocking
+          Twofold algorithm used
+
+     Pass:    1     Index range:    1  -   12     Time:      0.09
+
+
+          -------------------------------------------
+          SCF energy                -224.261436419704
+          Correlation energy          -0.595170661762
+          Total MP2 energy          -224.856607081466
+          -------------------------------------------
+
+
+          Total MP2 time:           0.10
+
+ Task  times  cpu:        0.1s     wall:        0.1s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+        case m3: Ozone --- Semi-direct analytic MP2 gradient with symmetry
+        ------------------------------------------------------------------
+                   NWChem MP2 Semi-direct Energy/Gradient Module
+                   ---------------------------------------------
+
+
+        case m3: Ozone --- Semi-direct analytic MP2 gradient with symmetry
+
+
+  Basis functions       =     45
+  Molecular orbitals    =     45
+  Frozen core           =      0
+  Frozen virtuals       =      0
+  Active alpha occupied =     12
+  Active beta occupied  =     12
+  Active alpha virtual  =     33
+  Active beta virtual   =     33
+  Use MO symmetry       = T
+  Use skeleton AO sym   = T
+
+  AO/Fock/Back tols     =   1.0D-09  1.0D-09  1.0D-09
+
+ GA uses MA = F    GA memory limited = T
+
+ Available: 
+  local mem=  2.62D+07
+ global mem=  2.62D+07
+ local disk=  1.82D+09
+   1 passes of  12:        2848242                      17638                    202210.
+
+ Semi-direct pass number   1 of   1  for RHF alpha+beta  at        2.0s
+Node 0 wrote      0.9 Mb in      0.0 s     Agg I/O rate:  1986.1 Mb/s
+ Done moints_semi at        2.1s
+ Done maket at        2.1s
+ Done pijab at        2.1s
+ Done wijab at        2.1s
+ Done lai at        2.2s
+ Done nonsep at        2.5s
+ Done multipass loop at        2.5s
+
+
+          -------------------------------------------
+          SCF energy                -224.261436419704
+          Correlation energy          -0.595170661772
+          Singlet pairs               -0.344465967669
+          Triplet pairs               -0.250704694103
+          Total MP2 energy          -224.856607081476
+          -------------------------------------------
+
+                                NWChem CPHF Module
+                                ------------------
+
+
+    scftype = RHF 
+    nclosed =   12
+      nopen =    0
+  variables =      396
+  tolerance =   1.0D-04
+  max. iter =  100
+
+
+ #quartets = 8.909D+03 #integrals = 1.656D+05 #direct =  0.0% #cached =100.0%
+
+
+ Integral file          = ./grad_ozone.aoints.0
+ Record size in doubles =  65536        No. of integs per rec  =  43688
+ Max. records in memory =      3        Max. records in file   =  26331
+ No. of bits per label  =      8        No. of bits per value  =     64
+
+
+File balance: exchanges=     0  moved=     0  time=   0.0
+
+
+            ----- linear solve (tol: 1.0E-04 prod-acc: 1.1E-09) -----
+
+               iter nbas    rnorm     rnorm-scal   ratio     time
+               ---- ---- ----------- ----------- --------- -------
+                  1    1  7.4075E-02  3.4998E-01    0.0000     2.2
+                  2    2  3.2939E-02  1.5563E-01    0.4447     2.2
+                  3    3  1.3092E-02  6.1855E-02    0.3975     2.2
+                  4    4  4.2312E-03  1.9991E-02    0.3232     2.2
+                  5    5  7.1615E-04  3.3836E-03    0.1693     2.2
+                  6    6  1.5949E-04  7.5355E-04    0.2227     2.2
+                  7    7  3.5171E-05  1.6617E-04    0.2205     2.2
+                  8    8  6.2600E-06  2.9577E-05    0.1780     2.2
+
+ CPHF converged to   3.0D-05 in    8 iters
+
+
+ Parallel integral file used       6 records with       0 large values
+
+                Dipole Moments (a.u.)
+                --------------
+         Nuclear       SCF       SCF+MP2
+       ----------- ----------- -----------
+ X       0.000000    0.000000    0.000000
+ Y       0.000000    0.000000    0.000000
+ Z       0.000000   -0.324932   -0.206271
+
+
+ MP2 RHF      natural orbital occupation numbers
+
+
+              1      
+    1    1.9999
+    2    1.9999
+    3    1.9999
+    4    1.9896
+    5    1.9855
+    6    1.9805
+    7    1.9746
+    8    1.9704
+    9    1.9599
+   10    1.9572
+   11    1.9439
+   12    1.8860
+   13    0.1284
+   14    0.0424
+   15    0.0409
+   16    0.0198
+   17    0.0147
+   18    0.0121
+   19    0.0093
+   20    0.0082
+   21    0.0079
+   22    0.0074
+   23    0.0067
+   24    0.0064
+   25    0.0062
+   26    0.0051
+   27    0.0049
+   28    0.0041
+   29    0.0041
+   30    0.0039
+   31    0.0038
+   32    0.0031
+   33    0.0023
+   34    0.0020
+   35    0.0018
+   36    0.0016
+   37    0.0015
+   38    0.0012
+   39    0.0011
+   40    0.0007
+   41    0.0002
+   42    0.0002
+   43    0.0001
+   44    0.0001
+   45    0.0001
+
+  MP2 natural orbitals output to ./grad_ozone.mp2nos
+
+  Using symmetry
+
+
+                         mp2 ENERGY GRADIENTS
+
+    atom               coordinates                        gradient
+                 x          y          z           x          y          z
+   1 O       0.000000   0.000000  -0.769844    0.000000   0.000000   0.126491
+   2 O       0.000000   1.961067   0.384922    0.000000  -0.106494  -0.063245
+   3 O       0.000000  -1.961067   0.384922    0.000000   0.106494  -0.063245
+
+                 ----------------------------------------
+                 |  Time  |  1-e(secs)   |  2-e(secs)   |
+                 ----------------------------------------
+                 |  CPU   |       0.00   |       0.10   |
+                 ----------------------------------------
+                 |  WALL  |       0.00   |       0.10   |
+                 ----------------------------------------
+ -----------------------
+ Performance information
+ -----------------------
+
+ Timer overhead =  3.00D-07 seconds/call
+
+               Nr. of calls         CPU time (s)                 Wall time (s)                GFlops
+             ---------------    -------------------     ------------------------------   -------------------
+Name         Min   Avg   Max    Min     Avg     Max     Min     Avg     Max   Mx/calls   Min     Max     Sum
+mp2: moin     1     1     1   0.15    0.15    0.15     0.15    0.15    0.15    0.15      0.0     0.0     0.0   
+mp2: make     1     1     1   1.90E-2 2.12E-2 2.30E-2  2.30E-2 2.31E-2 2.31E-2 2.31E-2   0.0     0.0     0.0   
+mp2: pija     1     1     1    0.0    7.50E-4 1.00E-3  1.57E-3 1.63E-3 1.65E-3 1.65E-3   0.0     0.0     0.0   
+mp2: wija     1     1     1   1.00E-3 1.75E-3 2.00E-3  1.71E-3 1.76E-3 1.78E-3 1.78E-3   0.0     0.0     0.0   
+mp2: lai      1     1     1   3.10E-2 3.17E-2 3.30E-2  3.26E-2 3.27E-2 3.27E-2 3.27E-2   0.0     0.0     0.0   
+mp2: back     1     1     1   2.50E-2 2.55E-2 2.60E-2  2.75E-2 2.75E-2 2.75E-2 2.75E-2   0.0     0.0     0.0   
+mp2: nons     1     1     1   0.20    0.23    0.27     0.20    0.23    0.27    0.27      0.0     0.0     0.0   
+mp2: laif     1     1     1   5.60E-2 5.62E-2 5.70E-2  5.69E-2 5.69E-2 5.69E-2 5.69E-2   0.0     0.0     0.0   
+mp2: cphf     1     1     1   0.10    0.11    0.11     0.16    0.16    0.16    0.16      0.0     0.0     0.0   
+mp2: wijf     1     1     1   5.50E-2 5.62E-2 5.70E-2  5.68E-2 5.68E-2 5.68E-2 5.68E-2   0.0     0.0     0.0   
+mp2: sep      1     1     1   0.11    0.11    0.11     0.11    0.11    0.11    0.11      0.0     0.0     0.0   
+mp2: tota     1     1     1   0.86    0.88    0.90      1.0     1.0     1.0     1.0      0.0     0.0     0.0   
+
+ The average no. of pstat calls per process was 1.20D+01
+ with a timing overhead of 3.60D-06s
+
+
+ Task  times  cpu:        0.9s     wall:        1.0s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+        case m4: Ozone --- Semi-direct numerical MP2 gradient with symmetry
+        -------------------------------------------------------------------
+                         NWChem Numerical Gradients Module
+                         ---------------------------------
+
+
+ No. of totally-symmetric internal modes =   2
+
+ Reference energy        -224.85660708
+
+
+ Saving state for mp2 with suffix numg
+        ./grad_ozone.movecs
+
+ Finite difference step  1.00000D-02
+ Use five point formula F
+
+ step     1 energy        -224.85807334
+ step    -1 energy        -224.85506061
+            gradient        -0.150637
+ step     2 energy        -224.85500928
+ step    -2 energy        -224.85810795
+            gradient         0.154934
+
+
+                         MP2 ENERGY GRADIENTS
+
+    atom               coordinates                        gradient
+                 x          y          z           x          y          z
+   1 O       0.000000   0.000000  -0.769844    0.000000   0.000000   0.126503
+   2 O       0.000000   1.961067   0.384922    0.000000  -0.106516  -0.063251
+   3 O       0.000000  -1.961067   0.384922    0.000000   0.106516  -0.063251
+
+
+
+ Deleting state for mp2 with suffix numg
+        ./grad_ozone.movecs
+
+
+ Task  times  cpu:        1.6s     wall:        2.1s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+           case s11: Ozone --- ROHF triplet SCF energy without symmetry
+           ------------------------------------------------------------
+                                 NWChem SCF Module
+                                 -----------------
+
+
+           case s11: Ozone --- ROHF triplet SCF energy without symmetry
+
+
+
+  ao basis        = "ao basis"
+  functions       =    45
+  atoms           =     3
+  closed shells   =    11
+  open shells     =     2
+  charge          =   0.00
+  wavefunction    = ROHF
+  input vectors   = ./grad_ozone.movecs
+  output vectors  = ./grad_ozone.movecs
+  use symmetry    = F
+  symmetry adapt  = F
+
+
+ Forming initial guess at       5.0s
+
+
+ Starting SCF solution at       5.0s
+
+
+
+       Final ROHF results 
+       ------------------ 
+
+         Total SCF energy =   -224.282144711150
+      One-electron energy =   -452.591000758873
+      Two-electron energy =    155.747264800785
+ Nuclear repulsion energy =     72.561591246938
+
+        Time for solution =      0.3s
+
+
+
+ Task  times  cpu:        0.4s     wall:        0.9s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+             case s8: Ozone --- ROHF triplet SCF energy with symmetry
+             --------------------------------------------------------
+                                 NWChem SCF Module
+                                 -----------------
+
+
+             case s8: Ozone --- ROHF triplet SCF energy with symmetry
+
+
+
+  ao basis        = "ao basis"
+  functions       =    45
+  atoms           =     3
+  closed shells   =    11
+  open shells     =     2
+  charge          =   0.00
+  wavefunction    = ROHF
+  input vectors   = ./grad_ozone.movecs
+  output vectors  = ./grad_ozone.movecs
+  use symmetry    = T
+  symmetry adapt  = T
+
+
+ Forming initial guess at       5.8s
+
+
+ Starting SCF solution at       5.8s
+
+
+
+       Final ROHF results 
+       ------------------ 
+
+         Total SCF energy =   -224.282144708231
+      One-electron energy =   -452.591000758873
+      Two-electron energy =    155.747264803705
+ Nuclear repulsion energy =     72.561591246938
+
+        Time for solution =      0.1s
+
+
+
+ Task  times  cpu:        0.1s     wall:        0.1s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+       case s9: Ozone --- ROHF triplet SCF analytic gradients with symmetry
+       --------------------------------------------------------------------
+                                 NWChem SCF Module
+                                 -----------------
+
+
+       case s9: Ozone --- ROHF triplet SCF analytic gradients with symmetry
+
+
+
+  ao basis        = "ao basis"
+  functions       =    45
+  atoms           =     3
+  closed shells   =    11
+  open shells     =     2
+  charge          =   0.00
+  wavefunction    = ROHF
+  input vectors   = ./grad_ozone.movecs
+  output vectors  = ./grad_ozone.movecs
+  use symmetry    = T
+  symmetry adapt  = T
+
+
+  The SCF is already converged 
+
+         Total SCF energy =   -224.282144708231
+
+                              NWChem Gradients Module
+                              -----------------------
+
+
+
+                         ROHF ENERGY GRADIENTS
+
+    atom               coordinates                        gradient
+                 x          y          z           x          y          z
+   1 O       0.000000   0.000000  -0.769844    0.000000   0.000000   0.221825
+   2 O       0.000000   1.961067   0.384922    0.000000  -0.123709  -0.110912
+   3 O       0.000000  -1.961067   0.384922    0.000000   0.123709  -0.110912
+
+
+ Task  times  cpu:        0.1s     wall:        0.1s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+      case s10: Ozone --- ROHF triplet SCF numerical gradients with symmetry
+      ----------------------------------------------------------------------
+                         NWChem Numerical Gradients Module
+                         ---------------------------------
+
+
+ No. of totally-symmetric internal modes =   2
+
+ Reference energy        -224.28214471
+
+
+ Saving state for scf with suffix numg
+        ./grad_ozone.movecs
+
+ Finite difference step  1.00000D-02
+ Use five point formula F
+
+ step     1 energy        -224.28385180
+ step    -1 energy        -224.28035215
+            gradient        -0.174982
+ step     2 energy        -224.27937123
+ step    -2 energy        -224.28480505
+            gradient         0.271691
+
+
+                         SCF ENERGY GRADIENTS
+
+    atom               coordinates                        gradient
+                 x          y          z           x          y          z
+   1 O       0.000000   0.000000  -0.769844    0.000000   0.000000   0.221835
+   2 O       0.000000   1.961067   0.384922    0.000000  -0.123731  -0.110917
+   3 O       0.000000  -1.961067   0.384922    0.000000   0.123731  -0.110917
+
+
+
+ Deleting state for scf with suffix numg
+        ./grad_ozone.movecs
+
+
+ Task  times  cpu:        1.0s     wall:        1.4s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+            case s16: Ozone --- UHF triplet SCF energy without symmetry
+            -----------------------------------------------------------
+                                 NWChem SCF Module
+                                 -----------------
+
+
+            case s16: Ozone --- UHF triplet SCF energy without symmetry
+
+
+
+  ao basis        = "ao basis"
+  functions       =    45
+  atoms           =     3
+  alpha electrons =    13
+  beta  electrons =    11
+  charge          =   0.00
+  wavefunction    = UHF 
+  input vectors   = ./grad_ozone.movecs
+  output vectors  = ./grad_ozone.movecs
+  use symmetry    = F
+  symmetry adapt  = F
+
+
+ Forming initial guess at       7.4s
+
+  movecs_read: failing reading from ./grad_ozone.movecs
+
+ Starting SCF solution at       7.4s
+
+
+
+       Final UHF  results 
+       ------------------ 
+
+         Total SCF energy =   -224.293317730063
+      One electron energy =   -452.578463261187
+      Two electron energy =    155.723554284187
+ Nuclear repulsion energy =     72.561591246938
+
+                       Sz =      1.0000
+                 Sz(Sz+1) =      2.0000
+                      S^2 =      2.0160
+
+        Time for solution =      0.2s
+
+
+
+ Task  times  cpu:        0.2s     wall:        0.3s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+             case s12: Ozone --- UHF triplet SCF energy with symmetry
+             --------------------------------------------------------
+                                 NWChem SCF Module
+                                 -----------------
+
+
+             case s12: Ozone --- UHF triplet SCF energy with symmetry
+
+
+
+  ao basis        = "ao basis"
+  functions       =    45
+  atoms           =     3
+  alpha electrons =    13
+  beta  electrons =    11
+  charge          =   0.00
+  wavefunction    = UHF 
+  input vectors   = ./grad_ozone.movecs
+  output vectors  = ./grad_ozone.movecs
+  use symmetry    = T
+  symmetry adapt  = T
+
+
+ Forming initial guess at       7.7s
+
+
+ Starting SCF solution at       7.7s
+
+
+
+       Final UHF  results 
+       ------------------ 
+
+         Total SCF energy =   -224.293317731960
+      One electron energy =   -452.578463261186
+      Two electron energy =    155.723554282288
+ Nuclear repulsion energy =     72.561591246938
+
+                       Sz =      1.0000
+                 Sz(Sz+1) =      2.0000
+                      S^2 =      2.0160
+
+        Time for solution =      0.1s
+
+
+
+ Task  times  cpu:        0.1s     wall:        0.1s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+       case s14: Ozone --- UHF triplet SCF analytic gradients with symmetry
+       --------------------------------------------------------------------
+                                 NWChem SCF Module
+                                 -----------------
+
+
+       case s14: Ozone --- UHF triplet SCF analytic gradients with symmetry
+
+
+
+  ao basis        = "ao basis"
+  functions       =    45
+  atoms           =     3
+  alpha electrons =    13
+  beta  electrons =    11
+  charge          =   0.00
+  wavefunction    = UHF 
+  input vectors   = ./grad_ozone.movecs
+  output vectors  = ./grad_ozone.movecs
+  use symmetry    = T
+  symmetry adapt  = T
+
+
+  The SCF is already converged 
+
+         Total SCF energy =   -224.293317731960
+
+                              NWChem Gradients Module
+                              -----------------------
+
+
+
+                         UHF ENERGY GRADIENTS
+
+    atom               coordinates                        gradient
+                 x          y          z           x          y          z
+   1 O       0.000000   0.000000  -0.769844    0.000000   0.000000   0.221192
+   2 O       0.000000   1.961067   0.384922    0.000000  -0.122908  -0.110596
+   3 O       0.000000  -1.961067   0.384922    0.000000   0.122908  -0.110596
+
+
+ Task  times  cpu:        0.1s     wall:        0.1s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+       case s15: Ozone --- UHF triplet SCF numerical gradients with symmetry
+       ---------------------------------------------------------------------
+                         NWChem Numerical Gradients Module
+                         ---------------------------------
+
+
+ No. of totally-symmetric internal modes =   2
+
+ Reference energy        -224.29331773
+
+
+ Saving state for scf with suffix numg
+        ./grad_ozone.movecs
+
+ Finite difference step  1.00000D-02
+ Use five point formula F
+
+ step     1 energy        -224.29501332
+ step    -1 energy        -224.29153632
+            gradient        -0.173850
+ step     2 energy        -224.29055174
+ step    -2 energy        -224.29597006
+            gradient         0.270916
+
+
+                         SCF ENERGY GRADIENTS
+
+    atom               coordinates                        gradient
+                 x          y          z           x          y          z
+   1 O       0.000000   0.000000  -0.769844    0.000000   0.000000   0.221202
+   2 O       0.000000   1.961067   0.384922    0.000000  -0.122930  -0.110601
+   3 O       0.000000  -1.961067   0.384922    0.000000   0.122930  -0.110601
+
+
+
+ Deleting state for scf with suffix numg
+        ./grad_ozone.movecs
+
+
+ Task  times  cpu:        1.2s     wall:        1.6s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+        case m5: Ozone --- Semi-direct analytic UMP2 gradient with symmetry
+        -------------------------------------------------------------------
+                   NWChem MP2 Semi-direct Energy/Gradient Module
+                   ---------------------------------------------
+
+
+        case m5: Ozone --- Semi-direct analytic UMP2 gradient with symmetry
+
+
+  Basis functions       =     45
+  Molecular orbitals    =     45
+  Frozen core           =      0
+  Frozen virtuals       =      0
+  Active alpha occupied =     13
+  Active beta occupied  =     11
+  Active alpha virtual  =     32
+  Active beta virtual   =     34
+  Use MO symmetry       = T
+  Use skeleton AO sym   = T
+
+  AO/Fock/Back tols     =   1.0D-09  1.0D-09  1.0D-09
+
+ GA uses MA = F    GA memory limited = T
+
+ Available: 
+  local mem=  2.62D+07
+ global mem=  2.62D+07
+ local disk=  1.82D+09
+   1 passes of  13:        2852006                      18373                    194548.
+
+ Semi-direct pass number   1 of   1  for UHF alpha       at        9.8s
+Node 0 wrote      0.9 Mb in      0.0 s     Agg I/O rate:   860.3 Mb/s
+ Done moints_semi at        9.9s
+ Done maket at        9.9s
+ Done pijab at        9.9s
+ Done wijab at        9.9s
+ Done lai at       10.0s
+ Done nonsep at       10.3s
+ Done multipass loop at       10.3s
+
+ GA uses MA = F    GA memory limited = T
+
+ Available: 
+  local mem=  2.62D+07
+ global mem=  2.62D+07
+ local disk=  1.82D+09
+   1 passes of  11:        2848610                      16831                    185245.
+
+ Semi-direct pass number   1 of   1  for UHF beta        at       10.3s
+Node 0 wrote      0.8 Mb in      0.0 s     Agg I/O rate:   727.9 Mb/s
+ Done moints_semi at       10.5s
+ Done maket at       10.5s
+ Done pijab at       10.5s
+ Done wijab at       10.5s
+ Done lai at       10.5s
+ Done nonsep at       10.9s
+ Done multipass loop at       10.9s
+
+
+          -------------------------------------------
+          SCF energy                -224.293317731960
+          Correlation energy          -0.451374573833
+          Singlet pairs                0.000000000000
+          Triplet pairs                0.000000000000
+          Total MP2 energy          -224.744692305794
+          -------------------------------------------
+
+                                NWChem CPHF Module
+                                ------------------
+
+
+    scftype = UHF 
+     nalpha =   13
+      nbeta =   11
+  variables =      790
+  tolerance =   1.0D-04
+  max. iter =  100
+
+
+ #quartets = 8.873D+03 #integrals = 1.646D+05 #direct =  0.0% #cached =100.0%
+
+
+ Integral file          = ./grad_ozone.aoints.0
+ Record size in doubles =  65536        No. of integs per rec  =  43688
+ Max. records in memory =      3        Max. records in file   =  26331
+ No. of bits per label  =      8        No. of bits per value  =     64
+
+
+File balance: exchanges=     0  moved=     0  time=   0.0
+
+
+            ----- linear solve (tol: 1.0E-04 prod-acc: 4.0E-10) -----
+
+               iter nbas    rnorm     rnorm-scal   ratio     time
+               ---- ---- ----------- ----------- --------- -------
+                  1    1  2.9427E-02  2.6123E-01    0.0000     8.5
+                  2    2  1.3119E-02  1.1646E-01    0.4458     8.5
+                  3    3  6.1745E-03  5.4812E-02    0.4706     8.5
+                  4    4  2.4689E-03  2.1917E-02    0.3999     8.5
+                  5    5  8.7501E-04  7.7676E-03    0.3544     8.5
+                  6    6  3.6238E-04  3.2169E-03    0.4141     8.5
+                  7    7  1.2629E-04  1.1211E-03    0.3485     8.5
+                  8    8  3.8869E-05  3.4505E-04    0.3078     8.6
+                  9    9  9.4614E-06  8.3991E-05    0.2434     8.6
+
+ CPHF converged to   8.4D-05 in    9 iters
+
+
+ Parallel integral file used       5 records with       0 large values
+
+                Dipole Moments (a.u.)
+                --------------
+         Nuclear       SCF       SCF+MP2
+       ----------- ----------- -----------
+ X       0.000000    0.000000    0.000000
+ Y       0.000000    0.000000    0.000000
+ Z       0.000000   -0.011483   -0.068090
+
+
+ MP2 alpha    natural orbital occupation numbers
+
+
+              1      
+    1    1.0000
+    2    1.0000
+    3    0.9999
+    4    0.9960
+    5    0.9950
+    6    0.9925
+    7    0.9922
+    8    0.9909
+    9    0.9892
+   10    0.9885
+   11    0.9863
+   12    0.9803
+   13    0.9782
+   14    0.0188
+   15    0.0165
+   16    0.0081
+   17    0.0074
+   18    0.0060
+   19    0.0056
+   20    0.0056
+   21    0.0049
+   22    0.0039
+   23    0.0032
+   24    0.0031
+   25    0.0030
+   26    0.0027
+   27    0.0027
+   28    0.0026
+   29    0.0023
+   30    0.0023
+   31    0.0022
+   32    0.0021
+   33    0.0015
+   34    0.0013
+   35    0.0010
+   36    0.0009
+   37    0.0009
+   38    0.0008
+   39    0.0008
+   40    0.0006
+   41    0.0001
+   42    0.0001
+   43    0.0001
+   44    0.0001
+   45    0.0001
+
+ MP2 beta     natural orbital occupation numbers
+
+
+              1      
+    1    1.0000
+    2    1.0000
+    3    0.9999
+    4    0.9946
+    5    0.9921
+    6    0.9908
+    7    0.9887
+    8    0.9887
+    9    0.9880
+   10    0.9811
+   11    0.9786
+   12    0.0169
+   13    0.0157
+   14    0.0095
+   15    0.0079
+   16    0.0079
+   17    0.0060
+   18    0.0058
+   19    0.0043
+   20    0.0036
+   21    0.0032
+   22    0.0029
+   23    0.0025
+   24    0.0022
+   25    0.0019
+   26    0.0017
+   27    0.0016
+   28    0.0012
+   29    0.0012
+   30    0.0010
+   31    0.0009
+   32    0.0008
+   33    0.0007
+   34    0.0007
+   35    0.0005
+   36    0.0005
+   37    0.0005
+   38    0.0003
+   39    0.0002
+   40    0.0001
+   41    0.0001
+   42    0.0001
+   43    0.0001
+   44    0.0000
+   45   -0.0048
+
+  MP2 natural orbitals output to ./grad_ozone.mp2nos
+
+  Using symmetry
+
+
+                         mp2 ENERGY GRADIENTS
+
+    atom               coordinates                        gradient
+                 x          y          z           x          y          z
+   1 O       0.000000   0.000000  -0.769844    0.000000   0.000000   0.262397
+   2 O       0.000000   1.961067   0.384922    0.000000  -0.162299  -0.131198
+   3 O       0.000000  -1.961067   0.384922    0.000000   0.162299  -0.131198
+
+                 ----------------------------------------
+                 |  Time  |  1-e(secs)   |  2-e(secs)   |
+                 ----------------------------------------
+                 |  CPU   |       0.00   |       0.10   |
+                 ----------------------------------------
+                 |  WALL  |       0.00   |       0.10   |
+                 ----------------------------------------
+ -----------------------
+ Performance information
+ -----------------------
+
+ Timer overhead =  4.00D-07 seconds/call
+
+               Nr. of calls         CPU time (s)                 Wall time (s)                GFlops
+             ---------------    -------------------     ------------------------------   -------------------
+Name         Min   Avg   Max    Min     Avg     Max     Min     Avg     Max   Mx/calls   Min     Max     Sum
+mp2: moin     2     2     2   0.29    0.29    0.29     0.30    0.30    0.30    0.15      0.0     0.0     0.0   
+mp2: make     2     2     2   3.90E-2 4.02E-2 4.10E-2  4.25E-2 4.25E-2 4.26E-2 2.13E-2   0.0     0.0     0.0   
+mp2: pija     2     2     2   2.00E-3 2.25E-3 3.00E-3  3.16E-3 3.17E-3 3.19E-3 1.60E-3   0.0     0.0     0.0   
+mp2: wija     2     2     2   2.00E-3 3.50E-3 4.00E-3  3.26E-3 3.28E-3 3.28E-3 1.64E-3   0.0     0.0     0.0   
+mp2: lai      2     2     2   5.60E-2 5.65E-2 5.70E-2  5.68E-2 5.68E-2 5.68E-2 2.84E-2   0.0     0.0     0.0   
+mp2: back     2     2     2   4.50E-2 4.60E-2 4.70E-2  5.07E-2 5.07E-2 5.07E-2 2.53E-2   0.0     0.0     0.0   
+mp2: nons     2     2     2   0.40    0.47    0.54     0.40    0.47    0.54    0.27      0.0     0.0     0.0   
+mp2: laif     1     1     1   5.40E-2 5.55E-2 5.70E-2  5.71E-2 5.71E-2 5.71E-2 5.71E-2   0.0     0.0     0.0   
+mp2: cphf     1     1     1   0.19    0.20    0.22     0.27    0.27    0.27    0.27      0.0     0.0     0.0   
+mp2: wijf     1     1     1   5.60E-2 5.62E-2 5.70E-2  5.68E-2 5.68E-2 5.68E-2 5.68E-2   0.0     0.0     0.0   
+mp2: sep      1     1     1   0.11    0.11    0.11     0.11    0.11    0.11    0.11      0.0     0.0     0.0   
+mp2: tota     1     1     1    1.5     1.5     1.5      1.7     1.7     1.7     1.7      0.0     0.0     0.0   
+
+ The average no. of pstat calls per process was 1.90D+01
+ with a timing overhead of 7.60D-06s
+
+
+ Task  times  cpu:        1.6s     wall:        1.8s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+       case m6: Ozone --- Semi-direct numerical UMP2 gradient with symmetry
+       --------------------------------------------------------------------
+                         NWChem Numerical Gradients Module
+                         ---------------------------------
+
+
+ No. of totally-symmetric internal modes =   2
+
+ Reference energy        -224.74469231
+
+
+ Saving state for mp2 with suffix numg
+        ./grad_ozone.movecs
+
+ Finite difference step  1.00000D-02
+ Use five point formula F
+
+ step     1 energy        -224.74694439
+ step    -1 energy        -224.74235324
+            gradient        -0.229557
+ step     2 energy        -224.74142353
+ step    -2 energy        -224.74785106
+            gradient         0.321377
+
+
+                         MP2 ENERGY GRADIENTS
+
+    atom               coordinates                        gradient
+                 x          y          z           x          y          z
+   1 O       0.000000   0.000000  -0.769844    0.000000   0.000000   0.262403
+   2 O       0.000000   1.961067   0.384922    0.000000  -0.162322  -0.131201
+   3 O       0.000000  -1.961067   0.384922    0.000000   0.162322  -0.131201
+
+
+
+ Deleting state for mp2 with suffix numg
+        ./grad_ozone.movecs
+
+
+ Task  times  cpu:        3.0s     wall:        3.8s
+ Summary of allocated global arrays
+-----------------------------------
+  No active global arrays
+
+
+
+                         GA Statistics for process    0
+                         ------------------------------
+
+       create   destroy   get      put      acc     scatter   gather  read&inc
+calls: 1.40e+04 1.40e+04 2.17e+05 1.02e+05 1.68e+05 1042        0     5208     
+number of processes/call 1.22e+00 1.41e+00 1.06e+00 2.50e+00 0.00e+00
+bytes total:             1.46e+08 6.65e+07 4.88e+07 2.99e+05 0.00e+00 4.17e+04
+bytes remote:            6.55e+07 2.64e+07 2.65e+07 -8.23e+05 0.00e+00 0.00e+00
+Max memory consumed for GA by this process: 1266920 bytes
+MA_summarize_allocated_blocks: starting scan ...
+MA_summarize_allocated_blocks: scan completed: 0 heap blocks, 0 stack blocks
+MA usage statistics:
+
+	allocation statistics:
+					      heap	     stack
+					      ----	     -----
+	current number of blocks	         0	         0
+	maximum number of blocks	        25	        48
+	current total bytes		         0	         0
+	maximum total bytes		   1589520	  31149536
+	maximum total K-bytes		      1590	     31150
+	maximum total M-bytes		         2	        32
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+
+
+
+                                     CITATION
+                                     --------
+                Please cite the following reference when publishing
+                           results obtained with NWChem:
+
+                 M. Valiev, E.J. Bylaska, N. Govind, K. Kowalski,
+              T.P. Straatsma, H.J.J. van Dam, D. Wang, J. Nieplocha,
+                        E. Apra, T.L. Windus, W.A. de Jong
+                 "NWChem: a comprehensive and scalable open-source
+                  solution for large scale molecular simulations"
+                      Comput. Phys. Commun. 181, 1477 (2010)
+                           doi:10.1016/j.cpc.2010.04.018
+
+                              AUTHORS & CONTRIBUTORS
+                              ----------------------
+      E. J. Bylaska, W. A. de Jong, N. Govind, K. Kowalski, T. P. Straatsma,
+     M. Valiev, H. J. J. Van Dam, D. Wang, E. Apra, T. L. Windus, J. Hammond,
+     J. Autschbach, P. Nichols, S. Hirata, M. T. Hackler, Y. Zhao, P.-D. Fan,
+      R. J. Harrison, M. Dupuis, D. M. A. Smith, J. Nieplocha, V. Tipparaju,
+          M. Krishnan, A. Vazquez-Mayagoitia, L. Jensen, M. Swart, Q. Wu,
+          T. Van Voorhis, A. A. Auer, M. Nooijen, L. D. Crosby, E. Brown,
+             G. Cisneros, G. I. Fann, H. Fruchtl, J. Garza, K. Hirao,
+        R. Kendall, J. A. Nichols, K. Tsemekhman, K. Wolinski, J. Anchell,
+       D. Bernholdt, P. Borowski, T. Clark, D. Clerc, H. Dachsel, M. Deegan,
+        K. Dyall, D. Elwood, E. Glendening, M. Gutowski, A. Hess, J. Jaffe,
+        B. Johnson, J. Ju, R. Kobayashi, R. Kutteh, Z. Lin, R. Littlefield,
+    X. Long, B. Meng, T. Nakajima, S. Niu, L. Pollack, M. Rosing, G. Sandrone,
+       M. Stave, H. Taylor, G. Thomas, J. H. van Lenthe, A. Wong, Z. Zhang.
+
+ Total times  cpu:       11.8s     wall:       15.2s

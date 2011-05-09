@@ -1,0 +1,792 @@
+ argument  1 = dplot.nw
+
+
+
+============================== echo of input deck ==============================
+title "dplot testing"
+echo
+start dplot
+
+memory 90 mb
+
+geometry units au
+ Be 0       0        0
+end
+
+basis
+  Be library 6-31g*
+end
+scf
+   vectors output ttt.movecs
+end
+
+task scf energy
+
+
+
+dplot
+   vectors  ttt.movecs
+   title HOMO
+   limitXYZ
+   -3.0 3.0 10
+   -3.0 3.0 10
+   -3.0 3.0 10
+   spin total
+   gaussian
+   output lumo.cube
+end
+task dplot
+
+pspw
+   simulation_cell
+      ngrid 16 16 16
+      boundary_conditions aperiodic
+      SC 20.0
+   end
+end
+set nwpw:minimizer 2
+task pspw energy
+
+pspw
+   dplot
+     density total total.cube
+     orbital 1      orb1.cube
+   end
+end
+task pspw pspw_dplot
+================================================================================
+
+
+                                         
+                                         
+
+
+              Northwest Computational Chemistry Package (NWChem) 6.0
+              ------------------------------------------------------
+
+
+                    Environmental Molecular Sciences Laboratory
+                       Pacific Northwest National Laboratory
+                                Richland, WA 99352
+
+                              Copyright (c) 1994-2010
+                       Pacific Northwest National Laboratory
+                            Battelle Memorial Institute
+
+             NWChem is an open-source computational chemistry package
+                        distributed under the terms of the
+                      Educational Community License (ECL) 2.0
+             A copy of the license is included with this distribution
+                              in the LICENSE.TXT file
+
+                                  ACKNOWLEDGMENT
+                                  --------------
+
+            This software and its documentation were developed at the
+            EMSL at Pacific Northwest National Laboratory, a multiprogram
+            national laboratory, operated for the U.S. Department of Energy
+            by Battelle under Contract Number DE-AC05-76RL01830. Support
+            for this work was provided by the Department of Energy Office
+            of Biological and Environmental Research, Office of Basic
+            Energy Sciences, and the Office of Advanced Scientific Computing.
+
+
+           Job information
+           ---------------
+
+    hostname      = arcen
+    program       = /home/d3y133/nwchem-releases/nwchem-6.0-gfortran/bin/LINUX64/nwchem
+    date          = Fri Aug  6 13:46:24 2010
+
+    compiled      = Fri_Aug_06_13:42:42_2010
+    source        = /home/d3y133/nwchem-releases/nwchem-6.0-gfortran
+    nwchem branch = 6.0
+    input         = dplot.nw
+    prefix        = dplot.
+    data base     = ./dplot.db
+    status        = startup
+    nproc         =        4
+    time left     =     -1s
+
+
+
+           Memory information
+           ------------------
+
+    heap     =    2949121 doubles =     22.5 Mbytes
+    stack    =    2949121 doubles =     22.5 Mbytes
+    global   =    5898240 doubles =     45.0 Mbytes (distinct from heap & stack)
+    total    =   11796482 doubles =     90.0 Mbytes
+    verify   = yes
+    hardfail = no 
+
+
+           Directory information
+           ---------------------
+
+  0 permanent = .
+  0 scratch   = .
+
+
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+                                   dplot testing
+                                   -------------
+
+
+                             Geometry "geometry" -> ""
+                             -------------------------
+
+ Output coordinates in a.u. (scale by  1.000000000 to convert to a.u.)
+
+  No.       Tag          Charge          X              Y              Z
+ ---- ---------------- ---------- -------------- -------------- --------------
+    1 Be                   4.0000     0.00000000     0.00000000     0.00000000
+
+      Atomic Mass 
+      ----------- 
+
+      Be                 9.012180
+
+
+ Effective nuclear repulsion energy (a.u.)       0.0000000000
+
+            Nuclear Dipole moment (a.u.) 
+            ----------------------------
+        X                 Y               Z
+ ---------------- ---------------- ----------------
+     0.0000000000     0.0000000000     0.0000000000
+
+
+            XYZ format geometry
+            -------------------
+     1
+ geometry
+ Be                    0.00000000     0.00000000     0.00000000
+
+  library name resolved from: .nwchemrc
+  library file name is: </home/d3y133/nwchem-releases/nwchem-6.0-gfortran/QA/../src/basis/libraries/>
+  
+                      Basis "ao basis" -> "" (cartesian)
+                      -----
+  Be (Beryllium)
+  --------------
+            Exponent  Coefficients 
+       -------------- ---------------------------------------------------------
+  1 S  1.26458570E+03  0.001945
+  1 S  1.89936810E+02  0.014835
+  1 S  4.31590890E+01  0.072091
+  1 S  1.20986630E+01  0.237154
+  1 S  3.80632320E+00  0.469199
+  1 S  1.27289030E+00  0.356520
+
+  2 S  3.19646310E+00 -0.112649
+  2 S  7.47813300E-01 -0.229506
+  2 S  2.19966300E-01  1.186917
+
+  3 P  3.19646310E+00  0.055980
+  3 P  7.47813300E-01  0.261551
+  3 P  2.19966300E-01  0.793972
+
+  4 S  8.23099000E-02  1.000000
+
+  5 P  8.23099000E-02  1.000000
+
+  6 D  4.00000000E-01  1.000000
+
+
+
+ Summary of "ao basis" -> "" (cartesian)
+ ------------------------------------------------------------------------------
+       Tag                 Description            Shells   Functions and Types
+ ---------------- ------------------------------  ------  ---------------------
+ Be                          6-31g*                  6       15   3s2p1d
+
+
+                                 NWChem SCF Module
+                                 -----------------
+
+
+                                   dplot testing
+
+
+
+  ao basis        = "ao basis"
+  functions       =    15
+  atoms           =     1
+  closed shells   =     2
+  open shells     =     0
+  charge          =   0.00
+  wavefunction    = RHF 
+  input vectors   = atomic
+  output vectors  = ./ttt.movecs
+  use symmetry    = F
+  symmetry adapt  = F
+
+
+ Summary of "ao basis" -> "ao basis" (cartesian)
+ ------------------------------------------------------------------------------
+       Tag                 Description            Shells   Functions and Types
+ ---------------- ------------------------------  ------  ---------------------
+ Be                          6-31g*                  6       15   3s2p1d
+
+
+
+ Forming initial guess at       0.0s
+
+
+      Superposition of Atomic Density Guess
+      -------------------------------------
+
+ Sum of atomic energies:         -14.56676403
+
+      Non-variational initial energy
+      ------------------------------
+
+ Total energy =     -14.566764
+ 1-e energy   =     -19.117157
+ 2-e energy   =       4.550393
+ HOMO         =      -0.301367
+ LUMO         =       0.082435
+
+
+ Starting SCF solution at       0.1s
+
+
+
+ ----------------------------------------------
+         Quadratically convergent ROHF
+
+ Convergence threshold     :          1.000E-04
+ Maximum no. of iterations :           30
+ Final Fock-matrix accuracy:          1.000E-07
+ ----------------------------------------------
+
+
+ #quartets = 2.310D+02 #integrals = 1.797D+03 #direct =  0.0% #cached =100.0%
+
+
+ Integral file          = ./dplot.aoints.0
+ Record size in doubles =  65536        No. of integs per rec  =  43688
+ Max. records in memory =      2        Max. records in file   =  26331
+ No. of bits per label  =      8        No. of bits per value  =     64
+
+
+File balance: exchanges=     0  moved=     0  time=   0.0
+
+
+              iter       energy          gnorm     gmax       time
+             ----- ------------------- --------- --------- --------
+                 1      -14.5669422195  7.37D-03  6.58D-03      0.1
+                 2      -14.5669443615  1.67D-06  1.63D-06      0.1
+
+
+       Final RHF  results 
+       ------------------ 
+
+         Total SCF energy =    -14.566944361467
+      One-electron energy =    -19.111901513009
+      Two-electron energy =      4.544957151542
+ Nuclear repulsion energy =      0.000000000000
+
+        Time for solution =      0.0s
+
+
+             Final eigenvalues
+             -----------------
+
+              1      
+    1   -4.7095
+    2   -0.3015
+    3    0.0822
+    4    0.0822
+    5    0.0822
+    6    0.4389
+    7    0.4644
+    8    0.4644
+    9    0.4644
+   10    1.0689
+   11    1.0689
+   12    1.0689
+
+                       ROHF Final Molecular Orbital Analysis
+                       -------------------------------------
+
+ Vector    2  Occ=2.000000D+00  E=-3.015381D-01
+              MO Center= -1.8D-16, -1.6D-16,  5.6D-16, r^2= 2.1D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     6      0.764064  1 Be s                  2      0.252065  1 Be s          
+     1     -0.220957  1 Be s          
+
+ Vector    3  Occ=0.000000D+00  E= 8.224090D-02
+              MO Center=  2.0D-17, -3.7D-17, -3.0D-17, r^2= 3.4D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     8      0.744366  1 Be py                 9      0.298669  1 Be pz         
+     4      0.245824  1 Be py         
+
+ Vector    4  Occ=0.000000D+00  E= 8.224090D-02
+              MO Center=  4.6D-16,  1.1D-16, -2.7D-16, r^2= 3.4D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     7      0.713911  1 Be px                 9     -0.326958  1 Be pz         
+     3      0.235766  1 Be px                 8      0.167855  1 Be py         
+
+ Vector    5  Occ=0.000000D+00  E= 8.224090D-02
+              MO Center= -2.2D-16,  1.4D-16, -4.5D-16, r^2= 3.4D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     9      0.669807  1 Be pz                 7      0.365534  1 Be px         
+     8     -0.249979  1 Be py                 5      0.221201  1 Be pz         
+
+ Vector    6  Occ=0.000000D+00  E= 4.389411D-01
+              MO Center=  9.5D-16,  5.5D-16, -2.7D-15, r^2= 3.8D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     2      2.135894  1 Be s                  6     -1.906160  1 Be s          
+
+ Vector    7  Occ=0.000000D+00  E= 4.643612D-01
+              MO Center=  1.1D-17,  5.0D-16,  1.8D-16, r^2= 3.0D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     4      1.259270  1 Be py                 8     -1.030697  1 Be py         
+     5      0.344511  1 Be pz                 9     -0.281978  1 Be pz         
+     3     -0.189294  1 Be px                 7      0.154935  1 Be px         
+
+ Vector    8  Occ=0.000000D+00  E= 4.643612D-01
+              MO Center=  5.8D-16, -1.4D-17,  2.8D-16, r^2= 3.0D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     3      1.211965  1 Be px                 7     -0.991979  1 Be px         
+     5      0.519438  1 Be pz                 9     -0.425154  1 Be pz         
+
+ Vector    9  Occ=0.000000D+00  E= 4.643612D-01
+              MO Center= -9.5D-16, -8.5D-16,  2.6D-15, r^2= 3.0D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     5      1.162660  1 Be pz                 9     -0.951623  1 Be pz         
+     3     -0.485376  1 Be px                 7      0.397274  1 Be px         
+     4     -0.391043  1 Be py                 8      0.320064  1 Be py         
+
+ Vector   10  Occ=0.000000D+00  E= 1.068860D+00
+              MO Center= -6.9D-17,  1.5D-16,  6.2D-17, r^2= 1.2D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    11      1.609321  1 Be dxy               12      0.584175  1 Be dxz        
+
+ Vector   11  Occ=0.000000D+00  E= 1.068860D+00
+              MO Center= -4.4D-16,  1.2D-16, -1.6D-16, r^2= 1.2D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    12      1.476064  1 Be dxz               14     -0.672261  1 Be dyz        
+    11     -0.558765  1 Be dxy        
+
+ Vector   12  Occ=0.000000D+00  E= 1.068860D+00
+              MO Center=  1.5D-17,  1.3D-16,  1.7D-16, r^2= 1.2D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    14      1.401983  1 Be dyz               12      0.563051  1 Be dxz        
+    15     -0.487826  1 Be dzz               13      0.269542  1 Be dyy        
+    10      0.218284  1 Be dxx        
+
+
+ center of mass
+ --------------
+ x =   0.00000000 y =   0.00000000 z =   0.00000000
+
+ moments of inertia (a.u.)
+ ------------------
+           0.000000000000           0.000000000000           0.000000000000
+           0.000000000000           0.000000000000           0.000000000000
+           0.000000000000           0.000000000000           0.000000000000
+
+  Mulliken analysis of the total density
+  --------------------------------------
+
+    Atom       Charge   Shell Charges
+ -----------   ------   -------------------------------------------------------
+    1 Be   4     4.00   2.00  0.46  0.00  1.47  0.00  0.06
+
+       Multipole analysis of the density wrt the origin
+       ------------------------------------------------
+
+     L   x y z        total         open         nuclear
+     -   - - -        -----         ----         -------
+     0   0 0 0      0.000000      0.000000      4.000000
+
+     1   1 0 0      0.000000      0.000000      0.000000
+     1   0 1 0      0.000000      0.000000      0.000000
+     1   0 0 1      0.000000      0.000000      0.000000
+
+     2   2 0 0     -5.254088      0.000000      0.000000
+     2   1 1 0      0.000000      0.000000      0.000000
+     2   1 0 1      0.000000      0.000000      0.000000
+     2   0 2 0     -5.254088      0.000000      0.000000
+     2   0 1 1      0.000000      0.000000      0.000000
+     2   0 0 2     -5.254088      0.000000      0.000000
+
+
+ Parallel integral file used       4 records with       0 large values
+
+
+ Task  times  cpu:        0.1s     wall:        0.1s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+
+  Limits (a.u.) specified for the density plot:
+  ---------------------------------------------
+
+        From        To      # of spacings
+X    -5.66918     5.66918        10
+Y    -5.66918     5.66918        10
+Z    -5.66918     5.66918        10
+
+  Total number of grid points =                  1331
+
+  1-st set of MOs      : ttt.movecs
+  Output is written to : lumo.cube
+  Type of picture      : CHARGE DENSITY
+  Format used          : Gaussian9x Cube
+  Spin                 : TOTAL   
+  The density is computed using all orbitals
+  The density is computed on the specified grid
+  max element    33.4084554022157     
+
+  Aproximate Charge    =     0.00
+
+ Task  times  cpu:        0.0s     wall:        0.0s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+          ****************************************************
+          *                                                  *
+          *               NWPW PSPW Calculation              *
+          *                                                  *
+          *  [ (Grassman/Stiefel manifold implementation) ]  *
+          *                                                  *
+          *      [ NorthWest Chemistry implementation ]      *
+          *                                                  *
+          *            version #5.10   06/12/02              *
+          *                                                  *
+          *    This code was developed by Eric J. Bylaska,   *
+          *    and was based upon algorithms and code        *
+          *    developed by the group of Prof. John H. Weare *
+          *                                                  *
+          ****************************************************
+     >>>  JOB STARTED       AT Fri Aug  6 13:46:24 2010  <<<
+          ================ input data ========================
+  library name resolved from: compiled reference
+  NWCHEM_NWPW_LIBRARY set to: </home/d3y133/nwchem-releases/nwchem-6.0-gfortran/src/nwpw/libraryps/>
+ Generating 1d pseudopotential for Be  
+
+ Generated formatted_filename: ./Be.vpp
+ random planewave guess, initial psi:dplot.movecs                  
+ -   spin, nalpha, nbeta:                    1                    1                    0
+
+ input psi filename:./dplot.movecs
+ Warning - Gram-Schmidt being performed on psi:   1.00000000000000       0.876612861312376        1.00000000000000       0.123387138687624     
+
+ number of processors used:         4
+ processor grid           :   4 x   1
+ parallel mapping         :      slab
+ parallel mapping         :  balanced
+
+ options:
+      boundary conditions  = aperiodic   (version4)
+      electron spin        = restricted
+      exchange-correlation = LDA (Vosko et al) parameterization
+
+ elements involved in the cluster:
+      1: Be    core charge:  2.0000  lmax=  1
+             comment    : Hamann pseudopotential
+             pseudpotential type            :   0
+             highest angular component      :   1
+             local potential used           :   1
+             number of non-local projections:   1
+             aperiodic cutoff radius        :  1.000
+             cutoff =   1.219   1.219
+
+
+ total charge:   0.000
+
+ atomic composition:
+     Be  :  1
+
+ number of electrons: spin up=     1 (   1 per task)  down=     1 (   1 per task) (fourier space)
+ number of orbitals : spin up=     1 (   1 per task)  down=     1 (   1 per task) (fourier space)
+
+ supercell:
+      cell_name:  cell_default                  
+      lattice:    a1=<  20.000   0.000   0.000 >
+                  a2=<   0.000  20.000   0.000 >
+                  a3=<   0.000   0.000  20.000 >
+      reciprocal: b1=<   0.314   0.000   0.000 >
+                  b2=<   0.000   0.314   0.000 >
+                  b3=<   0.000   0.000   0.314 >
+      lattice:    a=      20.000 b=     20.000 c=      20.000
+                  alpha=  90.000 beta=  90.000 gamma=  90.000
+                  omega=      8000.0
+
+      density cutoff=  3.158  fft= 16x 16x 16(     1052 waves      263 per task)
+      wavefnc cutoff=  3.158  fft= 16x 16x 16(     1052 waves      263 per task)
+
+ technical parameters:
+      time step=      5.80     ficticious mass=  400000.0
+      tolerance=.100E-06 (energy)   0.100E-06 (density)
+      maximum iterations =    1000 (   10 inner  100 outer )
+
+
+
+
+
+== Energy Calculation ==
+
+
+          ============ Grassmann lmbfgs iteration ============
+     >>>  ITERATION STARTED AT Fri Aug  6 13:46:25 2010  <<<
+    iter.           Energy         DeltaE       DeltaRho 
+    ------------------------------------------------------
+     -  15 steepest descent iterations performed
+      10   -0.9856016823E+00   -0.17848E-02    0.20320E-01
+     -  10 steepest descent iterations performed
+      20   -0.9863050853E+00   -0.92479E-07    0.16972E-05
+      30   -0.9863051065E+00   -0.21172E-07    0.36062E-10
+  *** tolerance ok. iteration terminated
+     >>>  ITERATION ENDED   AT Fri Aug  6 13:46:25 2010  <<<
+
+
+==  Summary Of Results  ==
+
+ number of electrons: spin up=    1.00000  down=    1.00000 (real space)
+
+ total     energy    :  -0.9863051065E+00 (   -0.98631E+00/ion)
+ total orbital energy:  -0.4095673428E+00 (   -0.40957E+00/electron)
+ hartree   energy    :   0.6867272199E+00 (    0.68673E+00/electron)
+ exc-corr  energy    :  -0.3649199605E+00 (   -0.36492E+00/electron)
+ ion-ion   energy    :   0.0000000000E+00 (    0.00000E+00/ion)
+
+ kinetic (planewave) :   0.2898001077E+00 (    0.28980E+00/electron)
+ V_local (planewave) :  -0.1905252387E+01 (   -0.19053E+01/electron)
+ V_nl    (planewave) :   0.3073399133E+00 (    0.30734E+00/electron)
+ V_Coul  (planewave) :   0.1373454440E+01 (    0.13735E+01/electron)
+ V_xc.   (planewave) :  -0.4749094167E+00 (   -0.47491E+00/electron)
+ Virial Coefficient  :  -0.2413275330E+01
+
+ orbital energies:
+    -0.2047837E+00 (  -5.572eV)
+
+ Total PSPW energy   :  -0.9863051065E+00
+
+
+=== Spin Contamination ===
+
+ <Sexact^2> =    0.00000000000000     
+ <S^2>      =    0.00000000000000     
+
+
+
+== Center of Charge ==
+
+spin up     (    0.0000,    0.0000,    0.0000 )
+spin down   (    0.0000,    0.0000,    0.0000 )
+     total  (    0.0000,    0.0000,    0.0000 )
+ionic       (    0.0000,    0.0000,    0.0000 )
+crystal     (    0.0000,    0.0000,    0.0000 )
+
+
+== Crystal Dipole ==
+
+mu   =  (   -0.0001,    0.0000,   -0.0001 ) au
+|mu| =     0.0001 au,       0.0003 Debye
+
+
+== Molecular Dipole wrt Center of Mass ==
+
+mu   =  (   -0.0001,    0.0000,   -0.0001 ) au
+|mu| =     0.0001 au,       0.0003 Debye
+
+ output psi filename:./dplot.movecs
+
+
+== Timing ==
+
+cputime in seconds
+  prologue    :   0.352382E+00
+  main loop   :   0.158050E+00
+  epilogue    :   0.166392E-02
+  total       :   0.512096E+00
+  cputime/step:   0.213581E-02       (      74 evalulations,      21 linesearches)
+
+
+Time spent doing                        total          step
+  FFTs                       :   0.674197E-01  0.911077E-03
+  dot products               :   0.168135E-02  0.227209E-04
+  geodesic                   :   0.222277E-01  0.300375E-03
+  ffm_dgemm                  :   0.547463E-03  0.739815E-05
+  fmf_dgemm                  :   0.113476E-01  0.153346E-03
+  m_diagonalize              :   0.348073E-03  0.470369E-05
+    - m_tredq                :   0.000000E+00  0.000000E+00
+    - m_getdiags             :   0.000000E+00  0.000000E+00
+    - m_tqliq                :   0.000000E+00  0.000000E+00
+    - m_eigsrt               :   0.000000E+00  0.000000E+00
+  exchange correlation       :   0.284657E-01  0.384672E-03
+  local pseudopotentials     :   0.446081E-03  0.602812E-05
+  non-local pseudopotentials :   0.537992E-02  0.727016E-04
+  hartree potentials         :   0.000000E+00  0.000000E+00
+  ion-ion interaction        :   0.000000E+00  0.000000E+00
+  structure factors          :   0.173569E-03  0.234552E-05
+  phase factors              :   0.786781E-05  0.106322E-06
+  masking and packing        :   0.650951E-02  0.879663E-04
+  queue fft                  :   0.738053E-02  0.997369E-04
+  queue fft (serial)         :   0.419917E-02  0.567456E-04
+  queue fft (message passing):   0.280714E-02  0.379343E-04
+  HFX potential              :   0.000000E+00  0.000000E+00
+  qmmm LJ                    :   0.000000E+00  0.000000E+00
+  qmmm residual Q            :   0.000000E+00  0.000000E+00
+
+     >>>  JOB COMPLETED     AT Fri Aug  6 13:46:25 2010  <<<
+
+ Task  times  cpu:        0.5s     wall:        0.5s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+ >>>> PSPW Parallel Module - pspw_dplot <<<<
+          ****************************************************
+          *                                                  *
+          *                   pspw DPLOT                     *
+          *                                                  *
+          *    [ Generates density and orbital grids  ]      *
+          *                                                  *
+          *     [ NorthWest Chemistry implementation ]       *
+          *                                                  *
+          *            version #1.00   08/22/01              *
+          *                                                  *
+          ****************************************************
+
+     >>>  JOB STARTED       AT Fri Aug  6 13:46:25 2010  <<<
+          ============ PSPW DPLOT input data =================
+
+ input psi filename:./dplot.movecs
+
+ number of processors used:  4
+ parallel mapping         :      slab
+ parallel mapping         :  balanced
+
+ options:
+      boundary conditions   = aperiodic   (version4)
+
+ number of electrons: spin up=  1  spin down=  1 ( fourier space)
+
+ ncell              =  0 0 0
+
+ position tolerance = 0.100000E-02
+
+           origin=<   0.000   0.000   0.000 >
+
+ supercell:
+      lattice: a1=<  20.000   0.000   0.000 >
+               a2=<   0.000  20.000   0.000 >
+               a3=<   0.000   0.000  20.000 >
+               b1=<   0.314   0.000   0.000 >
+               b2=<   0.000   0.314   0.000 >
+               b3=<   0.000   0.000   0.314 >
+      volume :     8000.0
+      density cutoff=  3.158  fft= 16x 16x 16(     1052 waves      263 per task)
+      wavefnc cutoff=  3.158  fft= 16x 16x 16(     1052 waves      263 per task)
+
+
+    writing total density to filename: total.cube
+    writing orbital                     1  to filename: orb1.cube
+
+ -----------------
+ cputime in seconds
+ total       :   2.327704429626465E-002
+
+     >>>  JOB COMPLETED     AT Fri Aug  6 13:46:25 2010  <<<
+
+ Task  times  cpu:        0.0s     wall:        0.0s
+ Summary of allocated global arrays
+-----------------------------------
+  No active global arrays
+
+
+
+                         GA Statistics for process    0
+                         ------------------------------
+
+       create   destroy   get      put      acc     scatter   gather  read&inc
+calls:   92       92      415      193      123        0        0       15     
+number of processes/call 1.10e+00 1.18e+00 1.10e+00 0.00e+00 0.00e+00
+bytes total:             2.65e+05 6.62e+04 1.63e+04 0.00e+00 0.00e+00 1.20e+02
+bytes remote:            9.47e+03 6.46e+03 6.08e+02 0.00e+00 0.00e+00 0.00e+00
+Max memory consumed for GA by this process: 20280 bytes
+MA_summarize_allocated_blocks: starting scan ...
+MA_summarize_allocated_blocks: scan completed: 0 heap blocks, 0 stack blocks
+MA usage statistics:
+
+	allocation statistics:
+					      heap	     stack
+					      ----	     -----
+	current number of blocks	         0	         0
+	maximum number of blocks	       175	        25
+	current total bytes		         0	         0
+	maximum total bytes		   1058000	  22509192
+	maximum total K-bytes		      1058	     22510
+	maximum total M-bytes		         2	        23
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+
+
+
+                                     CITATION
+                                     --------
+                Please cite the following reference when publishing
+                           results obtained with NWChem:
+
+                 M. Valiev, E.J. Bylaska, N. Govind, K. Kowalski,
+              T.P. Straatsma, H.J.J. van Dam, D. Wang, J. Nieplocha,
+                        E. Apra, T.L. Windus, W.A. de Jong
+                 "NWChem: a comprehensive and scalable open-source
+                  solution for large scale molecular simulations"
+                      Comput. Phys. Commun. 181, 1477 (2010)
+                           doi:10.1016/j.cpc.2010.04.018
+
+                              AUTHORS & CONTRIBUTORS
+                              ----------------------
+      E. J. Bylaska, W. A. de Jong, N. Govind, K. Kowalski, T. P. Straatsma,
+     M. Valiev, H. J. J. Van Dam, D. Wang, E. Apra, T. L. Windus, J. Hammond,
+     J. Autschbach, P. Nichols, S. Hirata, M. T. Hackler, Y. Zhao, P.-D. Fan,
+      R. J. Harrison, M. Dupuis, D. M. A. Smith, J. Nieplocha, V. Tipparaju,
+          M. Krishnan, A. Vazquez-Mayagoitia, L. Jensen, M. Swart, Q. Wu,
+          T. Van Voorhis, A. A. Auer, M. Nooijen, L. D. Crosby, E. Brown,
+             G. Cisneros, G. I. Fann, H. Fruchtl, J. Garza, K. Hirao,
+        R. Kendall, J. A. Nichols, K. Tsemekhman, K. Wolinski, J. Anchell,
+       D. Bernholdt, P. Borowski, T. Clark, D. Clerc, H. Dachsel, M. Deegan,
+        K. Dyall, D. Elwood, E. Glendening, M. Gutowski, A. Hess, J. Jaffe,
+        B. Johnson, J. Ju, R. Kobayashi, R. Kutteh, Z. Lin, R. Littlefield,
+    X. Long, B. Meng, T. Nakajima, S. Niu, L. Pollack, M. Rosing, G. Sandrone,
+       M. Stave, H. Taylor, G. Thomas, J. H. van Lenthe, A. Wong, Z. Zhang.
+
+ Total times  cpu:        0.6s     wall:        0.7s
+  Format used          : Gaussian9x Cube
+  Format used          : Gaussian9x Cube
+  Format used          : Gaussian9x Cube
