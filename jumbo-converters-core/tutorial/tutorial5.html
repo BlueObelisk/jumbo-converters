@@ -135,7 +135,12 @@ end
   &lt;record id="vector1">\s*Vector\s*{I,cc:serial}\s*Occ={E,n:occ}\s*E={E,n:e}</record>
   &lt;record id="vector2">\s*MO Center={E,n:mo.x},{E,n:mo.y},{E,n:mo.z}, r^2={E,n:mo.r2}</record>
     </pre>
-    and here's an example of an array of known size:
+    Arrays can be specified with exact bounds (e.g. 3-Vectors) or a range. The dataType is prefixed either
+    by a number or by a range (min_max, e.g. <code>1_5</code>). The maximum value can be large (e.g. 3_99) without
+    problems - the parser will read non-blanks fields until it runs out. 
+    </p>
+    <p>
+    Here's an example of an array of known size:
     <pre>
  Effective nuclear repulsion energy (a.u.)       0.0000000000
 
@@ -151,6 +156,7 @@ end
   &lt;record repeat="5"/>
   &lt;record id="nucdip">\s*{3F,n:nucleardipole}</record>
     </pre>
+    
     Note the use of the 3-array, and the need to escape the "(" ")" and "." as they are metacharacters. Tedious, but
     it's worth it.
     </p>
