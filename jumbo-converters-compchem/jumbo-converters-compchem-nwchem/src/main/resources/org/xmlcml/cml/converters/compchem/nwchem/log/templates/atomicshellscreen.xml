@@ -22,58 +22,114 @@
 
 
   </comment>
-  <record id="screen">\s*{A,n:screen}\s*screening\s*</record>
-  <record repeat="3"/>
-  <record id="valueno" repeat="*">\s*{E,n:value}{I,n:no}{E,n:value}{I,n:no}{E,n:value}{I,n:no}{E,n:value}{I,n:no}</record>
-  
+  <templateList>
+    <template id="screen" pattern="\s*((Shell)|(Atomic))\s* screening\s*$\s*"
+      endPattern="\s*$\s*" repeat="*">
+      <record id="screen">\s*{A,n:screen}\s*screening\s*</record>
+      <record repeat="3" />
+      <record id="valueno" repeat="*">\s*{E,n:value}{I,n:no}{E,n:value}{I,n:no}{E,n:value}{I,n:no}{E,n:value}{I,n:no}
+      </record>
+    </template>
+  </templateList>
+
   <comment class="example.output" id="atomshellscreen">
-<module cmlx:templateRef="atomicshellscreen" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <list cmlx:templateRef="screen">
-    <scalar dataType="xsd:string" dictRef="n:screen">Atomic</scalar>
-  </list>
-  <list cmlx:templateRef="valueno">
-    <list>
-      <scalar dataType="xsd:double" dictRef="n:value">0.0</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:no">0</scalar>
-      <scalar dataType="xsd:double" dictRef="n:value">1.0E-13</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:no">0</scalar>
-      <scalar dataType="xsd:double" dictRef="n:value">1.0E-12</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:no">0</scalar>
-      <scalar dataType="xsd:double" dictRef="n:value">1.0E-11</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:no">0</scalar>
-    </list>
-    <list>
-      <scalar dataType="xsd:double" dictRef="n:value">1.0E-10</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:no">0</scalar>
-      <scalar dataType="xsd:double" dictRef="n:value">1.0E-9</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:no">1</scalar>
-      <scalar dataType="xsd:double" dictRef="n:value">1.0E-8</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:no">4</scalar>
-      <scalar dataType="xsd:double" dictRef="n:value">1.0E-7</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:no">4</scalar>
-    </list>
-    <list>
-      <scalar dataType="xsd:double" dictRef="n:value">1.0E-6</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:no">13</scalar>
-      <scalar dataType="xsd:double" dictRef="n:value">1.0E-5</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:no">27</scalar>
-      <scalar dataType="xsd:double" dictRef="n:value">1.0E-4</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:no">28</scalar>
-      <scalar dataType="xsd:double" dictRef="n:value">0.0010</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:no">49</scalar>
-    </list>
-    <list>
-      <scalar dataType="xsd:double" dictRef="n:value">0.01</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:no">66</scalar>
-      <scalar dataType="xsd:double" dictRef="n:value">0.1</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:no">118</scalar>
-      <scalar dataType="xsd:double" dictRef="n:value">1.0</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:no">68</scalar>
-      <scalar dataType="xsd:double" dictRef="n:value">10.0</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:no">0</scalar>
-    </list>
-  </list> Shell screening value no. value no. value no. value no. -------- ------ -------- ------ -------- ------ -------- ------ 0.00D+00 958 1.00D-13 97 1.00D-12 112 1.00D-11 127 1.00D-10 161 1.00D-09 200 1.00D-08 267 1.00D-07 276 1.00D-06 380 1.00D-05 486 1.00D-04 507 1.00D-03 631 1.00D-02 932 1.00D-01 1136 1.00D+00 633 1.00D+01 0
-  </module>
-    </comment>
+    <module cmlx:templateRef="atomicshellscreen" xmlns="http://www.xml-cml.org/schema"
+      xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <module cmlx:lineCount="8" cmlx:templateRef="screen">
+        <list cmlx:templateRef="screen">
+          <scalar dataType="xsd:string" dictRef="n:screen">Atomic</scalar>
+        </list>
+        <list cmlx:templateRef="valueno">
+          <list>
+            <scalar dataType="xsd:double" dictRef="n:value">0.0</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">0</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0E-13</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">0</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0E-12</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">0</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0E-11</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">0</scalar>
+          </list>
+          <list>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0E-10</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">0</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0E-9</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">1</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0E-8</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">4</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0E-7</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">4</scalar>
+          </list>
+          <list>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0E-6</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">13</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0E-5</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">27</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0E-4</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">28</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">0.0010</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">49</scalar>
+          </list>
+          <list>
+            <scalar dataType="xsd:double" dictRef="n:value">0.01</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">66</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">0.1</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">118</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">68</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">10.0</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">0</scalar>
+          </list>
+        </list>
+      </module>
+      <module cmlx:lineCount="8" cmlx:templateRef="screen">
+        <list cmlx:templateRef="screen">
+          <scalar dataType="xsd:string" dictRef="n:screen">Shell</scalar>
+        </list>
+        <list cmlx:templateRef="valueno">
+          <list>
+            <scalar dataType="xsd:double" dictRef="n:value">0.0</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">958</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0E-13</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">97</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0E-12</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">112</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0E-11</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">127</scalar>
+          </list>
+          <list>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0E-10</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">161</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0E-9</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">200</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0E-8</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">267</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0E-7</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">276</scalar>
+          </list>
+          <list>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0E-6</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">380</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0E-5</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">486</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0E-4</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">507</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">0.0010</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">631</scalar>
+          </list>
+          <list>
+            <scalar dataType="xsd:double" dictRef="n:value">0.01</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">932</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">0.1</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">1136</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">1.0</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">633</scalar>
+            <scalar dataType="xsd:double" dictRef="n:value">10.0</scalar>
+            <scalar dataType="xsd:integer" dictRef="n:no">0</scalar>
+          </list>
+        </list>
+      </module>
+    </module>
+  </comment>
 
  </template>

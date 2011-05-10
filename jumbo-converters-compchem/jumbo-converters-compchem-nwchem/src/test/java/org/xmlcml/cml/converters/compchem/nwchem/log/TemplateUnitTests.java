@@ -2,6 +2,7 @@ package org.xmlcml.cml.converters.compchem.nwchem.log;
 
 import nu.xom.Element;
 
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xmlcml.cml.converters.text.TemplateTestUtils;
@@ -40,11 +41,11 @@ public class TemplateUnitTests {
    @Test public void testAtmassOK()                               {runTemplateTest("atmass");}
    @Ignore @Test public void testAtombasisTODO()             {runTemplateTest("atombasis");}
    @Ignore @Test public void testAtombasisendTODO()          {runTemplateTest("atombasisend");}
-   @Ignore @Test public void testAtomicshellscreenWHITE()     {runTemplateTest("atomicshellscreen");}
-   @Ignore @Test public void testAuthors()               {runTemplateTest("authors");}
-   @Ignore @Test public void testAutosymWHITE()               {runTemplateTest("autosym");}
-   @Test public void testBasisShellOK()            {runTemplateTest("basis.shell");}
-   @Ignore @Test public void testBasisWHITE()                 {runTemplateTest("basis");}
+   @Test public void testAtomicshellscreenOK()                    {runTemplateTest("atomicshellscreen");}
+   @Test public void testAuthors()                {runTemplateTest("authors");}
+   @Test public void testAutosymOK()                              {runTemplateTest("autosym");}
+   @Test public void testBasisShellOK()                           {runTemplateTest("basis.shell");}
+   @Test public void testBasisWHITE()                 {runTemplateTest("basis");}
    @Test public void testBasisfuncOK()             {runTemplateTest("basisfunc");}
    @Test public void testBeforeaftercallOK()       {runTemplateTest("beforeaftercall");}
    @Test public void testBrillouinzpOK()                          {runTemplateTest("brillouinzp");}
@@ -52,7 +53,7 @@ public class TemplateUnitTests {
    @Test public void testCachingOK()               {runTemplateTest("caching");}
    @Ignore @Test public void testCcsdtTBDWHITE()                     {runTemplateTest("ccsdt");}
 //   @Test public void testCenter23INCLUDE()              {runTemplateTest("center23");}
-   @Ignore @Test public void testCcsdWHITE()              {runTemplateTest("ccsd.temp");}
+   @Test public void testCcsdOKTODO()              {runTemplateTest("ccsd.temp");}
    @Ignore @Test public void testCcsdparamWHITE()             {runTemplateTest("ccsdparam");}
    @Ignore @Test public void testCcsdtWHITE()                 {runTemplateTest("ccsdt");}
    @Test public void testCenter23TempOK()          {runTemplateTest("center23.temp");}
@@ -72,10 +73,10 @@ public class TemplateUnitTests {
    @Ignore @Test public void testDirectmp2WHITE()             {runTemplateTest("directmp2");}
    @Ignore @Test public void testDirinfoWHITE()               {runTemplateTest("dirinfo");}
    @Test public void testDisclaim()              {runTemplateTest("disclaim");}
-   @Ignore @Test public void testEaffileWHITE()               {runTemplateTest("eaffile");}
+   @Test public void testEaffileOK()               {runTemplateTest("eaffile");}
    @Ignore @Test public void testEchoall()               {runTemplateTest("echoall");}
    @Test public void testEffnucrep()             {runTemplateTest("effnucrep");}
-   @Ignore @Test public void testEigqrotWHITE()               {runTemplateTest("eigqrot");}
+   @Test public void testEigqrotOK()               {runTemplateTest("eigqrot");}
    @Ignore @Test public void testEnergycalcWHITE()            {runTemplateTest("energycalc");}
    @Ignore @Test public void testEnergyminWHITE()             {runTemplateTest("energymin");}
    @Test public void testEtnew()                 {runTemplateTest("etnew");}
@@ -206,11 +207,12 @@ public class TemplateUnitTests {
    @Test public void testTitleEXAMPLE()                 {runTemplateTest("title");}
    @Test public void testTotalbandenerEXAMPLE()         {runTemplateTest("totalbandener");}
    @Test public void testTotaldftEXAMPLE()              {runTemplateTest("totaldft");}
+   @Test public void testTriplesEXAMPLE()              {runTemplateTest("triples");}
    @Test public void testWrotemolorbEXAMPLE()           {runTemplateTest("wrotemolorb");}
    @Ignore @Test public void testXcinfoWHITE()                {runTemplateTest("xcinfo");}
    @Test public void testXcquadEXAMPLE()                {runTemplateTest("xcquad");}
    @Ignore @Test public void testXyzWHITE()                   {runTemplateTest("xyz");}
-   @Ignore @Test public void testZmatWHITE()                  {runTemplateTest("zmat");}
+   @Test public void testZmatOK()                             {runTemplateTest("zmat");}
    @Ignore @Test public void testZmatautozWHITE()             {runTemplateTest("zmatautoz");}
    @Ignore @Test public void testZmatgradWHITE()              {runTemplateTest("zmatgrad");}
    @Ignore @Test public void testZmatuserWHITE()              {runTemplateTest("zmatuser");}
