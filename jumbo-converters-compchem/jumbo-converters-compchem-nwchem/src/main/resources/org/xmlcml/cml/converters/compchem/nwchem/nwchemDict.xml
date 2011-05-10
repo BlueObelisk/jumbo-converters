@@ -1,1892 +1,1891 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cml xmlns="http://www.xml-cml.org/schema">
-  <!-- first try at NWChem dictionary -->
-  <dictionary xmlns:h="http://www.w3.org/1999/xhtml"
-    namespace="http://www.xml-cml.org/dictionary/nwchem/"
-    xmlns:convention="http://www.xml-cml.org/convention/" convention="convention:dictionary"
-    dictionaryPrefix="nwchem" title="NWChem dictionary" xmlns="http://www.xml-cml.org/schema"
-    xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" xmlns:si="http://www.xml-cml.org/unit/si/"
-    xmlns:nonSi="http://www.xml-cml.org/unit/nonSi/" xmlns:unitType="http://www.xml-cml.org/unit/unitType/">
-
-    <description>
-      <h:p>terms specific to NWChem</h:p>
-      <h:pre>
-        <h:i>About NWChem</h:i>
-
-        Northwest Computational Chemistry Package (NWChem) 6.0
-        ------------------------------------------------------
-
-
-        Environmental Molecular Sciences Laboratory
-        Pacific Northwest
-        National Laboratory
-        Richland, WA 99352
-
-        Copyright (c) 1994-2010
-        Pacific Northwest National Laboratory
-        Battelle Memorial Institute
-
-        NWChem is an open-source computational chemistry package
-        distributed under the terms of the
-        Educational Community License
-        (ECL) 2.0
-        A copy of the license is included with this
-        distribution
-        in the LICENSE.TXT file
-
-        ACKNOWLEDGMENT
-        --------------
-
-        This software and its documentation were developed at the
-        EMSL at
-        Pacific Northwest National Laboratory, a multiprogram
-        national
-        laboratory, operated for the U.S. Department of Energy
-        by
-        Battelle under Contract Number DE-AC05-76RL01830. Support
-        for
-        this work was provided by the Department of Energy Office
-        of
-        Biological and Environmental Research, Office of Basic
-        Energy
-        Sciences, and the Office of Advanced Scientific Computing.
-
-        AUTHORS &amp; CONTRIBUTORS
-        ----------------------
-        E. J. Bylaska,
-        W. A. de Jong, N. Govind, K. Kowalski, T. P. Straatsma,
-        M.
-        Valiev, H. J. J. Van Dam, D. Wang, E. Apra, T. L. Windus, J.
-        Hammond,
-        J. Autschbach, P. Nichols, S. Hirata, M. T. Hackler, Y.
-        Zhao, P.-D.
-        Fan,
-        R. J. Harrison, M. Dupuis, D. M. A. Smith, J.
-        Nieplocha, V. Tipparaju,
-        M. Krishnan, A. Vazquez-Mayagoitia, L.
-        Jensen, M. Swart, Q. Wu,
-        T. Van Voorhis, A. A. Auer, M. Nooijen,
-        L. D. Crosby, E. Brown,
-        G. Cisneros, G. I. Fann, H. Fruchtl, J.
-        Garza, K. Hirao,
-        R.
-        Kendall, J. A. Nichols, K. Tsemekhman, K.
-        Wolinski, J. Anchell,
-        D. Bernholdt, P. Borowski, T. Clark, D.
-        Clerc, H. Dachsel, M.
-        Deegan,
-        K. Dyall, D. Elwood, E. Glendening,
-        M. Gutowski, A. Hess,
-        J. Jaffe,
-        B. Johnson, J. Ju, R. Kobayashi,
-        R. Kutteh, Z. Lin, R.
-        Littlefield,
-        X. Long, B. Meng, T. Nakajima,
-        S. Niu, L. Pollack, M. Rosing, G.
-        Sandrone,
-        M. Stave, H. Taylor,
-        G. Thomas, J. H. van Lenthe, A. Wong, Z. Zhang.
-
-
-
-      </h:pre>
-    </description>
-
-    <entry id="iter" term="serial number of iteration" dataType="xsd:integer"
-      units="si:none" unitType="unitType:none">
-      <definition>
-        <h:p>serial number of iteration</h:p>
-      </definition>
-      <description>
-        <h:p>serial number of iteration</h:p>
-      </description>
-    </entry>
-
-    <!-- unitType should be added to entry attributes <entry id="energy" 
-      term="energy" dataType="xsd:double" unitType="unitType:energy"> <definition><h:p>energy</h:p></definition> 
-      <description><h:p>energy of unspecified typeTODO MOVE</h:p></description> 
-      </entry> -->
-    <entry id="energy" term="energy" dataType="xsd:double" units="si:unknown"
-      unitType="unitType:energy">
-      <definition>
-        <h:p>energy</h:p>
-      </definition>
-      <description>
-        <h:p>energy of unspecified typeTODO MOVE</h:p>
-      </description>
-    </entry>
-
-    <entry id="deltae" term="deltae" dataType="xsd:double" units="si:unknown"
-      unitType="unitType:energy">
-      <definition>
-        <h:p>change in energy between cycles</h:p>
-      </definition>
-      <description>
-        <h:p>change in energy between cycles</h:p>
-      </description>
-    </entry>
-
-    <entry id="rmsdens" term="RMS electron density" dataType="xsd:double"
-      units="si:unknown" unitType="unitType:unknown">
-      <definition>
-        <h:p>rms density</h:p>
-      </definition>
-      <description>
-        <h:p>RMS electron density</h:p>
-      </description>
-    </entry>
-
-    <entry id="diiserr" term="diiserr" dataType="xsd:double"
-      units="si:unknown" unitType="unitType:unknown">
-      <definition>
-        <h:p>error in DIIS</h:p>
-      </definition>
-      <description>
-        <h:p>error in DIIS</h:p>
-      </description>
-    </entry>
-
-    <entry id="time" term="cumulative time" dataType="xsd:double"
-      units="si:unknown" unitType="unitType:unknown">
-      <definition>
-        <h:p>cumulative time</h:p>
-      </definition>
-      <description>
-        <h:p>TODO MOVE</h:p>
-      </description>
-    </entry>
-
-    <entry id="count" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-        <h:p class="example">TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="libfile" term="TODO" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-        <h:p class="example">TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="libname" term="TODO" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-        <h:p class="example">TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="nangle" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-        <h:p class="example">TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="startid" term="TODO" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-        <h:p class="example">TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="sumatomener" term="TODO" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-        <h:p class="example">TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="task" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-        <h:p class="example">TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="totdft" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-        <h:p class="example">TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="type" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-        <h:p class="example">TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="occ" term="Occupancy" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>Occupancy?</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-        <h:p class="example">TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="r2mo" term="r-squared" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>An r-squared for a molecular orbital</h:p>
-      </definition>
-      <description>
-        <h:p>TODO - fill this in</h:p>
-        <h:p class="example">TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="mocoeff" term="molecular orbital coefficient"
-      dataType="xsd:string" units="si:unknown" unitType="unitType:unknown">
-      <definition>
-        <h:p>molecular orbital coefficient</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-        <h:p class="example">TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="atomserial" term="serial number of atom" dataType="xsd:string"
-      units="si:unknown" unitType="unitType:unknown">
-      <definition>
-        <h:p>serial number of atom</h:p>
-      </definition>
-      <description>
-        <h:p>in range 1...n</h:p>
-        <h:p class="example">TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="orbital" term="orbital" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>orbital designated by symbol</h:p>
-      </definition>
-      <description>
-        <h:p>in range 1...n</h:p>
-        <h:p class="example">TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="basisfuncserial" term="serial number of basis function"
-      dataType="xsd:string" units="si:unknown" unitType="unitType:unknown">
-      <definition>
-        <h:p>serial number of basis function</h:p>
-      </definition>
-      <description>
-        <h:p>in range 1...n</h:p>
-        <h:p class="example">TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="basis" term="basis?" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p></h:p>
-        <h:p class="example">TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="source" term="source?" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p></h:p>
-        <h:p class="example">TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="constr" term="?" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p></h:p>
-        <h:p class="example">TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="geomtype" term="type of geometry" dataType="xsd:string"
-      unitType="unitType:none" units="si:unknown">
-      <definition>
-        <h:p>type of geometry</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-        <h:p class="example">TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="globalarrays" term="global arrays" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>global arrays</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-        <h:p class="example">TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="row" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-    <entry id="ener" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="ang1" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="radcut" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="tor" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="serial" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="radquad" term="TODO" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="ser2" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="ser3" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="ser1" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="tag" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="func" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="deoff" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="dist1" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="exp" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="HOMO" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="ang" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="wt" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="radpts" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="value" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="angpts" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="nucrep" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="elem" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="b" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="c" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="a" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="deon" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="shell" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="j" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="desc" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="wall" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="k" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="functional" term="TODO" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="diserr" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="i" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="gridxcinteg" term="TODO" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="rms" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="totitertime" term="TODO" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="d" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="e" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="name" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="gridprun" term="TODO" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="spatwt" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="elem1" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="elem2" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="LUMO" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="elem3" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="symm" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="ls" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="mocenter" term="TODO" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="orb" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="angquad" term="TODO" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="coulomb" term="TODO" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="cpu" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="xcener" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="l" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="numintegdens" term="TODO" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="quadshells" term="TODO" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="oneelec" term="TODO" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="bsrad" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="len" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="tolrho" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
-      units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="accxcfunc" term="TODO" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="acccoul" term="TODO" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="acccdfunc" term="TODO" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="accaofunc" term="TODO" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="nuniqcenter" term="TODO" dataType="xsd:string"
-      unitType="unitType:unknown" units="si:unknown">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="aobasis" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="ao basis">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="atoms" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="charge" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="inputvectors" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="symmetryadapt" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="closedshells" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="wavefunction" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="outputvectors" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="tscf" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="openshells" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="functions" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="e_1electron" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="e_2electron" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="e_scf" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="use symmetry" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="lattice.units" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="lattice.scale" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="space" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="elecup" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="elecdown" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="brill.wt" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="totbandener" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="brill.zone" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="ener1" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="brill.k" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="brill.l" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="species" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="brill.h" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="neval" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="linesearch" dataType="xsd:string" units="si:unknown"
-      unitType="unitType:unknown" term="TODO">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="maxrecfile" term="TODO" dataType="xsd:string"
-      units="units:none" unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="integralfile" term="TODO" dataType="xsd:string"
-      units="units:none" unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="shield" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="prop" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="caching" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="invscale" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="unknown" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="propst" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="bitslabel" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="basiskeywords" term="TODO" dataType="xsd:string"
-      units="units:none" unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="heap" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="alpha" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="ngridpts" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="scalename" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="total" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="nrec" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="bitsperval" term="TODO" dataType="xsd:string"
-      units="units:none" unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="integsperrec" term="TODO" dataType="xsd:string"
-      units="units:none" unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="directory" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="disk" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="moved" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="recordsize" term="TODO" dataType="xsd:string"
-      units="units:none" unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="gridfile" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="maxinmem" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="stack" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="scale" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="memory1a" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="nuclear" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="large" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="effnucrep" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="maxrec" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="y" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="beta" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="x" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="z" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="exchanges" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="maxrecmem" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="autox" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="gastats" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-    <entry id="cached" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-
-    <entry id="basis.title" term="TODO" dataType="xsd:string"
-      units="units:none" unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-
-    <entry id="direct" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-
-    <entry id="reqdacc" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-
-    <entry id="anisotropy" term="TODO" dataType="xsd:string"
-      units="units:none" unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-
-    <entry id="resid" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-
-    <entry id="integrals" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-
-    <entry id="nnname" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-
-    <entry id="isotropic" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-
-    <entry id="quartet" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-
-    <entry id="integdenserr" term="TODO" dataType="xsd:string"
-      units="units:none" unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-
-    <entry id="elementName" term="TODO" dataType="xsd:string"
-      units="units:none" unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-
-    <entry id="nsub" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-
-    <entry id="vvvalue" term="TODO" dataType="xsd:string" units="units:none"
-      unitType="unitType:none">
-      <definition>
-        <h:p>TODO</h:p>
-      </definition>
-      <description>
-        <h:p>TODO</h:p>
-      </description>
-    </entry>
-
-  </dictionary>
+    <!-- first try at NWChem dictionary -->
+    <dictionary xmlns:h="http://www.w3.org/1999/xhtml"
+                namespace="http://www.xml-cml.org/dictionary/nwchem/"
+                xmlns:convention="http://www.xml-cml.org/convention/" convention="convention:dictionary"
+                dictionaryPrefix="nwchem" title="NWChem dictionary" xmlns="http://www.xml-cml.org/schema"
+                xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" xmlns:si="http://www.xml-cml.org/unit/si/"
+                xmlns:nonSi="http://www.xml-cml.org/unit/nonSi/" xmlns:unitType="http://www.xml-cml.org/unit/unitType/">
+
+        <description>
+            <h:p>terms specific to NWChem</h:p>
+            <h:pre>
+                <h:i>About NWChem</h:i>
+
+                Northwest Computational Chemistry Package (NWChem) 6.0
+                ------------------------------------------------------
+
+
+                Environmental Molecular Sciences Laboratory
+                Pacific Northwest
+                National Laboratory
+                Richland, WA 99352
+
+                Copyright (c) 1994-2010
+                Pacific Northwest National Laboratory
+                Battelle Memorial Institute
+
+                NWChem is an open-source computational chemistry package
+                distributed under the terms of the
+                Educational Community License
+                (ECL) 2.0
+                A copy of the license is included with this
+                distribution
+                in the LICENSE.TXT file
+
+                ACKNOWLEDGMENT
+                --------------
+
+                This software and its documentation were developed at the
+                EMSL at
+                Pacific Northwest National Laboratory, a multiprogram
+                national
+                laboratory, operated for the U.S. Department of Energy
+                by
+                Battelle under Contract Number DE-AC05-76RL01830. Support
+                for
+                this work was provided by the Department of Energy Office
+                of
+                Biological and Environmental Research, Office of Basic
+                Energy
+                Sciences, and the Office of Advanced Scientific Computing.
+
+                AUTHORS &amp; CONTRIBUTORS
+                ----------------------
+                E. J. Bylaska,
+                W. A. de Jong, N. Govind, K. Kowalski, T. P. Straatsma,
+                M.
+                Valiev, H. J. J. Van Dam, D. Wang, E. Apra, T. L. Windus, J.
+                Hammond,
+                J. Autschbach, P. Nichols, S. Hirata, M. T. Hackler, Y.
+                Zhao, P.-D.
+                Fan,
+                R. J. Harrison, M. Dupuis, D. M. A. Smith, J.
+                Nieplocha, V. Tipparaju,
+                M. Krishnan, A. Vazquez-Mayagoitia, L.
+                Jensen, M. Swart, Q. Wu,
+                T. Van Voorhis, A. A. Auer, M. Nooijen,
+                L. D. Crosby, E. Brown,
+                G. Cisneros, G. I. Fann, H. Fruchtl, J.
+                Garza, K. Hirao,
+                R.
+                Kendall, J. A. Nichols, K. Tsemekhman, K.
+                Wolinski, J. Anchell,
+                D. Bernholdt, P. Borowski, T. Clark, D.
+                Clerc, H. Dachsel, M.
+                Deegan,
+                K. Dyall, D. Elwood, E. Glendening,
+                M. Gutowski, A. Hess,
+                J. Jaffe,
+                B. Johnson, J. Ju, R. Kobayashi,
+                R. Kutteh, Z. Lin, R.
+                Littlefield,
+                X. Long, B. Meng, T. Nakajima,
+                S. Niu, L. Pollack, M. Rosing, G.
+                Sandrone,
+                M. Stave, H. Taylor,
+                G. Thomas, J. H. van Lenthe, A. Wong, Z. Zhang.
+
+
+            </h:pre>
+        </description>
+
+        <entry id="iter" term="serial number of iteration" dataType="xsd:integer"
+               units="si:none" unitType="unitType:none">
+            <definition>
+                <h:p>serial number of iteration</h:p>
+            </definition>
+            <description>
+                <h:p>serial number of iteration</h:p>
+            </description>
+        </entry>
+
+        <!-- unitType should be added to entry attributes <entry id="energy"
+       term="energy" dataType="xsd:double" unitType="unitType:energy"> <definition><h:p>energy</h:p></definition>
+       <description><h:p>energy of unspecified typeTODO MOVE</h:p></description>
+       </entry> -->
+        <entry id="energy" term="energy" dataType="xsd:double" units="si:unknown"
+               unitType="unitType:energy">
+            <definition>
+                <h:p>energy</h:p>
+            </definition>
+            <description>
+                <h:p>energy of unspecified typeTODO MOVE</h:p>
+            </description>
+        </entry>
+
+        <entry id="deltae" term="deltae" dataType="xsd:double" units="si:unknown"
+               unitType="unitType:energy">
+            <definition>
+                <h:p>change in energy between cycles</h:p>
+            </definition>
+            <description>
+                <h:p>change in energy between cycles</h:p>
+            </description>
+        </entry>
+
+        <entry id="rmsdens" term="RMS electron density" dataType="xsd:double"
+                unitType="unitType:unknown">
+            <definition>
+                <h:p>rms density</h:p>
+            </definition>
+            <description>
+                <h:p>RMS electron density</h:p>
+            </description>
+        </entry>
+
+        <entry id="diiserr" term="diiserr" dataType="xsd:double"
+                unitType="unitType:unknown">
+            <definition>
+                <h:p>error in DIIS</h:p>
+            </definition>
+            <description>
+                <h:p>error in DIIS</h:p>
+            </description>
+        </entry>
+
+        <entry id="time" term="cumulative time" dataType="xsd:double"
+                unitType="unitType:unknown">
+            <definition>
+                <h:p>cumulative time</h:p>
+            </definition>
+            <description>
+                <h:p>TODO MOVE</h:p>
+            </description>
+        </entry>
+
+        <entry id="count" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+                <h:p class="example">TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="libfile" term="TODO" dataType="xsd:string"
+               unitType="unitType:unknown" >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+                <h:p class="example">TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="libname" term="TODO" dataType="xsd:string"
+               unitType="unitType:unknown" >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+                <h:p class="example">TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="nangle" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+                <h:p class="example">TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="startid" term="TODO" dataType="xsd:string"
+               unitType="unitType:unknown" >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+                <h:p class="example">TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="sumatomener" term="TODO" dataType="xsd:string"
+               unitType="unitType:unknown" >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+                <h:p class="example">TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="task" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+                <h:p class="example">TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="totdft" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+                <h:p class="example">TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="type" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+                <h:p class="example">TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="occ" term="Occupancy" dataType="xsd:string"
+               unitType="unitType:unknown" >
+            <definition>
+                <h:p>Occupancy?</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+                <h:p class="example">TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="r2mo" term="r-squared" dataType="xsd:string"
+               unitType="unitType:unknown" >
+            <definition>
+                <h:p>An r-squared for a molecular orbital</h:p>
+            </definition>
+            <description>
+                <h:p>TODO - fill this in</h:p>
+                <h:p class="example">TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="mocoeff" term="molecular orbital coefficient"
+               dataType="xsd:string"  unitType="unitType:unknown">
+            <definition>
+                <h:p>molecular orbital coefficient</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+                <h:p class="example">TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="atomserial" term="serial number of atom" dataType="xsd:string"
+                unitType="unitType:unknown">
+            <definition>
+                <h:p>serial number of atom</h:p>
+            </definition>
+            <description>
+                <h:p>in range 1...n</h:p>
+                <h:p class="example">TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="orbital" term="orbital" dataType="xsd:string"
+               unitType="unitType:unknown" >
+            <definition>
+                <h:p>orbital designated by symbol</h:p>
+            </definition>
+            <description>
+                <h:p>in range 1...n</h:p>
+                <h:p class="example">TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="basisfuncserial" term="serial number of basis function"
+               dataType="xsd:string"  unitType="unitType:unknown">
+            <definition>
+                <h:p>serial number of basis function</h:p>
+            </definition>
+            <description>
+                <h:p>in range 1...n</h:p>
+                <h:p class="example">TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="basis" term="basis?" dataType="xsd:string"
+               unitType="unitType:unknown" >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p></h:p>
+                <h:p class="example">TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="source" term="source?" dataType="xsd:string"
+               unitType="unitType:unknown" >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p></h:p>
+                <h:p class="example">TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="constr" term="?" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p></h:p>
+                <h:p class="example">TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="geomtype" term="type of geometry" dataType="xsd:string"
+              units="si:none" unitType="unitType:none" >
+            <definition>
+                <h:p>type of geometry</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+                <h:p class="example">TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="globalarrays" term="global arrays" dataType="xsd:string"
+               unitType="unitType:unknown" >
+            <definition>
+                <h:p>global arrays</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+                <h:p class="example">TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="row" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+        <entry id="ener" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="ang1" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="radcut" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="tor" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="serial" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="radquad" term="TODO" dataType="xsd:string"
+               unitType="unitType:unknown" >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="ser2" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="ser3" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="ser1" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="tag" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="func" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="deoff" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="dist1" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="exp" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="HOMO" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="ang" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="wt" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="radpts" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="value" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="angpts" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="nucrep" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="elem" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="b" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="c" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="a" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="deon" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="shell" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="j" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="desc" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="wall" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="k" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="functional" term="TODO" dataType="xsd:string"
+               unitType="unitType:unknown" >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="diserr" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="i" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="gridxcinteg" term="TODO" dataType="xsd:string"
+               unitType="unitType:unknown" >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="rms" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="totitertime" term="TODO" dataType="xsd:string"
+               unitType="unitType:unknown" >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="d" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="e" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="name" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="gridprun" term="TODO" dataType="xsd:string"
+               unitType="unitType:unknown" >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="spatwt" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="elem1" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="elem2" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="LUMO" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="elem3" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="symm" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="ls" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="mocenter" term="TODO" dataType="xsd:string"
+               unitType="unitType:unknown" >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="orb" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="angquad" term="TODO" dataType="xsd:string"
+               unitType="unitType:unknown">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="coulomb" term="TODO" dataType="xsd:string"
+               unitType="unitType:unknown">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="cpu" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+              >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="xcener" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="l" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="numintegdens" term="TODO" dataType="xsd:string"
+               unitType="unitType:unknown">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="quadshells" term="TODO" dataType="xsd:string"
+               unitType="unitType:unknown">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="oneelec" term="TODO" dataType="xsd:string"
+               unitType="unitType:unknown">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="bsrad" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="len" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="tolrho" term="TODO" dataType="xsd:string" unitType="unitType:unknown"
+               >
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="accxcfunc" term="TODO" dataType="xsd:string"
+               unitType="unitType:unknown">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="acccoul" term="TODO" dataType="xsd:string"
+               unitType="unitType:unknown">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="acccdfunc" term="TODO" dataType="xsd:string"
+               unitType="unitType:unknown">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="accaofunc" term="TODO" dataType="xsd:string"
+               unitType="unitType:unknown">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="nuniqcenter" term="TODO" dataType="xsd:string"
+               unitType="unitType:unknown">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="aobasis" dataType="xsd:string"
+               unitType="unitType:unknown" term="ao basis">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="atoms" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="charge" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="inputvectors" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="symmetryadapt" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="closedshells" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="wavefunction" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="outputvectors" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="tscf" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="openshells" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="functions" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="e_1electron" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="e_2electron" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="e_scf" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="useSymmetry" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="lattice.units" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="lattice.scale" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="space" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="elecup" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="elecdown" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="brill.wt" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="totbandener" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="brill.zone" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="ener1" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="brill.k" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="brill.l" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="species" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="brill.h" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="neval" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="linesearch" dataType="xsd:string"
+               unitType="unitType:unknown" term="TODO">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="maxrecfile" term="TODO" dataType="xsd:string"
+               units="si:none" unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="integralfile" term="TODO" dataType="xsd:string"
+               units="si:none" unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="shield" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="prop" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="caching" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="invscale" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="unknown" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="propst" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="bitslabel" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="basiskeywords" term="TODO" dataType="xsd:string"
+               units="si:none" unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="heap" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="alpha" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="ngridpts" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="scalename" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="total" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="nrec" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="bitsperval" term="TODO" dataType="xsd:string"
+               units="si:none" unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="integsperrec" term="TODO" dataType="xsd:string"
+               units="si:none" unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="directory" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="disk" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="moved" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="recordsize" term="TODO" dataType="xsd:string"
+               units="si:none" unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="gridfile" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="maxinmem" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="stack" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="scale" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="memory1a" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="nuclear" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="large" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="effnucrep" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="maxrec" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="y" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="beta" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="x" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="z" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="exchanges" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="maxrecmem" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="autox" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="gastats" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+        <entry id="cached" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+
+        <entry id="basis.title" term="TODO" dataType="xsd:string"
+               units="si:none" unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+
+        <entry id="direct" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+
+        <entry id="reqdacc" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+
+        <entry id="anisotropy" term="TODO" dataType="xsd:string"
+               units="si:none" unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+
+        <entry id="resid" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+
+        <entry id="integrals" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+
+        <entry id="nnname" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+
+        <entry id="isotropic" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+
+        <entry id="quartet" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+
+        <entry id="integdenserr" term="TODO" dataType="xsd:string"
+               units="si:none" unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+
+        <entry id="elementName" term="TODO" dataType="xsd:string"
+               units="si:none" unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+
+        <entry id="nsub" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+
+        <entry id="vvvalue" term="TODO" dataType="xsd:string" units="si:none"
+               unitType="unitType:none">
+            <definition>
+                <h:p>TODO</h:p>
+            </definition>
+            <description>
+                <h:p>TODO</h:p>
+            </description>
+        </entry>
+
+    </dictionary>
 </cml>
