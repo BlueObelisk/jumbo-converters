@@ -16,30 +16,24 @@ rate(mb/s): 9.84e+02  1.30e+03  0.00e+00* 2.31e+03*
 
   </comment>
   <record/>
-  <record id="rtdb">\s*EAF file {I,n:eaffile.no}: "{A,n:eaffile.name}" size={I,n:eaffile.bytes} bytes</record>
-  <record repeat="*">{X,n:eaffile.info}</record>
+  <record id="line">{1_15A,n:eaffile.info}</record>
+  <record/>
+  <record repeat="*" id="line">{1_15A,n:eaffile.info}</record>
   
   <comment class="example.output" id="eaffile">
 <module cmlx:templateRef="eaffile" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <list cmlx:templateRef="rtdb">
-    <list>
-      <scalar dataType="xsd:integer" dictRef="n:eaffile.no">0</scalar>
-      <scalar dataType="xsd:string" dictRef="n:eaffile.name">./john_fukui.aoints.0</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:eaffile.bytes">2107637760</scalar>
-    </list>
+  <list cmlx:templateRef="line">
+    <array dataType="xsd:string" size="6" dictRef="n:eaffile.info">EAF file 0: "./john_fukui.aoints.0" size=2107637760 bytes</array>
   </list>
-  <list cmlx:templateRef="missingID">
-    <scalar dataType="xsd:string" dictRef="n:eaffile.info">------------------------------------------------------------</scalar>
-    <scalar dataType="xsd:string" dictRef="n:eaffile.info">write read awrite aread wait</scalar>
-    <scalar dataType="xsd:string" dictRef="n:eaffile.info">----- ---- ------ ----- ----</scalar>
-    <scalar dataType="xsd:string" dictRef="n:eaffile.info">calls: 4020 17 0 68323 68323</scalar>
-    <scalar dataType="xsd:string" dictRef="n:eaffile.info">data(b): 2.11e+09 8.91e+06 0.00e+00 3.58e+10</scalar>
-    <scalar dataType="xsd:string" dictRef="n:eaffile.info">time(s): 2.14e+00 6.86e-03 0.00e+00 1.55e+01 3.90e-02</scalar>
-    <scalar dataType="xsd:string" dictRef="n:eaffile.info">rate(mb/s): 9.84e+02 1.30e+03 0.00e+00* 2.31e+03*</scalar>
-    <scalar dataType="xsd:string" dictRef="n:eaffile.info">------------------------------------------------------------</scalar>
-    <scalar dataType="xsd:string" dictRef="n:eaffile.info">* = Effective rate. Full wait time used for read and write.</scalar>
-    <scalar dataType="xsd:string" dictRef="n:eaffile.info"/>
-    <scalar dataType="xsd:string" dictRef="n:eaffile.info"/>
+  <list cmlx:templateRef="line">
+    <array dataType="xsd:string" size="5" dictRef="n:eaffile.info">write read awrite aread wait</array>
+    <array dataType="xsd:string" size="5" dictRef="n:eaffile.info">----- ---- ------ ----- ----</array>
+    <array dataType="xsd:string" size="6" dictRef="n:eaffile.info">calls: 4020 17 0 68323 68323</array>
+    <array dataType="xsd:string" size="5" dictRef="n:eaffile.info">data(b): 2.11e+09 8.91e+06 0.00e+00 3.58e+10</array>
+    <array dataType="xsd:string" size="6" dictRef="n:eaffile.info">time(s): 2.14e+00 6.86e-03 0.00e+00 1.55e+01 3.90e-02</array>
+    <array dataType="xsd:string" size="5" dictRef="n:eaffile.info">rate(mb/s): 9.84e+02 1.30e+03 0.00e+00* 2.31e+03*</array>
+    <array dataType="xsd:string" size="1" dictRef="n:eaffile.info">------------------------------------------------------------</array>
+    <array dataType="xsd:string" size="12" dictRef="n:eaffile.info">* = Effective rate. Full wait time used for read and write.</array>
   </list>
 </module>
     </comment>

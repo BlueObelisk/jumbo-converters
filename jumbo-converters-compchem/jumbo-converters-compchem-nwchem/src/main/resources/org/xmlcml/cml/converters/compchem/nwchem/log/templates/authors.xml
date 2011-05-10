@@ -1,10 +1,20 @@
 <template repeat="*"  id="auth" name="AUTHORS" pattern="\s*AUTHORS.*$\s+\-+.*"
-   newline="$" endPattern="\s*">
+   endPattern="\s*">
   <comment class="example.input" id="authors">
+                              AUTHORS &amp; CONTRIBUTORS
+                              ----------------------
+      E. J. Bylaska, W. A. de Jong, N. Govind, K. Kowalski, T. P. Straatsma,
+     ...
+       M. Stave, H. Taylor, G. Thomas, J. H. van Lenthe, A. Wong, Z. Zhang.
  </comment>
+ <record id="authors">{A,x:authors}.*</record>
  <record repeat="*"/>
+ <transform process="pullup" xpath=".//cml:scalar"/>
+ 
   <comment class="example.output" id="authors">
-      <m/>
-    </comment>
+    <module cmlx:templateRef="auth" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="x:authors">AUTHORS</scalar>
+    </module>
+  </comment>
 
 </template>
