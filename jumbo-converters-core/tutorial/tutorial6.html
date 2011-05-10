@@ -1,0 +1,85 @@
+<html>
+<head>
+<title>JUMBOParser: Tutorial 6</title>
+</head>
+<body>
+  <div class="title">
+    <h1>Tutorial 6: Dictionaries and dictRefs</h1>
+  </div>
+  <div class="section">
+    <h2>Dictionaries and semantics</h2>
+    <p>CML imposes a small amount of semantics, e.g. &lt;cml:molecule> defines a container for molecules or atoms and bonds; formalCharge 
+    is an integer defining the formal change on an object. But most of the semantics of CML are added from dictionaries external to the document.
+    These have the properties:
+    <ul>
+      <li>They are universally visible on the web</li>
+      <li>Every entry in every dictionary is distinct and uniuely addressable</li>
+      <li>The URI/Namespace mechanism means that anyone can create their own dictionaries. (But no-one is forced to use them!)</li>
+    </ul>
+    JUMBOParsers / Quixote works by creating one dictionary per code (e.g. nwchemDict.xml for NWChem). The namespace mechanism means that it
+    is impossible to confuse its entries with any other dictionary. This allows a community to create local concepts without 
+    having to agree them formally across the community (for which there is no current mechanism other than Quixote). 
+    </p>
+    <p>Assume that two different codes (A and B) use the term "charge". A can define <b>a:charge</b> which might be an integer and B <b>b:charge</b>
+    which might be a float. On further inspection it becomes clear that A means "nuclear charge" while B means "Mulliken charge" (of course
+    even the latter may have different formulations or interpretations). </p>
+    <p>A then decides that "atomicNumber" is probably a better representation
+    of the concept. Similarly code C may also have a need for "atomicNumber". Rather than both managing the same concept they agree
+    on a common representation (compchem:atomicNumber). This reduces maintenance and helps to grow a community approach to semantics.
+    </p>
+    <p>The syntax for a dictionary entry is prefix:entryId where prefix maps onto a namespaceURI, e.g. "compchem" maps onto
+    "http://www.xml-cml.org/dictionary/compchem/". It is the URI (NOT the prefix) than uniquifies the entries. (Nonetheless it is useful to
+    use a fairly consistent set of prefixes). In JUMBOParser we commonly use:
+    <ul>
+      <li><b>x</b> - an unknown namespace</li>
+      <li><b>cmlx</b> - an unregulated CML arena for temporary or prototype elements, attributes or dictionary entries.</li>
+      <li><b>cml</b> - the main CML namespace for elements and attributes. There is deliberately no specific dictionary.</li>
+      <li><b>cc</b> - the "toplevel" dictionary for agreed terms in the compchem convention.</li>
+      <li><b>g</b> - dictionary for the Gaussian system of files.</li>
+      <li><b>n</b> - dictionary for the NWChem system of files.</li>
+      <li><b>j</b> - dictionary for the Jaguar system of files.</li>
+      <li><b>q</b> - dictionary for the QuantumEspresso system of files.</li>
+      <li><b>si</b> - dictionary for SI units.</li>
+      <li><b>nonSi</b> - dictionary for nonSI units.</li>
+    </ul>
+    These prefixes may change - since many dictRefs are created in the &lt;transform> process we may have larger prefixes such as
+    nw, gau, guk, etc. And remember always that the namespaceURI is constant.</p>
+    <p>
+    If you know a dictionary entry exists then simply mint a dictRef
+    <code>&lt;cml:scalar dictRef="cc:cputime" units="si:second">123.45&lt;cml:scalar></code> although note that in
+    the compchem convention the dictRef would be on the property:
+    <pre>
+      &lt;cml:property dictRef="cc:cputime">
+        &lt;cml:scalar units="si:second">123.45&lt;cml:scalar>
+      &lt;/cml:property dictRef="cc:cputime">
+    </pre>
+    If you need to create a new dictionary entry then you can edit the working copy of the dictionary. Currently
+    this is often held at the program level within the distrib, e.g.
+    <code>src/main/resources/org/xmlcml/cml/converters/compchem/nwchem/nwchemDict.xml</code>.
+    This will then be committed (pushed) to bitbucket where everyone ca see it. After a period it can be added
+    to the official compchem site.
+    </p>
+    <p>
+    You are likely to need to add dictRefs to:
+    <ul>
+      <li>scalar, array and matrix as TEMPORARY storage</li>
+      <li>parameter and property</li>
+      <li>module (e.g. for conventions)</li>
+      <li>possibly molecule and spectrum</li> 
+    </ul>
+    </p>
+    <p>
+    The &lt;transform> process allows conformant semantics to be added and temporary ones to be removed. Thus you may see many 
+    dictRefs of the form "x:x", "x:line", "x:junk". These are not allowed to end up in the final CML file and so 
+    are often temporary and not unique. dictRefs are created by the symbolic fields, e.g
+    <code> &lt;record id="foo">{F,cc:jobtime}&lt;/record></code>
+    will translate to 
+    <code> &lt;scalar cmlx:templateRef="foo" dictRef="cc:jobtime" dataType="xsd:double">123.45&lt;/scalar></code>
+    This is not conformant compchem (it has no units, no property wrapper), and will need to be &lt;transform>ed
+    before final serialization.
+    </p>
+    
+    </div>
+    
+</body>
+</html>
