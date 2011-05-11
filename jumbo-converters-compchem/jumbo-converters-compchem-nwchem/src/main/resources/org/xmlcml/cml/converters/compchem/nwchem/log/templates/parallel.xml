@@ -6,18 +6,16 @@ Parallel integral file used 8 records with 0 large values
 Parallel grid_pts file used 8 records with 0 large values
 
   </comment>
-  <record id="parallel">\s*Parallel {X,cc:filetype} file used\s*{I,n:nrec}\s*records with\s*{I,n:large}\s*large values\s*</record>
+  <record id="parallel" repeat="*" makeArray="true">\s*Parallel {X,cc:filetype} file used\s*{I,n:nrec}\s*records with\s*{I,n:large}\s*large values\s*</record>
 
   <comment class="example.output" id="parallel">
-<module cmlx:templateRef="parallel" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <list cmlx:templateRef="parallel">
-    <list>
-      <scalar dataType="xsd:string" dictRef="cc:filetype">integral</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:nrec">8</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:large">0</scalar>
-    </list>
-  </list>Parallel grid_pts file used 8 records with 0 large values
-</module>
+    <module cmlx:templateRef="parallel" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:lineCount="2" cmlx:templateRef="parallel">
+        <array dataType="xsd:string" dictRef="cc:filetype" size="2">integral grid_pts</array>
+        <array dataType="xsd:integer" dictRef="n:nrec" size="2">8 8</array>
+        <array dataType="xsd:integer" dictRef="n:large" size="2">0 0</array>
+      </list>
+    </module>
   </comment>
 
 </template>

@@ -1,7 +1,7 @@
 <template id="initcoord" 
   pattern="\s*coordinates \(a.u.\) \- prior to orientation\s*$\s*\-{72}\s*" newline="$"
   endPattern="\s*\-{72}\s*">
-  <comment>
+  <comment class="example.input" id="initcoord">
                               coordinates (a.u.) - prior to orientation
  ------------------------------------------------------------------------
                  atom                x              y              z
@@ -14,9 +14,23 @@
  ------------------------------------------------------------------------
   </comment>
   <!-- skip 4 lines to coords -->
-  <record repeatCount="4">{X}</record>
-  <record repeatCount="*" id="initcoord" makeArray="true">\s*{I,guk:id}\s*{A,guk:atomtypeRef}\s*{F,guk:x3}\s*{F,guk:y3}\s*{F,guk:z3}\s*</record>
-<!-- 
-  <transform process="createMolecule" xpath="cml:list/cml:array"/>
-  -->
+  <record repeat="4">{X}</record>
+  <record repeat="*" id="initcoord" makeArray="true">\s*{I,guk:id}\s*{A,guk:elementType}\s*{F,guk:x3}\s*{F,guk:y3}\s*{F,guk:z3}\s*</record>
+  <record repeat="*"/>
+  
+  <!-- 
+  <transform process="createMolecule" xpath=".//cml:list"/>
+-->  
+    <comment class="example.output" id="initcoord">
+<module cmlx:templateRef="initcoord" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:lineCount="4" cmlx:templateRef="initcoord">
+    <array dataType="xsd:integer" dictRef="guk:id" size="4">1 2 3 4</array>
+    <array dataType="xsd:string" dictRef="guk:elementType" size="4">c o h h</array>
+    <array dataType="xsd:double" dictRef="guk:x3" size="4">0.0 0.0 1.765065 -1.765065</array>
+    <array dataType="xsd:double" dictRef="guk:y3" size="4">0.0 0.0 0.0 0.0</array>
+    <array dataType="xsd:double" dictRef="guk:z3" size="4">0.0 2.27334 -1.094386 -1.094386</array>
+  </list>
+</module>
+    </comment>
+  
 </template>

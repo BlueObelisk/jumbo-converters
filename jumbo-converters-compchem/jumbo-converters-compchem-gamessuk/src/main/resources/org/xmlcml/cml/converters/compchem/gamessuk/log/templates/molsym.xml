@@ -1,4 +1,4 @@
-<template id="molsym" repeatCount="1"   pattern="\s*\*+\s*$\s*molecular symmetry\s*$\s*\*+\s*" newline="$"
+<template id="molsym" repeat="1"   pattern="\s*\*+\s*$\s*molecular symmetry\s*$\s*\*+\s*" newline="$"
   endPattern="\s*\-{104}\s*" endOffset="1">
   <comment>
   
@@ -20,11 +20,11 @@
 
  --------------------------------------------------------------------------------------------------------
   </comment>
-	<record repeatCount="5">{X}</record>
+	<record repeat="5">{X}</record>
     <record >\s*molecular point group\s*{A,cc:pointgroup}</record>
     <record >\s*order of principal axis\s*{I,cc:princaxisorder}</record>
-    <record repeatCount="3">{X}</record>
-    <record repeatCount="*">\s*point\s*{I,cc:ser}\s*\:\s*{F,cc:x}{F,cc:y}{F,cc:z}</record>
+    <record repeat="3">{X}</record>
+    <record repeat="*">\s*point\s*{I,cc:ser}\s*\:\s*{F,cc:x}{F,cc:y}{F,cc:z}</record>
     <record>{X}</record>
     <record>\s*directional parameter \-{X,guk:dirparam}</record>
 </template>
