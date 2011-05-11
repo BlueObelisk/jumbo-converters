@@ -169,12 +169,12 @@ public class TemplateUnitTests {
    @Test public void testNwpwTechnicalOK()         {runTemplateTest("nwpw.technical");}
    @Test public void testNwpwTotalchargeOK()       {runTemplateTest("nwpw.totalcharge");}
    @Test public void testNwpwWarningOK()           {runTemplateTest("nwpw.warning");}
-   @Ignore @Test public void testNwpwNAMESPACE()                  {runTemplateTest("nwpw");}
+   @Ignore @Test public void testNwpwWHITE()                  {runTemplateTest("nwpw");}
    @Ignore @Test public void testOperationtimeWHITE()         {runTemplateTest("operationtime");}
    @Test public void testOrbitalenerEXAMPLE()           {runTemplateTest("orbitalener");}
    @Ignore @Test public void testOrbitalsymWHITE()            {runTemplateTest("orbitalsym");}
-   @Ignore @Test public void testParallelWHITE()              {runTemplateTest("parallel");}
-   @Test public void testPrincipalcomponentsEXAMPLE()   {runTemplateTest("principalcomponents");}
+   @Test public void testParallelOK()              {runTemplateTest("parallel");}
+   @Test public void testPrincipalcomponentsOK()   {runTemplateTest("principalcomponents");}
    @Test public void testPropertyEXAMPLE()              {runTemplateTest("property");}
    @Test public void testQuadrohfEXAMPLE()              {runTemplateTest("quadrohf");}
    @Test public void testQuartetsEXAMPLE()              {runTemplateTest("quartets");}

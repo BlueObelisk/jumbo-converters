@@ -1,0 +1,112 @@
+<html>
+<head>
+<title>JUMBOParser: Tutorial 8</title>
+</head>
+<body>
+  <div class="title">
+    <h1>Tutorial 8: Transformations - transform</h1>
+  </div>
+  <div class="section">
+    <h2>The &lt;transform> element</h2>
+    <p>Even though the parsed elements are CML the template approach often results in structures 
+    which represent the original form of the data rather that what is desirable for CML. For example the compchem convention makes
+    very strict constraints on the elements used, their local syntax and the structure of the document. The initial parse should not 
+    discard any information or change the order of the concepts, but we may wish to:
+    <ul>
+      <li>remove redundant information (e.g. serial numbers in lists)</li>
+      <li>flatten (or impose) hierarchies (group/ungroup)</li>
+      <li>rename components</li>
+      <li>move elements</li>
+      <li>change string content (e.g. change units and value of quantities).</li>
+      <li>merge elements (e.g. joinArrays)</li>
+    </ul>
+    A template can have any number of &lt;transform> elements, usually after all the raw templating has been finished
+    (e.g. through <code>templateList</code> and <code>record</code> elements).  The description of the vocabulary is held
+    in <code><i></i>&lt;workspace></i>\jumbo-converters\jumbo-converters-core\src\main\resources\org\xmlcml\cml\converters\text\processList.xml</code>.
+    This tutorial gives a brief overview and illustration of some of the commands.
+    </p>
+    <p>The format of the transform command is usually:
+    <pre>
+    &lt;transform process="<i>fooProcess</i>" xpath="<i>barPath</i>" <i>... other attributes ...</i>/>
+    </pre>
+    There are currently about 30 processes in the following main categories:
+    <ul>
+      <li><b>addFoo</b>. Adds a piece of information to the selected nodes. Current processes are:
+<code>addAttribute,
+addChild,
+addDictRef,
+addLabel,
+addLink,
+addMap,
+addNamespace,
+addUnits</code></li>
+    <li><b>createFoo</b>. Transforms one or more components into other components. Currently:
+<code>createArray,
+createDate,
+createDouble,
+createFormula,
+createGroup,
+createInteger,
+createMatrix33,
+createMolecule,
+createNameValue,
+createString,
+createVector3,
+createWrapper,
+createWrapperMetadata,
+createWrapperParameter,
+createWrapperProperty,
+createZMatrix</code>. 
+Thus createInteger will take a string value and transform it, if possible, to an integer. Some operations
+will delete some of the elements (e.g. createVector3 requires 3 scalars and will destroy them to create a 
+CMLVector3 element. </li>
+<li><b>joinArrays</b>. will join the selected nodes into a homogeneous array.</li>
+<li><b>debugNodes</b>. Prints debug info for selected nodes (can be large).</li>
+<li><b>delete</b>. Deletes the selected nodes. Deleting an attribute removes it from the parent element.</li>
+<li><b>move</b>. Moves selected nodes to a new parent node.</li>
+<li><b>pullup</b>. <code>pullup, pullupSingleton</code> remove a level of hierarchy.</li>
+<li><b>rename</b>. Not yet implemented.</li>
+<li><b>setValue</b>. set the string value of selected elements or attributes.</li>
+<li><b>split</b>. Splits element or content into smaller chunks.</li>
+<li><b>wrapPropertiesAndParameters</b>. in some conventions scalars and arrays must be wrapped
+in property or parameter elements; this convenience function does it.</li>
+<li><b>help</b>.</li>
+<li><b>checkDictionary</b>. Utility to check dictionaries.</li>
+</ul>
+    </p>
+    <p>The full details are given in the XML file. The <b>xpath</b> attribute is almost mandatory
+    and selects nodes to be transformed (no indication is given if the list is empty). The <b>from</b> and <b>to</b>
+    attributes are often used (e.g. <b>to</b> is the target of a move). <b>xpath</b> is always relative to the 
+    local top node (normally a <code>module</code> element. You should never try to reference outside
+    this (e.g. "../" or "/" have ill defined behaviour as the nodes may not yet exist). <code>from</code> is convoluted with <code>xpath</code>, thus
+    <code>xpath="./cml:list" from="./cml:scalar"</code> references the same set of nodes ("./cml:list/cml:scalar") as
+    <code>xpath="./cml:list/cml:scalar" from="."</code> and <code>xpath="." from="./cml:list/cml:scalar"</code>. But the behaviour may be different. Suppose the 
+    process is "createVector3" and there a 2 lists with 3 scalar children each. Only the first will work (the second creates 6 iterable nodes with only one child each
+    and the second 1 iterable node with 6 children (which fails for vector3). Here are some examples:
+        <ul>
+      <li>delete all cmlx attributes
+      <code>
+    &lt;transform process="<i>delete</i>" xpath=".//@cmlx:*"/>
+      </code>
+      </li>
+      <li>join all scalars into a single array
+      <code>
+    &lt;transform process="<i>joinArray</i>" xpath="." from=".//cml:scalar[@dictRef='my:val'']"/>
+      </code>
+      </li>
+      <li>pullup all scalars 3 levels (stop when reach child of root)
+      <code>
+    &lt;transform process="<i>pullup</i>" xpath=".//cml:scalar" repeat="3"/>
+      </code>
+      </li>
+      <li>
+      <code>set dictRef attributes to value of templateRefs (I think this works!)
+    &lt;transform process="<i>addDictRef</i>" xpath=".//*[@cml:templateRef]" value="string(@cml:templateRef)""/>
+      </code>
+      </li>
+    </ul>
+    The best place to learn is from working examples.
+    </div>
+    
+</body>
+</html>
