@@ -1,0 +1,125 @@
+<html>
+<head>
+<title>JUMBOParser: Tutorial 7</title>
+</head>
+<body>
+  <div class="title">
+    <h1>Tutorial 7: Transformations - XPath</h1>
+  </div>
+  <div class="section">
+    <h2>XPath</h2>
+    <p>Much of the power of JUMBO comes from applying XPath to structured documents. XPath
+    is a declarative approach to finding nodes within XML documents - it is very widely used
+    and there are many tutorials. Zvon gives a <a href="http://zvon.org/xxl/XPathTutorial/General/examples.html">good tutorial</a>,
+    and I suggest you work through it to about example 10. The rest of this tutoriall assumes this knowledge.
+    </p>
+    </div>
+      <div class="section">
+    <h2>Examples</h2>
+    <p>
+    <ul>
+    <li>NWChem: <code>principalaxes.xml</code> template produces as raw output:
+   <pre>
+&lt;module cmlx:templateRef="principalcomponents" xmlns="http://www.xml-cml.org/schema" 
+      xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  &lt;list cmlx:templateRef="comps">
+    &lt;array dataType="xsd:double" size="3" dictRef="cc:principalcomp">187.8811 86.435 86.4315&lt;/array>
+  &lt;/list>
+  &lt;list cmlx:templateRef="rows">
+    &lt;list>
+      &lt;scalar dataType="xsd:integer" dictRef="x:serial">1&lt;/scalar>
+      &lt;array dataType="xsd:double" size="3" dictRef="cc:principal.axes">0.866 -0.4984 0.0404&lt;/array>
+    &lt;/list>
+    &lt;list>
+      &lt;scalar dataType="xsd:integer" dictRef="x:serial">2&lt;/scalar>
+      &lt;array dataType="xsd:double" size="3" dictRef="cc:principal.axes">-0.3215 -0.4932 0.8083&lt;/array>
+    &lt;/list>
+    &lt;list>
+      &lt;scalar dataType="xsd:integer" dictRef="x:serial">3&lt;/scalar>
+      &lt;array dataType="xsd:double" size="3" dictRef="cc:principal.axes">0.3829 0.713 0.5874&lt;/array>
+    &lt;/list>
+  &lt;/list>
+&lt;/module>
+   </pre> 
+   We wish to remove the scalars, turn the arrays into a matrix and flatten the hierarchy. The <code>transform</code>
+   element system provides all the necessary function (explained in tutorial 8, hopeully self-evident here).
+   (The <code>pullup</code> process removes unnecessary nesting elements).
+   The context node (<code>.</code>) is the top cml:module (i.e. the node you see with the
+   <code>templateRef</code> value of <code>"principalcomponents"</code>. It could also be described (redundantly) as
+   <code>.//cml:module[@cmlx:templateRef='principalcomponents']</code>.
+   The scalars can be addressed by expressions such as:
+   <code>xpath=".//cml:scalar"</code> or <code>xpath=".//*[@dictRef='x:serial'']"</code> or
+    even <code>./cml:list/cml:list/cml:scalar[1]</code>. 
+   These all have virtues and drawbacks (especially when the template is modified in future revisions); 
+   I would suggest <code>xpath=".//cml:scalar[@dictRef='x:serial'']"</code> which is redundant and so robust.
+   The arrays should not be addressed by <code>xpath=".//cml:array"</code> as this would 
+   conflate the eigenvalues and eigenvectors.
+   So we can use <code>xpath=".//cml:array[@dictRef='cc:principal.axes']"</code>.
+   <p> Here are the final transformations (note the use of <code>|</code> to list both 
+     <code>cml:array</code> and <code>cml:matrix</code> elements):
+   <pre>
+    &lt;transform process="delete" xpath=".//cml:scalar[@dictRef='x:serial']"/>
+    &lt;transform process="createMatrix33" xpath="." from=".//cml:array[@dictRef='cc:principal.axes']" 
+       dictRef="cc:principalaxes"/>
+    &lt;transform process="pullup" repeat="2" xpath=".//cml:array | .//cml:matrix"/>
+   </pre>
+   and the final result:
+   <pre>
+&lt;module cmlx:templateRef="principalcomponents" xmlns="http://www.xml-cml.org/schema" 
+   xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  &lt;array dataType="xsd:double" size="3" dictRef="cc:principalcomp">187.8811 86.435 86.4315&lt;/array>
+  &lt;matrix rows="3" columns="3" dataType="xsd:double" dictRef="cc:principalaxes">
+     0.866 -0.4984 0.0404
+     -0.3215 -0.4932 0.8083
+     0.3829 0.713 0.5874
+  &lt;/matrix>
+&lt;/module>
+   </pre>
+   </p>
+    </li>
+    </ul>
+    </p>
+    
+    <p>Warnings:
+    <ul>
+      <li>XPath is used in XSLT and other languages and these have more power than XPath by itself. Make sure
+      that any documentation relates solely to XPath.</li>
+      <li>We are using XPath 1.0 in XOM. There may be functionalities in XPath 2.0 (and some in XPath 1.0)
+      that are not supported in our implementation. Be conservative in what axes and functions you use.
+      </li>
+      <li>XPath is unforgiving of syntax mistakes until runtime. Read carefully and make sure <code>[] () ''</code>
+      are balanced. Remember that a rarely used expression could have undetected errors.</li>
+      <li>XPath return exactly what you ask for (not always what you want!). If you get an expression "wrong"
+      it may return zero nodes. Be careful.</li>
+      <li>Common errors include:
+        <ul>
+          <li>forgetting the context node (<code>.</code>). Thus <code>//cml:list</code> returns ALL <code>cml:list</code>s
+           in the complete
+          document (which may be undetermined). You probably meant <code>.//cml:list</code>.</li>
+          <li>forgetting the <code>attribute</code> axis. <code>.//*[dictRef]</code> looks for all elements with a <code>dictRef</code>
+          child Element. You almost certainly meant <code>.//*[@dictRef]</code>.</li>
+          <li>forgetting to quote strings. <code>.//*[@dictRef=dipole]</code> looks for all elements with a <code>dictRef</code> attribute
+          whose value is the same as the value of the <code>dipole</code> element. You meant <code>.//*[@dictRef='dipole']</code></li>.
+          <li>Getting the hierarchies muddled. <code>./cml:list</code> only looks for direct <code>list</code> children
+          of the context node. You often need <code>./cml:module/cml:list</code> or <code>.//cml:list</code> (all list descendants - but sometimes this
+          is more than you want.</li>
+          <li>XPath counts from ONE. <code>./cml:list[2]</code> is the SECOND list child (as in FORTRAN, not the third as
+          in zero-based counts (Java, C, etc.)) .</li>
+          <li>Not all functions in XPath work. Use them sparingly and if you cannot get them working post them as bugs.</li>
+          <li>Grouping in Xpath 1.0 is VERY tedious. Use JUMBO <code>transform</code> functions in some cases.</li>
+          <li>Namespaces (especially omission of prefixes) are very common source of errors. All elements in JUMBO 
+          belong to the
+          CML namespace and should be referenced by the form <code>cml:module</code>, etc. Thus
+          <code>.//module/list</code> will fail to return anything - it must be <code>.//cml:module/cml:list</code>. 
+          Most attributes are in no namespace and should not have a prefix,
+          <code>cml:scalar[@dictRef='a:b']</code>; <code>cmlx:templateRef</code> is the main exception. Thus
+          <code>.//cml:scalar[@templateRef='foo:bar']</code> will fail; it should be <code>.//cml:scalar[@cmlx:templateRef='foo:bar']</code> Namespace prefixes 
+          <code>cml</code> and <code>cmlx</code> are hardcoded for you.</li>
+        </ul>
+    </ul>
+    </p>
+    <p>
+    </div>
+    
+</body>
+</html>

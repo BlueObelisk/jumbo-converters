@@ -24,6 +24,7 @@ import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.euclid.Int2;
 
 public class Template implements MarkupApplier {
+	private static final String HTTP_WWW_W3_ORG_2001_X_INCLUDE = "http://www.w3.org/2001/XInclude";
 	private final static Logger LOG = Logger.getLogger(Template.class);
 	
 	static{
@@ -354,28 +355,52 @@ public class Template implements MarkupApplier {
 			try {
 				marker.applyMarkup(lineContainer);
 			} catch (Exception e) {
-				lineContainer.debug("LINE CONTAINER");
-				String line = lineContainer.peekLine();
-				int nline = lineContainer.getCurrentNodeIndex();
-				System.err.println("PREVIOUS..."+nline);
-				for (int i = (Math.max(0, nline-6)); i < nline; i++) {
-					System.err.println(lineContainer.getLinesElement().getChild(i));
-				}
-				System.out.println("========DEBUG======="+marker.getId()+">>>>>");
-				marker.debug();
-				System.out.println("<<<<<"+marker.getId()+"========DEBUG=======");
-				if (line == null) {
-					if (debug) {
-						LOG.error("Null line ("+nline+")", e);
-					} else {
-						throw new RuntimeException("Null line ("+nline+")", e);
-					}
-				} else {
-					throw new RuntimeException("Failed; current line ("+nline+")"+line, e);
-				}
+				processException(lineContainer, marker, e);
 			}
 		}
 		removeEmptyLists(linesElement);
+//		removeXIncludeAll(linesElement);
+	}
+
+//	private void removeXIncludeAll(Element linesElement) {
+//		Nodes elements = linesElement.query(".//*");
+//		for (int i = 0; i < elements.size(); i++) {
+//			removeXInclude((Element)elements.get(i));
+//		}
+//	}
+//
+//	private void removeXInclude(Element element) {
+//		int ndec = element.getNamespaceDeclarationCount();
+//		for (int i = 0; i < ndec; i++) {
+//			String prefix = element.getNamespacePrefix(i);
+//			String namespaceURI = element.getNamespaceURI(prefix);
+//			if (HTTP_WWW_W3_ORG_2001_X_INCLUDE.equals(namespaceURI)) {
+//				throw new RuntimeException("XINCLUDE");
+//			}
+//		}
+//	}
+
+	private void processException(LineContainer lineContainer,
+			MarkupApplier marker, Exception e) {
+		lineContainer.debug("LINE CONTAINER");
+		String line = lineContainer.peekLine();
+		int nline = lineContainer.getCurrentNodeIndex();
+		System.err.println("PREVIOUS..."+nline);
+		for (int i = (Math.max(0, nline-6)); i < nline; i++) {
+			System.err.println(lineContainer.getLinesElement().getChild(i));
+		}
+		System.out.println("========DEBUG======="+marker.getId()+">>>>>");
+		marker.debug();
+		System.out.println("<<<<<"+marker.getId()+"========DEBUG=======");
+		if (line == null) {
+			if (debug) {
+				LOG.error("Null line ("+nline+")", e);
+			} else {
+				throw new RuntimeException("Null line ("+nline+")", e);
+			}
+		} else {
+			throw new RuntimeException("Failed; current line ("+nline+")"+line, e);
+		}
 	}
 	
 	public void applyMarkup(Element element) {
@@ -400,8 +425,10 @@ public class Template implements MarkupApplier {
 		for (int i = 0; i < count; i++) {
 			String prefix = fromElement.getNamespacePrefix(i);
 			String namespaceURI = fromElement.getNamespaceURI(prefix);
-			if (!hasNamespacePrefix(targetElement, prefix)) {
-				targetElement.addNamespaceDeclaration(prefix, namespaceURI);
+			if (!(HTTP_WWW_W3_ORG_2001_X_INCLUDE.equals(namespaceURI))) {
+				if (!hasNamespacePrefix(targetElement, prefix)) {
+					targetElement.addNamespaceDeclaration(prefix, namespaceURI);
+				}
 			}
 		}
 	}

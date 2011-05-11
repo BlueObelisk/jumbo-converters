@@ -10,8 +10,6 @@
     1 Au  19    18.00    .05  -.52   .33  1.71   .42   .02  -.01   .00   .00   .00   .00   .00   .03  -.68  1.34  4.07  1.16   .09  -.01   .00   .00   .00  -.25  1.86  4.77
   2.97   .64   .00   .00   .00   .00   .00   .00   .00   .00
 
- Parallel integral file used     182 records with       0 large values
-
   </comment>
   <comment>
   Mulliken analysis of the total density
@@ -30,26 +28,29 @@
   </comment>
   <record repeat="5" id="rl1">{X}</record>
   <record id="r1" repeat="*">\s*{I,n:serial}\s*{A,n:elem}\s*{I,n:atnum}\s*{F,n:charge}\s*{X,n:shells}\s*</record>
+  
+  <transform process="createArray" xpath=".//*[@dictRef='n:shells']" from="." dataType="xsd:double"/>
+  <transform process="joinArrays" xpath=".//*[@dictRef='n:shells']"/>
 
   <comment class="example.output" id="mulliken">
-<module cmlx:templateRef="mulliken" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <list cmlx:templateRef="r1">
-    <list>
-      <scalar dataType="xsd:integer" dictRef="n:serial">1</scalar>
-      <scalar dataType="xsd:string" dictRef="n:elem">Au</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:atnum">19</scalar>
-      <scalar dataType="xsd:double" dictRef="n:charge">18.0</scalar>
-      <scalar dataType="xsd:string" dictRef="n:shells">.05 -.52 .33 1.71 .42 .02 -.01 .00 .00 .00 .00 .00 .03 -.68 1.34 4.07 1.16 .09 -.01 .00 .00 .00 -.25 1.86 4.77</scalar>
-    </list>
-    <list>
-      <scalar dataType="xsd:integer" dictRef="n:serial">2</scalar>
-      <scalar dataType="xsd:string" dictRef="n:elem">.9</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:atnum">7</scalar>
-      <scalar dataType="xsd:double" dictRef="n:charge">0.64</scalar>
-      <scalar dataType="xsd:string" dictRef="n:shells">.00 .00 .00 .00 .00 .00 .00 .00</scalar>
-    </list>
-  </list> Parallel integral file used 182 records with 0 large values
-</module>
-        </comment>
+    <module cmlx:templateRef="mulliken" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="r1">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="n:serial">1</scalar>
+          <scalar dataType="xsd:string" dictRef="n:elem">Au</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:atnum">19</scalar>
+          <scalar dataType="xsd:double" dictRef="n:charge">18.0</scalar>
+          <scalar dataType="xsd:string" dictRef="n:shells">.05 -.52 .33 1.71 .42 .02 -.01 .00 .00 .00 .00 .00 .03 -.68 1.34 4.07 1.16 .09 -.01 .00 .00 .00 -.25 1.86 4.77</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:integer" dictRef="n:serial">2</scalar>
+          <scalar dataType="xsd:string" dictRef="n:elem">.9</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:atnum">7</scalar>
+          <scalar dataType="xsd:double" dictRef="n:charge">0.64</scalar>
+          <scalar dataType="xsd:string" dictRef="n:shells">.00 .00 .00 .00 .00 .00 .00 .00</scalar>
+        </list>
+      </list>
+    </module>
+  </comment>
 
 </template>

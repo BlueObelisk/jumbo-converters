@@ -1,6 +1,6 @@
 <template repeat="*"  id="principalcomponents" name="Principal Components and Axis System" 
-  pattern="\s*Principal Components and Axis System\s*" newline="$" 
-    endPattern="\s*$\s*"
+  pattern="\s*Principal Components and Axis System\s*"
+    endPattern="\s*3\s+.*" endOffset="1"
     >
 
   <comment class="example.input" id="principalcomponents">
@@ -14,13 +14,16 @@
 
 
 </comment>
-  <record id="skip">{X,x:x}</record>
-  <record id="cols"/>
-  <record id="comps">{F,cc:compx}{F,cc:compy}{F,cc:compz}</record>
+  <record id="skip" repeat="2"/>
+  <record id="comps">{3F,cc:principalcomp}</record>
   
   <record/>
-  <record id="rows" repeat="3">{I,cc:serial}{F,cc:row.x}{F,cc:row.y}{F,cc:row.z}</record>
+  <record id="rows" repeat="3">{I,x:serial}{3F,cc:principal.axes}</record>
 
+    <transform process="delete" xpath=".//cml:scalar[@dictRef='x:serial']"/>
+    <transform process="createMatrix33" xpath="." from=".//cml:array[@dictRef='cc:principal.axes']" dictRef="cc:principalaxes"/>
+    <transform process="pullup" repeat="2" xpath=".//cml:array | .//cml:matrix"/>
+    
   <comment class="example.output" id="principalcomponents">
 <module cmlx:templateRef="principalcomponents" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <list cmlx:templateRef="skip">
