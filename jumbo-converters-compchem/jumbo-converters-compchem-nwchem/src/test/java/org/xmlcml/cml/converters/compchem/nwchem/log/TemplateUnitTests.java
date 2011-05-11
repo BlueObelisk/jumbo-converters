@@ -124,17 +124,17 @@ public class TemplateUnitTests {
    @Test public void testLindeptolOK()             {runTemplateTest("lindeptol");}
    @Ignore @Test public void testLinestoskipWHITE()           {runTemplateTest("linestoskip");}
    @Test public void testLocalmemOK()              {runTemplateTest("localmem");}
-   @Ignore @Test public void testMagneticatomNAMESPACE()          {runTemplateTest("magneticatom");}
+   @Test public void testMagneticatomBAD()          {runTemplateTest("magneticatom");}
    @Ignore @Test public void testMullikenWHITE()              {runTemplateTest("mulliken.temp");}
    @Ignore @Test public void testMemoryWHITE()                {runTemplateTest("memory");}
    @Test public void testMemoryUtilOK()            {runTemplateTest("memoryUtil");}
    @Ignore @Test public void testMoleculardipoleWHITE()       {runTemplateTest("moleculardipole");}
    @Test public void testMomintOK()                {runTemplateTest("momint");}
    @Test public void testMp2energyOK()             {runTemplateTest("mp2energy");}
-   @Ignore @Test public void testMullikenTempWHITE()          {runTemplateTest("mulliken.temp");}
+   @Test public void testMullikenTempWHITE()          {runTemplateTest("mulliken.temp");}
    @Test public void testMultipoleOK()             {runTemplateTest("multipole");}
    @Test public void testMultipole1NAMESPACE()            {runTemplateTest("multipole1");}
-   @Test public void testNamedtensorEXAMPLE()           {runTemplateTest("namedtensor");}
+   @Test public void testNamedtensorOK()           {runTemplateTest("namedtensor");}
    @Test public void testNccpEXAMPLE()                  {runTemplateTest("nccp");}
    @Test public void testNonvariterEXAMPLE()            {runTemplateTest("nonvariter");}
    @Test public void testNucdipoleEXAMPLE()             {runTemplateTest("nucdipole");}

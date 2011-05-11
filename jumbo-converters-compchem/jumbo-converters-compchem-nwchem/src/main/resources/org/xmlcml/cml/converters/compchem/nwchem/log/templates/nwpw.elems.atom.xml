@@ -1,17 +1,52 @@
   <template repeat="*" id="atom" pattern="\s*\d+\s*\:.*" endPattern="\s*cutoff\s*\=.*" endOffset="1">
       <comment class="example.input" id="pspw.densitycut">
+      1: Ga    core charge:  3.0000  lmax=  2
+             comment    : Hamann pseudopotential
+             pseudpotential type            :   0
+             highest angular component      :   2
+             local potential used           :   2
+             number of non-local projections:   4
+             cutoff =   1.128   1.506   2.118
+             
       </comment>
 
-    <record id="atom1">\s*{I,cc:serial}\s*:\s*{A,x:elementType}\s*core charge:{F,n:corecharge}\s*lmax={I,n:lmax}\s*</record>
-    <record id="comment">\s*comment\s*:{X,n:comment}\s*</record>
-    <record id="pspot">\s*pseudpotential type\s*:{I,n:pspottype}\s*</record>
-    <record id="hangle">\s*highest angular component\s*:{I,n:hangularcomp}\s*</record>
-    <record id="local">\s*local potential used\s*:{I,n:localpot}\s*</record>
-    <record id="nonlocal">\s*number of non\-local projections\s*:\s*{I,n:nonlocal}\s*</record>
-    <record id="cutoff">\s*cutoff\s*\=\s*{F,n:cutoff.x}\s*{F,n:cutoff.y}\s*{F,n:cutoff.z}\s*</record>
-
-      <comment class="example.output" id="pspw.densitycut">
-<module cmlx:templateRef="atom" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"/>
-      </comment>
+  <record id="atom1">\s*{I,x:serial}\s*:\s*{A,cmlx:elementType}\s*core charge:{F,n:corecharge}\s*lmax={I,n:lmax}\s*</record>
+  <record id="comment">\s*comment\s*:{X,x:comment}\s*</record>
+  <record id="pspot">\s*pseudpotential type\s*:{I,n:pspottype}\s*</record>
+  <record id="hangle">\s*highest angular component\s*:{I,n:hangularcomp}\s*</record>
+  <record id="local">\s*local potential used\s*:{I,n:localpot}\s*</record>
+  <record id="nonlocal">\s*number of non\-local projections\s*:\s*{I,n:nonlocal}\s*</record>
+  <record id="cutoff">\s*cutoff\s*\=\s*{3F,n:cutoff}</record>
+  
+  <comment class="example.output" id="pspw.densitycut">
+    <module cmlx:templateRef="atom" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="atom1">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="x:serial">1</scalar>
+          <scalar dataType="xsd:string" dictRef="cmlx:elementType">Ga</scalar>
+          <scalar dataType="xsd:double" dictRef="n:corecharge">3.0</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:lmax">2</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="comment">
+        <scalar dataType="xsd:string" dictRef="x:comment">Hamann pseudopotential</scalar>
+      </list>
+      <list cmlx:templateRef="pspot">
+        <scalar dataType="xsd:integer" dictRef="n:pspottype">0</scalar>
+      </list>
+      <list cmlx:templateRef="hangle">
+        <scalar dataType="xsd:integer" dictRef="n:hangularcomp">2</scalar>
+      </list>
+      <list cmlx:templateRef="local">
+        <scalar dataType="xsd:integer" dictRef="n:localpot">2</scalar>
+      </list>
+      <list cmlx:templateRef="nonlocal">
+        <scalar dataType="xsd:integer" dictRef="n:nonlocal">4</scalar>
+      </list>
+      <list cmlx:templateRef="cutoff">
+        <array dataType="xsd:double" size="3" dictRef="n:cutoff">1.128 1.506 2.118</array>
+      </list>
+    </module>
+  </comment>
 
   </template>

@@ -1,6 +1,5 @@
 <template repeat="*"  id="magneticatom" name="Shifts for atom" 
-  pattern="\s*Atom:\s*.*" newline="$" 
-    endPattern="\s*$\s*" endOffset="2"
+  pattern="\s*Atom:\s*.*" endPattern="\s*$\s*" endOffset="2"
   xmlns:xi="http://www.w3.org/2001/XInclude"
     >
   <comment class="example.input" id="magneticatom">
@@ -38,7 +37,8 @@
     <xi:include href="principalcomponents.xml"/>
     <xi:include href="isotrop.xml"/>
     <xi:include href="namedtensor.xml"/>
-  </templateList>
+   </templateList>
+   <record repeat="*" id="s">{X,x:xxx}</record>
   
   <comment class="example.output" id="magneticatom">
 <module cmlx:templateRef="magneticatom" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" xmlns:xi="http://www.w3.org/2001/XInclude">
