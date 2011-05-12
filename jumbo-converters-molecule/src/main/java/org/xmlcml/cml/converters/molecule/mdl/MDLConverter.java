@@ -734,11 +734,16 @@ public class MDLConverter {
             y = new Double(line.substring(10, 20).trim()).doubleValue();
             z = new Double(line.substring(20, 30).trim()).doubleValue();
 
-            if (dimensionalCode.equals(MDLTag.D2) | !(Math.abs(z) > 0.0001)) {
+            // default to 3D and log a warning
+            if (dimensionalCode == null || dimensionalCode.equals(MDLTag.DUNK)) {
+                thisAtom.setX3(x);
+                thisAtom.setY3(y);
+                thisAtom.setZ3(z);
+                LOG.warn("No 2D/3D code given");
+            } else  if (dimensionalCode.equals(MDLTag.D2)) {
                 thisAtom.setX2(x);
                 thisAtom.setY2(y);
-            } else if (dimensionalCode.equals(MDLTag.D3) | Math.abs(x) > 0.0001
-                    | Math.abs(y) > 0.0001 | Math.abs(z) > 0.0001) {
+            } else if (dimensionalCode.equals(MDLTag.D3)) {
                 thisAtom.setX3(x);
                 thisAtom.setY3(y);
                 thisAtom.setZ3(z);

@@ -1,7 +1,9 @@
 package org.xmlcml.cml.converters.text;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +23,7 @@ import nu.xom.Text;
 import org.apache.log4j.Logger;
 import org.joda.time.Duration;
 import org.xmlcml.cml.attribute.DictRefAttribute;
+import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
@@ -75,6 +78,7 @@ public class TransformElement implements MarkupApplier {
 	private static final String FORMAT              = "format";
 	private static final String FROM                = "from";
 	private static final String FROM_POSITION       = "fromPosition";
+	private static final String INPUT               = "input";
 	private static final String MAP                 = "map";
 	private static final String NAME                = "name";
 	private static final String OUTPUT              = "output";
@@ -99,6 +103,7 @@ public class TransformElement implements MarkupApplier {
 		FROM, 
 		FROM_POSITION, 
 		ID, 
+		INPUT, 
 		MAP,
 		NAME,
 		OUTPUT,
@@ -150,10 +155,12 @@ public class TransformElement implements MarkupApplier {
 	private static final String MOVE                   = "move";
 	private static final String PULLUP                 = "pullup";
 	private static final String PULLUP_SINGLETON       = "pullupSingleton";
+	private static final String READ                   = "read";
 	private static final String RENAME                 = "rename";
 	private static final String SET_VALUE              = "setValue";
 	private static final String SPLIT                  = "split";
 	private static final String WRAP_PROPERTIES_AND_PARAMETERS = "wrapPropertiesAndParameters";
+	private static final String WRITE                  = "write";
 	private static final String HELP                   = "help";
 	
 	private static final String UNIT_SI_URI = "http://www.xml-cml.org/unit/si/";
@@ -202,10 +209,12 @@ public class TransformElement implements MarkupApplier {
 		JOIN_ARRAYS,
 		MOVE,
 		PULLUP_SINGLETON,
+		READ,
 		RENAME,
 		SET_VALUE,
 		SPLIT,
 		WRAP_PROPERTIES_AND_PARAMETERS,
+		WRITE,
 	};
 	
 	
@@ -230,8 +239,10 @@ public class TransformElement implements MarkupApplier {
 	private String from;
 	private String fromPosition;
 	private String id;
+	private String input;
 	private String map;
 	private String name;
+	private String output;
 	private String position;
 	private String previousSiblingsAfter;
 	private String process;
@@ -274,8 +285,10 @@ public class TransformElement implements MarkupApplier {
 		from                   = addAndIndexAttribute(FROM);
 		fromPosition           = addAndIndexAttribute(FROM_POSITION);
 		id                     = addAndIndexAttribute(ID);
+		input                  = addAndIndexAttribute(INPUT);
 		map                    = addAndIndexAttribute(MAP);
 		name                   = addAndIndexAttribute(NAME);
+		output                  = addAndIndexAttribute(OUTPUT);
 		position               = addAndIndexAttribute(POSITION);
 		previousSiblingsAfter  = addAndIndexAttribute(PREVIOUS_AFTER);
 		regex                  = addAndIndexAttribute(REGEX);
@@ -384,6 +397,8 @@ public class TransformElement implements MarkupApplier {
 			pullup();
 		} else if (PULLUP_SINGLETON.equals(process)) {
 			pullupSingleton();
+		} else if (READ.equals(process)) {
+			read();
 		} else if (RENAME.equals(process)) {
 			rename();
 		} else if (SET_VALUE.equals(process)) {
@@ -392,6 +407,8 @@ public class TransformElement implements MarkupApplier {
 			split();
 		} else if (WRAP_PROPERTIES_AND_PARAMETERS.equals(process)) {
 			wrapPropertiesAndParameters();
+		} else if (WRITE.equals(process)) {
+			write();
 		} else {
 			if (processExists(process)) {
 				invokeProcess(process);
@@ -1125,6 +1142,49 @@ public class TransformElement implements MarkupApplier {
 		}
 	}
 
+	private void read() {
+		assertRequired(INPUT, input);
+		assertRequired(TO_XPATH, to);
+		assertRequired(ID, id);
+		Element element = readElementSomehow(input);
+			if (element != null) {
+				Nodes toNodes = TransformElement.queryUsingNamespaces(element, to);
+				if (toNodes.size() == 1) {
+					((ParentNode)toNodes.get(0)).appendChild(element);
+				}
+			}
+	}
+
+	private Element readElementSomehow(String inputx) {
+		Element element = null;
+		InputStream is = null;
+		try {
+			is = new FileInputStream(inputx);
+		} catch (Exception e) {
+			LOG.warn("Cannot read url "+input);
+		}
+		if (is == null) {
+			try {
+				is = new URL(input).openStream();
+			} catch (Exception e) {
+				LOG.warn("Cannot read url "+input);
+			}
+		}
+		if (is == null) {
+			try {
+				is = Util.getResourceUsingContextClassLoader(input, TransformElement.class);
+			} catch (Exception e) {
+				LOG.warn("Cannot read resource "+input);
+			}
+		}
+		try {
+			element = new CMLBuilder().build(is).getRootElement();
+		} catch (Exception e) {
+			LOG.warn("Cannot parse as element "+input);
+		}
+		return element;
+	}
+
 	private void rename() {
 		throw new RuntimeException("rename NYI");
 	}
@@ -1245,6 +1305,13 @@ public class TransformElement implements MarkupApplier {
 			}
 		}
 	}
+	
+	private void write() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 // ==================== end of methods ============	
 

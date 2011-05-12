@@ -7,6 +7,7 @@ package org.xmlcml.cml.converters.molecule;
 import org.junit.Test;
 import org.xmlcml.cml.converters.molecule.mdl.CML2MDLConverter;
 import org.xmlcml.cml.converters.molecule.mdl.MDL2CMLConverter;
+import org.xmlcml.cml.converters.molecule.mdl.SDF2CMLConverter;
 import org.xmlcml.cml.converters.molecule.pubchem.PubchemXML2CMLConverter;
 import org.xmlcml.cml.converters.molecule.pubchem.sdf.CML2PubchemSDFConverter;
 import org.xmlcml.cml.converters.molecule.xyz.CML2XYZConverter;
@@ -29,6 +30,12 @@ public class RegressionTest {
    public void mdl2cml() {
       RegressionSuite.run("molecule/mdl/mdl2cml", "mol", "cml",
                           new MDL2CMLConverter());
+   }
+
+   @Test
+   public void sdf2cml() {
+      RegressionSuite.run("molecule/sdf", "sdf", "cml",
+                          new SDF2CMLConverter());
    }
 
    @Test

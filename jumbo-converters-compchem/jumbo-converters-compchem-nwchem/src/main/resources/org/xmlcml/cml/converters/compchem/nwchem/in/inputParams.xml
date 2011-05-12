@@ -1,0 +1,42 @@
+<cml title="test" xmlns="http://www.xml-cml.org/schema">
+
+  <module id ="john_fukui" dictRef="compchem:inputList" convention="convention:compchem" 
+    title="John's example for Fukui">
+  
+ 
+  <module id="dft" dictRef="compchem:input" convention="convention:compchem" 
+    title="John's example for Fukui">
+   <parameterList>
+     <parameter dictRef="cc:basis">
+       <atomType>H</atomType>
+       <scalar dataType="xsd:string">6-31g**</scalar>
+     </parameter>
+     <parameter dictRef="cc:basis">
+       <atomType>C</atomType>
+       <scalar dataType="xsd:string">6-31g**</scalar>
+     </parameter>
+S     <parameter dictRef="cc:basis">
+       <atomType>N</atomType>
+       <scalar dataType="xsd:string">6-31g**</scalar>
+     </parameter>
+     <parameter dictRef="cc:basis">
+       <atomType>O</atomType>
+       <scalar dataType="xsd:string">6-31g**</scalar>
+     </parameter>
+     <parameter dictRef="cc:dft">
+       <scalar dataType="xsd:string" dictRef="cc:dft.qualifier">xc</scalar>
+       <scalar dataType="xsd:string" dictRef="cc:dft.functional">b3lyp</scalar>
+     </parameter>
+     <parameter dictRef="cc:calculation">
+       <scalar dataType="xsd:string">fukui</scalar>
+     </parameter>
+     <parameter dictRef="cc:output">
+       <scalar dataType="xsd:string">verbose</scalar>
+     </parameter>
+     <parameter dictRef="cc:calculation">
+       <scalar dataType="xsd:string">dft</scalar>
+     </parameter>
+   </parameterList>
+  </module>
+  </module>  
+</cml>
