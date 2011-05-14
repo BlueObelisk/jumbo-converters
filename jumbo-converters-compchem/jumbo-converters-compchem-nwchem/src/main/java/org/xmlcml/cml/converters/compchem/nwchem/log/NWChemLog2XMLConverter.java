@@ -6,9 +6,10 @@ import java.io.IOException;
 import nu.xom.Element;
 
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.converters.compchem.CompchemTemplateConverter;
+import org.xmlcml.cml.converters.compchem.CompchemText2XMLTemplateConverter;
+import org.xmlcml.cml.converters.util.ConverterUtils;
 
-public class NWChemLog2XMLConverter extends CompchemTemplateConverter {
+public class NWChemLog2XMLConverter extends CompchemText2XMLTemplateConverter {
 
 	private static Logger LOG = Logger.getLogger(NWChemLog2XMLConverter.class);
 	private static final String BASE_URI = "classpath:/org/xmlcml/cml/converters/compchem/nwchem/log/templates/topTemplate.xml";
@@ -17,7 +18,7 @@ public class NWChemLog2XMLConverter extends CompchemTemplateConverter {
 	}
 	
 	public NWChemLog2XMLConverter(String baseUri, String templateName) {
-		this(getDefaultTemplate(baseUri, templateName, NWChemLog2XMLConverter.class));
+		this(ConverterUtils.buildElementIncludingBaseUri(baseUri, templateName, NWChemLog2XMLConverter.class));
 	}
 	
 	public NWChemLog2XMLConverter(Element templateElement) {
@@ -52,7 +53,7 @@ public class NWChemLog2XMLConverter extends CompchemTemplateConverter {
 			"templates/"+args[1]);
 			converter.runNWTests(args[0]);
 		} else {
-			CompchemTemplateConverter converter = new NWChemLog2XMLConverter();
+			CompchemText2XMLTemplateConverter converter = new NWChemLog2XMLConverter();
 			File in = new File("nwtests/parsable/ch3f_rot.out");
 			File out = new File("ch3f_rot.xml");
 			converter.convert(in, out);

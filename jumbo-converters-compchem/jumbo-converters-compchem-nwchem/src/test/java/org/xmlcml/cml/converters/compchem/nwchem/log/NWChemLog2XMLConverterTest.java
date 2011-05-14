@@ -9,7 +9,7 @@ import nu.xom.Element;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.xmlcml.cml.converters.text.TemplateConverter;
+import org.xmlcml.cml.converters.text.Text2XMLTemplateConverter;
 import org.xmlcml.euclid.Util;
 
 public class NWChemLog2XMLConverterTest {
@@ -24,7 +24,7 @@ public class NWChemLog2XMLConverterTest {
 //        "compchem/gaussian/log/in/test1.log");
 		InputStream inputStream = new FileInputStream(
         "src/test/resources/compchem/gaussian/log/in/to-2246.log");
-		TemplateConverter glc = new NWChemLog2XMLConverter(templateXML);
+		Text2XMLTemplateConverter glc = new NWChemLog2XMLConverter(templateXML);
         File out = new File(new File("."), "target/test/compchem/gaussian/test1.xml");
 		glc.convert(inputStream, out);
 	}

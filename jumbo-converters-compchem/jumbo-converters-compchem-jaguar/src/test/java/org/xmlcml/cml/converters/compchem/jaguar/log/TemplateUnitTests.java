@@ -3,6 +3,7 @@ package org.xmlcml.cml.converters.compchem.jaguar.log;
 import nu.xom.Element;
 
 
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xmlcml.cml.converters.text.TemplateTestUtils;
@@ -32,7 +33,13 @@ public class TemplateUnitTests {
   }
 
 
-   @Test public void testFukui()                               {runTemplateTest("fukui");}
+  @Test public void testBasis()                               {runTemplateTest("basis");}
+  @Test public void testCh()                                  {runTemplateTest("ch");}
+  @Test public void testDynmem()                              {runTemplateTest("dynmem");}
+  @Test public void testFooter()                              {runTemplateTest("footer");}
+  @Test public void testFukui()                               {runTemplateTest("fukui");}
+  @Test public void testGrid()                                {runTemplateTest("grid");}
+  @Test public void testInpgeom()                             {runTemplateTest("inpgeom");}
   
   private void runTemplateTest(String templateName) {
     Element template = TemplateTestUtils.getTemplate(TEMPLATE_DIR+templateName+".xml", BASE_URI);

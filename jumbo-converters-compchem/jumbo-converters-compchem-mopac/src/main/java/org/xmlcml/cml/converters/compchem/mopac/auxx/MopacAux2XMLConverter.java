@@ -5,9 +5,9 @@ import java.io.IOException;
 
 import nu.xom.Element;
 
-import org.xmlcml.cml.converters.compchem.CompchemTemplateConverter;
+import org.xmlcml.cml.converters.compchem.CompchemText2XMLTemplateConverter;
 
-public class MopacAux2XMLConverter extends CompchemTemplateConverter {
+public class MopacAux2XMLConverter extends CompchemText2XMLTemplateConverter {
 	
 	public MopacAux2XMLConverter() {
 		this(getDefaultTemplate("mopac", "aux", "topTemplate.xml", MopacAux2XMLConverter.class));
@@ -18,7 +18,7 @@ public class MopacAux2XMLConverter extends CompchemTemplateConverter {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		CompchemTemplateConverter converter = new MopacAux2XMLConverter();
+		CompchemText2XMLTemplateConverter converter = new MopacAux2XMLConverter();
 //		File in = new File("D:\\projects\\nwchem-tests\\in\\ch3f_rot\\ch3f_rot.out");
 //		File out = new File("test-out.xml");
 //		converter.convert(in, out);

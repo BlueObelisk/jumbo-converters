@@ -1,14 +1,19 @@
 package org.xmlcml.cml.converters.text;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import nu.xom.Builder;
+import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
 import nu.xom.Nodes;
 import nu.xom.XPathContext;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
@@ -585,5 +590,6 @@ public class Template implements MarkupApplier {
 	public List<DictionaryContainer> getDictionaryContainerList() {
 		return dictionaryList;
 	}
+
 
 }

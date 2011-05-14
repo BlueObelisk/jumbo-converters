@@ -12,10 +12,10 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
-import org.xmlcml.cml.converters.compchem.CompchemTemplateConverter;
+import org.xmlcml.cml.converters.compchem.CompchemText2XMLTemplateConverter;
 import org.xmlcml.cml.converters.compchem.TestUtils;
 import org.xmlcml.cml.converters.testutils.RegressionSuite;
-import org.xmlcml.cml.converters.text.TemplateConverter;
+import org.xmlcml.cml.converters.text.Text2XMLTemplateConverter;
 import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.euclid.Util;
 
@@ -46,7 +46,7 @@ public class ConverterTest {
     @Test
     @Ignore // need whitespace comparison
     public void nwchemOut2XML() {
-		TemplateConverter converter = createConverter("org/xmlcml/cml/converters/compchem/nwchem/log/templateList.xml");
+		Text2XMLTemplateConverter converter = createConverter("org/xmlcml/cml/converters/compchem/nwchem/log/templateList.xml");
         RegressionSuite.run("compchem/nwchem/log", "out", "xml", converter, true);
     }
     
@@ -58,7 +58,7 @@ public class ConverterTest {
 	    String templateXML = "org/xmlcml/cml/converters/compchem/nwchem/log/topTemplate.xml";
 	    InputStream templateStream = Util.getInputStreamFromResource(templateXML);
 	    // this creates CMLElements as children
-	    TemplateConverter tc = CompchemTemplateConverter.createTemplateConverter(templateStream, "nwchem", "log");
+	    Text2XMLTemplateConverter tc = CompchemText2XMLTemplateConverter.createTemplateConverter(templateStream, "nwchem", "log");
 	
 	    CMLModule module = (CMLModule) tc.convertToXML(file);
 	
@@ -76,7 +76,7 @@ public class ConverterTest {
 	    String templateXML = "org/xmlcml/cml/converters/compchem/nwchem/log/topTemplate.xml";
 	    InputStream templateStream = Util.getInputStreamFromResource(templateXML);
 	    // this creates CMLElements as children
-	    TemplateConverter tc = CompchemTemplateConverter.createTemplateConverter(templateStream, "nwchem", "log");
+	    Text2XMLTemplateConverter tc = CompchemText2XMLTemplateConverter.createTemplateConverter(templateStream, "nwchem", "log");
 	
 	    CMLModule module0 = (CMLModule) tc.convertToXML(file);
 	    CMLModule module = (CMLModule) CMLUtil.parseCML(module0.toXML());
@@ -91,18 +91,18 @@ public class ConverterTest {
     
 	private void testConverter(String name) {
 		String templateXML = "org/xmlcml/cml/converters/compchem/nwchem/log/templateListAll.xml";
-		TemplateConverter converter = createConverter(templateXML);
+		Text2XMLTemplateConverter converter = createConverter(templateXML);
 		TestUtils.runConverterTest(converter, 
 				"compchem/nwchem/log/templates/"+name+IN_SUFFIX, 
 				"compchem/nwchem/log/templates/"+name+XML_SUFFIX,
 				true);
 	}
 		
-	private TemplateConverter createConverter(String templateXML) {
-		TemplateConverter converter = null;
+	private Text2XMLTemplateConverter createConverter(String templateXML) {
+		Text2XMLTemplateConverter converter = null;
 		try {
 			InputStream templateStream = Util.getInputStreamFromResource(templateXML);
-			converter = CompchemTemplateConverter.createTemplateConverter(templateStream, "nwchem", "log");
+			converter = CompchemText2XMLTemplateConverter.createTemplateConverter(templateStream, "nwchem", "log");
 		} catch (Exception e) {
 			throw new RuntimeException("Cannot make template ", e);
 		}

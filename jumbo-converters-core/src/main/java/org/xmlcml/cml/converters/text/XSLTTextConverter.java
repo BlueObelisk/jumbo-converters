@@ -2,8 +2,6 @@ package org.xmlcml.cml.converters.text;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +10,6 @@ import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Node;
 import nu.xom.Nodes;
-import nu.xom.ParsingException;
-import nu.xom.ValidityException;
 import nu.xom.xslt.XSLTransform;
 
 import org.apache.commons.io.FileUtils;

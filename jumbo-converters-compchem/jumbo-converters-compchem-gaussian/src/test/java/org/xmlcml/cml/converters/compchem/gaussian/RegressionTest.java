@@ -3,7 +3,6 @@ package org.xmlcml.cml.converters.compchem.gaussian;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xmlcml.cml.converters.compchem.gaussian.input.CML2GaussianInputConverter;
-import org.xmlcml.cml.converters.compchem.gaussian.logold.GaussianLog2CMLConverter;
 import org.xmlcml.cml.converters.testutils.RegressionSuite;
 
 /**
@@ -13,12 +12,12 @@ import org.xmlcml.cml.converters.testutils.RegressionSuite;
 public class RegressionTest {
 
 
-   @Test
-   @Ignore("Largely deprecated")
-   public void gauLog2CML() {
-      RegressionSuite.run("compchem/gaussian/gaussian/log", "g03", "cml",
-                          new GaussianLog2CMLConverter());
-   }
+//   @Test
+//   @Ignore("Largely deprecated")
+//   public void gauLog2CML() {
+//      RegressionSuite.run("compchem/gaussian/gaussian/log", "g03", "cml",
+//                          new GaussianLog2CMLConverter());
+//   }
 
    @Test
    @Ignore
@@ -27,12 +26,12 @@ public class RegressionTest {
                           new CML2GaussianInputConverter());
    }
 
-   @Test
-   @Ignore // I think this uses old marker code
-   public void cmlNmr2gauIn() {
-      RegressionSuite.run("compchem/gaussian/input/nmr", "cml", "gau.in",
-                          new GaussianLog2CMLConverter());
-   }
+//   @Test
+//   @Ignore // I think this uses old marker code
+//   public void cmlNmr2gauIn() {
+//      RegressionSuite.run("compchem/gaussian/input/nmr", "cml", "gau.in",
+//                          new GaussianLog2CMLConverter());
+//   }
    
    @Test
    @Ignore // not sure which version this runs

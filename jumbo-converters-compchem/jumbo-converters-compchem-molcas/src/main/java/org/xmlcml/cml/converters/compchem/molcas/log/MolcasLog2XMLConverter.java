@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import nu.xom.Element;
 
-import org.xmlcml.cml.converters.compchem.CompchemTemplateConverter;
+import org.xmlcml.cml.converters.compchem.CompchemText2XMLTemplateConverter;
 
-public class MolcasLog2XMLConverter extends CompchemTemplateConverter {
+public class MolcasLog2XMLConverter extends CompchemText2XMLTemplateConverter {
 	
 	public MolcasLog2XMLConverter() {
 		this(getDefaultTemplate("molcas", "log", "topTemplate.xml", MolcasLog2XMLConverter.class));
@@ -17,7 +17,7 @@ public class MolcasLog2XMLConverter extends CompchemTemplateConverter {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		CompchemTemplateConverter converter = new MolcasLog2XMLConverter();
+		CompchemText2XMLTemplateConverter converter = new MolcasLog2XMLConverter();
 //		File in = new File("D:\\projects\\nwchem-tests\\in\\ch3f_rot\\ch3f_rot.out");
 //		File out = new File("test-out.xml");
 //		converter.convert(in, out);

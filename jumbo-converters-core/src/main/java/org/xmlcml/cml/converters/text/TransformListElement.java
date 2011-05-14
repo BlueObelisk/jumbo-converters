@@ -17,10 +17,17 @@ public class TransformListElement implements MarkupApplier {
 	private Template template;
 	private List<MarkupApplier> markerList;
 
-	public TransformListElement(Element element, Template template) {
+	public TransformListElement(Element element) {
+		if (!(element.getLocalName().equals(TransformListElement.TAG))) {
+			throw new RuntimeException("cannot make transformList from: "+element.getLocalName());
+		}
 		this.element = element;
-		this.template = template;
 		processChildElementsAndAttributes();
+	}
+
+	public TransformListElement(Element element, Template template) {
+		this(element);
+		this.template = template;
 	}
 
 	private void processChildElementsAndAttributes() {

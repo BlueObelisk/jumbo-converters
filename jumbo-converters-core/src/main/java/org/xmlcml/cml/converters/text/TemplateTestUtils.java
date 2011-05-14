@@ -36,7 +36,7 @@ public class TemplateTestUtils {
 			OutputStream outputStream,
 			String templateResourceName, String baseUri, boolean compare) throws IOException {
 		Element templateElement = getTemplate(templateResourceName, baseUri);
-		TemplateConverter tc = new TemplateConverter(templateElement);
+		Text2XMLTemplateConverter tc = new Text2XMLTemplateConverter(templateElement);
 		String text = IOUtils.toString(inputStream);
 		Element testXml = parseText(tc, text);
 		CMLUtil.debug(testXml, outputStream, 1);
@@ -59,7 +59,7 @@ public class TemplateTestUtils {
 	}
 
 	public static void runCommentExamples(Element template) {
-		TemplateConverter tc = new TemplateConverter(template);
+		Text2XMLTemplateConverter tc = new Text2XMLTemplateConverter(template);
 		Nodes exampleInputComments = template.query("comment[@class='"+EXAMPLE_INPUT+"' and @id]"); 
 		if (exampleInputComments.size() == 0) {
 			throw new RuntimeException("No examples found");
@@ -81,7 +81,7 @@ public class TemplateTestUtils {
 		}
 	}
 
-	private static Element parseText(TemplateConverter converter, String content) {
+	private static Element parseText(Text2XMLTemplateConverter converter, String content) {
 		if (content.startsWith(CMLConstants.S_NEWLINE)) {
 			content = content.substring(1);
 		}

@@ -5,10 +5,10 @@ import java.io.InputStream;
 import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.xmlcml.cml.converters.compchem.CompchemTemplateConverter;
+import org.xmlcml.cml.converters.compchem.CompchemText2XMLTemplateConverter;
 import org.xmlcml.cml.converters.compchem.TestUtils;
 import org.xmlcml.cml.converters.testutils.RegressionSuite;
-import org.xmlcml.cml.converters.text.TemplateConverter;
+import org.xmlcml.cml.converters.text.Text2XMLTemplateConverter;
 import org.xmlcml.euclid.Util;
 
 public class ConverterTest {
