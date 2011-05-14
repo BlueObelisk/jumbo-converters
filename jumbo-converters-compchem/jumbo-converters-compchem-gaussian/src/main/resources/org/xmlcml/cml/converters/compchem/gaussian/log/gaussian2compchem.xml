@@ -1,0 +1,31 @@
+<transformList>
+
+  <transform process="addChild" xpath="/*" elementName="module" position="1" id="finalization"/>
+  <transform process="addChild" xpath="/*" elementName="module" position="1" id="calculation"/>
+  <transform process="addChild" xpath="/*" elementName="module" position="1" id="initialization"/>
+  <transform process="addChild" xpath="/*" elementName="module" position="1" id="environment"/>
+ 
+  <transform process="move" xpath=".//cml:module[starts-with(@cmlx:templateRef,'l1.') or @cmlx:templateRef='l1']" toXpath=".//cml:module[@id='initialization']"/> 
+  <transform process="move" xpath=".//cml:module[starts-with(@cmlx:templateRef,'l101.') or @cmlx:templateRef='l101']" toXpath=".//cml:module[@id='initialization']"/> 
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l103'][1]" toXpath=".//cml:module[@id='initialization']"/> 
+  
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l202.orient'][1]" toXpath=".//cml:module[@id='initialization']"/> 
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l202.orient'][2]" toXpath=".//cml:module[@id='initialization']"/> 
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l202.distmat'][1]" toXpath=".//cml:module[@id='initialization']"/> 
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l202.stoich'][1]" toXpath=".//cml:module[@id='initialization']"/> 
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l202.rotconst'][1]" toXpath=".//cml:module[@id='initialization']"/> 
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l301.basis'][1]" toXpath=".//cml:module[@id='initialization']"/> 
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l302.basis'][1]" toXpath=".//cml:module[@id='initialization']"/> 
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l601.popanal'][1]" toXpath=".//cml:module[@id='initialization']"/> 
+  
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l601.popanal'][last()]" toXpath=".//cml:module[@id='finalization']"/> 
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.final'][1]" toXpath=".//cml:module[@id='finalization']"/> 
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive'][1]" toXpath=".//cml:module[@id='finalization']"/> 
+  
+  <transform process="move" xpath="/cml:module/cml:module[not(@id='initialization') and not(@id='environment') and not(@id='finalization')]" toXpath="/cml:module/cml:module[@id='calculation']"/> 
+
+<!--   
+  <transform process="delete" xpath="/cml:module/text() | /cml:module/cml:scalar" toXpath="/cml:module/cml:module[@id='calculation']"/> 
+ -->  
+</transformList>    
+ 

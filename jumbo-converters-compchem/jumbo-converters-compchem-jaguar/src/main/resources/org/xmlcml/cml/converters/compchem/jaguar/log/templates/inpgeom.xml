@@ -3,18 +3,36 @@
   pattern="\s*Input geometry:\s*"
   endPattern="\s*" 
   >
-  <comment>
+  <comment class="example.input" id="inpgeom">
  Input geometry:
                                    angstroms
   atom               x                 y                 z
   C1           -2.7874000000      1.0093000000      0.0350000000 
   C2           -3.3765000000     -0.2605000000      0.0490000000 
-  ...
   H27           0.2796000000      3.0270000000     -0.2295000000 
    
   </comment>
+  
   <record/>
   <record id="units">{A,j:mollenunits}</record>
   <record/>
   <record repeat="*" id="atom" makeArray="true">{A,cc:elementType}{F,cc:x3}{F,cc:y3}{F,cc:z3}</record>
+
+  <transform process="delete" xpath=".//cml:list[cml:scalar[@dictRef='j:mollenunits']]"/>
+  <transform process="createMolecule" xpath=".//cml:list"/>
+  
+  <comment class="example.output" id="inpgeom">
+    <module cmlx:templateRef="inpgeom" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="units">
+        <scalar dataType="xsd:string" dictRef="j:mollenunits">angstroms</scalar>
+      </list>
+      <list cmlx:lineCount="3" cmlx:templateRef="atom">
+        <array dataType="xsd:string" dictRef="cc:elementType" size="3">C1 C2 H27</array>
+        <array dataType="xsd:double" dictRef="cc:x3" size="3">-2.7874 -3.3765 0.2796</array>
+        <array dataType="xsd:double" dictRef="cc:y3" size="3">1.0093 -0.2605 3.027</array>
+        <array dataType="xsd:double" dictRef="cc:z3" size="3">0.035 0.049 -0.2295</array>
+      </list>
+    </module>
+  </comment>
+  
 </template>

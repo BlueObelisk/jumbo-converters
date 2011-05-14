@@ -9,15 +9,15 @@ import nu.xom.Element;
 
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.Type;
-import org.xmlcml.cml.converters.compchem.CompchemTemplateConverter;
-import org.xmlcml.cml.converters.text.TemplateConverter;
+import org.xmlcml.cml.converters.compchem.CompchemText2XMLTemplateConverter;
+import org.xmlcml.cml.converters.text.Text2XMLTemplateConverter;
 
 /** this class takes XML input (it should really be in CORE?)
  * 
  * @author pm286
  *
  */
-public class CML2XMLConverter extends CompchemTemplateConverter {
+public class CML2XMLConverter extends CompchemText2XMLTemplateConverter {
 
 	@Override
 	public Type getInputType() {
@@ -49,16 +49,16 @@ public class CML2XMLConverter extends CompchemTemplateConverter {
 		if (args.length != 2) {
 			usage();
 		} else {
-			TemplateConverter tc = CML2XMLConverter.createTemplateConverter(code, fileType, topTemplate);
+			Text2XMLTemplateConverter tc = CML2XMLConverter.createTemplateConverter(code, fileType, topTemplate);
 			File in = new File(args[0]);
 			File out = new File(args[1]);
 			tc.convert(in, out);
 		}
 	}
 
-	public static TemplateConverter createTemplateConverter(InputStream templateStream, String codeBase, String fileType) {
+	public static Text2XMLTemplateConverter createTemplateConverter(InputStream templateStream, String codeBase, String fileType) {
 		Element templateElement = null;
-		TemplateConverter converter = null;
+		Text2XMLTemplateConverter converter = null;
 		try {
 			templateElement = new Builder().build(templateStream, createBaseURI(codeBase, fileType)).getRootElement();
 			converter = new CML2XMLConverter(templateElement);
@@ -68,9 +68,9 @@ public class CML2XMLConverter extends CompchemTemplateConverter {
 		return converter;
 	}
 	
-	private static TemplateConverter createTemplateConverter(String code, String fileType, String topTemplate) throws IOException {
+	private static Text2XMLTemplateConverter createTemplateConverter(String code, String fileType, String topTemplate) throws IOException {
 		InputStream templateStream = createTemplateStream(code, fileType, topTemplate);
-		TemplateConverter tc = CML2XMLConverter.createTemplateConverter(templateStream, code, fileType);
+		Text2XMLTemplateConverter tc = CML2XMLConverter.createTemplateConverter(templateStream, code, fileType);
 		return tc;
 	}
 

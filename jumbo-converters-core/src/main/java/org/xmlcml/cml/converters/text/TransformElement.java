@@ -1,6 +1,7 @@
 package org.xmlcml.cml.converters.text;
 
 import java.io.FileInputStream;
+
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -13,6 +14,7 @@ import java.util.regex.Pattern;
 
 import nu.xom.Attribute;
 import nu.xom.Builder;
+import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
 import nu.xom.Node;
@@ -218,7 +220,7 @@ public class TransformElement implements MarkupApplier {
 	};
 	
 	
-	private Template template;
+	private Template template; // only used for dictionaries - rewrite
 	private Element processListElement;
 	private Element transformElement;
 	private OutputLevel outputLevel;
@@ -254,10 +256,24 @@ public class TransformElement implements MarkupApplier {
 	private String xpath;
 	
 
-	public TransformElement(Element element, Template template) {
+	/**
+	 * does not require a template
+	 * @param element
+	 */
+	public TransformElement(Element element) {
 		this.transformElement = element;
-		this.template = template;
 		processChildElementsAndAttributes();
+	}
+
+	/**
+	 * // TODO
+	 * template only required for dictionary analysis. Needs rewriting
+	 * @param element
+	 * @param template
+	 */
+	public TransformElement(Element element, Template template) {
+		this(element);
+		this.template = template;
 	}
 
 	public String getId() {
@@ -1098,8 +1114,10 @@ public class TransformElement implements MarkupApplier {
 		ParentNode toParent = (toParents.size() == 1) ? (ParentNode) toParents.get(0) : null;
 		if (toParent != null) {
 			for (Node node : nodeList) {
-				node.detach();
-				toParent.appendChild(node);
+				if (!(node.equals(toParent))) {
+					node.detach();
+					toParent.appendChild(node);
+				}
 			}
 		} else {
 			LOG.debug("null toXpath: "+to);
@@ -1115,7 +1133,7 @@ public class TransformElement implements MarkupApplier {
 				Element element = (Element)node;
 				ParentNode parent = element.getParent();
 				ParentNode grandParent = parent.getParent();
-				if (grandParent != null) {
+				if (grandParent != null && !(grandParent instanceof Document)) {
 					int idx = grandParent.indexOf(parent);
 					element.detach();
 					grandParent.insertChild(element, idx);
@@ -1434,7 +1452,7 @@ public class TransformElement implements MarkupApplier {
 			String templateRef = element.getAttributeValue(Template.TEMPLATE_REF, CMLConstants.CMLX_NS);
 			String id = element.getAttributeValue(ID);
 	    	try {
-	    		checkAttval(att);
+	    		checkDictRefAttval(att);
 			} catch (Exception e) {
 				List<Element> elementList = dictRefNodes.get(value);
 				if (elementList == null) {
@@ -1452,11 +1470,11 @@ public class TransformElement implements MarkupApplier {
 		}
 	}
 
-	private void checkAttval(Attribute att) {
+	private void checkDictRefAttval(Attribute att) {
 		DictRefAttribute dictRefAtt = new DictRefAttribute(att);
 		String prefix = dictRefAtt.getPrefix();
 		String value = DictRefAttribute.getLocalName(dictRefAtt.getValue());
-		String namespace = template.theElement.getNamespaceURI(prefix);
+		String namespace = template == null ? null : template.theElement.getNamespaceURI(prefix);
 		if (namespace == null) {
 			throw new RuntimeException("Cannot discover namespace for: "+prefix);
 		}
@@ -1479,7 +1497,7 @@ public class TransformElement implements MarkupApplier {
 
 	private void debug(Node node) {
 		if (node instanceof Text) {
-			LOG.debug("text in "+template.getId()+": "+node.getValue());
+			LOG.debug("text in "+getTemplateId(template)+": "+node.getValue());
 		} else if (node instanceof Element){
 			Element element = (Element) node;
 			Nodes texts = element.query("./text()");
@@ -1492,8 +1510,12 @@ public class TransformElement implements MarkupApplier {
 					LOG.debug(nodex.getClass().getName()+": "+nodex.getValue());
 				}
 			}
-			CMLUtil.debug(element, xpath+" in "+template.getId());
+			CMLUtil.debug(element, xpath+" in "+getTemplateId(template));
 		}
+	}
+
+	private String getTemplateId(Template template) {
+		return template == null ? "" : template.getId();
 	}
 
 	private Element createNewElement(String elementName, String id, String dictRef) {

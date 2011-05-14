@@ -1,15 +1,15 @@
 package org.xmlcml.cml.converters.compchem.jaguar.log;
 
 import java.io.File;
-
 import java.io.IOException;
 
 import nu.xom.Element;
 
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.converters.compchem.CompchemTemplateConverter;
+import org.xmlcml.cml.converters.compchem.CompchemText2XMLTemplateConverter;
+import org.xmlcml.cml.converters.util.ConverterUtils;
 
-public class JaguarLog2XMLConverter extends CompchemTemplateConverter {
+public class JaguarLog2XMLConverter extends CompchemText2XMLTemplateConverter {
 	
 	private static Logger LOG = Logger.getLogger(JaguarLog2XMLConverter.class);
 	private static final String BASE_URI = "classpath:/org/xmlcml/cml/converters/compchem/jaguar/log/templates/topTemplate.xml";
@@ -18,7 +18,7 @@ public class JaguarLog2XMLConverter extends CompchemTemplateConverter {
 	}
 	
 	public JaguarLog2XMLConverter(String baseUri, String templateName) {
-		this(getDefaultTemplate(baseUri, templateName, JaguarLog2XMLConverter.class));
+		this(ConverterUtils.buildElementIncludingBaseUri(baseUri, templateName, JaguarLog2XMLConverter.class));
 	}
 	
 	public JaguarLog2XMLConverter(Element templateElement) {
@@ -32,7 +32,7 @@ public class JaguarLog2XMLConverter extends CompchemTemplateConverter {
 		if (args.length != 2) {
 			usage();
 		} else {
-			CompchemTemplateConverter converter = new JaguarLog2XMLConverter();
+			CompchemText2XMLTemplateConverter converter = new JaguarLog2XMLConverter();
 			File in = new File(args[0]);
 			File out = new File(args[1]);
 			converter.convert(in, out);

@@ -4,14 +4,13 @@
   endPattern="\s*end of program grid\s*" endOffset="1"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   >
-  <comment>
+  <comment class="example.input" id="grid">
   start of program grid
   
    grid     grid set  grid #  grid sym
   ------    --------  ------  --------
   coarse        0        0        1
   medium        2        1        1
-...
   LMP2-grad     2        1        1
   DFT-cphf2     0        0        1
   
@@ -24,7 +23,6 @@
   grid # 4     1192     1192     1192     1192     1192     1192     1192
   grid # 5     5226     5226     5226     5226     5226     5226     5226
 
-...   
   number of gridpoints: 
      atom       H22      H23      H24      H25      H26      H27    total
   grid # 1      110      112      110      110      110       99     2765
@@ -35,10 +33,72 @@
    
   end of program grid
   </comment>
+  
   <record/>
   <templateList>
     <xi:include href="grid.details.xml"/>     
     <xi:include href="grid.gridset.xml"/>     
   </templateList>
-  <record/>
+  <record repeat="*"/>
+
+  <comment class="example.output" id="grid">
+<module cmlx:templateRef="grid" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <module cmlx:lineCount="8" cmlx:templateRef="NULL_ID"/>
+  <module cmlx:lineCount="7" cmlx:templateRef="griddetails">
+    <list cmlx:templateRef="headers">
+      <scalar dataType="xsd:string" dictRef="j:headers">atom C1 C2 C3 C4 C5 C6 O7</scalar>
+    </list>
+    <list cmlx:templateRef="grid">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="j:gridnum">1</scalar>
+        <scalar dataType="xsd:string" dictRef="j:row">97 97 97 99 98 97 117</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="j:gridnum">2</scalar>
+        <scalar dataType="xsd:string" dictRef="j:row">334 334 337 362 366 337 448</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="j:gridnum">3</scalar>
+        <scalar dataType="xsd:string" dictRef="j:row">4304 4304 4304 4304 4304 4304 4304</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="j:gridnum">4</scalar>
+        <scalar dataType="xsd:string" dictRef="j:row">1192 1192 1192 1192 1192 1192 1192</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="j:gridnum">5</scalar>
+        <scalar dataType="xsd:string" dictRef="j:row">5226 5226 5226 5226 5226 5226 5226</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="7" cmlx:templateRef="griddetails">
+    <list cmlx:templateRef="headers">
+      <scalar dataType="xsd:string" dictRef="j:headers">atom H22 H23 H24 H25 H26 H27 total</scalar>
+    </list>
+    <list cmlx:templateRef="grid">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="j:gridnum">1</scalar>
+        <scalar dataType="xsd:string" dictRef="j:row">110 112 110 110 110 99 2765</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="j:gridnum">2</scalar>
+        <scalar dataType="xsd:string" dictRef="j:row">435 433 431 438 440 408 10462</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="j:gridnum">3</scalar>
+        <scalar dataType="xsd:string" dictRef="j:row">4304 4304 4304 4304 4304 4304 116208</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="j:gridnum">4</scalar>
+        <scalar dataType="xsd:string" dictRef="j:row">1192 1192 1192 1192 1192 1192 32184</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="j:gridnum">5</scalar>
+        <scalar dataType="xsd:string" dictRef="j:row">5226 5226 5226 5226 5226 5226 141102</scalar>
+      </list>
+    </list>
+  </module> end of program grid
+</module>
+  </comment>
+  
 </template>
