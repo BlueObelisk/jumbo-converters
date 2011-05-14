@@ -1,7 +1,25 @@
-<template name="irrep" id="irrep" newline="$" 
+<template name="irrep" id="hfig.irrep" newline="$" 
     pattern="\s*Irreducible.*$\s*represent.*" endPattern="\s*">
-    <record repeat="2"/>
-    <record name="irrep" id="irrep">{X,j:irrep}{I,j:totorb}{I,j:shell1}</record>
-    <record/>
-    <record id="occ">\s*Orbital occupation/shell{F,cc:occ}\s*</record>
+
+  <comment class="example.input" id="hfig.irrep">
+  Irreducible     Total no   No of occupied orbitals 
+  representation  orbitals   Shell_1  Shell_2    ...
+  No Symm          254         45
+  </comment>
+  
+  <record repeat="2"/>
+  <record name="irrep" id="irrep">{X,j:irrep}\s+{I,j:totorb}\s+{I,j:shell1}</record>
+  <record/>
+  <record id="occ">\s*Orbital occupation/shell{F,cc:occ}\s*</record>
+  
+  <transform process="pullup" xpath=".//cml:scalar" repeat="2"/>
+  
+  <comment class="example.output" id="hfig.irrep">
+    <module cmlx:templateRef="hfig.irrep" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="j:irrep">No Symm</scalar>
+      <scalar dataType="xsd:integer" dictRef="j:totorb">254</scalar>
+      <scalar dataType="xsd:integer" dictRef="j:shell1">45</scalar>
+    </module>
+  </comment>
+    
 </template>

@@ -2,7 +2,7 @@
   multiple="$"  pattern="\s*Non-default options chosen:\s*"
   endPattern="\s*" 
   >
-  <comment>
+  <comment class="example.input" id="nondefault">
  Non-default options chosen:
    SCF calculation type: DFT(b3lyp)      
    DFT=Becke_3_Parameter/HF+Slater+Becke88+VWN+LYP (B3LYP)
@@ -13,4 +13,14 @@
   <record id="scf" repeat="*">\s*SCF calculation type:{A,cc:scftype}</record>
   <record id="dft">\s*DFT={X,cc:dft}</record>
   <record id="fukui">\s*Atomic Fukui indices \s*{X,j:fukui}</record>
+  
+  <transform process="pullup" xpath=".//cml:scalar"/>
+  
+  <comment class="example.output" id="nondefault">
+    <module cmlx:templateRef="nondefault" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="cc:scftype">DFT(b3lyp)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:dft">Becke_3_Parameter/HF+Slater+Becke88+VWN+LYP (B3LYP)</scalar>
+      <scalar dataType="xsd:string" dictRef="j:fukui">will be calculated</scalar>
+    </module>
+  </comment>
 </template>

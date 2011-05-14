@@ -3,7 +3,7 @@
   pattern="\s*Job name:.*\s*"
   endPattern="\s*" 
   >
-  <comment>
+  <comment class="example.input" id="job">
   Job name: jaguar_batch_3
   Executables used: /usr/glea/schrodinger2009/jaguar-v76108/bin/Linux-x86
   Temporary files : /scratch/jdt42/jaguar_batch_3
@@ -16,4 +16,24 @@
   <record id="tempfile">\s*Temporary files\s*: {A,j:tempfile}</record>
   <record id="maestrin">\s*Maestro file \(input\): {A,j:maestrin}</record>
   <record id="maestrout">\s*Maestro file \(output\): {A,j:maestrout}</record>
+  
+  <comment class="example.output" id="job">
+    <module cmlx:templateRef="job" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="job">
+        <scalar dataType="xsd:string" dictRef="j:jobname">jaguar_batch_3</scalar>
+      </list>
+      <list cmlx:templateRef="execut">
+        <scalar dataType="xsd:string" dictRef="j:execut">/usr/glea/schrodinger2009/jaguar-v76108/bin/Linux-x86</scalar>
+      </list>
+      <list cmlx:templateRef="tempfile">
+        <scalar dataType="xsd:string" dictRef="j:tempfile">/scratch/jdt42/jaguar_batch_3</scalar>
+      </list>
+      <list cmlx:templateRef="maestrin">
+        <scalar dataType="xsd:string" dictRef="j:maestrin">jaguar_batch_3.mae</scalar>
+      </list>
+      <list cmlx:templateRef="maestrout">
+        <scalar dataType="xsd:string" dictRef="j:maestrout">jaguar_batch_3.01.mae</scalar>
+      </list>
+    </module>
+  </comment>
 </template>

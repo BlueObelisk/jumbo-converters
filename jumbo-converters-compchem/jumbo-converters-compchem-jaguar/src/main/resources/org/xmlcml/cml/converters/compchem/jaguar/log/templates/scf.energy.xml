@@ -1,8 +1,18 @@
     <template pattern="\s*SCFE: SCF energy:.*" id="scf.energy" 
     name=" SCFE: SCF energy:" repeat="*" endPattern=".*">
-      <comment>
+  <comment class="example.input" id="scf.energy">
  SCFE: SCF energy: DFT(b3lyp)      -520.05108595570 hartrees   iterations:   8
       </comment>
       <record id="scf.energy" repeat="*"
         >\s*SCFE:\s*SCF energy:\s*{A,j:scfener.type}\s*{F,cc:scfener,u:hartree}\s*hartrees\s+iterations:{I,cc:numberiter}\s*</record>
-    </template>
+
+  <transform process="pullup" xpath=".//cml:scalar" repeat="2"/>
+        
+  <comment class="example.output" id="scf.energy">
+    <module cmlx:templateRef="scf.energy" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="j:scfener.type">DFT(b3lyp)</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:scfener">-520.0510859557</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:numberiter">8</scalar>
+    </module>
+  </comment>
+</template>

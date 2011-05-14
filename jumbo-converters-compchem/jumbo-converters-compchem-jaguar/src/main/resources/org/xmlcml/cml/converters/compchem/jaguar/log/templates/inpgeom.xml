@@ -19,18 +19,33 @@
   <record repeat="*" id="atom" makeArray="true">{A,cc:elementType}{F,cc:x3}{F,cc:y3}{F,cc:z3}</record>
 
   <transform process="delete" xpath=".//cml:list[cml:scalar[@dictRef='j:mollenunits']]"/>
-  <transform process="createMolecule" xpath=".//cml:list"/>
+  <transform process="createMolecule" xpath=".//cml:list/cml:array" id="mol"/>
   
   <comment class="example.output" id="inpgeom">
     <module cmlx:templateRef="inpgeom" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <list cmlx:templateRef="units">
-        <scalar dataType="xsd:string" dictRef="j:mollenunits">angstroms</scalar>
-      </list>
       <list cmlx:lineCount="3" cmlx:templateRef="atom">
-        <array dataType="xsd:string" dictRef="cc:elementType" size="3">C1 C2 H27</array>
-        <array dataType="xsd:double" dictRef="cc:x3" size="3">-2.7874 -3.3765 0.2796</array>
-        <array dataType="xsd:double" dictRef="cc:y3" size="3">1.0093 -0.2605 3.027</array>
-        <array dataType="xsd:double" dictRef="cc:z3" size="3">0.035 0.049 -0.2295</array>
+        <molecule id="mol">
+          <atomArray>
+            <atom id="a1" elementType="C" x3="-2.7874" y3="1.0093" z3="0.035">
+              <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">6</scalar>
+            </atom>
+            <atom id="a2" elementType="C" x3="-3.3765" y3="-0.2605" z3="0.049">
+              <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">6</scalar>
+            </atom>
+            <atom id="a3" elementType="H" x3="0.2796" y3="3.027" z3="-0.2295">
+              <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
+            </atom>
+          </atomArray>
+          <formula formalCharge="0" concise="C 2 H 1">
+            <atomArray elementType="C H" count="2.0 1.0"/>
+          </formula>
+          <bondArray>
+            <bond atomRefs2="a1 a2" id="a1_a2" order="4"/>
+          </bondArray>
+          <property dictRef="cml:molmass">
+            <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">24.0214</scalar>
+          </property>
+        </molecule>
       </list>
     </module>
   </comment>

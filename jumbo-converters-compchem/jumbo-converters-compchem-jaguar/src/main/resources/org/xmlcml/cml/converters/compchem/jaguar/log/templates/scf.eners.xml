@@ -1,6 +1,6 @@
     <template pattern="\s+Energy components.*" id="scf.eners" 
     name="Energy components" repeat="*" endPattern="\s*">
-      <comment>
+  <comment class="example.input" id="scf.eners">
  Energy components, in hartrees:
    (A)  Nuclear repulsion............     696.39041860826
    (E)  Total one-electron terms.....   -2085.14356166400
@@ -12,4 +12,46 @@
       </comment>
       <record/>
       <record id="scf.numb" repeat="*">\s*\({A,j:scf.letter}\){X,x:name}\.+\s+{F,x:value}.*</record>
-    </template>
+      
+  <comment class="example.output" id="scf.eners">
+    <module cmlx:templateRef="scf.eners" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="scf.numb">
+        <list>
+          <scalar dataType="xsd:string" dictRef="j:scf.letter">A</scalar>
+          <scalar dataType="xsd:string" dictRef="x:name">Nuclear repulsion...........</scalar>
+          <scalar dataType="xsd:double" dictRef="x:value">696.39041860826</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="j:scf.letter">E</scalar>
+          <scalar dataType="xsd:string" dictRef="x:name">Total one-electron terms....</scalar>
+          <scalar dataType="xsd:double" dictRef="x:value">-2085.143561664</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="j:scf.letter">I</scalar>
+          <scalar dataType="xsd:string" dictRef="x:name">Total two-electron terms....</scalar>
+          <scalar dataType="xsd:double" dictRef="x:value">868.70205710004</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="j:scf.letter">J</scalar>
+          <scalar dataType="xsd:string" dictRef="x:name">Coulomb...................</scalar>
+          <scalar dataType="xsd:double" dictRef="x:value">944.11627700082</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="j:scf.letter">K</scalar>
+          <scalar dataType="xsd:string" dictRef="x:name">Exchange+Correlation......</scalar>
+          <scalar dataType="xsd:double" dictRef="x:value">-75.41421990077</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="j:scf.letter">L</scalar>
+          <scalar dataType="xsd:string" dictRef="x:name">Electronic energy...........</scalar>
+          <scalar dataType="xsd:double" dictRef="x:value">-1216.44150456396</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="j:scf.letter">N</scalar>
+          <scalar dataType="xsd:string" dictRef="x:name">Total energy................</scalar>
+          <scalar dataType="xsd:double" dictRef="x:value">-520.0510859557</scalar>
+        </list>
+      </list>
+    </module>
+  </comment>
+</template>

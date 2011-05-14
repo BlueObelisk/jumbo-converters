@@ -1,6 +1,6 @@
-    <template pattern="\s+i\s+u\s+d\s+i\s+g.*" id="iter" 
+    <template pattern="\s+i\s+u\s+d\s+i\s+g.*" id="iudig" 
     name="iterations" repeat="*" endPattern="\s*$\s*" newline="$">
-      <comment>
+  <comment class="example.input" id="scf.iudig">
        i  u  d  i  g                   
        t  p  i  c  r                                 RMS    maximum
        e  d  i  u  i                       energy  density   DIIS  
@@ -8,10 +8,50 @@
   
 etot   1  N  N  5  M    -518.39804537677           4.6E-03  8.6E-02
 etot   2  Y  Y  6  M    -519.86071180651  1.5E+00  3.0E-03  3.1E-02
-...
 etot   8  N  N  2  U    -520.05108595570  1.1E-05  0.0E+00  0.0E+00
       </comment>
       <record repeat="5"/>
       <record id="etot0">\s*etot\s+{I,cc:serial}\s+{A,j:updt}\s+{A,j:diis}\s+{I,j:icut}\s+{A,j:grid}{F,cc:totener}\s{8}{E,cc:deltarms}{E,cc:maxdiiserr}</record>
       <record id="etot" repeat="*">\s*etot\s+{I,cc:serial}\s+{A,j:updt}\s+{A,j:diis}\s+{I,j:icut}\s+{A,j:grid}{F,cc:totener}{E,cc:deltae}{E,cc:deltarms}{E,cc:maxdiiserr}</record>
-    </template>
+      
+  <comment class="example.output" id="scf.iudig">
+    <module cmlx:templateRef="iudig" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="etot0">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+          <scalar dataType="xsd:string" dictRef="j:updt">N</scalar>
+          <scalar dataType="xsd:string" dictRef="j:diis">N</scalar>
+          <scalar dataType="xsd:integer" dictRef="j:icut">5</scalar>
+          <scalar dataType="xsd:string" dictRef="j:grid">M</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:totener">-518.39804537677</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:deltarms">0.0046</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:maxdiiserr">0.086</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="etot">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="cc:serial">2</scalar>
+          <scalar dataType="xsd:string" dictRef="j:updt">Y</scalar>
+          <scalar dataType="xsd:string" dictRef="j:diis">Y</scalar>
+          <scalar dataType="xsd:integer" dictRef="j:icut">6</scalar>
+          <scalar dataType="xsd:string" dictRef="j:grid">M</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:totener">-519.86071180651</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:deltae">1.5</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:deltarms">0.0030</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:maxdiiserr">0.031</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:integer" dictRef="cc:serial">8</scalar>
+          <scalar dataType="xsd:string" dictRef="j:updt">N</scalar>
+          <scalar dataType="xsd:string" dictRef="j:diis">N</scalar>
+          <scalar dataType="xsd:integer" dictRef="j:icut">2</scalar>
+          <scalar dataType="xsd:string" dictRef="j:grid">U</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:totener">-520.0510859557</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:deltae">1.1E-5</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:deltarms">0.0</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:maxdiiserr">0.0</scalar>
+        </list>
+      </list>
+    </module>
+  </comment>
+</template>

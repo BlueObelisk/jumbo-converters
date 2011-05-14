@@ -1,21 +1,39 @@
     <template pattern="\s*Orbital energies:.*" id="scf.orbeners" 
     name="Orbital energies" repeat="*" endPattern="\s*">
-      <comment>
+  <comment class="example.input" id="scf.orbeners">
   Orbital energies: 
   -19.16790  -14.30812  -10.24740  -10.23672  -10.21310  -10.20009
   -10.18650  -10.18225  -10.18206  -10.17731  -10.17691  -10.17284
-  ...
     0.09296    0.10770    0.11931    0.13325    0.13665    0.14022
     0.14940
-      </comment>
-      <record>{X,x:x}</record>
-      <!--  really tacky - will change asap -->
-      <record id="scf.orbeners" repeat="*" makeArray="true">\s*{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s*</record>
-      <!-- 
-      <record id="scf.orbeners" repeat="*">\s*{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s*</record>
-      <record id="scf.orbeners" repeat="*">\s*{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s*</record>
-      <record id="scf.orbeners" repeat="*">\s*{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s*</record>
-      <record id="scf.orbeners" repeat="*">\s*{F,j:ener}\s+{F,j:ener}\s*</record>
-      -->
-      <record id="scf.orbeners" repeat="*">\s*{F,j:ener}\s*</record>
-    </template>
+  </comment>
+  <record>{X,x:x}</record>
+  <!--  really tacky - will change asap -->
+  <record id="scf.orbeners" repeat="*" makeArray="true">\s*{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s*</record>
+  <!-- 
+  <record id="scf.orbeners" repeat="*">\s*{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s*</record>
+  <record id="scf.orbeners" repeat="*">\s*{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s*</record>
+  <record id="scf.orbeners" repeat="*">\s*{F,j:ener}\s+{F,j:ener}\s+{F,j:ener}\s*</record>
+  <record id="scf.orbeners" repeat="*">\s*{F,j:ener}\s+{F,j:ener}\s*</record>
+  -->
+  <record id="scf.orbeners" repeat="*">\s*{F,j:ener}\s*</record>
+      
+  <comment class="example.output" id="scf.orbeners">
+    <module cmlx:templateRef="scf.orbeners" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="missingID">
+        <scalar dataType="xsd:string" dictRef="x:x">Orbital energies:</scalar>
+      </list>
+      <list cmlx:lineCount="3" cmlx:templateRef="scf.orbeners">
+        <array dataType="xsd:double" dictRef="j:ener" size="3">-19.1679 -10.1865 0.09296</array>
+        <array dataType="xsd:double" dictRef="j:ener" size="3">-14.30812 -10.18225 0.1077</array>
+        <array dataType="xsd:double" dictRef="j:ener" size="3">-10.2474 -10.18206 0.11931</array>
+        <array dataType="xsd:double" dictRef="j:ener" size="3">-10.23672 -10.17731 0.13325</array>
+        <array dataType="xsd:double" dictRef="j:ener" size="3">-10.2131 -10.17691 0.13665</array>
+        <array dataType="xsd:double" dictRef="j:ener" size="3">-10.20009 -10.17284 0.14022</array>
+      </list>
+      <list cmlx:templateRef="scf.orbeners">
+        <scalar dataType="xsd:double" dictRef="j:ener">0.1494</scalar>
+      </list>
+    </module>
+  </comment>
+</template>

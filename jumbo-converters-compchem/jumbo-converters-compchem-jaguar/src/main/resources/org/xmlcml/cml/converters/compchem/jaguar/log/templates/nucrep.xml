@@ -2,9 +2,17 @@
   multiple="$"  pattern="\s*nuclear repulsion energy.*"
   endPattern="\s*" 
   >
-  <comment>
+  <comment class="example.input" id="nucrep">
   nuclear repulsion energy.......     696.390418608 hartrees
   
   </comment>
   <record id="nucrep">\s*nuclear repulsion energy.*\s*{F,cc:nucrepener,u:hartree} hartrees\s*</record>
+  
+  <transform process="pullup" xpath=".//cml:scalar"/>
+  
+  <comment class="example.output" id="nucrep">
+    <module cmlx:templateRef="nucrepener" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:double" dictRef="cc:nucrepener">8.0</scalar>
+    </module>
+  </comment>
 </template>

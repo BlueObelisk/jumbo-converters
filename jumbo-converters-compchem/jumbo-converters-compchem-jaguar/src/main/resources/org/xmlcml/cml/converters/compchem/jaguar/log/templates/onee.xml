@@ -3,7 +3,7 @@
   pattern="\s*start of program onee\s*"
   endPattern="\s*end of program onee\s*" endOffset="1" 
   >
-  <comment>
+  <comment class="example.input" id="onee">
   start of program onee
   smallest eigenvalue of S:    4.200E-04
   number of canonical orbitals.....          254
@@ -13,4 +13,13 @@
   <record id="smallesteig">\s*smallest eigenvalue of S:{E,cc:eigval}</record>
   <record id="canonorbs">\s*number of canonical orbitals.*\s*{I,cc:numorb}</record>
   <record/>
+  
+  <transform process="pullup" xpath=".//cml:scalar"/>
+  
+  <comment class="example.output" id="onee">
+    <module cmlx:templateRef="onee" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:double" dictRef="cc:eigval">4.2E-4</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:numorb">4</scalar>
+    </module>
+  </comment>
 </template>

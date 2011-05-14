@@ -2,7 +2,7 @@
   multiple="$"  pattern="\s*Stoichiometry:.*"
   endPattern="\s*" 
   >
-  <comment>
+  <comment class="example.input" id="stoich">
   Stoichiometry: C10NH15O
   Molecular Point Group: C1      
   Point Group used: C1
@@ -11,4 +11,14 @@
   <record id="stoich">\s*Stoichiometry:\s*{A,cc:stoich}\s*</record>
   <record id="pointgroup">\s*Molecular Point Group:\s*{A,cc:pointgroup}\s*</record>
   <record id="pointgroup.used">\s*Point Group used:\s*{A,cc:pointgroup}\s*</record>
+
+  <transform process="pullup" xpath=".//cml:scalar"/>
+  
+  <comment class="example.output" id="stoich">
+    <module cmlx:templateRef="stoich" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="cc:stoich">C10NH15O</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:pointgroup">C1</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:pointgroup">C1</scalar>
+    </module>
+  </comment>
 </template>
