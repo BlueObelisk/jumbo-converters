@@ -1,6 +1,6 @@
     <template pattern="\s*\+\-+\+\s*.*" id="proginfo" newline="$"
     name="program info" repeat="*" endPattern="\s*\+\-+\+\s*$\s*" endOffset="2">
-      <comment>
+  <comment class="example.input" id="proginfo">
   +--------------------------------------------------------------------+
   |  Jaguar version 7.6, release 108                                   |
   |                                                                    |
@@ -15,4 +15,13 @@
       <record/>
       <record id="version">\s*\|\s*Jaguar version{A,cc:version}, release{A,cc:release}\s*\|\s*</record>
       <record repeat="*"/>
-    </template>
+
+  <transform process="pullup" xpath=".//cml:scalar" repeat="2"/>
+      
+  <comment class="example.output" id="proginfo">
+    <module cmlx:templateRef="proginfo" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="cc:version">7.6</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:release">108</scalar>
+    </module>
+  </comment>
+</template>

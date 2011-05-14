@@ -4,7 +4,7 @@
   endPattern="\s*end of program pre\s*" endOffset="1"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   >
-  <comment>
+  <comment class="example.input" id="pre">
   start of program pre
    
   Job name: jaguar_batch_3
@@ -27,7 +27,6 @@
   atom               x                 y                 z
   C1           -2.7874000000      1.0093000000      0.0350000000 
   C2           -3.3765000000     -0.2605000000      0.0490000000 
-  ...
   H27           0.2796000000      3.0270000000     -0.2295000000 
    
   principal moments of inertia:
@@ -68,4 +67,94 @@
     <xi:include href="nondefault.xml"/>
   </templateList>
   <record repeat="*">{X,x:unparsed}\s*</record>
+  
+  <comment class="example.output" id="pre">
+    <module cmlx:templateRef="pre" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <module cmlx:lineCount="5" cmlx:templateRef="job">
+        <list cmlx:templateRef="job">
+          <scalar dataType="xsd:string" dictRef="j:jobname">jaguar_batch_3</scalar>
+        </list>
+        <list cmlx:templateRef="execut">
+          <scalar dataType="xsd:string" dictRef="j:execut">/usr/glea/schrodinger2009/jaguar-v76108/bin/Linux-x86</scalar>
+        </list>
+        <list cmlx:templateRef="tempfile">
+          <scalar dataType="xsd:string" dictRef="j:tempfile">/scratch/jdt42/jaguar_batch_3</scalar>
+        </list>
+        <list cmlx:templateRef="maestrin">
+          <scalar dataType="xsd:string" dictRef="j:maestrin">jaguar_batch_3.mae</scalar>
+        </list>
+        <list cmlx:templateRef="maestrout">
+          <scalar dataType="xsd:string" dictRef="j:maestrout">jaguar_batch_3.01.mae</scalar>
+        </list>
+      </module>
+      <module cmlx:lineCount="1" cmlx:templateRef="dynmem">
+        <scalar dataType="xsd:integer" dictRef="j:dynmem">3711</scalar>
+      </module>
+      <module cmlx:lineCount="3" cmlx:templateRef="basis">
+        <scalar dataType="xsd:string" dictRef="cc:basis">6-31g**</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:molcharge">0</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:multiplicity">1</scalar>
+      </module>
+      <module cmlx:lineCount="1" cmlx:templateRef="numbasis">
+        <scalar dataType="xsd:integer" dictRef="cc:numbasis">5</scalar>
+      </module>
+      <module cmlx:lineCount="6" cmlx:templateRef="inpgeom">
+        <list cmlx:lineCount="3" cmlx:templateRef="atom">
+          <molecule id="mol">
+            <atomArray>
+              <atom id="a1" elementType="C" x3="-2.7874" y3="1.0093" z3="0.035">
+                <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">6</scalar>
+              </atom>
+              <atom id="a2" elementType="C" x3="-3.3765" y3="-0.2605" z3="0.049">
+                <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">6</scalar>
+              </atom>
+              <atom id="a3" elementType="H" x3="0.2796" y3="3.027" z3="-0.2295">
+                <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
+              </atom>
+            </atomArray>
+            <formula formalCharge="0" concise="C 2 H 1">
+              <atomArray elementType="C H" count="2.0 1.0"/>
+            </formula>
+            <bondArray>
+              <bond atomRefs2="a1 a2" id="a1_a2" order="4"/>
+            </bondArray>
+            <property dictRef="cml:molmass">
+              <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">24.0214</scalar>
+            </property>
+          </molecule>
+        </list>
+      </module>
+      <module cmlx:lineCount="3" cmlx:templateRef="momint">
+        <array dataType="xsd:double" size="3" dictRef="x:x">404.10641 757.20638 1137.49244</array>
+        <array dataType="xsd:double" size="3" dictRef="x:x">6.71034398E-38 1.25737062E-37 1.8888504E-37</array>
+      </module>
+      <module cmlx:lineCount="3" cmlx:templateRef="rotconst">
+        <array dataType="xsd:double" size="3" dictRef="x:x">0.04171582 0.02226293 0.01481999</array>
+        <array dataType="xsd:double" size="3" dictRef="x:x">1.25060874 0.66742571 0.44429219</array>
+      </module>
+      <module cmlx:lineCount="1" cmlx:templateRef="molwt">
+        <list cmlx:templateRef="molwt">
+          <scalar dataType="xsd:double" dictRef="cc:molwt">165.12</scalar>
+        </list>
+      </module>
+      <module cmlx:lineCount="3" cmlx:templateRef="stoich">
+        <scalar dataType="xsd:string" dictRef="cc:stoich">C10NH15O</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:pointgroup">C1</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:pointgroup">C1</scalar>
+      </module>
+      <module cmlx:lineCount="1" cmlx:templateRef="nucrepener">
+        <scalar dataType="xsd:double" dictRef="cc:nucrepener">8.0</scalar>
+      </module>
+      <module cmlx:lineCount="4" cmlx:templateRef="nondefault">
+        <scalar dataType="xsd:string" dictRef="cc:scftype">DFT(b3lyp)</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:dft">Becke_3_Parameter/HF+Slater+Becke88+VWN+LYP (B3LYP)</scalar>
+        <scalar dataType="xsd:string" dictRef="j:fukui">will be calculated</scalar>
+      </module>
+      <list cmlx:templateRef="missingID">
+        <scalar dataType="xsd:string" dictRef="x:unparsed"/>
+        <scalar dataType="xsd:string" dictRef="x:unparsed">end of program pre</scalar>
+        <scalar dataType="xsd:string" dictRef="x:unparsed"/>
+      </list>
+    </module>
+  </comment>
 </template>

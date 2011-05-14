@@ -4,7 +4,7 @@
   endPattern="\s*end of program hfig\s*" endOffset="1"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   >
-  <comment>
+  <comment class="example.input" id="hfig">
   start of program hfig
   initial wavefunction generated automatically from atomic wavefunctions
  
@@ -22,4 +22,17 @@
     <xi:include href="hfig.irrep.xml"/>
     <xi:include href="endprog.xml"/>
   </templateList>
+  
+  <comment class="example.output" id="hfig">
+<module cmlx:templateRef="hfig" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <module cmlx:lineCount="1" cmlx:templateRef="wave"/>
+  <scalar dataType="xsd:double" dictRef="cc:occ">1.0</scalar>
+  <module cmlx:lineCount="5" cmlx:templateRef="hfig.irrep">
+    <scalar dataType="xsd:string" dictRef="j:irrep">No Symm</scalar>
+    <scalar dataType="xsd:integer" dictRef="j:totorb">254</scalar>
+    <scalar dataType="xsd:integer" dictRef="j:shell1">45</scalar>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="endprog"/>
+</module>
+  </comment>
 </template>

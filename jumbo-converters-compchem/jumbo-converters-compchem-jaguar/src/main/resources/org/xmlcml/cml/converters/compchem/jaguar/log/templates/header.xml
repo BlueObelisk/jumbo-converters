@@ -1,11 +1,24 @@
     <template pattern="\s*Job.*started.*" id="header" newline="$"
     name="start info" repeat="*" endPattern="\s*">
-      <comment>
+  <comment class="example.input" id="header">
 Job jaguar_batch_3 started on rufus at Thu Apr  7 17:04:52 2011
 jobid: rufus-0-4d9de0a1
 
-      </comment>
-      <record id="job">\s*Job{X,cc:jobname} started on {A,cc:hostname} at{X,cc:date}\s*</record>
-      <record id="jobid">\s*jobid:{X,cc:jobid}\s*</record>
-      <record/>
-    </template>
+  </comment>
+  <record id="job">\s*Job{X,cc:jobname} started on {A,cc:hostname} at{X,cc:date}\s*</record>
+  <record id="jobid">\s*jobid:{X,cc:jobid}\s*</record>
+  <record/>
+  
+  <transform process="createDate" xpath=".//cml:scalar[@dictRef='cc:date']" format="EEE MMM dd HH:mm:ss yyyy" />
+  <transform process="createDate" xpath=".//cml:scalar[@dictRef='cc:date']" format="EEE MMM  d HH:mm:ss yyyy"/>
+  <transform process="pullup" xpath=".//cml:scalar" repeat="2"/>
+      
+  <comment class="example.output" id="header">
+    <module cmlx:templateRef="header" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="cc:jobname">jaguar_batch_3</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:hostname">rufus</scalar>
+      <scalar dictRef="cc:date" dataType="xsd:string">2011-04-07T17:04:52.000Z</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:jobid">rufus-0-4d9de0a1</scalar>
+    </module>
+  </comment>
+</template>

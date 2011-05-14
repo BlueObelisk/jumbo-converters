@@ -1,9 +1,18 @@
     <template pattern="\s*HOMO energy:.*" id="scf.homolumo" 
     name="HOMO and LUMO energies:" repeat="*" endPattern="\s*">
-      <comment>
+  <comment class="example.input" id="scf.homolumo">
  HOMO energy:    -0.20742
  LUMO energy:     0.00460
       </comment>
       <record id="scf.homo">\s*HOMO energy:\s+{F,cc:homo}\s*</record>
       <record id="scf.lumo">\s*LUMO energy:\s+{F,cc:lumo}\s*</record>
-    </template>
+
+  <transform process="pullup" xpath=".//cml:scalar"/>
+      
+  <comment class="example.output" id="scf.homolumo">
+    <module cmlx:templateRef="scf.homolumo" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:double" dictRef="cc:homo">-0.20742</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:lumo">0.0046</scalar>
+    </module>
+  </comment>
+</template>

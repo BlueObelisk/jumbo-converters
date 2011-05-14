@@ -376,11 +376,11 @@ public class TransformElement implements MarkupApplier {
 		} else if (CREATE_INTEGER.equals(process)) {
 			createInteger();
 		} else if (CREATE_MOLECULE.equals(process)) {
-			try {
+//			try {
 				createMolecule();
-			} catch (Exception e) {
-				LOG.error("CANNOT CREATE MOLECULE - CONTINUING");
-			}
+//			} catch (Exception e) {
+//				LOG.error("CANNOT CREATE MOLECULE - CONTINUING"+e);
+//			}
 		} else if (CREATE_MATRIX33.equals(process)) {
 			createMatrix33();
 		} else if (CREATE_NAMEVALUE.equals(process)) {

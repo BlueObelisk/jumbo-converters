@@ -1,5 +1,23 @@
 <template repeat="*" id="griddetails" pattern="\s*number of gridpoints:\s*" endPattern="\s*">
-  <record/>
-  <record id="headers">{X,j:headers}</record>
+  <comment class="example.input" id="griddetails">
+  number of gridpoints: 
+     atom        C1       C2       C3       C4       C5       C6       O7
+  grid # 1       97       97       97       99       98       97      117
+  grid # 2      334      334      337      362      366      337      448
+  grid # 3     4304     4304     4304     4304     4304     4304     4304
+  grid # 4     1192     1192     1192     1192     1192     1192     1192
+  grid # 5     5226     5226     5226     5226     5226     5226     5226
+
+  </comment>
+
+  <record repeat="*"/>
+  <!-- eat this for now
+  <record id="headers">\s*atom{X,j:headers}</record>
   <record id="grid" repeat="*">\s*grid #{I,j:gridnum}{X,j:row}</record>
+  -->
+  
+  <comment class="example.output" id="griddetails">
+    <module cmlx:templateRef="griddetails" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+    </module>
+  </comment>
  </template>

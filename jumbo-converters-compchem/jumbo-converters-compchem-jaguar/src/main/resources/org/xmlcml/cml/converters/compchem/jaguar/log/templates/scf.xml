@@ -4,7 +4,7 @@
   endPattern="\s*end of program scf\s*" 
   xmlns:xi="http://www.w3.org/2001/XInclude"
   >
-  <comment>
+  <comment class="example.input" id="scf">
   start of program scf
  number of electrons..........         90
  number of alpha electrons....         45
@@ -72,4 +72,210 @@ etot   8  N  N  2  U    -520.05108595570  1.1E-05  0.0E+00  0.0E+00
     <xi:include href="scf.homolumo.xml"/>
     <xi:include href="scf.orbeners.xml"/>
   </templateList>
+  
+  <comment class="example.output" id="scf">
+<module cmlx:templateRef="scf" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <module cmlx:lineCount="10" cmlx:templateRef="scf.numbers">
+    <list cmlx:templateRef="scf.numb">
+      <list>
+        <scalar dataType="xsd:string" dictRef="x:name">number of electrons.........</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:value">90</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="x:name">number of alpha electrons...</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:value">45</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="x:name">number of beta electrons....</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:value">45</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="x:name">number of orbitals, total...</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:value">254</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="x:name">number of doubly-occ'd orbs.</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:value">45</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="x:name">number of open shell orbs...</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:value">0</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="x:name">number of occupied orbitals.</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:value">45</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="x:name">number of virtual orbitals..</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:value">209</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="x:name">number of hamiltonians......</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:value">1</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="x:name">number of shells............</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:value">1</scalar>
+      </list>
+    </list>
+  </module> SCF type: DFT=Becke_3_Parameter/HF+Slater+Becke88+VWN+LYP (B3LYP)
+  <module cmlx:lineCount="13" cmlx:templateRef="iudig">
+    <list cmlx:templateRef="etot0">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+        <scalar dataType="xsd:string" dictRef="j:updt">N</scalar>
+        <scalar dataType="xsd:string" dictRef="j:diis">N</scalar>
+        <scalar dataType="xsd:integer" dictRef="j:icut">5</scalar>
+        <scalar dataType="xsd:string" dictRef="j:grid">M</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:totener">-518.39804537677</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:deltarms">0.0046</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:maxdiiserr">0.086</scalar>
+      </list>
+    </list>
+    <list cmlx:templateRef="etot">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">2</scalar>
+        <scalar dataType="xsd:string" dictRef="j:updt">Y</scalar>
+        <scalar dataType="xsd:string" dictRef="j:diis">Y</scalar>
+        <scalar dataType="xsd:integer" dictRef="j:icut">6</scalar>
+        <scalar dataType="xsd:string" dictRef="j:grid">M</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:totener">-519.86071180651</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:deltae">1.5</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:deltarms">0.0030</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:maxdiiserr">0.031</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">3</scalar>
+        <scalar dataType="xsd:string" dictRef="j:updt">Y</scalar>
+        <scalar dataType="xsd:string" dictRef="j:diis">Y</scalar>
+        <scalar dataType="xsd:integer" dictRef="j:icut">6</scalar>
+        <scalar dataType="xsd:string" dictRef="j:grid">M</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:totener">-519.9643364315</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:deltae">0.1</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:deltarms">0.0012</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:maxdiiserr">0.053</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">4</scalar>
+        <scalar dataType="xsd:string" dictRef="j:updt">N</scalar>
+        <scalar dataType="xsd:string" dictRef="j:diis">Y</scalar>
+        <scalar dataType="xsd:integer" dictRef="j:icut">2</scalar>
+        <scalar dataType="xsd:string" dictRef="j:grid">U</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:totener">-520.0392485468</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:deltae">0.075</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:deltarms">7.8E-4</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:maxdiiserr">0.015</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">5</scalar>
+        <scalar dataType="xsd:string" dictRef="j:updt">Y</scalar>
+        <scalar dataType="xsd:string" dictRef="j:diis">Y</scalar>
+        <scalar dataType="xsd:integer" dictRef="j:icut">6</scalar>
+        <scalar dataType="xsd:string" dictRef="j:grid">M</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:totener">-520.05041526583</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:deltae">0.011</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:deltarms">5.0E-4</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:maxdiiserr">0.0058</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">6</scalar>
+        <scalar dataType="xsd:string" dictRef="j:updt">N</scalar>
+        <scalar dataType="xsd:string" dictRef="j:diis">Y</scalar>
+        <scalar dataType="xsd:integer" dictRef="j:icut">2</scalar>
+        <scalar dataType="xsd:string" dictRef="j:grid">U</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:totener">-520.05087783101</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:deltae">4.6E-4</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:deltarms">1.6E-4</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:maxdiiserr">0.0022</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">7</scalar>
+        <scalar dataType="xsd:string" dictRef="j:updt">Y</scalar>
+        <scalar dataType="xsd:string" dictRef="j:diis">Y</scalar>
+        <scalar dataType="xsd:integer" dictRef="j:icut">6</scalar>
+        <scalar dataType="xsd:string" dictRef="j:grid">M</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:totener">-520.05107510653</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:deltae">2.0E-4</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:deltarms">2.1E-5</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:maxdiiserr">3.8E-4</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">8</scalar>
+        <scalar dataType="xsd:string" dictRef="j:updt">N</scalar>
+        <scalar dataType="xsd:string" dictRef="j:diis">N</scalar>
+        <scalar dataType="xsd:integer" dictRef="j:icut">2</scalar>
+        <scalar dataType="xsd:string" dictRef="j:grid">U</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:totener">-520.0510859557</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:deltae">1.1E-5</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:deltarms">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:maxdiiserr">0.0</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="8" cmlx:templateRef="scf.eners">
+    <list cmlx:templateRef="scf.numb">
+      <list>
+        <scalar dataType="xsd:string" dictRef="j:scf.letter">A</scalar>
+        <scalar dataType="xsd:string" dictRef="x:name">Nuclear repulsion...........</scalar>
+        <scalar dataType="xsd:double" dictRef="x:value">696.39041860826</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="j:scf.letter">E</scalar>
+        <scalar dataType="xsd:string" dictRef="x:name">Total one-electron terms....</scalar>
+        <scalar dataType="xsd:double" dictRef="x:value">-2085.143561664</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="j:scf.letter">I</scalar>
+        <scalar dataType="xsd:string" dictRef="x:name">Total two-electron terms....</scalar>
+        <scalar dataType="xsd:double" dictRef="x:value">868.70205710004</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="j:scf.letter">J</scalar>
+        <scalar dataType="xsd:string" dictRef="x:name">Coulomb...................</scalar>
+        <scalar dataType="xsd:double" dictRef="x:value">944.11627700082</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="j:scf.letter">K</scalar>
+        <scalar dataType="xsd:string" dictRef="x:name">Exchange+Correlation......</scalar>
+        <scalar dataType="xsd:double" dictRef="x:value">-75.41421990077</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="j:scf.letter">L</scalar>
+        <scalar dataType="xsd:string" dictRef="x:name">Electronic energy...........</scalar>
+        <scalar dataType="xsd:double" dictRef="x:value">-1216.44150456396</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="j:scf.letter">N</scalar>
+        <scalar dataType="xsd:string" dictRef="x:name">Total energy................</scalar>
+        <scalar dataType="xsd:double" dictRef="x:value">-520.0510859557</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="scf.energy">
+    <scalar dataType="xsd:string" dictRef="j:scfener.type">DFT(b3lyp)</scalar>
+    <scalar dataType="xsd:double" dictRef="cc:scfener">-520.0510859557</scalar>
+    <scalar dataType="xsd:integer" dictRef="cc:numberiter">8</scalar>
+  </module>
+  <module cmlx:lineCount="2" cmlx:templateRef="scf.homolumo">
+    <scalar dataType="xsd:double" dictRef="cc:homo">-0.20742</scalar>
+    <scalar dataType="xsd:double" dictRef="cc:lumo">0.0046</scalar>
+  </module>
+  <module cmlx:lineCount="11" cmlx:templateRef="scf.orbeners">
+    <list cmlx:templateRef="missingID">
+      <scalar dataType="xsd:string" dictRef="x:x">Orbital energies:</scalar>
+    </list>
+    <list cmlx:lineCount="9" cmlx:templateRef="scf.orbeners">
+      <array dataType="xsd:double" dictRef="j:ener" size="9">-19.1679 -10.1865 -1.04923 -0.69959 -0.49212 -0.42508 -0.35238 -0.23506 0.09296</array>
+      <array dataType="xsd:double" dictRef="j:ener" size="9">-14.30812 -10.18225 -0.89105 -0.66947 -0.48126 -0.41309 -0.34669 -0.23222 0.1077</array>
+      <array dataType="xsd:double" dictRef="j:ener" size="9">-10.2474 -10.18206 -0.8375 -0.59907 -0.47635 -0.40005 -0.34255 -0.20742 0.11931</array>
+      <array dataType="xsd:double" dictRef="j:ener" size="9">-10.23672 -10.17731 -0.76858 -0.58451 -0.46461 -0.389 -0.32606 0.0046 0.13325</array>
+      <array dataType="xsd:double" dictRef="j:ener" size="9">-10.2131 -10.17691 -0.74948 -0.56521 -0.46002 -0.37339 -0.3086 0.01273 0.13665</array>
+      <array dataType="xsd:double" dictRef="j:ener" size="9">-10.20009 -10.17284 -0.72359 -0.51693 -0.44053 -0.36589 -0.30327 0.07254 0.14022</array>
+    </list>
+    <list cmlx:templateRef="scf.orbeners">
+      <scalar dataType="xsd:double" dictRef="j:ener">0.1494</scalar>
+    </list>
+  </module> end of program scf
+</module>
+  </comment>
 </template>

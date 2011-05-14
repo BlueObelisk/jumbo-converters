@@ -2,13 +2,22 @@
   multiple="$"  pattern="\s*principal moments of inertia:\s*"
   endPattern="\s*" 
   >
-  <comment>
+  <comment class="example.input" id="momint">
   principal moments of inertia:
         amu*angstrom^2:      404.10641      757.20638     1137.49244
                 g*cm^2: 6.71034398E-38 1.25737062E-37 1.88885040E-37
    
   </comment>
   <record/>
-  <record id="momint.ang">\s*amu\*angstrom\^2:\s*{F,x:x}{F,x:y}{F,x:z}\s*</record>
-  <record id="mom.gcm">\s*g\*cm\^2:\s*{E,x:x}{E,x:y}{E,x:z}\s*</record>
+  <record id="momint.ang">\s*amu\*angstrom\^2:\s*{3F,x:x}\s*</record>
+  <record id="mom.gcm">\s*g\*cm\^2:\s*{3E,x:x}\s*</record>
+
+  <transform process="pullup" xpath=".//cml:array"/>
+    
+  <comment class="example.output" id="momint">
+    <module cmlx:templateRef="momint" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:double" size="3" dictRef="x:x">404.10641 757.20638 1137.49244</array>
+      <array dataType="xsd:double" size="3" dictRef="x:x">6.71034398E-38 1.25737062E-37 1.8888504E-37</array>
+    </module>
+  </comment>
 </template>

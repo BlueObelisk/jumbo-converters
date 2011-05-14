@@ -2,13 +2,22 @@
   multiple="$"  pattern="\s*rotational constants:\s*"
   endPattern="\s*" 
   >
-  <comment>
+  <comment class="example.input" id="rotconst">
   rotational constants:
                cm^(-1):     0.04171582     0.02226293     0.01481999
                    GHz:     1.25060874     0.66742571     0.44429219
    
   </comment>
   <record/>
-  <record id="rotconst.cm">\s*cm\^\(-1\):\s*{F,x:x}{F,x:y}{F,x:z}\s*</record>
-  <record id="rotconst.ghz">\s*GHz:\s*{F,x:x}{F,x:y}{F,x:z}\s*</record>
+  <record id="rotconst.cm">\s*cm\^\(-1\):\s*{3F,x:x}\s*</record>
+  <record id="rotconst.ghz">\s*GHz:\s*{3F,x:x}\s*</record>
+
+  <transform process="pullup" xpath=".//cml:array"/>
+  
+  <comment class="example.output" id="rotconst">
+    <module cmlx:templateRef="rotconst" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:double" size="3" dictRef="x:x">0.04171582 0.02226293 0.01481999</array>
+      <array dataType="xsd:double" size="3" dictRef="x:x">1.25060874 0.66742571 0.44429219</array>
+    </module>
+  </comment>
 </template>

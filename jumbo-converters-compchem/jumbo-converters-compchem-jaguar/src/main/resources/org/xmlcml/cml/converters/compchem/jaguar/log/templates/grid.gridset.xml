@@ -1,12 +1,20 @@
-<template pattern="\s*grid\s+grid set.*">
-  <comment>
+<template repeat="*" pattern="\s*grid\s+grid set.*" id="gridset" endPattern="\s*">
+  <comment class="example.input" id="gridset">
    grid     grid set  grid #  grid sym
   ------    --------  ------  --------
   coarse        0        0        1
   medium        2        1        1
   </comment>
-  <record repeat="2"/>
+  
+  <record repeat="*"/>
+  <!--  eat
   <record id="row" repeat="*" makeArray="true">\s+{X,j:type}\s{3}\s*{I,j:gridset}{I,j:gridnum}{I,j:gridsym}</record>
   <record repeat="*">\s*end of program.*</record>
+-->
+  
+  <comment class="example.output" id="gridset">
+    <module cmlx:templateRef="gridset" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"/>
+  </comment>
+  
 </template>
     

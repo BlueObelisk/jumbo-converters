@@ -39,23 +39,23 @@ public class TemplateUnitTests {
    @Test public void testAlphafoccsOK()                           {runTemplateTest("alphafoccs");}
    @Test public void testArgumentOK()                             {runTemplateTest("argument");}
    @Test public void testAtmassOK()                               {runTemplateTest("atmass");}
-   @Ignore @Test public void testAtombasisTODO()             {runTemplateTest("atombasis");}
-   @Ignore @Test public void testAtombasisendTODO()          {runTemplateTest("atombasisend");}
+   @Ignore @Test public void testAtombasisTODO()                  {runTemplateTest("atombasis");}
+   @Ignore @Test public void testAtombasisendTODO()               {runTemplateTest("atombasisend");}
    @Test public void testAtomicshellscreenOK()                    {runTemplateTest("atomicshellscreen");}
-   @Test public void testAuthors()                {runTemplateTest("authors");}
+   @Test public void testAuthors()                                {runTemplateTest("authors");}
    @Test public void testAutosymOK()                              {runTemplateTest("autosym");}
    @Test public void testBasisShellOK()                           {runTemplateTest("basis.shell");}
-   @Test public void testBasisWHITE()                 {runTemplateTest("basis");}
-   @Test public void testBasisfuncOK()             {runTemplateTest("basisfunc");}
-   @Test public void testBeforeaftercallOK()       {runTemplateTest("beforeaftercall");}
+   @Test public void testBasisWHITE()                             {runTemplateTest("basis");}
+   @Test public void testBasisfuncOK()                            {runTemplateTest("basisfunc");}
+   @Test public void testBeforeaftercallOK()                      {runTemplateTest("beforeaftercall");}
    @Test public void testBrillouinzpOK()                          {runTemplateTest("brillouinzp");}
-   @Ignore @Test public void testCached1()               {runTemplateTest("cached1");}
-   @Test public void testCachingOK()               {runTemplateTest("caching");}
-   @Ignore @Test public void testCcsdtTBDWHITE()                     {runTemplateTest("ccsdt");}
-//   @Test public void testCenter23INCLUDE()              {runTemplateTest("center23");}
-   @Test public void testCcsdOKTODO()              {runTemplateTest("ccsd.temp");}
-   @Ignore @Test public void testCcsdparamWHITE()             {runTemplateTest("ccsdparam");}
-   @Ignore @Test public void testCcsdtWHITE()                 {runTemplateTest("ccsdt");}
+   @Ignore @Test public void testCached1()                        {runTemplateTest("cached1");}
+   @Test public void testCachingOK()                              {runTemplateTest("caching");}
+   @Ignore @Test public void testCcsdtTBDWHITE()                  {runTemplateTest("ccsdt");}
+//   @Test public void testCenter23INCLUDE()                      {runTemplateTest("center23");}
+   @Test public void testCcsdOKTODO()                             {runTemplateTest("ccsd.temp");}
+   @Ignore @Test public void testCcsdparamWHITE()                 {runTemplateTest("ccsdparam");}
+   @Ignore @Test public void testCcsdtWHITE()                     {runTemplateTest("ccsdt");}
    @Test public void testCenter23TempOK()          {runTemplateTest("center23.temp");}
    @Test public void testCentermassOK()            {runTemplateTest("centermass");}
    @Test public void testCenterofchargeOK()        {runTemplateTest("centerofcharge");}

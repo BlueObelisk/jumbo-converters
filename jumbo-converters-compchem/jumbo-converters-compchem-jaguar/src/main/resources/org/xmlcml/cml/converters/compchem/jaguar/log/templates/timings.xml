@@ -1,12 +1,22 @@
-    <template pattern="\s*Total cpu seconds.*$\s*$\s*Total elapsed.*" id="timings" newline="$"
-    name="Timings" repeat="*" endPattern="\s*">
-      <comment>
+<template pattern="\s*Total cpu seconds.*$\s*$\s*Total elapsed.*" id="timings" newline="$"
+name="Timings" repeat="*" endPattern="\s*">
+  <comment class="example.input" id="timings">
  Total cpu seconds     user:      66.930   user+sys:      68.430
   
  Total elapsed time:    72 seconds
 
-      </comment>
-      <record id="cpu">\s*Total cpu seconds\s*user:{F,cc:cpu,u:sec}user\+sys:{F,j:cpuusersys,u:sec}</record>
-      <record/>
-      <record id="cpu">\s*Total elapsed time:{F,cc:wall,u:sec}\s*seconds\s*</record>
-    </template>
+  </comment>
+  <record id="cpu">\s*Total cpu seconds\s*user:{F,cc:cpu,u:sec}user\+sys:{F,j:cpuusersys,u:sec}</record>
+  <record/>
+  <record id="cpu">\s*Total elapsed time:{F,cc:wall,u:sec}\s*seconds\s*</record>
+
+  <transform process="pullup" xpath=".//cml:scalar" repeat="2"/>
+      
+  <comment class="example.output" id="timings">
+    <module cmlx:templateRef="timings" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:double" dictRef="cc:cpu">66.93</scalar>
+      <scalar dataType="xsd:double" dictRef="j:cpuusersys">68.43</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:wall">72.0</scalar>
+    </module>
+  </comment>
+</template>

@@ -2,9 +2,17 @@
   multiple="$"  pattern="\s*Molecular weight:.*"
   endPattern="\s*" 
   >
-  <comment>
+  <comment class="example.input" id="molwt">
   Molecular weight:     165.12 amu
   
   </comment>
   <record id="molwt">\s*Molecular weight:\s*{F,cc:molwt}\s*amu\s*</record>
+  
+  <comment class="example.output" id="molwt">
+    <module cmlx:templateRef="molwt" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="molwt">
+        <scalar dataType="xsd:double" dictRef="cc:molwt">165.12</scalar>
+      </list>
+    </module>
+  </comment>
 </template>

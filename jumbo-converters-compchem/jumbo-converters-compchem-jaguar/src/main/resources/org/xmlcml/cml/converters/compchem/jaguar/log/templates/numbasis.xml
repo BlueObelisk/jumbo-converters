@@ -3,9 +3,17 @@
   pattern="\s*number of basis functions.*"
   endPattern="\s*" 
   >
-  <comment>
+  <comment class="example.input" id="numbasis">
   number of basis functions....          255
   
   </comment>
   <record id="basis">\s*number of basis functions.*\s*{I,cc:numbasis}</record>
+  
+  <transform process="pullup" xpath=".//cml:scalar"/>
+  
+  <comment class="example.output" id="numbasis">
+    <module cmlx:templateRef="numbasis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:integer" dictRef="cc:numbasis">5</scalar>
+    </module>
+  </comment>
 </template>
