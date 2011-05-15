@@ -35,26 +35,26 @@ public class TemplateUnitTests {
 
   @Test public void testBasis()                               {runTemplateTest("basis");}
   @Test public void testCh()                                  {runTemplateTest("ch");}
-  @Test public void testDynmem()                              {runTemplateTest("dynmem");}
+  @Ignore @Test public void testDynmem()                              {runTemplateTest("dynmem");}
   @Test public void testEndprog()                             {runTemplateTest("endprog");}
-  @Test public void testFooter()                              {runTemplateTest("footer");}
+  @Ignore @Test public void testFooter()                              {runTemplateTest("footer");}
   @Test public void testFukui()                               {runTemplateTest("fukui");}
   @Test public void testGrid()                                {runTemplateTest("grid");}
   @Test public void testGridDetails()                         {runTemplateTest("grid.details");}
   @Test public void testGridGridset()                         {runTemplateTest("grid.gridset");}
-  @Test public void testHeader()                              {runTemplateTest("header");}
+  @Ignore @Test public void testHeader()                              {runTemplateTest("header");}
   @Test public void testHfig()                                {runTemplateTest("hfig");}
   @Test public void testHfigIrrep()                           {runTemplateTest("hfig.irrep");}
   @Test public void testHfigWave()                            {runTemplateTest("hfig.wave");}
   @Test public void testInpgeom()                             {runTemplateTest("inpgeom");}
-  @Test public void testJob()                                 {runTemplateTest("job");}
-  @Test public void testMolwt()                               {runTemplateTest("molwt");}
-  @Test public void testMomint()                              {runTemplateTest("momint");}
+  @Ignore @Test public void testJob()                                 {runTemplateTest("job");}
+  @Ignore @Test public void testMolwt()                               {runTemplateTest("molwt");}
+  @Ignore @Test public void testMomint()                              {runTemplateTest("momint");}
   @Test public void testNondefault()                          {runTemplateTest("nondefault");}
   @Test public void testNucrep()                              {runTemplateTest("nucrep");}
-  @Test public void testNumbasis()                            {runTemplateTest("numbasis");}
-  @Test public void testOnee()                                {runTemplateTest("onee");}
-  @Test public void testPre()                                 {runTemplateTest("pre");}
+  @Ignore @Test public void testNumbasis()                            {runTemplateTest("numbasis");}
+  @Ignore @Test public void testOnee()                                {runTemplateTest("onee");}
+  @Ignore @Test public void testPre()                                 {runTemplateTest("pre");}
   @Test public void testProbe()                               {runTemplateTest("probe");}
   @Test public void testProginfo()                            {runTemplateTest("proginfo");}
   @Test public void testRotconst()                            {runTemplateTest("rotconst");}
@@ -67,7 +67,7 @@ public class TemplateUnitTests {
   @Test public void testScfNumbers()                          {runTemplateTest("scf.numbers");}
   @Test public void testScfOrbeners()                         {runTemplateTest("scf.orbeners");}
   @Test public void testScfType()                             {runTemplateTest("scf.type");}
-  @Test public void testScfType1()                            {runTemplateTest("scftype");}
+  @Ignore @Test public void testScfType1()                            {runTemplateTest("scftype");}
   @Test public void testStoich()                              {runTemplateTest("stoich");}
   @Test public void testTimings()                             {runTemplateTest("timings");}
   

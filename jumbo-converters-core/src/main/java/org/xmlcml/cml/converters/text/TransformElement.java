@@ -1,7 +1,6 @@
 package org.xmlcml.cml.converters.text;
 
 import java.io.FileInputStream;
-
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -23,6 +22,7 @@ import nu.xom.ParentNode;
 import nu.xom.Text;
 
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLBuilder;
@@ -514,7 +514,12 @@ public class TransformElement implements MarkupApplier {
 					atom.appendChild(label);
 				}
 			} else {
-				throw new RuntimeException("Cannot convert: "+node.getClass().getName());
+				assertRequired(DICT_REF, dictRef);
+				assertRequired(VALUE, value);
+				CMLLabel label = new CMLLabel();
+				label.setDictRef(dictRef);
+				label.setCMLValue(value);
+				((Element)node).appendChild(label);
 			}
 		}
 	}
@@ -608,6 +613,7 @@ public class TransformElement implements MarkupApplier {
 			element.addNamespaceDeclaration(name, value);
 		}
 	}
+	
 	private void addUnits() {
 		assertRequired(XPATH, xpath);
 		assertRequired(VALUE, value);
@@ -688,6 +694,10 @@ public class TransformElement implements MarkupApplier {
 					if (dictRef != null) {
 						scalar.setDictRef(dictRef);
 					}
+					// create new scalar and replace
+					CMLScalar date = new CMLScalar((DateTime)dateTimeDuration);
+					date.setDictRef(scalar.getDictRef());
+					scalar.getParent().replaceChild(scalar, date);
 				} catch (Exception e) {
 					LOG.error("Cannot parse/set date/duration: "+val+ " (format='"+format+"'); "+e);
 				}
@@ -1553,20 +1563,8 @@ public class TransformElement implements MarkupApplier {
 		assertRequired(XPATH, xpath);
 		Nodes nodes = TransformElement.queryUsingNamespaces(parsedElement, xpath);
 		List<Node> nodeList = new ArrayList<Node>();
-		if (position != null) {
-			int pos = 0;
-			try {
-				pos = Integer.parseInt(position);
-			} catch (NumberFormatException nfe) {
-				throw new RuntimeException("bad integer: "+position);
-			}
-			if (pos > 0 && pos <= nodes.size()) {
-				nodeList.add(nodes.get(pos-1));
-			}
-		} else {
-			for (int i = 0; i < nodes.size(); i++) {
-				nodeList.add(nodes.get(i));
-			}
+		for (int i = 0; i < nodes.size(); i++) {
+			nodeList.add(nodes.get(i));
 		}
 		return nodeList;
 	}
