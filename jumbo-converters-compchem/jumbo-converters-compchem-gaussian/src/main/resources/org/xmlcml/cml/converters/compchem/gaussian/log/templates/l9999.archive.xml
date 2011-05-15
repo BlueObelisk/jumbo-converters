@@ -43,11 +43,11 @@
 
   <transform process="createString" xpath="./cml:list/cml:scalar"/>
   <transform process="split" xpath="./cml:list/cml:scalar" splitter="\\\\" dictRef="g:archive"/>
-  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar" value="g:archive1" position="1"/>
-  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar" value="cc:keywords" position="2"/>
-  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar" value="cc:title" position="3"/>
-  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar" value="cc:molecule" position="4"/>
-  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar" value="g:archive.namevalue" position="5"/>
+  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[1]" value="g:archive1"/>
+  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[2]" value="cc:keywords"/>
+  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[3]" value="cc:title"/>
+  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[4]" value="cc:molecule"/>
+  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[5]" value="g:archive.namevalue"/>
   
     <!--  remove endmarker -->
   <transform process="delete" xpath="./cml:list/cml:list/cml:scalar[contains(.,'@') and string-length(.)=2]"/>
@@ -56,13 +56,13 @@
   
 <!-- first line --> 
  
-  <transform process="addDictRef" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar" value="cc:hostname" position="3"/>
-  <transform process="addDictRef" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar" value="g:operation" position="4"/>
-  <transform process="addDictRef" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar" value="cc:method" position="5"/>
-  <transform process="addDictRef" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar" value="cc:basis" position="6"/>
-  <transform process="addDictRef" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar" value="cc:jobname" position="8"/>
-  <transform process="createDate" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar" format="dd-MMM-yyyy" dictRef="cc:date" position="9"/>
-  <transform process="createFormula" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar" position="7"/>
+  <transform process="addDictRef" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar[3]" value="cc:hostname"/>
+  <transform process="addDictRef" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar[4]" value="g:operation"/>
+  <transform process="addDictRef" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar[5]" value="cc:method"/>
+  <transform process="addDictRef" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar[6]" value="cc:basis"/>
+  <transform process="addDictRef" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar[8]" value="cc:jobname"/>
+  <transform process="createDate" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar[9]" format="dd-MMM-yyyy" dictRef="cc:date"/>
+  <transform process="createFormula" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar[7]"/>
   <transform process="delete" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar[not(@dictRef)]"/>
   
 
@@ -76,7 +76,7 @@
       splitter=","/>
   <transform process="split" xpath=".//cml:list[@dictRef='cc:molecule']/cml:array" from="." />
   <transform process="addAttribute" xpath=".//cml:list[@dictRef='cc:molecule']/cml:list" name="type" value="molecule" />
-  <transform process="addAttribute" xpath=".//cml:list[@dictRef='cc:molecule']/cml:list" position="1" name="type" value="chargemult" />
+  <transform process="addAttribute" xpath=".//cml:list[@dictRef='cc:molecule']/cml:list[1]" name="type" value="chargemult" />
 
   <!-- mark with types (may be able to conflate this with createArray) -->  
   <transform process="addAttribute" xpath=".//cml:list[@dictRef='cc:molecule']/cml:list[@type='molecule']" 

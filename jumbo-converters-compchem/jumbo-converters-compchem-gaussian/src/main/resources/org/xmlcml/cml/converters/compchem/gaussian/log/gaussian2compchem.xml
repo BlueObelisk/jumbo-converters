@@ -1,9 +1,9 @@
 <transformList>
 
-  <transform process="addChild" xpath="/*" elementName="module" position="1" id="finalization"/>
-  <transform process="addChild" xpath="/*" elementName="module" position="1" id="calculation"/>
-  <transform process="addChild" xpath="/*" elementName="module" position="1" id="initialization"/>
-  <transform process="addChild" xpath="/*" elementName="module" position="1" id="environment"/>
+  <transform process="addChild" xpath="/*" elementName="module[1]" position="1" id="finalization"/>
+  <transform process="addChild" xpath="/*" elementName="module[1]" position="1" id="calculation"/>
+  <transform process="addChild" xpath="/*" elementName="module[1]" position="1" id="initialization"/>
+  <transform process="addChild" xpath="/*" elementName="module[1]" position="1" id="environment"/>
  
   <transform process="move" xpath=".//cml:module[starts-with(@cmlx:templateRef,'l1.') or @cmlx:templateRef='l1']" toXpath=".//cml:module[@id='initialization']"/> 
   <transform process="move" xpath=".//cml:module[starts-with(@cmlx:templateRef,'l101.') or @cmlx:templateRef='l101']" toXpath=".//cml:module[@id='initialization']"/> 

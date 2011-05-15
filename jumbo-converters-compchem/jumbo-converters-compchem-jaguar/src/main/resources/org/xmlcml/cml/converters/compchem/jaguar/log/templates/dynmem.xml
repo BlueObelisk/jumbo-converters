@@ -10,6 +10,8 @@
   <record id="dynmem">\s*Dynamic memory assumed available \(MB\):{I,j:dynmem}</record>
  
   <transform process="pullup" xpath=".//cml:scalar"/>
+  <transform process="addUnit" xpath=".//cml:scalar" value="nonSi:megabyte"/>
+  
   <comment class="example.output" id="dynmem">
     <module cmlx:templateRef="dynmem" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <scalar dataType="xsd:integer" dictRef="j:dynmem">3711</scalar>

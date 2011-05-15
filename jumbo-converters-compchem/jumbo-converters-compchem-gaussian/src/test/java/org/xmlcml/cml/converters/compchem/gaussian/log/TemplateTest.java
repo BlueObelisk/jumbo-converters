@@ -115,7 +115,7 @@ public class TemplateTest {
 
 	@Test	public void testl9999Final()             {runTemplateTest("l9999.final");}
 	@Test	@Ignore public void testl9999ArchiveFORMULA()           {runTemplateTest("l9999.archive");}
-	@Test	public void testl9999Jobcpu()            {runTemplateTest("jobcpu");}
+	@Ignore @Test	public void testl9999Jobcpu()            {runTemplateTest("jobcpu");}
 
 	@Test
 	@Ignore
