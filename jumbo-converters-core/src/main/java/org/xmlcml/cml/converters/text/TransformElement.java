@@ -133,7 +133,7 @@ public class TransformElement implements MarkupApplier {
 	private static final String ADD_LINK               = "addLink";
 	private static final String ADD_MAP                = "addMap";
 	private static final String ADD_NAMESPACE          = "addNamespace";
-	private static final String ADD_UNITS               = "addUnits";
+	private static final String ADD_UNITS              = "addUnits";
 	private static final String CHECK_DICTIONARY       = "checkDictionary";
 	private static final String CREATE_ARRAY           = "createArray";
 	private static final String CREATE_DATE            = "createDate";
@@ -144,6 +144,7 @@ public class TransformElement implements MarkupApplier {
 	private static final String CREATE_MATRIX33        = "createMatrix33";
 	private static final String CREATE_MOLECULE        = "createMolecule";
 	private static final String CREATE_NAMEVALUE       = "createNameValue";
+	private static final String GROUP_SIBLINGS         = "groupSiblings";
 	private static final String CREATE_STRING          = "createString";
 	private static final String CREATE_VECTOR3         = "createVector3";
 	private static final String CREATE_WRAPPER         = "createWrapper";
@@ -207,6 +208,7 @@ public class TransformElement implements MarkupApplier {
 		CREATE_ZMATRIX,
 		DEBUG_NODES,
 		DELETE,
+		GROUP_SIBLINGS,
 		HELP,
 		JOIN_ARRAYS,
 		MOVE,
@@ -304,7 +306,7 @@ public class TransformElement implements MarkupApplier {
 		input                  = addAndIndexAttribute(INPUT);
 		map                    = addAndIndexAttribute(MAP);
 		name                   = addAndIndexAttribute(NAME);
-		output                  = addAndIndexAttribute(OUTPUT);
+		output                 = addAndIndexAttribute(OUTPUT);
 		position               = addAndIndexAttribute(POSITION);
 		previousSiblingsAfter  = addAndIndexAttribute(PREVIOUS_AFTER);
 		regex                  = addAndIndexAttribute(REGEX);
@@ -376,11 +378,7 @@ public class TransformElement implements MarkupApplier {
 		} else if (CREATE_INTEGER.equals(process)) {
 			createInteger();
 		} else if (CREATE_MOLECULE.equals(process)) {
-//			try {
-				createMolecule();
-//			} catch (Exception e) {
-//				LOG.error("CANNOT CREATE MOLECULE - CONTINUING"+e);
-//			}
+			createMolecule();
 		} else if (CREATE_MATRIX33.equals(process)) {
 			createMatrix33();
 		} else if (CREATE_NAMEVALUE.equals(process)) {
@@ -403,6 +401,8 @@ public class TransformElement implements MarkupApplier {
 			debugNodes();
 		} else if (DELETE.equals(process)) {
 			delete();
+		} else if (GROUP_SIBLINGS.equals(process)) {
+			groupSiblings();
 		} else if (HELP.equals(process)) {
 			help();
 		} else if (JOIN_ARRAYS.equals(process)) {
@@ -526,10 +526,10 @@ public class TransformElement implements MarkupApplier {
 
 	private void addLink() {
 		assertRequired(XPATH, xpath);
-		assertRequired(XPATH, from);
-		assertRequired(XPATH, to);
-		assertRequired(XPATH, map);
-		assertRequired(XPATH, value);
+		assertRequired(FROM, from);
+		assertRequired(TO_XPATH, to);
+		assertRequired(MAP, map);
+		assertRequired(VALUE, value);
 		List<Node> nodeList = getXpathQueryResults();
 		Nodes mapNodes = TransformElement.queryUsingNamespaces(parsedElement, map);
 		CMLMap map = (mapNodes.size() != 1) ? null : (CMLMap) mapNodes.get(0);
@@ -601,6 +601,17 @@ public class TransformElement implements MarkupApplier {
 			refs[i] = makeToFromAttribute(nodes.get(i));
 		}
 		return refs;
+	}
+
+	private void addMap() {
+		assertRequired(XPATH, xpath);
+		assertRequired(ID, id);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			CMLMap map = new CMLMap();
+			map.setId(id);
+			((ParentNode)node).appendChild(map);
+		}
 	}
 
 	private void addNamespace() {
@@ -770,6 +781,46 @@ public class TransformElement implements MarkupApplier {
 		}
 	}
 
+	private void groupSiblings() {
+		assertRequired(XPATH, xpath);
+		List<Node> nodeList = getXpathQueryResults();
+		ParentNode parent = null;
+		for (Node node : nodeList) {
+			ParentNode parent0 = node.getParent();
+			if (parent0 == null) {
+				throw new RuntimeException("Siblings must have parents");
+			}
+			if (parent == null) {
+				parent = parent0;
+			} else if (!parent.equals(parent0)) {
+				throw new RuntimeException("Can only group siblings (i.e. with same parent");
+			}
+		}
+		// use nodes as fenceposts
+		
+		if (parent != null && nodeList.size() > 1) {
+			int start = parent.indexOf(nodeList.get(0));
+			int end = parent.indexOf(nodeList.get(nodeList.size()-1));
+			int currentNode = 0;
+			Element groupParent = null;
+			for (int i = start; i < end; i++) {
+				Node child = parent.getChild(i);
+				if (child instanceof Element) {
+					if (child.equals(nodeList.get(currentNode))) {
+						currentNode++;
+						if (currentNode >= nodeList.size()) {
+							break;
+						}
+						groupParent = (Element)child;
+					} else {
+						child.detach();
+						groupParent.appendChild(child);
+					}
+				}
+			}
+		}
+	}
+
 	private void createInteger() {
 		assertRequired(XPATH, xpath);
 		List<Node> nodeList = getXpathQueryResults();
@@ -848,17 +899,6 @@ public class TransformElement implements MarkupApplier {
 		parent.replaceChild(array0, mat);
 	}
 
-	private void addMap() {
-		assertRequired(XPATH, xpath);
-		assertRequired(ID, id);
-		List<Node> nodeList = getXpathQueryResults();
-		for (Node node : nodeList) {
-			CMLMap map = new CMLMap();
-			map.setId(id);
-			((ParentNode)node).appendChild(map);
-		}
-	}
-
 	private void createMolecule() {
 		assertRequired(XPATH, xpath);
 		assertRequired(ID, id);
@@ -891,50 +931,50 @@ public class TransformElement implements MarkupApplier {
 	}
 
 	private void createNameValue() {
-			/**
-	  <list templateRef="list1">
-	    <list>
-	      <scalar dataType="xsd:string" dictRef="n:name">hostname</scalar>
-	      <scalar dataType="xsd:string" dictRef="n:value">arcen</scalar>
-	    </list>
-	    ...
-	  </list>
-			 */
-			if (parsedElement == null) {
-				throw new RuntimeException("Null parsedElement");
-			}
-			assertRequired(XPATH, xpath);
-			Pattern pattern = null;
-			if (regex == null) {
-				assertRequired(NAME, name);
-				assertRequired(VALUE, value);
+		/**
+  <list templateRef="list1">
+    <list>
+      <scalar dataType="xsd:string" dictRef="n:name">hostname</scalar>
+      <scalar dataType="xsd:string" dictRef="n:value">arcen</scalar>
+    </list>
+    ...
+  </list>
+		 */
+		if (parsedElement == null) {
+			throw new RuntimeException("Null parsedElement");
+		}
+		assertRequired(XPATH, xpath);
+		Pattern pattern = null;
+		if (regex == null) {
+			assertRequired(NAME, name);
+			assertRequired(VALUE, value);
+		} else {
+			pattern = Pattern.compile(regex);
+		}
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			Element element = (Element)node;
+			if (pattern != null) {
+				String value = node.getValue();
+				Matcher matcher = pattern.matcher(value);
+				if (matcher.matches() && matcher.groupCount() == 2) {
+					String nam = matcher.group(1);
+					String val = matcher.group(2);
+					CMLScalar scalar = new CMLScalar(val);
+					scalar.setDictRef("x:"+nam);
+					element.getParent().replaceChild(element, scalar);
+				}
 			} else {
-				pattern = Pattern.compile(regex);
-			}
-			List<Node> nodeList = getXpathQueryResults();
-			for (Node node : nodeList) {
-				Element element = (Element)node;
-				if (pattern != null) {
-					String value = node.getValue();
-					Matcher matcher = pattern.matcher(value);
-					if (matcher.matches() && matcher.groupCount() == 2) {
-						String nam = matcher.group(1);
-						String val = matcher.group(2);
-						CMLScalar scalar = new CMLScalar(val);
-						scalar.setDictRef("x:"+nam);
-						element.getParent().replaceChild(element, scalar);
-					}
-				} else {
-					Nodes nameNodes = TransformElement.queryUsingNamespaces(element, name);
-					Nodes valueNodes = TransformElement.queryUsingNamespaces(element, value);
-					if (nameNodes.size() == 1 && valueNodes.size() == 1) {
-						CMLScalar nameScalar = (CMLScalar)nameNodes.get(0);
-						CMLScalar valueScalar = (CMLScalar)valueNodes.get(0);
-						createNameValue(nameScalar, valueScalar);
-					}
+				Nodes nameNodes = TransformElement.queryUsingNamespaces(element, name);
+				Nodes valueNodes = TransformElement.queryUsingNamespaces(element, value);
+				if (nameNodes.size() == 1 && valueNodes.size() == 1) {
+					CMLScalar nameScalar = (CMLScalar)nameNodes.get(0);
+					CMLScalar valueScalar = (CMLScalar)valueNodes.get(0);
+					createNameValue(nameScalar, valueScalar);
 				}
 			}
 		}
+	}
 
 	private void createString() {
 		assertRequired(XPATH, xpath);
@@ -982,13 +1022,7 @@ public class TransformElement implements MarkupApplier {
 					}
 				}
 				CMLVector3 v3 = new CMLVector3(dd);
-//				double length = v3.getLength();
-//				CMLProperty property = new CMLProperty();
-//				property.setDictRef(DictRefAttribute.createValue(dictRefNames[0], dictRefNames[1]));
-//				CMLScalar lengthScalar = new CMLScalar(length);
-//				lengthScalar.setDictRef("cmlx:length");
-//				property.appendChild(lengthScalar);
-//				property.appendChild(v3);
+				v3.setDictRef(dictRef);
 				node0.getParent().replaceChild(node0, v3);
 			} else if (scalarNodes.size() == 0) {
 			} else {
@@ -1005,11 +1039,11 @@ public class TransformElement implements MarkupApplier {
 		List<Node> nodeList = getXpathQueryResults();
 		for (Node node : nodeList) {
 			ParentNode parent = node.getParent();
-			CMLElement element = (CMLElement) templateElement.copy();
+			Element element = (Element) templateElement.copy();
 			if (parent != null) {
 				parent.replaceChild(node, element);
 			} else {
-				element.copyNamespaces((CMLElement) node);
+//				element.copyNamespaces((CMLElement) node);
 			}
 			element.appendChild(node);
 		}
@@ -1076,6 +1110,7 @@ public class TransformElement implements MarkupApplier {
 		assertRequired(XPATH, xpath);
 		List<Node> nodeList = getXpathQueryResults();
 		for (Node node : nodeList) {
+			if (node.getParent() != null && node.getParent() instanceof Element)
 			node.detach();
 		}
 	}
@@ -1124,7 +1159,7 @@ public class TransformElement implements MarkupApplier {
 		ParentNode toParent = (toParents.size() == 1) ? (ParentNode) toParents.get(0) : null;
 		if (toParent != null) {
 			for (Node node : nodeList) {
-				if (!(node.equals(toParent))) {
+				if (node instanceof Element && !(node.equals(toParent))) {
 					node.detach();
 					toParent.appendChild(node);
 				}
@@ -1229,6 +1264,7 @@ public class TransformElement implements MarkupApplier {
 				} else if (node instanceof Element) {
 					Element element = (Element) node;
 					if (element.getChildElements().size() == 0) {
+						// clean old text children
 						for (int j = 0; j < element.getChildCount(); j++) {
 							element.getChild(0).detach();
 						}
@@ -1541,6 +1577,8 @@ public class TransformElement implements MarkupApplier {
 			throw new RuntimeException("Cannot create element: "+newElement, e);
 		}
 		if (prefix == null) {
+			newElement = new Element(local);
+		} else if (prefix.equals(CMLConstants.CML_PREFIX)) {
 			newElement = new CMLElement(local);
 		} else {
 			String namespaceURI = parsedElement.getNamespaceURI(prefix);
@@ -1601,6 +1639,7 @@ public class TransformElement implements MarkupApplier {
 //		}
 //	}
 
+	
 	private void groupPreviousSiblings(Element element) {
 		if (previousSiblingsAfter != null) {
 			ParentNode parent = element.getParent();

@@ -3,15 +3,13 @@ package org.xmlcml.cml.converters.text;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import nu.xom.Builder;
-import nu.xom.Document;
 import nu.xom.Element;
 
 import org.apache.commons.io.FileUtils;
@@ -26,55 +24,54 @@ import freemarker.template.Template;
 
 public class FreemarkerTextConverter extends XML2TextConverter {
 	private static final Logger LOG = Logger.getLogger(FreemarkerTextConverter.class);
-	private Configuration cfg;
+
+	private static final String DEFAULT_TEMPLATE_DIRECTORY = 
+		"src/main/resources/org/xmlcml/cml/converters/text/ftl/";
+
+	private static final String DEFAULT_TEMPLATE = "test.ftl";
+	
+	protected Configuration cfg;
+	protected String directoryForTemplates;
 
 	public FreemarkerTextConverter() {
+		init();
+	}
+	
+	protected void init() {
+		super.init();
+		directoryForTemplates = DEFAULT_TEMPLATE_DIRECTORY;
+		createConfiguration();
 	}
 	
 	@Override
 	public List<String> convertToText(Element xmlInput) {
 		List<String> stringList = new ArrayList<String>();
+		StringWriter stringWriter = new StringWriter();
+		convertXMLtoWriter(stringWriter);
+		stringList.add(stringWriter.toString());
 		return stringList;
 	}
 
-	protected static String convertToText(String inputFile, String xslFile) {
-		String s = null;
-		try {
-			Document inputDoc = new Builder().build(new FileInputStream(inputFile));
-			Document xslDoc = new Builder().build(new FileInputStream(xslFile));
-			FreemarkerTextConverter converter = new FreemarkerTextConverter();
-			converter.runFTL();
-			List<String> lines = converter.convertToText(inputDoc.getRootElement());
-			StringBuilder sb = new StringBuilder();
-			for (String line : lines) {
-				sb.append(line);
-			}
-			s = sb.toString();
-		} catch (Exception e) {
-			throw new RuntimeException("Failed Freemarker", e);
-		}
-		return s;
-	}
-	
-	private void createConfiguration() {
+	protected void createConfiguration() {
 		cfg = new Configuration();
 		// Specify the data source where the template files come from.
 		// Here I set a file directory for it:
 		try {
 			cfg.setDirectoryForTemplateLoading(
-		        new File("src/main/resources/org/xmlcml/cml/converters/text/ftl/"));
+		        getTemplateDirectory());
 		} catch (Exception e) {
 			throw new RuntimeException("Cannot create configuration", e);
 		}
 		// Specify how templates will see the data-model. This is an advanced topic...
 		// but just use this:
-		cfg.setObjectWrapper(new DefaultObjectWrapper());  	}
-	
-	private void runFTL() {
-		createConfiguration();
+		cfg.setObjectWrapper(new DefaultObjectWrapper());  	
+	}
+
+	protected File getTemplateDirectory() {
+		return new File(directoryForTemplates);
 	}
 	
-	private void test() {
+	protected void convertXMLtoWriter(Writer writer) {
 		createConfiguration();
         /* ------------------------------------------------------------------- */    
         /* You usually do these for many times in the application life-cycle:  */    
@@ -82,7 +79,7 @@ public class FreemarkerTextConverter extends XML2TextConverter {
         /* Get or create a template */
         Template ftlTemplate = null;
         try {
-			ftlTemplate = cfg.getTemplate("test.ftl");
+			ftlTemplate = cfg.getTemplate(DEFAULT_TEMPLATE);
 		} catch (IOException e) {
 			throw new RuntimeException("cannot create template", e);
 		}
@@ -117,10 +114,10 @@ ${atom.elementType}  ${atom.x3}  ${atom.y3}  ${atom.z3}
 //        }
 
         /* Merge data-model with template */
-        Writer out = new OutputStreamWriter(System.out);
+//        Writer out = new OutputStreamWriter(System.out);
         try {
-			ftlTemplate.process(root, out);
-	        out.flush();
+			ftlTemplate.process(root, writer);
+	        writer.flush();
 		} catch (Exception e) {
 			throw new RuntimeException("cannot run template", e);
 		}
@@ -129,11 +126,13 @@ ${atom.elementType}  ${atom.x3}  ${atom.y3}  ${atom.z3}
 	
 	public static void main(String[] args) throws Exception {
 		String inputFile = (args.length > 0) ? args[0] : "src/main/java/org/xmlcml/cml/converters/text/test.xml";
-		String xslFile = (args.length > 1) ? args[1] : "src/main/java/org/xmlcml/cml/converters/text/test.xsl";
 		String textFile = (args.length > 2) ? args[2] : "test/test.out";
-		new FreemarkerTextConverter().test();
-		String text = convertToText(inputFile, xslFile);
-		FileUtils.write(new File(textFile), text);
+		List<String> stringList = new FreemarkerTextConverter().convertToText(new FileInputStream(inputFile));
+		StringBuilder sb = new StringBuilder();
+		for (String s : stringList) {
+			sb.append(s);
+		}
+		FileUtils.write(new File(textFile), sb.toString());
 	}
 
 }

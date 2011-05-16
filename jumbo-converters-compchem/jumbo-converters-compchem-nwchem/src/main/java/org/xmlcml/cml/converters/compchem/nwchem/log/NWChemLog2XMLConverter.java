@@ -20,7 +20,6 @@ public class NWChemLog2XMLConverter extends CompchemText2XMLTemplateConverter {
 	public NWChemLog2XMLConverter(String baseUri, String templateName) {
 		this(ConverterUtils.buildElementIncludingBaseUri(baseUri, templateName, NWChemLog2XMLConverter.class));
 	}
-	
 	public NWChemLog2XMLConverter(Element templateElement) {
 		super(templateElement);
 	}
