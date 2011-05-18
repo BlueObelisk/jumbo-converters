@@ -1,0 +1,42 @@
+    <template pattern="\s*  ERROR: fatal error.*" id="footer" 
+    name="program" repeat="*" endPattern="\s*\-+\s*$\s*">
+    
+  <comment class="example.input" id="error.">
+  ERROR: fatal error
+  
+   Odd number of electrons in closed-shell orbitals
+ 
+    Total number of electrons:  129
+    Number of closed-shell electrons:  129
+    Number of open-shell electrons:    0
+    Number of GVB pair electrons:    0
+ 
+    Multiplicity:    1
+    Molecular charge:    0
+ 
+  Please check the input file for incorrect spin multiplicity
+  (multip), incorrect molecular charge (molchg), or missing
+  atoms in the geometry.
+
+
+ ------------------------------------------------------------
+  Jaguar cannot recover from this error and will now abort.
+  For technical support please contact:
+ 
+  Email: help@schrodinger.com
+  Phone: 503-299-1150
+  Fax:   503-299-4532
+ ------------------------------------------------------------
+ 
+  </comment>
+      
+  <record id="error" repeat="*">{X,j:error}\s*</record>
+  
+  <comment class="example.output" id="error">
+    <module cmlx:templateRef="footer" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="cc:jobname">jaguar_batch_3</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:hostname">rufus</scalar>
+      <scalar dictRef="cc:date" dataType="xsd:string">2011-04-07T17:06:04.000Z</scalar>
+    </module>
+  </comment>
+</template>

@@ -1,4 +1,4 @@
-package org.xmlcml.cml.converters.compchem.gaussian.log;
+package org.xmlcml.cml.converters.compchem.nwchem.log;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,34 +13,35 @@ import org.xmlcml.cml.converters.text.XML2XMLTransformConverter;
 import org.xmlcml.cml.converters.util.ConverterUtils;
 import org.xmlcml.euclid.Util;
 
-public class GaussianLogXML2CompchemConverter extends XML2XMLTransformConverter {
-	private static final Logger LOG = Logger.getLogger(GaussianLogXML2CompchemConverter.class);
+public class NWChemLogXML2CompchemConverter extends XML2XMLTransformConverter {
+	private static final Logger LOG = Logger.getLogger(NWChemLogXML2CompchemConverter.class);
 	static {
 		LOG.setLevel(Level.INFO);
 	}	
-	
+
+	// dummy filename?
 	private static final String DEFAULT_TEMPLATE_RESOURCE = 
-		"org/xmlcml/cml/converters/compchem/gaussian/log/templates/compchemTemplate.xml";
+		"org/xmlcml/cml/converters/compchem/nwchem/log/templates/compchemTemplate.xml";
 	
 	private static final String BASE_URI = 
 		"classpath:/"+DEFAULT_TEMPLATE_RESOURCE;
 	
-	public GaussianLogXML2CompchemConverter(File transformFile) throws IOException {
+	public NWChemLogXML2CompchemConverter(File transformFile) throws IOException {
 		super(transformFile);
 	}
-	public GaussianLogXML2CompchemConverter(InputStream inputStream) throws IOException {
+	public NWChemLogXML2CompchemConverter(InputStream inputStream) throws IOException {
 		super(inputStream);
 	}
-	// file not used?
-	public GaussianLogXML2CompchemConverter() {
+	// dummy name?
+	public NWChemLogXML2CompchemConverter() {
 		this(BASE_URI, "templates/compchemTemplate.xml");
 	}
 	
-	public GaussianLogXML2CompchemConverter(String baseUri, String templateName) {
-		this(ConverterUtils.buildElementIncludingBaseUri(baseUri, templateName, GaussianLog2XMLConverter.class));
+	public NWChemLogXML2CompchemConverter(String baseUri, String templateName) {
+		this(ConverterUtils.buildElementIncludingBaseUri(baseUri, templateName, NWChemLog2XMLConverter.class));
 	}
 	
-	public GaussianLogXML2CompchemConverter(Element templateElement) {
+	public NWChemLogXML2CompchemConverter(Element templateElement) {
 		super(templateElement);
 	}
 
@@ -74,18 +75,18 @@ public class GaussianLogXML2CompchemConverter extends XML2XMLTransformConverter 
 
 	public static void main(String[] args) throws IOException {
 		if (args.length == 1) {
-			GaussianLogXML2CompchemConverter converter = new GaussianLogXML2CompchemConverter();
+			NWChemLogXML2CompchemConverter converter = new NWChemLogXML2CompchemConverter();
 			converter.runTests(args[0]);
 		} else if (args.length == 2) {
-			GaussianLogXML2CompchemConverter converter = new GaussianLogXML2CompchemConverter(BASE_URI,
+			NWChemLogXML2CompchemConverter converter = new NWChemLogXML2CompchemConverter(BASE_URI,
 			"templates/"+args[1]);
 			converter.runTests(args[0]);
 		} else {
 			InputStream transformStream = Util.getResourceUsingContextClassLoader(
-					"org/xmlcml/cml/converters/compchem/gaussian/log/gaussian2compchem.xml", GaussianLogXML2CompchemConverter.class);
-			XML2XMLConverter converter = new GaussianLogXML2CompchemConverter(transformStream);
-			File in = new File("src/test/resources/compchem/gaussian/log/ref/anna0.xml");
-			File out = new File("test/anna0.compchem.xml");
+					"org/xmlcml/cml/converters/compchem/nwchem/log/nwchem2compchem.xml", NWChemLogXML2CompchemConverter.class);
+			XML2XMLConverter converter = new NWChemLogXML2CompchemConverter(transformStream);
+			File in = new File("src/test/resources/compchem/nwchem/log/ref/test1.xml");
+			File out = new File("test/test1.compchem.xml");
 			converter.convert(in, out);
 		}
 	}

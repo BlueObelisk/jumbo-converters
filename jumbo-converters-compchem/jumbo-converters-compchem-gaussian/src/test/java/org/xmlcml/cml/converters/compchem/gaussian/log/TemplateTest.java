@@ -61,7 +61,7 @@ public class TemplateTest {
 	@Test	@Ignore public void testl103TrustEXAMPLE()              {runTemplateTest("l103.trust");}
 	@Test	@Ignore public void testl103FILE()                   {runTemplateTest("l103.");}
 	
-	@Test	@Ignore public void testl202DistmatFAILSURGENT()        {runTemplateTest("l202.distmat");}
+	@Ignore @Test	public void testl202DistmatFAILSURGENT()        {runTemplateTest("l202.distmat");}
 	@Test	public void testl202Orient()             {runTemplateTest("l202.orient");}
 	@Test	public void testl202Rotconsts()          {runTemplateTest("l202.rotconst");}
 	@Test	public void testl202Stoichiometry()      {runTemplateTest("l202.stoich");}

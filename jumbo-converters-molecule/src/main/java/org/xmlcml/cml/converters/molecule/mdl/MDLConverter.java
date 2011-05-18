@@ -593,6 +593,7 @@ public class MDLConverter {
             readAtoms();
             readBonds();
             readFooter();
+            addMolecularCharge();
         } else if (version.equals(V3000)) {
             // find start of CTAB
             String line = nextLine();
@@ -633,7 +634,18 @@ public class MDLConverter {
         return molecule;
     }
 
-    /**
+    private void addMolecularCharge() {
+    	List<CMLAtom> atoms = molecule.getAtoms();
+    	int formalCharge = 0;
+    	for (CMLAtom atom : atoms) {
+    		if (atom.getFormalChargeAttribute() != null) {
+    			formalCharge+= atom.getFormalCharge();
+    		}
+    	}
+    	molecule.setFormalCharge(formalCharge);
+	}
+
+	/**
      * Reads the header of an MDLMolFile, check the version is supported, reads
      * in the title, date, comment and counts line
      */
