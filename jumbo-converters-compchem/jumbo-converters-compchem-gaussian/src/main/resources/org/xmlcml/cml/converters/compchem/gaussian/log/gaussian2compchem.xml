@@ -1,9 +1,9 @@
 <transformList>
 
-  <transform process="addChild" xpath="/*" elementName="module[1]" position="1" id="finalization"/>
-  <transform process="addChild" xpath="/*" elementName="module[1]" position="1" id="calculation"/>
-  <transform process="addChild" xpath="/*" elementName="module[1]" position="1" id="initialization"/>
-  <transform process="addChild" xpath="/*" elementName="module[1]" position="1" id="environment"/>
+  <transform process="addChild" xpath="/*" elementName="cml:module" position="1" id="finalization"/>
+  <transform process="addChild" xpath="/*" elementName="cml:module" position="1" id="calculation"/>
+  <transform process="addChild" xpath="/*" elementName="cml:module" position="1" id="initialization"/>
+  <transform process="addChild" xpath="/*" elementName="cml:module" position="1" id="environment"/>
  
   <transform process="move" xpath=".//cml:module[starts-with(@cmlx:templateRef,'l1.') or @cmlx:templateRef='l1']" toXpath=".//cml:module[@id='initialization']"/> 
   <transform process="move" xpath=".//cml:module[starts-with(@cmlx:templateRef,'l101.') or @cmlx:templateRef='l101']" toXpath=".//cml:module[@id='initialization']"/> 
@@ -24,6 +24,10 @@
   
   <transform process="move" xpath="/cml:module/cml:module[not(@id='initialization') and not(@id='environment') and not(@id='finalization')]" toXpath="/cml:module/cml:module[@id='calculation']"/> 
 
+  <transform process="addSibling" xpath="./cml:module[@id='calculation']/cml:module[@cmlx:templateRef='l202.rotconst']" 
+      elementName="cml:module" id="l202.group" position="1"/> 
+  <transform process="groupSiblings" xpath=".//cml:module[@id='l202.group']" /> 
+  
 <!--   
   <transform process="delete" xpath="/cml:module/text() | /cml:module/cml:scalar" toXpath="/cml:module/cml:module[@id='calculation']"/> 
  -->  

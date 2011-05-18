@@ -133,6 +133,7 @@ public class TransformElement implements MarkupApplier {
 	private static final String ADD_LINK               = "addLink";
 	private static final String ADD_MAP                = "addMap";
 	private static final String ADD_NAMESPACE          = "addNamespace";
+	private static final String ADD_SIBLING            = "addSibling";
 	private static final String ADD_UNITS              = "addUnits";
 	private static final String CHECK_DICTIONARY       = "checkDictionary";
 	private static final String CREATE_ARRAY           = "createArray";
@@ -190,6 +191,7 @@ public class TransformElement implements MarkupApplier {
 		ADD_LINK,
 		ADD_MAP,
 		ADD_NAMESPACE,
+		ADD_SIBLING,
 		ADD_UNITS,
 		CHECK_DICTIONARY,
 		CREATE_ARRAY,
@@ -361,6 +363,8 @@ public class TransformElement implements MarkupApplier {
 			addMap();
 		} else if (ADD_NAMESPACE.equals(process)) {
 			addNamespace();
+		} else if (ADD_SIBLING.equals(process)) {
+			addSibling();
 		} else if (ADD_UNITS.equals(process)) {
 			addUnits();
 		} else if (CHECK_DICTIONARY.equals(process)) {
@@ -473,7 +477,6 @@ public class TransformElement implements MarkupApplier {
 	}
 
 	private void addChild() {
-//		assertRequired(POSITION, position);
 		assertRequired(XPATH, xpath);
 		assertRequired(ELEMENT_NAME, elementName);
 		List<Node> nodeList = getXpathQueryResults();
@@ -622,6 +625,36 @@ public class TransformElement implements MarkupApplier {
 		for (Node node : nodeList) {
 			Element element = (Element)node;
 			element.addNamespaceDeclaration(name, value);
+		}
+	}
+	
+	private void addSibling() {
+		assertRequired(XPATH, xpath);
+		assertRequired(ID, id);
+		assertRequired(ELEMENT_NAME, elementName);
+		assertRequired(POSITION, position);
+		Integer pos = new Integer(position);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			Element element = (Element)node;
+			ParentNode parent = element.getParent();
+			Elements childElements = ((Element)parent).getChildElements();
+			int idx = -1;
+			int nchild = childElements.size();
+			List<Element> elementList = new ArrayList<Element>();
+			for (int i = 0; i < nchild; i++) {
+				Element childElement = (Element) childElements.get(i);
+				elementList.add(childElement);
+				if (childElement.equals(element)) {
+					idx = i;
+					break;
+				}
+			}
+			int insertionPoint = idx + pos;
+			if (insertionPoint >= 0 && insertionPoint <= nchild) {
+				Element newElement = createNewElement(elementName, id, null);
+				parent.insertChild(newElement, insertionPoint);
+			}
 		}
 	}
 	
@@ -801,10 +834,14 @@ public class TransformElement implements MarkupApplier {
 		if (parent != null && nodeList.size() > 1) {
 			int start = parent.indexOf(nodeList.get(0));
 			int end = parent.indexOf(nodeList.get(nodeList.size()-1));
+			List<Node> newNodeList = new ArrayList<Node>();
+			for (int i = 0; i < parent.getChildCount(); i++) {
+				newNodeList.add(parent.getChild(i));
+			}
 			int currentNode = 0;
 			Element groupParent = null;
 			for (int i = start; i < end; i++) {
-				Node child = parent.getChild(i);
+				Node child = newNodeList.get(i);
 				if (child instanceof Element) {
 					if (child.equals(nodeList.get(currentNode))) {
 						currentNode++;
@@ -907,8 +944,10 @@ public class TransformElement implements MarkupApplier {
 		if (nodeList.size() > 0) {
 			Element element = (Element) nodeList.get(0);
 			if (!(element instanceof CMLArray)) {
+				CMLUtil.debug((Element)element.getParent(), "PP");
+				CMLUtil.debug(transformElement, "TE");
 				throw new RuntimeException(
-						"Molecule requires list of arrays, but found: "+element.getClass().getName());
+						"Molecule requires list of arrays, but found: "+element.getClass().getName()+";"+element.getLocalName());
 			}
 			CMLArray array0 = (CMLArray) element;
 			int natoms = array0.getSize();
@@ -1196,10 +1235,13 @@ public class TransformElement implements MarkupApplier {
 			Elements childElements = nameElement.getChildElements();
 			if (childElements.size() == 1) {
 				Element child = childElements.get(0);
+				child.detach();
 				nameElement.getParent().replaceChild(nameElement, child);
-				String templateRef = ((CMLElement)nameElement).getCMLXAttribute(Template.TEMPLATE_REF);
-				if (templateRef != null) {
-					CMLElement.addCMLXAttribute(child, Template.TEMPLATE_REF, templateRef);
+				if (nameElement instanceof CMLElement) {
+					String templateRef = ((CMLElement)nameElement).getCMLXAttribute(Template.TEMPLATE_REF);
+					if (templateRef != null) {
+						CMLElement.addCMLXAttribute(child, Template.TEMPLATE_REF, templateRef);
+					}
 				}
 			}
 		}
@@ -1565,7 +1607,12 @@ public class TransformElement implements MarkupApplier {
 	}
 
 	private Element createNewElement(String elementName, String id, String dictRef) {
-		
+
+		// FIXME only for debug
+		if (elementName.contains("array")) {
+			System.err.println("NAME "+elementName);
+			throw new RuntimeException("array");
+		}
 		String[] names = elementName.split(CMLConstants.S_COLON);
 		String prefix = (names.length == 2) ? names[0] : null;
 		String local = (names.length == 2) ? names[1] : elementName;

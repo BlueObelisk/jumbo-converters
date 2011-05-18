@@ -1,8 +1,9 @@
 <template id="l202.distmat" name="Distance matrix" repeat="*"
-    pattern="\s*Distance matrix.*\s*$\s{20}\s*\d.*s*" 
-    endPattern="\s\s...\d\s\s[A-Z].*$.[^\s].*" endOffset="1">
-    
-  <comment class="example.input" id="l202.distmat">
+    pattern="\s*Distance matrix.*" 
+    endPattern="\s*1.*" endOffset="1">
+
+<!--     
+  <comment class="example.inputx" id="l202.distmat.1">
                     Distance matrix (angstroms):
                     1          2          3          4          5
      1  Al   0.000000
@@ -29,17 +30,31 @@
     11  Al   0.000000
     12  Al   1.534811   0.000000
   </comment>
-  <record repeat="1"/> 
+ -->
+   <comment class="example.input" id="l202.distmat.2">
+                    Distance matrix (angstroms):
+                    1          2          3          4          5
+     1  C    0.000000
+     2  H    1.113000   0.000000
+     3  H    1.113000   1.817522   0.000000
+     4  H    1.113000   1.817521   1.817522   0.000000
+     5  H    1.113000   1.817522   1.817522   1.817522   0.000000
+  </comment>
+  <!-- 
+  <record repeat="1" id="y">{X,y:y}</record> 
+  -->
+  <record repeat="*" id="x">{X,x:x}</record> 
+  <!-- 
   <templateList>
     <template repeat="*" pattern="\s{15}\s[\d\s]*$.*" 
     endPattern="\s\s...\d\s\s[A-Z].*$(([\d\s]*)|(\s\S.*))" endOffset="1">
-    <!-- 
+    <!- - 
       <record id="serial">{1_5I,cc:serial}</record>
       <record repeat="*" id="atom">{I,cc:serialx}{A,cc:elementType}{1_5F,cc:distances}</record>
-      -->
+      - ->
     </template>
   </templateList>
-
+ -->
   <transform process="joinArrays" xpath=".//cml:array[@dictRef='cc:distances']"/>
   <transform process="createArray" 
     xpath=".//cml:list[@cmlx:templateRef='atom' and cml:list[cml:array[@dictRef='cc:distances']]]" 
@@ -58,5 +73,10 @@
       <array dataType="xsd:double" size="78" dictRef="cc:distances">0.0 1.534811 0.0 2.965253 1.534811 0.0 4.193182 2.964801 1.534811 0.0 5.135969 4.193182 2.965253 1.534811 0.0 5.727993 5.135187 4.193182 2.964801 1.534811 5.930507 5.727993 5.135969 4.193182 2.965253 5.727993 5.929603 5.727993 5.135187 4.193182 5.135969 5.727993 5.930507 5.727993 5.135969 4.193182 5.135187 5.727993 5.929603 5.727993 2.965253 4.193182 5.135969 5.727993 5.930507 1.534811 2.964801 4.193182 5.135187 5.727993 0.0 1.534811 0.0 2.964801 1.534811 0.0 4.193182 2.965253 1.534811 0.0 5.135187 4.193182 2.964801 1.534811 0.0 5.727993 5.135969 4.193182 2.965253 1.534811 5.929603 5.727993 5.135187 4.193182 2.964801 0.0 1.534811 0.0</array>
     </module>
   </comment>
+  
+  <comment class="example.output" id="l202.distmat.2">
+    <module/>
+  </comment>
+  
 </template>
  

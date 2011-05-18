@@ -19,7 +19,7 @@ public abstract class AbstractSplitter extends AbstractConverter implements Spli
 		LOG.setLevel(Level.INFO);
 	}
 	
-	private String xpath;
+	protected String xpath;
 	protected File outputDirectory;
 	protected File outputFile;
 	
@@ -85,4 +85,13 @@ public abstract class AbstractSplitter extends AbstractConverter implements Spli
 		this.outputDirectory = outputDirectory;
 		this.outputFile = outputFile;
 	}
+	
+	public void setOutputDirectory(File outputDirectory) {
+		this.outputDirectory = outputDirectory;
+	}
+	
+	public void setOutputFile(File outputFile) {
+		this.outputFile = outputFile;
+	}
+	
 }

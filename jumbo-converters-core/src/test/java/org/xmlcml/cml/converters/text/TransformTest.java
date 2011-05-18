@@ -259,6 +259,106 @@ public class TransformTest {
 	}
 	
 	@Test 
+	public void testAddSibling() {
+		runTest("addSibling", 
+			"<transform process='addSibling' xpath='./c' elementName='x' id='xx' position='0'/>",
+			"<foo><a/><b/><c/><d/><e/><f/></foo>",
+			"<foo><a/><b/><x id='xx'/><c/><d/><e/><f/></foo>"
+			);
+	}
+	
+	@Test 
+	public void testAddSibling1() {
+		runTest("addSibling", 
+			"<transform process='addSibling' xpath='./a' elementName='x' id='xx' position='0'/>",
+			"<foo><a/><b/><c/><d/><e/><f/></foo>",
+			"<foo><x id='xx'/><a/><b/><c/><d/><e/><f/></foo>"
+			);
+	}
+	
+	@Test 
+	public void testAddSibling2() {
+		runTest("addSibling", 
+			"<transform process='addSibling' xpath='./c' elementName='x' id='xx' position='-2'/>",
+			"<foo><a/><b/><c/><d/><e/><f/></foo>",
+			"<foo><x id='xx'/><a/><b/><c/><d/><e/><f/></foo>"
+			);
+	}
+	
+	
+	@Test 
+	public void testAddSibling3() {
+		runTest("addSibling", 
+			"<transform process='addSibling' xpath='./c' elementName='x' id='xx' position='-3'/>",
+			"<foo><a/><b/><c/><d/><e/><f/></foo>",
+			"<foo><a/><b/><c/><d/><e/><f/></foo>"
+			);
+	}
+	
+	@Test 
+	public void testAddSibling4() {
+		runTest("addSibling", 
+			"<transform process='addSibling' xpath='./c' elementName='x' id='xx' position='1'/>",
+			"<foo><a/><b/><c/><d/><e/><f/></foo>",
+			"<foo><a/><b/><c/><x id='xx'/><d/><e/><f/></foo>"
+			);
+	}
+	
+	@Test 
+	public void testAddSibling5() {
+		runTest("addSibling", 
+			"<transform process='addSibling' xpath='./c' elementName='x' id='xx' position='4'/>",
+			"<foo><a/><b/><c/><d/><e/><f/></foo>",
+			"<foo><a/><b/><c/><d/><e/><f/><x id='xx'/></foo>"
+			);
+	}
+	
+	@Test 
+	public void testAddSibling6() {
+		runTest("addSibling", 
+			"<transform process='addSibling' xpath='./c' elementName='x' id='xx' position='5'/>",
+			"<foo><a/><b/><c/><d/><e/><f/></foo>",
+			"<foo><a/><b/><c/><d/><e/><f/></foo>"
+			);
+	}
+	
+	@Test 
+	public void testAddSibling7() {
+		runTest("addSibling", 
+			"<transform process='addSibling' xpath='./c' elementName='x' id='xx' position='0'/>",
+			"<foo><a/><b/><c/><a/><b/><c/></foo>",
+			"<foo><a/><b/><x id='xx'/><c/><a/><b/><x id='xx'/><c/></foo>"
+			);
+	}
+	
+	@Test 
+	public void testAddSibling8() {
+		runTest("addSibling", 
+			"<transform process='addSibling' xpath='./c' elementName='x' id='xx' position='1'/>",
+			"<foo><a/><b/><c/><a/><b/><c/></foo>",
+			"<foo><a/><b/><c/><x id='xx'/><a/><b/><c/><x id='xx'/></foo>"
+			);
+	}
+	
+	@Test 
+	public void testAddSibling9() {
+		runTest("addSibling", 
+			"<transform process='addSibling' xpath='./c' elementName='x' id='xx' position='0'/>",
+			"<foo><c/><a/><c/><a/><c/><a/><c/></foo>",
+			"<foo><x id='xx'/><c/><a/><x id='xx'/><c/><a/><x id='xx'/><c/><a/><x id='xx'/><c/></foo>"
+			);
+	}
+	
+	@Test 
+	public void testAddSibling10() {
+		runTest("addSibling", 
+			"<transform process='addSibling' xpath='./c' elementName='x' id='xx' position='0'/>",
+			"<foo><c/><c/><c/><c/></foo>",
+			"<foo><x id='xx'/><c/><x id='xx'/><c/><x id='xx'/><c/><x id='xx'/><c/></foo>"
+			);
+	}
+	
+	@Test 
 	public void testAddUnits() {
 		runTest("addUnits", 
 			"<transform process='addUnits' xpath='.' value='nonSi:dalton'/>",
@@ -678,6 +778,16 @@ public class TransformTest {
 			);
 	}
 	
+	
+	@Test
+	public void testGroupSiblings1() {
+		runTest("groupSiblings", 
+			"<transform process='groupSiblings' xpath='./post'/>",
+			"<foo><a/><post/><b/><c/><d/><post/><e/><f/><post/><g/></foo>",
+			"<foo><a/><post><b/><c/><d/></post><post><e/><f/></post><post/><g/></foo>"
+		);
+	}
+
 	@Test
 	public void testJoinArrays0() {
 		CMLList list = new CMLList();

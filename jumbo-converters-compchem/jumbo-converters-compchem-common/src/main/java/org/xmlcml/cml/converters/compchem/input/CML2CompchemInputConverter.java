@@ -1,151 +1,91 @@
 package org.xmlcml.cml.converters.compchem.input;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import nu.xom.Builder;
 import nu.xom.Element;
 import nu.xom.Nodes;
 
-import org.apache.commons.io.FileUtils;
-import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.base.CMLUtil;
+import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.converters.text.FreemarkerTextConverter;
 import org.xmlcml.cml.element.CMLMolecule;
 
-import freemarker.template.Template;
-
 public abstract class CML2CompchemInputConverter extends FreemarkerTextConverter {
 
-	protected CMLMolecule molecule;
-	protected MethodBasis methodBasis;
-	protected CalculationComponents calculationComponents;
-	protected JobInfo jobInfo;
-	protected Map<String, Object> templateRoot;
-	protected String templateFilename;
-	
-	public CML2CompchemInputConverter() {
-		super();
-		jobInfo = new JobInfo();
-	    templateRoot = new HashMap<String, Object>();
-	    templateRoot.put("jobInfo", jobInfo);
+	public CML2CompchemInputConverter(String templatePath, String templateName) {
+		super(templatePath, templateName);
 	}
 	
-	public void setTemplateFilename(String templateFilename) {
-		this.templateFilename = templateFilename;
-	}
-
-	public String getTemplateFilename() {
-		return templateFilename;
+	protected Builder getBuilder() {
+		return new CMLBuilder();
 	}
 	
-	public void setTitle(String title) {
-		jobInfo.setTitle(title);
-	}
-
-	public void setId(String id) {
-		jobInfo.setId(id);
-	}
-
-	public void setMolecule(CMLMolecule molecule) {
-		this.molecule = molecule;
-		if (molecule.getFormalChargeAttribute() == null) {
+	@Override
+	protected Object getDataModel(Element xmlInput) {
+		Map<String,Object> templateRoot = new HashMap<String, Object>();
+	    templateRoot.put("jobInfo", getJobInfo(xmlInput));
+	    
+	    CMLMolecule molecule = getMolecule(xmlInput);
+	    if (molecule == null) {
+	    	throw new RuntimeException("Must give molecule");
+	    }
+	    if (molecule.getFormalChargeAttribute() == null) {
 			throw new RuntimeException("Molecule must have formal charge");
 		}
 		if (molecule.getSpinMultiplicityAttribute() == null) {
-			throw new RuntimeException("Molecule must have spin multiplicity");
+			System.err.println("**** Molecule must have spin multiplicity ****");
+			molecule.setSpinMultiplicity(1);
 		}
 		templateRoot.put("molecule", molecule);
-	}
-	
-	public void setMolecule(InputStream inputStream) {
-		CMLElement cml = CMLUtil.parseQuietlyIntoCML(inputStream);
-		Nodes molecules = cml.query(".//*[local-name()='molecule']");
-		if (molecules.size() > 0) {
-			setMolecule((CMLMolecule) molecules.get(0));
-		}
-	}
-	
-	public void setMethodBasis(InputStream inputStream) {
-		this.setMethodBasis(new MethodBasis(inputStream));
-	}
-
-	public void setMethodBasis(MethodBasis methodBasis) {
-		this.methodBasis = methodBasis;
-		templateRoot.put("methodBasis", methodBasis);
-	}
-
-	public MethodBasis getMethodBasis() {
-		return methodBasis;
-	}
-
-	public void setCalculationComponents(InputStream inputStream) {
-		setCalculationComponents(new CalculationComponents(inputStream));
-	}
-
-	public void setCalculationComponents(CalculationComponents calculationComponents) {
-		this.calculationComponents = calculationComponents;
-		templateRoot.put("calculationComponents", calculationComponents);
-	}
-
-	public CalculationComponents getCalculationComponents() {
-		return calculationComponents;
-	}
-	
-	public List<String> convertToText(InputStream inputStream, String outfileName) throws Exception {
-		List<String> stringList = new ArrayList<String>();
-		this.setMolecule(inputStream);
-		StringWriter stringWriter = new StringWriter();
-		convertXMLtoWriter(stringWriter);
-		stringList.add(stringWriter.toString());
-		if (outfileName != null) {
-			FileUtils.writeLines(new File(outfileName), stringList);
-		}
-		return stringList;
-	}
-
-	@Override
-	public List<String> convertToText(Element xmlInput) {
-		List<String> stringList = new ArrayList<String>();
-		StringWriter stringWriter = new StringWriter();
-		convertXMLtoWriter(stringWriter);
-		stringList.add(stringWriter.toString());
-		return stringList;
-	}
-
-	protected void convertXMLtoWriter(Writer writer) {
-	    Template ftlTemplate = null;
-	    try {
-			ftlTemplate = cfg.getTemplate(getTemplateFilename());
-		} catch (IOException e) {
-			throw new RuntimeException("cannot create template", e);
-		}
-	
-	    if (molecule != null) {
-	        templateRoot.put("molecule", molecule);
-	    }
 	    
+        MethodBasis methodBasis = getMethodBasis();
 	    if (methodBasis != null) {
 	        templateRoot.put("methodBasis", methodBasis);
 	    }
 	    
+	    CalculationComponents calculationComponents = getCalculationComponents();
 	    if (calculationComponents != null) {
 	        templateRoot.put("calculationComponents", calculationComponents);
 	    }
 	    
-	    try {
-			ftlTemplate.process(templateRoot, writer);
-	        writer.flush();
-		} catch (Exception e) {
-			throw new RuntimeException("cannot run template", e);
-		}
-		
+	    return templateRoot;
+	}
+	
+	
+	private JobInfo getJobInfo(Element xmlInput) {
+		JobInfo jobInfo = new JobInfo();
+		configureJobInfo(jobInfo, xmlInput);
+		return jobInfo;
+	}
+	
+	protected void configureJobInfo(JobInfo jobInfo, Element xmlInput) {
+		String id = getId(xmlInput);
+		jobInfo.setId(id);
+		String title = getTitle(xmlInput);
+		jobInfo.setTitle(title);
 	}
 
+	protected String getId(Element xmlInput) {
+		return "calc1";
+	}
+	
+	protected String getTitle(Element xmlInput) {
+		return "untitled calculation";
+	}
+	
+	protected abstract MethodBasis getMethodBasis();
+	
+	protected abstract CalculationComponents getCalculationComponents();
+
+	protected CMLMolecule getMolecule(Element xmlInput) {
+		Nodes moleculeNodes = xmlInput.query("descendant-or-self::*[local-name()='molecule']");
+		if (moleculeNodes.size() > 0) {
+			CMLMolecule molecule = (CMLMolecule) moleculeNodes.get(0);
+			return molecule;
+		} else {
+			throw new RuntimeException("no molecule found");
+		}
+	}
+	
 }
