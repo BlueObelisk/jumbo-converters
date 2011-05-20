@@ -41,88 +41,41 @@
    <record repeat="*" id="s">{X,x:xxx}</record>
   
   <comment class="example.output" id="magneticatom">
-<module cmlx:templateRef="magneticatom" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" xmlns:xi="http://www.w3.org/2001/XInclude">
-  <list cmlx:templateRef="atomid">
-    <list>
-      <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
-      <scalar dataType="xsd:string" dictRef="x:elementType">C</scalar>
-    </list>
-  </list>
-  <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
-    <list cmlx:templateRef="name">
-      <scalar dataType="xsd:string" dictRef="cc:tensorname">Diamagnetic</scalar>
-    </list>
-    <list cmlx:templateRef="row">
-      <list>
-        <scalar dataType="xsd:double" dictRef="x:x">250.8006</scalar>
-        <scalar dataType="xsd:double" dictRef="x:y">-4.0952</scalar>
-        <scalar dataType="xsd:double" dictRef="x:z">4.8807</scalar>
+    <module cmlx:templateRef="magneticatom" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="atomid">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+          <scalar dataType="xsd:string" dictRef="x:elementType">C</scalar>
+        </list>
       </list>
-      <list>
-        <scalar dataType="xsd:double" dictRef="x:x">-4.0945</scalar>
-        <scalar dataType="xsd:double" dictRef="x:y">241.2836</scalar>
-        <scalar dataType="xsd:double" dictRef="x:z">-1.8116</scalar>
+      <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
+        <scalar dataType="xsd:string" dictRef="cc:tensorname">Diamagnetic</scalar>
+        <matrix rows="3" columns="3" dataType="xsd:double" dictRef="cc:tensor">250.8006 -4.0952 4.8807 -4.0945 241.2836 -1.8116 4.8811 -1.812 241.9238</matrix>
+      </module>
+      <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
+        <scalar dataType="xsd:string" dictRef="cc:tensorname">Paramagnetic</scalar>
+        <matrix rows="3" columns="3" dataType="xsd:double" dictRef="cc:tensor">-88.2836 -24.1524 28.7618 -24.1539 -144.3632 -10.6808 28.761 -10.6799 -140.6136</matrix>
+      </module>
+      <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
+        <scalar dataType="xsd:string" dictRef="cc:tensorname">Total Shielding Tensor</scalar>
+        <matrix rows="3" columns="3" dataType="xsd:double" dictRef="cc:tensor">162.517 -28.2477 33.6425 -28.2484 96.9204 -12.4924 33.6421 -12.4919 101.3102</matrix>
+      </module>
+      <list cmlx:templateRef="s">
+        <scalar dataType="xsd:string" dictRef="x:xxx"/>
       </list>
-      <list>
-        <scalar dataType="xsd:double" dictRef="x:x">4.8811</scalar>
-        <scalar dataType="xsd:double" dictRef="x:y">-1.812</scalar>
-        <scalar dataType="xsd:double" dictRef="x:z">241.9238</scalar>
-      </list>
-    </list>
-  </module>
-  <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
-    <list cmlx:templateRef="name">
-      <scalar dataType="xsd:string" dictRef="cc:tensorname">Paramagnetic</scalar>
-    </list>
-    <list cmlx:templateRef="row">
-      <list>
-        <scalar dataType="xsd:double" dictRef="x:x">-88.2836</scalar>
-        <scalar dataType="xsd:double" dictRef="x:y">-24.1524</scalar>
-        <scalar dataType="xsd:double" dictRef="x:z">28.7618</scalar>
-      </list>
-      <list>
-        <scalar dataType="xsd:double" dictRef="x:x">-24.1539</scalar>
-        <scalar dataType="xsd:double" dictRef="x:y">-144.3632</scalar>
-        <scalar dataType="xsd:double" dictRef="x:z">-10.6808</scalar>
-      </list>
-      <list>
-        <scalar dataType="xsd:double" dictRef="x:x">28.761</scalar>
-        <scalar dataType="xsd:double" dictRef="x:y">-10.6799</scalar>
-        <scalar dataType="xsd:double" dictRef="x:z">-140.6136</scalar>
-      </list>
-    </list>
-  </module>
-  <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
-    <list cmlx:templateRef="name">
-      <scalar dataType="xsd:string" dictRef="cc:tensorname">Total Shielding Tensor</scalar>
-    </list>
-    <list cmlx:templateRef="row">
-      <list>
-        <scalar dataType="xsd:double" dictRef="x:x">162.517</scalar>
-        <scalar dataType="xsd:double" dictRef="x:y">-28.2477</scalar>
-        <scalar dataType="xsd:double" dictRef="x:z">33.6425</scalar>
-      </list>
-      <list>
-        <scalar dataType="xsd:double" dictRef="x:x">-28.2484</scalar>
-        <scalar dataType="xsd:double" dictRef="x:y">96.9204</scalar>
-        <scalar dataType="xsd:double" dictRef="x:z">-12.4924</scalar>
-      </list>
-      <list>
-        <scalar dataType="xsd:double" dictRef="x:x">33.6421</scalar>
-        <scalar dataType="xsd:double" dictRef="x:y">-12.4919</scalar>
-        <scalar dataType="xsd:double" dictRef="x:z">101.3102</scalar>
-      </list>
-    </list>
-  </module>
-  <module cmlx:lineCount="2" cmlx:templateRef="isotrop">
-    <list cmlx:templateRef="isotrop">
-      <scalar dataType="xsd:double" dictRef="n:isotropic">120.2492</scalar>
-    </list>
-    <list cmlx:templateRef="anisotrop">
-      <scalar dataType="xsd:double" dictRef="n:anisotropy">101.4478</scalar>
-    </list>
-  </module> Principal Components and Axis System 1 2 3 187.8811 86.4350 86.4315 1 0.8660 -0.4984 0.0404 2 -0.3215 -0.4932 0.8083 3 0.3829 0.7130 0.5874
-</module>
-        </comment>
+      <module cmlx:lineCount="2" cmlx:templateRef="isotrop">
+        <list cmlx:templateRef="isotrop">
+          <scalar dataType="xsd:double" dictRef="n:isotropic">120.2492</scalar>
+        </list>
+        <list cmlx:templateRef="anisotrop">
+          <scalar dataType="xsd:double" dictRef="n:anisotropy">101.4478</scalar>
+        </list>
+      </module>
+      <array dataType="xsd:double" size="3" dictRef="cc:principalcomp">187.8811 86.435 86.4315</array>
+      <module cmlx:lineCount="7" cmlx:templateRef="principalcomponents">
+        <matrix rows="3" columns="3" dataType="xsd:double" dictRef="cc:principalaxes">0.866 -0.4984 0.0404 -0.3215 -0.4932 0.8083 0.3829 0.713 0.5874</matrix>
+      </module>
+    </module>
+  </comment>
 
 </template>

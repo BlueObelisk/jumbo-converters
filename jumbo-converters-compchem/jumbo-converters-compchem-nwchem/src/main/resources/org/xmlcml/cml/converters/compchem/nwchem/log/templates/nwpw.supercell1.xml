@@ -1,20 +1,19 @@
-<template repeat="*"  id="pspw.supercell" name="PSPW supercell" 
+<template repeat="*"  id="pspw.supercell1" name="PSPW supercell alternative" 
   pattern="\s*supercell:.*" 
-  newline="$" endPattern="\s*volume\s:.*" endOffset="1">
+  newline="$" endPattern="\s*omega=.*" endOffset="1">
 
-  <comment class="example.input" id="pspw.supercell">
+  <comment class="example.input" id="pspw.supercell1">
  supercell:
+      cell_name:  cell_default                  
       lattice:    a1=&lt;   5.920   0.000   0.000 >
                   a2=&lt;   0.000  10.255   0.000 >
                   a3=&lt;   0.000   0.000   9.653 >
       reciprocal: b1=&lt;   1.061   0.000   0.000 >
                   b2=&lt;   0.000   0.613   0.000 >
                   b3=&lt;   0.000   0.000   0.651 >
-
-      lattice:    a=   5.920    b=  10.255     c=   9.653
-              alpha=  90.000 beta=  90.000 gamma=  90.000
-      volume :      586.0
-                        
+      lattice:    a=       5.920 b=     10.255 c=       9.653
+                  alpha=  90.000 beta=  90.000 gamma=  90.000
+                  omega=       586.0
   </comment>
   
   <record/>
@@ -25,10 +24,9 @@
   <record id="recip1">\s*reciprocal:\s*b1=&lt;{3F,n:lattice.abcstar}>\s*</record>
   <record id="recip2">\s*b2=&lt;{3F,n:lattice.abcstar}>\s*</record>
   <record id="recip3">\s*b3=&lt;{3F,n:lattice.abcstar}>\s*</record>
-  <record/>
   <record id="abc">\s*lattice:\s*a={F,cc:cell.abc}b={F,cc:cell.abc}c={F,cc:cell.abc}\s*</record>
   <record id="alphabeta">\s*alpha={F,cc:cell.albegam}beta={F,cc:cell.albegam}gamma={F,cc:cell.albegam}\s*</record>
-  <record id="volume">\s*volume\s*:\s{F,cc:cell.volume}\s*</record>
+  <record id="omega">\s*omega=\s{F,cc:cell.volume}\s*</record>
   
   <transform process="createMatrix33" xpath="." from=".//cml:array[@dictRef='n:lattice.abc']" dictRef='cc:lattice.abc'/>
   <transform process="createMatrix33" xpath="." from=".//cml:array[@dictRef='n:lattice.abcstar']" dictRef='cc:lattice.abcstar'/>
@@ -36,8 +34,10 @@
   <transform process="createArray" xpath=".//cml:list[@cmlx:templateRef='alphabeta']/cml:list" from="cml:scalar"/>
   <transform process="pullup" xpath=".//cml:array | .//cml:matrix | .//cml:scalar" repeat="3"/>
   
-  <comment class="example.output" id="pspw.supercell">
-    <module cmlx:templateRef="pspw.supercell" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  
+  <comment class="example.output" id="pspw.supercell1">
+    <module cmlx:templateRef="pspw.supercell1" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="n:cellname">cell_default</scalar>
       <matrix rows="3" columns="3" dataType="xsd:double" dictRef="cc:lattice.abc">5.92 0.0 0.0 0.0 10.255 0.0 0.0 0.0 9.653</matrix>
       <matrix rows="3" columns="3" dataType="xsd:double" dictRef="cc:lattice.abcstar">1.061 0.0 0.0 0.0 0.613 0.0 0.0 0.0 0.651</matrix>
       <array dataType="xsd:double" size="3" dictRef="cc:cell.abc">5.92 10.255 9.653</array>

@@ -1,7 +1,6 @@
 package org.xmlcml.cml.converters.text;
 
 import java.io.File;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,6 +8,7 @@ import java.io.InputStream;
 import nu.xom.Builder;
 import nu.xom.Element;
 
+import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.XML2XMLConverter;
 
 public class XML2XMLTransformConverter extends XML2XMLConverter {
@@ -37,6 +37,7 @@ public class XML2XMLTransformConverter extends XML2XMLConverter {
 
 	@Override
 	public Element convertToXML(Element element) {
+		element = CMLElement.createCMLElement(element);
 		transformListElement.applyMarkup(element);
 		return element;
 	}

@@ -859,6 +859,111 @@ public class TransformTest {
 			);
 	}
 	
+	@Test
+	public void testMove2() {
+		runTest("move", 
+			"<transform process='move' xpath='./bar[2]' toXpath='.' position='1'/>",
+			"<foo><bar id='a1'/><bar id='a2'/><bar id='a3'/><bar id='a4'/></foo>",
+			"<foo>" +
+			"  <bar id='a2'/>" +
+			"  <bar id='a1'/>" +
+			"  <bar id='a3'/>" +
+			"  <bar id='a4'/>" +
+			"</foo>"
+			);
+	}
+	
+	@Test
+	public void testMove3a() {
+		runTest("move", 
+			"<transform process='move' xpath='.//plugh' toXpath='.' position='1'/>",
+			"<foo><bar id='a1'><plugh/></bar><bar id='a2'/><bar id='a3'/><bar id='a4'/></foo>",
+			"<foo>" +
+			"  <plugh/>" +
+			"  <bar id='a1'/>" +
+			"  <bar id='a2'/>" +
+			"  <bar id='a3'/>" +
+			"  <bar id='a4'/>" +
+			"</foo>"
+			);
+	}
+	
+	@Test
+	public void testMove3b() {
+		runTest("move", 
+			"<transform process='move' xpath='.//plugh' toXpath='.' position='2'/>",
+			"<foo><bar id='a1'><plugh/></bar><bar id='a2'/><bar id='a3'/><bar id='a4'/></foo>",
+			"<foo>" +
+			"  <bar id='a1'/>" +
+			"  <plugh/>" +
+			"  <bar id='a2'/>" +
+			"  <bar id='a3'/>" +
+			"  <bar id='a4'/>" +
+			"</foo>"
+			);
+	}
+	
+	@Test
+	public void testMove3c() {
+		runTest("move", 
+			"<transform process='move' xpath='.//plugh' toXpath='.' position='5'/>",
+			"<foo><bar id='a1'><plugh/></bar><bar id='a2'/><bar id='a3'/><bar id='a4'/></foo>",
+			"<foo>" +
+			"  <bar id='a1'/>" +
+			"  <bar id='a2'/>" +
+			"  <bar id='a3'/>" +
+			"  <bar id='a4'/>" +
+			"  <plugh/>" +
+			"</foo>"
+			);
+	}
+	
+	@Test
+	public void testMove3d() {
+		runTest("move", 
+			"<transform process='move' xpath='.//plugh' toXpath='.' position='6'/>",
+			"<foo><bar id='a1'><plugh/></bar><bar id='a2'/><bar id='a3'/><bar id='a4'/></foo>",
+			"<foo>" +
+			"  <bar id='a1'>" +
+			"    <plugh/>" +
+			"  </bar>" +
+			"  <bar id='a2'/>" +
+			"  <bar id='a3'/>" +
+			"  <bar id='a4'/>" +
+			"</foo>"
+			);
+	}
+	
+	@Test
+	public void testMove3e() {
+		runTest("move", 
+			"<transform process='move' xpath='.//plugh' toXpath='.' position='0'/>",
+			"<foo><bar id='a1'><plugh/></bar><bar id='a2'/><bar id='a3'/><bar id='a4'/></foo>",
+			"<foo>" +
+			"  <bar id='a1'>" +
+			"    <plugh/>" +
+			"  </bar>" +
+			"  <bar id='a2'/>" +
+			"  <bar id='a3'/>" +
+			"  <bar id='a4'/>" +
+			"</foo>"
+			);
+	}
+	
+	@Test
+	public void testMove4() {
+		runTest("move", 
+			"<transform process='move' xpath='.//plugh' toXpath='.' position='4'/>",
+			"<foo><bar id='a1'><plugh/></bar><bar id='a2'/><bar id='a3'/><bar id='a4'/></foo>",
+			"<foo>" +
+			"  <bar id='a1'/>" +
+			"  <bar id='a2'/>" +
+			"  <bar id='a3'/>" +
+			"  <plugh/>" +
+			"  <bar id='a4'/>" +
+			"</foo>"
+			);
+	}
 	
 	
 	@Test 

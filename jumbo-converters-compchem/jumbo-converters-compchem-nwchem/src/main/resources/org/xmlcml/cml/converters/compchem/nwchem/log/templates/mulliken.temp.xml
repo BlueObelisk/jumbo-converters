@@ -1,5 +1,5 @@
 <template repeat="*"  id="mulliken" name="Mulliken analysis of the total density" 
-  pattern="\s*Mulliken analysis of the total density\s*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
+  pattern="\s*Mulliken analysis of the total density\s*$\s+\-+.*$\s*" endPattern="\s*">
 
   <comment class="example.input" id="mulliken">
   Mulliken analysis of the total density
@@ -11,7 +11,7 @@
   2.97   .64   .00   .00   .00   .00   .00   .00   .00   .00
 
   </comment>
-  <comment>
+  <comment class="example.input" id="mulliken.1">
   Mulliken analysis of the total density
   --------------------------------------
 
@@ -26,30 +26,78 @@
     7 H    1     0.71   0.46  0.25
 
   </comment>
-  <record repeat="5" id="rl1">{X}</record>
-  <record id="r1" repeat="*">\s*{I,n:serial}\s*{A,n:elem}\s*{I,n:atnum}\s*{F,n:charge}\s*{X,n:shells}\s*</record>
-  
-  <transform process="createArray" xpath=".//*[@dictRef='n:shells']" from="." dataType="xsd:double"/>
-  <transform process="joinArrays" xpath=".//*[@dictRef='n:shells']"/>
+  <record repeat="5" id="rl1"/>
+  <templateList>
+    <template id="first" repeat="*" pattern="\s*\d+\s[A-Z].*" endPattern=".*">
+      <record id="r1" repeat="*">{I5,x:x}\s{A2,cc:elementType}\s{I3,cc:atomicNumber}\s{F8.2,cc:charge}\s{X,x:xxx}.*</record>
+    </template> 
+    <template id="remain" repeat="*" pattern="[\s\d\.]+" endPattern=".*">
+      <record id="r1" repeat="*">{X,x:xxx}\s*</record>
+    </template> 
+  </templateList>
 
+  <transform process="createArray" xpath=".//cml:scalar[@dictRef='x:xxx']" from="." dataType="xsd:double"/>
+  <transform process="joinArrays" xpath=".//cml:list[@templateRef='r1']/cml:list" from="cml:scalar[@dictRef='x:xxx']"/>
+  <transform process="delete" xpath=".//*[@cmlx:templateRef='remain']"/>
+  <transform process="addDictRef" xpath=".//*[@dictRef='x:xxx']" value="n:shellcharge"/>
+  <transform process="delete" xpath=".//*[starts-with(@dictRef,'x:')]"/>
+  <transform process="pullup" xpath=".//cml:scalar | .//cml:array" repeat="2"/>
+  
   <comment class="example.output" id="mulliken">
     <module cmlx:templateRef="mulliken" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <list cmlx:templateRef="r1">
-        <list>
-          <scalar dataType="xsd:integer" dictRef="n:serial">1</scalar>
-          <scalar dataType="xsd:string" dictRef="n:elem">Au</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:atnum">19</scalar>
-          <scalar dataType="xsd:double" dictRef="n:charge">18.0</scalar>
-          <scalar dataType="xsd:string" dictRef="n:shells">.05 -.52 .33 1.71 .42 .02 -.01 .00 .00 .00 .00 .00 .03 -.68 1.34 4.07 1.16 .09 -.01 .00 .00 .00 -.25 1.86 4.77</scalar>
-        </list>
-        <list>
-          <scalar dataType="xsd:integer" dictRef="n:serial">2</scalar>
-          <scalar dataType="xsd:string" dictRef="n:elem">.9</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:atnum">7</scalar>
-          <scalar dataType="xsd:double" dictRef="n:charge">0.64</scalar>
-          <scalar dataType="xsd:string" dictRef="n:shells">.00 .00 .00 .00 .00 .00 .00 .00</scalar>
-        </list>
-      </list>
+      <module cmlx:lineCount="1" cmlx:templateRef="first">
+        <scalar dataType="xsd:string" dictRef="cc:elementType">Au</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">19</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:charge">18.0</scalar>
+        <array dataType="xsd:double" size="25" dictRef="n:shellcharge">0.05 -0.52 0.33 1.71 0.42 0.02 -0.01 0.0 0.0 0.0 0.0 0.0 0.03 -0.68 1.34 4.07 1.16 0.09 -0.01 0.0 0.0 0.0 -0.25 1.86 4.77</array>
+      </module>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="mulliken.1">
+    <module cmlx:templateRef="mulliken" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <module cmlx:lineCount="1" cmlx:templateRef="first">
+        <scalar dataType="xsd:string" dictRef="cc:elementType">C</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:charge">6.39</scalar>
+        <array dataType="xsd:double" size="5" dictRef="n:shellcharge">1.99 0.36 1.59 1.06 1.39</array>
+      </module>
+      <module cmlx:lineCount="1" cmlx:templateRef="first">
+        <scalar dataType="xsd:string" dictRef="cc:elementType">N</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">7</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:charge">7.77</scalar>
+        <array dataType="xsd:double" size="5" dictRef="n:shellcharge">1.99 0.36 1.82 1.35 2.26</array>
+      </module>
+      <module cmlx:lineCount="1" cmlx:templateRef="first">
+        <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:charge">0.83</scalar>
+        <array dataType="xsd:double" size="2" dictRef="n:shellcharge">0.48 0.35</array>
+      </module>
+      <module cmlx:lineCount="1" cmlx:templateRef="first">
+        <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:charge">0.79</scalar>
+        <array dataType="xsd:double" size="2" dictRef="n:shellcharge">0.48 0.32</array>
+      </module>
+      <module cmlx:lineCount="1" cmlx:templateRef="first">
+        <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:charge">0.79</scalar>
+        <array dataType="xsd:double" size="2" dictRef="n:shellcharge">0.48 0.32</array>
+      </module>
+      <module cmlx:lineCount="1" cmlx:templateRef="first">
+        <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:charge">0.71</scalar>
+        <array dataType="xsd:double" size="2" dictRef="n:shellcharge">0.46 0.25</array>
+      </module>
+      <module cmlx:lineCount="1" cmlx:templateRef="first">
+        <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:charge">0.71</scalar>
+        <array dataType="xsd:double" size="2" dictRef="n:shellcharge">0.46 0.25</array>
+      </module>
     </module>
   </comment>
 

@@ -1,6 +1,6 @@
 <template repeat="*"  id="ccsdt" name="CCSD(T) Energy" 
   pattern="\s*CCSD\(T\) Energy\s*$\s+\-+.*" newline="$" endPattern="\s*Total.*">
- <comment class="example.input" id="ccsdt">
+  <comment class="example.input" id="ccsdt">
   CCSD(T) Energy
  --------------
  Reference energy:                    -134.684334043866102
@@ -34,15 +34,39 @@
  Total              2261.26  2260.99  2261.87  2266.24     .00
 
  Task  times  cpu:     2383.9s     wall:     2402.9s
-</comment>
-<record repeat="2" id="rl1"/>
-<record id="r1" repeat="*" names="__name __value">\s*([^:]+)\s*:\s{8}\s*([-\d\.]+)\s*</record>
-<record repeat="1" id="rl2" />
-<record id="r2" repeat="*" names="__name __value">\s*([^:]+)\s*:\s{8}\s*([-\d\.]+)\s*</record>
-<record repeat="1" id="rl3" />
-<record id="r3" repeat="*" names="__name __value">\s*([^:]+)\s*:\s{8}\s*([-\d\.]+)\s*</record>
+  </comment>
 
- <comment class="example.output" id="ccsdt">
-   <module cmlx:templateRef="ccsdt" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"> routine calls cpu(0) cpu-min cpu-ave cpu-max i/o aoccsd 1 5.36 5.36 5.36 5.36 .00 iterdrv 1 16.18 16.18 16.20 16.24 .00 pampt 11 3.81 3.80 3.81 3.81 .00 t2pm 11 1.73 1.72 1.73 1.73 .00 sxy 11 1699.16 1696.69 1706.53 1742.77 .00 t2eri 163170 32.22 9.88 28.40 32.95 .00 idx1 163170 48.94 40.73 47.05 53.06 .00 idx2 259 10.85 2.75 9.98 11.73 .00 idx34 11 1.24 .00 1.05 1.27 .00 ht2pm 11 2.94 2.94 2.94 2.94 .00 itm 11 57.55 57.55 57.56 57.56 .00 pdiis 11 .19 .13 .16 .19 .00 triples 1 149.86 149.86 149.86 149.86 .00 trpdrv 1 14.75 12.44 17.16 19.99 .00 dovvv 3150 115.54 113.07 114.51 116.94 .00 doooo 3150 10.17 9.88 10.11 10.75 .00 tengy 2835 90.76 87.95 89.44 91.97 .00 Total 2261.26 2260.99 2261.87 2266.24 .00 Task times cpu: 2383.9s wall: 2402.9s</module>
- </comment>
- </template>
+  <record repeat="2" id="rl1"/>
+  <record id="rr">\sReference energy:{F,n:refener}</record>
+  <record/>
+  <record id="rr">\sCCSD corr\. energy:{F,n:ccsdcorrener}</record>
+  <record id="rr">\sT\(CCSD\) corr\. energy:{F,n:tccsdener}</record>
+  <record id="rr">\sTotal CCSD\+T\(CCSD\) energy:{F,n:ccsdtener}</record>
+  <record/>
+  <record id="rr">\sCCSD corr\. energy:{F,n:ccsdcorrener}</record>
+  <record id="rr">\s\(T\) corr\. energy:{F,n:tcorrener}</record>
+  <record id="rr">\sTotal CCSD\(T\) energy:{F,n:totccsdtener}</record>
+  <record/>
+  <record/>
+  <record id="hidden" repeat="*">\s*[A-Za-z]{X,x:junk}</record>
+  <record id="rr"/>
+  <record id="rr" repeat="*">\sTask\s+times\s+cpu:{F,cc:cputime}s\s+wall:{F,cc:walltime}s</record>
+
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='hidden']"/>
+  <transform process="pullup" xpath=".//cml:scalar" repeat="2"/>
+
+  <comment class="example.output" id="ccsdt">
+    <module cmlx:templateRef="ccsdt" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:double" dictRef="n:refener">-134.6843340438661</scalar>
+      <scalar dataType="xsd:double" dictRef="n:ccsdcorrener">-0.654354731113251</scalar>
+      <scalar dataType="xsd:double" dictRef="n:tccsdener">-0.020388563010252</scalar>
+      <scalar dataType="xsd:double" dictRef="n:ccsdtener">-135.3590773379896</scalar>
+      <scalar dataType="xsd:double" dictRef="n:ccsdcorrener">-0.654354731113251</scalar>
+      <scalar dataType="xsd:double" dictRef="n:tcorrener">-0.020150171786859</scalar>
+      <scalar dataType="xsd:double" dictRef="n:totccsdtener">-135.3588389467662</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:cputime">2383.9</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:walltime">2402.9</scalar>
+    </module>
+  </comment>
+ 
+</template>
