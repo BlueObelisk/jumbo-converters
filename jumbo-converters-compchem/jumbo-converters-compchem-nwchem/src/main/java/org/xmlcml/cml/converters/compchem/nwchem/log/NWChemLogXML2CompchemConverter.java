@@ -85,8 +85,8 @@ public class NWChemLogXML2CompchemConverter extends XML2XMLTransformConverter {
 			InputStream transformStream = Util.getResourceUsingContextClassLoader(
 					"org/xmlcml/cml/converters/compchem/nwchem/log/nwchem2compchem.xml", NWChemLogXML2CompchemConverter.class);
 			XML2XMLConverter converter = new NWChemLogXML2CompchemConverter(transformStream);
-			File in = new File("src/test/resources/compchem/nwchem/log/ref/test1.xml");
-			File out = new File("test/test1.compchem.xml");
+			File in = new File("src/test/resources/compchem/nwchem/log/ref/ch3f_rot.cml");
+			File out = new File("test/ch3f_rot.compchem.xml");
 			converter.convert(in, out);
 		}
 	}

@@ -944,10 +944,8 @@ public class TransformElement implements MarkupApplier {
 		if (nodeList.size() > 0) {
 			Element element = (Element) nodeList.get(0);
 			if (!(element instanceof CMLArray)) {
-				CMLUtil.debug((Element)element.getParent(), "PP");
-				CMLUtil.debug(transformElement, "TE");
 				throw new RuntimeException(
-						"Molecule requires list of arrays, but found: "+element.getClass().getName()+";"+element.getLocalName());
+				"Molecule requires list of arrays, but found: "+element.getClass().getName()+";"+element.getLocalName());
 			}
 			CMLArray array0 = (CMLArray) element;
 			int natoms = array0.getSize();
@@ -1199,8 +1197,15 @@ public class TransformElement implements MarkupApplier {
 		if (toParent != null) {
 			for (Node node : nodeList) {
 				if (node instanceof Element && !(node.equals(toParent))) {
-					node.detach();
-					toParent.appendChild(node);
+					// positon counts from ONE
+					Integer pos = (position == null) ? null : new Integer(position)-1;
+					if (position == null || pos == toParent.getChildCount()) {
+						node.detach();
+						toParent.appendChild(node);
+					} else if (pos >= 0 && pos <= toParent.getChildCount()) {
+						node.detach();
+						toParent.insertChild(node, pos);
+					}
 				}
 			}
 		} else {
@@ -1608,11 +1613,6 @@ public class TransformElement implements MarkupApplier {
 
 	private Element createNewElement(String elementName, String id, String dictRef) {
 
-		// FIXME only for debug
-		if (elementName.contains("array")) {
-			System.err.println("NAME "+elementName);
-			throw new RuntimeException("array");
-		}
 		String[] names = elementName.split(CMLConstants.S_COLON);
 		String prefix = (names.length == 2) ? names[0] : null;
 		String local = (names.length == 2) ? names[1] : elementName;
@@ -1883,7 +1883,7 @@ public class TransformElement implements MarkupApplier {
 		} catch (Exception e) {
 //			CMLUtil.debug()
 			System.err.println(""+localName+doubles);
-			throw new RuntimeException("problem", e);
+			throw new RuntimeException("problem in adding Scalar doubles", e);
 		}
 	}
 

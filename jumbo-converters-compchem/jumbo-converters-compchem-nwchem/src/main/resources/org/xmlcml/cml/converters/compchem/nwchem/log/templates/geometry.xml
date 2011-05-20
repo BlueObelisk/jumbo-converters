@@ -1,0 +1,51 @@
+<template repeat="*"  id="geometry" name="Geometry" pattern="\s*Geometry.*$\s+\-+.*"
+ newline="$" endPattern=".*$\s*\-+\s*">
+
+  <comment class="example.input" id="geometry">
+                             Geometry "geometry" -> ""
+                             -------------------------
+
+ Output coordinates in a.u. (scale by  1.000000000 to convert to a.u.)
+
+  No.       Tag          Charge          X              Y              Z
+ ---- ---------------- ---------- -------------- -------------- --------------
+    1 fe                  26.0000     0.00000000     0.00000000     0.00000000
+    2 c                    6.0000     0.00000000     0.00000000     3.41435800
+    3 c                    6.0000     0.00000000     0.00000000    -3.41435800
+  </comment>
+  <record id="rl1" repeat="7"/>
+  <record id="geomx" repeat="*" makeArray="true" 
+    >\s*{I,cc:id}\s*{A,cc:atomtypeRef}\s*{F,cc:elementType}\s*{F,cc:x3}\s*{F,cc:y3}\s*{F,cc:z3}\s*</record>
+    
+  <transform process="createMolecule" xpath="cml:list/cml:array" id="molgeom"/>    
+  
+  <comment class="example.output" id="geometry">
+<module cmlx:templateRef="geometry" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:lineCount="3" cmlx:templateRef="geomx">
+    <molecule id="molgeom">
+      <atomArray>
+        <atom id="a1" elementType="Fe" x3="0.0" y3="0.0" z3="0.0">
+          <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">fe</scalar>
+          <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">26</scalar>
+        </atom>
+        <atom id="a2" elementType="C" x3="0.0" y3="0.0" z3="3.414358">
+          <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">c</scalar>
+          <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">6</scalar>
+        </atom>
+        <atom id="a3" elementType="C" x3="0.0" y3="0.0" z3="-3.414358">
+          <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">c</scalar>
+          <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">6</scalar>
+        </atom>
+      </atomArray>
+      <formula formalCharge="0" concise="C 2 Fe 1">
+        <atomArray elementType="C Fe" count="2.0 1.0"/>
+      </formula>
+      <property dictRef="cml:molmass">
+        <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">79.8664</scalar>
+      </property>
+    </molecule>
+  </list>
+</module>
+    </comment>
+
+</template>
