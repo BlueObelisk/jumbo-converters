@@ -33,89 +33,90 @@ public class TemplateTest {
 		TemplateTestUtils.runCommentExamples(INPUT_TEMPLATE_S, BASE_URI);
 	}
 
-	@Test	@Ignore public void testAnisospin()              {runTemplateTest("anisospin");}
 	
-	@Test	public void testl1Control()              {runTemplateTest("l1.control");}
-	@Test	@Ignore public void testl1EndXINCLUDE()                  {runTemplateTest("l1.end");}
-	@Test	public void testl1Keywords()             {runTemplateTest("l1.keywords");}
-	@Test	@Ignore	public void testl1Options()              {runTemplateTest("l1.options");}
-	@Test	public void testl1Version()              {runTemplateTest("l1.version");}
+	@Test	public void testl1Control()                  {runTemplateTest("l1.control");}
+	@Test	public void testl1Keywords()                 {runTemplateTest("l1.keywords");}
+	@Test	public void testl1Options()                  {runTemplateTest("l1.options");}
+	@Test	public void testl1Version()                  {runTemplateTest("l1.version");}
 	
-//	@Test	public void testl1002MinotrWHITESP()     {runTemplateTest("l1002.minotr");}
+	@Test	public void testl1002Minotr()                {runTemplateTest("l1002.minotr");}
 	
-	@Test	public void testl101Isotope()            {runTemplateTest("l101.isotope");}
-	@Test	public void testl101RedundantCoords()    {runTemplateTest("l101.redundantcoords");}
-	@Test	public void testl101Title()              {runTemplateTest("l101.title");}
-	@Test	public void testl101Variables()          {runTemplateTest("l101.variables");}
-	@Test	public void testl101Zmat()               {runTemplateTest("l101.zmat");}
-	@Test	@Ignore public void testl101ZmatVariablesNULL()      {runTemplateTest("l101.zmatvariables");}
+	@Test	public void testl101Isotope()                {runTemplateTest("l101.isotope");}
+	@Test	public void testl101RedundantCoords()        {runTemplateTest("l101.redundantcoords");}
+	@Test	public void testl101Title()                  {runTemplateTest("l101.title");}
+	@Test	public void testl101Variables()              {runTemplateTest("l101.variables");}
+	@Test	public void testl101Zmat()                   {runTemplateTest("l101.zmat");}
+	@Test	public void testl101ZmatVariables()          {runTemplateTest("l101.zmatvariables");}
 	
-	@Test	public void testl103Deltas()             {runTemplateTest("l103.deltas");}
-	@Test	public void testl103Init()               {runTemplateTest("l103.init");}
-	@Test	public void testl103ItemConverge()       {runTemplateTest("l103.itemconverge");}
-//	@Test	public void testl103LocalminSaddle()     {runTemplateTest("l103.localmin");}
-	@Test	public void testl103LocalminNegeig()     {runTemplateTest("l103.localmin.negativeeig");}
-	@Test	@Ignore public void testl103OptimizedParamWHITE()     {runTemplateTest("l103.optimizedparam");}
-//	@Test	public void testl103PreddeltaNOFILE()          {runTemplateTest("l103.predelta");}
-	@Test	@Ignore public void testl103RfoEXAMPLE()                {runTemplateTest("l103.rfo");}
-	@Test	@Ignore public void testl103TrustEXAMPLE()              {runTemplateTest("l103.trust");}
-	@Test	@Ignore public void testl103FILE()                   {runTemplateTest("l103.");}
+	@Test	public void testl103Deltas()                 {runTemplateTest("l103.deltas");}
+	@Test	public void testl103Init()                   {runTemplateTest("l103.init");}
+//	@Test	public void testl103ItemConverge()           {runTemplateTest("l103.itemconverge");}
+	@Test	public void testl103LocalminSaddle()         {runTemplateTest("l103.localmin");}
+	@Test	public void testl103LocalminNegeig()         {runTemplateTest("l103.localmin.negativeeig");}
+	@Test	public void testl103OptimizedParam()         {runTemplateTest("l103.optimizedparam");}
+	@Test	public void testl103Rfo()                    {runTemplateTest("l103.rfo");}
+	@Test	public void testl103Trust()                  {runTemplateTest("l103.trust");}
 	
-	@Ignore @Test	public void testl202DistmatFAILSURGENT()        {runTemplateTest("l202.distmat");}
-	@Test	public void testl202Orient()             {runTemplateTest("l202.orient");}
-	@Test	public void testl202Rotconsts()          {runTemplateTest("l202.rotconst");}
-	@Test	public void testl202Stoichiometry()      {runTemplateTest("l202.stoich");}
+	@Test	public void testl202Distmat()                {runTemplateTest("l202.distmat");}
+	@Test	public void testl202Orient()                 {runTemplateTest("l202.orient");}
+	@Test	public void testl202Rotconsts()              {runTemplateTest("l202.rotconst");}
+	@Test	public void testl202Stoichiometry()          {runTemplateTest("l202.stoich");}
 	
-	@Test	public void testl301Basis()              {runTemplateTest("l301.basis");}
+	@Test	public void testl301Basis()                  {runTemplateTest("l301.basis");}
 	
-//	@Test	public void testl401Alphabeta()           {runTemplateTest("l401.alphabeta");}
+	@Test 	public void testl601Alphabeta()              {runTemplateTest("l601.alphabetaeigen");}
+	@Test   public void testl601Anisospin()              {runTemplateTest("l601.anisospin");}
+	@Test   public void testl601Condensed()              {runTemplateTest("l601.condensed");}
+	@Test 	public void testl601Fermi()                  {runTemplateTest("l601.fermi");}
+	@Test   public void testl601Mulliken()               {runTemplateTest("l601.mulliken");}
+	@Test	public void testl601Multipole()              {runTemplateTest("l601.multipole");}
+	@Test	public void testl601NoNMR()                  {runTemplateTest("l601.nonmr");}
+	@Test	public void testl601Polariz()                {runTemplateTest("l601.polariz");}
+	@Test	public void testl601State()                  {runTemplateTest("l601.state");}
 	
-	@Test	@Ignore public void testl502CycleWHITESPACE()              {runTemplateTest("l502.cycle");}
+	@Test	public void testl701()                       {runTemplateTest("l701");}
+	@Test	public void testl702()                       {runTemplateTest("l702");}
+	@Test	public void testl703()                       {runTemplateTest("l703");}
 	
-	@Test @Ignore	public void testl601AlphabetaEXAMPLE()          {runTemplateTest("l601.alphabetaeigen");}
-	@Test @Ignore	public void testl601AnisospinEXAMPLE()          {runTemplateTest("l601.anisospin");}
-	@Test @Ignore	public void testl601CondensedEXAMPLE()          {runTemplateTest("l601.condensed");}
-	@Test @Ignore	public void testl601FermiEXAMPLE()              {runTemplateTest("l601.fermi");}
-	@Test @Ignore	public void testl601MullikenEXAMPLE()           {runTemplateTest("l601.mulliken");}
-	@Test @Ignore	public void testl601MultipoleEXAMPLE()          {runTemplateTest("l601.multipole");}
-	@Test @Ignore	public void testl601NoNMREXAMPLE()              {runTemplateTest("l601.nonmr");}
-	@Test @Ignore	public void testl601PolarizEXAMPLE()            {runTemplateTest("l601.polariz");}
-	@Test @Ignore	public void testl601PopanalEXAMPLE()            {runTemplateTest("l601.popanal");}
-	@Test @Ignore	public void testl601StateEXAMPLE()              {runTemplateTest("l601.state");}
-	
-	@Test @Ignore	public void testl701EXAMPLE()                   {runTemplateTest("l701");}
-	@Test @Ignore	public void testl702EXAMPLE()                   {runTemplateTest("l702");}
-	@Test @Ignore	public void testl703EXAMPLE()                   {runTemplateTest("l703");}
-	
-	@Test	@Ignore public void testl716FILE()                   {runTemplateTest("l716");}
-	@Test	public void testl716Diagvib()            {runTemplateTest("l716.diagvib");}
-	@Test	public void testl716Dipole()             {runTemplateTest("l716.dipole");}
-	@Test	@Ignore public void testl716ForceConstantsWHITESPACE() {runTemplateTest("l716.forceconstants");}
-	@Test	@Ignore public void testl716ForceMatrixXINCLUDE(){runTemplateTest("l716.forcematrix");}
-	@Test	public void testl716Forces()             {runTemplateTest("l716.forces");}
-	@Test	public void testl716FreqChunk()          {runTemplateTest("l716.freq.chunk");}
-	@Test	public void testl716IRSpectrum()         {runTemplateTest("l716.irspectrum");}
-	@Test	public void testl716LowFreq()            {runTemplateTest("l716.lowfreq");}
-	@Test	public void testl716Polarizability()     {runTemplateTest("l716.polarizability");}
-	@Test	public void testl716SecondDerivative()   {runTemplateTest("l716.secondderiv");}
-	@Test	@Ignore public void testl716ThermochemXINCLUDE() {runTemplateTest("l716.thermochemistry");}
-	@Test	public void testl716ThermochemMass()     {runTemplateTest("l716.thermochemistry.mass");}
-	@Test	public void testl716ThermochemMoi()      {runTemplateTest("l716.thermochemistry.moi");}
-	@Test	public void testl716ThermochemRotConsts(){runTemplateTest("l716.thermochemistry.rotconsts");}
-	@Test	public void testl716ThermochemRotSymnum(){runTemplateTest("l716.thermochemistry.rotsymnum");}
-	@Test	public void testl716ThermochemRotTemp()  {runTemplateTest("l716.thermochemistry.rottemp");}
-	@Test	public void testl716ThermochemTempPress(){runTemplateTest("l716.thermochemistry.temperature");}
-	@Test	public void testl716ThermochemTop()      {runTemplateTest("l716.thermochemistry.top");}
-	@Test	public void testl716ThermochemVibTemp()  {runTemplateTest("l716.thermochemistry.vibtemp");}
-	@Test	public void testl716ThermochemZpe()      {runTemplateTest("l716.thermochemistry.zpe");}
-	@Test	public void testl716Thermoprops()        {runTemplateTest("l716.thermoprops");}
-	@Test	public void testl716Zeropoint()          {runTemplateTest("l716.zeropoint");}
+	@Test	public void testl716Diagvib()                {runTemplateTest("l716.diagvib");}
+	@Test	public void testl716Dipole()                 {runTemplateTest("l716.dipole");}
+	@Test	public void testl716Forces()                 {runTemplateTest("l716.forces");}
+	@Test   public void testl716ForceConstants()         {runTemplateTest("l716.forceconstants");}
+	@Test	public void testl716FreqChunk()              {runTemplateTest("l716.freq.chunk");}
+	@Test	public void testl716IRSpectrum()             {runTemplateTest("l716.irspectrum");}
+	@Test	public void testl716LowFreq()                {runTemplateTest("l716.lowfreq");}
+	@Test	public void testl716Polarizability()         {runTemplateTest("l716.polarizability");}
+	@Test	public void testl716SecondDerivative()       {runTemplateTest("l716.secondderiv");}
+	@Test	public void testl716ThermochemMass()         {runTemplateTest("l716.thermochemistry.mass");}
+	@Test	public void testl716ThermochemMoi()          {runTemplateTest("l716.thermochemistry.moi");}
+	@Test	public void testl716ThermochemRotConsts()    {runTemplateTest("l716.thermochemistry.rotconsts");}
+	@Test	public void testl716ThermochemRotSymnum()    {runTemplateTest("l716.thermochemistry.rotsymnum");}
+	@Test	public void testl716ThermochemRotTemp()      {runTemplateTest("l716.thermochemistry.rottemp");}
+	@Test	public void testl716ThermochemTempPress()    {runTemplateTest("l716.thermochemistry.temperature");}
+	@Test	public void testl716ThermochemTop()          {runTemplateTest("l716.thermochemistry.top");}
+	@Test	public void testl716ThermochemVibTemp()      {runTemplateTest("l716.thermochemistry.vibtemp");}
+	@Test	public void testl716ThermochemZpe()          {runTemplateTest("l716.thermochemistry.zpe");}
+	@Test	public void testl716Thermoprops()            {runTemplateTest("l716.thermoprops");}
+	@Test	public void testl716Zeropoint()              {runTemplateTest("l716.zeropoint");}
 
-	@Test	public void testl801Zeropoint()          {runTemplateTest("l801");}
+	@Test	public void testl801Zeropoint()              {runTemplateTest("l801");}
 
-	@Test	public void testl9999Final()             {runTemplateTest("l9999.final");}
-	@Test	@Ignore public void testl9999ArchiveFORMULA()           {runTemplateTest("l9999.archive");}
-	@Ignore @Test	public void testl9999Jobcpu()            {runTemplateTest("jobcpu");}
+	@Test	public void testl9999Final()                 {runTemplateTest("l9999.final");}
+	
+	@Test	public void testJobcpu()                     {runTemplateTest("jobcpu");}
+
+	// XInclude doesn't work here
+	@Ignore @Test	public void testl103INCLUDE()                       {runTemplateTest("l103.");}
+	@Ignore @Test	public void testl103PreddeltaINCLUDE()              {runTemplateTest("l103.preddelta");}
+	@Ignore @Test	public void testl401AlphabetaINCLUDE()              {runTemplateTest("l401.alphabeta");}
+	@Ignore @Test	public void testl601PopanalINCLUDE()                {runTemplateTest("l601.popanal");}
+	@Ignore @Test	public void testl716ThermochemINCLUDE()             {runTemplateTest("l716.thermochemistry");}
+	@Ignore @Test   public void testl716ForceMatrixINCLUDE()            {runTemplateTest("l716.forcematrix");}
+	@Ignore @Test   public void testl716INCLUDE()                       {runTemplateTest("l716");}
+	@Ignore @Test   public void testl1EndXINCLUDE()                     {runTemplateTest("l1.end");}
+	
+	@Ignore @Test   public void testl502CycleREPEAT()                   {runTemplateTest("l502.cycle");}
+	@Ignore @Test	public void testl9999ArchiveFORMULA()               {runTemplateTest("l9999.archive");}
 
 	@Test
 	@Ignore

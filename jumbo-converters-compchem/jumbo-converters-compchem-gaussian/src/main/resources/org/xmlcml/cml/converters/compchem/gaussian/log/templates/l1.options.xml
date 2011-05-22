@@ -10,16 +10,17 @@
  %rwf=/tmp/pbs.3528793.cx1/rwf
   </comment>
   <record/>
-  <record id="prog" repeat="*">{X,g:options}</record>
+  <record id="prog" repeat="*">{1_20A,g:options}</record>
+  
+  
   <comment class="example.output" id="l1.options">
     <module cmlx:templateRef="l1.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <list cmlx:templateRef="prog">
-        <scalar dataType="xsd:string" dictRef="g:options">Will use up to 4 processors via shared memory.</scalar>
-        <scalar dataType="xsd:string" dictRef="g:options">%mem=10500MB</scalar>
-        <scalar dataType="xsd:string" dictRef="g:options">%NoSave</scalar>
-        <scalar dataType="xsd:string" dictRef="g:options">%Chk=chk.chk</scalar>
-        <scalar dataType="xsd:string" dictRef="g:options">%rwf=/tmp/pbs.3528793.cx1/rwf</scalar>
-        <scalar dataType="xsd:string" dictRef="g:options"/>
+        <array dataType="xsd:string" size="9" dictRef="g:options">Will use up to 4 processors via shared memory.</array>
+        <array dataType="xsd:string" size="1" dictRef="g:options">%mem=10500MB</array>
+        <array dataType="xsd:string" size="1" dictRef="g:options">%NoSave</array>
+        <array dataType="xsd:string" size="1" dictRef="g:options">%Chk=chk.chk</array>
+        <array dataType="xsd:string" size="1" dictRef="g:options">%rwf=/tmp/pbs.3528793.cx1/rwf</array>
       </list>
     </module>
   </comment>

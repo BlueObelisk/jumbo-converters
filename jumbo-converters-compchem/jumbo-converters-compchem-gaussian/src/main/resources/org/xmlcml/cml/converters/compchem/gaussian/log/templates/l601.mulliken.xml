@@ -4,7 +4,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     >
     
-  <comment class="example.input" id="popanal">
+  <comment class="example.input" id="l601.mulliken">
  Mulliken atomic charges:
               1
      1  C   -0.619218
@@ -42,8 +42,41 @@
       <record id="l601.charge">\s*Charge=\s*{F,g:charge}\s*electrons</record>
     </template>
   </templateList>
+  
+  <transform process="pullup" xpath=".//cml:scalar"/>
+  <transform process="pullup" xpath=".//cml:list/cml:scalar"/>
+  <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='l601.spatial']/cml:scalar"/>
+  <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='l601.charge']/cml:scalar"/>
+  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.spatial']"/>
+  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.charge']"/>
 
-  <comment class="example.output.raw" id="anisospin">
- </comment>
+  <comment class="example.output" id="l601.mulliken">
+    <module cmlx:templateRef="mulliken" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <module cmlx:lineCount="8" cmlx:templateRef="l601.mullik">
+        <scalar dataType="xsd:string" dictRef="g:title">Mulliken atomic charges:</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+        <list cmlx:lineCount="5" cmlx:templateRef="row">
+          <array dataType="xsd:integer" dictRef="cc:serial" size="5">1 2 3 4 5</array>
+          <array dataType="xsd:string" dictRef="cc:elementType" size="5">C H H H H</array>
+          <array dataType="xsd:double" dictRef="x:charge" size="5">-0.619218 0.154804 0.154804 0.154804 0.154804</array>
+        </list>
+        <scalar dataType="xsd:string" dictRef="x:type">Mulliken</scalar>
+        <scalar dataType="xsd:double" dictRef="x:charge.sum">0.0</scalar>
+      </module>
+      <module cmlx:lineCount="8" cmlx:templateRef="l601.mullik">
+        <scalar dataType="xsd:string" dictRef="g:title">Atomic charges with hydrogens summed into heavy atoms:</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+        <list cmlx:lineCount="5" cmlx:templateRef="row">
+          <array dataType="xsd:integer" dictRef="cc:serial" size="5">1 2 3 4 5</array>
+          <array dataType="xsd:string" dictRef="cc:elementType" size="5">C H H H H</array>
+          <array dataType="xsd:double" dictRef="x:charge" size="5">0.0 0.0 0.0 0.0 0.0</array>
+        </list>
+        <scalar dataType="xsd:string" dictRef="x:type">Mulliken</scalar>
+        <scalar dataType="xsd:double" dictRef="x:charge.sum">0.0</scalar>
+      </module>
+      <scalar dataType="xsd:double" dictRef="g:electextent2">36.2154</scalar>
+      <scalar dataType="xsd:double" dictRef="g:charge">0.0</scalar>
+    </module>
+  </comment>
 </template>
  

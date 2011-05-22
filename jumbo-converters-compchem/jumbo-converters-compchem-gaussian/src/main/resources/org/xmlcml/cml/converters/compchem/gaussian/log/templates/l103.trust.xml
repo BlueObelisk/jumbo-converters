@@ -1,11 +1,23 @@
 <template id="l103.trust" pattern="\s*Trust.*\s*"
     endPattern=".*Number.*\s*" endOffset="1">
-    <comment class="example.input" id="l103.trust">
+    
+  <comment class="example.input" id="l103.trust">
  Trust Radius=3.00D-01 FncErr=1.00D-07 GrdErr=1.00D-06
  Number of steps in this run=  20 maximum allowed number of steps= 100.
-    </comment>
+  </comment>
+    
   <record repeat="*" id="length">\s*Trust Radius={E,g:trustrad} FncErr={E,g:fncerr} GrdErr={E,g:grderr}</record>
   <record repeat="*" id="angle">\s*Number of steps in this run={I,g:nstep} maximum allowed number of steps= {I,g:allowedstep}\.\s*</record>
-    <comment class="example.output.raw" id="l103.trust">
-    </comment>
+  
+  <transform process="pullup" xpath=".//cml:scalar" repeat="2"/>
+
+  <comment class="example.output" id="l103.trust">
+    <module cmlx:templateRef="l103.trust" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:double" dictRef="g:trustrad">0.3</scalar>
+      <scalar dataType="xsd:double" dictRef="g:fncerr">1.0E-7</scalar>
+      <scalar dataType="xsd:double" dictRef="g:grderr">1.0E-6</scalar>
+      <scalar dataType="xsd:integer" dictRef="g:nstep">20</scalar>
+      <scalar dataType="xsd:integer" dictRef="g:allowedstep">100</scalar>
+    </module>
+  </comment>
 </template>

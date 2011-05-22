@@ -7,13 +7,25 @@
   <comment class="example.input" id="l601.state">
  The electronic state of the initial guess is 1-A.
   </comment>
-  <comment class="example.input" id="l601.state">
+  <comment class="example.input" id="l601.state1">
  The electronic state is 1-A.
   </comment>
   
-  <record id="l601.state" >\s*The electronic state\s*(of the initial guess)?\s*is{A,g:l601.state}</record>
+  <record id="l601.state" >\s*The electronic state\s*.*\s*is{A,g:l601.state}</record>
+
+  <transform process="pullup" xpath=".//cml:scalar"/>
   
-  <comment class="example.output.raw" id="l601.state">
- </comment>
+  <comment class="example.output" id="l601.state">
+    <module cmlx:templateRef="l601.state" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="g:l601.state">1-A.</scalar>
+    </module>
+  </comment>
+  
+  <comment class="example.output" id="l601.state1">
+    <module cmlx:templateRef="l601.state" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="g:l601.state">1-A.</scalar>
+    </module>
+  </comment>
+  
 </template>
  

@@ -1,13 +1,31 @@
 <template id="rfo" 
     pattern="\s*RFO step.*$.*$.*" repeat="*"
     endPattern=".[^I][^t].*" endOffset="0">
-    <comment>
+    
+    <comment class="example.input" id="l103.rfo">
  RFO step:  Lambda=-1.94485150D-03.
  Linear search not attempted -- first point.
  Iteration  1 RMS(Cart)=  0.02447047 RMS(Int)=  0.00000000
  Iteration  2 RMS(Cart)=  0.00000000 RMS(Int)=  0.00000000
     </comment>
+    
   <record id="rfo">\s*RFO step:\s+Lambda={E,g:lambda}\.\s*</record>
   <record id="nolinear">\s*{X,g:linear}\snot attempted.*</record>
   <record repeat="*" id="iteration" makeArray="true">\s*Iteration\s+{I,cc:serial}\s*RMS\(Cart\)={F,g:rmscart}\s*RMS\(Int\)={F,g:rmsint}\s*</record>
+  
+  <comment class="example.output" id="l103.rfo">
+    <module cmlx:templateRef="rfo" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="rfo">
+        <scalar dataType="xsd:double" dictRef="g:lambda">-0.0019448515</scalar>
+      </list>
+      <list cmlx:templateRef="nolinear">
+        <scalar dataType="xsd:string" dictRef="g:linear">Linear search</scalar>
+      </list>
+      <list cmlx:lineCount="2" cmlx:templateRef="iteration">
+        <array dataType="xsd:integer" dictRef="cc:serial" size="2">1 2</array>
+        <array dataType="xsd:double" dictRef="g:rmscart" size="2">0.02447047 0.0</array>
+        <array dataType="xsd:double" dictRef="g:rmsint" size="2">0.0 0.0</array>
+      </list>
+    </module>
+  </comment>
 </template>

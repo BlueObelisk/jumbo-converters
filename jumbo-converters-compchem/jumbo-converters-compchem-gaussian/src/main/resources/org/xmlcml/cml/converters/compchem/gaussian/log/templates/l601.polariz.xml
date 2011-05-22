@@ -11,8 +11,28 @@
   
   <record id="l601.pol" >\s*Exact polarizability:{F,g:l601.pol.exact}{F,g:l601.pol}{F,g:l601.pol}{F,g:l601.pol}{F,g:l601.pol}{F,g:l601.pol}</record>
   <record id="l601.pol" >\s*Approx polarizability:{F,g:l601.pol.approx}{F,g:l601.pol}{F,g:l601.pol}{F,g:l601.pol}{F,g:l601.pol}{F,g:l601.pol}</record>
-  
-  <comment class="example.output.raw" id="l601.pol">
- </comment>
+
+  <transform process="pullup" xpath=".//cml:scalar"/>
+    
+  <comment class="example.output" id="l601.pol">
+    <module cmlx:templateRef="l601.polariz" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="l601.pol">
+        <scalar dataType="xsd:double" dictRef="g:l601.pol.exact">100.405</scalar>
+        <scalar dataType="xsd:double" dictRef="g:l601.pol">0.023</scalar>
+        <scalar dataType="xsd:double" dictRef="g:l601.pol">87.595</scalar>
+        <scalar dataType="xsd:double" dictRef="g:l601.pol">-0.336</scalar>
+        <scalar dataType="xsd:double" dictRef="g:l601.pol">0.0</scalar>
+        <scalar dataType="xsd:double" dictRef="g:l601.pol">50.847</scalar>
+      </list>
+      <list cmlx:templateRef="l601.pol">
+        <scalar dataType="xsd:double" dictRef="g:l601.pol.approx">149.863</scalar>
+        <scalar dataType="xsd:double" dictRef="g:l601.pol">0.049</scalar>
+        <scalar dataType="xsd:double" dictRef="g:l601.pol">143.908</scalar>
+        <scalar dataType="xsd:double" dictRef="g:l601.pol">-0.405</scalar>
+        <scalar dataType="xsd:double" dictRef="g:l601.pol">-0.0010</scalar>
+        <scalar dataType="xsd:double" dictRef="g:l601.pol">75.357</scalar>
+      </list>
+    </module>
+  </comment>
 </template>
  
