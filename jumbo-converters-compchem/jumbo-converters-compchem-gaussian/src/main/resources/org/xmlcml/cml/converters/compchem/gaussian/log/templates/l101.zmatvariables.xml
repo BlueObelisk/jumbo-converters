@@ -20,10 +20,12 @@
   D2                 -120.                       
  
   </comment>
+  
   <record/>
   <record id="chargemult">\s*Charge\s*={I,x:formalCharge}\s*Multiplicity\s*={I,x:multiplicity}</record>
   <!-- serial numbers appear to be redundant -->
   <!-- internals appear to be (a2, a1), (a3, a2, a1), (a4, a3, a2, a1) -->
+  <!--  no, I think they are relevant -->
   <record id="atom1">\s*{A,cc:elementType}</record>
   <record id="atom2">\s*{A,cc:elementType}{I,x:junk}{A,cc:name}</record>
   <record id="atom3">\s*{A,cc:elementType}{I,x:junk}{A,cc:name}{I,x:junk}{A,cc:name}</record>
@@ -49,52 +51,42 @@
   
   <comment class="example.output" id="l101.zmatvariables">
     <module cmlx:templateRef="l101.zmatvariables" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <list cmlx:templateRef="chargemult">
-        <list>
-          <scalar dataType="xsd:integer" dictRef="x:formalCharge">0</scalar>
-          <scalar dataType="xsd:integer" dictRef="x:multiplicity">1</scalar>
-        </list>
-      </list>
+      <scalar dataType="xsd:integer" dictRef="x:formalCharge">0</scalar>
+      <scalar dataType="xsd:integer" dictRef="x:multiplicity">1</scalar>
       <list cmlx:templateRef="atom1">
         <scalar dataType="xsd:string" dictRef="cc:elementType">C</scalar>
       </list>
       <list cmlx:templateRef="atom2">
-        <list>
-          <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
-          <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
-          <scalar dataType="xsd:string" dictRef="cc:name">B1</scalar>
-        </list>
+        <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:junk">1</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:name">B1</scalar>
       </list>
       <list cmlx:templateRef="atom3">
-        <list>
-          <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
-          <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
-          <scalar dataType="xsd:string" dictRef="cc:name">B2</scalar>
-          <scalar dataType="xsd:integer" dictRef="cc:serial">2</scalar>
-          <scalar dataType="xsd:string" dictRef="cc:name">A1</scalar>
-        </list>
+        <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:junk">1</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:name">B2</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:junk">2</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:name">A1</scalar>
       </list>
       <list cmlx:templateRef="atom4">
-        <list>
-          <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
-          <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
-          <scalar dataType="xsd:string" dictRef="cc:name">B3</scalar>
-          <scalar dataType="xsd:integer" dictRef="cc:serial">2</scalar>
-          <scalar dataType="xsd:string" dictRef="cc:name">A2</scalar>
-          <scalar dataType="xsd:integer" dictRef="cc:serial">3</scalar>
-          <scalar dataType="xsd:string" dictRef="cc:name">D1</scalar>
-          <scalar dataType="xsd:integer" dictRef="cc:serial">0</scalar>
-        </list>
-        <list>
-          <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
-          <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
-          <scalar dataType="xsd:string" dictRef="cc:name">B4</scalar>
-          <scalar dataType="xsd:integer" dictRef="cc:serial">2</scalar>
-          <scalar dataType="xsd:string" dictRef="cc:name">A3</scalar>
-          <scalar dataType="xsd:integer" dictRef="cc:serial">3</scalar>
-          <scalar dataType="xsd:string" dictRef="cc:name">D2</scalar>
-          <scalar dataType="xsd:integer" dictRef="cc:serial">0</scalar>
-        </list>
+        <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:junk">1</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:name">B3</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:junk">2</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:name">A2</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:junk">3</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:name">D1</scalar>
+        <scalar dataType="xsd:integer" dictRef="g:unknown">0</scalar>
+      </list>
+      <list cmlx:templateRef="atom4">
+        <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:junk">1</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:name">B4</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:junk">2</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:name">A3</scalar>
+        <scalar dataType="xsd:integer" dictRef="x:junk">3</scalar>
+        <scalar dataType="xsd:string" dictRef="cc:name">D2</scalar>
+        <scalar dataType="xsd:integer" dictRef="g:unknown">0</scalar>
       </list>
       <map id="variableMap">
         <link to="1.113" from="B1"/>
@@ -107,6 +99,26 @@
         <link to="109.47123" from="A3"/>
         <link to="-120.0" from="D2"/>
       </map>
+      <molecule>
+        <zMatrix>
+          <length atomRefs2="a1 a2" title="B1"/>
+          <length atomRefs2="a1 a3" title="B2"/>
+          <angle atomRefs3="a2 a1 a3" title="A1"/>
+          <length atomRefs2="a1 a4" title="B3"/>
+          <angle atomRefs3="a2 a1 a4" title="A2"/>
+          <torsion atomRefs4="a3 a2 a1 a4" title="D1"/>
+          <length atomRefs2="a1 a5" title="B4"/>
+          <angle atomRefs3="a2 a1 a5" title="A3"/>
+          <torsion atomRefs4="a3 a2 a1 a5" title="D2"/>
+        </zMatrix>
+        <atomArray>
+          <atom id="a1" elementType="C"/>
+          <atom id="a2" elementType="H"/>
+          <atom id="a3" elementType="H"/>
+          <atom id="a4" elementType="H"/>
+          <atom id="a5" elementType="H"/>
+        </atomArray>
+      </molecule>
     </module>
   </comment>
 </template>

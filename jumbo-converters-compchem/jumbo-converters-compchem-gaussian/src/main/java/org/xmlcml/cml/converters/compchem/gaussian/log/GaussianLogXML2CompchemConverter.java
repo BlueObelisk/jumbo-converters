@@ -33,7 +33,7 @@ public class GaussianLogXML2CompchemConverter extends XML2XMLTransformConverter 
 	}
 	// file not used?
 	public GaussianLogXML2CompchemConverter() {
-		this(BASE_URI, "templates/compchemTemplate.xml");
+		this(BASE_URI, "gaussian2compchem.xml");
 	}
 	
 	public GaussianLogXML2CompchemConverter(String baseUri, String templateName) {

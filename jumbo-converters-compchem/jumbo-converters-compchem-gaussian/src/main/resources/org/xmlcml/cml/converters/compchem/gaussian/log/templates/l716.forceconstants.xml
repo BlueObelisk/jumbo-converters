@@ -1,113 +1,89 @@
 <template id="l716.forceconstants" name="Force constants in Cartesian coordinates" 
     repeat="*"
     pattern="\s*Force constants in Cartesian coordinates\:\s*$.*" 
-    endPattern="\s[A-Z].*" endOffset="0"
+    endPattern="\s\s\s\s\.*$\s?[A-Z].*" endOffset="0" output="VERBOSE"
     >
-    
+
   <comment class="example.input" id="l716.forcematrix">
- Force constants in Cartesian coordinates: 
+   Force constants in Cartesian coordinates: 
                 1             2             3             4             5
-      1  0.689838D+00
-      2  0.445029D-01  0.114828D+00
-      3  0.466401D-01  0.330342D-01  0.635420D+00
-      4 -0.121492D+00 -0.733650D-02  0.250599D-01  0.734159D+00
-      5 -0.671330D-02 -0.562373D-01  0.943886D-03 -0.147929D-02  0.135546D+00
-      6 -0.159967D-01 -0.161412D-01 -0.303638D+00 -0.261338D-01  0.544142D-02
-      7  0.187056D-01  0.844417D-02 -0.550369D-01 -0.289816D+00 -0.394231D-02
-     39 -0.519384D-03 -0.979001D-03  0.119685D-02 -0.236603D-03  0.320606D-02
+      1  0.565888D+00
+      2 -0.128506D+00  0.123742D+00      
+      3 -0.210251D-01 -0.778257D-01  0.587786D+00
+      4 -0.504698D-01  0.836392D-02 -0.150095D-02  0.422679D-01
+      5  0.836052D-02 -0.216470D-01 -0.554360D-02 -0.706788D-02  0.178831D-01
+      6  0.155313D-02  0.571389D-02 -0.350545D+00 -0.714291D-03 -0.264119D-02
+      7 -0.286055D+00  0.892627D-02  0.124822D+00  0.454023D-02  0.236413D-04
+      8 -0.104744D-02 -0.216996D-01  0.998152D-02  0.108858D-02  0.419079D-02
+      9  0.121781D+00  0.476972D-02 -0.115020D+00  0.248610D-01  0.121752D-02
+     10 -0.222668D+00  0.107922D+00 -0.102846D+00  0.396420D-02  0.114317D-03
+     11  0.117910D+00 -0.850443D-01  0.713939D-01 -0.963422D-03  0.477647D-02
+     12 -0.102853D+00  0.653622D-01 -0.114978D+00 -0.208717D-01  0.135612D-01
+     13 -0.402967D-02  0.198789D-01  0.325553D-02 -0.282838D-03 -0.184074D-02
+     14  0.198804D-01  0.644063D-01  0.120397D-01 -0.183058D-02 -0.659270D-02
+     15  0.325327D-02  0.120319D-01 -0.741130D-02 -0.181724D-02 -0.676351D-02
+     16 -0.266511D-02 -0.165853D-01 -0.270591D-02 -0.196231D-04  0.410139D-03
+     17 -0.165975D-01 -0.597576D-01 -0.100459D-01  0.409377D-03  0.138928D-02
+     18 -0.270970D-02 -0.100521D-01  0.168220D-03  0.432661D-04  0.169562D-03
                 6             7             8             9            10
-      6  0.649588D+00
-      7 -0.669973D-01  0.634954D+00
-     39 -0.301824D-02 -0.315586D-02  0.652038D-03  0.151831D-03  0.250385D-02
-               36            37            38            39
-     36  0.360436D+00
-     37 -0.195204D-03  0.356505D-02
-     38  0.311862D-03 -0.381845D-02  0.187766D-01
-     39  0.116608D-03  0.112730D-02 -0.247205D-02  0.241853D-02
+      6  0.365251D+00
+      7 -0.396774D-02  0.295260D+00
+      8 -0.537661D-03 -0.560184D-02  0.179396D-01
+      9 -0.639216D-02 -0.133097D+00 -0.504526D-02  0.112311D+00
+     10  0.315302D-02 -0.114412D-01  0.120477D-01 -0.128108D-01  0.230049D+00
+     11 -0.246911D-02 -0.263373D-02  0.475737D-02  0.284875D-03 -0.117728D+00
+     12 -0.639316D-02  0.112170D-01 -0.619160D-02  0.901560D-02  0.112493D+00
+     13 -0.674998D-04 -0.292640D-02 -0.682356D-02 -0.441550D-03 -0.424118D-03
+     14 -0.233854D-03 -0.105353D-02 -0.656777D-02 -0.150894D-02 -0.252176D-02
+     15 -0.266892D-02  0.131563D-02  0.150708D-02 -0.237160D-04 -0.383647D-03
+     16  0.433823D-04  0.622631D-03  0.336536D-03 -0.293380D-03  0.519981D-03
+     17  0.167928D-03  0.339187D-03  0.137959D-02  0.282082D-03  0.165798D-03
+     18  0.747723D-03 -0.290234D-03  0.285921D-03  0.108984D-03  0.394027D-03
+               11            12            13            14            15
+     11  0.831240D-01
+     12 -0.712926D-01  0.112269D+00
+     13  0.325270D-02 -0.379079D-03  0.208450D-01
+     14 -0.910013D-02 -0.153984D-02  0.955817D-02  0.541122D-01
+     15  0.198295D-02 -0.220872D-04  0.150566D-02  0.591224D-02  0.190513D-01
+     16  0.162670D-03  0.393875D-03 -0.131819D-01 -0.240327D-01 -0.387368D-02
+     17  0.148655D-02  0.100596D-03 -0.240255D-01 -0.962579D-01 -0.146707D-01
+     18  0.999785D-04  0.108437D-03 -0.387307D-02 -0.146693D-01 -0.892525D-02
+               16            17            18
+     16  0.147241D-01
+     17  0.397087D-01  0.151760D+00
+     18  0.643571D-02  0.241660D-01  0.779189D-02
+ Force constants in internal coordinates: 
   </comment>
 
-  <record id="forceconstants" >{X,x:forceconstants}</record>
+  <record id="forceconstants">{X,x:forceconstantsxx}</record>
   <templateList>
-    <template id="l716.forceconst.chunk" pattern="\s{10}\s*\d+\s*[\d\s]*$.*" 
-      endPattern="\s{10}\s*\d+\s*[\d\s]*" repeat="*">
-      <record id="serial">{1_5I,x:serials}</record>
-      <record id="consts" repeat="*">\s*{I,cc:serial}\s+{1_5E,x:consts}</record>
+  
+    <template id="l716.forceconst.chunk" pattern="\s\s\s\s\s\s\s\s*\d+\s*[\d\s]*$.*" 
+      endPattern="((\s\s\s\s\s\s\s\s\s*[\s\d]+.*)|(\s?[A-Z].*))" repeat="*">
+      <record id="serial">{1_5I,cc:serial}</record>
+      <record repeat="*" id="row">\s*{I,g:row}\s{1_5E,cc:forceconst}</record>
     </template>
-    <!-- 
-    <template id="l716.forceconst.chunk.end" pattern="\s[\s\d]{5}\d.*" 
-      endPattern="\s[A-Z].*" repeat="*">
-      <record id="consts" repeat="*">\s*{I,cc:serial}\s+{X,x:consts}</record>
-    </template>
-    -->
+    
   </templateList>
-  <transform process="addAttribute" xpath=".//cml:array" name="id" 
-      value="string(.//cml:scalar[../cml:array])"/>
+
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='x:serial']"/>
+  <transform process="addAttribute" xpath=".//cml:array[@dictRef='cc:forceconst']" name="cmlx:row" 
+    value="string(../cml:scalar[@dictRef='g:row'])"/>
+  <transform process="joinArrays" xpath=".//cml:array[@cmlx:row]" key="string(@cmlx:row)"/>
+  <transform process="joinArrays" xpath=".//cml:module[@cmlx:templateRef='l716.forceconst.chunk'][1]//cml:list[@cmlx:templateRef='row']//cml:array[@dictRef='cc:forceconst']"/> 
+  <transform process="delete" xpath=".//cml:scalar[@dictRef='g:row']"/> 
+  <transform process="delete" xpath=".//cml:array[@dictRef='cc:serial']"/> 
+  <transform process="pullup" xpath=".//cml:array" repeat="3"/> 
+  <transform process="pullup" xpath=".//cml:scalar" repeat="2"/> 
+  <transform process="delete" xpath=".//cml:scalar[@dictRef='x:forceconstantsxx']"/> 
+  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l716.forceconst.chunk']"/> 
+  <transform process="delete" xpath="./text()"/> 
 
   <comment class="example.output" id="l716.forcematrix">
-<module cmlx:templateRef="l716.forceconstants" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <list cmlx:templateRef="forceconstants">
-    <scalar dataType="xsd:string" dictRef="x:forceconstants">Force constants in Cartesian coordinates:</scalar>
-  </list>
-  <module cmlx:lineCount="9" cmlx:templateRef="l716.forceconst.chunk">
-    <list cmlx:templateRef="serial">
-      <array dataType="xsd:integer" size="5" dictRef="x:serials" id="1">1 2 3 4 5</array>
-    </list>
-    <list cmlx:templateRef="consts">
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
-        <array dataType="xsd:double" size="1" dictRef="x:consts" id="1">0.689838</array>
-      </list>
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:serial">2</scalar>
-        <array dataType="xsd:double" size="2" dictRef="x:consts" id="1">0.0445029 0.114828</array>
-      </list>
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:serial">3</scalar>
-        <array dataType="xsd:double" size="3" dictRef="x:consts" id="1">0.0466401 0.0330342 0.63542</array>
-      </list>
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:serial">4</scalar>
-        <array dataType="xsd:double" size="4" dictRef="x:consts" id="1">-0.121492 -0.0073365 0.0250599 0.734159</array>
-      </list>
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:serial">5</scalar>
-        <array dataType="xsd:double" size="5" dictRef="x:consts" id="1">-0.0067133 -0.0562373 9.43886E-4 -0.00147929 0.135546</array>
-      </list>
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:serial">6</scalar>
-        <array dataType="xsd:double" size="5" dictRef="x:consts" id="1">-0.0159967 -0.0161412 -0.303638 -0.0261338 0.00544142</array>
-      </list>
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:serial">7</scalar>
-        <array dataType="xsd:double" size="5" dictRef="x:consts" id="1">0.0187056 0.00844417 -0.0550369 -0.289816 -0.00394231</array>
-      </list>
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:serial">39</scalar>
-        <array dataType="xsd:double" size="5" dictRef="x:consts" id="1">-5.19384E-4 -9.79001E-4 0.00119685 -2.36603E-4 0.00320606</array>
-      </list>
-    </list>
-  </module>
-  <module cmlx:lineCount="4" cmlx:templateRef="l716.forceconst.chunk">
-    <list cmlx:templateRef="serial">
-      <array dataType="xsd:integer" size="5" dictRef="x:serials" id="1">6 7 8 9 10</array>
-    </list>
-    <list cmlx:templateRef="consts">
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:serial">6</scalar>
-        <array dataType="xsd:double" size="1" dictRef="x:consts" id="1">0.649588</array>
-      </list>
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:serial">7</scalar>
-        <array dataType="xsd:double" size="2" dictRef="x:consts" id="1">-0.0669973 0.634954</array>
-      </list>
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:serial">39</scalar>
-        <array dataType="xsd:double" size="5" dictRef="x:consts" id="1">-0.00301824 -0.00315586 6.52038E-4 1.51831E-4 0.00250385</array>
-      </list>
-    </list>
-  </module>
-  <module cmlx:lineCount="1" cmlx:templateRef="l716.forceconst.chunk"/> 36 0.360436D+00 37 -0.195204D-03 0.356505D-02 38 0.311862D-03 -0.381845D-02 0.187766D-01 39 0.116608D-03 0.112730D-02 -0.247205D-02 0.241853D-02
-</module>
+    <module cmlx:templateRef="l716.forceconstants" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:double" size="171" dictRef="cc:forceconst">0.565888 -0.128506 0.123742 -0.0210251 -0.0778257 0.587786 -0.0504698 0.00836392 -0.00150095 0.0422679 0.00836052 -0.021647 -0.0055436 -0.00706788 0.0178831 0.00155313 0.00571389 -0.350545 -7.14291E-4 -0.00264119 0.365251 -0.286055 0.00892627 0.124822 0.00454023 2.36413E-5 -0.00396774 0.29526 -0.00104744 -0.0216996 0.00998152 0.00108858 0.00419079 -5.37661E-4 -0.00560184 0.0179396 0.121781 0.00476972 -0.11502 0.024861 0.00121752 -0.00639216 -0.133097 -0.00504526 0.112311 -0.222668 0.107922 -0.102846 0.0039642 1.14317E-4 0.00315302 -0.0114412 0.0120477 -0.0128108 0.230049 0.11791 -0.0850443 0.0713939 -9.63422E-4 0.00477647 -0.00246911 -0.00263373 0.00475737 2.84875E-4 -0.117728 0.083124 -0.102853 0.0653622 -0.114978 -0.0208717 0.0135612 -0.00639316 0.011217 -0.0061916 0.0090156 0.112493 -0.0712926 0.112269 -0.00402967 0.0198789 0.00325553 -2.82838E-4 -0.00184074 -6.74998E-5 -0.0029264 -0.00682356 -4.4155E-4 -4.24118E-4 0.0032527 -3.79079E-4 0.020845 0.0198804 0.0644063 0.0120397 -0.00183058 -0.0065927 -2.33854E-4 -0.00105353 -0.00656777 -0.00150894 -0.00252176 -0.00910013 -0.00153984 0.00955817 0.0541122 0.00325327 0.0120319 -0.0074113 -0.00181724 -0.00676351 -0.00266892 0.00131563 0.00150708 -2.3716E-5 -3.83647E-4 0.00198295 -2.20872E-5 0.00150566 0.00591224 0.0190513 -0.00266511 -0.0165853 -0.00270591 -1.96231E-5 4.10139E-4 4.33823E-5 6.22631E-4 3.36536E-4 -2.9338E-4 5.19981E-4 1.6267E-4 3.93875E-4 -0.0131819 -0.0240327 -0.00387368 0.0147241 -0.0165975 -0.0597576 -0.0100459 4.09377E-4 0.00138928 1.67928E-4 3.39187E-4 0.00137959 2.82082E-4 1.65798E-4 0.00148655 1.00596E-4 -0.0240255 -0.0962579 -0.0146707 0.0397087 0.15176 -0.0027097 -0.0100521 1.6822E-4 4.32661E-5 1.69562E-4 7.47723E-4 -2.90234E-4 2.85921E-4 1.08984E-4 3.94027E-4 9.99785E-5 1.08437E-4 -0.00387307 -0.0146693 -0.00892525 0.00643571 0.024166 0.00779189</array>
+    </module>
   </comment>
+
 </template>
  

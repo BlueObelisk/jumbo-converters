@@ -2,7 +2,7 @@
     pattern="\s*Dipole moment.*" 
     endPattern="(\s*N\-N=.*)" endOffset="1">
     
-  <comment class="example.input" id="popanal">
+  <comment class="example.input" id="l601.multipole">
  Dipole moment (field-independent basis, Debye):
     X=     0.0000    Y=     0.0000    Z=     0.0000  Tot=     0.0000
  Quadrupole moment (field-independent basis, Debye-Ang):
@@ -24,27 +24,46 @@
   </comment>
   
   <record  id="dipoletype">\s*Dipole moment \({X,g:dipoletype}\):\s*</record>
-  <record  id="dipole">\s*X={F,x:x}Y={F,x:y}Z={F,x:z}Tot={F,x:dipole}\s*</record>
+  <record  id="dipole">\s*X={F,x:d}Y={F,x:d}Z={F,x:d}Tot={F,x:dipole}\s*</record>
   <record  id="quadrupoletype">\s*Quadrupole moment \({X,g:quadpoletype}\):\s*</record>
-  <record id="quadrupol">\s*XX={F,x:x}YY={F,x:y}ZZ={F,x:z}\s*</record>
-  <record id="xy">\s*XY={F,x:x}XZ={F,x:y}YZ={F,x:z}\s*</record>
+  <record id="quadrupol">\s*XX={F,x:q}YY={F,x:q}ZZ={F,x:q}\s*</record>
+  <record id="xy">\s*XY={F,x:qb}XZ={F,x:qb}YZ={F,x:qb}\s*</record>
   <record id="quadrupoletypea">\s*Traceless Quadrupole moment \({X,g:quadpoletype}\):\s*</record>
-  <record id="xx">\s*XX={F,x:x}YY={F,x:y}ZZ={F,x:z}\s*</record>
-  <record id="xya">\s*XY={F,x:x}XZ={F,x:y}YZ={F,x:z}\s*</record>y
+  <record id="xx">\s*XX={F,x:qq}YY={F,x:qq}ZZ={F,x:qq}\s*</record>
+  <record id="xya">\s*XY={F,x:qq}XZ={F,x:qq}YZ={F,x:qq}\s*</record>y
   <record id="octapoletype">\s*Octapole moment \({X,g:octapoletype}\):\s*</record>
-  <record id="xxx">\s*XXX={F,x:xxx}YYY={F,x:yyy}ZZZ={F,x:zzz}XYY={F,x:xyy}\s*</record>
-  <record id="xxy">\s*XXY={F,x:xxy}XXZ={F,x:xxz}XZZ={F,x:xzz}YZZ={F,x:xzz}\s*</record>
-  <record id="yyz">\s*YYZ={F,x:yyz}XYZ={F,x:xyz}\s*</record>
+  <record id="xxx">\s*XXX={F,x:o}YYY={F,x:o}ZZZ={F,x:o}XYY={F,x:o}\s*</record>
+  <record id="xxy">\s*XXY={F,x:o}XXZ={F,x:o}XZZ={F,x:o}YZZ={F,x:o}\s*</record>
+  <record id="yyz">\s*YYZ={F,x:o}XYZ={F,x:o}\s*</record>
   <record id="hexadecapoletype">\s*Hexadecapole moment \({X,g:hexadecapoletype}\):\s*</record>
-  <record id="xxxx">\s*XXXX={F,x:xxxx}YYYY={F,x:yyyy}ZZZZ={F,x:zzzz}XXXY={F,x:xxxy}\s*</record>
-  <record id="xxxz">\s*XXXZ={F,x:xxxz}YYYX={F,x:yyyx}YYYZ={F,x:yyyz}ZZZX={F,x:zzzx}\s*</record>
-  <record id="zzzy">\s*ZZZY={F,x:zzzy}XXYY={F,x:xxyy}XXZZ={F,x:xxzz}YYZZ={F,x:yyzz}\s*</record>
-  <record id="xxyz">\s*XXYZ={F,x:xxyz}YYXZ={F,x:yyxz}ZZXY={F,x:zzxy}\s*</record>
+  <record id="xxxx">\s*XXXX={F,x:h}YYYY={F,x:h}ZZZZ={F,x:h}XXXY={F,x:h}\s*</record>
+  <record id="xxxz">\s*XXXZ={F,x:h}YYYX={F,x:h}YYYZ={F,x:h}ZZZX={F,x:h}\s*</record>
+  <record id="zzzy">\s*ZZZY={F,x:h}XXYY={F,x:h}XXZZ={F,x:h}YYZZ={F,x:h}\s*</record>
+  <record id="xxyz">\s*XXYZ={F,x:h}YYXZ={F,x:h}ZZXY={F,x:h}\s*</record>
+<!-- 
   <record id="nnke">\s*N\-N={F,g:nn}E\-N={F,g:nn}\s*KE={F,g:ke}\s*</record>
- 
-  <record repeat="*" id="xzz">{X,x:xzz}</record>
+--> 
+  <record repeat="*" id="xzz"/>
+  
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:d']" dictRef="cc:dipole"/>
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:q']" dictRef="cc:quadrupole"/>
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:qb']" dictRef="cc:quadrupole"/>
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:qq']" dictRef="cc:quadrupole"/>
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:o']" dictRef="cc:octapole"/>
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:h']" dictRef="cc:hexadecapole"/>
+  <transform process="delete" xpath=".//cml:scalar[contains(@dictRef,'type')]"/>
+  <transform process="pullup" xpath=".//cml:scalar | .//cml:array" repeat="2"/>
 
-  <comment class="example.output.raw" id="anisospin">
+  <comment class="example.output" id="l601.multipole">
+    <module cmlx:templateRef="multipole" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:double" size="3" dictRef="cc:dipole">0.0 0.0 0.0</array>
+      <scalar dataType="xsd:double" dictRef="x:dipole">0.0</scalar>
+      <array dataType="xsd:double" size="3" dictRef="cc:quadrupole">-8.3036 -8.3036 -8.3036</array>
+      <array dataType="xsd:double" size="3" dictRef="cc:quadrupole">0.0 0.0 0.0</array>
+      <array dataType="xsd:double" size="6" dictRef="cc:quadrupole">0.0 0.0 0.0 0.0 0.0 0.0</array>
+      <array dataType="xsd:double" size="10" dictRef="cc:octapole">0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 -0.7195</array>
+      <array dataType="xsd:double" size="15" dictRef="cc:hexadecapole">-16.2252 -16.2252 -16.2252 0.0 0.0 0.0 0.0 0.0 0.0 -4.9297 -4.9297 -4.9297 0.0 0.0 0.0</array>
+    </module>
  </comment>
 </template>
  

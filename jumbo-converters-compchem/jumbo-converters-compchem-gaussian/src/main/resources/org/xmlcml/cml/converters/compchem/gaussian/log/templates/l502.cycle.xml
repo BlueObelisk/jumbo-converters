@@ -1,5 +1,6 @@
 <template id="l502.cycle" repeat="*" pattern="\s*Cycle .*" 
-        endPattern="\s*" endOffset="1">
+        endPattern="\s*$\s*SCF.*" endOffset="0">
+        
   <comment class="example.input" id="l502.basis">
  Cycle   1  Pass 0  IDiag  1:
  E= -416.922513179685    
@@ -28,7 +29,8 @@
  Gap=     0.232 Goal=   None    Shift=    0.000
  RMSDP=3.58D-05 MaxDP=1.35D-03 DE=-1.38D-05 OVMax= 6.41D-04
 
-  </comment>
+ SCF Done:
+   </comment>
   <comment>
    Cycle   1  Pass 1  IDiag  1:
  Petite list used in FoFDir.
@@ -62,6 +64,7 @@
     </template>
   </templateList>
   <transform process="delete" xpath=".//*[@cmlx:templateRef='l502.discard']"/>
+  
   <comment class="example.output" id="l502.basis">
 <module cmlx:templateRef="l502.cycle" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <list cmlx:templateRef="cycle">

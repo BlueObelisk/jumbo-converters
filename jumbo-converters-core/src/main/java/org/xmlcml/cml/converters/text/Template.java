@@ -364,7 +364,6 @@ public class Template implements MarkupApplier {
 			}
 		}
 		removeEmptyLists(linesElement);
-//		removeXIncludeAll(linesElement);
 	}
 
 //	private void removeXIncludeAll(Element linesElement) {

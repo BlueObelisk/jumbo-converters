@@ -1,9 +1,9 @@
 <template id="l202.distmat" name="Distance matrix" repeat="*"
-    pattern="\s*Distance matrix.*" 
-    endPattern="\s*1.*" endOffset="1">
+    pattern="\s*Distance matrix.*$[\s\d]+" 
+    endPattern="\s?[A-Z].*"
+    >
 
-<!--     
-  <comment class="example.inputx" id="l202.distmat.1">
+  <comment class="example.input" id="l202.distmat.1">
                     Distance matrix (angstroms):
                     1          2          3          4          5
      1  Al   0.000000
@@ -29,8 +29,9 @@
                    11         12
     11  Al   0.000000
     12  Al   1.534811   0.000000
+ Test    
   </comment>
- -->
+  
    <comment class="example.input" id="l202.distmat.2">
                     Distance matrix (angstroms):
                     1          2          3          4          5
@@ -39,43 +40,43 @@
      3  H    1.113000   1.817522   0.000000
      4  H    1.113000   1.817521   1.817522   0.000000
      5  H    1.113000   1.817522   1.817522   1.817522   0.000000
+ Test 
   </comment>
-  <!-- 
-  <record repeat="1" id="y">{X,y:y}</record> 
-  -->
-  <record repeat="*" id="x">{X,x:x}</record> 
-  <!-- 
-  <templateList>
-    <template repeat="*" pattern="\s{15}\s[\d\s]*$.*" 
-    endPattern="\s\s...\d\s\s[A-Z].*$(([\d\s]*)|(\s\S.*))" endOffset="1">
-    <!- - 
-      <record id="serial">{1_5I,cc:serial}</record>
-      <record repeat="*" id="atom">{I,cc:serialx}{A,cc:elementType}{1_5F,cc:distances}</record>
-      - ->
-    </template>
-  </templateList>
- -->
-  <transform process="joinArrays" xpath=".//cml:array[@dictRef='cc:distances']"/>
-  <transform process="createArray" 
-    xpath=".//cml:list[@cmlx:templateRef='atom' and cml:list[cml:array[@dictRef='cc:distances']]]" 
-    from="./cml:list/cml:scalar[@dictRef='cc:elementType']"
-   />
-  <transform process="joinArrays" xpath=".//cml:array[@dictRef='cc:serial']"/>
-  <transform process="delete" xpath=".//cml:scalar"/>
-  <transform process="pullupSingleton" xpath=".//cml:list"/>
-  <transform process="pullup" xpath=".//cml:array" repeat="3"/>
-  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='NULL_ID']"/>
   
-  <comment class="example.output" id="l202.distmat">
+  <record repeat="1" id="y">{X,y:y}</record> 
+  
+  <templateList>
+    <template id="l202.distance" pattern="\s{10}\s*\d+\s*[\d\s]*$.*" 
+      endPattern="((\s{10}\s*[\s\d]+.*)|(\s?[A-Z].*))" repeat="*">
+      <record id="serial">{1_5I,x:serial}</record>
+      <record repeat="*" id="row">\s*{I,g:row}\s{A,cc:elementType}\s{1_5F,cc:distance}</record>
+    </template>
+    
+  </templateList>
+  
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='x:serial']"/>
+  <transform process="addAttribute" xpath=".//cml:array[@dictRef='cc:distance']" name="cmlx:row" 
+    value="string(../cml:scalar[@dictRef='g:row'])"/>
+  <transform process="joinArrays" xpath=".//cml:array[@cmlx:row]" key="string(@cmlx:row)"/>
+  <transform process="joinArrays" xpath=".//cml:module[@cmlx:templateRef='l202.distance'][1]//cml:list[@cmlx:templateRef='row']//cml:array"/> 
+  <transform process="delete" xpath=".//cml:scalar[@dictRef='y:y']"/>
+  <transform process="delete" xpath=".//cml:scalar[@dictRef='g:row']"/>
+  <transform process="delete" xpath=".//cml:scalar[@dictRef='cc:elementType']"/>
+  <transform process="delete" xpath=".//cml:array[@dictRef='x:serial']"/>
+  <transform process="delete" xpath="text()"/>
+  <transform process="pullup" xpath=".//cml:array" repeat="3"/>
+  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l202.distance']"/>
+  
+  <comment class="example.output" id="l202.distmat.1">
     <module cmlx:templateRef="l202.distmat" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <array dataType="xsd:integer" size="12" dictRef="cc:serial" cmlx:templateRef="serial">1 2 3 4 5 6 7 8 9 10 11 12</array>
-      <array delimiter="|" dataType="xsd:string" size="12" dictRef="cc:elementType">|Al|Al|Al|Al|Al|Al|Al|Al|Al|Al|Al|Al|</array>
-      <array dataType="xsd:double" size="78" dictRef="cc:distances">0.0 1.534811 0.0 2.965253 1.534811 0.0 4.193182 2.964801 1.534811 0.0 5.135969 4.193182 2.965253 1.534811 0.0 5.727993 5.135187 4.193182 2.964801 1.534811 5.930507 5.727993 5.135969 4.193182 2.965253 5.727993 5.929603 5.727993 5.135187 4.193182 5.135969 5.727993 5.930507 5.727993 5.135969 4.193182 5.135187 5.727993 5.929603 5.727993 2.965253 4.193182 5.135969 5.727993 5.930507 1.534811 2.964801 4.193182 5.135187 5.727993 0.0 1.534811 0.0 2.964801 1.534811 0.0 4.193182 2.965253 1.534811 0.0 5.135187 4.193182 2.964801 1.534811 0.0 5.727993 5.135969 4.193182 2.965253 1.534811 5.929603 5.727993 5.135187 4.193182 2.964801 0.0 1.534811 0.0</array>
+      <array dataType="xsd:double" size="78" dictRef="cc:distance">0.0 1.534811 0.0 2.965253 1.534811 0.0 4.193182 2.964801 1.534811 0.0 5.135969 4.193182 2.965253 1.534811 0.0 5.727993 5.135187 4.193182 2.964801 1.534811 0.0 5.930507 5.727993 5.135969 4.193182 2.965253 1.534811 0.0 5.727993 5.929603 5.727993 5.135187 4.193182 2.964801 1.534811 0.0 5.135969 5.727993 5.930507 5.727993 5.135969 4.193182 2.965253 1.534811 0.0 4.193182 5.135187 5.727993 5.929603 5.727993 5.135187 4.193182 2.964801 1.534811 0.0 2.965253 4.193182 5.135969 5.727993 5.930507 5.727993 5.135969 4.193182 2.965253 1.534811 0.0 1.534811 2.964801 4.193182 5.135187 5.727993 5.929603 5.727993 5.135187 4.193182 2.964801 1.534811 0.0</array>
     </module>
   </comment>
   
   <comment class="example.output" id="l202.distmat.2">
-    <module/>
+    <module cmlx:templateRef="l202.distmat" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:double" size="15" dictRef="cc:distance">0.0 1.113 0.0 1.113 1.817522 0.0 1.113 1.817521 1.817522 0.0 1.113 1.817522 1.817522 1.817522 0.0</array>
+    </module>
   </comment>
   
 </template>

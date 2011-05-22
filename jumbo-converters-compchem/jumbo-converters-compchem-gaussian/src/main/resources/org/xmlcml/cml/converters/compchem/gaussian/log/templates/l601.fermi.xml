@@ -26,12 +26,38 @@
   </comment>
   
   <record repeat="2"/>
-  <record id="fermi.atom" repeat="*" makeArray="true">\s*{I,cc:serial}{A,x:elementType}\({I,x:isotopeNumber}\){F,cc:coupling,u:au}{F,cc:coupling,u:au}{F,cc:coupling,u:mhz}{F,cc:coupling,u:gauss}{F,cc:coupling,u:ten4cm-1}</record>
+  <record id="fermi.atom" repeat="*" makeArray="true">\s*{I,cc:serial}{A,x:elementType}\({I,x:isotopeNumber}\)\s{F,cc:coupling,u:au}\s{F,cc:coupling,u:mhz}\s{F,cc:coupling,u:gauss}\s{F,cc:coupling,u:ten4cm-1}\s*</record>
   <record repeat="4"/>
   <record id="fermi.spindipole" repeat="*" makeArray="true">\s*{I,cc:serial}\s*Atom\s*{F,g:spindipole.xx}{F,g:spindipole.yy}{F,g:spindipole.zz}</record>
   <record repeat="3"/>
   <record id="fermi.spindipole" repeat="*" makeArray="true">\s*{I,cc:serial}\s*Atom\s*{F,g:spindipole.xy}{F,g:spindipole.xz}{F,g:spindipole.yz}</record>
   <record repeat="1"/>
+
+  <comment class="example.output" id="l601.fermi">
+    <module cmlx:templateRef="l601.fermi" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:lineCount="3" cmlx:templateRef="fermi.atom">
+        <array dataType="xsd:integer" dictRef="cc:serial" size="3">1 2 13</array>
+        <array dataType="xsd:string" dictRef="x:elementType" size="3">C C Cl</array>
+        <array dataType="xsd:integer" dictRef="x:isotopeNumber" size="3">13 13 35</array>
+        <array dataType="xsd:double" dictRef="cc:coupling" size="3">0.02539 0.00582 0.05688</array>
+        <array dataType="xsd:double" dictRef="cc:coupling" size="3">28.54777 6.54434 24.94015</array>
+        <array dataType="xsd:double" dictRef="cc:coupling" size="3">10.18656 2.33518 8.89927</array>
+        <array dataType="xsd:double" dictRef="cc:coupling" size="3">9.52251 2.18296 8.31914</array>
+      </list>
+      <list cmlx:lineCount="3" cmlx:templateRef="fermi.spindipole">
+        <array dataType="xsd:integer" dictRef="cc:serial" size="3">1 2 13</array>
+        <array dataType="xsd:double" dictRef="g:spindipole.xx" size="3">0.0053 -0.039723 0.621221</array>
+        <array dataType="xsd:double" dictRef="g:spindipole.yy" size="3">-0.061839 -0.068059 -2.03853</array>
+        <array dataType="xsd:double" dictRef="g:spindipole.zz" size="3">0.05654 0.107782 1.417309</array>
+      </list>
+      <list cmlx:lineCount="3" cmlx:templateRef="fermi.spindipole">
+        <array dataType="xsd:integer" dictRef="cc:serial" size="3">1 2 13</array>
+        <array dataType="xsd:double" dictRef="g:spindipole.xy" size="3">1.0E-5 0.005157 3.44E-4</array>
+        <array dataType="xsd:double" dictRef="g:spindipole.xz" size="3">0.095387 0.081893 3.043747</array>
+        <array dataType="xsd:double" dictRef="g:spindipole.yz" size="3">1.3E-5 0.006262 3.9E-4</array>
+      </list>
+    </module>
+  </comment>
 
 </template>
  

@@ -78,7 +78,7 @@ public class LineContainer {
 	 */
 	public LineContainer(List<String> lines, Template template) {
 		this(template);
-		LOG.trace("lines: "+lines.size());
+		LOG.debug("lines: "+lines.size());
 		this.setContent(lines);
 	}
 	
@@ -108,7 +108,7 @@ public class LineContainer {
 				throw new RuntimeException("Bad line (probably null or non-xml character?)");
 			}
 		}
-		LOG.trace(linesElement.getChildCount());
+		LOG.debug(linesElement.getChildCount());
 	}
 	
 	public Node getNextNode() {

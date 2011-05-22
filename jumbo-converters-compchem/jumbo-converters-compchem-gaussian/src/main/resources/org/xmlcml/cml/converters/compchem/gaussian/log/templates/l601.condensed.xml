@@ -1,9 +1,9 @@
 <template id="l601.condensed" name="condensed" repeat="*"
     pattern="\s*Condensed to atoms \(all electrons\):\s*$\s*\d+.*" 
-    endPattern="\s*Mulliken.*"
+    endPattern="\s+\d+\s+.*$\s*Mulliken.*" endOffset="0"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     >
-  <comment class="example.input" id="condensed">
+  <comment class="example.input" id="l601.condensed">
           Condensed to atoms (all electrons):
               1          2          3          4          5          6
      1  Al  14.341573   1.088430  -0.115514   0.086239   0.001826  -0.044783
@@ -32,26 +32,37 @@
     11  Al   0.001826  -0.951234  -2.006583   1.085225  15.968706   1.085225
     12  Al  -0.044783   0.003015   0.088051  -0.113240   1.085225  14.338383
  Mulliken atomic charges:
-              1
   </comment>
 
   <record/>
   <templateList>
     <template id="cond" repeat="*" pattern="\s*\d+\s+\d+.*" 
      endPattern="\s{7}.*">
-      <record id="serial">{X,x:intarr}</record>
-      <record repeat="*" id="row">{I,cc:serial}{A,cc:elementType}{X,x:floatArr}</record>
+      <record id="serial">{1_6I,x:intarr}</record>
+      <record repeat="*" id="row">{I,cc:serial}{A,cc:elementType}{1_6F,x:floatArr}</record>
      </template>
-  <!-- THROWS  NULL LINES -->
+  <!-- ?? THROWS  NULL LINES -->
     <template id="cond1" repeat="*" pattern="\s*\d+[\s\d]*$.*" 
      endPattern="\s\S.*" endOffset="1">
-      <record id="serial">{X,x:intarr}</record>
-      <record repeat="*" id="row">{I,cc:serial}{A,cc:elementType}{X,x:floatArr}</record>
+      <record id="serial">{1_6I,x:intarr}</record>
+      <record repeat="*" id="row">{I,cc:serial}{A,cc:elementType}{1_6F,x:floatArr}</record>
      </template>
-<!-- -->
   </templateList>
+  
+  <transform process="addAttribute" xpath=".//cml:array[@dictRef='x:floatArr']" name="cmlx:idx" 
+    value="string(../cml:scalar[@dictRef='cc:serial'])"/>
+  <transform process="joinArrays" xpath=".//cml:array" key="string(@cmlx:idx)"/>
+  <transform process="delete" xpath=".//cml:array[@dictRef='x:intarr']"/>
+  <transform process="pullup" xpath=".//cml:array" repeat="3"/>
+  <transform process="delete" xpath=".//cml:array[@dictRef='x:intarr']"/>
+  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='cond' or @cmlx:templateRef='cond1']"/>
+  <transform process="createMatrix" xpath="." from=".//cml:array" dictRef="g:condensed"/>
+  
 
-  <comment class="example.output.raw" id="condensed">
- </comment>
+  <comment class="example.output" id="l601.condensed">
+    <module cmlx:templateRef="l601.condensed" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <matrix rows="12" columns="12" dataType="xsd:double" dictRef="g:condensed">14.341573 1.08843 -0.115514 0.086239 0.001826 -0.044783 0.009797 0.191563 0.506288 0.088051 -2.006583 -1.04763 1.08843 15.950581 1.08843 -1.998837 -0.951234 0.003015 0.191563 0.182316 0.191563 0.003015 -0.951234 -1.998837 -0.115514 1.08843 14.341573 -1.04763 -2.006583 0.088051 0.506288 0.191563 0.009797 -0.044783 0.001826 0.086239 0.086239 -1.998837 -1.04763 14.338383 1.085225 -0.11324 0.088051 0.003015 -0.044783 0.009829 0.191823 0.506439 0.001826 -0.951234 -2.006583 1.085225 15.968706 1.085225 -2.006583 -0.951234 0.001826 0.191823 0.182861 0.191823 -0.044783 0.003015 0.088051 -0.11324 1.085225 14.338383 -1.04763 -1.998837 0.086239 0.506439 0.191823 0.009829 0.009797 0.191563 0.506288 0.088051 -2.006583 -1.04763 14.341573 1.08843 -0.115514 0.086239 0.001826 -0.044783 0.191563 0.182316 0.191563 0.003015 -0.951234 -1.998837 1.08843 15.950581 1.08843 -1.998837 -0.951234 0.003015 0.506288 0.191563 0.009797 -0.044783 0.001826 0.086239 -0.115514 1.08843 14.341573 -1.04763 -2.006583 0.088051 0.088051 0.003015 -0.044783 0.009829 0.191823 0.506439 0.086239 -1.998837 -1.04763 14.338383 1.085225 -0.11324 -2.006583 -0.951234 0.001826 0.191823 0.182861 0.191823 0.001826 -0.951234 -2.006583 1.085225 15.968706 1.085225 -1.04763 -1.998837 0.086239 0.506439 0.191823 0.009829 -0.044783 0.003015 0.088051 -0.11324 1.085225 14.338383</matrix>
+    </module>
+  </comment>
 </template>
  
