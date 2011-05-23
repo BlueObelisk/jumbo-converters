@@ -40,9 +40,18 @@ public class GaussianLog2XMLConverter extends CompchemText2XMLTemplateConverter 
 			CompchemText2XMLTemplateConverter converter = new GaussianLog2XMLConverter();
 			File in = new File("src/test/resources/compchem/gaussian/log/in/anna0.log");
 			File out = new File("test/anna0.xml");
-			in = new File("src/test/resources/compchem/gaussian/log/anna/20/output.log");
-			out = new File("test/anna20.xml");
-			converter.convert(in, out);
+			for (int i = 1; i < 21; i++) {
+				if (i == 9) {
+					try {
+						in = new File("src/test/resources/compchem/gaussian/log/anna/"+i+"/output.log");
+						System.out.println("converting: "+in);
+						out = new File("test/anna"+i+".xml");
+						converter.convert(in, out);
+					} catch (Exception e) {
+						System.err.println("Cannot read/convert "+in+"; "+e);
+					}
+				}
+			}
 		}
 	}
 }

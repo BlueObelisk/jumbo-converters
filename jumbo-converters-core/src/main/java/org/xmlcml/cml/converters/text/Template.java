@@ -72,7 +72,7 @@ public class Template implements MarkupApplier {
 		CML_CMLX_CONTEXT.addNamespace(CMLConstants.CMLX_PREFIX, CMLConstants.CMLX_NS);
 	}
 	
-	protected Element theElement;
+	protected Element templateElement1;
 	private String id;
 	private String name;
 	private String newlineS;
@@ -94,13 +94,13 @@ public class Template implements MarkupApplier {
 	private List<DictionaryContainer> dictionaryList;
 
 	public Template(Element element) {
-		this.theElement = element;
+		this.templateElement1 = element;
         try {
             ClassPathXIncludeResolver.resolveIncludes(element.getDocument());
 		} catch (Exception e) {
 			throw new RuntimeException("Bad XInclude", e);
 		}
-		CMLUtil.removeWhitespaceNodes(this.theElement);
+		CMLUtil.removeWhitespaceNodes(this.templateElement1);
 		processChildElementsAndAttributes();
 	}
 
@@ -142,7 +142,7 @@ public class Template implements MarkupApplier {
 	}
 
 	private void processAttributes() {
-		checkIfAttributeNamesAreAllowed(theElement, new String[]{
+		checkIfAttributeNamesAreAllowed(templateElement1, new String[]{
 			BASE,
 			CONVENTION,
 			DEBUG,
@@ -161,30 +161,30 @@ public class Template implements MarkupApplier {
 			REPEAT_COUNT,
 		});
 				
-		id = theElement.getAttributeValue(ID);
+		id = templateElement1.getAttributeValue(ID);
 		if (id == null) {
 			id = NULL_ID;
 		}
-		name = theElement.getAttributeValue(NAME);
+		name = templateElement1.getAttributeValue(NAME);
 		names = getStringsFromAttribute(NAMES);
-		this.dictRef = theElement.getAttributeValue(DICT_REF);
+		this.dictRef = templateElement1.getAttributeValue(DICT_REF);
 		
-		patternString = theElement.getAttributeValue(PATTERN);
-		endPatternString = theElement.getAttributeValue(END_PATTERN);
+		patternString = templateElement1.getAttributeValue(PATTERN);
+		endPatternString = templateElement1.getAttributeValue(END_PATTERN);
 		if (endPatternString == null) {
 			// special end-of-information symbol
 			endPatternString = EOI;
 		}
 		processNewline();
 		
-		outputLevel = Outputter.extractOutputLevel(this.theElement);
-		LOG.trace(outputLevel+"/"+this.theElement.getAttributeValue(Outputter.OUTPUT));
+		outputLevel = Outputter.extractOutputLevel(this.templateElement1);
+		LOG.trace(outputLevel+"/"+this.templateElement1.getAttributeValue(Outputter.OUTPUT));
 		if (!OutputLevel.NONE.equals(outputLevel)) {
 //			System.out.println("OUTPUT "+outputLevel);
 		}
-		debug = (theElement.getAttributeValue(DEBUG) != null);
-		offset = readIntegerAttribute(theElement, OFFSET);
-		endOffset = readIntegerAttribute(theElement, END_OFFSET);
+		debug = (templateElement1.getAttributeValue(DEBUG) != null);
+		offset = readIntegerAttribute(templateElement1, OFFSET);
+		endOffset = readIntegerAttribute(templateElement1, END_OFFSET);
 		
 		processRepeatCount();
 		
@@ -193,9 +193,9 @@ public class Template implements MarkupApplier {
 	}
 
 	private void processNewline() {
-		newlineS = theElement.getAttributeValue(NEWLINE);
+		newlineS = templateElement1.getAttributeValue(NEWLINE);
 		if (newlineS == null) {
-			newlineS = theElement.getAttributeValue(MULTIPLE);
+			newlineS = templateElement1.getAttributeValue(MULTIPLE);
 			if (newlineS != null) {
 				LOG.warn("multiple is deprecated, use newline");
 			}
@@ -225,9 +225,9 @@ public class Template implements MarkupApplier {
 	}
 
 	private void processRepeatCount() {
-		String repeatCountS = theElement.getAttributeValue(REPEAT); 
+		String repeatCountS = templateElement1.getAttributeValue(REPEAT); 
 		if (repeatCountS == null) {
-			repeatCountS = theElement.getAttributeValue(REPEAT_COUNT); 
+			repeatCountS = templateElement1.getAttributeValue(REPEAT_COUNT); 
 			if (repeatCountS != null) {
 				LOG.warn("repeatCount is deprecated, use repeat");
 			}
@@ -290,7 +290,7 @@ public class Template implements MarkupApplier {
 
 
 	private void createSubclassedElementsFromChildElements() {
-		Elements childElements = theElement.getChildElements();
+		Elements childElements = templateElement1.getChildElements();
 		markerList = new ArrayList<MarkupApplier>();
 		for (int i = 0; i < childElements.size(); i++) {
 			LineReader lineReader = null;
@@ -311,7 +311,7 @@ public class Template implements MarkupApplier {
 				lineReader = new RecordReader(childElement, this);
 				markerList.add(lineReader);
 			} else if (Template.TAG.equals(name)) {
-				System.out.println(theElement.getAttributeValue(ID)+"/"+childElement.getAttributeValue(ID));
+				System.out.println(templateElement1.getAttributeValue(ID)+"/"+childElement.getAttributeValue(ID));
 				throw new RuntimeException("Template cannot be child of Template; use templateList");
 			} else if (TemplateListElement.TAG.equals(name)) {
 				TemplateListElement templateContainer = new TemplateListElement(childElement);
@@ -325,7 +325,7 @@ public class Template implements MarkupApplier {
 			} else if (Template.DEBUG.equals(name)) {
 				markerList.add(new Debug(this));
 			} else {
-				CMLUtil.debug(theElement, "UNKNOWN CHILD");
+				CMLUtil.debug(templateElement1, "UNKNOWN CHILD");
 				throw new RuntimeException("unknown child: "+name);
 			}
 		}
@@ -386,7 +386,7 @@ public class Template implements MarkupApplier {
 
 	private void processException(LineContainer lineContainer,
 			MarkupApplier marker, Exception e) {
-		lineContainer.debug("LINE CONTAINER");
+//		lineContainer.debug("LINE CONTAINER");
 		String line = lineContainer.peekLine();
 		int nline = lineContainer.getCurrentNodeIndex();
 		System.err.println("PREVIOUS..."+nline);
@@ -394,13 +394,14 @@ public class Template implements MarkupApplier {
 			System.err.println(lineContainer.getLinesElement().getChild(i));
 		}
 		System.out.println("========DEBUG======="+marker.getId()+">>>>>");
-		marker.debug();
+//		CMLUtil.debug(templateElement1, "TEMPLATE");
 		System.out.println("<<<<<"+marker.getId()+"========DEBUG=======");
 		if (line == null) {
 			if (debug) {
 				LOG.error("Null line ("+nline+")", e);
 			} else {
-				throw new RuntimeException("Null line ("+nline+")", e);
+//				new Exception().printStackTrace();
+				LOG.error("Null line ("+nline+")", e);
 			}
 		} else {
 			throw new RuntimeException("Failed; current line ("+nline+")"+line, e);
@@ -421,7 +422,7 @@ public class Template implements MarkupApplier {
 	}
 	
 	private void copyNamespaces(Element targetElement) {
-		copyNamespaces(this.theElement, targetElement);
+		copyNamespaces(this.templateElement1, targetElement);
 	}
 
 	public static void copyNamespaces(Element fromElement, Element targetElement) {
@@ -547,7 +548,7 @@ public class Template implements MarkupApplier {
 	
 	public void debug() {
 		System.out.println("=====DBG==="+this.getId()+"===DBG======");
-		CMLUtil.debug(theElement, "TEMPLATE");
+		CMLUtil.debug(templateElement1, "TEMPLATE");
 		LOG.debug("children: "+markerList.size());
 		for (MarkupApplier marker : markerList) {
 			marker.debug();
@@ -572,7 +573,7 @@ public class Template implements MarkupApplier {
 	}
 
 	public String getConvention() {
-		return theElement.getAttributeValue(CONVENTION);
+		return templateElement1.getAttributeValue(CONVENTION);
 	}
 
 
