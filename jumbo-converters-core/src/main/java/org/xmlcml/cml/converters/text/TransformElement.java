@@ -905,14 +905,16 @@ public class TransformElement implements MarkupApplier {
 		for (Node node : nodeList) {
 			Element element = (Element)node;
 			Nodes nodes = TransformElement.queryUsingNamespaces(element, from);
-			if (nodes.get(0) instanceof CMLScalar) {
-				throw new RuntimeException("Please create matrix from arrays, not scalars");
-			} else if ((nodes.get(0) instanceof CMLArray)) {
-				addArraysToMatrix(nodes.size(), ((CMLArray)nodes.get(0)).getSize(), nodes);
-			} else if (nodes.size() == 0) {
-			} else {
-				CMLUtil.debug(element, "PARENT");
-				throw new RuntimeException("Cannot create matrix found "+nodes.size()+" nodes of type: "+nodes.get(0).getClass());
+			if (nodes.size() > 0) {
+				if (nodes.get(0) instanceof CMLScalar) {
+					throw new RuntimeException("Please create matrix from arrays, not scalars");
+				} else if ((nodes.get(0) instanceof CMLArray)) {
+					addArraysToMatrix(nodes.size(), ((CMLArray)nodes.get(0)).getSize(), nodes);
+				} else if (nodes.size() == 0) {
+				} else {
+					CMLUtil.debug(element, "PARENT");
+					throw new RuntimeException("Cannot create matrix found "+nodes.size()+" nodes of type: "+nodes.get(0).getClass());
+				}
 			}
 		}
 	}
@@ -971,7 +973,9 @@ public class TransformElement implements MarkupApplier {
 			}
 			CMLArray array = (CMLArray) nodex;
 			if (array.getSize() != cols || !(CMLConstants.XSD_DOUBLE.equals(array.getDataType()))) {
-				throw new RuntimeException("createMatrix requires arrays of "+cols+" doubles");
+				((CMLArray)nodes.get(0)).debug("XXXXXXXXXX");
+				((CMLArray)nodes.get(i)).debug("IIIIIIIIII");
+				throw new RuntimeException("createMatrix requires arrays of "+cols+" doubles but had "+array.getSize()+" in row "+i);
 			}
 			array0.append(array);
 			array.detach();
@@ -1004,7 +1008,6 @@ public class TransformElement implements MarkupApplier {
 			try {
 				addArrays(nodeList, natoms);
 			} catch (Exception e) {
-//				CMLUtil.debug(parsedElement, "PARSED ELEMENT");
 				throw new RuntimeException(e);
 			}
 			addElementTypes();
@@ -1181,7 +1184,6 @@ public class TransformElement implements MarkupApplier {
 				ZMatrixElement zMatrixElement = new ZMatrixElement(element, valuex);
 				ParentNode parent = ensureParent(element);
 				parent.appendChild(zMatrixElement.getMolecule());
-				((CMLElement)parent).debug("ZZZZZZZZZZZ");
 			}
 		}
 	}
@@ -1665,7 +1667,7 @@ public class TransformElement implements MarkupApplier {
 		DictRefAttribute dictRefAtt = new DictRefAttribute(att);
 		String prefix = dictRefAtt.getPrefix();
 		String value = DictRefAttribute.getLocalName(dictRefAtt.getValue());
-		String namespace = template == null ? null : template.theElement.getNamespaceURI(prefix);
+		String namespace = template == null ? null : template.templateElement1.getNamespaceURI(prefix);
 		if (namespace == null) {
 			throw new RuntimeException("Cannot discover namespace for: "+prefix);
 		}
