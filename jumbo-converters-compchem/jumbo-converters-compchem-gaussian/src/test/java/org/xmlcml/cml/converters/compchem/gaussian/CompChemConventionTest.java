@@ -1,26 +1,20 @@
 package org.xmlcml.cml.converters.compchem.gaussian;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-
-import java.io.InputStream;
-import java.util.List;
-
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Node;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLUtil;
-import org.xmlcml.cml.converters.XML2XMLConverter;
-import org.xmlcml.cml.converters.compchem.CompchemText2XMLTemplateConverter;
 import org.xmlcml.cml.converters.compchem.gaussian.log.GaussianLog2XMLConverter;
 import org.xmlcml.cml.converters.compchem.gaussian.log.GaussianLogXML2CompchemConverter;
-import org.xmlcml.euclid.Util;
+
+import java.io.InputStream;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class CompChemConventionTest {
 
@@ -31,15 +25,12 @@ public class CompChemConventionTest {
 		InputStream in = CompChemConventionTest.class.
 			getResourceAsStream("/compchem/gaussian/log/anna/1/output.log");
 		
-		CompchemText2XMLTemplateConverter converter1 = new GaussianLog2XMLConverter();
+		GaussianLog2XMLConverter converter1 = new GaussianLog2XMLConverter();
 		Element e1 = converter1.convertToXML(in);
 		
-		InputStream transformStream = Util.getResourceUsingContextClassLoader(
-				"org/xmlcml/cml/converters/compchem/gaussian/log/gaussian2compchem.xml", GaussianLogXML2CompchemConverter.class);
-		XML2XMLConverter converter2 = new GaussianLogXML2CompchemConverter(transformStream);
+		GaussianLogXML2CompchemConverter converter2 = new GaussianLogXML2CompchemConverter();
 		
 		Element e2 = converter2.convertToXML(e1);
-		
 		doc = e2.getDocument();
 	}
 
