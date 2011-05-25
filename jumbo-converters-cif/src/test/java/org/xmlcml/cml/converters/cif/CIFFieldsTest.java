@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 
 import nu.xom.Document;
-import nu.xom.Element;
 
 import org.junit.Assert;
 import org.junit.Test;

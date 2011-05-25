@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import nu.xom.Document;
-import nu.xom.Element;
 import nu.xom.Serializer;
 
 import org.junit.Assert;
