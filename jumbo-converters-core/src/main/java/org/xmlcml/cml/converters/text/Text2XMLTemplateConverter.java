@@ -59,8 +59,7 @@ public class Text2XMLTemplateConverter extends Text2XMLConverter {
 
 	@Override
 	public Element convertToXML(List<String> lines) {
-		this.lines = lines;
-		convertCharactersInLines();
+		lines = convertCharactersInLines(lines);
 		TemplateProcessor glp = (TemplateProcessor) createLegacyProcessor();
 		Element cmlElement = glp.applyMarkup(lines);
 		// because we may have added parents

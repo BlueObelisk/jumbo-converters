@@ -102,7 +102,7 @@ public class LineContainer {
 		ensureNamespacesOnLinesElement();
 		for (String line : lines) {
 			try {
-				linesElement.appendChild(line);
+				linesElement.appendChild(line+'\n');
 			} catch (Exception e) {
 				LOG.error("line: "+line);
 				throw new RuntimeException("Bad line (probably null or non-xml character?)");
