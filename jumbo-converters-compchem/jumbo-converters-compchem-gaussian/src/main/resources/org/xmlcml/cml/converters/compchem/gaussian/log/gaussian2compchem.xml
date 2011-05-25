@@ -25,28 +25,28 @@
 
   <!-- move parameters to environment -->
   
-    <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:hostname']" 
+    <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:hostname'][last()]" 
       toXpath="//cml:module[@id='environment']/cml:parameterList"/> 
-  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:jobname']" 
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:jobname'][last()]" 
       toXpath="//cml:module[@id='environment']/cml:parameterList"/> 
-  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:date']" 
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:date'][last()]" 
       toXpath="//cml:module[@id='environment']/cml:parameterList"/> 
-  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:title']" 
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:title'][last()]" 
       toXpath="//cml:module[@id='environment']/cml:parameterList"/> 
-  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:version']" 
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:version'][last()]" 
       toXpath="//cml:module[@id='environment']/cml:parameterList"/> 
       
 
-    <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l1.end']/cml:scalar[@dictRef='cc:run.date']" 
+    <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l1.end']/cml:scalar[@dictRef='cc:run.date'][last()]" 
   toXpath="//cml:module[@id='environment']/cml:parameterList"/> 
-    <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l1.end']/cml:scalar[@dictRef='cc:program']" 
+    <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l1.end']/cml:scalar[@dictRef='cc:program'][last()]" 
   toXpath="//cml:module[@id='environment']/cml:parameterList"/> 
-    <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l1.end']/cml:scalar[@dictRef='cc:program.date']" 
+    <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l1.end']/cml:scalar[@dictRef='cc:program.date'][last()]" 
   toXpath="//cml:module[@id='environment']/cml:parameterList"/> 
 
-    <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l1.end']/cml:scalar[@dictRef='cc:version']" 
+    <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l1.end']/cml:scalar[@dictRef='cc:version'][last()]" 
   toXpath="//cml:module[@id='environment']/cml:parameterList"/> 
-    <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l101']/cml:scalar[@dictRef='cc:title']" 
+    <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l101']/cml:scalar[@dictRef='cc:title'][last()]" 
   toXpath="//cml:module[@id='environment']/cml:parameterList"/> 
   
   <transform process="createWrapperParameter" xpath="//cml:module[@id='environment']/cml:parameterList/*" />
@@ -78,18 +78,18 @@
   
   <!-- move initialization parameters -->
 
-    <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:method']" 
+    <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:method'][last()]" 
   toXpath=".//cml:module[@id='initialization']/cml:parameterList"/> 
-    <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:basis']" 
+    <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:basis'][last()]" 
   toXpath=".//cml:module[@id='initialization']/cml:parameterList"/> 
 
-    <transform process="move" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:pointgroup']" 
+    <transform process="move" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:pointgroup'][last()]" 
   toXpath=".//cml:module[@id='initialization']/cml:parameterList" position="1"/> 
-    <transform process="move" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:frameworkgroup']" 
+    <transform process="move" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:frameworkgroup'][last()]" 
   toXpath=".//cml:module[@id='initialization']/cml:parameterList" position="1"/> 
-    <transform process="move" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:formula'][1]" 
+    <transform process="move" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:formula'][last()]" 
   toXpath=".//cml:module[@id='initialization']/cml:parameterList" position="1"/> 
-    <transform process="move" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:degfreedom']" 
+    <transform process="move" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:degfreedom'][last()]" 
   toXpath=".//cml:module[@id='initialization']/cml:parameterList" position="1"/> 
 
     <transform process="move"   toXpath=".//cml:module[@id='initialization']/cml:parameterList" position="1"
@@ -157,13 +157,13 @@
       toXpath="//cml:module[@id='finalization']/cml:propertyList" />
       
     <!--  some energy names are composite (e.g. rohfenergy) -->
-  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[starts-with(@dictRef,'cc:') and contains(@dictRef,'energy')]" 
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[starts-with(@dictRef,'cc:') and contains(@dictRef,'energy')][last()]" 
       toXpath="//cml:module[@id='finalization']/cml:propertyList"/> 
-  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:rmsd']" 
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:rmsd'][last()]" 
       toXpath="//cml:module[@id='finalization']/cml:propertyList"/> 
-  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:rmsf']" 
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:rmsf'][last()]" 
       toXpath="//cml:module[@id='finalization']/cml:propertyList"/> 
-  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:array[@dictRef='cc:dipole']" 
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:array[@dictRef='cc:dipole'][last()]" 
       toXpath="//cml:module[@id='finalization']/cml:propertyList"/> 
 
   
