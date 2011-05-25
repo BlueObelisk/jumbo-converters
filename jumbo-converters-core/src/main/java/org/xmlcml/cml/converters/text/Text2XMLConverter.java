@@ -27,7 +27,6 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 	private static final String GROUP1 = "group1";
 	private static final String LEAVE_LINK = "leaveLink";
 	private static final Integer TAB_WIDTH = 8;
-	protected List<String> lines;
 	private List<Chunker> markerList;
 	protected Integer tabWidth = TAB_WIDTH;
 
@@ -46,12 +45,11 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 	
 	@Override
 	public Element convertToXML(List<String> lines) {
-		this.lines = lines;
-		convertCharactersInLines();
+		lines = convertCharactersInLines(lines);
 		// mark lines to act as potential block boundaries
-		this.insertMarkers();
+		lines = insertMarkers(lines);
 		// element is <cml> wrapping <scalar> with the marked line and all lines to before next mark
-		CMLElement element = createXMLFromTextAndMarkedLines();
+		CMLElement element = createXMLFromTextAndMarkedLines(lines);
 		legacyProcessor = createLegacyProcessor();
 		legacyProcessor.read((CMLElement)element);
 		Element cmlElement = legacyProcessor.getCMLElement();
@@ -61,12 +59,12 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 	/**
 	 * deal with tabs, other possible conversions...
 	 */
-	protected void convertCharactersInLines() {
+	protected List<String> convertCharactersInLines(List<String> lines) {
 		List<String> newlines = new ArrayList<String>(lines.size());
 		for (String line : lines) {
 			newlines.add(Util.replaceTabs(line, (int)TAB_WIDTH));
 		}
-		lines = newlines;
+		return lines;
 	}
 
 	public Integer getTabWidth() {
@@ -103,7 +101,7 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 		}
 	}
 
-	private void insertMarkers() {
+	private List<String> insertMarkers(List<String> lines) {
 		readMarkers(getMarkerInputStream());
 		List<String> linesCopy = new ArrayList<String>(lines.size());
 		int lineCount = 0;
@@ -124,8 +122,7 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 				linesCopy.add(line);
 			}
 		}
-		lines = linesCopy;
-		linesCopy = movePositiveOffsets(linesCopy);
+		return movePositiveOffsets(linesCopy);
 	}
 
 	private List<String> movePositiveOffsets(List<String> lines) {
@@ -159,7 +156,7 @@ public abstract class Text2XMLConverter extends AbstractConverter {
 		}
 	}
 
-	private CMLElement createXMLFromTextAndMarkedLines() {
+	private CMLElement createXMLFromTextAndMarkedLines(List<String> lines) {
 		CMLCml cml = new CMLCml();
 		CMLScalar scalar = null;
 		StringBuilder sb = null;
