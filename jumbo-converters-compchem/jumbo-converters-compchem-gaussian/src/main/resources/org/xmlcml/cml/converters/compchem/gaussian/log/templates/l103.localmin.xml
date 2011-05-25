@@ -41,7 +41,7 @@
  Iteration  3 RMS(Cart)=  0.00000003 RMS(Int)=  0.00012443
   </comment>  
 
-  <record id="r">\s*Search for a {X,cc:minmaxts}\.</record>  
+  <record id="r">\s*Search for a {X,cc:minmaxts}\.\s*</record>  
   <templateList>
     <template id="negativeeigenvaluelist" repeat="*" pattern="\s*Eigenvectors required to have negative eigenvalues.*" 
       endPattern="\s\S.*" endOffset="0">
@@ -54,16 +54,16 @@
     </template>
     <template id="eigenvaluelist" repeat="*" pattern="\s*Eigenvalues\s*\-\-\-.*" 
       endPattern="\s*Eigenvalues.*$\s\S.*" endOffset="1">
-      <record repeat="*" id="eigenvalue">\s*Eigenvalues\s*\-\-\-\s{1_5F10.5}</record>
+      <record repeat="*" id="eigenvalue">\s*Eigenvalues\s*\-\-\-\s{1_5F10.5}\s*</record>
     </template>
     <template id="iterationList" repeat="*" pattern="\s*Iteration.*" 
       endPattern="\sIteration.*$\s*[^I].*" endOffset="1">
       <record makeArray="true" repeat="*" id="iteration" 
-      >\s*Iteration{I,cc:serial}RMS\(Cart\)={F,g:rmscart}RMS\(Int\)={F,g:rmsint}</record>
+      >\s*Iteration{I,cc:serial}RMS\(Cart\)={F,g:rmscart}RMS\(Int\)={F,g:rmsint}\s*</record>
     </template>
     <template pattern="\s*((Step number)|(RFO)|(All quant)|(Swaping)|(Linear search)|(Second deriv)|(Angle between)).*" 
        endPattern=".*" repeat="*" id="junk">
-      <record id="foo">{1_20A,x:junk1}</record>
+      <record id="foo">{1_20A,x:junk1}\s*</record>
     </template>
   </templateList>
   

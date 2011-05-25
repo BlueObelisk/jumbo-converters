@@ -26,13 +26,14 @@
   <record repeat="*">\s*The second derivative matrix.*</record>
   <templateList>
     <template pattern="\s{20}\s*\S+\s*.*" endPattern="(\s*Eig.*)|(\s{20}).*" repeat="*">
-      <record id="serial">{1_5A,cc:coordid}</record>
-      <record id="row" repeat="*">{A,x:x}{1_5F,cc:secondderiv}</record>
+      <record id="serial">{1_5A,cc:coordid}\s*</record>
+      <record id="row" repeat="*">{A,x:x}{1_5F,cc:secondderiv}\s*</record>
     </template>
     <template repeat="*" pattern="\s*Eigenvalues.*" endPattern=".*">
-      <record repeat="*" id="eigen">\s*Eigenvalues \-\-\-\s{1_5F10.5,cc:eigenval}</record>
+      <record repeat="*" id="eigen">\s*Eigenvalues \-\-\-\s{1_5F10.5,cc:eigenval}\s*</record>
     </template>
   </templateList>
+  
   <transform process="joinArrays" xpath=".//cml:array[@dictRef='cc:coordid']"/>
   <transform process="joinArrays" xpath=".//cml:array[@dictRef='cc:secondderiv']"/>
   <transform process="addAttribute" xpath=".//cml:array[@dictRef='cc:secondderiv']" name="type" value="lowerTriangle"/>
