@@ -3,7 +3,6 @@ package org.xmlcml.cml.converters.cif.filter;
 import java.io.IOException;
 
 import nu.xom.Document;
-import nu.xom.Element;
 
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;

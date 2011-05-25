@@ -1,7 +1,6 @@
 package org.xmlcml.cml.converters.cif;
 
 import java.io.File;
-import java.io.FileOutputStream;
 
 import nu.xom.Element;
 
@@ -24,7 +23,6 @@ public class FileTest {
 		Element completeCml = new RawCML2CompleteCMLConverter().convertToXML(rawCml);
 	
 		CMLMolecule molecule = (CMLMolecule) CMLUtil.getQueryNodes(completeCml, "//cml:molecule", CMLConstants.CML_XPATH).get(0);
-		CMLUtil.debug(molecule, new FileOutputStream("cv5056.cml"), 2);
 		Assert.assertEquals("single molecule", 0, molecule.getMoleculeCount());
 		Assert.assertEquals("single molecule size", 32, molecule.getAtomCount());
 	}
