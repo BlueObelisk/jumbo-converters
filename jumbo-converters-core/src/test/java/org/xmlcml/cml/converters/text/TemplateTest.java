@@ -285,8 +285,8 @@ public class TemplateTest {
 		LineContainer lineContainer = template.getLineContainer();
 		Assert.assertNotNull(lineContainer);
 		String refS = 
-		  "<module cmlx:templateRef=\"t0\" xmlns=\"http://www.xml-cml.org/schema\" xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>line0line1"+
-		    "<module cmlx:lineCount=\"3\" cmlx:templateRef='t1'>line2line3line4</module>line5line6line7"+
+		  "<module cmlx:templateRef=\"t0\" xmlns=\"http://www.xml-cml.org/schema\" xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>line0\nline1\n"+
+		    "<module cmlx:lineCount=\"3\" cmlx:templateRef='t1'>line2\nline3\nline4\n</module>line5\nline6\nline7\n"+
 		  "</module>";
 
 		JumboTestUtils.assertEqualsCanonically("offset 00", refS, lineContainer.getLinesElement(), true);
@@ -315,8 +315,8 @@ public class TemplateTest {
 		LineContainer lineContainer = template.getLineContainer();
 		Assert.assertNotNull(lineContainer);
 		String refS = 
-		"<module cmlx:templateRef='t1' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>line0line1line2"+
-		  "<module cmlx:lineCount='2' cmlx:templateRef='t1'>line3line4</module>line5line6line7"+
+		"<module cmlx:templateRef='t1' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>line0\nline1\nline2\n"+
+		  "<module cmlx:lineCount='2' cmlx:templateRef='t1'>line3\nline4\n</module>line5\nline6\nline7\n"+
 		"</module>";
 
 		JumboTestUtils.assertEqualsCanonically("offset 10", refS, lineContainer.getLinesElement(), true);
@@ -344,8 +344,8 @@ public class TemplateTest {
 		template.applyMarkup(toBeParsed);
 		LineContainer lineContainer = template.getLineContainer();
 		String refS = 
-			"<module cmlx:templateRef='t1' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>line0line1"+
-			  "<module cmlx:lineCount='4' cmlx:templateRef='t1'>line2line3line4line5</module>line6line7"+
+			"<module cmlx:templateRef='t1' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>line0\nline1\n"+
+			  "<module cmlx:lineCount='4' cmlx:templateRef='t1'>line2\nline3\nline4\nline5\n</module>line6\nline7\n"+
 			"</module>";
 		Assert.assertNotNull(lineContainer);
 		JumboTestUtils.assertEqualsCanonically("offset 10", refS, lineContainer.getLinesElement(), true);
@@ -375,8 +375,8 @@ public class TemplateTest {
 		LineContainer lineContainer = template.getLineContainer();
 		Assert.assertNotNull(lineContainer);
 		String refS =
-			"<module cmlx:templateRef='t1' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>line0line1line2"+
-			  "<module cmlx:lineCount='3' cmlx:templateRef='t1'>line3line4line5</module>line6line7"+
+			"<module cmlx:templateRef='t1' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>line0\nline1\nline2\n"+
+			  "<module cmlx:lineCount='3' cmlx:templateRef='t1'>line3\nline4\nline5\n</module>line6\nline7\n"+
 			"</module>";
 
 		JumboTestUtils.assertEqualsCanonically("offset 10", refS, lineContainer.getLinesElement(), true);
@@ -413,9 +413,9 @@ public class TemplateTest {
 		LineContainer lineContainer = template.getLineContainer();
 		Assert.assertNotNull(lineContainer);
 		String refS = 
-			"<module cmlx:templateRef='t1' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>line0line1line2"+
-			"<module cmlx:lineCount='3' cmlx:templateRef='t1'>line3line4line5</module>line6line7line0line1aline2a"+
-			"<module cmlx:lineCount='3' cmlx:templateRef='t1'>line3aline4aline5a</module>line6aline7a"+
+			"<module cmlx:templateRef='t1' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>line0\nline1\nline2\n"+
+			"<module cmlx:lineCount='3' cmlx:templateRef='t1'>line3\nline4\nline5\n</module>line6\nline7\nline0\nline1a\nline2a\n"+
+			"<module cmlx:lineCount='3' cmlx:templateRef='t1'>line3a\nline4a\nline5a\n</module>line6a\nline7a\n"+
 			"</module>";
 		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
 	}
@@ -510,10 +510,10 @@ public class TemplateTest {
 //		  <module cmlx:templateRef='t1' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>line15+++++</module>line17line18line19
 //		</module>
 		
-		String refS = "<module cmlx:templateRef='t1' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>line0line1"+
-  "<module cmlx:lineCount='5' cmlx:templateRef='t1'>ssss2line3line4line5eeee6</module>line7line8line9line10line11"+
-  "<module cmlx:lineCount='5' cmlx:templateRef='t1'>ssss12line13line14line15eeee16</module>line17line18line19line20line21"+
-  "<module cmlx:lineCount='5' cmlx:templateRef='t1'>ssss22line23line24line25eeee26</module>line27line28line29"+
+		String refS = "<module cmlx:templateRef='t1' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>line0\nline1\n"+
+  "<module cmlx:lineCount='5' cmlx:templateRef='t1'>ssss2\nline3\nline4\nline5\neeee6\n</module>line7\nline8\nline9\nline10\nline11\n"+
+  "<module cmlx:lineCount='5' cmlx:templateRef='t1'>ssss12\nline13\nline14\nline15\neeee16\n</module>line17\nline18\nline19\nline20\nline21\n"+
+  "<module cmlx:lineCount='5' cmlx:templateRef='t1'>ssss22\nline23\nline24\nline25\neeee26\n</module>line27\nline28\nline29\n"+
 "</module>";
 
 		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
@@ -558,10 +558,10 @@ public class TemplateTest {
 		template.applyMarkup(toBeParsed);
 		LineContainer lineContainer = template.getLineContainer();
 		Assert.assertNotNull(lineContainer);
-		String refS = "<module cmlx:templateRef='t1' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>line0"+
-  "<module cmlx:lineCount='15' cmlx:templateRef='ta'>line1aline2line3"+
-    "<module cmlx:lineCount='8' cmlx:templateRef='tb'>line4cline5line6line7line8line9line10line11</module>line12dline13line14line15"+
-  "</module>line16bline17line18line19"+
+		String refS = "<module cmlx:templateRef='t1' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>line0\n"+
+  "<module cmlx:lineCount='15' cmlx:templateRef='ta'>line1a\nline2\nline3\n"+
+    "<module cmlx:lineCount='8' cmlx:templateRef='tb'>line4c\nline5\nline6\nline7\nline8\nline9\nline10\nline11\n</module>line12d\nline13\nline14\nline15\n"+
+  "</module>line16b\nline17\nline18\nline19\n"+
 "</module>";
 		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
 	}
@@ -655,11 +655,11 @@ public class TemplateTest {
 		LineContainer lineContainer = template.getLineContainer();
 		Assert.assertNotNull(lineContainer);
 		String refS = 
-		  "<module cmlx:templateRef=\"book\" xmlns=\"http://www.xml-cml.org/schema\" xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>book"+
-  		    "<module cmlx:lineCount=\"1\" cmlx:templateRef=\"chapter\">start1</module>end1"+
-		    "<module cmlx:lineCount=\"1\" cmlx:templateRef=\"chapter\">start2</module>end2"+
-		    "<module cmlx:lineCount=\"1\" cmlx:templateRef=\"chapter\">start3</module>end3"+
-		    "<module cmlx:lineCount=\"1\" cmlx:templateRef=\"chapter\">start4</module>end4"+
+		  "<module cmlx:templateRef=\"book\" xmlns=\"http://www.xml-cml.org/schema\" xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>book\n"+
+  		    "<module cmlx:lineCount=\"1\" cmlx:templateRef=\"chapter\">start1\n</module>end1\n"+
+		    "<module cmlx:lineCount=\"1\" cmlx:templateRef=\"chapter\">start2\n</module>end2\n"+
+		    "<module cmlx:lineCount=\"1\" cmlx:templateRef=\"chapter\">start3\n</module>end3\n"+
+		    "<module cmlx:lineCount=\"1\" cmlx:templateRef=\"chapter\">start4\n</module>end4\n"+
 		  "</module>";
 		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
 	}
@@ -690,11 +690,11 @@ public class TemplateTest {
 		LineContainer lineContainer = template.getLineContainer();
 		Assert.assertNotNull(lineContainer);
 		String refS = 
-			  "<module cmlx:templateRef='book' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>book"+
-			  "<module cmlx:lineCount='2' cmlx:templateRef=\"chapter\">start1end1</module>"+
-			  "<module cmlx:lineCount='2' cmlx:templateRef=\"chapter\">start2end2</module>"+
-			  "<module cmlx:lineCount='2' cmlx:templateRef=\"chapter\">start3end3</module>"+
-			  "<module cmlx:lineCount='2' cmlx:templateRef=\"chapter\">start4end4</module>"+
+			  "<module cmlx:templateRef='book' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>book\n"+
+			  "<module cmlx:lineCount='2' cmlx:templateRef=\"chapter\">start1\nend1\n</module>"+
+			  "<module cmlx:lineCount='2' cmlx:templateRef=\"chapter\">start2\nend2\n</module>"+
+			  "<module cmlx:lineCount='2' cmlx:templateRef=\"chapter\">start3\nend3\n</module>"+
+			  "<module cmlx:lineCount='2' cmlx:templateRef=\"chapter\">start4\nend4\n</module>"+
 			  "</module>";
 		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
 	}
@@ -729,12 +729,12 @@ public class TemplateTest {
 		LineContainer lineContainer = template.getLineContainer();
 		Assert.assertNotNull(lineContainer);
 		String refS = 
-			  "<module cmlx:templateRef='book' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>book"+
-			  "<module cmlx:lineCount='2' cmlx:templateRef='chapter'>start1end1</module>"+
-			  "<module cmlx:lineCount='2' cmlx:templateRef='chapter'>start2end2</module>"+
-			  "<module cmlx:lineCount='2' cmlx:templateRef='chapter'>start3end3</module>"+
-			  "<module cmlx:lineCount='2' cmlx:templateRef='chapter'>start4end4</module>"+
-			  "<module cmlx:lineCount='2' cmlx:templateRef='chapter'>start5end5</module>start6end6"+
+			  "<module cmlx:templateRef='book' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>book\n"+
+			  "<module cmlx:lineCount='2' cmlx:templateRef='chapter'>start1\nend1\n</module>"+
+			  "<module cmlx:lineCount='2' cmlx:templateRef='chapter'>start2\nend2\n</module>"+
+			  "<module cmlx:lineCount='2' cmlx:templateRef='chapter'>start3\nend3\n</module>"+
+			  "<module cmlx:lineCount='2' cmlx:templateRef='chapter'>start4\nend4\n</module>"+
+			  "<module cmlx:lineCount='2' cmlx:templateRef='chapter'>start5\nend5\n</module>start6\nend6\n"+
 			  "</module>";
 		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
 //		Assert.fail("wrong output");
@@ -774,8 +774,8 @@ public class TemplateTest {
 		LineContainer lineContainer = template.getLineContainer();
 		Assert.assertNotNull(lineContainer);
 		String refS = 
-			  "<module cmlx:templateRef='book' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>book"+
-			  "<module cmlx:lineCount='3' cmlx:templateRef='chapter'>start1content1aend1</module>skip1start2content2aend2skip2start3content3aend3skip3start4content4aend4skip4"+
+			  "<module cmlx:templateRef='book' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>book\n"+
+			  "<module cmlx:lineCount='3' cmlx:templateRef='chapter'>start1\ncontent1a\nend1\n</module>skip1\nstart2\ncontent2a\nend2\nskip2\nstart3\ncontent3a\nend3\nskip3\nstart4\ncontent4a\nend4\nskip4\n"+
 			  "</module>";
 		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
 	}
@@ -814,10 +814,10 @@ public class TemplateTest {
 		LineContainer lineContainer = template.getLineContainer();
 		Assert.assertNotNull(lineContainer);
 		String refS = 
-			  "<module cmlx:templateRef='book' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>book"+
-			  "<module cmlx:lineCount='3' cmlx:templateRef='chapter'>start1content1aend1</module>skip1"+
-			  "<module cmlx:lineCount='3' cmlx:templateRef='chapter'>start2content2aend2</module>skip2"+
-			  "<module cmlx:lineCount='3' cmlx:templateRef='chapter'>start3content3aend3</module>skip3start4content4aend4skip4"+
+			  "<module cmlx:templateRef='book' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>book\n"+
+			  "<module cmlx:lineCount='3' cmlx:templateRef='chapter'>start1\ncontent1a\nend1\n</module>skip1\n"+
+			  "<module cmlx:lineCount='3' cmlx:templateRef='chapter'>start2\ncontent2a\nend2\n</module>skip2\n"+
+			  "<module cmlx:lineCount='3' cmlx:templateRef='chapter'>start3\ncontent3a\nend3\n</module>skip3\nstart4\ncontent4a\nend4\nskip4\n"+
 			  "</module>";
 		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
 	}
