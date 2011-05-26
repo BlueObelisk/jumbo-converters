@@ -133,7 +133,7 @@ public class RecordReaderTest {
 		recordReader.applyMarkup(lineContainer);
 		Element ref = CMLUtil.parseXML(
 				"<?xml version='1.0' encoding='UTF-8'?>"+
-				"<module xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>grot1line2line3"+
+				"<module xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>grot1\nline2\nline3\n"+
 				"<list cmlx:templateRef='i1'/>"+
 				"</module>"+
 				"");
@@ -595,7 +595,7 @@ public class RecordReaderTest {
 	public void readSymbolicWithNames() {
 		LineContainer lineContainer = new LineContainer("123 abc 123.45");
 		Element recordElement = CMLUtil.parseXML("<record id='i1' " +
-				"formatType='REGEX' >{I3,x:i} {A3,x:a} {F6.2,x:f}</record>");
+				"formatType='REGEX' >{I3,x:i} {A3,x:a} {F6.2,x:f}\\n</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
 		recordReader.applyMarkup(lineContainer);
 		Element ref = CMLUtil.parseXML(
