@@ -25,7 +25,7 @@
 
   <!-- move parameters to environment -->
   
-    <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:hostname'][last()]" 
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:hostname'][last()]" 
       toXpath="//cml:module[@id='environment']/cml:parameterList"/> 
   <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:jobname'][last()]" 
       toXpath="//cml:module[@id='environment']/cml:parameterList"/> 
@@ -84,13 +84,13 @@
   toXpath=".//cml:module[@id='initialization']/cml:parameterList"/> 
 
     <transform process="move" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:pointgroup'][last()]" 
-  toXpath=".//cml:module[@id='initialization']/cml:parameterList" position="1"/> 
+      toXpath=".//cml:module[@id='initialization']/cml:parameterList" position="1"/> 
     <transform process="move" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:frameworkgroup'][last()]" 
-  toXpath=".//cml:module[@id='initialization']/cml:parameterList" position="1"/> 
+      toXpath=".//cml:module[@id='initialization']/cml:parameterList" position="1"/> 
     <transform process="move" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:formula'][last()]" 
-  toXpath=".//cml:module[@id='initialization']/cml:parameterList" position="1"/> 
+      toXpath=".//cml:module[@id='initialization']/cml:parameterList" position="1"/> 
     <transform process="move" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:degfreedom'][last()]" 
-  toXpath=".//cml:module[@id='initialization']/cml:parameterList" position="1"/> 
+       toXpath=".//cml:module[@id='initialization']/cml:parameterList" position="1"/> 
 
     <transform process="move"   toXpath=".//cml:module[@id='initialization']/cml:parameterList" position="1"
       xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l301.basis']/cml:scalar[@dictRef='cc:basis']" />
@@ -109,15 +109,21 @@
     <transform process="move"   toXpath=".//cml:module[@id='initialization']/cml:parameterList" position="1"
       xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l301.basis']/cml:scalar[@dictRef='cc:nuniqatoms']" />
 
-    <transform process="move"   toXpath=".//cml:module[@id='initialization']/cml:parameterList" position="1"
+    <transform process="move"   toXpath=".//cml:module[@id='initialization']/cml:parameterList"
       xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l302.basis']/cml:scalar[@dictRef='cc:method']" />
 
-  <transform process="createWrapperParameter" xpath="//cml:module[@id='initialization']/cml:parameterList/*" />
+    <transform process="move"   toXpath=".//cml:module[@id='initialization']/cml:parameterList"
+      xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:rotconst'][laat()]" />
+      
+    <transform process="move" xpath="//cml:scalar[@dictRef='g:operation' or @dictRef='g:keyword']" 
+         toXpath=".//cml:module[@id='initialization']/cml:parameterList"/>
+
+    <transform process="createWrapperParameter" xpath="//cml:module[@id='initialization']/cml:parameterList/*" />
 
     <!-- find initialization molecule -->
     
     <transform process="move" xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l202.orient']/cml:molecule[1]" 
-  toXpath=".//cml:module[@id='initialization']"/> 
+      toXpath=".//cml:module[@id='initialization']"/> 
 
     <transform process="addChild" xpath="//cml:module[@id='initialization']" elementName="cml:module" id="otherComponents"/>
     <transform process="addDictRef" xpath=".//cml:module[@id='initialization']/cml:module[@id='otherComponents']" value="cc:userDefinedModule" />
@@ -126,8 +132,11 @@
          toXpath="//cml:module[@id='initialization']/cml:module[@id='otherComponents']"/>
     <transform process="move" xpath="//cml:module[@id='initialization']/cml:module[not(@id='otherComponents')]" 
          toXpath="//cml:module[@id='initialization']/cml:module[@id='otherComponents']"/>
+    <transform process="move" xpath="//cml:module[@id='initialization']/cml:module[not(@id='otherComponents')]" 
+         toXpath="//cml:module[@id='initialization']/cml:module[@id='otherComponents']"/>
 
-
+    
+<!--  ====================== CALCULATION ===================== -->
   
   <!-- build calculation module -->
   
@@ -193,7 +202,11 @@
 
 
   <transform process="addDictRef" xpath=".//cml:module[@id='calculation']/cml:module" value="cc:userDefinedModule" />
- 
+
+  <transform process="addAttribute" xpath=".//cml:molecule" name="formalCharge" 
+    value="number(//cml:scalar[@dictRef='formalCharge'][1])" />
+  <transform process="addAttribute" xpath=".//cml:molecule" name="spinMultiplicity" 
+    value="number(//cml:scalar[@dictRef='spinMultiplicity'][1])" />
          
 
     <!-- clean up output -->
