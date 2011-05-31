@@ -1464,8 +1464,13 @@ public class TransformElement implements MarkupApplier {
 		array.getParent().replaceChild(array, list);
 	}
 
+	
+	
 	private void wrapWithPropertyOrParameter(Element wrapperx) {
 		assertRequired(XPATH, xpath);
+	
+		
+		
 		List<Node> nodeList = getXpathQueryResults();
 		for (Node node : nodeList) {
 			if (node instanceof CMLScalar ||

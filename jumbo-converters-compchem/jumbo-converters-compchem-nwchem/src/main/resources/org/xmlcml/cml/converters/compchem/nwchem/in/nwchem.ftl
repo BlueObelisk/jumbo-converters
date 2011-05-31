@@ -1,6 +1,6 @@
 
 start ${jobInfo.id}
-title ${jobInfo.title}
+title "${jobInfo.title}"
 
 geometry units an noautoz nocenter noautosym
 <#list molecule.atoms as atom>
