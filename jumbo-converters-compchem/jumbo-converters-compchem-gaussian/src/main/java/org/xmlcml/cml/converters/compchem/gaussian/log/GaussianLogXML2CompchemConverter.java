@@ -18,7 +18,7 @@ public class GaussianLogXML2CompchemConverter extends XML2XMLTransformConverter 
     private static final Logger LOG = Logger.getLogger(GaussianLogXML2CompchemConverter.class);
 
     private static final String DEFAULT_TEMPLATE_RESOURCE =
-            "org/xmlcml/cml/converters/compchem/gaussian/log/templates/compchemTemplate.xml";
+            "org/xmlcml/cml/converters/compchem/gaussian/log/templates/gaussian2compchem.xml";
 
     private static final String BASE_URI = "classpath:/"+DEFAULT_TEMPLATE_RESOURCE;
 
@@ -37,7 +37,7 @@ public class GaussianLogXML2CompchemConverter extends XML2XMLTransformConverter 
 
 
     public GaussianLogXML2CompchemConverter(String baseUri, String templateName) {
-        this(ConverterUtils.buildElementIncludingBaseUri(baseUri, templateName, GaussianLog2XMLConverter.class));
+        this(ConverterUtils.buildElementIncludingBaseUri(baseUri, templateName, NWChemLog2XMLConverter.class));
     }
 
     public GaussianLogXML2CompchemConverter(Element templateElement) {

@@ -1,6 +1,7 @@
 package org.xmlcml.cml.converters.text;
 
 import junit.framework.Assert;
+
 import nu.xom.Attribute;
 import nu.xom.Element;
 
@@ -375,7 +376,27 @@ public class TransformTest {
 			"<foo/>"
 			);
 	}
+
 	
+	@Test 
+	public void testCopy() {
+		runTest("copy", 
+				"<transform process='copy' xpath='./c[1]' toXpath='/foo/bar'/>",
+				"<foo><c id='c1'/><c id='c2'/><c id='c3'/><c id='c4'/><bar/></foo>",
+				"<foo><c id='c1'/><c id='c2'/><c id='c3'/><c id='c4'/><bar><c id='c1.copy'/></bar></foo>"
+				);
+	}
+	
+	@Test 
+	public void testCopy1() {
+		runTest("copy", 
+				"<transform process='copy' xpath='./c' toXpath='/foo/c'/>",
+				"<foo><c id='c1'/><c id='c2'/><c id='c3'/><c id='c4'/></foo>",
+				"<foo><c id='c1'><c id='c1.copy'/></c><c id='c2'><c id='c2.copy'/></c><c id='c3'><c id='c3.copy'/></c><c id='c4'><c id='c4.copy'/></c></foo>"
+				);
+	}
+	
+
 	@Test 
 	public void testCreateArray() {
 		Element foo = new Element("foo");
