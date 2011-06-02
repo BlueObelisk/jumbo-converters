@@ -1,5 +1,5 @@
 <template repeat="*"  name="Job information" id="job" 
-  pattern=" *Job information *$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*"
+  pattern="\s+Job information\s*$\s+\-+.*" endPattern="\s*$\s*"
   >
   <comment class="example.input" id="job">
                Job information
@@ -20,20 +20,44 @@
         time left     =     -1s
 
     </comment>
+  <comment class="example.input" id="job1">
+          Job information
+          ---------------
+
+   hostname      = cyclops
+   program       = /home/mw529/code/NWChem/nwchem-6.0/bin/LINUX64/nwchem
+   date          = Fri May 13 17:54:33 2011
+
+   compiled      = Fri_May_13_09:22:53_2011
+   source        = /home/mw529/code/NWChem/nwchem-6.0
+   nwchem branch = 6.0
+   input         = fukui.nw
+   prefix        = john_fukui.
+   data base     = ./john_fukui.db
+   status        = startup
+   nproc         =        1
+   time left     =     -1s
+
+
+  </comment>
+  
   <record repeat="3">{X}</record>
   <record id="host">\s*hostname\s*\=\s*{X,compchem:hostname}\s*</record>
   <record id="prog">\s*program\s*\=\s*{X,compchem:executable}\s*</record>
-  <record id="prog">\s*date\s*\=\s*{X,compchem:date}\s*</record>
+  <record id="date">\s*date\s*\=\s*{X,compchem:run.date}\s*</record>
   <record >{X}</record>
-  <record >{X}</record>
-  <record >{X}</record>
+  <record id="compiled">\s*compiled\s*\=\s*{X,compchem:compile.date}\s*</record>
+  <record id="source">\s*source\s*\=\s*{X,compchem:package.root}\s*</record>
   <record id="version">\s*nwchem branch\s*\=\s*{X,compchem:version}\s*</record>
   <record id="input">\s*input\s*\=\s*{X,compchem:input}\s*</record>
-  <record >{X}</record>
-  <record >{X}</record>
-  <record >{X}</record>
+  <record id="prefix">\s*prefix\s*\=\s*{X,n:prefix}\s*</record>
+  <record id="database">\s*data base\s*\=\s*{X,n:database}\s*</record>
+  <record id="startup">\s*status\s*\=\s*{X,n:startup}\s*</record>
   <record id="nproc">\s*nproc\s*\=\s*{X,compchem:nproc}\s*</record>
-  <record >{X}</record>
+  <record />
+  
+  <transform process="createArray" xpath=".//cml:scalar[@dictRef='compchem:run.date']" from="."/>
+  <transform process="addDictRef" xpath=".//@dictRef[.='compchem:program']" value="compchem:executable"/>
   
   <transform process="pullupSingleton" xpath="./*[@cmlx:templateRef='list1' or @cmlx:templateRef='list2']/cml:list"/>
   <transform process="pullupSingleton" xpath="./cml:list"/>
@@ -46,14 +70,35 @@
   <transform process="createDate" xpath="cml:list/cml:scalar[@dictRef='n:date']" value="xsd:date"/>
   
   <comment class="example.output" id="job">
-<module cmlx:templateRef="job" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <scalar dataType="xsd:string" dictRef="compchem:hostname" cmlx:templateRef="host">arcen</scalar>
-  <scalar dataType="xsd:string" dictRef="compchem:executable" cmlx:templateRef="prog">/home/d3y133/nwchem-releases/nwchem-6.0-gfortran/bin/LINUX64/nwchem</scalar>
-  <scalar dataType="xsd:string" dictRef="compchem:date" cmlx:templateRef="prog">Fri Aug 6 13:47:30 2010</scalar>
-  <scalar dataType="xsd:string" dictRef="compchem:version" cmlx:templateRef="version">6.0</scalar>
-  <scalar dataType="xsd:string" dictRef="compchem:input" cmlx:templateRef="input">dft_feco5.nw</scalar>
-  <scalar dataType="xsd:string" dictRef="compchem:nproc" cmlx:templateRef="nproc">4</scalar>
-</module>
-        </comment>
+    <module cmlx:templateRef="job" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="compchem:hostname" cmlx:templateRef="host">arcen</scalar>
+      <scalar dataType="xsd:string" dictRef="compchem:executable" cmlx:templateRef="prog">/home/d3y133/nwchem-releases/nwchem-6.0-gfortran/bin/LINUX64/nwchem</scalar>
+      <array dataType="xsd:string" size="5" dictRef="compchem:run.date" cmlx:templateRef="date">Fri Aug 6 13:47:30 2010</array>
+      <scalar dataType="xsd:string" dictRef="compchem:compile.date" cmlx:templateRef="compiled">Fri_Aug_06_13:42:42_2010</scalar>
+      <scalar dataType="xsd:string" dictRef="compchem:package.root" cmlx:templateRef="source">/home/d3y133/nwchem-releases/nwchem-6.0-gfortran</scalar>
+      <scalar dataType="xsd:string" dictRef="compchem:version" cmlx:templateRef="version">6.0</scalar>
+      <scalar dataType="xsd:string" dictRef="compchem:input" cmlx:templateRef="input">dft_feco5.nw</scalar>
+      <scalar dataType="xsd:string" dictRef="n:prefix" cmlx:templateRef="prefix">dft_feco5.</scalar>
+      <scalar dataType="xsd:string" dictRef="n:database" cmlx:templateRef="database">./dft_feco5.db</scalar>
+      <scalar dataType="xsd:string" dictRef="n:startup" cmlx:templateRef="startup">startup</scalar>
+      <scalar dataType="xsd:string" dictRef="compchem:nproc" cmlx:templateRef="nproc">4</scalar>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="job1">
+    <module cmlx:templateRef="job" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="compchem:hostname" cmlx:templateRef="host">cyclops</scalar>
+      <scalar dataType="xsd:string" dictRef="compchem:executable" cmlx:templateRef="prog">/home/mw529/code/NWChem/nwchem-6.0/bin/LINUX64/nwchem</scalar>
+      <array dataType="xsd:string" size="5" dictRef="compchem:run.date" cmlx:templateRef="date">Fri May 13 17:54:33 2011</array>
+      <scalar dataType="xsd:string" dictRef="compchem:compile.date" cmlx:templateRef="compiled">Fri_May_13_09:22:53_2011</scalar>
+      <scalar dataType="xsd:string" dictRef="compchem:package.root" cmlx:templateRef="source">/home/mw529/code/NWChem/nwchem-6.0</scalar>
+      <scalar dataType="xsd:string" dictRef="compchem:version" cmlx:templateRef="version">6.0</scalar>
+      <scalar dataType="xsd:string" dictRef="compchem:input" cmlx:templateRef="input">fukui.nw</scalar>
+      <scalar dataType="xsd:string" dictRef="n:prefix" cmlx:templateRef="prefix">john_fukui.</scalar>
+      <scalar dataType="xsd:string" dictRef="n:database" cmlx:templateRef="database">./john_fukui.db</scalar>
+      <scalar dataType="xsd:string" dictRef="n:startup" cmlx:templateRef="startup">startup</scalar>
+      <scalar dataType="xsd:string" dictRef="compchem:nproc" cmlx:templateRef="nproc">1</scalar>
+    </module>
+  </comment>
 
 </template>

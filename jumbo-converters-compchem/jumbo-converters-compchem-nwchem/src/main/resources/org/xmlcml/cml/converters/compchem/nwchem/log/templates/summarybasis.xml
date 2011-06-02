@@ -1,5 +1,5 @@
 <template repeat="*"  id="summarybasis" name="NWSummary of Basis" 
-  pattern=".*Summary of .*$\s+\-+.*" newline="$" endPattern="\s*">
+  pattern=".*Summary of .*$\s+\-+.*" endPattern="\s*">
 
   <comment class="example.input" id="summarybasis">
  Summary of "ao basis" -> "" (cartesian)
@@ -11,7 +11,7 @@
  fe                    DZVP (DFT Orbital)           10       26   5s3p2d
 
 </comment>
-  <record id="basis">\s*Summary of\s*{X,compchem:title}</record>
+  <record id="basis">\s*Summary of\s*{X,compchem:basistitle}</record>
   <record id="r1" repeat="3">{X}</record>
   <record id="orbs" repeat="*" makeArray="true">\s*{A,n:tag}\s+{X,n:desc}\s+{I,n:shell}\s+{I,n:func}\s+{A,n:type}\s*</record>
   <transform process="pullupSingleton" xpath="./cml:list"/>

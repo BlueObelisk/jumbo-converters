@@ -1,6 +1,8 @@
 package org.xmlcml.cml.converters.compchem.nwchem.log;
 
 import java.io.File;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -8,9 +10,11 @@ import nu.xom.Element;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.XML2XMLConverter;
 import org.xmlcml.cml.converters.text.XML2XMLTransformConverter;
 import org.xmlcml.cml.converters.util.ConverterUtils;
+import org.xmlcml.cml.testutil.JumboTestUtils;
 import org.xmlcml.euclid.Util;
 
 public class NWChemLogXML2CompchemConverter extends XML2XMLTransformConverter {
@@ -21,7 +25,7 @@ public class NWChemLogXML2CompchemConverter extends XML2XMLTransformConverter {
 
 	// dummy filename?
 	private static final String DEFAULT_TEMPLATE_RESOURCE = 
-		"org/xmlcml/cml/converters/compchem/nwchem/log/templates/compchemTemplate.xml";
+		"org/xmlcml/cml/converters/compchem/nwchem/log/templates/nwchem2compchem.xml";
 	
 	private static final String BASE_URI = 
 		"classpath:/"+DEFAULT_TEMPLATE_RESOURCE;
@@ -34,7 +38,7 @@ public class NWChemLogXML2CompchemConverter extends XML2XMLTransformConverter {
 	}
 	// dummy name?
 	public NWChemLogXML2CompchemConverter() {
-		this(BASE_URI, "templates/compchemTemplate.xml");
+		this(BASE_URI, "nwchem2compchem.xml");
 	}
 	
 	public NWChemLogXML2CompchemConverter(String baseUri, String templateName) {
@@ -82,12 +86,29 @@ public class NWChemLogXML2CompchemConverter extends XML2XMLTransformConverter {
 			"templates/"+args[1]);
 			converter.runTests(args[0]);
 		} else {
-			InputStream transformStream = Util.getResourceUsingContextClassLoader(
-					"org/xmlcml/cml/converters/compchem/nwchem/log/nwchem2compchem.xml", NWChemLogXML2CompchemConverter.class);
-			XML2XMLConverter converter = new NWChemLogXML2CompchemConverter(transformStream);
-			File in = new File("src/test/resources/compchem/nwchem/log/ref/ch3f_rot.cml");
-			File out = new File("test/ch3f_rot.compchem.xml");
-			converter.convert(in, out);
+			convert("ch3f", 
+					"org/xmlcml/cml/converters/compchem/nwchem/log/nwchem2compchem.xml",
+					"src/test/resources/compchem/nwchem/log/ref/ch3f_rot.cml",
+					"src/test/resources/compchem/nwchem/log/refcompchem/ch3f_rot.cml",
+					"test/ch3f_rot.compchem.xml");
+			convert("fukui", 
+					"org/xmlcml/cml/converters/compchem/nwchem/log/nwchem2compchem.xml",
+					"src/test/resources/compchem/nwchem/log/ref/fukuilite.xml",
+					"src/test/resources/compchem/nwchem/log/refcompchem/fukuilite.cml",
+					"test/fukuilite.compchem.xml");
 		}
+	}
+	
+	private static void convert(String title, String transformResource, String infilename, String reffilename,
+			String outfilename) throws FileNotFoundException, IOException {
+		InputStream transformStream = Util.getResourceUsingContextClassLoader(
+			transformResource, NWChemLogXML2CompchemConverter.class);
+		XML2XMLConverter converter = new NWChemLogXML2CompchemConverter(transformStream);
+		File in = new File(infilename);
+		File out = new File(outfilename);
+		converter.convert(in, out);
+		Element testNode = CMLUtil.parseQuietlyIntoCML(out);
+		Element refNode = CMLUtil.parseQuietlyIntoCML(new File(reffilename));
+//		JumboTestUtils.assertEqualsCanonically(title, refNode, testNode, true);
 	}
 }

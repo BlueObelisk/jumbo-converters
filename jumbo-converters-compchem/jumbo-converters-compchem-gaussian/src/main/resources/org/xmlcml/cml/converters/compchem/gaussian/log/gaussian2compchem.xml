@@ -152,7 +152,7 @@
   
   <transform process="addChild" xpath="//cml:module[@id='finalization']" elementName="cml:propertyList" />
 
-  <!-- move modules to finaliztion -->
+  <!-- move modules to finalization -->
   
   <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l601.popanal'][last()]" toXpath=".//cml:module[@id='finalization']"/> 
   <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l9999.final'][1]" toXpath=".//cml:module[@id='finalization']"/> 
@@ -185,7 +185,7 @@
        toXpath="//cml:module[@id='finalization']"/>
   
 
-
+ <!-- wrap all properties -->
   <transform process="createWrapperProperty" xpath="//cml:module[@id='finalization']/cml:propertyList/*" />  
 
 

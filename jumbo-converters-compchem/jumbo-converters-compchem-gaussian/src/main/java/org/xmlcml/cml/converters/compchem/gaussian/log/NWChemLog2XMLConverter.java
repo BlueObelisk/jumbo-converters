@@ -10,34 +10,34 @@ import org.xmlcml.cml.converters.compchem.CompchemText2XMLTemplateConverter;
 import org.xmlcml.cml.converters.text.Template;
 import org.xmlcml.cml.converters.util.ConverterUtils;
 
-public class GaussianLog2XMLConverter extends CompchemText2XMLTemplateConverter {
+public class NWChemLog2XMLConverter extends CompchemText2XMLTemplateConverter {
 
-	private static Logger LOG = Logger.getLogger(GaussianLog2XMLConverter.class);
+	private static Logger LOG = Logger.getLogger(NWChemLog2XMLConverter.class);
 	private static final String BASE_URI = 
 		"classpath:/org/xmlcml/cml/converters/compchem/gaussian/log/templates/topTemplate.xml";
 	
-	public GaussianLog2XMLConverter() {
+	public NWChemLog2XMLConverter() {
 		this(BASE_URI, "templates/topTemplate.xml");
 	}
 	
-	public GaussianLog2XMLConverter(String baseUri, String templateName) {
-		this(ConverterUtils.buildElementIncludingBaseUri(baseUri, templateName, GaussianLog2XMLConverter.class));
+	public NWChemLog2XMLConverter(String baseUri, String templateName) {
+		this(ConverterUtils.buildElementIncludingBaseUri(baseUri, templateName, NWChemLog2XMLConverter.class));
 	}
 	
-	public GaussianLog2XMLConverter(Element templateElement) {
+	public NWChemLog2XMLConverter(Element templateElement) {
 		super(templateElement);
 	}
 	
 	public static void main(String[] args) throws IOException {
 		if (args.length == 1) {
-			GaussianLog2XMLConverter converter = new GaussianLog2XMLConverter();
+			NWChemLog2XMLConverter converter = new NWChemLog2XMLConverter();
 			ConverterUtils.convertFilesInDirectory(converter, args[0], ".out", ".cml");
 		} else if (args.length == 2) {
-			GaussianLog2XMLConverter converter = new GaussianLog2XMLConverter(BASE_URI,
+			NWChemLog2XMLConverter converter = new NWChemLog2XMLConverter(BASE_URI,
 			"templates/"+args[1]);
 			ConverterUtils.convertFilesInDirectory(converter, args[0], ".out", ".cml");
 		} else {
-			CompchemText2XMLTemplateConverter converter = new GaussianLog2XMLConverter();
+			CompchemText2XMLTemplateConverter converter = new NWChemLog2XMLConverter();
 			File in = new File("src/test/resources/compchem/gaussian/log/in/anna0.log");
 			File out = new File("test/anna0.xml");
 			for (int i = 1; i < 21; i++) {

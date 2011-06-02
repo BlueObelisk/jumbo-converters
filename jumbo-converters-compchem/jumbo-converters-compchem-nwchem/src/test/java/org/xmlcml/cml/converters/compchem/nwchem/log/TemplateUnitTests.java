@@ -85,9 +85,10 @@ public class TemplateUnitTests {
    @Test public void testFockbuild()                             {runTemplateTest("fockbuild");}
    @Ignore @Test public void testFourindexWHITE()                {runTemplateTest("fourindex");}
    @Ignore @Test public void testFukuiWHITE()                    {runTemplateTest("fukui");}
+   @Test public void testFukuiLite()                             {runTemplateTest("fukuilite");}
    @Ignore @Test public void testGama()                          {runTemplateTest("gama");}
    @Ignore @Test public void testGastatsWHITE()                  {runTemplateTest("gastats");}
-   @Ignore @Test public void testGeninfoWHITE()                  {runTemplateTest("geninfo");}
+   @Test public void testGeninfoOK()                               {runTemplateTest("geninfo");}
    @Test public void testGeomOK()                                {runTemplateTest("geometry");}
    @Test public void testGeomopt()                               {runTemplateTest("geomopt");}
    @Test public void testGlobalarray()                           {runTemplateTest("globalarray");}
@@ -113,7 +114,7 @@ public class TemplateUnitTests {
    @Test public void testIternsubOK()                            {runTemplateTest("iternsub");}
    @Test public void testItersolOK()                             {runTemplateTest("itersol");}
    @Test public void testItol2eOK()                              {runTemplateTest("itol2e");}
-   @Ignore @Test public void testJobWHITE()                      {runTemplateTest("job");}
+   @Test public void testJobOK()                                 {runTemplateTest("job");}
    @Test public void testKineticenergyOK()                       {runTemplateTest("kineticenergy");}
    @Test public void testLatticeOK()                             {runTemplateTest("lattice");}
    @Test public void testLcubeOK()                               {runTemplateTest("lcube");}
