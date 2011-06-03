@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLUtil;
-import org.xmlcml.cml.converters.compchem.gaussian.log.NWChemLog2XMLConverter;
+import org.xmlcml.cml.converters.compchem.gaussian.log.GaussianLog2XMLConverter;
 import org.xmlcml.cml.converters.compchem.gaussian.log.GaussianLogXML2CompchemConverter;
 
 import java.io.InputStream;
@@ -25,7 +25,7 @@ public class CompChemConventionTest {
 		InputStream in = CompChemConventionTest.class.
 			getResourceAsStream("/compchem/gaussian/log/anna/1/output.log");
 		
-		NWChemLog2XMLConverter converter1 = new NWChemLog2XMLConverter();
+		GaussianLog2XMLConverter converter1 = new GaussianLog2XMLConverter();
 		Element e1 = converter1.convertToXML(in);
 		
 		GaussianLogXML2CompchemConverter converter2 = new GaussianLogXML2CompchemConverter();
