@@ -37,7 +37,7 @@ public class GaussianLogXML2CompchemConverter extends XML2XMLTransformConverter 
 
 
     public GaussianLogXML2CompchemConverter(String baseUri, String templateName) {
-        this(ConverterUtils.buildElementIncludingBaseUri(baseUri, templateName, NWChemLog2XMLConverter.class));
+        this(ConverterUtils.buildElementIncludingBaseUri(baseUri, templateName, GaussianLog2XMLConverter.class));
     }
 
     public GaussianLogXML2CompchemConverter(Element templateElement) {

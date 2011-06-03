@@ -1,6 +1,6 @@
 package org.xmlcml.cml.converters.compchem.gaussian;
 
-import org.xmlcml.cml.converters.compchem.gaussian.log.NWChemLog2XMLConverter;
+import org.xmlcml.cml.converters.compchem.gaussian.log.GaussianLog2XMLConverter;
 import org.xmlcml.cml.converters.registry.ConverterInfo;
 import org.xmlcml.cml.converters.registry.ConverterList;
 
@@ -17,7 +17,7 @@ public class GaussianConverters implements ConverterList {
 
     {
         List<ConverterInfo> list = new ArrayList<ConverterInfo>();
-        list.add(new ConverterInfo("gaussian-log", "gaussian-log-xml", NWChemLog2XMLConverter.class, "Gaussian Log to XML"));
+        list.add(new ConverterInfo("gaussian-log", "gaussian-log-xml", GaussianLog2XMLConverter.class, "Gaussian Log to XML"));
         this.list = Collections.unmodifiableList(list);
     }
 
