@@ -1,55 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module convention="conventions:compchem" cmlx:templateRef="nwchem.log" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:compchem="http://www.xml-cml.org/dictionary/compchem/" xmlns:cc="http://www.xml-cml.org/dictionary/compchem/" xmlns:n="http://www.xml-cml.org/dictionary/nwchem/" xmlns:x="http://www.xml-cml.org/dictionary/cmlx/" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:cml="http://www.xml-cml.org/schema" xmlns:xi="http://www.w3.org/2001/XInclude">
-  <module id="environment" dictRef="compchem:environment"/>
-  <module id="initialization" dictRef="compchem:initialization">
-    <parameterList id="initialParams"/>
-  </module>
-  <module id="calculation" dictRef="compchem:calculation"/>
-  <module id="finalization" dictRef="compchem:finalization">
-    <module id="fukui"/>
-    <propertyList id="finalProperties"/>
-  </module>
-  <module id="environment" dictRef="compchem:environment">
-    <module cmlx:lineCount="1" cmlx:templateRef="argument"/>
-    <module cmlx:lineCount="32" cmlx:templateRef="input">
-      <module cmlx:lineCount="1" cmlx:templateRef="whitespace"/>
-      <module cmlx:lineCount="1" cmlx:templateRef="echo"/>
-      <scalar dataType="xsd:string" dictRef="compchem:title" cmlx:templateRef="title">ch3fr</scalar>
-      <module cmlx:lineCount="1" cmlx:templateRef="whitespace"/>
-      <scalar dataType="xsd:string" dictRef="cc:pointgroup" cmlx:templateRef="geometry">c1</scalar>
-      <module cmlx:lineCount="1" cmlx:templateRef="whitespace"/>
-      <module cmlx:lineCount="3" cmlx:templateRef="input.basis">
-        <scalar dataType="xsd:string" dictRef="n:basiskeywords" cmlx:templateRef="basis">"ao basis" PRINT</scalar>
-        <list cmlx:templateRef="basisx">
+<module convention="convention:compchem" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:compchem="http://www.xml-cml.org/dictionary/compchem/" xmlns:cc="http://www.xml-cml.org/dictionary/compchem/" xmlns:n="http://www.xml-cml.org/dictionary/nwchem/" xmlns:x="http://www.xml-cml.org/dictionary/cmlx/" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:cml="http://www.xml-cml.org/schema" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:convention="http://www.xml-cml.org/convention/" xmlns:g="http://www.xml-cml.org/dictionary/compchem/gaussian" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nonsi="http://www.xml-cml.org/unit/nonSi/">
+  <module id="environment" dictRef="cc:environment">
+    <parameterList>
+      <parameter dictRef="compchem:package">
+        <scalar id="compchem.package" dataType="xsd:string">NWChem</scalar>
+      </parameter>
+    </parameterList>
+    <module/>
+    <module>
+      <module/>
+      <module/>
+      <scalar dataType="xsd:string" dictRef="compchem:title">ch3fr</scalar>
+      <module/>
+      <scalar dataType="xsd:string" dictRef="cc:pointgroup">c1</scalar>
+      <module/>
+      <module>
+        <scalar dataType="xsd:string" dictRef="n:basiskeywords">"ao basis" PRINT</scalar>
+        <list>
           <scalar dataType="xsd:string" dictRef="n:elem">*</scalar>
           <scalar dataType="xsd:string" dictRef="n:source">library</scalar>
           <scalar dataType="xsd:string" dictRef="n:basis">6-311G</scalar>
         </list>
       </module>
-      <module cmlx:lineCount="1" cmlx:templateRef="whitespace"/>
-      <scalar dataType="xsd:integer" dictRef="compchem:charge" cmlx:templateRef="charge">0</scalar>
-      <module cmlx:lineCount="1" cmlx:templateRef="whitespace"/>
-      <module cmlx:lineCount="3" cmlx:templateRef="input.dft"/>
-      <module cmlx:lineCount="1" cmlx:templateRef="whitespace"/>
-      <module cmlx:lineCount="3" cmlx:templateRef="input.property">
-        <scalar dataType="xsd:string" dictRef="n:propst" cmlx:templateRef="property">property</scalar>
-        <list cmlx:templateRef="propertyx">
+      <module/>
+      <scalar dataType="xsd:integer" dictRef="compchem:charge">0</scalar>
+      <module/>
+      <module/>
+      <module/>
+      <module>
+        <scalar dataType="xsd:string" dictRef="n:propst">property</scalar>
+        <list>
           <scalar dataType="xsd:string" dictRef="n:prop">shielding</scalar>
           <scalar dataType="xsd:string" dictRef="n:prop">end</scalar>
         </list>
       </module>
-      <module cmlx:lineCount="1" cmlx:templateRef="whitespace"/>
-      <scalar dataType="xsd:string" dictRef="n:task" cmlx:templateRef="task">dft property</scalar>
-      <module cmlx:lineCount="1" cmlx:templateRef="equals"/>
+      <module/>
+      <scalar dataType="xsd:string" dictRef="n:task">dft property</scalar>
+      <module/>
     </module>
-    <scalar dataType="xsd:string" dictRef="cc:citation" cmlx:templateRef="acknow">ACKNOWLEDGMENT</scalar>
-    <module cmlx:lineCount="19" cmlx:templateRef="job">
-      <scalar dataType="xsd:string" dictRef="compchem:executable" cmlx:templateRef="prog">../../../bin/LINUX64/nwchem</scalar>
-      <scalar dataType="xsd:string" dictRef="compchem:input" cmlx:templateRef="input">ch3f_rot.nw</scalar>
-      <scalar dataType="xsd:string" dictRef="compchem:nproc" cmlx:templateRef="nproc">4</scalar>
+    <scalar dataType="xsd:string" dictRef="cc:citation">ACKNOWLEDGMENT</scalar>
+    <module>
+      <scalar dataType="xsd:string" dictRef="compchem:executable">../../../bin/LINUX64/nwchem</scalar>
+      <scalar dataType="xsd:string" dictRef="compchem:input">ch3f_rot.nw</scalar>
+      <scalar dataType="xsd:string" dictRef="compchem:nproc">4</scalar>
     </module>
-    <module cmlx:lineCount="11" cmlx:templateRef="memory"/>
-    <list cmlx:templateRef="dirinfo">
+    <module/>
+    <list>
       <list>
         <scalar dataType="xsd:integer" dictRef="n:unknown">0</scalar>
         <scalar dataType="xsd:string" dictRef="n:disk">permanent</scalar>
@@ -61,108 +57,122 @@
         <scalar dataType="xsd:string" dictRef="n:directory">.</scalar>
       </list>
     </list>
+    <module id="environment.userDefined" dictRef="cc:userDefinedModule"/>
   </module>
-  <module id="initialization" dictRef="compchem:initialization">
-    <module cmlx:lineCount="4" cmlx:templateRef="nwcheminpmod"/>
-    <scalar dataType="xsd:string" dictRef="compchem:title" cmlx:templateRef="titlex">ch3fr</scalar>
-    <module cmlx:lineCount="2" cmlx:templateRef="gridpts">
-      <list cmlx:templateRef="scaling">
+  <module id="jobList1" dictRef="cc:jobList">
+    <module id="job1" dictRef="cc:job">
+      <module id="environment" dictRef="cc:environment">
+        <parameterList>
+          <parameter dictRef="compchem:package">
+            <scalar id="compchem.package" dataType="xsd:string">NWChem</scalar>
+          </parameter>
+        </parameterList>
+        <module id="environment.userDefined" dictRef="cc:userDefinedModule"/>
+      </module>
+      <module id="initialization" dictRef="cc:initialization">
+        <parameterList/>
+        <module id="initialization.userDefined" dictRef="cc:userDefinedModule"/>
+      </module>
+      <module id="calculation" dictRef="cc:calculation">
+        <propertyList/>
+        <module id="calculation.userDefined" dictRef="cc:userDefinedModule"/>
+      </module>
+      <module id="finalization" dictRef="cc:finalization">
+        <propertyList/>
+        <module id="finalization.userDefined" dictRef="cc:userDefinedModule">
+          <module id="eigenvector.list" dictRef="cc:eigenvector.list"/>
+          <module id="fukui.list" dictRef="cc:fukui.list"/>
+        </module>
+      </module>
+    </module>
+  </module>
+  <module id="initialization" dictRef="cc:initialization">
+    <scalar dataType="xsd:string" dictRef="compchem:title">ch3fr</scalar>
+    <module>
+      <list>
         <scalar dataType="xsd:string" dictRef="n:scalename">"geometry"</scalar>
         <scalar dataType="xsd:double" dictRef="n:scale">1.889725989</scalar>
       </list>
-      <scalar dataType="xsd:double" dictRef="n:invscale" cmlx:templateRef="invscaling">0.529177249</scalar>
+      <scalar dataType="xsd:double" dictRef="n:invscale">0.529177249</scalar>
     </module>
-    <scalar dataType="xsd:string" dictRef="n:autox" cmlx:templateRef="autosym">Turning</scalar>
-    <molecule id="molecule.geom" cmlx:templateRef="geom">
-      <atomArray>
-        <atom id="a1" elementType="C" x3="0.0" y3="0.0" z3="0.0">
-          <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">c</scalar>
-          <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">6</scalar>
-        </atom>
-        <atom id="a2" elementType="F" x3="1.19771313" y3="-0.44448763" z3="0.52971973">
-          <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">f</scalar>
-          <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">9</scalar>
-        </atom>
-        <atom id="a3" elementType="H" x3="-0.21385373" y3="0.98738914" z3="0.39826283">
-          <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">h</scalar>
-          <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
-        </atom>
-        <atom id="a4" elementType="H" x3="-0.78597592" y3="-0.6944829" z3="0.28059107">
-          <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">h</scalar>
-          <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
-        </atom>
-        <atom id="a5" elementType="H" x3="0.09050298" y3="0.04455726" z3="-1.08102723">
-          <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">h</scalar>
-          <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
-        </atom>
-      </atomArray>
-      <formula formalCharge="0" concise="C 1 H 3 F 1">
-        <atomArray elementType="C H F" count="1.0 3.0 1.0"/>
-      </formula>
-      <bondArray>
-        <bond atomRefs2="a1 a2" id="a1_a2" order="S"/>
-        <bond atomRefs2="a1 a3" id="a1_a3" order="S"/>
-        <bond atomRefs2="a1 a4" id="a1_a4" order="S"/>
-        <bond atomRefs2="a1 a5" id="a1_a5" order="S"/>
-      </bondArray>
-      <property dictRef="cml:molmass">
-        <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">34.0329232</scalar>
-      </property>
-    </molecule>
-    <list cmlx:lineCount="3" cmlx:templateRef="atmass">
-      <array dataType="xsd:string" dictRef="n:tag" size="3" delimiter="">c f h</array>
-      <array dataType="xsd:double" dictRef="cc:mass" size="3" delimiter="">12.0 18.9984 1.007825</array>
+    <scalar dataType="xsd:string" dictRef="n:autox">Turning</scalar>
+    <list>
+      <molecule id="molecule.geom">
+        <atomArray>
+          <atom id="a1" elementType="C" x3="0.0" y3="0.0" z3="0.0"/>
+          <atom id="a2" elementType="F" x3="1.19771313" y3="-0.44448763" z3="0.52971973"/>
+          <atom id="a3" elementType="H" x3="-0.21385373" y3="0.98738914" z3="0.39826283"/>
+          <atom id="a4" elementType="H" x3="-0.78597592" y3="-0.6944829" z3="0.28059107"/>
+          <atom id="a5" elementType="H" x3="0.09050298" y3="0.04455726" z3="-1.08102723"/>
+        </atomArray>
+        <formula formalCharge="0" concise="C 1 H 3 F 1">
+          <atomArray elementType="C H F" count="1.0 3.0 1.0"/>
+        </formula>
+        <bondArray>
+          <bond atomRefs2="a1 a2" id="a1_a2" order="S"/>
+          <bond atomRefs2="a1 a3" id="a1_a3" order="S"/>
+          <bond atomRefs2="a1 a4" id="a1_a4" order="S"/>
+          <bond atomRefs2="a1 a5" id="a1_a5" order="S"/>
+        </bondArray>
+        <property dictRef="cml:molmass">
+          <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">34.0329232</scalar>
+        </property>
+      </molecule>
     </list>
-    <scalar dataType="xsd:double" dictRef="n:effnucrep" cmlx:templateRef="effnucrep">37.4174026491</scalar>
-    <property dictRef="cc:nuclearDipole" cmlx:templateRef="nucdipole">
+    <list>
+      <array dataType="xsd:string" dictRef="n:tag" size="3">c f h</array>
+      <array dataType="xsd:double" dictRef="cc:mass" size="3">12.0 18.9984 1.007825</array>
+    </list>
+    <scalar dataType="xsd:double" dictRef="n:effnucrep">37.4174026491</scalar>
+    <property dictRef="cc:nuclearDipole">
       <scalar dataType="xsd:double" dictRef="cmlx:length">21.537207019486395</scalar>
       <vector3>18.6517684172 -6.921924888 8.2492288704</vector3>
     </property>
-    <module cmlx:lineCount="9" cmlx:templateRef="xyz">
-      <scalar dataType="xsd:integer" dictRef="compchem:natoms" cmlx:templateRef="atoms">5</scalar>
-      <scalar dataType="xsd:string" dictRef="n:geomtype" cmlx:templateRef="geo">geometry</scalar>
-      <list cmlx:lineCount="5" cmlx:templateRef="mol">
-        <array dataType="xsd:string" dictRef="compchem:atomtype" size="5" delimiter="">c f h h h</array>
-        <array dataType="xsd:double" dictRef="compchem:x3" size="5" delimiter="">0.0 1.19771313 -0.21385373 -0.78597592 0.09050298</array>
-        <array dataType="xsd:double" dictRef="compchem:y3" size="5" delimiter="">0.0 -0.44448763 0.98738914 -0.6944829 0.04455726</array>
-        <array dataType="xsd:double" dictRef="compchem:z3" size="5" delimiter="">0.0 0.52971973 0.39826283 0.28059107 -1.08102723</array>
+    <module>
+      <scalar dataType="xsd:integer" dictRef="compchem:natoms">5</scalar>
+      <scalar dataType="xsd:string" dictRef="n:geomtype">geometry</scalar>
+      <list>
+        <array dataType="xsd:string" dictRef="compchem:atomtype" size="5">c f h h h</array>
+        <array dataType="xsd:double" dictRef="compchem:x3" size="5">0.0 1.19771313 -0.21385373 -0.78597592 0.09050298</array>
+        <array dataType="xsd:double" dictRef="compchem:y3" size="5">0.0 -0.44448763 0.98738914 -0.6944829 0.04455726</array>
+        <array dataType="xsd:double" dictRef="compchem:z3" size="5">0.0 0.52971973 0.39826283 0.28059107 -1.08102723</array>
       </list>
     </module>
-    <module cmlx:lineCount="12" cmlx:templateRef="internuc">
-      <list cmlx:lineCount="4" cmlx:templateRef="dist">
-        <array dataType="xsd:integer" dictRef="n:ser1" size="4" delimiter="">2 3 4 5</array>
-        <array dataType="xsd:string" dictRef="n:elem1" size="4" delimiter="">f h h h</array>
-        <array dataType="xsd:integer" dictRef="n:ser2" size="4" delimiter="">1 1 1 1</array>
-        <array dataType="xsd:string" dictRef="n:elem2" size="4" delimiter="">c c c c</array>
-        <array dataType="xsd:double" dictRef="n:dist1" size="4" delimiter="">2.61349 2.05214 2.05172 2.05172</array>
-        <array dataType="xsd:double" dictRef="n:dist1" size="4" delimiter="">1.383 1.08595 1.08572 1.08572</array>
+    <module>
+      <list>
+        <array dataType="xsd:integer" dictRef="n:ser1" size="4">2 3 4 5</array>
+        <array dataType="xsd:string" dictRef="n:elem1" size="4">f h h h</array>
+        <array dataType="xsd:integer" dictRef="n:ser2" size="4">1 1 1 1</array>
+        <array dataType="xsd:string" dictRef="n:elem2" size="4">c c c c</array>
+        <array dataType="xsd:double" dictRef="n:dist1" size="4">2.61349 2.05214 2.05172 2.05172</array>
+        <array dataType="xsd:double" dictRef="n:dist1" size="4">1.383 1.08595 1.08572 1.08572</array>
       </list>
-      <scalar dataType="xsd:integer" dictRef="n:count" cmlx:templateRef="rlx">4</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:count">4</scalar>
     </module>
-    <module cmlx:lineCount="14" cmlx:templateRef="internucang">
-      <list cmlx:lineCount="6" cmlx:templateRef="dist">
-        <array dataType="xsd:integer" dictRef="n:ser1" size="6" delimiter="">2 2 2 3 3 4</array>
-        <array dataType="xsd:string" dictRef="n:elem1" size="6" delimiter="">f f f h h h</array>
-        <array dataType="xsd:integer" dictRef="n:ser2" size="6" delimiter="">1 1 1 1 1 1</array>
-        <array dataType="xsd:string" dictRef="n:elem2" size="6" delimiter="">c c c c c c</array>
-        <array dataType="xsd:integer" dictRef="n:ser3" size="6" delimiter="">3 4 5 4 5 5</array>
-        <array dataType="xsd:string" dictRef="n:elem3" size="6" delimiter="">h h h h h h</array>
-        <array dataType="xsd:double" dictRef="n:ang1" size="6" delimiter="">108.8 108.81 108.81 110.14 110.14 110.12</array>
+    <module>
+      <list>
+        <array dataType="xsd:integer" dictRef="n:ser1" size="6">2 2 2 3 3 4</array>
+        <array dataType="xsd:string" dictRef="n:elem1" size="6">f f f h h h</array>
+        <array dataType="xsd:integer" dictRef="n:ser2" size="6">1 1 1 1 1 1</array>
+        <array dataType="xsd:string" dictRef="n:elem2" size="6">c c c c c c</array>
+        <array dataType="xsd:integer" dictRef="n:ser3" size="6">3 4 5 4 5 5</array>
+        <array dataType="xsd:string" dictRef="n:elem3" size="6">h h h h h h</array>
+        <array dataType="xsd:double" dictRef="n:ang1" size="6">108.8 108.81 108.81 110.14 110.14 110.12</array>
       </list>
-      <scalar dataType="xsd:integer" dictRef="n:nangle" cmlx:templateRef="rl1">6</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:nangle">6</scalar>
     </module>
-    <scalar dataType="xsd:string" dictRef="n:libname" cmlx:templateRef="libraryname">environment</scalar>
-    <scalar dataType="xsd:string" dictRef="n:libfile" cmlx:templateRef="library file">&lt;/home/niri/nwchem/nwchem-6.0_new/src/basis/libraries/&gt;</scalar>
-    <scalar dataType="xsd:string" dictRef="compchem:title" cmlx:templateRef="summary">"ao basis" -&gt; "" (cartesian)</scalar>
-    <module cmlx:lineCount="9" cmlx:templateRef="property"/>
-    <scalar dataType="xsd:string" dictRef="cc:title" cmlx:templateRef="dft">ch3fr</scalar>
-    <module cmlx:lineCount="67" cmlx:templateRef="basis">
-      <list cmlx:templateRef="elem">
+    <scalar dataType="xsd:string" dictRef="n:libname">environment</scalar>
+    <scalar dataType="xsd:string" dictRef="n:libfile">&lt;/home/niri/nwchem/nwchem-6.0_new/src/basis/libraries/&gt;</scalar>
+    <scalar dataType="xsd:string" dictRef="compchem:title">"ao basis" -&gt; "" (cartesian)</scalar>
+    <module/>
+    <scalar dataType="xsd:string" dictRef="cc:title">ch3fr</scalar>
+    <module>
+      <list>
         <scalar dataType="xsd:string" dictRef="n:tag">c</scalar>
         <scalar dataType="xsd:string" dictRef="n:elem">Carbon</scalar>
       </list>
-      <module cmlx:lineCount="25" cmlx:templateRef="exponent">
-        <list cmlx:templateRef="shell">
+      <module>
+        <list>
           <list>
             <scalar dataType="xsd:integer" dictRef="n:shell">1</scalar>
             <scalar dataType="xsd:string" dictRef="n:orb">S</scalar>
@@ -200,7 +210,7 @@
             <scalar dataType="xsd:double" dictRef="n:wt">0.0</scalar>
           </list>
         </list>
-        <list cmlx:templateRef="shell">
+        <list>
           <list>
             <scalar dataType="xsd:integer" dictRef="n:shell">2</scalar>
             <scalar dataType="xsd:string" dictRef="n:orb">S</scalar>
@@ -220,7 +230,7 @@
             <scalar dataType="xsd:double" dictRef="n:wt">0.0</scalar>
           </list>
         </list>
-        <list cmlx:templateRef="shell">
+        <list>
           <list>
             <scalar dataType="xsd:integer" dictRef="n:shell">3</scalar>
             <scalar dataType="xsd:string" dictRef="n:orb">P</scalar>
@@ -240,37 +250,37 @@
             <scalar dataType="xsd:double" dictRef="n:wt">0.0</scalar>
           </list>
         </list>
-        <list cmlx:templateRef="shell">
+        <list>
           <scalar dataType="xsd:integer" dictRef="n:shell">4</scalar>
           <scalar dataType="xsd:string" dictRef="n:orb">S</scalar>
           <scalar dataType="xsd:double" dictRef="n:exp">4.83456</scalar>
           <scalar dataType="xsd:double" dictRef="n:wt">0.0</scalar>
         </list>
-        <list cmlx:templateRef="shell">
+        <list>
           <scalar dataType="xsd:integer" dictRef="n:shell">5</scalar>
           <scalar dataType="xsd:string" dictRef="n:orb">P</scalar>
           <scalar dataType="xsd:double" dictRef="n:exp">4.83456</scalar>
           <scalar dataType="xsd:double" dictRef="n:wt">0.0</scalar>
         </list>
-        <list cmlx:templateRef="shell">
+        <list>
           <scalar dataType="xsd:integer" dictRef="n:shell">6</scalar>
           <scalar dataType="xsd:string" dictRef="n:orb">S</scalar>
           <scalar dataType="xsd:double" dictRef="n:exp">1.45585</scalar>
           <scalar dataType="xsd:double" dictRef="n:wt">0.0</scalar>
         </list>
-        <list cmlx:templateRef="shell">
+        <list>
           <scalar dataType="xsd:integer" dictRef="n:shell">7</scalar>
           <scalar dataType="xsd:string" dictRef="n:orb">P</scalar>
           <scalar dataType="xsd:double" dictRef="n:exp">1.45585</scalar>
           <scalar dataType="xsd:double" dictRef="n:wt">0.0</scalar>
         </list>
       </module>
-      <list cmlx:templateRef="elem">
+      <list>
         <scalar dataType="xsd:string" dictRef="n:tag">f</scalar>
         <scalar dataType="xsd:string" dictRef="n:elem">Fluorine</scalar>
       </list>
-      <module cmlx:lineCount="25" cmlx:templateRef="exponent">
-        <list cmlx:templateRef="shell">
+      <module>
+        <list>
           <list>
             <scalar dataType="xsd:integer" dictRef="n:shell">1</scalar>
             <scalar dataType="xsd:string" dictRef="n:orb">S</scalar>
@@ -308,7 +318,7 @@
             <scalar dataType="xsd:double" dictRef="n:wt">0.0</scalar>
           </list>
         </list>
-        <list cmlx:templateRef="shell">
+        <list>
           <list>
             <scalar dataType="xsd:integer" dictRef="n:shell">2</scalar>
             <scalar dataType="xsd:string" dictRef="n:orb">S</scalar>
@@ -328,7 +338,7 @@
             <scalar dataType="xsd:double" dictRef="n:wt">0.0</scalar>
           </list>
         </list>
-        <list cmlx:templateRef="shell">
+        <list>
           <list>
             <scalar dataType="xsd:integer" dictRef="n:shell">3</scalar>
             <scalar dataType="xsd:string" dictRef="n:orb">P</scalar>
@@ -348,36 +358,36 @@
             <scalar dataType="xsd:double" dictRef="n:wt">0.0</scalar>
           </list>
         </list>
-        <list cmlx:templateRef="shell">
+        <list>
           <scalar dataType="xsd:integer" dictRef="n:shell">4</scalar>
           <scalar dataType="xsd:string" dictRef="n:orb">S</scalar>
           <scalar dataType="xsd:double" dictRef="n:exp">1.16545</scalar>
           <scalar dataType="xsd:double" dictRef="n:wt">0.0</scalar>
         </list>
-        <list cmlx:templateRef="shell">
+        <list>
           <scalar dataType="xsd:integer" dictRef="n:shell">5</scalar>
           <scalar dataType="xsd:string" dictRef="n:orb">P</scalar>
           <scalar dataType="xsd:double" dictRef="n:exp">1.16545</scalar>
           <scalar dataType="xsd:double" dictRef="n:wt">0.0</scalar>
         </list>
-        <list cmlx:templateRef="shell">
+        <list>
           <scalar dataType="xsd:integer" dictRef="n:shell">6</scalar>
           <scalar dataType="xsd:string" dictRef="n:orb">S</scalar>
           <scalar dataType="xsd:double" dictRef="n:exp">3.21892</scalar>
           <scalar dataType="xsd:double" dictRef="n:wt">0.0</scalar>
         </list>
-        <list cmlx:templateRef="shell">
+        <list>
           <scalar dataType="xsd:integer" dictRef="n:shell">7</scalar>
           <scalar dataType="xsd:string" dictRef="n:orb">P</scalar>
           <scalar dataType="xsd:double" dictRef="n:exp">3.21892</scalar>
           <scalar dataType="xsd:double" dictRef="n:wt">0.0</scalar>
         </list>
       </module>
-      <list cmlx:templateRef="elem">
+      <list>
         <scalar dataType="xsd:string" dictRef="n:tag">h</scalar>
         <scalar dataType="xsd:string" dictRef="n:elem">Hydrogen</scalar>
       </list>
-      <module cmlx:lineCount="1" cmlx:templateRef="exponent"/>
+      <module/>
       <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> -------------- ---------------------------------------------------------</scalar>
       <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> 1 S 3.38650000E+01 0.025494</scalar>
       <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> 1 S 5.09479000E+00 0.190373</scalar>
@@ -385,18 +395,18 @@
       <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> 2 S 3.25840000E-01 1.000000</scalar>
       <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> 3 S 1.02741000E-01 1.000000</scalar>
     </module>
-    <module cmlx:lineCount="7" cmlx:templateRef="summary">
-      <scalar dataType="xsd:string" dictRef="compchem:title" cmlx:templateRef="basis">"ao basis" -&gt; "ao basis" (cartesian)</scalar>
-      <list cmlx:lineCount="3" cmlx:templateRef="orbs">
-        <array dataType="xsd:string" dictRef="n:tag" size="3" delimiter="">c f h</array>
-        <array dataType="xsd:string" dictRef="n:desc" size="3" delimiter="">6-311G 6-311G 6-311G</array>
-        <array dataType="xsd:integer" dictRef="n:shell" size="3" delimiter="">7 7 3</array>
-        <array dataType="xsd:integer" dictRef="n:func" size="3" delimiter="">13 13 3</array>
-        <array dataType="xsd:string" dictRef="n:type" size="3" delimiter="">4s3p 4s3p 3s</array>
+    <module>
+      <scalar dataType="xsd:string" dictRef="compchem:title">"ao basis" -&gt; "ao basis" (cartesian)</scalar>
+      <list>
+        <array dataType="xsd:string" dictRef="n:tag" size="3">c f h</array>
+        <array dataType="xsd:string" dictRef="n:desc" size="3">6-311G 6-311G 6-311G</array>
+        <array dataType="xsd:integer" dictRef="n:shell" size="3">7 7 3</array>
+        <array dataType="xsd:integer" dictRef="n:func" size="3">13 13 3</array>
+        <array dataType="xsd:string" dictRef="n:type" size="3">4s3p 4s3p 3s</array>
       </list>
     </module>
-    <scalar dataType="xsd:string" dictRef="n:caching" cmlx:templateRef="caching">Caching</scalar>
-    <list cmlx:templateRef="geninfo">
+    <scalar dataType="xsd:string" dictRef="n:caching">Caching</scalar>
+    <list>
       <scalar dataType="xsd:string" dictRef="n:name">SCF calculation type: DFT</scalar>
       <scalar dataType="xsd:string" dictRef="n:name">Wavefunction type: closed shell.</scalar>
       <scalar dataType="xsd:string" dictRef="n:name">No. of atoms : 5</scalar>
@@ -413,7 +423,7 @@
       <scalar dataType="xsd:string" dictRef="n:name">Convergence on density requested: 1.00D-05</scalar>
       <scalar dataType="xsd:string" dictRef="n:name">Convergence on gradient requested: 1.00D-06</scalar>
     </list>
-    <module cmlx:lineCount="1" cmlx:templateRef="xcinfo"/>
+    <module/>
     <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> --------------</scalar>
     <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> B3LYP Method XC Potential</scalar>
     <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> Hartree-Fock (Exact) Exchange 0.200 </scalar>
@@ -421,121 +431,121 @@
     <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> Becke 1988 Exchange Functional 0.720 non-local</scalar>
     <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> Lee-Yang-Parr Correlation Functional 0.810 </scalar>
     <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> VWN I RPA Correlation Functional 0.190 local </scalar>
-    <module cmlx:lineCount="14" cmlx:templateRef="grid">
-      <scalar dataType="xsd:string" dictRef="n:gridxcinteg" cmlx:templateRef="gridxcinteg">fine</scalar>
-      <scalar dataType="xsd:string" dictRef="n:radquad" cmlx:templateRef="radquad">Mura-Knowles</scalar>
-      <scalar dataType="xsd:string" dictRef="n:angquad" cmlx:templateRef="angquad">Lebedev.</scalar>
-      <list cmlx:lineCount="3" cmlx:templateRef="rad">
-        <array dataType="xsd:string" dictRef="n:tag" size="3" delimiter="">c f h</array>
-        <array dataType="xsd:double" dictRef="n:bsrad" size="3" delimiter="">0.7 0.5 0.35</array>
-        <array dataType="xsd:integer" dictRef="n:radpts" size="3" delimiter="">70 70 60</array>
-        <array dataType="xsd:double" dictRef="n:radcut" size="3" delimiter="">7.0 7.0 8.0</array>
-        <array dataType="xsd:integer" dictRef="n:angpts" size="3" delimiter="">590 590 590</array>
+    <module>
+      <scalar dataType="xsd:string" dictRef="n:gridxcinteg">fine</scalar>
+      <scalar dataType="xsd:string" dictRef="n:radquad">Mura-Knowles</scalar>
+      <scalar dataType="xsd:string" dictRef="n:angquad">Lebedev.</scalar>
+      <list>
+        <array dataType="xsd:string" dictRef="n:tag" size="3">c f h</array>
+        <array dataType="xsd:double" dictRef="n:bsrad" size="3">0.7 0.5 0.35</array>
+        <array dataType="xsd:integer" dictRef="n:radpts" size="3">70 70 60</array>
+        <array dataType="xsd:double" dictRef="n:radcut" size="3">7.0 7.0 8.0</array>
+        <array dataType="xsd:integer" dictRef="n:angpts" size="3">590 590 590</array>
       </list>
-      <scalar dataType="xsd:string" dictRef="n:gridprun" cmlx:templateRef="gridprun">on</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:quadshells" cmlx:templateRef="quadshells">320</scalar>
-      <scalar dataType="xsd:string" dictRef="n:spatwt" cmlx:templateRef="spatwt">Erf1</scalar>
+      <scalar dataType="xsd:string" dictRef="n:gridprun">on</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:quadshells">320</scalar>
+      <scalar dataType="xsd:string" dictRef="n:spatwt">Erf1</scalar>
     </module>
-    <module cmlx:lineCount="15" cmlx:templateRef="converge">
-      <scalar dataType="xsd:string" dictRef="n:deon" cmlx:templateRef="deon">start ASAP start</scalar>
-      <scalar dataType="xsd:string" dictRef="n:deoff" cmlx:templateRef="deoff">2 iters 30 iters 30 iters</scalar>
+    <module>
+      <scalar dataType="xsd:string" dictRef="n:deon">start ASAP start</scalar>
+      <scalar dataType="xsd:string" dictRef="n:deoff">2 iters 30 iters 30 iters</scalar>
     </module>
-    <list cmlx:templateRef="screentol">
+    <list>
       <scalar dictRef="n:tolrho" dataType="xsd:string">1.00D-11</scalar>
       <scalar dictRef="n:accaofunc" dataType="xsd:string">16</scalar>
       <scalar dictRef="n:acccdfunc" dataType="xsd:string">20</scalar>
       <scalar dictRef="n:accxcfunc" dataType="xsd:string">20</scalar>
       <scalar dictRef="n:acccoul" dataType="xsd:string">1.00D-08</scalar>
     </list>
-    <module cmlx:lineCount="1" cmlx:templateRef="superposatomguess"/>
+    <module/>
     <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> -------------------------------------</scalar>
     <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> Sum of atomic energies: -138.57325452</scalar>
-    <list cmlx:templateRef="nonvarinitener">
+    <list>
       <scalar dictRef="cc:totalener" dataType="xsd:string">-139.229769</scalar>
       <scalar dictRef="cc:oneeener" dataType="xsd:string">-264.952728</scalar>
       <scalar dictRef="cc:twoeener" dataType="xsd:string">88.305556</scalar>
       <scalar dictRef="n:HOMO" dataType="xsd:string">-0.441631</scalar>
       <scalar dictRef="n:LUMO" dataType="xsd:string">0.112239</scalar>
     </list>
-    <module cmlx:lineCount="4" cmlx:templateRef="integralfile">
-      <scalar dataType="xsd:string" dictRef="n:integralfile" cmlx:templateRef="integral">./ch3f_rot.aoints.0</scalar>
-      <list cmlx:templateRef="recsize">
+    <module>
+      <scalar dataType="xsd:string" dictRef="n:integralfile">./ch3f_rot.aoints.0</scalar>
+      <list>
         <scalar dataType="xsd:integer" dictRef="n:recordsize">65536</scalar>
         <scalar dataType="xsd:integer" dictRef="n:integsperrec">43688</scalar>
       </list>
-      <list cmlx:templateRef="maxrec">
+      <list>
         <scalar dataType="xsd:integer" dictRef="n:maxinmem">3</scalar>
         <scalar dataType="xsd:integer" dictRef="n:maxrec">5710</scalar>
       </list>
-      <list cmlx:templateRef="bits">
+      <list>
         <scalar dataType="xsd:integer" dictRef="n:bitslabel">8</scalar>
         <scalar dataType="xsd:integer" dictRef="n:bitsperval">64</scalar>
       </list>
     </module>
-    <list cmlx:templateRef="quartets">
+    <list>
       <scalar dataType="xsd:double" dictRef="n:quartet">37140.0</scalar>
       <scalar dataType="xsd:double" dictRef="n:integrals">196600.0</scalar>
       <scalar dataType="xsd:double" dictRef="n:direct">0.0</scalar>
       <scalar dataType="xsd:double" dictRef="n:cached">100.0</scalar>
     </list>
-    <list cmlx:templateRef="filebalance">
+    <list>
       <scalar dataType="xsd:integer" dictRef="n:exchanges">0</scalar>
       <scalar dataType="xsd:integer" dictRef="n:moved">0</scalar>
       <scalar dataType="xsd:double" dictRef="n:time">0.0</scalar>
     </list>
-    <scalar dataType="xsd:string" dictRef="n:gridfile" cmlx:templateRef="gridpts">./ch3f_rot.gridpts.0</scalar>
-    <module cmlx:lineCount="2" cmlx:templateRef="recordsize">
-      <list cmlx:templateRef="recordsize">
+    <scalar dataType="xsd:string" dictRef="n:gridfile">./ch3f_rot.gridpts.0</scalar>
+    <module>
+      <list>
         <scalar dataType="xsd:integer" dictRef="n:recordsize">12289</scalar>
         <scalar dataType="xsd:integer" dictRef="n:ngridpts">3070</scalar>
       </list>
-      <list cmlx:templateRef="maxrecord">
+      <list>
         <scalar dataType="xsd:integer" dictRef="n:maxrecmem">18</scalar>
         <scalar dataType="xsd:integer" dictRef="n:maxrecfile">30458</scalar>
       </list>
     </module>
-    <module cmlx:lineCount="2" cmlx:templateRef="integdens">
-      <scalar dataType="xsd:double" dictRef="n:integdenserr" cmlx:templateRef="integdens">1.2E-7</scalar>
-      <scalar dataType="xsd:double" dictRef="n:reqdacc" cmlx:templateRef="reqdacc">1.0E-7</scalar>
+    <module>
+      <scalar dataType="xsd:double" dictRef="n:integdenserr">1.2E-7</scalar>
+      <scalar dataType="xsd:double" dictRef="n:reqdacc">1.0E-7</scalar>
     </module>
-    <module cmlx:lineCount="3" cmlx:templateRef="memory1">
-      <scalar dataType="xsd:string" dictRef="n:memory1a" cmlx:templateRef="memory1a">1st SCF pass:</scalar>
-      <list cmlx:templateRef="heap">
+    <module>
+      <scalar dataType="xsd:string" dictRef="n:memory1a">1st SCF pass:</scalar>
+      <list>
         <scalar dataType="xsd:double" dictRef="n:heap">12.69</scalar>
         <scalar dataType="xsd:double" dictRef="n:heap">1.2687447E7</scalar>
       </list>
-      <list cmlx:templateRef="heap">
+      <list>
         <scalar dataType="xsd:double" dictRef="n:stack">13.11</scalar>
         <scalar dataType="xsd:double" dictRef="n:stack">1.3106861E7</scalar>
       </list>
     </module>
-    <module cmlx:lineCount="23" cmlx:templateRef="convergenceiter">
-      <list cmlx:lineCount="7" cmlx:templateRef="converge">
-        <array dataType="xsd:integer" dictRef="n:d" size="7" delimiter="">0 0 0 0 0 0 0</array>
-        <array dataType="xsd:double" dictRef="n:ls" size="7" delimiter="">0.0 0.0 0.0 0.0 0.0 0.0 0.0</array>
-        <array dataType="xsd:integer" dictRef="n:iter" size="7" delimiter="">1 2 3 4 5 6 7</array>
-        <array dataType="xsd:double" dictRef="n:ener" size="7" delimiter="">-139.7045934733 -139.6932280903 -139.7494357202 -139.7513770077 -139.7515473571 -139.7515541974 -139.7515542067</array>
-        <array dataType="xsd:double" dictRef="n:deltae" size="7" delimiter="">-177.0 0.0114 -0.0562 -0.00194 -1.7E-4 -6.84E-6 -9.26E-9</array>
-        <array dataType="xsd:double" dictRef="n:rms" size="7" delimiter="">0.0178 0.0102 0.00159 6.05E-4 1.23E-4 5.16E-6 3.75E-7</array>
-        <array dataType="xsd:double" dictRef="n:diserr" size="7" delimiter="">0.505 0.668 0.0342 0.00159 7.02E-5 8.53E-8 1.74E-10</array>
-        <array dataType="xsd:double" dictRef="n:time" size="7" delimiter="">0.4 0.7 0.9 1.1 1.3 1.6 1.8</array>
+    <module>
+      <list>
+        <array dataType="xsd:integer" dictRef="n:d" size="7">0 0 0 0 0 0 0</array>
+        <array dataType="xsd:double" dictRef="n:ls" size="7">0.0 0.0 0.0 0.0 0.0 0.0 0.0</array>
+        <array dataType="xsd:integer" dictRef="n:iter" size="7">1 2 3 4 5 6 7</array>
+        <array dataType="xsd:double" dictRef="n:ener" size="7">-139.7045934733 -139.6932280903 -139.7494357202 -139.7513770077 -139.7515473571 -139.7515541974 -139.7515542067</array>
+        <array dataType="xsd:double" dictRef="n:deltae" size="7">-177.0 0.0114 -0.0562 -0.00194 -1.7E-4 -6.84E-6 -9.26E-9</array>
+        <array dataType="xsd:double" dictRef="n:rms" size="7">0.0178 0.0102 0.00159 6.05E-4 1.23E-4 5.16E-6 3.75E-7</array>
+        <array dataType="xsd:double" dictRef="n:diserr" size="7">0.505 0.668 0.0342 0.00159 7.02E-5 8.53E-8 1.74E-10</array>
+        <array dataType="xsd:double" dictRef="n:time" size="7">0.4 0.7 0.9 1.1 1.3 1.6 1.8</array>
       </list>
-      <scalar dataType="xsd:double" dictRef="n:totdft" cmlx:templateRef="energies">-139.751554206706</scalar>
-      <scalar dataType="xsd:double" dictRef="n:oneelec" cmlx:templateRef="oneelec">-266.590801864453</scalar>
-      <scalar dataType="xsd:double" dictRef="n:coulomb" cmlx:templateRef="coulomb">106.458589537673</scalar>
-      <scalar dataType="xsd:double" dictRef="n:xcener" cmlx:templateRef="xcener">-17.036744529003</scalar>
-      <scalar dataType="xsd:double" dictRef="n:nucrep" cmlx:templateRef="nucrep">37.417402649077</scalar>
-      <scalar dataType="xsd:double" dictRef="n:numintegdens" cmlx:templateRef="numintegdens">18.000000050671</scalar>
-      <scalar dataType="xsd:double" dictRef="n:totitertime" cmlx:templateRef="totitertime">1.7</scalar>
+      <scalar dataType="xsd:double" dictRef="n:totdft">-139.751554206706</scalar>
+      <scalar dataType="xsd:double" dictRef="n:oneelec">-266.590801864453</scalar>
+      <scalar dataType="xsd:double" dictRef="n:coulomb">106.458589537673</scalar>
+      <scalar dataType="xsd:double" dictRef="n:xcener">-17.036744529003</scalar>
+      <scalar dataType="xsd:double" dictRef="n:nucrep">37.417402649077</scalar>
+      <scalar dataType="xsd:double" dictRef="n:numintegdens">18.000000050671</scalar>
+      <scalar dataType="xsd:double" dictRef="n:totitertime">1.7</scalar>
     </module>
-    <module cmlx:lineCount="165" cmlx:templateRef="dftfinalmolorb">
-      <module cmlx:lineCount="5" cmlx:templateRef="vector">
-        <list cmlx:templateRef="vv1">
+    <module>
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="compchem:serial">1</scalar>
           <scalar dataType="xsd:double" dictRef="n:occ">2.0</scalar>
           <scalar dataType="xsd:double" dictRef="n:e">-24.64176</scalar>
         </list>
-        <list cmlx:templateRef="vv2">
+        <list>
           <property dictRef="n:mocenter">
             <scalar dataType="xsd:double" dictRef="cmlx:length">1.3836545811726277</scalar>
             <vector3>1.2 -0.44 0.53</vector3>
@@ -543,52 +553,52 @@
           <scalar dataType="xsd:double" dictRef="n:r2mo">1.2</scalar>
         </list>
       </module>
-      <module cmlx:lineCount="5" cmlx:templateRef="vector">
-        <list cmlx:templateRef="vv1">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="compchem:serial">2</scalar>
           <scalar dataType="xsd:double" dictRef="n:occ">2.0</scalar>
           <scalar dataType="xsd:double" dictRef="n:e">-10.24407</scalar>
         </list>
-        <list cmlx:templateRef="vv2">
+        <list>
           <scalar dataType="xsd:double" dictRef="x:x">1.4E-4</scalar>
           <scalar dataType="xsd:double" dictRef="x:y">-5.1E-5</scalar>
           <scalar dataType="xsd:double" dictRef="x:z">6.1E-5</scalar>
           <scalar dataType="xsd:double" dictRef="n:r2mo">2.8</scalar>
         </list>
       </module>
-      <module cmlx:lineCount="6" cmlx:templateRef="vector">
-        <list cmlx:templateRef="vv1">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="compchem:serial">3</scalar>
           <scalar dataType="xsd:double" dictRef="n:occ">2.0</scalar>
           <scalar dataType="xsd:double" dictRef="n:e">-1.190497</scalar>
         </list>
-        <list cmlx:templateRef="vv2">
+        <list>
           <scalar dataType="xsd:double" dictRef="x:x">1.0</scalar>
           <scalar dataType="xsd:double" dictRef="x:y">-0.38</scalar>
           <scalar dataType="xsd:double" dictRef="x:z">0.46</scalar>
           <scalar dataType="xsd:double" dictRef="n:r2mo">4.2</scalar>
         </list>
       </module>
-      <module cmlx:lineCount="7" cmlx:templateRef="vector">
-        <list cmlx:templateRef="vv1">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="compchem:serial">4</scalar>
           <scalar dataType="xsd:double" dictRef="n:occ">2.0</scalar>
           <scalar dataType="xsd:double" dictRef="n:e">-0.7086873</scalar>
         </list>
-        <list cmlx:templateRef="vv2">
+        <list>
           <scalar dataType="xsd:double" dictRef="x:x">0.053</scalar>
           <scalar dataType="xsd:double" dictRef="x:y">-0.02</scalar>
           <scalar dataType="xsd:double" dictRef="x:z">0.023</scalar>
           <scalar dataType="xsd:double" dictRef="n:r2mo">1.3</scalar>
         </list>
       </module>
-      <module cmlx:lineCount="7" cmlx:templateRef="vector">
-        <list cmlx:templateRef="vv1">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="compchem:serial">5</scalar>
           <scalar dataType="xsd:double" dictRef="n:occ">2.0</scalar>
           <scalar dataType="xsd:double" dictRef="n:e">-0.4879165</scalar>
         </list>
-        <list cmlx:templateRef="vv2">
+        <list>
           <property dictRef="n:mocenter">
             <scalar dataType="xsd:double" dictRef="cmlx:length">0.39998624976366376</scalar>
             <vector3>0.34 -0.017 0.21</vector3>
@@ -596,13 +606,13 @@
           <scalar dataType="xsd:double" dictRef="n:r2mo">1.4</scalar>
         </list>
       </module>
-      <module cmlx:lineCount="6" cmlx:templateRef="vector">
-        <list cmlx:templateRef="vv1">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="compchem:serial">6</scalar>
           <scalar dataType="xsd:double" dictRef="n:occ">2.0</scalar>
           <scalar dataType="xsd:double" dictRef="n:e">-0.4879103</scalar>
         </list>
-        <list cmlx:templateRef="vv2">
+        <list>
           <property dictRef="n:mocenter">
             <scalar dataType="xsd:double" dictRef="cmlx:length">0.40231952475613214</scalar>
             <vector3>0.32 -0.23 0.081</vector3>
@@ -610,13 +620,13 @@
           <scalar dataType="xsd:double" dictRef="n:r2mo">1.4</scalar>
         </list>
       </module>
-      <module cmlx:lineCount="6" cmlx:templateRef="vector">
-        <list cmlx:templateRef="vv1">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="compchem:serial">7</scalar>
           <scalar dataType="xsd:double" dictRef="n:occ">2.0</scalar>
           <scalar dataType="xsd:double" dictRef="n:e">-0.4814897</scalar>
         </list>
-        <list cmlx:templateRef="vv2">
+        <list>
           <property dictRef="n:mocenter">
             <scalar dataType="xsd:double" dictRef="cmlx:length">0.9201086892318755</scalar>
             <vector3>0.8 -0.29 0.35</vector3>
@@ -624,13 +634,13 @@
           <scalar dataType="xsd:double" dictRef="n:r2mo">1.3</scalar>
         </list>
       </module>
-      <module cmlx:lineCount="8" cmlx:templateRef="vector">
-        <list cmlx:templateRef="vv1">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="compchem:serial">8</scalar>
           <scalar dataType="xsd:double" dictRef="n:occ">2.0</scalar>
           <scalar dataType="xsd:double" dictRef="n:e">-0.3432666</scalar>
         </list>
-        <list cmlx:templateRef="vv2">
+        <list>
           <property dictRef="n:mocenter">
             <scalar dataType="xsd:double" dictRef="cmlx:length">0.8164557550780078</scalar>
             <vector3>0.71 -0.16 0.37</vector3>
@@ -638,13 +648,13 @@
           <scalar dataType="xsd:double" dictRef="n:r2mo">1.4</scalar>
         </list>
       </module>
-      <module cmlx:lineCount="9" cmlx:templateRef="vector">
-        <list cmlx:templateRef="vv1">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="compchem:serial">9</scalar>
           <scalar dataType="xsd:double" dictRef="n:occ">2.0</scalar>
           <scalar dataType="xsd:double" dictRef="n:e">-0.3432626</scalar>
         </list>
-        <list cmlx:templateRef="vv2">
+        <list>
           <property dictRef="n:mocenter">
             <scalar dataType="xsd:double" dictRef="cmlx:length">0.8174350127074322</scalar>
             <vector3>0.69 -0.36 0.25</vector3>
@@ -652,13 +662,13 @@
           <scalar dataType="xsd:double" dictRef="n:r2mo">1.4</scalar>
         </list>
       </module>
-      <module cmlx:lineCount="7" cmlx:templateRef="vector">
-        <list cmlx:templateRef="vv1">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="compchem:serial">10</scalar>
           <scalar dataType="xsd:double" dictRef="n:occ">0.0</scalar>
           <scalar dataType="xsd:double" dictRef="n:e">0.047473</scalar>
         </list>
-        <list cmlx:templateRef="vv2">
+        <list>
           <property dictRef="n:mocenter">
             <scalar dataType="xsd:double" dictRef="cmlx:length">0.4722287581247038</scalar>
             <vector3>-0.41 0.15 -0.18</vector3>
@@ -666,13 +676,13 @@
           <scalar dataType="xsd:double" dictRef="n:r2mo">4.7</scalar>
         </list>
       </module>
-      <module cmlx:lineCount="9" cmlx:templateRef="vector">
-        <list cmlx:templateRef="vv1">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="compchem:serial">11</scalar>
           <scalar dataType="xsd:double" dictRef="n:occ">0.0</scalar>
           <scalar dataType="xsd:double" dictRef="n:e">0.09454741</scalar>
         </list>
-        <list cmlx:templateRef="vv2">
+        <list>
           <property dictRef="n:mocenter">
             <scalar dataType="xsd:double" dictRef="cmlx:length">0.09444575162494076</scalar>
             <vector3>0.082 -0.03 0.036</vector3>
@@ -680,13 +690,13 @@
           <scalar dataType="xsd:double" dictRef="n:r2mo">2.2</scalar>
         </list>
       </module>
-      <module cmlx:lineCount="8" cmlx:templateRef="vector">
-        <list cmlx:templateRef="vv1">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="compchem:serial">12</scalar>
           <scalar dataType="xsd:double" dictRef="n:occ">0.0</scalar>
           <scalar dataType="xsd:double" dictRef="n:e">0.1052209</scalar>
         </list>
-        <list cmlx:templateRef="vv2">
+        <list>
           <property dictRef="n:mocenter">
             <scalar dataType="xsd:double" dictRef="cmlx:length">0.8668909966079934</scalar>
             <vector3>-0.35 0.77 0.19</vector3>
@@ -694,13 +704,13 @@
           <scalar dataType="xsd:double" dictRef="n:r2mo">4.3</scalar>
         </list>
       </module>
-      <module cmlx:lineCount="7" cmlx:templateRef="vector">
-        <list cmlx:templateRef="vv1">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="compchem:serial">13</scalar>
           <scalar dataType="xsd:double" dictRef="n:occ">0.0</scalar>
           <scalar dataType="xsd:double" dictRef="n:e">0.1052445</scalar>
         </list>
-        <list cmlx:templateRef="vv2">
+        <list>
           <property dictRef="n:mocenter">
             <scalar dataType="xsd:double" dictRef="cmlx:length">0.8745856161634492</scalar>
             <vector3>-0.48 -0.47 -0.56</vector3>
@@ -708,13 +718,13 @@
           <scalar dataType="xsd:double" dictRef="n:r2mo">4.3</scalar>
         </list>
       </module>
-      <module cmlx:lineCount="8" cmlx:templateRef="vector">
-        <list cmlx:templateRef="vv1">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="compchem:serial">14</scalar>
           <scalar dataType="xsd:double" dictRef="n:occ">0.0</scalar>
           <scalar dataType="xsd:double" dictRef="n:e">0.3037369</scalar>
         </list>
-        <list cmlx:templateRef="vv2">
+        <list>
           <property dictRef="n:mocenter">
             <scalar dataType="xsd:double" dictRef="cmlx:length">0.22036560530173488</scalar>
             <vector3>0.019 0.19 0.11</vector3>
@@ -722,13 +732,13 @@
           <scalar dataType="xsd:double" dictRef="n:r2mo">2.9</scalar>
         </list>
       </module>
-      <module cmlx:lineCount="8" cmlx:templateRef="vector">
-        <list cmlx:templateRef="vv1">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="compchem:serial">15</scalar>
           <scalar dataType="xsd:double" dictRef="n:occ">0.0</scalar>
           <scalar dataType="xsd:double" dictRef="n:e">0.3037764</scalar>
         </list>
-        <list cmlx:templateRef="vv2">
+        <list>
           <property dictRef="n:mocenter">
             <scalar dataType="xsd:double" dictRef="cmlx:length">0.22036560530173488</scalar>
             <vector3>-0.019 -0.19 -0.11</vector3>
@@ -736,13 +746,13 @@
           <scalar dataType="xsd:double" dictRef="n:r2mo">2.9</scalar>
         </list>
       </module>
-      <module cmlx:lineCount="9" cmlx:templateRef="vector">
-        <list cmlx:templateRef="vv1">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="compchem:serial">16</scalar>
           <scalar dataType="xsd:double" dictRef="n:occ">0.0</scalar>
           <scalar dataType="xsd:double" dictRef="n:e">0.4233403</scalar>
         </list>
-        <list cmlx:templateRef="vv2">
+        <list>
           <property dictRef="n:mocenter">
             <scalar dataType="xsd:double" dictRef="cmlx:length">0.052962250707461446</scalar>
             <vector3>-0.046 0.017 -0.02</vector3>
@@ -750,13 +760,13 @@
           <scalar dataType="xsd:double" dictRef="n:r2mo">2.0</scalar>
         </list>
       </module>
-      <module cmlx:lineCount="9" cmlx:templateRef="vector">
-        <list cmlx:templateRef="vv1">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="compchem:serial">17</scalar>
           <scalar dataType="xsd:double" dictRef="n:occ">0.0</scalar>
           <scalar dataType="xsd:double" dictRef="n:e">0.4734906</scalar>
         </list>
-        <list cmlx:templateRef="vv2">
+        <list>
           <property dictRef="n:mocenter">
             <scalar dataType="xsd:double" dictRef="cmlx:length">0.059084684986889784</scalar>
             <vector3>-0.051 0.019 -0.023</vector3>
@@ -764,13 +774,13 @@
           <scalar dataType="xsd:double" dictRef="n:r2mo">2.6</scalar>
         </list>
       </module>
-      <module cmlx:lineCount="9" cmlx:templateRef="vector">
-        <list cmlx:templateRef="vv1">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="compchem:serial">18</scalar>
           <scalar dataType="xsd:double" dictRef="n:occ">0.0</scalar>
           <scalar dataType="xsd:double" dictRef="n:e">0.5538194</scalar>
         </list>
-        <list cmlx:templateRef="vv2">
+        <list>
           <property dictRef="n:mocenter">
             <scalar dataType="xsd:double" dictRef="cmlx:length">0.3397072268880955</scalar>
             <vector3>-0.17 0.29 0.049</vector3>
@@ -778,13 +788,13 @@
           <scalar dataType="xsd:double" dictRef="n:r2mo">3.0</scalar>
         </list>
       </module>
-      <module cmlx:lineCount="9" cmlx:templateRef="vector">
-        <list cmlx:templateRef="vv1">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="compchem:serial">19</scalar>
           <scalar dataType="xsd:double" dictRef="n:occ">0.0</scalar>
           <scalar dataType="xsd:double" dictRef="n:e">0.5538607</scalar>
         </list>
-        <list cmlx:templateRef="vv2">
+        <list>
           <property dictRef="n:mocenter">
             <scalar dataType="xsd:double" dictRef="cmlx:length">0.3391164991562634</scalar>
             <vector3>-0.21 -0.15 -0.22</vector3>
@@ -793,14 +803,14 @@
         </list>
       </module>
     </module>
-    <list cmlx:templateRef="centermass">
+    <list>
       <scalar dataType="xsd:double" dictRef="x:x">1.21299008</scalar>
       <scalar dataType="xsd:double" dictRef="x:y">-0.45015712</scalar>
       <scalar dataType="xsd:double" dictRef="x:z">0.53647636</scalar>
     </list>
-    <matrix rows="3" columns="3" dataType="xsd:double" cmlx:templateRef="momint">26.067244250201 16.32205299008 -19.452332476698 16.32205299008 63.989278669074 7.217418466343 -19.452332476698 7.217418466343 61.445083909491</matrix>
-    <module cmlx:lineCount="17" cmlx:templateRef="multipole">
-      <list cmlx:templateRef="shell">
+    <matrix rows="3" columns="3" dataType="xsd:double">26.067244250201 16.32205299008 -19.452332476698 16.32205299008 63.989278669074 7.217418466343 -19.452332476698 7.217418466343 61.445083909491</matrix>
+    <module>
+      <list>
         <scalar dataType="xsd:integer" dictRef="n:l">0</scalar>
         <scalar dataType="xsd:integer" dictRef="n:x">0</scalar>
         <scalar dataType="xsd:integer" dictRef="n:y">0</scalar>
@@ -810,7 +820,7 @@
         <scalar dataType="xsd:double" dictRef="n:beta">-9.0</scalar>
         <scalar dataType="xsd:double" dictRef="n:nuclear">18.0</scalar>
       </list>
-      <list cmlx:templateRef="shell">
+      <list>
         <list>
           <scalar dataType="xsd:integer" dictRef="n:l">1</scalar>
           <scalar dataType="xsd:integer" dictRef="n:x">1</scalar>
@@ -842,7 +852,7 @@
           <scalar dataType="xsd:double" dictRef="n:nuclear">8.249229</scalar>
         </list>
       </list>
-      <list cmlx:templateRef="orbs">
+      <list>
         <list>
           <scalar dataType="xsd:integer" dictRef="n:l">2</scalar>
           <scalar dataType="xsd:integer" dictRef="n:x">2</scalar>
@@ -905,12 +915,12 @@
         </list>
       </list>
     </module>
-    <list cmlx:templateRef="parallel">
+    <list>
       <scalar dataType="xsd:integer" dictRef="n:nrec">8</scalar>
       <scalar dataType="xsd:integer" dictRef="n:large">0</scalar>
     </list>
-    <module cmlx:lineCount="192" cmlx:templateRef="shielding">
-      <list cmlx:templateRef="cphf">
+    <module>
+      <list>
         <list>
           <scalar dataType="xsd:string" dictRef="n:nnname">scftype</scalar>
           <scalar dataType="xsd:string" dictRef="n:vvvalue">RHF</scalar>
@@ -948,33 +958,33 @@
           <scalar dataType="xsd:string" dictRef="n:vvvalue">30</scalar>
         </list>
       </list>
-      <module cmlx:lineCount="4" cmlx:templateRef="integralfile">
-        <scalar dataType="xsd:string" dictRef="n:integralfile" cmlx:templateRef="integral">./ch3f_rot.aoints.0</scalar>
-        <list cmlx:templateRef="recsize">
+      <module>
+        <scalar dataType="xsd:string" dictRef="n:integralfile">./ch3f_rot.aoints.0</scalar>
+        <list>
           <scalar dataType="xsd:integer" dictRef="n:recordsize">65536</scalar>
           <scalar dataType="xsd:integer" dictRef="n:integsperrec">43688</scalar>
         </list>
-        <list cmlx:templateRef="maxrec">
+        <list>
           <scalar dataType="xsd:integer" dictRef="n:maxinmem">3</scalar>
           <scalar dataType="xsd:integer" dictRef="n:maxrec">5708</scalar>
         </list>
-        <list cmlx:templateRef="bits">
+        <list>
           <scalar dataType="xsd:integer" dictRef="n:bitslabel">8</scalar>
           <scalar dataType="xsd:integer" dictRef="n:bitsperval">64</scalar>
         </list>
       </module>
-      <list cmlx:templateRef="quartets">
+      <list>
         <scalar dataType="xsd:double" dictRef="n:quartet">37140.0</scalar>
         <scalar dataType="xsd:double" dictRef="n:integrals">196500.0</scalar>
         <scalar dataType="xsd:double" dictRef="n:direct">0.0</scalar>
         <scalar dataType="xsd:double" dictRef="n:cached">100.0</scalar>
       </list>
-      <list cmlx:templateRef="filebalance">
+      <list>
         <scalar dataType="xsd:integer" dictRef="n:exchanges">0</scalar>
         <scalar dataType="xsd:integer" dictRef="n:moved">0</scalar>
         <scalar dataType="xsd:double" dictRef="n:time">0.0</scalar>
       </list>
-      <list cmlx:templateRef="itersol">
+      <list>
         <list>
           <scalar dataType="xsd:string" dictRef="x:name">No. of variables</scalar>
           <scalar dataType="xsd:string" dictRef="x:value">234</scalar>
@@ -1000,24 +1010,24 @@
           <scalar dataType="xsd:string" dictRef="x:value">4.5</scalar>
         </list>
       </list>
-      <module cmlx:lineCount="6" cmlx:templateRef="itersol">
+      <module>
         <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> 1 3 1.93D-01 5.4</scalar>
         <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> 2 6 3.38D-03 6.2</scalar>
         <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> 3 9 2.64D-04 7.1</scalar>
         <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> 4 12 1.93D-05 8.0</scalar>
       </module>
-      <list cmlx:templateRef="parallel">
+      <list>
         <scalar dataType="xsd:integer" dictRef="n:nrec">8</scalar>
         <scalar dataType="xsd:integer" dictRef="n:large">0</scalar>
       </list>
-      <module cmlx:lineCount="26" cmlx:templateRef="magneticatom">
-        <list cmlx:templateRef="atomid">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
           <scalar dataType="xsd:string" dictRef="x:elementType">C</scalar>
         </list>
-        <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
-          <scalar dataType="xsd:string" dictRef="cc:tensorname" cmlx:templateRef="name">Diamagnetic</scalar>
-          <list cmlx:templateRef="row">
+        <module>
+          <scalar dataType="xsd:string" dictRef="cc:tensorname">Diamagnetic</scalar>
+          <list>
             <list>
               <scalar dataType="xsd:double" dictRef="x:x">250.8006</scalar>
               <scalar dataType="xsd:double" dictRef="x:y">-4.0952</scalar>
@@ -1035,9 +1045,9 @@
             </list>
           </list>
         </module>
-        <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
-          <scalar dataType="xsd:string" dictRef="cc:tensorname" cmlx:templateRef="name">Paramagnetic</scalar>
-          <list cmlx:templateRef="row">
+        <module>
+          <scalar dataType="xsd:string" dictRef="cc:tensorname">Paramagnetic</scalar>
+          <list>
             <list>
               <scalar dataType="xsd:double" dictRef="x:x">-88.2836</scalar>
               <scalar dataType="xsd:double" dictRef="x:y">-24.1524</scalar>
@@ -1055,9 +1065,9 @@
             </list>
           </list>
         </module>
-        <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
-          <scalar dataType="xsd:string" dictRef="cc:tensorname" cmlx:templateRef="name">Total Shielding Tensor</scalar>
-          <list cmlx:templateRef="row">
+        <module>
+          <scalar dataType="xsd:string" dictRef="cc:tensorname">Total Shielding Tensor</scalar>
+          <list>
             <list>
               <scalar dataType="xsd:double" dictRef="x:x">162.517</scalar>
               <scalar dataType="xsd:double" dictRef="x:y">-28.2477</scalar>
@@ -1084,14 +1094,14 @@
         <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> 2 -0.3215 -0.4932 0.8083</scalar>
         <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> 3 0.3829 0.7130 0.5874</scalar>
       </module>
-      <module cmlx:lineCount="26" cmlx:templateRef="magneticatom">
-        <list cmlx:templateRef="atomid">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="cc:serial">2</scalar>
           <scalar dataType="xsd:string" dictRef="x:elementType">F</scalar>
         </list>
-        <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
-          <scalar dataType="xsd:string" dictRef="cc:tensorname" cmlx:templateRef="name">Diamagnetic</scalar>
-          <list cmlx:templateRef="row">
+        <module>
+          <scalar dataType="xsd:string" dictRef="cc:tensorname">Diamagnetic</scalar>
+          <list>
             <list>
               <scalar dataType="xsd:double" dictRef="x:x">485.2192</scalar>
               <scalar dataType="xsd:double" dictRef="x:y">-9.7803</scalar>
@@ -1109,9 +1119,9 @@
             </list>
           </list>
         </module>
-        <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
-          <scalar dataType="xsd:string" dictRef="cc:tensorname" cmlx:templateRef="name">Paramagnetic</scalar>
-          <list cmlx:templateRef="row">
+        <module>
+          <scalar dataType="xsd:string" dictRef="cc:tensorname">Paramagnetic</scalar>
+          <list>
             <list>
               <scalar dataType="xsd:double" dictRef="x:x">-58.4427</scalar>
               <scalar dataType="xsd:double" dictRef="x:y">30.4401</scalar>
@@ -1129,9 +1139,9 @@
             </list>
           </list>
         </module>
-        <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
-          <scalar dataType="xsd:string" dictRef="cc:tensorname" cmlx:templateRef="name">Total Shielding Tensor</scalar>
-          <list cmlx:templateRef="row">
+        <module>
+          <scalar dataType="xsd:string" dictRef="cc:tensorname">Total Shielding Tensor</scalar>
+          <list>
             <list>
               <scalar dataType="xsd:double" dictRef="x:x">426.7765</scalar>
               <scalar dataType="xsd:double" dictRef="x:y">20.6599</scalar>
@@ -1158,14 +1168,14 @@
         <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> 2 0.9438 -0.0777 -0.3212</scalar>
         <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> 3 0.2046 0.9008 0.3831</scalar>
       </module>
-      <module cmlx:lineCount="26" cmlx:templateRef="magneticatom">
-        <list cmlx:templateRef="atomid">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="cc:serial">3</scalar>
           <scalar dataType="xsd:string" dictRef="x:elementType">H</scalar>
         </list>
-        <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
-          <scalar dataType="xsd:string" dictRef="cc:tensorname" cmlx:templateRef="name">Diamagnetic</scalar>
-          <list cmlx:templateRef="row">
+        <module>
+          <scalar dataType="xsd:string" dictRef="cc:tensorname">Diamagnetic</scalar>
+          <list>
             <list>
               <scalar dataType="xsd:double" dictRef="x:x">26.1155</scalar>
               <scalar dataType="xsd:double" dictRef="x:y">-4.6212</scalar>
@@ -1183,9 +1193,9 @@
             </list>
           </list>
         </module>
-        <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
-          <scalar dataType="xsd:string" dictRef="cc:tensorname" cmlx:templateRef="name">Paramagnetic</scalar>
-          <list cmlx:templateRef="row">
+        <module>
+          <scalar dataType="xsd:string" dictRef="cc:tensorname">Paramagnetic</scalar>
+          <list>
             <list>
               <scalar dataType="xsd:double" dictRef="x:x">3.5988</scalar>
               <scalar dataType="xsd:double" dictRef="x:y">0.2531</scalar>
@@ -1203,9 +1213,9 @@
             </list>
           </list>
         </module>
-        <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
-          <scalar dataType="xsd:string" dictRef="cc:tensorname" cmlx:templateRef="name">Total Shielding Tensor</scalar>
-          <list cmlx:templateRef="row">
+        <module>
+          <scalar dataType="xsd:string" dictRef="cc:tensorname">Total Shielding Tensor</scalar>
+          <list>
             <list>
               <scalar dataType="xsd:double" dictRef="x:x">29.7143</scalar>
               <scalar dataType="xsd:double" dictRef="x:y">-4.3681</scalar>
@@ -1232,14 +1242,14 @@
         <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> 2 0.7197 0.3388 0.6060</scalar>
         <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> 3 0.0499 0.8453 -0.5319</scalar>
       </module>
-      <module cmlx:lineCount="26" cmlx:templateRef="magneticatom">
-        <list cmlx:templateRef="atomid">
+      <module>
+        <list>
           <scalar dataType="xsd:integer" dictRef="cc:serial">4</scalar>
           <scalar dataType="xsd:string" dictRef="x:elementType">H</scalar>
         </list>
-        <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
-          <scalar dataType="xsd:string" dictRef="cc:tensorname" cmlx:templateRef="name">Diamagnetic</scalar>
-          <list cmlx:templateRef="row">
+        <module>
+          <scalar dataType="xsd:string" dictRef="cc:tensorname">Diamagnetic</scalar>
+          <list>
             <list>
               <scalar dataType="xsd:double" dictRef="x:x">34.4352</scalar>
               <scalar dataType="xsd:double" dictRef="x:y">5.9324</scalar>
@@ -1257,9 +1267,9 @@
             </list>
           </list>
         </module>
-        <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
-          <scalar dataType="xsd:string" dictRef="cc:tensorname" cmlx:templateRef="name">Paramagnetic</scalar>
-          <list cmlx:templateRef="row">
+        <module>
+          <scalar dataType="xsd:string" dictRef="cc:tensorname">Paramagnetic</scalar>
+          <list>
             <list>
               <scalar dataType="xsd:double" dictRef="x:x">-1.4045</scalar>
               <scalar dataType="xsd:double" dictRef="x:y">-3.9423</scalar>
@@ -1277,9 +1287,9 @@
             </list>
           </list>
         </module>
-        <module cmlx:lineCount="4" cmlx:templateRef="namedtensor">
-          <scalar dataType="xsd:string" dictRef="cc:tensorname" cmlx:templateRef="name">Total Shielding Tensor</scalar>
-          <list cmlx:templateRef="row">
+        <module>
+          <scalar dataType="xsd:string" dictRef="cc:tensorname">Total Shielding Tensor</scalar>
+          <list>
             <list>
               <scalar dataType="xsd:double" dictRef="x:x">33.0307</scalar>
               <scalar dataType="xsd:double" dictRef="x:y">1.9901</scalar>
@@ -1328,14 +1338,14 @@
       <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> 2 -0.2498 -0.1704 0.9532</scalar>
       <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> 3 0.7755 -0.6247 0.0916</scalar>
     </module>
-    <list cmlx:templateRef="times">
+    <list>
       <scalar dataType="xsd:string" dictRef="n:type">Task</scalar>
       <scalar dataType="xsd:double" dictRef="cc:cputime">6.9</scalar>
       <scalar dataType="xsd:double" dictRef="cc:walltime">8.1</scalar>
     </list>
     <parameterList id="initialParams">
       <parameter dictRef="compchem:date">
-        <scalar dataType="xsd:string" dictRef="compchem:date" cmlx:templateRef="prog">Thu Sep 16 17:07:23 2010</scalar>
+        <scalar dataType="xsd:string" dictRef="compchem:date">Thu Sep 16 17:07:23 2010</scalar>
       </parameter>
       <parameter dictRef="compchem:program">
         <scalar dataType="xsd:string" dictRef="compchem:program">NWChem</scalar>
@@ -1344,20 +1354,23 @@
         <scalar dataType="xsd:string" dictRef="compchem:version">6.0</scalar>
       </parameter>
       <parameter dictRef="compchem:version">
-        <scalar dataType="xsd:string" dictRef="compchem:version" cmlx:templateRef="version">6.0</scalar>
+        <scalar dataType="xsd:string" dictRef="compchem:version">6.0</scalar>
       </parameter>
       <parameter dictRef="compchem:hostname">
-        <scalar dataType="xsd:string" dictRef="compchem:hostname" cmlx:templateRef="host">curie</scalar>
+        <scalar dataType="xsd:string" dictRef="compchem:hostname">curie</scalar>
       </parameter>
     </parameterList>
-    <parameterList id="initialParams"/>
+    <parameterList/>
+    <module id="initialization.userDefined" dictRef="cc:userDefinedModule"/>
   </module>
-  <module id="calculation" dictRef="compchem:calculation"/>
-  <module id="finalization" dictRef="compchem:finalization">
-    <module cmlx:lineCount="1" cmlx:templateRef="nwcheminpmod"/>
+  <module id="calculation" dictRef="cc:calculation">
+    <propertyList/>
+    <module id="calculation.userDefined" dictRef="cc:userDefinedModule"/>
+  </module>
+  <module id="finalization" dictRef="cc:finalization">
     <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> -------------------</scalar>
-    <scalar dataType="xsd:string" dictRef="n:globalarrays" cmlx:templateRef="globarrays">No active global arrays</scalar>
-    <list cmlx:templateRef="gastats">
+    <scalar dataType="xsd:string" dictRef="n:globalarrays">No active global arrays</scalar>
+    <list>
       <scalar dataType="xsd:string" dictRef="n:gastats">GA Statistics for process 0</scalar>
       <scalar dataType="xsd:string" dictRef="n:gastats">------------------------------</scalar>
       <scalar dataType="xsd:string" dictRef="n:gastats">create destroy get put acc scatter gather read&amp;inc</scalar>
@@ -1379,11 +1392,13 @@
       <scalar dataType="xsd:string" dictRef="n:gastats">maximum total K-bytes 3359 22512</scalar>
       <scalar dataType="xsd:string" dictRef="n:gastats">maximum total M-bytes 4 23</scalar>
     </list>
-    <scalar dataType="xsd:string" dictRef="cc:citation" cmlx:templateRef="citation">CITATION</scalar>
-    <module cmlx:lineCount="15" cmlx:templateRef="auth"/>
+    <scalar dataType="xsd:string" dictRef="cc:citation">CITATION</scalar>
     <scalar dictRef="cmlx:unparsed" dataType="xsd:string"> Total times cpu: 6.9s wall: 8.2s</scalar>
     <propertyList id="finalProperties"/>
-    <module id="fukui"/>
-    <propertyList id="finalProperties"/>
+    <propertyList/>
+    <module id="finalization.userDefined" dictRef="cc:userDefinedModule">
+      <module id="eigenvector.list" dictRef="cc:eigenvector.list"/>
+      <module id="fukui.list" dictRef="cc:fukui.list"/>
+    </module>
   </module>
 </module>

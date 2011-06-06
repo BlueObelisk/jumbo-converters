@@ -33,7 +33,7 @@
   
   <record id="eigen" repeat="*">\s*{X,g:name}\s*eigenvalues \-\-{1_5F,g:eigen}</record>
   
-  <transform process="addAttribute" xpath=".//cml:list/cml:list/cml:array" name="cmlx:temp" value="string(../cml:scalar)"/>
+  <transform process="addAttribute" xpath=".//cml:list/cml:list/cml:array" name="cmlx:temp" value="$string(../cml:scalar)"/>
 
   <transform process="addDictRef" xpath=".//cml:array[@cmlx:temp='Alpha  occ.']" value="g:alphaocc"/>
   <transform process="addDictRef" xpath=".//cml:array[@cmlx:temp='Beta  occ.']" value="g:betaocc"/>

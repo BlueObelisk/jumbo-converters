@@ -13,10 +13,17 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
 <template id='cml.log' output="VERBOSE"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:c="http://www.xml-cml.org/dictionary"
+  xmlns:mdl="http://www.xml-cml.org/dictionary/mdl/"
   xmlns:cc="http://www.xml-cml.org/dictionary/compchem/"
   xmlns:j="http://www.xml-cml.org/dictionary/cml/">
-  <transform process="array" id="array" dataType="xsd:integer"
-    xpath=".//*[@dictRef='mdl:s_user_reactioncentre']"/>    
+  <transform process="createArray" id="array" dataType="xsd:integer"
+    xpath=".//*[@dictRef='mdl:s_user_reactioncentre']" from="."/>    
   <transform process="split" id="split" xpath=".//*[@dictRef='mdl:s_user_reactioncentre']"/> 
-  <transform process="label" id="label" xpath=".//cml:atom"/>
+  <transform process="addId"  
+    xpath=".//cml:scalar[@dictRef='mdl:s_user_reactioncentre']" value="a$string(.)"/> 
+  <transform process="moveRelative" xpath=".//cml:scalar[@dictRef='mdl:s_user_reactioncentre']" 
+    toXpath="//cml:atom[@id='$string(./@id)']"/>
+  <transform process="delete" xpath=".//cml:atom/cml:scalar/@id"/> 
+  <transform process="setDataType" xpath=".//cml:atom/cml:scalar" value="xsd:string"/> 
+  <transform process="createWrapperProperty" xpath=".//cml:atom/cml:scalar"/> 
 </template>

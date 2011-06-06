@@ -68,8 +68,8 @@
 
   <transform process="joinArrays" xpath=".//cml:array[@dictRef='x:serial']"/>
   <transform process="addAttribute" xpath=".//cml:array[@dictRef='cc:forceconst']" name="cmlx:row" 
-    value="string(../cml:scalar[@dictRef='g:row'])"/>
-  <transform process="joinArrays" xpath=".//cml:array[@cmlx:row]" key="string(@cmlx:row)"/>
+    value="$string(../cml:scalar[@dictRef='g:row'])"/>
+  <transform process="joinArrays" xpath=".//cml:array[@cmlx:row]" key="$string(@cmlx:row)"/>
   <transform process="joinArrays" xpath=".//cml:module[@cmlx:templateRef='l716.forceconst.chunk'][1]//cml:list[@cmlx:templateRef='row']//cml:array[@dictRef='cc:forceconst']"/> 
   <transform process="delete" xpath=".//cml:scalar[@dictRef='g:row']"/> 
   <transform process="delete" xpath=".//cml:array[@dictRef='cc:serial']"/> 

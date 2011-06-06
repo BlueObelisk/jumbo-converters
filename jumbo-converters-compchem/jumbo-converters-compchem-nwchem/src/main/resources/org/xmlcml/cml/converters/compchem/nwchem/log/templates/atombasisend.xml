@@ -1,17 +1,15 @@
 <template repeat="*"  id="atombasisend" name="Basis for an atom" 
-  pattern="\s*\S+\s*\(.*\)$\s*\-+\s*" newline="$" endPattern="\s*$\s*$\s*"
-  endOffset="3"
+  pattern="\s*\S+\s*\(.*\)\s*$\s*\-+\s*" endPattern="\s*$\s*"
+  endOffset="2"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   >
   <comment class="example.input" id="atombasisend">
-  // this caters for final atom, terminated by two blank lines
   o (Oxygen)
   ----------
             Exponent  Coefficients 
        -------------- ---------------------------------------------------------
   1 S  5.22290220E+03 -0.001936
   1 S  7.82539940E+02 -0.014851
-  ..
   1 S  5.17935990E+00 -0.335943
 
   2 S  1.06014410E+01  0.078806
@@ -22,62 +20,79 @@
   
   
   </comment>
-  <record id="atom">{A,n:tag}\({A,n:elementName}\)</record>
-  <record repeat="3"/>
+  
+  <record id="atom">{A,n:tag}\s\({A,n:atom}\)\s*</record>
+  <record repeat="*" id="xxx" >{X,x:xx}</record>
+
+<!--   
   <templateList>
     <xi:include href="basis.shell.xml"/>
   </templateList>
+-->
+  
   <comment class="example.output" id="atombasisend">
-<module cmlx:templateRef="atombasisend" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" xmlns:xi="http://www.w3.org/2001/XInclude"> Exponent Coefficients -------------- ---------------------------------------------------------
-  <module cmlx:lineCount="5" cmlx:templateRef="basis.shell">
-    <module cmlx:lineCount="5" cmlx:templateRef="shell">
-      <list cmlx:templateRef="row">
+    <module cmlx:templateRef="atombasisend" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="atom">
         <list>
-          <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
-          <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
-          <scalar dataType="xsd:double" dictRef="cc:basis.exponent">5222.9022</scalar>
-          <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.001936</scalar>
-        </list>
-        <list>
-          <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
-          <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
-          <scalar dataType="xsd:double" dictRef="cc:basis.exponent">782.53994</scalar>
-          <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.014851</scalar>
-        </list>
-      </list> .. 1 S 5.17935990E+00 -0.335943
-    </module>
-  </module>
-  <module cmlx:lineCount="3" cmlx:templateRef="basis.shell">
-    <module cmlx:lineCount="3" cmlx:templateRef="shell">
-      <list cmlx:templateRef="row">
-        <list>
-          <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">2</scalar>
-          <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
-          <scalar dataType="xsd:double" dictRef="cc:basis.exponent">10.601441</scalar>
-          <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">0.078806</scalar>
-        </list>
-        <list>
-          <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">2</scalar>
-          <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
-          <scalar dataType="xsd:double" dictRef="cc:basis.exponent">0.942317</scalar>
-          <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.567695</scalar>
+          <scalar dataType="xsd:string" dictRef="n:tag">o</scalar>
+          <scalar dataType="xsd:string" dictRef="n:atom">Oxygen</scalar>
         </list>
       </list>
+      <module cmlx:lineCount="4" cmlx:templateRef="basis.shell">
+        <module cmlx:lineCount="4" cmlx:templateRef="shell">
+          <list cmlx:templateRef="row">
+            <list>
+              <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
+              <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
+              <scalar dataType="xsd:double" dictRef="cc:basis.exponent">5222.9022</scalar>
+              <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.001936</scalar>
+            </list>
+            <list>
+              <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
+              <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
+              <scalar dataType="xsd:double" dictRef="cc:basis.exponent">782.53994</scalar>
+              <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.014851</scalar>
+            </list>
+            <list>
+              <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
+              <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
+              <scalar dataType="xsd:double" dictRef="cc:basis.exponent">5.1793599</scalar>
+              <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.335943</scalar>
+            </list>
+          </list>
+        </module>
+      </module>
+      <module cmlx:lineCount="3" cmlx:templateRef="basis.shell">
+        <module cmlx:lineCount="3" cmlx:templateRef="shell">
+          <list cmlx:templateRef="row">
+            <list>
+              <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">2</scalar>
+              <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
+              <scalar dataType="xsd:double" dictRef="cc:basis.exponent">10.601441</scalar>
+              <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">0.078806</scalar>
+            </list>
+            <list>
+              <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">2</scalar>
+              <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
+              <scalar dataType="xsd:double" dictRef="cc:basis.exponent">0.942317</scalar>
+              <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.567695</scalar>
+            </list>
+          </list>
+        </module>
+      </module>
+      <module cmlx:lineCount="2" cmlx:templateRef="basis.shell">
+        <module cmlx:lineCount="2" cmlx:templateRef="shell">
+          <list cmlx:templateRef="row">
+            <list>
+              <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">3</scalar>
+              <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
+              <scalar dataType="xsd:double" dictRef="cc:basis.exponent">0.2774746</scalar>
+              <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">1.0</scalar>
+            </list>
+          </list>
+        </module>
+      </module>
     </module>
-  </module>
-  <module cmlx:lineCount="2" cmlx:templateRef="basis.shell">
-    <module cmlx:lineCount="2" cmlx:templateRef="shell">
-      <list cmlx:templateRef="row">
-        <list>
-          <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">3</scalar>
-          <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
-          <scalar dataType="xsd:double" dictRef="cc:basis.exponent">0.2774746</scalar>
-          <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">1.0</scalar>
-        </list>
-      </list>
-    </module>
-  </module>
-</module>
-    </comment>
+  </comment>
 
 </template>

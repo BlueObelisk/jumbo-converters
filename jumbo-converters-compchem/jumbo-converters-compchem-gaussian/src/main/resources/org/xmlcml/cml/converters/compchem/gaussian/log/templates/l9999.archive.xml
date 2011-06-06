@@ -103,9 +103,9 @@
       <!--  createMolecule -->     
   <transform process="createMolecule" id="mol9999" xpath=".//cml:list[@type='molecule']/cml:array" from="."/>
   <transform process="addAttribute" id="mol9999" xpath=".//cml:molecule'" name="spinMultiplicity" 
-      value="number(.//cml:scalar[@dictRef='x:spinMultiplicity'])"/>
+      value="$number(.//cml:scalar[@dictRef='x:spinMultiplicity'])"/>
   <transform process="addAttribute" id="mol9999" xpath=".//cml:molecule'" name="formalCharge" 
-      value="number(.//cml:scalar[@dictRef='x:formalCharge'])"/>
+      value="$number(.//cml:scalar[@dictRef='x:formalCharge'])"/>
   <transform process="delete" xpath=".//cml:list[@type='chargemult']"/> 
   <transform process="pullup" xpath=".//cml:molecule" repeat="2"/> 
 
