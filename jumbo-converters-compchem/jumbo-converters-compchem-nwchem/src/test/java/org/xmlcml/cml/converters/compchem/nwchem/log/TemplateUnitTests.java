@@ -26,7 +26,7 @@ public class TemplateUnitTests {
   
   @Test
   @Ignore
-  public void templateTesterEXAMPLE() {
+  public void templateTester() {
     TemplateTestUtils.runCommentExamples(INPUT_TEMPLATE_S, BASE_URI);
   }
 
@@ -38,13 +38,14 @@ public class TemplateUnitTests {
    @Test public void testAlphafoccsOK()                          {runTemplateTest("alphafoccs");}
    @Test public void testArgumentOK()                            {runTemplateTest("argument");}
    @Test public void testAtmassOK()                              {runTemplateTest("atmass");}
-// @Test public void testAtombasisOKELSEWHERE()                  {runTemplateTest("atombasis");}
-// @Test public void testAtombasisendOKELSEWHERE()               {runTemplateTest("atombasisend");}
+   @Test public void testAtombasisOK()                  {runTemplateTest("atombasis");}
+   @Test public void testAtombasisendOK()               {runTemplateTest("atombasisend");}
+   @Test public void testAtombasisend1OK()               {runTemplateTest("atombasisend1");}
    @Test public void testAtomicshellscreenOK()                   {runTemplateTest("atomicshellscreen");}
    @Test public void testAuthors()                               {runTemplateTest("authors");}
    @Test public void testAutosymOK()                             {runTemplateTest("autosym");}
    @Test public void testBasisShellOK()                          {runTemplateTest("basis.shell");}
-   @Ignore @Test public void testBasisFIXME()                               {runTemplateTest("basis");}
+   @Test public void testBasisFIXME()                               {runTemplateTest("basis");}
    @Test public void testBasisfuncOK()                           {runTemplateTest("basisfunc");}
    @Test public void testBeforeaftercallOK()                     {runTemplateTest("beforeaftercall");}
    @Test public void testBrillouinzpOK()                         {runTemplateTest("brillouinzp");}
@@ -202,6 +203,7 @@ public class TemplateUnitTests {
    @Ignore @Test public void testSymminfoTempWHITE()             {runTemplateTest("symminfo.temp");}
    @Test public void testSymmolorbEXAMPLE()                      {runTemplateTest("symmolorb");}
    @Ignore @Test public void testThreetwoWHITE()                 {runTemplateTest("threetwo");}
+   @Test public void testTidyHeading()                           {runTemplateTest("tidyheading");}
    @Test public void testTimeafterEXAMPLE()                      {runTemplateTest("timeafter");}
    @Ignore @Test public void testTimesWHITE()                    {runTemplateTest("times");}
    @Ignore @Test public void testTimingWHITE()                   {runTemplateTest("timing");}

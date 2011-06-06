@@ -1,16 +1,15 @@
-<template repeat="*"  id="atombasis" name="Basis for an atom" 
-     pattern="\s*\S+\s*\(.*\).*$\s*\-+\s*" offset="0"
-  endPattern="\s*\S+\s*\(.*\).*$\s*\-+\s*" endOffset="0"
+<template repeat="*"  id="atombasisend1" name="Basis for an atom" 
+  pattern="\s*\S+\s*\(.*\)\s*$\s*\-+\s*" endPattern="\s*$\s*"
+  endOffset="2"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   >
-  <comment class="example.input" id="atombasis">
+  <comment class="example.input" id="atombasisend1">
   o (Oxygen)
   ----------
             Exponent  Coefficients 
        -------------- ---------------------------------------------------------
   1 S  5.22290220E+03 -0.001936
   1 S  7.82539940E+02 -0.014851
-  
   1 S  5.17935990E+00 -0.335943
 
   2 S  1.06014410E+01  0.078806
@@ -18,29 +17,30 @@
 
   3 S  2.77474600E-01  1.000000
   
-  f (Fluorine)
-  ----------
+  
+  
   </comment>
   
-  <record id="atom">{A,n:tag}\s\({A,n:atom}\)\s*</record>
-  <record repeat="3" id="xxx" />
-  
+  <record id="atom" repeat="1">{A,n:tag}\s+\({X,n:element}\)\s*</record>
+  <record id="junk" repeat="3">{X,x:any}\s*</record>
   <templateList>
-    <xi:include href="basis.shell.xml"/>
-    <!--  for the tests -->
-    <xi:include href="tidyheading.xml"/>
+    <template id="shell" pattern="\s*\S\s+.*" endPattern="\s*">
+      <record id="shellx" repeat="*" makeArray="true">{I,n:shell}\s+{A,n:atom}\s*{E,n:coeff}\s+{F,n:weight}\s*</record>
+      <record id="space" repeat="*">\s*</record>
+    </template>
   </templateList>
+  <record id="any" repeat="*">{X,x:basis}\s*</record>
   
-  <comment class="example.output" id="atombasis">
-    <module cmlx:templateRef="atombasis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <comment class="example.output" id="atombasisend1">
+    <module cmlx:templateRef="atombasisend" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <list cmlx:templateRef="atom">
         <list>
           <scalar dataType="xsd:string" dictRef="n:tag">o</scalar>
           <scalar dataType="xsd:string" dictRef="n:atom">Oxygen</scalar>
         </list>
       </list>
-      <module cmlx:lineCount="3" cmlx:templateRef="basis.shell">
-        <module cmlx:lineCount="3" cmlx:templateRef="shell">
+      <module cmlx:lineCount="4" cmlx:templateRef="basis.shell">
+        <module cmlx:lineCount="4" cmlx:templateRef="shell">
           <list cmlx:templateRef="row">
             <list>
               <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
@@ -54,12 +54,6 @@
               <scalar dataType="xsd:double" dictRef="cc:basis.exponent">782.53994</scalar>
               <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.014851</scalar>
             </list>
-          </list>
-        </module>
-      </module>
-      <module cmlx:lineCount="2" cmlx:templateRef="basis.shell">
-        <module cmlx:lineCount="2" cmlx:templateRef="shell">
-          <list cmlx:templateRef="row">
             <list>
               <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
               <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
@@ -99,9 +93,7 @@
           </list>
         </module>
       </module>
-      <module cmlx:lineCount="2" cmlx:templateRef="tidyheading"/>
     </module>
   </comment>
 
-  
 </template>

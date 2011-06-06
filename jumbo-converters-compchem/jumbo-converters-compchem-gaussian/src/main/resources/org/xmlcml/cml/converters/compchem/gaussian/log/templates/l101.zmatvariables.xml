@@ -45,8 +45,8 @@
   <transform process="pullup" xpath=".//cml:list[@cmlx:templateRef='chargemult']//cml:scalar" repeat="2"/>
   <transform process="createZMatrix" xpath="." value="implicit321"/>
   <transform process="move" xpath=".//cml:map" toXpath="../cml:molecule/cml:zMatrix"/>
-  <transform process="addAttribute" xpath="../cml:molecule" name="spinMultiplicity" value="number(.//cml:scalar[@dictRef='x:multiplicity'])"/>
-  <transform process="addAttribute" xpath="../cml:molecule" name="formalCharge" value="number(.//cml:scalar[@dictRef='x:formalCharge'])"/>
+  <transform process="addAttribute" xpath="../cml:molecule" name="spinMultiplicity" value="$number(.//cml:scalar[@dictRef='x:multiplicity'])"/>
+  <transform process="addAttribute" xpath="../cml:molecule" name="formalCharge" value="$number(.//cml:scalar[@dictRef='x:formalCharge'])"/>
   <transform process="delete" xpath="."/>
   
   <comment class="example.output" id="l101.zmatvariables">

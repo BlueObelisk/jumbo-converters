@@ -1,6 +1,7 @@
 package org.xmlcml.cml.converters.text;
 
 import java.io.FileInputStream;
+
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -62,10 +63,9 @@ import org.xmlcml.molutil.ChemicalElement;
 
 public class TransformElement implements MarkupApplier {
 
-	private static final String CML_ERROR = "cml:error";
-
 	private final static Logger LOG = Logger.getLogger(TransformElement.class);
 	
+	private static final String CML_ERROR = "cml:error";
 	public static final String TAG = "transform";
 
 	// processList
@@ -134,6 +134,7 @@ public class TransformElement implements MarkupApplier {
 	private static final String ADD_ATTRIBUTE          = "addAttribute";
 	private static final String ADD_CHILD              = "addChild";
 	private static final String ADD_DICTREF            = "addDictRef";
+	private static final String ADD_ID                 = "addId";
 	private static final String ADD_LABEL              = "addLabel";
 	private static final String ADD_LINK               = "addLink";
 	private static final String ADD_MAP                = "addMap";
@@ -185,8 +186,8 @@ public class TransformElement implements MarkupApplier {
 
 	private static final String DEFAULT_DELIMITER = CMLConstants.S_PIPE;
 
-	private static final String STRING = "string(";
-	private static final String NUMBER = "number(";
+	private static final String STRING = "string";
+	private static final String NUMBER = "number";
 
 	private static final String UNITS = "units";
 
@@ -196,6 +197,7 @@ public class TransformElement implements MarkupApplier {
 		ADD_ATTRIBUTE,
 		ADD_CHILD,
 		ADD_DICTREF,
+		ADD_ID,
 		ADD_LABEL,
 		ADD_LINK,
 		ADD_MAP,
@@ -380,6 +382,8 @@ public class TransformElement implements MarkupApplier {
 			addChild();
 		} else if (ADD_DICTREF.equals(process)) {
 			addDictRef();
+		} else if (ADD_ID.equals(process)) {
+			addId();
 		} else if (ADD_LABEL.equals(process)) {
 			addLabel();
 		} else if (ADD_LINK.equals(process)) {
@@ -495,7 +499,7 @@ public class TransformElement implements MarkupApplier {
 			List<Node> fromNodeList = TransformElement.queryUsingNamespaces(element, from, fromPos);
 			for (Node fromNode : fromNodeList) {
 				Element fromElement = (Element) fromNode;
-				String valuex = evaluateValue(fromElement, value);
+				String valuex = (String) evaluateValue(fromElement, value);
 				if (valuex != null) {
 					if (uri != null) {
 						fromElement.addAttribute(new Attribute(name, uri, valuex));
@@ -537,9 +541,22 @@ public class TransformElement implements MarkupApplier {
 		List<Node> nodeList = getXpathQueryResults();
 		for (Node node : nodeList) {
 			Element element = (Element) node;
-			String valuex = evaluateValue(element, value);
+			String valuex = (String) evaluateValue(element, value);
 			if (valuex != null) {
 				element.addAttribute(new Attribute(DICT_REF, valuex));
+			}
+		}
+	}
+
+	private void addId() {
+		assertRequired(XPATH, xpath);
+		assertRequired(VALUE, value);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			Element element = (Element) node;
+			String valuex = (String) evaluateValue(element, value);
+			if (valuex != null) {
+				element.addAttribute(new Attribute(ID, valuex));
 			}
 		}
 	}
@@ -563,7 +580,7 @@ public class TransformElement implements MarkupApplier {
 				assertRequired(VALUE, value);
 				CMLLabel label = new CMLLabel();
 				label.setDictRef(dictRef);
-				String valuex = evaluateValue(element, value);
+				String valuex = (String) evaluateValue(element, value);
 				if (valuex != null) {
 					label.setCMLValue(value);
 					element.appendChild(label);
@@ -669,7 +686,7 @@ public class TransformElement implements MarkupApplier {
 		List<Node> nodeList = getXpathQueryResults();
 		for (Node node : nodeList) {
 			Element element = (Element)node;
-			String valuex = evaluateValue(element, value);
+			String valuex = (String) evaluateValue(element, value);
 			if (valuex != null) {
 				element.addNamespaceDeclaration(name, valuex);
 			}
@@ -714,7 +731,7 @@ public class TransformElement implements MarkupApplier {
 		for (Node node : nodeList) {
 			if (node instanceof HasUnits) {
 				Element element = (Element) node;
-				String valuex = evaluateValue(element, value);
+				String valuex = (String) evaluateValue(element, value);
 				if (valuex != null) {
 					element.addAttribute(new Attribute(UNITS, valuex));
 				}
@@ -1249,7 +1266,7 @@ public class TransformElement implements MarkupApplier {
 		List<Node> nodeList = getXpathQueryResults();
 		for (Node node : nodeList) {
 			Element element = (Element) node;
-			String valuex = evaluateValue(element, value);
+			String valuex = (String) evaluateValue(element, value);
 			if (valuex != null) {
 				ZMatrixElement zMatrixElement = new ZMatrixElement(element, valuex);
 				ParentNode parent = ensureParent(element);
@@ -1298,7 +1315,7 @@ public class TransformElement implements MarkupApplier {
 		Map<String, List<Node>> nodeListByKey = new HashMap<String, List<Node>>();
 		for (int i = 0; i < nodeList.size(); i++) {
 			Node node = nodeList.get(i);
-			String keyx = evaluateValue(node, key);
+			String keyx = (String) evaluateValue(node, key);
 			if (keyx != null) {
 				List<Node> list = nodeListByKey.get(keyx);
 				if (list == null) {
@@ -1498,7 +1515,7 @@ public class TransformElement implements MarkupApplier {
 		if (value != null) {
 			for (Node node : nodeList) {
 				Element element = (Element) node;
-				String valuex = evaluateValue(node, value);
+				String valuex = (String) evaluateValue(node, value);
 				Element copyElement = null;
 				if (CMLConstants.XSD_DOUBLE.equals(valuex)) {
 					if (element instanceof CMLScalar) {
@@ -1516,6 +1533,14 @@ public class TransformElement implements MarkupApplier {
 						CMLArray array = (CMLArray) element;
 						copyElement = new CMLArray(new IntArray(array.getStrings()).getArray());
 					}
+				} else if (CMLConstants.XSD_STRING.equals(valuex)) {
+					if (element instanceof CMLScalar) {
+						CMLScalar scalar = (CMLScalar) element;
+						copyElement = new CMLScalar(scalar.getValue());
+					} else if (element instanceof CMLArray) {
+						CMLArray array = (CMLArray) element;
+						copyElement = new CMLArray(array.getStrings());
+					}
 				}
 				if (copyElement != null) {
 					((HasDictRef)copyElement).setDictRef(((HasDictRef)element).getDictRef());
@@ -1532,7 +1557,7 @@ public class TransformElement implements MarkupApplier {
 		List<Node> nodeList = getXpathQueryResults();
 		if (value != null) {
 			for (Node node : nodeList) {
-				String valuex = evaluateValue(node, value);
+				String valuex = (String) evaluateValue(node, value);
 				if (valuex != null) {
 					if (node instanceof Attribute) {
 						Attribute att = (Attribute) node;
@@ -1662,22 +1687,57 @@ public class TransformElement implements MarkupApplier {
 	 * refNode is explicit reference node (usually from "from" attribute).
 	 * if null uses parsedElement.
 	 */
-	private String evaluateValue(Node refNode, String valuex) {
-		if (valuex != null) {
-			String function = null;
-			refNode = (refNode != null) ? refNode : parsedElement;
-			if (valuex.startsWith(STRING) && valuex.endsWith(CMLConstants.S_RBRAK)) {
-				function = STRING;
-			} else if (valuex.startsWith(NUMBER) && valuex.endsWith(CMLConstants.S_RBRAK)) {
-				function = NUMBER;
-			}
-			if (function != null) {
-				String xpath = valuex.substring(function.length(), valuex.length()-1);
-				Nodes nodes = TransformElement.queryUsingNamespaces(refNode, xpath);
-				valuex = (nodes.size() == 0) ? null : nodes.get(0).getValue();
+	private static Object evaluateValue(Node refNode, String valuex) {
+		Object result = null;
+		if (valuex == null ) {
+			return result;
+		}
+		Pattern PATTERN = Pattern.compile("\\$((?:string)|(?:number))\\(([^\\)]*)\\)");
+		Matcher matcher = PATTERN.matcher(valuex);
+		if (matcher.matches()) {
+			return evaluateValue0(refNode, matcher.group(1), matcher.group(2));
+		}
+		String ss = valuex;
+		while (true) {
+			matcher = PATTERN.matcher(ss);
+			if (matcher.find()) {
+				int start = matcher.start();
+				int end = matcher.end();
+				String g1 = matcher.group(1);
+				String g2 = matcher.group(2);
+				String value = (String) evaluateValue0(refNode, g1, g2);
+				String prefix = ss.substring(0, start);
+				String suffix = ss.substring(end);
+				ss = prefix + value + suffix;
+			} else {
+				break;
 			}
 		}
-		return valuex;
+		return ss;
+	}
+
+	private static Object evaluateValue0(Node refNode, String function, String xpath) {
+		Object result = null;
+		if (function != null) {
+			Nodes nodes = TransformElement.queryUsingNamespaces(refNode, xpath);
+			String v = (nodes.size() == 0) ? null : nodes.get(0).getValue();
+			if (function.equals(STRING)) {
+				result = v;
+			} else if (function.equals(NUMBER)) {
+				try {
+					result = new Integer(v);
+				} catch (Exception e) {
+					try {
+						if (result == null) {
+							result = new Double(v);
+						}
+					} catch (Exception e1) {
+						// fail silently
+					}
+				}
+			}
+		}
+		return result;
 	}
 
 	private void help(String processName) {
@@ -1964,6 +2024,7 @@ public class TransformElement implements MarkupApplier {
 		if (xpath == null) {
 			throw new RuntimeException("null xpath attribute");
 		}
+		xpath = (String) evaluateValue(node, xpath);
 		Nodes nodes = null;
 		try {
 			nodes = node.query(xpath, Template.CML_CMLX_CONTEXT);

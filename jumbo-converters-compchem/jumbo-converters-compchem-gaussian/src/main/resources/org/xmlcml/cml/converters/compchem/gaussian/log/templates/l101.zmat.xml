@@ -12,8 +12,8 @@
   <record id="charge">.*Charge ={I,g:charge} Multiplicity ={I,g:mult}</record>
   <record id="mol" repeat="*" makeArray="true">{A,gau:elementType} {F,gau:x3,unit:angstrom}  {F,gau:y3,unit:angstrom} {F,gau:z3,unit:angstrom}</record>
   <transform process="createMolecule" id="zmat" xpath=".//cml:array"/>
-  <transform process="addAttribute" xpath=".//cml:molecule" name="formalCharge" value="number(.//cml:scalar[@dictRef='g:charge'])"/>
-  <transform process="addAttribute" xpath=".//cml:molecule" name="spinMultiplicity" value="number(.//cml:scalar[@dictRef='g:mult'])"/>
+  <transform process="addAttribute" xpath=".//cml:molecule" name="formalCharge" value="$number(.//cml:scalar[@dictRef='g:charge'])"/>
+  <transform process="addAttribute" xpath=".//cml:molecule" name="spinMultiplicity" value="$number(.//cml:scalar[@dictRef='g:mult'])"/>
   <transform process="delete" xpath="./cml:list[@cmlx:templateRef='charge']"/>
   <transform process="pullupSingleton" xpath="./cml:list"/>
   

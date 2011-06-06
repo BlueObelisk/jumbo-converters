@@ -48,8 +48,8 @@
   </templateList>
   
   <transform process="addAttribute" xpath=".//cml:array[@dictRef='x:floatArr']" name="cmlx:idx" 
-    value="string(../cml:scalar[@dictRef='cc:serial'])"/>
-  <transform process="joinArrays" xpath=".//cml:array" key="string(@cmlx:idx)"/>
+    value="$string(../cml:scalar[@dictRef='cc:serial'])"/>
+  <transform process="joinArrays" xpath=".//cml:array" key="$string(@cmlx:idx)"/>
   <transform process="delete" xpath=".//cml:array[@dictRef='x:intarr']"/>
   <transform process="pullup" xpath=".//cml:array" repeat="3"/>
   <transform process="delete" xpath=".//cml:array[@dictRef='x:intarr']"/>

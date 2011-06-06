@@ -34,9 +34,9 @@
   <transform process="addDictRef" xpath=".//cml:module[@id='calculation']/cml:module" value="cc:userDefinedModule" />
 
   <transform process="addAttribute" xpath=".//cml:molecule" name="formalCharge" 
-    value="number(//cml:scalar[@dictRef='formalCharge'][1])" />
+    value="$number(//cml:scalar[@dictRef='formalCharge'][1])" />
   <transform process="addAttribute" xpath=".//cml:molecule" name="spinMultiplicity" 
-    value="number(//cml:scalar[@dictRef='spinMultiplicity'][1])" />
+    value="$number(//cml:scalar[@dictRef='spinMultiplicity'][1])" />
     
   <xi:include href="clean.transform.xml"/>
 
