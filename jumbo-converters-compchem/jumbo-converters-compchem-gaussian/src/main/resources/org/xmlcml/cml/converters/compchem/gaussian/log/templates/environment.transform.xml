@@ -1,0 +1,50 @@
+<transformList>
+
+  <!-- ============== INITIALIZATION ==================== -->
+  
+  <!-- build environment module -->
+
+  <transform process="addChild" xpath="//cml:module[@dictRef='cc:job']" elementName="cml:module" id="environment"
+     dictRef="cc:environment"/>
+
+  <transform process="addChild" xpath="//cml:module[@id='environment']" elementName="cml:parameterList" />
+
+  <!-- move parameters to environment -->
+  
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:hostname'][last()]" 
+      toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:jobname'][last()]" 
+      toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:date'][last()]" 
+      toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:title'][last()]" 
+      toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:version'][last()]" 
+      toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
+      
+
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l1.end']/cml:scalar[@dictRef='cc:run.date'][last()]" 
+      toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l1.end']/cml:scalar[@dictRef='cc:program'][last()]" 
+      toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l1.end']/cml:scalar[@dictRef='cc:program.date'][last()]" 
+      toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
+
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l1.end']/cml:scalar[@dictRef='cc:version'][last()]" 
+      toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l101']/cml:scalar[@dictRef='cc:title'][last()]" 
+      toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
+  
+  <transform process="createWrapperParameter" xpath="//cml:module[@id='environment']/cml:parameterList/*" />
+
+         
+<!--  rename some modules -->
+    
+  <transform process="addDictRef" 
+    xpath="//cml:module[@dictRef='cc:userDefinedModule' and cml:scalar[@dictRef='g:stoichiometry']]"
+    value="g:stoichSymm"/>
+  <transform process="addDictRef" 
+    xpath="//cml:module[@dictRef='cc:userDefinedModule' and cml:scalar[@dictRef='g:primbasis']]"
+    value="g:primbasis"/>
+    
+</transformList> 

@@ -128,8 +128,7 @@ public class InfoData {
 			CMLScalar scalar = createScalar();
 			property.addScalar(scalar);
 //			if (implementation == null) {
-			if (false) {
-			} else if (implementation != null) {
+			if (implementation != null) {
 				if (implementation.startsWith("E_")) {
 					property.setDictRef("pubchem:"+implementation);
 				} else {

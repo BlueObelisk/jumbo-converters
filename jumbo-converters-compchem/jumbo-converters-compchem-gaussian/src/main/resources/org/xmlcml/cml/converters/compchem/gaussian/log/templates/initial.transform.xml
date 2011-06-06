@@ -1,0 +1,106 @@
+<transformList>
+
+  <!-- ============== INITIALIZATION ==================== -->
+  
+  <transform process="addChild" xpath="//cml:module[@id='job']" elementName="cml:module" id="initialization" 
+    dictRef="cc:initialization"/>
+  
+  <transform process="addChild" xpath="//cml:module[@id='initialization']" elementName="cml:parameterList" />
+  
+  <!-- move modules to initialization -->
+  
+  <transform process="moveRelative" xpath=".//cml:module[starts-with(@cmlx:templateRef,'l1.') or @cmlx:templateRef='l1']" 
+    toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']"/> 
+  <transform process="moveRelative" xpath=".//cml:module[starts-with(@cmlx:templateRef,'l101.') or @cmlx:templateRef='l101']" 
+    toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']"/> 
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l103'][1]" 
+    toXpath="/cml:module[@id='initialization']"/> 
+  
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l202.orient'][1]" 
+    toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']"/> 
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l202.orient'][2]" 
+    toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']"/> 
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l202.distmat'][1]" 
+    toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']"/> 
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l202.stoich'][1]" 
+    toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']"/> 
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l202.rotconst'][1]" 
+    toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']"/> 
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l301.basis'][1]" 
+    toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']"/> 
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l302.basis'][1]" 
+    toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']"/> 
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l601.popanal'][1]" 
+    toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']"/> 
+  
+  <transform process="addDictRef" xpath=".//cml:module[@id='initialization']/cml:module" value="cc:userDefinedModule" />
+  
+  <!-- move initialization parameters -->
+
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:method'][last()]" 
+  toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"/> 
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:basis'][last()]" 
+  toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"/> 
+
+  <transform process="moveRelative" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:pointgroup'][last()]" 
+      toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"/> 
+  <transform process="moveRelative" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:frameworkgroup'][last()]" 
+      toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"/> 
+  <transform process="moveRelative" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:formula'][last()]" 
+      toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"/> 
+  <transform process="moveRelative" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:degfreedom'][last()]" 
+       toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"/> 
+
+  <transform process="moveRelative"   toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"
+      xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l301.basis']/cml:scalar[@dictRef='cc:basis']" />
+  <transform process="moveRelative"   toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"
+      xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l301.basis']/cml:scalar[@dictRef='cc:diffuse']" />
+  <transform process="moveRelative"   toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"
+      xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l301.basis']/cml:scalar[@dictRef='cc:basiscount']" />
+  <transform process="moveRelative"   toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"
+      xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l301.basis']/cml:scalar[@dictRef='cc:alphae']" />
+  <transform process="moveRelative"   toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"
+      xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l301.basis']/cml:scalar[@dictRef='cc:betae']" />
+  <transform process="moveRelative"   toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"
+      xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l301.basis']/cml:scalar[@dictRef='cc:natoms']" />
+  <transform process="moveRelative"   toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"
+      xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l301.basis']/cml:scalar[@dictRef='cc:nactiveatoms']" />
+  <transform process="moveRelative"   toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"
+      xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l301.basis']/cml:scalar[@dictRef='cc:nuniqatoms']" />
+
+  <transform process="moveRelative"   toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"
+      xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l302.basis']/cml:scalar[@dictRef='cc:method']" />
+
+  <transform process="moveRelative"   toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"
+      xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:rotconst'][laat()]" />
+      
+  <transform process="moveRelative" xpath="//cml:scalar[@dictRef='g:operation' or @dictRef='g:keyword']" 
+         toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"/>
+
+  <transform process="createWrapperParameter" xpath="//cml:module[@id='initialization']/cml:parameterList/*" />
+
+    <!-- find initialization molecule -->
+    
+  <transform process="moveRelative" xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l202.orient']/cml:molecule[1]" 
+      toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']"/> 
+
+  <transform process="addChild" xpath="//cml:module[@id='initialization']" elementName="cml:module" id="otherComponents"/>
+  <transform process="addDictRef" xpath=".//cml:module[@id='initialization']/cml:module[@id='otherComponents']" value="cc:userDefinedModule" />
+    
+  <transform process="moveRelative" xpath="//cml:module[@id='initialization']/cml:molecule[not(@id='mol.l202.orient')]" 
+         toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:module[@id='otherComponents']"/>
+  <transform process="moveRelative" xpath="//cml:module[@id='initialization']/cml:module[not(@id='otherComponents')]" 
+         toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:module[@id='otherComponents']"/>
+  <transform process="moveRelative" xpath="//cml:module[@id='initialization']/cml:module[not(@id='otherComponents')]" 
+         toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:module[@id='otherComponents']"/>
+         
+<!--  rename some modules -->
+    
+  <transform process="addDictRef" 
+    xpath="//cml:module[@dictRef='cc:userDefinedModule' and cml:scalar[@dictRef='g:stoichiometry']]"
+    value="g:stoichSymm"/>
+  <transform process="addDictRef" 
+    xpath="//cml:module[@dictRef='cc:userDefinedModule' and cml:scalar[@dictRef='g:primbasis']]"
+    value="g:primbasis"/>
+    
+</transformList> 

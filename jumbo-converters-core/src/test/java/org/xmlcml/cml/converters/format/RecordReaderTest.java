@@ -616,6 +616,106 @@ public class RecordReaderTest {
 	}
 	
 	@Test
+	public void readDate() {
+		LineContainer lineContainer = new LineContainer("Mon Nov 20 14:40:23 2006");
+		Element recordElement = CMLUtil.parseXML("<record id='i1'>{D,x:d}</record>");
+		RecordReader recordReader = new RecordReader(recordElement, null);
+		recordReader.applyMarkup(lineContainer);
+		Element ref = CMLUtil.parseXML(
+				"<module xmlns=\"http://www.xml-cml.org/schema\" " +
+				"  xmlns:cmlx=\"http://www.xml-cml.org/schema/cmlx\">" +
+				"  <list cmlx:templateRef=\"i1\">" +
+				"    <scalar dataType=\"xsd:date\" dictRef=\"x:d\">2006-11-20T14:40:23+00:00</scalar>" +
+				"  </list>" +
+				"</module>" +
+				"");
+		JumboTestUtils.assertEqualsCanonically("record1", ref, lineContainer.getLinesElement(), true);
+		// note than line count is after the adjustment for matched lines
+		Assert.assertEquals("multiple", 1, lineContainer.getCurrentNodeIndex());
+	}
+	
+	@Test
+	public void readDate1() {
+		LineContainer lineContainer = new LineContainer("Mon Nov 06 14:40:23 2006");
+		Element recordElement = CMLUtil.parseXML("<record id='i1'>{D,x:d}</record>");
+		RecordReader recordReader = new RecordReader(recordElement, null);
+		recordReader.applyMarkup(lineContainer);
+		Element ref = CMLUtil.parseXML(
+				"<module xmlns=\"http://www.xml-cml.org/schema\" " +
+				"  xmlns:cmlx=\"http://www.xml-cml.org/schema/cmlx\">" +
+				"  <list cmlx:templateRef=\"i1\">" +
+				"    <scalar dataType=\"xsd:date\" dictRef=\"x:d\">2006-11-06T14:40:23+00:00</scalar>" +
+				"  </list>" +
+				"</module>" +
+				"");
+		JumboTestUtils.assertEqualsCanonically("record1", ref, lineContainer.getLinesElement(), true);
+		// note than line count is after the adjustment for matched lines
+		Assert.assertEquals("multiple", 1, lineContainer.getCurrentNodeIndex());
+	}
+	
+	@Test
+	public void readDate2() {
+		LineContainer lineContainer = new LineContainer("Mon Nov  6 14:40:23 2006");
+		Element recordElement = CMLUtil.parseXML("<record id='i1'>{D,x:d}</record>");
+		RecordReader recordReader = new RecordReader(recordElement, null);
+		recordReader.applyMarkup(lineContainer);
+		Element ref = CMLUtil.parseXML(
+				"<module xmlns=\"http://www.xml-cml.org/schema\" " +
+				"  xmlns:cmlx=\"http://www.xml-cml.org/schema/cmlx\">" +
+				"  <list cmlx:templateRef=\"i1\">" +
+				"    <scalar dataType=\"xsd:date\" dictRef=\"x:d\">2006-11-06T14:40:23+00:00</scalar>" +
+				"  </list>" +
+				"</module>" +
+				"");
+		JumboTestUtils.assertEqualsCanonically("record1", ref, lineContainer.getLinesElement(), true);
+		// note than line count is after the adjustment for matched lines
+		Assert.assertEquals("multiple", 1, lineContainer.getCurrentNodeIndex());
+	}
+	
+	@Test
+	public void readInt() {
+
+		LineContainer lineContainer = new LineContainer("123");
+		Element recordElement = CMLUtil.parseXML("<record id='i1'>{I,x:i}</record>");
+		RecordReader recordReader = new RecordReader(recordElement, null);
+		recordReader.applyMarkup(lineContainer);
+		Element ref = CMLUtil.parseXML(
+				"<module xmlns=\"http://www.xml-cml.org/schema\" " +
+				"  xmlns:cmlx=\"http://www.xml-cml.org/schema/cmlx\">" +
+				"  <list cmlx:templateRef=\"i1\">" +
+				"    <scalar dataType=\"xsd:integer\" dictRef=\"x:i\">123</scalar>" +
+				"  </list>" +
+				"</module>" +
+				"");
+		JumboTestUtils.assertEqualsCanonically("record1", ref, lineContainer.getLinesElement(), true);
+		// note than line count is after the adjustment for matched lines
+		Assert.assertEquals("multiple", 1, lineContainer.getCurrentNodeIndex());
+	}
+	
+	
+	@Test
+	public void readIntAndDate() {
+		LineContainer lineContainer = new LineContainer("123 Mon Nov 20 14:40:23 2006 bar");
+		Element recordElement = CMLUtil.parseXML("<record id='i1'>{I3,x:i}\\s{D,x:d}\\s{A,x:a}\\s*</record>");
+		RecordReader recordReader = new RecordReader(recordElement, null);
+		recordReader.applyMarkup(lineContainer);
+		Element ref = CMLUtil.parseXML(
+				"<module xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>"+
+				" <list cmlx:templateRef='i1'>"+
+				"   <list>"+
+				"      <scalar dataType='xsd:integer' dictRef='x:i'>123</scalar>"+
+				"      <scalar dataType='xsd:date' dictRef='x:d'>2006-11-20T14:40:23+00:00</scalar>"+
+				"     <scalar dataType='xsd:string' dictRef='x:a'>bar</scalar>"+
+				"   </list>"+
+				"  </list>"+
+				"</module>"+
+				"");
+		JumboTestUtils.assertEqualsCanonically("record1", ref, lineContainer.getLinesElement(), true);
+		// note than line count is after the adjustment for matched lines
+		Assert.assertEquals("multiple", 1, lineContainer.getCurrentNodeIndex());
+	}
+	
+	@Test
 	public void readArray0() {
 		Element recordElement = CMLUtil.parseXML("<record id='i1' " +
 				"formatType='REGEX'>{3I2,x:a,u:g}</record>");

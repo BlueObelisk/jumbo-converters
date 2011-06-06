@@ -21,7 +21,7 @@ public class InputGenerator extends XSLTTextConverter {
 	private static Logger LOG = Logger.getLogger(InputGenerator.class);
 	private static final String INPUT_PARAMETERS = "inputParameters";
 
-	private InputGenerator() {
+	public InputGenerator() {
 	}
 
 	public InputGenerator(Document xsltDocument, String inputParameterFilename) {

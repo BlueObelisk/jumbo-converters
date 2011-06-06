@@ -36,7 +36,7 @@ public class CompChemConventionTest {
 		NWChemLogXML2CompchemConverter converter2 = new NWChemLogXML2CompchemConverter();
 		
 		Element e2 = converter2.convertToXML(e1);
-		doc = e2.getDocument();
+		doc = CMLUtil.ensureDocument(e2);
 		CMLUtil.debug(e2, new FileOutputStream("test/fukuilite.xml"), 1);
 	}
 

@@ -61,7 +61,11 @@ public class PatternContainer {
 		if (patternS != null) {
 			String[] pat = (multipleS == null) ? new String[]{patternS} : patternS.split(multipleS); 
 			for (int i = 0; i < pat.length; i++) {
-				patterns.add(Pattern.compile(pat[i], Pattern.DOTALL));
+				try {
+					patterns.add(Pattern.compile(pat[i], Pattern.DOTALL));
+				} catch (Exception e) {
+					throw new RuntimeException("Bad regex in: "+pat[i]);
+				}
 			}
 		}
 		return patterns;

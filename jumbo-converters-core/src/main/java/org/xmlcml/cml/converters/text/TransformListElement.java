@@ -22,12 +22,22 @@ public class TransformListElement implements MarkupApplier {
 			throw new RuntimeException("cannot make transformList from: "+element.getLocalName());
 		}
 		this.element = element;
+		expandIncludes(this.element);
 		processChildElementsAndAttributes();
 	}
 
 	public TransformListElement(Element element, Template template) {
 		this(element);
 		this.template = template;
+	}
+
+	private void expandIncludes(Element element) {
+        try {
+        	CMLUtil.ensureDocument(element);
+            ClassPathXIncludeResolver.resolveIncludes(element.getDocument());
+		} catch (Exception e) {
+			throw new RuntimeException("Bad XInclude", e);
+		}
 	}
 
 	private void processChildElementsAndAttributes() {
@@ -44,14 +54,25 @@ public class TransformListElement implements MarkupApplier {
 			if (TransformElement.TAG.equals(name)) {
 				TransformElement transform = new TransformElement(childElement, template);
 				markerList.add(transform);
-			} else if (TransformElement.TAG.equals(name)) {
+//			} else if (TransformElement.TAG.equals(name)) {
+//				TransformListElement transformList = new TransformListElement(childElement, template);
+//				markerList.add(transformList);
+			} else if (TransformListElement.TAG.equals(name)) {
 				TransformListElement transformList = new TransformListElement(childElement, template);
-				markerList.add(transformList);
+				transformList.processChildElementsAndAttributes();
+				List<MarkupApplier> childMarkerList = transformList.getMarkerList();
+				for (MarkupApplier markup : childMarkerList) {
+					markerList.add(markup);
+				}
 			} else {
 				CMLUtil.debug(childElement, "UNKNOWN CHILD");
 				throw new RuntimeException("unknown child: "+name);
 			}
 		}
+	}
+
+	public List<MarkupApplier> getMarkerList() {
+		return markerList;
 	}
 
 	private void processAttributes() {

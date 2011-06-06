@@ -164,6 +164,7 @@ public class TransformElement implements MarkupApplier {
 	private static final String DELETE                 = "delete";
 	private static final String JOIN_ARRAYS            = "joinArrays";
 	private static final String MOVE                   = "move";
+	private static final String MOVE_RELATIVE          = "moveRelative";
 	private static final String PULLUP                 = "pullup";
 	private static final String PULLUP_SINGLETON       = "pullupSingleton";
 	private static final String READ                   = "read";
@@ -224,6 +225,7 @@ public class TransformElement implements MarkupApplier {
 		HELP,
 		JOIN_ARRAYS,
 		MOVE,
+		MOVE_RELATIVE,
 		PULLUP_SINGLETON,
 		READ,
 		RENAME,
@@ -278,7 +280,17 @@ public class TransformElement implements MarkupApplier {
 	 */
 	public TransformElement(Element element) {
 		this.transformElement = element;
+		expandIncludes(transformElement);
 		processChildElementsAndAttributes();
+	}
+
+	private void expandIncludes(Element element) {
+        try {
+        	CMLUtil.ensureDocument(element);
+            ClassPathXIncludeResolver.resolveIncludes(element.getDocument());
+		} catch (Exception e) {
+			throw new RuntimeException("Bad XInclude", e);
+		}
 	}
 
 	/**
@@ -430,6 +442,8 @@ public class TransformElement implements MarkupApplier {
 			joinArrays();
 		} else if (MOVE.equals(process)) {
 			move();
+		} else if (MOVE_RELATIVE.equals(process)) {
+			moveRelative();
 		} else if (PULLUP.equals(process)) {
 			pullup();
 		} else if (PULLUP_SINGLETON.equals(process)) {
@@ -503,14 +517,13 @@ public class TransformElement implements MarkupApplier {
 			Element parent = (Element) node;
 			transformElement = (Element) templateElement.copy();
 			// make sure it's CML. CMLElements have a Document parent
-			Element transformElementx = CMLElement.createCMLElement(transformElement);
+			nu.xom.Element transformElementx = CMLElement.createCMLElement(transformElement);
 			if (transformElementx == null) {
 				transformElementx = transformElement;
 			}
-			if (transformElementx.getParent() != null) {
-				transformElementx.getParent().replaceChild(transformElementx, new Element("dummy"));
-			}
+			
 			if (LAST.equals(pos)) {
+				CMLUtil.detach(transformElementx);
 				parent.appendChild(transformElementx);
 			} else if (pos instanceof Integer){
 				parent.insertChild(transformElementx, (Integer)pos);
@@ -1337,6 +1350,7 @@ public class TransformElement implements MarkupApplier {
 		}
 	}
 
+	
 	private void move() {
 		assertRequired(XPATH, xpath);
 		assertRequired(TO_XPATH, to);
@@ -1346,19 +1360,48 @@ public class TransformElement implements MarkupApplier {
 		if (toParent != null) {
 			for (Node node : nodeList) {
 				if (node instanceof Element && !(node.equals(toParent))) {
-					// positon counts from ONE
+					// position counts from ONE
 					Integer pos = (position == null) ? null : new Integer(position)-1;
-					if (position == null || pos == toParent.getChildCount()) {
+					int toChildCount = toParent.getChildCount();
+					if (position == null || pos == toChildCount) {
 						node.detach();
 						toParent.appendChild(node);
-					} else if (pos >= 0 && pos <= toParent.getChildCount()) {
+					} else if (pos >= 0 && pos <= toChildCount) {
 						node.detach();
 						toParent.insertChild(node, pos);
+					} else {
+						LOG.trace("move position out of range "+pos+"; toChildCount  "+toChildCount);
 					}
 				}
 			}
 		} else {
 			LOG.debug("null toXpath: "+to);
+		}
+	}
+	
+	private void moveRelative() {
+		assertRequired(XPATH, xpath);
+		assertRequired(TO_XPATH, to);
+		Integer pos = (position == null) ? null : new Integer(position)-1;
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			if (node instanceof Element) {
+				Element fromElement = (Element) node;
+				Nodes toNodes = TransformElement.queryUsingNamespaces(fromElement, to);
+				if (toNodes.size() == 1) {
+					Element toElement = (Element) toNodes.get(0);
+					// position counts from ONE
+					if (position == null || pos == toElement.getChildCount()) {
+						node.detach();
+						toElement.appendChild(node);
+					} else if (pos >= 0 && pos <= toElement.getChildCount()) {
+						node.detach();
+						toElement.insertChild(node, pos);
+					} else {
+						throw new RuntimeException("Cannot move ");
+					}
+				}
+			}
 		}
 	}
 

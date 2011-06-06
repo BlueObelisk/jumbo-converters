@@ -28,6 +28,7 @@ public class RegexProcessor {
 	private static String EXPONENTIAL_END_REGEX;
 	private static String EXPONENT_NOWIDTH_REGEX;
 	private static String DATE_START_REGEX;
+	private static String DATE_1_REGEX;
 	private static String FLOAT_MID_REGEX;
 	private static String FLOAT_NOWIDTH_REGEX;
 	private static String INTEGER_NOWIDTH_REGEX;
@@ -68,6 +69,8 @@ public class RegexProcessor {
 				EXPONENT_NOWIDTH_REGEX = regex;
 			} else if (name.equals("DATE_START")) {
 				DATE_START_REGEX = regex;
+			} else if (name.equals("DATE_PATTERN_1")) {
+				DATE_1_REGEX = regex;
 			} else if (name.equals("FLOAT_MID")) {
 				FLOAT_MID_REGEX = regex;
 			} else if (name.equals("FLOAT_NOWIDTH")) {
@@ -308,7 +311,8 @@ public class RegexProcessor {
 	public static String createDateField(Integer width) {
 		String newString;
 		if (width == null || width == 0) {
-			throw new RuntimeException("width must be given: ");
+			newString = DATE_1_REGEX;
+//			throw new RuntimeException("width must be given: ");
 		} else {
 			newString = DATE_START_REGEX+width+WIDTH_END_REGEX;
 		}
@@ -345,7 +349,7 @@ public class RegexProcessor {
 			}
 			Matcher matcher = pattern.matcher(line);
 			boolean matches = matcher.matches();
-			LOG.trace("<match?>"+pattern+">>["+line+"]"+matches+" "+matcher.groupCount());
+			LOG.trace("<match?>"+pattern+" .. ["+line+"]"+matches+" "+matcher.groupCount());
 			if (matches) {
 				int groupCount = matcher.groupCount();
 				for (int i = 1; i <= groupCount; i++) {

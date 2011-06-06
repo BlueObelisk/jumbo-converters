@@ -221,7 +221,8 @@ public class CML2CMLConverter extends AbstractConverter implements
 	private void addMorgan(MoleculeTool moleculeTool) {
 		LOG.trace("addMorgan");
 		CMLMolecule molecule = moleculeTool.getMolecule();
-		Morgan morgan = new Morgan(molecule);
+		Morgan morgan = new Morgan();
+		morgan.setMolecule(molecule);
 		String morganString = morgan.getEquivalenceString();
 		CMLIdentifier identifier = new CMLIdentifier();
 		identifier.setConvention("cml:morgan");
