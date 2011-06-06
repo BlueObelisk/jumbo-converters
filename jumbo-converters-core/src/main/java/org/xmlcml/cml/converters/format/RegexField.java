@@ -13,7 +13,7 @@ public class RegexField {
 
 	private static final String A = "A";
 	private static final String B = "B";
-	private static final String D = "D";
+	private static final String D = "D"; // date
 	private static final String F = "F";
 	private static final String I = "I";
 	public static final String X = "X";

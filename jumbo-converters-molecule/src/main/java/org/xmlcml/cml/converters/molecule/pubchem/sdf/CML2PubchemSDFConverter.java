@@ -20,6 +20,7 @@ import org.xmlcml.cml.element.CMLScalar;
  */
 public class CML2PubchemSDFConverter extends CML2SDFConverter implements
 		Converter {
+	@SuppressWarnings("unused")
 	private static final Logger LOG = Logger.getLogger(CML2PubchemSDFConverter.class);
 
 	public final static String CRYSTALEYE_SITE = "http://wwmm.ch.cam.ac.uk/crystaleye/summary";

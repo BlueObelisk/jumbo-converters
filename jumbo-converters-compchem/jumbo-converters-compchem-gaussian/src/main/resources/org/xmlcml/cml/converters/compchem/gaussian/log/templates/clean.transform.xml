@@ -1,0 +1,23 @@
+<transformList>
+
+<!--  ====================== CLEAN ===================== -->
+    
+    <!-- clean up output -->
+    
+    <transform process="createWrapperProperty" xpath="//cml:atom/cml:scalar" />
+    <transform process="delete" xpath=".//cml:molecule/cml:formula/cml:atomArray" />
+  <!-- 
+    <transform process="delete" xpath=".//@cmlx:templateRef" />
+-->
+    <transform process="delete" xpath=".//@cmlx:lineCount" />
+    
+    <transform process="delete" xpath="/cml:module/cml:scalar" />
+
+    <transform process="delete" xpath=".//cml:module[@dictRef='cc:userDefinedModule' and count(*)=0]" />
+    
+    <transform process="delete" xpath="//cml:module/text()" />
+
+<!--   
+  <transform process="delete" xpath="/cml:module/text() | /cml:module/cml:scalar" toXpath="/cml:module/cml:module[@id='calculation']"/> 
+ -->    
+</transformList> 
