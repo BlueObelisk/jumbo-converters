@@ -68,7 +68,7 @@ public class GaussianLog2CompchemConverter extends AbstractConverter {
             AbstractConverter converter = new GaussianLog2CompchemConverter();
 //            convertFile(converter, "jobTest");
 //            convertFile(converter, "anna0");
-			for (int i = 1; i < 4; i++) {
+			for (int i = 1; i <= 4; i++) {
 				convertFile(converter, "anna"+i);
 			}
         }
