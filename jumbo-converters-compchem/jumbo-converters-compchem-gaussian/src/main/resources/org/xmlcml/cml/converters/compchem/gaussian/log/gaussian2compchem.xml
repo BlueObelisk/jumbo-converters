@@ -2,7 +2,7 @@
   xmlns:xi="http://www.w3.org/2001/XInclude"
   >
 
-  <xi:include href="namespaces.transform.xml"/>
+  <xi:include href="transform.namespaces.xml"/>
 
   <transform process="addChild" xpath="." elementName="cml:module" id="jobList1" dictRef="cc:jobList"/>
 
@@ -10,14 +10,12 @@
   <transform process="addAttribute" xpath="./cml:module[@cmlx:templateRef='job']" name="id" value="job" />
   <transform process="move" xpath=".//cml:module[@dictRef='cc:job']" toXpath=".//cml:module[@dictRef='cc:jobList']" />
 
-<!-- 
-  <transform process="debugNodes" xpath="."/>
- -->  
+  <xi:include href="transform.preclean.xml"/>
   
-  <xi:include href="environment.transform.xml"/>
-  <xi:include href="initial.transform.xml"/>
-  <xi:include href="calculation.transform.xml"/>
-  <xi:include href="final.transform.xml"/>
+  <xi:include href="transform.environment.xml"/>
+  <xi:include href="transform.initial.xml"/>
+  <xi:include href="transform.calculation.xml"/>
+  <xi:include href="transform.final.xml"/>
 
 
   <!-- move remaining modules to calculation -->
@@ -38,7 +36,7 @@
   <transform process="addAttribute" xpath=".//cml:molecule" name="spinMultiplicity" 
     value="$number(//cml:scalar[@dictRef='spinMultiplicity'][1])" />
     
-  <xi:include href="clean.transform.xml"/>
+  <xi:include href="transform.clean.xml"/>
 
 </transformList>    
  

@@ -1,0 +1,60 @@
+<transformList>
+
+<!--  ====================== FINALIZATION ===================== -->
+    
+  <!-- build finalization module -->
+  
+  <transform process="addChild" xpath="//cml:module[@id='job']" elementName="cml:module" id="finalization"/>
+  <transform process="addDictRef" xpath="//cml:module[@id='finalization']" value="cc:finalization"/>
+  
+  <transform process="addChild" xpath="//cml:module[@id='finalization']" elementName="cml:propertyList" />
+
+  <!-- move modules to finalization -->
+  
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='jobcpu']/cml:scalar[starts-with(@dictRef,'cc:job')]" 
+    toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='finalization']/cml:propertyList"/>
+     
+  <transform process="moveRelative" 
+    xpath=".//cml:module[starts-with(@cmlx:templateRef,'l601')][last()] |
+           .//cml:module[starts-with(@cmlx:templateRef,'l716')][last()] |
+           .//cml:module[starts-with(@cmlx:templateRef,'l801')][last()]
+     " 
+    toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='finalization']/cml:propertyList"/> 
+    
+  <transform process="moveRelative" xpath="
+    .//cml:module[@cmlx:templateRef='l9999.final'][1] |
+    .//cml:module[@cmlx:templateRef='l9999.archive'][1]" 
+    toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='finalization']"/> 
+  
+  <transform process="addDictRef" xpath=".//cml:module[@id='finalization']/cml:module" 
+    value="cc:userDefinedModule" />
+
+  <!-- move properties to finalization -->
+  
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[
+    @dictRef='cc:electronicstate'] | 
+    .//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[starts-with(@dictRef,'cc:') and contains(@dictRef,'energy')][last()] |
+    .//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:rmsd'][last()] |
+    .//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:rmsf'][last()] |
+    .//cml:module[@cmlx:templateRef='l9999.archive']/cml:array[@dictRef='cc:dipole'][last()]" 
+    toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='finalization']/cml:propertyList"/> 
+
+  
+  <transform process="addChild" xpath="//cml:module[@id='finalization']" elementName="cml:module" id="otherComponents"/>
+  <transform process="addDictRef" xpath=".//cml:module[@id='finalization']/cml:module[@id='otherComponents']" value="cc:userDefinedModule" />
+  
+  <transform process="moveRelative" xpath="//cml:module[@id='finalization']/cml:module[not(@id='otherComponents')]" 
+    toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='finalization']/cml:module[@id='otherComponents']"/>
+  <transform process="moveRelative" xpath="//cml:module[@id='finalization']//cml:molecule[1]" 
+    toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='finalization']"/>
+
+  <transform process="pullup" xpath="//cml:module[@cmlx:templateRef='l716']/cml:module[starts-with(@cmlx:templateRef,'l716.')]"/>
+  <transform process="pullup" xpath="//cml:module[@cmlx:templateRef='l601.polariz']/cml:array"/>
+  <transform process="delete" xpath="//cml:module[count(*)=0]"/>
+
+ <!-- wrap all properties -->
+  <transform process="createWrapperProperty" xpath="//cml:module[@id='finalization']/cml:propertyList/*" />  
+  <transform process="createWrapper" xpath="//cml:module[@id='finalization']/cml:propertyList/cml:module" elementName="cml:property"/>  
+
+  
+</transformList> 

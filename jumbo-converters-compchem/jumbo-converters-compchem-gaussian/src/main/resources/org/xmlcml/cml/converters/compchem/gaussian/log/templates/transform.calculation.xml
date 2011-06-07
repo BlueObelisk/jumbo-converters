@@ -1,0 +1,22 @@
+<transformList>
+
+<!--  ====================== CALCULATION ===================== -->
+  
+  <!-- build calculation module -->
+  
+  <transform process="addChild" xpath="//cml:module[@id='job']" elementName="cml:module" 
+    id="calculation" dictRef="cc:calculation"/>
+  <transform process="addChild" xpath="//cml:module[@id='calculation']" elementName="cml:module" 
+    id="otherComponents" dictRef="cc:userDefined"/>
+    
+    <!--  move all at once to preserve order -->
+  <transform process="moveRelative" xpath=".//cml:module[
+      starts-with(@cmlx:templateRef,'l103') or
+      starts-with(@cmlx:templateRef,'l202') or
+      starts-with(@cmlx:templateRef,'l301') or
+      starts-with(@cmlx:templateRef,'l302')
+      ] | 
+      .//cml:scalar[@dictRef='cc:nucrepener']" 
+      toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='calculation']/cml:module[@id='otherComponents']"/> 
+  
+</transformList> 

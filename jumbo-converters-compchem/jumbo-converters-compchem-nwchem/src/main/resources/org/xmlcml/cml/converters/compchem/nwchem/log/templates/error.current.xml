@@ -1,8 +1,8 @@
-<template repeat="*"  id="errorcurrent" name="error and line" 
+<template repeat="*"  id="error.current" name="error and line" 
   pattern="\s*\-+\s*$\s*current input line :*\s*$.*$s*\-+\s*"
    endPattern=".*">
 
-  <comment class="example.input" id="errormult">
+  <comment class="example.input" id="error.current">
  ------------------------------------------------------------------------
   current input line : 
     47: task dft
@@ -15,7 +15,7 @@
   
   <transform process="pullup" xpath=".//cml:scalar" repeat="2"/>
   
-  <comment class="example.output" id="errormult">
+  <comment class="example.output" id="error.current">
     <module cmlx:templateRef="errorcurrent" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <scalar dataType="xsd:integer" dictRef="n:line">47</scalar>
       <scalar dataType="xsd:string" dictRef="n:text">task dft</scalar>

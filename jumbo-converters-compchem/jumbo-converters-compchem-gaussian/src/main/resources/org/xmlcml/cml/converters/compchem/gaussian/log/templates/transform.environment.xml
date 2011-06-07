@@ -6,13 +6,13 @@
 
   <transform process="addChild" xpath="//cml:module[@dictRef='cc:job']" elementName="cml:module" id="environment"
      dictRef="cc:environment"/>
-
   <transform process="addChild" xpath="//cml:module[@id='environment']" elementName="cml:parameterList" />
 
   <!-- move parameters to environment -->
-  
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='jobcpu']/cml:scalar[@dictRef='cc:program']" 
+    toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/>
   <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:hostname'][last()]" 
-      toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
+    toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
   <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:jobname'][last()]" 
       toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
   <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:date'][last()]" 
