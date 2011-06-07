@@ -39,13 +39,13 @@ public class TemplateUnitTests {
    @Test public void testArgumentOK()                            {runTemplateTest("argument");}
    @Test public void testAtmassOK()                              {runTemplateTest("atmass");}
    @Test public void testAtombasisOK()                  {runTemplateTest("atombasis");}
-   @Test public void testAtombasisendOK()               {runTemplateTest("atombasisend");}
+   @Ignore @Test public void testAtombasisendOBS()               {runTemplateTest("atombasisend");}
    @Test public void testAtombasisend1OK()               {runTemplateTest("atombasisend1");}
    @Test public void testAtomicshellscreenOK()                   {runTemplateTest("atomicshellscreen");}
    @Test public void testAuthors()                               {runTemplateTest("authors");}
    @Test public void testAutosymOK()                             {runTemplateTest("autosym");}
    @Test public void testBasisShellOK()                          {runTemplateTest("basis.shell");}
-   @Test public void testBasisFIXME()                               {runTemplateTest("basis");}
+   @Ignore @Test public void testBasisFIXME()                               {runTemplateTest("basis");}
    @Test public void testBasisfuncOK()                           {runTemplateTest("basisfunc");}
    @Test public void testBeforeaftercallOK()                     {runTemplateTest("beforeaftercall");}
    @Test public void testBrillouinzpOK()                         {runTemplateTest("brillouinzp");}
@@ -79,6 +79,11 @@ public class TemplateUnitTests {
    @Test public void testEigqrotOK()                             {runTemplateTest("eigqrot");}
    @Ignore @Test public void testEnergycalcWHITE()               {runTemplateTest("energycalc");}
    @Ignore @Test public void testEnergyminWHITE()                {runTemplateTest("energymin");}
+   @Test public void testErrorcurrent()                          {runTemplateTest("error.current");}
+   @Test public void testErrormult()                             {runTemplateTest("error.mult");}
+   @Test public void testErrornocat()                            {runTemplateTest("error.nocat");}
+   @Test public void testErrorfile()                             {runTemplateTest("error.file");}
+   @Test public void testErrorLastSys()                          {runTemplateTest("error.lastsys");}
    @Test public void testEtnew()                                 {runTemplateTest("etnew");}
    @Test public void testFilebalanceOK()                         {runTemplateTest("filebalance");}
    @Test public void testFinaleigenOK()                          {runTemplateTest("finaleigen");}

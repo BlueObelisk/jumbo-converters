@@ -1,0 +1,23 @@
+<template repeat="*"  id="error.nocat" name="No category for error" 
+  pattern="s*\-+\s*$\s*This error has not yet been assigned to a category\s*$s*\-+\s*"
+   endPattern=".*">
+
+  <comment class="example.input" id="error.nocat">
+ ------------------------------------------------------------------------
+ This error has not yet been assigned to a category
+ ------------------------------------------------------------------------
+  </comment>
+  
+  <record/>
+  <record id="line">\s*{X,n:text}\s*</record>
+  <record/>
+  
+  <transform process="pullup" xpath=".//cml:scalar" repeat="2"/>
+  
+  <comment class="example.output" id="error.nocat">
+    <module cmlx:templateRef="error.nocat" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="n:text">This error has not yet been assigned to a category</scalar>
+    </module>
+  </comment>
+
+</template>

@@ -1,0 +1,22 @@
+<template repeat="*"  id="lastsyserr" name="Last System Error Message" 
+  pattern=".*Last System Error Message from.*\s*$s*\-+\s*"
+   endPattern=".*">
+
+  <comment class="example.input" id="lastsyserr">
+Last System Error Message from Task 0:: Inappropriate ioctl for device
+--------------------------------------------------------------------------
+  </comment>
+  
+  <record id="line">.*Last System Error Message from Task{I,n:task}::\s*{X,n:text}\s*</record>
+  <record/>
+  
+  <transform process="pullup" xpath=".//cml:scalar" repeat="2"/>
+  
+  <comment class="example.output" id="lastsyserr">
+    <module cmlx:templateRef="lastsyserr" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:integer" dictRef="n:task">0</scalar>
+      <scalar dataType="xsd:string" dictRef="n:text">Inappropriate ioctl for device</scalar>
+    </module>
+  </comment>
+
+</template>

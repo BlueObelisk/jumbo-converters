@@ -1,0 +1,23 @@
+<template repeat="*"  id="errorfile" name="error file" 
+  pattern="\s*\-+\s*$\s*There is an error in the input file\s*$\s*\-+\s*"
+   endPattern=".*">
+
+  <comment class="example.input" id="errorfile">
+ ------------------------------------------------------------------------
+ There is an error in the input file
+ ------------------------------------------------------------------------
+  </comment>
+  
+  <record/>
+  <record id="error">\s*{X,n:errorfile}</record>
+  <record/>
+  
+  <transform process="pullup" xpath=".//cml:scalar"/>
+  
+  <comment class="example.output" id="errorfile">
+    <module cmlx:templateRef="errorfile" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="n:errorfile">There is an error in the input file</scalar>
+    </module>
+  </comment>
+
+</template>
