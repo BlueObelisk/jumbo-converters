@@ -6,10 +6,13 @@ import java.io.InputStream;
 
 import nu.xom.Builder;
 import nu.xom.Element;
+import nu.xom.ParsingException;
+import nu.xom.ValidityException;
 
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.CompchemText2XMLTemplateConverter;
+import org.xmlcml.cml.converters.text.Template;
 import org.xmlcml.cml.converters.text.Text2XMLTemplateConverter;
 
 /** this class takes XML input (it should really be in CORE?)
@@ -19,13 +22,31 @@ import org.xmlcml.cml.converters.text.Text2XMLTemplateConverter;
  */
 public class CML2XMLConverter extends CompchemText2XMLTemplateConverter {
 
+	
 	@Override
 	public Type getInputType() {
 		return Type.CML;
 	}
 
+	public CML2XMLConverter() {
+		super();
+		setTemplate(createTemplate("cml", "cml"));
+	}
+
+	private Template createTemplate(String code, String fileType) {
+		Template template = null;
+		try {
+			InputStream templateStream = createTemplateStream(code, fileType, "topTemplate.xml");
+			Element templateElement = new Builder().build(templateStream, createBaseURI(code, fileType)).getRootElement();
+			template = new Template(templateElement);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return template;
+	}
+
+
 	public CML2XMLConverter(Element templateElement) {
-//		super(templateElement, "cml", "cml");
 		super(templateElement);
 	}
 
@@ -56,11 +77,11 @@ public class CML2XMLConverter extends CompchemText2XMLTemplateConverter {
 		}
 	}
 
-	public static Text2XMLTemplateConverter createTemplateConverter(InputStream templateStream, String codeBase, String fileType) {
+	public static Text2XMLTemplateConverter createTemplateConverter(InputStream templateStream, String code, String fileType) {
 		Element templateElement = null;
 		Text2XMLTemplateConverter converter = null;
 		try {
-			templateElement = new Builder().build(templateStream, createBaseURI(codeBase, fileType)).getRootElement();
+			templateElement = new Builder().build(templateStream, createBaseURI(code, fileType)).getRootElement();
 			converter = new CML2XMLConverter(templateElement);
 		} catch (Exception e) {
 			throw new RuntimeException("Cannot create template: ", e);

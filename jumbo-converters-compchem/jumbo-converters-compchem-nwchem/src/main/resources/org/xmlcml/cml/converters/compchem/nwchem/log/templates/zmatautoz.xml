@@ -1,6 +1,6 @@
 <template repeat="*"  id="zmatautoz" name="Z-Matrix autoz" 
-  pattern=".*Z\-matrix \(autoz\).*$\s+\-+.*$\s*$.*$\s*$.*$\s+\-+.*" 
-  newline="$" endPattern="\s*" endOffset="1">
+  pattern=".*Z\-matrix \(autoz\).*$\s+\-+.*" 
+  endPattern="\s*" endOffset="1">
 
   <comment class="example.input" id="zmatautoz">
                                 Z-matrix (autoz)
@@ -11,16 +11,14 @@
       Type          Name      I     J     K     L     M      Value
       ----------- --------  ----- ----- ----- ----- ----- ----------
     1 Stretch                  1     2                       1.80680
-..
    10 Stretch                  8    11                       1.15200
    11 Bend                     2     1     6                90.00000
-..
    37 Bend                    11     1     7               120.00000
    38 Torsion                  1     2     6     9         180.00000
-..
    55 Torsion                  1     8     7    10         180.00000
-   
+    
   </comment>
+  
   <comment>
   
 
@@ -50,13 +48,40 @@
    12 Stretch                  5    10                       1.08360    0.00182
   
   </comment>
+  
   <record id="type" >\s*Z\-matrix\s*\({X,n:type}\)\s*</record>
-  <record repeat="2">{X}</record>
+  <record repeat="1" id="xx"/>
   <record repeat="*">\s*</record>
-  <record id="asterisk" repeat="*">\s*Constants are marked with an asterisk.*</record>
-  <record repeat="*">\s*</record>
-  <record id="plus" repeat="*">\s*  Constrained variables are marked with a plus sign.*</record>
-  <record repeat="*">\s*</record>
+  <templateList>
+    <template repeat="*" id="units" pattern="\s*Units.*" endPattern=".*">
+      <record id="units" repeat="*">\s*Units are {A,n:ll} for bonds and {A,n:aa} for angles.*</record>
+    </template>
+    <template repeat="*" id="constants" pattern="\s*Constants.*" endPattern=".*">
+      <record id="constants" repeat="*">\s*Constants are marked with {X,n:aa}.*</record>
+    </template>
+    <template repeat="*" id="constraints" pattern="\s*Constrained.*" endPattern=".*">
+      <record id="constraints" repeat="*">\s*Constrained variables are marked with {X,n:aa}.*</record>
+    </template>
+    <template repeat="*" id="type" pattern="\s*Type\s+Name.*" endPattern="\s*">
+      <record id="type" repeat="2"/>
+      <templateList>
+      <!-- 
+        <template id="l" repeat="*" pattern=".*\sStretch.*" endPattern=".*">
+          <record id="length" repeat="*">\s*{I,cc:serial}\sStretch{I,cc:atom}\s{I,cc:atom}\s{F,cc:length}\s*</record>
+        </template>
+        <template id="b" repeat="*" pattern=".*Bend.*" endPattern=".*">
+          <record id="bend" repeat="*">\s*{I,cc:serial}\sBend\s{I,cc:atom}\s{I,cc:atom}\s{I,cc:atom}\s{F,cc:ang}\s*</record>
+        </template>
+        <template id="t" repeat="*" pattern=".*Torsion.*" endPattern=".*">
+          <record id="torsion" repeat="*">\s*{I,cc:serial}\sTorsion{I,cc:atom}\s{I,cc:atom}\s{I,cc:atom}\s{I,cc:atom}\s{F,cc:torsion}\s*</record>
+        </template>
+        -->
+        <template repeat="*" id="ttttt" pattern=".*" endPattern=".*">
+          <record id="ttttt" repeat="*">{X,n:ttttt}.*</record>
+        </template>
+      </templateList>
+    </template>
+  </templateList>  
 
   <comment class="example.output" id="zmatautoz">
 <module cmlx:templateRef="zmatautoz" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
