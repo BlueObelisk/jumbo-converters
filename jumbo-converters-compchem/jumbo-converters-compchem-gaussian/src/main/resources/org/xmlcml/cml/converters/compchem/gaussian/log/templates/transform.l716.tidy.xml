@@ -1,0 +1,25 @@
+<transformList>
+
+<!--  tidy frequencies -->
+  <transform process="addDictRef" xpath="//cml:property[cml:module[@cmlx:templateRef='l716.forcematrix']]"
+    value="cc:frequencies"/>
+  <transform process="addChild" xpath="//cml:property[cml:module[@cmlx:templateRef='l716.forcematrix']]"
+    elementName="cml:table" id="l716.forcematrix"/>
+  <transform process="moveRelative" xpath="//cml:property[@dictRef='cc:frequencies']/cml:module/cml:array" toXpath="../../cml:table"/>
+   
+<!--  somewhat tidy thermochemistry -->
+  <transform process="addDictRef" xpath="//cml:property[cml:module[@cmlx:templateRef='l716.thermochemistry']]"
+    value="cc:thermochemistry"/>
+  <transform process="addChild" xpath="//cml:property[cml:module[@cmlx:templateRef='l716.thermochemistry']]"
+    elementName="cml:list" id="l716.thermochemistry"/>
+  <transform process="moveRelative" xpath="//cml:property[@dictRef='cc:thermochemistry']/cml:module/cml:*" toXpath="../../cml:list"/>
+   
+<!--  somewhat tidy zeropoint -->
+  <transform process="addDictRef" xpath="//cml:property[cml:module[@cmlx:templateRef='l716.zeropoint']]"
+    value="cc:zeropoint"/>
+  <transform process="addChild" xpath="//cml:property[cml:module[@cmlx:templateRef='l716.zeropoint']]"
+    elementName="cml:list" id="l716.zeropoint"/>
+  <transform process="moveRelative" xpath="//cml:property[@dictRef='cc:zeropoint']/cml:module/cml:scalar" toXpath="../../cml:list"/>
+   
+  
+</transformList> 

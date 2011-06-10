@@ -19,7 +19,8 @@ import org.xmlcml.cml.interfacex.HasDataType;
 import org.xmlcml.euclid.Util;
 
 public class RegexProcessor {
-	private static final String REGEX_LIST = "org/xmlcml/cml/converters/format/regexList.xml";
+	private static final String REGEX_LIST = 
+		"org/xmlcml/cml/converters/format/regexList.xml";
 
 	private static final String NAME = "name";
 	
@@ -349,7 +350,7 @@ public class RegexProcessor {
 			}
 			Matcher matcher = pattern.matcher(line);
 			boolean matches = matcher.matches();
-			LOG.trace("<match?>"+pattern+" .. ["+line+"]"+matches+" "+matcher.groupCount());
+//			System.err.println("<match?>"+pattern+" .. ["+line+"]"+matches+" "+matcher.groupCount());
 			if (matches) {
 				int groupCount = matcher.groupCount();
 				for (int i = 1; i <= groupCount; i++) {

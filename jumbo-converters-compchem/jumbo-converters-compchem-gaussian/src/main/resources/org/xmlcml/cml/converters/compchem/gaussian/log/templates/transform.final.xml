@@ -1,4 +1,6 @@
-<transformList>
+<transformList
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
 
 <!--  ====================== FINALIZATION ===================== -->
     
@@ -51,10 +53,29 @@
   <transform process="pullup" xpath="//cml:module[@cmlx:templateRef='l716']/cml:module[starts-with(@cmlx:templateRef,'l716.')]"/>
   <transform process="pullup" xpath="//cml:module[@cmlx:templateRef='l601.polariz']/cml:array"/>
   <transform process="delete" xpath="//cml:module[count(*)=0]"/>
+  
+  <!--  forcematrix -->
+  <!-- 
+- <property>
+- <module cmlx:templateRef="l716.forcematrix">
+  <array dataType="xsd:integer" dictRef="x:serial" size="9">1 2 3 4 5 6 7 8 9</array> 
+  <array delimiter="|" dataType="xsd:string" dictRef="cc:irrep" size="9">|T2|T2|T2|E|E|A1|T2|T2|T2|</array> 
+  <array dataType="xsd:double" dictRef="cc:frequency" size="9">1373.4987 1373.4987 1373.4987 1593.9619 1593.9619 3053.5976 3163.9228 3163.9228 3163.9228</array> 
+  <array dataType="xsd:double" dictRef="cc:redmass" size="9">1.1787 1.1787 1.1787 1.0078 1.0078 1.0078 1.1019 1.1019 1.1019</array> 
+  <array dataType="xsd:double" dictRef="cc:forceconst" size="9">1.3101 1.3101 1.3101 1.5087 1.5087 5.5368 6.4991 6.4991 6.4991</array> 
+  <array dataType="xsd:double" dictRef="cc:irintensity" size="9">15.4253 15.4253 15.4253 0.0 0.0 0.0 26.421 26.421 26.421</array> 
+  </module>
+  </property>
+   -->
+   
 
  <!-- wrap all properties -->
   <transform process="createWrapperProperty" xpath="//cml:module[@id='finalization']/cml:propertyList/*" />  
   <transform process="createWrapper" xpath="//cml:module[@id='finalization']/cml:propertyList/cml:module" elementName="cml:property"/>  
 
+  <xi:include href="transform.l716.tidy.xml"/>
+
+  <transform process="delete" xpath="//cml:module[@id='finalization']//cml:property/cml:module[count(*)=0]"/>  
+  
   
 </transformList> 

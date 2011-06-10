@@ -64,6 +64,8 @@ public class TemplateTest {
 	
 	@Test	public void testl301Basis()                  {runTemplateTest("l301.basis");}
 	
+	@Ignore @Test	public void testl401OrbsymTRAIL()                 {runTemplateTest("l401.orbsym");}
+	
 	@Test 	public void testl601Alphabeta()              {runTemplateTest("l601.alphabetaeigen");}
 	@Test   public void testl601Anisospin()              {runTemplateTest("l601.anisospin");}
 	@Ignore @Test   public void testl601CondensedBADARRAYS()              {runTemplateTest("l601.condensed");}

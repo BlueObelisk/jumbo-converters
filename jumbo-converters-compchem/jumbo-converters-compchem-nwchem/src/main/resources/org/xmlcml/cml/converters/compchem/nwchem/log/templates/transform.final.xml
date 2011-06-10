@@ -1,0 +1,114 @@
+<transformList>
+  
+  <!-- build finalization module -->
+
+
+<!-- ================ finalization ================================= -->
+
+
+  <transform process="addChild" xpath="//cml:module[@id='job1']" elementName="cml:module" id="finalization"/>
+  <transform process="addDictRef" xpath="//cml:module[@id='finalization']" value="cc:finalization"/>
+  
+  <transform process="addChild" xpath="//cml:module[@id='finalization']" elementName="cml:propertyList" />
+  
+  <!-- move modules to finalization -->
+  
+  <transform process="createWrapperProperty" 
+     xpath="//cml:module[@id='finalization']/cml:propertyList/*" />
+
+  <!--  and molecule -->  
+    <transform process="copy" xpath=".//cml:molecule[@id='molgeom']" 
+        toXpath="//cml:module[@id='finalization']" id="molgeom.copy"/> 
+  
+  <!--  tidy rest -->
+  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='foobar']"/>
+  <transform process="addChild" xpath=".//cml:module[@id='finalization']"
+     elementName="cml:module" id="finalization.userDefined" dictRef="cc:userDefinedModule"/>
+  <transform process="addChild" xpath="//cml:module[@id='finalization.userDefined']" 
+     elementName="cml:module" id="eigenvector.list" dictRef="cc:eigenvector.list"/>
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='vector']" 
+     toXpath="//cml:module[@id='eigenvector.list']"/>
+     <!--  fukui -->
+  <transform process="addChild" xpath="//cml:module[@id='finalization.userDefined']" 
+     elementName="cml:module" id="fukui.list" dictRef="cc:fukui.list"/>
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='fukuilite']" 
+     toXpath="//cml:module[@id='fukui.list']"/>
+  <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='fukuilite']/cml:list"/>
+  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='fukuilite']"/>
+  <transform process="addDictRef" xpath=".//cml:module[@dictRef='cc:fukui.list']/cml:list[1]" value="cc:fukui.nnplus"/>
+  <transform process="addDictRef" xpath=".//cml:module[@dictRef='cc:fukui.list']/cml:list[2]" value="cc:fukui.nnminus"/>
+  <transform process="addDictRef" xpath=".//cml:module[@dictRef='cc:fukui.list']/cml:list[3]" value="cc:fukui.snplus"/>
+  <transform process="addDictRef" xpath=".//cml:module[@dictRef='cc:fukui.list']/cml:list[4]" value="cc:fukui.ssplus"/>
+  <transform process="addDictRef" xpath=".//cml:module[@dictRef='cc:fukui.list']/cml:list[5]" value="cc:fukui.nsplus"/>
+  <transform process="addDictRef" xpath=".//cml:module[@dictRef='cc:fukui.list']/cml:list[6]" value="cc:fukui.ssminus"/>
+  <transform process="addDictRef" xpath=".//cml:module[@dictRef='cc:fukui.list']/cml:list[7]" value="cc:fukui.nsminus"/>
+  
+  <transform process="addDictRef" xpath=".//cml:list[@dictRef='cc:fukui.nnplus']/cml:array[@dictRef='g:fukui']"
+    value="cc:fukui.nnplus"/>
+  <transform process="split" xpath=".//cml:list[@dictRef='cc:fukui.nnplus']/cml:array[@dictRef='cc:fukui.nnplus']"/>
+  <transform process="copy" xpath=".//cml:list[@dictRef='cc:fukui.nnplus']/cml:list/cml:scalar"
+   toXpath="//cml:molecule[@id='molgeom.copy']/cml:atomArray/cml:atom" />
+  <transform process="createWrapperProperty" 
+      xpath="//cml:molecule[@id='molgeom.copy']/cml:atomArray/cml:atom/cml:scalar[@dictRef='cc:fukui.nnplus']" />
+  
+  <transform process="addDictRef" xpath=".//cml:list[@dictRef='cc:fukui.nnminus']/cml:array[@dictRef='g:fukui']"
+    value="cc:fukui.nnminus"/>
+  <transform process="split" xpath=".//cml:list[@dictRef='cc:fukui.nnminus']/cml:array[@dictRef='cc:fukui.nnminus']"/>
+  <transform process="copy" xpath=".//cml:list[@dictRef='cc:fukui.nnminus']/cml:list/cml:scalar"
+   toXpath="//cml:molecule[@id='molgeom.copy']/cml:atomArray/cml:atom" />
+  <transform process="createWrapperProperty" 
+      xpath="//cml:molecule[@id='molgeom.copy']/cml:atomArray/cml:atom/cml:scalar[@dictRef='cc:fukui.nnminus']" />
+  
+  <transform process="addDictRef" xpath=".//cml:list[@dictRef='cc:fukui.snplus']/cml:array[@dictRef='g:fukui']"
+    value="cc:fukui.snplus"/>
+  <transform process="split" xpath=".//cml:list[@dictRef='cc:fukui.snplus']/cml:array[@dictRef='cc:fukui.snplus']"/>
+  <transform process="copy" xpath=".//cml:list[@dictRef='cc:fukui.snplus']/cml:list/cml:scalar"
+   toXpath="//cml:molecule[@id='molgeom.copy']/cml:atomArray/cml:atom" />
+  <transform process="createWrapperProperty" 
+      xpath="//cml:molecule[@id='molgeom.copy']/cml:atomArray/cml:atom/cml:scalar[@dictRef='cc:fukui.snplus']" />
+  
+  <transform process="addDictRef" xpath=".//cml:list[@dictRef='cc:fukui.ssplus']/cml:array[@dictRef='g:fukui']"
+    value="cc:fukui.ssplus"/>
+  <transform process="split" xpath=".//cml:list[@dictRef='cc:fukui.ssplus']/cml:array[@dictRef='cc:fukui.ssplus']"/>
+  <transform process="copy" xpath=".//cml:list[@dictRef='cc:fukui.ssplus']/cml:list/cml:scalar"
+   toXpath="//cml:molecule[@id='molgeom.copy']/cml:atomArray/cml:atom" />
+  <transform process="createWrapperProperty" 
+      xpath="//cml:molecule[@id='molgeom.copy']/cml:atomArray/cml:atom/cml:scalar[@dictRef='cc:fukui.ssplus']" />
+  
+  <transform process="addDictRef" xpath=".//cml:list[@dictRef='cc:fukui.nsplus']/cml:array[@dictRef='g:fukui']"
+    value="cc:fukui.nsplus"/>
+  <transform process="split" xpath=".//cml:list[@dictRef='cc:fukui.nsplus']/cml:array[@dictRef='cc:fukui.nsplus']"/>
+  <transform process="copy" xpath=".//cml:list[@dictRef='cc:fukui.nsplus']/cml:list/cml:scalar"
+   toXpath="//cml:molecule[@id='molgeom.copy']/cml:atomArray/cml:atom" />
+  <transform process="createWrapperProperty" 
+      xpath="//cml:molecule[@id='molgeom.copy']/cml:atomArray/cml:atom/cml:scalar[@dictRef='cc:fukui.nsplus']" />
+  
+  <transform process="addDictRef" xpath=".//cml:list[@dictRef='cc:fukui.ssminus']/cml:array[@dictRef='g:fukui']"
+    value="cc:fukui.ssminus"/>
+  <transform process="split" xpath=".//cml:list[@dictRef='cc:fukui.ssminus']/cml:array[@dictRef='cc:fukui.ssminus']"/>
+  <transform process="copy" xpath=".//cml:list[@dictRef='cc:fukui.ssminus']/cml:list/cml:scalar"
+   toXpath="//cml:molecule[@id='molgeom.copy']/cml:atomArray/cml:atom" />
+  <transform process="createWrapperProperty" 
+      xpath="//cml:molecule[@id='molgeom.copy']/cml:atomArray/cml:atom/cml:scalar[@dictRef='cc:fukui.ssminus']" />
+  
+  <transform process="addDictRef" xpath=".//cml:list[@dictRef='cc:fukui.nsminus']/cml:array[@dictRef='g:fukui']"
+    value="cc:fukui.nsminus"/>
+  <transform process="split" xpath=".//cml:list[@dictRef='cc:fukui.nsminus']/cml:array[@dictRef='cc:fukui.nsminus']"/>
+  <transform process="copy" xpath=".//cml:list[@dictRef='cc:fukui.nsminus']/cml:list/cml:scalar"
+   toXpath="//cml:molecule[@id='molgeom.copy']/cml:atomArray/cml:atom" />
+  <transform process="createWrapperProperty" 
+      xpath="//cml:molecule[@id='molgeom.copy']/cml:atomArray/cml:atom/cml:scalar[@dictRef='cc:fukui.nsminus']" />
+  
+  <transform process="move" xpath=".//cml:module[
+       @cmlx:templateRef='centermass' 
+    or @cmlx:templateRef='gastats' 
+    or @cmlx:templateRef='globarrays' 
+    or @cmlx:templateRef='parallel' 
+    or @cmlx:templateRef='shell' 
+    or @cmlx:templateRef='multipole' 
+    or @cmlx:templateRef='totaldft' 
+    ]" 
+     toXpath="//cml:module[@id='finalization.userDefined']"/>
+
+     
+</transformList>

@@ -396,9 +396,9 @@ public abstract class LineReader extends Element implements MarkupApplier {
 	}
 
 	public void debugLine(String title, OutputLevel level) {
-//		LOG.debug("LINE "+jumboReader.getCurrentLineNumber());
-//		jumboReader.peekLine();
-//		debug(title+" ("+jumboReader.getCurrentLineNumber()+"):"+jumboReader.peekLine(), level);
+		if (level.equals(outputLevel.VERBOSE)) {
+//			System.err.println(">> "+lineContainer.getCurrentNodeIndex()+": "+lineContainer.peekLine());
+		}
 	}
 
 

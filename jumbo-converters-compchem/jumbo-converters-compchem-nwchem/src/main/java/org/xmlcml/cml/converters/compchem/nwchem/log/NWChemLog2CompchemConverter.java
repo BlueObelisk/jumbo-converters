@@ -48,7 +48,8 @@ public class NWChemLog2CompchemConverter extends AbstractConverter {
         else if (args.length == 2) {
         } else {
             AbstractConverter converter = new NWChemLog2CompchemConverter();
-            convertFile(converter, "fukuilite");
+//            convertFile(converter, "fukuilite");
+            convertFile(converter, "bench_opt");
 //			for (int i = 1; i < 4; i++) {
 ////		convertFile(converter, "anna"+i);
 //			}
@@ -61,7 +62,7 @@ public class NWChemLog2CompchemConverter extends AbstractConverter {
 		try {
 			in = new File("src/test/resources/compchem/nwchem/log/in/"+fileRoot+".out");
 			System.out.println("converting: "+in);
-			out = new File("test/"+fileRoot+".compchem.xml");
+			out = new File("test/"+fileRoot+".compchem.cml");
 			converter.convert(in, out);
 		} catch (Exception e) {
 			System.err.println("Cannot read/convert "+in+"; "+e);

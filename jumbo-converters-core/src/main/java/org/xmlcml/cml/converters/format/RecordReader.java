@@ -174,7 +174,6 @@ public class RecordReader extends LineReader {
 	 */
 	private CMLList readRecord() {
 		CMLList list = null;
-		// this adds parsed lines to parent element in jumboReader
 		if (regexProcessor != null) {
 			List<HasDataType> hasDataTypeList = regexProcessor.readRecord(lineContainer);
 			if (hasDataTypeList != null) {

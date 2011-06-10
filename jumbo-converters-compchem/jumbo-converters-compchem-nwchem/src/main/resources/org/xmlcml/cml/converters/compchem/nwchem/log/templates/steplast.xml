@@ -1,0 +1,299 @@
+<template repeat="*"  name="Last Optimization Step" id="steplast"
+  pattern="\s*Geometry\s*$\s*\-{8}\s*" offset="0"
+  endPattern="\s*Final and change from initial internal coordinates\s*$\s*\-+\s*" endOffset="0"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
+  
+  <comment class="example.input" id="steplast">
+ 
+ 
+                         Geometry "geometry" -> "geometry"
+                         ---------------------------------
+ 
+ Output coordinates in angstroms (scale by  1.889725989 to convert to a.u.)
+ 
+  No.       Tag          Charge          X              Y              Z
+ ---- ---------------- ---------- -------------- -------------- --------------
+    1 C                    6.0000    -1.26602768    -0.33079198     0.16278197
+    2 C                    6.0000    -1.26181414     1.16157196    -0.20353523
+   19 H                    1.0000     0.71828773    -2.84360849    -0.22148251
+ 
+      Atomic Mass 
+      ----------- 
+ 
+      C                 12.000000
+      H                  1.007825
+      O                 15.994910
+ 
+
+ Effective nuclear repulsion energy (a.u.)     329.1711094185
+
+            Nuclear Dipole moment (a.u.) 
+            ----------------------------
+        X                 Y               Z
+ ---------------- ---------------- ----------------
+     0.2376871015    -0.3317399357    -0.6890967017
+ 
+ 
+                                 NWChem DFT Module
+                                 -----------------
+ 
+ 
+                                       Title
+ 
+ 
+
+  The DFT is already converged 
+
+         Total DFT energy =   -311.090227218262
+
+ 
+ 
+                            NWChem DFT Gradient Module
+                            --------------------------
+ 
+ 
+                                       Title
+ 
+ 
+
+  charge          =   0.00
+  wavefunction    = closed shell
+
+
+
+                         DFT ENERGY GRADIENTS
+
+    atom               coordinates                        gradient
+                 x          y          z           x          y          z
+   1 C      -2.392445  -0.625106   0.307613   -0.000006  -0.000008  -0.000076
+   2 C      -2.384483   2.195053  -0.384626    0.000020  -0.000061  -0.000057
+  19 H       1.357367  -5.373641  -0.418541    0.000014   0.000005  -0.000015
+ 
+                 ----------------------------------------
+                 |  Time  |  1-e(secs)   |  2-e(secs)   |
+                 ----------------------------------------
+                 |  CPU   |       0.04   |      13.32   |
+                 ----------------------------------------
+                 |  WALL  |       0.04   |      13.32   |
+                 ----------------------------------------
+
+  Step       Energy      Delta E   Gmax     Grms     Xrms     Xmax   Walltime
+  ---- ---------------- -------- -------- -------- -------- -------- --------
+@   14    -311.09022722 -3.5D-07  0.00005  0.00001  0.00048  0.00138   1588.7
+                                     ok       ok       ok       ok  
+
+
+
+                                Z-matrix (autoz)
+                                -------- 
+
+ Units are Angstrom for bonds and degrees for angles
+ 
+      Type          Name      I     J     K     L     M      Value     Gradient
+      ----------- --------  ----- ----- ----- ----- ----- ---------- ----------
+    1 Stretch                  1     2                       1.53667   -0.00003
+    2 Stretch                  1     6                       1.52840   -0.00005
+  113 Torsion                 18     6    17    19          63.48389   -0.00001
+ 
+
+      ----------------------
+      Optimization converged
+      ----------------------
+
+
+  Step       Energy      Delta E   Gmax     Grms     Xrms     Xmax   Walltime
+  ---- ---------------- -------- -------- -------- -------- -------- --------
+@   14    -311.09022722 -3.5D-07  0.00005  0.00001  0.00048  0.00138   1588.7
+                                     ok       ok       ok       ok  
+
+
+
+                                Z-matrix (autoz)
+                                -------- 
+
+ Units are Angstrom for bonds and degrees for angles
+ 
+      Type          Name      I     J     K     L     M      Value     Gradient
+      ----------- --------  ----- ----- ----- ----- ----- ---------- ----------
+    1 Stretch                  1     2                       1.53667   -0.00003
+    2 Stretch                  1     6                       1.52840   -0.00005
+  113 Torsion                 18     6    17    19          63.48389   -0.00001
+ 
+ 
+ 
+                         Geometry "geometry" -> "geometry"
+                         ---------------------------------
+ 
+ Output coordinates in angstroms (scale by  1.889725989 to convert to a.u.)
+ 
+  No.       Tag          Charge          X              Y              Z
+ ---- ---------------- ---------- -------------- -------------- --------------
+    1 C                    6.0000    -1.26602768    -0.33079198     0.16278197
+    2 C                    6.0000    -1.26181414     1.16157196    -0.20353523
+   19 H                    1.0000     0.71828773    -2.84360849    -0.22148251
+ 
+      Atomic Mass 
+      ----------- 
+ 
+      C                 12.000000
+      H                  1.007825
+      O                 15.994910
+ 
+
+ Effective nuclear repulsion energy (a.u.)     329.1711094185
+
+            Nuclear Dipole moment (a.u.) 
+            ----------------------------
+        X                 Y               Z
+ ---------------- ---------------- ----------------
+     0.2376871015    -0.3317399357    -0.6890967017
+ 
+ 
+                Final and change from initial internal coordinates
+                --------------------------------------------------
+ 
+
+
+                                Z-matrix (autoz)
+                                -------- 
+
+ Units are Angstrom for bonds and degrees for angles
+ 
+      Type          Name      I     J     K     L     M      Value       Change
+      ----------- --------  ----- ----- ----- ----- ----- ---------- ----------
+    1 Stretch                  1     2                       1.53667    0.01454
+    2 Stretch                  1     6                       1.52840    0.00221
+  113 Torsion                 18     6    17    19          63.48389   -1.22080
+ 
+  </comment>
+  
+  <record id="skip">\s*Step\s+{I,cc:step}</record>
+  <record/>
+  
+  <templateList>
+    <xi:include href="geometry.xml"/>
+    <xi:include href="atmass.xml"/>
+    <xi:include href="effnucrep.xml"/>
+    <xi:include href="nucdipole.xml"/>
+    <xi:include href="converged.xml"/>
+    <xi:include href="nonvariter.xml"/>
+    <xi:include href="centermass.xml"/>
+    <xi:include href="momint.xml"/>
+    <xi:include href="zmatautoz.xml"/>
+    <xi:include href="convergeinfo.xml"/>
+    <xi:include href="screentol.xml"/>
+    <xi:include href="centermass.xml"/>
+    <xi:include href="momint.xml"/>
+    <xi:include href="multipole.xml"/>
+    <xi:include href="parallel.xml"/>
+  </templateList>
+  <record id="skip" repeat="4"/>
+
+  <transform process="addDictRef" xpath="." value="cc:optstep"/>
+      
+  <comment class="example.output" id="steplast">
+    <module cmlx:templateRef="steplast" dictRef="cc:optstep" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <module cmlx:lineCount="11" cmlx:templateRef="geometry">
+        <list cmlx:lineCount="3" cmlx:templateRef="geomx">
+          <molecule id="molgeom">
+            <atomArray>
+              <atom id="a1" elementType="C" x3="-1.26602768" y3="-0.33079198" z3="0.16278197">
+                <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">C</scalar>
+                <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">6</scalar>
+              </atom>
+              <atom id="a2" elementType="C" x3="-1.26181414" y3="1.16157196" z3="-0.20353523">
+                <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">C</scalar>
+                <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">6</scalar>
+              </atom>
+              <atom id="a19" elementType="H" x3="0.71828773" y3="-2.84360849" z3="-0.22148251">
+                <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">H</scalar>
+                <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
+              </atom>
+            </atomArray>
+            <formula formalCharge="0" concise="C 2 H 1">
+              <atomArray elementType="C H" count="2.0 1.0"/>
+            </formula>
+            <bondArray>
+              <bond atomRefs2="a1 a2" id="a1_a2" order="4"/>
+            </bondArray>
+            <property dictRef="cml:molmass">
+              <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">24.0214</scalar>
+            </property>
+          </molecule>
+        </list>
+      </module>
+      <module cmlx:lineCount="6" cmlx:templateRef="atmass">
+        <list cmlx:lineCount="3" cmlx:templateRef="atmass">
+          <array dataType="xsd:string" dictRef="n:tag" size="3">C H O</array>
+          <array dataType="xsd:double" dictRef="cc:mass" size="3">12.0 1.007825 15.99491</array>
+        </list>
+      </module>
+      <module cmlx:lineCount="1" cmlx:templateRef="effnucrep">
+        <scalar dataType="xsd:double" dictRef="n:effnucrep" cmlx:templateRef="ceffnucrep">329.1711094185</scalar>
+      </module>
+      <module cmlx:lineCount="5" cmlx:templateRef="nucdipole">
+        <array dataType="xsd:double" size="3" dictRef="cc:nucdipole">0.2376871015 -0.3317399357 -0.6890967017</array>
+      </module>
+      <module cmlx:lineCount="8" cmlx:templateRef="converged" dictRef="cc:optstep"> Title </module> The DFT is already converged Total DFT energy = -311.090227218262 
+      <module cmlx:lineCount="1" cmlx:templateRef="converged" dictRef="cc:optstep"/> -------------------------- Title charge = 0.00 wavefunction = closed shell DFT ENERGY GRADIENTS atom coordinates gradient x y z x y z 1 C -2.392445 -0.625106 0.307613 -0.000006 -0.000008 -0.000076 2 C -2.384483 2.195053 -0.384626 0.000020 -0.000061 -0.000057 19 H 1.357367 -5.373641 -0.418541 0.000014 0.000005 -0.000015 ---------------------------------------- | Time | 1-e(secs) | 2-e(secs) | ---------------------------------------- | CPU | 0.04 | 13.32 | ---------------------------------------- | WALL | 0.04 | 13.32 | ---------------------------------------- Step Energy Delta E Gmax Grms Xrms Xmax Walltime ---- ---------------- -------- -------- -------- -------- -------- -------- @ 14 -311.09022722 -3.5D-07 0.00005 0.00001 0.00048 0.00138 1588.7 ok ok ok ok 
+      <module cmlx:lineCount="11" cmlx:templateRef="zmatautoz">
+        <list cmlx:templateRef="type">
+          <scalar dataType="xsd:string" dictRef="n:type">autoz</scalar>
+        </list> Units are Angstrom for bonds and degrees for angles Type Name I J K L M Value Gradient ----------- -------- ----- ----- ----- ----- ----- ---------- ---------- 1 Stretch 1 2 1.53667 -0.00003 2 Stretch 1 6 1.52840 -0.00005 113 Torsion 18 6 17 19 63.48389 -0.00001 
+      </module> ---------------------- Optimization converged ---------------------- Step Energy Delta E Gmax Grms Xrms Xmax Walltime ---- ---------------- -------- -------- -------- -------- -------- -------- @ 14 -311.09022722 -3.5D-07 0.00005 0.00001 0.00048 0.00138 1588.7 ok ok ok ok 
+      <module cmlx:lineCount="11" cmlx:templateRef="zmatautoz">
+        <list cmlx:templateRef="type">
+          <scalar dataType="xsd:string" dictRef="n:type">autoz</scalar>
+        </list> Units are Angstrom for bonds and degrees for angles Type Name I J K L M Value Gradient ----------- -------- ----- ----- ----- ----- ----- ---------- ---------- 1 Stretch 1 2 1.53667 -0.00003 2 Stretch 1 6 1.52840 -0.00005 113 Torsion 18 6 17 19 63.48389 -0.00001 
+      </module>
+      <module cmlx:lineCount="11" cmlx:templateRef="geometry">
+        <list cmlx:lineCount="3" cmlx:templateRef="geomx">
+          <molecule id="a3">
+            <atomArray>
+              <atom id="a1" elementType="C" x3="-1.26602768" y3="-0.33079198" z3="0.16278197">
+                <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">C</scalar>
+                <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">6</scalar>
+              </atom>
+              <atom id="a2" elementType="C" x3="-1.26181414" y3="1.16157196" z3="-0.20353523">
+                <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">C</scalar>
+                <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">6</scalar>
+              </atom>
+              <atom id="a19" elementType="H" x3="0.71828773" y3="-2.84360849" z3="-0.22148251">
+                <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">H</scalar>
+                <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
+              </atom>
+            </atomArray>
+            <formula formalCharge="0" concise="C 2 H 1">
+              <atomArray elementType="C H" count="2.0 1.0"/>
+            </formula>
+            <bondArray>
+              <bond atomRefs2="a1 a2" id="a1_a2" order="4"/>
+            </bondArray>
+            <property dictRef="cml:molmass">
+              <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">24.0214</scalar>
+            </property>
+          </molecule>
+        </list>
+      </module>
+      <module cmlx:lineCount="6" cmlx:templateRef="atmass">
+        <list cmlx:lineCount="3" cmlx:templateRef="atmass">
+          <array dataType="xsd:string" dictRef="n:tag" size="3">C H O</array>
+          <array dataType="xsd:double" dictRef="cc:mass" size="3">12.0 1.007825 15.99491</array>
+        </list>
+      </module>
+      <module cmlx:lineCount="1" cmlx:templateRef="effnucrep">
+        <scalar dataType="xsd:double" dictRef="n:effnucrep" cmlx:templateRef="ceffnucrep">329.1711094185</scalar>
+      </module>
+      <module cmlx:lineCount="5" cmlx:templateRef="nucdipole">
+        <array dataType="xsd:double" size="3" dictRef="cc:nucdipole">0.2376871015 -0.3317399357 -0.6890967017</array>
+      </module> Final and change from initial internal coordinates -------------------------------------------------- 
+      <module cmlx:lineCount="11" cmlx:templateRef="zmatautoz">
+        <list cmlx:templateRef="type">
+          <scalar dataType="xsd:string" dictRef="n:type">autoz</scalar>
+        </list> Units are Angstrom for bonds and degrees for angles Type Name I J K L M Value Change ----------- -------- ----- ----- ----- ----- ----- ---------- ---------- 1 Stretch 1 2 1.53667 0.01454 2 Stretch 1 6 1.52840 0.00221 113 Torsion 18 6 17 19 63.48389 -1.22080 
+      </module>
+    </module>
+  </comment>
+
+</template>
