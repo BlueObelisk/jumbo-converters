@@ -14,10 +14,15 @@ import org.xmlcml.euclid.Util;
 
 public class CompchemText2XMLTemplateConverter extends Text2XMLTemplateConverter {
 
+	
+	public CompchemText2XMLTemplateConverter() {
+		super();
+	}
+	
 	public CompchemText2XMLTemplateConverter(Element templateElement) {
 		super(templateElement);
 		legacyProcessor = createLegacyProcessor();
-		this.template = new Template(templateElement);
+		this.setTemplate(new Template(templateElement));
 	}
 
 	public static Text2XMLTemplateConverter createTemplateConverter(

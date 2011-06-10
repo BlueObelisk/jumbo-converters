@@ -10,7 +10,7 @@ import nu.xom.Element;
 
 import org.xmlcml.cml.converters.LegacyProcessor;
 
-/** this is messay and is breaking away from LegacyProcessor machinery
+/** this is messy and is breaking away from LegacyProcessor machinery
  * However they still co-exist and so some subclassed methods are no-ops or override
  * @author pm286
  *
@@ -18,6 +18,10 @@ import org.xmlcml.cml.converters.LegacyProcessor;
 public class Text2XMLTemplateConverter extends Text2XMLConverter {
 
 	protected Template template;
+
+	public Text2XMLTemplateConverter() {
+		super();
+	}
 
 	public Text2XMLTemplateConverter(Element templateElement) {
 		init(templateElement);
@@ -38,8 +42,13 @@ public class Text2XMLTemplateConverter extends Text2XMLConverter {
 	
 	private void init(Element templateElement) {
 		legacyProcessor = createLegacyProcessor();
-		this.template = new Template(templateElement);
+		this.setTemplate(new Template(templateElement));
 	}
+
+	protected void setTemplate(Template template) {
+		this.template = template;
+	}
+
 
 	private Element makeTemplateElement(InputStream templateStream) {
 		try {

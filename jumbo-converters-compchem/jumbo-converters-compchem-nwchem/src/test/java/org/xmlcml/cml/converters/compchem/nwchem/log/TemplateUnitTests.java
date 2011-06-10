@@ -221,11 +221,11 @@ public class TemplateUnitTests {
    @Test public void testTotaldftEXAMPLE()                       {runTemplateTest("totaldft");}
    @Test public void testTriplesEXAMPLE()                        {runTemplateTest("triples");}
    @Test public void testWrotemolorbEXAMPLE()                    {runTemplateTest("wrotemolorb");}
-   @Ignore @Test public void testXcinfoWHITE()                   {runTemplateTest("xcinfo");}
+   @Test public void testXcinfoWHITE()                   {runTemplateTest("xcinfo");}
    @Test public void testXcquadEXAMPLE()                         {runTemplateTest("xcquad");}
    @Ignore @Test public void testXyzWHITE()                      {runTemplateTest("xyz");}
    @Test public void testZmatOK()                                {runTemplateTest("zmat");}
-   @Ignore @Test public void testZmatautozWHITE()                {runTemplateTest("zmatautoz");}
+   @Test public void testZmatautozWHITE()                {runTemplateTest("zmatautoz");}
    @Ignore @Test public void testZmatgradWHITE()                 {runTemplateTest("zmatgrad");}
    @Ignore @Test public void testZmatuserWHITE()                 {runTemplateTest("zmatuser");}
   
