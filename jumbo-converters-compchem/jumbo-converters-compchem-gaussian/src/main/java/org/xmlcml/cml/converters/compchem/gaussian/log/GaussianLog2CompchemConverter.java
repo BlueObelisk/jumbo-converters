@@ -40,25 +40,6 @@ public class GaussianLog2CompchemConverter extends AbstractConverter {
     	xmlConverter.convert(xmlElement, out);
     }
 
-//    private void runTests(String dirName) {
-//        File dir = new File(dirName);
-//        File[] files = dir.listFiles();
-//        if (files == null) {
-//            throw new RuntimeException("No files found in "+dir.getAbsolutePath());
-//        }
-//        LOG.info("Processing "+files.length+" files");
-//        for (File file : files) {
-//            if (file.getAbsolutePath().endsWith(".out")) {
-//                File out = new File(file.getAbsolutePath()+".cml");
-////					if (!out.exists()) {
-//                System.out.println("converting "+file+" to "+out);
-//                this.convert(file, out);
-////					}
-//            }
-//        }
-//    }
-
-
     public static void main(String[] args) throws IOException {
         if (args.length == 1) {
             GaussianLog2CompchemConverter converter = new GaussianLog2CompchemConverter();

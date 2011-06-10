@@ -10,4 +10,5 @@ public class LineReaderTest {
 	public void dummy() {
 		Assert.assertTrue(true);
 	}
+	
 }

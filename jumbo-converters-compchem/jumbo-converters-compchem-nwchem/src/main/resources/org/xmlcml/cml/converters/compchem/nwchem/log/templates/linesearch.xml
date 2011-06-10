@@ -1,0 +1,24 @@
+<template repeat="*"  name="Line search" id="linesearch" 
+  pattern="\s*Line search:\s*" endPattern="\s*">
+
+  <comment class="example.input" id="parallel">
+ Line search: 
+     step= 1.00 grad=-2.2D-03 hess= 9.9D-04 energy=   -311.088614 mode=downhill
+ new step= 1.11                   predicted energy=   -311.088626
+
+  </comment>
+  <record/>
+  <record id="linesearch" repeat="*">\s*step={F,x:stepsize}\s*grad={E,n:grad}\s*hess={E,n:hess}\s*energy={F,n:energy}\s*mode={A,n:mode}\s*</record>
+  <record id="linesearch1" repeat="*">\s*new step={F,x:newstepsize}\s*predicted energy={F,n:predictedenergy}\s*</record>
+
+  <comment class="example.output" id="parallel">
+    <module cmlx:templateRef="parallel" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:lineCount="2" cmlx:templateRef="parallel">
+        <array dataType="xsd:string" dictRef="cc:filetype" size="2">integral grid_pts</array>
+        <array dataType="xsd:integer" dictRef="n:nrec" size="2">8 8</array>
+        <array dataType="xsd:integer" dictRef="n:large" size="2">0 0</array>
+      </list>
+    </module>
+  </comment>
+
+</template>

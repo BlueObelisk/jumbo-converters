@@ -388,7 +388,8 @@ public class RecordReaderTest {
 	@Ignore // FIXME
 	public void readMultipleRecord() {
 		LineContainer lineContainer = new LineContainer("grot1\nline2\njunk3");
-		Element recordElement = CMLUtil.parseXML("<record id='i1' newline='$' " +
+		Element recordElement = CMLUtil.parseXML(
+				"<record id='i1' newline='$' " +
 				"formatType='REGEX'>grot(.*)$line(.*)</record>");
 		RecordReader recordReader = new RecordReader(recordElement, null);
 		recordReader.applyMarkup(lineContainer);
@@ -753,4 +754,26 @@ public class RecordReaderTest {
 		// note than line count is after the adjustment for matched lines
 		Assert.assertEquals("multiple", 1, lineContainer.getCurrentNodeIndex());
 	}
+	
+	
+	@Test
+	@Ignore
+	public void testReadRecord() {
+		LineContainer lineContainer = new LineContainer("123456");
+		Element recordElement = CMLUtil.parseXML(
+				"<record id='i1'>{3I2,x:a}</record>");
+		RecordReader recordReader = new RecordReader(recordElement, null);
+		recordReader.applyMarkup(lineContainer);
+		Element ref = CMLUtil.parseXML(
+				"<module xmlns='http://www.xml-cml.org/schema'>"+
+				"  <list cmlx:templateRef='i1'>"+
+				"    <list/>"+
+				"  </list>"+
+				"</module>"+
+				"");
+		JumboTestUtils.assertEqualsCanonically("record1", ref, lineContainer.getLinesElement(), true);
+		// note than line count is after the adjustment for matched lines
+		Assert.assertEquals("multiple", 1, lineContainer.getCurrentNodeIndex());
+	}
+
 }

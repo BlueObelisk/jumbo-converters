@@ -80,14 +80,9 @@ public class TemplateTest {
 		String templateS = "<template id='t1' name='test' pattern=''/>";
 		Template template = new Template(CMLUtil.parseXML(templateS));
 		Assert.assertNotNull(template);
-//		Assert.assertEquals("deleterList", 0, template.getDeleterList().size());
-//		Assert.assertNull("templateList", template.getTemplateContainer());
-//		Assert.assertEquals("linereaders", 0, template.getLineReaderList().size());
 		Assert.assertEquals("id", "t1", template.getId());
 		Assert.assertEquals("name", "test", template.getName());
-//		Assert.assertEquals("pattern", "\\s*\\s*", template.getPattern().pattern());
 		Assert.assertEquals("outputLevel", OutputLevel.NONE, template.getOutputLevel());
-//		template.debug();
 	}
 
 	@Test
@@ -123,15 +118,10 @@ public class TemplateTest {
 			"</template>";
 		Template template = new Template(CMLUtil.parseXML(templateS));
 		Assert.assertNotNull(template);
-//		Assert.assertEquals("deleterList", 1, template.getDeleterList().size());
-//		Assert.assertNotNull("templateList", template.getTemplateContainer());
-//		Assert.assertEquals("templateList", 2, template.getTemplateContainer().getTemplateList().size());
-//		Assert.assertEquals("linereaders", 0, template.getLineReaderList().size());
 		Assert.assertEquals("id", "t1", template.getId());
 		Assert.assertEquals("name", "test", template.getName());
 		Assert.assertEquals("pattern", "", template.getPattern().pattern());
 		Assert.assertEquals("outputLevel", OutputLevel.NONE, template.getOutputLevel());
-//		template.debug();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -144,14 +134,10 @@ public class TemplateTest {
 			"</template>";
 		Template template = new Template(CMLUtil.parseXML(templateS));
 		Assert.assertNotNull(template);
-//		Assert.assertEquals("deleterList", 0, template.getDeleterList().size());
-//		Assert.assertNull("templateContainer", template.getTemplateContainer());
-//		Assert.assertEquals("linereaders", 2, template.getLineReaderList().size());
 		Assert.assertEquals("id", "t1", template.getId());
 		Assert.assertEquals("name", "test", template.getName());
 		Assert.assertEquals("pattern", "", template.getPattern().pattern());
 		Assert.assertEquals("pattern", OutputLevel.NONE, template.getOutputLevel());
-//		template.debug();
 	}
 
 
@@ -259,7 +245,6 @@ public class TemplateTest {
 		template.applyMarkup(toBeParsed);
 		LineContainer lineContainer = template.getLineContainer();
 		Assert.assertNotNull(lineContainer);
-//		lineContainer.debug("LineContainer");
 	}
 	
 	@Test
@@ -383,6 +368,7 @@ public class TemplateTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testTemplateChunkingOffsetRepeat() {
 		String templateS = 
 			"<template id='t1' name='test' pattern='' dictRef=''>" +
@@ -414,8 +400,8 @@ public class TemplateTest {
 		Assert.assertNotNull(lineContainer);
 		String refS = 
 			"<module cmlx:templateRef='t1' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>line0\nline1\nline2\n"+
-			"<module cmlx:lineCount='3' cmlx:templateRef='t1'>line3\nline4\nline5\n</module>line6\nline7\nline0\nline1a\nline2a\n"+
-			"<module cmlx:lineCount='3' cmlx:templateRef='t1'>line3a\nline4a\nline5a\n</module>line6a\nline7a\n"+
+			"  <module cmlx:lineCount='3' cmlx:templateRef='t1'>line3\nline4\nline5\n</module>line6\nline7\nline0\nline1a\nline2a\n"+
+			"  <module cmlx:lineCount='3' cmlx:templateRef='t1'>line3a\nline4a\nline5a\n</module>line6a\nline7a\n"+
 			"</module>";
 		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
 	}
@@ -466,7 +452,8 @@ public class TemplateTest {
 		String templateS = 
 			"<template id='t1' name='test' pattern='' dictRef=''>" +
 			"  <templateList>" +
-			"    <template repeatCount='*' pattern='.*ssss.*' offset='0' id='t1' name='template 1' endPattern='.*eeee.*' endOffset='1'/>" +
+			"    <template repeatCount='*' pattern='.*ssss.*' offset='0' id='t1' " +
+			"      name='template 1' endPattern='.*eeee.*' endOffset='1'/>" +
 			"  </templateList>" +
 			"</template>";
 		Template template = new Template(CMLUtil.parseXML(templateS));
@@ -1105,5 +1092,223 @@ public class TemplateTest {
 		
 		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
 	}
-	
+
+	@Test
+	public void testTemplateNew() {
+		String templateS = 
+			"<template>" +
+			"  <templateList>" +
+			"    <template repeatCount='1' pattern='start1\\s*' id='s1' endPattern='end1\\s*' endOffset='1'>" +
+			"      <record id='r1'>{X,x:x1}</record>" +
+			"      <record id='r2'>{X,x:x2}</record>" +
+			"      <record id='r2'>{X,x:x3}</record>" +
+			"    </template>" +
+			"  </templateList>" +
+			"</template>";
+		Template template = new Template(CMLUtil.parseXML(templateS));
+		String toBeParsed = "" +
+			"start1\n"+
+			"aaa1\n"+
+			"end1\n"+
+			"";
+		template.applyMarkup(toBeParsed);
+		LineContainer lineContainer = template.getLineContainer();
+		Assert.assertNotNull(lineContainer);
+		String refS = 
+	    "<module cmlx:templateRef='NULL_ID' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>"+
+		" <module cmlx:lineCount='3' cmlx:templateRef='s1'>"+
+		"    <list cmlx:templateRef='r1'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:x1'>start1</scalar>"+
+		"   </list>"+
+		"   <list cmlx:templateRef='r2'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:x2'>aaa1</scalar>"+
+		"   </list>"+
+		"   <list cmlx:templateRef='r2'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:x3'>end1</scalar>"+
+		"   </list>"+
+		" </module>"+
+		"</module>"+
+		"";
+		
+		JumboTestUtils.assertEqualsCanonically("test new", refS, lineContainer.getLinesElement(), true);
+	}
+
+	@Test
+	public void testTemplateNew2() {
+		String templateS = 
+			"<template>" +
+			"  <templateList>" +
+			"    <template repeatCount='1' pattern='start1\\s*' id='s1' endPattern='end1\\s*' endOffset='1'>" +
+			"      <record id='r1'>{X,x:x1}</record>" +
+			"      <record id='r2'>{X,x:x2}</record>" +
+			"      <record id='r2'>{X,x:x3}</record>" +
+			"    </template>" +
+			"    <template repeatCount='1' pattern='start2\\s*' id='s2' endPattern='end2\\s*' endOffset='1'>" +
+			"      <record id='r1'>{X,x:y1}</record>" +
+			"      <record id='r2'>{X,x:y2}</record>" +
+			"      <record id='r2'>{X,x:y3}</record>" +
+			"    </template>" +
+			"  </templateList>" +
+			"</template>";
+		Template template = new Template(CMLUtil.parseXML(templateS));
+		String toBeParsed = "" +
+		"start1\n"+
+		"aaa1\n"+
+		"end1\n"+
+		"start2\n"+
+		"aaa2\n"+
+		"end2\n"+
+			"";
+		template.applyMarkup(toBeParsed);
+		LineContainer lineContainer = template.getLineContainer();
+		Assert.assertNotNull(lineContainer);
+		String refS = 
+	    "<module cmlx:templateRef='NULL_ID' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>"+
+		" <module cmlx:lineCount='3' cmlx:templateRef='s1'>"+
+		"    <list cmlx:templateRef='r1'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:x1'>start1</scalar>"+
+		"   </list>"+
+		"   <list cmlx:templateRef='r2'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:x2'>aaa1</scalar>"+
+		"   </list>"+
+		"   <list cmlx:templateRef='r2'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:x3'>end1</scalar>"+
+		"   </list>"+
+		" </module>"+
+		" <module cmlx:lineCount='3' cmlx:templateRef='s2'>"+
+		"    <list cmlx:templateRef='r1'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:y1'>start2</scalar>"+
+		"   </list>"+
+		"   <list cmlx:templateRef='r2'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:y2'>aaa2</scalar>"+
+		"   </list>"+
+		"   <list cmlx:templateRef='r2'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:y3'>end2</scalar>"+
+		"   </list>"+
+		" </module>"+
+		"</module>"+
+		"";
+		
+		JumboTestUtils.assertEqualsCanonically("test new", refS, lineContainer.getLinesElement(), true);
+	}
+
+	@Test
+	public void testTemplateNew3() {
+		String templateS = 
+			"<template>" +
+			"  <templateList>" +
+			"    <template repeatCount='*' pattern='start1\\s*' id='s1' endPattern='end1\\s*' endOffset='1'>" +
+			"      <record id='r1'>{X,x:x1}</record>" +
+			"      <record id='r2'>{X,x:x2}</record>" +
+			"      <record id='r2'>{X,x:x3}</record>" +
+			"    </template>" +
+			"    <template repeatCount='*' pattern='start2\\s*' id='s2' endPattern='end2\\s*' endOffset='1'>" +
+			"      <record id='r1'>{X,x:y1}</record>" +
+			"      <record id='r2'>{X,x:y2}</record>" +
+			"      <record id='r2'>{X,x:y3}</record>" +
+			"    </template>" +
+			"  </templateList>" +
+			"</template>";
+		Template template = new Template(CMLUtil.parseXML(templateS));
+		String toBeParsed = "" +
+		"start1\n"+
+		"aaa1\n"+
+		"end1\n"+
+		"start2\n"+
+		"aaa2\n"+
+		"end2\n"+
+			"";
+		template.applyMarkup(toBeParsed);
+		LineContainer lineContainer = template.getLineContainer();
+		Assert.assertNotNull(lineContainer);
+		String refS = 
+	    "<module cmlx:templateRef='NULL_ID' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>"+
+		" <module cmlx:lineCount='3' cmlx:templateRef='s1'>"+
+		"    <list cmlx:templateRef='r1'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:x1'>start1</scalar>"+
+		"   </list>"+
+		"   <list cmlx:templateRef='r2'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:x2'>aaa1</scalar>"+
+		"   </list>"+
+		"   <list cmlx:templateRef='r2'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:x3'>end1</scalar>"+
+		"   </list>"+
+		" </module>"+
+		" <module cmlx:lineCount='3' cmlx:templateRef='s2'>"+
+		"    <list cmlx:templateRef='r1'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:y1'>start2</scalar>"+
+		"   </list>"+
+		"   <list cmlx:templateRef='r2'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:y2'>aaa2</scalar>"+
+		"   </list>"+
+		"   <list cmlx:templateRef='r2'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:y3'>end2</scalar>"+
+		"   </list>"+
+		" </module>"+
+		"</module>"+
+		"";
+		
+		JumboTestUtils.assertEqualsCanonically("test new", refS, lineContainer.getLinesElement(), true);
+	}
+
+
+	@Test
+	public void testTemplateNew4() {
+		String templateS = 
+			"<template>" +
+			"  <templateList>" +
+			"    <template repeatCount='*' pattern='start2\\s*' id='s2' endPattern='end2\\s*' endOffset='1'>" +
+			"      <record id='r1'>{X,x:y1}</record>" +
+			"      <record id='r2'>{X,x:y2}</record>" +
+			"      <record id='r2'>{X,x:y3}</record>" +
+			"    </template>" +
+			"    <template repeatCount='*' pattern='start1\\s*' id='s1' endPattern='end1\\s*' endOffset='1'>" +
+			"      <record id='r1'>{X,x:x1}</record>" +
+			"      <record id='r2'>{X,x:x2}</record>" +
+			"      <record id='r2'>{X,x:x3}</record>" +
+			"    </template>" +
+			"  </templateList>" +
+			"</template>";
+		Template template = new Template(CMLUtil.parseXML(templateS));
+		String toBeParsed = "" +
+		"start1\n"+
+		"aaa1\n"+
+		"end1\n"+
+		"start2\n"+
+		"aaa2\n"+
+		"end2\n"+
+			"";
+		template.applyMarkup(toBeParsed);
+		LineContainer lineContainer = template.getLineContainer();
+		Assert.assertNotNull(lineContainer);
+		String refS = 
+	    "<module cmlx:templateRef='NULL_ID' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>"+
+		" <module cmlx:lineCount='3' cmlx:templateRef='s1'>"+
+		"    <list cmlx:templateRef='r1'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:x1'>start1</scalar>"+
+		"   </list>"+
+		"   <list cmlx:templateRef='r2'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:x2'>aaa1</scalar>"+
+		"   </list>"+
+		"   <list cmlx:templateRef='r2'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:x3'>end1</scalar>"+
+		"   </list>"+
+		" </module>"+
+		" <module cmlx:lineCount='3' cmlx:templateRef='s2'>"+
+		"    <list cmlx:templateRef='r1'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:y1'>start2</scalar>"+
+		"   </list>"+
+		"   <list cmlx:templateRef='r2'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:y2'>aaa2</scalar>"+
+		"   </list>"+
+		"   <list cmlx:templateRef='r2'>"+
+		"     <scalar dataType='xsd:string' dictRef='x:y3'>end2</scalar>"+
+		"   </list>"+
+		" </module>"+
+		"</module>"+
+		"";
+		
+		JumboTestUtils.assertEqualsCanonically("test new", refS, lineContainer.getLinesElement(), true);
+	}
+
 }

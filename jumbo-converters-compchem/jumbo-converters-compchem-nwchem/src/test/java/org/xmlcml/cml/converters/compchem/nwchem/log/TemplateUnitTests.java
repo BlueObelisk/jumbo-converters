@@ -63,6 +63,7 @@ public class TemplateUnitTests {
    @Ignore @Test public void testCleanup()                       {runTemplateTest("cleanup");}
    @Test public void testCondfukuiOK()                           {runTemplateTest("condfukui");}
    @Test public void testCondfukuimuOK()                         {runTemplateTest("condfukuimu");}
+   @Test public void testConverged()                             {runTemplateTest("converged");}
    @Test public void testConvergeinfoOK()                        {runTemplateTest("convergeinfo");}
    @Test public void testConvergeiterOK()                        {runTemplateTest("convergeiter");}
    @Test public void testCphfOK()                                {runTemplateTest("cphf");}
@@ -128,6 +129,7 @@ public class TemplateUnitTests {
    @Test public void testLibrarynameOK()                         {runTemplateTest("libraryname");}
    @Test public void testLimitedOK()                             {runTemplateTest("limited");}
    @Test public void testLindeptolOK()                           {runTemplateTest("lindeptol");}
+   @Test public void testLinesearch()                            {runTemplateTest("linesearch");}
    @Ignore @Test public void testLinestoskipWHITE()              {runTemplateTest("linestoskip");}
    @Test public void testLocalmemOK()                            {runTemplateTest("localmem");}
    @Test public void testMagneticatomBAD()                       {runTemplateTest("magneticatom");}
@@ -199,8 +201,10 @@ public class TemplateUnitTests {
    @Test public void testSemidirectEXAMPLE()                     {runTemplateTest("semidirect");}
    @Ignore @Test public void testShieldingNAME()                 {runTemplateTest("shielding");}
    @Test public void testSpincontamEXAMPLE()                     {runTemplateTest("spincontam");}
+   @Test public void testStep()                                  {runTemplateTest("step");}
+   @Test public void testStepLast()                              {runTemplateTest("steplast");}
    @Test public void testSummaryallocEXAMPLE()                   {runTemplateTest("summaryalloc");}
-   @Ignore @Test public void testSummarybasisEXAMPLE()                   {runTemplateTest("summarybasis");}
+   @Ignore @Test public void testSummarybasisEXAMPLE()           {runTemplateTest("summarybasis");}
    @Ignore @Test public void testSummaryresultsNAME()            {runTemplateTest("summaryresults");}
    @Test public void testSummglobarraysEXAMPLE()                 {runTemplateTest("summglobarrays");}
    @Test public void testSuperposatomguessEXAMPLE()              {runTemplateTest("superposatomguess");}

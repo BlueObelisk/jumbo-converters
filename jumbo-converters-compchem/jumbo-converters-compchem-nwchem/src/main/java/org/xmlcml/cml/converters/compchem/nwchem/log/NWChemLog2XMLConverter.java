@@ -6,6 +6,7 @@ import java.io.IOException;
 import nu.xom.Element;
 
 import org.apache.log4j.Logger;
+import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.compchem.CompchemText2XMLTemplateConverter;
 import org.xmlcml.cml.converters.util.ConverterUtils;
 
@@ -42,20 +43,47 @@ public class NWChemLog2XMLConverter extends CompchemText2XMLTemplateConverter {
 		}
 	}
 	
-	public static void main(String[] args) throws IOException {
-		// e.g. nwchem/parsable
-		if (args.length == 1) {
-			NWChemLog2XMLConverter converter = new NWChemLog2XMLConverter();
-			converter.runNWTests(args[0]);
-		} else if (args.length == 2) {
-			NWChemLog2XMLConverter converter = new NWChemLog2XMLConverter(BASE_URI,
-			"templates/"+args[1]);
-			converter.runNWTests(args[0]);
-		} else {
-			CompchemText2XMLTemplateConverter converter = new NWChemLog2XMLConverter();
-			File in = new File("nwtests/parsable/ch3f_rot.out");
-			File out = new File("ch3f_rot.xml");
+//	public static void main(String[] args) throws IOException {
+//		// e.g. nwchem/parsable
+//		if (args.length == 1) {
+//			NWChemLog2XMLConverter converter = new NWChemLog2XMLConverter();
+//			converter.runNWTests(args[0]);
+//		} else if (args.length == 2) {
+//			NWChemLog2XMLConverter converter = new NWChemLog2XMLConverter(BASE_URI,
+//			"templates/"+args[1]);
+//			converter.runNWTests(args[0]);
+//		} else {
+//			CompchemText2XMLTemplateConverter converter = new NWChemLog2XMLConverter();
+//			File in = new File("nwtests/parsable/ch3f_rot.out");
+//			File out = new File("ch3f_rot.xml");
+//			converter.convert(in, out);
+//		}
+//	}
+	
+    public static void main(String[] args) throws IOException {
+        if (args.length == 1) {
+             } 
+        else if (args.length == 2) {
+        } else {
+            AbstractConverter converter = new NWChemLog2XMLConverter();
+//            convertFile(converter, "fukuilite");
+            convertFile(converter, "bench_opt");
+//			for (int i = 1; i < 4; i++) {
+////		convertFile(converter, "anna"+i);
+//			}
+        }
+    }
+
+	private static void convertFile(AbstractConverter converter, String fileRoot) {
+		File out;
+		File in = null;
+		try {
+			in = new File("src/test/resources/compchem/nwchem/log/in/"+fileRoot+".out");
+			System.out.println("converting: "+in);
+			out = new File("test/"+fileRoot+".raw.xml");
 			converter.convert(in, out);
+		} catch (Exception e) {
+			System.err.println("Cannot read/convert "+in+"; "+e);
 		}
 	}
 }
