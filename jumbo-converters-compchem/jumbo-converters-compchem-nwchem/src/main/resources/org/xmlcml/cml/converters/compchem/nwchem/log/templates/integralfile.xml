@@ -3,16 +3,34 @@
   
   <comment class="example.input" id="integralfile">
  Integral file          = ./methylamine.aoints.0
+ 
+  </comment>
+  
+  <comment class="example.input" id="integralfile1">
+ Integral file          = ./molecule.aoints.0
+ Record size in doubles =  65536        No. of integs per rec  =  43688
+ Max. records in memory =   1091        Max. records in file   = 478560
+ No. of bits per label  =      8        No. of bits per value  =     64
 
-</comment>
+  </comment>
+
   <record id="integral" >\s*Integral file\s*={A,n:integralfile}</record>
+  <record id="integral1" repeat="*"/>
   
   <comment class="example.output" id="integralfile">
-<module cmlx:templateRef="integralfile" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <list cmlx:templateRef="integral">
-    <scalar dataType="xsd:string" dictRef="n:integralfile">./methylamine.aoints.0</scalar>
-  </list>
-</module>
+    <module cmlx:templateRef="integralfile" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="integral">
+        <scalar dataType="xsd:string" dictRef="n:integralfile">./methylamine.aoints.0</scalar>
+      </list>
+    </module>
+    </comment>
+
+  <comment class="example.output" id="integralfile1">
+    <module cmlx:templateRef="integralfile" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="integral">
+        <scalar dataType="xsd:string" dictRef="n:integralfile">./molecule.aoints.0</scalar>
+      </list>
+    </module>
     </comment>
 
 </template>

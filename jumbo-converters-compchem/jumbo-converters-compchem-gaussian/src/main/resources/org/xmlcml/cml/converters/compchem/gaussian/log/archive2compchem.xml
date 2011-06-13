@@ -36,7 +36,7 @@
   <transform process="addNamespace" xpath="." name="convention" value="http://www.xml-cml.org/convention/"/>
   
   <!--  finalization -->  
-  <transform process="addDictRef" xpath="." value="compchem:finalization"/>
+  <transform process="addDictRef" xpath="." value="cc:finalization"/>
   <transform process="addNamespace" xpath="." name="compchem" value="http://www.xml-cml.org/dictionary/compchem/"/>
 
   <!--  create other parts of cmlcomp -->
@@ -46,15 +46,15 @@
   <!--  initialization -->
   <transform process="addChild" elementName="cml:module" xpath="//cml:module[@id='job']" id="initialization"/>
   <transform process="move" xpath=".//cml:parameterList" toXpath="//cml:module[@id='initialization']"/>
-  <transform process="addDictRef" xpath="//cml:module[@id='initialization']" value="compchem:initialization"/>
+  <transform process="addDictRef" xpath="//cml:module[@id='initialization']" value="cc:initialization"/>
   <!--  environment -->
   <transform process="addChild" elementName="cml:module" xpath="//cml:module[@id='job']" id="environment"/>
   <transform process="move" xpath=".//cml:metadataList" toXpath="//cml:module[@id='environment']"/>
-  <transform process="addDictRef" xpath="//cml:module[@id='environment']" value="compchem:environment"/>
+  <transform process="addDictRef" xpath="//cml:module[@id='environment']" value="cc:environment"/>
   <!--  calculation -->
   <transform process="addChild" elementName="cml:module" xpath="//cml:module[@id='job']" id="calculation"/>
-  <transform process="addDictRef" xpath="//cml:module[@id='calculation']" value="compchem:calculation"/>
-  <transform process="move" xpath="//cml:module[@dictRef='compchem:finalization']" toXpath="//cml:module[@id='job']"/>
+  <transform process="addDictRef" xpath="//cml:module[@id='calculation']" value="cc:calculation"/>
+  <transform process="move" xpath="//cml:module[@dictRef='cc:finalization']" toXpath="//cml:module[@id='job']"/>
   <!--  add namespaces -->  
   <transform process="addNamespace" xpath="/*" name="cc" value="http://www.xml-cml.org/dictionary/compchem/"/>
   <transform process="addNamespace" xpath="/*" name="g" value="http://www.xml-cml.org/dictionary/gaussian/"/>

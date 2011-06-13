@@ -1,7 +1,6 @@
 package org.xmlcml.cml.converters.text;
 
 import java.io.FileInputStream;
-
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -44,12 +43,14 @@ import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLMap;
 import org.xmlcml.cml.element.CMLMatrix;
 import org.xmlcml.cml.element.CMLMetadata;
+import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLMolecule.HydrogenControl;
 import org.xmlcml.cml.element.CMLParameter;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLPropertyList;
 import org.xmlcml.cml.element.CMLScalar;
+import org.xmlcml.cml.element.CMLTable;
 import org.xmlcml.cml.element.CMLVector3;
 import org.xmlcml.cml.interfacex.HasDictRef;
 import org.xmlcml.cml.interfacex.HasUnits;
@@ -75,6 +76,7 @@ public class TransformElement implements MarkupApplier {
 	private static final String NODE                = "node";
 
 	// attributes
+	private static final String COLS                = "cols";
 	private static final String DATA_TYPE           = "dataType";
 	private static final String DELIMITER           = "delimiter";
 	private static final String DICT_REF            = "dictRef";
@@ -93,6 +95,7 @@ public class TransformElement implements MarkupApplier {
 	private static final String PREVIOUS_AFTER      = "previousSiblingsAfter";
 	private static final String REGEX               = "regex";
 	private static final String REPEAT              = "repeat";
+	private static final String ROWS                = "rows";
 	private static final String SPLITTER            = "splitter";
 	private static final String TO_XPATH            = "toXpath";
 	private static final String VALUE               = "value";
@@ -100,6 +103,7 @@ public class TransformElement implements MarkupApplier {
 
 	public static String[] OPTIONS = 
 		new String[]{
+		COLS,
 		DATA_TYPE, 
 		DELIMITER, 
 		DICT_REF, 
@@ -117,6 +121,7 @@ public class TransformElement implements MarkupApplier {
 		POSITION,
 		PREVIOUS_AFTER,
 		REGEX,
+		ROWS,
 		REPEAT,
 		SPLITTER,
 		TO_XPATH,
@@ -149,6 +154,7 @@ public class TransformElement implements MarkupApplier {
 	private static final String CREATE_FORMULA         = "createFormula";
 	private static final String CREATE_GROUP           = "createGroup";
 	private static final String CREATE_INTEGER         = "createInteger";
+	private static final String CREATE_LIST            = "createList";
 	private static final String CREATE_MATRIX          = "createMatrix";
 	private static final String CREATE_MATRIX33        = "createMatrix33";
 	private static final String CREATE_MOLECULE        = "createMolecule";
@@ -173,13 +179,14 @@ public class TransformElement implements MarkupApplier {
 	private static final String SET_VALUE              = "setValue";
 	private static final String SET_DATATYPE           = "setDataType";
 	private static final String SPLIT                  = "split";
-	private static final String WRAP_PROPERTIES_AND_PARAMETERS = "PropertiesAndParameters";
+	private static final String WRAP_PROPERTIES_AND_PARAMETERS = "wrapPropertiesAndParameters";
 	private static final String WRITE                  = "write";
 	private static final String HELP                   = "help";
 	
 	private static final String UNIT_SI_URI = "http://www.xml-cml.org/unit/si/";
 	private static final String COMPCHEM_URI = "http://www.xml-cml.org/unit/dictionary/compchem";
-	private static final String COMPCHEM = "compchem";
+//	private static final String COMPCHEM = "compchem";
+	private static final String COMPCHEM_CC = "cc";
 
 	private static final String PROCESS_LIST_URI = 
 		"org/xmlcml/cml/converters/text/processList.xml";
@@ -211,6 +218,7 @@ public class TransformElement implements MarkupApplier {
 		CREATE_DOUBLE,
 		CREATE_GROUP,
 		CREATE_INTEGER,
+		CREATE_LIST,
 		CREATE_MOLECULE,
 		CREATE_MATRIX,
 		CREATE_MATRIX33,
@@ -251,6 +259,7 @@ public class TransformElement implements MarkupApplier {
 	private String idMethod;
 	private String elementMethod;
 	
+	private String cols;
 	private String delimiter;
 	private String dataType;
 	private String dictRef;
@@ -270,6 +279,7 @@ public class TransformElement implements MarkupApplier {
 	private String process;
 	private String regex;
 	private String repeat;
+	private String rows;
 	private String splitter;
 	private String to;
 	private String value;
@@ -322,6 +332,7 @@ public class TransformElement implements MarkupApplier {
 			throw new RuntimeException("Must give process attribute");
 		}
 		
+		cols                   = addAndIndexAttribute(COLS);
 		dataType               = addAndIndexAttribute(DATA_TYPE);
 		delimiter              = addAndIndexAttribute(DELIMITER);
 		dictRef                = addAndIndexAttribute(DICT_REF);
@@ -340,6 +351,7 @@ public class TransformElement implements MarkupApplier {
 		previousSiblingsAfter  = addAndIndexAttribute(PREVIOUS_AFTER);
 		regex                  = addAndIndexAttribute(REGEX);
 		repeat                 = addAndIndexAttribute(REPEAT);
+		rows                   = addAndIndexAttribute(ROWS);
 		splitter               = addAndIndexAttribute(SPLITTER);
 		to                     = addAndIndexAttribute(TO_XPATH);
 		value                  = addAndIndexAttribute(VALUE);
@@ -412,6 +424,8 @@ public class TransformElement implements MarkupApplier {
 			createGroup();
 		} else if (CREATE_INTEGER.equals(process)) {
 			createInteger();
+		} else if (CREATE_LIST.equals(process)) {
+			createList();
 		} else if (CREATE_MOLECULE.equals(process)) {
 			createMolecule();
 		} else if (CREATE_MATRIX.equals(process)) {
@@ -463,7 +477,7 @@ public class TransformElement implements MarkupApplier {
 		} else if (SPLIT.equals(process)) {
 			split();
 		} else if (WRAP_PROPERTIES_AND_PARAMETERS.equals(process)) {
-			PropertiesAndParameters();
+			wrapPropertiesAndParameters();
 		} else if (WRITE.equals(process)) {
 			write();
 		} else {
@@ -524,6 +538,9 @@ public class TransformElement implements MarkupApplier {
 			nu.xom.Element transformElementx = CMLElement.createCMLElement(transformElement);
 			if (transformElementx == null) {
 				transformElementx = transformElement;
+			}
+			if (value != null && transformElementx instanceof CMLScalar) {
+				((CMLScalar) transformElementx).setValue(value);
 			}
 			
 			if (LAST.equals(pos)) {
@@ -1063,6 +1080,20 @@ public class TransformElement implements MarkupApplier {
 		parent.replaceChild(array0, mat);
 	}
 
+	private void createList() {
+		assertRequired(XPATH, xpath);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			if (node instanceof CMLModule) {
+				CMLModule module = (CMLModule) node;
+				CMLList list = new CMLList();
+				module.getParent().replaceChild(module, list);
+				CMLUtil.copyAttributes(module, list);
+				CMLUtil.transferChildren(module, list);
+			}
+		}
+	}
+
 	private void createMolecule() {
 		assertRequired(XPATH, xpath);
 		assertRequired(ID, id);
@@ -1223,15 +1254,15 @@ public class TransformElement implements MarkupApplier {
 	}
 
 	private void createWrapperMetadata() {
-		WithPropertyOrParameter(new CMLMetadata());
+		wrapWithPropertyOrParameter(new CMLMetadata());
 	}
 
 	private void createWrapperParameter() {
-		WithPropertyOrParameter(new CMLParameter());
+		wrapWithPropertyOrParameter(new CMLParameter());
 	}
 
 	private void createWrapperProperty() {
-		WithPropertyOrParameter(new CMLProperty());
+		wrapWithPropertyOrParameter(new CMLProperty());
 	}
 
 	private void createZMatrix() {
@@ -1306,6 +1337,13 @@ public class TransformElement implements MarkupApplier {
 		List<Node> nodeList = getXpathQueryResults();
 		if (key != null) {
 			joinArrays(nodeList, key);
+		} else if (from != null) {
+			Integer fromPos = (fromPosition == null) ? null : new Integer(fromPosition);
+			for (Node node : nodeList) {
+				Element element = (Element) node;
+				List<Node> fromNodeList = TransformElement.queryUsingNamespaces(element, from, fromPos);
+				joinArrays(fromNodeList);
+			}
 		} else {
 			joinArrays(nodeList);
 		}
@@ -1584,7 +1622,7 @@ public class TransformElement implements MarkupApplier {
 		List<Node> nodeList = getXpathQueryResults();
 		for (Node node : nodeList) {
 			if (node instanceof CMLArray) {
-				splitArrayToScalars((CMLArray)node);
+				splitArray((CMLArray)node);
 			} else if (node instanceof CMLScalar) {
 				splitScalarValueToScalars((CMLScalar)node);
 			}
@@ -1611,9 +1649,38 @@ public class TransformElement implements MarkupApplier {
 		}
 	}
 
-	private void splitArrayToScalars(CMLArray array) {
-		CMLList list = new CMLList();
+	private void splitArray(CMLArray array) {
+		CMLList list = null;
+		if (cols != null || rows != null) {
+			Integer icols = createInteger(array, cols);
+			Integer irows = createInteger(array, rows);
+			list = splitToArrays(array, irows, icols);
+		} else {
+			list = splitToScalars(array);
+		}
+		if (list != null) {
+			array.getParent().replaceChild(array, list);
+		}
+	}
+
+	private Integer createInteger(Node node, String val) {
+		Integer ival = null;
+		if (val != null && node != null) {
+			Object oval = evaluateValue(node, val);
+			if (oval != null) {
+				try {
+					ival = new Integer(oval.toString());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return ival;
+	}
+
+	private CMLList splitToScalars(CMLArray array) {
 		int size = array.getSize();
+		CMLList list = new CMLList();
 		for (int j = 0; j < size; j++) {
 			CMLScalar scalar = array.getElementAt(j);
 			if (dictRef != null) {
@@ -1621,32 +1688,62 @@ public class TransformElement implements MarkupApplier {
 			}
 			list.appendChild(scalar);
 		}
-		array.getParent().replaceChild(array, list);
+		return list;
+	}
+
+	private CMLList splitToArrays(CMLArray array, Integer irows, Integer icols) {
+		if (irows == null && icols == null) {
+			return null;
+		}
+		int size = array.getSize();
+		CMLList list = new CMLList();
+		if (icols != null) {
+			if (icols <= 0 || size%icols != 0) {
+				throw new RuntimeException("cols ("+icols+") must be factor of array ("+size+")");
+			}
+			if (irows == null) {
+				irows = size/icols;
+			} else if (icols * irows != size) {
+				throw new RuntimeException("rows ("+irows+") * cols ("+cols+") != size ("+size+")");
+			}
+		} else {
+			if (irows <= 0 || size%irows != 0) {
+				throw new RuntimeException("rows ("+irows+") must be factor of array ("+size+")");
+			}
+			icols = size/irows;
+		}
+		for (int j = 0; j < size; j+=icols) {
+			CMLArray subArray = new CMLArray(array.createSubArray(j, j+icols-1));
+			list.appendChild(subArray);
+		}
+		return list;
 	}
 
 	
 	
-	private void WithPropertyOrParameter(Element perx) {
+	private void wrapWithPropertyOrParameter(Element wrapperx) {
 		assertRequired(XPATH, xpath);
 		List<Node> nodeList = getXpathQueryResults();
 		for (Node node : nodeList) {
 			if (node instanceof CMLScalar ||
 					node instanceof CMLArray ||
+					node instanceof CMLList ||
+					node instanceof CMLTable ||
 					node instanceof CMLMatrix) {
-				Element per = (Element) perx.copy();
+				Element wrapper = (Element) wrapperx.copy();
 				Element element = (Element) node;
-				String dictRefx = (dictRef != null) ? dictRef : ((HasDictRef)element).getDictRef();
+				String dictRefx = (dictRef != null) ? dictRef : element.getAttributeValue(DICT_REF);
 				if (dictRefx == null) {
-					throw new RuntimeException("Cannot find dictRef for per");
+					throw new RuntimeException("Cannot find dictRef for wrapper "+element.toXML());
 				}
-				if (per instanceof HasDictRef) {
-					((HasDictRef)per).setDictRef(dictRefx);
-				} else if (per instanceof CMLMetadata) {
-					((CMLMetadata)per).setName(dictRefx);
+				if (wrapper instanceof HasDictRef) {
+					((HasDictRef)wrapper).setDictRef(dictRefx);
+				} else if (wrapper instanceof CMLMetadata) {
+					((CMLMetadata)wrapper).setName(dictRefx);
 				}
 				ParentNode parent = element.getParent();
-				parent.replaceChild(element, ((Element)per));
-				((Element)per).appendChild(element);
+				parent.replaceChild(element, ((Element)wrapper));
+				((Element)wrapper).appendChild(element);
 				Nodes dictRefNodes = element.query("./@dictRef");
 				for (int i = 0; i < dictRefNodes.size(); i++) {
 					dictRefNodes.get(i).detach();
@@ -1655,20 +1752,26 @@ public class TransformElement implements MarkupApplier {
 		}
 	}
 
-	private void PropertiesAndParameters() {
+	private void wrapPropertiesAndParameters() {
 		assertRequired(XPATH, xpath);
 		List<Node> nodeList = getXpathQueryResults();
 		for (Node node : nodeList) {
 			Element pp = (Element) node;
-			Elements scalars = pp.getChildElements();
-			for (int j = 0; j < scalars.size(); j++) {
-				Element scalar = scalars.get(j);
-				if (scalar instanceof CMLScalar) {
-					CMLElement per = (pp instanceof CMLPropertyList) ? new CMLProperty() : new CMLParameter();
-					ParentNode parent = scalar.getParent();
-					parent.replaceChild(scalar, per);
-					((HasDictRef)per).setDictRef(((CMLScalar)scalar).getDictRef());
-					per.appendChild(scalar);
+			Elements elements = pp.getChildElements();
+			for (int j = 0; j < elements.size(); j++) {
+				Element element = elements.get(j);
+				if (
+						element instanceof CMLArray ||
+						element instanceof CMLScalar ||
+						element instanceof CMLList ||
+						element instanceof CMLMatrix ||
+						element instanceof CMLTable
+					) {
+					CMLElement wrapper = (pp instanceof CMLPropertyList) ? new CMLProperty() : new CMLParameter();
+					ParentNode parent = element.getParent();
+					parent.replaceChild(element, wrapper);
+					((HasDictRef)wrapper).setDictRef(element.getAttributeValue(DICT_REF));
+					wrapper.appendChild(element);
 				}
 			}
 		}
@@ -1695,7 +1798,8 @@ public class TransformElement implements MarkupApplier {
 		Pattern PATTERN = Pattern.compile("\\$((?:string)|(?:number))\\(([^\\)]*)\\)");
 		Matcher matcher = PATTERN.matcher(valuex);
 		if (matcher.matches()) {
-			return evaluateValue0(refNode, matcher.group(1), matcher.group(2));
+			Object obj =  evaluateValue0(refNode, matcher.group(1), matcher.group(2));
+			return obj;
 		}
 		String ss = valuex;
 		while (true) {
@@ -2105,7 +2209,7 @@ public class TransformElement implements MarkupApplier {
 			if (elementType != null) {
 				ChemicalElement chemicalElement = ChemicalElement.getChemicalElement(elementType);
 				CMLScalar scalar = new CMLScalar(chemicalElement.getAtomicNumber());
-				scalar.setDictRef(DictRefAttribute.createValue(COMPCHEM, ATOMIC_NUMBER));
+				scalar.setDictRef(DictRefAttribute.createValue(COMPCHEM_CC, ATOMIC_NUMBER));
 				atom.addScalar(scalar);
 			}
 		}

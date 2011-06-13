@@ -1,0 +1,47 @@
+<template repeat="*"  name="DFT ENERGY GRADIENTS" id="dftenergrad"
+  pattern="\s*DFT ENERGY GRADIENTS\s*$\s*$\s*atom.*" offset="0"
+  endPattern="\s*" endOffset="0"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
+  
+  <comment class="example.input" id="dftenergrad">
+                         DFT ENERGY GRADIENTS
+
+    atom               coordinates                        gradient
+                 x          y          z           x          y          z
+   1 C      -2.392445  -0.625106   0.307613   -0.000006  -0.000008  -0.000076
+   2 C      -2.384483   2.195053  -0.384626    0.000020  -0.000061  -0.000057
+  19 H       1.357367  -5.373641  -0.418541    0.000014   0.000005  -0.000015
+ 
+  </comment>
+  
+  <record repeat="4"/>
+  <record repeat="*">{I,n:serial}\s{A,n:elemType}{3F,n:coord}{3F,n:grad}\s*</record>
+  
+
+  <comment class="example.output" id="dftenergrad">
+    <module cmlx:templateRef="dftenergrad" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="missingID">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="n:serial">1</scalar>
+          <scalar dataType="xsd:string" dictRef="n:elemType">C</scalar>
+          <array dataType="xsd:double" size="3" dictRef="n:coord">-2.392445 -0.625106 0.307613</array>
+          <array dataType="xsd:double" size="3" dictRef="n:grad">-6.0E-6 -8.0E-6 -7.6E-5</array>
+        </list>
+        <list>
+          <scalar dataType="xsd:integer" dictRef="n:serial">2</scalar>
+          <scalar dataType="xsd:string" dictRef="n:elemType">C</scalar>
+          <array dataType="xsd:double" size="3" dictRef="n:coord">-2.384483 2.195053 -0.384626</array>
+          <array dataType="xsd:double" size="3" dictRef="n:grad">2.0E-5 -6.1E-5 -5.7E-5</array>
+        </list>
+        <list>
+          <scalar dataType="xsd:integer" dictRef="n:serial">19</scalar>
+          <scalar dataType="xsd:string" dictRef="n:elemType">H</scalar>
+          <array dataType="xsd:double" size="3" dictRef="n:coord">1.357367 -5.373641 -0.418541</array>
+          <array dataType="xsd:double" size="3" dictRef="n:grad">1.4E-5 5.0E-6 -1.5E-5</array>
+        </list>
+      </list>
+    </module>
+  </comment>
+
+</template>

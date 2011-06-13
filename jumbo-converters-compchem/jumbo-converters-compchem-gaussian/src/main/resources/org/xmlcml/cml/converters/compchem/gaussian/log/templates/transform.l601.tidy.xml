@@ -1,25 +1,110 @@
 <transformList>
 
-<!--  tidy frequencies -->
-  <transform process="addDictRef" xpath="//cml:property[cml:module[@cmlx:templateRef='l601.forcematrix']]"
-    value="cc:frequencies"/>
-  <transform process="addChild" xpath="//cml:property[cml:module[@cmlx:templateRef='l601.forcematrix']]"
-    elementName="cml:table" id="l601.forcematrix"/>
-  <transform process="moveRelative" xpath="//cml:property[@dictRef='cc:frequencies']/cml:module/cml:array" toXpath="../../cml:table"/>
-   
-<!--  somewhat tidy thermochemistry -->
-  <transform process="addDictRef" xpath="//cml:property[cml:module[@cmlx:templateRef='l601.thermochemistry']]"
-    value="cc:thermochemistry"/>
-  <transform process="addChild" xpath="//cml:property[cml:module[@cmlx:templateRef='l601.thermochemistry']]"
-    elementName="cml:list" id="l601.thermochemistry"/>
-  <transform process="moveRelative" xpath="//cml:property[@dictRef='cc:thermochemistry']/cml:module/cml:*" toXpath="../../cml:list"/>
-   
-<!--  somewhat tidy zeropoint -->
-  <transform process="addDictRef" xpath="//cml:property[cml:module[@cmlx:templateRef='l601.zeropoint']]"
-    value="cc:zeropoint"/>
-  <transform process="addChild" xpath="//cml:property[cml:module[@cmlx:templateRef='l601.zeropoint']]"
-    elementName="cml:list" id="l601.zeropoint"/>
-  <transform process="moveRelative" xpath="//cml:property[@dictRef='cc:zeropoint']/cml:module/cml:scalar" toXpath="../../cml:list"/>
-   
+<!--  tidy popanal -->
+  <transform process="addDictRef" xpath="//cml:property[cml:module[@cmlx:templateRef='l601.popanal']]"
+    value="cc:popanal"/>
+  <transform process="moveRelative" xpath="//cml:module[@cmlx:templateRef='l4601.virtual']"
+    toXpath="parent::*/parent::*/parent::*"/>
+
+<!--  MULLIKEN -->
+<!--   
+- <module cmlx:templateRef="mulliken">
+- <module cmlx:templateRef="l601.mullik">
+  <scalar dataType="xsd:string" dictRef="g:title">Mulliken atomic charges:</scalar> 
+  <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar> 
+- <list cmlx:templateRef="row">
+  <array dataType="xsd:integer" dictRef="cc:serial" size="5">1 2 3 4 5</array> 
+  <array dataType="xsd:string" dictRef="cc:elementType" size="5">C H H H H</array> 
+  <array dataType="xsd:double" dictRef="x:charge" size="5">-0.619218 0.154804 0.154804 0.154804 0.154804</array> 
+  </list>
+  <scalar dataType="xsd:string" dictRef="x:type">Mulliken</scalar> 
+  <scalar dataType="xsd:double" dictRef="x:charge.sum">0.0</scalar> 
+  </module>
+  <scalar dataType="xsd:double" dictRef="g:electextent2">36.2154</scalar> 
+  </module>
+-->    
+
+  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.mullik' and 
+    cml:scalar[@dictRef='g:title' and 
+    (normalize-space(.)='Atomic charges with hydrogens summed into heavy atoms:' or
+     normalize-space(.)='APT Atomic charges with hydrogens summed into heavy atoms:' or
+     normalize-space(.)='APT atomic charges:' 
+     )
+    ]]" />    
+      
+  <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='l601.mullik' and 
+    cml:scalar[@dictRef='g:title' and normalize-space(.)='Mulliken atomic charges:']]" 
+    value="cc:mulliken"/>    
+  <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='l601.mullik']//cml:array[@dictRef='x:charge']" 
+    value="cc:mulliken"/>    
+  <transform process="split" xpath=".//cml:array[@dictRef='cc:mulliken']"/>    
+  <transform process="copy" xpath="//cml:module[@dictRef='cc:job'][last()]/cml:module[@dictRef='cc:finalization']//cml:module[@dictRef='cc:mulliken']//cml:scalar[@dictRef='cc:mulliken']"
+    toXpath="./ancestor::cml:module[@dictRef='cc:finalization']//cml:molecule[@id='mol9999']/cml:atomArray/cml:atom"/>
+  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.mullik' and 
+    cml:scalar[@dictRef='g:title' and 
+    (normalize-space(.)='Mulliken atomic charges:'
+     )
+    ]]" />    
+
+  <transform process="delete" xpath=".//cml:scalar[@dictRef='g:electextent2']" />    
   
+  <!-- MULTIPOLE -->
+  <!-- 
+  <module cmlx:templateRef="multipole">
+  <array dataType="xsd:double" dictRef="cc:dipole" size="3">0.0 0.0 0.0</array> 
+  <scalar dataType="xsd:double" dictRef="x:dipole">0.0</scalar> 
+  <array dataType="xsd:double" dictRef="cc:quadrupole" size="3">-8.2514 -8.2514 -8.2514</array> 
+  <array dataType="xsd:double" dictRef="cc:quadrupole" size="3">0.0 0.0 0.0</array> 
+  <array dataType="xsd:double" dictRef="cc:quadrupole" size="6">0.0 0.0 0.0 0.0 0.0 0.0</array> 
+  <array dataType="xsd:double" dictRef="cc:octapole" size="10">0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.6711</array> 
+  <array dataType="xsd:double" dictRef="cc:hexadecapole" size="15">-15.7513 -15.7513 -15.7513 0.0 0.0 0.0 0.0 0.0 0.0 -4.8059 -4.8059 -4.8059 0.0 0.0 0.0</array> 
+  </module>
+ -->
+   <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='multipole']" value="cc:multipole"/>
+   <transform process="createList" xpath=".//cml:module[@cmlx:templateRef='multipole']"/>
+   <transform process="moveRelative" xpath=".//cml:list[@dictRef='cc:multipole']" 
+     toXpath="./ancestor::cml:propertyList[1]"/>
+   
+   <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.condensed']"/>
+   
+   <!-- 
+   <transform process="moveRelative" xpath="//cml:module[@dictRef='cc:job']//cml:array[@dictRef='g:alphaocc'][1]"
+        toXpath="./ancestor::cml:propertyList[1]"/>
+   <transform process="moveRelative" xpath="//cml:module[@dictRef='cc:job']//cml:array[@dictRef='g:betaocc'][1]"
+        toXpath="./ancestor::cml:propertyList[1]"/>
+   <transform process="moveRelative" xpath="//cml:module[@dictRef='cc:job']//cml:array[@dictRef='g:alphavirt'][1]"
+        toXpath="./ancestor::cml:propertyList[1]"/>
+   <transform process="moveRelative" xpath="//cml:module[@dictRef='cc:job']//cml:array[@dictRef='g:betavirt'][1]"
+        toXpath="./ancestor::cml:propertyList[1]"/>
+        -->
+<!-- 
+- <module cmlx:templateRef="l4601.virtual">
+- <list cmlx:templateRef="virt">
+  <scalar dataType="xsd:string" dictRef="g:virtorbs">(A1) (T2) (T2) (T2) (T2) (T2) (T2) (T2) (T2) (T2)</scalar> 
+  </list>
+- <list cmlx:templateRef="virt">
+  <scalar dataType="xsd:string" dictRef="g:virtorbs">(A1) (A1) (E) (E) (T2) (T2) (T2) (A1)</scalar> 
+  </list>
+  </module>
+-->
+   <transform process="createArray" xpath=".//cml:module[@cmlx:templateRef='l4601.virtual']//cml:scalar" from="."/>
+   <transform process="joinArrays" xpath=".//cml:module[@cmlx:templateRef='l4601.virtual']" from=".//cml:array"/>
+   <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='l4601.virtual']/cml:list/cml:array" value="cc:virtualorbs"/>
+   <transform process="moveRelative" xpath="//cml:array[@dictRef='cc:virtualorbs']"
+        toXpath="./ancestor::cml:propertyList[1]"/>
+
+        
+   <transform process="createWrapperProperty" 
+        xpath="
+            //cml:propertyList/cml:array |
+            //cml:propertyList/cml:list | 
+            //cml:propertyList/cml:matrix | 
+            //cml:propertyList/cml:scalar |
+            //cml:propertyList/cml:table"
+       />
+            
+   <transform process="delete" xpath="//cml:propertyList//cml:list[count(*)=0]"/>
+   <transform process="delete" xpath="//cml:propertyList//cml:module[count(*)=0]"/>
+    
+    
 </transformList> 

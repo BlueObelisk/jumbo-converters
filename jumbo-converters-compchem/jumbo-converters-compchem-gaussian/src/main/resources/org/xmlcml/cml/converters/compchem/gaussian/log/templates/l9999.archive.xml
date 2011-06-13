@@ -68,7 +68,7 @@
 
 <!--  additional lines -->  
   <transform process="createArray" xpath=".//cml:scalar[@dictRef='g:archive']" splitter="," from="." 
-      dictRef="x:unknown" dataType="xsd:double"/>
+      dictRef="g:forces" dataType="xsd:double"/>
  
   <transform process="pullup" xpath=".//cml:list[@dictRef='g:archive']"/>
 <!--  molecule -->
@@ -102,9 +102,11 @@
       from="./cml:list[@type='molecule']/cml:scalar[@dictRef='cc:z3']"/>
       <!--  createMolecule -->     
   <transform process="createMolecule" id="mol9999" xpath=".//cml:list[@type='molecule']/cml:array" from="."/>
-  <transform process="addAttribute" id="mol9999" xpath=".//cml:molecule'" name="spinMultiplicity" 
+  <transform process="addId" value="mol9999" xpath=".//cml:molecule[starts-with(@id,'a')]"/>
+  
+  <transform process="addAttribute" xpath=".//cml:molecule[@id='mol9999']" name="spinMultiplicity" 
       value="$number(.//cml:scalar[@dictRef='x:spinMultiplicity'])"/>
-  <transform process="addAttribute" id="mol9999" xpath=".//cml:molecule'" name="formalCharge" 
+  <transform process="addAttribute" xpath=".//cml:molecule[@id='mol9999']'" name="formalCharge" 
       value="$number(.//cml:scalar[@dictRef='x:formalCharge'])"/>
   <transform process="delete" xpath=".//cml:list[@type='chargemult']"/> 
   <transform process="pullup" xpath=".//cml:molecule" repeat="2"/> 
@@ -136,6 +138,10 @@
   <transform process="move" xpath=".//cml:formula[@dictRef='cc:formula.user']" toXpath=".//cml:molecule"/>
   <transform process="delete" xpath=".//*[@dictRef='g:nimag']"/>
   <transform process="delete" xpath=".//cml:formula/cml:atomArray"/>
+
+  <transform process="addDictRef" xpath=".//cml:*[@dictRef='g:forces' and preceding-sibling::cml:*[@dictRef='g:forces']]"
+    value="cc:forces"/>
+  <transform process="addDictRef" xpath=".//cml:*[@dictRef='g:forces']" value="cc:forceConstants"/>
   
   <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cml:molmass']"      value="nonsi:dalton"/>
   <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:hfenergy']"      value="nonsi:hartree"/>
@@ -148,7 +154,8 @@
 
 
   <comment class="example.output" id="l9999.archive">
-<module cmlx:templateRef="l9999.archive" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+<module cmlx:templateRef="l9999.archive" 
+xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <scalar dataType="xsd:string" dictRef="cc:hostname">GINC-DEEPTHOUGHT</scalar>
   <scalar dataType="xsd:string" dictRef="g:operation">Freq</scalar>
   <scalar dataType="xsd:string" dictRef="cc:method">RB3LYP</scalar>
@@ -166,19 +173,19 @@
   <molecule id="mol9999" spinMultiplicity="1" formalCharge="0">
     <atomArray>
       <atom id="a1" elementType="C" x3="0.0" y3="0.0" z3="0.0">
-        <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">6</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
       </atom>
       <atom id="a2" elementType="H" x3="9.95E-8" y3="1.925E-7" z3="1.09326594">
-        <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
       </atom>
       <atom id="a3" elementType="H" x3="1.0307409799" y3="1.096E-7" z3="-0.3644220738">
-        <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
       </atom>
       <atom id="a4" elementType="H" x3="-0.5153703892" y3="-0.8926480531" z3="-0.3644217759">
-        <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
       </atom>
       <atom id="a5" elementType="H" x3="-0.5153706902" y3="0.892647751" z3="-0.3644220902">
-        <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
       </atom>
     </atomArray>
     <formula formalCharge="0" concise="C 1 H 4" dictRef="cc:formula.calc"/>

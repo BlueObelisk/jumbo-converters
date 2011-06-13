@@ -1,14 +1,12 @@
-<transformList>
+<transformList
+  xmlns:xi="http://www.w3.org/2001/XInclude">
 
 <!--  ====================== CLEAN ===================== -->
     
     <!-- clean up output -->
-    
+
     <transform process="createWrapperProperty" xpath="//cml:atom/cml:scalar" />
     <transform process="delete" xpath=".//cml:molecule/cml:formula/cml:atomArray" />
-  <!-- 
-    <transform process="delete" xpath=".//@cmlx:templateRef" />
--->
     <transform process="delete" xpath=".//@cmlx:lineCount" />
     
     <transform process="delete" xpath="/cml:module/cml:scalar" />
@@ -17,7 +15,15 @@
     
     <transform process="delete" xpath="//cml:module/text()" />
 
+    <transform process="delete" xpath="//cml:module[@cmlx:templateRef='l1.legal' or @cmlx:templateRef='l1.citation']" />
+
+    <xi:include href="transform.molecule.tidy.xml"/>    
+    
+
 <!--   
   <transform process="delete" xpath="/cml:module/text() | /cml:module/cml:scalar" toXpath="/cml:module/cml:module[@id='calculation']"/> 
  -->    
+  <!-- 
+    <transform process="delete" xpath=".//@cmlx:templateRef" />
+-->
 </transformList> 

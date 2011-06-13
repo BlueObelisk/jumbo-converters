@@ -1,0 +1,22 @@
+<template repeat="*"  name="density warning" id="warning.density"
+  pattern="\s*WARNING\: error on integrated density.*" 
+  endOffset="1" endPattern="\s*greater than.*">
+  
+  <comment class="example.input" id="titlex">
+ WARNING: error on integrated density =  0.13D-05
+ greater than required accuracy of  0.10D-05
+  </comment>
+  
+  <record id="warning.dens">\s*WARNING: error on integrated density ={E,n:error.density}\s*</record>
+  <record id="warning.dens1">\s*greater than required accuracy of {E,n:error.density.lim}\s*</record>
+
+  <transform process="pullup" xpath=".//cml:scalar"/>
+  
+  <comment class="example.output" id="titlex">
+    <module cmlx:templateRef="warning.density" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:double" dictRef="n:error.density">1.3E-6</scalar>
+      <scalar dataType="xsd:double" dictRef="n:error.density.lim">1.0E-6</scalar>
+    </module>
+  </comment>
+
+</template>

@@ -62,8 +62,11 @@ public class GaussianLog2CompchemConverter extends AbstractConverter {
 			in = new File("src/test/resources/compchem/gaussian/log/in/"+fileRoot+".log");
 			System.out.println("converting: "+in);
 			out = new File("test/"+fileRoot+".compchem.xml");
-			converter.convert(in, out);
+			if (in.exists()) {
+				converter.convert(in, out);
+			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.err.println("Cannot read/convert "+in+"; "+e);
 		}
 	}

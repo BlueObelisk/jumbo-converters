@@ -1,0 +1,36 @@
+<template repeat="*"  name="time box" id="timebox"
+  pattern="\s*\-+\s*$\s*\|\s+Time\s+\|.*" offset="0"
+  endPattern="\s*" endOffset="0"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
+  
+  <comment class="example.input" id="timebox">
+                 ----------------------------------------
+                 |  Time  |  1-e(secs)   |  2-e(secs)   |
+                 ----------------------------------------
+                 |  CPU   |       0.04   |      13.32   |
+                 ----------------------------------------
+                 |  WALL  |       0.04   |      13.32   |
+                 ----------------------------------------
+
+  </comment>
+  
+  <record repeat="3"/>
+  <record id="cpu">\s+\|\s+CPU\s+\|\s+{F,n:cpu1}\s+\|\s+{F,n:cpu2}\s+\|\s*</record>
+  <record repeat="1"/>
+  <record id="cpu">\s*\|\s+WALL\s+\|\s+{F,n:wall1}\s+\|\s+{F,n:wall2}\s+\|\s*</record>
+  <record repeat="1"/>
+  
+  
+  <transform process="pullup" xpath=".//cml:scalar" repeat="2"/>
+
+  <comment class="example.output" id="timebox">
+    <module cmlx:templateRef="timebox" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:double" dictRef="n:cpu1">0.04</scalar>
+      <scalar dataType="xsd:double" dictRef="n:cpu2">13.32</scalar>
+      <scalar dataType="xsd:double" dictRef="n:wall1">0.04</scalar>
+      <scalar dataType="xsd:double" dictRef="n:wall2">13.32</scalar>
+    </module>
+  </comment>
+
+</template>

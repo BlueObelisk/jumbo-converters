@@ -2,7 +2,6 @@ package org.xmlcml.cml.converters.compchem.nwchem.log;
 
 import nu.xom.Element;
 
-
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xmlcml.cml.converters.text.TemplateTestUtils;
@@ -70,7 +69,9 @@ public class TemplateUnitTests {
    @Test public void testCrystaldipoleOK()                       {runTemplateTest("crystaldipole");}
    @Test public void testDamping()                               {runTemplateTest("damping");}
    @Test public void testDftOK()                                 {runTemplateTest("dft");}
+   @Test public void testDftenergrad()                           {runTemplateTest("dftenergrad");}
    @Ignore @Test public void testDftfinalmolorbWHITE()           {runTemplateTest("dftfinalmolorb");}
+   @Test public void testDftgradient()                           {runTemplateTest("dftgradient");}
    @Ignore @Test public void testDirectmp2WHITE()                {runTemplateTest("directmp2");}
    @Ignore @Test public void testDirinfoWHITE()                  {runTemplateTest("dirinfo");}
    @Test public void testDisclaim()                              {runTemplateTest("disclaim");}
@@ -95,7 +96,7 @@ public class TemplateUnitTests {
    @Test public void testFukuiLite()                             {runTemplateTest("fukuilite");}
    @Ignore @Test public void testGama()                          {runTemplateTest("gama");}
    @Ignore @Test public void testGastatsWHITE()                  {runTemplateTest("gastats");}
-   @Test public void testGeninfoOK()                               {runTemplateTest("geninfo");}
+   @Test public void testGeninfoOK()                             {runTemplateTest("geninfo");}
    @Test public void testGeomOK()                                {runTemplateTest("geometry");}
    @Test public void testGeomopt()                               {runTemplateTest("geomopt");}
    @Test public void testGlobalarray()                           {runTemplateTest("globalarray");}
@@ -131,6 +132,7 @@ public class TemplateUnitTests {
    @Test public void testLindeptolOK()                           {runTemplateTest("lindeptol");}
    @Test public void testLinesearch()                            {runTemplateTest("linesearch");}
    @Ignore @Test public void testLinestoskipWHITE()              {runTemplateTest("linestoskip");}
+   @Test public void testLoading()                               {runTemplateTest("loading");}
    @Test public void testLocalmemOK()                            {runTemplateTest("localmem");}
    @Test public void testMagneticatomBAD()                       {runTemplateTest("magneticatom");}
    @Ignore @Test public void testMullikenWHITE()                 {runTemplateTest("mulliken.temp");}
@@ -185,6 +187,7 @@ public class TemplateUnitTests {
    @Test public void testParallelOK()                            {runTemplateTest("parallel");}
    @Test public void testPrincipalcomponentsOK()                 {runTemplateTest("principalcomponents");}
    @Test public void testPropertyEXAMPLE()                       {runTemplateTest("property");}
+   @Test public void testQuartets()                              {runTemplateTest("quartets");}
    @Test public void testQuadrohfEXAMPLE()                       {runTemplateTest("quadrohf");}
    @Ignore @Test public void testQuartetsEXAMPLEFIX()                       {runTemplateTest("quartets");}
    @Test public void testReadmolorbEXAMPLE()                     {runTemplateTest("readmolorb");}
@@ -201,7 +204,8 @@ public class TemplateUnitTests {
    @Test public void testSemidirectEXAMPLE()                     {runTemplateTest("semidirect");}
    @Ignore @Test public void testShieldingNAME()                 {runTemplateTest("shielding");}
    @Test public void testSpincontamEXAMPLE()                     {runTemplateTest("spincontam");}
-   @Test public void testStep()                                  {runTemplateTest("step");}
+   @Ignore @Test public void testStep()                                  {runTemplateTest("step");}
+   @Test public void testStepdata()                              {runTemplateTest("stepdata");}
    @Test public void testStepLast()                              {runTemplateTest("steplast");}
    @Test public void testSummaryallocEXAMPLE()                   {runTemplateTest("summaryalloc");}
    @Ignore @Test public void testSummarybasisEXAMPLE()           {runTemplateTest("summarybasis");}
@@ -214,18 +218,21 @@ public class TemplateUnitTests {
    @Ignore @Test public void testThreetwoWHITE()                 {runTemplateTest("threetwo");}
    @Test public void testTidyHeading()                           {runTemplateTest("tidyheading");}
    @Test public void testTimeafterEXAMPLE()                      {runTemplateTest("timeafter");}
+   @Test public void testTimebox()                               {runTemplateTest("timebox");}
+   @Test public void testTimePrior()                             {runTemplateTest("timeprior");}
    @Ignore @Test public void testTimesWHITE()                    {runTemplateTest("times");}
    @Ignore @Test public void testTimingWHITE()                   {runTemplateTest("timing");}
    @Test public void testTitleEXAMPLE()                          {runTemplateTest("title");}
    @Test public void testTotalbandenerEXAMPLE()                  {runTemplateTest("totalbandener");}
    @Test public void testTotaldftEXAMPLE()                       {runTemplateTest("totaldft");}
    @Test public void testTriplesEXAMPLE()                        {runTemplateTest("triples");}
+   @Test public void testWarningDensity()                        {runTemplateTest("warning.density");}
    @Test public void testWrotemolorbEXAMPLE()                    {runTemplateTest("wrotemolorb");}
-   @Test public void testXcinfoWHITE()                   {runTemplateTest("xcinfo");}
+   @Test public void testXcinfoWHITE()                           {runTemplateTest("xcinfo");}
    @Test public void testXcquadEXAMPLE()                         {runTemplateTest("xcquad");}
    @Ignore @Test public void testXyzWHITE()                      {runTemplateTest("xyz");}
    @Test public void testZmatOK()                                {runTemplateTest("zmat");}
-   @Test public void testZmatautozWHITE()                {runTemplateTest("zmatautoz");}
+   @Test public void testZmatautozWHITE()                        {runTemplateTest("zmatautoz");}
    @Ignore @Test public void testZmatgradWHITE()                 {runTemplateTest("zmatgrad");}
    @Ignore @Test public void testZmatuserWHITE()                 {runTemplateTest("zmatuser");}
   

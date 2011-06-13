@@ -1,0 +1,37 @@
+<template repeat="*"  name="Last Optimization Step" id="steplast"
+  pattern="\s*NWChem DFT Gradient Module\s*$\s*\-+\s*" offset="0"
+  endPattern="\s*wavefunction\s*=.*" endOffset="1"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
+  
+  <comment class="example.input" id="dftgradient">
+                            NWChem DFT Gradient Module
+                            --------------------------
+ 
+ 
+                                       Title
+ 
+ 
+
+  charge          =   0.00
+  wavefunction    = closed shell
+
+  </comment>
+  
+  <record repeat="4"/>
+  <record id="skip">\s*{X,cc:title}</record>
+  <record repeat="3"/>
+  <record id="charge">\s*charge\s*={F,n:charge}\s*</record>
+  <record id="wavefunct">\s*wavefunction\s*={X,n:wavefunction}</record>
+  
+  <transform process="pullup" xpath=".//cml:scalar"/>
+
+  <comment class="example.output" id="dftgradient">
+    <module cmlx:templateRef="steplast" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="cc:title">Title</scalar>
+      <scalar dataType="xsd:double" dictRef="n:charge">0.0</scalar>
+      <scalar dataType="xsd:string" dictRef="n:wavefunction">closed shell</scalar>
+    </module>
+  </comment>
+
+</template>

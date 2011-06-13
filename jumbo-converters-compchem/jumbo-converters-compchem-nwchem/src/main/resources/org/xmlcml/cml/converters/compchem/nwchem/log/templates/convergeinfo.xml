@@ -1,5 +1,7 @@
 <template repeat="*"  id="converge" name="Convergence Information" 
-  pattern="\s*Convergence Information.*$\s+\-+.*" newline="$" endPattern="\s*$\s*">
+  pattern="\s*Convergence Information.*$\s+\-+.*" endPattern="\s*$\s*"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
   
   <comment class="example.input" id="converge">
           Convergence Information
@@ -17,20 +19,21 @@
           dE off:    2 iters         30 iters            30 iters 
 
 
-</comment>
-<record repeat="2">{X}</record>
-<record repeat="9">{X}</record>
-<record id="deon">.*\:{X,n:deon}</record>
-<record id="deoff">.*\:{X,n:deoff}</record>
-<transform process="createNameValue" xpath="cml:list/cml:list" 
-      name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>
-<transform process="pullupSingleton" xpath="./cml:list"/>
+  </comment>
+  <record repeat="2"/>
+  <record repeat="9"/>
+  <record id="deon">.*\:{1_10A,n:deon}</record>
+  <record id="deoff">.*\:{1_10A,n:deoff}</record>
+  
+  <transform process="createNameValue" xpath="cml:list/cml:list" 
+        name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
 
   <comment class="example.output" id="converge">
-<module cmlx:templateRef="converge" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <scalar dataType="xsd:string" dictRef="n:deon" cmlx:templateRef="deon">start            ASAP                start</scalar>
-  <scalar dataType="xsd:string" dictRef="n:deoff" cmlx:templateRef="deoff">2 iters         30 iters            30 iters</scalar>
-</module>
+    <module cmlx:templateRef="converge" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:string" size="3" dictRef="n:deon" cmlx:templateRef="deon">start ASAP start</array>
+      <array dataType="xsd:string" size="6" dictRef="n:deoff" cmlx:templateRef="deoff">2 iters 30 iters 30 iters</array>
+    </module>
   </comment>
 
 </template>

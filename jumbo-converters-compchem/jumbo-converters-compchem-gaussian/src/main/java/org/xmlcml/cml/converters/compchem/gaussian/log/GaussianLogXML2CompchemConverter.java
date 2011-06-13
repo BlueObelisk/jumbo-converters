@@ -76,8 +76,8 @@ public class GaussianLogXML2CompchemConverter extends XML2XMLTransformConverter 
             InputStream transformStream = Util.getResourceUsingContextClassLoader(
                     "org/xmlcml/cml/converters/compchem/gaussian/log/gaussian2compchem.xml", GaussianLogXML2CompchemConverter.class);
             XML2XMLConverter converter = new GaussianLogXML2CompchemConverter(transformStream);
-            File in = new File("src/test/resources/compchem/gaussian/log/ref/anna0.xml");
-            File out = new File("test/anna0.compchem.xml");
+            File in = new File("src/test/resources/compchem/gaussian/log/ref/anna1.xml");
+            File out = new File("test/anna1.compchem.xml");
             converter.convert(in, out);
         }
     }

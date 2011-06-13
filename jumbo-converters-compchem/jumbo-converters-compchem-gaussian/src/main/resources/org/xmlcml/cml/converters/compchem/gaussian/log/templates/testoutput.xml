@@ -1,7 +1,7 @@
 
-<module id="jobList" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" xmlns:convention="http://www.xml-cml.org/convention/" xmlns:compchem="http://www.xml-cml.org/dictionary/compchem/" xmlns:cc="http://www.xml-cml.org/dictionary/compchem/" xmlns:g="http://www.xml-cml.org/dictionary/gaussian/" xmlns:x="http://www.xml-cml.org/dictionary/cmlx/" xmlns:si="http://www.xml-cml.org/unit/si/" xmlns:nonsi="http://www.xml-cml.org/unit/nonsi/">
+<module id="jobList" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" xmlns:convention="http://www.xml-cml.org/convention/" xmlns:cc="http://www.xml-cml.org/dictionary/compchem/" xmlns:g="http://www.xml-cml.org/dictionary/gaussian/" xmlns:x="http://www.xml-cml.org/dictionary/cmlx/" xmlns:si="http://www.xml-cml.org/unit/si/" xmlns:nonsi="http://www.xml-cml.org/unit/nonsi/">
   <module id="job">
-    <module id="initialization" dictRef="compchem:initialization">
+    <module id="initialization" dictRef="cc:initialization">
       <parameterList>
         <parameter dictRef="cc:hostname">
           <scalar dataType="xsd:string">GINC-DEEPTHOUGHT</scalar>
@@ -41,7 +41,7 @@
         </parameter>
       </parameterList>
     </module>
-    <module id="environment" dictRef="compchem:environment">
+    <module id="environment" dictRef="cc:environment">
       <metadataList>
       <!-- 
         <metadata name="cc:date">
@@ -56,24 +56,24 @@
         -->
       </metadataList>
     </module>
-    <module id="calculation" dictRef="compchem:calculation"/>
-    <module cmlx:templateRef="l9999.archive" convention="convention:compchem" dictRef="compchem:finalization">
+    <module id="calculation" dictRef="cc:calculation"/>
+    <module cmlx:templateRef="l9999.archive" convention="convention:compchem" dictRef="cc:finalization">
       <molecule id="mol9999" spinMultiplicity="1" formalCharge="0" convention="convention:molecular">
         <atomArray>
           <atom id="a1" elementType="C" x3="0.0" y3="0.0" z3="0.0">
-            <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">6</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
           </atom>
           <atom id="a2" elementType="H" x3="9.95E-8" y3="1.925E-7" z3="1.09326594">
-            <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
           </atom>
           <atom id="a3" elementType="H" x3="1.0307409799" y3="1.096E-7" z3="-0.3644220738">
-            <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
           </atom>
           <atom id="a4" elementType="H" x3="-0.5153703892" y3="-0.8926480531" z3="-0.3644217759">
-            <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
           </atom>
           <atom id="a5" elementType="H" x3="-0.5153706902" y3="0.892647751" z3="-0.3644220902">
-            <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
           </atom>
         </atomArray>
         <formula formalCharge="0" concise="C 1 H 4" dictRef="cc:formula.calc"/>

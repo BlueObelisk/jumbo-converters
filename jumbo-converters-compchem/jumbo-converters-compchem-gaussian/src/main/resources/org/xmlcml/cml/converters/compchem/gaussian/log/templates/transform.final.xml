@@ -44,7 +44,7 @@
   
   <transform process="addChild" xpath="//cml:module[@id='finalization']" elementName="cml:module" id="otherComponents"/>
   <transform process="addDictRef" xpath=".//cml:module[@id='finalization']/cml:module[@id='otherComponents']" value="cc:userDefinedModule" />
-  
+
   <transform process="moveRelative" xpath="//cml:module[@id='finalization']/cml:module[not(@id='otherComponents')]" 
     toXpath="./ancestor::*[@dictRef='cc:job']/cml:module[@id='finalization']/cml:module[@id='otherComponents']"/>
   <transform process="moveRelative" xpath="//cml:module[@id='finalization']//cml:molecule[1]" 
@@ -67,13 +67,13 @@
   </module>
   </property>
    -->
-   
 
  <!-- wrap all properties -->
   <transform process="createWrapperProperty" xpath="//cml:module[@id='finalization']/cml:propertyList/*" />  
   <transform process="createWrapper" xpath="//cml:module[@id='finalization']/cml:propertyList/cml:module" elementName="cml:property"/>  
 
   <xi:include href="transform.l716.tidy.xml"/>
+  <xi:include href="transform.l601.tidy.xml"/>
 
   <transform process="delete" xpath="//cml:module[@id='finalization']//cml:property/cml:module[count(*)=0]"/>  
   

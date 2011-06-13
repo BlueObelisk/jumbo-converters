@@ -1,0 +1,24 @@
+<template repeat="*"  name="title" id="titlex" multiple="$"
+  pattern="\s*Loading old vectors.*$\s*$.*$\s*" endPattern=".*">
+  
+  <comment class="example.input" id="titlex">
+ Loading old vectors from job with title :
+
+Title
+
+  </comment>
+  
+  <record/>
+  <record/>
+  <record id="title">{X,compchem:title}</record>
+  <record/>
+  
+  <comment class="example.output" id="titlex">
+    <module cmlx:templateRef="titlex" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="title">
+        <scalar dataType="xsd:string" dictRef="compchem:title">Title</scalar>
+      </list>
+    </module>
+  </comment>
+
+</template>
