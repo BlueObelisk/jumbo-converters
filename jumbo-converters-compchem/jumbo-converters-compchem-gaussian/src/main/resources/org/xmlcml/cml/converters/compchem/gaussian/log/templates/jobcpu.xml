@@ -11,6 +11,7 @@
   <record id="jobcpu">\s*Job cpu time:\s*{X,cc:jobtime}</record>
   <record id="files"/>
   <record id="date">\s*Normal termination of {X,cc:program} at {X,cc:jobdatetime.end}\.\s*</record>
+  
   <transform process="createDate" xpath=".//cml:scalar[@dictRef='cc:jobtime']" format="DHMS"/>
   <transform process="createDate" xpath=".//cml:scalar[@dictRef='cc:jobdatetime.end']" 
       format="EEE MMM d HH:mm:ss yyyy"/>

@@ -1,5 +1,5 @@
 <template repeat="*"  id="geninfo" name="General Information" 
-    pattern="\s*General Information.*$\s+\-+.*" newline="$" endPattern="\s*">
+    pattern="\s*General Information.*$\s+\-+.*" endPattern="\s*">
 
   <comment class="example.input" id="geninfo">
             General Information
@@ -40,11 +40,11 @@
       <record id="used">\s*{A,n:basis}\s\-\snumber of functions:{I,n:nfunc}\s*</record>
       <record id="used1">\s*number of shells:{I,n:nshell}\s*</record>
     </template>
-    <template id="colon" repeat="*" pattern=".*:.*\.\s*" endPattern=".*">
-      <record id="nv">{X,n:name}:{X,n:value}\s*\.\s*</record>
+    <template id="colon" repeat="*" pattern=".*\:.*\.\s*" endPattern=".*">
+      <record id="nv">\s*{X,n:name}:{X,n:value}\s*\.\s*</record>
     </template>
-    <template id="colon" repeat="*" pattern=".*:.*" endPattern=".*">
-      <record id="nv">{X,n:name}:{X,n:value}\s*\.?\s*</record>
+    <template id="colon1" repeat="*" pattern=".*\:.*" endPattern=".*">
+      <record id="nv">\s*{X,n:name}:{X,n:value}\s*</record>
     </template>
   </templateList>
 

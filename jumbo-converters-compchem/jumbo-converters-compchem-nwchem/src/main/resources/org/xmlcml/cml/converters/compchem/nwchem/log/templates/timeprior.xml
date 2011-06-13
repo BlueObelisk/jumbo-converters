@@ -1,0 +1,18 @@
+<template repeat="*"  id="timeprior" name="Time prior" 
+   pattern="\s*Time prior to.*" endPattern=".*" >
+     
+  <comment class="example.input" id="threecenter2">
+   Time prior to 1st pass:      1.5
+  </comment>
+  
+  <record id="timeprior">\s*Time prior to 1st pass:{F,n:timeprior}</record>
+  
+  <transform process="pullup" xpath=".//cml:scalar"/>
+  
+  <comment class="example.output" id="threecenter2">
+    <module cmlx:templateRef="timeprior" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:double" dictRef="n:timeprior">1.5</scalar>
+    </module>
+  </comment>
+
+</template>

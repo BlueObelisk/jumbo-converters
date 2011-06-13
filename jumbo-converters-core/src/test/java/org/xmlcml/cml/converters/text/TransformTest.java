@@ -559,13 +559,13 @@ public class TransformTest {
 			"  <molecule id='mol'>" +
 			"    <atomArray>" +
 			"      <atom id='a1' elementType='C' x3='1.2'>" +
-			"        <scalar dataType='xsd:integer' dictRef='compchem:atomicNumber'>6</scalar>" +
+			"        <scalar dataType='xsd:integer' dictRef='cc:atomicNumber'>6</scalar>" +
 			"      </atom>" +
 			"      <atom id='a2' elementType='H' x3='2.3'>" +
-			"        <scalar dataType='xsd:integer' dictRef='compchem:atomicNumber'>1</scalar>" +
+			"        <scalar dataType='xsd:integer' dictRef='cc:atomicNumber'>1</scalar>" +
 			"      </atom>" +
 			"      <atom id='a3' elementType='N' x3='3.4'>" +
-			"        <scalar dataType='xsd:integer' dictRef='compchem:atomicNumber'>7</scalar>" +
+			"        <scalar dataType='xsd:integer' dictRef='cc:atomicNumber'>7</scalar>" +
 			"      </atom>" +
 			"    </atomArray>" +
 			"    <formula formalCharge='0' concise='C 1 H 1 N 1'>" +
@@ -1129,6 +1129,121 @@ public class TransformTest {
 			"    <scalar dataType='xsd:double'>5.5</scalar>" +
 			"  </list>" +
 			"</list>"
+			);
+	}
+	
+	@Test 
+	public void testSplitCols1() {
+		CMLList list = new CMLList();
+		CMLArray array = new CMLArray(new double[]{0.0, 1.1, 2.2, 3.3, 4.4, 5.5});
+		list.appendChild(array);
+		runTest("split", 
+			"<transform process='split' xpath='./cml:array' cols='1'/>",
+			list,
+			"<list xmlns='http://www.xml-cml.org/schema'>"+
+			" <list>"+
+			"   <array dataType='xsd:double' size='1'>0.0</array>"+
+			"   <array dataType='xsd:double' size='1'>1.1</array>"+
+			"   <array dataType='xsd:double' size='1'>2.2</array>"+
+			"   <array dataType='xsd:double' size='1'>3.3</array>"+
+			"   <array dataType='xsd:double' size='1'>4.4</array>"+
+			"   <array dataType='xsd:double' size='1'>5.5</array>"+
+			" </list>"+
+			"</list>"+
+			""
+			);
+	}
+	
+	
+	@Test 
+	public void testSplitCols2() {
+		CMLList list = new CMLList();
+		CMLArray array = new CMLArray(new double[]{0.0, 1.1, 2.2, 3.3, 4.4, 5.5});
+		list.appendChild(array);
+		runTest("split", 
+			"<transform process='split' xpath='./cml:array' cols='2'/>",
+			list,
+			"<list xmlns='http://www.xml-cml.org/schema'>"+
+			" <list>"+
+			"   <array dataType='xsd:double' size='2'>0.0 1.1</array>"+
+			"   <array dataType='xsd:double' size='2'>2.2 3.3</array>"+
+			"   <array dataType='xsd:double' size='2'>4.4 5.5</array>"+
+			" </list>"+
+			"</list>"+
+			""
+			);
+	}
+	
+	@Test 
+	public void testSplitCols3() {
+		CMLList list = new CMLList();
+		CMLArray array = new CMLArray(new double[]{0.0, 1.1, 2.2, 3.3, 4.4, 5.5});
+		list.appendChild(array);
+		runTest("split", 
+			"<transform process='split' xpath='./cml:array' cols='3'/>",
+			list,
+			"<list xmlns='http://www.xml-cml.org/schema'>"+
+			" <list>"+
+			"   <array dataType='xsd:double' size='3'>0.0 1.1 2.2</array>"+
+			"   <array dataType='xsd:double' size='3'>3.3 4.4 5.5</array>"+
+			" </list>"+
+			"</list>"+
+			""
+			);
+	}
+				
+	@Test 
+	public void testSplitCols6() {
+		CMLList list = new CMLList();
+		CMLArray array = new CMLArray(new double[]{0.0, 1.1, 2.2, 3.3, 4.4, 5.5});
+		list.appendChild(array);
+		runTest("split", 
+			"<transform process='split' xpath='./cml:array' cols='6'/>",
+			list,
+			"<list xmlns='http://www.xml-cml.org/schema'>"+
+			" <list>"+
+			"   <array dataType='xsd:double' size='6'>0.0 1.1 2.2 3.3 4.4 5.5</array>"+
+			" </list>"+
+			"</list>"+
+			""
+			);
+	}
+				
+	
+	@Test (expected=RuntimeException.class)
+	public void testSplitColsBad() {
+		CMLList list = new CMLList();
+		CMLArray array = new CMLArray(new double[]{0.0, 1.1, 2.2, 3.3, 4.4, 5.5});
+		list.appendChild(array);
+		runTest("split", 
+			"<transform process='split' xpath='./cml:array' cols='4'/>",
+			list,
+			"<list xmlns='http://www.xml-cml.org/schema'>"+
+			" <list>"+
+			"   <array dataType='xsd:double' size='6'>0.0 1.1 2.2 3.3 4.4 5.5</array>"+
+			" </list>"+
+			"</list>"+
+			""
+			);
+	}
+				
+	
+	@Test 
+	public void testSplitColsDictRef() {
+		CMLList list = new CMLList();
+		CMLArray array = new CMLArray(new double[]{0.0, 1.1, 2.2, 3.3, 4.4, 5.5});
+		array.setDictRef("foo:bar");
+		list.appendChild(array);
+		runTest("split", 
+			"<transform process='split' xpath='./cml:array' cols='3'/>",
+			list,
+			"<list xmlns='http://www.xml-cml.org/schema'>"+
+			" <list>"+
+			"   <array dataType='xsd:double' dictRef='foo:bar' size='3'>0.0 1.1 2.2</array>"+
+			"   <array dataType='xsd:double' dictRef='foo:bar' size='3'>3.3 4.4 5.5</array>"+
+			" </list>"+
+			"</list>"+
+			""
 			);
 	}
 				

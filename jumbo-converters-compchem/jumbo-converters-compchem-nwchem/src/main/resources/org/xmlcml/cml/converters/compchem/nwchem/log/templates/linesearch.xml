@@ -12,11 +12,21 @@
   <record id="linesearch1" repeat="*">\s*new step={F,x:newstepsize}\s*predicted energy={F,n:predictedenergy}\s*</record>
 
   <comment class="example.output" id="parallel">
-    <module cmlx:templateRef="parallel" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <list cmlx:lineCount="2" cmlx:templateRef="parallel">
-        <array dataType="xsd:string" dictRef="cc:filetype" size="2">integral grid_pts</array>
-        <array dataType="xsd:integer" dictRef="n:nrec" size="2">8 8</array>
-        <array dataType="xsd:integer" dictRef="n:large" size="2">0 0</array>
+    <module cmlx:templateRef="linesearch" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="linesearch">
+        <list>
+          <scalar dataType="xsd:double" dictRef="x:stepsize">1.0</scalar>
+          <scalar dataType="xsd:double" dictRef="n:grad">-0.0022</scalar>
+          <scalar dataType="xsd:double" dictRef="n:hess">9.9E-4</scalar>
+          <scalar dataType="xsd:double" dictRef="n:energy">-311.088614</scalar>
+          <scalar dataType="xsd:string" dictRef="n:mode">downhill</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="linesearch1">
+        <list>
+          <scalar dataType="xsd:double" dictRef="x:newstepsize">1.11</scalar>
+          <scalar dataType="xsd:double" dictRef="n:predictedenergy">-311.088626</scalar>
+        </list>
       </list>
     </module>
   </comment>

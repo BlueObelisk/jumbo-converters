@@ -25,12 +25,14 @@
   <record id="blank">\s*</record>
   <record id="converged">\s*The\s*{X,cc:type}\s*is already converged\s*</record>
   <record id="blank" repeat="*">\s*</record>
-  
+
+  <transform process="pullup" xpath=".//cml:scalar" repeat="2"/>
+    
   <comment class="example.output" id="steplast">
-<module cmlx:templateRef="" dictRef="cc:optstep" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"> Step 14 -------- 
-  <module cmlx:lineCount="11" cmlx:templateRef="geometry">
-  </module>
-</module>
+    <module cmlx:templateRef="converged" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="n:title">Title</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:type">DFT</scalar>
+    </module>
   </comment>
 
 </template>

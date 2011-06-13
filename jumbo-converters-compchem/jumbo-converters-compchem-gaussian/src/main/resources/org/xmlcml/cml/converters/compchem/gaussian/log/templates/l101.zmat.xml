@@ -11,6 +11,7 @@
   <record/>
   <record id="charge">.*Charge ={I,g:charge} Multiplicity ={I,g:mult}</record>
   <record id="mol" repeat="*" makeArray="true">{A,gau:elementType} {F,gau:x3,unit:angstrom}  {F,gau:y3,unit:angstrom} {F,gau:z3,unit:angstrom}</record>
+  
   <transform process="createMolecule" id="zmat" xpath=".//cml:array"/>
   <transform process="addAttribute" xpath=".//cml:molecule" name="formalCharge" value="$number(.//cml:scalar[@dictRef='g:charge'])"/>
   <transform process="addAttribute" xpath=".//cml:molecule" name="spinMultiplicity" value="$number(.//cml:scalar[@dictRef='g:mult'])"/>
@@ -22,13 +23,13 @@
       <molecule id="zmat" cmlx:templateRef="mol">
         <atomArray>
           <atom id="a1" elementType="H" x3="2.67317" y3="-0.69436" z3="1.17604">
-            <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
           </atom>
           <atom id="a2" elementType="C" x3="1.98961" y3="-0.3388" z3="0.40746">
-            <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">6</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
           </atom>
           <atom id="a3" elementType="H" x3="0.63164" y3="1.77722" z3="-0.58197">
-            <scalar dataType="xsd:integer" dictRef="compchem:atomicNumber">1</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
           </atom>
         </atomArray>
         <formula formalCharge="0" concise="C 1 H 2">
