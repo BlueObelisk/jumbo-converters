@@ -13,28 +13,34 @@
   
 </comment>
   <record repeat="3"/>
-  <record id="intscreen" repeat="*">\s*{X,n:screen.name} = {X,n:screen.value}</record>
+  <record id="intscreen" repeat="*">\s*{X,n:screen.name} = {I,n:screen.value}</record>
+  <record id="intscreen1" repeat="*">\s*{X,n:screen.name} = {I,n:screen.value}\s\(\s+{F,n:percent}\%\)\s*</record>
   
   <comment class="example.output" id="integralscreen">
-<module cmlx:templateRef="integralscreen" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <list cmlx:templateRef="intscreen">
-    <list>
-      <scalar dataType="xsd:string" dictRef="n:screen.name">Direct Fock builds</scalar>
-      <scalar dataType="xsd:string" dictRef="n:screen.value">2</scalar>
-    </list>
-    <list>
-      <scalar dataType="xsd:string" dictRef="n:screen.name">Atom quartets computed</scalar>
-      <scalar dataType="xsd:string" dictRef="n:screen.value">0 ( 0.00%)</scalar>
-    </list>
-    <list>
-      <scalar dataType="xsd:string" dictRef="n:screen.name">Shell quartets rejected</scalar>
-      <scalar dataType="xsd:string" dictRef="n:screen.value">0 ( 0.00%)</scalar>
-    </list>
-    <list>
-      <scalar dataType="xsd:string" dictRef="n:screen.name">Shell quartets computed</scalar>
-      <scalar dataType="xsd:string" dictRef="n:screen.value">0 ( 0.00%)</scalar>
-    </list>
-  </list>
-</module>
+    <module cmlx:templateRef="integralscreen" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="intscreen">
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:screen.name">Direct Fock builds</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:screen.value">2</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="intscreen1">
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:screen.name">Atom quartets computed</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:screen.value">0</scalar>
+          <scalar dataType="xsd:double" dictRef="n:percent">0.0</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:screen.name">Shell quartets rejected</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:screen.value">0</scalar>
+          <scalar dataType="xsd:double" dictRef="n:percent">0.0</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:screen.name">Shell quartets computed</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:screen.value">0</scalar>
+          <scalar dataType="xsd:double" dictRef="n:percent">0.0</scalar>
+        </list>
+      </list>
+    </module>
   </comment>
 </template>

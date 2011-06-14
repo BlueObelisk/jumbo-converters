@@ -22,33 +22,83 @@
  IO nread      = 2079342
  IO nwrite     = 2072614
   </comment>
-  <record id="hdbm" repeat="*">{X,n:hdbm}</record>
+  
+  <record repeat="2"/>
+  <record id="hdbm" repeat="*">\s*{X,n:name}\s=\s{I,n:hdbm}</record>
+  <record />
+  <record id="hdbm" repeat="*">\s*{X,n:name}\s=\s{I,n:hdbm}</record>
+  <record />
+  <record id="hdbm" repeat="*">\s*{X,n:name}\s=\s{I,n:hdbm}</record>
   
   <comment class="example.output" id="hdbm">
-<module cmlx:templateRef="hdbm" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <list cmlx:templateRef="hdbm">
-    <scalar dataType="xsd:string" dictRef="n:hdbm">HDBM usage statistics</scalar>
-    <scalar dataType="xsd:string" dictRef="n:hdbm">---------------------</scalar>
-    <scalar dataType="xsd:string" dictRef="n:hdbm">Reads = 1358</scalar>
-    <scalar dataType="xsd:string" dictRef="n:hdbm">Inserts = 808</scalar>
-    <scalar dataType="xsd:string" dictRef="n:hdbm">Replaces = 284</scalar>
-    <scalar dataType="xsd:string" dictRef="n:hdbm">Extracts = 0</scalar>
-    <scalar dataType="xsd:string" dictRef="n:hdbm">Deletes = 1596</scalar>
-    <scalar dataType="xsd:string" dictRef="n:hdbm">Reuses = 22</scalar>
-    <scalar dataType="xsd:string" dictRef="n:hdbm"/>
-    <scalar dataType="xsd:string" dictRef="n:hdbm">Memory allocs = 7166</scalar>
-    <scalar dataType="xsd:string" dictRef="n:hdbm">Memory frees = 7166</scalar>
-    <scalar dataType="xsd:string" dictRef="n:hdbm">Memory max = 1348658</scalar>
-    <scalar dataType="xsd:string" dictRef="n:hdbm">Memory in use = 0</scalar>
-    <scalar dataType="xsd:string" dictRef="n:hdbm"/>
-    <scalar dataType="xsd:string" dictRef="n:hdbm">IO seeks = 2835</scalar>
-    <scalar dataType="xsd:string" dictRef="n:hdbm">IO reads = 2000</scalar>
-    <scalar dataType="xsd:string" dictRef="n:hdbm">IO writes = 2449</scalar>
-    <scalar dataType="xsd:string" dictRef="n:hdbm">IO nread = 2079342</scalar>
-    <scalar dataType="xsd:string" dictRef="n:hdbm">IO nwrite = 2072614</scalar>
-    <scalar dataType="xsd:string" dictRef="n:hdbm"/>
-  </list>
-</module>
-    </comment>
+    <module cmlx:templateRef="hdbm" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="hdbm">
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:name">Reads</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:hdbm">1358</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:name">Inserts</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:hdbm">808</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:name">Replaces</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:hdbm">284</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:name">Extracts</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:hdbm">0</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:name">Deletes</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:hdbm">1596</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:name">Reuses</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:hdbm">22</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="hdbm">
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:name">Memory allocs</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:hdbm">7166</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:name">Memory frees</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:hdbm">7166</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:name">Memory max</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:hdbm">1348658</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:name">Memory in use</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:hdbm">0</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="hdbm">
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:name">IO seeks</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:hdbm">2835</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:name">IO reads</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:hdbm">2000</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:name">IO writes</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:hdbm">2449</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:name">IO nread</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:hdbm">2079342</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:name">IO nwrite</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:hdbm">2072614</scalar>
+        </list>
+      </list>
+    </module>
+  </comment>
 
 </template>

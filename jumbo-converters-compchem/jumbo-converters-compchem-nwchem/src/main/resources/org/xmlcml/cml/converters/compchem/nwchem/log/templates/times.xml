@@ -3,21 +3,20 @@
 
   <comment class="example.input" id="times">
  Task  times  cpu:        0.0s     wall:        0.0s
- or
- Total times  cpu:        0.1s     wall:        0.2s
   </comment>
-  <record id="times">\s*{A,n:type}\s+times\s+cpu:\s*{F,cc:cputime}s\s+wall:\s*{F,cc:walltime}s</record>
+  
+  <record id="times">\s*{A,n:type}\s+times\s+cpu\:\s*{F,cc:cputime}s\s+wall\:\s*{F,cc:walltime}s\s*</record>
   
   <comment class="example.output" id="times">
-<module cmlx:templateRef="times" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <list cmlx:templateRef="times">
-    <list>
-      <scalar dataType="xsd:string" dictRef="n:type">Task</scalar>
-      <scalar dataType="xsd:double" dictRef="cc:cputime">0.0</scalar>
-      <scalar dataType="xsd:double" dictRef="cc:walltime">0.0</scalar>
-    </list>
-  </list> or Total times cpu: 0.1s wall: 0.2s
-</module>
-    </comment>
+    <module cmlx:templateRef="times" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="times">
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:type">Task</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:cputime">0.0</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:walltime">0.0</scalar>
+        </list>
+      </list>
+    </module>
+  </comment>
 
 </template>

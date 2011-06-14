@@ -18,45 +18,53 @@
 
  Forming initial guess at      24.1s
 
-</comment>
-<record repeat="4" id="rl1"/>
-<record id="r1" repeat="*" formatType="REGEX" >\s{8}{A7,n:ir}{I6,n:count}</record>
-<record repeat="2" id="rl2"/>
-<record id="r2" repeat="1" formatType="REGEX" >\s{25}{F10.1,n:guess}\s</record>
+  </comment>
+  
+  <record repeat="3" id="rl1"/>
+  <record id="r1" repeat="*">\s*{A,n:ir}\s{I,n:count}\s*</record>
+  <record repeat="2" id="rl2"/>
+  <record id="r2" >\s*Forming initial guess at{F,n:guess}s\s*</record>
 
   <comment class="example.output" id="symbas">
-<module cmlx:templateRef="symbas" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <list cmlx:templateRef="r1">
-    <list>
-      <scalar dataType="xsd:string" dictRef="n:ir">au</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:count">5</scalar>
-    </list>
-    <list>
-      <scalar dataType="xsd:string" dictRef="n:ir">b1g</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:count">12</scalar>
-    </list>
-    <list>
-      <scalar dataType="xsd:string" dictRef="n:ir">b1u</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:count">19</scalar>
-    </list>
-    <list>
-      <scalar dataType="xsd:string" dictRef="n:ir">b2g</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:count">12</scalar>
-    </list>
-    <list>
-      <scalar dataType="xsd:string" dictRef="n:ir">b2u</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:count">19</scalar>
-    </list>
-    <list>
-      <scalar dataType="xsd:string" dictRef="n:ir">b3g</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:count">12</scalar>
-    </list>
-    <list>
-      <scalar dataType="xsd:string" dictRef="n:ir">b3u</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:count">19</scalar>
-    </list>
-  </list> Forming initial guess at 24.1s
-</module>
-    </comment>
+    <module cmlx:templateRef="symbas" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="r1">
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:ir">ag</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:count">33</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:ir">au</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:count">5</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:ir">b1g</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:count">12</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:ir">b1u</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:count">19</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:ir">b2g</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:count">12</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:ir">b2u</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:count">19</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:ir">b3g</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:count">12</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:ir">b3u</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:count">19</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="r2">
+        <scalar dataType="xsd:double" dictRef="n:guess">24.1</scalar>
+      </list>
+    </module>
+  </comment>
 
 </template>

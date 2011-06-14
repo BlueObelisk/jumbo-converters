@@ -1,6 +1,6 @@
 <template repeat="*"  id="centerofcharge" name="Center of Charge" 
-  pattern="\s*== Center of Charge ==\s*" 
-  newline="$" endPattern="\s*$\s*">
+  pattern="\s*== Center of Charge ==\s*$\s*" 
+  endPattern="\s*$\s*">
   
   <comment class="example.input" id="centerofcharge">
 == Center of Charge ==
@@ -14,13 +14,10 @@ crystal     (    0.0000,    0.0000,    0.1008 )
 
 </comment>
   <record repeat="2"/>
-  <record repeat="*" id="centerofcharge">{X,x:name}\s*\(\s*{F,x:x},\s*{F,x:y},\s*{F,x:z}\)</record>
+  <record repeat="*" id="centerofcharge">{X,x:name}\s*\(\s*{F,x:x}\,\s*{F,x:y}\,\s*{F,x:z}\)\s*</record>
   <transform process="createVector3" xpath="./cml:list/cml:list" 
       from="./cml:scalar[contains(@dictRef,':x') or contains(@dictRef,':y') or contains(@dictRef,':z')]"
       dictRef="n:centerofcharge"/>
-  <!-- 
-  <transform process="pullupSingleton" xpath="./cml:list"/>
-  -->
   
   <comment class="example.output" id="centerofcharge">
     <module cmlx:templateRef="centerofcharge" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">

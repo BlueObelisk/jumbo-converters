@@ -10,18 +10,18 @@
 
 </comment>
   <record/>
-  <record id="boundary">\s*boundary conditions\s+={X,n:boundary}\s*</record>
-  <record id="spin">\s*electron spin\s+={X,n:spin}\s*</record>
-  <record id="xccorr">\s*exchange-correlation\s+={X,n:xccorr}\s*</record>
+  <record id="boundary">\s*boundary conditions\s+={1_5A,n:boundary}\s*</record>
+  <record id="spin">\s*electron spin\s+={1_5A,n:spin}\s*</record>
+  <record id="xccorr">\s*exchange\-correlation\s+={1_5A,n:xccorr}\s*</record>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
   
   <comment class="example.output" id="pspw.options">
-<module cmlx:templateRef="pspw.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <scalar dataType="xsd:string" dictRef="n:boundary" cmlx:templateRef="boundary">periodic (version3)</scalar>
-  <scalar dataType="xsd:string" dictRef="n:spin" cmlx:templateRef="spin">restricted</scalar>
-  <scalar dataType="xsd:string" dictRef="n:xccorr" cmlx:templateRef="xccorr">LDA (Vosko et al) parameterization</scalar>
-</module>
-    </comment>
+    <module cmlx:templateRef="pspw.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:string" size="2" dictRef="n:boundary" cmlx:templateRef="boundary">periodic (version3)</array>
+      <array dataType="xsd:string" size="1" dictRef="n:spin" cmlx:templateRef="spin">restricted</array>
+      <array dataType="xsd:string" size="5" dictRef="n:xccorr" cmlx:templateRef="xccorr">LDA (Vosko et al) parameterization</array>
+    </module>
+  </comment>
 
 </template>

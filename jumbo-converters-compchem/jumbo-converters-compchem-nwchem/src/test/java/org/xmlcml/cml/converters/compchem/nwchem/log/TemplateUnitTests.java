@@ -37,9 +37,8 @@ public class TemplateUnitTests {
    @Test public void testAlphafoccsOK()                          {runTemplateTest("alphafoccs");}
    @Test public void testArgumentOK()                            {runTemplateTest("argument");}
    @Test public void testAtmassOK()                              {runTemplateTest("atmass");}
-   @Test public void testAtombasisOK()                  {runTemplateTest("atombasis");}
-   @Ignore @Test public void testAtombasisendOBS()               {runTemplateTest("atombasisend");}
-   @Test public void testAtombasisend1OK()               {runTemplateTest("atombasisend1");}
+   @Test public void testAtombasisOK()                           {runTemplateTest("atombasis");}
+   @Test public void testAtombasisend1OK()                       {runTemplateTest("atombasisend1");}
    @Test public void testAtomicshellscreenOK()                   {runTemplateTest("atomicshellscreen");}
    @Test public void testAuthors()                               {runTemplateTest("authors");}
    @Test public void testAutosymOK()                             {runTemplateTest("autosym");}
@@ -50,16 +49,14 @@ public class TemplateUnitTests {
    @Test public void testBrillouinzpOK()                         {runTemplateTest("brillouinzp");}
    @Test public void testCached1SKIP()                           {runTemplateTest("cached1");}
    @Test public void testCachingOK()                             {runTemplateTest("caching");}
-   @Ignore @Test public void testCcsdtTBDWHITE()                 {runTemplateTest("ccsdt");}
-//   @Test public void testCenter23INCLUDE()                     {runTemplateTest("center23");}
    @Test public void testCcsdOKTODO()                            {runTemplateTest("ccsd.temp");}
    @Test public void testCcsdparamSKIP()                         {runTemplateTest("ccsdparam");}
-   @Ignore @Test public void testCcsdtWHITE()                            {runTemplateTest("ccsdt");}
+   @Test public void testCcsdtOK()                               {runTemplateTest("ccsdt");}
    @Test public void testCenter23TempOK()                        {runTemplateTest("center23.temp");}
    @Test public void testCentermassOK()                          {runTemplateTest("centermass");}
-   @Ignore @Test public void testCenterofchargeFIXME()                      {runTemplateTest("centerofcharge");}
+   @Test public void testCenterofchargeOK()                      {runTemplateTest("centerofcharge");}
    @Test public void testCitationOK()                            {runTemplateTest("citation");}
-   @Ignore @Test public void testCleanup()                       {runTemplateTest("cleanup");}
+   @Test public void testCleanupOK()                             {runTemplateTest("cleanup");}
    @Test public void testCondfukuiOK()                           {runTemplateTest("condfukui");}
    @Test public void testCondfukuimuOK()                         {runTemplateTest("condfukuimu");}
    @Test public void testConverged()                             {runTemplateTest("converged");}
@@ -69,18 +66,18 @@ public class TemplateUnitTests {
    @Test public void testCrystaldipoleOK()                       {runTemplateTest("crystaldipole");}
    @Test public void testDamping()                               {runTemplateTest("damping");}
    @Test public void testDftOK()                                 {runTemplateTest("dft");}
-   @Test public void testDftenergrad()                           {runTemplateTest("dftenergrad");}
-   @Ignore @Test public void testDftfinalmolorbWHITE()           {runTemplateTest("dftfinalmolorb");}
+   @Test public void testDftenergradOK()                         {runTemplateTest("dftenergrad");}
+   @Test public void testDftfinalmolorbOK()                      {runTemplateTest("dftfinalmolorb");}
    @Test public void testDftgradient()                           {runTemplateTest("dftgradient");}
-   @Ignore @Test public void testDirectmp2WHITE()                {runTemplateTest("directmp2");}
-   @Ignore @Test public void testDirinfoWHITE()                  {runTemplateTest("dirinfo");}
+   @Ignore @Test public void testDirectmp2FIX()                {runTemplateTest("directmp2");}
+   @Test public void testDirinfoOK()                             {runTemplateTest("dirinfo");}
    @Test public void testDisclaim()                              {runTemplateTest("disclaim");}
    @Test public void testEaffileOK()                             {runTemplateTest("eaffile");}
-   @Ignore @Test public void testEchoall()                       {runTemplateTest("echoall");}
-   @Test public void testEffnucrep()                             {runTemplateTest("effnucrep");}
+   @Test public void testEchoallOK()                             {runTemplateTest("echoall");}
+   @Test public void testEffnucrepOK()                           {runTemplateTest("effnucrep");}
    @Test public void testEigqrotOK()                             {runTemplateTest("eigqrot");}
-   @Ignore @Test public void testEnergycalcWHITE()               {runTemplateTest("energycalc");}
-   @Ignore @Test public void testEnergyminWHITE()                {runTemplateTest("energymin");}
+   @Ignore @Test public void testEnergycalcFIX()               {runTemplateTest("energycalc");}
+   @Ignore @Test public void testEnergyminFIX()                {runTemplateTest("energymin");}
    @Test public void testErrorcurrent()                          {runTemplateTest("error.current");}
    @Test public void testErrormult()                             {runTemplateTest("error.mult");}
    @Test public void testErrornocat()                            {runTemplateTest("error.nocat");}
@@ -91,88 +88,87 @@ public class TemplateUnitTests {
    @Test public void testFinaleigenOK()                          {runTemplateTest("finaleigen");}
    @Test public void testFinalrhf()                              {runTemplateTest("finalrhf");}
    @Test public void testFockbuild()                             {runTemplateTest("fockbuild");}
-   @Ignore @Test public void testFourindexWHITE()                {runTemplateTest("fourindex");}
-   @Ignore @Test public void testFukuiWHITE()                    {runTemplateTest("fukui");}
+   @Test public void testFourindexOK()                           {runTemplateTest("fourindex");}
+   @Test public void testFukuiOK()                               {runTemplateTest("fukui");}
    @Test public void testFukuiLite()                             {runTemplateTest("fukuilite");}
-   @Ignore @Test public void testGama()                          {runTemplateTest("gama");}
-   @Ignore @Test public void testGastatsWHITE()                  {runTemplateTest("gastats");}
+   @Test public void testGama()                                  {runTemplateTest("gama");}
+   @Test public void testGastatsOK()                             {runTemplateTest("gastats");}
    @Test public void testGeninfoOK()                             {runTemplateTest("geninfo");}
    @Test public void testGeomOK()                                {runTemplateTest("geometry");}
    @Test public void testGeomopt()                               {runTemplateTest("geomopt");}
    @Test public void testGlobalarray()                           {runTemplateTest("globalarray");}
-   @Ignore @Test public void testGradmoduleWHITE()               {runTemplateTest("gradmodule");}
-   @Ignore @Test public void testGradmodulestepWHITE()           {runTemplateTest("gradmodulestep");}
+   @Test public void testGradmoduleOK()               {runTemplateTest("gradmodule");}
+   @Test public void testGradmodulestepOK()                      {runTemplateTest("gradmodulestep");}
    @Test public void testGridinfoOK()                            {runTemplateTest("gridinfo");}
    @Test public void testGridpts()                               {runTemplateTest("gridpts");}
-   @Ignore @Test public void testHdbmWHITE()                     {runTemplateTest("hdbm");}
+   @Test public void testHdbmWHITE()                     {runTemplateTest("hdbm");}
    @Test public void testHomolumoOK()                            {runTemplateTest("homolumo");}
    @Test public void testInputBasisOK()                          {runTemplateTest("input.basis");}
    @Test public void testInputDftOK()                            {runTemplateTest("input.dft");}
-   @Ignore @Test public void testInputGeomWHITE()                {runTemplateTest("input.geom");}
+   @Test public void testInputGeomOK()                {runTemplateTest("input.geom");}
    @Test public void testInputPropertyOK()                       {runTemplateTest("input.property");}
-   @Ignore @Test public void testInputWHITE()                    {runTemplateTest("input");}
+   @Ignore @Test public void testInputWHITEFIX()                    {runTemplateTest("input");}
    @Test public void testIntegdensOK()                           {runTemplateTest("integdens");}
    @Test public void testIntegralfileOK()                        {runTemplateTest("integralfile");}
-   @Ignore @Test public void testIntegralscreenWHITE()           {runTemplateTest("integralscreen");}
+   @Test public void testIntegralscreenOK()                      {runTemplateTest("integralscreen");}
    @Test public void testInternucOK()                            {runTemplateTest("internuc");}
    @Test public void testInternucangOK()                         {runTemplateTest("internucang");}
    @Test public void testIsotropOK()                             {runTemplateTest("isotrop");}
-   @Ignore @Test public void testIterMiscWHITE()                 {runTemplateTest("iter.misc");}
    @Test public void testIterOK()                                {runTemplateTest("iter");}
    @Test public void testIternsubOK()                            {runTemplateTest("iternsub");}
    @Test public void testItersolOK()                             {runTemplateTest("itersol");}
    @Test public void testItol2eOK()                              {runTemplateTest("itol2e");}
    @Test public void testJobOK()                                 {runTemplateTest("job");}
    @Test public void testKineticenergyOK()                       {runTemplateTest("kineticenergy");}
-   @Ignore @Test public void testLatticeOKFIX()                             {runTemplateTest("lattice");}
+   @Ignore @Test public void testLatticeOKFIX()                          {runTemplateTest("lattice");}
    @Test public void testLcubeOK()                               {runTemplateTest("lcube");}
    @Test public void testLibraryfileOK()                         {runTemplateTest("libraryfile");}
    @Test public void testLibrarynameOK()                         {runTemplateTest("libraryname");}
    @Test public void testLimitedOK()                             {runTemplateTest("limited");}
    @Test public void testLindeptolOK()                           {runTemplateTest("lindeptol");}
    @Test public void testLinesearch()                            {runTemplateTest("linesearch");}
-   @Ignore @Test public void testLinestoskipWHITE()              {runTemplateTest("linestoskip");}
+   @Test public void testLinestoskipOK()                         {runTemplateTest("linestoskip");}
    @Test public void testLoading()                               {runTemplateTest("loading");}
    @Test public void testLocalmemOK()                            {runTemplateTest("localmem");}
    @Test public void testMagneticatomBAD()                       {runTemplateTest("magneticatom");}
-   @Ignore @Test public void testMullikenWHITE()                 {runTemplateTest("mulliken.temp");}
-   @Ignore @Test public void testMemoryWHITE()                   {runTemplateTest("memory");}
+   @Test public void testMullikenOK()                            {runTemplateTest("mulliken.temp");}
+   @Test public void testMemoryWHITE()                           {runTemplateTest("memory");}
    @Test public void testMemoryUtilOK()                          {runTemplateTest("memoryUtil");}
-   @Ignore @Test public void testMoleculardipoleWHITE()          {runTemplateTest("moleculardipole");}
-   @Ignore @Test public void testMomintOKFIX()                              {runTemplateTest("momint");}
+   @Test public void testMoleculardipoleOK()                     {runTemplateTest("moleculardipole");}
+   @Test public void testMomintOK()                              {runTemplateTest("momint");}
    @Test public void testMp2energyOK()                           {runTemplateTest("mp2energy");}
    @Test public void testMullikenTempOK()                        {runTemplateTest("mulliken.temp");}
    @Test public void testMultipoleOK()                           {runTemplateTest("multipole");}
-   @Test public void testMultipole1NAMESPACE()                   {runTemplateTest("multipole1");}
+   @Test public void testMultipole1OK()                          {runTemplateTest("multipole1");}
    @Test public void testNamedtensorOK()                         {runTemplateTest("namedtensor");}
-   @Test public void testNccpEXAMPLE()                           {runTemplateTest("nccp");}
-   @Test public void testNonvariterEXAMPLE()                     {runTemplateTest("nonvariter");}
-   @Test public void testNucdipoleEXAMPLE()                      {runTemplateTest("nucdipole");}
-   @Test public void testNumbirrepEXAMPLE()                      {runTemplateTest("numbirrep");}
-   @Test public void testNwcheminpEXAMPLE()                      {runTemplateTest("nwcheminp");}
-   @Ignore @Test public void testNwcheminpnwpwNAMESPACE()        {runTemplateTest("nwcheminpnwpw");}
-   @Test public void testNwcheminptitleEXAMPLE()                 {runTemplateTest("nwcheminptitle");}
-   @Test public void testNwchemmp2EXAMPLE()                      {runTemplateTest("nwchemmp2");}
-   @Ignore @Test public void testNwpwAtomcomposWHITESPACE()      {runTemplateTest("nwpw.atomcompos");}
-   @Test public void testNwpwBadbrillouinEXAMPLE()               {runTemplateTest("nwpw.badbrillouin");}
+   @Test public void testNccpOK()                                {runTemplateTest("nccp");}
+   @Test public void testNonvariterOK()                          {runTemplateTest("nonvariter");}
+   @Test public void testNucdipoleOK()                           {runTemplateTest("nucdipole");}
+   @Test public void testNumbirrepOK()                           {runTemplateTest("numbirrep");}
+   @Test public void testNwcheminpOK()                           {runTemplateTest("nwcheminp");}
+   @Test public void testNwcheminpnwpwOK()                       {runTemplateTest("nwcheminpnwpw");}
+   @Test public void testNwcheminptitleOK()                      {runTemplateTest("nwcheminptitle");}
+   @Test public void testNwchemmp2OK()                           {runTemplateTest("nwchemmp2");}
+   @Test public void testNwpwAtomcomposOK()                      {runTemplateTest("nwpw.atomcompos");}
+   @Test public void testNwpwBadbrillouinOK()                    {runTemplateTest("nwpw.badbrillouin");}
    @Test public void testNwpwBannerOK()                          {runTemplateTest("nwpw.banner");}
    @Test public void testNwpwBrillouinOK()                       {runTemplateTest("nwpw.brillouin");}
-   @Ignore @Test public void testNwpwCompWHITE()                 {runTemplateTest("nwpw.comp");}
+   @Test public void testNwpwCompOK()                            {runTemplateTest("nwpw.comp");}
    @Test public void testNwpwCompgridsOK()                       {runTemplateTest("nwpw.compgrids");}
    @Test public void testNwpwConvertingOK()                      {runTemplateTest("nwpw.converting");}
    @Test public void testNwpwDensitycutOK()                      {runTemplateTest("nwpw.densitycut");}
    @Test public void testNwpwElemsAtomOK()                       {runTemplateTest("nwpw.elems.atom");}
-   @Ignore @Test public void testNwpwElemsNAMESPACE()            {runTemplateTest("nwpw.elems");}
-   @Ignore @Test public void testNwpwElems1NAMESPACE()           {runTemplateTest("nwpw.elems1");}
+   @Test public void testNwpwElemsOK()                           {runTemplateTest("nwpw.elems");}
+   @Test public void testNwpwElems1OK()                          {runTemplateTest("nwpw.elems1");}
    @Test public void testNwpwEwaldOK()                           {runTemplateTest("nwpw.ewald");}
    @Test public void testNwpwGeneratedOK()                       {runTemplateTest("nwpw.generated");}
    @Test public void testNwpwGramschmidtOK()                     {runTemplateTest("nwpw.gramschmidt");}
    @Test public void testNwpwInputdataOK()                       {runTemplateTest("nwpw.inputdata");}
-   @Ignore @Test public void testNwpwJobWHITE()                  {runTemplateTest("nwpw.job");}
-   @Ignore @Test public void testNwpwLatticeWHITE()              {runTemplateTest("nwpw.lattice");}
+   @Test public void testNwpwJobOK()                             {runTemplateTest("nwpw.job");}
+   @Test public void testNwpwLatticeOK()                         {runTemplateTest("nwpw.lattice");}
    @Test public void testNwpwLibraryOK()                         {runTemplateTest("nwpw.library");}
    @Test public void testNwpwNelectronOK()                       {runTemplateTest("nwpw.nelectron");}
-   @Ignore @Test public void testNwpwOptionsWHITE()              {runTemplateTest("nwpw.options");}
+   @Test public void testNwpwOptionsOK()                         {runTemplateTest("nwpw.options");}
    @Test public void testNwpwPsifileOK()                         {runTemplateTest("nwpw.psifile");}
    @Test public void testNwpwRandomOK()                          {runTemplateTest("nwpw.random");}
    @Test public void testNwpwSupercellOK()                       {runTemplateTest("nwpw.supercell");}
@@ -180,61 +176,60 @@ public class TemplateUnitTests {
    @Test public void testNwpwTechnicalOK()                       {runTemplateTest("nwpw.technical");}
    @Test public void testNwpwTotalchargeOK()                     {runTemplateTest("nwpw.totalcharge");}
    @Test public void testNwpwWarningOK()                         {runTemplateTest("nwpw.warning");}
-   @Ignore @Test public void testNwpwWHITE()                     {runTemplateTest("nwpw");}
-   @Ignore @Test public void testOperationtimeWHITE()            {runTemplateTest("operationtime");}
-   @Test public void testOrbitalenerEXAMPLE()                    {runTemplateTest("orbitalener");}
-   @Ignore @Test public void testOrbitalsymWHITE()               {runTemplateTest("orbitalsym");}
+   @Ignore @Test public void testNwpwWHITEFIX()                     {runTemplateTest("nwpw");}
+   @Test public void testOperationtimeOK()                       {runTemplateTest("operationtime");}
+   @Test public void testOrbitalenerOK()                         {runTemplateTest("orbitalener");}
+   @Test public void testOrbitalsymOK()                          {runTemplateTest("orbitalsym");}
    @Test public void testParallelOK()                            {runTemplateTest("parallel");}
    @Test public void testPrincipalcomponentsOK()                 {runTemplateTest("principalcomponents");}
-   @Test public void testPropertyEXAMPLE()                       {runTemplateTest("property");}
-   @Test public void testQuartets()                              {runTemplateTest("quartets");}
-   @Test public void testQuadrohfEXAMPLE()                       {runTemplateTest("quadrohf");}
-   @Ignore @Test public void testQuartetsEXAMPLEFIX()                       {runTemplateTest("quartets");}
-   @Test public void testReadmolorbEXAMPLE()                     {runTemplateTest("readmolorb");}
-   @Test public void testRecordsizeEXAMPLE()                     {runTemplateTest("recordsize");}
-   @Test public void testReferencesEXAMPLE()                     {runTemplateTest("references");}
-   @Ignore @Test public void testRohffinalTempWHITE()            {runTemplateTest("rohffinal.temp");}
-   @Test public void testRtdbEXAMPLEEXAMPLE()                    {runTemplateTest("rtdb");}
+   @Test public void testPropertyOK()                            {runTemplateTest("property");}
+   @Test public void testQuadrohfOK()                            {runTemplateTest("quadrohf");}
+   @Test public void testQuartetsOK()                            {runTemplateTest("quartets");}
+   @Test public void testReadmolorbOK()                          {runTemplateTest("readmolorb");}
+   @Test public void testRecordsizeOK()                          {runTemplateTest("recordsize");}
+   @Test public void testReferencesOK()                          {runTemplateTest("references");}
+   @Test public void testRohffinalTempOK()                       {runTemplateTest("rohffinal.temp");}
+   @Test public void testRtdbOK()                                {runTemplateTest("rtdb");}
    @Test public void testScalingOK()                             {runTemplateTest("scaling");}
-   @Test public void testScfTempEXAMPLE()                        {runTemplateTest("scf.temp");}
-   @Test public void testScfenerEXAMPLE()                        {runTemplateTest("scfener");}
-   @Test public void testSchwarzEXAMPLE()                        {runTemplateTest("schwarz");}
-   @Test public void testScreentolEXAMPLE()                      {runTemplateTest("screentol");}
-   @Ignore @Test public void testSegmentedWHITE()                {runTemplateTest("segmented");}
-   @Test public void testSemidirectEXAMPLE()                     {runTemplateTest("semidirect");}
-   @Ignore @Test public void testShieldingNAME()                 {runTemplateTest("shielding");}
-   @Test public void testSpincontamEXAMPLE()                     {runTemplateTest("spincontam");}
-   @Ignore @Test public void testStep()                                  {runTemplateTest("step");}
-   @Test public void testStepdata()                              {runTemplateTest("stepdata");}
-   @Test public void testStepLast()                              {runTemplateTest("steplast");}
-   @Test public void testSummaryallocEXAMPLE()                   {runTemplateTest("summaryalloc");}
-   @Ignore @Test public void testSummarybasisEXAMPLE()           {runTemplateTest("summarybasis");}
-   @Ignore @Test public void testSummaryresultsNAME()            {runTemplateTest("summaryresults");}
-   @Test public void testSummglobarraysEXAMPLE()                 {runTemplateTest("summglobarrays");}
-   @Test public void testSuperposatomguessEXAMPLE()              {runTemplateTest("superposatomguess");}
-   @Ignore @Test public void testSymbasWHITE()                   {runTemplateTest("symbas");}
-   @Ignore @Test public void testSymminfoTempWHITE()             {runTemplateTest("symminfo.temp");}
-   @Test public void testSymmolorbEXAMPLE()                      {runTemplateTest("symmolorb");}
-   @Ignore @Test public void testThreetwoWHITE()                 {runTemplateTest("threetwo");}
-   @Test public void testTidyHeading()                           {runTemplateTest("tidyheading");}
-   @Test public void testTimeafterEXAMPLE()                      {runTemplateTest("timeafter");}
-   @Test public void testTimebox()                               {runTemplateTest("timebox");}
-   @Test public void testTimePrior()                             {runTemplateTest("timeprior");}
-   @Ignore @Test public void testTimesWHITE()                    {runTemplateTest("times");}
-   @Ignore @Test public void testTimingWHITE()                   {runTemplateTest("timing");}
-   @Test public void testTitleEXAMPLE()                          {runTemplateTest("title");}
-   @Test public void testTotalbandenerEXAMPLE()                  {runTemplateTest("totalbandener");}
-   @Test public void testTotaldftEXAMPLE()                       {runTemplateTest("totaldft");}
-   @Test public void testTriplesEXAMPLE()                        {runTemplateTest("triples");}
+   @Test public void testScfTempOK()                             {runTemplateTest("scf.temp");}
+   @Test public void testScfenerOK()                             {runTemplateTest("scfener");}
+   @Test public void testSchwarzOK()                             {runTemplateTest("schwarz");}
+   @Test public void testScreentolOK()                           {runTemplateTest("screentol");}
+   @Test public void testSegmentedOK()                           {runTemplateTest("segmented");}
+   @Test public void testSemidirectOK()                          {runTemplateTest("semidirect");}
+   @Ignore @Test public void testShieldingFIX()                      {runTemplateTest("shielding");}
+   @Test public void testSpincontamOK()                          {runTemplateTest("spincontam");}
+   @Ignore @Test public void testStepTEXT()                                  {runTemplateTest("step");}
+   @Test public void testStepdataOK()                            {runTemplateTest("stepdata");}
+   @Ignore @Test public void testStepLastTEXT()                              {runTemplateTest("steplast");}
+   @Test public void testSummaryallocOK()                        {runTemplateTest("summaryalloc");}
+   @Test public void testSummarybasisOK()                        {runTemplateTest("summarybasis");}
+   @Ignore @Test public void testSummaryresultsFIX()            {runTemplateTest("summaryresults");}
+   @Test public void testSummglobarraysOK()                      {runTemplateTest("summglobarrays");}
+   @Test public void testSuperposatomguessOK()                   {runTemplateTest("superposatomguess");}
+   @Test public void testSymbasOK()                              {runTemplateTest("symbas");}
+   @Ignore @Test public void testSymminfoTempFIX()             {runTemplateTest("symminfo.temp");}
+   @Test public void testSymmolorbOK()                           {runTemplateTest("symmolorb");}
+   @Test public void testThreetwoOK()                            {runTemplateTest("threetwo");}
+   @Test public void testTidyHeadingOK()                         {runTemplateTest("tidyheading");}
+   @Test public void testTimeafterOK()                           {runTemplateTest("timeafter");}
+   @Test public void testTimeboxOK()                             {runTemplateTest("timebox");}
+   @Test public void testTimePriorOK()                           {runTemplateTest("timeprior");}
+   @Test public void testTimesOK()                               {runTemplateTest("times");}
+   @Ignore @Test public void testTimingNEEDSWORK()                   {runTemplateTest("timing");}
+   @Test public void testTitleOK()                               {runTemplateTest("title");}
+   @Test public void testTotalbandenerOK()                       {runTemplateTest("totalbandener");}
+   @Test public void testTotaldftOK()                            {runTemplateTest("totaldft");}
+   @Test public void testTriplesOK()                             {runTemplateTest("triples");}
    @Test public void testWarningDensity()                        {runTemplateTest("warning.density");}
-   @Test public void testWrotemolorbEXAMPLE()                    {runTemplateTest("wrotemolorb");}
-   @Test public void testXcinfoWHITE()                           {runTemplateTest("xcinfo");}
-   @Test public void testXcquadEXAMPLE()                         {runTemplateTest("xcquad");}
-   @Ignore @Test public void testXyzWHITE()                      {runTemplateTest("xyz");}
+   @Test public void testWrotemolorbOK()                         {runTemplateTest("wrotemolorb");}
+   @Test public void testXcinfoOK()                              {runTemplateTest("xcinfo");}
+   @Test public void testXcquadOK()                              {runTemplateTest("xcquad");}
+   @Test public void testXyzOK()                                 {runTemplateTest("xyz");}
    @Test public void testZmatOK()                                {runTemplateTest("zmat");}
-   @Test public void testZmatautozWHITE()                        {runTemplateTest("zmatautoz");}
-   @Ignore @Test public void testZmatgradWHITE()                 {runTemplateTest("zmatgrad");}
-   @Ignore @Test public void testZmatuserWHITE()                 {runTemplateTest("zmatuser");}
+   @Test public void testZmatautozMISSES()                       {runTemplateTest("zmatautoz");}
+   @Ignore @Test public void testZmatgradFIX()                 {runTemplateTest("zmatgrad");}
+   @Ignore@Test public void testZmatuserFIX()                 {runTemplateTest("zmatuser");}
   
   private void runTemplateTest(String templateName) {
     Element template = TemplateTestUtils.getTemplate(TEMPLATE_DIR+templateName+".xml", BASE_URI);

@@ -132,7 +132,7 @@
   <transform process="pullupSingleton" xpath="./cml:list"/>
   
   <comment class="example.output" id="nwpw">
-<module cmlx:templateRef="nwpw" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" xmlns:xi="http://www.w3.org/2001/XInclude">
+<module cmlx:templateRef="nwpw" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <module cmlx:lineCount="15" cmlx:templateRef="nwpw.banner">
     <scalar dataType="xsd:string" dictRef="n:pwtype" cmlx:templateRef="type">PSPW</scalar>
     <scalar dataType="xsd:string" dictRef="n:impl" cmlx:templateRef="impl">Grassman/Stiefel manifold implementation</scalar>
@@ -203,14 +203,14 @@
     <module cmlx:lineCount="7" cmlx:templateRef="atom">
       <list cmlx:templateRef="atom1">
         <list>
-          <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
-          <scalar dataType="xsd:string" dictRef="x:elementType">Ga</scalar>
+          <scalar dataType="xsd:integer" dictRef="x:serial">1</scalar>
+          <scalar dataType="xsd:string" dictRef="cmlx:elementType">Ga</scalar>
           <scalar dataType="xsd:double" dictRef="n:corecharge">3.0</scalar>
           <scalar dataType="xsd:integer" dictRef="n:lmax">2</scalar>
         </list>
       </list>
       <list cmlx:templateRef="comment">
-        <scalar dataType="xsd:string" dictRef="n:comment">Hamann pseudopotential</scalar>
+        <scalar dataType="xsd:string" dictRef="x:comment">Hamann pseudopotential</scalar>
       </list>
       <list cmlx:templateRef="pspot">
         <scalar dataType="xsd:integer" dictRef="n:pspottype">0</scalar>
@@ -225,24 +225,20 @@
         <scalar dataType="xsd:integer" dictRef="n:nonlocal">4</scalar>
       </list>
       <list cmlx:templateRef="cutoff">
-        <list>
-          <scalar dataType="xsd:double" dictRef="n:cutoff.x">1.128</scalar>
-          <scalar dataType="xsd:double" dictRef="n:cutoff.y">1.506</scalar>
-          <scalar dataType="xsd:double" dictRef="n:cutoff.z">2.118</scalar>
-        </list>
+        <array dataType="xsd:double" size="3" dictRef="n:cutoff">1.128 1.506 2.118</array>
       </list>
     </module>
     <module cmlx:lineCount="7" cmlx:templateRef="atom">
       <list cmlx:templateRef="atom1">
         <list>
-          <scalar dataType="xsd:integer" dictRef="cc:serial">2</scalar>
-          <scalar dataType="xsd:string" dictRef="x:elementType">N</scalar>
+          <scalar dataType="xsd:integer" dictRef="x:serial">2</scalar>
+          <scalar dataType="xsd:string" dictRef="cmlx:elementType">N</scalar>
           <scalar dataType="xsd:double" dictRef="n:corecharge">5.0</scalar>
           <scalar dataType="xsd:integer" dictRef="n:lmax">2</scalar>
         </list>
       </list>
       <list cmlx:templateRef="comment">
-        <scalar dataType="xsd:string" dictRef="n:comment">Hamann pseudopotential</scalar>
+        <scalar dataType="xsd:string" dictRef="x:comment">Hamann pseudopotential</scalar>
       </list>
       <list cmlx:templateRef="pspot">
         <scalar dataType="xsd:integer" dictRef="n:pspottype">0</scalar>
@@ -257,11 +253,7 @@
         <scalar dataType="xsd:integer" dictRef="n:nonlocal">4</scalar>
       </list>
       <list cmlx:templateRef="cutoff">
-        <list>
-          <scalar dataType="xsd:double" dictRef="n:cutoff.x">0.7</scalar>
-          <scalar dataType="xsd:double" dictRef="n:cutoff.y">0.7</scalar>
-          <scalar dataType="xsd:double" dictRef="n:cutoff.z">0.7</scalar>
-        </list>
+        <array dataType="xsd:double" size="3" dictRef="n:cutoff">0.7 0.7 0.7</array>
       </list>
     </module>
   </module>
@@ -272,34 +264,7 @@
     <scalar dataType="xsd:string" dictRef="n:atomcompos" cmlx:templateRef="atomcompos">Ga : 4 N : 4</scalar>
   </module>
   <module cmlx:lineCount="3" cmlx:templateRef="pspw.neclectron"/>
-  <module cmlx:lineCount="8" cmlx:templateRef="pspw.supercell">
-    <scalar dataType="xsd:string" dictRef="n:cellname" cmlx:templateRef="supercell1">cell_default</scalar>
-    <list cmlx:templateRef="lattice1">
-      <scalar dataType="xsd:double" dictRef="n:a1.x">5.92</scalar>
-      <scalar dataType="xsd:double" dictRef="n:a1.y">0.0</scalar>
-      <scalar dataType="xsd:double" dictRef="n:a1.z">0.0</scalar>
-    </list>
-    <list cmlx:templateRef="lattice2">
-      <scalar dataType="xsd:double" dictRef="n:a2.x">0.0</scalar>
-      <scalar dataType="xsd:double" dictRef="n:a2.y">10.255</scalar>
-      <scalar dataType="xsd:double" dictRef="n:a2.z">0.0</scalar>
-    </list>
-    <list cmlx:templateRef="lattice3">
-      <scalar dataType="xsd:double" dictRef="n:a3.x">0.0</scalar>
-      <scalar dataType="xsd:double" dictRef="n:a3.y">0.0</scalar>
-      <scalar dataType="xsd:double" dictRef="n:a3.z">9.653</scalar>
-    </list>
-    <list cmlx:templateRef="recip1">
-      <scalar dataType="xsd:double" dictRef="n:b1.x">1.061</scalar>
-      <scalar dataType="xsd:double" dictRef="n:b1.y">0.0</scalar>
-      <scalar dataType="xsd:double" dictRef="n:a1.z">0.0</scalar>
-    </list>
-    <list cmlx:templateRef="recip2">
-      <scalar dataType="xsd:double" dictRef="n:b2.x">0.0</scalar>
-      <scalar dataType="xsd:double" dictRef="n:b2.y">0.613</scalar>
-      <scalar dataType="xsd:double" dictRef="n:b2.z">0.0</scalar>
-    </list>
-  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="pspw.supercell"/> cell_name: cell_default lattice: a1=&lt; 5.920 0.000 0.000 &gt; a2=&lt; 0.000 10.255 0.000 &gt; a3=&lt; 0.000 0.000 9.653 &gt; reciprocal: b1=&lt; 1.061 0.000 0.000 &gt; b2=&lt; 0.000 0.613 0.000 &gt; b3=&lt; 0.000 0.000 0.651 &gt; 
   <module cmlx:lineCount="3" cmlx:templateRef="nwpw.lattice" xmlns:h="http://www.w3.org/1999/xhtml">
     <list cmlx:templateRef="abc">
       <scalar dataType="xsd:double" dictRef="cc:cell.a">5.92</scalar>
@@ -359,6 +324,6 @@
     </list>
   </module>
 </module>
-    </comment>
+  </comment>
 
 </template>

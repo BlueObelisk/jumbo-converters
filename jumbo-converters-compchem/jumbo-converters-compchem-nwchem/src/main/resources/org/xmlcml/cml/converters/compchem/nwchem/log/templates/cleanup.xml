@@ -2,13 +2,16 @@
   pattern=".*((geom_3d NEEDS)).*" endPattern=".*">
   
   <comment class="example.input" id="cleanup">
-  Single lines that need cleaning up...
   !!!!!!!!!  geom_3d NEEDS TESTING !!!!!!!!!! 
   </comment>
-  <record id="cleanup">{X,n:cleanup}</record>
+  <record id="cleanup">{1_10A,n:cleanup}</record>
   
   <comment class="example.output" id="cleanup">
-      <m/>
-    </comment>
+    <module cmlx:templateRef="cleanup" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="cleanup">
+        <array dataType="xsd:string" size="5" dictRef="n:cleanup">!!!!!!!!! geom_3d NEEDS TESTING !!!!!!!!!!</array>
+      </list>
+    </module>
+  </comment>
 
 </template>

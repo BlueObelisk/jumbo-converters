@@ -1,16 +1,18 @@
 <template repeat="*"  id="pspw.job" name="PSPW job" 
-  pattern="\s*>>>\s+JOB STARTED\s+AT.*" 
-  newline="$" endPattern=".*">
+  pattern="\s*>>>\s+JOB STARTED\s+AT.*" endPattern=".*">
 
   <comment class="example.input" id="pspw.job">
      >>>  JOB STARTED       AT Fri Aug  6 14:00:17 2010  &lt;&lt;&lt;
-</comment>
-  <record id="job">\s*>>>\s+JOB STARTED\s+AT\s*{X,cc:date}\s*&lt;&lt;&lt;\s*</record>
+  </comment>
+  
+  <record id="job">\s*>>>\s+JOB STARTED\s+AT\s*{D,cc:date}\s*&lt;&lt;&lt;\s*</record>
+  
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
   <comment class="example.output" id="pspw.job">
-<module cmlx:templateRef="pspw.job" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <scalar dataType="xsd:string" dictRef="cc:date" cmlx:templateRef="job">Fri Aug 6 14:00:17 2010</scalar>
-</module>
-    </comment>
+    <module cmlx:templateRef="pspw.job" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:date" dictRef="cc:date" cmlx:templateRef="job">2010-08-06T14:00:17+01:00</scalar>
+    </module>
+  </comment>
 
 </template>

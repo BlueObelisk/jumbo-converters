@@ -104,7 +104,7 @@ public class DictionaryContainer {
 	}
 
 	private CMLDictionary resolveURI(String uri2) {
-		LOG.warn("there is no magic yet for resolving dictionaries");
+		LOG.trace("there is no magic yet for resolving dictionaries");
 		return null;
 	}
 
