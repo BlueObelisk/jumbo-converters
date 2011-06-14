@@ -8,14 +8,22 @@
 
 </comment>
   <record id="atcomp">\s*atomic composition:\s*</record>
-  <record id="atomcompos">\s*{X,n:atomcompos}\s*</record>
+  <record id="atomcompos">\s*{1_10A,n:atomcompos}\s*</record>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  <transform process="split" xpath=".//cml:array"/>
+  <transform process="delete" xpath=".//cml:scalar[.=':']"/>
+  <transform process="pullup" xpath=".//cml:scalar" repeat="1"/>
+  <transform process="createArray" xpath="." from="./cml:scalar"/>
+  <transform process="createString" xpath=".//cml:array"/>
+  <transform process="createFormula" xpath=".//cml:scalar"/>
   
   <comment class="example.output" id="pspw.atomcompos">
-<module cmlx:templateRef="pspw.atomcompos" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <scalar dataType="xsd:string" dictRef="n:atomcompos" cmlx:templateRef="atomcompos">Ga : 4 N : 4</scalar>
-</module>
+    <module cmlx:templateRef="pspw.atomcompos" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <formula concise="Ga 4 N 4">
+        <atomArray elementType="Ga N" count="4.0 4.0"/>
+      </formula>
+    </module>
   </comment>
 
 </template>

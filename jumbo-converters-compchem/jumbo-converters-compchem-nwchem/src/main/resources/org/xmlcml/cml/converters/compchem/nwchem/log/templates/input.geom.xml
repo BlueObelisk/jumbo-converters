@@ -3,18 +3,35 @@
   <comment class="example.input" id="geometry">
     geometry
  C            .052902     .711852     .000000
- ...
  H           -.423217   -1.094815    -.824662
  symmetry c1
 end
   </comment>
   <record>{X}</record>
-  <record repeat="*" id="inputgeom">\s*{A,cc:elementType}\s+{F,cc:x3}\s*{F,cc:y3}\s*{F,cc:z3}\s*</record>
+  <record repeat="*" id="inputgeom">\s*{A,cc:elementType}\s+{F,cc:x3}\s{F,cc:y3}\s{F,cc:z3}\s*</record>
   <record repeat="*" id="inputsymm">\s*symmetry\s+{A,cc:pointgroup}\s*</record>
   <record>{X}</record>
   
   <comment class="example.output" id="geometry">
-<module cmlx:templateRef="geometry" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"> H -.423217 -1.094815 -.824662 symmetry c1end</module>
-    </comment>
+    <module cmlx:templateRef="geometry" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="inputgeom">
+        <list>
+          <scalar dataType="xsd:string" dictRef="cc:elementType">C</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:x3">0.052902</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:y3">0.711852</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:z3">0.0</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:x3">-0.423217</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:y3">-1.094815</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:z3">-0.824662</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="inputsymm">
+        <scalar dataType="xsd:string" dictRef="cc:pointgroup">c1</scalar>
+      </list>
+    </module>
+  </comment>
 
 </template>

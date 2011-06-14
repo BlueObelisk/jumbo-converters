@@ -1192,6 +1192,16 @@ public class TransformElement implements MarkupApplier {
 			for (int i = 1; i < nodeList.size(); i++) {
 				nodeList.get(i).detach();
 			}
+		} else {
+			for (Node node : nodeList) {
+				if (node instanceof CMLArray) {
+					CMLArray array = (CMLArray) node;
+					CMLScalar scalar = new CMLScalar(array.getValue());
+//					CMLUtil.copyAttributes(array, scalar);
+					scalar.setDictRef(array.getDictRef());
+					array.getParent().replaceChild(array, scalar);
+				}
+			}
 		}
 	}
 

@@ -366,23 +366,6 @@ public class Template implements MarkupApplier {
 		removeEmptyLists(linesElement);
 	}
 
-//	private void removeXIncludeAll(Element linesElement) {
-//		Nodes elements = linesElement.query(".//*");
-//		for (int i = 0; i < elements.size(); i++) {
-//			removeXInclude((Element)elements.get(i));
-//		}
-//	}
-//
-//	private void removeXInclude(Element element) {
-//		int ndec = element.getNamespaceDeclarationCount();
-//		for (int i = 0; i < ndec; i++) {
-//			String prefix = element.getNamespacePrefix(i);
-//			String namespaceURI = element.getNamespaceURI(prefix);
-//			if (HTTP_WWW_W3_ORG_2001_X_INCLUDE.equals(namespaceURI)) {
-//				throw new RuntimeException("XINCLUDE");
-//			}
-//		}
-//	}
 
 	private void processException(LineContainer lineContainer,
 			MarkupApplier marker, Exception e) {

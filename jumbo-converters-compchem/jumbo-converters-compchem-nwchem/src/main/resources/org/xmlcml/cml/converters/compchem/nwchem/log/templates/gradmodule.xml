@@ -16,39 +16,28 @@
    2 C       0.791881  -2.739226  -1.279990    0.010475  -0.035386  -0.006452
   17 H       0.444143   4.574733  -2.153391    0.010611   0.012286   0.006384
 
-
-@ Step       Energy      Delta E   Gmax     Grms     Xrms     Xmax   Walltime
-@ ---- ---------------- -------- -------- -------- -------- -------- --------
-@    0    -269.21179667  0.0D+00  0.03357  0.00625  0.00000  0.00000      1.8
-                                                       ok       ok  
-
-  Internal coordinate gradient before constraints
-
   </comment>
   <record repeat="5"/>
-  <record repeat="4" id="unread">{X,n:unread}</record>
+  <record id="type">\s*{X,n:type}</record>
+  <record repeat="3"/>
   <record repeat="*" makeArray="true" id="grad">{I,cc:serial}{A,cc:elementType}{F,cc:x3}{F,cc:y3}{F,cc:z3}{F,cc:grad.x3}{F,cc:grad.y3}{F,cc:grad.z3}</record>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
   <comment class="example.output" id="gradmodule">
-<module cmlx:templateRef="gradmodule" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <list cmlx:templateRef="missingID">
-    <scalar dataType="xsd:string" dictRef="n:unread">RHF ENERGY GRADIENTS</scalar>
-    <scalar dataType="xsd:string" dictRef="n:unread"/>
-    <scalar dataType="xsd:string" dictRef="n:unread">atom coordinates gradient</scalar>
-    <scalar dataType="xsd:string" dictRef="n:unread">x y z x y z</scalar>
-  </list>
-  <list cmlx:lineCount="3" cmlx:templateRef="missingID">
-    <array dataType="xsd:integer" dictRef="cc:serial" size="3">1 2 17</array>
-    <array dataType="xsd:string" dictRef="cc:elementType" size="3">C C H</array>
-    <array dataType="xsd:double" dictRef="cc:x3" size="3">0.791881 0.791881 0.444143</array>
-    <array dataType="xsd:double" dictRef="cc:y3" size="3">-2.739226 -2.739226 4.574733</array>
-    <array dataType="xsd:double" dictRef="cc:z3" size="3">1.27999 -1.27999 -2.153391</array>
-    <array dataType="xsd:double" dictRef="cc:grad.x3" size="3">0.010475 0.010475 0.010611</array>
-    <array dataType="xsd:double" dictRef="cc:grad.y3" size="3">-0.035386 -0.035386 0.012286</array>
-    <array dataType="xsd:double" dictRef="cc:grad.z3" size="3">0.006452 -0.006452 0.006384</array>
-  </list>@ Step Energy Delta E Gmax Grms Xrms Xmax Walltime@ ---- ---------------- -------- -------- -------- -------- -------- --------@ 0 -269.21179667 0.0D+00 0.03357 0.00625 0.00000 0.00000 1.8 ok ok Internal coordinate gradient before constraints
-</module>
-    </comment>
+    <module cmlx:templateRef="gradmodule" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="n:type" cmlx:templateRef="type">RHF ENERGY GRADIENTS</scalar>
+      <list cmlx:lineCount="3" cmlx:templateRef="grad">
+        <array dataType="xsd:integer" dictRef="cc:serial" size="3">1 2 17</array>
+        <array dataType="xsd:string" dictRef="cc:elementType" size="3">C C H</array>
+        <array dataType="xsd:double" dictRef="cc:x3" size="3">0.791881 0.791881 0.444143</array>
+        <array dataType="xsd:double" dictRef="cc:y3" size="3">-2.739226 -2.739226 4.574733</array>
+        <array dataType="xsd:double" dictRef="cc:z3" size="3">1.27999 -1.27999 -2.153391</array>
+        <array dataType="xsd:double" dictRef="cc:grad.x3" size="3">0.010475 0.010475 0.010611</array>
+        <array dataType="xsd:double" dictRef="cc:grad.y3" size="3">-0.035386 -0.035386 0.012286</array>
+        <array dataType="xsd:double" dictRef="cc:grad.z3" size="3">0.006452 -0.006452 0.006384</array>
+      </list>
+    </module>
+  </comment>
 
 </template>

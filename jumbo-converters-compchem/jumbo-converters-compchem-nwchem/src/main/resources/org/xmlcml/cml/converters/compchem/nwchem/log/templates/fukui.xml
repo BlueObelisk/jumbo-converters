@@ -17,7 +17,6 @@
  -----------   ----------------
     1 C    6     0.0083
     2 C    6     0.2191
-    ...
    27 H    1     0.0008
 
      ----------------------------------
@@ -58,70 +57,44 @@
     <record/>
     
   <comment class="example.output" id="fukui">
-<module cmlx:templateRef="fukui" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" xmlns:xi="http://www.w3.org/2001/XInclude">
-  <list cmlx:templateRef="missingID">
-    <scalar dataType="xsd:string" dictRef="x:x">-----------------------</scalar>
-    <scalar dataType="xsd:string" dictRef="x:x">Reactivity Parameters</scalar>
-    <scalar dataType="xsd:string" dictRef="x:x">-----------------------</scalar>
-    <scalar dataType="xsd:string" dictRef="x:x"/>
-  </list>
-  <module cmlx:lineCount="10" cmlx:templateRef="condfukui">
-    <list cmlx:lineCount="2" cmlx:templateRef="atom">
-      <array dataType="xsd:integer" dictRef="cc:serial" size="2">1 2</array>
-      <array dataType="xsd:string" dictRef="cc:elementType" size="2">C C</array>
-      <array dataType="xsd:integer" dictRef="cc:elementType" size="2">6 6</array>
-      <array dataType="xsd:double" dictRef="cc:condensedfukui" size="2">0.0083 0.2191</array>
-    </list> ... 27 H 1 0.0008
-  </module>
-  <module cmlx:lineCount="11" cmlx:templateRef="condfukui">
-    <list cmlx:lineCount="2" cmlx:templateRef="atom">
-      <array dataType="xsd:integer" dictRef="cc:serial" size="2">1 2</array>
-      <array dataType="xsd:string" dictRef="cc:elementType" size="2">C C</array>
-      <array dataType="xsd:integer" dictRef="cc:elementType" size="2">6 6</array>
-      <array dataType="xsd:double" dictRef="cc:condensedfukui" size="2">0.2284 0.0353</array>
-    </list> ... 27 H 1 0.0001...
-  </module>
-  <module cmlx:lineCount="10" cmlx:templateRef="condfukui">
-    <list cmlx:lineCount="2" cmlx:templateRef="atom">
-      <array dataType="xsd:integer" dictRef="cc:serial" size="2">1 2</array>
-      <array dataType="xsd:string" dictRef="cc:elementType" size="2">C C</array>
-      <array dataType="xsd:integer" dictRef="cc:elementType" size="2">6 6</array>
-      <array dataType="xsd:double" dictRef="cc:condensedfukui" size="2">0.11 -0.0919</array>
-    </list> ... 27 H 1 -0.0003
-  </module>
-  <module cmlx:lineCount="3" cmlx:templateRef="condfukuimu">
-    <list cmlx:templateRef="mu.sym">
-      <list>
-        <scalar dataType="xsd:string" dictRef="cc:fukui.sym1">mu_n(+)</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:fukui.sym2">mu_n(-)</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:fukui.sym3">mu_n(0)</scalar>
+    <module cmlx:templateRef="fukui" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="skip">
+        <scalar dataType="xsd:string" dictRef="x:x">-----------------------</scalar>
+        <scalar dataType="xsd:string" dictRef="x:x">Reactivity Parameters</scalar>
+        <scalar dataType="xsd:string" dictRef="x:x">-----------------------</scalar>
+        <scalar dataType="xsd:string" dictRef="x:x"/>
       </list>
-    </list>
-    <list cmlx:templateRef="mu.val">
-      <list>
-        <scalar dataType="xsd:string" dictRef="cc:fukui.val1">0.0048</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:fukui.val2">-0.2074</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:fukui.val3">-0.1013</scalar>
-      </list>
-    </list>
-  </module>
-  <module cmlx:lineCount="3" cmlx:templateRef="condfukuimu">
-    <list cmlx:templateRef="mu.sym">
-      <list>
-        <scalar dataType="xsd:string" dictRef="cc:fukui.sym1">mu_s(+)</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:fukui.sym2">mu_s(-)</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:fukui.sym3">mu_s(0)</scalar>
-      </list>
-    </list>
-    <list cmlx:templateRef="mu.val">
-      <list>
-        <scalar dataType="xsd:string" dictRef="cc:fukui.val1">0.1061</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:fukui.val2">-0.1061</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:fukui.val3">0.0000</scalar>
-      </list>
-    </list>
-  </module>
-</module>
-    </comment>
+      <module cmlx:lineCount="9" cmlx:templateRef="condfukui">
+        <list cmlx:lineCount="3" cmlx:templateRef="atom">
+          <array dataType="xsd:integer" dictRef="cc:serial" size="3">1 2 27</array>
+          <array dataType="xsd:string" dictRef="cc:elementType" size="3">C C H</array>
+          <array dataType="xsd:integer" dictRef="cc:elementType" size="3">6 6 1</array>
+          <array dataType="xsd:double" dictRef="cc:condensedfukui" size="3">0.0083 0.2191 8.0E-4</array>
+        </list>
+      </module>
+      <module cmlx:lineCount="9" cmlx:templateRef="condfukui">
+        <list cmlx:lineCount="3" cmlx:templateRef="atom">
+          <array dataType="xsd:integer" dictRef="cc:serial" size="3">1 2 27</array>
+          <array dataType="xsd:string" dictRef="cc:elementType" size="3">C C H</array>
+          <array dataType="xsd:integer" dictRef="cc:elementType" size="3">6 6 1</array>
+          <array dataType="xsd:double" dictRef="cc:condensedfukui" size="3">0.2284 0.0353 1.0E-4</array>
+        </list>
+      </module>
+      <module cmlx:lineCount="9" cmlx:templateRef="condfukui">
+        <list cmlx:lineCount="3" cmlx:templateRef="atom">
+          <array dataType="xsd:integer" dictRef="cc:serial" size="3">1 2 27</array>
+          <array dataType="xsd:string" dictRef="cc:elementType" size="3">C C H</array>
+          <array dataType="xsd:integer" dictRef="cc:elementType" size="3">6 6 1</array>
+          <array dataType="xsd:double" dictRef="cc:condensedfukui" size="3">0.11 -0.0919 -3.0E-4</array>
+        </list>
+      </module>
+      <module cmlx:lineCount="3" cmlx:templateRef="condfukuimu">
+        <array dataType="xsd:string" size="3" dictRef="cc:fukui.sym">mu_n(+) mu_n(-) mu_n(0)</array>
+      </module>
+      <module cmlx:lineCount="3" cmlx:templateRef="condfukuimu">
+        <array dataType="xsd:string" size="3" dictRef="cc:fukui.sym">mu_s(+) mu_s(-) mu_s(0)</array>
+      </module>
+    </module>
+  </comment>
 
 </template>

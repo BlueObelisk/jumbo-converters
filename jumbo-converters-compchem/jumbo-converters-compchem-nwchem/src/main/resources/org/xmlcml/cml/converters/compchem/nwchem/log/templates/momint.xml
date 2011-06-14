@@ -9,13 +9,13 @@
            0.000000000000           0.000000000000        1950.260605202691
 
   </comment>    
+  
   <record repeat="2">{X}</record>
-  <record id="mat" formatType="REGEX" repeat="3">{F25.12,n:mx}{F25.12,n:my}{F25.12,n:mz}</record>
-  <transform process="createMatrix33" xpath="./*[@cmlx:templateRef='mat']" 
-      from="*/*[@dictRef='n:mx' or @dictRef='n:my' or @dictRef='n:mz']" dictRef="cc:m"/>
+  <record id="mat" formatType="REGEX" repeat="3">\s*{3F,n:mxyz}</record>
+  
+  <transform process="createMatrix33" xpath=".//*[@cmlx:templateRef='mat']" 
+      from=".//cml:array" dictRef="cc:m"/>
   <transform process="pullupSingleton" xpath="./*/cml:list"/> 
-  <!-- does not work -->
-  <transform process="pullupSingleton" xpath="."/> 
 
   <comment class="example.output" id="momint">
     <module cmlx:templateRef="momint" xmlns="http://www.xml-cml.org/schema" 

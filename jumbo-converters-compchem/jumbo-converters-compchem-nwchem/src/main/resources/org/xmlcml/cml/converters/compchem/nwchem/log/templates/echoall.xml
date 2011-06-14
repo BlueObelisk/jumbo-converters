@@ -7,7 +7,12 @@
   <record repeat="*" id="rl1">{X,x:echo}</record>
   
   <comment class="example.output" id="echoall">
-      <m/>
-    </comment>
+    <module cmlx:templateRef="echoall" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="rl1">
+        <scalar dataType="xsd:string" dictRef="x:echo">"echoes the line"</scalar>
+        <scalar dataType="xsd:string" dictRef="x:echo"/>
+      </list>
+    </module>
+  </comment>
 
 </template>

@@ -1,5 +1,5 @@
 <template repeat="*"  name="Memory information" id="memory" 
-  pattern=".*Memory information.*$\s+\-+.*$\s*" newline="$" endPattern="\s*$\s*">
+  pattern=".*Memory information.*$\s+\-+.*$\s*" endPattern="\s*$\s*">
 
   <comment class="example.input" id="memory">
            Memory information
@@ -12,13 +12,13 @@
     verify   = yes
     hardfail = no 
 
+
   </comment>
-  <record repeat="2"/>
-  <record repeat="*" id="memory">\s*{X,x:name}\s*=\s*{I,cc:storage,u:double}doubles = {F,cc:storgae,u:mbyte} MBytes.*</record>
-  <record id="verify">verify\s*={A,n:verify}</record>
-  <record id="hardfail">hardfail\s*={A,n:hardfail}</record>
+  
+  <record repeat="3"/>
+  <record repeat="*" id="memory"/>
 
   <comment class="example.output" id="memory">
-<module cmlx:templateRef="memory" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"> heap = 13107201 doubles = 100.0 Mbytes stack = 13107201 doubles = 100.0 Mbytes global = 26214400 doubles = 200.0 Mbytes (distinct from heap &amp; stack) total = 52428802 doubles = 400.0 Mbytes verify = yes hardfail = no </module>
-      </comment>
+    <module cmlx:templateRef="memory" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"/>
+  </comment>
 </template>
