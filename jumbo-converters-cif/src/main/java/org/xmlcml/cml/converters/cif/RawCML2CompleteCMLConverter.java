@@ -470,7 +470,7 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
      * Calculates the molecular skeleton from the RawCML data
      *
      */
-    private CMLMolecule createFinalStructure(CMLMolecule molecule, CMLCrystal crystal, CompoundClass compoundClass) throws Exception {
+    private CMLMolecule createFinalStructure(CMLMolecule molecule, CMLCrystal crystal, CompoundClass compoundClass){
         CrystalTool crystalTool = new CrystalTool(molecule, crystal);
         CMLMolecule mergedMolecule;
         if (compoundClass.equals(CompoundClass.INORGANIC)) {
