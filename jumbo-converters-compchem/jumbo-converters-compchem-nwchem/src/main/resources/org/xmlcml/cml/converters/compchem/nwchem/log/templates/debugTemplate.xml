@@ -193,20 +193,20 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
       xpath="//cml:module[@dictRef='compchem:finalization']"/>
       
   <transform process="addChild" elementName="cml:parameterList" xpath="./*[@dictRef='compchem:initialization']" id="initialParams"/>
-  <transform process="move" xpath=".//*[@dictRef='compchem:date'][1]"     toXpath=".//*[@id='initialParams']"/>
-  <transform process="move" xpath=".//*[@dictRef='compchem:program'][1]"  toXpath=".//*[@id='initialParams']"/>
-  <transform process="move" xpath=".//*[@dictRef='compchem:version'][1]"  toXpath=".//*[@id='initialParams']"/>
-  <transform process="move" xpath=".//*[@dictRef='compchem:hostname'][1]" toXpath=".//*[@id='initialParams']"/>
+  <transform process="move" xpath=".//*[@dictRef='compchem:date'][1]"     to=".//*[@id='initialParams']"/>
+  <transform process="move" xpath=".//*[@dictRef='compchem:program'][1]"  to=".//*[@id='initialParams']"/>
+  <transform process="move" xpath=".//*[@dictRef='compchem:version'][1]"  to=".//*[@id='initialParams']"/>
+  <transform process="move" xpath=".//*[@dictRef='compchem:hostname'][1]" to=".//*[@id='initialParams']"/>
   <transform process="wrapPropertiesAndParameters" xpath=".//*[@id='initialParams']"/>
   
   <transform process="addChild" elementName="cml:propertyList" xpath="./*[@dictRef='compchem:finalization']" id="finalProperties"/>
-  <transform process="move" xpath=".//*[@dictRef='compchem:nuclearEnergy'][1]" toXpath=".//*[@id='finalProperties']"/>
-  <transform process="move" xpath=".//*[@dictRef='compchem:nuclearDipole'][1]" toXpath=".//*[@id='finalProperties']"/>
+  <transform process="move" xpath=".//*[@dictRef='compchem:nuclearEnergy'][1]" to=".//*[@id='finalProperties']"/>
+  <transform process="move" xpath=".//*[@dictRef='compchem:nuclearDipole'][1]" to=".//*[@id='finalProperties']"/>
   <transform process="wrapPropertiesAndParameters" xpath=".//*[@id='finalProperties']"/>
 
   <transform process="createMolecule" id="molecule.geom" xpath=".//cml:list[@*[local-name()='templateRef' and .='geom']]/
   cml:array"/>    
-  <transform process="move" xpath=".//*[@*[local-name()='templateRef' and .='input']]//*[local-name()='molecule']" toXpath="./*[@dictRef='compchem:initialization']"/>
+  <transform process="move" xpath=".//*[@*[local-name()='templateRef' and .='input']]//*[local-name()='molecule']" to="./*[@dictRef='compchem:initialization']"/>
 
     
   <!--  delete empty scalars -->

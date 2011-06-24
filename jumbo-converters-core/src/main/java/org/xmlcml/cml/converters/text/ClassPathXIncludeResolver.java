@@ -41,7 +41,7 @@ public class ClassPathXIncludeResolver {
             }
             InputStream in = ClassPathXIncludeResolver.class.getResourceAsStream(uri);
             if (in == null) {
-                throw new RuntimeException("cannot locate included file: "+uri);
+                throw new RuntimeException("cannot locate included file: ("+base+") "+uri);
             }
             Document doc;
             try {

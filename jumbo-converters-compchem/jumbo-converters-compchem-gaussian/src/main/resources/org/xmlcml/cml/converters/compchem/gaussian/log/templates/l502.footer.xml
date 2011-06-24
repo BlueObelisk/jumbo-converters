@@ -5,11 +5,37 @@
              Convg  =    0.2681D-10             -V/T =  2.0055
              S**2   =   0.0000
  KE= 4.149247745565D+02 PE=-1.756836163664D+03 EE= 5.341925757536D+02
- Leave Link  502 at Tue Mar  1 11:55:28 2011, MaxMem=  117964800 cpu:     124.2
-       </comment>
-   <record repeat="*" id="l502">{X,g:l502}</record>
+  </comment>
+  <record id="scfdone">\s*SCF Done:\s+E\(RB\+HF\-LYP\) ={F,g:rbhflyp}\s+A\.U\.\s+after{I,cc:ncycle}cycles\s*</record>
+  <record id="vovert">\s*Convg\s+={E,g:convg}\s+\-V/T ={F,cc:vovert}\s*</record>
+  <record id="ssquared">\s*S\*\*2\s+={F,g:ssquared}\s*</record>
+  <record id="scfdone">\s*KE={E,cc:kinener}\sPE={E,cc:potener}\sEE={E,cc:eener}\s*</record>
    
   <comment class="example.output" id="l502.footer">
-    <m/>
+    <module cmlx:templateRef="l502.footer" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="scfdone">
+        <list>
+          <scalar dataType="xsd:double" dictRef="g:rbhflyp">-417.223184664</scalar>
+          <scalar dataType="xsd:integer" dictRef="cc:ncycle">19</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="vovert">
+        <list>
+          <scalar dataType="xsd:double" dictRef="g:convg">2.681E-11</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:vovert">2.0055</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="ssquared">
+        <scalar dataType="xsd:double" dictRef="g:ssquared">0.0</scalar>
+      </list>
+      <list cmlx:templateRef="scfdone">
+        <list>
+          <scalar dataType="xsd:double" dictRef="cc:kinener">414.9247745565</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:potener">-1756.836163664</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:eener">534.1925757536</scalar>
+        </list>
+      </list>
+    </module>
   </comment>
+
 </template>

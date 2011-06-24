@@ -1,0 +1,963 @@
+<dictionary 
+  xmlns="http://www.xml-cml.org/schema" 
+  xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"
+  xmlns:h="http://www.w3.org/1999/xhtml" 
+  xmlns:conventions="http://www.xml-cml.org/convention/"
+  xmlns:unitType="http://www.xml-cml.org/unit/unitType/" 
+  xmlns:si="http://www.xml-cml.org/unit/si/"
+  xmlns:nonSi="http://www.xml-cml.org/unit/nonSi/" 
+  namespace="http://www.xml-cml.org/dictionary/compchem/"
+  convention="conventions:dictionary" 
+  dictionaryPrefix="compchem"
+  title="Computational chemistry concepts - CompChem concepts" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/
+  ">
+
+  <description>
+    <h:p>Top level dictionary for computational chemistry</h:p>
+    <h:p>
+      Concepts in this dictionary are general throughout computational
+      chemistry and are used extensively in the
+      <h:a href="http://www.xml-cml.org/convention/compchem/">compchem convention</h:a>
+      to describe the structure of computational chemistry.
+    </h:p>
+    <h:p>NOTE: Many of the entries are still being developed. Some of
+      the terms are taken from the
+      annotations on the logfile , but some are guessed. The dictionary is intended
+      for public comment and development, not absolute approval. Units and untiTypes are often
+      unknown or very difficult
+      and may take many discussions to agree. (Remember the crystallographers
+      did not build CIF in a day!)</h:p>
+  </description>
+  <dc:contributor>Weerapong Phadungsukanan</dc:contributor>
+  <dc:contributor>Peter Murray-Rust</dc:contributor>
+  <dc:contributor>Joe Townsend</dc:contributor>
+
+
+  <!-- document structure entries -->
+  <entry id="jobList" term="job list" unitType="unitType:none">
+    <definition>
+      <h:p>A list of computational jobs</h:p>
+    </definition>
+    <description>
+      <h:p>
+        A quantum chemistry calculation is often comprised of a series
+        of subtasks,
+        <h:i>e.g.</h:i>
+        coarse optimisation -> fine optimisation -> NMR Spectrum
+        Analysis; this is
+        because most quantum chemistry software packages are designed to be
+        modularised and only to perform a single task at a time. The
+        joblist concept
+        is introduced to capture these series of successive subtasks and links
+        the information from one subtask to the next subtask.
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="job" term="job" unitType="unitType:none">
+    <definition>
+      <h:p>A job or computational task</h:p>
+    </definition>
+    <description>
+      <h:p>
+        The job concept represents a computational job performed by quantum
+        chemistry
+        software, e.g. geometry optimisation job, frequency analysis job. The job
+        concept is the smallest unit which can fully describe a general
+        picture of
+        computational modelling.
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="initialization" term="initialization" unitType="unitType:none">
+    <definition>
+      <h:p>A initialisation module for a computational job</h:p>
+    </definition>
+    <description>
+      <h:p>
+        An initialisation module represents the concept of the model
+        parameters and
+        inputs for computational job.
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="calculation" term="calculation" unitType="unitType:none">
+    <definition>
+      <h:p>A calculation module for a computational job</h:p>
+    </definition>
+    <description>
+      <h:p>
+        A calculation module represents the concept of the model calculation
+        or
+        optimisation or iteration processes for computational job.
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="finalization" term="finalization" unitType="unitType:none">
+    <definition>
+      <h:p>A finalization module for a computational job</h:p>
+    </definition>
+    <description>
+      <h:p>
+        A finalisation module represents the concept of the model results for
+        computational job.
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="environment" term="environment" unitType="unitType:none">
+    <definition>
+      <h:p>Module holding concepts relating to environment that the job
+        used or required</h:p>
+    </definition>
+    <description>
+      <h:p>
+        The computing environment concept refers to a hardware platform,
+        software application,
+        the operating system and any hardware and software configurations used
+        in order to run
+        the job or computational task. The environment also includes the
+        metadata such as
+        machine id, username, starting and finishing date time, tools, compilers,
+        IP, etc.
+      </h:p>
+      <h:p>
+        This information is not related to input and output of the model but is
+        supplementary to
+        the software application to run properly and may vary from machine to
+        machine.
+        Therefore, the computing environment is OPTIONAL element in the CompChem
+        convention.
+      </h:p>
+    </description>
+  </entry>
+
+  <!-- general entries -->
+
+  <entry id="alphae" term="Number of alpha electrons" dataType="xsd:integer"
+    units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>Number of alpha electrons</h:p>
+    </definition>
+    <description>
+      <h:p>In closed shell calculations this equals the number of beta
+        electrons</h:p>
+      <h:p class="example">5</h:p>
+      <h:p class="gaussian.example">
+        <h:a href="gaussian/log/templates/l301..xml">Gaussian</h:a>
+        5 alpha electrons
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="betae" term="Number of beta electrons" dataType="xsd:integer"
+    units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>Number of beta electrons</h:p>
+    </definition>
+    <description>
+      <h:p>In closed shell calculations this equals the number of alpha
+        electrons</h:p>
+      <h:p class="example">5</h:p>
+      <h:p class="gaussian.example">
+        <h:a href="gaussian/log/templates/l301..xml">Gaussian</h:a>
+        5 beta electrons
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="alphaocc" term="Energy of orbitals occupied by alpha electrons"
+    dataType="xsd:double" cmlx:format="cml:array" unitType="unitType:energy">
+    <definition>
+      <h:p>Energy of orbitals occupied by alpha electrons</h:p>
+    </definition>
+    <description>
+      <h:p class="example">-10.16695 -0.6903 -0.38907 -0.38907 -0.38907</h:p>
+      <h:p class="gaussian.example">
+        <h:a href="gaussian/log/templates/l601alphabetaeigen.xml">Gaussian</h:a>
+        Alpha occ. eigenvalues -- -101.48091 -14.37146 -10.25937
+        -10.20799 -10.20230
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="betaocc" term="Energy of orbitals occupied by beta electrons"
+    dataType="xsd:double" cmlx:format="cml:array" unitType="unitType:energy">
+    <definition>
+      <h:p>Energy of orbitals occupied by beta electrons</h:p>
+    </definition>
+    <description>
+      <h:p class="example">-10.16695 -0.6903 -0.38907 -0.38907 -0.38907</h:p>
+      <h:p class="gaussian.example">
+        <h:a href="gaussian/log/templates/l601alphabetaeigen.xml">Gaussian</h:a>
+        Beta occ. eigenvalues -- -101.48091 -14.37146 -10.25937
+        -10.20799 -10.20230
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="alphavirt" term="Energy of virtual orbitals for alpha electrons"
+    dataType="xsd:double" unitType="unitType:energy" cmlx:format="cml:array">
+    <definition>
+      <h:p>Energy of virtual orbitals for alpha electrons</h:p>
+    </definition>
+    <description>
+      <h:p class="example">0.11792 0.17654 0.17654 0.17654 0.53325 0.53325
+        0.53325 0.89773 0.89773 0.89773 0.94747 1.09984 1.65652 1.65652
+        2.24362 2.24362 2.24362 4.17917</h:p>
+      <h:p class="gaussian.example">
+        <h:a href="gaussian/log/templates/foo..xml">Gaussian</h:a>
+        Alpha virt. eigenvalues -- 0.11292 0.17036 0.17036 0.17036
+        0.53917
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="betavirt" term="Energy of virtual orbitals for beta electrons"
+    dataType="xsd:string" cmlx:format="" unitType="unitType:energy">
+    <definition>
+      <h:p>Energy of virtual orbitals for beta electrons</h:p>
+    </definition>
+    <description>
+      <h:p class="example">0.11792 0.17654 0.17654 0.17654 0.53325 0.53325
+        0.53325 0.89773 0.89773 0.89773 0.94747 1.09984 1.65652 1.65652
+        2.24362 2.24362 2.24362 4.17917</h:p>
+      <h:p class="gaussian.example">
+        <h:a href="gaussian/log/templates/foo..xml">Gaussian</h:a>
+        Beta virt. eigenvalues -- 0.11292 0.17036 0.17036 0.17036
+        0.53917
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="basis" term="Basis set" dataType="xsd:string"
+    cmlx:format="" units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>Basis set</h:p>
+    </definition>
+    <description>
+      <h:p class="example">6-31G(d)</h:p>
+      <h:p class="gaussian.example">
+        <h:a href="gaussian/log/templates/l301..xml">Gaussian</h:a>
+        Standard basis: 6-31G(d)
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="basiscount" term="Number of basis set components"
+    dataType="xsd:integer" units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>Number of basis set components</h:p>
+    </definition>
+    <description>
+      <h:p class="example">23</h:p>
+    </description>
+  </entry>
+
+  <entry id="date" term="Date job was run" dataType="xsd:date"
+    units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>Date job was run</h:p>
+    </definition>
+    <description>
+      <h:p>Probably the date-time when the program started executing
+        rather than when
+        it was submitted to the queue.</h:p>
+      <h:p class="example">2006-11-20T00:00:00Z</h:p>
+    </description>
+  </entry>
+
+  <entry id="degfreedom" term="Degrees of freedom" dataType="xsd:integer"
+    units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>Number of degress of freedom in optimization</h:p>
+    </definition>
+    <description>
+      <h:p class="example">1</h:p>
+      <h:p>This is for methane optimized with tetrahedral symmetry</h:p>
+    </description>
+  </entry>
+
+  <entry id="diffuse" term="Diffuse orbitals" dataType="xsd:string"
+    cmlx:format="" units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>Diffuse orbitals</h:p>
+    </definition>
+    <description>
+      <h:p class="example">(6D, 7F)</h:p>
+      <h:p class="gaussian.example">
+        <h:a href="gaussian/log/templates/foo..xml">Gaussian</h:a>
+        Standard basis: 6-31G(d) (6D, 7F)
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="dipole.magnitude" term="Electric Dipole moment magnitude"
+    dataType="xsd:double" cmlx:format="" unitType="unitType:electric_dipole_moment">
+    <definition>
+      <h:p>Electric Dipole moment magnitude</h:p>
+    </definition>
+    <description>
+      <h:p class="example">0.00</h:p>
+      <h:p class="gaussian.example">
+        <h:a href="gaussian/log/templates/l601.multipole..xml">Gaussian</h:a>
+        Dipole moment (field-independent basis, Debye): X=0.0000
+        Y=0.0000 Z=0.0000 Tot=0.0000
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="dipole.vector" term="Electric Dipole moment vector"
+    dataType="xsd:double" cmlx:format="cml:vector3">
+    <definition>
+      <h:p>Electric Dipole moment vector</h:p>
+    </definition>
+    <description>
+      <h:p class="example">0.0 0.0 0.0</h:p>
+      <h:p class="gaussian.example" href="gaussian/log/templates/l601.multipole.xml"> Dipole moment
+        (field-independent basis, Debye): X=0.0000 Y=0.0000 Z=0.0000
+        Tot=0.0000</h:p>
+    </description>
+  </entry>
+
+  <entry id="dipolederiv" term="Derivatives of electric dipole"
+    dataType="xsd:double" cmlx:format="cml:array">
+    <definition>
+      <h:p>Derivatives of electric dipole moment wrt coordinates</h:p>
+    </definition>
+    <description>
+      <h:p>A symmetric matrix (3*N * 3*N). May be represented as a lower
+        triangle with diagonal terms.</h:p>
+      <h:p class="example">7.872E-4 0.0 0.0 0.0 7.871E-4 0.0 0.0 0.0 7.871E-4
+        0.0733391 0.0 0.0 0.0 0.0733391 0.0 0.0 0.0 -0.1472685
+        -0.1227565 0.0 0.0693303 0.0 0.0733391 0.0 0.0693303 0.0
+        0.0488271 0.0243152 -0.0849119 -0.0346651 -0.0849119 -0.0737327
+        -0.0600418 -0.0346651 -0.0600418 0.0488271 0.0243151 0.0849119
+        -0.0346652 0.0849119 -0.0737326 0.0600418 -0.0346652 0.0600418
+        0.0488271</h:p>
+      <h:p class="gaussian.example">
+        <h:a href="gaussian/log/templates/foo..xml">Gaussian</h:a>
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="displacement" term="Atomic vibrational displacment"
+    dataType="xsd:double" cmlx:format="cml:vector3" unitType="unitType:length">
+    <definition>
+      <h:p>The displacement of an atom during a vibration</h:p>
+    </definition>
+    <description>
+      <h:p class="example">0.0 0.0 0.12</h:p>
+      <h:p>These vectors are reported for each atom for each vibrational
+        mode. They are related
+        to the amplitude of the vibration (how??) and carry units of length
+        (which??).</h:p>
+    </description>
+
+  </entry>
+
+  <entry id="electronicstate" term="Electronic state" dataType="xsd:string"
+    units="si:none" unitType="unitType:none" cmlx:format="">
+    <definition>
+      <h:p>Electronic state</h:p>
+    </definition>
+    <description>
+      <h:p class="example">1-A1</h:p>
+    </description>
+  </entry>
+
+  <entry id="forceConstants" term="Cartesian Force constants"
+    dataType="xsd:double" cmlx:format="cml:array">
+    <definition>
+      <h:p>Cartesian Force constants</h:p>
+    </definition>
+    <description>
+      <h:p>A symmetric matrix (3*N * 3*N) often reported as a lower
+        triangle</h:p>
+      <h:p class="example">0.55936081 0.0 0.55936081 0.0 0.0 0.55936081
+        -0.0482856 0.0 -3.0E-8 0.04683066 0.0 -0.0482856 -5.0E-8 0.0
+        0.04683066 -3.0E-8 -5.0E-8 -0.32294941 3.0E-8 5.0E-8 0.34888521
+        -0.29243119 -3.0E-8 0.08631853 0.00266595 0.0 -6.7139E-4
+        0.31532358 -3.0E-8 -0.0482856 0.0 0.0 -0.00169598 0.0 3.0E-8
+        0.04683066 0.08631853 0.0 -0.07880382 0.03266432 0.0 -0.00864527
+        -0.09492661 -1.0E-8 0.08039229 -0.10932197 -0.10571814
+        -0.04315922 -6.055E-4 0.00188877 3.357E-4 -0.01277916
+        -0.02604072 -0.01202812 0.11395386 -0.10571814 -0.23139487
+        -0.07475399 0.00188877 0.00157546 5.8144E-4 0.00117778
+        0.00157546 0.00158693 0.11626084 0.24820043 -0.04315922
+        -0.07475399 -0.07880377 -0.01633216 -0.02828814 -0.00864526
+        0.00463974 0.01121013 0.00352839 0.04746326 0.0822088 0.08039224
+        -0.10932205 0.10571817 -0.04315928 -6.055E-4 -0.00188877
+        3.357E-4 -0.01277917 0.02604071 -0.01202812 0.00875278
+        -0.01360924 0.00738839 0.11395394 0.10571817 -0.23139475
+        0.07475403 -0.00188877 0.00157547 -5.8144E-4 -0.00117778
+        0.00157546 -0.00158694 0.01360926 -0.01995648 0.0096232
+        -0.11626087 0.24820029 -0.04315928 0.07475403 -0.07880382
+        -0.01633217 0.02828813 -0.00864527 0.00463974 -0.01121013
+        0.0035284 0.00738838 -0.00962319 0.00352839 0.04746332
+        -0.08220885 0.0803923</h:p>
+    </description>
+  </entry>
+
+  <entry id="forces" term="Residual forces on atoms" dataType="xsd:double"
+    cmlx:format="cml:array">
+    <definition>
+      <h:p>Residual forces on atoms</h:p>
+    </definition>
+    <description>
+      <h:p class="example">0.0 0.0 0.0 0.0 0.0 1.6E-7 1.5E-7 0.0 -5.0E-8
+        -8.0E-8 -1.3E-7 -5.0E-8 -8.0E-8 1.3E-7 -5.0E-8</h:p>
+    </description>
+  </entry>
+
+  <entry id="frameworkgroup" term="Framework group" dataType="xsd:string"
+    cmlx:format="" units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>Framework group</h:p>
+    </definition>
+    <description>
+      <h:p class="example">TD[O(C),4C3(H)]</h:p>
+    </description>
+  </entry>
+
+  <entry id="frequency" term="Vibrational frequencies" dataType="xsd:double"
+    cmlx:format="cml:array">
+    <definition>
+      <h:p>Vibrational frequencies</h:p>
+    </definition>
+    <description>
+      <h:p class="example">1373.4987 1373.4987 1373.4987 1593.9619 1593.9619
+        3053.5976 3163.9228 3163.9228 3163.9228</h:p>
+    </description>
+  </entry>
+
+  <entry id="hexadecapole" term="Hexadecapole electric moment"
+    dataType="xsd:double" cmlx:format="cml:array">
+    <definition>
+      <h:p>Hexadecapole electric moment</h:p>
+    </definition>
+    <description>
+      <h:p class="example">-15.7513 -15.7513 -15.7513 0.0 0.0 0.0 0.0 0.0 0.0
+        -4.8059 -4.8059 -4.8059 0.0 0.0 0.0</h:p>
+      <h:p class="gaussian.example">
+        <h:a href="gaussian/log/templates/foo..xml">Gaussian</h:a>
+        Hexadecapole moment (field-independent basis, Debye-Ang**3):
+        XXXX= -16.2252 YYYY= -16.2252 ZZZZ= -16.2252 XXXY= 0.0000
+        XXXZ= 0.0000 YYYX= 0.0000 YYYZ= 0.0000 ZZZX= 0.0000
+        ZZZY= 0.0000 XXYY= -4.9297 XXZZ= -4.9297 YYZZ= -4.9297
+        XXYZ= 0.0000 YYXZ= 0.0000 ZZXY= 0.0000
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="hfenergy" term="energy" dataType="xsd:double"
+    cmlx:format="">
+    <definition>
+      <h:p>Hartree-Fock or DTF energy</h:p>
+    </definition>
+    <description>
+      <h:p class="example">-40.5183892</h:p>
+    </description>
+  </entry>
+
+  <entry id="hostname" term="Hostname" dataType="xsd:string"
+    cmlx:format="" units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>Name of machine on which the job was run</h:p>
+    </definition>
+    <description>
+      <h:p class="example">GINC-DEEPTHOUGHT</h:p>
+    </description>
+  </entry>
+
+  <entry id="irintensity" term="Infrared intensities" dataType="xsd:double"
+    cmlx:format="cml:array">
+    <definition>
+      <h:p>Predicted Infrared intensities</h:p>
+    </definition>
+    <description>
+      <h:p class="example">15.4253 15.4253 15.4253 0.0 0.0 0.0 26.421 26.421
+        26.421</h:p>
+    </description>
+  </entry>
+
+  <entry id="irrep" term="Irreducible representations of vibrations"
+    dataType="xsd:string" cmlx:format="cml:array" units="si:none"
+    unitType="unitType:none">
+    <definition>
+      <h:p>Irreducible representations of vibrations</h:p>
+    </definition>
+    <description>
+      <h:p class="example">|T2|T2|T2|E|E|A1|T2|T2|T2|</h:p>
+    </description>
+  </entry>
+
+  <entry id="jobdatetime.end" term="Date time for finish of job"
+    dataType="xsd:date" units="si:none" unitType="unitType:none"
+    cmlx:format="">
+    <definition>
+      <h:p>Date time for finish of job</h:p>
+    </definition>
+    <description>
+      <h:p class="example">2006-11-20T14:40:23Z</h:p>
+    </description>
+  </entry>
+
+  <entry id="jobname" term="job name" dataType="xsd:string"
+    cmlx:format="" units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>Name of the job</h:p>
+    </definition>
+    <description>
+      <h:p class="example">WWW-DATA</h:p>
+    </description>
+  </entry>
+
+  <entry id="jobtime" term="elapsed time" dataType="xsd:date"
+    units="si:none" unitType="unitType:none" cmlx:format="">
+    <definition>
+      <h:p>elapsed time</h:p>
+    </definition>
+    <description>
+      <h:p class="example">PT16.200S</h:p>
+    </description>
+  </entry>
+
+  <entry id="keyword" term="keyword" dataType="xsd:string"
+    cmlx:format="" units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>keyword</h:p>
+    </definition>
+    <description>
+      <h:p class="example">FREQ</h:p>
+    </description>
+  </entry>
+
+  <entry id="polarizability" term="polarizability" dataType="xsd:string"
+    cmlx:format="" units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>polarizability</h:p>
+    </definition>
+    <description>
+      <h:p class="example">12.353 0.0 12.353 0.0 0.0 12.353</h:p>
+    </description>
+  </entry>
+
+  <entry id="method" term="method or functional" dataType="xsd:string"
+    cmlx:format="" units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>method or functional</h:p>
+    </definition>
+    <description>
+      <h:p class="example">RB3LYP</h:p>
+    </description>
+
+  </entry>
+
+  <entry id="moi" term="moment of inertia" dataType="xsd:double"
+    cmlx:format="cml:vector3">
+    <definition>
+      <h:p>moment of inertia</h:p>
+    </definition>
+    <description>
+      <h:p class="example">11.47105 11.47105 11.47105</h:p>
+    </description>
+
+  </entry>
+
+  <entry id="moi.eigenvectors" term="moment of inertia eigenvectors"
+    dataType="xsd:double" cmlx:format="cml:array">
+    <definition>
+      <h:p>moment of inertia eigenvectors</h:p>
+    </definition>
+    <description>
+      <h:p class="example">0.0 0.0 1.0 0.0 1.0 0.0 1.0 0.0 0.0</h:p>
+    </description>
+  </entry>
+
+  <entry id="molmass" term="molecular mass" dataType="xsd:double"
+    unitType="unitType:molar_mass" units="nonSi:dalton">
+    <definition>
+      <h:p>molecular mass</h:p>
+    </definition>
+    <description>
+      <h:p class="example">16.0313</h:p>
+    </description>
+  </entry>
+
+  <entry id="nactiveatoms" term="number of active atoms" dataType="xsd:integer"
+    units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>Number of atoms allowed to move</h:p>
+    </definition>
+    <description>
+      <h:p class="example">5</h:p>
+      <h:p class="gaussian.example">
+        <h:a href="gaussian/log/templates/l301..xml">Gaussian</h:a>
+        NAtoms= 5 NActive= 5 NUniq= 2
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="natoms" term="number of atoms" dataType="xsd:integer"
+    cmlx:format="" units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>Total number of atoms</h:p>
+    </definition>
+    <description>
+      <h:p class="example">5</h:p>
+      <h:p class="gaussian.example">
+        <h:a href="gaussian/log/templates/foo.xml">Gaussian</h:a>
+        NAtoms= 5 NActive= 5 NUniq= 2
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="nucrepener" term="nuclear repulsion energy" dataType="xsd:double">
+    <definition>
+      <h:p>nuclear repulsion energy</h:p>
+    </definition>
+    <description>
+      <h:p class="example">13.1577484238</h:p>
+    </description>
+  </entry>
+
+  <entry id="octapole" term="octapole electric moment" dataType="xsd:double"
+    cmlx:format="cml:array">
+    <definition>
+      <h:p>computed octapole electric moment</h:p>
+    </definition>
+    <description>
+      <h:p class="example">0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.6711</h:p>
+      <h:p class="gaussian.example">
+        <h:a href="gaussian/log/templates/l301..xml">Gaussian</h:a>
+        nuclear repulsion energy 13.1577484238 Hartrees.
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="pointgroup" term="pointgroup" dataType="xsd:string"
+    units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>Pointgroup</h:p>
+    </definition>
+    <description>
+      <h:p class="example">TD</h:p>
+    </description>
+  </entry>
+
+  <entry id="press" term="pressure" dataType="xsd:double"
+    cmlx:format="">
+    <definition>
+      <h:p>Pressure</h:p>
+    </definition>
+    <description>
+      <h:p class="example">1.0</h:p>
+    </description>
+  </entry>
+
+  <entry id="program" term="program" dataType="xsd:string" units="si:none"
+    unitType="unitType:none">
+    <definition>
+      <h:p>program</h:p>
+    </definition>
+    <description>
+      <h:p class="example">Gaussian 03</h:p>
+    </description>
+  </entry>
+
+  <entry id="program.date" term="date of program creation"
+    dataType="xsd:string" units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>date of program creation</h:p>
+    </definition>
+    <description>
+      <h:p class="example">2-Jun-2003</h:p>
+    </description>
+  </entry>
+
+  <entry id="quadrupole" term="quadrupole" dataType="xsd:double"
+    cmlx:format="cml:array">
+    <definition>
+      <h:p>quadrupole</h:p>
+    </definition>
+    <description>
+      <h:p class="example">0.0 0.0 0.0 0.0 0.0 0.0</h:p>
+    </description>
+  </entry>
+
+  <entry id="redmass" term="reduced mass" dataType="xsd:double"
+    cmlx:format="cml:array">
+    <definition>
+      <h:p>reduced mass</h:p>
+    </definition>
+    <description>
+      <h:p class="example">1.1787 1.1787 1.1787 1.0078 1.0078 1.0078 1.1019
+        1.1019 1.1019</h:p>
+    </description>
+  </entry>
+
+  <entry id="rmsd" term="RMS deviation" dataType="xsd:double"
+    cmlx:format="" unitType="unitType:dimensionless">
+    <definition>
+      <h:p>RMS deviation</h:p>
+    </definition>
+    <description>
+      <h:p class="example">2.782E-9</h:p>
+    </description>
+  </entry>
+
+  <entry id="rmsf" term="RMS force" dataType="xsd:double">
+    <definition>
+      <h:p>RMS force</h:p>
+    </definition>
+    <description>
+      <h:p class="example">8.224E-8</h:p>
+    </description>
+  </entry>
+
+  <entry id="rotconst" term="rotational constants" dataType="xsd:double">
+    <definition>
+      <h:p>rotational constants</h:p>
+    </definition>
+    <description>
+      <h:p class="example">157.33005 157.33005 157.33005</h:p>
+    </description>
+  </entry>
+
+  <entry id="rottemp" term="rotational temperature" dataType="xsd:double"
+    cmlx:format="cml:array">
+    <definition>
+      <h:p>rotational temperature</h:p>
+    </definition>
+    <description>
+      <h:p class="example">7.55064 7.55064 7.55064</h:p>
+    </description>
+  </entry>
+
+  <entry id="symmnumber" term="symmetry number" dataType="xsd:integer"
+    units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>symmetry number</h:p>
+    </definition>
+    <description>
+      <h:p class="example">12</h:p>
+    </description>
+  </entry>
+
+  <entry id="temp" term="temperature" dataType="xsd:double">
+    <definition>
+      <h:p>Temperature of system</h:p>
+    </definition>
+    <description>
+      <h:p class="example">298.15</h:p>
+    </description>
+  </entry>
+
+  <entry id="title" term="title" dataType="xsd:string" units="si:none"
+    unitType="unitType:none">
+    <definition>
+      <h:p>title</h:p>
+    </definition>
+    <description>
+      <h:p class="example">CH4</h:p>
+    </description>
+  </entry>
+
+  <entry id="top" term="type of top" dataType="xsd:string" units="si:none"
+    unitType="unitType:none">
+    <definition>
+      <h:p>Type of rotational top</h:p>
+    </definition>
+    <description>
+      <h:p class="example">spherical</h:p>
+    </description>
+  </entry>
+
+  <entry id="uniqatoms" term="number of unique atoms" dataType="xsd:integer"
+    units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>The number of unique atoms before application of pointgroup
+        symmetry</h:p>
+    </definition>
+    <description>
+      <h:p class="example">2</h:p>
+    </description>
+  </entry>
+
+  <entry id="version" term="version of program" dataType="xsd:string"
+    units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>Version of the program</h:p>
+    </definition>
+    <description>
+      <h:p class="example">x86-Linux-G03RevB.04</h:p>
+    </description>
+  </entry>
+
+  <entry id="vibtemp" term="vibrational temperature" dataType="xsd:double"
+    cmlx:format="cml:array">
+    <definition>
+      <h:p>vibrational temperature</h:p>
+    </definition>
+    <description>
+      <h:p class="example">1976.16 1976.16 1976.16 2293.35 2293.35 4393.44
+        4552.17 4552.17 4552.17</h:p>
+    </description>
+  </entry>
+
+  <entry id="virtualorbs" term="virtual orbitals" dataType="xsd:string"
+    cmlx:format="cml:array">
+    <definition>
+      <h:p>Symmetry of virtual orbitals</h:p>
+    </definition>
+    <description>
+      <h:p class="example">|(A1)|(T2)|(T2)|(T2)|(T2)|(T2)|(T2)|(T2)|(T2)|(T2)|(A1)|(A1)|(E)|(E)|(T2)|(T2)|(T2)|(A1)|
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="zpe" term="zero-point energy" dataType="xsd:double">
+    <definition>
+      <h:p>zero-point energy</h:p>
+    </definition>
+    <description>
+      <h:p class="example">118752.0</h:p>
+    </description>
+  </entry>
+
+  <entry id="zpe.correction" term="zero-point energy correction"
+    dataType="xsd:double">
+    <definition>
+      <h:p>zero-point energy correction</h:p>
+    </definition>
+    <description>
+      <h:p class="example">0.04523</h:p>
+      <h:p class="gaussian.example">
+        <h:a href="gaussian/log/templates/l716zeropoint..xml">Gaussian</h:a>
+        Zero-point correction=0.045230 (Hartree/Particle)
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="zpe.sumelectthermal" term="Thermal correction to Energy"
+    dataType="xsd:double" cmlx:format="">
+    <definition>
+      <h:p>Thermal correction to Energy</h:p>
+    </definition>
+    <description>
+      <h:p class="example">-40.469351</h:p>
+      <h:p class="gaussian.example">
+        <h:a href="gaussian/log/templates/l716zeropoint..xml">Gaussian</h:a>
+        Thermal correction to Energy=0.048094
+      </h:p>
+    </description>
+  </entry>
+
+
+  <entry id="zpe.sumelectthermalenthalpy" term="Thermal correction to Enthalpy"
+    dataType="xsd:double">
+    <definition>
+      <h:p>Thermal correction to Enthalpy</h:p>
+    </definition>
+    <description>
+      <h:p class="example">-40.469351</h:p>
+      <h:p class="gaussian.example">
+        <h:a href="gaussian/log/templates/l716zeropoint..xml">Gaussian</h:a>
+        Thermal correction to Enthalpy=0.049039
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="zpe.sumelectthermal" term="Thermal correction to Gibbs Free Energy"
+    dataType="xsd:double" cmlx:format="">
+    <definition>
+      <h:p>Thermal correction to Gibbs Free Energy</h:p>
+    </definition>
+    <description>
+      <h:p class="example">-40.469351</h:p>
+      <h:p class="gaussian.example">
+        <h:a href="gaussian/log/templates/l716zeropoint..xml">Gaussian</h:a>
+        Thermal correction to Gibbs Free Energy=0.027907
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="zpe.sumelectzpe" term="Sum of electronic and zero-point Energies"
+    dataType="xsd:double" cmlx:format="">
+    <definition>
+      <h:p>Sum of electronic and zero-point Energies</h:p>
+    </definition>
+    <description>
+      <h:p class="example">-40.473159</h:p>
+      <h:p class="gaussian.example">
+        <h:a href="gaussian/log/templates/l716zeropoint..xml">Gaussian</h:a>
+        Sum of electronic and zero-point Energies=-40.473159
+      </h:p>
+    </description>
+  </entry>
+
+  <entry id="zpe.thermalcorrener" term="thermal correction energy"
+    dataType="xsd:double" cmlx:format="">
+    <definition>
+      <h:p>thermal correction energy</h:p>
+    </definition>
+    <description>
+      <h:p class="example">0.048094</h:p>
+    </description>
+  </entry>
+
+  <entry id="zpe.thermalcorrenthalpy" term="thermal correction to enthalpy"
+    dataType="xsd:double" cmlx:format="">
+    <definition>
+      <h:p>thermal correction to enthalpy</h:p>
+    </definition>
+    <description>
+      <h:p class="example">0.049039</h:p>
+    </description>
+  </entry>
+
+  <entry id="zpe.thermalcorrgfe" term="thermal correction gibbs free energy"
+    dataType="xsd:double" cmlx:format="">
+    <definition>
+      <h:p>thermal correction gibbs free energy</h:p>
+    </definition>
+    <description>
+      <h:p class="example">0.027907</h:p>
+    </description>
+  </entry>
+
+  <entry id="formalCharge" term="Formal charge" dataType="xsd:integer">
+    <definition>
+      <h:p>Formal charge on atom or molecule</h:p>
+    </definition>
+    <description>
+      <h:p class="example">0</h:p>
+    </description>
+  </entry>
+
+  <entry id="formula" term="formula" dataType="xsd:string"
+    cmlx:format="cml:formula" units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>constitutional formula</h:p>
+    </definition>
+    <description>
+      <h:p class="example">C 1 H 4</h:p>
+    </description>
+  </entry>
+
+  <entry id="multiplicity" term="Spin multiplicity" dataType="xsd:integer"
+    cmlx:format="" units="si:none" unitType="unitType:none">
+    <definition>
+      <h:p>Spin multiplicity</h:p>
+    </definition>
+    <description>
+      <h:p class="example">1</h:p>
+    </description>
+  </entry>
+
+</dictionary>

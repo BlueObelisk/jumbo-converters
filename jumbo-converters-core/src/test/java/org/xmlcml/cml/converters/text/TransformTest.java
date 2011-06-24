@@ -229,7 +229,7 @@ public class TransformTest {
 		runTest("addLink", 
 			"<transform process='addLink' xpath='.' value='id' "+
 			"    from=\"./*[@id='a1']\" " +
-			"    toXpath=\"./*[@id='a2']\" map='./cml:map'/>",
+			"    to=\"./*[@id='a2']\" map='./cml:map'/>",
 			foo,
 			"<foo>" +
 			"  <map xmlns='http://www.xml-cml.org/schema'>" +
@@ -241,14 +241,15 @@ public class TransformTest {
 			);
 	}
 	
-	@Test 
-	public void testAddMap() {
-		runTest("addMap", 
-			"<transform process='addMap' xpath='.' id='map'/>",
-			"<foo></foo>",
-			"<foo><map id='map' xmlns='http://www.xml-cml.org/schema'/></foo>"
-			);
-	}
+	/** requires to and from attributes */
+//	@Test 
+//	public void testAddMap() {
+//		runTest("addMap", 
+//			"<transform process='addMap' xpath='.' id='map' />",
+//			"<foo></foo>",
+//			"<foo><map id='map' xmlns='http://www.xml-cml.org/schema'/></foo>"
+//			);
+//	}
 	
 	@Test 
 	public void testAddNamespace() {
@@ -381,7 +382,7 @@ public class TransformTest {
 	@Test 
 	public void testCopy() {
 		runTest("copy", 
-				"<transform process='copy' xpath='./c[1]' toXpath='/foo/bar'/>",
+				"<transform process='copy' xpath='./c[1]' to='/foo/bar'/>",
 				"<foo><c id='c1'/><c id='c2'/><c id='c3'/><c id='c4'/><bar/></foo>",
 				"<foo><c id='c1'/><c id='c2'/><c id='c3'/><c id='c4'/><bar><c id='c1.copy'/></bar></foo>"
 				);
@@ -390,7 +391,7 @@ public class TransformTest {
 	@Test 
 	public void testCopy1() {
 		runTest("copy", 
-				"<transform process='copy' xpath='./c' toXpath='/foo/c'/>",
+				"<transform process='copy' xpath='./c' to='/foo/c'/>",
 				"<foo><c id='c1'/><c id='c2'/><c id='c3'/><c id='c4'/></foo>",
 				"<foo><c id='c1'><c id='c1.copy'/></c><c id='c2'><c id='c2.copy'/></c><c id='c3'><c id='c3.copy'/></c><c id='c4'><c id='c4.copy'/></c></foo>"
 				);
@@ -858,7 +859,7 @@ public class TransformTest {
 	@Test
 	public void testMove() {
 		runTest("move", 
-			"<transform process='move' xpath='./bar[2]' toXpath='./bar[4]'/>",
+			"<transform process='move' xpath='./bar[2]' to='./bar[4]'/>",
 			"<foo><bar id='a1'/><bar id='a2'/><bar id='a3'/><bar id='a4'/></foo>",
 			"<foo>" +
 			"  <bar id='a1'/>" +
@@ -874,7 +875,7 @@ public class TransformTest {
 	public void testMove1() {
 		// cannot move attributes
 		runTest("move", 
-			"<transform process='move' xpath='./bar[2]/@id' toXpath='.'/>",
+			"<transform process='move' xpath='./bar[2]/@id' to='.'/>",
 			"<foo><bar id='a1'/><bar id='a2'/><bar id='a3'/><bar id='a4'/></foo>",
 			"<foo><bar id='a1'/><bar id='a2'/><bar id='a3'/><bar id='a4'/></foo>"
 			);
@@ -883,7 +884,7 @@ public class TransformTest {
 	@Test
 	public void testMove2() {
 		runTest("move", 
-			"<transform process='move' xpath='./bar[2]' toXpath='.' position='1'/>",
+			"<transform process='move' xpath='./bar[2]' to='.' position='1'/>",
 			"<foo><bar id='a1'/><bar id='a2'/><bar id='a3'/><bar id='a4'/></foo>",
 			"<foo>" +
 			"  <bar id='a2'/>" +
@@ -897,7 +898,7 @@ public class TransformTest {
 	@Test
 	public void testMove3a() {
 		runTest("move", 
-			"<transform process='move' xpath='.//plugh' toXpath='.' position='1'/>",
+			"<transform process='move' xpath='.//plugh' to='.' position='1'/>",
 			"<foo><bar id='a1'><plugh/></bar><bar id='a2'/><bar id='a3'/><bar id='a4'/></foo>",
 			"<foo>" +
 			"  <plugh/>" +
@@ -912,7 +913,7 @@ public class TransformTest {
 	@Test
 	public void testMove3b() {
 		runTest("move", 
-			"<transform process='move' xpath='.//plugh' toXpath='.' position='2'/>",
+			"<transform process='move' xpath='.//plugh' to='.' position='2'/>",
 			"<foo><bar id='a1'><plugh/></bar><bar id='a2'/><bar id='a3'/><bar id='a4'/></foo>",
 			"<foo>" +
 			"  <bar id='a1'/>" +
@@ -927,7 +928,7 @@ public class TransformTest {
 	@Test
 	public void testMove3c() {
 		runTest("move", 
-			"<transform process='move' xpath='.//plugh' toXpath='.' position='5'/>",
+			"<transform process='move' xpath='.//plugh' to='.' position='5'/>",
 			"<foo><bar id='a1'><plugh/></bar><bar id='a2'/><bar id='a3'/><bar id='a4'/></foo>",
 			"<foo>" +
 			"  <bar id='a1'/>" +
@@ -942,7 +943,7 @@ public class TransformTest {
 	@Test
 	public void testMove3d() {
 		runTest("move", 
-			"<transform process='move' xpath='.//plugh' toXpath='.' position='6'/>",
+			"<transform process='move' xpath='.//plugh' to='.' position='6'/>",
 			"<foo><bar id='a1'><plugh/></bar><bar id='a2'/><bar id='a3'/><bar id='a4'/></foo>",
 			"<foo>" +
 			"  <bar id='a1'>" +
@@ -958,7 +959,7 @@ public class TransformTest {
 	@Test
 	public void testMove3e() {
 		runTest("move", 
-			"<transform process='move' xpath='.//plugh' toXpath='.' position='0'/>",
+			"<transform process='move' xpath='.//plugh' to='.' position='0'/>",
 			"<foo><bar id='a1'><plugh/></bar><bar id='a2'/><bar id='a3'/><bar id='a4'/></foo>",
 			"<foo>" +
 			"  <bar id='a1'>" +
@@ -974,7 +975,7 @@ public class TransformTest {
 	@Test
 	public void testMove4() {
 		runTest("move", 
-			"<transform process='move' xpath='.//plugh' toXpath='.' position='4'/>",
+			"<transform process='move' xpath='.//plugh' to='.' position='4'/>",
 			"<foo><bar id='a1'><plugh/></bar><bar id='a2'/><bar id='a3'/><bar id='a4'/></foo>",
 			"<foo>" +
 			"  <bar id='a1'/>" +
@@ -1052,6 +1053,45 @@ public class TransformTest {
 			"<transform process='rename' xpath='.//plugh'/>",
 			"<foo/>",
 			"<foo/>"
+			);
+	}
+				
+	@Test 
+	public void testReparse() {
+		runTest1("rename", 
+			"<template>" +
+			"  <record id='record'>VAL={A,x:y}</record>" +
+			"  <transform process='reparse' xpath='./bar' regexPath=\".//record[@id='record']\"/>" +
+			"</template>",
+			"<foo><bar>VAL=1.23</bar></foo>",
+			"<foo>" +
+			"  <module xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>" +
+			"    <list cmlx:templateRef='foo'>" +
+			"      <scalar dataType='xsd:string' dictRef='x:y'>1.23</scalar>" +
+			"    </list>" +
+			"  </module>" +
+			"</foo>"
+			);
+	}
+				
+	@Test 
+	public void testReparse1() {
+		runTest1("rename", 
+			"<template>" +
+			"  <record id='record'>VAL={A,x:y}\\sFLOAT={F,x:z}</record>" +
+			"  <transform process='reparse' xpath='./bar' regexPath=\".//record[@id='record']\"/>" +
+			"</template>",
+			"<foo><bar>VAL= abc FLOAT= 2.34</bar></foo>",
+			"<foo>" +
+			"  <module xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>" +
+			"    <list cmlx:templateRef='foo'>" +
+			"      <list>" +
+			"        <scalar dataType='xsd:string' dictRef='x:y'>abc</scalar>" +
+			"        <scalar dataType='xsd:double' dictRef='x:z'>2.34</scalar>" +
+			"      </list>" +
+			"    </list>" +
+			"  </module>" +
+			"</foo>"
 			);
 	}
 				
@@ -1270,7 +1310,14 @@ public class TransformTest {
 	private static void runTest(String message, String transformXML, String inputXML, String refXML) {
 		Element transformElem = CMLUtil.parseXML(transformXML);
 		Element testElement = CMLUtil.parseXML(inputXML);
-//		Element refElement = CMLUtil.parseXML(refXML);
+		TransformElement transformElement = new TransformElement(transformElem);
+		transformElement.applyMarkup(testElement);
+		JumboTestUtils.assertEqualsCanonically(message, refXML, testElement, true);
+	}
+	
+	private static void runTest1(String message, String transformXML, String inputXML, String refXML) {
+		Element transformElem = (Element) CMLUtil.parseXML(transformXML).query("./transform").get(0);
+		Element testElement = CMLUtil.parseXML(inputXML);
 		TransformElement transformElement = new TransformElement(transformElem);
 		transformElement.applyMarkup(testElement);
 		JumboTestUtils.assertEqualsCanonically(message, refXML, testElement, true);

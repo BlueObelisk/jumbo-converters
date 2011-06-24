@@ -5,21 +5,21 @@
     value="cc:frequencies"/>
   <transform process="addChild" xpath="//cml:property[cml:module[@cmlx:templateRef='l716.forcematrix']]"
     elementName="cml:table" id="l716.forcematrix"/>
-  <transform process="moveRelative" xpath="//cml:property[@dictRef='cc:frequencies']/cml:module/cml:array" toXpath="../../cml:table"/>
+  <transform process="moveRelative" xpath="//cml:property[@dictRef='cc:frequencies']/cml:module/cml:array" to="../../cml:table"/>
    
 <!--  tidy thermochemistry -->
   <transform process="addDictRef" xpath="//cml:property[cml:module[@cmlx:templateRef='l716.thermochemistry']]"
     value="cc:thermochemistry"/>
   <transform process="addChild" xpath="//cml:property[cml:module[@cmlx:templateRef='l716.thermochemistry']]"
     elementName="cml:list" id="l716.thermochemistry"/>
-  <transform process="moveRelative" xpath="//cml:property[@dictRef='cc:thermochemistry']/cml:module/cml:*" toXpath="../../cml:list"/>
+  <transform process="moveRelative" xpath="//cml:property[@dictRef='cc:thermochemistry']/cml:module/cml:*" to="../../cml:list"/>
    
 <!--  tidy zeropoint -->
   <transform process="addDictRef" xpath="//cml:property[cml:module[@cmlx:templateRef='l716.zeropoint']]"
     value="cc:zeropoint"/>
   <transform process="addChild" xpath="//cml:property[cml:module[@cmlx:templateRef='l716.zeropoint']]"
     elementName="cml:list" id="l716.zeropoint"/>
-  <transform process="moveRelative" xpath="//cml:property[@dictRef='cc:zeropoint']/cml:module/cml:scalar" toXpath="../../cml:list"/>
+  <transform process="moveRelative" xpath="//cml:property[@dictRef='cc:zeropoint']/cml:module/cml:scalar" to="../../cml:list"/>
    
 <!--  tidy displacements -->
 <!-- 
@@ -35,7 +35,7 @@
   <transform process="split" xpath="//cml:property[@dictRef='cc:vibrations']/cml:module/cml:array[@dictRef='cc:displacement']"
     rows="$number(../cml:array[@dictRef='cc:atomicNumber']/@size)"/>
   <transform process="copy" xpath="//cml:property[@dictRef='cc:vibrations']//cml:array[@dictRef='cc:displacement']"
-    toXpath="./ancestor::cml:module[@dictRef='cc:finalization']/cml:molecule[@id='mol9999']/cml:atomArray/cml:atom" />
+    to="./ancestor::cml:module[@dictRef='cc:finalization']/cml:molecule[@id='mol9999']/cml:atomArray/cml:atom" />
   <transform process="split" xpath=".//cml:array[@dictRef='cc:displacement']" cols="3"/>
   <transform process="delete" xpath=".//cml:property[@dictRef='cc:vibrations']/cml:*"/>
   <transform process="addChild" xpath=".//cml:property[@dictRef='cc:vibrations']" elementName="cml:scalar" dictRef="cc:linkToAtoms" 
@@ -47,7 +47,7 @@
   <transform process="addDictRef" xpath="//cml:property[cml:module[@cmlx:templateRef='l716.forces']]"
     value="cc:forces"/>
   <transform process="copy" xpath="//cml:property[@dictRef='cc:forces']//cml:array[@dictRef='cc:force']"
-    toXpath="./ancestor::cml:module[@dictRef='cc:finalization']/cml:molecule[@id='mol9999']/cml:atomArray/cml:atom"/>
+    to="./ancestor::cml:module[@dictRef='cc:finalization']/cml:molecule[@id='mol9999']/cml:atomArray/cml:atom"/>
   <transform process="delete" xpath=".//cml:property[.//@dictRef='cc:forces']/cml:*"/>
   <transform process="addChild" xpath=".//cml:property[@dictRef='cc:forces']" elementName="cml:scalar" dictRef="cc:linkToAtoms" 
     value="./ancestor::cml:module[@dictRef='cc:finalization']/cml:molecule[@id='mol9999']"/>

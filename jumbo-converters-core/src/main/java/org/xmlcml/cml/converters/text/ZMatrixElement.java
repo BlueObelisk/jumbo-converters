@@ -68,13 +68,20 @@ public class ZMatrixElement {
 			LOG.warn("Cannot create zmatrix");
 			return;
 		}
-		addAtom1(atom1, A1);
-		addAtom2(atom2, A2);
-		addAtom3(atom3, A3);
+		if (atom1 != null) {
+			addAtom1(atom1, A1);
+		}
+		if (atom2 != null) {
+			addAtom2(atom2, A2);
+		}
+		if (atom3 != null) {
+			addAtom3(atom3, A3);
+		}
 		for (int i = 0; i < atom4Nodes.size(); i++) {
 			atom4 = (Element)atom4Nodes.get(i);
-			int serial = i+4;
-			addAtom4(atom4, "a"+serial);
+			if (atom4 != null) {
+				addAtom4(atom4, "a"+(i+4));
+			}
 		}
 	}
 

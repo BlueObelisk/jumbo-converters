@@ -33,7 +33,7 @@ public class DictionaryContainer {
 
 	public DictionaryContainer(Element refElement) {
 		this.refElement = refElement;
-		CMLUtil.debug(this.refElement, "DICTIONARY");
+//		CMLUtil.debug(this.refElement, "DICTIONARY");
 		processChildElementsAndAttributes();
 	}
 
@@ -83,7 +83,7 @@ public class DictionaryContainer {
 			is = new URL(href).openStream();
 		} catch (Exception e) {
 			// not a URL
-			LOG.warn("Cannot open as URL: "+href);
+			LOG.trace("Cannot open as URL: "+href);
 		}
 		return is;
 	}

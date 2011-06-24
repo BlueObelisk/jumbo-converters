@@ -46,7 +46,7 @@
           from="./cml:list/cml:list/cml:scalar[contains(@dictRef,'.a.t') or contains(@dictRef,'.b.t') or contains(@dictRef,'.c.t')]" 
           />
       <!--  tidy serial and atom to toplevel -->
-      <transform process="move" toXpath="."
+      <transform process="move" to="."
           xpath=".//*[contains(@dictRef,':serial') or contains(@dictRef,':elementType') or contains(@dictRef,':isotop') or contains(@dictRef,':coupling')]" 
           />
       <transform process="pullupSingleton" xpath="./cml:list/cml:list"/>

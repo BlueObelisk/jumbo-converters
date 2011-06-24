@@ -1,7 +1,6 @@
 package org.xmlcml.cml.converters.compchem.gaussian.log;
 
 import java.io.File;
-
 import java.io.IOException;
 
 import nu.xom.Element;
@@ -38,20 +37,23 @@ public class GaussianLog2XMLConverter extends CompchemText2XMLTemplateConverter 
 			ConverterUtils.convertFilesInDirectory(converter, args[0], ".out", ".cml");
 		} else {
 			CompchemText2XMLTemplateConverter converter = new GaussianLog2XMLConverter();
-			convertFile(converter, "jobTest");
-			convertFile(converter, "anna0");
-			for (int i = 1; i < 4; i++) {
-				convertFile(converter, "anna"+i);
+//			convertFile(converter, "gtest", "test002");
+//			convertFile(converter, "in", "jobTest");
+//			convertFile(converter, "in", "anna0");
+			for (int i = 0; i < 10; i++) {
+////				convertFile(converter, "in", "anna"+i);
+				convertFile(converter, "gtest", "test00"+i);
 			}
 		}
 	}
 
-	private static void convertFile(CompchemText2XMLTemplateConverter converter, String fileRoot) {
-		File in = new File("src/test/resources/compchem/gaussian/log/in/"+fileRoot+".log");
+	private static void convertFile(CompchemText2XMLTemplateConverter converter, String dir, String fileRoot) {
+		File in = new File("src/test/resources/compchem/gaussian/log/"+dir+"/"+fileRoot+".log");
 		if (!in.exists()) {
 			LOG.warn("File does not exist: "+in);
 		} else {
-			File out = new File("test/"+fileRoot+".raw.xml");
+			File out = new File("test/"+dir+"/"+fileRoot+".raw.xml");
+			System.out.println("====== converting "+in+" ==========");
 			try {
 				converter.convert(in, out);
 			} catch (Exception e) {

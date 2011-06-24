@@ -22,101 +22,81 @@
   </comment>
   
   <record/>
-  <record id="chargemult">\s*Charge\s*={I,x:formalCharge}\s*Multiplicity\s*={I,x:multiplicity}</record>
-  <!-- serial numbers appear to be redundant -->
-  <!-- internals appear to be (a2, a1), (a3, a2, a1), (a4, a3, a2, a1) -->
-  <!--  no, I think they are relevant -->
-  <record id="atom1">\s*{A,cc:elementType}</record>
-  <record id="atom2">\s*{A,cc:elementType}{I,x:junk}{A,cc:name}</record>
-  <record id="atom3">\s*{A,cc:elementType}{I,x:junk}{A,cc:name}{I,x:junk}{A,cc:name}</record>
-  <record id="atom4" repeat="*">\s*{A,cc:elementType}{I,x:junk}{A,cc:name}{I,x:junk}{A,cc:name}{I,x:junk}{A,cc:name}{I,g:unknown}</record>
+  <record id="chargemult">\s*Charge\s*={I,x:formalCharge}\s*Multiplicity\s*={I,x:multiplicity}\s*</record>
+  <record id="atom1">\s*{A,cc:elementType}\s*</record>
+  <record id="atom2">\s*{A,cc:elementType}\s{I,x:junk}\s{A,cc:name}\s*</record>
+  <record id="atom3">\s*{A,cc:elementType}\s{I,x:junk}\s{A,cc:name}\s{I,x:junk}\s{A,cc:name}\s*</record>
+  <record id="atom4" repeat="*">\s*{A,cc:elementType}\s{I,x:junk}\s{A,cc:name}\s{I,x:junk}\s{A,cc:name}\s{I,x:junk}\s{A,cc:name}\s{I,g:unknown}\s*</record>
   <record/>
-  <record id="variable" repeat="*">\s*{A,x:name}{F,x:value}</record>
+  <record id="variable" repeat="*">\s*{A,x:name}\s{F,x:value}\s*</record>
 
-  <transform process="addMap" xpath="." id="variableMap"/>
-  <transform process="addLink" xpath="./cml:list[@cmlx:templateRef='variable']/cml:list" 
-    from="./cml:scalar[@dictRef='x:name']" toXpath="./cml:scalar[@dictRef='x:value']" 
-    value="value" map="./cml:map[@id='variableMap']"/>
+
+  <transform process="addMap" xpath="." id="variableMap"
+    from=".//cml:scalar[@dictRef='x:name']" 
+    to=".//cml:scalar[@dictRef='x:value']"/>
   <transform process="delete" xpath="./cml:list[@cmlx:templateRef='variable']"/>
-  <transform process="pullup" xpath=".//cml:list[@cmlx:templateRef='atom2' or @cmlx:templateRef='atom3']//cml:scalar"/>
-  <transform process="addAttribute" xpath=".//cml:list[@cmlx:templateRef='atom4']//cml:list" 
-      name="cmlx:templateRef" value="atom4"/>
-  <transform process="pullup" xpath=".//cml:list[@cmlx:templateRef='atom4']//cml:list"/>
-  <transform process="pullup" xpath=".//cml:list[@cmlx:templateRef='chargemult']//cml:scalar" repeat="2"/>
-  <transform process="createZMatrix" xpath="." value="implicit321"/>
-  <transform process="move" xpath=".//cml:map" toXpath="../cml:molecule/cml:zMatrix"/>
-  <transform process="addAttribute" xpath="../cml:molecule" name="spinMultiplicity" value="$number(.//cml:scalar[@dictRef='x:multiplicity'])"/>
-  <transform process="addAttribute" xpath="../cml:molecule" name="formalCharge" value="$number(.//cml:scalar[@dictRef='x:formalCharge'])"/>
-  <transform process="delete" xpath="."/>
+  
+  <transform process="createAtom" xpath=".//cml:scalar[@dictRef='cc:elementType']" />
+  
+  <transform process="setValue" 
+    xpath=".//cml:list/cml:scalar[2] |
+           .//cml:list/cml:scalar[4] |
+           .//cml:list/cml:scalar[6]"
+     map="//cml:map[@id='variableMap']" value="$string(.)"/>
+
+  <transform process="createLength" xpath=".//cml:list/cml:list[cml:atom]" 
+    atomRefs="$string(cml:scalar[1]) $string(cml:atom/@id)" value="$string(cml:scalar[2])"/>
+  <transform process="createAngle" xpath=".//cml:list/cml:list[cml:atom]" 
+    atomRefs="$string(cml:scalar[3]) $string(cml:scalar[1]) $string(cml:atom/@id)" value="$string(cml:scalar[4])"/>
+  <transform process="createTorsion" xpath=".//cml:list/cml:list[cml:atom]" 
+    atomRefs="$string(cml:scalar[5]) $string(cml:scalar[3]) $string(cml:scalar[1]) $string(cml:atom/@id)" value="$string(cml:scalar[6])"/>
+
+<!-- 
+  <transform process="addAttribute" xpath=".//cml:length[@atomRefs2='a1 a2']" name="atomRefs2" value="a2 a1"/>
+-->
+
+<!-- 
+  <transform process="debugNodes" xpath="." />
+-->    
+  <transform process="createZMatrix" xpath="." id="zinitial"/>
+  <transform process="addAttribute" xpath=".//cml:molecule" name="spinMultiplicity" 
+     value="$string(..//cml:scalar[@dictRef='x:multiplicity'])"/>
+  <transform process="addAttribute" xpath=".//cml:molecule" name="formalCharge"
+     value="$string(..//cml:scalar[@dictRef='x:formalCharge'])"/>
+
+  <transform process="delete" xpath="./cml:list"/>
   
   <comment class="example.output" id="l101.zmatvariables">
     <module cmlx:templateRef="l101.zmatvariables" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <scalar dataType="xsd:integer" dictRef="x:formalCharge">0</scalar>
-      <scalar dataType="xsd:integer" dictRef="x:multiplicity">1</scalar>
-      <list cmlx:templateRef="atom1">
-        <scalar dataType="xsd:string" dictRef="cc:elementType">C</scalar>
-      </list>
-      <list cmlx:templateRef="atom2">
-        <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
-        <scalar dataType="xsd:integer" dictRef="x:junk">1</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:name">B1</scalar>
-      </list>
-      <list cmlx:templateRef="atom3">
-        <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
-        <scalar dataType="xsd:integer" dictRef="x:junk">1</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:name">B2</scalar>
-        <scalar dataType="xsd:integer" dictRef="x:junk">2</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:name">A1</scalar>
-      </list>
-      <list cmlx:templateRef="atom4">
-        <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
-        <scalar dataType="xsd:integer" dictRef="x:junk">1</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:name">B3</scalar>
-        <scalar dataType="xsd:integer" dictRef="x:junk">2</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:name">A2</scalar>
-        <scalar dataType="xsd:integer" dictRef="x:junk">3</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:name">D1</scalar>
-        <scalar dataType="xsd:integer" dictRef="g:unknown">0</scalar>
-      </list>
-      <list cmlx:templateRef="atom4">
-        <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
-        <scalar dataType="xsd:integer" dictRef="x:junk">1</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:name">B4</scalar>
-        <scalar dataType="xsd:integer" dictRef="x:junk">2</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:name">A3</scalar>
-        <scalar dataType="xsd:integer" dictRef="x:junk">3</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:name">D2</scalar>
-        <scalar dataType="xsd:integer" dictRef="g:unknown">0</scalar>
-      </list>
       <map id="variableMap">
-        <link to="1.113" from="B1"/>
-        <link to="1.113" from="B2"/>
-        <link to="1.113" from="B3"/>
-        <link to="1.113" from="B4"/>
-        <link to="109.47124" from="A1"/>
-        <link to="109.47119" from="A2"/>
-        <link to="120.0" from="D1"/>
-        <link to="109.47123" from="A3"/>
-        <link to="-120.0" from="D2"/>
+        <link from="B1" to="1.113"/>
+        <link from="B2" to="1.113"/>
+        <link from="B3" to="1.113"/>
+        <link from="B4" to="1.113"/>
+        <link from="A1" to="109.47124"/>
+        <link from="A2" to="109.47119"/>
+        <link from="D1" to="120.0"/>
+        <link from="A3" to="109.47123"/>
+        <link from="D2" to="-120.0"/>
       </map>
-      <molecule>
+      <molecule id="zinitial" spinMultiplicity="1" formalCharge="0">
         <zMatrix>
-          <length atomRefs2="a1 a2" title="B1"/>
-          <length atomRefs2="a1 a3" title="B2"/>
-          <angle atomRefs3="a2 a1 a3" title="A1"/>
-          <length atomRefs2="a1 a4" title="B3"/>
-          <angle atomRefs3="a2 a1 a4" title="A2"/>
-          <torsion atomRefs4="a3 a2 a1 a4" title="D1"/>
-          <length atomRefs2="a1 a5" title="B4"/>
-          <angle atomRefs3="a2 a1 a5" title="A3"/>
-          <torsion atomRefs4="a3 a2 a1 a5" title="D2"/>
+          <length atomRefs2="a1 a2">1.113</length>
+          <length atomRefs2="a1 a3">1.113</length>
+          <angle atomRefs3="a2 a1 a3">109.47124</angle>
+          <length atomRefs2="a1 a4">1.113</length>
+          <angle atomRefs3="a2 a1 a4">109.47119</angle>
+          <torsion atomRefs4="a3 a2 a1 a4">120.0</torsion>
+          <length atomRefs2="a1 a5">1.113</length>
+          <angle atomRefs3="a2 a1 a5">109.47123</angle>
+          <torsion atomRefs4="a3 a2 a1 a5">-120.0</torsion>
         </zMatrix>
         <atomArray>
-          <atom id="a1" elementType="C"/>
-          <atom id="a2" elementType="H"/>
-          <atom id="a3" elementType="H"/>
-          <atom id="a4" elementType="H"/>
-          <atom id="a5" elementType="H"/>
+          <atom elementType="C" id="a1" x3="1.113" y3="0.0" z3="0.0"/>
+          <atom elementType="H" id="a2" x3="0.0" y3="0.0" z3="0.0"/>
+          <atom elementType="H" id="a3" x3="1.4840003546705822" y3="1.0493463378857821" z3="0.0"/>
+          <atom elementType="H" id="a4" x3="1.4839994389430116" y3="-0.524673330822134" z3="0.9087608663603304"/>
+          <atom elementType="H" id="a5" x3="1.484000171525091" y3="-0.5246732013187714" z3="-0.9087606420539267"/>
         </atomArray>
       </molecule>
     </module>

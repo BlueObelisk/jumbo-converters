@@ -22,7 +22,7 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
   <transform process="addId"  
     xpath=".//cml:scalar[@dictRef='mdl:s_user_reactioncentre']" value="a$string(.)"/> 
   <transform process="moveRelative" xpath=".//cml:scalar[@dictRef='mdl:s_user_reactioncentre']" 
-    toXpath="//cml:atom[@id='$string(./@id)']"/>
+    to="//cml:atom[@id='$string(./@id)']"/>
   <transform process="delete" xpath=".//cml:atom/cml:scalar/@id"/> 
   <transform process="setDataType" xpath=".//cml:atom/cml:scalar" value="xsd:string"/> 
   <transform process="createWrapperProperty" xpath=".//cml:atom/cml:scalar"/> 

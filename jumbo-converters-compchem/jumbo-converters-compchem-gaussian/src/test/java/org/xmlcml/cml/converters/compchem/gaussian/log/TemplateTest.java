@@ -24,7 +24,8 @@ public class TemplateTest {
 	private static final String TEST_DIR = "src/test/resources/compchem/"+CODE_BASE+"/"+FILE_TYPE+"/";
 	private static final String TEMPLATE_DIR = LOG_DIR+"templates/";
 	static String INPUT_TEMPLATE_S = LOG_DIR+"topTemplate.xml";
-	static String BASE_URI = "classpath:/"+LOG_DIR;
+//	static String BASE_URI = "classpath:/"+LOG_DIR;
+	static String BASE_URI = "classpath:/"+TEMPLATE_DIR;
 	static Class<?> TEMPLATE_TEST_CLASS = org.xmlcml.cml.converters.compchem.gaussian.log.TemplateTest.class;
 	
 	@Test
@@ -33,6 +34,8 @@ public class TemplateTest {
 		TemplateTestUtils.runCommentExamples(INPUT_TEMPLATE_S, BASE_URI);
 	}
 
+	
+	@Test	public void testl0Entering()                  {runTemplateTest("l0.entering");}
 	
 	@Test	public void testl1Control()                  {runTemplateTest("l1.control");}
 	@Test	public void testl1Keywords()                 {runTemplateTest("l1.keywords");}
@@ -63,8 +66,12 @@ public class TemplateTest {
 	@Test	public void testl202Stoichiometry()          {runTemplateTest("l202.stoich");}
 	
 	@Test	public void testl301Basis()                  {runTemplateTest("l301.basis");}
+	@Test	public void testl302Basis()                  {runTemplateTest("l302.basis");}
+	@Test	public void testl302aBasis()                 {runTemplateTest("l302a.basis");}
 	
 	@Ignore @Test	public void testl401OrbsymTRAIL()                 {runTemplateTest("l401.orbsym");}
+	
+	@Test   public void testl502Footer()                 {runTemplateTest("l502.footer");}
 	
 	@Test 	public void testl601Alphabeta()              {runTemplateTest("l601.alphabetaeigen");}
 	@Test   public void testl601Anisospin()              {runTemplateTest("l601.anisospin");}
@@ -103,11 +110,15 @@ public class TemplateTest {
 
 	@Test	public void testl801Zeropoint()              {runTemplateTest("l801");}
 
+//	@Test	public void testl9999ArchiveFORMULA()               {runTemplateTest("l9999.archive");}
 	@Test	public void testl9999Final()                 {runTemplateTest("l9999.final");}
+	@Test	public void testl9999Notarchived()           {runTemplateTest("l9999.notarchived");}
+	@Test	public void testl9999Punched()               {runTemplateTest("l9999.punched");}
 	
 	@Test	public void testJobcpu()                     {runTemplateTest("jobcpu");}
 
 	// XInclude doesn't work here
+	@Ignore @Test	public void testl9999ArchiveINCLUDE()               {runTemplateTest("l9999.archive");}
 	@Ignore @Test	public void testl103INCLUDE()                       {runTemplateTest("l103.");}
 	@Ignore @Test	public void testl103PreddeltaINCLUDE()              {runTemplateTest("l103.preddelta");}
 	@Ignore @Test	public void testl401AlphabetaINCLUDE()              {runTemplateTest("l401.alphabeta");}

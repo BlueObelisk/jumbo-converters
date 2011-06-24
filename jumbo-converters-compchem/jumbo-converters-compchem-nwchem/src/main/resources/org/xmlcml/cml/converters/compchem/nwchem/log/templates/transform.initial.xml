@@ -13,13 +13,13 @@
   
   <transform process="move" 
     xpath=".//cml:module[@cmlx:templateRef='geninfo']/cml:scalar[starts-with(@dictRef,'cc:')]" 
-    toXpath=".//cml:module[@id='initialization']/cml:parameterList"/> 
+    to=".//cml:module[@id='initialization']/cml:parameterList"/> 
   <transform process="createWrapperParameter" 
      xpath="//cml:module[@id='initialization']/cml:parameterList/*" />
 
   <!--  and molecule -->  
     <transform process="move" xpath=".//cml:molecule[@id='molgeom']" 
-        toXpath=".//cml:module[@id='initialization']"/> 
+        to=".//cml:module[@id='initialization']"/> 
 
   <!--  tidy rest -->
   <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='foobar']"/>
@@ -41,7 +41,7 @@
     or @cmlx:templateRef='superposatomguess' 
     or @cmlx:templateRef='xcinfo' 
     ]" 
-     toXpath="//cml:module[@id='initialization.userDefined']"/>
+     to="//cml:module[@id='initialization.userDefined']"/>
 
      
 </transformList>
