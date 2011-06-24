@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template id="entering"  pattern="\s*Entering Gaussian System.*Link\s*0=.*"  
+  endPattern=".*Initial command\:.*$.*" endOffset="2">
+  
+  <comment class="example.input" id="entering">
+ Entering Gaussian System, Link 0=/usr/local/gaussian/g03/g03
+ Initial command:
+ /usr/local/gaussian/g03/l1.exe /tmp/webmo/1/Gau-28330.inp -scrdir=/tmp/webmo/1/
+  </comment>
+ 
+ <record id="enter">\s*Entering Gaussian System,\s*Link 0={X,g:link0}\s*</record>
+ <record/>
+ <record id="command">{1_5A,g:command}</record>
+ 
+ <transform process="pullup" xpath=".//cml:scalar | .//cml:array"/>
+  
+  <comment class="example.output" id="entering">
+    <module cmlx:templateRef="entering" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="g:link0">/usr/local/gaussian/g03/g03</scalar>
+      <array dataType="xsd:string" size="3" dictRef="g:command">/usr/local/gaussian/g03/l1.exe /tmp/webmo/1/Gau-28330.inp -scrdir=/tmp/webmo/1/</array>
+    </module>
+  </comment>
+</template>

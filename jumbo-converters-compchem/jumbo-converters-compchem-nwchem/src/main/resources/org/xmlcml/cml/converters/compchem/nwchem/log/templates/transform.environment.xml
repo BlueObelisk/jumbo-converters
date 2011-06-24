@@ -16,10 +16,10 @@
      value="compchem:package"/>
   <transform process="setValue" xpath=".//cml:scalar[@dictRef='compchem:package']" value="NWChem"/>
   
-  <transform process="move" xpath="./cml:module[@cmlx:templateRef='job']/*[starts-with(@dictRef,'compchem:')]" toXpath="//cml:module[@id='environment']/cml:parameterList"/>
+  <transform process="move" xpath="./cml:module[@cmlx:templateRef='job']/*[starts-with(@dictRef,'compchem:')]" to="//cml:module[@id='environment']/cml:parameterList"/>
   
   <transform process="move" xpath="//*[@dictRef='compchem:title'][1]" 
-      toXpath="//cml:module[@id='environment']/cml:parameterList"/>
+      to="//cml:module[@id='environment']/cml:parameterList"/>
   <transform process="createWrapperParameter" xpath="//cml:module[@id='environment']/cml:parameterList/*" />
   <!--  tidy rest -->
   <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='acknow']"/>
@@ -34,6 +34,6 @@
     or @cmlx:templateRef='nccp' 
     or @cmlx:templateRef='scaling'
     ]" 
-     toXpath="//cml:module[@id='environment.userDefined']"/>
+     to="//cml:module[@id='environment.userDefined']"/>
      
 </transformList>  

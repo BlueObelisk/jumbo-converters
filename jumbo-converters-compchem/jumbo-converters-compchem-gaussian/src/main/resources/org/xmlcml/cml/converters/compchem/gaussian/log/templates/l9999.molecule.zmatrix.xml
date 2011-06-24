@@ -1,0 +1,43 @@
+<transformList>
+  
+  <transform process="addChild" xpath=".//cml:module[@id='moleculeRoot']"
+    elementName="cml:list" id="atom1" position="0"/>
+
+  <transform process="move" xpath=".//cml:list[@dictRef='cc:molecule']/cml:scalar"
+    to=".//cml:module[@id='moleculeRoot']/cml:list[@id='atom1']"/>
+
+  <transform process="move" xpath=".//cml:list[@dictRef='g:archive.namevalue']"
+    to=".//cml:module[@id='moleculeRoot']" />
+  <transform process="createNameValue" regex="\s*(.*)\s*=\s*(.*)\s*" 
+    xpath=".//cml:list[@dictRef='g:archive.namevalue']/cml:scalar"/>
+  <transform process="setValue" xpath=".//cml:list[@dictRef='g:archive.namevalue']/cml:scalar/@dictRef" value="$substring(.,2)" />
+  <transform process="addMap" xpath=".//cml:module[@id='moleculeRoot']" 
+    from=".//cml:list[@dictRef='g:archive.namevalue']/cml:scalar/@dictRef" 
+    to=".//cml:list[@dictRef='g:archive.namevalue']/cml:scalar" id="symbols"/>
+    
+  <transform process="delete" xpath=".//cml:list[@dictRef='g:archive.namevalue']/cml:scalar" />
+  
+  <transform process="createAtom" xpath=".//cml:module[@id='moleculeRoot']/cml:list/cml:scalar[1]" />
+  <transform process="setValue" 
+    xpath=".//cml:module[@id='moleculeRoot']/cml:list/cml:scalar[2] |
+           .//cml:module[@id='moleculeRoot']/cml:list/cml:scalar[4] |
+           .//cml:module[@id='moleculeRoot']/cml:list/cml:scalar[6]"
+     map="//cml:map[@id='symbols']" value="$string(.)"/>
+
+  <transform process="createLength" xpath=".//cml:module[@id='moleculeRoot']/cml:list" 
+    atomRefs="$string(cml:scalar[1]) $string(cml:atom/@id)" value="$string(cml:scalar[2])"/>
+  <transform process="addAttribute" xpath=".//cml:length[1]" name="atomRefs2" value="a2 a1"/>
+  <transform process="createAngle" xpath=".//cml:module[@id='moleculeRoot']/cml:list" 
+    atomRefs="$string(cml:scalar[3]) $string(cml:scalar[1]) $string(cml:atom/@id)" value="$string(cml:scalar[4])"/>
+  <transform process="createTorsion" xpath=".//cml:module[@id='moleculeRoot']/cml:list" 
+    atomRefs="$string(cml:scalar[5]) $string(cml:scalar[3]) $string(cml:scalar[1]) $string(cml:atom/@id)" value="$string(cml:scalar[6])"/>
+    
+  <transform process="createZMatrix" xpath=".//cml:module[@id='moleculeRoot']" id="zfinal"/>
+
+  <transform process="delete" xpath=".//cml:module[@id='moleculeRoot']/cml:list | .//cml:module[@id='moleculeRoot']/cml:map"/>
+  <!-- 
+  <transform process="debugNodes" xpath=".//cml:module[@id='moleculeRoot']" />
+-->
+  
+
+</transformList>

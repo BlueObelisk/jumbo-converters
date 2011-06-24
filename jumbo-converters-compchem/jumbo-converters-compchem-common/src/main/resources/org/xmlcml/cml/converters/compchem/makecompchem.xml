@@ -24,11 +24,11 @@
 
   <!--  wrap scalars and arrays -->
   <transform process="addChild" xpath="." elementName="cml:parameterList"/>
-  <transform process="move" xpath=".//cml:parameter" toXpath="./cml:parameterList"/>
+  <transform process="move" xpath=".//cml:parameter" to="./cml:parameterList"/>
   <transform process="addChild" xpath="." elementName="cml:propertyList"/>
-  <transform process="move" xpath=".//cml:property" toXpath="./cml:propertyList"/>
+  <transform process="move" xpath=".//cml:property" to="./cml:propertyList"/>
   <transform process="addChild" xpath="." elementName="cml:metadataList"/>
-  <transform process="move" xpath=".//cml:metadata" toXpath="./cml:metadataList"/>
+  <transform process="move" xpath=".//cml:metadata" to="./cml:metadataList"/>
 
   <!-- manage conventions -->  
   <transform process="addAttribute" xpath="./cml:molecule" name="convention" value="convention:molecular"/>
@@ -45,16 +45,16 @@
   <transform process="createWrapper" elementName="cml:module" xpath="/*" id="jobList"/>
   <!--  initialization -->
   <transform process="addChild" elementName="cml:module" xpath="//cml:module[@id='job']" id="initialization"/>
-  <transform process="move" xpath=".//cml:parameterList" toXpath="//cml:module[@id='initialization']"/>
+  <transform process="move" xpath=".//cml:parameterList" to="//cml:module[@id='initialization']"/>
   <transform process="addDictRef" xpath="//cml:module[@id='initialization']" value="compchem:initialization"/>
   <!--  environment -->
   <transform process="addChild" elementName="cml:module" xpath="//cml:module[@id='job']" id="environment"/>
-  <transform process="move" xpath=".//cml:metadataList" toXpath="//cml:module[@id='environment']"/>
+  <transform process="move" xpath=".//cml:metadataList" to="//cml:module[@id='environment']"/>
   <transform process="addDictRef" xpath="//cml:module[@id='environment']" value="compchem:environment"/>
   <!--  calculation -->
   <transform process="addChild" elementName="cml:module" xpath="//cml:module[@id='job']" id="calculation"/>
   <transform process="addDictRef" xpath="//cml:module[@id='calculation']" value="compchem:calculation"/>
-  <transform process="move" xpath="//cml:module[@dictRef='compchem:finalization']" toXpath="//cml:module[@id='job']"/>
+  <transform process="move" xpath="//cml:module[@dictRef='compchem:finalization']" to="//cml:module[@id='job']"/>
   <!--  add namespaces -->  
   <transform process="addNamespace" xpath="/*" name="cc" value="http://www.xml-cml.org/dictionary/compchem/"/>
   <transform process="addNamespace" xpath="/*" name="g" value="http://www.xml-cml.org/dictionary/gaussian/"/>

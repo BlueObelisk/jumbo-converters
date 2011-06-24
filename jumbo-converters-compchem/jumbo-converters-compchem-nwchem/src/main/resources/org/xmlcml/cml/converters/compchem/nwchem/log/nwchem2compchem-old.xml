@@ -44,8 +44,8 @@
 -->
 <!-- process fukui -->
  <transform process="addChild" xpath=".//*[@dictRef='compchem:finalization']" elementName="cml:module" id="fukui"/>
- <transform process="move" xpath=".//cml:module[@id='fukui']" toXpath=".//*[@dictRef='compchem:finalization']"/>
- <transform process="move" xpath=".//cml:list[@cmlx:templateRef='fukuilite']" toXpath=".//*[@id='fukui']"/>
+ <transform process="move" xpath=".//cml:module[@id='fukui']" to=".//*[@dictRef='compchem:finalization']"/>
+ <transform process="move" xpath=".//cml:list[@cmlx:templateRef='fukuilite']" to=".//*[@id='fukui']"/>
  <transform process="addDictRef" xpath=".//cml:list[@cmlx:templateRef='fukuilite'][1]" value="cc:fukui.nn+"/>
  <transform process="addDictRef" xpath=".//cml:list[@cmlx:templateRef='fukuilite'][2]" value="cc:fukui.nn-"/>
  <transform process="addDictRef" xpath=".//cml:list[@cmlx:templateRef='fukuilite'][3]" value="cc:fukui.sn+"/>
@@ -57,28 +57,28 @@
 
       
   <transform process="addChild" elementName="cml:parameterList" xpath="./*[@dictRef='compchem:initialization']" id="initialParams"/>
-  <transform process="move" xpath=".//*[@dictRef='compchem:date'][1]"     toXpath=".//*[@id='initialParams']"/>
-  <transform process="move" xpath=".//*[@dictRef='compchem:program'][1]"  toXpath=".//*[@id='initialParams']"/>
-  <transform process="move" xpath=".//*[@dictRef='compchem:version'][1]"  toXpath=".//*[@id='initialParams']"/>
-  <transform process="move" xpath=".//*[@dictRef='compchem:hostname'][1]" toXpath=".//*[@id='initialParams']"/>
+  <transform process="move" xpath=".//*[@dictRef='compchem:date'][1]"     to=".//*[@id='initialParams']"/>
+  <transform process="move" xpath=".//*[@dictRef='compchem:program'][1]"  to=".//*[@id='initialParams']"/>
+  <transform process="move" xpath=".//*[@dictRef='compchem:version'][1]"  to=".//*[@id='initialParams']"/>
+  <transform process="move" xpath=".//*[@dictRef='compchem:hostname'][1]" to=".//*[@id='initialParams']"/>
   <transform process="wrapPropertiesAndParameters" xpath=".//*[@id='initialParams']"/>
   
   <transform process="addChild" elementName="cml:propertyList" xpath="./*[@dictRef='compchem:finalization']" id="finalProperties"/>
-  <transform process="move" xpath=".//*[@dictRef='compchem:nuclearEnergy'][1]" toXpath=".//*[@id='finalProperties']"/>
-  <transform process="move" xpath=".//*[@dictRef='compchem:nuclearDipole'][1]" toXpath=".//*[@id='finalProperties']"/>
+  <transform process="move" xpath=".//*[@dictRef='compchem:nuclearEnergy'][1]" to=".//*[@id='finalProperties']"/>
+  <transform process="move" xpath=".//*[@dictRef='compchem:nuclearDipole'][1]" to=".//*[@id='finalProperties']"/>
   <transform process="wrapPropertiesAndParameters" xpath=".//*[@id='finalProperties']"/>
 
   <transform process="createMolecule" id="molecule.geom" 
     xpath=".//cml:list[@*[local-name()='templateRef' and .='geom']]/cml:array"/>    
-  <transform process="move" xpath=".//*[@*[local-name()='templateRef' and .='input']]//*[local-name()='molecule']" toXpath="./*[@dictRef='compchem:initialization']"/>
+  <transform process="move" xpath=".//*[@*[local-name()='templateRef' and .='input']]//*[local-name()='molecule']" to="./*[@dictRef='compchem:initialization']"/>
 
  <transform process="copy" xpath="//cml:molecule" 
-     toXpath="//cml:module[@dictRef='compchem:finalization']" id="molgeom.copy"/>
- <transform process="copy" xpath="//cml:list[@cmlx:templateRef='fukuilite']/cml:array[@dictRef='g:fukui']" toXpath="//cml:molecule[@id='molgeom.copy']"/>
+     to="//cml:module[@dictRef='compchem:finalization']" id="molgeom.copy"/>
+ <transform process="copy" xpath="//cml:list[@cmlx:templateRef='fukuilite']/cml:array[@dictRef='g:fukui']" to="//cml:molecule[@id='molgeom.copy']"/>
  <transform process="split" xpath="//cml:molecule[@id='molgeom.copy']/cml:array[@dictRef='g:fukui']"/>
-<!--   <transform process="copy" xpath="//cml:molecule[@id='molgeom.copy']/cml:list[1]/cml:scalar" toXpath="//cml:molecule[@id='molgeom.copy']//cml:atom"/>
+<!--   <transform process="copy" xpath="//cml:molecule[@id='molgeom.copy']/cml:list[1]/cml:scalar" to="//cml:molecule[@id='molgeom.copy']//cml:atom"/>
  -->
- <transform process="copy" xpath="//*[@id='molgeom.copy']" toXpath="//cml:molecule[@id='molgeom.copy']//cml:atom"/>
+ <transform process="copy" xpath="//*[@id='molgeom.copy']" to="//cml:molecule[@id='molgeom.copy']//cml:atom"/>
  
   <!--  delete empty scalars -->
 

@@ -26,10 +26,10 @@
   <record id="variables">\s*Variables:\s*</record>
   <record id="map" repeat="*">\s*{A,g:name}\s*=\s*{F,g:value}</record>
   
-  <transform process="addMap" xpath="." id="variableMap"/>
-  <transform process="addLink" xpath="./cml:list[@cmlx:templateRef='map']/cml:list" 
-    from="./cml:scalar[@dictRef='g:name']" toXpath="./cml:scalar[@dictRef='g:value']" 
-    value="value" map="./cml:map"/>
+  <transform process="addMap" xpath="." id="variableMap"
+  from="./cml:list[@cmlx:templateRef='map']/cml:list/cml:scalar[@dictRef='g:name']"
+  to="./cml:list[@cmlx:templateRef='map']/cml:list/cml:scalar[@dictRef='g:value']" />
+  
   <transform process="delete" xpath="./cml:list[@cmlx:templateRef='map']"/>
   
   <comment class="example.output" id="l9999.final">

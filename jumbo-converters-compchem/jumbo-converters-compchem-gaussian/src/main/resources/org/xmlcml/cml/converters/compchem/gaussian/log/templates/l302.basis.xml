@@ -1,5 +1,5 @@
 <template id="l302.basis" name="basis" repeat="*"
-    pattern="\s*One\-electron integrals.*" endPattern=".*">
+    pattern="\s*NPDir=0.*" endPattern="\s*NBsUse=.*" endOffset="1">
     
   <comment class="example.input" id="l302.basis">
  NPDir=0 NMtPBC=     1 NCelOv=     1 NCel=       1 NClECP=     1 NCelD=      1
@@ -7,14 +7,40 @@
  One-electron integrals computed using PRISM.
  NBasis=   202 RedAO= T  NBF=   202
  NBsUse=   202 1.00D-06 NBFU=   202
- Precomputing XC quadrature grid using
- IXCGrd= 2 IRadAn=           0 IRanWt=          -1 IRanGd=           0.
- NRdTot=     965 NPtTot=      122250 NUsed=      129066 NTot=      129098
- NSgBfM=   209   209   209   209.
-  </comment>
-  <record id="onee">\s* {X,g:onee} computed using PRISM\.</record> 
-  
-  <comment class="example.output.raw" id="l302.basis">
  </comment>
+ 
+  <comment class="example.input" id="l302.basis.1">
+ NPDir=0 NMtPBC=     1 NCelOv=     1 NCel=       1 NClECP=     1 NCelD=      1
+         NCelK=      1 NCelE2=     1 NClLst=     1 CellRange=     0.0.
+ One-electron integrals computed using PRISM.
+ NBasis=    19 RedAO= T  NBF=    10     1     3     5
+ NBsUse=    19 1.00D-06 NBFU=    10     1     3     5
+  </comment>
+  
+  <record id="basis" repeat="*">\s*{1_20A,g:basis}\s*</record> 
+  
+  <comment class="example.output" id="l302.basis">
+    <module cmlx:templateRef="l302.basis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="basis">
+        <array dataType="xsd:string" size="11" dictRef="g:basis">NPDir=0 NMtPBC= 1 NCelOv= 1 NCel= 1 NClECP= 1 NCelD= 1</array>
+        <array dataType="xsd:string" size="8" dictRef="g:basis">NCelK= 1 NCelE2= 1 NClLst= 1 CellRange= 0.0.</array>
+        <array dataType="xsd:string" size="5" dictRef="g:basis">One-electron integrals computed using PRISM.</array>
+        <array dataType="xsd:string" size="6" dictRef="g:basis">NBasis= 202 RedAO= T NBF= 202</array>
+        <array dataType="xsd:string" size="5" dictRef="g:basis">NBsUse= 202 1.00D-06 NBFU= 202</array>
+      </list>
+    </module>
+  </comment>
+  
+  <comment class="example.output" id="l302.basis.1">
+    <module cmlx:templateRef="l302.basis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="basis">
+        <array dataType="xsd:string" size="11" dictRef="g:basis">NPDir=0 NMtPBC= 1 NCelOv= 1 NCel= 1 NClECP= 1 NCelD= 1</array>
+        <array dataType="xsd:string" size="8" dictRef="g:basis">NCelK= 1 NCelE2= 1 NClLst= 1 CellRange= 0.0.</array>
+        <array dataType="xsd:string" size="5" dictRef="g:basis">One-electron integrals computed using PRISM.</array>
+        <array dataType="xsd:string" size="9" dictRef="g:basis">NBasis= 19 RedAO= T NBF= 10 1 3 5</array>
+        <array dataType="xsd:string" size="8" dictRef="g:basis">NBsUse= 19 1.00D-06 NBFU= 10 1 3 5</array>
+      </list>
+    </module>
+  </comment>
 </template>
  

@@ -8,7 +8,7 @@
 
   <transform process="addDictRef" xpath="./cml:module[@cmlx:templateRef='job']" value="cc:job" />
   <transform process="addAttribute" xpath="./cml:module[@cmlx:templateRef='job']" name="id" value="job" />
-  <transform process="move" xpath=".//cml:module[@dictRef='cc:job']" toXpath=".//cml:module[@dictRef='cc:jobList']" />
+  <transform process="move" xpath=".//cml:module[@dictRef='cc:job']" to=".//cml:module[@dictRef='cc:jobList']" />
 
   <xi:include href="transform.preclean.xml"/>
   
@@ -17,17 +17,16 @@
   <xi:include href="transform.calculation.xml"/>
   <xi:include href="transform.final.xml"/>
 
-
   <!-- move remaining modules to calculation -->
   
-  <transform process="move" xpath="/cml:module/cml:module[not(@id='jobList1')]" toXpath="//cml:module[@id='calculation']"/> 
+  <transform process="move" xpath="/cml:module/cml:module[not(@id='jobList1')]" to="//cml:module[@id='calculation']"/> 
 
 <!--  group calculation modules --> 
 
   <transform process="addSibling" xpath="./cml:module[@id='calculation']/cml:module[@cmlx:templateRef='l202.rotconst']" 
       elementName="cml:module" id="l202.group" position="1"/> 
   <transform process="groupSiblings" xpath=".//cml:module[@id='l202.group']" /> 
-  <transform process="move" xpath=".//cml:module[@id='l202.group']" toXpath="/cml:module/cml:module[@id='calculation']"/> 
+  <transform process="move" xpath=".//cml:module[@id='l202.group']" to="/cml:module/cml:module[@id='calculation']"/> 
 
   <transform process="addDictRef" xpath=".//cml:module[@id='calculation']/cml:module" value="cc:userDefinedModule" />
 
