@@ -1,0 +1,68 @@
+<template id="l716.forcematrix" name="Full mass-weighted force constant matrix" 
+    repeat="*"
+    pattern="\s*Full mass-weighted force constant matrix:.*" 
+    endPattern="\s*" endOffset="1"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    >
+    
+  <comment class="example.input" id="1716.forcematrix">
+ Full mass-weighted force constant matrix:
+ Low frequencies ---    0.0018    0.0024    0.0026    6.3218    7.5564   17.5412
+ Low frequencies ---   55.1764   72.8335  137.6925
+ Diagonal vibrational polarizability:
+       26.5910881       4.6882388       9.8373439
+ Harmonic frequencies (cm**-1), IR intensities (KM/Mole), Raman scattering
+ activities (A**4/AMU), depolarization ratios for plane and unpolarized
+ incident light, reduced masses (AMU), force constants (mDyne/A),
+ and normal coordinates:
+                     1                      2                      3
+                     A                      A                      A
+ Frequencies --    55.1630                72.8261               137.6920
+ Red. masses --    18.1478                 5.0229                13.6980
+ Frc consts  --     0.0325                 0.0157                 0.1530
+ IR Inten    --     2.0482                 0.8181                 0.0187
+ Atom AN      X      Y      Z        X      Y      Z        X      Y      Z
+   1   6     0.06   0.00  -0.26     0.00   0.17   0.00     0.13   0.00   0.17
+   2   6     0.07   0.00  -0.26     0.13   0.13   0.17     0.14  -0.01   0.22
+  13  17    -0.49   0.00   0.17     0.00  -0.18   0.00    -0.32   0.00  -0.32
+                    31                     32                     33
+                     A                      A                      A
+ Frequencies --  3208.5029              3209.2965              3220.1871
+ Red. masses --     1.0935                 1.0954                 1.0956
+ Frc consts  --     6.6327                 6.6474                 6.6938
+ IR Inten    --     0.0967                 1.3255                 6.8401
+ Atom AN      X      Y      Z        X      Y      Z        X      Y      Z
+   1   6    -0.03   0.00   0.02     0.00   0.00   0.00    -0.07   0.00   0.04
+   2   6     0.01  -0.02  -0.01    -0.02   0.03   0.01    -0.01   0.03   0.00
+  13  17     0.00   0.00   0.00     0.00   0.00   0.00     0.00   0.00   0.00
+
+  </comment>
+
+  <record/>
+  <templateList>
+    <xi:include href="l716.lowfreq.xml"/>
+    <xi:include href="l716.diagvib.xml"/>
+    <xi:include href="l716.freq.chunk.xml"/>
+  </templateList>
+  
+  <comment class="example.output" id="1716.forcematrix">
+    <module cmlx:templateRef="l716.forcematrix" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <module cmlx:lineCount="2" cmlx:templateRef="lowfreq">
+        <array dataType="xsd:double" size="9" dictRef="g:1716.lowfreq" cmlx:templateRef="lowfreq">0.0018 0.0024 0.0026 6.3218 7.5564 17.5412 55.1764 72.8335 137.6925</array>
+      </module>
+      <module cmlx:lineCount="1" cmlx:templateRef="l716.diagvib"/> 26.5910881 4.6882388 9.8373439 
+      <array dataType="xsd:integer" size="6" dictRef="x:serial">1 2 3 31 32 33</array>
+      <array delimiter="|" dataType="xsd:string" size="6" dictRef="cc:irrep">|A|A|A|A|A|A|</array>
+      <array dataType="xsd:double" size="6" dictRef="cc:frequency">55.163 72.8261 137.692 3208.5029 3209.2965 3220.1871</array>
+      <array dataType="xsd:double" size="6" dictRef="cc:redmass">18.1478 5.0229 13.698 1.0935 1.0954 1.0956</array>
+      <array dataType="xsd:double" size="6" dictRef="cc:forceconst">0.0325 0.0157 0.153 6.6327 6.6474 6.6938</array>
+      <array dataType="xsd:double" size="6" dictRef="cc:irintensity">2.0482 0.8181 0.0187 0.0967 1.3255 6.8401</array>
+      <module cmlx:lineCount="25" cmlx:templateRef="l716.freq.chunkx">
+        <array dataType="xsd:integer" size="3" dictRef="x:serial">1 2 13</array>
+        <array dataType="xsd:integer" size="3" dictRef="cc:atomicNumber">6 6 17</array>
+        <array dataType="xsd:double" size="54" dictRef="cc:displacement">0.06 0.0 -0.26 0.0 0.17 0.0 0.13 0.0 0.17 0.07 0.0 -0.26 0.13 0.13 0.17 0.14 -0.01 0.22 -0.49 0.0 0.17 0.0 -0.18 0.0 -0.32 0.0 -0.32 -0.03 0.0 0.02 0.0 0.0 0.0 -0.07 0.0 0.04 0.01 -0.02 -0.01 -0.02 0.03 0.01 -0.01 0.03 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0</array>
+      </module>
+    </module>
+  </comment>
+</template>
+ 

@@ -73,4 +73,8 @@ public class TemplateListElement implements MarkupApplier {
 			template.debug();
 		}
 	}
+
+	protected String addAndIndexAttribute(String attName) {
+		return null;
+	}
 }

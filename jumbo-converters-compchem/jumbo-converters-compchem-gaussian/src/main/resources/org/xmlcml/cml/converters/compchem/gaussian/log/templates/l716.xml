@@ -201,18 +201,306 @@
   </comment>
 
   <templateList>
-    <xi:include href="l716.forcematrix.xml"/> 
-    <xi:include href="l716.forces.xml"/> 
-    <xi:include href="l716.zeropoint.xml"/> 
-    <xi:include href="l716.freq.chunk.xml"/> 
-    <xi:include href="l716.thermochemistry.xml"/> 
-    <xi:include href="l716.thermoprops.xml"/> 
-    <xi:include href="l716.irspectrum.xml"/> 
+    <xi:include href="l716/l716.forcematrix.xml"/> 
+    <xi:include href="l716/l716.forces.xml"/> 
+    <xi:include href="l716/l716.zeropoint.xml"/> 
+    <xi:include href="l716/l716.freq.chunk.xml"/> 
+    <xi:include href="l716/thermochemistry/l716.thermochemistry.xml"/> 
+    <xi:include href="l716/l716.irspectrum.xml"/> 
   </templateList>
+  
   <record repeat="*" id="l716">{X,g:l716}</record>
 
   <comment class="example.output" id="l716">
-    <module/>
+<module cmlx:templateRef="l716" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"> (Enter /usr/local/Gaussian/g03/l716.exe) Dipole = 8.10731309D-01 1.24950664D-04 1.05916263D+00 Polarizability= 1.80172759D+02 9.64366159D-02 8.96067492D+01 1.42853847D+01 2.32604318D-02 8.23087172D+01 
+  <module cmlx:lineCount="50" cmlx:templateRef="l716.forcematrix">
+    <module cmlx:lineCount="2" cmlx:templateRef="lowfreq">
+      <array dataType="xsd:double" size="9" dictRef="g:1716.lowfreq" cmlx:templateRef="lowfreq">0.0018 0.0024 0.0026 6.3218 7.5564 17.5412 55.1764 72.8335 137.6925</array>
+    </module>
+    <module cmlx:lineCount="3" cmlx:templateRef="l716.diagvib">
+      <array dataType="xsd:double" size="3" dictRef="cc:diagvib" cmlx:templateRef="diagvib">26.5910881 4.6882388 9.8373439</array> Harmonic frequencies (cm**-1), IR intensities (KM/Mole), Raman scattering 
+    </module> activities (A**4/AMU), depolarization ratios for plane and unpolarized incident light, reduced masses (AMU), force constants (mDyne/A), and normal coordinates: 1 2 3 A A A Frequencies -- 55.1630 72.8261 137.6920 Red. masses -- 18.1478 5.0229 13.6980 Frc consts -- 0.0325 0.0157 0.1530 IR Inten -- 2.0482 0.8181 0.0187 Atom AN X Y Z X Y Z X Y Z 1 6 0.06 0.00 -0.26 0.00 0.17 0.00 0.13 0.00 0.17 2 6 0.07 0.00 -0.26 0.13 0.13 0.17 0.14 -0.01 0.22 3 6 0.11 0.00 -0.15 0.13 0.07 0.18 0.16 -0.01 0.27 4 6 0.15 0.00 -0.06 0.00 0.03 0.00 0.14 0.00 0.20 5 6 0.11 0.00 -0.15 -0.13 0.07 -0.18 0.17 0.01 0.27 6 6 0.07 0.00 -0.26 -0.13 0.13 -0.17 0.14 0.01 0.22 7 1 0.09 0.00 -0.21 0.00 0.19 0.00 0.00 0.00 -0.06 8 1 0.05 0.00 -0.30 0.23 0.16 0.30 0.14 -0.01 0.21 9 1 0.13 0.00 -0.11 0.24 0.04 0.33 0.16 0.00 0.27 10 17 0.28 0.00 0.25 0.00 -0.04 0.00 0.00 0.00 -0.16 11 1 0.13 0.00 -0.11 -0.24 0.04 -0.33 0.16 0.00 0.27 12 1 0.05 0.00 -0.30 -0.23 0.16 -0.30 0.14 0.01 0.21 13 17 -0.49 0.00 0.17 0.00 -0.18 0.00 -0.32 0.00 -0.32 31 32 33 A A A Frequencies -- 3208.5029 3209.2965 3220.1871 Red. masses -- 1.0935 1.0954 1.0956 Frc consts -- 6.6327 6.6474 6.6938 IR Inten -- 0.0967 1.3255 6.8401 Atom AN X Y Z X Y Z X Y Z 1 6 -0.03 0.00 0.02 0.00 0.00 0.00 -0.07 0.00 0.04 2 6 0.01 -0.02 -0.01 -0.02 0.03 0.01 -0.01 0.03 0.00 3 6 -0.03 -0.05 0.01 0.03 0.04 -0.01 0.01 0.01 0.00 4 6 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 5 6 -0.03 0.05 0.01 -0.03 0.04 0.01 0.01 -0.01 0.00 6 6 0.01 0.02 -0.01 0.02 0.03 -0.01 -0.01 -0.03 0.00 7 1 0.34 0.00 -0.19 0.00 0.00 0.00 0.76 0.00 -0.41 8 1 -0.12 0.21 0.05 0.18 -0.34 -0.07 0.14 -0.27 -0.06 9 1 0.29 0.52 -0.12 -0.28 -0.50 0.11 -0.07 -0.13 0.03 10 17 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 11 1 0.28 -0.51 -0.12 0.28 -0.51 -0.11 -0.07 0.13 0.03 12 1 -0.11 -0.20 0.05 -0.19 -0.34 0.07 0.14 0.27 -0.06 13 17 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 
+  </module>
+  <module cmlx:lineCount="32" cmlx:templateRef="l716.thermochemistry">
+    <scalar dataType="xsd:double" dictRef="cc:temp">298.15</scalar>
+    <scalar dataType="xsd:double" dictRef="cc:press">1.0</scalar>
+    <list cmlx:lineCount="3" cmlx:templateRef="mass">
+      <array dataType="xsd:integer" dictRef="cc:serial" size="3">1 2 13</array>
+      <array dataType="xsd:integer" dictRef="x:elementType" size="3">6 6 17</array>
+      <array dataType="xsd:double" dictRef="cc:atomicmass" size="3">12.0 12.0 34.96885</array>
+    </list>
+    <scalar dataType="xsd:double" dictRef="cc:molmass" cmlx:templateRef="molmass">146.97683</scalar>
+    <matrix rows="3" columns="3" dataType="xsd:double" dictRef="cc:moi.eigenvectors">0.99993 0.0 -0.01211 0.0 1.0 -2.0E-4 0.01211 2.0E-4 0.99993</matrix>
+    <array dataType="xsd:double" size="3" dictRef="cc:moi" cmlx:templateRef="eigen">621.71132 2597.89106 2620.41387</array>
+    <scalar dataType="xsd:integer" dictRef="cc:symmnumber">1</scalar> Warning -- assumption of classical behavior for rotation may cause significant error 
+    <array dataType="xsd:double" size="3" dictRef="cc:rottemp" cmlx:templateRef="rottemp">0.13932 0.03334 0.03305</array>
+    <array dataType="xsd:double" size="3" dictRef="cc:rotconst" cmlx:templateRef="rotconst">2.90286 0.69469 0.68872</array>
+    <scalar dataType="xsd:double" dictRef="cc:zpe" units="u:jmol-1">239538.5</scalar> Warning -- explicit consideration of 9 degrees of freedom as vibrations may cause significant error 
+    <array dataType="xsd:double" size="10" dictRef="cc:vibtemp">79.37 104.78 198.11 316.19 433.23 579.0 598.41 670.87 884.75 1001.14</array>
+  </module>
+  <module cmlx:lineCount="9" cmlx:templateRef="l716.zeropoint">
+    <scalar dataType="xsd:string" dictRef="cc:zpe.correction">0.091235</scalar>
+    <scalar dataType="xsd:string" dictRef="cc:zpe.thermalcorrener">0.098993</scalar>
+    <scalar dataType="xsd:string" dictRef="cc:zpe.thermalcorrenthalpy">0.099937</scalar>
+    <scalar dataType="xsd:string" dictRef="cc:zpe.thermalcorrgfe">0.056309</scalar>
+    <scalar dataType="xsd:string" dictRef="cc:zpe.sumelectzpe">-1152.025536</scalar>
+    <scalar dataType="xsd:string" dictRef="cc:zpe.sumelectthermal">-1152.017779</scalar>
+    <scalar dataType="xsd:string" dictRef="cc:zpe.sumelectthermal">-1152.016835</scalar>
+    <scalar dataType="xsd:string" dictRef="cc:zpe.sumelectthermalfe">-1152.060463</scalar>
+  </module>
+  <module cmlx:lineCount="43" cmlx:templateRef="l716.thermoprops">
+    <list cmlx:templateRef="total">
+      <scalar dataType="xsd:double" dictRef="cc:ethermo.total">62.119</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:cv.total">26.952</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:s.total">91.823</scalar>
+    </list>
+    <list cmlx:templateRef="elect">
+      <scalar dataType="xsd:double" dictRef="cc:ethermo.elect">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:cv.elect">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:s.elect">1.377</scalar>
+    </list>
+    <list cmlx:templateRef="trans">
+      <scalar dataType="xsd:double" dictRef="cc:ethermo.trans">0.889</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:cv.trans">2.981</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:s.trans">40.866</scalar>
+    </list>
+    <list cmlx:templateRef="rot">
+      <scalar dataType="xsd:double" dictRef="cc:ethermo.rot">0.889</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:cv.rot">2.981</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:s.rot">29.827</scalar>
+    </list>
+    <list cmlx:templateRef="vib">
+      <scalar dataType="xsd:double" dictRef="cc:ethermo.vib">60.342</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:cv.vib">20.991</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:s.vob">19.753</scalar>
+    </list>
+    <list cmlx:templateRef="vibn">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">1</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:ethermo.vib">0.596</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:cv.vib">1.976</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:s.vob">4.623</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">2</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:ethermo.vib">0.599</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:cv.vib">1.967</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:s.vob">4.075</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">3</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:ethermo.vib">0.614</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:cv.vib">1.916</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:s.vob">2.836</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">4</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:ethermo.vib">0.647</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:cv.vib">1.811</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:s.vob">1.961</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">5</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:ethermo.vib">0.693</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:cv.vib">1.672</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:s.vob">1.411</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">6</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:ethermo.vib">0.768</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:cv.vib">1.465</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:s.vob">0.954</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">7</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:ethermo.vib">0.779</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:cv.vib">1.436</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:s.vob">0.906</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">8</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:ethermo.vib">0.824</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:cv.vib">1.325</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:s.vob">0.748</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">9</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:ethermo.vib">0.974</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:cv.vib">1.0</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:s.vob">0.425</scalar>
+      </list>
+    </list>
+    <list cmlx:templateRef="totalbot">
+      <scalar dataType="xsd:double" dictRef="cc:q.total">1.25789E-26</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:logq.total">-25.900357</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:lnq.total">-59.637776</scalar>
+    </list>
+    <list cmlx:templateRef="totalv0">
+      <scalar dataType="xsd:double" dictRef="cc:q.v0">1.16124E16</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:logq.v0">16.064923</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:lnq.v0">36.990851</scalar>
+    </list>
+    <list cmlx:templateRef="vibbot">
+      <scalar dataType="xsd:double" dictRef="cc:q.vibbot">1.21941E-40</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:logq.vibbot">-39.913852</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:lnq.vibbot">-91.90504</scalar>
+    </list>
+    <list cmlx:templateRef="vibbot">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">1</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:q.vibbot">3.74552</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.vibbot">0.573512</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.vibbot">1.32056</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">2</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:q.vibbot">2.83089</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.vibbot">0.451922</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.vibbot">1.04059</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">3</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:q.vibbot">1.47766</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.vibbot">0.169573</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.vibbot">0.390456</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">4</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:q.vibbot">0.900154</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.vibbot">-0.045683</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.vibbot">-0.10519</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">5</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:q.vibbot">0.631193</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.vibbot">-0.199838</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.vibbot">-0.460144</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">6</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:q.vibbot">0.442116</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.vibbot">-0.354463</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.vibbot">-0.816182</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">7</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:q.vibbot">0.423491</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.vibbot">-0.373156</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.vibbot">-0.859222</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">8</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:q.vibbot">0.362877</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.vibbot">-0.440241</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.vibbot">-1.013691</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">9</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:q.vibbot">0.239087</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.vibbot">-0.621444</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.vibbot">-1.430927</scalar>
+      </list>
+    </list>
+    <list cmlx:templateRef="vibv0">
+      <scalar dataType="xsd:double" dictRef="cc:q.vibv0">112.571</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:logq.vibv0">2.051428</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:lnq.vibv0">4.723587</scalar>
+    </list>
+    <list cmlx:templateRef="vibv0">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">1</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:q.vibv0">4.27875</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.vibv0">0.631316</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.vibv0">1.45366</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">2</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:q.vibv0">3.3747</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.vibv0">0.528235</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.vibv0">1.216307</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">3</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:q.vibv0">2.05996</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.vibv0">0.313858</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.vibv0">0.722685</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">4</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:q.vibv0">1.5297</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.vibv0">0.184606</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.vibv0">0.42507</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">5</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:q.vibv0">1.30524</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.vibv0">0.115689</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.vibv0">0.266383</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">6</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:q.vibv0">1.16743</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.vibv0">0.067232</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.vibv0">0.154807</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">7</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:q.vibv0">1.15524</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.vibv0">0.062674</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.vibv0">0.144312</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">8</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:q.vibv0">1.1178</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.vibv0">0.048365</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.vibv0">0.111365</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:nvib">9</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:q.vibv0">1.05422</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:logq.vibv0">0.022932</scalar>
+        <scalar dataType="xsd:double" dictRef="cc:lnq.vibv0">0.052804</scalar>
+      </list>
+    </list>
+    <list cmlx:templateRef="elect">
+      <scalar dataType="xsd:double" dictRef="cc:q.elect">2.0</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:logq.elect">0.30103</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:lnq.elect">0.693147</scalar>
+    </list>
+    <list cmlx:templateRef="trans">
+      <scalar dataType="xsd:double" dictRef="cc:q.trans">7.00372E7</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:logq.trans">7.845328</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:lnq.trans">18.064536</scalar>
+    </list>
+    <list cmlx:templateRef="rot">
+      <scalar dataType="xsd:double" dictRef="cc:q.rot">736438.0</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:logq.rot">5.867136</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:lnq.rot">13.50958</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="28" cmlx:templateRef="l716.irspectrum">
+    <scalar dataType="xsd:string" dictRef="g:irspectrum" cmlx:templateRef="discard">chlorobz/cl complex basis</scalar>
+  </module>
+  <list cmlx:templateRef="l716">
+    <scalar dataType="xsd:string" dictRef="g:l716"/>
+    <scalar dataType="xsd:string" dictRef="g:l716">***** Axes restored to original set *****</scalar>
+  </list>
+  <module cmlx:lineCount="9" cmlx:templateRef="l716.forces">
+    <list cmlx:lineCount="3" cmlx:templateRef="force">
+      <array dataType="xsd:integer" dictRef="x:serial" size="3">1 2 13</array>
+      <array dataType="xsd:integer" dictRef="x:elementType" size="3">6 6 17</array>
+      <list>
+        <array dataType="xsd:double" size="3" dictRef="cc:force">-2.3985E-5 1.9613E-4 4.8E-8</array>
+        <array dataType="xsd:double" size="3" dictRef="cc:force">2.21899E-4 1.4148E-5 7.9947E-5</array>
+        <array dataType="xsd:double" size="3" dictRef="cc:force">-1.6936E-5 -1.25855E-4 -7.891E-6</array>
+      </list>
+    </list>
+    <list cmlx:templateRef="cartesianforce">
+      <scalar dataType="xsd:double" dictRef="cc:maxforce">3.16775E-4</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:rmsforce">9.0617E-5</scalar>
+    </list>
+  </module>
+</module>
  </comment>
 </template>
  

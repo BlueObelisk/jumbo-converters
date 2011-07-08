@@ -1,0 +1,63 @@
+<template id="l401.alphabeta" name="Alpha or Beta orbitals" repeat="*"
+    pattern="\s*((Alpha)|(Beta))\s+Orbitals:\s*" 
+    endPattern="\s*\(.*$\s\S.*" endOffset="1"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    >
+    
+  <comment class="example.input" id="l401.alphabeta">
+ Alpha Orbitals:
+       Occupied  (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)
+                 (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)
+                 (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)
+                 (A) (A)
+       Virtual   (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)
+                 (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)
+                 (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)
+                 (A) (A) (A) (A)
+ Beta  Orbitals:
+       Occupied  (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)
+                 (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)
+                 (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)
+                 (A)
+       Virtual   (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)
+                 (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)
+                 (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)
+                 (A) (A) (A) (A) (A)
+  </comment>
+  
+  <record id="alphabeta" >\s*{A,g:l401.type}\s*Orbitals:\s*</record>
+  <record id="l401" repeat="*">\s*{1_20A,g:l401}\s*</record>
+  <templateList>
+    <xi:include href="l4601.occupied.xml"/>
+    <xi:include href="l4601.virtual.xml"/>
+  </templateList>
+  
+  <comment class="example.output" id="l401.alphabeta">
+    <module cmlx:templateRef="l401.alphabeta" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="alphabeta">
+        <scalar dataType="xsd:string" dictRef="g:l401.type">Alpha</scalar>
+      </list>
+      <list cmlx:templateRef="l401">
+        <array dataType="xsd:string" size="13" dictRef="g:l401">Occupied (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
+        <array dataType="xsd:string" size="12" dictRef="g:l401">(A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
+        <array dataType="xsd:string" size="12" dictRef="g:l401">(A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
+        <array dataType="xsd:string" size="2" dictRef="g:l401">(A) (A)</array>
+        <array dataType="xsd:string" size="13" dictRef="g:l401">Virtual (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
+        <array dataType="xsd:string" size="12" dictRef="g:l401">(A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
+        <array dataType="xsd:string" size="12" dictRef="g:l401">(A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
+        <array dataType="xsd:string" size="4" dictRef="g:l401">(A) (A) (A) (A)</array>
+        <array dataType="xsd:string" size="2" dictRef="g:l401">Beta Orbitals:</array>
+        <array dataType="xsd:string" size="13" dictRef="g:l401">Occupied (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
+        <array dataType="xsd:string" size="12" dictRef="g:l401">(A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
+        <array dataType="xsd:string" size="12" dictRef="g:l401">(A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
+        <array dataType="xsd:string" size="1" dictRef="g:l401">(A)</array>
+        <array dataType="xsd:string" size="13" dictRef="g:l401">Virtual (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
+        <array dataType="xsd:string" size="12" dictRef="g:l401">(A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
+        <array dataType="xsd:string" size="12" dictRef="g:l401">(A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
+        <array dataType="xsd:string" size="5" dictRef="g:l401">(A) (A) (A) (A) (A)</array>
+      </list>
+    </module>
+  </comment>
+  
+</template>
+ 

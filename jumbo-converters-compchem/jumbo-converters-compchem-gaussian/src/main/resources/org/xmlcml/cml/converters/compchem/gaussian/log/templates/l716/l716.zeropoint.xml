@@ -1,0 +1,54 @@
+<template id="l716.zeropoint" name="Zero-point correction" repeat="*"
+    pattern="\s*Zero-point correction.*" 
+    endPattern="\s*" endOffset="1"
+    >
+    
+  <comment class="example.input" id="l716.zeropoint">
+ Zero-point correction=                           0.045230 (Hartree/Particle)
+ Thermal correction to Energy=                    0.048094
+ Thermal correction to Enthalpy=                  0.049039
+ Thermal correction to Gibbs Free Energy=         0.027907
+ Sum of electronic and zero-point Energies=            -40.473159
+ Sum of electronic and thermal Energies=               -40.470295
+ Sum of electronic and thermal Enthalpies=             -40.469351
+ Sum of electronic and thermal Free Energies=          -40.490482
+ 
+  </comment>
+
+  <record id="zeropoint" repeat="*">{X,x:name}=\s*{F,x:value}.*</record>
+  
+  <transform process="createNameValue" xpath="./cml:list/cml:list" 
+    name=".//cml:scalar[@dictRef='x:name']" value=".//cml:scalar[@dictRef='x:value']"/>
+  <transform process="pullup" xpath=".//cml:scalar" repeat="2"/> 
+  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='x:Zero-point correction']" 
+      value="cc:zpe.correction"/> 
+  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='x:Thermal correction to Energy']" 
+      value="cc:zpe.thermalcorrener"/> 
+  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='x:Thermal correction to Enthalpy']" 
+      value="cc:zpe.thermalcorrenthalpy"/> 
+  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='x:Thermal correction to Gibbs Free Energy']" 
+      value="cc:zpe.thermalcorrgfe"/> 
+  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='x:Sum of electronic and zero-point Energies']" 
+      value="cc:zpe.sumelectzpe"/> 
+  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='x:Sum of electronic and thermal Energies']" 
+      value="cc:zpe.sumelectthermal"/> 
+  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='x:Sum of electronic and thermal Enthalpies']" 
+      value="cc:zpe.sumelectthermal"/> 
+  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='x:Sum of electronic and thermal Free Energies']" 
+      value="cc:zpe.sumelectthermalfe"/> 
+
+  <comment class="example.output" id="l716.zeropoint">
+    <module cmlx:templateRef="l716.zeropoint" xmlns="http://www.xml-cml.org/schema" 
+      xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="cc:zpe.correction">0.04523</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:zpe.thermalcorrener">0.048094</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:zpe.thermalcorrenthalpy">0.049039</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:zpe.thermalcorrgfe">0.027907</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:zpe.sumelectzpe">-40.473159</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:zpe.sumelectthermal">-40.470295</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:zpe.sumelectthermal">-40.469351</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:zpe.sumelectthermalfe">-40.490482</scalar>
+    </module>
+  </comment>
+</template>
+ 

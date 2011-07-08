@@ -1,0 +1,18 @@
+<transformList
+  id="l9999.archive.toplevel"
+>
+  
+  <transform process="createString" xpath="./cml:list/cml:scalar"/>
+  <transform process="split" xpath="./cml:list/cml:scalar" splitter="\\\\" dictRef="g:archive"/>
+  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[1]" value="g:archive1"/>
+  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[2]" value="cc:keywords"/>
+  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[3]" value="cc:title"/>
+  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[4]" value="cc:molecule"/>
+  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[5]" value="g:archive.namevalue"/>
+  
+    <!--  remove endmarker -->
+  <transform process="delete" xpath="./cml:list/cml:list/cml:scalar[contains(.,'@') and string-length(.)=2]"/>
+  <transform process="split" xpath="./cml:list/cml:list/cml:scalar" splitter="\\"/>
+  <transform process="split" xpath="./cml:list/cml:list/cml:scalar[@dictRef='cc:keywords']" dictRef="g:keyword"/>
+
+</transformList>

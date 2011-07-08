@@ -317,7 +317,7 @@ public class Template implements MarkupApplier {
 				TemplateListElement templateContainer = new TemplateListElement(childElement);
 				markerList.add(templateContainer);
 			} else if (TransformElement.TAG.equals(name)) {
-				TransformElement transformer = new TransformElement(childElement, this);
+				MarkupApplier transformer = new TransformElement(childElement, this);
 				markerList.add(transformer);
 			} else if (TransformListElement.TAG.equals(name)) {
 				TransformListElement transformerList = new TransformListElement(childElement, this);
@@ -572,6 +572,10 @@ public class Template implements MarkupApplier {
 
 	public List<DictionaryContainer> getDictionaryContainerList() {
 		return dictionaryList;
+	}
+
+	protected String addAndIndexAttribute(String attName) {
+		return null;
 	}
 
 

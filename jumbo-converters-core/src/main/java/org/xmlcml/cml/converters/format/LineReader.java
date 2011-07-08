@@ -418,4 +418,8 @@ public abstract class LineReader extends Element implements MarkupApplier {
 		return (template == null) ? null : template.getId();
 	}
 
+	protected String addAndIndexAttribute(String attName) {
+		return null;
+	}
+
 }

@@ -1,0 +1,73 @@
+<template id="l716.thermochemistry" name="Thermochemistry" repeat="*"
+    pattern="\s*\-+\s*$\s*\-\s*Thermochemistry\s*\-\s*$\s*\-+\s*" 
+    endPattern="\s*" endOffset="1"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    >
+    
+  <comment class="example.input" id="l716.thermochemistry">
+ -------------------
+ - Thermochemistry -
+ -------------------
+ Temperature   298.150 Kelvin.  Pressure   1.00000 Atm.
+ Atom  1 has atomic number  6 and mass  12.00000
+ Atom  2 has atomic number  1 and mass   1.00783
+ Atom  3 has atomic number  1 and mass   1.00783
+ Atom  4 has atomic number  1 and mass   1.00783
+ Atom  5 has atomic number  1 and mass   1.00783
+ Molecular mass:    16.03130 amu.
+ Principal axes and moments of inertia in atomic units:
+                           1         2         3
+     EIGENVALUES --    11.47105  11.47105  11.47105
+           X            0.00000   0.00000   1.00000
+           Y            0.00000   1.00000   0.00000
+           Z            1.00000   0.00000   0.00000
+ This molecule is a spherical top.
+ Rotational symmetry number 12.
+ Rotational temperatures (Kelvin)      7.55064     7.55064     7.55064
+ Rotational constants (GHZ):         157.33005   157.33005   157.33005
+ Zero-point vibrational energy     118752.0 (Joules/Mol)
+                                   28.38241 (Kcal/Mol)
+ Vibrational temperatures:   1976.16  1976.16  1976.16  2293.35  2293.35
+          (Kelvin)           4393.44  4552.17  4552.17  4552.17
+ 
+  </comment>
+  
+  <record repeat="3"/>
+  <templateList>
+    <xi:include href="l716.thermochemistry.temperature.xml"/>
+    <xi:include href="l716.thermochemistry.mass.xml"/>
+    <xi:include href="l716.thermochemistry.moi.xml"/>
+    <xi:include href="l716.thermochemistry.top.xml"/>
+    <xi:include href="l716.thermochemistry.rotsymnum.xml"/>
+    <xi:include href="l716.thermochemistry.rottemp.xml"/>
+    <xi:include href="l716.thermochemistry.rotconsts.xml"/>
+    <xi:include href="l716.thermochemistry.zpe.xml"/>
+    <xi:include href="l716.thermochemistry.vibtemp.xml"/>
+    <xi:include href="l716.thermoprops.xml"/> 
+    
+  </templateList>
+  <transform process="pullup" xpath="./cml:module/*"/>
+  <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
+  
+  <comment class="example.output" id="l716.thermochemistry">
+    <module cmlx:templateRef="l716.thermochemistry" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:double" dictRef="cc:temp">298.15</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:press">1.0</scalar>
+      <list cmlx:lineCount="5" cmlx:templateRef="mass">
+        <array dataType="xsd:integer" dictRef="cc:serial" size="5">1 2 3 4 5</array>
+        <array dataType="xsd:integer" dictRef="x:elementType" size="5">6 1 1 1 1</array>
+        <array dataType="xsd:double" dictRef="cc:atomicmass" size="5">12.0 1.00783 1.00783 1.00783 1.00783</array>
+      </list>
+      <scalar dataType="xsd:double" dictRef="cc:molmass" cmlx:templateRef="molmass">16.0313</scalar>
+      <matrix rows="3" columns="3" dataType="xsd:double" dictRef="cc:moi.eigenvectors">0.0 0.0 1.0 0.0 1.0 0.0 1.0 0.0 0.0</matrix>
+      <array dataType="xsd:double" size="3" dictRef="cc:moi" cmlx:templateRef="eigen">11.47105 11.47105 11.47105</array>
+      <scalar dataType="xsd:string" dictRef="g:top">spherical</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:symmnumber">12</scalar>
+      <array dataType="xsd:double" size="3" dictRef="cc:rottemp" cmlx:templateRef="rottemp">7.55064 7.55064 7.55064</array>
+      <array dataType="xsd:double" size="3" dictRef="cc:rotconst" cmlx:templateRef="rotconst">157.33005 157.33005 157.33005</array>
+      <scalar dataType="xsd:double" dictRef="cc:zpe" units="u:jmol-1">118752.0</scalar>
+      <array dataType="xsd:double" size="9" dictRef="cc:vibtemp">1976.16 1976.16 1976.16 2293.35 2293.35 4393.44 4552.17 4552.17 4552.17</array>
+    </module>
+  </comment>
+</template>
+ 

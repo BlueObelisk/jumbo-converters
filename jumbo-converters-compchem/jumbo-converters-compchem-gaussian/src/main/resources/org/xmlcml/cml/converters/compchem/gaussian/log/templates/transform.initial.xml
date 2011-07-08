@@ -29,13 +29,16 @@
   
   <!-- move initialization parameters -->
 
-  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:method'][last()]" 
-  to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"/> 
-  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:basis'][last()]" 
-  to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"/> 
+  <transform process="moveRelative" 
+    xpath=".//cml:module[@cmlx:templateRef='job']/cml:scalar[@dictRef='cc:method'][last()]" 
+    to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"/> 
+  <transform process="moveRelative" 
+    xpath=".//cml:module[@cmlx:templateRef='job']/cml:scalar[@dictRef='cc:basis'][last()]" 
+    to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"/> 
 
-  <transform process="moveRelative" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:pointgroup'][last()]" 
-      to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"/> 
+  <transform process="moveRelative" 
+    xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:pointgroup'][last()]" 
+    to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"/> 
   <transform process="moveRelative" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:frameworkgroup'][last()]" 
       to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"/> 
   <transform process="moveRelative" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:formula'][last()]" 

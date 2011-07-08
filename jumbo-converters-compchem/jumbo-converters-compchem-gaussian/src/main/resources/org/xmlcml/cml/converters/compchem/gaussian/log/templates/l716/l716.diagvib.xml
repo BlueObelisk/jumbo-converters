@@ -1,0 +1,20 @@
+<template id="l716.diagvib" pattern="\sDiagonal vibrational polarizability:\s*$\s\s+[\d\.\-\s]+" 
+  endPattern=".*" endOffset="1">
+  
+  <comment class="example.input" id="l716.diagvib">
+ Diagonal vibrational polarizability:
+       26.5910881       4.6882388       9.8373439
+  </comment>
+  
+  <record id="diagvib"/>
+  <record id="diagvib">\s*{3F,cc:diagvib}\s*</record>
+  
+  <transform process="pullupSingleton" xpath=".//cml:list"/>
+  
+  <comment class="example.output" id="l716.diagvib">
+    <module cmlx:templateRef="l716.diagvib" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:double" size="3" dictRef="cc:diagvib" cmlx:templateRef="diagvib">26.5910881 4.6882388 9.8373439</array>
+    </module>
+  </comment>
+  
+</template>

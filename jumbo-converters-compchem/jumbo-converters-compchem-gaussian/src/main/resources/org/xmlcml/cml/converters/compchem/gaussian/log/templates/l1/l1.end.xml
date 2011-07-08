@@ -1,0 +1,63 @@
+<template id="l1.end" name="link1" repeat="*" newline="$"
+    pattern="\s\*+\s*$\s*Gaussian\s*\d+:.*" 
+    endPattern=".*99.*\;\s*$\s[^/]+" endOffset="1"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    >
+    
+  <comment class="example.input" id="l1.end">
+ *********************************************
+ Gaussian 03:  x86-Linux-G03RevB.04 2-Jun-2003
+                  20-Nov-2006 
+ *********************************************
+ %nprocshared=4
+ Will use up to    4 processors via shared memory.
+ %mem=10500MB
+ %NoSave
+ %Chk=chk.chk
+ %rwf=/tmp/pbs.3528793.cx1/rwf
+ --------------------------
+ #N B3LYP/6-31G(d) OPT FREQ
+ --------------------------
+ 1/14=-1,18=20,26=3,38=1/1,3;
+ 2/9=110,17=6,18=5,40=1/2;
+ 99/9=1/99;
+  </comment>
+
+  <templateList>
+    <xi:include href="l1.version.xml"/>
+    <xi:include href="l1.options.xml"/>
+    <xi:include href="../l101/l101.title.xml"/>
+    <xi:include href="l1.keywords.xml"/>
+    <xi:include href="l1.control.xml"/>
+  </templateList>  
+  
+  <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='l1.version']/cml:*"/>
+  <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='l1.options']/cml:*"/>
+  <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='l101.title']/cml:*"/>
+  <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='l1.control']/cml:list"/>
+
+  <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
+  <transform process="delete" xpath=".//text()[starts-with(normalize-space(.),'Will use up to')]"/>
+
+  <comment class="example.output" id="l1.end">
+    <module cmlx:templateRef="l1.end" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="cc:run.date">20-Nov-2006</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:program">Gaussian 03</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:version">x86-Linux-G03RevB.04</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:program.date">2-Jun-2003</scalar>
+      <array dataType="xsd:string" size="1" dictRef="g:kk">nprocshared=4</array>
+      <array dataType="xsd:string" size="1" dictRef="g:kk">mem=10500MB</array>
+      <array dataType="xsd:string" size="1" dictRef="g:kk">NoSave</array>
+      <array dataType="xsd:string" size="1" dictRef="g:kk">Chk=chk.chk</array>
+      <array dataType="xsd:string" size="1" dictRef="g:kk">rwf=/tmp/pbs.3528793.cx1/rwf</array>
+      <scalar dataType="xsd:string" dictRef="cc:title" cmlx:templateRef="title">#N B3LYP/6-31G(d) OPT FREQ</scalar>
+      <list cmlx:templateRef="control">
+        <scalar dataType="xsd:string" dictRef="g:control">1/14=-1,18=20,26=3,38=1/1,3</scalar>
+        <scalar dataType="xsd:string" dictRef="g:control">2/9=110,17=6,18=5,40=1/2</scalar>
+        <scalar dataType="xsd:string" dictRef="g:control">99/9=1/99</scalar>
+      </list>
+    </module>
+  </comment>
+  
+</template>
+ 

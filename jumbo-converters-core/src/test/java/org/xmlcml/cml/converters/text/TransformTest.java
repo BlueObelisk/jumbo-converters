@@ -1310,7 +1310,7 @@ public class TransformTest {
 	private static void runTest(String message, String transformXML, String inputXML, String refXML) {
 		Element transformElem = CMLUtil.parseXML(transformXML);
 		Element testElement = CMLUtil.parseXML(inputXML);
-		TransformElement transformElement = new TransformElement(transformElem);
+		MarkupApplier transformElement = new TransformElement(transformElem);
 		transformElement.applyMarkup(testElement);
 		JumboTestUtils.assertEqualsCanonically(message, refXML, testElement, true);
 	}
@@ -1318,7 +1318,7 @@ public class TransformTest {
 	private static void runTest1(String message, String transformXML, String inputXML, String refXML) {
 		Element transformElem = (Element) CMLUtil.parseXML(transformXML).query("./transform").get(0);
 		Element testElement = CMLUtil.parseXML(inputXML);
-		TransformElement transformElement = new TransformElement(transformElem);
+		MarkupApplier transformElement = new TransformElement(transformElem);
 		transformElement.applyMarkup(testElement);
 		JumboTestUtils.assertEqualsCanonically(message, refXML, testElement, true);
 	}
@@ -1327,7 +1327,7 @@ public class TransformTest {
 	private static void runTest(String message, String transformXML, Element testElement, String refXML) {
 		Element transformElem = CMLUtil.parseXML(transformXML);
 		Element refElement = CMLUtil.parseXML(refXML);
-		TransformElement transformElement = new TransformElement(transformElem);
+		MarkupApplier transformElement = new TransformElement(transformElem);
 		transformElement.applyMarkup(testElement);
 		JumboTestUtils.assertEqualsCanonically(message, refElement, testElement, true);
 	}

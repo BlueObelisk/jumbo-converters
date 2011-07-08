@@ -1,0 +1,35 @@
+<template id="l1.options" pattern="\s*\%.*"
+  repeat="*" endPattern=".*" endOffset="0"
+  >
+
+  <comment >
+ %nprocshared=4
+ Will use up to    4 processors via shared memory.
+ %mem=10500MB
+ %NoSave
+ %Chk=chk.chk
+ %rwf=/tmp/pbs.3528793.cx1/rwf
+  </comment>
+  <comment class="example.input" id="l1.options.1">
+ %nprocshared=4
+  </comment>
+  <comment class="example.input" id="l1.options.2">
+ %NoSave
+  </comment>
+  
+  <record id="options" repeat="*">\s*\%{1_20A,g:kk}\s*</record>
+
+  <transform process="pullup" xpath=".//cml:list/cml:array" />
+   
+  <comment class="example.output" id="l1.options.1">
+    <module cmlx:templateRef="l1.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:string" size="1" dictRef="g:kk">nprocshared=4</array>
+    </module>
+  </comment>
+  
+  <comment class="example.output" id="l1.options.2">
+    <module cmlx:templateRef="l1.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:string" size="1" dictRef="g:kk">NoSave</array>
+    </module>
+  </comment>
+</template>

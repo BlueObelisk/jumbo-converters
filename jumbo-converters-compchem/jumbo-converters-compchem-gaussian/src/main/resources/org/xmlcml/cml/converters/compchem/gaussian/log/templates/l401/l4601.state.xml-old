@@ -1,0 +1,20 @@
+<template id="l4601.state" pattern="\s*The electronic state of the initial guess is.*" repeat="*"
+  endPattern=".*" endOffset="1">
+  
+  <comment class="example.input" id="state">
+ The electronic state of the initial guess is 1-A1.
+  </comment>
+  
+  <record id="state">\s*The electronic state of the initial guess is\s*{A,cc:state}\s*</record>
+
+  <comment class="example.output" id="state">
+    <module cmlx:templateRef="l4601.state" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="state">
+        <scalar dataType="xsd:string" dictRef="cc:state">1-A1.</scalar>
+      </list>
+    </module>
+  </comment>
+  
+</template>
+
+  

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  
+merges pre-computation molecule and postcomputation module.
+Assumes a file with structure
+<cml>
+  <molecule>...</molecule>
+  <module>...</module>
+ -->
+<transformList xmlns:xi="http://www.w3.org/2001/XInclude" id="tl">
+
+<!--  copy to fukui stuff in finalization 
+<module id="finalization" dictRef="cc:finalization">
+<molecule id="molgeom.copy">
+<atomArray>
+<atom id="a1" elementType="C" x3="2.485" y3="-0.292" z3="0.584">
+-->      
+<!--  this should be in the fukui stuff -->
+  <transform process="addAttribute" 
+    xpath=".//cml:module[@dictRef='cc:finalization']//cml:molecule[@id='molgeom.copy']//cml:atom" 
+    name="title" value="fukuiAtom"/>
+  <transform process="addChild" xpath=".//cml:atom[@title='fukuiAtom']" elementName="cml:propertyList"/>
+  <transform process="moveRelative" xpath=".//cml:atom[@title='fukuiAtom']/cml:property" to="../cml:propertyList"/>
+  <transform process="addAttribute" xpath=".//cml:atom[@title='fukuiAtom']/cml:propertyList" 
+      name="id" value="$string(../@id)"/>
+  <transform process="moveRelative" 
+    xpath=".//cml:module[@dictRef='cc:finalization']//cml:molecule[@id='molgeom.copy']//cml:atom/cml:propertyList" 
+    to="/cml:cml/cml:molecule//cml:atom[@id='$string(./@id)']"/>
+  <transform process="moveRelative" 
+    xpath="/cml:cml/cml:molecule//cml:atom/cml:property" 
+    to="../cml:propertyList"/>
+    
+  <transform process="debugNodes" xpath="/cml:cml/cml:molecule" name="postmove"/>
+  
+</transformList>
