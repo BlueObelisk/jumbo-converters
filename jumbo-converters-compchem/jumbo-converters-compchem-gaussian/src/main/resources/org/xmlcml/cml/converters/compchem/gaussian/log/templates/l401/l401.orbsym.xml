@@ -1,0 +1,52 @@
+<template id="l401.orbsym" name="l401 orbital symmetries" repeat="*"
+    pattern="\s*Initial guess orbital symmetries.*$\s*Occupied\s*\{.*" 
+    endPattern="\s*[^\(]*" endOffset="0"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    >
+    
+  <comment class="example.input" id="l401.orbsym">
+ Harris functional with IExCor=  402 diagonalized for initial guess.
+ ExpMin= 1.61D-01 ExpMax= 3.05D+03 ExpMxC= 4.57D+02 IAcc=1 IRadAn=         1 AccDes= 1.00D-06
+ HarFok:  IExCor= 402 AccDes= 1.00D-06 IRadAn=         1 IDoV=1
+ ScaDFX=  1.000000  1.000000  1.000000  1.000000
+ Initial guess orbital symmetries:
+       Occupied  (A1) (A1) (T2) (T2) (T2)
+       Virtual   (A1) (T2) (T2) (T2) (T2) (T2) (T2) (T2) (T2) (T2)
+                 (A1) (A1) (E) (E) (T2) (T2) (T2) (A1)
+ The electronic state of the initial guess is 1-A.
+  </comment>
+  
+  <record id="harris" repeat="*">\s*((Harris)|(ExpMin)|(HarFok)|(ScaDFX)){X,g:expmin}</record>
+  <record id="initguess" repeat="*">\s*Initial guess orbital symmetries:.*</record>
+ Initial guess orbital symmetries:
+  
+  <templateList>
+    <xi:include href="l4601.occupied.xml"/>
+    <xi:include href="l4601.virtual.xml"/>
+    <xi:include href="../l601/l601.state.xml"/>
+  </templateList>
+  
+  <comment class="example.output" id="l401.orbsym">
+    <module cmlx:templateRef="l401.orbsym" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="harris">
+        <scalar dataType="xsd:string" dictRef="g:expmin">Harris</scalar>
+        <scalar dataType="xsd:string" dictRef="g:expmin">ExpMin</scalar>
+        <scalar dataType="xsd:string" dictRef="g:expmin">HarFok</scalar>
+        <scalar dataType="xsd:string" dictRef="g:expmin">ScaDFX</scalar>
+      </list>
+      <module cmlx:lineCount="3" cmlx:templateRef="l4601.occupied">
+        <list cmlx:templateRef="occ">
+          <array dataType="xsd:string" size="5" dictRef="g:occorbs">(A1) (A1) (T2) (T2) (T2)</array>
+        </list>
+        <list cmlx:templateRef="occ">
+          <array dataType="xsd:string" size="11" dictRef="g:occorbs">Virtual (A1) (T2) (T2) (T2) (T2) (T2) (T2) (T2) (T2) (T2)</array>
+          <array dataType="xsd:string" size="8" dictRef="g:occorbs">(A1) (A1) (E) (E) (T2) (T2) (T2) (A1)</array>
+        </list>
+      </module>
+      <module cmlx:lineCount="2" cmlx:templateRef="l601.state">
+        <scalar dataType="xsd:string" dictRef="g:l601.state">1-A.</scalar>
+      </module>
+    </module>
+  </comment>
+</template>
+ 

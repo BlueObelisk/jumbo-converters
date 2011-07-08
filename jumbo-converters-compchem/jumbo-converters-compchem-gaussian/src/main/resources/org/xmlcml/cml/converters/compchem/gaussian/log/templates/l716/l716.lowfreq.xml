@@ -1,0 +1,19 @@
+<template id="lowfreq" pattern="\sLow frequencies.*" endPattern=".*" endOffset="1">
+
+  <comment class="example.input" id="l716.lowfreq">
+ Low frequencies ---    0.0018    0.0024    0.0026    6.3218    7.5564   17.5412
+ Low frequencies ---   55.1764   72.8335  137.6925
+  </comment>
+  
+  <record id="lowfreq" repeat="*">\sLow frequencies\s\-\-\-{1_6F,g:1716.lowfreq}</record>
+  
+  <transform process="joinArrays" xpath="./cml:list/cml:array"/>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+
+  <comment class="example.output" id="l716.lowfreq">
+    <module cmlx:templateRef="lowfreq" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:double" size="9" dictRef="g:1716.lowfreq" cmlx:templateRef="lowfreq">0.0018 0.0024 0.0026 6.3218 7.5564 17.5412 55.1764 72.8335 137.6925</array>
+    </module>
+  </comment>
+</template>

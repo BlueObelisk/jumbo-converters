@@ -46,5 +46,9 @@ public class Debug implements MarkupApplier {
 	public String getId() {
 		return null;
 	}
+
+	protected String addAndIndexAttribute(String attName) {
+		return null;
+	}
 	
 }

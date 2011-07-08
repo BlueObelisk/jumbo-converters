@@ -1,0 +1,46 @@
+<template id="l101" name="l101" repeat="*"
+    pattern="\s*Symbolic Z-matrix\:\s*" 
+    endPattern="\s*" endOffset="1"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    >
+    
+  <comment class="example.input" id="l101">
+ Symbolic Z-matrix:
+ Charge =  0 Multiplicity = 1
+ C
+ H                    1    B1
+ H                    1    B2       2    A1
+ H                    1    B3       2    A2       3    D1       0
+ H                    1    B4       2    A3       3    D2       0
+       Variables:
+  B1                    1.113                    
+  B2                    1.113                    
+  B3                    1.113                    
+  B4                    1.113                    
+  A1                  109.47124                  
+  A2                  109.47119                  
+  D1                  120.                       
+  A3                  109.47123                  
+  D2                 -120.                       
+ 
+     3 tetrahedral angles replaced.
+
+  </comment>
+
+  <templateList>
+    <xi:include href="l101.zmatvariables.xml"/>
+    <xi:include href="l101.zmatcommas.xml"/>
+    <xi:include href="l101.zmat.xml"/>
+    <xi:include href="l101.redundantcoords.xml"/>
+    <!-- 
+    <xi:include href="l101.tetrahedral.xml"/>
+    -->
+  </templateList>  
+  
+  <record repeat="*" id="rest">{X,x:l101}</record>
+
+  <comment class="example.output.raw" id="l1.end">
+    <module/>
+  </comment>
+</template>
+ 

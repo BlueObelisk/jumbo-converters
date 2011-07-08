@@ -1,0 +1,27 @@
+<template id="l1.version" pattern="\s*\*+\s*$\s*Gaussian.*\s*"
+  endPattern="\s*\*+\s*" endOffset="1"
+  >
+  <comment class="example.input" id="l1.version">
+ *********************************************
+ Gaussian 03:  x86-Linux-G03RevB.04 2-Jun-2003
+                  20-Nov-2006 
+ *********************************************
+  </comment>
+  
+  <record/>
+  <record id="prog">{X,cc:program}:{A,cc:version}\s+{A,cc:program.date}</record>
+  <record id="prog">\s*{A,cc:run.date}\s*</record>
+  <record repeat="*" id="verb">{X,x:verb}</record>
+
+  <transform process="delete" xpath="./cml:list[@cmlx:templateRef='verb']"/>
+  <transform process="pullup" xpath=".//cml:scalar" repeat="2"/>
+  
+  <comment class="example.output" id="l1.version">
+    <module cmlx:templateRef="l1.version" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="cc:program">Gaussian 03</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:version">x86-Linux-G03RevB.04</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:program.date">2-Jun-2003</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:run.date">20-Nov-2006</scalar>
+    </module>
+  </comment>
+</template>

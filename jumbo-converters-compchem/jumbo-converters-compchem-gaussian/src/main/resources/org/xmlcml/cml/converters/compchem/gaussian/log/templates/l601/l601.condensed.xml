@@ -1,0 +1,78 @@
+<template id="l601.condensed" name="condensed" repeat="*"
+    pattern="\s*Condensed to atoms \(all electrons\):\s*$\s*\d+.*" 
+    endPattern="\s+\d+\s+.*$\s*Mulliken.*" endOffset="1"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    >
+  <comment class="example.input" id="l601.condensed">
+          Condensed to atoms (all electrons):
+              1          2          3          4          5          6
+     1  Al  14.341573   1.088430  -0.115514   0.086239   0.001826  -0.044783
+     2  Al   1.088430  15.950581   1.088430  -1.998837  -0.951234   0.003015
+     3  Al  -0.115514   1.088430  14.341573  -1.047630  -2.006583   0.088051
+     4  Al   0.086239  -1.998837  -1.047630  14.338383   1.085225  -0.113240
+     5  Al   0.001826  -0.951234  -2.006583   1.085225  15.968706   1.085225
+     6  Al  -0.044783   0.003015   0.088051  -0.113240   1.085225  14.338383
+     7  Al   0.009797   0.191563   0.506288   0.088051  -2.006583  -1.047630
+     8  Al   0.191563   0.182316   0.191563   0.003015  -0.951234  -1.998837
+     9  Al   0.506288   0.191563   0.009797  -0.044783   0.001826   0.086239
+    10  Al   0.088051   0.003015  -0.044783   0.009829   0.191823   0.506439
+    11  Al  -2.006583  -0.951234   0.001826   0.191823   0.182861   0.191823
+    12  Al  -1.047630  -1.998837   0.086239   0.506439   0.191823   0.009829
+              7          8          9         10         11         12
+     1  Al   0.009797   0.191563   0.506288   0.088051  -2.006583  -1.047630
+     2  Al   0.191563   0.182316   0.191563   0.003015  -0.951234  -1.998837
+     3  Al   0.506288   0.191563   0.009797  -0.044783   0.001826   0.086239
+     4  Al   0.088051   0.003015  -0.044783   0.009829   0.191823   0.506439
+     5  Al  -2.006583  -0.951234   0.001826   0.191823   0.182861   0.191823
+     6  Al  -1.047630  -1.998837   0.086239   0.506439   0.191823   0.009829
+     7  Al  14.341573   1.088430  -0.115514   0.086239   0.001826  -0.044783
+     8  Al   1.088430  15.950581   1.088430  -1.998837  -0.951234   0.003015
+     9  Al  -0.115514   1.088430  14.341573  -1.047630  -2.006583   0.088051
+    10  Al   0.086239  -1.998837  -1.047630  14.338383   1.085225  -0.113240
+    11  Al   0.001826  -0.951234  -2.006583   1.085225  15.968706   1.085225
+    12  Al  -0.044783   0.003015   0.088051  -0.113240   1.085225  14.338383
+ Mulliken atomic charges:
+  </comment>
+
+  <record/>
+  <templateList>
+    <template id="cond" repeat="*" pattern="\s*\d+\s+\d+.*" 
+     endPattern="\s{7}.*">
+      <record id="serial">{1_6I,x:intarr}</record>
+      <record repeat="*" id="row">{I,cc:serial}{A,cc:elementType}{1_6F,x:floatArr}</record>
+     </template>
+    <template id="cond1" repeat="*" pattern="\s*\d+[\s\d]*$.*">
+      <record id="serial">{1_6I,x:intarr}</record>
+      <record repeat="*" id="row">{I,cc:serial}{A,cc:elementType}{1_6F,x:floatArr}</record>
+     </template>
+  </templateList>
+  
+  <transform process="addAttribute" xpath=".//cml:array[@dictRef='x:floatArr']" name="cmlx:idx" 
+    value="$string(../cml:scalar[@dictRef='cc:serial'])"/>
+  <transform process="joinArrays" xpath=".//cml:array" key="$string(@cmlx:idx)"/>
+  <transform process="delete" xpath=".//cml:array[@dictRef='x:intarr']"/>
+  <transform process="pullup" xpath=".//cml:array" repeat="3"/>
+  <transform process="delete" xpath=".//cml:array[@dictRef='x:intarr']"/>
+  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='cond' or @cmlx:templateRef='cond1']"/>
+  <!-- // this fails and throws exception
+  <transform process="createMatrix" xpath="." from=".//cml:array" dictRef="g:condensed"/>
+  -->
+
+  <comment class="example.output" id="l601.condensed">
+    <module cmlx:templateRef="l601.condensed" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:double" size="12" dictRef="x:floatArr">14.341573 1.08843 -0.115514 0.086239 0.001826 -0.044783 0.009797 0.191563 0.506288 0.088051 -2.006583 -1.04763</array>
+      <array dataType="xsd:double" size="12" dictRef="x:floatArr">1.08843 15.950581 1.08843 -1.998837 -0.951234 0.003015 0.191563 0.182316 0.191563 0.003015 -0.951234 -1.998837</array>
+      <array dataType="xsd:double" size="12" dictRef="x:floatArr">-0.115514 1.08843 14.341573 -1.04763 -2.006583 0.088051 0.506288 0.191563 0.009797 -0.044783 0.001826 0.086239</array>
+      <array dataType="xsd:double" size="12" dictRef="x:floatArr">0.086239 -1.998837 -1.04763 14.338383 1.085225 -0.11324 0.088051 0.003015 -0.044783 0.009829 0.191823 0.506439</array>
+      <array dataType="xsd:double" size="12" dictRef="x:floatArr">0.001826 -0.951234 -2.006583 1.085225 15.968706 1.085225 -2.006583 -0.951234 0.001826 0.191823 0.182861 0.191823</array>
+      <array dataType="xsd:double" size="12" dictRef="x:floatArr">-0.044783 0.003015 0.088051 -0.11324 1.085225 14.338383 -1.04763 -1.998837 0.086239 0.506439 0.191823 0.009829</array>
+      <array dataType="xsd:double" size="12" dictRef="x:floatArr">0.009797 0.191563 0.506288 0.088051 -2.006583 -1.04763 14.341573 1.08843 -0.115514 0.086239 0.001826 -0.044783</array>
+      <array dataType="xsd:double" size="12" dictRef="x:floatArr">0.191563 0.182316 0.191563 0.003015 -0.951234 -1.998837 1.08843 15.950581 1.08843 -1.998837 -0.951234 0.003015</array>
+      <array dataType="xsd:double" size="12" dictRef="x:floatArr">0.506288 0.191563 0.009797 -0.044783 0.001826 0.086239 -0.115514 1.08843 14.341573 -1.04763 -2.006583 0.088051</array>
+      <array dataType="xsd:double" size="12" dictRef="x:floatArr">0.088051 0.003015 -0.044783 0.009829 0.191823 0.506439 0.086239 -1.998837 -1.04763 14.338383 1.085225 -0.11324</array>
+      <array dataType="xsd:double" size="12" dictRef="x:floatArr">-2.006583 -0.951234 0.001826 0.191823 0.182861 0.191823 0.001826 -0.951234 -2.006583 1.085225 15.968706 1.085225</array>
+      <array dataType="xsd:double" size="12" dictRef="x:floatArr">-1.04763 -1.998837 0.086239 0.506439 0.191823 0.009829 -0.044783 0.003015 0.088051 -0.11324 1.085225 14.338383</array>
+    </module>
+  </comment>
+</template>
+ 

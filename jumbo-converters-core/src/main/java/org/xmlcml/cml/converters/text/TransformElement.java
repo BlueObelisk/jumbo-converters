@@ -107,6 +107,7 @@ public class TransformElement implements MarkupApplier {
 	private static final String REPEAT              = "repeat";
 	private static final String ROWS                = "rows";
 	private static final String SPLITTER            = "splitter";
+	private static final String TEST                = "test";
 	private static final String TO                  = "to";
 	private static final String VALUE               = "value";
 	private static final String XPATH               = "xpath";
@@ -136,6 +137,7 @@ public class TransformElement implements MarkupApplier {
 		ROWS,
 		REPEAT,
 		SPLITTER,
+		TEST,
 		TO,
 		VALUE,
 		XPATH,
@@ -186,13 +188,14 @@ public class TransformElement implements MarkupApplier {
 	private static final String CREATE_ZMATRIX         = "createZMatrix";
 	private static final String DEBUG_NODES            = "debugNodes";
 	private static final String DELETE                 = "delete";
+	private static final String IF                     = "if";
 	private static final String JOIN_ARRAYS            = "joinArrays";
 	private static final String MOVE                   = "move";
 	private static final String MOVE_RELATIVE          = "moveRelative";
 	private static final String PULLUP                 = "pullup";
 	private static final String PULLUP_SINGLETON       = "pullupSingleton";
 	private static final String READ                   = "read";
-	private static final String REPARSE                   = "reparse";
+	private static final String REPARSE                = "reparse";
 	private static final String RENAME                 = "rename";
 	private static final String SET_VALUE              = "setValue";
 	private static final String SET_DATATYPE           = "setDataType";
@@ -257,6 +260,7 @@ public class TransformElement implements MarkupApplier {
 		DELETE,
 		GROUP_SIBLINGS,
 		HELP,
+		IF,
 		JOIN_ARRAYS,
 		MOVE,
 		MOVE_RELATIVE,
@@ -284,6 +288,7 @@ public class TransformElement implements MarkupApplier {
 	private String idMethod;
 	private String elementMethod;
 	
+	// attributes
 	private String atomRefs;
 	private String cols;
 	private String delimiter;
@@ -308,6 +313,7 @@ public class TransformElement implements MarkupApplier {
 	private String repeat;
 	private String rows;
 	private String splitter;
+	private String test;
 	private String to;
 	private String value;
 	private String xpath;
@@ -382,12 +388,17 @@ public class TransformElement implements MarkupApplier {
 		repeat                 = addAndIndexAttribute(REPEAT);
 		rows                   = addAndIndexAttribute(ROWS);
 		splitter               = addAndIndexAttribute(SPLITTER);
+		test                   = addAndIndexAttribute(TEST);
 		to                     = addAndIndexAttribute(TO);
 		value                  = addAndIndexAttribute(VALUE);
 		xpath                  = addAndIndexAttribute(XPATH);
 		
-		outputLevel = Outputter.extractOutputLevel(this.transformElement);
-		LOG.trace(outputLevel+"/"+transformElement.getAttributeValue(Outputter.OUTPUT));
+		manageOutputLevel(outputLevel, transformElement);
+	}
+
+	static void manageOutputLevel(OutputLevel outputLevel, Element markupElement) {
+		outputLevel = Outputter.extractOutputLevel(markupElement);
+		LOG.trace(outputLevel+"/"+markupElement.getAttributeValue(Outputter.OUTPUT));
 		if (!OutputLevel.NONE.equals(outputLevel)) {
 			LOG.debug("OUTPUT "+outputLevel);
 		}
@@ -495,6 +506,8 @@ public class TransformElement implements MarkupApplier {
 			groupSiblings();
 		} else if (HELP.equals(process)) {
 			help();
+		} else if (IF.equals(process)) {
+			ifTest();
 		} else if (JOIN_ARRAYS.equals(process)) {
 			joinArrays();
 		} else if (MOVE.equals(process)) {
@@ -1506,8 +1519,9 @@ public class TransformElement implements MarkupApplier {
 		List<Node> nodeList = getXpathQueryResults();
 		for (Node node : nodeList) {
 			Element element = (Element) node;
+			// only process molecules without cartesians
 			Nodes childNodes = TransformElement.queryUsingNamespaces(element, 
-			".//cml:atom | .//cml:angle | .//cml:length | .//cml:torsion");
+			".//cml:atom[not(@x3) or not(@y3) or not(@z3)] | .//cml:angle | .//cml:length | .//cml:torsion");
 			if (childNodes.size() > 0) {
 				createZMatrix(element, childNodes);
 			}
@@ -1561,8 +1575,9 @@ public class TransformElement implements MarkupApplier {
 		assertRequired(XPATH, xpath);
 		List<Node> nodeList = getXpathQueryResults();
 		for (Node node : nodeList) {
-			if (node.getParent() != null && node.getParent() instanceof Element)
-			node.detach();
+			if (node.getParent() != null && node.getParent() instanceof Element) {
+				node.detach();
+			}
 		}
 	}
 
@@ -2228,6 +2243,18 @@ public class TransformElement implements MarkupApplier {
 		}
 	}
 
+	private void ifTest() {
+		assertRequired(TEST, test);
+		Nodes testNodes = TransformElement.queryUsingNamespaces(transformElement, test);
+		if (testNodes.size() > 0) {
+			LOG.warn("IF NYI");
+			Elements childElements = transformElement.getChildElements();
+			for (int i = 0; i < childElements.size(); i++) {
+				System.out.println("CH "+childElements.get(i)+" NYI");
+			}
+		}
+	}
+
 	private void ensureProcessListElement() {
 		if (processListElement == null) {
 			try {
@@ -2300,7 +2327,7 @@ public class TransformElement implements MarkupApplier {
 
 	private void debug(String title, Node node) {
 		if (node instanceof Text) {
-			LOG.debug(title+": "+"text in "+getTemplateId(template)+": "+node.getValue());
+			LOG.debug(title+": "+"text in "+getContextId()+": "+node.getValue());
 		} else if (node instanceof Element){
 			Element element = (Element) node;
 			Nodes texts = element.query("./text()");
@@ -2310,15 +2337,26 @@ public class TransformElement implements MarkupApplier {
 			if (texts.size() > 0 && nodes.size()>1) {
 				for (int i = 0; i < nodes.size(); i++) {
 					Node nodex = nodes.get(i);
-					LOG.debug(nodex.getClass().getName()+": "+nodex.getValue());
+					if (nodex instanceof Element) {
+//						CMLUtil.debug((Element)nodex, title);
+					}
 				}
 			}
-			CMLUtil.debug(element, title+": "+xpath+" in "+getTemplateId(template));
+			CMLUtil.debug(element, title+": "+xpath+" in "+getContextId());
 		}
 	}
 
-	private String getTemplateId(Template template) {
-		return template == null ? "" : template.getId();
+	private String getContextId() {
+		String idString = (template == null) ? null : template.getId();
+		if (idString == null) {
+			Nodes idNodes = transformElement.query("./ancestor::*"); 
+			idString = "";
+			for (int i = 0; i < idNodes.size(); i++) {
+				String id = ((Element)idNodes.get(i)).getAttributeValue(ID);
+				idString += "/"+ (id == null ? "" : id);
+			}
+		}
+		return idString;
 	}
 
 	private Element createNewElement(String elementName, String id, String dictRef) {

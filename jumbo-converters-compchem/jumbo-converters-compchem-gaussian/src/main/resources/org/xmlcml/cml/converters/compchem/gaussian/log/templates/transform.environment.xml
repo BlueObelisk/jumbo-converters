@@ -11,15 +11,20 @@
   <!-- move parameters to environment -->
   <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='jobcpu']/cml:scalar[@dictRef='cc:program']" 
     to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/>
-  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:hostname'][last()]" 
+  <transform process="moveRelative" 
+    xpath=".//cml:module[@cmlx:templateRef='job']/cml:scalar[@dictRef='cc:hostname'][last()]" 
     to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
-  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:jobname'][last()]" 
+  <transform process="moveRelative" 
+      xpath=".//cml:module[@cmlx:templateRef='job']/cml:scalar[@dictRef='cc:jobname'][last()]" 
       to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
-  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:date'][last()]" 
+  <transform process="moveRelative" 
+      xpath=".//cml:module[@cmlx:templateRef='job']/cml:scalar[@dictRef='cc:date'][last()]" 
       to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
-  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:title'][last()]" 
+  <transform process="moveRelative" 
+      xpath=".//cml:module[@cmlx:templateRef='job']/cml:scalar[@dictRef='cc:title'][last()]" 
       to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
-  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l9999.archive']/cml:scalar[@dictRef='cc:version'][last()]" 
+  <transform process="moveRelative" 
+      xpath=".//cml:module[@cmlx:templateRef='job']/cml:scalar[@dictRef='cc:version'][last()]" 
       to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
       
 

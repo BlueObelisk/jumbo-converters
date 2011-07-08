@@ -1,0 +1,25 @@
+<template id="l103.itemconverge" repeat="*"
+    pattern="\s*Item\s+Value.*" endOffset="1"
+    endPattern="\s*RMS\s+Displacement.*">
+    
+  <comment class="example.input" id="l103.itemconverge">
+         Item               Value     Threshold  Converged?
+ Maximum Force            0.012566     0.000450     NO 
+ RMS     Force            0.007948     0.000300     NO 
+ Maximum Displacement     0.038691     0.001800     NO 
+ RMS     Displacement     0.024470     0.001200     NO 
+  </comment>
+  <record/>
+  <record id="row" repeat="*" makeArray="true">\s*{X,g:item}\s{5}{F,g:value}{F,g:threshold}{A,g:converged}\s*</record>
+  
+  <comment class="example.output" id="l103.itemconverge">
+    <module cmlx:templateRef="l103.itemconverge" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:lineCount="4" cmlx:templateRef="row">
+        <array dataType="xsd:string" dictRef="g:item"/>
+        <array dataType="xsd:double" dictRef="g:value" size="4">4.5E-4 3.0E-4 0.0018 0.0012</array>
+        <array dataType="xsd:double" dictRef="g:threshold" size="4">0.0 0.0 0.0 0.0</array>
+        <array dataType="xsd:string" dictRef="g:converged" size="4">NO NO NO NO</array>
+      </list>
+    </module>
+  </comment>
+</template>

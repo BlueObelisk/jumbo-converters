@@ -1,0 +1,18 @@
+<transformList
+  id="l9999.line1"
+>
+  
+  <transform process="addDictRef" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar[3]" value="cc:hostname"/>
+  <transform process="addDictRef" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar[4]" value="g:operation"/>
+  <transform process="addDictRef" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar[5]" value="cc:method"/>
+  <transform process="addDictRef" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar[6]" value="cc:basis"/>
+  <transform process="addDictRef" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar[8]" value="cc:jobname"/>
+  <transform process="addDictRef" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar[10]" value="g:zmat"/>
+  <transform process="createDate" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar[9]" format="dd-MMM-yyyy" dictRef="cc:date"/>
+  <transform process="createFormula" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar[7]"/>
+
+  <transform process="delete" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar[2]"/>
+  <transform process="delete" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar[1]"/>
+
+
+</transformList>

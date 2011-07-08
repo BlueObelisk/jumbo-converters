@@ -3,7 +3,7 @@
     endPattern="\s*GradGrad.*$\s*" 
     endOffset="1"
     xmlns:xi="http://www.w3.org/2001/XInclude"
-        >
+    >
     
   <comment class="example.input" id="l103">
  Berny optimization.
@@ -72,24 +72,54 @@
  Predicted change in Energy= 3.932148D-04
  GradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGrad
   </comment>  
+  
   <record repeat="*">\s*GradGradGrad.*</record>
   <record/>
   <record id="berny">{X,g:optimization}</record>
   <templateList>
-    <xi:include href="l103.catchall.xml"/>
-    <xi:include href="l103.trust.xml"/>
-    <xi:include href="l103.init.xml"/>
-    <xi:include href="l103.localmin.xml"/>
-    <xi:include href="l103.deltas.xml"/>
-    <xi:include href="l103.itemconverge.xml"/>
-    <xi:include href="l103.rfo.xml"/>
-    <xi:include href="l103.optimizedparam.xml"/>
-    <xi:include href="l103.preddelta.xml"/>
+    <xi:include href="l103/l103.catchall.xml"/>
+    <xi:include href="l103/l103.trust.xml"/>
+    <xi:include href="l103/l103.init.xml"/>
+    <xi:include href="l103/l103.localmin.xml"/>
+    <xi:include href="l103/l103.deltas.xml"/>
+    <xi:include href="l103/l103.itemconverge.xml"/>
+    <xi:include href="l103/l103.rfo.xml"/>
+    <xi:include href="l103/l103.optimizedparam.xml"/>
+    <xi:include href="l103/l103.preddelta.xml"/>
   </templateList>  
   
   <transform process="delete" xpath="./text()[starts-with(normalize-space(.),'GradGrad')]"/>
   
-  <comment class="example.output.raw" id="l103">
- </comment>
+  <comment class="example.output" id="l103">
+    <module cmlx:templateRef="l103" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="berny">
+        <scalar dataType="xsd:string" dictRef="g:optimization">Initialization pass.</scalar>
+      </list>
+      <module cmlx:lineCount="16" cmlx:templateRef="l103.init">
+        <list cmlx:templateRef="length">
+          <array dataType="xsd:string" size="4" dictRef="g:symbol">R1 R2 R3 R4</array>
+          <array dataType="xsd:integer" size="4" dictRef="g:atom1">1 1 1 1</array>
+          <array dataType="xsd:integer" size="4" dictRef="g:atom2">2 3 4 5</array>
+          <array dataType="xsd:double" size="4" dictRef="cc:distance">1.113 1.113 1.113 1.113</array>
+          <array delimiter="|" dataType="xsd:string" size="4" dictRef="g:deriv">|estimate D2E/DX2|estimate D2E/DX2|estimate D2E/DX2|estimate D2E/DX2|</array>
+        </list>
+        <list cmlx:templateRef="angle">
+          <array dataType="xsd:string" size="5" dictRef="g:symbol">A1 A2 A3 A4 A5</array>
+          <array dataType="xsd:integer" size="5" dictRef="g:atom1">2 2 2 3 3</array>
+          <array dataType="xsd:integer" size="5" dictRef="g:atom2">1 1 1 1 1</array>
+          <array dataType="xsd:integer" size="5" dictRef="g:atom3">3 4 5 4 5</array>
+          <array dataType="xsd:double" size="5" dictRef="cc:angle">109.4712 109.4712 109.4712 109.4712 109.4712</array>
+          <array delimiter="|" dataType="xsd:string" size="5" dictRef="g:deriv">|estimate D2E/DX2|estimate D2E/DX2|estimate D2E/DX2|estimate D2E/DX2|estimate D2E/DX2|</array>
+        </list> ! A6 A(4,1,5) 109.4712 estimate D2E/DX2 ! 
+      </module> -------------------------------------------------------------------------------- 
+      <module cmlx:lineCount="2" cmlx:templateRef="l103.trust">
+        <scalar dataType="xsd:double" dictRef="g:trustrad">0.3</scalar>
+        <scalar dataType="xsd:double" dictRef="g:fncerr">1.0E-7</scalar>
+        <scalar dataType="xsd:double" dictRef="g:grderr">1.0E-6</scalar>
+        <scalar dataType="xsd:integer" dictRef="g:nstep">20</scalar>
+        <scalar dataType="xsd:integer" dictRef="g:allowedstep">100</scalar>
+      </module>
+    </module>
+  </comment>
 </template>
  

@@ -1,0 +1,12 @@
+<template id="l4601.occupied" pattern="\s*Occupied\s*\(.*" repeat="*"
+  endPattern="\s*.*\(.*$\s\S.*" endOffset="1">
+  
+  <record id="occ">\s*Occupied\s*{1_20A,g:occorbs}</record>
+  <record id="occ" repeat="*">\s*{1_20A,g:occorbs}</record>
+
+  <transform process="split" xpath=".//cml:scalar[@dictRef='g:occorbs']"/>
+  <transform process="createArray" xpath=".//cml:list[@dictRef='g:occorbs']/cml:scalar" from="."/>
+  
+</template>
+
+  

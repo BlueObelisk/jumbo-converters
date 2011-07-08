@@ -1,0 +1,32 @@
+<template id="l601.state" name="Electronic state" repeat="*"
+    pattern="\s*The electronic state.*" 
+    endPattern=".*" endOffset="1"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    >
+    
+  <comment class="example.input" id="l601.state">
+ The electronic state of the initial guess is 1-A.
+  </comment>
+  
+  <comment class="example.input" id="l601.state1">
+ The electronic state is 1-A.
+  </comment>
+  
+  <record id="l601.state" >\s*The electronic state\s*.*\s*is{A,g:l601.state}</record>
+
+  <transform process="pullup" xpath=".//cml:scalar"/>
+  
+  <comment class="example.output" id="l601.state">
+    <module cmlx:templateRef="l601.state" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="g:l601.state">1-A.</scalar>
+    </module>
+  </comment>
+  
+  <comment class="example.output" id="l601.state1">
+    <module cmlx:templateRef="l601.state" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="g:l601.state">1-A.</scalar>
+    </module>
+  </comment>
+  
+</template>
+ 

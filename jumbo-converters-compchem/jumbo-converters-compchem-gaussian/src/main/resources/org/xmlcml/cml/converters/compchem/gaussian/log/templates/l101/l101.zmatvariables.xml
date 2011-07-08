@@ -1,0 +1,97 @@
+<template id="l101.zmatvariables" pattern="\s*Symbolic.*" endPattern="\s*" repeat="*"
+  >
+  <comment class="example.input" id="l101.zmatvariables">
+ Symbolic Z-matrix:
+ Charge =  0 Multiplicity = 1
+ C
+ H                    1    B1
+ H                    1    B2       2    A1
+ H                    1    B3       2    A2       3    D1       0
+ H                    1    B4       2    A3       3    D2       0
+       Variables:
+  B1                    1.113                    
+  B2                    1.113                    
+  B3                    1.113                    
+  B4                    1.113                    
+  A1                  109.47124                  
+  A2                  109.47119                  
+  D1                  120.                       
+  A3                  109.47123                  
+  D2                 -120.                       
+ 
+  </comment>
+  
+  <record/>
+  <record id="chargemult">\s*Charge\s*={I,x:formalCharge}\s*Multiplicity\s*={I,x:multiplicity}\s*</record>
+  <record id="atom1">\s*{A,cc:elementType}\s*</record>
+  <record id="atom2">\s*{A,cc:elementType}\s{I,x:junk}\s{A,cc:name}\s*</record>
+  <record id="atom3">\s*{A,cc:elementType}\s{I,x:junk}\s{A,cc:name}\s{I,x:junk}\s{A,cc:name}\s*</record>
+  <record id="atom4" repeat="*">\s*{A,cc:elementType}\s{I,x:junk}\s{A,cc:name}\s{I,x:junk}\s{A,cc:name}\s{I,x:junk}\s{A,cc:name}\s{I,g:unknown}\s*</record>
+  <record/>
+  <record id="variable" repeat="*">\s*{A,x:name}\s{F,x:value}\s*</record>
+
+
+  <transform process="addMap" xpath="." id="variableMap"
+    from=".//cml:scalar[@dictRef='x:name']" 
+    to=".//cml:scalar[@dictRef='x:value']"/>
+  <transform process="delete" xpath="./cml:list[@cmlx:templateRef='variable']"/>
+  
+  <transform process="createAtom" xpath=".//cml:scalar[@dictRef='cc:elementType']" />
+  
+  <transform process="setValue" 
+    xpath=".//cml:list/cml:scalar[2] |
+           .//cml:list/cml:scalar[4] |
+           .//cml:list/cml:scalar[6]"
+     map="//cml:map[@id='variableMap']" value="$string(.)"/>
+
+  <transform process="createLength" xpath=".//cml:list/cml:list[cml:atom]" 
+    atomRefs="$string(cml:scalar[1]) $string(cml:atom/@id)" value="$string(cml:scalar[2])"/>
+  <transform process="createAngle" xpath=".//cml:list/cml:list[cml:atom]" 
+    atomRefs="$string(cml:scalar[3]) $string(cml:scalar[1]) $string(cml:atom/@id)" value="$string(cml:scalar[4])"/>
+  <transform process="createTorsion" xpath=".//cml:list/cml:list[cml:atom]" 
+    atomRefs="$string(cml:scalar[5]) $string(cml:scalar[3]) $string(cml:scalar[1]) $string(cml:atom/@id)" value="$string(cml:scalar[6])"/>
+
+  <transform process="createZMatrix" xpath="." id="zinitial"/>
+  <transform process="addAttribute" xpath=".//cml:molecule" name="spinMultiplicity" 
+     value="$string(..//cml:scalar[@dictRef='x:multiplicity'])"/>
+  <transform process="addAttribute" xpath=".//cml:molecule" name="formalCharge"
+     value="$string(..//cml:scalar[@dictRef='x:formalCharge'])"/>
+
+  <transform process="delete" xpath="./cml:list"/>
+  
+  <comment class="example.output" id="l101.zmatvariables">
+    <module cmlx:templateRef="l101.zmatvariables" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <map id="variableMap">
+        <link from="B1" to="1.113"/>
+        <link from="B2" to="1.113"/>
+        <link from="B3" to="1.113"/>
+        <link from="B4" to="1.113"/>
+        <link from="A1" to="109.47124"/>
+        <link from="A2" to="109.47119"/>
+        <link from="D1" to="120.0"/>
+        <link from="A3" to="109.47123"/>
+        <link from="D2" to="-120.0"/>
+      </map>
+      <molecule id="zinitial" spinMultiplicity="1" formalCharge="0">
+        <zMatrix>
+          <length atomRefs2="a1 a2">1.113</length>
+          <length atomRefs2="a1 a3">1.113</length>
+          <angle atomRefs3="a2 a1 a3">109.47124</angle>
+          <length atomRefs2="a1 a4">1.113</length>
+          <angle atomRefs3="a2 a1 a4">109.47119</angle>
+          <torsion atomRefs4="a3 a2 a1 a4">120.0</torsion>
+          <length atomRefs2="a1 a5">1.113</length>
+          <angle atomRefs3="a2 a1 a5">109.47123</angle>
+          <torsion atomRefs4="a3 a2 a1 a5">-120.0</torsion>
+        </zMatrix>
+        <atomArray>
+          <atom elementType="C" id="a1" x3="1.113" y3="0.0" z3="0.0"/>
+          <atom elementType="H" id="a2" x3="0.0" y3="0.0" z3="0.0"/>
+          <atom elementType="H" id="a3" x3="1.4840003546705822" y3="1.0493463378857821" z3="0.0"/>
+          <atom elementType="H" id="a4" x3="1.4839994389430116" y3="-0.524673330822134" z3="0.9087608663603304"/>
+          <atom elementType="H" id="a5" x3="1.484000171525091" y3="-0.5246732013187714" z3="-0.9087606420539267"/>
+        </atomArray>
+      </molecule>
+    </module>
+  </comment>
+</template>

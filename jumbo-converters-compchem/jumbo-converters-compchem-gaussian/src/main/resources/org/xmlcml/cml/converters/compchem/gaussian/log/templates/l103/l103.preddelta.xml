@@ -1,0 +1,22 @@
+<template id="preddelta" repeat="*" name="Predicted change in Energy"
+    pattern="\s*Predicted change in Energy.*" 
+    endPattern="\s*.*"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    >
+  <comment class="example.input" id="l103.preddelta">
+ Predicted change in Energy=-9.782485D-04
+  </comment>
+  <record id="predicted">\s*Predicted change in Energy={E,g:predchange}.*</record>
+  <templateList>
+    <xi:include href="l103.catchall.xml"/>
+  </templateList>
+  
+  <comment class="example.output" id="l103.preddelta">
+    <module cmlx:templateRef="preddelta" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="predicted">
+        <scalar dataType="xsd:double" dictRef="g:predchange">-9.782485E-4</scalar>
+      </list>
+    </module>
+  </comment>
+  
+</template>

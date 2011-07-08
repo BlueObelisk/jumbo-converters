@@ -1,0 +1,29 @@
+<transformList
+  while=".//cml:module[@id='moleculeRoot']//cml:scalar[@dictRef='g:zmat' and .=0]" 
+  id="l9999.molecule.array"
+>
+  
+  <!-- make sure all lists have 4 children -->  
+  <transform process="addAttribute" xpath=".//cml:module[@id='moleculeRoot' and not(cml:list[count(*)!=4])]/cml:list[@type='molecule']" 
+    from="./cml:scalar" fromPosition="1" name="dictRef" value="cc:elementType"/>
+  <transform process="addAttribute" xpath=".//cml:module[@id='moleculeRoot' and not(cml:list[count(*)!=4])]/cml:list[@type='molecule']" 
+    from="./cml:scalar" fromPosition="2" name="dictRef" value="cc:x3"/>
+  <transform process="addAttribute" xpath=".//cml:module[@id='moleculeRoot' and not(cml:list[count(*)!=4])]/cml:list[@type='molecule']" 
+    from="./cml:scalar" fromPosition="3" name="dictRef" value="cc:y3"/>
+  <transform process="addAttribute" xpath=".//cml:module[@id='moleculeRoot' and not(cml:list[count(*)!=4])]/cml:list[@type='molecule']" 
+    from="./cml:scalar" fromPosition="4" name="dictRef" value="cc:z3"/>
+
+    
+     <!-- make arrays taking one from each row -->
+  <transform process="createArray" xpath=".//cml:module[@id='moleculeRoot']" dataType="xsd:string" 
+      from="./cml:list[@type='molecule']/cml:scalar[@dictRef='cc:elementType']"/>
+  <transform process="createArray" xpath=".//cml:module[@id='moleculeRoot']" dataType="xsd:double" 
+      from="./cml:list[@type='molecule']/cml:scalar[@dictRef='cc:x3']"/>
+  <transform process="createArray" xpath=".//cml:module[@id='moleculeRoot']" dataType="xsd:double"
+      from="./cml:list[@type='molecule']/cml:scalar[@dictRef='cc:y3']"/>
+  <transform process="createArray" xpath=".//cml:module[@id='moleculeRoot']" dataType="xsd:double"
+      from="./cml:list[@type='molecule']/cml:scalar[@dictRef='cc:z3']"/>
+      
+  <transform process="createMolecule" id="mol9999" xpath=".//cml:list[@type='molecule']/cml:array" from="."/>
+
+</transformList>
