@@ -310,9 +310,7 @@ public class GaussianInputProcessor extends AbstractCompchemInputProcessor {
 
 //	private void checkForCarbonyl() {
 //		for (CMLBond bond : inputMolecule.getBonds()) {
-//			if (!CMLBond.DOUBLE.equals(bond.getOrder()) &&
-//					!CMLBond.DOUBLE_D.equals(bond.getOrder()) &&
-//					!CMLBond.DOUBLE_NORM.equals(bond.getOrder())) {
+//			if (!CMLBond.isDouble(bond.getOrder())) {
 //				continue;
 //			}
 //			boolean hasC = false;

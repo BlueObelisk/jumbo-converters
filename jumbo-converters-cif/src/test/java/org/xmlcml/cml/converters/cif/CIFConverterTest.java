@@ -1,9 +1,6 @@
 package org.xmlcml.cml.converters.cif;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,10 +15,13 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.xmlcml.cif.CIF;
 import org.xmlcml.cif.CIFDataBlock;
+import org.xmlcml.cif.CIFException;
+import org.xmlcml.cif.CIFParser;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class CIFConverterTest {
     @Test
@@ -122,5 +122,72 @@ public class CIFConverterTest {
         ser.setIndent(2);
         ser.write(new Document(cml));
     }
-    
+
+    @Test
+    public void testHn0102() throws IOException, CIFException {
+        String filename = "/hn0121.cif";
+        Element cml = convertToCml(filename);
+        assertNotNull(cml);
+    }
+
+    @Test
+    public void testKo5132() throws IOException, CIFException {
+        String filename = "/ko5132.cif";
+        Element cml = convertToCml(filename);
+        assertNotNull(cml);
+    }
+
+    @Test
+    public void testKv2001() throws IOException, CIFException {
+        String filename = "/kv2001.cif";
+        Element cml = convertToCml(filename);
+        assertNotNull(cml);
+    }
+
+    @Test
+    @Ignore
+    public void testMl5212() throws IOException, CIFException {
+        String filename = "/ml5212.cif";
+        Element cml = convertToCml(filename);
+        assertNotNull(cml);
+    }
+
+    @Test
+    public void testOs0053() throws IOException, CIFException {
+        String filename = "/os0053.cif";
+        Element cml = convertToCml(filename);
+        assertNotNull(cml);
+    }
+
+    @Test
+    public void testBt5475() throws IOException, CIFException {
+        String filename = "/bt5475sup1.cif";
+        Element cml = convertToCml(filename);
+        assertNotNull(cml);
+    }
+
+
+    private Element convertToCml(String filename) throws CIFException, IOException {
+        InputStream in = getClass().getResourceAsStream(filename);
+        CIF cif;
+        try {
+            Reader r = new InputStreamReader(in);
+            cif = (CIF) new CIFParser().parse(r).getRootElement();
+        } finally {
+            IOUtils.closeQuietly(in);
+        }
+
+//        Serializer ser = new Serializer(System.err);
+//        ser.setIndent(2);
+//        ser.write(cif.getDocument());
+
+        CIFXML2CMLOptions opts = new CIFXML2CMLOptions();
+        opts.setSkipErrors(true);
+        CIFXML2CMLConverter cif2raw = new CIFXML2CMLConverter(opts);
+        Element raw = cif2raw.convertToXML(cif);
+
+        RawCML2CompleteCMLConverter raw2cml = new RawCML2CompleteCMLConverter();
+        return raw2cml.convertToXML(raw);
+    }
+
 }
