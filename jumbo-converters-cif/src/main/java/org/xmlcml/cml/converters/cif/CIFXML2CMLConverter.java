@@ -12,7 +12,9 @@ import static org.xmlcml.euclid.EuclidConstants.*;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import nu.xom.Attribute;
 import nu.xom.Element;
@@ -308,12 +310,15 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 //					column.setDataType(dataType);
 //				}
 //			}
-			arrayFromColumn.setDictRef(makeDictRef(columnName));
-			arrayFromColumn.setDelimiter(DELIM);
+            String delimiter = pickDelimiter(cellList);
+
+            arrayFromColumn.setDictRef(makeDictRef(columnName));
+			arrayFromColumn.setDelimiter(delimiter);
 //			StringBuilder errorValueBuilder = new StringBuilder(DELIM);
             StringBuilder errorValueBuilder = new StringBuilder(S_SPACE);
 			boolean atLeastOneError=false;
-			for (CIFTableCell cell : cellList) {
+
+            for (CIFTableCell cell : cellList) {
 				String value = cell.getValue();
 				if (XSD_DOUBLE.equals(dataType)) {
 					double dValue = Double.NaN;
@@ -365,7 +370,26 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		return table;
 	}
 
-	/** adds namespace prefix and maybe edits characters.
+    private String pickDelimiter(List<CIFTableCell> cellList) {
+        List<String> delimiters = Arrays.asList("|", ":", "/", "*", "#", "!", "-", "~", " ");
+        return pickDelimiter(cellList, delimiters);
+    }
+
+    private String pickDelimiter(List<CIFTableCell> cellList, List<String> delimiters) {
+        String delimiter = delimiters.get(0);
+        for (CIFTableCell cell : cellList) {
+            String value = cell.getValue();
+            if (value.contains(delimiter)) {
+                if (delimiters.size() == 1) {
+                    throw new RuntimeException("Unable to find delimiter: "+cellList);
+                }
+                return pickDelimiter(cellList, delimiters.subList(1, delimiters.size()));
+            }
+        }
+        return delimiter;
+    }
+
+    /** adds namespace prefix and maybe edits characters.
 	 * bad idea to replace characters at present
 	 * @param name raw name
 	 * @return edited name
