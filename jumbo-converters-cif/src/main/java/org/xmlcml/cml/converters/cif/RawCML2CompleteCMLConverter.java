@@ -278,12 +278,17 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
                 scalar.setUnits(unit);
             }
             if ("xsd:float".equals(type) || "xsd:double".equals(type)) {
-                double d = getDoubleFromString(scalar.getValue());
-                Double e = getErrorFromString(scalar.getValue());
-                scalar.setValue(d);
-                if (e != null) {
-                    scalar.setErrorValue(e);
+                try {
+                    double d = getDoubleFromString(scalar.getValue());
+                    Double e = getErrorFromString(scalar.getValue());
+                    scalar.setValue(d);
+                    if (e != null) {
+                        scalar.setErrorValue(e);
+                    }
+                } catch (NumberFormatException ex) {
+                    warn("Error parsing number: "+scalar.getValue()+ " ["+dictRef+"]");
                 }
+
             } else if ("xsd:string".equals(type)) {
                 String s = scalar.getValue();
                 scalar.setValue(s);
@@ -470,7 +475,7 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
      * Calculates the molecular skeleton from the RawCML data
      *
      */
-    private CMLMolecule createFinalStructure(CMLMolecule molecule, CMLCrystal crystal, CompoundClass compoundClass) throws Exception {
+    private CMLMolecule createFinalStructure(CMLMolecule molecule, CMLCrystal crystal, CompoundClass compoundClass){
         CrystalTool crystalTool = new CrystalTool(molecule, crystal);
         CMLMolecule mergedMolecule;
         if (compoundClass.equals(CompoundClass.INORGANIC)) {

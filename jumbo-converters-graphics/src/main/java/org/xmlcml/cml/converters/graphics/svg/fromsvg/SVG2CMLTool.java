@@ -600,7 +600,7 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 		line.getAtoms()[1-end] = newAtom;
 		Real2 xy2 = line.getXY(1-end);
 		if (line.getOrder() == null) {
-			line.setOrder(CMLBond.SINGLE);
+			line.setOrder(CMLBond.SINGLE_S);
 			line.detachPath(svgChem);
 		}
 		atomList.add(newAtom);
@@ -631,7 +631,7 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 				SVGChemLine chemLine = WiggleBond.findCrudeWiggleAxis(ra, this);
 				path.getParent().appendChild(chemLine);
 				path.detach();
-				chemLine.setOrder(CMLBond.SINGLE);
+				chemLine.setOrder(CMLBond.SINGLE_S);
 			}
 		}
 		addBoundingBoxAndDisplay("wiggles");
@@ -737,7 +737,7 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 		}
 		if (bondLine != null) {
 			bondLine.setStereoBondType(StereoBondType.WEDGE);
-			bondLine.setOrder(CMLBond.SINGLE);
+			bondLine.setOrder(CMLBond.SINGLE_S);
 	//					path.setFill("#77ff00");
 			path.setOpacity(0.4);
 		}
@@ -977,7 +977,7 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 			if (bond.getAtoms()[0] != null &&
 				bond.getAtoms()[1] != null &&
 				bond.getOrder() == null) {
-				bond.setOrder(CMLBond.SINGLE);
+				bond.setOrder(CMLBond.SINGLE_S);
 				bond.detachPath(svgChem);
 			}
 		}

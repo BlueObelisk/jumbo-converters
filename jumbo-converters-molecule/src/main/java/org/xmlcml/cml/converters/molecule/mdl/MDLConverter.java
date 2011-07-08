@@ -324,11 +324,11 @@ public class MDLConverter {
             order = 0;
         } else if (cmlCode.equals(CMLBond.UNKNOWN_ORDER)) {
             order = 0;
-        } else if (cmlCode.equals(CMLBond.SINGLE)) {
+        } else if (cmlCode.equals(CMLBond.SINGLE_S)) {
             order = 1;
-        } else if (cmlCode.equals(CMLBond.DOUBLE)) {
+        } else if (cmlCode.equals(CMLBond.DOUBLE_D)) {
             order = 2;
-        } else if (cmlCode.equals(CMLBond.TRIPLE)) {
+        } else if (cmlCode.equals(CMLBond.TRIPLE_T)) {
             order = 3;
         } else if (cmlCode.equals(CMLBond.AROMATIC)) {
             order = 4;

@@ -71,7 +71,7 @@ public class SpaceGroupTool implements CMLConstants {
 		InputStream is = null;
 		try {
 			if (spaceGroupFile == null) {
-				is = getClass().getClassLoader().getResourceAsStream("./space-groups.xml");
+				is = getClass().getResourceAsStream("/space-groups.xml");
 			} else {
 				is = FileUtils.openInputStream(spaceGroupFile);
 			}

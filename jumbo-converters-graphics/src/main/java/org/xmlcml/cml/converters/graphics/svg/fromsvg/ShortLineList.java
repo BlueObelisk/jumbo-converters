@@ -114,7 +114,7 @@ public class ShortLineList extends ArrayList<SVGChemLine> {
 //			hatchLine.setStrokeWidth(1.5);
 //			hatchLine.setStroke("#00ff00");
 //			parent.appendChild(hatchLine);
-//			hatchLine.setOrder(CMLBond.SINGLE);
+//			hatchLine.setOrder(CMLBond.SINGLE_S);
 		} catch (RuntimeException e) {
 			System.err.println("bad hatch line");
 		}
@@ -191,7 +191,7 @@ public class ShortLineList extends ArrayList<SVGChemLine> {
 					hatchx.analyze();
 					SVGChemLine hatchLine = hatchx.getHatchLine();
 //					LOG.debug("HHHHHHHHHH  "+hatchx.size());
-					hatchLine.setOrder(CMLBond.SINGLE);
+					hatchLine.setOrder(CMLBond.SINGLE_S);
 					hatchLine.setOpacity(SVG2CMLTool.HATCH_BOND_OPACITY);
 					hatchLine.detach(); // in case has parent
 					parent.appendChild(hatchLine);
