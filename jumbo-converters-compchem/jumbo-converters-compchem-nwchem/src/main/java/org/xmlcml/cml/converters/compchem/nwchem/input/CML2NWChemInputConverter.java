@@ -1,17 +1,18 @@
 package org.xmlcml.cml.converters.compchem.nwchem.input;
 
 import java.io.File;
-
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.lensfield.api.LensfieldInput;
-import org.lensfield.api.LensfieldOutput;
 import org.lensfield.api.LensfieldParameter;
-
+import org.xmlcml.cml.converters.compchem.input.BasisSet;
 import org.xmlcml.cml.converters.compchem.input.CML2CompchemInputConverter;
 import org.xmlcml.cml.converters.compchem.input.CalculationComponents;
+import org.xmlcml.cml.converters.compchem.input.Method;
 import org.xmlcml.cml.converters.compchem.input.MethodBasis;
+import org.xmlcml.cml.converters.compchem.input.Parameter;
 import org.xmlcml.euclid.Util;
 
 public class CML2NWChemInputConverter extends CML2CompchemInputConverter  {
@@ -26,9 +27,13 @@ public class CML2NWChemInputConverter extends CML2CompchemInputConverter  {
 	
 	private MethodBasis methodBasis;
 	private CalculationComponents calculationComponents;
+	private List<Parameter> parameterList;
 
-	@LensfieldParameter(name="basis")
-	private String basis;
+	@LensfieldParameter(name="basis", optional=true)
+	private String basis = BasisSet.DEFAULT;
+	
+	@LensfieldParameter(name="method", optional=true)
+	private String method = Method.DEFAULT;
 	
 	public CML2NWChemInputConverter() {
 		super(DEFAULT_TEMPLATE_PATH, DEFAULT_TEMPLATE_NAME);
@@ -93,9 +98,15 @@ public class CML2NWChemInputConverter extends CML2CompchemInputConverter  {
 	@Override
 	public void convert(InputStream inputStream, OutputStream outputStream) {
 		
-		System.err.println("MWCHEMINPUT converter ");
-		System.err.println("basis "+basis);
+		createAndAddParameters();
 		super.convert(inputStream, outputStream);
+	}
+
+	private void createAndAddParameters() {
+		parameterList = new ArrayList<Parameter>();
+		parameterList.add(new BasisSet(basis));
+		parameterList.add(new Method(method));
+		this.methodBasis = new MethodBasis(parameterList);
 	}
 	
 	public static void main(String[] args) throws Exception {

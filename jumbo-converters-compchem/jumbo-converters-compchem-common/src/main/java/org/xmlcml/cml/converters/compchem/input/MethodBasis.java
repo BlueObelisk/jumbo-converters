@@ -20,6 +20,17 @@ public class MethodBasis {
 	private String functional;
 	private Element element;
 
+	public MethodBasis(List<Parameter> parameterList) {
+		for (Parameter parameter : parameterList) {
+			if (parameter instanceof Method) {
+				method = parameter.getValue();
+			}
+			if (parameter instanceof BasisSet) {
+				addAtomBasis(((BasisSet)parameter).getAtomBasis());
+			}
+		}
+	}
+	
 	public MethodBasis(InputStream inputStream) {
 		try {
 			this.element = new Builder().build(inputStream).getRootElement();
