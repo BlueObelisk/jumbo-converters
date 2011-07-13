@@ -1,31 +1,35 @@
 package org.xmlcml.cml.converters.compchem.nwchem.input;
 
 import java.io.File;
-import java.io.FileInputStream;
+
 import java.io.InputStream;
-import java.util.List;
+import java.io.OutputStream;
+
+import org.lensfield.api.LensfieldInput;
+import org.lensfield.api.LensfieldOutput;
+import org.lensfield.api.LensfieldParameter;
 
 import org.xmlcml.cml.converters.compchem.input.CML2CompchemInputConverter;
 import org.xmlcml.cml.converters.compchem.input.CalculationComponents;
 import org.xmlcml.cml.converters.compchem.input.MethodBasis;
-import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.euclid.Util;
-
 
 public class CML2NWChemInputConverter extends CML2CompchemInputConverter  {
 	
-	private static final String CALCULATION_COMPONENTS_XML = "org/xmlcml/cml/converters/compchem/nwchem/input/calculationComponents.xml";
-
-	private static final String METHOD_BASIS_XML = "org/xmlcml/cml/converters/compchem/nwchem/input/methodBasis.xml";
-
-	private static final String DEFAULT_TEMPLATE_PATH = "/org/xmlcml/cml/converters/compchem/nwchem/in/";
-
+	private static final String CALCULATION_COMPONENTS_XML = 
+		"org/xmlcml/cml/converters/compchem/nwchem/input/calculationComponents.xml";
+	private static final String METHOD_BASIS_XML = 
+		"org/xmlcml/cml/converters/compchem/nwchem/input/methodBasis.xml";
+	private static final String DEFAULT_TEMPLATE_PATH = 
+		"/org/xmlcml/cml/converters/compchem/nwchem/in/";
 	private static final String DEFAULT_TEMPLATE_NAME = "nwchem.ftl";
 	
 	private MethodBasis methodBasis;
 	private CalculationComponents calculationComponents;
+
+	@LensfieldParameter(name="basis")
+	private String basis;
 	
-		
 	public CML2NWChemInputConverter() {
 		super(DEFAULT_TEMPLATE_PATH, DEFAULT_TEMPLATE_NAME);
 	}
@@ -86,6 +90,13 @@ public class CML2NWChemInputConverter extends CML2CompchemInputConverter  {
 		}
 	}
 		
+	@Override
+	public void convert(InputStream inputStream, OutputStream outputStream) {
+		
+		System.err.println("MWCHEMINPUT converter ");
+		System.err.println("basis "+basis);
+		super.convert(inputStream, outputStream);
+	}
 	
 	public static void main(String[] args) throws Exception {
 		String moleculeFile = (args.length > 0) ? args[0] : "src/test/resources/compchem/nwchem/input/testmol/ch3f_rot.xml";
