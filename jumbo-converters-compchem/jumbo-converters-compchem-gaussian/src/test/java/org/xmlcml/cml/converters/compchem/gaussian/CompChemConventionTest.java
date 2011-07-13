@@ -4,12 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Node;
+import nu.xom.Serializer;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -54,8 +56,12 @@ public class CompChemConventionTest {
 	}
 	
 	@Test
-	public void testConversionRuns() {
+	public void testConversionRuns() throws IOException {
 		assertNotNull(doc);
+		
+		Serializer ser = new Serializer(System.out);
+		ser.setIndent(2);
+		ser.write(doc);
 	}
 	
 	@Test
@@ -113,7 +119,7 @@ public class CompChemConventionTest {
 	@Test
 	public void testEnvironmentHostName() {
 		List<Node> nodes = CMLUtil.getQueryNodes(job1, "./cml:module[@dictRef='cc:environment']/cml:parameterList/cml:parameter[@dictRef='cc:hostname']/cml:scalar/text()", CMLConstants.CML_XPATH);
-		job1.debug("JOB1");
+//		job1.debug("JOB1");
 		assertFalse("should have hostName", nodes.isEmpty());
 		assertEquals("GINC-DEEPTHOUGHT", nodes.get(0).getValue());
 	}
@@ -154,7 +160,7 @@ public class CompChemConventionTest {
 	@Test
 	public void testInitializationMethod() {
 		List<Node> nodes = CMLUtil.getQueryNodes(job1, "./cml:module[@dictRef='cc:initialization']/cml:parameterList/cml:parameter[@dictRef='cc:method']/cml:scalar/text()", CMLConstants.CML_XPATH);
-		job1.debug("INIT");
+//		job1.debug("INIT");
 		assertFalse(nodes.isEmpty());
 		assertEquals("RB3LYP", nodes.get(0).getValue());
 	}
@@ -210,20 +216,14 @@ public class CompChemConventionTest {
 		}
 	}
 	
-//	@Ignore
 	@Test
 	public void testFinalizationHFEnergy() {
 		List<Node> propertyNodes = CMLUtil.getQueryNodes(job1, "./cml:module[@dictRef='cc:finalization']/cml:propertyList", CMLConstants.CML_XPATH);
-		((CMLPropertyList)propertyNodes.get(0)).debug("JOB1");
 		List<Node> nodes = CMLUtil.getQueryNodes(job1, "./cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:property[@dictRef='cc:hfenergy']/cml:scalar/text()", CMLConstants.CML_XPATH);
-//		if (nodes.isEmpty()) {
-//			job1.debug("JOB1");
-//		}
-//		assertFalse("should find hfenergy node", nodes.isEmpty());
-//		assertEquals("-40.5183892", nodes.get(0).getValue());
+		assertFalse("should find hfenergy node", nodes.isEmpty());
+		assertEquals("-40.5183892", nodes.get(0).getValue());
 	}
 
-	//@Ignore
 	@Test
 	public void testFinalizationMolecule() {
 		List<Node> nodes = CMLUtil.getQueryNodes(job1, "./cml:module[@dictRef='cc:finalization']/cml:molecule", CMLConstants.CML_XPATH);

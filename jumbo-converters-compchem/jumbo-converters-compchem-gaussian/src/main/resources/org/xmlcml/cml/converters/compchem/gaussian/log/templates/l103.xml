@@ -5,7 +5,25 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     >
     
-  <comment class="example.input" id="l103">
+  <record repeat="*">\s*GradGradGrad.*</record>
+  <record/>
+  <record id="berny">{X,g:optimization}</record>
+  <templateList>
+    <xi:include href="l103/l103.catchall.xml"/>
+    <xi:include href="l103/l103.trust.xml"/>
+    <xi:include href="l103/l103.init.xml"/>
+    <xi:include href="l103/l103.localmin.xml"/>
+    <xi:include href="l103/l103.deltas.xml"/>
+    <xi:include href="l103/l103.itemconverge.xml"/>
+    <xi:include href="l103/l103.rfo.xml"/>
+    <xi:include href="l103/l103.optimizedparam.xml"/>
+    <xi:include href="l103/l103.preddelta.xml"/>
+  </templateList>  
+  
+  <transform process="delete" xpath="./text()[starts-with(normalize-space(.),'GradGrad')]"/>
+  
+  <comment class="example.inputx" id="l103">
+ GradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGrad
  Berny optimization.
  Initialization pass.
                            ----------------------------
@@ -27,8 +45,41 @@
  --------------------------------------------------------------------------------
  Trust Radius=3.00D-01 FncErr=1.00D-07 GrdErr=1.00D-06
  Number of steps in this run=  20 maximum allowed number of steps= 100.
+ GradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGrad
   </comment>
-  <comment title="cutdown">
+  <comment class="example.output" id="l103">
+    <module cmlx:templateRef="l103" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="berny">
+        <scalar dataType="xsd:string" dictRef="g:optimization">Initialization pass.</scalar>
+      </list>
+      <module cmlx:lineCount="16" cmlx:templateRef="l103.init">
+        <list cmlx:templateRef="length">
+          <array dataType="xsd:string" size="4" dictRef="g:symbol">R1 R2 R3 R4</array>
+          <array dataType="xsd:integer" size="4" dictRef="g:atom1">1 1 1 1</array>
+          <array dataType="xsd:integer" size="4" dictRef="g:atom2">2 3 4 5</array>
+          <array dataType="xsd:double" size="4" dictRef="cc:distance">1.113 1.113 1.113 1.113</array>
+          <array delimiter="|" dataType="xsd:string" size="4" dictRef="g:deriv">|estimate D2E/DX2|estimate D2E/DX2|estimate D2E/DX2|estimate D2E/DX2|</array>
+        </list>
+        <list cmlx:templateRef="angle">
+          <array dataType="xsd:string" size="5" dictRef="g:symbol">A1 A2 A3 A4 A5</array>
+          <array dataType="xsd:integer" size="5" dictRef="g:atom1">2 2 2 3 3</array>
+          <array dataType="xsd:integer" size="5" dictRef="g:atom2">1 1 1 1 1</array>
+          <array dataType="xsd:integer" size="5" dictRef="g:atom3">3 4 5 4 5</array>
+          <array dataType="xsd:double" size="5" dictRef="cc:angle">109.4712 109.4712 109.4712 109.4712 109.4712</array>
+          <array delimiter="|" dataType="xsd:string" size="5" dictRef="g:deriv">|estimate D2E/DX2|estimate D2E/DX2|estimate D2E/DX2|estimate D2E/DX2|estimate D2E/DX2|</array>
+        </list>
+      </module>
+      <module cmlx:lineCount="2" cmlx:templateRef="l103.trust">
+        <scalar dataType="xsd:double" dictRef="g:trustrad">0.3</scalar>
+        <scalar dataType="xsd:double" dictRef="g:fncerr">1.0E-7</scalar>
+        <scalar dataType="xsd:double" dictRef="g:grderr">1.0E-6</scalar>
+        <scalar dataType="xsd:integer" dictRef="g:nstep">20</scalar>
+        <scalar dataType="xsd:integer" dictRef="g:allowedstep">100</scalar>
+      </module>
+    </module>
+  </comment>  
+  
+  <comment class="example.input" id="l103.1">
  GradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGrad
  Berny optimization.
  Internal  Forces:  Max     0.002386724 RMS     0.000538609
@@ -72,54 +123,43 @@
  Predicted change in Energy= 3.932148D-04
  GradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGrad
   </comment>  
-  
-  <record repeat="*">\s*GradGradGrad.*</record>
-  <record/>
-  <record id="berny">{X,g:optimization}</record>
-  <templateList>
-    <xi:include href="l103/l103.catchall.xml"/>
-    <xi:include href="l103/l103.trust.xml"/>
-    <xi:include href="l103/l103.init.xml"/>
-    <xi:include href="l103/l103.localmin.xml"/>
-    <xi:include href="l103/l103.deltas.xml"/>
-    <xi:include href="l103/l103.itemconverge.xml"/>
-    <xi:include href="l103/l103.rfo.xml"/>
-    <xi:include href="l103/l103.optimizedparam.xml"/>
-    <xi:include href="l103/l103.preddelta.xml"/>
-  </templateList>  
-  
-  <transform process="delete" xpath="./text()[starts-with(normalize-space(.),'GradGrad')]"/>
-  
-  <comment class="example.output" id="l103">
-    <module cmlx:templateRef="l103" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <list cmlx:templateRef="berny">
-        <scalar dataType="xsd:string" dictRef="g:optimization">Initialization pass.</scalar>
-      </list>
-      <module cmlx:lineCount="16" cmlx:templateRef="l103.init">
-        <list cmlx:templateRef="length">
-          <array dataType="xsd:string" size="4" dictRef="g:symbol">R1 R2 R3 R4</array>
-          <array dataType="xsd:integer" size="4" dictRef="g:atom1">1 1 1 1</array>
-          <array dataType="xsd:integer" size="4" dictRef="g:atom2">2 3 4 5</array>
-          <array dataType="xsd:double" size="4" dictRef="cc:distance">1.113 1.113 1.113 1.113</array>
-          <array delimiter="|" dataType="xsd:string" size="4" dictRef="g:deriv">|estimate D2E/DX2|estimate D2E/DX2|estimate D2E/DX2|estimate D2E/DX2|</array>
-        </list>
-        <list cmlx:templateRef="angle">
-          <array dataType="xsd:string" size="5" dictRef="g:symbol">A1 A2 A3 A4 A5</array>
-          <array dataType="xsd:integer" size="5" dictRef="g:atom1">2 2 2 3 3</array>
-          <array dataType="xsd:integer" size="5" dictRef="g:atom2">1 1 1 1 1</array>
-          <array dataType="xsd:integer" size="5" dictRef="g:atom3">3 4 5 4 5</array>
-          <array dataType="xsd:double" size="5" dictRef="cc:angle">109.4712 109.4712 109.4712 109.4712 109.4712</array>
-          <array delimiter="|" dataType="xsd:string" size="5" dictRef="g:deriv">|estimate D2E/DX2|estimate D2E/DX2|estimate D2E/DX2|estimate D2E/DX2|estimate D2E/DX2|</array>
-        </list> ! A6 A(4,1,5) 109.4712 estimate D2E/DX2 ! 
-      </module> -------------------------------------------------------------------------------- 
-      <module cmlx:lineCount="2" cmlx:templateRef="l103.trust">
-        <scalar dataType="xsd:double" dictRef="g:trustrad">0.3</scalar>
-        <scalar dataType="xsd:double" dictRef="g:fncerr">1.0E-7</scalar>
-        <scalar dataType="xsd:double" dictRef="g:grderr">1.0E-6</scalar>
-        <scalar dataType="xsd:integer" dictRef="g:nstep">20</scalar>
-        <scalar dataType="xsd:integer" dictRef="g:allowedstep">100</scalar>
-      </module>
-    </module>
+  <comment class="example.output" id="l103.1">
+<module cmlx:templateRef="l103" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="berny">
+    <scalar dataType="xsd:string" dictRef="g:optimization">Internal Forces: Max 0.002386724 RMS 0.000538609</scalar>
+  </list> Search for a saddle point. Step number 1 out of a maximum of 137 All quantities printed in internal units (Hartrees-Bohrs-Radians) Swaping is turned off. Second derivative matrix not updated -- analytic derivatives used. Eigenvalues --- -0.03403 0.00144 0.00463 0.00759 0.00906 Eigenvalues --- 0.01177 0.01317 0.01431 0.01623 0.01839 Eigenvalues --- 0.40148 0.40211 0.40329 0.46257 0.48142 Eigenvalues --- 0.51910 1.01166 1.025821000.000001000.00000 Eigenvalues --- 1000.000001000.000001000.000001000.000001000.00000 Eigenvalues --- 1000.000001000.00000 Eigenvectors required to have negative eigenvalues: R25 R14 R27 R16 D47 1 0.36641 0.36640 0.22975 0.22974 -0.19160 D48 D8 D11 D6 D9 1 0.19153 0.16306 -0.16304 0.15371 -0.15366 
+  <module cmlx:lineCount="5" cmlx:templateRef="rfo"> RFO step: Lambda0=9.155600927D-04 Lambda=-1.51225227D-04. Linear search not attempted -- option 19 set. Iteration 1 RMS(Cart)= 0.01149217 RMS(Int)= 0.00020982 Iteration 2 RMS(Cart)= 0.00019717 RMS(Int)= 0.00012443 Iteration 3 RMS(Cart)= 0.00000003 RMS(Int)= 0.00012443 </module>
+  <module cmlx:lineCount="11" cmlx:templateRef="l103.deltas">
+    <list cmlx:lineCount="9" cmlx:templateRef="delta">
+      <array dataType="xsd:string" dictRef="cc:variable" size="9">R1 R2 R41 A1 A2 A37 D1 D2 D49</array>
+      <array dataType="xsd:double" dictRef="g:lastval" size="9">2.6342 2.6342 2.01442 1.93497 2.13721 2.20391 3.00181 -0.15405 2.0E-4</array>
+      <array dataType="xsd:double" dictRef="cc:deriv" size="9">3.0E-5 4.0E-5 5.7E-4 6.0E-5 -6.0E-5 -1.2E-4 -3.5E-4 -2.1E-4 0.0</array>
+      <array dataType="xsd:double" dictRef="cc:delta.linear" size="9">0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0</array>
+      <array dataType="xsd:double" dictRef="cc:delta.quad" size="9">3.8E-4 3.7E-4 -0.00167 -0.00261 0.00116 0.01113 0.00163 0.00583 -2.2E-4</array>
+      <array dataType="xsd:double" dictRef="cc:delta.total" size="9">2.6E-4 2.6E-4 -0.00165 -0.00267 0.00111 0.01057 0.00163 0.00583 -2.2E-4</array>
+      <array dataType="xsd:double" dictRef="cc:newval" size="9">2.63446 2.63446 2.01277 1.9323 2.13833 2.21448 3.00344 -0.14822 -2.0E-5</array>
+    </list>
+  </module>
+  <module cmlx:lineCount="5" cmlx:templateRef="l103.itemconverge">
+    <list cmlx:lineCount="4" cmlx:templateRef="row">
+      <array dataType="xsd:string" dictRef="g:item"/>
+      <array dataType="xsd:double" dictRef="g:value" size="4">4.5E-4 3.0E-4 0.0018 0.0012</array>
+      <array dataType="xsd:double" dictRef="g:threshold" size="4">0.0 0.0 0.0 0.0</array>
+      <array dataType="xsd:string" dictRef="g:converged" size="4">NO NO NO NO</array>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="preddelta">
+    <list cmlx:templateRef="predicted">
+      <scalar dataType="xsd:double" dictRef="g:predchange">3.932148E-4</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="l103.catchall">
+    <list cmlx:templateRef="l103.discard">
+      <scalar dataType="xsd:string" dictRef="x:discard">GradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGradGrad</scalar>
+    </list>
+  </module>
+</module>
   </comment>
+  
 </template>
  

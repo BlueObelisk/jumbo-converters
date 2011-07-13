@@ -31,6 +31,7 @@ public abstract class FreemarkerTextConverter extends XML2TextConverter {
 	@Override
 	public List<String> convertToText(Element xmlInput) {
 		StringWriter stringWriter = new StringWriter();
+		System.out.println("Freemarker in "+this.getClass());
 		try {
 			write(xmlInput, stringWriter);
 		} catch (IOException e) {
