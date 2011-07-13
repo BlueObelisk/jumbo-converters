@@ -1,6 +1,8 @@
 package org.xmlcml.cml.converters.compchem.input;
 
 public class AtomBasis {
+	
+	public final static String WILDCARD = "*";
 	private String element;
 	private String basis;
 	
