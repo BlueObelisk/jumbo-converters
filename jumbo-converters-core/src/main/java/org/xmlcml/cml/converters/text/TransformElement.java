@@ -1470,6 +1470,12 @@ public class TransformElement implements MarkupApplier {
 			} else {
 //				element.copyNamespaces((CMLElement) node);
 			}
+			if (node instanceof Text) {
+				String normalized = Util.normaliseWhitespace(node.getValue().trim());
+				String[] strings = normalized.split(CMLConstants.S_WHITEREGEX);
+				CMLArray array = new CMLArray(strings);
+				node = array;
+			}
 			element.appendChild(node);
 		}
 	}

@@ -27,7 +27,6 @@
     <scm />
     <modules>
         <module>jumbo-converters-core</module>
-        <!-- 		<module>jumbo-converters-cli</module> -->
         <module>jumbo-converters-cif</module>
         <module>jumbo-converters-chemdraw</module>
         <module>jumbo-converters-compchem</module>
@@ -46,6 +45,15 @@
 
     <properties>
         <cdk.version>1.2.0</cdk.version>
+        <cml.groupId>cml</cml.groupId>
+        <jumbo.groupId>org.xml-cml</jumbo.groupId>
+        <jumbo.version>6.1-SNAPSHOT</jumbo.version>
+        <cmlxom.version>3.2-SNAPSHOT</cmlxom.version>
+        <jumbotestutil.version>1.0-SNAPSHOT</jumbotestutil.version>
+        <jumbounits.version>0.2-SNAPSHOT</jumbounits.version>
+    
+        <jumboConverters.groupId>org.xml-cml</jumboConverters.groupId>
+<!--         <jumboConverters.version>6.1-SNAPSHOT</jumboConverters.version> -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -115,22 +123,22 @@
                 <version>0.2-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>cml</groupId>
+                <groupId>${jumbo.groupId}</groupId>
                 <artifactId>cmlxom</artifactId>
-                <version>3.1-SNAPSHOT</version>
+                <version>${cmlxom.version}</version>
             </dependency>
             <dependency>
-                <groupId>cml</groupId>
+                <groupId>${cml.groupId}</groupId>
                 <artifactId>jumbo-testutil</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${jumbotestutil.version}</version>
             </dependency>
             <dependency>
-                <groupId>cml</groupId>
+                <groupId>${jumbo.groupId}</groupId>
                 <artifactId>jumbo</artifactId>
-                <version>6.0.0-SNAPSHOT</version>
+                <version>${jumbo.version}</version>
             </dependency>
             <dependency>
-                <groupId>cml</groupId>
+                <groupId>${jumbo.groupId}</groupId>
                 <artifactId>jumbo-units</artifactId>
                 <version>0.2-SNAPSHOT</version>
             </dependency>
