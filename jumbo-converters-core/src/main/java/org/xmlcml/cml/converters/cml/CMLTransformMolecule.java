@@ -38,37 +38,6 @@ public class CMLTransformMolecule extends AbstractConverter {
 		LOG.setLevel(Level.INFO);
 	}
 	
-	public enum Command {
-		fractionalToCartesian("fract2cart"),
-		addHydrogens("addh"),
-		addHydrogen2D("addh2d"),
-		addHydrogen3D("addh3d"),
-		calculateBonds("bonds"),
-		addBondOrders("orders"),
-		adjustBondOrdersToValency("valency"),
-		add2DCoordinates("2dcoord"),
-		add3DCoordinates("3dcoord"),
-		addAtomParityFromCoordinates("parity"),
-		addBondStereoFromCoordinates("bondStereo"),
-		addFormulaFromAtoms("formula"),
-		addSMILESFromFormula("smiles"),
-		addMorgan("morgan"),
-		;
-		private static Map<String, Command> map = new HashMap<String, Command>();
-		private Command(String abbrev) {
-			init(abbrev);
-		}
-		private void init(String abbrev) {
-			map.put(abbrev, this);
-		}
-		public static Command getCommand(String abbrev) {
-			return map.get(abbrev);
-		}
-		public static Set<String> getAbbreviations() {
-			return map.keySet();
-		}
-	}
-	
 	@LensfieldParameter(name="command", optional=false)
 	private String command = "";
 	
@@ -77,8 +46,6 @@ public class CMLTransformMolecule extends AbstractConverter {
 
 	private CMLElement cmlElement;
 
-	private Command commandx;
-	
 	public Type getInputType() {
 		return Type.CML;
 	}
@@ -86,15 +53,12 @@ public class CMLTransformMolecule extends AbstractConverter {
 	public Type getOutputType() {
 		return Type.CML;
 	}
-
-	
 	
 	public CMLTransformMolecule() {
 	}
 
 	@Override
 	public void convert(InputStream inputStream, OutputStream outputStream) {
-		
 		try {
 			cmlElement = (CMLElement) new CMLBuilder().build(inputStream).getRootElement();
 			transformMolecules();
@@ -105,47 +69,47 @@ public class CMLTransformMolecule extends AbstractConverter {
 	}
 
 	public void transformMolecules() {
-		commandx = Command.getCommand(command);
+		TransformMoleculeCommand commandx = TransformMoleculeCommand.getCommand(command);
 		if (commandx == null) {
 			throw new RuntimeException("cannot find command: "+command);
 		}
 		Nodes nodes = cmlElement.query(xpath, CMLConstants.CML_XPATH);
 		for (int i = 0; i < nodes.size(); i++) {
 			if (nodes.get(i) instanceof CMLMolecule) {
-				transform((CMLMolecule)nodes.get(i));
+				transform((CMLMolecule)nodes.get(i), commandx);
 			}
 		}
 	}
 	
-	private void transform(CMLMolecule molecule) {
+	private void transform(CMLMolecule molecule, TransformMoleculeCommand commandx) {
 		MoleculeTool moleculeTool = MoleculeTool.getOrCreateTool(molecule);
-		if (Command.fractionalToCartesian.equals(commandx)) {
+		if (TransformMoleculeCommand.fractionalToCartesian.equals(commandx)) {
 			transformFractionalToCartesian(moleculeTool);
-		} else if (Command.addHydrogens.equals(commandx)) {
+		} else if (TransformMoleculeCommand.addHydrogens.equals(commandx)) {
 			addHydrogens(moleculeTool);
-		} else if (Command.addHydrogen2D.equals(commandx)) {
+		} else if (TransformMoleculeCommand.addHydrogen2D.equals(commandx)) {
 			addHydrogen2D(moleculeTool);
-		} else if (Command.addHydrogen3D.equals(commandx)) {
+		} else if (TransformMoleculeCommand.addHydrogen3D.equals(commandx)) {
 			addHydrogen3D(moleculeTool);
-		} else if (Command.calculateBonds.equals(commandx)) {
+		} else if (TransformMoleculeCommand.calculateBonds.equals(commandx)) {
 			calculateBonds(moleculeTool);
-		} else if (Command.addBondOrders.equals(commandx)) {
+		} else if (TransformMoleculeCommand.addBondOrders.equals(commandx)) {
 			addBondOrders(moleculeTool);
-		} else if (Command.adjustBondOrdersToValency.equals(commandx)) {
+		} else if (TransformMoleculeCommand.adjustBondOrdersToValency.equals(commandx)) {
 			adjustBondOrdersToValency(moleculeTool);
-		} else if (Command.add2DCoordinates.equals(commandx)) {
+		} else if (TransformMoleculeCommand.add2DCoordinates.equals(commandx)) {
 			add2DCoordinates(moleculeTool);
-		} else if (Command.add3DCoordinates.equals(commandx)) {
+		} else if (TransformMoleculeCommand.add3DCoordinates.equals(commandx)) {
 			add3DCoordinates(moleculeTool);
-		} else if (Command.addAtomParityFromCoordinates.equals(commandx)) {
+		} else if (TransformMoleculeCommand.addAtomParityFromCoordinates.equals(commandx)) {
 			addAtomParityFromCoordinates(moleculeTool);
-		} else if (Command.addBondStereoFromCoordinates.equals(commandx)) {
+		} else if (TransformMoleculeCommand.addBondStereoFromCoordinates.equals(commandx)) {
 			addBondStereoFromCoordinates(moleculeTool);
-		} else if (Command.addFormulaFromAtoms.equals(commandx)) {
+		} else if (TransformMoleculeCommand.addFormulaFromAtoms.equals(commandx)) {
 			addFormulaFromAtoms(moleculeTool);
-		} else if (Command.addSMILESFromFormula.equals(commandx)) {
+		} else if (TransformMoleculeCommand.addSMILESFromFormula.equals(commandx)) {
 			addSMILESFromFormula(moleculeTool);
-		} else if (Command.addMorgan.equals(commandx)) {
+		} else if (TransformMoleculeCommand.addMorgan.equals(commandx)) {
 			addMorgan(moleculeTool);
 		} else {
 			throw new RuntimeException("No routine implemented for: "+command);
