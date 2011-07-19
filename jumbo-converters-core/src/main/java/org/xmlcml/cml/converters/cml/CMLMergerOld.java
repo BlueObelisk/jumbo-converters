@@ -22,14 +22,14 @@ import org.xmlcml.cml.converters.Type;
  * @author pm286
  *
  */
-public class CMLMerger extends AbstractMerger {
+public class CMLMergerOld extends AbstractMerger {
 
-	private static final Logger LOG = Logger.getLogger(CMLMerger.class);
+	private static final Logger LOG = Logger.getLogger(CMLMergerOld.class);
 	static {
 		LOG.setLevel(Level.DEBUG);
 	}
 
-	public CMLMerger() {
+	public CMLMergerOld() {
 		
 	}
 

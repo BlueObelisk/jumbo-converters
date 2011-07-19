@@ -73,7 +73,7 @@ public class TemplateTest {
 	@Test	public void testl401Alphabeta()              {runTemplateTest("l401/", "l401.alphabeta");}
 	@Test	public void testl401Orbsym()                 {runTemplateTest("l401/", "l401.orbsym");}
 	
-	@Test   public void testl502Footer()                 {runTemplateTest("l502.footer");}
+	@Ignore @Test   public void testl502Footer()                 {runTemplateTest("l502.footer");}
 	
 	@Test 	public void testl601Alphabeta()              {runTemplateTest("l601/", "l601.alphabetaeigen");}
 	@Test   public void testl601Anisospin()              {runTemplateTest("l601/", "l601.anisospin");}
@@ -122,8 +122,8 @@ public class TemplateTest {
 	@Test	public void testJobcpu()                     {runTemplateTest("jobcpu");}
 
 	@Ignore @Test	public void testl103DEBUG()                       {runTemplateTest("l103");}
-	@Ignore @Test   public void testl502CycleDEBUG()                  {runTemplateTest("l502.cycle");}
-	@Ignore @Test	public void testl601PopanalDEBUG()                {runTemplateTest("l601.popanal");}
+	@Ignore @Test   public void testl502CycleDEBUG()                  {runTemplateTest("l502/","l502.cycle");}
+	@Test	public void testl601PopanalDEBUG()                {runTemplateTest("l601/", "l601.popanal");}
 	@Ignore @Test   public void testl716ForceMatrixDEBUG()            {runTemplateTest("l716/", "l716.forcematrix");}
 	@Ignore @Test   public void testl716DEBUG()                       {runTemplateTest("l716");}
 	

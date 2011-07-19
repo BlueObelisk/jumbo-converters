@@ -14,7 +14,6 @@ import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.XML2XMLConverter;
 import org.xmlcml.cml.converters.text.XML2XMLTransformConverter;
 import org.xmlcml.cml.converters.util.ConverterUtils;
-import org.xmlcml.cml.testutil.JumboTestUtils;
 import org.xmlcml.euclid.Util;
 
 public class NWChemLogXML2CompchemConverter extends XML2XMLTransformConverter {

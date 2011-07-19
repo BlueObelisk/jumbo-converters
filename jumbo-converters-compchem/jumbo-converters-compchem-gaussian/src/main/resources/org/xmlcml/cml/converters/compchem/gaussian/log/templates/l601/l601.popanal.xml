@@ -227,6 +227,8 @@
     <xi:include href="l601.state.xml"/>
   </templateList>
   <record repeat="*" id="popanal">{X,x:popanal}</record>
+  
+  <transform process="createWrapper" xpath=".//cml:module/text()" elementName="UNPARSED"/>
 
   <comment class="example.output" id="l601.popanal">
 <module cmlx:templateRef="l601.popanal" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
@@ -288,9 +290,63 @@
   <module cmlx:lineCount="44" cmlx:templateRef="mulliken">
     <module cmlx:lineCount="26" cmlx:templateRef="l601.mullik">
       <scalar dataType="xsd:string" dictRef="g:title">Mulliken atomic charges:</scalar>
-      <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar> Sum of Mulliken atomic charges = 0.00000 
-    </module> Mulliken charges with hydrogens summed into heavy atoms: 1 1 O -0.712526 2 C 0.915269 3 C 0.915269 4 O -0.590397 5 O -0.590398 6 C 0.016777 8 C 0.041243 10 C 0.041243 12 C 0.016777 14 C 0.051065 17 C 0.051065 20 C -0.077694 22 C -0.077693 Sum of Mulliken charges with hydrogens summed into heavy atoms = 0.00000 
-    <scalar dataType="xsd:double" dictRef="g:electextent2">1863.5044</scalar> Charge= 0.0000 electrons 
+      <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+      <UNPARSED xmlns="">
+        <array dataType="xsd:string" size="7" xmlns="http://www.xml-cml.org/schema">Sum of Mulliken atomic charges = 0.00000</array>
+      </UNPARSED>
+    </module>
+    <UNPARSED xmlns="">
+      <array dataType="xsd:string" size="8" xmlns="http://www.xml-cml.org/schema">Mulliken charges with hydrogens summed into heavy atoms:</array>
+    </UNPARSED>
+    <UNPARSED xmlns="">
+      <array dataType="xsd:string" size="1" xmlns="http://www.xml-cml.org/schema">1</array>
+    </UNPARSED>
+    <UNPARSED xmlns="">
+      <array dataType="xsd:string" size="3" xmlns="http://www.xml-cml.org/schema">1 O -0.712526</array>
+    </UNPARSED>
+    <UNPARSED xmlns="">
+      <array dataType="xsd:string" size="3" xmlns="http://www.xml-cml.org/schema">2 C 0.915269</array>
+    </UNPARSED>
+    <UNPARSED xmlns="">
+      <array dataType="xsd:string" size="3" xmlns="http://www.xml-cml.org/schema">3 C 0.915269</array>
+    </UNPARSED>
+    <UNPARSED xmlns="">
+      <array dataType="xsd:string" size="3" xmlns="http://www.xml-cml.org/schema">4 O -0.590397</array>
+    </UNPARSED>
+    <UNPARSED xmlns="">
+      <array dataType="xsd:string" size="3" xmlns="http://www.xml-cml.org/schema">5 O -0.590398</array>
+    </UNPARSED>
+    <UNPARSED xmlns="">
+      <array dataType="xsd:string" size="3" xmlns="http://www.xml-cml.org/schema">6 C 0.016777</array>
+    </UNPARSED>
+    <UNPARSED xmlns="">
+      <array dataType="xsd:string" size="3" xmlns="http://www.xml-cml.org/schema">8 C 0.041243</array>
+    </UNPARSED>
+    <UNPARSED xmlns="">
+      <array dataType="xsd:string" size="3" xmlns="http://www.xml-cml.org/schema">10 C 0.041243</array>
+    </UNPARSED>
+    <UNPARSED xmlns="">
+      <array dataType="xsd:string" size="3" xmlns="http://www.xml-cml.org/schema">12 C 0.016777</array>
+    </UNPARSED>
+    <UNPARSED xmlns="">
+      <array dataType="xsd:string" size="3" xmlns="http://www.xml-cml.org/schema">14 C 0.051065</array>
+    </UNPARSED>
+    <UNPARSED xmlns="">
+      <array dataType="xsd:string" size="3" xmlns="http://www.xml-cml.org/schema">17 C 0.051065</array>
+    </UNPARSED>
+    <UNPARSED xmlns="">
+      <array dataType="xsd:string" size="3" xmlns="http://www.xml-cml.org/schema">20 C -0.077694</array>
+    </UNPARSED>
+    <UNPARSED xmlns="">
+      <array dataType="xsd:string" size="3" xmlns="http://www.xml-cml.org/schema">22 C -0.077693</array>
+    </UNPARSED>
+    <UNPARSED xmlns="">
+      <array dataType="xsd:string" size="12" xmlns="http://www.xml-cml.org/schema">Sum of Mulliken charges with hydrogens summed into heavy atoms = 0.00000</array>
+    </UNPARSED>
+    <scalar dataType="xsd:double" dictRef="g:electextent2">1863.5044</scalar>
+    <UNPARSED xmlns="">
+      <array dataType="xsd:string" size="3" xmlns="http://www.xml-cml.org/schema">Charge= 0.0000 electrons</array>
+    </UNPARSED>
   </module>
   <module cmlx:lineCount="18" cmlx:templateRef="multipole">
     <array dataType="xsd:double" size="3" dictRef="cc:dipole">-6.3214 0.0 -2.2649</array>

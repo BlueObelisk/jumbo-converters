@@ -23,9 +23,9 @@ import org.xmlcml.cml.converters.Type;
  * @author pm286
  *
  */
-public class CMLSplitter extends AbstractSplitter {
+public class CMLSplitterOld extends AbstractSplitter {
 
-	private static final Logger LOG = Logger.getLogger(CMLSplitter.class);
+	private static final Logger LOG = Logger.getLogger(CMLSplitterOld.class);
 	static {
 		LOG.setLevel(Level.DEBUG);
 	}
@@ -36,7 +36,7 @@ public class CMLSplitter extends AbstractSplitter {
 
 	protected String outputName;
 
-	public CMLSplitter() {
+	public CMLSplitterOld() {
 		this.xpath = xPath; 
 //		this.outputFile = new File(outputName);
 		this.outputDirectory = new File(outDirname);
@@ -77,7 +77,7 @@ public class CMLSplitter extends AbstractSplitter {
 	}
 
 	public static void main(String[] args) throws Exception {
-		CMLSplitter splitter = new CMLSplitter();
+		CMLSplitterOld splitter = new CMLSplitterOld();
 		String infile = (args.length > 0) ? args[0] : "junk";
 		String outputDirectory = (args.length > 1) ? args[1] : "out";
 		String outputFile = (args.length > 2) ? args[2] : "molecule";
