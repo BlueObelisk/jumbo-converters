@@ -122,15 +122,19 @@ public class CMLTransformMolecule extends AbstractConverter {
 	
 	private void addHydrogens(MoleculeTool moleculeTool) {
 		moleculeTool.adjustHydrogenCountsToValency(HydrogenControl.USE_EXPLICIT_HYDROGENS);
+		moleculeTool.removeHydrogenCountAttributes();
 	}
 	
 	private void addHydrogen2D(MoleculeTool moleculeTool) {
 		moleculeTool.adjustHydrogenCountsToValency(HydrogenControl.USE_EXPLICIT_HYDROGENS);
+		moleculeTool.removeHydrogenCountAttributes();
 	}
 	
 	private void addHydrogen3D(MoleculeTool moleculeTool) {
 		moleculeTool.adjustHydrogenCountsToValency(HydrogenControl.USE_EXPLICIT_HYDROGENS);
 		moleculeTool.addCalculated3DCoordinatesForExistingHydrogens();
+		moleculeTool.removeHydrogenCountAttributes();
+		LOG.info("REMOVED HYDROGENCOUNT ATTS");
 	}
 	
 	private void calculateBonds(MoleculeTool moleculeTool) {
