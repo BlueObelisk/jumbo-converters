@@ -1,7 +1,6 @@
 package org.xmlcml.cml.converters.text;
 
 import junit.framework.Assert;
-
 import nu.xom.Attribute;
 import nu.xom.Element;
 
@@ -10,8 +9,10 @@ import org.junit.Test;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLArray;
+import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLMap;
+import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.testutil.JumboTestUtils;
 
@@ -1306,6 +1307,17 @@ public class TransformTest {
 			"<foo><bar zz='qq'>xxx</bar></foo>"
 			);
 	}
+	
+	@Test 
+	public void testTransformMolecule() {
+		runTest("split", 
+			"<transform process='transformMolecule' operation='convoluteProperty'" +
+			"   xpath='.//cml:molecule' valueXpath='.//cml:scalar' args='npasses=1 damping=1.0'/>",
+			CMLUtil.readElementFromResource("org/xmlcml/cml/converters/text/transformMolecule.xml"),
+		    CMLUtil.readElementFromResource("org/xmlcml/cml/converters/text/transformMoleculeRef.xml")
+			);
+	}
+				
 				
 	private static void runTest(String message, String transformXML, String inputXML, String refXML) {
 		Element transformElem = CMLUtil.parseXML(transformXML);
@@ -1327,6 +1339,13 @@ public class TransformTest {
 	private static void runTest(String message, String transformXML, Element testElement, String refXML) {
 		Element transformElem = CMLUtil.parseXML(transformXML);
 		Element refElement = CMLUtil.parseXML(refXML);
+		MarkupApplier transformElement = new TransformElement(transformElem);
+		transformElement.applyMarkup(testElement);
+		JumboTestUtils.assertEqualsCanonically(message, refElement, testElement, true);
+	}
+	
+	private static void runTest(String message, String transformXML, Element testElement, Element refElement) {
+		Element transformElem = CMLUtil.parseXML(transformXML);
 		MarkupApplier transformElement = new TransformElement(transformElem);
 		transformElement.applyMarkup(testElement);
 		JumboTestUtils.assertEqualsCanonically(message, refElement, testElement, true);

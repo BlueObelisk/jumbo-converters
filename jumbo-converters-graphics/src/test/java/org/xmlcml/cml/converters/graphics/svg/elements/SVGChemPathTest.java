@@ -27,7 +27,7 @@ public class SVGChemPathTest {
 
 	@Test
 	public void testSVGChemPathSVGPathGraphicsConverter() {
-		Util.println("=============SVGChemPathTest==============");
+//		Util.println("=============SVGChemPathTest==============");
 		String s = "" +
 		"<svg:svg xmlns:svg='"+SVG_NS+"'>"+
 		"<svg:path d='M 1 2 L 3 4 5 6'/>"+

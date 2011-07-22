@@ -2,6 +2,7 @@ package org.xmlcml.cml.converters.cif;
 
 import nu.xom.Element;
 
+import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 import org.xmlcml.cml.converters.cif.dict.CifDictionaryBuilder;
@@ -12,6 +13,7 @@ import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.converters.cif.dict.units.UnitDictionaries;
 
 public class OutPutModuleBuilderTest {
+	private final static Logger LOG = Logger.getLogger(OutPutModuleBuilderTest.class);
 
     @Test
     public void testOutPutModuleBuilder() {
@@ -76,7 +78,7 @@ public class OutPutModuleBuilderTest {
     public void testIndexDictionary() {
         OutPutModuleBuilder builder = new OutPutModuleBuilder();
         int sizeOfMap = builder.idMap.keySet().size();
-        System.out.println(sizeOfMap+" Entries in dictionary");
+        LOG.trace(sizeOfMap+" Entries in dictionary");
         // CMLEntry entry=builder.idMap.get("cell_measurement_theta_max");
         CMLEntry entry = builder.idMap.get("cell_measurement_wavelength");
 //        for (CMLEntry test : builder.idMap.values()) {

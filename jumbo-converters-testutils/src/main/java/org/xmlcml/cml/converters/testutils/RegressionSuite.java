@@ -68,7 +68,7 @@ public class RegressionSuite {
 	}
 
 	private void compare(File refFile, File outFile) {
-		LOG.debug("comparing " + refFile + " ... " + outFile);
+		LOG.trace("comparing " + refFile + " ... " + outFile);
 		// try XML
 		Element refElement = null;
 		Element outElement = null;

@@ -9,7 +9,7 @@ public class FileManagerTest {
 
 	@Test
 	public void testCreateOutputFileName() {
-		Util.println("=============FileManagerTest==============");
+//		Util.println("=============FileManagerTest==============");
 //		FileManager fm = new FileManager(null);
 		FileManager fm = new FileManager();
 		fm.setInputDirectory(new File("/m/n"));
@@ -18,7 +18,7 @@ public class FileManagerTest {
 		fm.setOutputExtension("e");
 		File file = new File("a/b.c.d");
 		String filename = fm.createOutputFileName(file);
-		Util.println("filename"+filename);
+//		Util.println("filename"+filename);
 	}
 
 	@Test

@@ -312,7 +312,7 @@ public abstract class AbstractConverter implements Converter {
       if (!getInputType().getExtensions().contains(inputExtension)) {
          String warning = "Given input extension " + inputExtension + " does not match any of given extensions for " + getInputType();
          warnings.add(warning);
-         LOG.debug(warning);
+         LOG.trace(warning);
       }
 
       FileInputStream fin = null;

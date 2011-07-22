@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cml xmlns="http://www.xml-cml.org/schema">
+  <molecule>
+    <atomArray>
+      <atom id="a1" elementType="C">
+        <property dictRef="cml:foo">
+          <scalar dataType="xsd:double">1</scalar>
+        </property>
+      </atom>
+      <atom id="a2" elementType="C">
+        <property dictRef="cml:foo">
+          <scalar dataType="xsd:double">2</scalar>
+        </property>
+      </atom>
+      <atom id="a3" elementType="C">
+        <property dictRef="cml:foo">
+          <scalar dataType="xsd:double">3</scalar>
+        </property>
+      </atom>
+      <atom id="a4" elementType="C">
+        <property dictRef="cml:foo">
+          <scalar dataType="xsd:double">4</scalar>
+        </property>
+      </atom>
+      <atom id="a5" elementType="C">
+        <property dictRef="cml:foo">
+          <scalar dataType="xsd:double">5</scalar>
+        </property>
+      </atom>
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a2"/>
+      <bond atomRefs2="a1 a3"/>
+      <bond atomRefs2="a1 a4"/>
+      <bond atomRefs2="a2 a5"/>
+    </bondArray>
+    <array dataType="xsd:double" size="5" title="transform valueXpath=.//cml:scalar; npasses=1 damping=1.0">10.0 8.0 4.0 5.0 7.0</array>
+  </molecule>
+</cml>
