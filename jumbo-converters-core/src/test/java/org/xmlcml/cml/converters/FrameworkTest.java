@@ -54,7 +54,7 @@ public class FrameworkTest {
 	@Test
 	public void convertFileToFile() throws IOException, ValidityException,
 			ParsingException {
-		Util.println("=============FrameworkTest==============");
+//		Util.println("=============FrameworkTest==============");
 		File in = getResourceFile("empty.cml");
 		File out = File.createTempFile("out", ".cml");
 		converter.convert(in, out);

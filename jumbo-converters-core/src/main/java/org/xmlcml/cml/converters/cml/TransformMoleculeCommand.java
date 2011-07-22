@@ -19,7 +19,7 @@ public enum TransformMoleculeCommand {
 	addBondStereoFromCoordinates("bondStereo"),
 	addFormulaFromAtoms("formula"),
 	addSMILESFromFormula("smiles"),
-	addMorgan("morgan"),
+	addMorgan("morgan"), 
 	;
 	private static Map<String, TransformMoleculeCommand> map;
 	private TransformMoleculeCommand(String abbrev) {

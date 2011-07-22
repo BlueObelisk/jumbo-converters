@@ -84,7 +84,8 @@ public class TransformElement implements MarkupApplier {
 	private static final String NODE                = "node";
 
 	// attributes
-	private static final String ATOM_REFS            = "atomRefs";
+	private static final String ARGS                = "args";
+	private static final String ATOM_REFS           = "atomRefs";
 	private static final String COLS                = "cols";
 	private static final String DATA_TYPE           = "dataType";
 	private static final String DELIMITER           = "delimiter";
@@ -98,22 +99,25 @@ public class TransformElement implements MarkupApplier {
 	private static final String KEY                 = "key";
 	private static final String MAP                 = "map";
 	private static final String NAME                = "name";
+	private static final String OPERATION           = "operation";
 	private static final String OUTPUT              = "output";
 	private static final String POSITION            = "position";
 	private static final String PROCESS             = "process";
 	private static final String PREVIOUS_AFTER      = "previousSiblingsAfter";
 	private static final String REGEX               = "regex";
-	private static final String REGEX_PATH           = "regexPath";
+	private static final String REGEX_PATH          = "regexPath";
 	private static final String REPEAT              = "repeat";
 	private static final String ROWS                = "rows";
 	private static final String SPLITTER            = "splitter";
 	private static final String TEST                = "test";
 	private static final String TO                  = "to";
+	private static final String VALUE_XPATH         = "valueXpath";
 	private static final String VALUE               = "value";
 	private static final String XPATH               = "xpath";
 
 	public static String[] OPTIONS = 
 		new String[]{
+		ARGS,
 		ATOM_REFS,
 		COLS,
 		DATA_TYPE, 
@@ -129,6 +133,7 @@ public class TransformElement implements MarkupApplier {
 		KEY,
 		MAP,
 		NAME,
+		OPERATION,
 		OUTPUT,
 		POSITION,
 		PREVIOUS_AFTER,
@@ -140,6 +145,7 @@ public class TransformElement implements MarkupApplier {
 		TEST,
 		TO,
 		VALUE,
+		VALUE_XPATH,
 		XPATH,
 // because it is always required		
 		PROCESS,
@@ -200,10 +206,14 @@ public class TransformElement implements MarkupApplier {
 	private static final String SET_VALUE              = "setValue";
 	private static final String SET_DATATYPE           = "setDataType";
 	private static final String SPLIT                  = "split";
+	private static final String TRANSFORM_MOLECULE     = "transformMolecule";
 	private static final String WRAP_PROPERTIES_AND_PARAMETERS = "wrapPropertiesAndParameters";
 	private static final String WRITE                  = "write";
 	private static final String HELP                   = "help";
-	
+
+	// molecule operations (move elsewhere later)
+	private static final String MOL_CONVOLUTE_PROPERTY = "convoluteProperty";
+
 	private static final String UNIT_SI_URI = "http://www.xml-cml.org/unit/si/";
 	private static final String COMPCHEM_URI = "http://www.xml-cml.org/unit/dictionary/compchem";
 //	private static final String COMPCHEM = "compchem";
@@ -221,6 +231,7 @@ public class TransformElement implements MarkupApplier {
 	private static final String UNITS = "units";
 
 	private static final String DHMS = "DHMS";
+
 
 	private static String[] PROCESS_NAMES = new String[] {
 		ADD_ATTRIBUTE,
@@ -271,6 +282,7 @@ public class TransformElement implements MarkupApplier {
 		SET_VALUE,
 		SET_DATATYPE,
 		SPLIT,
+		TRANSFORM_MOLECULE,
 		WRAP_PROPERTIES_AND_PARAMETERS,
 		WRITE,
 	};
@@ -289,6 +301,7 @@ public class TransformElement implements MarkupApplier {
 	private String elementMethod;
 	
 	// attributes
+	private String args;
 	private String atomRefs;
 	private String cols;
 	private String delimiter;
@@ -304,6 +317,7 @@ public class TransformElement implements MarkupApplier {
 	private String key;
 	private String map;
 	private String name;
+	private String operation;
 	private String output;
 	private String position;
 	private String previousSiblingsAfter;
@@ -316,6 +330,7 @@ public class TransformElement implements MarkupApplier {
 	private String test;
 	private String to;
 	private String value;
+	private String valueXpath;
 	private String xpath;
 	
 
@@ -365,6 +380,7 @@ public class TransformElement implements MarkupApplier {
 			throw new RuntimeException("Must give process attribute");
 		}
 		
+		args                   = addAndIndexAttribute(ARGS);
 		atomRefs               = addAndIndexAttribute(ATOM_REFS);
 		cols                   = addAndIndexAttribute(COLS);
 		dataType               = addAndIndexAttribute(DATA_TYPE);
@@ -380,6 +396,7 @@ public class TransformElement implements MarkupApplier {
 		key                    = addAndIndexAttribute(KEY);
 		map                    = addAndIndexAttribute(MAP);
 		name                   = addAndIndexAttribute(NAME);
+		operation              = addAndIndexAttribute(OPERATION);
 		output                 = addAndIndexAttribute(OUTPUT);
 		position               = addAndIndexAttribute(POSITION);
 		previousSiblingsAfter  = addAndIndexAttribute(PREVIOUS_AFTER);
@@ -391,6 +408,7 @@ public class TransformElement implements MarkupApplier {
 		test                   = addAndIndexAttribute(TEST);
 		to                     = addAndIndexAttribute(TO);
 		value                  = addAndIndexAttribute(VALUE);
+		valueXpath             = addAndIndexAttribute(VALUE_XPATH);
 		xpath                  = addAndIndexAttribute(XPATH);
 		
 		manageOutputLevel(outputLevel, transformElement);
@@ -530,6 +548,8 @@ public class TransformElement implements MarkupApplier {
 			setValue();
 		} else if (SPLIT.equals(process)) {
 			split();
+		} else if (TRANSFORM_MOLECULE.equals(process)) {
+			transformMolecule();
 		} else if (WRAP_PROPERTIES_AND_PARAMETERS.equals(process)) {
 			wrapPropertiesAndParameters();
 		} else if (WRITE.equals(process)) {
@@ -547,6 +567,72 @@ public class TransformElement implements MarkupApplier {
 // ========================== methods ===============================
 	
 	
+	// reroute to separate class (?MoleculeTransformElement as subclass) later
+	private void transformMolecule() {
+		assertRequired(OPERATION, operation);
+		if (MOL_CONVOLUTE_PROPERTY.equals(operation)) {
+			convoluteProperty();
+		} else {
+			throw new RuntimeException("transformMolecule "+ operation + " not supported");
+		}
+	}
+	
+	private void convoluteProperty() {
+		assertRequired(XPATH, xpath);
+		assertRequired(VALUE_XPATH, valueXpath);
+		assertRequired(ARGS, args);
+		String[] argList = args.trim().split(CMLConstants.S_WHITEREGEX);
+		Map<String, String> nameValues = splitArgs(argList);
+		
+		Double damping = getDouble(nameValues, "damping", 1.0);
+		Integer npasses = getInteger(nameValues, "npasses", 1);
+		
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			if (node instanceof CMLMolecule) {
+				CMLMolecule molecule = (CMLMolecule) node;
+				MoleculeTool moleculeTool = MoleculeTool.getOrCreateTool(molecule);
+				RealArray realArray = moleculeTool.convolutePropertyWithNeighbours(
+						npasses, valueXpath, damping);
+				CMLArray array = new CMLArray(realArray);
+				array.setTitle("transform valueXpath="+valueXpath+"; "+args);
+				molecule.appendChild(array);
+			}
+		}
+	}
+
+	private static Integer getInteger(Map<String, String> nameValues, String name, Integer defalt) {
+		Integer integer = defalt;
+		try {
+			integer = new Integer(nameValues.get(name));
+		} catch (Exception e) {
+			// fail silently as may not be present
+		}
+		return integer;
+	}
+
+	private static Double getDouble(Map<String, String> nameValues, String name, Double defalt) {
+		Double doub = defalt;
+		try {
+			doub = new Double(nameValues.get(name));
+		} catch (Exception e) {
+			// fail silently as may not be present
+		}
+		return doub;
+	}
+
+	private static Map<String, String> splitArgs(String[] argList) {
+		Map<String, String> nameValues = new HashMap<String, String>();
+		for (String arg : argList) {
+			String[] nv = arg.split(CMLConstants.S_EQUALS);
+			if (nv.length != 2) {
+				throw new RuntimeException("bad name value pair: "+arg);
+			}
+			nameValues.put(nv[0].trim(), nv[1].trim());
+		}
+		return nameValues;
+	}
+
 	private void addAttribute() {
 		assertRequired(XPATH, xpath);
 		assertRequired(NAME, name);
@@ -979,7 +1065,6 @@ public class TransformElement implements MarkupApplier {
 					Object dateTimeDuration = null;
 					if (DHMS.equals(format)) {
 						dateTimeDuration = createDMHS(val);
-//						System.out.println(dateTimeDuration);
 					} else if (format != null) {
 						dateTimeDuration = JodaDate.parseDate(val, format);
 					} else {
@@ -2374,7 +2459,7 @@ public class TransformElement implements MarkupApplier {
 		try {
 			newElement = new Element(local);
 		} catch (Exception e) {
-			CMLUtil.debug(this.transformElement, "BAD ELEMENT");
+//			CMLUtil.debug(this.transformElement, "BAD ELEMENT");
 			throw new RuntimeException("Cannot create element: "+newElement, e);
 		}
 		if (prefix == null) {
@@ -2423,7 +2508,7 @@ public class TransformElement implements MarkupApplier {
 
 	private void assertRequired(String attName, String attVal) {
 		if (attVal == null) {
-			CMLUtil.debug(this.transformElement, "BAD Transform, missing "+attName);
+//			CMLUtil.debug(this.transformElement, "BAD Transform, missing "+attName);
 			throw new RuntimeException("Must give "+attName+" attribute");
 		}
 	}
