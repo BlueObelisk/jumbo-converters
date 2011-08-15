@@ -13,7 +13,6 @@ public class CDX2CDXMLConverterTest {
 		
 	}
 	
-   @Ignore ("now fails")
    @Test
    public void testConvertToXMLElement() throws IOException {
       RegressionSuite.run("cdx/cdx", "cdx", "cdx.xml",
