@@ -1,6 +1,7 @@
 package org.xmlcml.cml.converters.text;
 
 import java.io.FileInputStream;
+
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -62,7 +63,6 @@ import org.xmlcml.cml.element.CMLZMatrix;
 import org.xmlcml.cml.interfacex.HasDictRef;
 import org.xmlcml.cml.interfacex.HasUnits;
 import org.xmlcml.cml.tools.MoleculeTool;
-import org.xmlcml.cml.tools.TableTool;
 import org.xmlcml.euclid.IntArray;
 import org.xmlcml.euclid.JodaDate;
 import org.xmlcml.euclid.Real;
@@ -84,7 +84,7 @@ public class TransformElement implements MarkupApplier {
 	private static final String NODE                = "node";
 
 	// attributes
-	private static final String ARGS                = "args";
+	protected static final String ARGS                = "args";
 	private static final String ATOM_REFS           = "atomRefs";
 	private static final String COLS                = "cols";
 	private static final String DATA_TYPE           = "dataType";
@@ -99,10 +99,9 @@ public class TransformElement implements MarkupApplier {
 	private static final String KEY                 = "key";
 	private static final String MAP                 = "map";
 	private static final String NAME                = "name";
-	private static final String OPERATION           = "operation";
 	private static final String OUTPUT              = "output";
 	private static final String POSITION            = "position";
-	private static final String PROCESS             = "process";
+	protected static final String PROCESS             = "process";
 	private static final String PREVIOUS_AFTER      = "previousSiblingsAfter";
 	private static final String REGEX               = "regex";
 	private static final String REGEX_PATH          = "regexPath";
@@ -111,9 +110,9 @@ public class TransformElement implements MarkupApplier {
 	private static final String SPLITTER            = "splitter";
 	private static final String TEST                = "test";
 	private static final String TO                  = "to";
-	private static final String VALUE_XPATH         = "valueXpath";
+	protected static final String VALUE_XPATH         = "valueXpath";
 	private static final String VALUE               = "value";
-	private static final String XPATH               = "xpath";
+	protected static final String XPATH               = "xpath";
 
 	public static String[] OPTIONS = 
 		new String[]{
@@ -133,7 +132,6 @@ public class TransformElement implements MarkupApplier {
 		KEY,
 		MAP,
 		NAME,
-		OPERATION,
 		OUTPUT,
 		POSITION,
 		PREVIOUS_AFTER,
@@ -206,16 +204,14 @@ public class TransformElement implements MarkupApplier {
 	private static final String SET_VALUE              = "setValue";
 	private static final String SET_DATATYPE           = "setDataType";
 	private static final String SPLIT                  = "split";
-	private static final String TRANSFORM_MOLECULE     = "transformMolecule";
 	private static final String WRAP_PROPERTIES_AND_PARAMETERS = "wrapPropertiesAndParameters";
 	private static final String WRITE                  = "write";
 	private static final String HELP                   = "help";
 
 	// molecule operations (move elsewhere later)
-	private static final String MOL_CONVOLUTE_PROPERTY = "convoluteProperty";
 
 	private static final String UNIT_SI_URI = "http://www.xml-cml.org/unit/si/";
-	private static final String COMPCHEM_URI = "http://www.xml-cml.org/unit/dictionary/compchem";
+//	private static final String COMPCHEM_URI = "http://www.xml-cml.org/unit/dictionary/compchem";
 //	private static final String COMPCHEM = "compchem";
 	private static final String COMPCHEM_CC = "cc";
 
@@ -282,7 +278,6 @@ public class TransformElement implements MarkupApplier {
 		SET_VALUE,
 		SET_DATATYPE,
 		SPLIT,
-		TRANSFORM_MOLECULE,
 		WRAP_PROPERTIES_AND_PARAMETERS,
 		WRITE,
 	};
@@ -290,9 +285,9 @@ public class TransformElement implements MarkupApplier {
 	
 	private Template template; // only used for dictionaries - rewrite
 	private Element processListElement;
-	private Element transformElement;
-	private OutputLevel outputLevel;
-	private Element parsedElement;
+	protected Element transformElement;
+	protected OutputLevel outputLevel;
+	protected Element parsedElement;
 
 	private CMLMolecule molecule;
 	private List<CMLAtom> atoms;
@@ -301,7 +296,7 @@ public class TransformElement implements MarkupApplier {
 	private String elementMethod;
 	
 	// attributes
-	private String args;
+	protected String args;
 	private String atomRefs;
 	private String cols;
 	private String delimiter;
@@ -317,11 +312,10 @@ public class TransformElement implements MarkupApplier {
 	private String key;
 	private String map;
 	private String name;
-	private String operation;
 	private String output;
 	private String position;
 	private String previousSiblingsAfter;
-	private String process;
+	protected String process;
 	private String regex;
 	private String regexPath;
 	private String repeat;
@@ -330,21 +324,27 @@ public class TransformElement implements MarkupApplier {
 	private String test;
 	private String to;
 	private String value;
-	private String valueXpath;
-	private String xpath;
+	protected String valueXpath;
+	protected String xpath;
 	
+
+	public TransformElement() {
+		
+	}
 
 	/**
 	 * does not require a template
+	 * use TransformElement.createTransformer factory in preference
 	 * @param element
 	 */
 	public TransformElement(Element element) {
+		this();
 		this.transformElement = element;
 		expandIncludes(transformElement);
 		processChildElementsAndAttributes();
 	}
 
-	private void expandIncludes(Element element) {
+	protected void expandIncludes(Element element) {
         try {
         	CMLUtil.ensureDocument(element);
             ClassPathXIncludeResolver.resolveIncludes(element.getDocument());
@@ -359,20 +359,39 @@ public class TransformElement implements MarkupApplier {
 	 * @param element
 	 * @param template
 	 */
+	@Deprecated //use setTemplate
 	public TransformElement(Element element, Template template) {
 		this(element);
 		this.template = template;
 	}
+	
+	public void setTemplate(Template template) {
+		this.template = template;
+	}
+
+	public static MarkupApplier createTransformer(Element element) {
+		String name = element.getLocalName();
+		MarkupApplier transformer = null;
+		if (TransformElement.TAG.equals(name)) {
+			transformer = new TransformElement(element);
+		} else if (MoleculeTransformElement.TAG.equals(name)) {
+			transformer = new MoleculeTransformElement(element);
+		} else if (TransformListElement.TAG.equals(name)) {
+			transformer = new TransformListElement(element);
+		}
+		return transformer;
+	}
+
 
 	public String getId() {
 		return transformElement.getAttributeValue(ID);
 	}
 	
-	private void processChildElementsAndAttributes() {
+	protected void processChildElementsAndAttributes() {
 		processAttributes();
 	}
 
-	private void processAttributes() {
+	protected void processAttributes() {
 		Template.checkIfAttributeNamesAreAllowed(transformElement, OPTIONS);
 				
 		process = transformElement.getAttributeValue(PROCESS);
@@ -396,7 +415,6 @@ public class TransformElement implements MarkupApplier {
 		key                    = addAndIndexAttribute(KEY);
 		map                    = addAndIndexAttribute(MAP);
 		name                   = addAndIndexAttribute(NAME);
-		operation              = addAndIndexAttribute(OPERATION);
 		output                 = addAndIndexAttribute(OUTPUT);
 		position               = addAndIndexAttribute(POSITION);
 		previousSiblingsAfter  = addAndIndexAttribute(PREVIOUS_AFTER);
@@ -422,7 +440,7 @@ public class TransformElement implements MarkupApplier {
 		}
 	}
 
-	private String addAndIndexAttribute(String attName) {
+	protected String addAndIndexAttribute(String attName) {
 		String attVal = transformElement.getAttributeValue(attName);
 //		if (attVal != null) {
 //			attValMap.add(attName, attVal);
@@ -548,60 +566,28 @@ public class TransformElement implements MarkupApplier {
 			setValue();
 		} else if (SPLIT.equals(process)) {
 			split();
-		} else if (TRANSFORM_MOLECULE.equals(process)) {
-			transformMolecule();
 		} else if (WRAP_PROPERTIES_AND_PARAMETERS.equals(process)) {
 			wrapPropertiesAndParameters();
 		} else if (WRITE.equals(process)) {
 			write();
 		} else {
-			if (processExists(process)) {
-				invokeProcess(process);
-			} else {
-				help();
-				throw new RuntimeException("Unknown process: "+process);
-			}
+			unknownProcess();
+		}
+	}
+
+	protected void unknownProcess() {
+		if (processExists(process)) {
+			invokeProcess(process);
+		} else {
+			help();
+			throw new RuntimeException("Unknown process: "+process);
 		}
 	}
 	
 // ========================== methods ===============================
 	
 	
-	// reroute to separate class (?MoleculeTransformElement as subclass) later
-	private void transformMolecule() {
-		assertRequired(OPERATION, operation);
-		if (MOL_CONVOLUTE_PROPERTY.equals(operation)) {
-			convoluteProperty();
-		} else {
-			throw new RuntimeException("transformMolecule "+ operation + " not supported");
-		}
-	}
-	
-	private void convoluteProperty() {
-		assertRequired(XPATH, xpath);
-		assertRequired(VALUE_XPATH, valueXpath);
-		assertRequired(ARGS, args);
-		String[] argList = args.trim().split(CMLConstants.S_WHITEREGEX);
-		Map<String, String> nameValues = splitArgs(argList);
-		
-		Double damping = getDouble(nameValues, "damping", 1.0);
-		Integer npasses = getInteger(nameValues, "npasses", 1);
-		
-		List<Node> nodeList = getXpathQueryResults();
-		for (Node node : nodeList) {
-			if (node instanceof CMLMolecule) {
-				CMLMolecule molecule = (CMLMolecule) node;
-				MoleculeTool moleculeTool = MoleculeTool.getOrCreateTool(molecule);
-				RealArray realArray = moleculeTool.convolutePropertyWithNeighbours(
-						npasses, valueXpath, damping);
-				CMLArray array = new CMLArray(realArray);
-				array.setTitle("transform valueXpath="+valueXpath+"; "+args);
-				molecule.appendChild(array);
-			}
-		}
-	}
-
-	private static Integer getInteger(Map<String, String> nameValues, String name, Integer defalt) {
+	protected static Integer getInteger(Map<String, String> nameValues, String name, Integer defalt) {
 		Integer integer = defalt;
 		try {
 			integer = new Integer(nameValues.get(name));
@@ -611,7 +597,7 @@ public class TransformElement implements MarkupApplier {
 		return integer;
 	}
 
-	private static Double getDouble(Map<String, String> nameValues, String name, Double defalt) {
+	protected static Double getDouble(Map<String, String> nameValues, String name, Double defalt) {
 		Double doub = defalt;
 		try {
 			doub = new Double(nameValues.get(name));
@@ -621,7 +607,7 @@ public class TransformElement implements MarkupApplier {
 		return doub;
 	}
 
-	private static Map<String, String> splitArgs(String[] argList) {
+	protected static Map<String, String> splitArgs(String[] argList) {
 		Map<String, String> nameValues = new HashMap<String, String>();
 		for (String arg : argList) {
 			String[] nv = arg.split(CMLConstants.S_EQUALS);
@@ -1514,7 +1500,7 @@ public class TransformElement implements MarkupApplier {
 		assertRequired(DICT_REF, dictRef);
 		assertRequired(FROM, from);
 		assertRequired(XPATH, xpath);
-		String[] dictRefNames = splitDictRef();
+//		String[] dictRefNames = splitDictRef();
 		List<Node> nodeList = getXpathQueryResults();
 		for (Node node : nodeList) {
 			Element element = (Element)node;
@@ -1644,14 +1630,14 @@ public class TransformElement implements MarkupApplier {
 		molecule.setId(id);
 	}
 
-	private ParentNode ensureParent(Element element) {
-		ParentNode parent = element.getParent();
-		if (parent == null) {
-			// this is a fudge - only required for test examples which have no parent
-			parent = element;
-		}
-		return parent;
-	}
+//	private ParentNode ensureParent(Element element) {
+//		ParentNode parent = element.getParent();
+//		if (parent == null) {
+//			// this is a fudge - only required for test examples which have no parent
+//			parent = element;
+//		}
+//		return parent;
+//	}
 
 	private void debugNodes() {
 		assertRequired(XPATH, xpath);
@@ -1735,7 +1721,6 @@ public class TransformElement implements MarkupApplier {
 			if (CMLConstants.XSD_INTEGER.equals(dataType)) {
 				newArray = new CMLArray(intArray.getArray());
 			} else if (CMLConstants.XSD_DOUBLE.equals(dataType)) {
-				double[] dd = realArray.getArray();
 				newArray = new CMLArray(realArray.getArray());
 			} else {
 				newArray = new CMLArray(stringList.toArray(new String[0]), DEFAULT_DELIMITER);
@@ -1887,6 +1872,9 @@ public class TransformElement implements MarkupApplier {
 	}
 
 	private void reparse() {
+		if (template == null) {
+			throw new RuntimeException("Must have a template for reparse");
+		}
 		assertRequired(XPATH, xpath);
 		String regexS = getRegex();
 		Element recordReaderElement = new Element("record");
@@ -2312,7 +2300,7 @@ public class TransformElement implements MarkupApplier {
 		return ok;
 	}
 	
-	private void checkProcessExists(String processName) {
+	protected void checkProcessExists(String processName) {
 		boolean ok = false;
 //		for (String process : PROCESS_NAMES) {
 //			if (process.equals(processName)) {
@@ -2371,7 +2359,7 @@ public class TransformElement implements MarkupApplier {
 				continue;
 			}
 			String templateRef = element.getAttributeValue(Template.TEMPLATE_REF, CMLConstants.CMLX_NS);
-			String id = element.getAttributeValue(ID);
+//			String id = element.getAttributeValue(ID);
 	    	try {
 	    		checkDictRefAttval(att);
 			} catch (Exception e) {
@@ -2385,9 +2373,9 @@ public class TransformElement implements MarkupApplier {
 		}
 		for (String s : dictRefNodes.keySet()) {
 			System.out.println(">>>>>>>>>>>>>>>>>"+s);
-			for (Element element : dictRefNodes.get(s)) {
-//				CMLUtil.debug(element, "QQQQQQQQ");
-			}
+//			for (Element element : dictRefNodes.get(s)) {
+////				CMLUtil.debug(element, "QQQQQQQQ");
+//			}
 		}
 	}
 
@@ -2483,7 +2471,7 @@ public class TransformElement implements MarkupApplier {
 		return newElement;
 	}
 
-	private List<Node> getXpathQueryResults() {
+	protected List<Node> getXpathQueryResults() {
 		assertRequired(XPATH, xpath);
 		Nodes nodes = TransformElement.queryUsingNamespaces(parsedElement, xpath);
 		List<Node> nodeList = new ArrayList<Node>();
@@ -2506,7 +2494,7 @@ public class TransformElement implements MarkupApplier {
 		}
 	}
 
-	private void assertRequired(String attName, String attVal) {
+	protected void assertRequired(String attName, String attVal) {
 		if (attVal == null) {
 //			CMLUtil.debug(this.transformElement, "BAD Transform, missing "+attName);
 			throw new RuntimeException("Must give "+attName+" attribute");
@@ -2611,13 +2599,13 @@ public class TransformElement implements MarkupApplier {
 		nameScalar.setValue(valueValue);
 	}
 
-	private String[]  splitDictRef() {
-		String[] dictRefNames = dictRef.split(CMLConstants.S_COLON);
-		if (dictRefNames.length != 2) {
-			throw new RuntimeException("dictRef must be qualified name; found: "+dictRef);
-		}
-		return dictRefNames;
-	}
+//	private String[]  splitDictRef() {
+//		String[] dictRefNames = dictRef.split(CMLConstants.S_COLON);
+//		if (dictRefNames.length != 2) {
+//			throw new RuntimeException("dictRef must be qualified name; found: "+dictRef);
+//		}
+//		return dictRefNames;
+//	}
 	
 	private void createAndAddAtoms(int natoms) {
 		for (int iatom = 0; iatom < natoms; iatom++) {
@@ -2683,7 +2671,7 @@ public class TransformElement implements MarkupApplier {
 	}
 
 	private void processDictRef(CMLArray array) {
-		int size = array.getSize();
+//		int size = array.getSize();
 		DictRefAttribute dictRefAttribute = (DictRefAttribute) array.getDictRefAttribute();
 		if (dictRefAttribute == null) {
 			throw new RuntimeException("Array must have dictRef");
