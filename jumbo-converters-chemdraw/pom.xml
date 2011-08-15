@@ -4,11 +4,11 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>cml</groupId>
-        <artifactId>jumbo-converters</artifactId>
-        <version>0.3-SNAPSHOT</version>
-    </parent>
+	<parent>
+		<groupId>cml</groupId>
+		<artifactId>jumbo-converters</artifactId>
+		<version>0.3-SNAPSHOT</version>
+	</parent>
 
 	<artifactId>jumbo-converters-chemdraw</artifactId>
 	<name>jumbo-converters-chemdraw</name>
@@ -18,6 +18,12 @@
 		<dependency>
 			<groupId>cml</groupId>
 			<artifactId>chemdraw-converter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>cml</groupId>
+					<artifactId>jumbo</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>cml</groupId>
@@ -37,11 +43,11 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
-            <groupId>cml</groupId>
-            <artifactId>jumbo-converters-testutils</artifactId>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>cml</groupId>
+			<artifactId>jumbo-converters-testutils</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 </project>
