@@ -271,6 +271,7 @@ public class Template implements MarkupApplier {
 		for (int i = 0; i < theElement.getAttributeCount(); i++) {
 			String attName = theElement.getAttribute(i).getLocalName();
 			boolean allowed = false;
+			Exception exception = null;
 			for (String allowedName : allowedNames) {
 				if (attName.equals(allowedName)) {
 					allowed = true;
@@ -316,17 +317,16 @@ public class Template implements MarkupApplier {
 			} else if (TemplateListElement.TAG.equals(name)) {
 				TemplateListElement templateContainer = new TemplateListElement(childElement);
 				markerList.add(templateContainer);
-			} else if (TransformElement.TAG.equals(name)) {
-				MarkupApplier transformer = new TransformElement(childElement, this);
-				markerList.add(transformer);
-			} else if (TransformListElement.TAG.equals(name)) {
-				TransformListElement transformerList = new TransformListElement(childElement, this);
-				markerList.add(transformerList);
 			} else if (Template.DEBUG.equals(name)) {
 				markerList.add(new Debug(this));
 			} else {
-				CMLUtil.debug(templateElement1, "UNKNOWN CHILD");
-				throw new RuntimeException("unknown child: "+name);
+				MarkupApplier transformer = TransformElement.createTransformer(childElement);
+				if (transformer != null) {
+					markerList.add(transformer);
+				} else {
+					CMLUtil.debug(templateElement1, "UNKNOWN CHILD");
+					throw new RuntimeException("unknown child: "+name);
+				}
 			}
 		}
 	}

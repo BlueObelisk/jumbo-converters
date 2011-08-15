@@ -1059,41 +1059,67 @@ public class TransformTest {
 				
 	@Test 
 	public void testReparse() {
-		runTest1("rename", 
-			"<template>" +
-			"  <record id='record'>VAL={A,x:y}</record>" +
-			"  <transform process='reparse' xpath='./bar' regexPath=\".//record[@id='record']\"/>" +
-			"</template>",
-			"<foo><bar>VAL=1.23</bar></foo>",
-			"<foo>" +
-			"  <module xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>" +
-			"    <list cmlx:templateRef='foo'>" +
-			"      <scalar dataType='xsd:string' dictRef='x:y'>1.23</scalar>" +
-			"    </list>" +
-			"  </module>" +
-			"</foo>"
-			);
+		
+		String transformXML = 
+		"<template>" +
+		"  <record id='record'>VAL={A,x:y}</record>" +
+		"  <transform process='reparse' xpath='./bar' regexPath=\".//record[@id='record']\"/>" +
+		"</template>";
+		
+		String inputXML = "<foo><bar>VAL=1.23</bar></foo>";
+		String refXML =
+		"<foo>" +
+		"  <module xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>" +
+		"    <list cmlx:templateRef='foo'>" +
+		"      <scalar dataType='xsd:string' dictRef='x:y'>1.23</scalar>" +
+		"    </list>" +
+		"  </module>" +
+		"</foo>";
+		
+		
+		runReparse(transformXML, inputXML, refXML);
 	}
-				
+
 	@Test 
 	public void testReparse1() {
-		runTest1("rename", 
+//		runTest1("rename", 
+//			"<template>" +
+//			"  <record id='record'>VAL={A,x:y}\\sFLOAT={F,x:z}</record>" +
+//			"  <transform process='reparse' xpath='./bar' regexPath=\".//record[@id='record']\"/>" +
+//			"</template>",
+//			"<foo><bar>VAL= abc FLOAT= 2.34</bar></foo>",
+//			"<foo>" +
+//			"  <module xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>" +
+//			"    <list cmlx:templateRef='foo'>" +
+//			"      <list>" +
+//			"        <scalar dataType='xsd:string' dictRef='x:y'>abc</scalar>" +
+//			"        <scalar dataType='xsd:double' dictRef='x:z'>2.34</scalar>" +
+//			"      </list>" +
+//			"    </list>" +
+//			"  </module>" +
+//			"</foo>"
+//			);
+		
+		String transformXML = 
 			"<template>" +
 			"  <record id='record'>VAL={A,x:y}\\sFLOAT={F,x:z}</record>" +
 			"  <transform process='reparse' xpath='./bar' regexPath=\".//record[@id='record']\"/>" +
-			"</template>",
-			"<foo><bar>VAL= abc FLOAT= 2.34</bar></foo>",
-			"<foo>" +
-			"  <module xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>" +
-			"    <list cmlx:templateRef='foo'>" +
-			"      <list>" +
-			"        <scalar dataType='xsd:string' dictRef='x:y'>abc</scalar>" +
-			"        <scalar dataType='xsd:double' dictRef='x:z'>2.34</scalar>" +
-			"      </list>" +
-			"    </list>" +
-			"  </module>" +
-			"</foo>"
-			);
+			"</template>";
+			
+			String inputXML = "<foo><bar>VAL= abc FLOAT= 2.34</bar></foo>";
+			String refXML =
+				"<foo>" +
+				"  <module xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>" +
+				"    <list cmlx:templateRef='foo'>" +
+				"      <list>" +
+				"        <scalar dataType='xsd:string' dictRef='x:y'>abc</scalar>" +
+				"        <scalar dataType='xsd:double' dictRef='x:z'>2.34</scalar>" +
+				"      </list>" +
+				"    </list>" +
+				"  </module>" +
+				"</foo>";
+			
+		runReparse(transformXML, inputXML, refXML);
 	}
 				
 	@Test 
@@ -1308,17 +1334,6 @@ public class TransformTest {
 			);
 	}
 	
-	@Test 
-	public void testTransformMolecule() {
-		runTest("split", 
-			"<transform process='transformMolecule' operation='convoluteProperty'" +
-			"   xpath='.//cml:molecule' valueXpath='.//cml:scalar' args='npasses=1 damping=1.0'/>",
-			CMLUtil.readElementFromResource("org/xmlcml/cml/converters/text/transformMolecule.xml"),
-		    CMLUtil.readElementFromResource("org/xmlcml/cml/converters/text/transformMoleculeRef.xml")
-			);
-	}
-				
-				
 	private static void runTest(String message, String transformXML, String inputXML, String refXML) {
 		Element transformElem = CMLUtil.parseXML(transformXML);
 		Element testElement = CMLUtil.parseXML(inputXML);
@@ -1344,10 +1359,24 @@ public class TransformTest {
 		JumboTestUtils.assertEqualsCanonically(message, refElement, testElement, true);
 	}
 	
-	private static void runTest(String message, String transformXML, Element testElement, Element refElement) {
+	static void runTest(String message, String transformXML, Element testElement, Element refElement) {
 		Element transformElem = CMLUtil.parseXML(transformXML);
-		MarkupApplier transformElement = new TransformElement(transformElem);
+		MarkupApplier transformElement = TransformElement.createTransformer(transformElem);
 		transformElement.applyMarkup(testElement);
 		JumboTestUtils.assertEqualsCanonically(message, refElement, testElement, true);
 	}
+	
+	private void runReparse(String transformXML, String inputXML,
+			String refXML) {
+		Element transformElem = (Element) CMLUtil.parseXML(transformXML).query("./transform").get(0);
+		Element templateElem = (Element) CMLUtil.parseXML(transformXML);
+		Template template = new Template(templateElem);
+		Element testElement = CMLUtil.parseXML(inputXML);
+		TransformElement transformElement = new TransformElement(transformElem);
+		transformElement.setTemplate(template);
+		
+		transformElement.applyMarkup(testElement);
+		JumboTestUtils.assertEqualsCanonically("reparse", refXML, testElement, true);
+	}
+		
 }
