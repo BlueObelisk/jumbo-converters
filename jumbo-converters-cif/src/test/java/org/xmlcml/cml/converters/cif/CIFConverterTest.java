@@ -171,8 +171,9 @@ public class CIFConverterTest {
         InputStream in = getClass().getResourceAsStream(filename);
         CIF cif;
         try {
-            Reader r = new InputStreamReader(in);
+            BufferedReader r = new BufferedReader ( new InputStreamReader ( in ) );
             cif = (CIF) new CIFParser().parse(r).getRootElement();
+            
         } finally {
             IOUtils.closeQuietly(in);
         }
