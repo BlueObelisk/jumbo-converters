@@ -42,7 +42,6 @@ public class FileManager implements CMLConstants {
 
 	/** create file manager.
 	 * 
-	 * @param converterClass (null => no-op)
 	 */
 	public FileManager() {
 		

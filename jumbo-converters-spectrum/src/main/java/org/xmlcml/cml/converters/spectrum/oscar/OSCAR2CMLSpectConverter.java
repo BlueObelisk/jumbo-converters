@@ -33,9 +33,10 @@ public class OSCAR2CMLSpectConverter extends AbstractConverter implements
 	}
 
 	/**
-	 * converts an JDX object to CMLSpect. returns cml:cml
 	 * 
-	 * @param lines JCAMP in any ASCII format
+	 * 
+	 * @param oscarSpectrum
+	 * @return spectrum
 	 */
 	public Element convertToXML(Element oscarSpectrum) {
 		CMLCml cml = null;

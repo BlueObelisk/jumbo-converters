@@ -23,10 +23,10 @@ import org.xmlcml.cif.CIFParser;
 import org.xmlcml.cml.base.CMLAttribute;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.converters.cif.dict.units.CIFUnitMapper;
+import org.xmlcml.cml.converters.cif.dict.units.CifUnit;
 import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.element.CMLEntry;
-import org.xmlcml.converters.cif.dict.units.CIFUnitMapper;
-import org.xmlcml.converters.cif.dict.units.CifUnit;
 
 /**
  * @author sea36

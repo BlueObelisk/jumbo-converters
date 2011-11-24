@@ -112,7 +112,7 @@ public class CMLSVGHelper implements CMLConstants {
     	List<SVGChemLine> lineList = SVGChemLine.getLineList(svgChem);
 		for (SVGChemLine line : lineList) {
     		if (line.getOrder() == null) {
-    			line.setOrder(CMLBond.SINGLE);
+    			line.setOrder(CMLBond.SINGLE_S);
     		}
     		CMLBond bond = line.getOrCreateBond(atomList, averageLength);
     		if (bond != null) {

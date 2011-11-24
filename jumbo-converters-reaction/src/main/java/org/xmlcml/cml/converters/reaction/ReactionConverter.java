@@ -54,9 +54,6 @@ public class ReactionConverter {
 	private CMLProductList productList;
 
 	/** constructor
-	 * @param chemDrawConverter
-	 * @param reaction
-	 * @param scopeElement
 	 */
 	public ReactionConverter() {
 	}

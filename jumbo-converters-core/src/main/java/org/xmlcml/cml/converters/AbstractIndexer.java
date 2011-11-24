@@ -74,7 +74,7 @@ public abstract class AbstractIndexer extends AbstractConverter implements Aggre
 
 	/**
 	 * 
-	 * @return
+	 * @return index
 	 */
 	public Index getIndex() {
 		return index;
@@ -91,7 +91,7 @@ public abstract class AbstractIndexer extends AbstractConverter implements Aggre
 	/**
 	 * 
 	 * @param cml
-	 * @return
+	 * @return indexEntry
 	 */
 	public IndexEntry createIndexEntry(Element cml) {
 		IndexEntry entry = new IndexEntry(this.getIndexKey(), cml);
@@ -101,7 +101,7 @@ public abstract class AbstractIndexer extends AbstractConverter implements Aggre
 	/**
 	 * 
 	 * @param file
-	 * @return
+	 * @return indexEntry
 	 */
 	public IndexEntry createIndexEntry(File file) {
 		IndexEntry entry = new IndexEntry(this.getIndexKey(), file.getAbsolutePath());

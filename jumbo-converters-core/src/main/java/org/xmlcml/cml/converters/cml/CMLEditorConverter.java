@@ -19,6 +19,10 @@ public class CMLEditorConverter extends AbstractConverter implements
 		LOG.setLevel(Level.INFO);
 	};
 	
+	public CMLEditorConverter() {
+		ensureCMLEditor();
+	}
+	
 	public Type getInputType() {
 		return Type.CML;
 	}
@@ -51,6 +55,37 @@ public class CMLEditorConverter extends AbstractConverter implements
 		if (cmlEditor == null) {
 			cmlEditor = new CMLEditor();
 		}
+	}
+	
+	
+	public static void main(String[] args) throws Exception {
+		if (args.length == 0) {
+			usage();
+			test();
+
+		}
+	}
+
+	private static void test() throws Exception {
+		String xmlString = "<?xml version='1.0' encoding='UTF-8'?>" +
+				"<cml xmlns='http://www.xml-cml.org/schema'>" +
+				"  <molecule title='Test example'>" +
+				"    <atomArray>" +
+				"      <atom id='a1' elementType='C' x3='0.0' y3='0.0' z3='0.0'/>" +
+				"      <atom id='a2' elementType='N' x3='1.34' y3='0.0' z3='0.0'/>" +
+				"      <atom id='a3' elementType='O' x3='2.0' y3='1.1' z3='0.0'/>" +
+				"    </atomArray>" +
+				"  </molecule>" +
+				"</cml>";
+		CMLElement cmlObject = (CMLElement) new CMLBuilder().parseString(xmlString);
+		CMLEditorConverter editorConverter = new CMLEditorConverter();
+		editorConverter.getCmlEditor().setCalculateBonds(true);
+		cmlObject = (CMLElement) editorConverter.convertToXML(cmlObject);
+		cmlObject.debug("CML");
+	}
+
+	private static void usage() {
+		System.out.println("usage: [zero args runs test]");
 	}
 
 }

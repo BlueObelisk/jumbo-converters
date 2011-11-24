@@ -27,7 +27,7 @@ public class FooXML2CMLConverter extends AbstractCompchem2CMLConverter{
 	/**
 	 * converts an Foo to CML. returns cml:cml/cml:molecule
 	 * 
-	 * @param in input stream
+	 * @param xml
 	 */
 	public Element convertToXML(Element xml) {
 		rawXml2CmlProcessor = new FooXMLProcessor();

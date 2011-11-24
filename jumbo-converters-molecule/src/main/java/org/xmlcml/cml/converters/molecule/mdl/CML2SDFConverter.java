@@ -88,8 +88,7 @@ public class CML2SDFConverter extends AbstractConverter implements
 	 * converts a CML object to MDL. assumes a single CMLMolecule as descendant
 	 * of root
 	 * 
-	 * @param in
-	 *            input stream
+	 * @param xml
 	 */
 	public List<String> convertToText(Element xml) {
 		cml = CMLBuilder.ensureCML(xml);

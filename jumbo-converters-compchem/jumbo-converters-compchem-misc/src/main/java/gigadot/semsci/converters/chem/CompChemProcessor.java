@@ -355,9 +355,8 @@ public class CompChemProcessor extends RawXML2CMLProcessor implements HasURIGene
     }
 
     /**
-     * This has to be uri generator or something.
-     * @param local
-     * @return
+     * @param element
+     * @return uuid
      */
     public final String createUUIDURIString(CMLElement element) {
         String computationInstance = getURIGenerator().createUUIDURI(element).toString();

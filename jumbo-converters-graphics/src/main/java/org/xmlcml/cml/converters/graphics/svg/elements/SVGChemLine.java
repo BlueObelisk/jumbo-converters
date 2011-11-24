@@ -59,6 +59,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 	protected void init() {
 		SVGLine.setDefaultStyle(this);
 	}
+	
 	public SVGChemLine(SVGLine line) {
 		this();
 		SVGChem.deepCopy(line, this);
@@ -67,7 +68,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 	}
 	
 	/**
-	 * @return
+	 * @return x1
 	 */
 	public double getX1() {
 		if (Double.isNaN(x1)) {
@@ -77,7 +78,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 	}
 	
 	/**
-	 * @return
+	 * @return x2
 	 */
 	public double getX2() {
 		if (Double.isNaN(x2)) {
@@ -87,7 +88,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 	}
 	
 	/**
-	 * @return
+	 * @return y1
 	 */
 	public double getY1() {
 		if (Double.isNaN(y1)) {
@@ -97,7 +98,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 	}
 	
 	/**
-	 * @return
+	 * @return y2
 	 */
 	public double getY2() {
 		if (Double.isNaN(y2)) {
@@ -159,7 +160,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 	/**
 	 * 
 	 * @param element
-	 * @return
+	 * @return lines
 	 */
 	public static List<SVGChemLine> getLineList(SVGChemElement element) {
 		Nodes nodes = ((Element) element).query(".//svg:line", SVG_XPATH);
@@ -217,11 +218,11 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 		this.order = order;
 		this.addAttribute(new Attribute("order", order));
 		this.setStroke(SVG2CMLTool.BOND_PROCESSED);
-		if (CMLBond.SINGLE.equals(order)) {
+		if (CMLBond.SINGLE_S.equals(order)) {
 			this.setStrokeWidth(SVG2CMLTool.SINGLE_BOND_WIDTH);
-		} else if (CMLBond.DOUBLE.equals(order)) {
+		} else if (CMLBond.DOUBLE_D.equals(order)) {
 			this.setStrokeWidth(SVG2CMLTool.DOUBLE_BOND_WIDTH);
-		} else if (CMLBond.TRIPLE.equals(order)) {
+		} else if (CMLBond.TRIPLE_T.equals(order)) {
 			this.setStrokeWidth(SVG2CMLTool.TRIPLE_BOND_WIDTH);
 		}
 
@@ -235,7 +236,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 	
 	public CMLBond getOrCreateBond(List<CMLAtom> atomList, double averageLength) {
 		if (order == null) {
-			order = CMLBond.SINGLE;
+			order = CMLBond.SINGLE_S;
 		}
 		// try to find atoms
 		if (atoms[0] == null) {
@@ -362,7 +363,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 	/** moves movableEnd to create line of target length.
 	 * 
 	 * @param targetLength
-	 * @param movableEnd
+	 * @param moveableEnd
 	 */
 	public void extendLineToAverageLength(double targetLength, int moveableEnd) {
 		Line2 line2 = this.getEuclidLine();
@@ -399,7 +400,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 					this.detachPath(svg2CmlTool.getSvgChem());
 					this.getAtoms()[movableEnd] = group.getAtom();
 					if (this.getOrder() == null) {
-						this.setOrder(CMLBond.SINGLE);
+						this.setOrder(CMLBond.SINGLE_S);
 					} else {
 						// order and width already set
 					}
@@ -442,7 +443,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 	 * 
 	 * @param line
 	 * @param eps tolerance in radians
-	 * @return
+	 * @return isparallel or antiparallel
 	 */
 	public boolean isParallelOrAntiparallel(SVGChemLine line, double eps) {
 		Angle angle = this.getAngleMadeWith(line);
@@ -460,14 +461,14 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 			if (delta > 0) {
 				// keep this
 				this.detachPath(svgChem);
-				this.setOrder(CMLBond.DOUBLE);
+				this.setOrder(CMLBond.DOUBLE_D);
 				this.setStroke("#ff00ff");
 				currentLine.detachPath(svgChem);
 				currentLine.addAttribute(new Attribute("detach", "true"));
 				oldLine = currentLine;
 			} else {
 				currentLine.detachPath(svgChem);
-				currentLine.setOrder(CMLBond.DOUBLE);
+				currentLine.setOrder(CMLBond.DOUBLE_D);
 				currentLine.setStroke("cyan");
 				this.detachPath(svgChem);
 				this.addAttribute(new Attribute("detach", "true"));
@@ -476,7 +477,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 		} else {
 			SVGChemLine doubleLine = this.createAverageLineAndAppend(currentLine);
 			doubleLine.setStrokeWidth(2.0);
-			doubleLine.setOrder(CMLBond.DOUBLE);
+			doubleLine.setOrder(CMLBond.DOUBLE_D);
 			doubleLine.setStroke("#ffff00");
 			doubleLine.addAttribute(new Attribute("detach", "true"));
 			currentLine.detachPath(svgChem);
@@ -495,7 +496,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 //		double thisCurrDist = currentLine.getMidPoint().getDistance(this.getMidPoint());
 //		double thisOldDist = oldLine.getMidPoint().getDistance(this.getMidPoint());
 //		LOG.debug("OLD-CURR THIS-CURR THIS-OLD "+oldCurrDist+"/"+thisCurrDist+"/"+thisOldDist);
-		currentLine.setOrder(CMLBond.TRIPLE);
+		currentLine.setOrder(CMLBond.TRIPLE_T);
 		currentLine.setStroke("#0000ff");
 		currentLine.setOpacity(0.3);
 		// replace current line

@@ -32,7 +32,7 @@ public class CMLJob2CMLAbsJobConverter extends AbstractConverter implements
 	 * converts a CML object to XYZ. assumes a single CMLMolecule as descendant
 	 * of root
 	 * 
-	 * @param in input stream
+	 * @param jobXml
 	 */
 	@Override
 	public Element convertToXML(Element jobXml) {

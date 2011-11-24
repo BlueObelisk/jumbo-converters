@@ -25,6 +25,7 @@ import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.cif.dict.CifDictionaryBuilder;
+import org.xmlcml.cml.converters.cif.dict.units.UnitDictionaries;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.element.CMLEntry;
@@ -32,7 +33,6 @@ import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
-import org.xmlcml.converters.cif.dict.units.UnitDictionaries;
 
 public class OutPutModuleBuilder {
     

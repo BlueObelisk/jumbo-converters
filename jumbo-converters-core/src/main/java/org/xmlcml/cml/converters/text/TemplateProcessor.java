@@ -41,7 +41,7 @@ public class TemplateProcessor extends LegacyProcessor {
 	/** interlude to deal with pre-formed XML
 	 * 
 	 * @param element
-	 * @return
+	 * @return element
 	 */
 	public Element applyMarkup(Element element) {
 		return element;

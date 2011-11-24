@@ -52,7 +52,7 @@ public class Multiple extends ArrayList<SVGChemLine> {
 			// choose which line to keep
 			int ibond = (delta > 0) ? 0 : 1;
 			multipleBond = this.get(ibond);
-			multipleBond.setOrder(CMLBond.DOUBLE);
+			multipleBond.setOrder(CMLBond.DOUBLE_D);
 			this.get(1 - ibond).detach();
 		} else {
 			// average bond
@@ -65,7 +65,7 @@ public class Multiple extends ArrayList<SVGChemLine> {
 				linex = new SVGLine(xy0, xy1);
 				multipleBond = new SVGChemLine(linex);
 				multipleBond.setStrokeWidth(2.0);
-				multipleBond.setOrder(CMLBond.DOUBLE);
+				multipleBond.setOrder(CMLBond.DOUBLE_D);
 				this.get(0).detach();
 				this.get(1).detach();
 			}
@@ -81,7 +81,7 @@ public class Multiple extends ArrayList<SVGChemLine> {
 		this.get(0).detach();
 		this.get(2).detach();
 		multipleBond = this.get(1);
-		multipleBond.setOrder(CMLBond.TRIPLE);
+		multipleBond.setOrder(CMLBond.TRIPLE_T);
 		multipleBond.setOpacity(0.3);
 		return multipleBond;
 	}

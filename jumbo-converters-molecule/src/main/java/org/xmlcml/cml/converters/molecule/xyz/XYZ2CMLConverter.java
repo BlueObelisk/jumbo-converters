@@ -22,13 +22,6 @@ public class XYZ2CMLConverter extends AbstractConverter implements
 	static {
 		LOG.setLevel(Level.INFO);
 	};
-	public final static String[] typicalArgsForConverterCommand = {
-		"-sd", "src/test/resources/cml",
-		"-odir", "../temp",
-		"-is", "cml",
-		"-os", "cml",
-		"-converter", "org.xmlcml.cml.converters.molecule.xyz.CML2CMLIdConverter"
-	};
 	
 	public Type getInputType() {
 		return Type.XYZ;
@@ -42,8 +35,7 @@ public class XYZ2CMLConverter extends AbstractConverter implements
 	/**
 	 * converts an XYZ object to CML. returns cml:cml/cml:molecule
 	 * 
-	 * @param in
-	 *            input stream
+	 * @param lines
 	 */
 	public Element convertToXML(List<String> lines) {
 		CMLMolecule molecule = new CMLMolecule();

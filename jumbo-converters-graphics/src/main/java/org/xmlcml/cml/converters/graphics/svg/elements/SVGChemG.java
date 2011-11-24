@@ -10,7 +10,7 @@ public class SVGChemG extends SVGG implements SVGChemElement {
 	}
 	
 	/** copy constructor
-	 * @param svgChemG
+	 * @param svgChemSVG
 	 */
 	public SVGChemG(SVGChemSVG svgChemSVG) {
 //		CMLUtil.debug(svgChemSVG, "svgChem");

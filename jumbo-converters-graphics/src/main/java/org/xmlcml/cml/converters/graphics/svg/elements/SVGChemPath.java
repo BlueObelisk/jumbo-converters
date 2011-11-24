@@ -85,7 +85,7 @@ public class SVGChemPath extends SVGPath implements SVGChemElement, HasStereoBon
 	/**
 	 * 
 	 * @param element
-	 * @return
+	 * @return paths
 	 */
 	public static List<SVGChemPath> getPathList(SVGChemElement element) {
 		Nodes nodes = ((Element) element).query(".//svg:path", SVG_XPATH);
@@ -99,7 +99,7 @@ public class SVGChemPath extends SVGPath implements SVGChemElement, HasStereoBon
 	/**
 	 * tests whether > 2 distinct points (i.e. separated more than epsilon
 	 * need not be closed
-	 * @return
+	 * @return isClosed
 	 */
 	public boolean isClosedPolygon(double eps) {
 		return isPolygon(eps) && isClosed();
@@ -108,7 +108,7 @@ public class SVGChemPath extends SVGPath implements SVGChemElement, HasStereoBon
 	/**
 	 * tests whether > 2 distinct points (i.e. separated more than epsilon
 	 * need not be closed
-	 * @return
+	 * @return isOpen
 	 */
 	public boolean isOpenPolygon(double eps) {
 		return isPolygon(eps) && !isClosed();
@@ -117,7 +117,7 @@ public class SVGChemPath extends SVGPath implements SVGChemElement, HasStereoBon
 	/**
 	 * tests whether > 2 distinct points (i.e. separated more than epsilon
 	 * need not be closed
-	 * @return
+	 * @return isTriangle
 	 */
 	public boolean isTriangle(double eps, Angle theta) {
 		return countDistinctPoints(eps, theta) == 3;
@@ -127,7 +127,7 @@ public class SVGChemPath extends SVGPath implements SVGChemElement, HasStereoBon
 	 * tests whether > 2 distinct points (i.e. separated more than epsilon
 	 * need not be closed
 	 * does not test for colinearity yet
-	 * @return
+	 * @return isPolygon
 	 */
 	public boolean isPolygon(double eps) {
 		this.getVertexR2Array();
@@ -155,7 +155,7 @@ public class SVGChemPath extends SVGPath implements SVGChemElement, HasStereoBon
 	/**
 	 * tests whether 2 distinct points (i.e. separated more than epsilon)
 	 * does not test for colinearity yet so 1,2 2,3 3,4 is a polygon, not a line
-	 * @return
+	 * @return isSingleLine
 	 */
 	public boolean isSingleLine(double eps, Angle theta) {
 		this.getVertexR2Array();
@@ -166,6 +166,7 @@ public class SVGChemPath extends SVGPath implements SVGChemElement, HasStereoBon
 	 * distinct points are neighbours and separated by > eps
 	 * includes return distance to M
 	 * @param eps
+	 * @return points
 	 */
 	public int countDistinctPoints(double eps) {
 		int np = 0;
@@ -197,6 +198,7 @@ public class SVGChemPath extends SVGPath implements SVGChemElement, HasStereoBon
 	 * includes return distance to M
 	 * @param eps min distance for points to be distinct
 	 * @param deltaTheta minimum deviation from linearity
+	 * @return points
 	 */
 	public int countDistinctPoints(double eps, Angle deltaTheta) {
 		int np = 0;
@@ -238,6 +240,7 @@ public class SVGChemPath extends SVGPath implements SVGChemElement, HasStereoBon
 	 * includes return distance to M
 	 * @param eps min distance for points to be distinct
 	 * @param deltaTheta minimum deviation from linearity
+	 * @return points
 	 */
 	public List<Real2> extractDistinctPoints(double eps, Angle deltaTheta) {
 		distinctPointList = new ArrayList<Real2>();
@@ -284,10 +287,20 @@ public class SVGChemPath extends SVGPath implements SVGChemElement, HasStereoBon
 		return vertexR2Array != null && vertexR2Array.size() == 2;
 	}
 
+	/**
+	 * 
+	 * @param eps
+	 * @return isZero
+	 */
 	public boolean isZeroLength(double eps) {
 		return countDistinctPoints(eps) < 2;
 	}
 	
+	/**
+	 * 
+	 * @param averageLength
+	 * @return edges
+	 */
 	public List<Line2> getLongEdges(double averageLength) {
 		if (edgeList != null) {
 			addFinalEdge();
@@ -336,6 +349,10 @@ public class SVGChemPath extends SVGPath implements SVGChemElement, HasStereoBon
 		}
 	}
 	
+	/**
+	 * 
+	 * @return isBondlike
+	 */
 	public boolean isBondLike() {
 		return isBondLike;
 	}
@@ -390,7 +407,7 @@ public class SVGChemPath extends SVGPath implements SVGChemElement, HasStereoBon
 	}
 	/**
 	 * 
-	 * @return
+	 * @return arry of vertices
 	 */
 	public Real2Array getVertexR2Array() {
 		if (vertexR2Array == null) {
@@ -460,7 +477,7 @@ public class SVGChemPath extends SVGPath implements SVGChemElement, HasStereoBon
 	 * overlaps start
 	 * @param eps
 	 * @param deltaTheta
-	 * @return
+	 * @return isClosed
 	 */
 	public boolean isClosed(double eps, Angle deltaTheta) {
 		getVertexR2Array();
@@ -478,8 +495,8 @@ public class SVGChemPath extends SVGPath implements SVGChemElement, HasStereoBon
 	 * 
 	 * @param eps
 	 * @param deltaTheta
-	 * @param wedgefactor maximum ratio of short to long
-	 * @return
+	 * @param wedgeFactor maximum ratio of short to long
+	 * @return isWedge
 	 */
 	public boolean isWedge(double eps, Angle deltaTheta, double wedgeFactor) {
 		boolean isWedge = false;
@@ -490,9 +507,8 @@ public class SVGChemPath extends SVGPath implements SVGChemElement, HasStereoBon
 
 	/**
 	 * @param wedgeFactor
-	 * @param isWedge
 	 * @param points
-	 * @return
+	 * @return isWedgeAtStart
 	 */
 	public static boolean isWedgeAtStart( 
 			List<Real2> points, double wedgeFactor) {
@@ -510,7 +526,7 @@ public class SVGChemPath extends SVGPath implements SVGChemElement, HasStereoBon
 
 	/** converts path to equivalent line.
 	 * if child of node, replaces path with line
-	 * @return
+	 * @return line
 	 */
 	public SVGChemLine convertTwoPointPathToLine() {
 		SVGChemLine chemLine = null;

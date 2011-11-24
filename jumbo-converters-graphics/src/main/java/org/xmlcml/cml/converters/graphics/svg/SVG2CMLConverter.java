@@ -52,7 +52,7 @@ public class SVG2CMLConverter extends AbstractConverter {
 	/**
 	 * Converts a SVG object to CML.
 	 * 
-	 * @param in input stream
+	 * @param xml
 	 * @return the <a href="http://www.cafeconleche.org/XOM/">XOM</a> {@link Element}
 	 */
 	public Element convertToXML(Element xml) {

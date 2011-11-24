@@ -142,7 +142,7 @@ SVGConverter {
 	 * Converts a CML object to SVG. Assumes a single CMLMolecule as descendant
 	 * of root.
 	 * 
-	 * @param in input stream
+	 * @param xml
 	 * @return the <a href="http://www.cafeconleche.org/XOM/">XOM</a> {@link Element}
 	 */
 	public Element convertToXML(Element xml) {
