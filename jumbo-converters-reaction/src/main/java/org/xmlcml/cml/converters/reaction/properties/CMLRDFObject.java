@@ -74,7 +74,7 @@ public class CMLRDFObject {
 
 	/**
 	 * triple can either have resource pointer or content
-	 * @param cmlParent
+	 * @param element
 	 * @param triple
 	 */
 	public void expandTriple(RDFTriple triple, CMLElement element) {

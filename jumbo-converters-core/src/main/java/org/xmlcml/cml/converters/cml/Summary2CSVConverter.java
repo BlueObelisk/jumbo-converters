@@ -55,8 +55,8 @@ public class Summary2CSVConverter extends AbstractConverter implements
 	 * converts a CML object to MDL. assumes a single CMLMolecule as descendant
 	 * of root
 	 * 
-	 * @param in
-	 *            input stream
+	 * @param xml
+	 * @return strings
 	 */
 	public List<String> convertToText(Element xml) {
 		List<String> stringList = null;

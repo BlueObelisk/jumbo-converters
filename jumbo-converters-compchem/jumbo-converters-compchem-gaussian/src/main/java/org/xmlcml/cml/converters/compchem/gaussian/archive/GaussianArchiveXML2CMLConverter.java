@@ -31,7 +31,7 @@ public class GaussianArchiveXML2CMLConverter extends AbstractCompchem2CMLConvert
 	}
 
 	/**
-	 * @param in input stream
+	 * @param xml
 	 */
 	public Element convertToXML(Element xml) {
 		rawXml2CmlProcessor = new GaussianArchiveXMLProcessor();

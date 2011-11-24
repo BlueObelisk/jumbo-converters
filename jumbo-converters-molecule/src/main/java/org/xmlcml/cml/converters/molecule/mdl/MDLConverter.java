@@ -148,7 +148,7 @@ public class MDLConverter {
 	private static class SGroup {
 	    private static Map<Integer, SGroup> idMap = new HashMap<Integer, SGroup>();
 	    int id;
-	    String type;
+	    String type = "";
 	    List<CMLAtom> atomList = new ArrayList<CMLAtom>();
 	    List<CMLBond> bondList = new ArrayList<CMLBond>();
 	    String label = "";
@@ -324,11 +324,11 @@ public class MDLConverter {
             order = 0;
         } else if (cmlCode.equals(CMLBond.UNKNOWN_ORDER)) {
             order = 0;
-        } else if (cmlCode.equals(CMLBond.SINGLE)) {
+        } else if (cmlCode.equals(CMLBond.SINGLE_S)) {
             order = 1;
-        } else if (cmlCode.equals(CMLBond.DOUBLE)) {
+        } else if (cmlCode.equals(CMLBond.DOUBLE_D)) {
             order = 2;
-        } else if (cmlCode.equals(CMLBond.TRIPLE)) {
+        } else if (cmlCode.equals(CMLBond.TRIPLE_T)) {
             order = 3;
         } else if (cmlCode.equals(CMLBond.AROMATIC)) {
             order = 4;
@@ -578,7 +578,7 @@ public class MDLConverter {
      * positioned at the start of one. The version of MolFile is automatically
      * detected and can be found using getVersion()
      * 
-     * @param reader pointing to the MolFile
+     * @param lines
      * @return the parsed CMLMolecule
      */
     public CMLMolecule readMOL(List<String> lines) {
@@ -1325,8 +1325,8 @@ V    6 1
      * written can be set using setVersion(), else the default verison, V2000,
      * is written.
      * 
-     * @param writer the Writer to output the MolFile to
-     * @param mol the CMLMolecule to parse and output
+     * @param lines
+     * @param molecule the CMLMolecule to parse and output
      */
     public void writeMOL(List<String> lines, CMLMolecule molecule) {
     	this.molecule = molecule;

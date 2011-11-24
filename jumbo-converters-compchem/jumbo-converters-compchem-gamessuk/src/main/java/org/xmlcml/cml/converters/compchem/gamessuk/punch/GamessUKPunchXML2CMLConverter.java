@@ -37,7 +37,7 @@ public class GamessUKPunchXML2CMLConverter extends AbstractCompchem2CMLConverter
 	/**
 	 * converts an MDL object to CML. returns cml:cml/cml:molecule
 	 * 
-	 * @param in input stream
+	 * @param xml
 	 */
 	public Element convertToXML(Element xml) {
 		RawXML2CMLProcessor converter = new GamessUKPunchXMLProcessor();

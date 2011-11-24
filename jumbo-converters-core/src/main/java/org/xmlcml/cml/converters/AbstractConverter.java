@@ -108,8 +108,8 @@ public abstract class AbstractConverter implements Converter {
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param f
+	 * @return canHandle
 	 */
    public boolean canHandleInput(File f) {
       return getInputType().getExtensions().contains(
@@ -861,7 +861,7 @@ public abstract class AbstractConverter implements Converter {
 
    /**
     *
-    * @return
+    * @return fileId
     */
    public String getFileId() {
       return fileId;
@@ -896,7 +896,7 @@ public abstract class AbstractConverter implements Converter {
     * Needs to be overridden if you need your converter to use a different kind
     * of builder (especially e.g. CMLBuilder).
     *
-    * @return
+    * @return builder
     */
    protected Builder getBuilder() {
       return builder;

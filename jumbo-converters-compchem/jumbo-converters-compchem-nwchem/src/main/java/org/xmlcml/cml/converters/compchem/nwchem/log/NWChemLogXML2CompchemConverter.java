@@ -34,7 +34,8 @@ public class NWChemLogXML2CompchemConverter extends XML2XMLTransformConverter {
 	}
 	// dummy name?
 	public NWChemLogXML2CompchemConverter() {
-		this(BASE_URI, "templates/compchemTemplate.xml");
+//		this(BASE_URI, "templates/compchemTemplate.xml");
+		this(BASE_URI, "nwchem2compchem.xml");
 	}
 	
 	public NWChemLogXML2CompchemConverter(String baseUri, String templateName) {
@@ -48,7 +49,7 @@ public class NWChemLogXML2CompchemConverter extends XML2XMLTransformConverter {
 	/**
 	 * converts an Foo to CML. returns cml:cml/cml:molecule
 	 * 
-	 * @param in input stream
+	 * @param xml
 	 */
 	public Element convertToXML(Element xml) {
 		return super.convertToXML(xml);

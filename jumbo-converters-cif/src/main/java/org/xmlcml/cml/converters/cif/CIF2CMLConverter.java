@@ -21,7 +21,7 @@ public class CIF2CMLConverter extends AbstractConverter{
 	/**
 	 * converts a CIF object to CML.
 	 * 
-	 * @param lines
+	 * @param stringList
 	 */
 	public Element convertToXML(List<String> stringList){
 		CIF cif = this.cif2cifxml(stringList);

@@ -50,7 +50,7 @@ public class ReactionMergeDiff extends AbstractConverter implements MergeDiff {
 	/**
 	 * converts an XYZ object to CML. returns cml:cml/cml:molecule
 	 * 
-	 * @param in input stream
+	 * @param xml
 	 */
 	public Element convertToXML(Element xml) {
 		if (xml == null) {

@@ -269,7 +269,7 @@ public class AxisTool {
 	/** index axes by length*ISCALE
 	 * 
 	 * @param axisToolList
-	 * @return
+	 * @param axisToolMap
 	 */
 	public static void binAxesByLength(List<AxisTool> axisToolList, Map<Integer, List<AxisTool>> axisToolMap) {
 		if (axisToolList == null) {

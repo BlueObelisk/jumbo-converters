@@ -1,0 +1,19 @@
+; Build file taking all files **/*.log, and transforming all to **/*.cml
+
+(repository http://maven.ch.cam.ac.uk/m2repo)
+
+(source
+    logfiles    **/*.log)
+
+(build
+    cmlraw      org.xmlcml.cml.converters.compchem.gaussian.log.GaussianLog2XMLConverter/convert
+    :input      logfiles
+    :output     **/*.raw.cml
+    :depends    cml:jumbo-converters-compchem-gaussian:0.3-SNAPSHOT)
+
+(build
+    cmlfull      org.xmlcml.cml.converters.compchem.gaussian.log.GaussianLogXML2CompchemConverter/convert
+    :input      cmlraw
+    :output     **/*.cml
+    :depends    cml:jumbo-converters-compchem-gaussian:0.3-SNAPSHOT)
+

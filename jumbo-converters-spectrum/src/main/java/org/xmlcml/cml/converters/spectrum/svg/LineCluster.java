@@ -100,7 +100,7 @@ public class LineCluster {
 	/** makes tJoint in either direction (line->cluster or cluster->line)
 	 * 
 	 * @param line
-	 * @return
+	 * @return makesJoint
 	 */
 	public boolean makesTJointWith(SVGLine line) {
 		boolean makes = false;
@@ -119,8 +119,8 @@ public class LineCluster {
 	
 	/** makes tJoint in either direction
 	 * 
-	 * @param line
-	 * @return
+	 * @param cluster
+	 * @return makes joint
 	 */
 	public boolean makesTJointWith(LineCluster cluster) {
 		boolean makes = false;

@@ -47,7 +47,7 @@ public class GaussianLogXML2CompchemConverter extends XML2XMLTransformConverter 
 	/**
 	 * converts an Foo to CML. returns cml:cml/cml:molecule
 	 * 
-	 * @param in input stream
+	 * @param xml
 	 */
 	public Element convertToXML(Element xml) {
 		return super.convertToXML(xml);

@@ -24,8 +24,8 @@ public class DefaultURIUUIDGenerator implements URIGenerator {
 
     /**
      *
-     * @param subpath must not be gin with / but ends with /
-     * @return
+     * @param element
+     * @return uri
      */
     public URI createCMLURL(CMLElement element) {
         try {

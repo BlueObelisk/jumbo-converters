@@ -40,7 +40,7 @@ public class CompChemConventionTest {
 		
 		Element e2 = converter2.convertToXML(e1);
 		
-		doc = e2.getDocument();
+		doc = CMLUtil.ensureDocument(e2);
 	}
 
 	@AfterClass

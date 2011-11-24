@@ -59,7 +59,7 @@ public class CML2PNGConverter extends AbstractConverter implements
     * converts a CML object to PNG. assumes a single CMLMolecule as descendant
     * of root with 2D coordinates
     *
-    * @param in input stream
+    * @param xml
     */
    @Override
    public byte[] convertToBytes(Element xml) {

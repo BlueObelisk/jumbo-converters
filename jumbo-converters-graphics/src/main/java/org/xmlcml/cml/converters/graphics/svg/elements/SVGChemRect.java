@@ -33,7 +33,7 @@ public class SVGChemRect extends SVGRect implements SVGChemElement {
 	/**
 	 * 
 	 * @param element
-	 * @return
+	 * @return rects
 	 */
 	public static List<SVGChemRect> getLineList(SVGChemElement element) {
 		Nodes nodes = ((Element) element).query(".//svg:rect", SVG_XPATH);

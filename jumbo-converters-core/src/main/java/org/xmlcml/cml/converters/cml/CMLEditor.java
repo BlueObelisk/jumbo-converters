@@ -3,13 +3,17 @@ package org.xmlcml.cml.converters.cml;
 
 import static org.xmlcml.cml.base.CMLConstants.CML_XPATH;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import nu.xom.Nodes;
+import nu.xom.ParsingException;
+import nu.xom.ValidityException;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLMolecule.HydrogenControl;
@@ -17,9 +21,16 @@ import org.xmlcml.cml.tools.AbstractSVGTool;
 import org.xmlcml.cml.tools.MoleculeLayout;
 import org.xmlcml.cml.tools.MoleculeTool;
 
-/** allows editing of CMLObjects
- * not yet finished
- * 
+/** allows editing of CMLObjects.
+ * Supports, bonds, formula, Inchi, etc.
+ * Simple example here:
+ * <pre>
+ * usage:
+ *   CMLEditor editor = new CMLEditor();
+ *   editor.setAddHydrogens(true);
+ *   editor.executeCommands(cmlObject);
+ * </pre>
+ * More examples in Tests
  * @author pm286
  *
  */
@@ -166,7 +177,11 @@ public class CMLEditor  {
 	public void setAddSMILESFromFormula(boolean addSMILESFromFormula) {
 		this.addSMILESFromFormula = addSMILESFromFormula;
 	}
-		
+	
+	/** applies previously set commands to element which is MODIFIED.
+	 * 
+	 * @param element
+	 */
 	public void executeCommand(CMLElement element) {
 		if (removeNodesXPath != null) {
 			Nodes nodes = element.query(removeNodesXPath, CML_XPATH);
@@ -227,6 +242,7 @@ public class CMLEditor  {
 	private void transformFractionalToCartesian(AbstractSVGTool moleculeTool) {
 		
 	}
+	
 	private void addHydrogens(MoleculeTool moleculeTool) {
 		moleculeTool.adjustHydrogenCountsToValency(HydrogenControl.USE_EXPLICIT_HYDROGENS);
 	}
@@ -293,5 +309,35 @@ public class CMLEditor  {
 
 	public void set(Double average2DBondlength) {
 		this.average2DBondlength = average2DBondlength;
+	}
+	
+	public static void main(String[] args) throws Exception {
+		if (args.length == 0) {
+			usage();
+			test();
+
+		}
+	}
+
+	private static void test() throws Exception {
+		String xmlString = "<?xml version='1.0' encoding='UTF-8'?>" +
+				"<cml xmlns='http://www.xml-cml.org/schema'>" +
+				"  <molecule title='Test example'>" +
+				"    <atomArray>" +
+				"      <atom id='a1' elementType='C' x3='0.0' y3='0.0' z3='0.0'/>" +
+				"      <atom id='a2' elementType='N' x3='1.34' y3='0.0' z3='0.0'/>" +
+				"      <atom id='a3' elementType='O' x3='2.0' y3='1.1' z3='0.0'/>" +
+				"    </atomArray>" +
+				"  </molecule>" +
+				"</cml>";
+		CMLElement cmlObject = (CMLElement) new CMLBuilder().parseString(xmlString);
+		CMLEditor editor = new CMLEditor();
+		editor.setCalculateBonds(true);
+		editor.executeCommand(cmlObject);
+		cmlObject.debug("CML");
+	}
+
+	private static void usage() {
+		System.out.println("usage: [zero args runs test]");
 	}
 }

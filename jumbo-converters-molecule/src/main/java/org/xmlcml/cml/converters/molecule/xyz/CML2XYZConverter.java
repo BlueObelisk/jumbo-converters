@@ -53,7 +53,7 @@ public class CML2XYZConverter extends AbstractConverter implements
 	 * converts a CML object to XYZ. assumes a single CMLMolecule as descendant
 	 * of root
 	 * 
-	 * @param in input stream
+	 * @param xml
 	 */
 	@Override
 	public List<String> convertToText(Element xml) {

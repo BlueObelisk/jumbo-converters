@@ -22,7 +22,7 @@ public class Util {
 	/**
 	 * ??????????????
 	 * @param bytes
-	 * @return
+	 * @return element
 	 * @throws RuntimeException
 	 */
 	public static Element stripPrologAndParse(byte[] bytes) throws RuntimeException {
@@ -91,7 +91,7 @@ public class Util {
 
 	/** add angle to a cml element.
 	 *
-	 * @param molecule to add to
+	 * @param element to add to
 	 * @param atomRefs3
 	 * @param value angle
 	 */
@@ -115,9 +115,9 @@ public class Util {
 		element.appendChild(length);
 	}
 
-	/** add torsion to a molecule.
+	/** add torsion to a element.
 	 *
-	 * @param molecule to add to
+	 * @param element to add to
 	 * @param atomRefs4
 	 * @param value torsion
 	 */

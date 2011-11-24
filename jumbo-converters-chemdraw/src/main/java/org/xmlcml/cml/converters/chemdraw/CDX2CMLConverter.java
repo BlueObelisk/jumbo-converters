@@ -35,7 +35,7 @@ public class CDX2CMLConverter extends AbstractConverter implements
 	/**
 	 * converts a CDK object to CML. returns cml:cml/cml:molecule
 	 * 
-	 * @param in input stream
+	 * @param bytes
 	 */
 	public Element convertToXML(byte[] bytes) {
 		CDX2CDXMLConverter cdx2cdxmlConverter = new CDX2CDXMLConverter();

@@ -10,6 +10,11 @@ import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.element.CMLProperty;
 
+/** abstract class for RawXML2CML conversion.
+ * Includes a few utility methods
+ * @author pm286
+ *
+ */
 public abstract class RawXML2CMLProcessor {
 
 	protected Element xmlInput;
