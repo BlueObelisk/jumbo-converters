@@ -14,7 +14,7 @@ import nu.xom.Element;
 import org.apache.commons.io.FileUtils;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.xmlcml.cml.converters.text.TemplateTestUtils;
+import org.xmlcml.cml.converters.testutils.TemplateTestUtils;
 
 public class TemplateTest {
 	private static final String CODE_BASE = "gaussian";

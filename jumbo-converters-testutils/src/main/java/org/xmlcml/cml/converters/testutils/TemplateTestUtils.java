@@ -1,4 +1,4 @@
-package org.xmlcml.cml.converters.text;
+package org.xmlcml.cml.converters.testutils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,6 +13,8 @@ import org.apache.commons.io.IOUtils;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLUtil;
+import org.xmlcml.cml.converters.text.ClassPathXIncludeResolver;
+import org.xmlcml.cml.converters.text.Text2XMLTemplateConverter;
 import org.xmlcml.cml.testutil.JumboTestUtils;
 import org.xmlcml.euclid.Util;
 

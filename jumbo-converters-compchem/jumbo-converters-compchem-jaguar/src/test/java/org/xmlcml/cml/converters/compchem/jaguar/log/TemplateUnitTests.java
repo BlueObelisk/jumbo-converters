@@ -6,7 +6,7 @@ import nu.xom.Element;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.xmlcml.cml.converters.text.TemplateTestUtils;
+import org.xmlcml.cml.converters.testutils.TemplateTestUtils;
 
 public class TemplateUnitTests {
 	
@@ -18,7 +18,6 @@ public class TemplateUnitTests {
     BASE_DIR+"templates/";
   static String INPUT_TEMPLATE_S = 
     "org/xmlcml/cml/converters/compchem/"+CODE_BASE+"/"+FILE_TYPE+"/topTemplate.xml";
-//  static String BASE_URI = "classpath:/"+BASE_DIR;
   static String BASE_URI = "classpath:/"+TEMPLATE_DIR;
   
   @Test
