@@ -8,7 +8,6 @@ import org.apache.log4j.Level;
 /**
  * A class that helps to write logs for the {@link AbstractConverter}s.
  * 
- * @author 
  *
  */
 public class ConverterLog {

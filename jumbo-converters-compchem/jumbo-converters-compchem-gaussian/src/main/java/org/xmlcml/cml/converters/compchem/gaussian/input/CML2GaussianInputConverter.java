@@ -55,7 +55,7 @@ public class CML2GaussianInputConverter extends AbstractCompchem2CMLConverter {
    /**
     * converts an MDL object to CML. returns cml:cml/cml:molecule
     *
-    * @param in input stream
+    * @param xml
     */
    public List<String> convertToText(Element xml) {
       List<String> stringList = null;

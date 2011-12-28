@@ -56,7 +56,7 @@ public class SVGChemPolygon extends SVGPolygon implements SVGChemElement {
 	
 	/** set line and add coordinates to super.
 	 * 
-	 * @param line2
+	 * @param real2Array
 	 */
 	public void setReal2Array(Real2Array real2Array) {
 		this.real2Array = real2Array;
@@ -65,24 +65,11 @@ public class SVGChemPolygon extends SVGPolygon implements SVGChemElement {
 	
 	/**
 	 * 
-	 * @param element
-	 * @return
+	 * @param line0
+	 * @param line1
+	 * @param eps
+	 * @return polygon
 	 */
-//	public static List<SVGChemLine> getLineList(SVGChemElement element) {
-//		Nodes nodes = ((Element) element).query(".//svg:line", SVG_XPATH);
-//		List<SVGChemLine> lineList = new ArrayList<SVGChemLine>();
-//		for (int i = 0; i < nodes.size(); i++) {
-//			lineList.add((SVGChemLine) nodes.get(i));
-//		}
-//		return lineList;
-//	}
-	
-//	public static void debugLine(String msg, SVGChemLine line) {
-//		LOG.debug(msg);
-//		CMLAtom.debugAtom("L0 ",line.getAtoms()[0]);
-//		CMLAtom.debugAtom("L1 ",line.getAtoms()[1]);
-//	}
-	
 	public static SVGChemPolygon createMergedPolygon(SVGElement line0, SVGElement line1, double eps) {
 		SVGPolygon polygon0 = createPolygon(line0);
 		SVGPolygon polygon1 = createPolygon(line1);
@@ -108,7 +95,8 @@ public class SVGChemPolygon extends SVGPolygon implements SVGChemElement {
 	}
 	
 	/**
-	 * @param line0
+	 * @param line
+	 * @return polygon
 	 * @throws RuntimeException
 	 */
 	private static SVGPolygon createPolygon(SVGElement line)

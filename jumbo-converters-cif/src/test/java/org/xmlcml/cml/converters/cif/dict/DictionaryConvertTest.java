@@ -12,9 +12,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xmlcml.cif.CIFException;
 import org.xmlcml.cif.CIFParser;
+import org.xmlcml.cml.converters.cif.dict.units.CifUnit;
 import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.element.CMLEntry;
-import org.xmlcml.converters.cif.dict.units.CifUnit;
 
 public class DictionaryConvertTest {
 

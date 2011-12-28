@@ -123,7 +123,7 @@ public class ConverterUtils {
 	 * @param baseUri
 	 * @param resourceName
 	 * @param clazz
-	 * @return
+	 * @return element
 	 */
 	public static Element buildElementIncludingBaseUri(String baseUri, String resourceName, Class<?> clazz) {
 		try {

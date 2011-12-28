@@ -18,233 +18,228 @@ public interface Converter {
 	
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param in
+	 * @param out
 	 */
 	void convert(File in, OutputStream out);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param in
+	 * @param out
 	 */
 	void convert(InputStream in, OutputStream out);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param xml
+	 * @param out
 	 */
 	void convert(Element xml, OutputStream out);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param txt
+	 * @param out
 	 */
 	void convert(List<String> txt, OutputStream out);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param bytes
+	 * @param out
 	 */
 	void convert(byte[] bytes, OutputStream out);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param in
+	 * @param out
 	 */
 	void convert(File in, File out);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param in
+	 * @param out
 	 */
 	void convert(InputStream in, File out);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param cml
+	 * @param out
 	 */
 	void convert(Element cml, File out);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param txt
+	 * @param out
 	 */
 	void convert(List<String> txt, File out);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param bytes
+	 * @param out
 	 */
 	void convert(byte[] bytes, File out);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param in
+	 * @return strings
 	 */
 	List<String> convertToText(File in);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param in
+	 * @return strings
 	 */
 	List<String> convertToText(InputStream in);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param xml
+	 * @return strings
 	 */
 	List<String> convertToText(Element xml);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param text
+	 * @return strings
 	 */
 	List<String> convertToText(List<String> text);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param bytes
+	 * @return strings
 	 */
 	List<String> convertToText(byte[] bytes);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param in
+	 * @return element
 	 */
 	Element convertToXML(File in);
 
 	/**
 	 * Converts an {@link InputStream} to an {@link Element}.
 	 * 
-	 * @return
+	 * @param in
+	 * @return element
 	 */
 	Element convertToXML(InputStream in);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param xml
+	 * @return element
 	 */
 	Element convertToXML(Element xml);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param text
+	 * @return element
 	 */
 	Element convertToXML(List<String> text);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param bytes
+	 * @return element
 	 */
 	Element convertToXML(byte[] bytes);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param in
+	 * @return bytes
 	 */
 	byte[] convertToBytes(File in);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param in
+	 * @return bytes
 	 */
 	byte[] convertToBytes(InputStream in);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param xml
+	 * @return bytes
 	 */
 	byte[] convertToBytes(Element xml);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param text
+	 * @return bytes
 	 */
 	byte[] convertToBytes(List<String> text);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param bytes
+	 * @return bytes
 	 */
 	byte[] convertToBytes(byte[] bytes);
 
    Command getCommand();
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @return type
 	 */
 	Type getOutputType();
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @return type
 	 */
 	Type getInputType();
 
 	/**
 	 * Return a list of any processing problems that did not result in an error.
 	 * 
-	 * @return
+	 * @return warnings
 	 */
 	List<String> getWarnings();
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param f
+	 * @return canHandle
 	 */
 	boolean canHandleInput(File f);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param log
 	 */
 	void setConverterLog(ConverterLog log);
 
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @return converterLog
 	 */
 	ConverterLog getConverterLog();
 	
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param fileId
 	 */
 	void setFileId(String fileId);
 	
 	/**
 	 * 
-	 * 
-	 * @return
+	 * @param metadataCML
 	 */
 	public void setMetadataCml(CMLElement metadataCML) ;
 

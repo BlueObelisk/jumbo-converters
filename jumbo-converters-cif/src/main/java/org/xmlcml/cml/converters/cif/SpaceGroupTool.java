@@ -55,7 +55,7 @@ public class SpaceGroupTool implements CMLConstants {
 
 	/** constructor.
 	 * 
-	 * @param filename
+	 * @param spaceGroupFile
 	 * @param update
 	 */
 	public SpaceGroupTool(File spaceGroupFile, boolean update) {

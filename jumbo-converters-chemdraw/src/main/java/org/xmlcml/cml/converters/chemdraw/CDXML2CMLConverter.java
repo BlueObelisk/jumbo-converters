@@ -61,7 +61,7 @@ public class CDXML2CMLConverter extends AbstractConverter implements
 	/**
 	 * converts a CDXML object to CML. returns cml:cml
 	 * 
-	 * @param in input stream
+	 * @param cdxml
 	 */
 	@Override
 	public Element convertToXML(Element cdxml) {

@@ -54,7 +54,7 @@ public class CMLSpect2JDXConverter extends AbstractConverter implements Converte
 	/**
 	 * Converts a SVG object to CML.
 	 * 
-	 * @param in input stream
+	 * @param xml
 	 * @return the <a href="http://www.cafeconleche.org/XOM/">XOM</a> {@link Element}
 	 */
 	public List<String> convertToText(Element xml) {

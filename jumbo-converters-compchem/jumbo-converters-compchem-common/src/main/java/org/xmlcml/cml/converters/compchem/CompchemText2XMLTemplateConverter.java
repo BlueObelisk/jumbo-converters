@@ -7,6 +7,7 @@ import java.io.InputStream;
 import nu.xom.Builder;
 import nu.xom.Element;
 
+import org.xmlcml.cml.converters.text.ClassPathXIncludeResolver;
 import org.xmlcml.cml.converters.text.Template;
 import org.xmlcml.cml.converters.text.Text2XMLTemplateConverter;
 import org.xmlcml.cml.converters.util.ConverterUtils;
@@ -14,10 +15,7 @@ import org.xmlcml.euclid.Util;
 
 public class CompchemText2XMLTemplateConverter extends Text2XMLTemplateConverter {
 
-	
-	public CompchemText2XMLTemplateConverter() {
-		super();
-	}
+	private static String URI_BASE = ClassPathXIncludeResolver.createClasspath(CompchemText2XMLTemplateConverter.class);
 	
 	public CompchemText2XMLTemplateConverter(Element templateElement) {
 		super(templateElement);
@@ -37,7 +35,7 @@ public class CompchemText2XMLTemplateConverter extends Text2XMLTemplateConverter
 	}
 
 	public static String createBaseURI(String codeBase, String fileType) {
-        return "classpath:/org/xmlcml/cml/converters/compchem/"+codeBase+"/"+fileType+"/";
+        return "classpath:"+URI_BASE+codeBase+"/"+fileType+"/";
 	}
 
 	private static Text2XMLTemplateConverter createTemplateConverter(String codeBase,
@@ -50,7 +48,7 @@ public class CompchemText2XMLTemplateConverter extends Text2XMLTemplateConverter
 
 	protected static InputStream createTemplateStream(String codeBase,
 			String fileType, String topTemplate) throws IOException {
-		String templateXML = "org/xmlcml/cml/converters/compchem/"+codeBase+"/"+fileType+"/"+topTemplate;
+		String templateXML = URI_BASE+codeBase+"/"+fileType+"/"+topTemplate;
 		InputStream templateStream = Util.getInputStreamFromResource(templateXML);
 		return templateStream;
 	}
@@ -74,7 +72,7 @@ public class CompchemText2XMLTemplateConverter extends Text2XMLTemplateConverter
 
 	protected static Element getDefaultTemplate(String codeType, String fileType,
 		String templateName, Class<?> clazz) {
-		String baseUri = "classpath:/org/xmlcml/cml/converters/compchem/"+codeType+"/"+fileType+"/topTemplate.xml";
+		String baseUri = "classpath:"+URI_BASE+codeType+"/"+fileType+"/topTemplate.xml";
 		return ConverterUtils.buildElementIncludingBaseUri(baseUri, templateName, clazz);
 	}
 

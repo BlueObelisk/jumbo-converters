@@ -29,7 +29,8 @@ public class TestUtils {
 	 * runs test on name.in input against ref name.xml 
 	 * generates full resourcename from class of converter
 	 * @param converter
-	 * @param name
+	 * @param resourcePathLines
+	 * @param resourcePathXML
 	 */
 	public static void runConverterTest(Converter converter, String resourcePathLines, String resourcePathXML) {
 		runConverterTest(converter, resourcePathLines, resourcePathXML, false);
@@ -39,7 +40,9 @@ public class TestUtils {
 	 * runs test on name.in input against ref name.xml 
 	 * generates full resourcename from class of converter
 	 * @param converter
-	 * @param name
+	 * @param resourcePathLines
+	 * @param resourcePathXML
+	 * @param normalizeText
 	 */
 	public static void runConverterTest(Converter converter, String resourcePathLines, String resourcePathXML, boolean normalizeText) {
 		List<String> lines = readLines(resourcePathLines);

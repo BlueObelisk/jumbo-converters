@@ -70,7 +70,7 @@ public class MMReRDF2CMLReactConverter extends AbstractConverter implements
    /**
     * converts an XYZ object to CML. returns cml:cml/cml:molecule
     *
-    * @param in input stream
+    * @param xml
     */
    public Element convertToXML(Element xml) {
       cmlElement = null;

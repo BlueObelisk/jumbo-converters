@@ -29,7 +29,8 @@ public class CompChemCML2RDFConverter extends AbstractCompchem2CMLConverter {
 	/**
 	 * converts an Foo object to CML. returns cml:cml/cml:molecule
 	 * 
-	 * @param in input stream
+	 * @param element
+	 * @return element
 	 */
 	public Element convertToXML(Element element) {
 		CompChemProcessor compchemProcessor = new CompChemProcessor();
