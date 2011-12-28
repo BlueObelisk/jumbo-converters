@@ -19,13 +19,14 @@ public class CIF2CMLConverter extends AbstractConverter{
 
 		
 	/**
-	 * converts a CIF object to CML.
-	 * 
-	 * @param lines
+	 * converts CIF file (as lines) to CML.
+	 * This involves conversion to (a) CIFXML (b) raw CML (c) conventionCML
+	 * @param stringList
+	 * @return "complete CML" 
 	 */
 	public Element convertToXML(List<String> stringList){
-		CIF cif = this.cif2cifxml(stringList);
-		Element rawCML = this.cfixml2cml(cif);
+		CIF cifxml = this.cif2cifxml(stringList);
+		Element rawCML = this.cifxml2cml(cifxml);
 		Element cml = this.cml2compcml(rawCML);
 		return cml;
 	}
@@ -36,7 +37,7 @@ public class CIF2CMLConverter extends AbstractConverter{
 		return cif;
 	}
 	
-	private Element cfixml2cml(CIF cif){
+	private Element cifxml2cml(CIF cif){
 		CIFXML2CMLConverter cifxml2cml = new CIFXML2CMLConverter();
 		return cifxml2cml.convertToXML(cif);
 	}

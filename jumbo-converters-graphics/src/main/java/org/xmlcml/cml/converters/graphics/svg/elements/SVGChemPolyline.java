@@ -40,46 +40,14 @@ public class SVGChemPolyline extends SVGPolyline implements SVGChemElement {
 		this(new SVGPolyline(r2a));
 	}
 	
-//	/**
-//	 * 
-//	 * @return line
-//	 */
-//	public Real2Array getReal2Array() {
-//		if (real2Array == null) {
-//			real2Array = Real2Array.createFromPairs(getAttributeValue("points"),
-//					S_COMMA+S_PIPE+CMLConstants.S_SPACE);
-//		}
-//		return real2Array;
-//	}
-	
-//	/** set line and add coordinates to super.
-//	 * 
-//	 * @param line2
-//	 */
-//	public void setReal2Array(Real2Array real2Array) {
-//		this.real2Array = real2Array;
-//	}
-//	
 	
 	/**
 	 * 
-	 * @param element
-	 * @return
+	 * @param line0
+	 * @param line1
+	 * @param eps
+	 * @return polyline
 	 */
-//	public static List<SVGChemLine> getLineList(SVGChemElement element) {
-//		Nodes nodes = ((Element) element).query(".//svg:line", SVG_XPATH);
-//		List<SVGChemLine> lineList = new ArrayList<SVGChemLine>();
-//		for (int i = 0; i < nodes.size(); i++) {
-//			lineList.add((SVGChemLine) nodes.get(i));
-//		}
-//		return lineList;
-//	}
-	
-//	public static void debugLine(String msg, SVGChemLine line) {
-//		LOG.debug(msg);
-//		CMLAtom.debugAtom("L0 ",line.getAtoms()[0]);
-//		CMLAtom.debugAtom("L1 ",line.getAtoms()[1]);
-//	}
 	
 	public static SVGPolyline createMergedPolyline(SVGElement line0, SVGElement line1, double eps) {
 		SVGPolyline polyline0 = passPolylineOrCreatePolylineFromLine(line0);

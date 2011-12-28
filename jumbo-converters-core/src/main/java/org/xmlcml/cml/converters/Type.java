@@ -244,7 +244,7 @@ public class Type {
 	/**
 	 * Enumeration of object types that are passed between converters.
 	 * 
-	 * @todo might need to add byte array.
+	 * TODO might need to add byte array.
 	 * @author jimdowning
 	 * 
 	 */
@@ -368,7 +368,7 @@ public class Type {
 	 * 
 	 * @param foo
 	 * @param bar
-	 * @return
+	 * @return string
 	 */
 	public static String getFoo2BarString(Type foo, Type bar) {
 		return foo.getMimeType()+"=>"+((bar == null) ? "null" : bar.getMimeType());

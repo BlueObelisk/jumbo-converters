@@ -47,8 +47,7 @@ public class SDF2CMLConverter extends AbstractConverter implements
 	/**
 	 * converts an SDF object to CML. returns cml:cml/cml:molecule
 	 * 
-	 * @param in
-	 *            input stream
+	 * @param lines
 	 */
 	public Element convertToXML(List<String> lines) {
 		CMLCml cml = new CMLCml();

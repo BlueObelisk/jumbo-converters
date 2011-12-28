@@ -82,7 +82,7 @@ public abstract class AbstractAggregator extends AbstractConverter implements Ag
 	/**
 	 * 
 	 * @param element
-	 * @return
+	 * @return element
 	 */
 	protected abstract Element getSubElement(Element element);
 
@@ -119,7 +119,7 @@ public abstract class AbstractAggregator extends AbstractConverter implements Ag
 
 	/**
 	 * 
-	 * @return
+	 * @return converterList
 	 */
 	public ConverterList getConverterList() {
 		return converterList;

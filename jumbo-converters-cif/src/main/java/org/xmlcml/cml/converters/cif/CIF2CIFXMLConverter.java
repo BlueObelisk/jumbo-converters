@@ -41,9 +41,11 @@ public class CIF2CIFXMLConverter extends AbstractConverter {
 	}
 
 	/**
-	 * converts a CIF object to CML. returns cml:cml/cml:molecule
+	 * converts a CIF file (text) to CML. 
 	 * 
 	 * @param lines
+	 * @return cml:cml/cml:molecule
+	 * 
 	 */
 	public Element convertToXML(List<String> lines) {
 		CIF cifxml = parseLegacy(lines);

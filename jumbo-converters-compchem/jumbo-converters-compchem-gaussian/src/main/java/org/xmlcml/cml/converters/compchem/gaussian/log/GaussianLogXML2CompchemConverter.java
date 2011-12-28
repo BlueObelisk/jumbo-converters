@@ -44,6 +44,9 @@ public class GaussianLogXML2CompchemConverter extends XML2XMLTransformConverter 
         super(templateElement);
     }
 
+	public Element convertToXML(Element xml) {
+		return super.convertToXML(xml);
+	}
 
     private void runTests(String dirName) {
         File dir = new File(dirName);

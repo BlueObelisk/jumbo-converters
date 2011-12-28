@@ -29,20 +29,17 @@ public class CML2XMLConverter extends CompchemText2XMLTemplateConverter {
 	}
 
 	public CML2XMLConverter() {
-		super();
-		setTemplate(createTemplate("cml", "cml"));
+		super(createTemplate("cml", "cml"));
 	}
 
-	private Template createTemplate(String code, String fileType) {
-		Template template = null;
+	private static Element createTemplate(String code, String fileType) {
 		try {
 			InputStream templateStream = createTemplateStream(code, fileType, "topTemplate.xml");
 			Element templateElement = new Builder().build(templateStream, createBaseURI(code, fileType)).getRootElement();
-			template = new Template(templateElement);
+			return templateElement;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return template;
 	}
 
 

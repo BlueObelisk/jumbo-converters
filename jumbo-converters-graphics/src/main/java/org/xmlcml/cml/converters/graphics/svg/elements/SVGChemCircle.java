@@ -36,7 +36,7 @@ public class SVGChemCircle extends SVGCircle implements SVGChemElement {
 	/**
 	 * 
 	 * @param element
-	 * @return
+	 * @return circles
 	 */
 	public static List<SVGChemCircle> getCircleList(SVGChemElement element) {
 		Nodes nodes = ((Element) element).query(".//svg:circle", SVG_XPATH);

@@ -59,6 +59,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 	protected void init() {
 		SVGLine.setDefaultStyle(this);
 	}
+	
 	public SVGChemLine(SVGLine line) {
 		this();
 		SVGChem.deepCopy(line, this);
@@ -67,7 +68,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 	}
 	
 	/**
-	 * @return
+	 * @return x1
 	 */
 	public double getX1() {
 		if (Double.isNaN(x1)) {
@@ -77,7 +78,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 	}
 	
 	/**
-	 * @return
+	 * @return x2
 	 */
 	public double getX2() {
 		if (Double.isNaN(x2)) {
@@ -87,7 +88,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 	}
 	
 	/**
-	 * @return
+	 * @return y1
 	 */
 	public double getY1() {
 		if (Double.isNaN(y1)) {
@@ -97,7 +98,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 	}
 	
 	/**
-	 * @return
+	 * @return y2
 	 */
 	public double getY2() {
 		if (Double.isNaN(y2)) {
@@ -159,7 +160,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 	/**
 	 * 
 	 * @param element
-	 * @return
+	 * @return lines
 	 */
 	public static List<SVGChemLine> getLineList(SVGChemElement element) {
 		Nodes nodes = ((Element) element).query(".//svg:line", SVG_XPATH);
@@ -217,11 +218,11 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 		this.order = order;
 		this.addAttribute(new Attribute("order", order));
 		this.setStroke(SVG2CMLTool.BOND_PROCESSED);
-		if (CMLBond.isSingle(order)) {
+		if (CMLBond.SINGLE_S.equals(order)) {
 			this.setStrokeWidth(SVG2CMLTool.SINGLE_BOND_WIDTH);
-		} else if (CMLBond.isDouble(order)) {
+		} else if (CMLBond.DOUBLE_D.equals(order)) {
 			this.setStrokeWidth(SVG2CMLTool.DOUBLE_BOND_WIDTH);
-		} else if (CMLBond.isTriple(order)) {
+		} else if (CMLBond.TRIPLE_T.equals(order)) {
 			this.setStrokeWidth(SVG2CMLTool.TRIPLE_BOND_WIDTH);
 		}
 
@@ -362,7 +363,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 	/** moves movableEnd to create line of target length.
 	 * 
 	 * @param targetLength
-	 * @param movableEnd
+	 * @param moveableEnd
 	 */
 	public void extendLineToAverageLength(double targetLength, int moveableEnd) {
 		Line2 line2 = this.getEuclidLine();
@@ -442,7 +443,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 	 * 
 	 * @param line
 	 * @param eps tolerance in radians
-	 * @return
+	 * @return isparallel or antiparallel
 	 */
 	public boolean isParallelOrAntiparallel(SVGChemLine line, double eps) {
 		Angle angle = this.getAngleMadeWith(line);

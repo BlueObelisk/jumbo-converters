@@ -82,8 +82,7 @@ public class PubchemXML2CMLConverter extends AbstractConverter implements
    /**
     * converts an MDL object to CML. returns cml:cml/cml:molecule
     *
-    * @param in
-    *            input stream
+    * @param pubchemXML
     */
    @Override
    public Element convertToXML(Element pubchemXML) {

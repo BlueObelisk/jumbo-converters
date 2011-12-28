@@ -3,8 +3,8 @@ package org.xmlcml.cml.converters.cif.dict;
 import junit.framework.Assert;
 
 import org.junit.Test;
+import org.xmlcml.cml.converters.cif.dict.units.UnitType;
 import org.xmlcml.cml.element.CMLEntry;
-import org.xmlcml.converters.cif.dict.units.UnitType;
 
 
 public class UnitTypeTest {

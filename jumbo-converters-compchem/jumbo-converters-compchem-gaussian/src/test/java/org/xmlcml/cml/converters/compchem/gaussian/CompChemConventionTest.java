@@ -34,11 +34,10 @@ public class CompChemConventionTest {
 	@BeforeClass
 	public static void runConverters() throws Exception {
 		InputStream in = CompChemConventionTest.class.
-			getResourceAsStream("/compchem/gaussian/log/anna/1/output.log");
+			getResourceAsStream("/org/xmlcml/cml/converters/compchem/gaussian/log/anna/1/output.log");
 		
 		GaussianLog2XMLConverter converter1 = new GaussianLog2XMLConverter();
 		e1 = converter1.convertToXML(in);
-		List<Node> nodes9999 = CMLUtil.getQueryNodes(e1, ".//*[@*='l9999.archive']");
 		
 		GaussianLogXML2CompchemConverter converter2 = new GaussianLogXML2CompchemConverter();
 		

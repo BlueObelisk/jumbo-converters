@@ -33,7 +33,7 @@ public class GamessUSLogXML2CMLConverter extends AbstractCompchem2CMLConverter{
 	}
 
 	/**
-	 * @param in input stream
+	 * @param xml
 	 */
 	public Element convertToXML(Element xml) {
 		rawXml2CmlProcessor = new GamessUSPunchXMLProcessor();

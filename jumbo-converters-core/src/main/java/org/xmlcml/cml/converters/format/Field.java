@@ -393,9 +393,8 @@ public abstract class Field extends Element {
 	}
 
 	/**
-	 * @param dataType
 	 * @param value
-	 * @return
+	 * @return scalar
 	 */
 	public CMLScalar createScalar(String value) {
 		Class<?> dataClass = this.getDataTypeClass();

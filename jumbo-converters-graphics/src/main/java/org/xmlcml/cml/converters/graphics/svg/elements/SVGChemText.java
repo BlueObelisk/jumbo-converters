@@ -142,7 +142,7 @@ public class SVGChemText extends SVGText implements SVGChemElement {
 	/**
 	 * 
 	 * @param element
-	 * @return
+	 * @return texts
 	 */
 	public static List<SVGChemText> getTextList(SVGChemElement element) {
 		Nodes nodes = ((Element) element).query(".//svg:text", SVG_XPATH);

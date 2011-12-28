@@ -52,8 +52,8 @@ public class SVG2CMLSpectConverter extends AbstractConverter {
 	/**
 	 * Converts a SVG object to CML.
 	 * 
-	 * @param in input stream
-	 * @return the <a href="http://www.cafeconleche.org/XOM/">XOM</a> {@link Element}
+	 * @param bytes
+	 * @return element
 	 */
 	@Override
 	public Element convertToXML(byte[] bytes) {
