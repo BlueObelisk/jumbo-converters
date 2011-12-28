@@ -16,14 +16,6 @@ public class CDX2CMLConverter extends AbstractConverter implements
 		LOG.setLevel(Level.INFO);
 	}
 	
-	public final static String[] typicalArgsForConverterCommand = {
-		"-sd", "src/test/resources/cdx",
-		"-odir", "../temp",
-		"-is", "cdx",
-		"-os", "cdx.xml",
-		"-converter", "org.xmlcml.cml.converters.chemdraw.CDX2CDXMLConverter"
-	};
-	
 	public Type getInputType() {
 		return Type.CDX;
 	}
