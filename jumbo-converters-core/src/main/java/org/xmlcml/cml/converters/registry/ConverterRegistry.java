@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.util.JumboException;
 
@@ -18,6 +19,8 @@ import org.xmlcml.util.JumboException;
  */
 public class ConverterRegistry {
 
+	private static final Logger LOG = Logger.getLogger(ConverterRegistry.class);
+	
     public static final String CONVERTER_FILE = "META-INF/jumbo-converters";
 
     private static final Map<Type,ConverterInfo> map = new LinkedHashMap<Type, ConverterInfo>();
@@ -27,7 +30,7 @@ public class ConverterRegistry {
             ClassLoader ldr = Thread.currentThread().getContextClassLoader();
             Enumeration<URL> e = ldr.getResources(CONVERTER_FILE);
             for (URL url : Collections.list(e)) {
-                System.err.println("reading "+url);
+            	LOG.debug("Reading " + url);
                 InputStream is = url.openStream();
                 try {
                     for (String line : IOUtils.readLines(is)) {
@@ -44,8 +47,7 @@ public class ConverterRegistry {
                                     register(converter);
                                 }
                             } catch (Exception ex) {
-                                System.err.println("Error loading converter");
-                                ex.printStackTrace();
+                            	LOG.warn("Error loading converter", ex);
                             }
                         }
                     }
@@ -54,8 +56,7 @@ public class ConverterRegistry {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Error loading converter files");
-            e.printStackTrace();
+            LOG.warn("Error loading converter files", e);
         }
     }
 
