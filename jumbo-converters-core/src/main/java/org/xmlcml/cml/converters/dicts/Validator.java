@@ -42,4 +42,20 @@ public class Validator extends AbstractConverter {
 		Element element = processor.getCmlElement();
 		return element;
 	}
+	
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
 }

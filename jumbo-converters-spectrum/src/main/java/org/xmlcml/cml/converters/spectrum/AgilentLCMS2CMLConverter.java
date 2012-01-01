@@ -26,17 +26,12 @@ public class AgilentLCMS2CMLConverter extends AbstractConverter implements
 		Converter {
 
 	private static final Logger LOG = Logger.getLogger(AgilentLCMS2CMLConverter.class);
+	private static final String REG_IN = "agilent-in";
+	private static final String REG_OUT = "agilent-cml";
+	private static final String REG_MESSAGE = "Agilent lab MS to CML";
 	static {
 		LOG.setLevel(Level.INFO);
 	};
-	public final static String[] typicalArgsForConverterCommand = {
-		"-sd", "src/test/resources/agilent",
-		"-odir", "../temp",
-		"-is", "rpt",
-		"-os", "cml",
-		"-converter", "org.xmlcml.cml.converters.misc.agilent.AgilentLCMS2CMLConverter"
-	};
-	
 	
 	public Type getInputType() {
 		return Type.RPT;
@@ -307,4 +302,19 @@ Saved	TRUE
 		spectrum.appendChild(peak);
 	}
 	
+	@Override
+	public String getRegistryInputType() {
+		return REG_IN;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return REG_OUT;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return REG_MESSAGE;
+	}
+
 }

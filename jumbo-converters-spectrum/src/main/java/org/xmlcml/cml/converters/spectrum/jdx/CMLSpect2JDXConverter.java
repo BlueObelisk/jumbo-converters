@@ -95,6 +95,22 @@ Spectrum1D(IOrderedDataArray1D x, IDataArray1D y)
 		}
 		return stringList;
 	}
+	
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
 
 }
 

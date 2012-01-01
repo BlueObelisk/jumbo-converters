@@ -270,5 +270,21 @@ private void compareElements(CMLReaction reaction1, CMLReaction reaction2,
 		}
 		return d;
 	}
+	
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
 }
 

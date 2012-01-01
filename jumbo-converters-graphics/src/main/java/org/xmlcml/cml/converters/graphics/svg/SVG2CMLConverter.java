@@ -23,14 +23,6 @@ import org.xmlcml.cml.graphics.SVGSVG;
 public class SVG2CMLConverter extends AbstractConverter {
 	private static final Logger LOG = Logger.getLogger(SVG2CMLConverter.class);
 	
-	public final static String[] typicalArgsForConverterCommand = {
-		"-sd", "src/test/resources/svgin",
-		"-odir", "../svgcml",
-		"-is", "svg",
-		"-os", "cml",
-		"-converter", "org.xmlcml.cml.converters.graphics.svg.SVG2CMLConverter",
-	};
-    
 	public Type getInputType() {
 		return Type.SVG;
 	}
@@ -74,6 +66,21 @@ public class SVG2CMLConverter extends AbstractConverter {
 		} catch (Exception e) {
 			LOG.error("ERROR "+e);
 		}
+	}
+
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
 	}
 
 }

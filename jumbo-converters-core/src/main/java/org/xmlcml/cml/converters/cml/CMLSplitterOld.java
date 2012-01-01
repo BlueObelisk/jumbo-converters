@@ -87,4 +87,20 @@ public class CMLSplitterOld extends AbstractSplitter {
 		splitter.setXpath(xpath);
 		splitter.convertToXML(new File(infile));
 	}
+	
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
 }

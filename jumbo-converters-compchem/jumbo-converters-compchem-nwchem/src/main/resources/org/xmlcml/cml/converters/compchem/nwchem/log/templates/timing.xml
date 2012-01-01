@@ -75,11 +75,11 @@ Time spent doing                        total          step
   qmmm residual Q            :   0.000000E+00  0.000000E+00
  -->  
   <record id="timingstuff" repeat="2">{X}</record>
-  <record>\s*Time spent doing\s+total\s+step</record>
+  <record id="timespent">\s*Time spent doing\s+total\s+step</record>
   <record id="times" repeat="*">\s*\-?\s*{X,x:name}\s*:\s*{E,x:total}\s*{E,x:step}</record>
-  <record>{X}</record>
+  <record/>
   <record id="job">\s*>>>\s*JOB COMPLETED\s*AT\s*{X,n:date}\s*&lt;&lt;&lt;\s*</record>
-  <record>{X}</record>
+  <record/>
   <record id="task">\s*Task\s+times\s+cpu:{F,cc:cputime}s\s*wall:{F,cc:walltime}s</record>
   <transform process="pullupSingleton" xpath="./cml:list"/>
   

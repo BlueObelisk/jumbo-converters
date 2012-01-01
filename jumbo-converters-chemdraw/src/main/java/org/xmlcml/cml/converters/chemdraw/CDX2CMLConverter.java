@@ -12,6 +12,8 @@ public class CDX2CMLConverter extends AbstractConverter implements
 		Converter {
 
 	private static final Logger LOG = Logger.getLogger(CDX2CMLConverter.class);
+	public static final String REG_MESSAGE = "Chemdraw: CDX to CML";
+	
 	static {
 		LOG.setLevel(Level.INFO);
 	}
@@ -35,5 +37,21 @@ public class CDX2CMLConverter extends AbstractConverter implements
 		CDXML2CMLConverter cdxml2CmlConverter = new CDXML2CMLConverter();
 		return cdxml2CmlConverter.convertToXML(cdxml);
 	}
+
+	@Override
+	public String getRegistryInputType() {
+		return CDXCommon.REG_CDX;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return CDXCommon.REG_CDX_CML;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return REG_MESSAGE;
+	}
+
 
 }

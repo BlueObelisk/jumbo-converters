@@ -24,23 +24,6 @@ public class CML2XYZConverter extends AbstractConverter implements
 	static {
 		LOG.setLevel(Level.INFO);
 	}
-	public final static String[] typicalArgsForConverterCommand = {
-		"-sd", "src/test/resources/cml",
-		"-odir", "../temp",
-		"-is", "cml",
-		"-os", "xyz",
-		"-converter", "org.xmlcml.cml.converters.molecule.xyz.CML2XYZConverter"
-	};
-	
-	public final static String[] testArgs = {
-		"-quiet",
-		"-sd", "src/test/resources/cml",
-		"-odir", "../temp",
-		"-is", "cml",
-		"-os", "xyz",
-		"-converter", "org.xmlcml.cml.converters.molecule.xyz.CML2XYZConverter"
-	};
-	
 	public Type getInputType() {
 		return Type.CML;
 	}
@@ -81,6 +64,21 @@ public class CML2XYZConverter extends AbstractConverter implements
 			lines.add(sb.toString());
 		}
 		return lines;
+	}
+
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
 	}
 
 }

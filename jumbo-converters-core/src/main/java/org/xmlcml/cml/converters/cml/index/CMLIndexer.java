@@ -65,4 +65,19 @@ public class CMLIndexer extends AbstractIndexer {
 		addToIndex(element, infile.getAbsolutePath());
 	}
 
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
 }

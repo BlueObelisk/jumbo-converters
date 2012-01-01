@@ -2,6 +2,7 @@ package org.xmlcml.cml.converters.cif;
 
 import static org.xmlcml.euclid.EuclidConstants.S_NEWLINE;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
@@ -28,6 +29,7 @@ import org.xmlcml.cml.converters.Type;
 public class CIF2CIFXMLConverter extends AbstractConverter {
 
 	private static final Logger LOG = Logger.getLogger(CIF2CIFXMLConverter.class);
+	public static final String REG_MESSAGE = "CIF to CIFXML";
 
 	public CIF2CIFXMLConverter() {
 	}
@@ -91,5 +93,19 @@ public class CIF2CIFXMLConverter extends AbstractConverter {
 		return cif;
 	}
 
+	@Override
+	public String getRegistryInputType() {
+		return CIFCommon.REG_CIF;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return CIFCommon.REG_CIFXML;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return REG_MESSAGE;
+	}
 }
 

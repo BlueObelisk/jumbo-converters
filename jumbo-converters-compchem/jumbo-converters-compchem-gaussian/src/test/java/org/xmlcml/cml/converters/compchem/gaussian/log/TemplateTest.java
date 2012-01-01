@@ -135,27 +135,27 @@ public class TemplateTest {
 	}
 
 	/**
-	@Test @Ignore public void testAnna1() {testAnna("1");}
-	@Test @Ignore public void testAnna3() {testAnna("3");}
-	@Test @Ignore public void testAnna4() {testAnna("4");}
-	@Test @Ignore public void testAnna5() {testAnna("5");}
-	@Test @Ignore public void testAnna6() {testAnna("6");}
-	@Test @Ignore public void testAnna7() {testAnna("7");}
-	@Test @Ignore public void testAnna8() {testAnna("8");}
-	@Test @Ignore public void testAnna9() {testAnna("9");}
-	@Test @Ignore public void testAnna10() {testAnna("10");}
-	@Test @Ignore public void testAnna11() {testAnna("11");}
-	@Test @Ignore public void testAnna12() {testAnna("12");}
-	@Test @Ignore public void testAnna13() {testAnna("13");}
-	@Test @Ignore public void testAnna14() {testAnna("14");}
-	@Test @Ignore public void testAnna15() {testAnna("15");}
-	@Test @Ignore public void testAnna16() {testAnna("16");}
-	@Test @Ignore public void testAnna17() {testAnna("17");}
-	@Test @Ignore public void testAnna18() {testAnna("18");}
-	@Test @Ignore public void testAnna19() {testAnna("19");}
-	@Test @Ignore public void testAnna20() {testAnna("20");}
-	@Test @Ignore public void testAnna43() {testAnna("43");}
-	@Test @Ignore public void testAnna65() {testAnna("65");}
+	@ Test @ Ignore public void testAnna1() {testAnna("1");}
+	@ Test @ Ignore public void testAnna3() {testAnna("3");}
+	@ Test @ Ignore public void testAnna4() {testAnna("4");}
+	@ Test @ Ignore public void testAnna5() {testAnna("5");}
+	@ Test @ Ignore public void testAnna6() {testAnna("6");}
+	@ Test @ Ignore public void testAnna7() {testAnna("7");}
+	@ Test @ Ignore public void testAnna8() {testAnna("8");}
+	@ Test @ Ignore public void testAnna9() {testAnna("9");}
+	@ Test @ Ignore public void testAnna10() {testAnna("10");}
+	@ Test @ Ignore public void testAnna11() {testAnna("11");}
+	@ Test @ Ignore public void testAnna12() {testAnna("12");}
+	@ Test @ Ignore public void testAnna13() {testAnna("13");}
+	@ Test @ Ignore public void testAnna14() {testAnna("14");}
+	@ Test @ Ignore public void testAnna15() {testAnna("15");}
+	@ Test @ Ignore public void testAnna16() {testAnna("16");}
+	@ Test @ Ignore public void testAnna17() {testAnna("17");}
+	@ Test @ Ignore public void testAnna18() {testAnna("18");}
+	@ Test @ Ignore public void testAnna19() {testAnna("19");}
+	@ Test @ Ignore public void testAnna20() {testAnna("20");}
+	@ Test @ Ignore public void testAnna43() {testAnna("43");}
+	@ Test @ Ignore public void testAnna65() {testAnna("65");}
 	*/
 	
 	@Test

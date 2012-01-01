@@ -12,13 +12,13 @@
  ****************************************************** 
 
   </comment>
-  <record repeat="3">{X}</record>
-  <record >\s\*\sWavefunction convergence\s+{A,guk:runtype}\s+\*\s*</record>
-  <record >\s\*\sLevel shifting\s+\*\s*</record>
-  <record >\s\*\sLevel shifter =\s+{F,guk:levelshifter} to cycle\s+{I,guk:cycle} then \s+{F,guk:A,guk:molorbstart}\s+\*\s*</record>
-  <record >\s\*\sCommence diis treatment at threshold of\s+{F,guk:diisthresh}\s+\*\s*</record>
-  <record >\s\*\sFinish diis when residuum less than\s+{E,guk:diisresiduum}\s+\*\s*</record>
-  <record repeat="*">{X}</record>
+  <record repeat="3"/>
+  <record id="wave">\s\*\sWavefunction convergence\s+{A,guk:runtype}\s+\*\s*</record>
+  <record id="shift">\s\*\sLevel shifting\s+\*\s*</record>
+  <record id="level">\s\*\sLevel shifter =\s+{F,guk:levelshifter} to cycle\s+{I,guk:cycle} then \s+{F,guk:A,guk:molorbstart}\s+\*\s*</record>
+  <record id="diis">\s\*\sCommence diis treatment at threshold of\s+{F,guk:diisthresh}\s+\*\s*</record>
+  <record id="finsih">\s\*\sFinish diis when residuum less than\s+{E,guk:diisresiduum}\s+\*\s*</record>
+  <record repeat="*"/>
 
   <transform process="pullupSingleton" xpath="./cml:list"/>
 </template>

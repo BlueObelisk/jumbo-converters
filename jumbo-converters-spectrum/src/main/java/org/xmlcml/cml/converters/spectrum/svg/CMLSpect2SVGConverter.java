@@ -65,6 +65,21 @@ public class CMLSpect2SVGConverter extends AbstractConverter {
 		return svgg;
 	}
 
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
 }
 
     

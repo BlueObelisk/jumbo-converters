@@ -9,8 +9,7 @@ import nu.xom.Element;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-/** cleans files (e.g. by deleting)
- * experimental, use carefully
+/** does nothing. Provides overridable debug() method
  * @author pm286
  *
  */

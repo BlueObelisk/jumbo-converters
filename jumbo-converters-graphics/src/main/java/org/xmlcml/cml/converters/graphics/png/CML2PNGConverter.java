@@ -111,4 +111,19 @@ public class CML2PNGConverter extends AbstractConverter implements
       return molecule;
    }
 
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
 }

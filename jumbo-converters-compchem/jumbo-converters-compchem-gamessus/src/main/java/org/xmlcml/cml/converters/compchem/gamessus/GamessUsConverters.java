@@ -1,29 +1,19 @@
 package org.xmlcml.cml.converters.compchem.gamessus;
 
+import java.util.Collections;
+
 import org.xmlcml.cml.converters.compchem.gamessus.log.GamessusLog2XMLConverter;
 import org.xmlcml.cml.converters.registry.ConverterInfo;
-import org.xmlcml.cml.converters.registry.ConverterList;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import org.xmlcml.cml.converters.registry.ConverterListImpl;
 
 /**
  * @author Sam Adams
  */
-public class GamessUsConverters implements ConverterList {
+public class GamessUsConverters extends ConverterListImpl {
 
-    private final List<ConverterInfo> list;
-
-    {
-        List<ConverterInfo> list = new ArrayList<ConverterInfo>();
-        list.add(new ConverterInfo("gamessus-log", "gamessus-log-xml", GamessusLog2XMLConverter.class, "GamessUS Log to XML"));
+    public GamessUsConverters() {
+        list.add(new ConverterInfo(GamessusLog2XMLConverter.class));
         this.list = Collections.unmodifiableList(list);
     }
-
-    public List<ConverterInfo> listConverters() {
-        return list;
-    }
-
 
 }

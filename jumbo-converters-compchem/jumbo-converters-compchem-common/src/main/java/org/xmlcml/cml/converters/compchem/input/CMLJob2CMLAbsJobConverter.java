@@ -8,13 +8,11 @@ import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.CMLSelector;
-import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLMolecule;
 
-public class CMLJob2CMLAbsJobConverter extends AbstractConverter implements
-		Converter {
+public class CMLJob2CMLAbsJobConverter extends AbstractConverter {
 
 	private static final Logger LOG = Logger.getLogger(CMLJob2CMLAbsJobConverter.class);
 	static {
@@ -56,6 +54,21 @@ public class CMLJob2CMLAbsJobConverter extends AbstractConverter implements
 		CMLElement cmlElement = (CMLElement) this.getAuxElement();
 		CMLMolecule molecule = new CMLSelector(cmlElement).getToplevelMoleculeDescendant(true);
 		return molecule;
+	}
+	
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return null;
 	}
 
 }

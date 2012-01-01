@@ -59,4 +59,20 @@ public class XML2XMLTransformConverter extends XML2XMLConverter {
 		converter = new XML2XMLTransformConverter(new File(transformFilename));
 		converter.convert(new File(inputFilename), new File(outputFilename));
 	}
+	
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
 }

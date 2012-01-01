@@ -1,6 +1,7 @@
 package org.xmlcml.cml.converters.cif;
 
 import nu.xom.*;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -12,7 +13,6 @@ import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.cif.CIF2CMLUtils.CompoundClass;
 import org.xmlcml.cml.converters.cif.dict.CifDictionaryBuilder;
 import org.xmlcml.cml.converters.cif.dict.units.UnitDictionaries;
-import org.xmlcml.cml.converters.exception.ConverterException;
 import org.xmlcml.cml.element.*;
 import org.xmlcml.cml.element.CMLMolecule.HydrogenControl;
 import org.xmlcml.cml.tools.*;
@@ -33,6 +33,8 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
 
     public static final String POLYMERIC_FLAG_DICTREF = "ned24:isPolymeric";
     public static final String NO_BONDS_OR_CHARGES_FLAG_DICTREF = "ned24:noBondsOrChargesSet";
+
+	public static final String REG_MESSAGE = "Raw CIF CML to CML converter";
 
     private CIFDictionary cifDict = CIFDictionary.getInstance();
 
@@ -414,11 +416,11 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
      * @return
      * @throws ConverterException
      */
-    private CMLMolecule getMolecule(CMLElement cml) throws ConverterException {
+    private CMLMolecule getMolecule(CMLElement cml) {
         Nodes moleculeNodes = cml.query(CMLMolecule.NS, CML_XPATH);
         if (moleculeNodes.size() != 1) {
             this.getConverterLog().addToLog(Level.ERROR, "No molecule found");
-            throw new ConverterException("No molecule found");
+            throw new RuntimeException("No molecule found");
         }
         return (CMLMolecule) moleculeNodes.get(0);
     }
@@ -880,4 +882,18 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
         }
     }
 
+	@Override
+	public String getRegistryInputType() {
+		return CIFCommon.REG_CIF_RAW_CML;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return CIFCommon.REG_CIF_CML;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return REG_MESSAGE;
+	}
 }

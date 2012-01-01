@@ -14,33 +14,8 @@ import org.xmlcml.cml.converters.Type;
 public class CDXML2CMLConverter extends AbstractConverter implements
 		Converter {
 
-	static String[] typicalArgsForConverterCommand = {
-		"-sd", "src/test/resources/cdxml",
-		"-odir", " ../temp",
-		"-is", "cdx.xml",
-		"-it", "CDXML",
-		"-os", "cdx.cml",
-		"-ot", "CML",
-		"-converter",
-		"org.xmlcml.cml.converters.chemdraw.CDXML2CMLConverter"
-	};
-	
-	public String[] getTestArgs() {
-		return testArgs;
-	}
-	static String[] testArgs = {
-		"-quiet",
-		"-sd", "src/test/resources/cdxml",
-		"-odir", " ../temp",
-		"-is", "cdx.xml",
-		"-it", "CDXML",
-		"-os", "cdx.cml",
-		"-ot", "CML",
-		"-converter",
-		"org.xmlcml.cml.converters.chemdraw.CDXML2CMLConverter"
-	};
-	
 	private static final Logger LOG = Logger.getLogger(CDXML2CMLConverter.class);
+	public static final String REG_MESSAGE = "Chemdraw: CDXML to CML conversion";
 	static {
 		LOG.setLevel(Level.INFO);
 	}
@@ -82,5 +57,22 @@ public class CDXML2CMLConverter extends AbstractConverter implements
 		}
 		return cml;
 	}
+	
+	@Override
+	public String getRegistryInputType() {
+		return CDXCommon.REG_CDXML;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return CDXCommon.REG_CDX_CML;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return REG_MESSAGE;
+	}
+
+
 
 }

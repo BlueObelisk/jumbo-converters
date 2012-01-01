@@ -3,18 +3,20 @@ package org.xmlcml.cml.converters.cif;
 import static org.xmlcml.cml.base.CMLConstants.CML_XPATH;
 import static org.xmlcml.cml.base.CMLConstants.XSD_DOUBLE;
 import static org.xmlcml.cml.base.CMLConstants.XSD_STRING;
-import static org.xmlcml.cml.converters.cif.CIFConstants.DELIM;
 import static org.xmlcml.cml.converters.cif.CIFConstants.IUCR_CATEGORY;
 import static org.xmlcml.cml.converters.cif.CIFConstants.IUCR_PREFIX;
 import static org.xmlcml.cml.converters.cif.CIFConstants.NON_NUMERIC;
 import static org.xmlcml.cml.converters.cif.CIFConstants.NUMERIC;
-import static org.xmlcml.euclid.EuclidConstants.*;
+import static org.xmlcml.euclid.EuclidConstants.S_COLON;
+import static org.xmlcml.euclid.EuclidConstants.S_MINUS;
+import static org.xmlcml.euclid.EuclidConstants.S_PLUS;
+import static org.xmlcml.euclid.EuclidConstants.S_SLASH;
+import static org.xmlcml.euclid.EuclidConstants.S_SPACE;
+import static org.xmlcml.euclid.EuclidConstants.S_UNDER;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import nu.xom.Attribute;
 import nu.xom.Element;
@@ -34,7 +36,20 @@ import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.Type;
-import org.xmlcml.cml.element.*;
+import org.xmlcml.cml.element.CMLArray;
+import org.xmlcml.cml.element.CMLAtom;
+import org.xmlcml.cml.element.CMLAtomArray;
+import org.xmlcml.cml.element.CMLCml;
+import org.xmlcml.cml.element.CMLCrystal;
+import org.xmlcml.cml.element.CMLEntry;
+import org.xmlcml.cml.element.CMLFormula;
+import org.xmlcml.cml.element.CMLLabel;
+import org.xmlcml.cml.element.CMLModule;
+import org.xmlcml.cml.element.CMLMolecule;
+import org.xmlcml.cml.element.CMLProperty;
+import org.xmlcml.cml.element.CMLScalar;
+import org.xmlcml.cml.element.CMLSymmetry;
+import org.xmlcml.cml.element.CMLTable;
 import org.xmlcml.cml.element.CMLTable.TableType;
 import org.xmlcml.molutil.ChemicalElement;
 
@@ -45,6 +60,8 @@ import org.xmlcml.molutil.ChemicalElement;
  *
  */
 public class CIFXML2CMLConverter extends AbstractConverter {
+	
+	public static final String REG_MESSAGE = "CIFXML to CML converter";
 	
 	private CIFXML2CMLOptions converterOptions;
 //	OutPutModuleBuilder helper = new OutPutModuleBuilder();
@@ -1075,6 +1092,20 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		target.appendChild(table);
 	}
 	
+	@Override
+	public String getRegistryInputType() {
+		return CIFCommon.REG_CIFXML;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return CIFCommon.REG_CIF_CML;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return REG_MESSAGE;
+	}
 }
 
 

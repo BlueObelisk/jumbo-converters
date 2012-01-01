@@ -38,17 +38,17 @@
  ==============================================================================
   </comment>
   <record repeat="8">{X}</record>
-  <record >{F,t:nucchrg}{F,t:elecchrg}{F,t:totchrg}</record>
-  <record repeat="4">{X}</record>
-  <record >\s*x\s*{F,t:x.x}{F,t:x.y}{F,t:x.z}</record>
-  <record >\s*y\s*{F,t:y.x}{F,t:y.y}{F,t:y.z}</record>
-  <record >\s*z\s*{F,t:z.x}{F,t:z.y}{F,t:z.z}</record>
+  <record id="tru">{F,t:nucchrg}{F,t:elecchrg}{F,t:totchrg}</record>
+  <record repeat="4"/>
+  <record id="f1">\s*x\s*{F,t:x.x}{F,t:x.y}{F,t:x.z}</record>
+  <record id="f2">\s*y\s*{F,t:y.x}{F,t:y.y}{F,t:y.z}</record>
+  <record id="f3">\s*z\s*{F,t:z.x}{F,t:z.y}{F,t:z.z}</record>
   <record />
    | dipole moment | =     0.8637 a.u. =     2.1953 debye 
   <record makeArray="true" repeat="*">{F,t:x3}{F,t:y3}{F,t:z3}{A,t:atomTypeRef}{I,t:shells}{F,c:elementType}{I,t:pseudo}{I,t:isotop}</record>
   <record repeat="2">{X,t:xxx}</record>
   <record id="centnuclmass">\s*center of nuclear mass\s*:\s*{F,t:x3}{F,t:y3}{F,t:z3}</record>
-  <record>{X,t:xxx}</record>
+  <record id="xxx">{X,t:xxx}</record>
   <record id="centnuclcharge">\s*center of nuclear charge:\s*{F,t:x3}{F,t:y3}{F,t:z3}</record>
   <transform process="createMolecule" xpath="./cml:list/cml:array"/>
 </template>

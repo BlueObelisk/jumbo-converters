@@ -126,4 +126,20 @@ public class SDF2CMLConverter extends AbstractConverter implements
 		}
 		
 	}
+	
+	@Override
+	public String getRegistryInputType() {
+		return "sdf";
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return "cml";
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "sdf to cml";
+	}
+
 }

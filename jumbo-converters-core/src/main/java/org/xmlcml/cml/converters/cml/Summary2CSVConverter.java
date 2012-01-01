@@ -34,8 +34,7 @@ import org.xmlcml.cml.converters.Type;
   </row>
 * */
 
-public class Summary2CSVConverter extends AbstractConverter implements
-		Converter {
+public class Summary2CSVConverter extends AbstractConverter {
 
 	private static final Logger LOG = Logger
 	.getLogger(Summary2CSVConverter.class);
@@ -103,5 +102,21 @@ public class Summary2CSVConverter extends AbstractConverter implements
 		}
 		return stringList;
 	}
+	
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
 
 }
