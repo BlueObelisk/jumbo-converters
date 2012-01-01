@@ -46,6 +46,21 @@ public class FrameworkTest {
 		public Element convertToXML(Element xml) {
 			return (Element) xml.copy();
 		}
+		@Override
+		public String getRegistryInputType() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		@Override
+		public String getRegistryOutputType() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		@Override
+		public String getRegistryMessage() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	}
 
 	private static final Logger LOG = Logger.getLogger(FrameworkTest.class);
@@ -128,5 +143,6 @@ public class FrameworkTest {
 		return getResourceFile(this.getClass(), name);
 	}
 
+	
 }
 

@@ -11,6 +11,12 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
+/**
+ * deletes the input file
+ * 
+ * @author pm286
+ *
+ */
 public class CleanConverter extends AbstractConverter {
 
 	public Type getInputType() {
@@ -86,4 +92,18 @@ public class CleanConverter extends AbstractConverter {
 		return null;
 	}
 
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return null;
+	}
 }

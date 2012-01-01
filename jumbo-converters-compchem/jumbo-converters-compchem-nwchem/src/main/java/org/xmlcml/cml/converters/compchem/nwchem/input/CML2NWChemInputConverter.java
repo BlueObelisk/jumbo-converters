@@ -124,5 +124,20 @@ public class CML2NWChemInputConverter extends CML2CompchemInputConverter  {
 		converter.convert(new File(moleculeFile), new File(textFile));
 	}
 
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
 
 }

@@ -88,4 +88,19 @@ public class CMLEditorConverter extends AbstractConverter implements
 		System.out.println("usage: [zero args runs test]");
 	}
 
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
 }

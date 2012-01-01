@@ -253,5 +253,21 @@ public class JDX2CMLConverter extends AbstractConverter implements
 //			cmlXData.debug("YDATA");
 		}
 	}
+	
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
 
 }

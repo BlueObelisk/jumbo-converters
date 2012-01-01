@@ -40,4 +40,19 @@ public class GamessUSLogXML2CMLConverter extends AbstractCompchem2CMLConverter{
 		return convert(xml);
 	}
 
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
 }

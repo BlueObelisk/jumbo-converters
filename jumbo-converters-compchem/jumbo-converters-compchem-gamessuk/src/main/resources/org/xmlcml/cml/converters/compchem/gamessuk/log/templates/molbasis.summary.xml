@@ -21,16 +21,16 @@
  --------------------------------------------------------------------------------------------------------
   </comment>
   <record repeat="3">{X}</record>
-  <record>\s+ddnames\s+{A,guk:ddnames}</record>
-  <record>\s+starting blocks\s+{I,guk:startblocks}</record>
-  <record>\s+terminal blocks\s+{I,guk:terminalblocks}</record>
-  <record repeat="4">{X}</record>
-  <record>\s\*\sprefactor tolerance for integrals\s+{X,guk:pretol}\s*\*\s*</record>
-  <record>\s\*\sintegral cutoff\s+{X,guk:cutoff}\s\*\s*</record>
-  <record>\s\*\sstarting shells\s+{X,guk:start}\s\*\s*</record>
-  <record>\s\*\sstarting shells\s+{X,guk:start}\s\*\s*</record>
+  <record id="dd">\s+ddnames\s+{A,guk:ddnames}</record>
+  <record id="start">\s+starting blocks\s+{I,guk:startblocks}</record>
+  <record id="term">\s+terminal blocks\s+{I,guk:terminalblocks}</record>
+  <record repeat="4"/>
+  <record id="pref">\s\*\sprefactor tolerance for integrals\s+{X,guk:pretol}\s*\*\s*</record>
+  <record id="int">\s\*\sintegral cutoff\s+{X,guk:cutoff}\s\*\s*</record>
+  <record id="start">\s\*\sstarting shells\s+{X,guk:start}\s\*\s*</record>
+  <record id="start1">\s\*\sstarting shells\s+{X,guk:start}\s\*\s*</record>
   <record id="supermat">\s\*\sgenerate integrals in\s+{X,guk:start}\s\*\s*</record>
-  <record repeat="*">{X}</record>
+  <record repeat="*"/>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
 </template>

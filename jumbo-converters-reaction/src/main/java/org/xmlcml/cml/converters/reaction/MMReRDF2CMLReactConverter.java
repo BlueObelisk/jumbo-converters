@@ -48,14 +48,6 @@ public class MMReRDF2CMLReactConverter extends AbstractConverter implements
       LOG.setLevel(Level.DEBUG);
    }
 
-   ;
-   public final static String[] typicalArgsForConverterCommand = {
-      "-i", "src/test/resources/mmrerdf/test1.rdf.xml",
-      "-o", "src/test/resources/mmrerdf/test1.cml",
-      "-is", "rdf.xml",
-      "-os", "cml",
-      "-converter", "org.xmlcml.cml.converters.reaction.MMReRDF2CMLReactConverter"
-   };
    private RDFRdf rdf;
    private CMLElement cmlElement;
 
@@ -317,5 +309,21 @@ public class MMReRDF2CMLReactConverter extends AbstractConverter implements
          }
       }
    }
+   
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
 }
 

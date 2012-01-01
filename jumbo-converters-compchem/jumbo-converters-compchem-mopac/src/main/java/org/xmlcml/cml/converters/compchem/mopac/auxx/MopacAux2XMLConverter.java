@@ -10,7 +10,7 @@ import org.xmlcml.cml.converters.compchem.CompchemText2XMLTemplateConverter;
 public class MopacAux2XMLConverter extends CompchemText2XMLTemplateConverter {
 	
 	public MopacAux2XMLConverter() {
-		this(getDefaultTemplate("mopac", "aux", "topTemplate.xml", MopacAux2XMLConverter.class));
+		this(getDefaultTemplate("mopac", "auxx", "topTemplate.xml", MopacAux2XMLConverter.class));
 	}
 	
 	public MopacAux2XMLConverter(Element templateElement) {

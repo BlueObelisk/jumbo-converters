@@ -102,4 +102,20 @@ public class CML2GaussianInputConverter extends AbstractCompchem2CMLConverter {
    public void setControlFile(String controlFile) {
       this.controlFile = controlFile;
    }
+   
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
 }

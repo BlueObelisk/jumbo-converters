@@ -25,23 +25,6 @@ public class CML2MDLConverter extends AbstractConverter implements
 		LOG.setLevel(Level.INFO);
 	}
 	
-	public final static String[] typicalArgsForConverterCommand = {
-		"-sd", "src/test/resources/cml",
-		"-odir", "../temp",
-		"-is", "cml",
-		"-os", "mol",
-		"-converter", "org.xmlcml.cml.converters.molecule.mdl.CML2MDLConverter"
-	};
-	
-	public final static String[] testArgs = {
-		"-quiet",
-		"-sd", "src/test/resources/cml",
-		"-odir", "../temp",
-		"-is", "cml",
-		"-os", "mol",
-		"-converter", "org.xmlcml.cml.converters.molecule.mdl.CML2MDLConverter"
-	};
-	
 	public Type getInputType() {
 		return Type.CML;
 	}
@@ -79,6 +62,21 @@ public class CML2MDLConverter extends AbstractConverter implements
 			mdlConverter.writeMOL(lines, molecule);
 		}
 		return lines;
+	}
+
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
 	}
 
 }

@@ -154,4 +154,19 @@ public class CML2SDFConverter extends AbstractConverter implements
 		lines.add(SDF_END);
 	}
 
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
 }

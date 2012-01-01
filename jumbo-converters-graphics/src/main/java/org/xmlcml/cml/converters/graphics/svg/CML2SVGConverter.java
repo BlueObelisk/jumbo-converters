@@ -23,14 +23,6 @@ import org.xmlcml.cml.element.CMLMolecule;
 public class CML2SVGConverter extends AbstractConverter implements
 SVGConverter {
 	
-	public final static String[] typicalArgsForConverterCommand = {
-		"-sd", "src/test/resources/cml",
-		"-odir", "../svg",
-		"-is", "cml",
-		"-os", "svg",
-		"-converter", "org.xmlcml.cml.converters.graphics.svg.CML2SVGConverter",
-	};
-
 	/** the recommended way for running molecular display options.
 	 * main() class is : CML2SVGConverter
 	 */
@@ -161,6 +153,21 @@ SVGConverter {
 		svgCreator.setCommand(this.getCommand());
 		svgCreator.createSVG();
 		return svgCreator.getSVG();
+	}
+
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
 	}
 
 }

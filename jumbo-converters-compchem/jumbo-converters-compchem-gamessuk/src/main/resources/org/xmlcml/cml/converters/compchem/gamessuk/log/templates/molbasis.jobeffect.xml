@@ -11,12 +11,12 @@
  **************************************************** 
 
   </comment>
-  <record repeat="3">{X}</record>
-  <record >\s\*\sRUN TYPE\s+{A,guk:runtype}\s+\*\s*</record>
-  <record >\s\*\sSCF TYPE\s+{A,guk:scftype}\s+\*\s*</record>
-  <record >\s\*\sMolecular orbital starting point\s+{A,guk:molorbstart}\s+\*\s*</record>
-  <record >\s\*\sRoute\s+a\-vectors to section\s+{I,guk:avectors}\s+\*\s*</record>
-  <record repeat="*">{X}</record>
+  <record repeat="3"/>
+  <record id="runty">\s\*\sRUN TYPE\s+{A,guk:runtype}\s+\*\s*</record>
+  <record id="scf">\s\*\sSCF TYPE\s+{A,guk:scftype}\s+\*\s*</record>
+  <record id="mol">\s\*\sMolecular orbital starting point\s+{A,guk:molorbstart}\s+\*\s*</record>
+  <record id="route">\s\*\sRoute\s+a\-vectors to section\s+{I,guk:avectors}\s+\*\s*</record>
+  <record repeat="*"/>
 
   <transform process="pullupSingleton" xpath="./cml:list"/>
 </template>

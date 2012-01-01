@@ -15,6 +15,9 @@ public class GamessukCommon extends AbstractCommon {
 	
 	private static final String GAMESSUK_PREFIX = "gamessuk";
 	private static final String GAMESSUK_URI = "http://wwmm.ch.cam.ac.uk/dict/gamessuk";
+
+	public static final String GAMESSUK_LOG = "gamessuk_log";
+	public static final String GAMESSUK_LOG_XML = "gamessuk_log_xml";
 	
     protected String getDictionaryResource() {
     	return "org/xmlcml/cml/converters/compchem/gamessuk/gamessukDict.xml";

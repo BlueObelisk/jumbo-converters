@@ -34,4 +34,18 @@ public class FooXML2CMLConverter extends AbstractCompchem2CMLConverter{
 		return convert(xml);
 	}
 
+	@Override
+	public String getRegistryInputType() {
+		return "foo";
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return "bar";
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "foo2bar";
+	}
 }

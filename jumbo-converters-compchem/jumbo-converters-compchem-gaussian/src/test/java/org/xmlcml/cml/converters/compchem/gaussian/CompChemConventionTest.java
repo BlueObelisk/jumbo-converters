@@ -58,9 +58,9 @@ public class CompChemConventionTest {
 	public void testConversionRuns() throws IOException {
 		assertNotNull(doc);
 		
-		Serializer ser = new Serializer(System.out);
-		ser.setIndent(2);
-		ser.write(doc);
+//		Serializer ser = new Serializer(System.out);
+//		ser.setIndent(2);
+//		ser.write(doc);
 	}
 	
 	@Test

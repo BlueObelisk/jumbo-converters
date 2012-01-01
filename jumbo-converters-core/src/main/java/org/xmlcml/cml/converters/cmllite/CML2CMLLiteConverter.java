@@ -37,4 +37,19 @@ public class CML2CMLLiteConverter extends AbstractConverter implements
 		return cml;
 	}
 
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
 }

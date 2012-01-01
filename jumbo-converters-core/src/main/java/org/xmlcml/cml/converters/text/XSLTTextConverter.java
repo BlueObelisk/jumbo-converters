@@ -75,4 +75,20 @@ public class XSLTTextConverter extends XML2TextConverter {
 		FileUtils.write(new File(textFile), text);
 	}
 
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
+
 }

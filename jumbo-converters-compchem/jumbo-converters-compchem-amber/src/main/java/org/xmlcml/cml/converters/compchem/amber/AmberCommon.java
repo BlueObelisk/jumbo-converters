@@ -17,6 +17,13 @@ public class AmberCommon extends AbstractCommon {
 	private static final String AMBER_PREFIX = "amber";
 	private static final String AMBER_URI = "http://wwmm.ch.cam.ac.uk/dict/amber";
 	
+	public static final String AMBER_FF                 = "amber-ff";
+	public static final String AMBER_FF_XML             = "amber-ff-xml";
+	public static final String AMBER_FF_CML             = "amber-ff-cml";
+
+	public static final String AMBER_MD_XML = "amber-mdout-xml";
+	public static final String AMBER_MD_CML = "amber-mdout-cml";
+	
     protected String getDictionaryResource() {
     	return "org/xmlcml/cml/converters/compchem/amber/amberDict.xml";
     }

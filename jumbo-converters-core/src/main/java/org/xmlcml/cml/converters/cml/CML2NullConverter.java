@@ -31,5 +31,21 @@ public class CML2NullConverter extends NullConverter implements
 	protected void debug(File infile) {
 		LOG.debug("file "+infile.getAbsolutePath());
 	}
+	
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
 
 }

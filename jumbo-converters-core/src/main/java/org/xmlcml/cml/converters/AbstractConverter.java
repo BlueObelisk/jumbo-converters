@@ -950,6 +950,10 @@ public abstract class AbstractConverter implements Converter {
               getAttributeValue("output")) : false;
       return outputCMLLite;
    }
+   
+   public abstract String getRegistryInputType();
+   public abstract String getRegistryOutputType();
+   public abstract String getRegistryMessage();
 }
 
 class DTDProblem {

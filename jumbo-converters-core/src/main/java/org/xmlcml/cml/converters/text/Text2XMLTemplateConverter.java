@@ -76,4 +76,20 @@ public class Text2XMLTemplateConverter extends Text2XMLConverter {
 		return cmlTop;
 	
 	}
+	
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
 }

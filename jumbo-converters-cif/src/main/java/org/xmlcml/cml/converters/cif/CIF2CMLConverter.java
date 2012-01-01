@@ -18,6 +18,8 @@ import org.xmlcml.cml.converters.Type;
 public class CIF2CMLConverter extends AbstractConverter{
 
 		
+	private static final String REG_MESSAGE = "CIF to CML converter";
+
 	/**
 	 * converts CIF file (as lines) to CML.
 	 * This involves conversion to (a) CIFXML (b) raw CML (c) conventionCML
@@ -53,6 +55,21 @@ public class CIF2CMLConverter extends AbstractConverter{
 
 	public Type getOutputType() {
 		return Type.CML;
+	}
+	
+	@Override
+	public String getRegistryInputType() {
+		return CIFCommon.REG_CIF;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return CIFCommon.REG_CIF_CML;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return REG_MESSAGE;
 	}
 }
 

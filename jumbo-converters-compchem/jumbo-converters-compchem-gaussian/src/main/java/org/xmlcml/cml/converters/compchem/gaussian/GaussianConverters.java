@@ -1,28 +1,19 @@
 package org.xmlcml.cml.converters.compchem.gaussian;
 
+import java.util.Collections;
+
 import org.xmlcml.cml.converters.compchem.gaussian.log.GaussianLog2XMLConverter;
 import org.xmlcml.cml.converters.registry.ConverterInfo;
-import org.xmlcml.cml.converters.registry.ConverterList;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import org.xmlcml.cml.converters.registry.ConverterListImpl;
 
 /**
  * @author Sam Adams
  */
-public class GaussianConverters implements ConverterList {
+public class GaussianConverters extends ConverterListImpl {
 
-    private final List<ConverterInfo> list;
-
-    {
-        List<ConverterInfo> list = new ArrayList<ConverterInfo>();
-        list.add(new ConverterInfo("gaussian-log", "gaussian-log-xml", GaussianLog2XMLConverter.class, "Gaussian Log to XML"));
+    public GaussianConverters() {
+        list.add(new ConverterInfo(GaussianLog2XMLConverter.class));
         this.list = Collections.unmodifiableList(list);
-    }
-
-    public List<ConverterInfo> listConverters() {
-        return list;
     }
 
 

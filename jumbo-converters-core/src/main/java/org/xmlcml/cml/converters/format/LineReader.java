@@ -285,8 +285,8 @@ public abstract class LineReader extends Element implements MarkupApplier {
 		this.id = lineReaderElement.getAttributeValue(ID);
 		if (id == null) {
 			if (content.contains(CMLConstants.S_COLON)) {
-				CMLUtil.debug(lineReaderElement, "LINEREADER");
-				LOG.warn("Missing id on "+this.getLocalName());
+//				CMLUtil.debug(lineReaderElement, "LINEREADER");
+				LOG.warn("Missing id on "+this.getLocalName()+"; "+content);
 			}
 			id = "missingID";
 		}

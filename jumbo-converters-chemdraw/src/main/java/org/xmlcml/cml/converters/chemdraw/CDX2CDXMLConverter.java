@@ -15,17 +15,10 @@ public class CDX2CDXMLConverter extends AbstractConverter implements
 		Converter {
 
 	private static final Logger LOG = Logger.getLogger(CDX2CDXMLConverter.class);
+	public static final String REG_MESSAGE = "Chemdraw CDX to CDXML conversion";
 	static {
 		LOG.setLevel(Level.INFO);
 	}
-	
-	public final static String[] typicalArgsForConverterCommand = {
-		"-sd", "src/test/resources/cdx",
-		"-odir", "../temp",
-		"-is", "cdx",
-		"-os", "cdx.xml",
-		"-converter", "org.xmlcml.cml.converters.chemdraw.CDX2CDXMLConverter"
-	};
 	
 	public Type getInputType() {
 		return Type.CDX;
@@ -81,5 +74,21 @@ public class CDX2CDXMLConverter extends AbstractConverter implements
 //		}
 //		return (Element) result;
 	}
+	
+	@Override
+	public String getRegistryInputType() {
+		return CDXCommon.REG_CDX;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return CDXCommon.REG_CDXML;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return REG_MESSAGE;
+	}
+
 
 }

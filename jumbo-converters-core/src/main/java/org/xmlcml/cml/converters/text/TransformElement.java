@@ -1873,7 +1873,8 @@ public class TransformElement implements MarkupApplier {
 
 	private void reparse() {
 		if (template == null) {
-			throw new RuntimeException("Must have a template for reparse");
+			System.err.println("***\nMust have a template for reparse\n***");
+			return;
 		}
 		assertRequired(XPATH, xpath);
 		String regexS = getRegex();

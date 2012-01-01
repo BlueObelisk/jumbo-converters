@@ -1,29 +1,19 @@
 package org.xmlcml.cml.converters.compchem.turbomole;
 
+import java.util.Collections;
+
 import org.xmlcml.cml.converters.compchem.turbomole.log.TurbomoleLog2XMLConverter;
 import org.xmlcml.cml.converters.registry.ConverterInfo;
-import org.xmlcml.cml.converters.registry.ConverterList;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import org.xmlcml.cml.converters.registry.ConverterListImpl;
 
 /**
  * @author Sam Adams
  */
-public class TurbomoleConverters implements ConverterList {
+public class TurbomoleConverters extends ConverterListImpl {
 
-    private final List<ConverterInfo> list;
-
-    {
-        List<ConverterInfo> list = new ArrayList<ConverterInfo>();
-        list.add(new ConverterInfo("turbomole-log", "turbomole-log-xml", TurbomoleLog2XMLConverter.class, "Turbomole Log to XML"));
+    public TurbomoleConverters() {
+        list.add(new ConverterInfo(TurbomoleLog2XMLConverter.class));
         this.list = Collections.unmodifiableList(list);
     }
-
-    public List<ConverterInfo> listConverters() {
-        return list;
-    }
-
 
 }

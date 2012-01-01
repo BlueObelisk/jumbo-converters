@@ -1,30 +1,19 @@
 package org.xmlcml.cml.converters.compchem.cml;
 
+import java.util.Collections;
+
 import org.xmlcml.cml.converters.compchem.cml.cml.CML2XMLConverter;
 import org.xmlcml.cml.converters.registry.ConverterInfo;
-import org.xmlcml.cml.converters.registry.ConverterList;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import org.xmlcml.cml.converters.registry.ConverterListImpl;
 
 /**
  * @author PeterMR
  */
-public class CMLConverters implements ConverterList {
+public class CMLConverters extends ConverterListImpl {
 
-    private final List<ConverterInfo> list;
-
-    {
-        List<ConverterInfo> list = new ArrayList<ConverterInfo>();
-        list.add(new ConverterInfo(
-        		"cml-cml", "cml-cml-xml", CML2XMLConverter.class, "CML to XML"));
+    public CMLConverters() {
+        list.add(new ConverterInfo(CML2XMLConverter.class));
         this.list = Collections.unmodifiableList(list);
     }
-
-    public List<ConverterInfo> listConverters() {
-        return list;
-    }
-
 
 }

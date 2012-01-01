@@ -40,7 +40,7 @@ public class EditorConverterTest {
 		CMLEditorConverter cmlEditorConverter = new CMLEditorConverter();
 		cmlEditorConverter.getCmlEditor().setAdd2DCoordinates(true);
 		CMLElement cmlOut =  (CMLElement) cmlEditorConverter.convertToXML(molIn);
-		cmlOut.debug("out");
+//		cmlOut.debug("out");
 		JumboTestUtils.assertEqualsIncludingFloat("add coordinates", JumboTestUtils.parseValidFile("editor/addCoordinates2D-no-hydrogen.xml"), cmlOut, true, 0.00001);
 	}
 	

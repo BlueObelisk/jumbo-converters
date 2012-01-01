@@ -68,4 +68,20 @@ public class NWChemLog2CompchemConverter extends AbstractConverter {
 			System.err.println("Cannot read/convert "+in+"; "+e);
 		}
 	}
+	
+	@Override
+	public String getRegistryInputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return null;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "null";
+	}
+
 }

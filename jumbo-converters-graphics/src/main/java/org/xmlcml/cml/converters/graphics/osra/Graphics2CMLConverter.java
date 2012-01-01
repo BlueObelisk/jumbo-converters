@@ -134,4 +134,20 @@ public class Graphics2CMLConverter extends AbstractConverter {
          return lineList;
 
      }
+     
+ 	@Override
+ 	public String getRegistryInputType() {
+ 		return null;
+ 	}
+ 	
+ 	@Override
+ 	public String getRegistryOutputType() {
+ 		return null;
+ 	}
+ 	
+ 	@Override
+ 	public String getRegistryMessage() {
+ 		return "null";
+ 	}
+
 }
