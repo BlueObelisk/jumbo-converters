@@ -5,6 +5,7 @@
 package org.xmlcml.cml.converters.molecule;
 
 import org.junit.Test;
+
 import org.xmlcml.cml.converters.molecule.mdl.CML2MDLConverter;
 import org.xmlcml.cml.converters.molecule.mdl.MDL2CMLConverter;
 import org.xmlcml.cml.converters.molecule.mdl.SDF2CMLConverter;

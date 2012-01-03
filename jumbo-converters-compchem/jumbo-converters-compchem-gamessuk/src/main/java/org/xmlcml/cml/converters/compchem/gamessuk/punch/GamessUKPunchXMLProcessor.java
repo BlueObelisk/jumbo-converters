@@ -11,7 +11,7 @@ import nu.xom.Nodes;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.cml.RawXML2CMLProcessor;
-import org.xmlcml.cml.converters.compchem.gamessuk.GamessukCommon;
+import org.xmlcml.cml.converters.compchem.gamessuk.GamessUKCommon;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLBond;
@@ -30,7 +30,7 @@ public class GamessUKPunchXMLProcessor extends RawXML2CMLProcessor {
 	
 	@Override
 	protected AbstractCommon getCommon() {
-		return new GamessukCommon();
+		return new GamessUKCommon();
 	}
 
 	public void processXML() {

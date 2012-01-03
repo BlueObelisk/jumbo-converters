@@ -9,7 +9,7 @@ import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.cml.RawXML2CMLProcessor;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
-import org.xmlcml.cml.converters.compchem.gamessuk.GamessukCommon;
+import org.xmlcml.cml.converters.compchem.gamessuk.GamessUKCommon;
 
 public class GamessUKPunchXML2CMLConverter extends AbstractCompchem2CMLConverter{
 	private static final Logger LOG = Logger.getLogger(GamessUKPunchXML2CMLConverter.class);
@@ -23,7 +23,7 @@ public class GamessUKPunchXML2CMLConverter extends AbstractCompchem2CMLConverter
 
    @Override
    protected AbstractCommon getCommon() {
-	   return new GamessukCommon();
+	   return new GamessUKCommon();
    }
 
 	public Type getInputType() {
@@ -49,12 +49,12 @@ public class GamessUKPunchXML2CMLConverter extends AbstractCompchem2CMLConverter
 
 	@Override
 	public String getRegistryInputType() {
-		return GamessukCommon.PUNCH;
+		return GamessUKCommon.PUNCH;
 	}
 
 	@Override
 	public String getRegistryOutputType() {
-		return GamessukCommon.PUNCH_XML;
+		return GamessUKCommon.PUNCH_XML;
 	}
 
 	@Override

@@ -2,7 +2,6 @@ package org.xmlcml.cml.converters.graphics;
 
 import java.util.Collections;
 
-
 import org.xmlcml.cml.converters.graphics.osra.Graphics2CMLConverter;
 import org.xmlcml.cml.converters.graphics.png.CML2PNGConverter;
 import org.xmlcml.cml.converters.graphics.svg.CML2SVGConverter;
