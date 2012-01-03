@@ -7,7 +7,9 @@ import nu.xom.Element;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.Type;
+import org.xmlcml.cml.converters.compchem.nwchem.NWChemCommon;
 
 public class NWChemLog2CompchemConverter extends AbstractConverter {
 
@@ -71,17 +73,17 @@ public class NWChemLog2CompchemConverter extends AbstractConverter {
 	
 	@Override
 	public String getRegistryInputType() {
-		return null;
+		return NWChemCommon.LOG;
 	}
 	
 	@Override
 	public String getRegistryOutputType() {
-		return null;
+		return CMLCommon.CML;
 	}
 	
 	@Override
 	public String getRegistryMessage() {
-		return "null";
+		return "Convert NWChem log files to compchem";
 	}
 
 }

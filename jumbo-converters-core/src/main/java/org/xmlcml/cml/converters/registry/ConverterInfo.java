@@ -15,6 +15,7 @@ public class ConverterInfo {
     private String outtype;
     private String name;
     private Class<? extends Converter> converterClass;
+	private AbstractConverter converter;
 
 //    public ConverterInfo(String intype, String outtype, Class<? extends Converter> converterClass, String name) {
 //        setFields(intype, outtype, converterClass, name);
@@ -29,7 +30,7 @@ public class ConverterInfo {
 	}
     
     public ConverterInfo(Class<? extends Converter> converterClass) {
-    	AbstractConverter converter = null;
+    	converter = null;
     	try {
 			converter = (AbstractConverter) converterClass.newInstance();
 			setFields(converter.getRegistryInputType(), converter.getRegistryOutputType(), converterClass, converter.getRegistryMessage());
@@ -37,7 +38,6 @@ public class ConverterInfo {
 			throw new RuntimeException("cannot create converter: "+converterClass, e);
 		}
     	LOG.info("Created and added "+converter);
-    	
     }
 
     public String getInType() {
@@ -54,6 +54,10 @@ public class ConverterInfo {
 
     public Class<? extends Converter> getConverterClass() {
         return converterClass;
+    }
+    
+    public Converter getConverter() {
+        return converter;
     }
     
     public String toString() {

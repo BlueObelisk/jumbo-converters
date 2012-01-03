@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.graphics.svg.fromsvg.SVG2CMLTool;
 import org.xmlcml.cml.element.CMLCml;
@@ -70,17 +71,17 @@ public class SVG2CMLConverter extends AbstractConverter {
 
 	@Override
 	public String getRegistryInputType() {
-		return null;
+		return CMLCommon.SVG;
 	}
 	
 	@Override
 	public String getRegistryOutputType() {
-		return null;
+		return CMLCommon.CML;
 	}
 	
 	@Override
 	public String getRegistryMessage() {
-		return "null";
+		return "convert SVG (drawing primitives) to CML (heuristically)";
 	}
 
 }

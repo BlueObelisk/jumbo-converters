@@ -8,8 +8,8 @@ import nu.xom.Element;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.CMLSelector;
 import org.xmlcml.cml.converters.Command;
 import org.xmlcml.cml.converters.Type;
@@ -157,17 +157,17 @@ SVGConverter {
 
 	@Override
 	public String getRegistryInputType() {
-		return null;
+		return CMLCommon.CML;
 	}
 	
 	@Override
 	public String getRegistryOutputType() {
-		return null;
+		return CMLCommon.SVG;
 	}
 	
 	@Override
 	public String getRegistryMessage() {
-		return "null";
+		return "convert CML structure to SVG";
 	}
 
 }

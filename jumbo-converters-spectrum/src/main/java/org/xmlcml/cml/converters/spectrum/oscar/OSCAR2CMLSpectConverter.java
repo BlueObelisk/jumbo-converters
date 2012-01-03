@@ -5,8 +5,10 @@ import nu.xom.Element;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.Type;
+import org.xmlcml.cml.converters.spectrum.SpectrumCommon;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLSpectrum;
 import org.xmlcml.cml.element.CMLSpectrum.SpectrumType;
@@ -51,17 +53,17 @@ public class OSCAR2CMLSpectConverter extends AbstractConverter implements
 
 	@Override
 	public String getRegistryInputType() {
-		return null;
+		return SpectrumCommon.OSCAR;
 	}
 	
 	@Override
 	public String getRegistryOutputType() {
-		return null;
+		return CMLCommon.CML;
 	}
 	
 	@Override
 	public String getRegistryMessage() {
-		return "null";
+		return "convert OSCAR-DATA to CMLSpect (peaks)";
 	}
 
 }

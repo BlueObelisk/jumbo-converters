@@ -7,8 +7,10 @@ import nu.xom.Element;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.Util;
+import org.xmlcml.cml.converters.spectrum.SpectrumCommon;
 import org.xmlcml.cml.element.CMLCml;
 
 /**
@@ -19,14 +21,6 @@ import org.xmlcml.cml.element.CMLCml;
 public class SVG2CMLSpectConverter extends AbstractConverter {
 	private static final Logger LOG = Logger.getLogger(SVG2CMLSpectConverter.class);
    
-	public final static String[] typicalArgsForConverterCommand = {
-		"-sd", "src/test/resources/spectrum/svgin",
-		"-odir", "../svgcml",
-		"-is", "svg",
-		"-os", "cml",
-		"-converter", "org.xmlcml.cml.converters.graphics.svg.SVG2CMLConverter",
-	};
-
 	// input must be bytes to filter out broken <!DOCTYPE>
 	public Type getInputType() {
 		return Type.SVGBYTES;
@@ -68,17 +62,17 @@ public class SVG2CMLSpectConverter extends AbstractConverter {
 	
 	@Override
 	public String getRegistryInputType() {
-		return null;
+		return SpectrumCommon.SVG;
 	}
 	
 	@Override
 	public String getRegistryOutputType() {
-		return null;
+		return CMLCommon.CML;
 	}
 	
 	@Override
 	public String getRegistryMessage() {
-		return "null";
+		return "convert svg spectrum to CML";
 	}
 
 }

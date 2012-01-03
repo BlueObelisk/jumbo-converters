@@ -9,6 +9,7 @@ import nu.xom.Element;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.XML2XMLConverter;
+import org.xmlcml.cml.converters.compchem.gaussian.GaussianCommon;
 import org.xmlcml.cml.converters.text.XML2XMLTransformConverter;
 import org.xmlcml.cml.converters.util.ConverterUtils;
 import org.xmlcml.euclid.Util;
@@ -84,4 +85,20 @@ public class GaussianLogXML2CompchemConverter extends XML2XMLTransformConverter 
             converter.convert(in, out);
         }
     }
+    
+	@Override
+	public String getRegistryInputType() {
+		return GaussianCommon.LOG_XML;
+	}
+
+	@Override
+	public String getRegistryOutputType() {
+		return GaussianCommon.LOG_CML;
+	}
+
+	@Override
+	public String getRegistryMessage() {
+		return "Convert Gaussian Log_XML to CML-compchem";
+	}
+
 }

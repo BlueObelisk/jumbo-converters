@@ -19,8 +19,10 @@ import org.jcamp.spectrum.Spectrum2D;
 import org.jcamp.spectrum.notes.Note;
 import org.xmlcml.cml.base.CC;
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.Type;
+import org.xmlcml.cml.converters.spectrum.SpectrumCommon;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLParameter;
@@ -256,17 +258,17 @@ public class JDX2CMLConverter extends AbstractConverter implements
 	
 	@Override
 	public String getRegistryInputType() {
-		return null;
+		return SpectrumCommon.JDX;
 	}
 	
 	@Override
 	public String getRegistryOutputType() {
-		return null;
+		return CMLCommon.CML;
 	}
 	
 	@Override
 	public String getRegistryMessage() {
-		return "null";
+		return "convert JCAMP-DX to CML";
 	}
 
 

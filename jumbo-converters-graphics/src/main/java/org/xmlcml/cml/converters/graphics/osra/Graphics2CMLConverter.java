@@ -1,21 +1,17 @@
 package org.xmlcml.cml.converters.graphics.osra;
 
-import java.io.BufferedReader;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import nu.xom.Element;
 
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.base.CMLElement.CoordinateType;
+import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.cmllite.CML2CMLLiteConverter;
 import org.xmlcml.cml.converters.molecule.mdl.MDL2CMLConverter;
@@ -24,6 +20,7 @@ import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLMolecule.HydrogenControl;
 import org.xmlcml.cml.tools.GeometryTool;
 import org.xmlcml.cml.tools.MoleculeTool;
+
 import uk.ac.cam.ch.wwmm.osra.Osra;
 import uk.ac.cam.ch.wwmm.osra.OsraException;
 import uk.ac.cam.ch.wwmm.osra.OsraRunner;
@@ -137,17 +134,17 @@ public class Graphics2CMLConverter extends AbstractConverter {
      
  	@Override
  	public String getRegistryInputType() {
- 		return null;
+ 		return CMLCommon.PNG;
  	}
  	
  	@Override
  	public String getRegistryOutputType() {
- 		return null;
+ 		return CMLCommon.CML;
  	}
  	
  	@Override
  	public String getRegistryMessage() {
- 		return "null";
+ 		return "convert structure diagram images to CML";
  	}
 
 }

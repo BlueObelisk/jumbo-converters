@@ -15,6 +15,7 @@ import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.Util;
+import org.xmlcml.cml.converters.molecule.MoleculeCommon;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLAtomParity;
 import org.xmlcml.cml.element.CMLBond;
@@ -721,17 +722,17 @@ public class PubchemXML2CMLConverter extends AbstractConverter implements
 
 	@Override
 	public String getRegistryInputType() {
-		return null;
+		return MoleculeCommon.PUBCHEM;
 	}
 	
 	@Override
 	public String getRegistryOutputType() {
-		return null;
+		return MoleculeCommon.PUBCHEM_XML;
 	}
 	
 	@Override
 	public String getRegistryMessage() {
-		return "null";
+		return "convert PubChem XML to XML";
 	}
 
 }

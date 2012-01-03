@@ -1,7 +1,6 @@
 package org.xmlcml.cml.converters.compchem.nwchem.log;
 
 import java.io.File;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,7 +10,9 @@ import nu.xom.Element;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLUtil;
+import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.XML2XMLConverter;
+import org.xmlcml.cml.converters.compchem.nwchem.NWChemCommon;
 import org.xmlcml.cml.converters.text.XML2XMLTransformConverter;
 import org.xmlcml.cml.converters.util.ConverterUtils;
 import org.xmlcml.euclid.Util;
@@ -111,4 +112,20 @@ public class NWChemLogXML2CompchemConverter extends XML2XMLTransformConverter {
 		Element refNode = CMLUtil.parseQuietlyIntoCML(new File(reffilename));
 //		JumboTestUtils.assertEqualsCanonically(title, refNode, testNode, true);
 	}
+	
+	@Override
+	public String getRegistryInputType() {
+		return NWChemCommon.LOG_XML;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return CMLCommon.CML;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "Convert NWChem log XML files to compchem";
+	}
+
 }
