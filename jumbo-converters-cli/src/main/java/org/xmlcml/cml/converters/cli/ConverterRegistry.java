@@ -29,7 +29,7 @@ public class ConverterRegistry {
         	ClassLoader ldr = ConverterRegistry.class.getClassLoader();
 
             Enumeration<URL> e = ldr.getResources(CONVERTER_FILE);
-            System.err.println("Classpath "+System.getProperty("java.class.path"));
+//            System.err.println("Classpath "+System.getProperty("java.class.path"));
             for (URL url : Collections.list(e)) {
                 System.err.println("reading "+url);
                 InputStream is = url.openStream();
