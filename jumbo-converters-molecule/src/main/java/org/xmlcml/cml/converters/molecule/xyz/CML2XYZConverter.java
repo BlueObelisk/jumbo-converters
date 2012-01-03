@@ -11,9 +11,11 @@ import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLElement.CoordinateType;
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.CMLSelector;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.Type;
+import org.xmlcml.cml.converters.molecule.MoleculeCommon;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLMolecule;
 
@@ -68,17 +70,17 @@ public class CML2XYZConverter extends AbstractConverter implements
 
 	@Override
 	public String getRegistryInputType() {
-		return null;
+		return CMLCommon.CML;
 	}
 	
 	@Override
 	public String getRegistryOutputType() {
-		return null;
+		return MoleculeCommon.XYZ;
 	}
 	
 	@Override
 	public String getRegistryMessage() {
-		return "null";
+		return "convert CML to XYZ";
 	}
 
 }

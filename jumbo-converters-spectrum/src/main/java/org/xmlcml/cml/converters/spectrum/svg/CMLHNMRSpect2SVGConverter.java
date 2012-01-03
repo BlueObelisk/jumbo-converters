@@ -7,7 +7,9 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.Type;
+import org.xmlcml.cml.converters.spectrum.SpectrumCommon;
 import org.xmlcml.cml.graphics.SVGG;
 
 /**
@@ -68,12 +70,12 @@ public class CMLHNMRSpect2SVGConverter extends AbstractConverter {
 
 	@Override
 	public String getRegistryInputType() {
-		return null;
+		return SpectrumCommon.CML_HNMR;
 	}
 	
 	@Override
 	public String getRegistryOutputType() {
-		return null;
+		return CMLCommon.SVG;
 	}
 	
 	@Override

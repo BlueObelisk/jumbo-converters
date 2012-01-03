@@ -7,7 +7,9 @@ import nu.xom.Element;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.compchem.CompchemText2XMLTemplateConverter;
+import org.xmlcml.cml.converters.compchem.nwchem.NWChemCommon;
 import org.xmlcml.cml.converters.util.ConverterUtils;
 
 public class NWChemLog2XMLConverter extends CompchemText2XMLTemplateConverter {
@@ -86,4 +88,20 @@ public class NWChemLog2XMLConverter extends CompchemText2XMLTemplateConverter {
 			System.err.println("Cannot read/convert "+in+"; "+e);
 		}
 	}
+	
+	@Override
+	public String getRegistryInputType() {
+		return NWChemCommon.LOG;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return NWChemCommon.LOG_XML;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "Convert NWChem log files to compchem";
+	}
+
 }

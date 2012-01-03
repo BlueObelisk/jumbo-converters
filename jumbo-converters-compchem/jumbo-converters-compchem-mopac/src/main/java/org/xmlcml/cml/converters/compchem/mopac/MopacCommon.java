@@ -19,6 +19,8 @@ public class MopacCommon extends AbstractCommon {
 	public static final String LOG = "mopac_log";
 	public static final String LOG_XML = "mopac_log_xml";
 	public static final String LOG_CML = "mopac_log_compchem";
+	public static final String AUX = "mopac_aux";
+	public static final String XML = "mopac_xml";
 
     protected String getDictionaryResource() {
     	return "org/xmlcml/cml/converters/compchem/mopac/mopacDictionary.xml";

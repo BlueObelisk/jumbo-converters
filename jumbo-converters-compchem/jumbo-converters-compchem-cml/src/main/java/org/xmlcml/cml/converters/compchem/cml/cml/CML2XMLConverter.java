@@ -8,6 +8,7 @@ import nu.xom.Builder;
 import nu.xom.Element;
 
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.CompchemText2XMLTemplateConverter;
 import org.xmlcml.cml.converters.text.Text2XMLTemplateConverter;
@@ -89,4 +90,20 @@ public class CML2XMLConverter extends CompchemText2XMLTemplateConverter {
 		return tc;
 	}
 
+	@Override
+	public String getRegistryInputType() {
+		return CMLCommon.CML;
+	}
+	
+	@Override
+	public String getRegistryOutputType() {
+		return CMLCommon.XML;
+	}
+	
+	@Override
+	public String getRegistryMessage() {
+		return "convert CML to XML";
+	}
+
+	
 }

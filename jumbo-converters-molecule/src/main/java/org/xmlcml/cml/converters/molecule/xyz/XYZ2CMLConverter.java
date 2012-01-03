@@ -8,8 +8,10 @@ import nu.xom.Element;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.Type;
+import org.xmlcml.cml.converters.molecule.MoleculeCommon;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLMolecule;
@@ -77,17 +79,17 @@ public class XYZ2CMLConverter extends AbstractConverter implements
 
 	@Override
 	public String getRegistryInputType() {
-		return null;
+		return MoleculeCommon.XYZ;
 	}
 	
 	@Override
 	public String getRegistryOutputType() {
-		return null;
+		return CMLCommon.CML;
 	}
 	
 	@Override
 	public String getRegistryMessage() {
-		return "null";
+		return "convert XYZ to CML";
 	}
 
 }

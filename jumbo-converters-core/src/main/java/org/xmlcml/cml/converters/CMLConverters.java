@@ -15,7 +15,7 @@ public class CMLConverters extends ConverterListImpl {
 
     public CMLConverters() {
 //        list.add(new ConverterInfo(Text2XMLConverter.class));
-        list.add(new ConverterInfo(Text2XMLTemplateConverter.class));
+//        list.add(new ConverterInfo(Text2XMLTemplateConverter.class));
 //        list.add(new ConverterInfo(XML2TextConverter.class));
         this.list = Collections.unmodifiableList(list);
     }

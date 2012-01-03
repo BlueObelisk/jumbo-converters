@@ -13,8 +13,10 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.Type;
+import org.xmlcml.cml.converters.molecule.MoleculeCommon;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLList;
@@ -129,17 +131,17 @@ public class SDF2CMLConverter extends AbstractConverter implements
 	
 	@Override
 	public String getRegistryInputType() {
-		return "sdf";
+		return MoleculeCommon.SDF;
 	}
 	
 	@Override
 	public String getRegistryOutputType() {
-		return "cml";
+		return CMLCommon.CML;
 	}
 	
 	@Override
 	public String getRegistryMessage() {
-		return "sdf to cml";
+		return "converts MDL/SDFile to CML";
 	}
 
 }

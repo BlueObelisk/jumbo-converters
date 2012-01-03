@@ -20,6 +20,7 @@ public class MoleculeCommon extends AbstractCommon {
 	public static final String LOG_CML = "molecule_log_compchem";
 	public static final String MDL = "mdl_molfile";
 	public static final String PUBCHEM = "pubchem";
+	public static final String PUBCHEM_XML = "pubchem_xml";
 	public static final String SDF = "mdl_sdfile";
 	public static final String XYZ = "xyz";
 

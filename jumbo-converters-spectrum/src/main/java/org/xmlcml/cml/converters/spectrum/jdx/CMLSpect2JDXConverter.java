@@ -18,8 +18,10 @@ import org.jcamp.units.Unit;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.Type;
+import org.xmlcml.cml.converters.spectrum.SpectrumCommon;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLSpectrum;
@@ -98,17 +100,17 @@ Spectrum1D(IOrderedDataArray1D x, IDataArray1D y)
 	
 	@Override
 	public String getRegistryInputType() {
-		return null;
+		return CMLCommon.CML;
 	}
 	
 	@Override
 	public String getRegistryOutputType() {
-		return null;
+		return SpectrumCommon.JDX;
 	}
 	
 	@Override
 	public String getRegistryMessage() {
-		return "null";
+		return "convert CML to JCamp-DX";
 	}
 
 

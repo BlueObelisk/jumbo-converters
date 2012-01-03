@@ -1,4 +1,4 @@
-package org.xmlcml.cml.converters.spectrum;
+package org.xmlcml.cml.converters.spectrum.agilent;
 
 import java.util.List;
 
@@ -13,6 +13,7 @@ import org.xmlcml.cml.base.CC;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.Type;
+import org.xmlcml.cml.converters.spectrum.SpectrumCommon;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLPeak;
@@ -304,12 +305,12 @@ Saved	TRUE
 	
 	@Override
 	public String getRegistryInputType() {
-		return REG_IN;
+		return SpectrumCommon.AGILENT;
 	}
 	
 	@Override
 	public String getRegistryOutputType() {
-		return REG_OUT;
+		return SpectrumCommon.CML;
 	}
 	
 	@Override

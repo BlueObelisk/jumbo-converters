@@ -6,4 +6,5 @@ public class CMLCommon {
 	public static final String PNG = "png";
 	public static final String SVG = "svg";
 	public static final String TXT = "txt";
+	public static final String XML = "xml";
 }

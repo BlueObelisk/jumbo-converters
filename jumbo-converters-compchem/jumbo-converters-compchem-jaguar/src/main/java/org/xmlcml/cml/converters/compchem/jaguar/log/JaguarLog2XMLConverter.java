@@ -7,6 +7,7 @@ import nu.xom.Element;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.compchem.CompchemText2XMLTemplateConverter;
+import org.xmlcml.cml.converters.compchem.jaguar.JaguarCommon;
 import org.xmlcml.cml.converters.util.ConverterUtils;
 
 public class JaguarLog2XMLConverter extends CompchemText2XMLTemplateConverter {
@@ -38,4 +39,20 @@ public class JaguarLog2XMLConverter extends CompchemText2XMLTemplateConverter {
 			converter.convert(in, out);
 		}
 	}
+	
+	@Override
+	public String getRegistryInputType() {
+		return JaguarCommon.LOG;
+	}
+
+	@Override
+	public String getRegistryOutputType() {
+		return JaguarCommon.LOG_XML;
+	}
+
+	@Override
+	public String getRegistryMessage() {
+		return "Convert Jaguar Log to XML";
+	}
+
 }

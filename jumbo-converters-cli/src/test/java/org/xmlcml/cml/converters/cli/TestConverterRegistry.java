@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
-import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Test;
 import org.xmlcml.cml.converters.Converter;
-import org.xmlcml.cml.converters.cli.ConverterRegistry.Type;
+//import org.xmlcml.cml.converters.cli.ConverterRegistry.Type;
 import org.xmlcml.cml.converters.registry.ConverterInfo;
 
 public class TestConverterRegistry {
@@ -19,7 +19,7 @@ public class TestConverterRegistry {
     @Test
     @Ignore
     public void testMap() {
-    	Map<Type,ConverterInfo> map = ConverterRegistry.getMap();
+    	Map<ConverterRegistry.Type,ConverterInfo> map = ConverterRegistry.getMap();
     	Assert.assertNotNull(map);
     	// size will change as more are added
     	Assert.assertTrue(map.size() > 0);

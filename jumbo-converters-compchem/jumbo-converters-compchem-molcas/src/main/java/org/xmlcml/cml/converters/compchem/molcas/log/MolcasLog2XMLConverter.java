@@ -5,6 +5,7 @@ import java.io.IOException;
 import nu.xom.Element;
 
 import org.xmlcml.cml.converters.compchem.CompchemText2XMLTemplateConverter;
+import org.xmlcml.cml.converters.compchem.molcas.MolcasCommon;
 
 public class MolcasLog2XMLConverter extends CompchemText2XMLTemplateConverter {
 	
@@ -22,4 +23,20 @@ public class MolcasLog2XMLConverter extends CompchemText2XMLTemplateConverter {
 //		File out = new File("test-out.xml");
 //		converter.convert(in, out);
 	}
+	
+	@Override
+	public String getRegistryInputType() {
+		return MolcasCommon.LOG;
+	}
+
+	@Override
+	public String getRegistryOutputType() {
+		return MolcasCommon.LOG_XML;
+	}
+
+	@Override
+	public String getRegistryMessage() {
+		return "Convert Molcas Log to XML";
+	}
+
 }

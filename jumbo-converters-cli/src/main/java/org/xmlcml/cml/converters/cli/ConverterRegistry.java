@@ -1,6 +1,7 @@
 package org.xmlcml.cml.converters.cli;
 
 import java.io.InputStream;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,8 +45,8 @@ public class ConverterRegistry {
                             try {
                                 Class<?> clazz = Class.forName(s);
                                 ConverterList list = (ConverterList) clazz.newInstance();
-                                for (ConverterInfo converter : list.listConverters()) {
-                                    register(converter);
+                                for (ConverterInfo converterInfo : list.listConverters()) {
+                                    register(converterInfo);
                                 }
                             } catch (Exception ex) {
                                 System.err.println("Error loading converter");
@@ -87,17 +88,17 @@ public class ConverterRegistry {
     }
 
 
-    private static synchronized void register(ConverterInfo converter) {
-        String intype = converter.getInType();
-        String outtype = converter.getOutType();
+    private static synchronized void register(ConverterInfo converterInfo) {
+        String intype = converterInfo.getInType();
+        String outtype = converterInfo.getOutType();
         if (intype != null && outtype != null) {
 	        Type t = new Type(intype, outtype);
 	        if (map.containsKey(t)) {
 	            throw new IllegalArgumentException("Converter "+intype+" >> "+outtype+" already registered");
 	        }
-	        map.put(t, converter);
+	        map.put(t, converterInfo);
         } else {
-        	System.err.println("NULL types for "+converter);
+        	System.out.println("NULL types for "+converterInfo.getConverterClass()+" ("+intype+", "+outtype+")");
         }
     }
 
