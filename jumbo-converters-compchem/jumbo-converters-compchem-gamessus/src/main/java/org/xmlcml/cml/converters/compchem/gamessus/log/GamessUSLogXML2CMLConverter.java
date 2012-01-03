@@ -12,6 +12,7 @@ import org.xmlcml.cml.converters.compchem.gamessus.punch.GamessUSPunchXMLProcess
 
 public class GamessUSLogXML2CMLConverter extends AbstractCompchem2CMLConverter{
 	private static final Logger LOG = Logger.getLogger(GamessUSLogXML2CMLConverter.class);
+	private static final String GAMESSUS_LOG_XML_TO_CML = "GamessUS log to CML";
 	static {
 		LOG.setLevel(Level.INFO);
 	}	
@@ -42,17 +43,16 @@ public class GamessUSLogXML2CMLConverter extends AbstractCompchem2CMLConverter{
 
 	@Override
 	public String getRegistryInputType() {
-		return null;
+		return GamessUSCommon.GAMESSUS_LOG_XML;
 	}
 	
 	@Override
 	public String getRegistryOutputType() {
-		return null;
+		return GamessUSCommon.GAMESSUS_LOG_CML;
 	}
 	
 	@Override
 	public String getRegistryMessage() {
-		return "null";
+		return GAMESSUS_LOG_XML_TO_CML;
 	}
-
 }

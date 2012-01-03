@@ -18,9 +18,9 @@ public class GamessUKPunchXML2CMLConverter extends AbstractCompchem2CMLConverter
 	}
 
 	public GamessUKPunchXML2CMLConverter() {
-		
+
 	}
-	
+
    @Override
    protected AbstractCommon getCommon() {
 	   return new GamessukCommon();
@@ -36,7 +36,7 @@ public class GamessUKPunchXML2CMLConverter extends AbstractCompchem2CMLConverter
 
 	/**
 	 * converts an MDL object to CML. returns cml:cml/cml:molecule
-	 * 
+	 *
 	 * @param xml
 	 */
 	public Element convertToXML(Element xml) {
@@ -49,17 +49,17 @@ public class GamessUKPunchXML2CMLConverter extends AbstractCompchem2CMLConverter
 
 	@Override
 	public String getRegistryInputType() {
-		return null;
+		return GamessukCommon.PUNCH;
 	}
-	
+
 	@Override
 	public String getRegistryOutputType() {
-		return null;
+		return GamessukCommon.PUNCH_XML;
 	}
-	
+
 	@Override
 	public String getRegistryMessage() {
-		return "null";
+		return "GamessUK Punch output to XML";
 	}
 
 }

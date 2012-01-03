@@ -951,9 +951,15 @@ public abstract class AbstractConverter implements Converter {
       return outputCMLLite;
    }
    
-   public abstract String getRegistryInputType();
-   public abstract String getRegistryOutputType();
-   public abstract String getRegistryMessage();
+   public String getRegistryInputType() {
+	   return null;
+   }
+   public String getRegistryOutputType() {
+	   return null;
+   }
+   public String getRegistryMessage() {
+	   return "override RegistryFoo in: "+this.getClass().getName();
+   }
 }
 
 class DTDProblem {

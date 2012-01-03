@@ -22,6 +22,13 @@ public class GamessUSCommon extends AbstractCommon {
 	public static final String KEYWORD = " $";
 	public static final String END = " $END";
 	public static final String NCYC = "ncyc";
+
+	public static final String GAMESSUS_LOG = "gamesuss_log";
+	public static final String GAMESSUS_LOG_XML = "gamess_log_xml";
+	public static final String GAMESSUS_LOG_CML = "gamess_log_cml";
+
+	public static final String PUNCH = "gamessus_punch";
+	public static final String PUNCH_XML = "gamessus_punch_xml";
 	
     protected String getDictionaryResource() {
     	return "org/xmlcml/cml/converters/compchem/gamessus/gamessusDict.xml";

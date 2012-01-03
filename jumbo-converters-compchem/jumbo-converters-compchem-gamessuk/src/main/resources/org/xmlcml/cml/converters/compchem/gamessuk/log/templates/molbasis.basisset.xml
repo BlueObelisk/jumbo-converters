@@ -26,11 +26,11 @@
 
 
   </comment>
-  <record repeat="6">{X,x:sss}</record>
+  <record repeat="6" id="dbg">{X,x:sss}</record>
   <templateList>
     <template repeat="*" id="coordxyz" pattern="\s{9}\*\s{77}\*\s*$\s{9}\*\s*\S*" multiple="$" 
     endPattern="\s{9}\*\s{77}\*\s*" endOffset="1">
-      <record repeat="2">{X}</record>
+      <record repeat="2"/>
       <record id="coordx">\s{9}\*{A,guk:tag}{F,guk:elementType}{F,guk:x3}{F,guk:y3}{F,guk:z3}{I,guk:nshells}\s+\*\s*</record>
       <record id="shells">\s{9}\*{X,guk:shells}\s+\*\s*</record>
     </template>
