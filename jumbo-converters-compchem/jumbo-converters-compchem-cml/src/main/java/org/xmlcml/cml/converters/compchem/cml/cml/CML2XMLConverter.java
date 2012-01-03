@@ -6,23 +6,20 @@ import java.io.InputStream;
 
 import nu.xom.Builder;
 import nu.xom.Element;
-import nu.xom.ParsingException;
-import nu.xom.ValidityException;
 
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.CompchemText2XMLTemplateConverter;
-import org.xmlcml.cml.converters.text.Template;
 import org.xmlcml.cml.converters.text.Text2XMLTemplateConverter;
 
 /** this class takes XML input (it should really be in CORE?)
- * 
+ *
  * @author pm286
  *
  */
 public class CML2XMLConverter extends CompchemText2XMLTemplateConverter {
 
-	
+
 	@Override
 	public Type getInputType() {
 		return Type.CML;
@@ -57,11 +54,11 @@ public class CML2XMLConverter extends CompchemText2XMLTemplateConverter {
 		template.applyMarkup(newElement);
 		return newElement;
 	}
-	
+
 	public static void main(String[] args) throws IOException {
 		runMain(args, "cml", "cml", "topTemplate.xml");
 	}
-	
+
 	public static void runMain(String[] args, String code, String fileType,
 			String topTemplate) throws IOException {
 		if (args.length != 2) {
@@ -85,7 +82,7 @@ public class CML2XMLConverter extends CompchemText2XMLTemplateConverter {
 		}
 		return converter;
 	}
-	
+
 	private static Text2XMLTemplateConverter createTemplateConverter(String code, String fileType, String topTemplate) throws IOException {
 		InputStream templateStream = createTemplateStream(code, fileType, topTemplate);
 		Text2XMLTemplateConverter tc = CML2XMLConverter.createTemplateConverter(templateStream, code, fileType);

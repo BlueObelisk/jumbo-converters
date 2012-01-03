@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 
 /**
  * deletes the input file
- * 
+ *
  * @author pm286
  *
  */
@@ -22,11 +22,11 @@ public class CleanConverter extends AbstractConverter {
 	public Type getInputType() {
 		return null;
 	}
-	
+
 	public Type getOutputType() {
 		return null;
 	}
-	
+
 	private static final Logger LOG = Logger.getLogger(CleanConverter.class);
 	static {
 		LOG.setLevel(Level.INFO);
@@ -52,7 +52,7 @@ public class CleanConverter extends AbstractConverter {
 	public void convert(File infile, File outfile) {
 		delete(infile);
 	}
-	
+
 	/** delete infile.
 	 * @param infile
 	 * @param os
@@ -61,7 +61,7 @@ public class CleanConverter extends AbstractConverter {
 	public void convert(File infile, OutputStream os) {
 		delete(infile);
 	}
-	
+
 	/** delete infile
 	 * @param infile
 	 * @return null
@@ -71,7 +71,7 @@ public class CleanConverter extends AbstractConverter {
 		delete(infile);
 		return null;
 	}
-	
+
 	/** delete infile.
 	 * @param infile
 	 * @return null
@@ -81,7 +81,7 @@ public class CleanConverter extends AbstractConverter {
 		delete(infile);
 		return null;
 	}
-	
+
 	/** delete infile.
 	 * @param infile
 	 * @return null
@@ -92,18 +92,9 @@ public class CleanConverter extends AbstractConverter {
 		return null;
 	}
 
-	@Override
-	public String getRegistryInputType() {
-		return null;
-	}
-	
-	@Override
-	public String getRegistryOutputType() {
-		return null;
-	}
-	
+
 	@Override
 	public String getRegistryMessage() {
-		return null;
+		return "Deletes files (through subclassing)";
 	}
 }

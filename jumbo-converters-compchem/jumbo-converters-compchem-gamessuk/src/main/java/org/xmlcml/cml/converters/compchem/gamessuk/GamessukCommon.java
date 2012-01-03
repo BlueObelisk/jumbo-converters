@@ -18,6 +18,9 @@ public class GamessukCommon extends AbstractCommon {
 
 	public static final String GAMESSUK_LOG = "gamessuk_log";
 	public static final String GAMESSUK_LOG_XML = "gamessuk_log_xml";
+
+	public static final String PUNCH = "punch";
+	public static final String PUNCH_XML = "gamessuk_punch";
 	
     protected String getDictionaryResource() {
     	return "org/xmlcml/cml/converters/compchem/gamessuk/gamessukDict.xml";

@@ -13,8 +13,8 @@ public class GamessUSPunchXML2CMLConverter extends AbstractCompchem2CMLConverter
 	private static final Logger LOG = Logger.getLogger(GamessUSPunchXML2CMLConverter.class);
 	static {
 		LOG.setLevel(Level.INFO);
-	}	
-	
+	}
+
 	public GamessUSPunchXML2CMLConverter() {
 	}
 
@@ -41,17 +41,17 @@ public class GamessUSPunchXML2CMLConverter extends AbstractCompchem2CMLConverter
 
 	@Override
 	public String getRegistryInputType() {
-		return null;
+		return GamessUSCommon.PUNCH;
 	}
-	
+
 	@Override
 	public String getRegistryOutputType() {
-		return null;
+		return GamessUSCommon.PUNCH_XML;
 	}
-	
+
 	@Override
 	public String getRegistryMessage() {
-		return "null";
+		return "GameesUS punch to XML";
 	}
 
 

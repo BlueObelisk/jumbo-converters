@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractCommon;
+import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.CMLSelector;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
@@ -31,13 +32,13 @@ public class CML2GaussianInputConverter extends AbstractCompchem2CMLConverter {
    // really awful, but ant cannot pick up classpath
 //   private final static String DICT_FILE =
 //           "org/xmlcml/cml/converters/compchem/gaussian/gaussianArchiveDict.xml";
-   
+
    private String controlFile = "org/xmlcml/cml/converters/compchem/controls/freq.xml";
    public static final String GAUSS_PREFIX = "gauss";
    public static final String GAUSS_URI = "http://wwmm.ch.cam.ac.uk/dict/gauss";
 
    public CML2GaussianInputConverter() {
-	   
+
    }
 
    @Override
@@ -102,20 +103,21 @@ public class CML2GaussianInputConverter extends AbstractCompchem2CMLConverter {
    public void setControlFile(String controlFile) {
       this.controlFile = controlFile;
    }
-   
+
 	@Override
 	public String getRegistryInputType() {
-		return null;
+		return CMLCommon.CML;
+
 	}
-	
+
 	@Override
 	public String getRegistryOutputType() {
-		return null;
+		return GaussianCommon.INPUT;
 	}
-	
+
 	@Override
 	public String getRegistryMessage() {
-		return "null";
+		return "Create Gaussian input from CML";
 	}
 
 }

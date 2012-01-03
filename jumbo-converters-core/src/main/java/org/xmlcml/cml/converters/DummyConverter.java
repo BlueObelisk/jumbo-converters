@@ -8,7 +8,7 @@ package org.xmlcml.cml.converters;
  */
 public class DummyConverter extends AbstractConverter {
 
-	
+
 	public Type getInputType() {
 		return null;
 	}
@@ -16,21 +16,11 @@ public class DummyConverter extends AbstractConverter {
 	public Type getOutputType() {
 		return null;
 	}
-	
+
 	public DummyConverter() {
-		
+
 	}
 
-	@Override
-	public String getRegistryInputType() {
-		return null;
-	}
-	
-	@Override
-	public String getRegistryOutputType() {
-		return null;
-	}
-	
 	@Override
 	public String getRegistryMessage() {
 		return "does nothing";

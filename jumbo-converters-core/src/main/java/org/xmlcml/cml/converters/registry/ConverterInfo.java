@@ -1,5 +1,6 @@
 package org.xmlcml.cml.converters.registry;
 
+import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.Converter;
 
@@ -8,6 +9,8 @@ import org.xmlcml.cml.converters.Converter;
  */
 public class ConverterInfo {
 
+	private final static Logger LOG = Logger.getLogger(ConverterInfo.class);
+	
     private String intype;
     private String outtype;
     private String name;
@@ -26,12 +29,14 @@ public class ConverterInfo {
 	}
     
     public ConverterInfo(Class<? extends Converter> converterClass) {
+    	AbstractConverter converter = null;
     	try {
-			AbstractConverter converter = (AbstractConverter) converterClass.newInstance();
+			converter = (AbstractConverter) converterClass.newInstance();
 			setFields(converter.getRegistryInputType(), converter.getRegistryOutputType(), converterClass, converter.getRegistryMessage());
 		} catch (Exception e) {
 			throw new RuntimeException("cannot create converter: "+converterClass, e);
 		}
+    	LOG.info("Created and added "+converter);
     	
     }
 

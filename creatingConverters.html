@@ -1,0 +1,147 @@
+<html>
+<head>
+<title>Creating and Adding a JUMBOConverter</title>
+<style>
+code {
+    font-family:monospace;
+    font-weight: bold;
+    font-size:125%;
+}
+</style>
+</head>
+
+<h1>Creating and Adding a JUMBOConverter to jumbo-converters</h1>
+
+<div>
+<h2>Introduction and architecture overview</h2>
+<p>
+Most JUMBOConverters convert a document of type A to one of type B, referred to as 1:1.
+(There are some converters which convert a collection of documents to a single document (n:1)
+and some
+which generate a collection from a single document (1:n). This introduction describes 1:1. In most
+cases either A or B or both are XML documents. In some cases the XML is of a specific type
+(HTML, SVG, XHTML, XSLT). Other common document types are Text, Images, Binary. Where possible types are
+indicated by MIME types. Note that JUMBOConverters can deal with streams or files, so that where
+"file" is used "stream" can usually be substituted.
+</p>
+<p>
+Some JumboConverters provide bi-directional conversion, e.g. for the simple format
+<code>org.xmlcml.cml.converters.molecule.XYZ2CMLConverter</code> and
+<code>org.xmlcml.cml.converters.molecule.CML2XYZConverter</code>.
+For complex or binary formats there is often only a Foo2CMLConverter ("Foo" represents a generic filetype)
+because the legacy format is poorly defined, proprietary or too complex to implement.
+</p>
+<p>
+In general classes for a given filetype will be found in a separate package. Where a program or framework
+has multiple file types there may be multiple packages. A typical example is
+<code>
+<br/>
+org.xmlcml.cml.converters.compchem.gaussian<br/>
+org.xmlcml.cml.converters.compchem.gaussian.archive<br/>
+org.xmlcml.cml.converters.compchem.gaussian.in<br/>
+org.xmlcml.cml.converters.compchem.gaussian.link<br/>
+org.xmlcml.cml.converters.compchem.gaussian.log<br/>
+</code>
+Each package will contain one or more converters
+</p>
+<p>
+In some cases it is necessary to generate an intermediate representation, usually in XML.
+<code>
+<br/>
+org.xmlcml.cml.converters.compchem.nwchem<br/>
+org.xmlcml.cml.converters.compchem.nwchem.log<br/>
+    NWChemLog2XMLConverter<br/>
+    NWChemLogXML2CompchemConverter<br/>
+</code>
+where the first converter creates an intermediate XML format and
+the second converts this into CML conformant with the compchem convention
+There is often a convenience method to do both at once:
+<code>
+NWChemLog2CompchemConverter
+</code>
+
+</p>
+</div>
+<div>
+<h2>Indexing and loading the converters and the commandline interface CLI</h2>
+<p>The converters can be automatically indexed and loaded through a the packages registry
+(<code>org.xmlcml.cml.converters.registry</code>)
+and the command-line interface (<code>org.xmlcml.cml.converters.cli</code>). The CLI is a separate maven module:
+<code>jumbo-converters/jumboconvertes-cli</code>
+whose POM (pom.xml) indicates dependencies on other modules. Any such module should provide a
+file <code>META-INF/jumbo-converters</code> which indicates it can be indexed by the CLI module.
+This provides a reference to a class indexing the converters in the module, something like:
+<br/>
+<code>
+org.xmlcml.cml.converters.molecule.MoleculeConverters
+</code>
+This class will normally be at the top package level (i.e. <code>org.xmlcml.cml.converters.molecule</code>)
+<br/>
+The org.xmlcml.cml.converters.molecule.MoleculeConverters class looks like
+<code>
+<pre>
+public class MoleculeConverters extends ConverterListImpl {
+
+    public MoleculeConverters() {
+        list.add(new ConverterInfo(CML2CMLConverter.class));
+        list.add(new ConverterInfo(CML2MDLConverter.class));
+        list.add(new ConverterInfo(MDL2CMLConverter.class));
+        list.add(new ConverterInfo(CML2SDFConverter.class));
+        list.add(new ConverterInfo(SDF2CMLConverter.class));
+        list.add(new ConverterInfo(PubchemXML2CMLConverter.class));
+        list.add(new ConverterInfo(CML2XYZConverter.class));
+        list.add(new ConverterInfo(XYZ2CMLConverter.class));
+        this.list = Collections.unmodifiableList(list);
+    }
+
+}
+</pre>
+</code>
+and can be used to decide which classes are loaded for indexing and which are ignored. This is a list of 8
+Converter classes in the <code>org.xmlcml.cml.converters.molecule</code> module.
+</div>
+<div>
+<h2>Creating a simple converter</h2>
+<p>
+The simplest Converter is implemented by a class which implements
+<code>org.xmlcml.cml.converters.Converter</code>.
+This is almost always managed by subclassing <code>org.xmlcml.cml.converters.AbstractConverter</code>
+or one of its subclasses. This provides default methods for <code>convert</t> and management of the
+input and output types. A good example is the package
+<code>org.xmlcml.cml.converters.molecule.xyz</code>
+which converts to and from CML and XYZ. The directory/class structure is consistent with the
+CLI structure above
+<pre>
+<code>
+src/main/java/org/xmlcml/cml/converters/molecule
+    MoleculeConverters.java
+    xyz
+        CML2XYZConverter.java
+        XYZ2CMLConverter.java
+src/main/resources/org/xmlcml/cml/converters/molecule
+    META-INF
+        jumbo-resources
+
+
+</code>
+</pre>
+and the converter will be available if the CLI POM indicates a dependency on the <code>org.xmlcml.cml.converters.molecule</code> module.
+A converter (such as XYZ2CMLConverter) needs to provide:
+<ul>
+<li>At least one <code>convert()</code> method. The input/output is taken from:
+<ul>
+<li>text (String)</li>
+<li>lines of text (array of Strings)</li>
+<li>stream</li>
+<li>file</li>
+<li>XMLElement</li>
+</ul>
+It will also need to provide input and output types and mnemonics to allow look-up (RegistryTypes).
+Assuming it is in an existing module this will provide the FooConverters.java code, the META-INF/jumboconverters code.
+All that is required is to edit FooConverters.java to add the new Converter(s) to the registry. If there is no suitable
+module, you should probably consult the community before creating one.
+
+</div>
+
+</html>
+

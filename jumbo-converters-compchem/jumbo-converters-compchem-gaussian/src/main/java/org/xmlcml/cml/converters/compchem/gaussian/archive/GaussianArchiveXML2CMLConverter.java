@@ -14,7 +14,7 @@ public class GaussianArchiveXML2CMLConverter extends AbstractCompchem2CMLConvert
 	static {
 		LOG.setLevel(Level.INFO);
 	}
-	
+
 	public GaussianArchiveXML2CMLConverter() {
 	}
 
@@ -40,17 +40,17 @@ public class GaussianArchiveXML2CMLConverter extends AbstractCompchem2CMLConvert
 
 	@Override
 	public String getRegistryInputType() {
-		return null;
+		return GaussianCommon.ARCHIVE_XML;
 	}
-	
+
 	@Override
 	public String getRegistryOutputType() {
-		return null;
+		return GaussianCommon.ARCHIVE_CML;
 	}
-	
+
 	@Override
 	public String getRegistryMessage() {
-		return "null";
+		return "Gaussian archive XML to CML";
 	}
 
 }
