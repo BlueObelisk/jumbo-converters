@@ -5,6 +5,7 @@
 package org.xmlcml.cml.converters.spectrum;
 
 import org.junit.Test;
+
 import org.xmlcml.cml.converters.spectrum.jdx.CMLSpect2JDXConverter;
 import org.xmlcml.cml.converters.spectrum.jdx.JDX2CMLConverter;
 import org.xmlcml.cml.converters.spectrum.svg.CMLSpect2SVGConverter;

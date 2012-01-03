@@ -1,6 +1,5 @@
 package org.xmlcml.cml.converters.molecule.pubchem;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +8,6 @@ import nu.xom.Builder;
 import nu.xom.Element;
 import nu.xom.Nodes;
 
-import nu.xom.ParsingException;
-import nu.xom.ValidityException;
-import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLUtil;
@@ -36,19 +31,19 @@ public class PubchemXML2CMLConverter extends AbstractConverter implements
            PubchemXML2CMLConverter.class);
    public final static String CID = "pubchem:cid";
 
+   /** primarily for getting Registry info
+    */
+   public PubchemXML2CMLConverter() {
+	   
+   }
+
    public PubchemXML2CMLConverter(String configResource) {
       InputStream in = null;
       try {
          in = getClass().getClassLoader().getResourceAsStream(configResource);
          auxElement = new Builder().build(in).getRootElement();
-      } catch (ValidityException e) {
+      } catch (Exception e) {
          throw new RuntimeException(e);
-      } catch (IOException e) {
-         throw new RuntimeException(e);
-      } catch (ParsingException e) {
-         throw new RuntimeException(e);
-      } finally {
-         IOUtils.closeQuietly(in);
       }
    }
 
