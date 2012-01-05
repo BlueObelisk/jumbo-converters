@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  this is the top template file for Dalton log files.
+It should generally be found in the directory structure
+  src/main/resources/org/xmlcml/cml/converters/compchem/dalton/log
+It uses include files from 
+  src/main/resources/org/xmlcml/cml/converters/compchem/dalton/log/templates
+  (though I am not quite sure why the subdirectories are not explcit here)
+  
+The ORDER of the subtemplates may be important. Templates are processed in the order 
+  in this files and the subtemplates. Some of the files are marked with comments
+ -->
+<template id='dalton.log' output="VERBOSE"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:c="http://www.xml-cml.org/dictionary"
+  xmlns:d="http://www.xml-cml.org/dictionary/dalton">
+  <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
+  <!-- major sections -->
+      <xi:include href="templates/integral.temp.xml"/> 
+      <xi:include href="templates/wavefunction.temp.xml"/> 
+      <xi:include href="templates/staticproperty.temp.xml"/> 
+      <xi:include href="templates/proginfo.temp.xml"/> 
+      
+      <xi:include href="templates/nextgeom.temp.xml"/> 
+      <xi:include href="templates/optimization.temp.xml"/> 
+      <xi:include href="templates/predener.temp.xml"/> 
+      <xi:include href="templates/step.temp.xml"/> 
+      <xi:include href="templates/trustrad.temp.xml"/> 
+      <!--  clean -->
+      <xi:include href="templates/hermit.temp.xml"/> 
+      <xi:include href="templates/info.temp.xml"/> 
+      <xi:include href="templates/optimizationcontrol.temp.xml"/> 
+      <xi:include href="templates/newthresh.temp.xml"/> 
+      <xi:include href="templates/geninpproc.temp.xml"/> 
+      <xi:include href="templates/optimpar.temp.xml"/> 
+  </templateList>
+  <!--  don't worry if you don't understand all of this. It's almost boilerplate -->
+  <!--  Do the grouping after all the main body has been  processed
+   -->
+   <!--  this finds all modules with given templateRef and groups them an all sibligs into a new 
+   higher level module. Each modules geeedily eats sibling till the next module
+    -->
+  <transform process="group" xpath="./*[@cmlx:templateRef='daltonmod']"/>
+  <!--  labels the first group as the initial one -->
+  <transform process="addRole" xpath="./*[@role='group'][1]" value="initial"/>
+  <!--  labels the last group as final (typical XPath/XSL construction to get the number of
+  the last group -->
+  <transform process="addRole" xpath="./*[@role='group'][count(//*[@role='group'])]" value="final"/>
+  <!--  labels the new leading group as calculation -->
+  <transform process="addRole" xpath="./*[@role='group']" value="calculation"/>
+  <!--  and groups it and its siblings not yet working -->
+  <!-- <transform process="group" xpath="./*[@role='calculation']"/> -->
+</template>
