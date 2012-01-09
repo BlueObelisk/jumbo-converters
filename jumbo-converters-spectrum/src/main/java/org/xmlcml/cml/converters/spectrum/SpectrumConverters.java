@@ -4,12 +4,12 @@ import java.util.Collections;
 
 import org.xmlcml.cml.converters.registry.ConverterInfo;
 import org.xmlcml.cml.converters.registry.ConverterListImpl;
-import org.xmlcml.cml.converters.spectrum.jdx.CMLSpect2JDXConverter;
-import org.xmlcml.cml.converters.spectrum.jdx.JDX2CMLConverter;
+import org.xmlcml.cml.converters.spectrum.graphics.svg2cml.SVG2CMLSpectConverter;
+import org.xmlcml.cml.converters.spectrum.jdx.cml2jdx.CMLSpect2JDXConverter;
+import org.xmlcml.cml.converters.spectrum.jdx.jdx2cml.JDX2CMLConverter;
 import org.xmlcml.cml.converters.spectrum.oscar.OSCAR2CMLSpectConverter;
-import org.xmlcml.cml.converters.spectrum.svg.CMLHNMRSpect2SVGConverter;
-import org.xmlcml.cml.converters.spectrum.svg.CMLSpect2SVGConverter;
-import org.xmlcml.cml.converters.spectrum.svg.SVG2CMLSpectConverter;
+import org.xmlcml.cml.converters.spectrum.svg.cml2svg.CMLSpect2SVGConverter;
+import org.xmlcml.cml.converters.spectrum.svg.hnmr2svg.CMLHNMRSpect2SVGConverter;
 
 /**
  * @author Sam Adams

@@ -356,7 +356,7 @@ public class Template implements MarkupApplier {
 		copyNamespaces(lineContainer.getLinesElement());
 		CMLElement.addCMLXAttribute(linesElement, Template.TEMPLATE_REF, this.getId());
 		for (MarkupApplier marker : markerList) {
-			LOG.trace("Applying: "+marker.getClass().getSimpleName()+" "+marker.getId());
+			LOG.info("Applying: "+marker.getClass().getSimpleName()+" "+marker.getId());
 			try {
 				marker.applyMarkup(lineContainer);
 			} catch (Exception e) {

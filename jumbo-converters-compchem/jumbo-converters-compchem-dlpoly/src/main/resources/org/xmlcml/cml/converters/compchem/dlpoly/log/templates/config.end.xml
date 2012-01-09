@@ -1,0 +1,31 @@
+<template repeat="*"  id="config.end" name="sample of final configuration" 
+  pattern="\s*sample of final configuration\s*$\s*$.*$\s*$\s*"
+  endPattern="\s*">
+  
+  <comment class="example.input" id="config.end">
+ sample of final configuration
+
+      i       x(i)        y(i)        z(i)       vx(i)       vy(i)       vz(i)       fx(i)       fy(i)       fz(i)
+
+
+      1 -4.4616E-02 -6.0067E-02  1.3087E-01 -4.4571E+00 -1.8350E+00 -2.8197E+00 -1.7392E+04  9.7971E+03 -1.7500E+04
+     15 -2.5716E+00  5.2740E+00  8.8272E-01  8.1236E-01  2.0636E+00  2.8488E+00 -5.2492E+04 -3.1174E+04  3.1722E+03
+     29  8.4115E+00  7.5182E+00 -2.3725E+00  2.1497E+00 -8.4872E+00 -2.7712E-02 -1.1308E+04  2.8503E+04 -2.2058E+04
+     43  5.7063E-01 -7.7260E+00  2.4762E+00 -3.1043E+00 -2.3223E+00  1.9716E+00 -2.7887E+04 -5.4812E+04  6.6976E+03
+     57 -7.7039E+00 -6.1024E+00 -2.7418E+00 -2.2318E+00 -2.6709E+00 -4.4972E+00  3.5079E+03 -2.5597E+03  1.1703E+04
+
+  </comment>
+  <record repeat="5"/>
+  <record repeat="*" id="atom" makeArray="true">\s+{I,compchem:serial}\s+{3E,compchem:xyz}\s+{3E,compchem:vxyz}\s+{3E,compchem:fxyz}</record>
+  
+  <comment class="example.output" id="config.end">
+	<module cmlx:templateRef="config.end" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+	  <list cmlx:lineCount="5" cmlx:templateRef="atom">
+	    <array dataType="xsd:integer" dictRef="compchem:serial" size="5">1 15 29 43 57</array>
+	    <array dataType="xsd:double" dictRef="compchem:xyz" size="15">-0.044616 -0.060067 0.13087 -2.5716 5.274 0.88272 8.4115 7.5182 -2.3725 0.57063 -7.726 2.4762 -7.7039 -6.1024 -2.7418</array>
+	    <array dataType="xsd:double" dictRef="compchem:vxyz" size="15">-4.4571 -1.835 -2.8197 0.81236 2.0636 2.8488 2.1497 -8.4872 -0.027712 -3.1043 -2.3223 1.9716 -2.2318 -2.6709 -4.4972</array>
+	    <array dataType="xsd:double" dictRef="compchem:fxyz" size="15">-17392.0 9797.1 -17500.0 -52492.0 -31174.0 3172.2 -11308.0 28503.0 -22058.0 -27887.0 -54812.0 6697.6 3507.9 -2559.7 11703.0</array>
+	  </list>
+	</module>
+  </comment>
+</template>

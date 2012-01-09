@@ -13,7 +13,7 @@ public class RegressionTest {
 	   @Ignore
 	   public void nwchemOut2XML() {
 //	      RegressionSuite.run("compchem/daqlton/log", "out", "xml",
-//	                          new DaltonLog2XMLConverter());
+//	                          new MolcasLog2XMLConverter());
 	                              
 	   }
 }

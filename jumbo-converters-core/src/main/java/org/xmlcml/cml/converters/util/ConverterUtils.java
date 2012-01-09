@@ -129,7 +129,7 @@ public class ConverterUtils {
 		try {
 			InputStream in = clazz.getResourceAsStream(resourceName);
 			if (in == null) {
-				throw new FileNotFoundException("Resource not found: "+resourceName);
+				throw new FileNotFoundException("Resource not found: "+resourceName+"; baseUri: "+baseUri);
 			}
 			try {
 				Builder builder = new Builder();

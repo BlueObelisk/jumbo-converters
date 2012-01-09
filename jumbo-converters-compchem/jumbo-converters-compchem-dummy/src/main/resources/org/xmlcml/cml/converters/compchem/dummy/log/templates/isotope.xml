@@ -1,0 +1,50 @@
+<template repeat="*"  id="isotope" name="Isotope" 
+  pattern="\s*Isotopic Masses\s*$\s*\-+\s*"
+  endPattern="\s*Center\-of\-mass .*$\s*">
+  <comment class="example.input" id="isotope">
+                             Isotopic Masses
+                             ---------------
+
+                           OS   0     15.994915
+                           OP   1     15.994915
+                           OP   2     15.994915
+
+                       Total mass:    47.984745 amu
+                       Natural abundance:  99.282 %
+
+  </comment>
+  <record repeat="3"/>
+  <record repeat="*" id="atom">\s*{A,dummy:atom}\s*{I,compchem:ser}\s*{F,compchem:atmass}\s*</record>
+  <record/>
+  <record id="mass">\s*Total mass:\s*{F,dummy:totmass}\s+amu\s*</record>
+  <record id="abund">\s*Natural abundance:\s*{F,dummy:abund}\s*%\s*</record>
+  <record/>
+  
+  <comment class="example.output" id="isotope">
+<module cmlx:templateRef="isotope" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="atom">
+    <list>
+      <scalar dataType="xsd:string" dictRef="dummy:atom">OS</scalar>
+      <scalar dataType="xsd:integer" dictRef="compchem:ser">0</scalar>
+      <scalar dataType="xsd:double" dictRef="compchem:atmass">15.994915</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="dummy:atom">OP</scalar>
+      <scalar dataType="xsd:integer" dictRef="compchem:ser">1</scalar>
+      <scalar dataType="xsd:double" dictRef="compchem:atmass">15.994915</scalar>
+    </list>
+    <list>
+      <scalar dataType="xsd:string" dictRef="dummy:atom">OP</scalar>
+      <scalar dataType="xsd:integer" dictRef="compchem:ser">2</scalar>
+      <scalar dataType="xsd:double" dictRef="compchem:atmass">15.994915</scalar>
+    </list>
+  </list>
+  <list cmlx:templateRef="mass">
+    <scalar dataType="xsd:double" dictRef="dummy:totmass">47.984745</scalar>
+  </list>
+  <list cmlx:templateRef="abund">
+    <scalar dataType="xsd:double" dictRef="dummy:abund">99.282</scalar>
+  </list>
+</module>
+  </comment>
+</template>

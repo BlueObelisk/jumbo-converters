@@ -30,10 +30,10 @@ public class ConverterTest {
 	@Test   public void testInternuc()        {testConverter("internuc");}
 
     @Test
-    @Ignore // need whitespace comparison
+    @Ignore // more to do here
     public void daltonOut2XML() {
 		Text2XMLTemplateConverter converter = createConverter("org/xmlcml/cml/converters/compchem/"+codeType+"/"+fileType+"/topTemplate.xml");
-        RegressionSuite.run("compchem/"+codeType+"/"+fileType, "out", "xml", converter, true);
+        RegressionSuite.run("compchem/"+codeType+"/"+fileType, "log", "xml", converter, true);
     }
    
 	private void testConverter(String name) {

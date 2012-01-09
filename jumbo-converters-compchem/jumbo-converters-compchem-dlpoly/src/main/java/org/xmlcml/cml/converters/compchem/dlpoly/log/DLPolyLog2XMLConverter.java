@@ -12,7 +12,7 @@ public class DLPolyLog2XMLConverter extends CompchemText2XMLTemplateConverter {
 	public static final String DLPOLY_LOG_TO_XML_CONVERTER = "DLPoly Log to XML Converter";
 
 	public DLPolyLog2XMLConverter() {
-		this(getDefaultTemplate("dlpoly", "log", "topTemplate.xml", DLPolyLog2XMLConverter.class));
+		this(getDefaultTemplate("dlpoly", "log", TEMPLATE_XML_REL_TO_CLAZZ, DLPolyLog2XMLConverter.class));
 	}
 
 	public DLPolyLog2XMLConverter(Element templateElement) {

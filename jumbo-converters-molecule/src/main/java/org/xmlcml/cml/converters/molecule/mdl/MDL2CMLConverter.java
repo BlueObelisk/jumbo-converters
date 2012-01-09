@@ -15,8 +15,7 @@ import org.xmlcml.cml.converters.molecule.MoleculeCommon;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLMolecule;
 
-public class MDL2CMLConverter extends AbstractConverter implements
-		Converter {
+public class MDL2CMLConverter extends AbstractConverter {
 	private static final Logger LOG = Logger.getLogger(MDL2CMLConverter.class);
 	static {
 		LOG.setLevel(Level.INFO);

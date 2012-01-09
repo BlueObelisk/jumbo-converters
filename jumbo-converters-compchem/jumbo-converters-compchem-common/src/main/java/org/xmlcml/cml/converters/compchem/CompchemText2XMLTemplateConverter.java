@@ -15,6 +15,10 @@ import org.xmlcml.euclid.Util;
 
 public class CompchemText2XMLTemplateConverter extends Text2XMLTemplateConverter {
 
+	private static final String CLASSPATH = "classpath:/";
+	private static final String TEMPLATE_DIR = "/templates/";
+	private static final String TEMPLATE_FILE = "topTemplate.xml";
+	protected static final String TEMPLATE_XML_REL_TO_CLAZZ = "templates/topTemplate.xml";
 	private static String URI_BASE = ClassPathXIncludeResolver.createClasspath(CompchemText2XMLTemplateConverter.class);
 	
 	public CompchemText2XMLTemplateConverter(Element templateElement) {
@@ -26,8 +30,9 @@ public class CompchemText2XMLTemplateConverter extends Text2XMLTemplateConverter
 	public static Text2XMLTemplateConverter createTemplateConverter(
 			InputStream templateStream, String codeBase, String fileType) throws IOException {
 		try {
+			String baseUri = createBaseURI(codeBase, fileType);
 			Element templateElement = 
-				new Builder().build(templateStream, createBaseURI(codeBase, fileType)).getRootElement();
+				new Builder().build(templateStream, baseUri).getRootElement();
 			return new CompchemText2XMLTemplateConverter(templateElement);
 		} catch (Exception e) {
 			throw new RuntimeException("cannot read/parse input template",e);
@@ -35,7 +40,7 @@ public class CompchemText2XMLTemplateConverter extends Text2XMLTemplateConverter
 	}
 
 	public static String createBaseURI(String codeBase, String fileType) {
-        return "classpath:"+URI_BASE+codeBase+"/"+fileType+"/";
+        return CLASSPATH+URI_BASE+codeBase+"/"+fileType+TEMPLATE_DIR+TEMPLATE_FILE;
 	}
 
 	private static Text2XMLTemplateConverter createTemplateConverter(String codeBase,
@@ -48,7 +53,7 @@ public class CompchemText2XMLTemplateConverter extends Text2XMLTemplateConverter
 
 	protected static InputStream createTemplateStream(String codeBase,
 			String fileType, String topTemplate) throws IOException {
-		String templateXML = URI_BASE+codeBase+"/"+fileType+"/"+topTemplate;
+		String templateXML = URI_BASE+codeBase+"/"+fileType+TEMPLATE_DIR+TEMPLATE_FILE;
 		InputStream templateStream = Util.getInputStreamFromResource(templateXML);
 		return templateStream;
 	}
@@ -72,7 +77,7 @@ public class CompchemText2XMLTemplateConverter extends Text2XMLTemplateConverter
 
 	protected static Element getDefaultTemplate(String codeType, String fileType,
 		String templateName, Class<?> clazz) {
-		String baseUri = "classpath:"+URI_BASE+codeType+"/"+fileType+"/topTemplate.xml";
+		String baseUri = CLASSPATH+URI_BASE+codeType+"/"+fileType+TEMPLATE_DIR+TEMPLATE_FILE;
 		return ConverterUtils.buildElementIncludingBaseUri(baseUri, templateName, clazz);
 	}
 

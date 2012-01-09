@@ -1,27 +1,45 @@
 package org.xmlcml.cml.converters.compchem.dummy.mol;
 
 import java.io.IOException;
+import java.util.List;
 
 import nu.xom.Element;
 
-import org.xmlcml.cml.converters.compchem.CompchemText2XMLTemplateConverter;
-import org.xmlcml.cml.converters.compchem.dummy.DummyCommon;
+import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.CMLCommon;
+import org.xmlcml.cml.converters.Type;
+import org.xmlcml.cml.converters.compchem.dummy.DummyCommon;
+import org.xmlcml.cml.element.CMLCml;
 
-public class DummyMol2CMLConverter extends CompchemText2XMLTemplateConverter {
+public class DummyMol2CMLConverter extends AbstractConverter {
 
 	public static final String DUMMY_MOL_TO_CML_CONVERTER = "Dummy Molecule to CML Converter";
 
 	public DummyMol2CMLConverter() {
-		this(getDefaultTemplate("dummy", "mol", "topTemplate.xml", DummyMol2CMLConverter.class));
+		super();
+	}
+	
+	public Type getInputType() {
+		return Type.TXT;
 	}
 
-	public DummyMol2CMLConverter(Element templateElement) {
-		super(templateElement);
+	public Type getOutputType() {
+		return Type.CML;
 	}
 
 	public static void main(String[] args) throws IOException {
-		CompchemText2XMLTemplateConverter converter = new DummyMol2CMLConverter();
+		AbstractConverter converter = new DummyMol2CMLConverter();
+	}
+	
+	@Override
+	public Element convertToXML(List<String> lines) {
+		CMLCml cml = null;
+		if (lines != null && lines.size() > 0) {
+			MolProcessor molProcessor = new MolProcessor();
+			cml = molProcessor.create(lines);
+		}
+		return cml;
+		
 	}
 
 	@Override

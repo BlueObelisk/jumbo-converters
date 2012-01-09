@@ -1,8 +1,6 @@
 package org.xmlcml.cml.converters.compchem.dummy;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import org.xmlcml.cml.converters.compchem.dummy.log.DummyLog2XMLConverter;
 import org.xmlcml.cml.converters.compchem.dummy.mol.DummyMol2CMLConverter;

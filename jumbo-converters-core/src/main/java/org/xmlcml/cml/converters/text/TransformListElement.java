@@ -39,6 +39,9 @@ public class TransformListElement implements MarkupApplier {
 	private String whilex;
 
 	public TransformListElement(Element element) {
+		if (element == null) {
+			throw new RuntimeException("cannot make transformList from null Template");
+		}
 		if (!(element.getLocalName().equals(TransformListElement.TAG))) {
 			throw new RuntimeException("cannot make transformList from: "+element.getLocalName());
 		}

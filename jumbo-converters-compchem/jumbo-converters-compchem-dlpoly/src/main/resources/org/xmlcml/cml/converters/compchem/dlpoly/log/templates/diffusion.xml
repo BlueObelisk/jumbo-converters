@@ -1,0 +1,61 @@
+<template repeat="*"  id="diffusion" name="Diffusion coefficients" 
+  pattern="\s*Approximate 3D Diffusion  coefficients.*$\s*$"
+  endPattern="\s*$\s*$">
+  <comment class="example.input" id="diffusion">
+            Approximate 3D Diffusion  coefficients (10^-9 m^2 / s)
+
+            atom        D 
+            Sic        1.1138E+00
+            Alc        7.8887E-01
+            O2c        2.5330E+00
+            Nac        3.7669E+00
+            O2s        2.1702E+00
+            O1c        1.0883E+01
+            Hc         6.6410E+01
+            O1s        1.0618E+01
+
+
+  </comment>
+  <record repeat="3"/>
+  <record repeat="*" id="atom">\s+{X,dlpoly:atomtype}\s+{E,dlpoly:diffcoef}\s*</record>
+  
+  <comment class="example.output" id="diffusion">
+	<module cmlx:templateRef="diffusion" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+	  <list cmlx:templateRef="atom">
+	    <list>
+	      <scalar dataType="xsd:string" dictRef="dlpoly:atomtype">Sic</scalar>
+	      <scalar dataType="xsd:double" dictRef="dlpoly:diffcoef">1.1138</scalar>
+	    </list>
+	    <list>
+	      <scalar dataType="xsd:string" dictRef="dlpoly:atomtype">Alc</scalar>
+	      <scalar dataType="xsd:double" dictRef="dlpoly:diffcoef">0.78887</scalar>
+	    </list>
+	    <list>
+	      <scalar dataType="xsd:string" dictRef="dlpoly:atomtype">O2c</scalar>
+	      <scalar dataType="xsd:double" dictRef="dlpoly:diffcoef">2.533</scalar>
+	    </list>
+	    <list>
+	      <scalar dataType="xsd:string" dictRef="dlpoly:atomtype">Nac</scalar>
+	      <scalar dataType="xsd:double" dictRef="dlpoly:diffcoef">3.7669</scalar>
+	    </list>
+	    <list>
+	      <scalar dataType="xsd:string" dictRef="dlpoly:atomtype">O2s</scalar>
+	      <scalar dataType="xsd:double" dictRef="dlpoly:diffcoef">2.1702</scalar>
+	    </list>
+	    <list>
+	      <scalar dataType="xsd:string" dictRef="dlpoly:atomtype">O1c</scalar>
+	      <scalar dataType="xsd:double" dictRef="dlpoly:diffcoef">10.883</scalar>
+	    </list>
+	    <list>
+	      <scalar dataType="xsd:string" dictRef="dlpoly:atomtype">Hc</scalar>
+	      <scalar dataType="xsd:double" dictRef="dlpoly:diffcoef">66.41</scalar>
+	    </list>
+	    <list>
+	      <scalar dataType="xsd:string" dictRef="dlpoly:atomtype">O1s</scalar>
+	      <scalar dataType="xsd:double" dictRef="dlpoly:diffcoef">10.618</scalar>
+	    </list>
+	  </list>
+	</module>
+  </comment>
+  
+</template>

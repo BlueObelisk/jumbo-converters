@@ -1,0 +1,23 @@
+<template repeat="*"  id="ewald" name="Ewald parameters" 
+  pattern="\s*Ewald convergence.*"
+  endPattern="\s*">
+  <comment class="example.input" id="ewald">
+ Ewald convergence parameter      1.0134E+00
+ Ewald kmax1 kmax2 kmax3        15   16    6
+ 
+   </comment>
+  <record id="ewald1">\s*Ewald convergence parameter\s*{E,dlpoly:ewald.conv}\s*</record>
+  <record id="ewald2">\s*Ewald kmax1 kmax2 kmax3\s*{3I,dlpoly:ewald.kmax}\s*</record>
+  
+  <comment class="example.output" id="ewald">
+	<module cmlx:templateRef="ewald" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+	  <list cmlx:templateRef="ewald1">
+	    <scalar dataType="xsd:double" dictRef="dlpoly:ewald.conv">1.0134</scalar>
+	  </list>
+	  <list cmlx:templateRef="ewald2">
+	    <array dataType="xsd:integer" size="3" dictRef="dlpoly:ewald.kmax">15 16 6</array>
+	  </list>
+	</module>
+  </comment>
+  
+</template>
