@@ -9,9 +9,9 @@ import org.xmlcml.cml.converters.AbstractCommon;
  * @author pm286
  *
  */
-public class GamessUSCommon extends AbstractCommon {
+public class GamessUSXCommon extends AbstractCommon {
 	@SuppressWarnings("unused")
-	private final static Logger LOG = Logger.getLogger(GamessUSCommon.class);
+	private final static Logger LOG = Logger.getLogger(GamessUSXCommon.class);
 	
 	public static final String GAMESSUS_PREFIX = "gamessus";
 	public static final String GAMESSUS_URI = "http://wwmm.ch.cam.ac.uk/dict/gamessus";

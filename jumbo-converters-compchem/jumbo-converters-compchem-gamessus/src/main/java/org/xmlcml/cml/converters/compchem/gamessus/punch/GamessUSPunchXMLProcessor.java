@@ -3,7 +3,7 @@ package org.xmlcml.cml.converters.compchem.gamessus.punch;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.cml.RawXML2CMLProcessor;
-import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
+import org.xmlcml.cml.converters.compchem.gamessus.GamessUSXCommon;
 
 public class GamessUSPunchXMLProcessor extends RawXML2CMLProcessor {
 	@SuppressWarnings("unused")
@@ -20,7 +20,7 @@ public class GamessUSPunchXMLProcessor extends RawXML2CMLProcessor {
 	}
 	@Override
 	protected AbstractCommon getCommon() {
-		return new GamessUSCommon();
+		return new GamessUSXCommon();
 	}
 	
 	protected void processXML() {

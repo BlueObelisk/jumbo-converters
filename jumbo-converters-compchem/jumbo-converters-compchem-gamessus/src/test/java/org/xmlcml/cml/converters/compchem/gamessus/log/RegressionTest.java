@@ -28,6 +28,6 @@ public class RegressionTest {
 	   @Ignore
 	   public void gamessusXML2CML() {
 	      RegressionSuite.run("compchem/gamessus/log", "xml", "cml",
-	                          new GamessUSLogXML2CMLConverter());
+	                          new GamessUSXLogXML2CMLConverter());
 	   }
 }

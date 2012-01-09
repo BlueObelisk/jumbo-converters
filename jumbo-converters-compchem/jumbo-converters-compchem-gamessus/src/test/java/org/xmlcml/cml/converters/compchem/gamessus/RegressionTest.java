@@ -16,7 +16,7 @@ public class RegressionTest {
 	   @Ignore
 	   public void gamessusPunch2XML() {
 //	      RegressionSuite.run("compchem/gamessus/punch", "dat", "xml",
-//	                          new GamessUSPunch2XMLConverter());
+//	                          new GamessUSXPunch2XMLConverter());
 	                              
 	   }
 	   @Test

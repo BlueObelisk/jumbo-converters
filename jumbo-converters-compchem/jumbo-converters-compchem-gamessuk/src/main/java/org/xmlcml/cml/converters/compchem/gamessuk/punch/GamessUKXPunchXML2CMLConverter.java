@@ -9,21 +9,21 @@ import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.cml.RawXML2CMLProcessor;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
-import org.xmlcml.cml.converters.compchem.gamessuk.GamessUKCommon;
+import org.xmlcml.cml.converters.compchem.gamessuk.GamessUKXCommon;
 
-public class GamessUKPunchXML2CMLConverter extends AbstractCompchem2CMLConverter{
-	private static final Logger LOG = Logger.getLogger(GamessUKPunchXML2CMLConverter.class);
+public class GamessUKXPunchXML2CMLConverter extends AbstractCompchem2CMLConverter{
+	private static final Logger LOG = Logger.getLogger(GamessUKXPunchXML2CMLConverter.class);
 	static {
 		LOG.setLevel(Level.INFO);
 	}
 
-	public GamessUKPunchXML2CMLConverter() {
+	public GamessUKXPunchXML2CMLConverter() {
 
 	}
 
    @Override
    protected AbstractCommon getCommon() {
-	   return new GamessUKCommon();
+	   return new GamessUKXCommon();
    }
 
 	public Type getInputType() {
@@ -40,7 +40,7 @@ public class GamessUKPunchXML2CMLConverter extends AbstractCompchem2CMLConverter
 	 * @param xml
 	 */
 	public Element convertToXML(Element xml) {
-		RawXML2CMLProcessor converter = new GamessUKPunchXMLProcessor();
+		RawXML2CMLProcessor converter = new GamessUKXPunchXMLProcessor();
 		converter.process(xml);
 		CMLElement cml = converter.getCMLElement();
 		addNamespaces(cml);
@@ -49,12 +49,12 @@ public class GamessUKPunchXML2CMLConverter extends AbstractCompchem2CMLConverter
 
 	@Override
 	public String getRegistryInputType() {
-		return GamessUKCommon.PUNCH;
+		return GamessUKXCommon.PUNCH;
 	}
 
 	@Override
 	public String getRegistryOutputType() {
-		return GamessUKCommon.PUNCH_XML;
+		return GamessUKXCommon.PUNCH_XML;
 	}
 
 	@Override
