@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
-import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
+import org.xmlcml.cml.converters.compchem.gamessus.GamessUSXCommon;
 
 public class GamessUSPunchXML2CMLConverter extends AbstractCompchem2CMLConverter{
 	private static final Logger LOG = Logger.getLogger(GamessUSPunchXML2CMLConverter.class);
@@ -20,7 +20,7 @@ public class GamessUSPunchXML2CMLConverter extends AbstractCompchem2CMLConverter
 
 	@Override
 	protected AbstractCommon getCommon() {
-		return new GamessUSCommon();
+		return new GamessUSXCommon();
 	}
 
 	public Type getInputType() {
@@ -41,12 +41,12 @@ public class GamessUSPunchXML2CMLConverter extends AbstractCompchem2CMLConverter
 
 	@Override
 	public String getRegistryInputType() {
-		return GamessUSCommon.PUNCH;
+		return GamessUSXCommon.PUNCH;
 	}
 
 	@Override
 	public String getRegistryOutputType() {
-		return GamessUSCommon.PUNCH_XML;
+		return GamessUSXCommon.PUNCH_XML;
 	}
 
 	@Override

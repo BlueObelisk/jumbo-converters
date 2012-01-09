@@ -11,26 +11,26 @@ import nu.xom.Nodes;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.cml.RawXML2CMLProcessor;
-import org.xmlcml.cml.converters.compchem.gamessuk.GamessUKCommon;
+import org.xmlcml.cml.converters.compchem.gamessuk.GamessUKXCommon;
 import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLBond;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLProperty;
 
-public class GamessUKPunchXMLProcessor extends RawXML2CMLProcessor {
+public class GamessUKXPunchXMLProcessor extends RawXML2CMLProcessor {
 
 
 	public final static String PROPERTY_XPATH = 
 		"./*[(local-name()='scalar' or local-name()='array' or local-name()='matrix') and @dictRef]";
 	private Element bondArray;
 
-	public GamessUKPunchXMLProcessor() {
+	public GamessUKXPunchXMLProcessor() {
 	}
 	
 	@Override
 	protected AbstractCommon getCommon() {
-		return new GamessUKCommon();
+		return new GamessUKXCommon();
 	}
 
 	public void processXML() {

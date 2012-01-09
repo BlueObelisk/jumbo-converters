@@ -4,20 +4,20 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.converters.AbstractCommon;
 import org.xmlcml.cml.converters.cml.RawXML2CMLProcessor;
-import org.xmlcml.cml.converters.compchem.gamessus.GamessUSCommon;
+import org.xmlcml.cml.converters.compchem.gamessus.GamessUSXCommon;
 import org.xmlcml.cml.element.CMLModule;
 
-public class GamessUSLogXMLProcessorOld extends RawXML2CMLProcessor {
+public class GamessUSXLogXMLProcessorOld extends RawXML2CMLProcessor {
 	@SuppressWarnings("unused")
-	private static Logger LOG = Logger.getLogger(GamessUSLogXMLProcessorOld.class);
+	private static Logger LOG = Logger.getLogger(GamessUSXLogXMLProcessorOld.class);
 	private CMLModule job;
 	
-	public GamessUSLogXMLProcessorOld() {
+	public GamessUSXLogXMLProcessorOld() {
 		
 	}
 	@Override
 	protected AbstractCommon getCommon() {
-		return new GamessUSCommon();
+		return new GamessUSXCommon();
 	}
 	
 	protected void processXML() {

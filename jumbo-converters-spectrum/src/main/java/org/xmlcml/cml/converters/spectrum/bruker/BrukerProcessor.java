@@ -33,11 +33,13 @@ public class BrukerProcessor {
 	private static Pattern DOUBLE_DOLLAR2_PATTERN = Pattern.compile("\\$\\$\\s\\$\\$\\s*(\\S.*)\\s*");
 	private static Pattern SCALAR_PATTERN = Pattern.compile("\\$\\$\\s\\#\\#(\\$?[A-Za-z_0-9\\s]+)\\=\\s*(\\S.*)\\s*");
 	private static Pattern ARRAY_PATTERN = Pattern.compile("\\$\\$\\s\\#\\#(\\$?[A-Za-z_0-9\\s]+)\\=\\s*\\((\\d+)\\.\\.(\\d+)\\)\\s*");
+	private static Pattern BRUKER_FILE_PATTERN = Pattern.compile("\\#\\#\\$BRUKER\\sFILE\\s(EXP|PROC)=\\s*(\\S.*)\\s*");
 	
 	private CMLList brukerChunk;
 	private int iNode;
 	CMLCml topCml;
 	private CMLList newChunk;
+	private Pattern bRUKER_FILE_PATTERN;
 
 
 	public BrukerProcessor(CMLCml topCml) {
@@ -295,11 +297,11 @@ $$ ##END=
 
 	private void createBrukerFile(String line) {
 		brukerChunk = new CMLList();
-		String line0 = line.substring(BRUKER_FILE.length()).trim();
-		if (!line0.startsWith(EXP)) {
-			throw new RuntimeException("Bruker file name missing: "+line);
+		Matcher matcher = BRUKER_FILE_PATTERN.matcher(line);
+		if (!matcher.matches()) {
+			throw new RuntimeException("Bruker file syntax wrong: "+line);
 		}
-		String filename = line0.substring(EXP.length()).trim();
+		String filename = matcher.group(2);
 		brukerChunk.setTitle(filename);
 		brukerChunk.setDictRef(BRUKER_PREFIX+"file");
 		topCml.appendChild(brukerChunk);
