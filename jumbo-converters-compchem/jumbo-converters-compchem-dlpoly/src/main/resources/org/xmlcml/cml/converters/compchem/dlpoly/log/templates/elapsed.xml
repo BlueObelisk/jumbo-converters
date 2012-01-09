@@ -1,0 +1,18 @@
+<template repeat="*" id="elapsed" name="time elapsed" 
+  pattern="\s*time elapsed since job start.*"
+  endPattern="\s*">
+  <comment class="example.input" id="elapsed">
+ time elapsed since job start =          14.960 seconds
+ 
+   </comment>
+  <record id="elapsed">\s*time elapsed since job start =\s+{F,compchem:elapsed}\s+seconds\s*</record>
+  
+  <comment class="example.output" id="elapsed">
+	<module cmlx:templateRef="elapsed" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+	  <list cmlx:templateRef="elapsed">
+	    <scalar dataType="xsd:double" dictRef="compchem:elapsed">14.96</scalar>
+	  </list>
+	</module>
+  </comment>
+  
+</template>

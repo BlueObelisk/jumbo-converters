@@ -79,10 +79,8 @@ public class RegressionSuite {
 				if (refLine.charAt(0) == CMLConstants.C_LANGLE
 						&& outLine.charAt(0) == CMLConstants.C_LANGLE) {
 					try {
-						refElement = new Builder().build(refFile)
-								.getRootElement();
-						outElement = new Builder().build(outFile)
-								.getRootElement();
+						refElement = new Builder().build(refFile).getRootElement();
+						outElement = new Builder().build(outFile).getRootElement();
 						// RDFXML?
 						if (refElement.getLocalName().equals("RDF")
 								&& refElement
@@ -273,8 +271,7 @@ public class RegressionSuite {
 			final File output = outputFileFor(input);
 			final File reference = referenceFileFor(input);
 			converter.convert(input, output);
-			assertTrue("file should be created" + output, output
-					.exists());
+			assertTrue("file should be created" + output, output.exists());
 			compare(reference, output);
 		}
 	}

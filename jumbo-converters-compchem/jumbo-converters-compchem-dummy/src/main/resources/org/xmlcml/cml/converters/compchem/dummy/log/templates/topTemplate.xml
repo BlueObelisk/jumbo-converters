@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  this is the top template file for Dummy log files.
+It should generally be found in the directory structure
+  src/main/resources/org/xmlcml/cml/converters/compchem/dummy/log
+It uses include files from 
+  src/main/resources/org/xmlcml/cml/converters/compchem/dummy/log/templates
+  (though I am not quite sure why the subdirectories are not explcit here)
+  
+The ORDER of the subtemplates may be important. Templates are processed in the order 
+  in this files and the subtemplates. Some of the files are marked with comments
+ -->
+<template id='dummy.log' output="VERBOSE"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:c="http://www.xml-cml.org/dictionary"
+  xmlns:d="http://www.xml-cml.org/dictionary/dummy">
+  <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
+      <xi:include href="isotope.xml"/> 
+  </templateList>
+  
+</template>
