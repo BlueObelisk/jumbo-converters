@@ -134,6 +134,8 @@ $$ ##END=
 	private void processChunk() {
 		iNode = 0;
 		newChunk = new CMLList();
+		newChunk.setTitle(brukerChunk.getTitle());
+		newChunk.setDictRef(brukerChunk.getDictRef());
 		CMLArray array = null;
 		while (iNode < brukerChunk.getChildCount()) {
 			String line = brukerChunk.getChild(iNode).getValue().trim();
@@ -286,7 +288,8 @@ $$ ##END=
 	private void createAuditTrail(String line) {
 		brukerChunk = new CMLList();
 		String line0 = line.substring(AUDIT_TRAIL.length()).trim();
-		brukerChunk.setTitle(line0);
+		brukerChunk.setTitle(line);
+		brukerChunk.setDictRef(BRUKER_PREFIX+"auditTrail");
 		topCml.appendChild(brukerChunk);
 	}
 
@@ -298,6 +301,7 @@ $$ ##END=
 		}
 		String filename = line0.substring(EXP.length()).trim();
 		brukerChunk.setTitle(filename);
+		brukerChunk.setDictRef(BRUKER_PREFIX+"file");
 		topCml.appendChild(brukerChunk);
 	}
 }
