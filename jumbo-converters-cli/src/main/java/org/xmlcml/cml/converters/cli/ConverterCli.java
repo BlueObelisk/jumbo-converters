@@ -27,17 +27,22 @@ public class ConverterCli {
             String outtype = args[4];
             String outfilename = args[5];
 
-            Converter converter = ConverterRegistry.findConverter(intype, outtype);
-            LOG.info("Converter: "+converter);
-            if (converter == null) {
-            	usage();
-            	throw new RuntimeException("cannot find converter for: "+Util.concatenate(args, " "));
+            Converter converter = null;
+            try {
+            	converter = ConverterRegistry.findConverter(intype, outtype);
+            } catch (Exception e) {
+            	System.err.println("cannot find converter for: "+Util.concatenate(args, " "));
+            	System.exit(0);
             }
+            LOG.info("Converter: "+converter);
+//            if (converter == null) {
+////            	usage();
+//            }
             
             File infile = new File(infilename);
             try {
 				LOG.info("input file: "+infile.getAbsolutePath());
-				LOG.info("input file: "+infile.getCanonicalPath());
+				System.out.println("input file: "+infile.getCanonicalPath());
 			} catch (IOException e) {
 				e.printStackTrace();
 				throw new RuntimeException("Cannot find file: ", e);

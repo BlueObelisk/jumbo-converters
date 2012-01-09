@@ -12,7 +12,8 @@ import org.xmlcml.cml.converters.registry.ConverterListImpl;
 public class MopacConverters extends ConverterListImpl {
 
     public MopacConverters() {
-        list.add(new ConverterInfo(MopacAux2XMLConverter.class));
+    	// needs adjusting templates
+//        list.add(new ConverterInfo(MopacAux2XMLConverter.class));
         this.list = Collections.unmodifiableList(list);
     }
 

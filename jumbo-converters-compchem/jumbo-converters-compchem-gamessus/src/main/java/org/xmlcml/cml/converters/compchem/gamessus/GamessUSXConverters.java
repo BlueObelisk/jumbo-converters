@@ -12,7 +12,8 @@ import org.xmlcml.cml.converters.registry.ConverterListImpl;
 public class GamessUSXConverters extends ConverterListImpl {
 
     public GamessUSXConverters() {
-        list.add(new ConverterInfo(GamessUSXLog2XMLConverter.class));
+    	// needs adjusting templates
+//        list.add(new ConverterInfo(GamessUSXLog2XMLConverter.class));
         this.list = Collections.unmodifiableList(list);
     }
 

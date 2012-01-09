@@ -12,7 +12,8 @@ import org.xmlcml.cml.converters.registry.ConverterListImpl;
 public class TurbomoleConverters extends ConverterListImpl {
 
     public TurbomoleConverters() {
-        list.add(new ConverterInfo(TurbomoleLog2XMLConverter.class));
+    	// needs adjusting templates
+//        list.add(new ConverterInfo(TurbomoleLog2XMLConverter.class));
         this.list = Collections.unmodifiableList(list);
     }
 

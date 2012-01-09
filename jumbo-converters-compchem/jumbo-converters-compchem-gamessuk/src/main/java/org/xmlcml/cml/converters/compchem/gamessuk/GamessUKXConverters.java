@@ -16,8 +16,9 @@ import java.util.List;
 public class GamessUKXConverters extends ConverterListImpl {
 
      public GamessUKXConverters() {
-         list.add(new ConverterInfo(GamessUKXLog2XMLConverter.class));
-         list.add(new ConverterInfo(GamessUKXPunchXML2CMLConverter.class));
+     	// needs adjusting templates
+//         list.add(new ConverterInfo(GamessUKXLog2XMLConverter.class));
+//         list.add(new ConverterInfo(GamessUKXPunchXML2CMLConverter.class));
         this.list = Collections.unmodifiableList(list);
     }
 
