@@ -76,7 +76,7 @@ public class ConverterRegistry {
             try {
                 return info.getConverterClass().newInstance();
             } catch (Exception e) {
-                throw new JumboException("Error creating converter", e);
+                throw new RuntimeException("Error creating converter", e);
             }
         }
         return null;

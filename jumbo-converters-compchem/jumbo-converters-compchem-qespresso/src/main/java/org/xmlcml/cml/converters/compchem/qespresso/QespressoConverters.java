@@ -12,7 +12,8 @@ import org.xmlcml.cml.converters.registry.ConverterListImpl;
 public class QespressoConverters extends ConverterListImpl {
 
     public QespressoConverters() {
-        list.add(new ConverterInfo(QuantumEspressoLog2XMLConverter.class));
+    	// needs adjusting templates
+//        list.add(new ConverterInfo(QuantumEspressoLog2XMLConverter.class));
         this.list = Collections.unmodifiableList(list);
     }
 

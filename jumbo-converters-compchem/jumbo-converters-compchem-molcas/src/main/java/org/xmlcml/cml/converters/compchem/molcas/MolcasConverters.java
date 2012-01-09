@@ -12,7 +12,8 @@ import org.xmlcml.cml.converters.registry.ConverterListImpl;
 public class MolcasConverters extends ConverterListImpl {
 
     public MolcasConverters() {
-        list.add(new ConverterInfo(MolcasLog2XMLConverter.class));
+    	// needs adjusting templates
+//        list.add(new ConverterInfo(MolcasLog2XMLConverter.class));
         this.list = Collections.unmodifiableList(list);
     }
 

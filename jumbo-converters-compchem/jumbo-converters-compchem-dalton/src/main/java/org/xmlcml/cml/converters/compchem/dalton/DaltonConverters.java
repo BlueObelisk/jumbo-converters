@@ -15,7 +15,8 @@ public class DaltonConverters extends ConverterListImpl {
 
     public DaltonConverters() {
     	super();
-        list.add(new ConverterInfo(DaltonLog2XMLConverter.class));
+    	// needs adjusting templates
+//        list.add(new ConverterInfo(DaltonLog2XMLConverter.class));
         this.list = Collections.unmodifiableList(list);
     }
 

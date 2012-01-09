@@ -44,4 +44,14 @@ public class TestConverterCli {
     	}
     }
 
+
+    @Test
+    public void testJCamp() {
+    	String[] args = {"-i", "jcamp-dx",  "examples/in/spectrum.jdx",  "-o", "cml", "examples/out/spectrum.cml"};
+    	try {
+    		ConverterCli.main(args);
+    	} catch (Exception e) {
+    		Assert.fail("Should not throw "+ e);
+    	}
+    }
 }
