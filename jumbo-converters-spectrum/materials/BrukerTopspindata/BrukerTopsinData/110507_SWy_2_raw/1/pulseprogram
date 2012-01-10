@@ -1,0 +1,58 @@
+# 1 "/opt/topspin3.0/exp/stan/nmr/lists/pp/hpdec"
+;hpdec (TopSpin 2.0)
+
+;acquisition on X with hp proton decoupling
+;suitable for various types of decoupling
+
+;Avance II+ version
+;parameters:
+;d1 : recycle delay
+;d30 : =1s/cnst31-p4, for pidec12 and pidec13, pi-pulse decoupling
+;d31 : =1s/cnst31, 1 rotor period
+;p1 : X 90 degree pulse
+;p5 : LG 360 degree pulse
+;p10 : pulse length for phase modulated pulses (e.g PMLG, DUMBO)
+;p22 : H 180 at power level pl13 (pidec)
+;p29 : 5 - 10 us, to avoid exact rotor synchronisation
+;pcpd2 : pulse length in decoupling sequence
+;pl1 : X power level for excitation pulse
+;pl2 : =119 dB, not used
+;pl12 : power level for standard proton decoupling 
+;pl13 : e.g. used in tppm13, pidec13, cw13, pidec13, cwlg, cwlgs
+;spnam1	: lgs-1, lgs-4 or pmlg-36,
+;l31 : number of rotor cycles for XiX (=3)
+;cnst20 : proton RF field to calculate LG parameters
+;cnst21 : =0, proton offset
+;cnst22 : +ve Lee-Goldburg offset
+;cnst23 : -ve Lee-Goldburg offset
+;cnst24 : additional Lee-Goldburg offset
+;cnst31 : spinning frequency
+;cpdprg2 : sequence used for decoupling (tppm15, cw, etc.)
+;zgoptns : blew12, xix, pidec, lg, or tppm
+# 32 "/opt/topspin3.0/exp/stan/nmr/lists/pp/hpdec"
+;$COMMENT=acquisition on X with proton decoupling, various decoupling schemes
+;$CLASS=Solids
+;$DIM=1D
+;$TYPE=direct excitation
+;$SUBTYPE=simple 1D
+
+;$OWNER=Bruker
+
+# 50 "/opt/topspin3.0/exp/stan/nmr/lists/pp/hpdec"
+;cnst11 : to adjust t=0 for acquisition, if digmod = baseopt
+"acqt0=1u*cnst11"
+
+# 1 "mc_line 53 file /opt/topspin3.0/exp/stan/nmr/lists/pp/hpdec dc-measurement inserted automatically"
+
+    dccorr
+# 53 "/opt/topspin3.0/exp/stan/nmr/lists/pp/hpdec"
+1 ze
+2 d1 do:f2
+  (p1 pl1 ph1):f1 (1u cpds2):f2
+  go=2 ph31
+  1m do:f2
+  wr #0
+exit
+
+ph1= 0 2 1 3
+ph31=0 2 1 3
