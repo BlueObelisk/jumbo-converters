@@ -1,0 +1,146 @@
+# 1 "/opt/topspin3.0/exp/stan/nmr/lists/pp/cp"
+;cp (TopSpin 2.0)
+
+;basic cp experiment
+;written by HF 1.3.2001
+;changed by JOS 05/06/03
+;comments added by STE 4.4.2006
+
+;Avance II+ version
+;parameters: 
+;p3 : proton 90 at power level pl12
+;p15 : contact time at pl1 (f1) and pl2 (f2)
+;pl1 : X power level during contact
+;sp0 : proton power level during contact
+;pl2 : =120dB, not used
+;pl12 : decoupling power level (if not pl13)
+;pl13 : special decoupliong power level
+;d1 : recycle delay
+;cnst21 : on resonance, usually = 0
+;pcpd2 : pulse length in decoupling sequence
+;cpdprg2 : cw, tppm (at pl12), or lgs, cwlg. cwlgs (LG-decoupling 
+;spnam0 : use e.g. ramp.100 for variable amplitude CP
+;here pl13 is used instead of pl12)
+;zgoptns : -Dfslg, -Dlacq, or blank
+# 25 "/opt/topspin3.0/exp/stan/nmr/lists/pp/cp"
+;$COMMENT=basic cp experiment, arbitrary contact and decoupling schemes
+;$CLASS=Solids
+;$DIM=1D
+;$TYPE=cross polarisation
+;$SUBTYPE=simple 1D
+;$OWNER=Bruker
+prosol relations=<solids_cp>
+
+# 1 "/opt/topspin3.0/exp/stan/nmr/lists/pp/Avancesolids.incl" 1
+;Avancesolids.incl
+;   for 1
+;
+;version 1 28.2.2001, written by HF
+;	   4.4.2006, complemented by Ste
+
+;$COMMENT=definitions for setrtp and setnmr
+;$CLASS=Solids INCL
+# 10 "/opt/topspin3.0/exp/stan/nmr/lists/pp/Avancesolids.incl"
+;switch between 1H or 19F output (H amplifier) 
+;$OWNER=nmrsu
+
+
+# 15 "/opt/topspin3.0/exp/stan/nmr/lists/pp/Avancesolids.incl"
+;gating pulse for RX, ADC and HPPR auto mode
+
+
+# 19 "/opt/topspin3.0/exp/stan/nmr/lists/pp/Avancesolids.incl"
+;explicit blanking of preamp, receiver, adc, not implemented yet
+
+
+# 27 "/opt/topspin3.0/exp/stan/nmr/lists/pp/Avancesolids.incl"
+;generate dwell clock
+
+
+;turn dwell clock on/off
+# 33 "/opt/topspin3.0/exp/stan/nmr/lists/pp/Avancesolids.incl"
+;
+
+
+# 37 "/opt/topspin3.0/exp/stan/nmr/lists/pp/Avancesolids.incl"
+;define data sampling for WAHUHA type experiments, samples analogue or digitally for d9, closes receiver
+
+
+# 41 "/opt/topspin3.0/exp/stan/nmr/lists/pp/Avancesolids.incl"
+;explicit transmitter blanking, not supported yet
+
+;NCO switching, to be implemented
+# 33 "/opt/topspin3.0/exp/stan/nmr/lists/pp/cp" 2
+
+# 43 "/opt/topspin3.0/exp/stan/nmr/lists/pp/cp"
+;cnst11 : to adjust t=0 for acquisition, if digmod = baseopt
+"acqt0=1u*cnst11"
+
+# 1 "mc_line 46 file /opt/topspin3.0/exp/stan/nmr/lists/pp/cp dc-measurement inserted automatically"
+
+    dccorr
+# 46 "/opt/topspin3.0/exp/stan/nmr/lists/pp/cp"
+1 ze
+
+2 d1 do:f2
+# 1 "/opt/topspin3.0/exp/stan/nmr/lists/pp/p15_prot.incl" 1
+;p15_prot.incl
+# 3 "/opt/topspin3.0/exp/stan/nmr/lists/pp/p15_prot.incl"
+; Test the rf on-time and duty cycle
+;protect against too long contact time
+;Test the rf on-time and duty cycle 
+;$COMMENT=protect against too long contact time
+;$CLASS=Solids INCL
+;$OWNER=nmrsu
+1m
+if "p15<10.1m" goto Passp15
+print "contact time exceeds 10msec limit!"
+goto HaltAcqu
+Passp15, 1m
+
+
+# 49 "/opt/topspin3.0/exp/stan/nmr/lists/pp/cp" 2
+
+			;make sure p15 does not exceed 10 msec	
+			;let supervisor change this pulseprogram if 
+			;more is needed
+
+			;disable protection file for long acquisition change decoupling power !!! or you risk probe damage
+			;if you set the label lacq (ZGOPTNS -Dlacq), the protection is disabled
+# 1 "/opt/topspin3.0/exp/stan/nmr/lists/pp/aq_prot.incl" 1
+;aq_prot.incl
+; Test the rf on-time and duty cycle
+;protect against too long acquisition time
+;$COMMENT=protect against too long acquisition time
+;$CLASS=Solids INCL
+;$OWNER=nmrsu
+1m
+if "aq<50.1m" goto Passaq
+print "acquisition time exceeds 50m limit!"
+goto HaltAcqu
+Passaq, 1m
+
+
+# 57 "/opt/topspin3.0/exp/stan/nmr/lists/pp/cp" 2
+
+			;allows max. 50 msec acquisition time, supervisor
+			;may change  to max. 1s at less than 5 % duty cycle
+			;and reduced decoupling field
+
+# 63 "/opt/topspin3.0/exp/stan/nmr/lists/pp/cp"
+  1u fq=cnst21:f2
+  (p3 pl12 ph1):f2
+  (p15 pl1 ph2):f1 (p15:sp0 ph10):f2
+  1u cpds2:f2 		;pl12 is used here with tppm, pl13 with cwlg, cwlgs
+  go=2 ph31
+  1m do:f2
+  wr #0
+HaltAcqu, 1m
+exit
+
+ph0= 0
+ph1= 1 3
+ph2= 0 0 2 2 1 1 3 3
+ph10= 0
+ph31= 0 2 2 0 1 3 3 1
+
