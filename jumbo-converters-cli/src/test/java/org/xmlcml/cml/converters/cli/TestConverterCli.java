@@ -47,7 +47,7 @@ public class TestConverterCli {
 
     @Test
     public void testJCamp() {
-    	String[] args = {"-i", "jcamp-dx",  "examples/in/spectrum.jdx",  "-o", "cml", "examples/out/spectrum.cml"};
+    	String[] args = {"-i", "jcamp-dx",  "materials/in/spectrum.jdx",  "-o", "cml", "materials/out/spectrum.cml"};
     	try {
     		ConverterCli.main(args);
     	} catch (Exception e) {
