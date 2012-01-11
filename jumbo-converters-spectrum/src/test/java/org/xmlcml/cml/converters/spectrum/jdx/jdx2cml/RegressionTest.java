@@ -4,12 +4,9 @@
  */
 package org.xmlcml.cml.converters.spectrum.jdx.jdx2cml;
 
+import org.junit.Ignore;
 import org.junit.Test;
-
 import org.xmlcml.cml.converters.spectrum.SpectrumCommon;
-import org.xmlcml.cml.converters.spectrum.graphics.svg2cml.SVG2CMLSpectConverter;
-import org.xmlcml.cml.converters.spectrum.jdx.cml2jdx.CMLSpect2JDXConverter;
-import org.xmlcml.cml.converters.spectrum.svg.cml2svg.CMLSpect2SVGConverter;
 import org.xmlcml.cml.converters.testutils.RegressionSuite;
 
 /**
@@ -19,6 +16,7 @@ import org.xmlcml.cml.converters.testutils.RegressionSuite;
 public class RegressionTest {
 
    @Test
+   @Ignore
    public void jdx2cml() {
       RegressionSuite.run(SpectrumCommon.JDX_JDX2CML_DIR, "jdx", "cml",
                             new JDX2CMLConverter());
