@@ -10,16 +10,13 @@
       elementName="cml:parameterList" position="0"/>
 
   <!-- move parameters to environment -->
-  <transform process="addChild" xpath=".//cml:module[@id='environment']/cml:parameterList"
-     elementName="cml:scalar" id="compchem.package"/>
-  <transform process="addDictRef" xpath=".//cml:scalar[@id='compchem.package']"
-     value="compchem:package"/>
-  <transform process="setValue" xpath=".//cml:scalar[@dictRef='compchem:package']" value="NWChem"/>
+  <transform process="addChild" xpath=".//cml:module[@id='environment']/cml:parameterList" elementName="cml:scalar" id="compchem.program"/>
+  <transform process="addDictRef" xpath=".//cml:scalar[@id='compchem.program']" value="compchem:program"/>
+  <transform process="setValue" xpath=".//cml:scalar[@dictRef='compchem:program']" value="NWChem"/>
   
   <transform process="move" xpath="./cml:module[@cmlx:templateRef='job']/*[starts-with(@dictRef,'compchem:')]" to="//cml:module[@id='environment']/cml:parameterList"/>
   
-  <transform process="move" xpath="//*[@dictRef='compchem:title'][1]" 
-      to="//cml:module[@id='environment']/cml:parameterList"/>
+  <transform process="move" xpath="//*[@dictRef='compchem:title'][1]" to="//cml:module[@id='environment']/cml:parameterList"/>
   <transform process="createWrapperParameter" xpath="//cml:module[@id='environment']/cml:parameterList/*" />
   <!--  tidy rest -->
   <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='acknow']"/>
