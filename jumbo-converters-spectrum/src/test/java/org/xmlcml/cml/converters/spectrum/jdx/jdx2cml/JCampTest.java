@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
+import nu.xom.Element;
+
 import org.jcamp.parser.JCAMPReader;
 import org.jcamp.spectrum.MassSpectrum;
 import org.jcamp.spectrum.NMRSpectrum;
@@ -11,6 +13,7 @@ import org.jcamp.spectrum.Spectrum;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.spectrum.SpectrumCommon;
 
 /**
@@ -50,6 +53,13 @@ public class JCampTest {
         }
     }
 
+	@Test
+	public void testClacetop() {
+		File clacetop = new File("src/test/resources/"+SpectrumCommon.JDX_JDX2CML_DIR+"/in/clacetop.jdx");
+		JDX2CMLConverter converter = new JDX2CMLConverter();
+		Element element = converter.convertToXML(clacetop);
+		CMLUtil.debug(element, "NEW JCXML");
+	}
 	@Test
 	@Ignore // TODO fix reading
     public void testMoreThan49Peaks() throws Exception{

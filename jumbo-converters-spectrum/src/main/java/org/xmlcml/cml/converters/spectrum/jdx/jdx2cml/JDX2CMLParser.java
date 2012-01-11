@@ -1,9 +1,8 @@
 package org.xmlcml.cml.converters.spectrum.jdx.jdx2cml;
 
 import java.util.Collection;
-
+import java.util.HashMap;
 import java.util.List;
-
 
 import org.jcamp.math.AxisMap;
 import org.jcamp.parser.JCAMPException;
@@ -20,6 +19,7 @@ import org.xmlcml.cml.element.CMLArray;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLParameter;
 import org.xmlcml.cml.element.CMLParameterList;
+import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.element.CMLSpectrum;
 import org.xmlcml.cml.element.CMLSpectrum.SpectrumType;
 import org.xmlcml.cml.element.CMLSpectrumData;
@@ -28,10 +28,28 @@ import org.xmlcml.cml.element.CMLYaxis;
 
 public class JDX2CMLParser {
 
+
+	/** maps from JDX librarry to modern CML
+	 *
+	 */
+	private static HashMap<String, ScalarType> note2cmlmap = new HashMap<String, ScalarType>();
+	static {
+		note2cmlmap.put("jcamp$datatype", new ScalarType("dataType", CC.XSD_STRING));
+		note2cmlmap.put("jcamp$dataclass", new ScalarType("dataClass", CC.XSD_STRING));
+		note2cmlmap.put("origin", new ScalarType("origin", CC.XSD_STRING));
+		note2cmlmap.put("jcamp$owner", new ScalarType("owner", CC.XSD_STRING));
+		note2cmlmap.put("nmr$frequency", new ScalarType("observeFrequency", CC.XSD_DOUBLE));
+		note2cmlmap.put("nmr$nucleus", new ScalarType("observeNucleus", CC.XSD_STRING));
+		note2cmlmap.put("nmr$acquisition-mode", new ScalarType("acquisitionMode", CC.XSD_STRING));
+		note2cmlmap.put("nmr$averages", new ScalarType("digitiser", CC.XSD_STRING));
+		note2cmlmap.put("nmr$digitiser-res", new ScalarType("acquisitionMode", CC.XSD_STRING));
+	
+	}
 	private CMLSpectrum cmlSpectrum = null;
 	private SpectrumType spectrumType = null;
 	public final static String JDX_PREFIX = "jdx";
 
+	
 	public JDX2CMLParser() {
 		
 	}
@@ -74,13 +92,24 @@ public class JDX2CMLParser {
 			CMLParameterList parameterList = new CMLParameterList();
 			for (Object obj : notes) {
 				Note note = (Note) obj;
-				CMLParameter parameter = new CMLParameter();
-				parameter.setDictRef(JDX_PREFIX+CC.S_COLON+note.getDescriptor().toString().trim());
-				parameter.setCMLValue(note.getValue().toString().trim());
+				CMLParameter parameter = createParameter(note);
 				parameterList.addParameter(parameter);
 			}
 			cmlSpectrum.addParameterList(parameterList);
 		}
+	}
+	private CMLParameter createParameter(Note note) {
+		CMLParameter parameter = new CMLParameter();
+		String noteDescriptor = note.getDescriptor().toString().trim();
+		ScalarType scalarType = note2cmlmap.get(noteDescriptor);
+		String xsdType = (scalarType == null) ? CC.XSD_STRING : scalarType.xsdDataType;
+		String value = note.getValue().toString().trim();
+		CMLScalar scalar = (xsdType.equals(CC.XSD_DOUBLE)) ? new CMLScalar(new Double(value)) : new CMLScalar(value);
+		String dictRef = (scalarType == null) ? noteDescriptor : scalarType.dictRef;
+		String prefix = (scalarType == null) ? "foo" : JDX_PREFIX;
+		parameter.setDictRef(prefix+CC.S_COLON+dictRef);
+		parameter.appendChild(scalar);
+		return parameter;
 	}
 
 	/**
