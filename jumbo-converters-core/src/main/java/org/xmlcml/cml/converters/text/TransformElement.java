@@ -1034,7 +1034,7 @@ public class TransformElement implements MarkupApplier {
 					atom.setId("a"+(i+1));
 					scalar.getParent().replaceChild(scalar, atom);
 				} catch (Exception e) {
-					LOG.error("Cannot create atom: "+val+ ""+e);
+					LOG.warn("Cannot create atom: "+val+ ""+e);
 				}
 			}
 		}
@@ -1065,7 +1065,7 @@ public class TransformElement implements MarkupApplier {
 					date.setDictRef(scalar.getDictRef());
 					scalar.getParent().replaceChild(scalar, date);
 				} catch (Exception e) {
-					LOG.error("Cannot parse/set date/duration: "+val+ " (format='"+format+"'); "+e);
+					LOG.warn("Cannot parse/set date/duration: "+val+ " (format='"+format+"'); "+e);
 				}
 			}
 		}
@@ -1100,7 +1100,7 @@ public class TransformElement implements MarkupApplier {
 					scalar.setValue(d);
 					scalar.setDictRef(dictRefx);
 				} catch (Exception e) {
-					LOG.error("bad double: "+e);
+					LOG.warn("bad double: "+e);
 				}
 			}
 		}
@@ -1117,7 +1117,7 @@ public class TransformElement implements MarkupApplier {
 					CMLFormula formula = CMLFormula.createFormula(val);
 					scalar.getParent().replaceChild(scalar, formula);
 				} catch (Exception e) {
-					LOG.error("bad formula: "+e);
+					LOG.warn("bad formula: "+e);
 				}
 			}
 		}
@@ -1191,7 +1191,7 @@ public class TransformElement implements MarkupApplier {
 					Integer ii = new Integer(val);
 					scalar.setValue(ii);
 				} catch (Exception e) {
-					LOG.error("bad integer: "+e);
+					LOG.warn("bad integer: "+e);
 				}
 			}
 		}
@@ -1364,7 +1364,7 @@ public class TransformElement implements MarkupApplier {
 	}
 
 	private void recordError(CMLArray array0, ParentNode parent, String errorS) {
-		LOG.error(errorS);
+		LOG.warn(errorS);
 		CMLScalar error = new CMLScalar(errorS);
 		error.setDictRef(CML_ERROR);
 		parent.appendChild(error);
