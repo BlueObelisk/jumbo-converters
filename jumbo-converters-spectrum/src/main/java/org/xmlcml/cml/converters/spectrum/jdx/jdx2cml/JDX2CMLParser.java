@@ -42,7 +42,7 @@ public class JDX2CMLParser {
 		note2cmlmap.put("nmr$nucleus", new ScalarType("observeNucleus", CC.XSD_STRING));
 		note2cmlmap.put("nmr$acquisition-mode", new ScalarType("acquisitionMode", CC.XSD_STRING));
 		note2cmlmap.put("nmr$averages", new ScalarType("digitiser", CC.XSD_STRING));
-		note2cmlmap.put("nmr$digitiser-res", new ScalarType("acquisitionMode", CC.XSD_STRING));
+		note2cmlmap.put("nmr$digitiser-res", new ScalarType("digitiserRes", CC.XSD_STRING));
 	
 	}
 	private CMLSpectrum cmlSpectrum = null;
