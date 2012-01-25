@@ -9,7 +9,7 @@ public class ConverterDirectoryWalkerTest {
 //FIXME Hack to please maven.
 	@Test
 	public void testDummy() {
-		Util.println("=============ConverterDirectoryWalkerTest==============");
+//		Util.println("=============ConverterDirectoryWalkerTest==============");
 	}
 	
 	// FIXME replace with constructor

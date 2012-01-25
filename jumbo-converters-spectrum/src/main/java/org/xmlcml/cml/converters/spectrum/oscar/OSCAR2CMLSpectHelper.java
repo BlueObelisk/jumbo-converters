@@ -242,7 +242,7 @@ public class OSCAR2CMLSpectHelper extends Object {
 			if (child instanceof Text) {
 				String text = child.getValue().trim();
 				if (!(text.equals("") || text.equals(CMLConstants.S_COMMA))) {
-					LOG.error("unusual text child in <peaks> ["+text+"]");
+					LOG.trace("unusual text child in <peaks> ["+text+"]");
 				}
 			} else if (child instanceof Element) {
 				Element childElement = (Element) child;

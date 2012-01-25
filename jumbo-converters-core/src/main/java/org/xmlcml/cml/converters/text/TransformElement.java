@@ -1873,7 +1873,7 @@ public class TransformElement implements MarkupApplier {
 
 	private void reparse() {
 		if (template == null) {
-			System.err.println("***\nMust have a template for reparse\n***");
+			System.err.println("*** Must have a template for reparse ***");
 			return;
 		}
 		assertRequired(XPATH, xpath);

@@ -58,7 +58,7 @@ public class JCampTest {
 		File clacetop = new File("src/test/resources/"+SpectrumCommon.JDX_JDX2CML_DIR+"/in/clacetop.jdx");
 		JDX2CMLConverter converter = new JDX2CMLConverter();
 		Element element = converter.convertToXML(clacetop);
-		CMLUtil.debug(element, "NEW JCXML");
+//		CMLUtil.debug(element, "NEW JCXML");
 	}
 	@Test
 	@Ignore // TODO fix reading

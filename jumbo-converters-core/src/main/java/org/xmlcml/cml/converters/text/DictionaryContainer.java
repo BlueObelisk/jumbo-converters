@@ -100,7 +100,7 @@ public class DictionaryContainer {
 			}
 			idSet.add(id);
 		}
-		System.out.println("==================================================");
+//		System.out.println("==================================================");
 	}
 
 	private CMLDictionary resolveURI(String uri2) {
