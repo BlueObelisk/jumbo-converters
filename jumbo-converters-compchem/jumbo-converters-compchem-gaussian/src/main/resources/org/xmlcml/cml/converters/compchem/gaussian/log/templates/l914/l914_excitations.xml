@@ -1,0 +1,117 @@
+<template id="l914_excitations" name="Time-dependent DFT excitations"
+    repeat="*"
+    pattern="\s*Excitation energies and oscillator strengths:\s*" 
+    endPattern=" SavETr:.*write IOETrn=.*"
+    endOffset="1"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    >
+    
+  <comment class="example.input" id="l914_excitations">
+ Ground to excited state transition densities written to RWF  633
+
+ Excitation energies and oscillator strengths:
+ 
+ Excited State   1:      Singlet-A      3.3467 eV  370.46 nm  f=0.5317  &lt;S**2>=0.000
+      75 -> 76         0.69790
+ This state for optimization and/or second-order correction.
+ Total Energy, E(TD-HF/TD-KS) =  -974.346712524    
+ Copying the excited state density for this state as the 1-particle RhoCI density.
+ 
+ Excited State   2:      Singlet-A      3.8907 eV  318.67 nm  f=0.0065  &lt;S**2>=0.000
+      74 -> 76         0.66892
+      75 -> 77         0.20436
+ 
+ Excited State   3:      Singlet-A      4.2803 eV  289.66 nm  f=0.0019  &lt;S**2>=0.000
+      72 -> 76        -0.25494
+      73 -> 76         0.63171
+      75 -> 77        -0.13245
+ SavETr:  write IOETrn=   770 NScale= 10 NData=  16 NLR=1 LETran=      64.
+ Leave Link  914 at Mon Jan 16 08:08:48 2012, MaxMem=  536870912 cpu:   18235.8
+  </comment>
+
+<!-- junk the first line as picked up by the containing template -->
+
+
+<templateList repeat="*">
+
+    <template id="l914_excitations1" name="Time-dependent DFT excitations"
+        repeat="*"
+        pattern="\s*Excited State\s*\d.*"
+        endPattern="(\s*)|(\s*SavEtr).*"
+        endOffset="0">
+        <record repeat="1" id="l914_excit1">\s*Excited State\s*{I,g:tddft_enumber}:\s*{A,g:tddft_ttype}\s*{F,g:tddft_eenergy}\s*eV\s*{F,g:tddft_wavelength}\s*nm\s*f={F,g:tddft_oscillator_strength}.*={F,g:tddft_s2}\s*</record>
+        <record repeat="*" id="l914_excit2">\s*{I,g:tddft_orbitalstart}\s*\-&gt;\s*{I,g:tddft_orbitalend}\s*{F,g:tddft_unknown}\s*</record>
+<!--    These deal with the lines that are printed after the first excited state, but not the others
+        Throw away the "This state..." line - the remainder goes into junk as we can't just ignore it -->
+        <record repeat="*" id="l914_junk2">\s*This state for optimization and{X,g:junk}\s*</record>
+        <record repeat="*" id="l914_excit3">\s*Total Energy, E\(TD\-HF/TD\-KS\) =\s*{F,g:tddft_totale}\s*</record>
+<!--    Throw line  -->
+        <record repeat="*" id="l914_junk3">\s*Copying the excited state{X,g:junk}\s*</record>
+<!--    Throw away the SavETr line -->
+         <record repeat="*" id="l914_excit6">\s*SavETr:.*</record>
+    </template>
+    
+    <template id="l914_junk2" name="Time-dependent DFT excitations"
+        repeat="*"
+        pattern="\s*This state for optimization and.*"
+        endOffset="0">
+        <record id="junk" repeat="*">\s*{X,g:junk}\s*</record>
+    </template>
+    
+</templateList>
+-->
+
+  <comment class="example.output" id="l914_excitations">
+<module cmlx:templateRef="l914_excitations" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <module cmlx:lineCount="5" cmlx:templateRef="l914_excitations1">
+    <list cmlx:templateRef="l914_excit1">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:tddft_enumber">1</scalar>
+        <scalar dataType="xsd:string" dictRef="g:tddft_ttype">Singlet-A</scalar>
+        <scalar dataType="xsd:double" dictRef="g:tddft_eenergy">3.3467</scalar>
+        <scalar dataType="xsd:double" dictRef="g:tddft_wavelength">370.46</scalar>
+        <scalar dataType="xsd:double" dictRef="g:tddft_oscillator_strength">0.5317</scalar>
+        <scalar dataType="xsd:double" dictRef="g:tddft_s2">0.0</scalar>
+      </list>
+    </list>
+    <list cmlx:templateRef="l914_excit2">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:tddft_orbitalstart">75</scalar>
+        <scalar dataType="xsd:integer" dictRef="g:tddft_orbitalend">76</scalar>
+        <scalar dataType="xsd:double" dictRef="g:tddft_unknown">0.6979</scalar>
+      </list>
+    </list>
+    <list cmlx:templateRef="l914_junk2">
+      <scalar dataType="xsd:string" dictRef="g:junk">/or second-order correction.</scalar>
+    </list>
+    <list cmlx:templateRef="l914_excit3">
+      <scalar dataType="xsd:double" dictRef="g:tddft_totale">-974.346712524</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="3" cmlx:templateRef="l914_excitations1">
+    <list cmlx:templateRef="l914_excit1">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:tddft_enumber">2</scalar>
+        <scalar dataType="xsd:string" dictRef="g:tddft_ttype">Singlet-A</scalar>
+        <scalar dataType="xsd:double" dictRef="g:tddft_eenergy">3.8907</scalar>
+        <scalar dataType="xsd:double" dictRef="g:tddft_wavelength">318.67</scalar>
+        <scalar dataType="xsd:double" dictRef="g:tddft_oscillator_strength">0.0065</scalar>
+        <scalar dataType="xsd:double" dictRef="g:tddft_s2">0.0</scalar>
+      </list>
+    </list>
+  </module>
+  <module cmlx:lineCount="5" cmlx:templateRef="l914_excitations1">
+    <list cmlx:templateRef="l914_excit1">
+      <list>
+        <scalar dataType="xsd:integer" dictRef="g:tddft_enumber">3</scalar>
+        <scalar dataType="xsd:string" dictRef="g:tddft_ttype">Singlet-A</scalar>
+        <scalar dataType="xsd:double" dictRef="g:tddft_eenergy">4.2803</scalar>
+        <scalar dataType="xsd:double" dictRef="g:tddft_wavelength">289.66</scalar>
+        <scalar dataType="xsd:double" dictRef="g:tddft_oscillator_strength">0.0019</scalar>
+        <scalar dataType="xsd:double" dictRef="g:tddft_s2">0.0</scalar>
+      </list>
+    </list>
+  </module>
+</module>
+</comment>
+</template>
