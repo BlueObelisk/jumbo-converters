@@ -43,19 +43,48 @@ public class GaussianLog2CompchemConverter extends AbstractConverter {
 
     public static void main(String[] args) throws IOException {
         if (args.length == 1) {
-            GaussianLog2CompchemConverter converter = new GaussianLog2CompchemConverter();
-//            converter.runTests(args[0]);
+            
+            File logFile = new File(args[0]);
+            if (! logFile.exists()) {
+                throw new RuntimeException("Cannot find file: " + logFile.getAbsolutePath() +"!\n");
+            }
+            String cmlFilename = getCmlFilenameFromLogFilename(args[0]);
+            File cmlFile = new File(cmlFilename);
+
+            System.out.println("Converting: " + logFile.getAbsolutePath()
+                    + "\n to \n" + cmlFile.getAbsolutePath());
+            
+            try {
+                    GaussianLog2CompchemConverter converter = new GaussianLog2CompchemConverter();
+                    converter.convert(logFile, cmlFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println("Cannot read/convert "
+                        + logFile.getAbsolutePath() + "; " + e);
+            }
         } else if (args.length == 2) {
         } else {
             AbstractConverter converter = new GaussianLog2CompchemConverter();
-//            convertFile(converter, "jobTest");
-//            convertFile(converter, "anna0");
-			for (int i = 1; i <= 4; i++) {
-				convertFile(converter, "anna"+i);
-			}
+            // convertFile(converter, "jobTest");
+            // convertFile(converter, "anna0");
+            for (int i = 1; i <= 4; i++) {
+                convertFile(converter, "anna" + i);
+            }
         }
     }
 
+    private static String getCmlFilenameFromLogFilename(String logfileName) {
+        String cmlExt = "cml";
+        int mid = logfileName.lastIndexOf(".");
+        String cmlFileName;
+        if (mid > 0) {
+            cmlFileName = logfileName.substring(0, mid) + "."+ cmlExt;
+        } else {
+            cmlFileName = logfileName + "." + cmlExt;
+        }
+        return cmlFileName;
+    }
+    
 	private static void convertFile(AbstractConverter converter, String fileRoot) {
 		File out;
 		File in = null;
