@@ -114,7 +114,7 @@ public class TemplateTest {
 
 	@Test	public void testl801Zeropoint()              {runTemplateTest("l801");}
 
-	@Test	public void testl914()                       {runTemplateTest("l914");}
+	@Ignore @Test	public void testl914()                       {runTemplateTest("l914");}
 	@Test	public void testl914Excitations()            {runTemplateTest("l914/l914_excitations");}
 
 	@Test	public void testl9999Final()                 {runTemplateTest("l9999/", "l9999.final");}
