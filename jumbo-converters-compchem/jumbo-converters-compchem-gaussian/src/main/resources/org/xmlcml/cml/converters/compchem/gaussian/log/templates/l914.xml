@@ -2,6 +2,7 @@
     repeat="*"
     pattern="\s*RHF ground state\s*" 
     endPattern="\s*SavETr:.*write IOETrn=.*"
+    offset="0"
     endOffset="1"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     >
@@ -9,7 +10,7 @@
 <!-- NB what if is not RHF? catch UHF... etc.? -->
 
   <comment class="example.input" id="l914">
-(Enter /usr/local/gaussian/g09/l914.exe)
+ (Enter /usr/local/gaussian/g09/l914.exe)
  RHF ground state
  MDV=   536870912 DFT=T DoStab=F Mixed=T DoRPA=T DoScal=F NonHer=T
  Would need an additional 18585800000 words for in-memory AO integral storage.
@@ -276,18 +277,95 @@
       75 -> 77        -0.13245
  SavETr:  write IOETrn=   770 NScale= 10 NData=  16 NLR=1 LETran=      64.
  Leave Link  914 at Mon Jan 16 08:08:48 2012, MaxMem=  536870912 cpu:   18235.8
+ 
+ 
   </comment>
 
 <templateList>
     <xi:include href="l914/l914_excitations.xml"/> 
 </templateList>
-<!--  <record repeat="*" id="l914">{X,g:l914}</record>
- -->
- <!--    <record repeat="*" id="l914"/>
- --> 
+
   <comment class="example.output" id="l914">
-  <module cmlx:templateRef="l914" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"/>
- </comment>
+<module cmlx:templateRef="l914" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"> (Enter /usr/local/gaussian/g09/l914.exe) RHF ground state MDV= 536870912 DFT=T DoStab=F Mixed=T DoRPA=T DoScal=F NonHer=T Would need an additional 18585800000 words for in-memory AO integral storage. Making orbital integer symmetry assigments: Orbital symmetries: Occupied (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) Virtual (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) 12 initial guesses have been made. Convergence on wavefunction: 0.001000000000000 Davidson Disk Diagonalization: ConvIn= 1.00D-03 SkipCon=T Conv= 1.00D-03. Max sub-space: 200 roots to seek: 12 dimension of matrix: 42660 Iteration 1 Dimension 12 NMult 12 Cannot handle 2e integral symmetry, ISym2E=1. CISAX: IP= 1 NPass= 1 NMax= 12. CISAX will form 12 AO SS matrices at one time. NMat= 12 NSing= 12. Symmetry not used in FoFDir. MinBra= 0 MaxBra= 2 Meth= 1. IRaf= 0 NMat= 12 IRICut= 30 DoRegI=T DoRafI=T ISym2E= 0 JSym2E=0. Cannot handle 2e integral symmetry, ISym2E=1. CISAX: IP= 1 NPass= 1 NMax= 12. CISAX will form 12 AO SS matrices at one time. NMat= 12 NSing= 12. Excitation Energies [eV] at current iteration: Root 1 : 3.967707646897748 Root 2 : 4.238515012560257 Root 3 : 4.378216245803176 Iteration 2 Dimension 18 NMult 18 Cannot handle 2e integral symmetry, ISym2E=1. CISAX: IP= 1 NPass= 1 NMax= 6. CISAX will form 6 AO SS matrices at one time. NMat= 6 NSing= 6. Cannot handle 2e integral symmetry, ISym2E=1. CISAX: IP= 1 NPass= 1 NMax= 6. CISAX will form 6 AO SS matrices at one time. NMat= 6 NSing= 6. Root 1 not converged, maximum delta is 0.167222864295480 Root 2 not converged, maximum delta is 0.164208266403828 Root 3 not converged, maximum delta is 0.044998999005832 Excitation Energies [eV] at current iteration: Root 1 : 3.413637705892117 Change is -0.554069941005632 Root 2 : 3.919208713614791 Change is -0.319306298945466 Root 3 : 4.293482790068234 Change is -0.084733455734942 Iteration 3 Dimension 24 NMult 24 Cannot handle 2e integral symmetry, ISym2E=1. CISAX: IP= 1 NPass= 1 NMax= 6. CISAX will form 6 AO SS matrices at one time. NMat= 6 NSing= 6. Cannot handle 2e integral symmetry, ISym2E=1. CISAX: IP= 1 NPass= 1 NMax= 6. CISAX will form 6 AO SS matrices at one time. NMat= 6 NSing= 6. Root 1 not converged, maximum delta is 0.019347573457946 Root 2 not converged, maximum delta is 0.036617041797457 Root 3 not converged, maximum delta is 0.026242798639169 Excitation Energies [eV] at current iteration: Root 1 : 3.355788285778300 Change is -0.057849420113817 Root 2 : 3.895472092712217 Change is -0.023736620902573 Root 3 : 4.282703397660652 Change is -0.010779392407583 Iteration 4 Dimension 30 NMult 30 Cannot handle 2e integral symmetry, ISym2E=1. CISAX: IP= 1 NPass= 1 NMax= 6. CISAX will form 6 AO SS matrices at one time. NMat= 6 NSing= 6. Cannot handle 2e integral symmetry, ISym2E=1. CISAX: IP= 1 NPass= 1 NMax= 6. CISAX will form 6 AO SS matrices at one time. NMat= 6 NSing= 6. Root 1 not converged, maximum delta is 0.009618219317635 Root 2 not converged, maximum delta is 0.019860084579139 Root 3 not converged, maximum delta is 0.011133681274320 Excitation Energies [eV] at current iteration: Root 1 : 3.347706742456209 Change is -0.008081543322092 Root 2 : 3.891222852131049 Change is -0.004249240581168 Root 3 : 4.280697578288718 Change is -0.002005819371933 Iteration 5 Dimension 36 NMult 36 Cannot handle 2e integral symmetry, ISym2E=1. CISAX: IP= 1 NPass= 1 NMax= 6. CISAX will form 6 AO SS matrices at one time. NMat= 6 NSing= 6. Cannot handle 2e integral symmetry, ISym2E=1. CISAX: IP= 1 NPass= 1 NMax= 6. CISAX will form 6 AO SS matrices at one time. NMat= 6 NSing= 6. Root 1 not converged, maximum delta is 0.001516373275732 Root 2 not converged, maximum delta is 0.002257556704199 Root 3 not converged, maximum delta is 0.006964315269212 Excitation Energies [eV] at current iteration: Root 1 : 3.346815255757697 Change is -0.000891486698511 Root 2 : 3.890791146585966 Change is -0.000431705545083 Root 3 : 4.280393495815495 Change is -0.000304082473223 Iteration 6 Dimension 42 NMult 42 Cannot handle 2e integral symmetry, ISym2E=1. CISAX: IP= 1 NPass= 1 NMax= 6. CISAX will form 6 AO SS matrices at one time. NMat= 6 NSing= 6. Cannot handle 2e integral symmetry, ISym2E=1. CISAX: IP= 1 NPass= 1 NMax= 6. CISAX will form 6 AO SS matrices at one time. NMat= 6 NSing= 6. Root 1 has converged. Root 2 has converged. Root 3 not converged, maximum delta is 0.005536396876360 Excitation Energies [eV] at current iteration: Root 1 : 3.346738920773071 Change is -0.000076334984626 Root 2 : 3.890709781814344 Change is -0.000081364771622 Root 3 : 4.280339275361060 Change is -0.000054220454435 Iteration 7 Dimension 44 NMult 44 Cannot handle 2e integral symmetry, ISym2E=1. CISAX: IP= 1 NPass= 1 NMax= 2. CISAX will form 2 AO SS matrices at one time. NMat= 2 NSing= 2. Cannot handle 2e integral symmetry, ISym2E=1. CISAX: IP= 1 NPass= 1 NMax= 2. CISAX will form 2 AO SS matrices at one time. NMat= 2 NSing= 2. Root 1 has converged. Root 2 has converged. Root 3 not converged, maximum delta is 0.004291175620302 Excitation Energies [eV] at current iteration: Root 1 : 3.346738909066853 Change is -0.000000011706218 Root 2 : 3.890709477530946 Change is -0.000000304283398 Root 3 : 4.280325064377926 Change is -0.000014210983135 Iteration 8 Dimension 46 NMult 46 Cannot handle 2e integral symmetry, ISym2E=1. CISAX: IP= 1 NPass= 1 NMax= 2. CISAX will form 2 AO SS matrices at one time. NMat= 2 NSing= 2. Cannot handle 2e integral symmetry, ISym2E=1. CISAX: IP= 1 NPass= 1 NMax= 2. CISAX will form 2 AO SS matrices at one time. NMat= 2 NSing= 2. Root 1 has converged. Root 2 has converged. Root 3 not converged, maximum delta is 0.002348422239935 Excitation Energies [eV] at current iteration: Root 1 : 3.346738864695234 Change is -0.000000044371619 Root 2 : 3.890709339425054 Change is -0.000000138105892 Root 3 : 4.280320909403391 Change is -0.000004154974534 Convergence on energies, max DE= 4.15D-06. Convergence on expansion vectors. *********************************************************************** Excited states from &lt;AA,BB:AA,BB&gt; singles matrix: *********************************************************************** 1PDM for each excited state written to RWF 633 Ground to excited state transition electric dipole moments (Au): state X Y Z Dip. S. Osc. 1 -2.5440 -0.1110 -0.0045 6.4842 0.5317 2 -0.2619 0.0057 0.0078 0.0687 0.0065 3 0.0702 0.1133 0.0174 0.0181 0.0019 Ground to excited state transition velocity dipole moments (Au): state X Y Z Dip. S. Osc. 1 0.3024 0.0141 0.0011 0.0916 0.4967 2 0.0403 -0.0034 -0.0010 0.0016 0.0076 3 -0.0074 -0.0157 0.0000 0.0003 0.0013 Ground to excited state transition magnetic dipole moments (Au): state X Y Z 1 0.0071 -0.0753 1.0611 2 0.0021 -0.0568 0.6312 3 -0.2717 -0.3094 -0.2263 &lt;0|del|b&gt; * &lt;b|rxdel|0&gt; + &lt;0|del|b&gt; * &lt;b|delr+rdel|0&gt; Rotatory Strengths (R) in cgs (10**-40 erg-esu-cm/Gauss) state XX YY ZZ R(velocity) 1 -1.7035 22.8012 -8.3680 4.2432 Total R(velocity) tensor for State= 1 1 2 3 1 -0.170347D+01 0.108435D+03 -0.946500D+03 2 -0.131594D+01 0.228012D+02 0.701353D+02 3 0.348190D+00 -0.680828D+01 -0.836804D+01 R(velocity) tensor in inp. orien. for State= 1 1 2 3 1 -0.111009D+03 -0.252408D+02 -0.605846D+03 2 -0.157745D+03 0.203395D+01 -0.702197D+03 3 0.147234D+02 0.132220D+02 0.121705D+03 2 -0.9991 -1.7423 1.0125 -0.5763 Total R(velocity) tensor for State= 2 1 2 3 1 -0.999078D+00 0.786760D+01 -0.673433D+02 2 -0.110031D+00 -0.174227D+01 0.154399D+01 3 -0.887040D-01 -0.133696D+01 0.101251D+01 R(velocity) tensor in inp. orien. for State= 2 1 2 3 1 -0.104454D+02 -0.461560D+00 -0.442189D+02 2 -0.930365D+01 -0.221473D+01 -0.482401D+02 3 0.169599D+01 0.839114D+00 0.109313D+02 3 9.7239 4.4278 16.6090 10.2536 Total R(velocity) tensor for State= 3 1 2 3 1 0.972387D+01 -0.456769D+01 0.388279D+01 2 -0.945136D+01 0.442782D+01 -0.941070D+01 3 0.710904D-01 0.150839D-02 0.166090D+02 R(velocity) tensor in inp. orien. for State= 3 1 2 3 1 0.441376D+00 0.389490D+00 0.935907D+00 2 0.742169D+01 0.135028D+02 0.743821D+01 3 0.519912D+01 -0.265170D+00 0.168165D+02 1/2[&lt;0|r|b&gt;*&lt;b|rxdel|0&gt; + (&lt;0|rxdel|b&gt;*&lt;b|r|0&gt;)*] Rotatory Strengths (R) in cgs (10**-40 erg-esu-cm/Gauss) state XX YY ZZ R(length) R(au) 1 12.7139 -5.9100 3.4107 3.4048 0.0072 2 0.3953 0.2292 -3.4869 -0.9541 -0.0020 3 13.4844 24.7906 2.7777 13.6843 0.0290 1/2[&lt;0|del|b&gt;*&lt;b|r|0&gt; + (&lt;0|r|b&gt;*&lt;b|del|0&gt;)*] (Au) state X Y Z Dip. S. Osc.(frdel) 1 -0.7693 -0.0016 0.0000 0.7708 0.5139 2 -0.0106 0.0000 0.0000 0.0106 0.0071 3 -0.0005 -0.0018 0.0000 0.0023 0.0015 Ground to excited state transition densities written to RWF 633 
+  <module cmlx:lineCount="18" cmlx:templateRef="l914_excitations"> Excitation energies and oscillator strengths: 
+    <module cmlx:lineCount="6" cmlx:templateRef="l914_excitations1">
+      <list cmlx:templateRef="l914_excit1">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="g:tddft_enumber">1</scalar>
+          <scalar dataType="xsd:string" dictRef="g:tddft_ttype">Singlet-A</scalar>
+          <scalar dataType="xsd:double" dictRef="g:tddft_eenergy">3.3467</scalar>
+          <scalar dataType="xsd:double" dictRef="g:tddft_wavelength">370.46</scalar>
+          <scalar dataType="xsd:double" dictRef="g:tddft_oscillator_strength">0.5317</scalar>
+          <scalar dataType="xsd:double" dictRef="g:tddft_s2">0.0</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="l914_excit2">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="g:tddft_orbitalstart">75</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:tddft_orbitalend">76</scalar>
+          <scalar dataType="xsd:double" dictRef="g:tddft_unknown">0.6979</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="l914_tote">
+        <scalar dataType="xsd:double" dictRef="g:tddft_totale">-974.346712524</scalar>
+      </list>
+    </module>
+    <module cmlx:lineCount="4" cmlx:templateRef="l914_excitations1">
+      <list cmlx:templateRef="l914_excit1">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="g:tddft_enumber">2</scalar>
+          <scalar dataType="xsd:string" dictRef="g:tddft_ttype">Singlet-A</scalar>
+          <scalar dataType="xsd:double" dictRef="g:tddft_eenergy">3.8907</scalar>
+          <scalar dataType="xsd:double" dictRef="g:tddft_wavelength">318.67</scalar>
+          <scalar dataType="xsd:double" dictRef="g:tddft_oscillator_strength">0.0065</scalar>
+          <scalar dataType="xsd:double" dictRef="g:tddft_s2">0.0</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="l914_excit2">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="g:tddft_orbitalstart">74</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:tddft_orbitalend">76</scalar>
+          <scalar dataType="xsd:double" dictRef="g:tddft_unknown">0.66892</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:integer" dictRef="g:tddft_orbitalstart">75</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:tddft_orbitalend">77</scalar>
+          <scalar dataType="xsd:double" dictRef="g:tddft_unknown">0.20436</scalar>
+        </list>
+      </list>
+    </module>
+    <module cmlx:lineCount="5" cmlx:templateRef="l914_excitations1">
+      <list cmlx:templateRef="l914_excit1">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="g:tddft_enumber">3</scalar>
+          <scalar dataType="xsd:string" dictRef="g:tddft_ttype">Singlet-A</scalar>
+          <scalar dataType="xsd:double" dictRef="g:tddft_eenergy">4.2803</scalar>
+          <scalar dataType="xsd:double" dictRef="g:tddft_wavelength">289.66</scalar>
+          <scalar dataType="xsd:double" dictRef="g:tddft_oscillator_strength">0.0019</scalar>
+          <scalar dataType="xsd:double" dictRef="g:tddft_s2">0.0</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="l914_excit2">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="g:tddft_orbitalstart">72</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:tddft_orbitalend">76</scalar>
+          <scalar dataType="xsd:double" dictRef="g:tddft_unknown">-0.25494</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:integer" dictRef="g:tddft_orbitalstart">73</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:tddft_orbitalend">76</scalar>
+          <scalar dataType="xsd:double" dictRef="g:tddft_unknown">0.63171</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:integer" dictRef="g:tddft_orbitalstart">75</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:tddft_orbitalend">77</scalar>
+          <scalar dataType="xsd:double" dictRef="g:tddft_unknown">-0.13245</scalar>
+        </list>
+      </list>
+    </module> Leave Link 914 at Mon Jan 16 08:08:48 2012, MaxMem= 536870912 cpu: 18235.8 
+  </module>
+</module>
+</comment>
  
 </template>
  
