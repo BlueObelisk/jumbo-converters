@@ -1,6 +1,8 @@
 <template repeat="*"  id="basis" name="Basis" 
-  pattern="\s*Basis\s*.*$\s+\-+.*" newline="$" endPattern="\s*$\s*$\s*"
-  endOffset="0"
+  pattern="\s*Basis\s*.*$\s+\-+.*"
+  newline="$"
+  endPattern="\s*$\s*$\s*"
+  endOffset="2"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   >
   <comment class="example.input" id="basis">
@@ -97,130 +99,126 @@
 
   </comment>
   
-  <record id="basis.title">\s*Basis\s*{X,n:basis.title}</record>
+  <record id="basis.title">\s*Basis "{X,n:basis_type}" -> "{X,n:basis_label}" \({A,n:harmonic_type}\)\s*</record>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
   <record/>
-  <templateList>
-    <!--  these atoms are terminated by the next atom -->
-     <xi:include href="atombasis.xml"/>
-     <xi:include href="atombasisend1.xml"/>
+
+<templateList>
+     <xi:include href="basis.shell.xml"/>
   </templateList>
   
-  <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='shell']"/>
-  <transform process="pullup" xpath=".//cml:list[@cmlx:templateRef='atom']/cml:list/*"/>
-  <transform process="pullup" xpath=".//cml:scalar[@dictRef='n:basis.title']"/>
-  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='basis.shell' and count(*)=0]"/>
-  <transform process="pullup" xpath=".//*[@cmlx:templateRef='atom']/cml:scalar"/>
-  <transform process="pullup" xpath=".//cml:list[@cmlx:templateRef='row']"/>
-  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='shell' and count(*)=0]"/>
+<!-- Add harmonic type determined from basis.title to all contractions -->  
+<transform process="addAttribute" 
+xpath=".//cml:module[@cmlx:templateRef='contractions']"
+name="harmonicType" 
+value="$string(../cml:list[@cmlx:templateRef='basis.title']/cml:scalar[@dictRef='n:harmonic_type'])"
+/>
+
   
   <comment class="example.output" id="basis">
-<module cmlx:templateRef="basis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <scalar dataType="xsd:string" dictRef="n:basis.title">"ao basis" -&gt; "" (cartesian)</scalar>
-  <module cmlx:lineCount="16" cmlx:templateRef="atombasis">
-    <scalar dataType="xsd:string" dictRef="n:tag">o</scalar>
-    <scalar dataType="xsd:string" dictRef="n:elementName">Oxygen</scalar>
-    <list cmlx:templateRef="row">
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">5222.9022</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.001936</scalar>
+    <module cmlx:templateRef="basis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="basis.title">
+        <scalar dataType="xsd:string" dictRef="n:basis_type">ao basis</scalar>
+        <scalar dataType="xsd:string" dictRef="n:basis_label"/>
+        <scalar dataType="xsd:string" dictRef="n:harmonic_type">cartesian</scalar>
       </list>
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">782.53994</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.014851</scalar>
-      </list>
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">177.26743</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.073319</scalar>
-      </list>
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">49.516688</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.245116</scalar>
-      </list>
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">15.66644</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.480285</scalar>
-      </list>
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">5.1793599</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.335943</scalar>
-      </list>
-    </list>
-    <list cmlx:templateRef="row">
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">2</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">10.601441</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">0.078806</scalar>
-      </list>
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">2</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">0.942317</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">-0.567695</scalar>
-      </list>
-    </list>
-    <list cmlx:templateRef="row">
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">3</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">0.2774746</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">1.0</scalar>
-      </list>
-    </list>
-  </module>
-  <module cmlx:lineCount="14" cmlx:templateRef="atombasisend">
-    <scalar dataType="xsd:string" dictRef="n:tag">h</scalar>
-    <scalar dataType="xsd:string" dictRef="n:elementName">Hydrogen</scalar>
-    <list cmlx:templateRef="row">
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">33.865</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">0.025494</scalar>
-      </list>
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">5.09479</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">0.190373</scalar>
-      </list>
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">1</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">1.15879</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">0.852161</scalar>
-      </list>
-    </list>
-    <list cmlx:templateRef="row">
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">2</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">0.32584</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">1.0</scalar>
-      </list>
-    </list>
-    <list cmlx:templateRef="row">
-      <list>
-        <scalar dataType="xsd:integer" dictRef="cc:basis.shellnum">3</scalar>
-        <scalar dataType="xsd:string" dictRef="cc:shellsym">S</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.exponent">0.102741</scalar>
-        <scalar dataType="xsd:double" dictRef="cc:basis.coefficient">1.0</scalar>
-      </list>
-    </list>
-  </module>
-</module>
+      <module cmlx:lineCount="12" cmlx:templateRef="contractions" elementType="H" harmonicType="cartesian">
+        <module id="dc_description">Hydrogen</module>
+        <module cmlx:lineCount="3" cmlx:templateRef="contraction" shellType="S">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="3">18.731137 2.8253937 0.6401217</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="3">0.033495 0.234727 0.813757</array>
+        </module>
+        <module cmlx:lineCount="1" cmlx:templateRef="contraction" shellType="S">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="1">0.1612778</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="1">1.0</array>
+        </module>
+        <module cmlx:lineCount="1" cmlx:templateRef="contraction" shellType="P">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="1">1.1</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="1">1.0</array>
+        </module>
+      </module>
+      <module cmlx:lineCount="25" cmlx:templateRef="contractions" elementType="O" harmonicType="cartesian">
+        <module id="dc_description">Oxygen</module>
+        <module cmlx:lineCount="6" cmlx:templateRef="contraction" shellType="S">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="6">5484.6717 825.23495 188.04696 52.9645 16.89757 5.7996353</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="6">0.001831 0.01395 0.068445 0.232714 0.470193 0.358521</array>
+        </module>
+        <module cmlx:lineCount="3" cmlx:templateRef="contraction" shellType="S">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="3">15.539616 3.5999336 1.0137618</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="3">-0.110778 -0.148026 1.130767</array>
+        </module>
+        <module cmlx:lineCount="3" cmlx:templateRef="contraction" shellType="P">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="3">15.539616 3.5999336 1.0137618</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="3">0.070874 0.339753 0.727159</array>
+        </module>
+        <module cmlx:lineCount="1" cmlx:templateRef="contraction" shellType="S">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="1">0.2700058</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="1">1.0</array>
+        </module>
+        <module cmlx:lineCount="1" cmlx:templateRef="contraction" shellType="P">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="1">0.2700058</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="1">1.0</array>
+        </module>
+        <module cmlx:lineCount="1" cmlx:templateRef="contraction" shellType="D">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="1">0.8</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="1">1.0</array>
+        </module>
+      </module>
+      <module cmlx:lineCount="25" cmlx:templateRef="contractions" elementType="C" harmonicType="cartesian">
+        <module id="dc_description">Carbon</module>
+        <module cmlx:lineCount="6" cmlx:templateRef="contraction" shellType="S">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="6">3047.5249 457.36951 103.94869 29.210155 9.286663 3.163927</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="6">0.001835 0.014037 0.068843 0.232184 0.467941 0.362312</array>
+        </module>
+        <module cmlx:lineCount="3" cmlx:templateRef="contraction" shellType="S">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="3">7.8682724 1.8812885 0.5442493</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="3">-0.119332 -0.160854 1.143456</array>
+        </module>
+        <module cmlx:lineCount="3" cmlx:templateRef="contraction" shellType="P">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="3">7.8682724 1.8812885 0.5442493</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="3">0.068999 0.316424 0.744308</array>
+        </module>
+        <module cmlx:lineCount="1" cmlx:templateRef="contraction" shellType="S">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="1">0.1687144</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="1">1.0</array>
+        </module>
+        <module cmlx:lineCount="1" cmlx:templateRef="contraction" shellType="P">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="1">0.1687144</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="1">1.0</array>
+        </module>
+        <module cmlx:lineCount="1" cmlx:templateRef="contraction" shellType="D">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="1">0.8</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="1">1.0</array>
+        </module>
+      </module>
+      <module cmlx:lineCount="25" cmlx:templateRef="contractions" elementType="N" harmonicType="cartesian">
+        <module id="dc_description">Nitrogen</module>
+        <module cmlx:lineCount="6" cmlx:templateRef="contraction" shellType="S">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="6">4173.511 627.4579 142.9021 40.23433 12.82021 4.390437</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="6">0.001835 0.013995 0.068587 0.232241 0.46907 0.360455</array>
+        </module>
+        <module cmlx:lineCount="3" cmlx:templateRef="contraction" shellType="S">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="3">11.626358 2.71628 0.772218</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="3">-0.114961 -0.169118 1.145852</array>
+        </module>
+        <module cmlx:lineCount="3" cmlx:templateRef="contraction" shellType="P">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="3">11.626358 2.71628 0.772218</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="3">0.06758 0.323907 0.740895</array>
+        </module>
+        <module cmlx:lineCount="1" cmlx:templateRef="contraction" shellType="S">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="1">0.2120313</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="1">1.0</array>
+        </module>
+        <module cmlx:lineCount="1" cmlx:templateRef="contraction" shellType="P">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="1">0.2120313</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="1">1.0</array>
+        </module>
+        <module cmlx:lineCount="1" cmlx:templateRef="contraction" shellType="D">
+          <array dataType="xsd:double" dictRef="n:basis_exponent" size="1">0.8</array>
+          <array dataType="xsd:double" dictRef="n:basis_coefficient" size="1">1.0</array>
+        </module>
+      </module>
+    </module>
   </comment>
 
 </template>
