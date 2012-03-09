@@ -11,22 +11,44 @@
  fe                    DZVP (DFT Orbital)           10       26   5s3p2d
 
 </comment>
-  <record id="basis">\s*Summary of\s*{X,compchem:basistitle}</record>
-  <record id="r1" repeat="3"/>
-  <record id="orbs" repeat="*" makeArray="true">\s*{A,n:tag}\s+{X,n:desc}\s+{I,n:shell}\s+{I,n:func}\s+{A,n:type}\s*</record>
+
+  <record id="basis_summary">\s*Summary of "{X,n:basis_type}" -> "{X,n:basis_label}" \({A,n:harmonic_type}\)\s*</record>
+  <record id="junk" repeat="3"/>
+  <record id="basis_contractions" repeat="*" >\s*{A,compchem:atom_tag}\s+{X,n:basisset_title}\s+{I,n:nbshell}\s+{I,n:nbfunc}\s+{A,n:btype}\s*</record>
   <transform process="pullupSingleton" xpath="./cml:list"/>
   
+  
   <comment class="example.output" id="summarybasis">
-<module cmlx:templateRef="summarybasis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <scalar dataType="xsd:string" dictRef="compchem:basistitle" cmlx:templateRef="basis">"ao basis" -&gt; "" (cartesian)</scalar>
-  <list cmlx:lineCount="3" cmlx:templateRef="orbs">
-    <array dataType="xsd:string" dictRef="n:tag" size="3">o c fe</array>
-    <array dataType="xsd:string" dictRef="n:desc"/>
-    <array dataType="xsd:integer" dictRef="n:shell" size="3">6 6 10</array>
-    <array dataType="xsd:integer" dictRef="n:func" size="3">15 15 26</array>
-    <array dataType="xsd:string" dictRef="n:type" size="3">3s2p1d 3s2p1d 5s3p2d</array>
-  </list>
-</module>
+    <module cmlx:templateRef="summarybasis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="basis_summary">
+        <scalar dataType="xsd:string" dictRef="n:basis_type">ao basis</scalar>
+        <scalar dataType="xsd:string" dictRef="n:basis_label"/>
+        <scalar dataType="xsd:string" dictRef="n:harmonic_type">cartesian</scalar>
+      </list>
+      <list cmlx:templateRef="basis_contractions">
+        <list>
+          <scalar dataType="xsd:string" dictRef="compchem:atom_tag">o</scalar>
+          <scalar dataType="xsd:string" dictRef="n:basis_title">DZVP (DFT Orbital)</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:nbshell">6</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:nbfunc">15</scalar>
+          <scalar dataType="xsd:string" dictRef="n:btype">3s2p1d</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="compchem:atom_tag">c</scalar>
+          <scalar dataType="xsd:string" dictRef="n:basis_title">DZVP (DFT Orbital)</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:nbshell">6</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:nbfunc">15</scalar>
+          <scalar dataType="xsd:string" dictRef="n:btype">3s2p1d</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="compchem:atom_tag">fe</scalar>
+          <scalar dataType="xsd:string" dictRef="n:basis_title">DZVP (DFT Orbital)</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:nbshell">10</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:nbfunc">26</scalar>
+          <scalar dataType="xsd:string" dictRef="n:btype">5s3p2d</scalar>
+        </list>
+      </list>
+    </module>
     </comment>
 
 </template>
