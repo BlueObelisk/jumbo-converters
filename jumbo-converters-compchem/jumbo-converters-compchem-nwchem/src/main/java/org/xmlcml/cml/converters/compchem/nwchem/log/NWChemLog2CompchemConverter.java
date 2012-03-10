@@ -51,7 +51,7 @@ public class NWChemLog2CompchemConverter extends AbstractConverter {
         } else {
             AbstractConverter converter = new NWChemLog2CompchemConverter();
 //            convertFile(converter, "fukuilite");
-            convertFile(converter, "bench_opt");
+            convertFile(converter, "methanol");
 //			for (int i = 1; i < 4; i++) {
 ////		convertFile(converter, "anna"+i);
 //			}
@@ -78,12 +78,14 @@ public class NWChemLog2CompchemConverter extends AbstractConverter {
 	
 	@Override
 	public String getRegistryOutputType() {
-		return CMLCommon.CML;
+                //jmht
+		//return CMLCommon.CML;
+		return NWChemCommon.LOG_CML;
 	}
 	
 	@Override
 	public String getRegistryMessage() {
-		return "Convert NWChem log files to compchem";
+		return "Convert NWChem log files to compchem CML";
 	}
 
 }

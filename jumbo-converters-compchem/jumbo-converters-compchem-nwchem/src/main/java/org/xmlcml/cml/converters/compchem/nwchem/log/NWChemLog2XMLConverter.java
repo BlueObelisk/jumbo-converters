@@ -101,7 +101,7 @@ public class NWChemLog2XMLConverter extends CompchemText2XMLTemplateConverter {
 	
 	@Override
 	public String getRegistryMessage() {
-		return "Convert NWChem log files to compchem";
+		return "Convert NWChem log files to raw compchem XML";
 	}
 
 }
