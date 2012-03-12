@@ -107,6 +107,19 @@
      <xi:include href="basis.shell.xml"/>
   </templateList>
   
+  <!--  Move contraction modules to lists -->
+  <transform process="addSibling"
+  xpath="./cml:module[@cmlx:templateRef='contractions']"
+  elementName="cml:list"
+  id="foo"
+  position="0"
+  />
+  
+  
+  <!-- dictRef="compchem:basis_set_contractions" -->
+  
+  <transform process="debugNodes" xpath=".//cml:list[@dictRef='compchem:basis_set_contractions']"/>
+  
 <!-- Add harmonic type determined from basis.title to all contractions -->  
 <transform process="addAttribute" 
 xpath=".//cml:module[@cmlx:templateRef='contractions']"
