@@ -1,4 +1,4 @@
 /** 
-Common (often base) class for all compchem modules
+TBD
 */
 package org.xmlcml.cml.converters.compchem;

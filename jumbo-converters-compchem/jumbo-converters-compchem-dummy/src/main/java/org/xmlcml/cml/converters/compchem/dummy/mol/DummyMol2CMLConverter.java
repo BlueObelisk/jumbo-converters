@@ -6,8 +6,8 @@ import java.util.List;
 import nu.xom.Element;
 
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.Type;
-import org.xmlcml.cml.converters.cml.CMLCommon;
 import org.xmlcml.cml.converters.compchem.dummy.DummyCommon;
 import org.xmlcml.cml.element.CMLCml;
 

@@ -1,7 +1,6 @@
 package org.xmlcml.cml.converters;
 
 import java.io.File;
-
 import java.util.List;
 
 import nu.xom.Element;
@@ -11,9 +10,6 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
 
 /**
- * a base-level class for converters providing aggregation
- * Aggregator uses XPath to identify documents and parts of documents (i.e. search and index)
- * 
  * 
  * @author dfh24
  *
@@ -24,7 +20,6 @@ public abstract class AbstractAggregator extends AbstractConverter implements Ag
 	static {
 		LOG.setLevel(Level.INFO);
 	}
-	
 	/**
 	 * 
 	 */
@@ -76,7 +71,7 @@ public abstract class AbstractAggregator extends AbstractConverter implements Ag
 	}
 	
 	/**
-	 * <em>Currently always return <code>null</code></em> 
+	 * <em>Currntly always return <code>null</code></em> 
 	 * 
 	 * @return <code>null</code>
 	 */

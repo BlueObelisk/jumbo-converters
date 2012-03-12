@@ -6,6 +6,7 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
+import org.xmlcml.cml.converters.compchem.gaussian.GaussianLink;
 import org.xmlcml.cml.element.CMLMatrix;
 import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLProperty;

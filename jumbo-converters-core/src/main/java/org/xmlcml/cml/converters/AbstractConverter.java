@@ -1,7 +1,6 @@
 package org.xmlcml.cml.converters;
 
 import java.io.BufferedReader;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -64,9 +63,9 @@ public abstract class AbstractConverter implements Converter {
 
    /** auxiliary file as XML */
    protected Element auxElement;
+   protected Command command;
    // change if you need faithful whitespace
    protected int indent = 2;
-   private String auxFileName;
 
    public int getIndent() {
 	   return indent;
@@ -80,6 +79,14 @@ public abstract class AbstractConverter implements Converter {
     */
    public void setIndent(int indent) {
 	   this.indent = indent;
+   }
+
+   public Command getCommand() {
+      return command;
+   }
+
+   public void setCommand(Command c) {
+      command = c;
    }
 
 	/**
@@ -901,8 +908,9 @@ public abstract class AbstractConverter implements Converter {
     */
    public Element getAuxElement() {
       auxElement = null;
-      if (getAuxFileName() != null) {
-         File auxFile = new File(getAuxFileName());
+      String auxFileName = getCommand().getAuxfileName();
+      if (auxFileName != null) {
+         File auxFile = new File(auxFileName);
          if (!auxFile.exists()) {
             throw new RuntimeException("Cannot find auxiliary file: " + auxFile.
                     getAbsolutePath());
@@ -912,7 +920,7 @@ public abstract class AbstractConverter implements Converter {
                     getRootElement();
          } catch (Exception e) {
             throw new RuntimeException(
-                    "Cannot read auxiliary file: " + getAuxFileName(), e);
+                    "Cannot read auxiliary file: " + auxFileName, e);
          }
       }
       return auxElement;
@@ -952,14 +960,6 @@ public abstract class AbstractConverter implements Converter {
    public String getRegistryMessage() {
 	   return "override RegistryFoo in: "+this.getClass().getName();
    }
-
-public String getAuxFileName() {
-	return auxFileName;
-}
-
-public void setAuxFileName(String auxFileName) {
-	this.auxFileName = auxFileName;
-}
 }
 
 class DTDProblem {

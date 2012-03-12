@@ -8,8 +8,8 @@ import nu.xom.Element;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.Type;
-import org.xmlcml.cml.converters.cml.CMLCommon;
 import org.xmlcml.cml.converters.compchem.dlpoly.DLPolyCommon;
 import org.xmlcml.cml.element.CMLCml;
 
