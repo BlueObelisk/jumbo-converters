@@ -8,17 +8,13 @@ import java.io.OutputStream;
 
 import nu.xom.Builder;
 import nu.xom.Element;
-import nu.xom.ParsingException;
-import nu.xom.ValidityException;
 
 import org.apache.log4j.Logger;
-import org.lensfield.api.LensfieldParameter;
 import org.xmlcml.cml.base.CMLBuilder;
-import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.text.Template;
 
-/** this class takes XML input (it should really be in CORE?)
+/** this class takes XML input
  * 
  * @author pm286
  *
@@ -26,8 +22,7 @@ import org.xmlcml.cml.converters.text.Template;
 public class TransformConverter extends AbstractTransformConverter {
 	private static Logger LOG = Logger.getLogger(TransformConverter.class);
 
-	@LensfieldParameter(name="transformer", optional=false)
-	private String transformer = null;
+	private JumboParameter transformer = new JumboParameter(JumboParameter.TRANSFORMER, "", true);
 
 	public TransformConverter() {
 		super();
@@ -53,7 +48,7 @@ public class TransformConverter extends AbstractTransformConverter {
 	@Override
 	public void convert(InputStream in, OutputStream out) {
 		
-		ensureStaticTemplate(transformer);
+		ensureStaticTemplate(transformer.getValue());
 		try {
 			Element inElement = new CMLBuilder().build(in).getRootElement();
 			transformTemplate.applyMarkup(inElement);

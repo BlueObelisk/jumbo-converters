@@ -13,8 +13,6 @@ import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.AbstractConverter;
-import org.xmlcml.cml.converters.Command;
-import org.xmlcml.cml.converters.Command;
 import org.xmlcml.cml.converters.MergeDiff;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.element.CMLActionList;
@@ -214,7 +212,7 @@ public class ReactionMergeDiff extends AbstractConverter implements MergeDiff {
  * @return
  */	
 	private Element diff(CMLReaction reaction1, CMLReaction reaction2) {
-		xpathList = getCommand().getXPathList();
+//		xpathList = getCommand().getXPathList();
 		String rootXpath = ".//cml:reactant";
 		compareElements(reaction1, reaction2, rootXpath, 0, 1);
 		rootXpath = ".//cml:product";

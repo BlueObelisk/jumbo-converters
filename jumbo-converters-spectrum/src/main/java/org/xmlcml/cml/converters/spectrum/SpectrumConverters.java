@@ -4,7 +4,6 @@ import java.util.Collections;
 
 import org.xmlcml.cml.converters.registry.ConverterInfo;
 import org.xmlcml.cml.converters.registry.ConverterListImpl;
-import org.xmlcml.cml.converters.spectrum.graphics.svg2cml.SVG2CMLSpectConverter;
 import org.xmlcml.cml.converters.spectrum.jdx.cml2jdx.CMLSpect2JDXConverter;
 import org.xmlcml.cml.converters.spectrum.jdx.jdx2cml.JDX2CMLConverter;
 import org.xmlcml.cml.converters.spectrum.oscar.OSCAR2CMLSpectConverter;
@@ -22,7 +21,6 @@ public class SpectrumConverters extends ConverterListImpl {
         list.add(new ConverterInfo(OSCAR2CMLSpectConverter.class));
         list.add(new ConverterInfo(CMLHNMRSpect2SVGConverter.class));
         list.add(new ConverterInfo(CMLSpect2SVGConverter.class));
-        list.add(new ConverterInfo(SVG2CMLSpectConverter.class));
         this.list = Collections.unmodifiableList(list);
     }
 

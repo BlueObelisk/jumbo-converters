@@ -2460,7 +2460,7 @@ public class TransformElement implements MarkupApplier {
 			if (namespaceURI == null) {
 				throw new RuntimeException("no namespace given for: "+prefix);
 			}
-			newElement = new Element(prefix, local);
+			newElement = new Element(elementName, namespaceURI);
 		}
 		if (id != null) {
 			newElement.addAttribute(new Attribute(ID, id));

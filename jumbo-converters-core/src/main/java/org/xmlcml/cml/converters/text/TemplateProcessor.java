@@ -8,7 +8,7 @@ import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.LegacyProcessor;
 
 
-public class TemplateProcessor extends LegacyProcessor {
+public class TemplateProcessor /*extends LegacyProcessor*/ {
 
 	private Template template;
 	
@@ -16,13 +16,7 @@ public class TemplateProcessor extends LegacyProcessor {
 		super();
 		this.template = template;
 	}
-	
-	@Override
-	protected void readTemplates() {
-		// no-op
-	}
-
-	
+		
 	public Element applyMarkup(String s) {
 		template.applyMarkup(s);
 		return createLinesElement();
@@ -45,14 +39,6 @@ public class TemplateProcessor extends LegacyProcessor {
 	 */
 	public Element applyMarkup(Element element) {
 		return element;
-	}
-
-	@Override
-	protected void preprocessBlocks(CMLElement rootElement) {
-	}
-
-	@Override
-	protected void postprocessBlocks() {
 	}
 
 }

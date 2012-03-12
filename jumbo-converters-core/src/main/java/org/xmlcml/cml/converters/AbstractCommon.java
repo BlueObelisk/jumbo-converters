@@ -11,6 +11,12 @@ import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.tools.DictionaryTool;
 
+/** common data and functions for converters based on dictionaries
+ * 
+ * provides dictionaries, namespaces and prefixes
+ * @author pm286
+ *
+ */
 public abstract class AbstractCommon {
 	private static Logger LOG = Logger.getLogger(AbstractCommon.class);
 

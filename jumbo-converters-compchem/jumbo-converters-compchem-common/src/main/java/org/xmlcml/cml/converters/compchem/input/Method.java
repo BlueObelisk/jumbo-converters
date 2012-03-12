@@ -10,6 +10,7 @@ public class Method extends Parameter {
 
 	public final static Set<String> methodSet;
 	public static final String DEFAULT = HF;
+	public static final String NAME = "method";
 	
 	static {
 		methodSet = new HashSet<String>();
