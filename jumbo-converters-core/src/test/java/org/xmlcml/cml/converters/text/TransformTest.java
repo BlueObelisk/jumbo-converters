@@ -168,29 +168,6 @@ public class TransformTest {
 	}
 	
 	@Test 
-	public void testAddUnNamespacedChild() {
-		try {
-			runTest("addChild", 
-				"<transform process='addChild' xpath='.|.//*' elementName='dc:author' id='plughChild' position='0'/>",
-				"<foo><plugh/></foo>",
-				"<foo><atom id='plughChild'/><plugh><atom id='plughChild'/></plugh></foo>"
-				);
-			throw new RuntimeException("should throw exception - no namespace given");
-		} catch (Exception e) {
-		}
-	}
-	
-	@Test 
-	@Ignore // it actually works but my comparator doesn't compare prefixed and no-prifixed elements OK
-	public void testAddNamespacedChild() {
-		runTest("addChild", 
-			"<transform process='addChild' xpath='.|.//*' elementName='dc:author' id='plughChild' position='0'/>",
-			"<foo xmlns:dc='http://purl.org/dc/elements/1.1/'><plugh/></foo>",
-			"<foo xmlns:dc='http://purl.org/dc/elements/1.1/'><dc:author id='plughChild'/><plugh><dc:author id='plughChild'/></plugh></foo>"
-			);
-	}
-	
-	@Test 
 	public void testAddDictRef() {
 		runTest("addDictRef", 
 			"<transform process='addDictRef' xpath='.//*' value='a:b'/>",

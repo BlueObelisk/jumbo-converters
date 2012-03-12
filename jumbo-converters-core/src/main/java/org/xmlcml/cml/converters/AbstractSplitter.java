@@ -48,16 +48,19 @@ public abstract class AbstractSplitter extends AbstractConverter implements Spli
 		}
 	}
 	private void checkXPath() {
-//		if (xpath == null) {
-//			List<String> xPathList = command.getXPathList();
-//			if (xPathList == null || xPathList.size() == 0) {
-//				throw new RuntimeException("Indexer requires xpath");
-//			} else if (xPathList.size() > 1) {
-//				LOG.info("Can only use first index at present");
-//			} else {
-//				xpath = xPathList.get(0);
-//			}
-//		}
+		if (xpath == null) {
+			xpath = ((Command)this.getCommand()).getSelectXPath() ;
+		}
+		if (xpath == null) {
+			List<String> xPathList = command.getXPathList();
+			if (xPathList == null || xPathList.size() == 0) {
+				throw new RuntimeException("Indexer requires xpath");
+			} else if (xPathList.size() > 1) {
+				LOG.info("Can only use first index at present");
+			} else {
+				xpath = xPathList.get(0);
+			}
+		}
 		if (xpath == null) {
 			throw new RuntimeException("Must set xpath for splitter");
 		}

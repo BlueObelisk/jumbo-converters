@@ -1,5 +1,4 @@
 /** 
-Converters for Jaguar
-stub
+TBD
 */
 package org.xmlcml.cml.converters.compchem.jaguar;

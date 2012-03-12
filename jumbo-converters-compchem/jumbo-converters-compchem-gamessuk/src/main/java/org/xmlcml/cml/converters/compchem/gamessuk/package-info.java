@@ -1,5 +1,4 @@
 /** 
-Converters for GAMESS-UK
-a complete stub
+TBD
 */
 package org.xmlcml.cml.converters.compchem.gamessuk;

@@ -1,5 +1,4 @@
 /** 
-Converters for Dalton LOG files
-a complete stub
+TBD
 */
 package org.xmlcml.cml.converters.compchem.dalton.log;

@@ -1,6 +1,7 @@
 package org.xmlcml.cml.converters.compchem.gaussian.link;
 
 import org.apache.log4j.Logger;
+import org.xmlcml.cml.converters.compchem.gaussian.GaussianLink;
 
 
 /**

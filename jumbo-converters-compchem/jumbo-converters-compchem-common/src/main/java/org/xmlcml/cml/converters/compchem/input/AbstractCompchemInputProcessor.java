@@ -1,7 +1,6 @@
 package org.xmlcml.cml.converters.compchem.input;
 
 import java.io.InputStream;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLElement.CoordinateType;
+import org.xmlcml.cml.converters.Command;
 import org.xmlcml.cml.converters.compchem.AbstractCompchem2CMLConverter;
 import org.xmlcml.cml.converters.compchem.AbstractCompchemProcessor;
 import org.xmlcml.cml.element.CMLAtom;
@@ -47,6 +47,7 @@ public abstract class AbstractCompchemInputProcessor extends AbstractCompchemPro
 	protected CMLModule globalModule;
 	protected List<Job> jobList;
 	protected Job currentJob;
+	protected Command command;
 
 	protected AbstractCompchemInputProcessor(AbstractCompchem2CMLConverter converter) {
 		this.converter = converter;
@@ -109,7 +110,7 @@ public abstract class AbstractCompchemInputProcessor extends AbstractCompchemPro
 				}
 			}
 		} else {
-//			LOG.warn("Cannot find auxiliary file (did you include -aux? "+converter.getCommand().getAuxfileName());
+			LOG.warn("Cannot find auxiliary file (did you include -aux? "+converter.getCommand().getAuxfileName());
 		}
 		processAbstractModule();
 	}
@@ -130,9 +131,9 @@ public abstract class AbstractCompchemInputProcessor extends AbstractCompchemPro
 	protected CMLDictionary findDictionary(String resourceS) {
 		dictionary = null;
 		URL url = getClass().getClassLoader().getResource(resourceS);
-//		if (command != null && !command.isQuiet()) {
-//			LOG.info("URL "+url);
-//		}
+		if (command != null && !command.isQuiet()) {
+			LOG.info("URL "+url);
+		}
 		try {
 			InputStream inputStream = url.openStream();
 			CMLCml cml = (CMLCml) new CMLBuilder().build(inputStream).getRootElement();

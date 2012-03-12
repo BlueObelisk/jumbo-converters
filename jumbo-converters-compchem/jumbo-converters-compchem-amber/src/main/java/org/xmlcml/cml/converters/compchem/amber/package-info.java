@@ -1,5 +1,4 @@
 /** 
-Converts to and from AMBER files
-Not fully written
+TBD
 */
 package org.xmlcml.cml.converters.compchem.amber;

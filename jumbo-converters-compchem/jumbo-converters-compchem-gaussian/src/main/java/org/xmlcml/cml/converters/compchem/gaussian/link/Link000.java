@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import org.xmlcml.cml.converters.compchem.gaussian.GaussianLink;
 import org.xmlcml.cml.element.CMLMatrix;
 import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLMolecule;

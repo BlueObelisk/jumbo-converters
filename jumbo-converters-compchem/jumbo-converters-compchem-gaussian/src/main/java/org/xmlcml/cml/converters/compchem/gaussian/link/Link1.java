@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.converters.compchem.gaussian.GaussianLink;
 import org.xmlcml.cml.element.CMLModule;
 import org.xmlcml.cml.element.CMLParameter;
 import org.xmlcml.cml.element.CMLScalar;

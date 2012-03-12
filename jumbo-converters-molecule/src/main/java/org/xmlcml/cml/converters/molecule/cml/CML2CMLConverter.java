@@ -13,9 +13,10 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLElement.CoordinateType;
 import org.xmlcml.cml.converters.AbstractConverter;
+import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.Type;
-import org.xmlcml.cml.converters.cml.CMLCommon;
+import org.xmlcml.cml.converters.cml.CMLConverterCommand;
 import org.xmlcml.cml.element.CMLAtomSet;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLFormula;
@@ -67,6 +68,7 @@ public class CML2CMLConverter extends AbstractConverter implements
 	}
 
 	private void executeCommand() {
+		LOG.debug("executeCommand... "+command);
 		if (selectNodesXPath != null) {
 			LOG.debug("xpath: "+selectNodesXPath);
 			Nodes nodes = inElement.query(selectNodesXPath, CML_XPATH);
@@ -91,10 +93,10 @@ public class CML2CMLConverter extends AbstractConverter implements
 	}
 
 	private void cascadeCommands(MoleculeTool moleculeTool) {
-//		if (command == null || !(command instanceof MoleculeEditorCommand)) {
-//			throw new RuntimeException("must have non-null CMLConverterCommand");
-//		}
-		MoleculeEditorCommand cmlConverterCommand = null;
+		if (command == null || !(command instanceof CMLConverterCommand)) {
+			throw new RuntimeException("must have non-null CMLConverterCommand");
+		}
+		CMLConverterCommand cmlConverterCommand = (CMLConverterCommand) command;
 		if (cmlConverterCommand == null) {
 			throw new RuntimeException("Must set command in converter");
 		}

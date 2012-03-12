@@ -26,6 +26,10 @@ public class AmberFF2XMLConverter extends Text2XMLConverter {
 		return element;
 	}
 
+	@Override
+	protected LegacyProcessor createLegacyProcessor() {
+		return null;
+	}
 	
 	@Override
 	public String getRegistryInputType() {
@@ -40,11 +44,5 @@ public class AmberFF2XMLConverter extends Text2XMLConverter {
 	@Override
 	public String getRegistryMessage() {
 		return AMBER_FF_TO_AMBER_FF_XML;
-	}
-
-	@Override
-	protected LegacyProcessor createLegacyProcessor() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

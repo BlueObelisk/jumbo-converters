@@ -7,7 +7,7 @@ import nu.xom.Element;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.AbstractConverter;
-import org.xmlcml.cml.converters.cml.CMLCommon;
+import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.compchem.CompchemText2XMLTemplateConverter;
 import org.xmlcml.cml.converters.compchem.nwchem.NWChemCommon;
 import org.xmlcml.cml.converters.util.ConverterUtils;
