@@ -99,13 +99,26 @@
 
   </comment>
   
-  <record id="basis.title">\s*Basis "{X,n:basis_type}" -> "{X,n:basis_label}" \({A,n:harmonic_type}\)\s*</record>
+  <record id="basis.title">\s*Basis "{X,n:basis_set_label}" -> "{X,n:basis_set_description}" \({A,n:basis_set_harmonic_type}\)\s*</record>
   <transform process="pullupSingleton" xpath="./cml:list"/>
   <record/>
 
 <templateList>
      <xi:include href="basis.shell.xml"/>
   </templateList>
+  
+  <!--  Move contraction modules to lists -->
+  <transform process="addSibling"
+  xpath="./cml:module[@cmlx:templateRef='contractions']"
+  elementName="cml:list"
+  id="foo"
+  position="0"
+  />
+  
+  
+  <!-- dictRef="compchem:basis_set_contractions" -->
+  
+  <transform process="debugNodes" xpath=".//cml:list[@dictRef='compchem:basis_set_contractions']"/>
   
 <!-- Add harmonic type determined from basis.title to all contractions -->  
 <transform process="addAttribute" 
