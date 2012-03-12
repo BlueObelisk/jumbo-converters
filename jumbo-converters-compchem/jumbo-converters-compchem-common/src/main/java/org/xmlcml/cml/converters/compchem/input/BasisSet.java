@@ -10,6 +10,7 @@ public class BasisSet extends Parameter {
 	
 	public final static Set<String> basisSetSet;
 	public static final String DEFAULT = STO_3G;
+	public static final String NAME = "basisSet";
 	
 	static {
 		basisSetSet = new HashSet<String>();

@@ -5,10 +5,10 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
 
+import org.xmlcml.cml.converters.LegacyProcessor;
+
 import nu.xom.Builder;
 import nu.xom.Element;
-
-import org.xmlcml.cml.converters.LegacyProcessor;
 
 /** this is messy and is breaking away from LegacyProcessor machinery
  * However they still co-exist and so some subclassed methods are no-ops or override
@@ -60,16 +60,11 @@ public class Text2XMLTemplateConverter extends Text2XMLConverter {
 		}
 	}
 
-	@Override
-	protected LegacyProcessor createLegacyProcessor() {
-		return new TemplateProcessor(template);
-	}
-
 
 	@Override
 	public Element convertToXML(List<String> lines) {
 		lines = convertCharactersInLines(lines);
-		TemplateProcessor glp = (TemplateProcessor) createLegacyProcessor();
+		TemplateProcessor glp = new TemplateProcessor(template);
 		Element cmlElement = glp.applyMarkup(lines);
 		// because we may have added parents
 		Element cmlTop = (Element) cmlElement.query("ancestor-or-self::*").get(0);
@@ -90,6 +85,12 @@ public class Text2XMLTemplateConverter extends Text2XMLConverter {
 	@Override
 	public String getRegistryMessage() {
 		return "null";
+	}
+
+	@Override
+	protected LegacyProcessor createLegacyProcessor() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

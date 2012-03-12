@@ -48,9 +48,6 @@ public abstract class AbstractMerger extends AbstractConverter {
 	}
 	private void checkXPath() {
 		if (xpath == null) {
-			xpath = ((Command)this.getCommand()).getSelectXPath() ;
-		}
-		if (xpath == null) {
 			throw new RuntimeException("Must set xpath for splitter");
 		}
 	}

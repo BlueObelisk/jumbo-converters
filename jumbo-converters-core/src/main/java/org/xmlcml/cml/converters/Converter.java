@@ -192,7 +192,6 @@ public interface Converter {
 	 */
 	byte[] convertToBytes(byte[] bytes);
 
-   Command getCommand();
 	/**
 	 * 
 	 * @return type

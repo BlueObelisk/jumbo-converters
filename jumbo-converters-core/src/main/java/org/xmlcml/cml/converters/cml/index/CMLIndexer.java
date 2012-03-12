@@ -39,7 +39,7 @@ public class CMLIndexer extends AbstractIndexer {
 	
 	protected String getIndexKey() {
 		String key = null;
-		xPathList = getCommand().getXPathList();
+//		xPathList = getCommand().getXPathList();
 		if (xPathList == null || xPathList.size() == 0) {
 			throw new RuntimeException("Indexer requires xpath");
 		} else if (xPathList.size() > 1) {

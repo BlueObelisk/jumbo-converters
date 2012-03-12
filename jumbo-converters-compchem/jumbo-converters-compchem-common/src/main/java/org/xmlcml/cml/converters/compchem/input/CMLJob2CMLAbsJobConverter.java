@@ -7,8 +7,8 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractConverter;
-import org.xmlcml.cml.converters.CMLSelector;
 import org.xmlcml.cml.converters.Type;
+import org.xmlcml.cml.converters.cml.CMLSelector;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLMolecule;
 

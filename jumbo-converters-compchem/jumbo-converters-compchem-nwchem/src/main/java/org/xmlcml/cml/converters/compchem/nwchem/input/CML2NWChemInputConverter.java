@@ -1,14 +1,13 @@
 package org.xmlcml.cml.converters.compchem.nwchem.input;
 
 import java.io.File;
-
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lensfield.api.LensfieldParameter;
-import org.xmlcml.cml.converters.CMLCommon;
+import org.xmlcml.cml.converters.cml.CMLCommon;
+import org.xmlcml.cml.converters.cml.JumboParameter;
 import org.xmlcml.cml.converters.compchem.input.BasisSet;
 import org.xmlcml.cml.converters.compchem.input.CML2CompchemInputConverter;
 import org.xmlcml.cml.converters.compchem.input.CalculationComponents;
@@ -32,11 +31,8 @@ public class CML2NWChemInputConverter extends CML2CompchemInputConverter  {
 	private CalculationComponents calculationComponents;
 	private List<Parameter> parameterList;
 
-	@LensfieldParameter(name="basis", optional=true)
-	private String basis = BasisSet.DEFAULT;
-
-	@LensfieldParameter(name="method", optional=true)
-	private String method = Method.DEFAULT;
+	private JumboParameter basis = new JumboParameter(BasisSet.NAME, BasisSet.DEFAULT, true);
+	private JumboParameter method = new JumboParameter(Method.NAME, Method.DEFAULT, true);
 
 	public CML2NWChemInputConverter() {
 		super(DEFAULT_TEMPLATE_PATH, DEFAULT_TEMPLATE_NAME);
@@ -107,8 +103,8 @@ public class CML2NWChemInputConverter extends CML2CompchemInputConverter  {
 
 	private void createAndAddParameters() {
 		parameterList = new ArrayList<Parameter>();
-		parameterList.add(new BasisSet(basis));
-		parameterList.add(new Method(method));
+		parameterList.add(new BasisSet(basis.getValue()));
+		parameterList.add(new Method(method.getValue()));
 		this.methodBasis = new MethodBasis(parameterList);
 	}
 

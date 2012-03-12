@@ -15,8 +15,10 @@ import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.text.Template;
 import org.xmlcml.cml.converters.text.TemplateProcessor;
 
-/** this is messy and is breaking away from LegacyProcessor machinery
- * However they still co-exist and so some subclassed methods are no-ops or override
+/** 
+ * Superclass of TransformConverter
+ * provides templates for transformation
+ * 
  * @author pm286
  *
  */
