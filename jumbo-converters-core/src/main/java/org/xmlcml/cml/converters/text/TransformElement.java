@@ -875,7 +875,7 @@ public class TransformElement implements MarkupApplier {
 			}
 			int insertionPoint = idx + pos;
 			if (insertionPoint >= 0 && insertionPoint <= nchild) {
-				Element newElement = createNewElement(elementName, id, null);
+				Element newElement = createNewElement(elementName, id, dictRef);
 				parent.insertChild(newElement, insertionPoint);
 			}
 		}
