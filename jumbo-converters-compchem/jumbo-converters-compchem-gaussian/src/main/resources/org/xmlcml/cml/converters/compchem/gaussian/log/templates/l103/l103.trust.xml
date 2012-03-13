@@ -10,6 +10,10 @@
   <record repeat="*" id="angle">\s*Number of steps in this run={I,g:nstep} maximum allowed number of steps= {I,g:allowedstep}\.\s*</record>
   
   <transform process="pullup" xpath=".//cml:scalar" repeat="2"/>
+  
+  <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
 
   <comment class="example.output" id="l103.trust">
     <module cmlx:templateRef="l103.trust" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">

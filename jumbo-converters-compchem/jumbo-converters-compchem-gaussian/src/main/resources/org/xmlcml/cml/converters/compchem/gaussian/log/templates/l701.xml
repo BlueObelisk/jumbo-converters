@@ -13,6 +13,10 @@
   </comment>
 
   <record repeat="*" id="701"/>
+  
+  <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
 
   <comment class="example.output" id="l701.firstderiv">
     <module cmlx:templateRef="l701" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"/>

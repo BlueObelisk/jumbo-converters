@@ -14,6 +14,11 @@
  Leave Link  801 at Thu Aug 31 01:38:23 2006, MaxMem=    6291456 cpu:       0.0
   </comment>
   <record id="l801.line" repeat="*"/>
+  
+  <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ 
   <comment class="example.output" id="l801">
     <module cmlx:templateRef="l801" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"/>
   </comment>

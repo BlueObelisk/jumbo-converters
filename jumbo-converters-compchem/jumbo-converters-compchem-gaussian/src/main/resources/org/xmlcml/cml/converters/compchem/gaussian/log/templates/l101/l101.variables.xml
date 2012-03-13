@@ -24,6 +24,10 @@
   <transform process="delete" xpath="./cml:list[@cmlx:templateRef='var']"/>
   <transform process="delete" xpath="./cml:list[@cmlx:templateRef='const']"/>
   
+ <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  
   <comment class="example.output" id="l1.variables">
     <module cmlx:templateRef="l101.variables" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <map id="variableConstantMap">

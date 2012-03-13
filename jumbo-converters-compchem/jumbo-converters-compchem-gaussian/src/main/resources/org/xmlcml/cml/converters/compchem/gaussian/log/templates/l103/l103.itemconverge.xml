@@ -12,6 +12,10 @@
   <record/>
   <record id="row" repeat="*" makeArray="true">\s*{X,g:item}\s{5}{F,g:value}{F,g:threshold}{A,g:converged}\s*</record>
   
+  <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  
   <comment class="example.output" id="l103.itemconverge">
     <module cmlx:templateRef="l103.itemconverge" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <list cmlx:lineCount="4" cmlx:templateRef="row">

@@ -44,9 +44,12 @@
   <record id="basis">\s*Standard basis: {A,cc:basis} {X,cc:diffuse}</record> 
   <templateList id="ernie">
     <template pattern="\s*Ernie.*" endPattern=".*" id="ernie">
-      <record id="ernie" repeat="*">\s*Ernie: Thresh={E,g:thresh}\s Tol={E,g:tol}\sStrict={A,g:strict}\.\s*</record> 
+      <record id="ernie" repeat="*">\s*Ernie: Thresh={E,g:thresh}\s*Tol={E,g:tol}\s*Strict={A,g:strict}\.\s*</record> 
     </template>
   </templateList>
+   <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ 
   <templateList id="symadnucl">
     <template pattern="\s*There are.*" endPattern="\s*nuclear repulsion.*" id="symaddnuc" endOffset="1">
       <record id="symmadapt" repeat="*" makeArray="true">\s* There are{I,cc:adapted} symmetry adapted basis functions of{A,cc:symm}symmetry\.\s*</record> 
@@ -58,6 +61,8 @@
       <record id="nucrep">\s*nuclear repulsion energy\s*{F,cc:nucrepener}Hartrees\.\s*</record>
     </template>
   </templateList>  
+   <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
   <templateList id="natoms">
     <template pattern="\s*NAtoms=.*" repeat="*" endPattern=".*" id="natoms">
       <record id="natoms" repeat="*">\s*NAtoms={I,cc:natoms}\sNActive={I,cc:nactiveatoms}\sNUniq={I,cc:uniqatoms}\sSFac={E,g:sfac}\sNAtFMM={I,g:natfmm}.*\sBig={A,g:big}\s*</record> 
@@ -65,9 +70,12 @@
   </templateList>
   <templateList id="misc">
     <template pattern="\s*((IExCor)|(ScaDFX)|(IRadAn)).*" repeat="*" endPattern=".*" id="misc">
-      <record id="misc">\s{1_20A,g:misc}\s*</record> 
+      <record id="misc">\s*{X,g:misc}\s*</record> 
     </template>
   </templateList>
+  
+   <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
 
   <transform process="createTable" xpath=".//cml:list[@cmlx:templateRef='symmadapt']" />
   
@@ -81,6 +89,10 @@
   <transform process="pullup" xpath=".//cml:module//cml:list[cml:scalar[@dictRef='cc:natoms']]/cml:scalar" repeat='3'/>
   
   <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
+  
+  <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
     
   <comment class="example.output" id="l301.basis">
     <module cmlx:templateRef="l301.basis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
@@ -113,6 +125,11 @@
 <module cmlx:templateRef="l301.basis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <scalar dataType="xsd:string" dictRef="cc:basis">3-21G</scalar>
   <scalar dataType="xsd:string" dictRef="cc:diffuse">(6D, 7F)</scalar>
+  <module cmlx:lineCount="1" cmlx:templateRef="ernie">
+    <scalar dataType="xsd:double" dictRef="g:thresh">0.0010</scalar>
+    <scalar dataType="xsd:double" dictRef="g:tol">1.0E-6</scalar>
+    <scalar dataType="xsd:string" dictRef="g:strict">F</scalar>
+  </module>
   <scalar dataType="xsd:integer" dictRef="g:buffer">131072</scalar>
   <scalar dataType="xsd:string" dictRef="g:twoe">Two-electron</scalar>
   <scalar dataType="xsd:double" dictRef="cc:nucrepener">33.7515964544</scalar>
@@ -131,11 +148,11 @@
     <scalar dataType="xsd:integer" dictRef="cc:alphae">8</scalar>
     <scalar dataType="xsd:integer" dictRef="cc:betae">8</scalar>
   </module>
-  <array dataType="xsd:string" size="8" dictRef="g:misc">IExCor= 0 DFT=F Ex=HF Corr=None ExCW=0 ScaHFX= 1.000000</array>
+  <scalar dataType="xsd:string" dictRef="g:misc">IExCor= 0 DFT=F Ex=HF Corr=None ExCW=0 ScaHFX= 1.000000</scalar>
   <module cmlx:lineCount="1" cmlx:templateRef="misc"/>
-  <array dataType="xsd:string" size="8" dictRef="g:misc">ScaDFX= 1.000000 1.000000 1.000000 1.000000 ScalE2= 1.000000 1.000000</array>
+  <scalar dataType="xsd:string" dictRef="g:misc">ScaDFX= 1.000000 1.000000 1.000000 1.000000 ScalE2= 1.000000 1.000000</scalar>
   <module cmlx:lineCount="1" cmlx:templateRef="misc"/>
-  <array dataType="xsd:string" size="7" dictRef="g:misc">IRadAn= 0 IRanWt= -1 IRanGd= 0 ICorTp=0</array>
+  <scalar dataType="xsd:string" dictRef="g:misc">IRadAn= 0 IRanWt= -1 IRanGd= 0 ICorTp=0</scalar>
   <module cmlx:lineCount="1" cmlx:templateRef="misc"/>
   <module cmlx:lineCount="1" cmlx:templateRef="natoms">
     <scalar dataType="xsd:integer" dictRef="cc:natoms">6</scalar>

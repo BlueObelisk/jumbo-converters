@@ -36,6 +36,10 @@
       value="cc:zpe.sumelectthermal"/> 
   <transform process="addDictRef" xpath="./cml:scalar[@dictRef='x:Sum of electronic and thermal Free Energies']" 
       value="cc:zpe.sumelectthermalfe"/> 
+      
+ <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
 
   <comment class="example.output" id="l716.zeropoint">
     <module cmlx:templateRef="l716.zeropoint" xmlns="http://www.xml-cml.org/schema" 
