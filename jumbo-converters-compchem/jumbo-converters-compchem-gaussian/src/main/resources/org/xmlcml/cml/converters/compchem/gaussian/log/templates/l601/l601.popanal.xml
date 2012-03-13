@@ -229,6 +229,10 @@
   <record repeat="*" id="popanal">{X,x:popanal}</record>
   
   <transform process="createWrapper" xpath=".//cml:module/text()" elementName="UNPARSED"/>
+  
+  <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
 
   <comment class="example.output" id="l601.popanal">
 <module cmlx:templateRef="l601.popanal" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">

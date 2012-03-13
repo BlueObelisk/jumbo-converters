@@ -13,6 +13,11 @@
  <record id="command">{1_5A,g:command}</record>
  
  <transform process="pullup" xpath=".//cml:scalar | .//cml:array"/>
+ 
+ <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ 
   
   <comment class="example.output" id="entering">
     <module cmlx:templateRef="entering" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">

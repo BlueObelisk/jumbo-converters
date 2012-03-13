@@ -11,6 +11,10 @@
   
   <transform process="pullupSingleton" xpath=".//cml:list"/>
   
+  <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  
   <comment class="example.output" id="l716.diagvib">
     <module cmlx:templateRef="l716.diagvib" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <array dataType="xsd:double" size="3" dictRef="cc:diagvib" cmlx:templateRef="diagvib">26.5910881 4.6882388 9.8373439</array>

@@ -32,6 +32,10 @@
   
   <transform process="delete" xpath="./cml:list[@cmlx:templateRef='map']"/>
   
+  <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  
   <comment class="example.output" id="l9999.final">
     <module cmlx:templateRef="l9999.final" xmlns="http://www.xml-cml.org/schema" 
       xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">

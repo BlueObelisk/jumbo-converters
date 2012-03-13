@@ -26,6 +26,10 @@
   <record id="discard">{X,g:irspectrum}</record>
   <record repeat="*"/>
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
 
   <comment class="example.output" id="l716.irspectrum">
     <module cmlx:templateRef="l716.irspectrum" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">

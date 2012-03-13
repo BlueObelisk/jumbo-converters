@@ -102,6 +102,10 @@
   <transform process="createArray" xpath="." from="./cml:list[@cmlx:templateRef='lll']/cml:scalar[@dictRef='cc:lll']"/>
   <transform process="createArray" xpath="." from="./cml:list[@cmlx:templateRef='lll']/cml:scalar[@dictRef='g:deriv']" delimiter="|"/>
   
+  <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  
   <comment class="example.output" id="l103.init">
 <module cmlx:templateRef="l103.init" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <list cmlx:templateRef="length">
