@@ -12,10 +12,12 @@
 
 </comment>
 
-  <record id="basis_summary">\s*Summary of "{X,n:basis_set_label}" -> "{X,n:basis_set_description}" \({A,n:basis_set_harmonic_type}\)\s*</record>
+  <record id="basis_summary">\s*Summary of "{X,n:basis_set_label}" -> "{X,n:basis_set_description}" \({A,compchem:basis_set_harmonic_type}\)\s*</record>
   <record id="junk" repeat="3"/>
-  <record id="basis_contractions" repeat="*" >\s*{A,n:atom_label}\s+{X,n:basis_set_title}\s+{I,n:contraction_nshell}\s+{I,n:contraction_nfunc}\s+{A,n:contraction_desc}\s*</record>
+  <record id="basis_contractions" repeat="*" >\s*{A,compchem:atom_label}\s+{X,compchem:basis_set_title}\s+{I,n:contraction_nshell}\s+{I,n:contraction_nfunc}\s+{A,n:contraction_desc}\s*</record>
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='junk']"/>
   
   
   <comment class="example.output" id="summarybasis">
@@ -23,26 +25,26 @@
       <list cmlx:templateRef="basis_summary">
         <scalar dataType="xsd:string" dictRef="n:basis_set_label">ao basis</scalar>
         <scalar dataType="xsd:string" dictRef="n:basis_set_description"/>
-        <scalar dataType="xsd:string" dictRef="n:basis_set_harmonic_type">cartesian</scalar>
+        <scalar dataType="xsd:string" dictRef="compchem:basis_set_harmonic_type">cartesian</scalar>
       </list>
       <list cmlx:templateRef="basis_contractions">
         <list>
-          <scalar dataType="xsd:string" dictRef="n:atom_label">o</scalar>
-          <scalar dataType="xsd:string" dictRef="n:basis_set_title">DZVP (DFT Orbital)</scalar>
+          <scalar dataType="xsd:string" dictRef="compchem:atom_label">o</scalar>
+          <scalar dataType="xsd:string" dictRef="compchem:basis_set_title">DZVP (DFT Orbital)</scalar>
           <scalar dataType="xsd:integer" dictRef="n:contraction_nshell">6</scalar>
           <scalar dataType="xsd:integer" dictRef="n:contraction_nfunc">15</scalar>
           <scalar dataType="xsd:string" dictRef="n:contraction_desc">3s2p1d</scalar>
         </list>
         <list>
-          <scalar dataType="xsd:string" dictRef="n:atom_label">c</scalar>
-          <scalar dataType="xsd:string" dictRef="n:basis_set_title">DZVP (DFT Orbital)</scalar>
+          <scalar dataType="xsd:string" dictRef="compchem:atom_label">c</scalar>
+          <scalar dataType="xsd:string" dictRef="compchem:basis_set_title">DZVP (DFT Orbital)</scalar>
           <scalar dataType="xsd:integer" dictRef="n:contraction_nshell">6</scalar>
           <scalar dataType="xsd:integer" dictRef="n:contraction_nfunc">15</scalar>
           <scalar dataType="xsd:string" dictRef="n:contraction_desc">3s2p1d</scalar>
         </list>
         <list>
-          <scalar dataType="xsd:string" dictRef="n:atom_label">fe</scalar>
-          <scalar dataType="xsd:string" dictRef="n:basis_set_title">DZVP (DFT Orbital)</scalar>
+          <scalar dataType="xsd:string" dictRef="compchem:atom_label">fe</scalar>
+          <scalar dataType="xsd:string" dictRef="compchem:basis_set_title">DZVP (DFT Orbital)</scalar>
           <scalar dataType="xsd:integer" dictRef="n:contraction_nshell">10</scalar>
           <scalar dataType="xsd:integer" dictRef="n:contraction_nfunc">26</scalar>
           <scalar dataType="xsd:string" dictRef="n:contraction_desc">5s3p2d</scalar>
