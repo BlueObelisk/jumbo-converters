@@ -23,6 +23,10 @@
   <transform process="split" xpath=".//cml:array[@dictRef='cc:force']" cols="3"/>
   <transform process="pullupSingleton" xpath=".//cml:list"/>
   
+  <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  
   <comment class="example.output" id="l716.forces">
     <module cmlx:templateRef="l716.forces" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <list cmlx:lineCount="5" cmlx:templateRef="force">

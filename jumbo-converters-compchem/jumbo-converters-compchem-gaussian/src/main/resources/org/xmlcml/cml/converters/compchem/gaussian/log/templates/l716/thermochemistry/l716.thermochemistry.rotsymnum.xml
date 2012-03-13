@@ -5,6 +5,11 @@
   </comment>
   <record id="number" >\s*Rotational symmetry number\s*{I,cc:symmnumber}\.\s*</record>
   <transform process="pullup" xpath=".//cml:scalar"/>
+  
+  <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ 
   <comment class="example.output" id="l716.thermochemistry.rotsymnum">
     <module cmlx:templateRef="l716.thermochemistry.rotsymnum" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <scalar dataType="xsd:integer" dictRef="cc:symmnumber">12</scalar>

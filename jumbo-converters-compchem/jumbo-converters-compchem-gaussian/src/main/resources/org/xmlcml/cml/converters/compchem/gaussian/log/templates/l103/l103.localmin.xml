@@ -79,6 +79,11 @@
   <transform process="pullupSingleton" xpath=".//cml:list"/>
   <transform process="pullup" xpath=".//cml:list[@cmlx:templateRef='eigenvaluelist']/cml:array"/>
   
+  
+  <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  
   <comment class="example.outputx" id="l103.localmin">
 <module cmlx:templateRef="l103.localmin" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <scalar dataType="xsd:string" dictRef="cc:minmaxts" cmlx:templateRef="r">saddle point</scalar>
@@ -98,20 +103,25 @@
   </comment>
   
   <comment class="example.output" id="l103.localmin.saddle">
-    <module cmlx:templateRef="l103.localminsaddle." xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <scalar dataType="xsd:string" dictRef="cc:minmaxts" cmlx:templateRef="r">saddle point</scalar>
-      <array dataType="xsd:string" size="9" dictRef="x:junk1" cmlx:templateRef="junk">Step number 1 out of a maximum of 137</array>
-      <array dataType="xsd:string" size="7" dictRef="x:junk1" cmlx:templateRef="junk">All quantities printed in internal units (Hartrees-Bohrs-Radians)</array>
-      <array dataType="xsd:string" size="4" dictRef="x:junk1" cmlx:templateRef="junk">Swaping is turned off.</array>
-      <array dataType="xsd:string" size="9" dictRef="x:junk1" cmlx:templateRef="junk">Second derivative matrix not updated -- analytic derivatives used.</array>
-      <array dataType="xsd:double" size="27" dictRef="cc:eigenvalues" cmlx:templateRef="eigenvaluelist">-0.03403 0.00144 0.00463 0.00759 0.00906 0.01177 0.01317 0.01431 0.01623 0.01839 0.40148 0.40211 0.40329 0.46257 0.48142 0.5191 1.01166 1.02582 1000.0 1000.0 1000.0 1000.0 1000.0 1000.0 1000.0 1000.0 1000.0</array>
-      <array dataType="xsd:string" size="4" dictRef="x:junk1" cmlx:templateRef="junk">RFO step: Lambda0=9.155600927D-04 Lambda=-1.51225227D-04.</array>
-      <array dataType="xsd:string" size="8" dictRef="x:junk1" cmlx:templateRef="junk">Linear search not attempted -- option 19 set.</array>
-      <list cmlx:lineCount="2" cmlx:templateRef="iterationList">
-        <array dataType="xsd:integer" size="3" dictRef="cc:serial">1 2 3</array>
-        <array dataType="xsd:double" size="3" dictRef="g:rmscart">0.01149217 1.9717E-4 3.0E-8</array>
-        <array dataType="xsd:double" size="3" dictRef="g:rmsint">2.0982E-4 1.2443E-4 1.2443E-4</array>
-      </list>
-    </module>
+<module cmlx:templateRef="l103.localminsaddle." xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:string" dictRef="cc:minmaxts" cmlx:templateRef="r">saddle point</scalar>
+  <array dataType="xsd:string" size="9" dictRef="x:junk1" cmlx:templateRef="junk">Step number 1 out of a maximum of 137</array>
+  <array dataType="xsd:string" size="7" dictRef="x:junk1" cmlx:templateRef="junk">All quantities printed in internal units (Hartrees-Bohrs-Radians)</array>
+  <array dataType="xsd:string" size="4" dictRef="x:junk1" cmlx:templateRef="junk">Swaping is turned off.</array>
+  <array dataType="xsd:string" size="9" dictRef="x:junk1" cmlx:templateRef="junk">Second derivative matrix not updated -- analytic derivatives used.</array>
+  <array dataType="xsd:double" size="27" dictRef="cc:eigenvalues" cmlx:templateRef="eigenvaluelist">-0.03403 0.00144 0.00463 0.00759 0.00906 0.01177 0.01317 0.01431 0.01623 0.01839 0.40148 0.40211 0.40329 0.46257 0.48142 0.5191 1.01166 1.02582 1000.0 1000.0 1000.0 1000.0 1000.0 1000.0 1000.0 1000.0 1000.0</array>
+  <module cmlx:lineCount="5" cmlx:templateRef="negativeeigenvaluelist">
+    <scalar dataType="xsd:string" dictRef="x:stuffff" cmlx:templateRef="grot">R25 R14 R27 R16 D47</scalar>
+    <scalar dataType="xsd:string" dictRef="x:stuffff" cmlx:templateRef="grot">1 0.36641 0.36640 0.22975 0.22974 -0.19160</scalar>
+    <scalar dataType="xsd:string" dictRef="x:stuffff" cmlx:templateRef="grot">D48 D8 D11 D6 D9</scalar> 1 0.19153 0.16306 -0.16304 0.15371 -0.15366 
+  </module>
+  <array dataType="xsd:string" size="4" dictRef="x:junk1" cmlx:templateRef="junk">RFO step: Lambda0=9.155600927D-04 Lambda=-1.51225227D-04.</array>
+  <array dataType="xsd:string" size="8" dictRef="x:junk1" cmlx:templateRef="junk">Linear search not attempted -- option 19 set.</array>
+  <list cmlx:lineCount="2" cmlx:templateRef="iterationList">
+    <array dataType="xsd:integer" size="3" dictRef="cc:serial">1 2 3</array>
+    <array dataType="xsd:double" size="3" dictRef="g:rmscart">0.01149217 1.9717E-4 3.0E-8</array>
+    <array dataType="xsd:double" size="3" dictRef="g:rmsint">2.0982E-4 1.2443E-4 1.2443E-4</array>
+  </list>
+</module>
   </comment>
 </template>

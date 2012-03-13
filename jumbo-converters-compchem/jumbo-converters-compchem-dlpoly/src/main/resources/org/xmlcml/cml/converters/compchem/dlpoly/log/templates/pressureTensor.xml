@@ -18,6 +18,10 @@
   <record id="trace">\s+{X,x:x}\s+{E,dlpoly:trace3}\s*</record>
   <record repeat="*"/>
   
+  <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  
   <comment class="example.output" id="pressTensor">
 	<module cmlx:templateRef="pressTensor" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
 	  <list cmlx:lineCount="3" cmlx:templateRef="atom">

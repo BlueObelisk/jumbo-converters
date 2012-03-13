@@ -650,6 +650,7 @@ public class TemplateTest {
 		  "</module>";
 		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
 	}
+
 	
 	@Test
 	public void testStartEnd01() {
@@ -1058,6 +1059,27 @@ public class TemplateTest {
 		"";
 		  JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
 	}
+	
+     @Test
+     public void testCreateList() {
+         String templateS = 
+             "<template id='list' name='test' pattern='' dictRef=''>" +
+             "  <transform process='addChild' xpath='.' elementName='cml:module' id='foo1' dictRef='bar:foo1'/>" +
+             "  <transform process='addSibling' xpath='./cml:module' elementName='cml:list' id='foo2' dictRef='bar:foo2' position='1'/>" +
+             "</template>";
+         Template template = new Template(CMLUtil.parseXML(templateS));
+         String toBeParsed = "Random text\n";
+         template.applyMarkup(toBeParsed);
+         LineContainer lineContainer = template.getLineContainer();
+         Assert.assertNotNull(lineContainer);
+         String refS = 
+               "<module cmlx:templateRef='list' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>Random text\n"+
+               "<list id='foo2' dictRef='bar:foo2'/>"+
+               "<module id='foo1' dictRef='bar:foo1'/>"+
+               "</module>";
+         JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
+     }
+ 
 	
 	@Test
 	@Ignore // FIXME

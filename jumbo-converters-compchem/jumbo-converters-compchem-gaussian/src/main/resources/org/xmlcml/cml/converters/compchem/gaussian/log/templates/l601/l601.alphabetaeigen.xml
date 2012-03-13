@@ -49,6 +49,10 @@
   <transform process="delete" xpath=".//@cmlx:temp"/>
   <transform process="pullup" xpath=".//cml:array" repeat="3"/>
   
+  <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  
   <comment class="example.output" id="l601.alphabeta">
     <module cmlx:templateRef="l601.alphabetaeigen" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <array dataType="xsd:double" size="5" dictRef="g:alphaocc">-10.17514 -0.68437 -0.38581 -0.38581 -0.38581</array>
