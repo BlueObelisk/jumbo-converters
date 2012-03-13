@@ -56,10 +56,6 @@
         <transform process="pullup" xpath="./cml:list"/>
     </template>
   </templateList>
-  
-    
-<!-- delete redundant module -->
-<transform process="delete" xpath=".//cml:module[@cmlx:templateRef='contraction_tmp']" />
 
 <!-- add dictRef to containing lists -->
 <transform process="addDictRef"
@@ -75,10 +71,6 @@ xpath="./cml:list[@cmlx:templateRef='contraction']"
 elementName="cml:scalar"
 dictRef="compchem:basis_set_shell"
 position="0"
-/>
-
-<transform process="setValue"
-xpath=".//cml:scalar[@dictRef='compchem:basis_set_shell']"
 value="$string(../cml:list/cml:scalar[@dictRef='n:basis_set_shell'])"
 />
 
@@ -89,7 +81,11 @@ value="$string(../cml:list/cml:scalar[@dictRef='n:basis_set_shell'])"
 <!-- now can remove shellnum and shell scalars-->
 <transform process="delete" xpath=".//cml:scalar[@dictRef='n:basis_set_shell']" />
 <transform process="delete" xpath=".//cml:array[@dictRef='n:basis_set_shellnum']" />
- 
+
+<!-- delete unneeded lists and modules. -->
+<transform process="delete" xpath=".//cml:module[@cmlx:templateRef='contraction_tmp']" />
+<transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+<transform process="delete" xpath=".//cml:list[count(*)=0]"/>
 
   <comment class="example.output" id="contractions">
     <module cmlx:templateRef="contractions" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
