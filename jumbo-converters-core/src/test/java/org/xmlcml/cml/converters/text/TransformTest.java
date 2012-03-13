@@ -1070,16 +1070,37 @@ public class TransformTest {
 			);
 	}
 				
-	@Test 
-	@Ignore
-	public void testRename() {
-		runTest("rename", 
-			"<transform process='rename' xpath='.//plugh'/>",
-			"<foo/>",
-			"<foo/>"
-			);
-	}
-				
+    @Test
+    public void testRename() {
+        runTest("rename",
+                "<transform process='rename' xpath='.//foo'  elementName='bar' />",
+                "<one><foo id='foo' dictRef='bar:foo'/></one>",
+                "<one><bar id='foo' dictRef='bar:foo'/></one>");
+    }
+
+    @Test
+    public void testRename1() {
+        runTest("rename",
+                "<transform process='rename' xpath='.//foo'  elementName='bar' />",
+                "<one><foo/></one>", "<one><bar/></one>");
+    }
+
+    @Test
+    public void testRename2() {
+        runTest("rename",
+                "<transform process='rename' xpath='.//foo'  elementName='bar' id='foo' dictRef='bar:foo'/>",
+                "<one><foo/></one>",
+                "<one><bar id='foo' dictRef='bar:foo'/></one>");
+    }
+
+    @Test
+    public void testRename3() {
+        runTest("rename",
+                "<transform process='rename' xpath='.//foo'  elementName='bar'/>",
+                "<one><foo><child1><child2/></child1></foo></one>",
+                "<one><bar><child1><child2/></child1></bar></one>");
+    }
+
 	@Test 
 	public void testReparse() {
 		

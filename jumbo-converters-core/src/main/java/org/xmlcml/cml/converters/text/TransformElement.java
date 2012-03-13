@@ -1867,9 +1867,32 @@ public class TransformElement implements MarkupApplier {
 		return element;
 	}
 
-	private void rename() {
-		throw new RuntimeException("rename NYI");
-	}
+    private void rename() {
+        assertRequired(XPATH, xpath);
+        assertRequired(ELEMENT_NAME, elementName);
+        List<Node> nodeList = getXpathQueryResults();
+        for (Node node : nodeList) {
+            if (node instanceof Element) {
+                Element element = (Element) node;
+                String idx = (element.getAttributeValue(ID) != null) ? element
+                        .getAttributeValue(ID) : id;
+                String dictRefx = (element.getAttributeValue(DICT_REF) != null) ? element
+                        .getAttributeValue(DICT_REF) : dictRef;
+                Element newElement = createNewElement(elementName, idx,
+                        dictRefx);
+                if (element.getChildElements().size() > 0) {
+                    // Copy all children across
+                    for (int i = 0; i < element.getChildCount(); i++) {
+                        Node child = element.getChild(i);
+                        child.detach();
+                        newElement.appendChild(child);
+                    }
+                }
+                ParentNode parent = element.getParent();
+                parent.replaceChild(element, newElement);
+            }
+        }
+    }
 
 	private void reparse() {
 		if (template == null) {
