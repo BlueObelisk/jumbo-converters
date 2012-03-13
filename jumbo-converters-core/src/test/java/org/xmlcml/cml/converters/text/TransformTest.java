@@ -1092,13 +1092,13 @@ public class TransformTest {
                 "<one><foo/></one>",
                 "<one><bar id='foo' dictRef='bar:foo'/></one>");
     }
-
+    
     @Test
     public void testRename3() {
         runTest("rename",
                 "<transform process='rename' xpath='.//foo'  elementName='bar'/>",
-                "<one><foo><child1><child2/></child1></foo></one>",
-                "<one><bar><child1><child2/></child1></bar></one>");
+                "<one><foo><child1><child1c/></child1><child2/><child3/><child4/></foo></one>",
+                "<one><bar><child1><child1c/></child1><child2/><child3/><child4/></bar></one>");
     }
 
 	@Test 

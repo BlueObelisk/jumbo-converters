@@ -1880,13 +1880,10 @@ public class TransformElement implements MarkupApplier {
                         .getAttributeValue(DICT_REF) : dictRef;
                 Element newElement = createNewElement(elementName, idx,
                         dictRefx);
-                if (element.getChildElements().size() > 0) {
-                    // Copy all children across
-                    for (int i = 0; i < element.getChildCount(); i++) {
-                        Node child = element.getChild(i);
-                        child.detach();
-                        newElement.appendChild(child);
-                    }
+                while (element.getChildElements().size() > 0) {
+                    Node child = element.getChild(0);
+                    child.detach();
+                    newElement.appendChild(child);
                 }
                 ParentNode parent = element.getParent();
                 parent.replaceChild(element, newElement);
