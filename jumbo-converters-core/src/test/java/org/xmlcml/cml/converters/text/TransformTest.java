@@ -167,6 +167,15 @@ public class TransformTest {
 			);
 	}
 	
+	   @Test 
+	    public void testAddChild6() {
+	        runTest("addChild", 
+	            "<transform process='addChild' xpath='./foo2a' elementName='cml:scalar' id='child' position='0' value='$string(../..//foo3)'/>",
+	            "<foo1><foo2a/><foo2b><foo3>hello</foo3></foo2b></foo1>",
+	            "<foo1><foo2a><scalar id='child' dataType='xsd:string' xmlns='http://www.xml-cml.org/schema'>hello</scalar></foo2a><foo2b><foo3>hello</foo3></foo2b></foo1>"
+	            );
+	    }
+	
 	@Test 
 	public void testAddUnNamespacedChild() {
 		try {
