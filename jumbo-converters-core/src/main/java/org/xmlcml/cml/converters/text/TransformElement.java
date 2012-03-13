@@ -651,32 +651,35 @@ public class TransformElement implements MarkupApplier {
 		}
 	}
 
-	private void addChild() {
-		assertRequired(XPATH, xpath);
-		assertRequired(ELEMENT_NAME, elementName);
-		List<Node> nodeList = getXpathQueryResults();
-		Object pos = (position == null) ? LAST : getPosition(position);
-		Element templateElement = createNewElement(elementName, id, dictRef);
-		for (Node node : nodeList) {
-			Element parent = (Element) node;
-			transformElement = (Element) templateElement.copy();
-			// make sure it's CML. CMLElements have a Document parent
-			nu.xom.Element transformElementx = CMLElement.createCMLElement(transformElement);
-			if (transformElementx == null) {
-				transformElementx = transformElement;
-			}
-			if (value != null && transformElementx instanceof CMLScalar) {
-				((CMLScalar) transformElementx).setValue(value);
-			}
-			
-			if (LAST.equals(pos)) {
-				CMLUtil.detach(transformElementx);
-				parent.appendChild(transformElementx);
-			} else if (pos instanceof Integer){
-				parent.insertChild(transformElementx, (Integer)pos);
-			}
-		}
-	}
+    private void addChild() {
+        assertRequired(XPATH, xpath);
+        assertRequired(ELEMENT_NAME, elementName);
+        List<Node> nodeList = getXpathQueryResults();
+        Object pos = (position == null) ? LAST : getPosition(position);
+        Element templateElement = createNewElement(elementName, id, dictRef);
+        for (Node node : nodeList) {
+            Element parent = (Element) node;
+            transformElement = (Element) templateElement.copy();
+            // make sure it's CML. CMLElements have a Document parent
+            nu.xom.Element transformElementx = CMLElement
+                    .createCMLElement(transformElement);
+            if (transformElementx == null) {
+                transformElementx = transformElement;
+            }
+            if (LAST.equals(pos)) {
+                CMLUtil.detach(transformElementx);
+                parent.appendChild(transformElementx);
+            } else if (pos instanceof Integer) {
+                parent.insertChild(transformElementx, (Integer) pos);
+            }
+            if (value != null && transformElementx instanceof CMLScalar) {
+                String valuex = (String) evaluateValue(transformElementx, value);
+                if (valuex != null)
+                    ((CMLScalar) transformElementx).setValue(valuex);
+            }
+
+        }
+    }
 
 	private void addDictRef() {
 		assertRequired(XPATH, xpath);
