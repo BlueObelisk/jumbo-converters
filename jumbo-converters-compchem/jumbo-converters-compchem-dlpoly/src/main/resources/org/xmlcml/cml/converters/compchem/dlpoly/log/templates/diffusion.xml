@@ -19,6 +19,8 @@
   <record repeat="3"/>
   <record repeat="*" id="atom">\s+{X,dlpoly:atomtype}\s+{E,dlpoly:diffcoef}\s*</record>
   
+  <transform process="delete" xpath="./cml:list[@cmlx:templateRef='missingID']"/>
+  
   <comment class="example.output" id="diffusion">
 	<module cmlx:templateRef="diffusion" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
 	  <list cmlx:templateRef="atom">

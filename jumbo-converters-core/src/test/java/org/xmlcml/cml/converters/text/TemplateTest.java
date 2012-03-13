@@ -1060,7 +1060,7 @@ public class TemplateTest {
 		  JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
 	}
 	
-     @Ignore @Test
+     @Test
      public void testCreateList() {
          String templateS = 
              "<template id='list' name='test' pattern='' dictRef=''>" +

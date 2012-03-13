@@ -53,6 +53,10 @@
   <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:h']" dictRef="cc:hexadecapole"/>
   <transform process="delete" xpath=".//cml:scalar[contains(@dictRef,'type')]"/>
   <transform process="pullup" xpath=".//cml:scalar | .//cml:array" repeat="2"/>
+  
+  <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
 
   <comment class="example.output" id="l601.multipole">
     <module cmlx:templateRef="multipole" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">

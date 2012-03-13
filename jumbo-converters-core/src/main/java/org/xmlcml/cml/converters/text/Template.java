@@ -501,7 +501,7 @@ public class Template implements MarkupApplier {
 	public static Element removeEmptyLists(Element list) {
 		boolean change = true;
 		while (change) {
-			Nodes emptyLists = list.query(".//*[local-name()='list' and count(*)=0]");
+			Nodes emptyLists = list.query(".//*[local-name()='list' and count(*)=0 and not [@dictRef or @id]]");
 			change = emptyLists.size() > 0;
 			for (int i = 0; i < emptyLists.size(); i++) {
 				emptyLists.get(i).detach();

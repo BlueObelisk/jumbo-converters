@@ -12,40 +12,40 @@
 
 </comment>
 
-  <record id="basis_summary">\s*Summary of "{X,n:basis_type}" -> "{X,n:basis_label}" \({A,n:harmonic_type}\)\s*</record>
+  <record id="basis_summary">\s*Summary of "{X,n:basis_set_label}" -> "{X,n:basis_set_description}" \({A,n:basis_set_harmonic_type}\)\s*</record>
   <record id="junk" repeat="3"/>
-  <record id="basis_contractions" repeat="*" >\s*{A,compchem:atom_tag}\s+{X,n:basisset_title}\s+{I,n:nbshell}\s+{I,n:nbfunc}\s+{A,n:btype}\s*</record>
+  <record id="basis_contractions" repeat="*" >\s*{A,n:atom_label}\s+{X,n:basis_set_title}\s+{I,n:contraction_nshell}\s+{I,n:contraction_nfunc}\s+{A,n:contraction_desc}\s*</record>
   <transform process="pullupSingleton" xpath="./cml:list"/>
   
   
   <comment class="example.output" id="summarybasis">
     <module cmlx:templateRef="summarybasis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <list cmlx:templateRef="basis_summary">
-        <scalar dataType="xsd:string" dictRef="n:basis_type">ao basis</scalar>
-        <scalar dataType="xsd:string" dictRef="n:basis_label"/>
-        <scalar dataType="xsd:string" dictRef="n:harmonic_type">cartesian</scalar>
+        <scalar dataType="xsd:string" dictRef="n:basis_set_label">ao basis</scalar>
+        <scalar dataType="xsd:string" dictRef="n:basis_set_description"/>
+        <scalar dataType="xsd:string" dictRef="n:basis_set_harmonic_type">cartesian</scalar>
       </list>
       <list cmlx:templateRef="basis_contractions">
         <list>
-          <scalar dataType="xsd:string" dictRef="compchem:atom_tag">o</scalar>
-          <scalar dataType="xsd:string" dictRef="n:basis_title">DZVP (DFT Orbital)</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:nbshell">6</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:nbfunc">15</scalar>
-          <scalar dataType="xsd:string" dictRef="n:btype">3s2p1d</scalar>
+          <scalar dataType="xsd:string" dictRef="n:atom_label">o</scalar>
+          <scalar dataType="xsd:string" dictRef="n:basis_set_title">DZVP (DFT Orbital)</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:contraction_nshell">6</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:contraction_nfunc">15</scalar>
+          <scalar dataType="xsd:string" dictRef="n:contraction_desc">3s2p1d</scalar>
         </list>
         <list>
-          <scalar dataType="xsd:string" dictRef="compchem:atom_tag">c</scalar>
-          <scalar dataType="xsd:string" dictRef="n:basis_title">DZVP (DFT Orbital)</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:nbshell">6</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:nbfunc">15</scalar>
-          <scalar dataType="xsd:string" dictRef="n:btype">3s2p1d</scalar>
+          <scalar dataType="xsd:string" dictRef="n:atom_label">c</scalar>
+          <scalar dataType="xsd:string" dictRef="n:basis_set_title">DZVP (DFT Orbital)</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:contraction_nshell">6</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:contraction_nfunc">15</scalar>
+          <scalar dataType="xsd:string" dictRef="n:contraction_desc">3s2p1d</scalar>
         </list>
         <list>
-          <scalar dataType="xsd:string" dictRef="compchem:atom_tag">fe</scalar>
-          <scalar dataType="xsd:string" dictRef="n:basis_title">DZVP (DFT Orbital)</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:nbshell">10</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:nbfunc">26</scalar>
-          <scalar dataType="xsd:string" dictRef="n:btype">5s3p2d</scalar>
+          <scalar dataType="xsd:string" dictRef="n:atom_label">fe</scalar>
+          <scalar dataType="xsd:string" dictRef="n:basis_set_title">DZVP (DFT Orbital)</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:contraction_nshell">10</scalar>
+          <scalar dataType="xsd:integer" dictRef="n:contraction_nfunc">26</scalar>
+          <scalar dataType="xsd:string" dictRef="n:contraction_desc">5s3p2d</scalar>
         </list>
       </list>
     </module>

@@ -16,6 +16,10 @@
   <transform process="delete" xpath="./cml:list[@cmlx:templateRef='verb']"/>
   <transform process="pullup" xpath=".//cml:scalar" repeat="2"/>
   
+   <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  
   <comment class="example.output" id="l1.version">
     <module cmlx:templateRef="l1.version" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <scalar dataType="xsd:string" dictRef="cc:program">Gaussian 03</scalar>

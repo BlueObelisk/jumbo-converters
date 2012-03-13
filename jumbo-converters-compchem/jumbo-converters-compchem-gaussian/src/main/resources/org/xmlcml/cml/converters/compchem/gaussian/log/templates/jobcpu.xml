@@ -19,6 +19,10 @@
   <transform process="pullup" xpath=".//cml:scalar[@dictRef='cc:jobdatetime.end']"/>
   <transform process="pullup" xpath=".//cml:scalar[@dictRef='cc:program']"/>
   
+  <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  
   <comment class="example.output" id="jobcpu">
     <module cmlx:templateRef="jobcpu" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <scalar dictRef="cc:jobtime" dataType="xsd:string">PT12.700S</scalar>
