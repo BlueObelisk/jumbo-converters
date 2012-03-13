@@ -7,7 +7,6 @@ import nu.xom.Element;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.AbstractConverter;
-import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.compchem.nwchem.NWChemCommon;
 
@@ -42,11 +41,29 @@ public class NWChemLog2CompchemConverter extends AbstractConverter {
     	xmlConverter.convert(xmlElement, out);
     }
 
- 
-
     public static void main(String[] args) throws IOException {
         if (args.length == 1) {
-             } 
+            File logFile = new File(args[0]);
+            if (!logFile.exists()) {
+                throw new RuntimeException("Cannot find file: "
+                        + logFile.getAbsolutePath() + "!\n");
+            }
+            String cmlFilename = getCmlFilenameFromLogFilename(args[0]);
+            File cmlFile = new File(cmlFilename);
+
+            System.out.println("Converting: " + logFile.getAbsolutePath()
+                    + "\n to \n" + cmlFile.getAbsolutePath());
+
+            try {
+                NWChemLog2CompchemConverter converter = new NWChemLog2CompchemConverter();
+                converter.convert(logFile, cmlFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println("Cannot read/convert "
+                        + logFile.getAbsolutePath() + "; " + e);
+            }
+
+        }
         else if (args.length == 2) {
         } else {
             AbstractConverter converter = new NWChemLog2CompchemConverter();
@@ -58,6 +75,18 @@ public class NWChemLog2CompchemConverter extends AbstractConverter {
         }
     }
 
+    private static String getCmlFilenameFromLogFilename(String logfileName) {
+        String cmlExt = "cml";
+        int mid = logfileName.lastIndexOf(".");
+        String cmlFileName;
+        if (mid > 0) {
+            cmlFileName = logfileName.substring(0, mid) + "."+ cmlExt;
+        } else {
+            cmlFileName = logfileName + "." + cmlExt;
+        }
+        return cmlFileName;
+    }
+    
 	private static void convertFile(AbstractConverter converter, String fileRoot) {
 		File out;
 		File in = null;
@@ -78,8 +107,6 @@ public class NWChemLog2CompchemConverter extends AbstractConverter {
 	
 	@Override
 	public String getRegistryOutputType() {
-                //jmht
-		//return CMLCommon.CML;
 		return NWChemCommon.LOG_CML;
 	}
 	

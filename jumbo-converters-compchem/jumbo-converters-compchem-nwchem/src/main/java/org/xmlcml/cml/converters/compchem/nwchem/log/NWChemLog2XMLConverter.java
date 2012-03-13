@@ -64,7 +64,28 @@ public class NWChemLog2XMLConverter extends CompchemText2XMLTemplateConverter {
 	
     public static void main(String[] args) throws IOException {
         if (args.length == 1) {
-             } 
+
+            File logFile = new File(args[0]);
+            if (!logFile.exists()) {
+                throw new RuntimeException("Cannot find file: "
+                        + logFile.getAbsolutePath() + "!\n");
+            }
+            String xmlFilename = args[0] + ".raw.xml";
+            File xmlFile = new File(xmlFilename);
+
+            System.out.println("Converting: " + logFile.getAbsolutePath()
+                    + "\n to \n" + xmlFile.getAbsolutePath());
+
+            try {
+                NWChemLog2XMLConverter converter = new NWChemLog2XMLConverter();
+                converter.convert(logFile, xmlFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println("Cannot read/convert "
+                        + logFile.getAbsolutePath() + "; " + e);
+            }
+
+        } 
         else if (args.length == 2) {
         } else {
             AbstractConverter converter = new NWChemLog2XMLConverter();
