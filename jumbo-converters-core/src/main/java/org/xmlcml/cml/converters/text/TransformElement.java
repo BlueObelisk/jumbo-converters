@@ -854,35 +854,48 @@ public class TransformElement implements MarkupApplier {
 		}
 	}
 	
-	private void addSibling() {
-		assertRequired(XPATH, xpath);
-		assertRequired(ID, id);
-		assertRequired(ELEMENT_NAME, elementName);
-		assertRequired(POSITION, position);
-		Integer pos = new Integer(position);
-		List<Node> nodeList = getXpathQueryResults();
-		for (Node node : nodeList) {
-			Element element = (Element)node;
-			ParentNode parent = element.getParent();
-			Elements childElements = ((Element)parent).getChildElements();
-			int idx = -1;
-			int nchild = childElements.size();
-			List<Element> elementList = new ArrayList<Element>();
-			for (int i = 0; i < nchild; i++) {
-				Element childElement = (Element) childElements.get(i);
-				elementList.add(childElement);
-				if (childElement.equals(element)) {
-					idx = i;
-					break;
-				}
-			}
-			int insertionPoint = idx + pos;
-			if (insertionPoint >= 0 && insertionPoint <= nchild) {
-				Element newElement = createNewElement(elementName, id, dictRef);
-				parent.insertChild(newElement, insertionPoint);
-			}
-		}
-	}
+    private void addSibling() {
+        assertRequired(XPATH, xpath);
+        assertRequired(ID, id);
+        assertRequired(ELEMENT_NAME, elementName);
+        assertRequired(POSITION, position);
+        Integer pos = new Integer(position);
+        List<Node> nodeList = getXpathQueryResults();
+        for (Node node : nodeList) {
+            Element element = (Element) node;
+            ParentNode parent = element.getParent();
+            Elements childElements = ((Element) parent).getChildElements();
+            int idx = -1;
+            int nchild = childElements.size();
+            List<Element> elementList = new ArrayList<Element>();
+            for (int i = 0; i < nchild; i++) {
+                Element childElement = (Element) childElements.get(i);
+                elementList.add(childElement);
+                if (childElement.equals(element)) {
+                    idx = i;
+                    break;
+                }
+            }
+            int insertionPoint = idx + pos;
+            if (insertionPoint >= 0 && insertionPoint <= nchild) {
+                Element transformElement = createNewElement(elementName, id, dictRef);
+                // make sure it's CML. CMLElements have a Document parent
+                nu.xom.Element transformElementx = CMLElement
+                        .createCMLElement(transformElement);
+                if (transformElementx == null) {
+                    transformElementx = transformElement;
+                }
+                parent.insertChild(transformElementx, insertionPoint);
+                if (value != null && transformElementx instanceof CMLScalar) {
+                    String valuex = (String) evaluateValue(transformElementx,
+                            value);
+                    if (valuex != null) {
+                        ((CMLScalar) transformElementx).setValue(valuex);
+                    }
+                }
+            }
+        }
+    }
 	
 	private void addUnits() {
 		assertRequired(XPATH, xpath);
