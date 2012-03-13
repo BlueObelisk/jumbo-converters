@@ -393,6 +393,15 @@ public class TransformTest {
 			);
 	}
 	
+    @Test 
+    public void testAddSibling11() {
+        runTest("addSibling", 
+            "<transform process='addSibling' xpath='./foo2a' elementName='cml:scalar' id='child' position='1' value='$string(..//foo3)'/>",
+            "<foo1><foo2a/><foo2b><foo3>hello</foo3></foo2b></foo1>",
+            "<foo1><foo2a/><scalar id='child' dataType='xsd:string' xmlns='http://www.xml-cml.org/schema'>hello</scalar><foo2b><foo3>hello</foo3></foo2b></foo1>"
+            );
+    }
+	
 	@Test 
 	public void testAddUnits() {
 		runTest("addUnits", 
