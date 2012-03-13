@@ -44,7 +44,6 @@ public class TemplateUnitTests {
    @Test public void testAutosymOK()                             {runTemplateTest("autosym");}
    @Test public void testBasisShellOK()                          {runTemplateTest("basis.shell");}
    @Test public void testBasisOK()                               {runTemplateTest("basis");}
-   @Test public void testJens()                               {runTemplateTest("jens");}
    @Test public void testBasisfuncOK()                           {runTemplateTest("basisfunc");}
    @Test public void testBeforeaftercallOK()                     {runTemplateTest("beforeaftercall");}
    @Test public void testBrillouinzpOK()                         {runTemplateTest("brillouinzp");}
