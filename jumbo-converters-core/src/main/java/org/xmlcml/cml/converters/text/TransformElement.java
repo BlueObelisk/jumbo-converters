@@ -677,7 +677,6 @@ public class TransformElement implements MarkupApplier {
                 if (valuex != null)
                     ((CMLScalar) transformElementx).setValue(valuex);
             }
-
         }
     }
 
@@ -2751,7 +2750,7 @@ public class TransformElement implements MarkupApplier {
 		} catch (Exception e) {
 //			CMLUtil.debug()
 			System.err.println(""+localName+doubles);
-			throw new RuntimeException("problem in adding Scalar doubles", e);
+			throw new RuntimeException("problem in adding Scalar doubles: "+e.getLocalizedMessage(), e);
 		}
 	}
 
@@ -2780,11 +2779,12 @@ public class TransformElement implements MarkupApplier {
 			}
 			if (elem.length() == 2) {
 				if (Character.isLetter(elem.charAt(1))) {
-					elem = elem.substring(0, 1)+elem.substring(1,2).toLowerCase();
+					elem = elem.substring(0, 1).toUpperCase()+elem.substring(1,2).toLowerCase();
 				} else {
 					elem = elem.substring(0, 1);
 				}
 			}
+			if (elem.length() == 1) elem = elem.substring(0, 1).toUpperCase();
 			chemicalElement = ChemicalElement.getChemicalElement(elem);
 			if (chemicalElement == null) {
 				throw new RuntimeException("Unknown element: "+values[i]);
