@@ -29,7 +29,7 @@ public class Deleter extends Template {
 		while (inode < linesElement.getChildCount()) {
 			Node node = linesElement.getChild(inode);
 			if (node instanceof Text) {
-				Int2 range = lineContainer.matchLines(inode, startChunker.getPatternList());
+				Int2 range = lineContainer.matchLines(inode, startChunker);
 				if (range != null) {
 					// detach nodes; count does not need incrementing
 					for (int i = 0; i < range.getY() - range.getX(); i++) {
