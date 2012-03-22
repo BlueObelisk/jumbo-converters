@@ -187,7 +187,7 @@ public class TemplateTest {
 			"<template pattern='.*1.*' offset='0' id='t1' name='template 1' endPattern='.*3.*' endOffset='1'/>";
 		Template template = new Template(CMLUtil.parseXML(templateS));
 		String s = template.toString();
-		Assert.assertEquals("template", "startChunker [.*1.*] | 0\nendChunker [.*3.*] | 1\n", s);
+		Assert.assertEquals("template", "Got 1 startChunkers\nPattern[0]= [.*1.*] | 0\nGot 1 endChunkers\nPattern[0]= [.*3.*] | 1\n", s);
 	}
 	
 	@Test
@@ -196,7 +196,7 @@ public class TemplateTest {
 			"<template pattern='.*1.*' offset='2' id='t1' name='template 1' endPattern='.*3.*'/>";
 		Template template = new Template(CMLUtil.parseXML(templateS));
 		String s = template.toString();
-		Assert.assertEquals("template", "startChunker [.*1.*] | 2\nendChunker [.*3.*] | 0\n", s);
+		Assert.assertEquals("template", "Got 1 startChunkers\nPattern[0]= [.*1.*] | 2\nGot 1 endChunkers\nPattern[0]= [.*3.*] | 0\n", s);
 	}
 	
 	@Test
@@ -205,7 +205,7 @@ public class TemplateTest {
 			"<template pattern='.*1.*' offset='2' id='t1' name='template 1' />";
 		Template template = new Template(CMLUtil.parseXML(templateS));
 		String s = template.toString();
-		Assert.assertEquals("template", "startChunker [.*1.*] | 2\nendChunker [~] | 0\n", s);
+		Assert.assertEquals("template", "Got 1 startChunkers\nPattern[0]= [.*1.*] | 2\nGot 1 endChunkers\nPattern[0]= [~] | 0\n", s);
 	}
 	
 	@Test
@@ -214,7 +214,7 @@ public class TemplateTest {
 			"<template pattern='.*1.*' id='t1' name='template 1' />";
 		Template template = new Template(CMLUtil.parseXML(templateS));
 		String s = template.toString();
-		Assert.assertEquals("template", "startChunker [.*1.*] | 0\nendChunker [~] | 0\n", s);
+		Assert.assertEquals("template", "Got 1 startChunkers\nPattern[0]= [.*1.*] | 0\nGot 1 endChunkers\nPattern[0]= [~] | 0\n", s);
 	}
 	
 	@Test
@@ -223,7 +223,7 @@ public class TemplateTest {
 			"<template pattern='.*1.*' id='t1' name='template 1' endOffset='1'/>";
 		Template template = new Template(CMLUtil.parseXML(templateS));
 		String s = template.toString();
-		Assert.assertEquals("template", "startChunker [.*1.*] | 0\nendChunker [~] | 1\n", s);
+		Assert.assertEquals("template", "Got 1 startChunkers\nPattern[0]= [.*1.*] | 0\nGot 1 endChunkers\nPattern[0]= [~] | 1\n", s);
 	}
 	
 	@Test
@@ -687,6 +687,8 @@ public class TemplateTest {
 		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
 	}
 	
+	   
+	
 	@Test
 	public void testStartStart0() {
 		String templateS = 
@@ -727,7 +729,113 @@ public class TemplateTest {
 		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
 //		Assert.fail("wrong output");
 	}
-	
+
+    @Test
+    public void testMultiplePatterns1() {
+        String templateS = "<template id='book' name='test' pattern='' dictRef=''>"
+                + "  <templateList>"
+                + "    <template repeat='*' name='template A' id='chapter'"
+                + "     pattern='start.*' endPattern='stop.*' endPattern2='end.*$here.*' offset='0' endOffset='0'>"
+                + "    </template>" + "  </templateList>" + "</template>";
+        Template template = new Template(CMLUtil.parseXML(templateS));
+        String toBeParsed = "" 
+        + "book\n"
+        + "start\n"
+        + "includeme\n"
+        + "stop\n"
+        + "start\n"
+        + "includeme\n"
+        + "end\n"
+        + "here\n"
+        + "notme\n"
+        + "start\n"
+        + "includeme\n"
+        + "stop\n"
+        + "notme\n"
+        + "";
+        template.applyMarkup(toBeParsed);
+        LineContainer lineContainer = template.getLineContainer();
+        Assert.assertNotNull(lineContainer);
+        String refS = "<module cmlx:templateRef='book' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>book\n"
+                + "<module cmlx:lineCount='2' cmlx:templateRef='chapter'>start\nincludeme\n</module>stop\n"
+                + "<module cmlx:lineCount='2' cmlx:templateRef='chapter'>start\nincludeme\n</module>end\nhere\nnotme\n"
+                + "<module cmlx:lineCount='2' cmlx:templateRef='chapter'>start\nincludeme\n</module>stop\nnotme\n"
+                + "</module>";
+        JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS,
+                lineContainer.getLinesElement(), true);
+    }
+
+    @Test
+    public void testMultiplePatterns2() {
+        String templateS = "<template id='book' name='test' pattern='' dictRef=''>"
+                + "  <templateList>"
+                + "    <template repeat='*' name='template A' id='chapter'"
+                + "     pattern='start.*' pattern2='thisone.*' endPattern='stop.*' endPattern2='end.*$here.*' offset='0' endOffset='0' offset2='1' endOffset2='1'>"
+                + "    </template>" + "  </templateList>" + "</template>";
+        Template template = new Template(CMLUtil.parseXML(templateS));
+        String toBeParsed = ""
+        + "book\n"
+        + "start\n"
+        + "includeme\n"
+        + "stop\n"
+        + "thisone\n"
+        + "includeme\n"
+        + "end\n"
+        + "here\n"
+        + "notme\n"
+        + "start\n"
+        + "includeme\n"
+        + "stop\n"
+        + "notme\n"
+        + "";
+        template.applyMarkup(toBeParsed);
+        LineContainer lineContainer = template.getLineContainer();
+        Assert.assertNotNull(lineContainer);
+        String refS = "<module cmlx:templateRef='book' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>book\n"
+                + "<module cmlx:lineCount='2' cmlx:templateRef='chapter'>start\nincludeme\n</module>stop\nthisone\n"
+                + "<module cmlx:lineCount='2' cmlx:templateRef='chapter'>includeme\nend\n</module>here\nnotme\n"
+                + "<module cmlx:lineCount='2' cmlx:templateRef='chapter'>start\nincludeme\n</module>stop\nnotme\n"
+                + "</module>";
+        JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS,
+                lineContainer.getLinesElement(), true);
+    }
+
+    @Test
+    public void testMultiplePatternsWithEOI() {
+        String templateS = 
+            "<template id='book' name='test' pattern='' dictRef=''>" +
+            "  <templateList>" +
+            "    <template repeatCount='*' id='chapter' name='template A' pattern='.*start.*' offset='0' " +
+            "        endPattern='.*stop.*' endOffset='0' endPattern2='~'>" +
+            "    </template>" +
+            "  </templateList>" +
+            "</template>";
+        Template template = new Template(CMLUtil.parseXML(templateS));
+        String toBeParsed = "" +
+            "book\n"+
+            "start\n"+
+            "includeme\n"+
+            "includeme\n"+
+            "stop\n"+
+            "notme\n"+
+            "notme\n"+
+            "start\n"+
+            "includeme\n"+
+            "includeme\n"+
+            "includeme\n"+
+            "";
+        template.applyMarkup(toBeParsed);
+        LineContainer lineContainer = template.getLineContainer();
+        Assert.assertNotNull(lineContainer);
+        String refS = 
+              "<module cmlx:templateRef='book' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>book\n"+
+              "<module cmlx:lineCount='3' cmlx:templateRef=\"chapter\">start\nincludeme\nincludeme\n</module>stop\nnotme\nnotme\n"+
+              "<module cmlx:lineCount='4' cmlx:templateRef=\"chapter\">start\nincludeme\nincludeme\nincludeme\n</module>"+
+              "</module>";
+        JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
+    }
+
+    
 	@Test
 	public void testRepeatCount() {
 		String templateS = 

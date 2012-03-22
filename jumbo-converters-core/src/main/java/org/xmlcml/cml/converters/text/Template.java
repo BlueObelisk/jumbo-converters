@@ -46,15 +46,31 @@ public class Template implements MarkupApplier {
 	public static final String CONVENTION = "convention";
 	private static final String DICT_REF = "dictRef";
 	private static final String END_OFFSET = "endOffset";
+	private static final String END_OFFSET2 = "endOffset2";
+	private static final String END_OFFSET3 = "endOffset3";
+	private static final String END_OFFSET4 = "endOffset4";
+	private static final String END_OFFSET5 = "endOffset5";
 	private static final String END_PATTERN = "endPattern";
+	private static final String END_PATTERN2 = "endPattern2";
+	private static final String END_PATTERN3 = "endPattern3";
+	private static final String END_PATTERN4 = "endPattern4";
+	private static final String END_PATTERN5 = "endPattern5";
 	private static final String ID = "id";
 	private static final String MULTIPLE = "multiple"; // deprecated
 	private static final String NAME = "name";
 	private static final String NAMES = "names";
 	private static final String NEWLINE = "newline";
 	private static final String OFFSET = "offset";
+	private static final String OFFSET2 = "offset2";
+	private static final String OFFSET3 = "offset3";
+	private static final String OFFSET4 = "offset4";
+	private static final String OFFSET5 = "offset5";
 	private static final String OUTPUT = "output";
 	private static final String PATTERN = "pattern";
+	private static final String PATTERN2 = "pattern2";
+	private static final String PATTERN3 = "pattern3";
+	private static final String PATTERN4 = "pattern4";
+	private static final String PATTERN5 = "pattern5";
 	private static final String REPEAT = "repeat";
 	private static final String REPEAT_COUNT = "repeatCount"; // deprecated
 	public  static final String TEMPLATE_REF = "templateRef";
@@ -76,13 +92,9 @@ public class Template implements MarkupApplier {
 	private String id;
 	private String name;
 	private String newlineS;
-	private String patternString;
-	private String endPatternString;
-	private PatternContainer endChunker;
-	protected PatternContainer startChunker;
+	protected PatternContainerList endChunker;
+	protected PatternContainerList startChunker;
 	private boolean debug = false;
-	private Integer offset;
-	private Integer endOffset;
 	private Integer minRepeatCount = 1;
 	private Integer maxRepeatCount = 1;
 	private OutputLevel outputLevel;
@@ -120,17 +132,18 @@ public class Template implements MarkupApplier {
 		return name;
 	}
 
-	public PatternContainer getEndChunker() {
+	public PatternContainerList getEndChunker() {
 		return endChunker;
 	}
 
-	public PatternContainer getStartChunker() {
+	public PatternContainerList getStartChunker() {
 		return startChunker;
 	}
 
 	@Deprecated // will change to list structure
+	//jmht - just return the first patternContainer
 	public Pattern getPattern() {
-		return (startChunker == null || startChunker.size() == 0) ? null : startChunker.get(0);
+		return (startChunker == null || startChunker.size() == 0) ? null : startChunker.get(0).get(0);
 	}
 
 	public OutputLevel getOutputLevel() {
@@ -148,15 +161,31 @@ public class Template implements MarkupApplier {
 			DEBUG,
 			DICT_REF,
 			END_OFFSET,
+			END_OFFSET2,
+			END_OFFSET3,
+			END_OFFSET4,
+			END_OFFSET5,
 			END_PATTERN,
+			END_PATTERN2,
+			END_PATTERN3,
+			END_PATTERN4,
+			END_PATTERN5,
 			ID, 
 			MULTIPLE,
 			NAME,
 			NAMES,
 			NEWLINE,
 			OFFSET,
+			OFFSET2,
+			OFFSET3,
+			OFFSET4,
+			OFFSET5,
 			OUTPUT,
 			PATTERN,
+			PATTERN2,
+			PATTERN3,
+			PATTERN4,
+			PATTERN5,
 			REPEAT,
 			REPEAT_COUNT,
 		});
@@ -169,12 +198,6 @@ public class Template implements MarkupApplier {
 		names = getStringsFromAttribute(NAMES);
 		this.dictRef = templateElement1.getAttributeValue(DICT_REF);
 		
-		patternString = templateElement1.getAttributeValue(PATTERN);
-		endPatternString = templateElement1.getAttributeValue(END_PATTERN);
-		if (endPatternString == null) {
-			// special end-of-information symbol
-			endPatternString = EOI;
-		}
 		processNewline();
 		
 		outputLevel = Outputter.extractOutputLevel(this.templateElement1);
@@ -183,13 +206,9 @@ public class Template implements MarkupApplier {
 //			System.out.println("OUTPUT "+outputLevel);
 		}
 		debug = (templateElement1.getAttributeValue(DEBUG) != null);
-		offset = readIntegerAttribute(templateElement1, OFFSET);
-		endOffset = readIntegerAttribute(templateElement1, END_OFFSET);
 		
 		processRepeatCount();
-		
-		startChunker = new PatternContainer(patternString, newlineS, offset);
-		endChunker = new PatternContainer(endPatternString, newlineS, endOffset);
+		processPatterns();
 	}
 
 	private void processNewline() {
@@ -207,7 +226,84 @@ public class Template implements MarkupApplier {
 			newlineS = escape(newlineS);
 		}
 	}
+	
+    private void processPatterns() {
 
+        startChunker = new PatternContainerList();
+        endChunker = new PatternContainerList();
+        String patternS = null;
+        String endPatternS = null;
+        Integer offset,initialOffset = null;
+        Integer endOffset, initialEndOffset = null;
+        
+
+        patternS = templateElement1.getAttributeValue(PATTERN);
+        endPatternS = templateElement1.getAttributeValue(END_PATTERN);
+        initialOffset = readIntegerAttribute(templateElement1, OFFSET);
+        initialEndOffset = readIntegerAttribute(templateElement1, END_OFFSET);
+        offset=initialOffset;
+        endOffset=initialEndOffset;
+        if (endPatternS == null) {
+            // special end-of-information symbol
+            endPatternS = EOI;
+        }
+        startChunker.add(new PatternContainer(patternS, newlineS, offset));
+        endChunker.add(new PatternContainer(endPatternS, newlineS, endOffset));
+        
+        
+        patternS = templateElement1.getAttributeValue(PATTERN2);
+        if (patternS != null) {
+            offset = readIntegerAttribute(templateElement1, OFFSET2);
+            if (offset == null) offset = initialOffset;
+            startChunker.add(new PatternContainer(patternS, newlineS, offset));
+        }
+        endPatternS = templateElement1.getAttributeValue(END_PATTERN2);
+        if (endPatternS != null) {
+            endOffset = readIntegerAttribute(templateElement1, END_OFFSET2);
+            if (endOffset == null) endOffset = initialEndOffset;
+            endChunker.add(new PatternContainer(endPatternS, newlineS, endOffset));
+        }
+        
+        patternS = templateElement1.getAttributeValue(PATTERN3);
+        if (patternS != null) {
+            offset = readIntegerAttribute(templateElement1, OFFSET3);
+            if (offset == null) offset = initialOffset;
+            startChunker.add(new PatternContainer(patternS, newlineS, offset));
+        }
+        endPatternS = templateElement1.getAttributeValue(END_PATTERN3);
+        if (endPatternS != null) {
+            endOffset = readIntegerAttribute(templateElement1, END_OFFSET3);
+            if (endOffset == null) endOffset = initialEndOffset;
+            endChunker.add(new PatternContainer(endPatternS, newlineS, endOffset));
+        }
+        
+        patternS = templateElement1.getAttributeValue(PATTERN4);
+        if (patternS != null) {
+            offset = readIntegerAttribute(templateElement1, OFFSET4);
+            if (offset == null) offset = initialOffset;
+            startChunker.add(new PatternContainer(patternS, newlineS, offset));
+        }
+        endPatternS = templateElement1.getAttributeValue(END_PATTERN4);
+        if (endPatternS != null) {
+            endOffset = readIntegerAttribute(templateElement1, END_OFFSET4);
+            if (endOffset == null) endOffset = initialEndOffset;
+            endChunker.add(new PatternContainer(endPatternS, newlineS, endOffset));
+        }
+        
+        patternS = templateElement1.getAttributeValue(PATTERN5);
+        if (patternS != null) {
+            offset = readIntegerAttribute(templateElement1, OFFSET5);
+            if (offset == null) offset = initialOffset;
+            startChunker.add(new PatternContainer(patternS, newlineS, offset));
+        }
+        endPatternS = templateElement1.getAttributeValue(END_PATTERN5);
+        if (endPatternS != null) {
+            endOffset = readIntegerAttribute(templateElement1, END_OFFSET5);
+            if (endOffset == null) endOffset = initialEndOffset;
+            endChunker.add(new PatternContainer(endPatternS, newlineS, endOffset));
+        }
+    }
+	
 	public static String escape(String s) {
 		if ("\"$%^*-+.".contains(s)) {
 			s =  CMLConstants.S_BACKSLASH+s;
@@ -452,15 +548,15 @@ public class Template implements MarkupApplier {
 		Element chunk = null;
 		Int2 startRange = lineContainer.findNextMatch(lineContainer.getCurrentNodeIndex(), this.startChunker);
 		if (startRange != null) {
-			int start = startRange.getX()+this.startChunker.getOffset();
+			int start = startRange.getX()+this.startChunker.getCurrentOffset();
 			int end = startRange.getY();
 			Int2 endRange = lineContainer.findNextMatch(end+1, this.endChunker);
 			if (endRange != null) {
 				end = endRange.getX();
 				lineContainer.setCurrentNodeIndex(endRange.getY());
 			}
-			chunk = lineContainer.createChunk(start, end+endChunker.getOffset());
-			LOG.trace("line1 "+lineContainer.peekCurrentNode());
+			chunk = lineContainer.createChunk(start, end+endChunker.getCurrentOffset());
+			LOG.trace("findNextChunk:peekCurrentNode "+lineContainer.peekCurrentNode());
 		}
 		return chunk;
 	}
@@ -542,9 +638,18 @@ public class Template implements MarkupApplier {
 	}
 
 	public String toString() {
+	    PatternContainer pc = null;
 		String s = "";
-		s += "startChunker "+startChunker.toString()+"\n";
-		s += "endChunker "+endChunker.toString()+"\n";
+		s += "Got " + startChunker.size() + " startChunkers\n";
+		for (int i=0; i < startChunker.size() ; i++) {
+		    pc = startChunker.get(i);
+		    s += "Pattern["+i+"]= " +pc.toString() +"\n";
+		}
+        s += "Got " + endChunker.size() + " endChunkers\n";
+        for (int i=0; i < endChunker.size() ; i++) {
+            pc = endChunker.get(i);
+            s += "Pattern["+i+"]= " +pc.toString() +"\n";
+        }
 		return s;
 	}
 

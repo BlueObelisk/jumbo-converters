@@ -143,23 +143,35 @@ public class LineContainer {
 		return can;
 	}
 
-	public Int2 matchLines(int startIndex, List<Pattern> contiguousPatterns) {
-		Int2 range = null;
-		if (isEOIPattern(contiguousPatterns)) {
-			// point to line after end
-			range = new Int2(linesElement.getChildCount(), linesElement.getChildCount());
-		} else {
-			if (this.canReadContiguousTextNodes(startIndex, contiguousPatterns.size())) {
-				if (contiguousPatterns.size() == 0) {
-					range = new Int2(startIndex, startIndex);
-				} else if(matchesContiguousPatterns(startIndex, contiguousPatterns)) {
-					range = new Int2(startIndex, startIndex+contiguousPatterns.size()-1);
-				}
-			}
-		}
-		LOG.trace("Range to match: "+range);
-		return range;
-	}
+	   public Int2 matchLines(int startIndex, PatternContainerList patternContainerList) {
+	        Int2 range = null;
+	        List<Pattern> contiguousPatterns=null;
+	        for (int i=0; i<patternContainerList.size(); i++)
+	        {
+	            contiguousPatterns = patternContainerList.get(i).getPatternList();
+	            // Only return on EOI pattern if there are no other patterns we are searching for
+	            if ( patternContainerList.isOnlyPattern(Template.EOI) ) {
+	                // point to line after end
+	                range = new Int2(linesElement.getChildCount(), linesElement.getChildCount());
+	                LOG.trace("Got EOI for i: "+i);
+	                break;
+	            } else {
+	                if (this.canReadContiguousTextNodes(startIndex, contiguousPatterns.size())) {
+	                    if (contiguousPatterns.size() == 0) {
+	                        range = new Int2(startIndex, startIndex);
+	                        LOG.trace("matchLines break as no size for i: "+i);
+	                        break;
+	                    } else if(matchesContiguousPatterns(startIndex, contiguousPatterns)) {
+	                        range = new Int2(startIndex, startIndex+contiguousPatterns.size()-1);
+	                        LOG.trace("matchLines break as got match");
+	                        break;
+	                    }
+	                }
+	            }
+	        }
+	        LOG.trace("Range to match: "+range);
+	        return range;
+	    }
 
 	private boolean matchesContiguousPatterns(int startIndex,
 			List<Pattern> contiguousPatterns) {
@@ -167,7 +179,7 @@ public class LineContainer {
 			Node node = linesElement.getChild(i + startIndex);
 			String value = node.getValue();
 			Pattern pattern = contiguousPatterns.get(i);
-//			LOG.trace("contiguous pattern matching ["+value+"] against ["+pattern+"]");
+			LOG.trace("contiguous pattern matching ["+value+"] against ["+pattern+"]");
 			Matcher matcher = pattern.matcher(value);
 			if (!matcher.matches()) {
 				return false;
@@ -176,17 +188,13 @@ public class LineContainer {
 		return true;
 	}
 
-	private boolean isEOIPattern(List<Pattern> contiguousPatterns) {
-		return contiguousPatterns.size() == 1 && Template.EOI.equals(contiguousPatterns.get(0).toString());
-	}
-
-	Int2 findNextMatch(int nodeIndex, PatternContainer chunker) {
+	Int2 findNextMatch(int nodeIndex, PatternContainerList chunker) {
 		// loop through lines till end (might tweak this later??)
 		while (nodeIndex < this.linesElement.getChildCount()) {
-			LOG.trace(nodeIndex+"/"+this.linesElement.getChildCount());
+			LOG.trace("findNextMatch: "+nodeIndex+"/"+this.linesElement.getChildCount());
 			Int2 contiguous = this.getContiguousTextRange(nodeIndex);
 			while (nodeIndex < contiguous.getY()) {
-				Int2 start = this.matchLines(nodeIndex, chunker.getPatternList());
+				Int2 start = this.matchLines(nodeIndex, chunker);
 				if (start != null) {
 					return start;
 				}
@@ -194,7 +202,8 @@ public class LineContainer {
 			}
 			nodeIndex++;
 		}
-		return null;
+        return ( ! chunker.containsPattern(Template.EOI) ) ? null : new Int2(
+                linesElement.getChildCount(), linesElement.getChildCount());
 	}
 
 
