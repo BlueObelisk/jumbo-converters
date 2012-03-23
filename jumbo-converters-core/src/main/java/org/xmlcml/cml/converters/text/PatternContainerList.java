@@ -13,10 +13,12 @@ public class PatternContainerList {
     
     public PatternContainerList( PatternContainer patternContainer ) {
         patternContainerList.add(patternContainer);
+        currentIndex=0;
     }
     
     public boolean add( PatternContainer patternContainer ) {
         if (patternContainer == null) return false;
+        if (patternContainerList.size() == 0) currentIndex=0;
         return patternContainerList.add(patternContainer);
     }
 
@@ -34,7 +36,8 @@ public class PatternContainerList {
         return false;
     }
     
-    public PatternContainer get(int index) {
+    public PatternContainer get(Integer index) {
+        if ( index == null ) throw new RuntimeException("PatterContainerList get - bad index");
         currentIndex=index;
         return patternContainerList.get(index);
     }

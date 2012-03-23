@@ -764,6 +764,28 @@ public class TemplateTest {
         JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS,
                 lineContainer.getLinesElement(), true);
     }
+    
+    @Test
+    public void testLastLinePattern() {
+        String templateS = "<template id='book' name='test' pattern='' dictRef=''>"
+                + "  <templateList>"
+                + "    <template repeat='*' name='template A' id='chapter'"
+                + "     pattern='lastline.*' endPattern='.*' endPattern2='~' offset='0' endOffset='0'>"
+                + "    </template>" + "  </templateList>" + "</template>";
+        Template template = new Template(CMLUtil.parseXML(templateS));
+        String toBeParsed = "" 
+        + "line1\n"
+        + "line2\n"
+        + "lastline\n";
+        template.applyMarkup(toBeParsed);
+        LineContainer lineContainer = template.getLineContainer();
+        Assert.assertNotNull(lineContainer);
+        String refS = "<module cmlx:templateRef='book' xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>line1\nline2\n"
+                + "<module cmlx:lineCount='1' cmlx:templateRef='chapter'>lastline\n</module>"
+                + "</module>";
+        JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS,
+                lineContainer.getLinesElement(), true);
+    }
 
     @Test
     public void testMultiplePatterns2() {
