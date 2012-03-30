@@ -1,0 +1,168 @@
+<template repeat="*"  id="zmat_new" name="Z-Matrix" 
+  pattern=".*Z\-matrix \(.*\).*$\s+\-+.*" 
+  endPattern="\s*.*((Stretch)|(Bend)|(Torsion)|(OOP bend)|(Linear bend)|(Dihedral)).*$\s*" 
+  endOffset="2"
+>
+  <comment class="example.input" id="zmat">
+                                Z-matrix (user)
+                                -------- 
+
+ Units are Angstrom for bonds and degrees for angles
+
+  Constrained variables are marked with a plus sign (+).
+
+
+      Type          Name      I     J     K     L     M      Value
+      ----------- --------  ----- ----- ----- ----- ----- ----------
+    1+Stretch      r2          2     1                       0.96200
+    2+Stretch      r2          3     1                       0.96200
+    3 Bend         a3          3     1     2               105.10000
+    4 Stretch      r3          4     1                       2.00000
+    5+Bend         a4          4     1     2               127.45000
+    6+Bend(2)      a4          4     1     3    -1         127.45000
+   
+  </comment>
+  
+    <comment>
+    <comment class="example.input" id="zmat4">
+                                Z-matrix (user)
+                                -------- 
+
+ Units are Angstrom for bonds and degrees for angles
+
+  Constrained variables are marked with a plus sign (+).
+
+
+      Type          Name      I     J     K     L     M      Value
+      ----------- --------  ----- ----- ----- ----- ----- ----------
+    1+Stretch      r2          2     1                       0.96200
+    2+Stretch      r2          3     1                       0.96200
+    3 Bend         a3          3     1     2               105.10000
+    4 Stretch      r3          4     1                       2.00000
+    5+Bend         a4          4     1     2               127.45000
+    6+Bend(2)      a4          4     1     3    -1         127.45000
+   
+  </comment>
+  
+    <comment class="example.input" id="zmat5">
+                                  Z-matrix (autoz)
+                                -------- 
+
+ Units are Angstrom for bonds and degrees for angles
+
+      Type          Name      I     J     K     L     M      Value
+      ----------- --------  ----- ----- ----- ----- ----- ----------
+    1 Stretch                  1     3                       1.08353
+    2 Stretch                  1     4                       1.08351
+    3 Stretch                  1     5                       1.08348
+    4 Stretch                  1     6                       1.39535
+    5 Stretch                  2     6                       1.21179
+    6 Stretch                  2     7                       1.03157
+    7 Bend                     1     2     7                96.36069
+    8 Bend                     2     1     3               103.55210
+    9 Bend                     2     1     4               103.41833
+   10 Bend                     2     1     5               104.11421
+   11 Bend                     3     1     4               114.53351
+   12 Bend                     3     1     5               114.60018
+   13 Bend                     3     1     6               104.69799
+   14 Bend                     4     1     5               114.59805
+   15 Bend                     4     1     6               104.82871
+   16 Bend                     5     1     6               101.54519
+   17 Bend                     6     2     7                99.32399
+   18 Torsion                  3     1     2     7          62.35729
+   19 Torsion                  1     3     6     2        -171.28472
+   20 Torsion                  4     1     2     7         -57.41867
+   21 Torsion                  1     4     6     2         171.95379
+   22 Torsion                  5     1     2     7        -177.50076
+   23 Torsion                  1     5     6     2         179.30165
+   24 Torsion                  1     6     7     2         179.86676
+
+  
+  </comment>
+    </comment>
+    
+  <record id="unparsed" repeat="*">\s*{X,n:unparsed}\s*</record>
+    
+    
+    <!-- 
+  <record id="typez" >\s*Z\-matrix\s*\({X,n:typezz}\)\s*</record>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  <record repeat="1"/>
+  <record repeat="*">\s*</record>
+   -->
+   
+   
+  <!-- Trap info lines that may or may not be printed 
+  <templateList>
+    <template repeat="*" id="units" pattern="\s*Units.*" endPattern=".*">
+      <record id="units" repeat="*">\s*Units are {A,n:ll} for bonds and {A,n:aa} for angles.*</record>
+    </template>
+    <template repeat="*" id="constants" pattern="\s*Constants.*" endPattern=".*">
+      <record id="constants" repeat="*">\s*Constants are marked with {X,n:aa}.*</record>
+    </template>
+    <template repeat="*" id="constraints" pattern="\s*Constrained.*" endPattern=".*">
+      <record id="constraints" repeat="*">\s*Constrained variables are marked with {X,n:aa}.*</record>
+    </template>
+    </templateList>
+
+ <record repeat="*" id="unparsed">\s*{X,n:unparsed}\s*</record>
+-->
+
+<!-- 
+      <templateList>
+        <template id="l" repeat="*" pattern=".*\sStretch.*" endPattern=".*" endOffset="1">
+          <record id="length" repeat="*">\s*{I,cc:serial}\sStretch{I,cc:atom}\s{I,cc:atom}\s{F,cc:length}\s{F,cc:gradient}\s*</record>
+        </template>
+        <template id="b" repeat="*" pattern=".*Bend.*" endPattern=".*" endOffset="1">
+          <record id="bend" repeat="*">\s*{I,cc:serial}\sBend\s{I,cc:atom}\s{I,cc:atom}\s{I,cc:atom}\s{F,cc:ang}\s{F,cc:gradient}\s*</record>
+        </template>
+        <template id="t" repeat="*" pattern=".*Torsion.*" endPattern=".*" endOffset="1">
+          <record id="torsion" repeat="*">\s*{I,cc:serial}\sTorsion{I,cc:atom}\s{I,cc:atom}\s{I,cc:atom}\s{I,cc:atom}\s{F,cc:torsion}\s{F,cc:gradient}\s*</record>
+        </template>
+      </templateList>
+    </template>
+    <template repeat="*" id="typex" 
+      pattern="\s*Type\s+Name\s+I\s+J\s+K\s+L\s+M\s+Value\s*" endPattern="\s*">
+      <record id="typexx" repeat="2"/>
+      <templateList>
+        <template id="l" repeat="*" pattern=".*\sStretch.*" endPattern=".*" endOffset="1">
+          <record id="length" repeat="*">\s*{I,cc:serial}\sStretch{I,cc:atom}\s{I,cc:atom}\s{F,cc:length}\s*</record>
+        </template>
+        <template id="b" repeat="*" pattern=".*Bend.*" endPattern=".*" endOffset="1">
+          <record id="bend" repeat="*">\s*{I,cc:serial}\sBend\s{I,cc:atom}\s{I,cc:atom}\s{I,cc:atom}\s{F,cc:ang}\s*</record>
+        </template>
+        <template id="t" repeat="*" pattern=".*Torsion.*" endPattern=".*" endOffset="1">
+          <record id="torsion" repeat="*">\s*{I,cc:serial}\sTorsion{I,cc:atom}\s{I,cc:atom}\s{I,cc:atom}\s{I,cc:atom}\s{F,cc:torsion}\s*</record>
+        </template>
+      </templateList>
+    </template>
+  </templateList>  
+     -->
+
+
+  <comment class="example.output" id="zmat">
+<module cmlx:templateRef="zmat_new" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="unparsed">
+    <scalar dataType="xsd:string" dictRef="n:unparsed">Z-matrix (user)</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">--------</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">Units are Angstrom for bonds and degrees for angles</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">Constrained variables are marked with a plus sign (+).</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+    <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">Type          Name      I     J     K     L     M      Value</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">----------- --------  ----- ----- ----- ----- ----- ----------</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">1+Stretch      r2          2     1                       0.96200</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">2+Stretch      r2          3     1                       0.96200</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">3 Bend         a3          3     1     2               105.10000</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">4 Stretch      r3          4     1                       2.00000</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">5+Bend         a4          4     1     2               127.45000</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">6+Bend(2)      a4          4     1     3    -1         127.45000</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+    <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+  </list>
+</module>
+  </comment>
+  
+</template>

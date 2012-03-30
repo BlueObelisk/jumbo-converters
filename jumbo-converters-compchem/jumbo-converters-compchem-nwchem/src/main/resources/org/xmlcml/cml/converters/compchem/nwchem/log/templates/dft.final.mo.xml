@@ -1,0 +1,85 @@
+<template repeat="*"  id="dftfinalmolorb" name="DFT" 
+  pattern=".*DFT Final Molecular Orbital Analysis.*$\s+\-+.*" newline="$" endPattern="\s*$\s*">
+
+  <comment class="example.input" id="dftfinalmolorb">
+                       DFT Final Molecular Orbital Analysis
+                       ------------------------------------
+
+ Vector   19  Occ=2.000000D+00  E=-2.132706D+00  Symmetry=e'
+              MO Center=  2.3D-03, -4.3D-04,  3.4D-18, r^2= 2.5D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    10      1.026049   1 Fe py                7     -0.387574   1 Fe py        
+     9      0.317409   1 Fe px        
+
+ Vector   20  Occ=2.000000D+00  E=-1.070170D+00  Symmetry=a1'
+              MO Center=  2.9D-18,  1.6D-18, -9.4D-17, r^2= 7.3D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    58     -0.318095   4 O  s                73     -0.318095   5 O  s         
+    59      0.195533   4 O  s                74      0.195533   5 O  s         
+    47     -0.167651   3 C  pz               32      0.167651   2 C  pz        
+    28      0.164725   2 C  s                43      0.164725   3 C  s         
+
+
+  </comment>
+  <comment>
+ Vector    1  Occ=2.000000D+00  E=-2.464176D+01
+              MO Center=  1.2D+00, -4.4D-01,  5.3D-01, r^2= 1.2D-02
+  </comment>
+  
+  <record repeat="3"/>
+  <templateList>
+    <template repeat="*" id="vector"
+      pattern="\s*Vector\s*.*" endPattern="\s*">
+      <record id="vv" repeat="*">\s*Vector\s*{I,compchem:serial}\s+Occ={E,n:occ}\s+E={E,n:e}\s+Symmetry={A,compchem:irrep}.*</record>
+      <record id="vv1" repeat="*">\s*Vector\s*{I,compchem:serial}\s+Occ={E,n:occ}\s+E={E,n:e}\s*</record>
+      <record id="vv2">\s*MO\s+Center=\s*{E,x:x},\s*{E,x:y},\s*{E,x:z},\s*r\^2={E,n:r2mo}.*</record>
+      <record id="junk" repeat="2"/>
+      THESE ARE VERY SLOW - ->
+      <record id="orb2" repeat="*">\s{2}{I4,n:basisfuncserial}\s{5}{F9.6,n:mocoeff}\s{I3,compchem:atomserial}\s{A2,compchem:elementType}\s{A3,n:orbital}\s{12}{I4,n:basisfuncserial}\s{5}{F9.6,n:mocoeff}\s{I3,compchem:atomserial}\s{A2,compchem:elementType}\s{A3,n:orbital}\s*</record>
+      <record id="orb1" repeat="*">\s{2}{I4,n:basisfuncserial}\s{5}{F9.6,n:mocoeff}\s{I3,compchem:atomserial}\s{A2,compchem:elementType}\s{A3,n:orbital}\s*</record>
+      <record/>
+    - ->
+      <record repeat="*" id="junk">{X,x:xxxxx}</record>
+    </template>
+  </templateList>
+  
+  <transform process="createVector3" xpath=".//*[@cmlx:templateRef='vv2']/*"
+    from="*[contains(@dictRef,'x:')]" dictRef="n:mocenter" />
+  <transform process="pullupSingleton" xpath=".//cml:list[count(*)=1]" />
+  
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']" />
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='junk']" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+
+  <comment class="example.output" id="dftfinalmolorb">
+<module cmlx:templateRef="dftfinalmolorb" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <module cmlx:lineCount="6" cmlx:templateRef="vector">
+    <list cmlx:templateRef="vv2">
+      <vector3 dictRef="n:mocenter">0.0023 -4.3E-4 3.4E-18</vector3>
+      <scalar dataType="xsd:double" dictRef="n:r2mo">0.25</scalar>
+    </list>
+    <list cmlx:templateRef="orb2">
+      <scalar dataType="xsd:integer" dictRef="n:basisfuncserial">10</scalar>
+      <scalar dataType="xsd:double" dictRef="n:mocoeff">1.026049</scalar>
+      <scalar dataType="xsd:integer" dictRef="compchem:atomserial">1</scalar>
+      <scalar dataType="xsd:string" dictRef="compchem:elementType">Fe</scalar>
+      <scalar dataType="xsd:string" dictRef="n:orbital">py</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:basisfuncserial">7</scalar>
+      <scalar dataType="xsd:double" dictRef="n:mocoeff">-0.387574</scalar>
+      <scalar dataType="xsd:integer" dictRef="compchem:atomserial">1</scalar>
+      <scalar dataType="xsd:string" dictRef="compchem:elementType">Fe</scalar>
+      <scalar dataType="xsd:string" dictRef="n:orbital">py</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="8" cmlx:templateRef="vector">
+    <list cmlx:templateRef="vv2">
+      <vector3 dictRef="n:mocenter">2.9E-18 1.6E-18 -9.4E-17</vector3>
+      <scalar dataType="xsd:double" dictRef="n:r2mo">7.3</scalar>
+    </list>
+  </module>
+</module>
+  </comment>
+
+</template>

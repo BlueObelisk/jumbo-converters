@@ -1,0 +1,111 @@
+<template repeat="*" id="dft_xcinfo" name="XC Information" 
+    pattern="\s*XC Information.*$\s+\-+.*" newline="$" endPattern="\s*$">
+
+  <comment class="example.input" id="xcinfo">
+              XC Information
+              --------------
+                         B3LYP Method XC Potential
+                     Hartree-Fock (Exact) Exchange  0.200          
+                        Slater Exchange Functional  0.800 local    
+                    Becke 1988 Exchange Functional  0.720 non-local
+              Lee-Yang-Parr Correlation Functional  0.810          
+                  VWN I RPA Correlation Functional  0.190 local    
+
+
+  </comment>
+   
+  <comment class="example.input" id="xcinfo2">  
+              XC Information
+              --------------
+                        Slater Exchange Functional  1.000 local
+                      VWN V Correlation Functional  1.000 local
+                      
+                      
+  </comment>
+  
+  
+<comment> 
+BUG! The original approach used the below:
+
+  <record repeat="2"/>
+  <templateList>
+  <template id="dft_functional_title" repeat="*"
+  pattern="\s*.*\s*Method XC (Functional|Potential)\s*"
+  endPattern=".*">
+    <record repeat="1" id="dft_functional_title">\s*{X,compchem:dft_functional_title}\s*Method XC (Functional|Potential)\s*</record>
+  </template>
+  </templateList>
+  <record repeat="*" id="functional_info">\s*{1_6A,n:functional}\s*\s\s{X,n:value}</record>
+  
+  Without the template, the 2 line record, would contain the XC Information$------- lines.
+  However, when the template was present, and the dft_functional_title was not found, the 
+  record would contain a blank line followed by the -------- line, so something strange is
+  happening with an additional? line appearing
+</comment>  
+   
+  <!-- Get title of functional if available -->
+  <templateList>
+  <template id="dft_functional_title" repeat="*"
+  pattern="\s*.*\s*Method XC (Functional|Potential)\s*"
+  endPattern=".*">
+    <record repeat="1" id="dft_functional_title">\s*{X,compchem:dft_functional_title}\s*Method XC (Functional|Potential)\s*</record>
+  </template>
+  <template id="dft_functional_component" repeat="*"
+  pattern="\s*.*\s*\d\.\d\d\s*.*"
+  endPattern=".*">
+    <record repeat="*" id="functional_info">\s*{1_6A,n:functional}\s*\s\s{X,n:value}</record>
+  </template>
+  </templateList>
+  
+
+  
+   <transform process="pullupSingleton" xpath=".//cml:list[@cmlx:templateRef='dft_functional_title']"/>
+  <transform process="pullupSingleton" xpath=".//cml:module[@cmlx:templateRef='dft_functional_title']"/>
+  <transform process="pullup" xpath=".//cml:list[@cmlx:templateRef='functional_info']/cml:list/*"/>
+  <transform process="pullup" xpath=".//cml:list[@cmlx:templateRef='functional_info']/*"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  
+  <!-- Hack to get rid of redundant text -->
+  <transform process="delete" xpath="./text()"/>
+   
+   
+  <comment class="example.output" id="xcinfo">
+<module cmlx:templateRef="dft_xcinfo" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:string" dictRef="compchem:dft_functional_title" cmlx:templateRef="dft_functional_title">B3LYP</scalar>
+  <module cmlx:lineCount="1" cmlx:templateRef="dft_functional_component">
+    <array dataType="xsd:string" size="4" dictRef="n:functional">Hartree-Fock (Exact) Exchange 0.200</array>
+    <scalar dataType="xsd:string" dictRef="n:value"/>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="dft_functional_component">
+    <array dataType="xsd:string" size="5" dictRef="n:functional">Slater Exchange Functional 0.800 local</array>
+    <scalar dataType="xsd:string" dictRef="n:value"/>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="dft_functional_component">
+    <array dataType="xsd:string" size="4" dictRef="n:functional">Becke 1988 Exchange Functional</array>
+    <scalar dataType="xsd:string" dictRef="n:value">0.720 non-local</scalar>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="dft_functional_component">
+    <array dataType="xsd:string" size="4" dictRef="n:functional">Lee-Yang-Parr Correlation Functional 0.810</array>
+    <scalar dataType="xsd:string" dictRef="n:value"/>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="dft_functional_component">
+    <array dataType="xsd:string" size="5" dictRef="n:functional">VWN I RPA Correlation Functional</array>
+    <scalar dataType="xsd:string" dictRef="n:value">0.190 local</scalar>
+  </module>
+</module>
+  </comment>
+  
+    <comment class="example.output" id="xcinfo2">
+<module cmlx:templateRef="dft_xcinfo" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <module cmlx:lineCount="1" cmlx:templateRef="dft_functional_component">
+    <array dataType="xsd:string" size="3" dictRef="n:functional">Slater Exchange Functional</array>
+    <scalar dataType="xsd:string" dictRef="n:value">1.000 local</scalar>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="dft_functional_component">
+    <array dataType="xsd:string" size="4" dictRef="n:functional">VWN V Correlation Functional</array>
+    <scalar dataType="xsd:string" dictRef="n:value">1.000 local</scalar>
+  </module>
+</module>
+    </comment>
+
+</template>

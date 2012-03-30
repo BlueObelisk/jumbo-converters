@@ -1,0 +1,33 @@
+<template repeat="*"  id="dft_screentol" name="Screening Tolerance Information" 
+  pattern="\s*Screening Tolerance Information.*$\s+\-+.*" newline="$" endPattern=".*$\s*\-+\s*">
+
+  <comment class="example.input" id="dft_screentol">
+      Screening Tolerance Information
+      -------------------------------
+          Density screening/tol_rho: 1.00D-10
+          AO Gaussian exp screening on grid/accAOfunc:  14
+          CD Gaussian exp screening on grid/accCDfunc:  20
+          XC Gaussian exp screening on grid/accXCfunc:  20
+          Schwarz screening/accCoul: 1.00D-08
+
+</comment>
+<record repeat="2"/>
+<record repeat="*" id="namevalue">\s*{X,n:name}\:\s*{X,n:value}</record>
+<transform process="createNameValue" xpath="cml:list/cml:list" 
+      name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>
+<transform process="pullupSingleton" xpath="./cml:list/cml:list"/>
+<transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+
+  <comment class="example.output" id="dft_screentol">
+<module cmlx:templateRef="dft_screentol" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="namevalue">
+    <scalar dictRef="n:Density screening/tol_rho" dataType="xsd:string">1.00D-10</scalar>
+    <scalar dictRef="n:AO Gaussian exp screening on grid/accAOfunc" dataType="xsd:string">14</scalar>
+    <scalar dictRef="n:CD Gaussian exp screening on grid/accCDfunc" dataType="xsd:string">20</scalar>
+    <scalar dictRef="n:XC Gaussian exp screening on grid/accXCfunc" dataType="xsd:string">20</scalar>
+    <scalar dictRef="n:Schwarz screening/accCoul" dataType="xsd:string">1.00D-08</scalar>
+  </list>
+</module>
+  </comment>
+  
+</template>

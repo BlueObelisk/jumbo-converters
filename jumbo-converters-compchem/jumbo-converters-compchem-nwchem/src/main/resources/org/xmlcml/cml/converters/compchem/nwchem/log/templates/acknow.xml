@@ -14,14 +14,28 @@
 
 
   </comment>
-  <record id="citation">{X,cc:citation}</record>
-  <record repeat="*"/>
+  <record id="citation">{X,n:citation}</record>
+  <record id="acknow" repeat="*">\s*{X,n:acknow}\s*</record>
   
   <transform process="pullup" xpath=".//cml:scalar"/>
   
   <comment class="example.output" id="acknow">
-    <module cmlx:templateRef="acknow" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <scalar dataType="xsd:string" dictRef="cc:citation">ACKNOWLEDGMENT</scalar>
-    </module>
+ <module cmlx:templateRef="acknow" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:string" dictRef="n:citation">ACKNOWLEDGMENT</scalar>
+  <list cmlx:templateRef="citation"/>
+  <scalar dataType="xsd:string" dictRef="n:acknow">--------------</scalar>
+  <scalar dataType="xsd:string" dictRef="n:acknow"/>
+  <scalar dataType="xsd:string" dictRef="n:acknow">This software and its documentation were developed at the</scalar>
+  <scalar dataType="xsd:string" dictRef="n:acknow">EMSL at Pacific Northwest National Laboratory, a multiprogram</scalar>
+  <scalar dataType="xsd:string" dictRef="n:acknow">national laboratory, operated for the U.S. Department of Energy</scalar>
+  <scalar dataType="xsd:string" dictRef="n:acknow">by Battelle under Contract Number DE-AC05-76RL01830. Support</scalar>
+  <scalar dataType="xsd:string" dictRef="n:acknow">for this work was provided by the Department of Energy Office</scalar>
+  <scalar dataType="xsd:string" dictRef="n:acknow">of Biological and Environmental Research, Office of Basic</scalar>
+  <scalar dataType="xsd:string" dictRef="n:acknow">Energy Sciences, and the Office of Advanced Scientific Computing.</scalar>
+  <scalar dataType="xsd:string" dictRef="n:acknow"/>
+  <scalar dataType="xsd:string" dictRef="n:acknow"/>
+  <scalar dataType="xsd:string" dictRef="n:acknow"/>
+  <list cmlx:templateRef="acknow"/>
+</module>
   </comment>
 </template>

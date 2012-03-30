@@ -1,0 +1,82 @@
+<template repeat="*"  id="dft_info" name="General Information" 
+    pattern="\s*General Information.*$\s+\-+.*" endPattern="\s*">
+
+  <comment class="example.input" id="dft_info">
+            General Information
+            -------------------
+          SCF calculation type: DFT
+          Wavefunction type:  closed shell.
+          No. of atoms     :    11
+          No. of electrons :    96
+           Alpha electrons :    48
+            Beta electrons :    48
+          Charge           :     0
+          Spin multiplicity:     1
+          Use of symmetry is: on ; symmetry adaption is: on 
+          Maximum number of iterations:  30
+          AO basis - number of functions:   176
+                     number of shells:    70
+          A Charge density fitting basis will be used.
+          CD basis - number of functions:   395
+                     number of shells:   150
+          An Exch-Corr fitting basis will be used.
+          XC basis - number of functions:   395
+                     number of shells:   150
+          Convergence on energy requested: 1.00D-06
+          Convergence on density requested: 1.00D-05
+          Convergence on gradient requested: 5.00D-04
+          
+  </comment>
+
+  <record repeat="2"/>
+  <!-- Below is a hard-coded string so we can ignore result -->
+  <record repeat="1" id="scftype">\s*SCF calculation type:\s*{A,n:scftype}\s*</record>
+  <record repeat="1" id="wavefunction_type">\s*Wavefunction type:\s*{X,compchem:wavefunction_type}\.\s*</record>
+  <record repeat="1" id="natoms">\s*No. of atoms     :\s*{I,compchem:num_atoms}\s*</record>
+  <record repeat="1" id="nelec">\s*No. of electrons :\s*{I,compchem:num_electrons}\s*</record>
+  <record repeat="1" id="nalpha">\s*Alpha electrons :\s*{I,compchem:num_alpha_electrons}\s*</record>
+  <record repeat="1" id="nbeta">\s*Beta electrons :\s*{I,compchem:num_beta_electrons}\s*</record>
+  <record repeat="1" id="charge">\s*Charge           :\s*{F,compchem:charge}\s*</record>
+  <record repeat="1" id="spin">\s*Spin multiplicity:\s*{I,compchem:spin_multiplicty}\s*</record>
+  <record repeat="*" id="unparsed">\s*{X,n:unparsed}\s*</record>
+
+
+    <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+    <transform process="pullupSingleton" xpath=".//cml:list"/>
+  
+  <transform process="addUnits"
+  xpath=".//cml:scalar[@dictRef='compchem:charge']"
+  value="nonsi:elementary_charge"
+  />
+  
+  <comment class="example.output" id="dft_info">
+<module cmlx:templateRef="dft_info" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:string" dictRef="n:scftype" cmlx:templateRef="scftype">DFT</scalar>
+  <scalar dataType="xsd:string" dictRef="compchem:wavefunction_type" cmlx:templateRef="wavefunction_type">closed shell</scalar>
+  <scalar dataType="xsd:integer" dictRef="compchem:num_atoms" cmlx:templateRef="natoms">11</scalar>
+  <scalar dataType="xsd:integer" dictRef="compchem:num_electrons" cmlx:templateRef="nelec">96</scalar>
+  <scalar dataType="xsd:integer" dictRef="compchem:num_alpha_electrons" cmlx:templateRef="nalpha">48</scalar>
+  <scalar dataType="xsd:integer" dictRef="compchem:num_beta_electrons" cmlx:templateRef="nbeta">48</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:charge" cmlx:templateRef="charge" units="nonsi:elementary_charge">0.0</scalar>
+  <scalar dataType="xsd:integer" dictRef="compchem:spin_multiplicty" cmlx:templateRef="spin">1</scalar>
+  <list cmlx:templateRef="unparsed">
+    <scalar dataType="xsd:string" dictRef="n:unparsed">Use of symmetry is: on ; symmetry adaption is: on</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">Maximum number of iterations:  30</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">AO basis - number of functions:   176</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">number of shells:    70</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">A Charge density fitting basis will be used.</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">CD basis - number of functions:   395</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">number of shells:   150</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">An Exch-Corr fitting basis will be used.</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">XC basis - number of functions:   395</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">number of shells:   150</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">Convergence on energy requested: 1.00D-06</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">Convergence on density requested: 1.00D-05</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">Convergence on gradient requested: 5.00D-04</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+    <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+  </list>
+</module>
+  </comment>
+
+</template>

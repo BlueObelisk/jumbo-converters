@@ -20,17 +20,37 @@
 
   </comment>
   <record id="title">\s*Northwest Computational Chemistry Package\s*\({A,cc:program}\)\s*{A,cc:version}</record>
-  <record repeat="*"/>
+  <record id="info" repeat="*">\s*{X,n:info}\s*</record>
+  
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+  
   
   <comment class="example.output" id="nccp">
-<module cmlx:templateRef="nccp" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <list cmlx:templateRef="title">
-    <list>
-      <scalar dataType="xsd:string" dictRef="cc:program">NWChem</scalar>
-      <scalar dataType="xsd:string" dictRef="cc:version">6.0</scalar>
-    </list>
-  </list>
-</module>
-        </comment>
+    <module cmlx:templateRef="nccp" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="title">
+        <list>
+          <scalar dataType="xsd:string" dictRef="cc:program">NWChem</scalar>
+          <scalar dataType="xsd:string" dictRef="cc:version">6.0</scalar>
+        </list>
+      </list>
+      <list cmlx:templateRef="info">
+        <scalar dataType="xsd:string" dictRef="n:info">------------------------------------------------------</scalar>
+        <scalar dataType="xsd:string" dictRef="n:info"/>
+        <scalar dataType="xsd:string" dictRef="n:info"/>
+        <scalar dataType="xsd:string" dictRef="n:info">Environmental Molecular Sciences Laboratory Pacific Northwest</scalar>
+        <scalar dataType="xsd:string" dictRef="n:info">National Laboratory Richland, WA 99352</scalar>
+        <scalar dataType="xsd:string" dictRef="n:info"/>
+        <scalar dataType="xsd:string" dictRef="n:info">Copyright (c) 1994-2010 Pacific Northwest National Laboratory</scalar>
+        <scalar dataType="xsd:string" dictRef="n:info">Battelle Memorial Institute</scalar>
+        <scalar dataType="xsd:string" dictRef="n:info"/>
+        <scalar dataType="xsd:string" dictRef="n:info">NWChem is an open-source computational chemistry package</scalar>
+        <scalar dataType="xsd:string" dictRef="n:info">distributed under the terms of the Educational Community License</scalar>
+        <scalar dataType="xsd:string" dictRef="n:info">(ECL) 2.0 A copy of the license is included with this distribution</scalar>
+        <scalar dataType="xsd:string" dictRef="n:info">in the LICENSE.TXT file</scalar>
+        <scalar dataType="xsd:string" dictRef="n:info"/>
+        <scalar dataType="xsd:string" dictRef="n:info"/>
+      </list>
+    </module>
+  </comment>
 
 </template>

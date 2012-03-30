@@ -9,15 +9,17 @@
       o                 15.994910
   </comment>
   <record repeat="3"/>
-  <record formatType="REGEX" id="atmass" makeArray="true" 
-     repeat="*">\s*{A,n:tag}\s*{F,cc:mass}\s*</record>
+  <record id="atmass" makeArray="true" 
+     repeat="*">\s*{A,compchem:atom_type}\s*{F,compchem:atom_mass}\s*</record>
+     
+  <transform process="pullup" xpath=".//cml:list[@cmlx:templateRef='atmass']/cml:array"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='atmass']"/>
      
   <comment class="example.output" id="atmass.1">
     <module cmlx:templateRef="atmass" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <list cmlx:lineCount="3" cmlx:templateRef="atmass">
-        <array dataType="xsd:string" dictRef="n:tag" size="3">fe c o</array>
-        <array dataType="xsd:double" dictRef="cc:mass" size="3">55.9349 12.0 15.99491</array>
-      </list>
+      <array dataType="xsd:string" dictRef="compchem:atom_type" size="3">fe c o</array>
+      <array dataType="xsd:double" dictRef="compchem:atom_mass" size="3">55.9349 12.0 15.99491</array>
     </module>
   </comment>
   

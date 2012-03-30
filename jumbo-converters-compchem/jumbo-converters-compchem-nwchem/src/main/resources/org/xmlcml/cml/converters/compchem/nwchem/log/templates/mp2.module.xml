@@ -1,0 +1,203 @@
+<template
+  id="mp2_module"
+  name="NWChem MP2 Module" 
+  repeat="*"
+  pattern="\s*NWChem MP2 Semi-direct Energy/Gradient Module\s*$\s+\-+.*"
+  newline="$"
+  >
+  <comment class="example.input" id="nwchemmp2">
+                   NWChem MP2 Semi-direct Energy/Gradient Module
+                   ---------------------------------------------
+
+
+                    MP2 calculation on water with STO-3G basis
+
+
+  Basis functions       =      7
+  Molecular orbitals    =      7
+  Frozen core           =      0
+  Frozen virtuals       =      0
+  Active alpha occupied =      5
+  Active beta occupied  =      5
+  Active alpha virtual  =      2
+  Active beta virtual   =      2
+  Use MO symmetry       = T
+  Use skeleton AO sym   = T
+
+  AO/Fock/Back tols     =   1.0D-09  1.0D-09  1.0D-09
+
+ GA uses MA = F    GA memory limited = T
+
+ Available: 
+  local mem=  1.15D+07
+ global mem=  2.62D+07
+ local disk=  1.09D+07
+   1 passes of   5:         131729                        191                       316.
+
+ Semi-direct pass number   1 of   1  for RHF alpha+beta  at        0.2s
+Node 0 wrote      0.0 Mb in      0.0 s     Agg I/O rate:    11.5 Mb/s
+ Done moints_semi at        0.2s
+ Done maket at        0.2s
+ Done multipass loop at        0.2s
+
+
+          -------------------------------------------
+          SCF energy                 -74.962985614677
+          Correlation energy          -0.035524009511
+          Singlet pairs               -0.032481632032
+          Triplet pairs               -0.003042377479
+          Total MP2 energy           -74.998509624188
+          -------------------------------------------
+
+ -----------------------
+ Performance information
+ -----------------------
+
+ Timer overhead =  5.22D-07 seconds/call
+
+               Nr. of calls         CPU time (s)                 Wall time (s)                GFlops
+             ---------------    -------------------     ------------------------------   -------------------
+Name         Min   Avg   Max    Min     Avg     Max     Min     Avg     Max   Mx/calls   Min     Max     Sum
+mp2: moin     1     1     1   8.66E-3 8.66E-3 8.66E-3  1.04E-2 1.04E-2 1.04E-2 1.04E-2   0.0     0.0     0.0   
+mp2: make     1     1     1   2.00E-4 2.00E-4 2.00E-4  2.00E-4 2.00E-4 2.00E-4 2.00E-4   0.0     0.0     0.0   
+mp2: tota     1     1     1   1.93E-2 1.93E-2 1.93E-2  2.28E-2 2.28E-2 2.28E-2 2.28E-2   0.0     0.0     0.0   
+
+ The average no. of pstat calls per process was 3.00D+00
+ with a timing overhead of 1.57D-06s
+
+
+ Task  times  cpu:        0.1s     wall:        0.2s
+ Summary of allocated global arrays
+-----------------------------------
+  No active global arrays
+
+
+
+                         GA Statistics for process    0
+                         ------------------------------
+
+       create   destroy   get      put      acc     scatter   gather  readandinc
+calls:  333      333     2093     1019     1417        0        0        0     
+number of processes/call 1.00e+00 1.00e+00 1.00e+00 0.00e+00 0.00e+00
+bytes total:             2.08e+05 1.21e+05 7.08e+04 0.00e+00 0.00e+00 0.00e+00
+bytes remote:            0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00
+Max memory consumed for GA by this process: 5448 bytes
+MA_summarize_allocated_blocks: starting scan ...
+MA_summarize_allocated_blocks: scan completed: 0 heap blocks, 0 stack blocks
+MA usage statistics:
+
+    allocation statistics:
+                          heap       stack
+                          ----       -----
+    current number of blocks             0           0
+    maximum number of blocks            18          22
+    current total bytes              0           0
+    maximum total bytes        1053744    22509032
+    maximum total K-bytes             1054       22510
+    maximum total M-bytes                2          23
+
+
+</comment>
+
+
+  <record repeat="4"/>
+  <record id="r1" repeat="1" >\s*{X,compchem:title}\s*</record>
+<!--   <transform process="pullupSingleton" xpath="./cml:list"/>
+ -->
+  <record repeat="3"/>
+  <record id="num_basis_functions">\s*Basis functions\s*=\s*{I,n:num_basis_functions}\s*</record>
+  <record id="num_mos">\s*Molecular orbitals\s*=\s*{I,n:num_mos}\s*</record>
+  <record id="num_frozen_core">\s*Frozen core\s*=\s*{I,n:num_frozen_core}\s*</record>
+  <record id="num_frozen_virtuals">\s*Frozen virtuals\s*=\s*{I,n:num_frozen_virtuals}\s*</record>
+  <record id="num_active_alpha_occ">\s*Active alpha occupied\s*=\s*{I,n:num_active_alpha_occ}\s*</record>
+  <record id="num_active_beta_occ">\s*Active beta occupied\s*=\s*{I,n:num_active_beta_occ}\s*</record>
+  <record id="num_active_alpha_virt">\s*Active alpha virtual\s*=\s*{I,n:num_active_alpha_virt}\s*</record>
+  <record id="num_active_beta_virt">\s*Active beta virtual\s*=\s*{I,n:num_active_beta_virt}\s*</record> 
+  <record id="use_mo_sym">\s*Use MO symmetry\s*=\s*{A,n:use_mo_sym}\s*</record>
+  <record id="use_skel_ao_sym">\s*Use skeleton AO sym\s*=\s*{A,n:use_skel_ao_sym}\s*</record>
+  <record/>
+  <record id="ao_fock_back_tols">\s*AO/Fock/Back tols\s*=\s*{E,n:ao_fock_back_tols}{E,n:ao_fock_back_tols}{E,n:ao_fock_back_tols}\s*</record>
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='n:ao_fock_back_tols']"/>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  
+  <!--  Identify as a calculation -->
+  <transform process="addDictRef" 
+  xpath="."
+  value="compchem:calculation"
+  />
+  <transform process="addId" 
+  xpath="."
+  value="mp2_energy"
+  />
+  
+  <!--  Create initilization module -->
+     <!-- Create initialization module with parameterList and put variables in it -->
+   <transform process="addChild" 
+  xpath="." 
+  elementName="cml:module"
+  dictRef="compchem:initialization"
+  position="0"/>
+  
+  <transform process="addChild" 
+  xpath="./cml:module[@dictRef='compchem:initialization']" 
+  elementName="cml:parameterList"
+  />
+  
+    <!--  Create elements to identify this as an scf calculation -->
+  <transform process="addChild"
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"
+  elementName="cml:scalar"
+  dictRef="compchem:calculation_method"
+  value="mp2"
+  />
+  <transform process="addChild"
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"
+  elementName="cml:scalar"
+  dictRef="compchem:calculation_type"
+  value="energy"
+  />
+  
+  <!-- Bit of a hack - move all compchem scalars into the parameterList -->
+  <transform process="move" 
+  xpath=".//cml:scalar[starts-with(@dictRef,'compchem:')]"
+  to="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"/>
+  
+  <transform process="createWrapperParameter" 
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList/*" />
+  
+  
+  <templateList xmlns:xi="http://www.w3.org/2001/XInclude">
+      <xi:include href="mp2.final.xml"/>
+      <xi:include href="times.xml"/>
+      <xi:include href="ga.stats.xml"/>
+      <xi:include href="ga.summary.xml"/>
+  </templateList>
+  
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+  
+    <!-- Create finalization module with propertyList and put results in it -->
+    <transform process="addChild" 
+  xpath="." 
+  elementName="cml:module"
+  id="finalization"
+  dictRef="compchem:finalization"
+  />
+  <transform process="addChild" 
+  xpath="./cml:module[@dictRef='compchem:finalization']" 
+  elementName="cml:propertyList"
+  />
+  <transform process="move"
+  xpath="./cml:module[@cmlx:templateRef='mp2_final']/cml:scalar[starts-with(@dictRef,'compchem:')]"
+  to="./cml:module[@dictRef='compchem:finalization']/cml:propertyList"/>
+  
+  <transform process="createWrapperProperty" 
+  xpath="./cml:module[@dictRef='compchem:finalization']/cml:propertyList/*" />
+  
+
+  <comment class="example.output" id="nwchemmp2">
+<module/>
+</comment>
+
+</template>

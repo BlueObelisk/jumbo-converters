@@ -1,0 +1,32 @@
+<template 
+  id="nwchem_job"
+  name="NWChem Job" 
+  repeat="*"
+  pattern    = "\s*NWChem Input Module\s*"
+  endPattern = "\s*NWChem Input Module\s*"
+  offset="0"
+  endOffset="0"
+  newline="$"
+  >
+
+<!-- 
+ This separates out the individual NWChem jobs that are bracketed between the calls
+ to the NWChem Input Module
+ -->
+ 
+    <comment class="example.input" id="nwchem_job">
+        some text
+    </comment>
+
+
+    <templateList xmlns:xi="http://www.w3.org/2001/XInclude">
+       <xi:include href="geomopt.xml"/>
+       <xi:include href="module.xml"/>
+    </templateList>
+
+
+    <comment class="example.output" id="nwchem_job">
+        <module />
+    </comment>
+
+</template>

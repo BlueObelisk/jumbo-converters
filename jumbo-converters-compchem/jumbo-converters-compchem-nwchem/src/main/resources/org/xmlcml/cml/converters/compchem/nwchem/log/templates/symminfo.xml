@@ -1,0 +1,58 @@
+<template 
+  name="Symmetry information"
+  id="symminfo" 
+  repeat="*" 
+  newline="$" 
+  endOffset="0"
+  pattern="\s*Symmetry information\s*$\s+\-+.*" 
+  endPattern='\s*$\s*'
+  endPattern2='\s*NWChem .* Module\s*'
+  endPattern3='~'
+  >
+  
+  <!-- Printed by: symmetry/sym_pr_all.F:sym_print_all )|\s*$\s* -->
+
+  <comment class="example.input" id="symminfo">
+      Symmetry information
+      --------------------
+
+ Group name             D3h       
+ Group number             27
+ Group order              12
+ No. of unique centers     5
+
+      Symmetry unique atoms
+
+     1    2    4    6    9
+
+  </comment>
+  
+  <record id="rl1" repeat="3"/>
+  <record id="pointgroup" repeat="1">\s*Group name\s*{A,compchem:pointgroup}\s*</record>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  <record id="group_name" repeat="1">\s*Group number\s*{I,compchem:group_name}\s*</record>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  <record id="group_order" repeat="1">\s*Group order\s*{I,compchem:group_order}\s*</record>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  <record id="symm_unique_centers" repeat="1">\s*No. of unique centers\s*{I,n:sym_uniqe_centers}\s*</record>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  <record id="rl1" repeat="3"/>
+  <record id="symmuniqatom" repeat="*">\s*{1_10I,n:symuniqatom}\s*</record>
+  
+
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='rl1']"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+  
+  <comment class="example.output" id="symminfo">
+    <module cmlx:templateRef="symminfo" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:string" dictRef="compchem:pointgroup" cmlx:templateRef="pointgroup">D3h</scalar>
+      <scalar dataType="xsd:integer" dictRef="compchem:group_name" cmlx:templateRef="group_name">27</scalar>
+      <scalar dataType="xsd:integer" dictRef="compchem:group_order" cmlx:templateRef="group_order">12</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:sym_uniqe_centers" cmlx:templateRef="symm_unique_centers">5</scalar>
+      <list cmlx:templateRef="symmuniqatom">
+        <array dataType="xsd:integer" size="5" dictRef="n:symuniqatom">1 2 4 6 9</array>
+      </list>
+    </module>
+  </comment>
+
+ </template>

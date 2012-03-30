@@ -1,0 +1,167 @@
+<template 
+  id="guess"
+  name="Initial guess"
+  repeat="*" 
+  newline="$" 
+  pattern="\s*Forming initial guess at .*" 
+  endPattern="\s*Starting SCF solution at .*"
+  endOffset="2"
+  pattern2="\s*Superposition of Atomic Density Guess\s*" 
+  endPattern2="\s*Time after variat. SCF:.*"
+  endOffset2="0"
+  >
+
+<!--   pattern="\s*(Forming initial guess at .*)|(Superposition of Atomic Density Guess\s*)"  -->
+<!--  Forming initial guess at       0.1s -->
+  <comment class="example.input" id="basis_symmetry">
+
+
+      Superposition of Atomic Density Guess
+      -------------------------------------
+
+ Sum of atomic energies:         -74.71095592
+
+      Non-variational initial energy
+      ------------------------------
+
+ Total energy =     -74.683500
+ 1-e energy   =    -121.780484
+ 2-e energy   =      37.904889
+ HOMO         =      -0.258445
+ LUMO         =       0.505071
+
+
+      Symmetry analysis of molecular orbitals - initial
+      -------------------------------------------------
+
+  Numbering of irreducible representations: 
+
+     1 a1          2 a2          3 b1          4 b2      
+
+  Orbital symmetries:
+
+     1 a1          2 a1          3 b1          4 a1          5 b2      
+     6 a1          7 b1      
+
+
+  </comment>
+  <!--  Starting SCF solution at       0.2s -->
+  
+<templateList xmlns:xi="http://www.w3.org/2001/XInclude">
+    <xi:include href="superposatomguess.xml"/>
+    <xi:include href="guess.nonvar.xml"/>
+    <xi:include href="symmolorb.xml"/>
+</templateList>
+
+
+  <!-- Turn this module into a calculation -->
+  <transform process="addDictRef"
+  xpath="." 
+  value="compchem:calculation"/>
+  
+  <transform process="addId"
+  xpath="." 
+  value="initial_guess"/>
+  <transform process="delete" 
+  xpath="./@cmlx:lineCount"/>
+  
+  <!--  Create initialization module and parameterList identifying this as an intial_guess -->
+  
+  <transform process="addChild"
+  xpath="."
+  elementName="cml:module"
+  dictRef="compchem:initialization"
+  position="1"/>
+  
+  <transform process="addChild"
+  xpath="./cml:module[@dictRef='compchem:initialization']"
+  elementName="cml:parameterList"
+  />
+  
+  <transform process="addChild"
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"
+  elementName="cml:scalar"
+  dictRef="compchem:calculation_type"
+  value="initial_guess"
+  />
+  <transform process="createWrapperParameter" 
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList/*" />  
+  
+  <!--  Add properties to finalization module propertyList -->
+   <transform process="addChild"
+  xpath="."
+  elementName="cml:module"
+  dictRef="compchem:finalization"
+  />
+  
+  <transform process="addChild"
+  xpath="./cml:module[@dictRef='compchem:finalization']"
+  elementName="cml:propertyList"
+  />
+  
+  <transform process="move"
+  xpath="./cml:module[@cmlx:templateRef='nonvarinitener']/cml:scalar[starts-with(@dictRef,'compchem:')]"
+  to="./cml:module[@dictRef='compchem:finalization']/cml:propertyList"
+  />
+  
+  <transform process="createWrapperProperty" 
+  xpath="./cml:module[@dictRef='compchem:finalization']/cml:propertyList/*" />
+
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='nonvarinitener']"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+    
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" 
+  xpath=".//cml:list[@cmlx:templateRef='superposatomguess']"/>
+   
+
+  <comment class="example.output" id="basis_symmetry">
+<module cmlx:templateRef="guess" dictRef="compchem:calculation" id="initial_guess" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <module dictRef="compchem:initialization">
+    <parameterList>
+      <parameter dictRef="compchem:calculation_type">
+        <scalar dataType="xsd:string">initial_guess</scalar>
+      </parameter>
+    </parameterList>
+  </module>
+  <module cmlx:lineCount="4" cmlx:templateRef="superposatomguess">
+    <scalar dataType="xsd:double" dictRef="n:sumatomener" cmlx:templateRef="sumatomener">-74.71095592</scalar>
+  </module>
+  <module cmlx:lineCount="8" cmlx:templateRef="nonvarinitener">
+    <scalar dataType="xsd:double" dictRef="n:homo" cmlx:templateRef="homo">-0.258445</scalar>
+    <scalar dataType="xsd:double" dictRef="n:lumo" cmlx:templateRef="homo">0.505071</scalar>
+  </module>
+  <module cmlx:lineCount="11" cmlx:templateRef="symmolorb">
+    <module cmlx:lineCount="3" cmlx:templateRef="numbirrep">
+      <list cmlx:templateRef="unparsed">
+        <scalar dataType="xsd:string" dictRef="n:unparsed">Numbering of irreducible representations:</scalar>
+        <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+        <scalar dataType="xsd:string" dictRef="n:unparsed">1 a1          2 a2          3 b1          4 b2</scalar>
+      </list>
+    </module>
+    <module cmlx:lineCount="4" cmlx:templateRef="orbitalsym">
+      <list cmlx:templateRef="unparsed">
+        <scalar dataType="xsd:string" dictRef="n:unparsed">Orbital symmetries:</scalar>
+        <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+        <scalar dataType="xsd:string" dictRef="n:unparsed">1 a1          2 a1          3 b1          4 a1          5 b2</scalar>
+        <scalar dataType="xsd:string" dictRef="n:unparsed">6 a1          7 b1</scalar>
+      </list>
+    </module>
+  </module>
+  <module dictRef="compchem:finalization">
+    <propertyList>
+      <property dictRef="compchem:total_energy">
+        <scalar dataType="xsd:double" cmlx:templateRef="total_energy" units="nonsi:hartree">-74.6835</scalar>
+      </property>
+      <property dictRef="compchem:1e_energy">
+        <scalar dataType="xsd:double" cmlx:templateRef="1e_energy" units="nonsi:hartree">-121.780484</scalar>
+      </property>
+      <property dictRef="compchem:2e_energy">
+        <scalar dataType="xsd:double" cmlx:templateRef="2e_energy" units="nonsi:hartree">37.904889</scalar>
+      </property>
+    </propertyList>
+  </module>
+</module>
+  </comment>
+
+</template>

@@ -16,9 +16,23 @@
   </comment>
   
   <record repeat="3"/>
-  <record repeat="*" id="memory"/>
+  <record repeat="*" id="memory">\s*{X,n:unparsed}\s*</record>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+  
 
   <comment class="example.output" id="memory">
-    <module cmlx:templateRef="memory" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"/>
-  </comment>
+<module cmlx:templateRef="memory" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="memory">
+    <scalar dataType="xsd:string" dictRef="n:unparsed">heap     =   13107201 doubles =    100.0 Mbytes</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">stack    =   13107201 doubles =    100.0 Mbytes</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">global   =   26214400 doubles =    200.0 Mbytes (distinct from heap &amp; stack)</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">total    =   52428802 doubles =    400.0 Mbytes</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">verify   = yes</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">hardfail = no</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+    <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+    <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+  </list>
+</module>
+</comment>
 </template>
