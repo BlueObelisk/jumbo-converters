@@ -1,20 +1,50 @@
-<template repeat="*"  id="auth" name="AUTHORS" pattern="\s*AUTHORS.*$\s+\-+.*"
+<template repeat="*"  id="authors" name="AUTHORS" pattern="\s*AUTHORS.*$\s+\-+.*"
    endPattern="\s*">
+   
   <comment class="example.input" id="authors">
-                              AUTHORS &amp; CONTRIBUTORS
+                              AUTHORS and CONTRIBUTORS
                               ----------------------
       E. J. Bylaska, W. A. de Jong, N. Govind, K. Kowalski, T. P. Straatsma,
-     ...
-       M. Stave, H. Taylor, G. Thomas, J. H. van Lenthe, A. Wong, Z. Zhang.
- </comment>
- <record id="authors">{A,x:authors}.*</record>
- <record repeat="*"/>
- <transform process="pullup" xpath=".//cml:scalar"/>
- 
+     M. Valiev, H. J. J. van Dam, D. Wang, E. Apra, T. L. Windus, J. Hammond,
+    J. Autschbach, F. Aquino, J. Mullin, P. Nichols, S. Hirata, M. T. Hackler,
+   Y. Zhao, P.-D. Fan, R. J. Harrison, M. Dupuis, D. M. A. Smith, K. Glaesemann,
+    J. Nieplocha, V. Tipparaju, M. Krishnan, A. Vazquez-Mayagoitia, L. Jensen,
+      M. Swart, Q. Wu, T. Van Voorhis, A. A. Auer, M. Nooijen, L. D. Crosby,
+        E. Brown, G. Cisneros, G. I. Fann, H. Fruchtl, J. Garza, K. Hirao,
+        R. Kendall, J. A. Nichols, K. Tsemekhman, K. Wolinski, J. Anchell,
+       D. Bernholdt, P. Borowski, T. Clark, D. Clerc, H. Dachsel, M. Deegan,
+        K. Dyall, D. Elwood, E. Glendening, M. Gutowski, A. Hess, J. Jaffe,
+        B. Johnson, J. Ju, R. Kobayashi, R. Kutteh, Z. Lin, R. Littlefield,
+    X. Long, B. Meng, T. Nakajima, S. Niu, R. Peverati, L. Pollack, M. Rosing,
+          G. Sandrone, M. Stave, H. Taylor, G. Thomas, J. H. van Lenthe,
+                                A. Wong, Z. Zhang.
+  </comment>
+
+<record repeat="*" id="unparsed">\s*{X,n:unparsed}\s*</record>
+
   <comment class="example.output" id="authors">
-    <module cmlx:templateRef="auth" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <scalar dataType="xsd:string" dictRef="x:authors">AUTHORS</scalar>
-    </module>
+<module cmlx:templateRef="authors" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="unparsed">
+    <scalar dataType="xsd:string" dictRef="n:unparsed">AUTHORS and CONTRIBUTORS</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">----------------------</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">E. J. Bylaska, W. A. de Jong, N. Govind, K. Kowalski, T. P. Straatsma,</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">M. Valiev, H. J. J. van Dam, D. Wang, E. Apra, T. L. Windus, J. Hammond,</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">J. Autschbach, F. Aquino, J. Mullin, P. Nichols, S. Hirata, M. T. Hackler,</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">Y. Zhao, P.-D. Fan, R. J. Harrison, M. Dupuis, D. M. A. Smith, K. Glaesemann,</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">J. Nieplocha, V. Tipparaju, M. Krishnan, A. Vazquez-Mayagoitia, L. Jensen,</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">M. Swart, Q. Wu, T. Van Voorhis, A. A. Auer, M. Nooijen, L. D. Crosby,</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">E. Brown, G. Cisneros, G. I. Fann, H. Fruchtl, J. Garza, K. Hirao,</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">R. Kendall, J. A. Nichols, K. Tsemekhman, K. Wolinski, J. Anchell,</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">D. Bernholdt, P. Borowski, T. Clark, D. Clerc, H. Dachsel, M. Deegan,</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">K. Dyall, D. Elwood, E. Glendening, M. Gutowski, A. Hess, J. Jaffe,</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">B. Johnson, J. Ju, R. Kobayashi, R. Kutteh, Z. Lin, R. Littlefield,</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">X. Long, B. Meng, T. Nakajima, S. Niu, R. Peverati, L. Pollack, M. Rosing,</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">G. Sandrone, M. Stave, H. Taylor, G. Thomas, J. H. van Lenthe,</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">A. Wong, Z. Zhang.</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+  </list>
+</module>
   </comment>
 
 </template>
+

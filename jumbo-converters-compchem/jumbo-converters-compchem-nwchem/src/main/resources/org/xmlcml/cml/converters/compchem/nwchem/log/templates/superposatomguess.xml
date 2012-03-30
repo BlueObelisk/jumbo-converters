@@ -14,6 +14,8 @@
       name="cml:scalar[@dictRef='n:name']" value="cml:scalar[@dictRef='n:value']"/>
   <transform process="pullupSingleton" xpath="./cml:list"/>
   
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+  
   <comment class="example.output" id="superposatomguess">
 <module cmlx:templateRef="superposatomguess" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <scalar dataType="xsd:double" dictRef="n:sumatomener" cmlx:templateRef="sumatomener">-1824.13130503</scalar>

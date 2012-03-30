@@ -1,5 +1,9 @@
 <template repeat="*"  id="xyz" name="XYZ format geometry" 
-  pattern="\s*XYZ format geometry$\s+\-+.*" newline="$" endPattern="\s*">
+  pattern="\s*XYZ format geometry\s*$\s+\-+.*"
+  newline="$"
+  endPattern="\s*"
+  endOffset="0"
+  >
 
   <comment class="example.input" id="xyz">
             XYZ format geometry
@@ -11,25 +15,46 @@
  o                     0.77109980    -2.87778364     0.00000000
 
   </comment>
-  <record repeat="2">{X}\s*</record>
+  <record repeat="2"/>
   <record id="atoms">\s*{I,compchem:natoms}\s*</record>
   <record id="geo">\s*{A,n:geomtype}\s*</record>
   <record makeArray="true" repeat="*" 
-      id="mol">\s*{A,compchem:atomtype}\s*{F,compchem:x3}\s*{F,compchem:y3}\s*{F,compchem:z3}\s*</record>
+      id="mol">\s*{A,compchem:elementType}\s*{F,compchem:x3}\s*{F,compchem:y3}\s*{F,compchem:z3}\s*</record>
       
+
+  <transform process="createMolecule" xpath="./cml:list[@cmlx:templateRef='mol']/cml:array" id="xyz"/>
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='atoms']"/>
+
   
   <comment class="example.output" id="xyz">
     <module cmlx:templateRef="xyz" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <scalar dataType="xsd:integer" dictRef="compchem:natoms" cmlx:templateRef="atoms">11</scalar>
       <scalar dataType="xsd:string" dictRef="n:geomtype" cmlx:templateRef="geo">geometry</scalar>
-      <list cmlx:lineCount="3" cmlx:templateRef="mol">
-        <array dataType="xsd:string" dictRef="compchem:atomtype" size="3">fe c o</array>
-        <array dataType="xsd:double" dictRef="compchem:x3" size="3">0.0 0.0 0.7710998</array>
-        <array dataType="xsd:double" dictRef="compchem:y3" size="3">0.0 0.0 -2.87778364</array>
-        <array dataType="xsd:double" dictRef="compchem:z3" size="3">0.0 1.80680057 0.0</array>
-      </list>
+      <molecule id="xyz" cmlx:templateRef="mol">
+        <atomArray>
+          <atom id="a1" elementType="Fe" x3="0.0" y3="0.0" z3="0.0">
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">26</scalar>
+          </atom>
+          <atom id="a2" elementType="C" x3="0.0" y3="0.0" z3="1.80680057">
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
+          </atom>
+          <atom id="a3" elementType="O" x3="0.7710998" y3="-2.87778364" z3="0.0">
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">8</scalar>
+          </atom>
+        </atomArray>
+        <formula formalCharge="0" concise="C 1 Fe 1 O 1">
+          <atomArray elementType="C Fe O" count="1.0 1.0 1.0"/>
+        </formula>
+        <bondArray>
+          <bond atomRefs2="a1 a2" id="a1_a2" order="S"/>
+        </bondArray>
+        <property dictRef="cml:molmass">
+          <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">83.8551</scalar>
+        </property>
+      </molecule>
     </module>
-    </comment>
+  </comment>
 
 </template>

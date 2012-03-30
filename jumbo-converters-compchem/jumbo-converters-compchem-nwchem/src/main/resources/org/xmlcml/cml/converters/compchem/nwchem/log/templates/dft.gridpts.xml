@@ -1,0 +1,23 @@
+<template repeat="*"  name="Grid_pts file" id="dft_gridpts" pattern="\s*Grid_pts file.*" 
+  endPattern="\s*">
+  
+  <comment class="example.input" id="dft_gridpts">
+ Grid_pts file          = ./molecule.gridpts.0
+ Record size in doubles =  12289        No. of grid_pts per rec  =   3070
+ Max. records in memory =     16        Max. recs in file   =    795990
+  </comment>
+  
+  <record id="gridpts">\s*Grid_pts file\s+=\s*{A,n:gridfile}</record>
+  <record repeat="*"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+  
+  
+  <comment class="example.output" id="dft_gridpts">
+<module cmlx:templateRef="dft_gridpts" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="gridpts">
+    <scalar dataType="xsd:string" dictRef="n:gridfile">./molecule.gridpts.0</scalar>
+  </list>
+</module>
+    </comment>
+
+</template>

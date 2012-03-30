@@ -1,0 +1,137 @@
+<template id="gradmodule" name="NWChem Gradient Module" 
+repeat="*" newline="$"
+  pattern="\s*NWChem .*Gradients? Module\s*$\s*\-+\s*" 
+  endPattern="\s*Task  times  cpu:.*"
+  endPattern2="~">
+  
+  <comment class="example.input" id="gradmodule">
+                            NWChem DFT Gradient Module
+                            --------------------------
+
+
+                  gradient calculation on water with 6-31G* basis
+
+
+
+  charge          =   0.00
+  wavefunction    = closed shell
+
+  Using symmetry
+
+
+                         DFT ENERGY GRADIENTS
+
+    atom               coordinates                        gradient
+                 x          y          z           x          y          z
+   1 O       0.000000   0.000000   0.221607    0.000000   0.000000  -0.022098
+   2 H       1.430489   0.000000  -0.886427   -0.014117   0.000000   0.011049
+   3 H      -1.430489   0.000000  -0.886427    0.014117   0.000000   0.011049
+
+                 ----------------------------------------
+                 |  Time  |  1-e(secs)   |  2-e(secs)   |
+                 ----------------------------------------
+                 |  CPU   |       0.00   |       0.03   |
+                 ----------------------------------------
+                 |  WALL  |       0.00   |       0.03   |
+                 ----------------------------------------
+
+  </comment>
+ 
+  <record repeat="4"/>
+  <record id="title">\s*{X,compchem:title}\s*</record>
+  <record repeat="3"/>
+  <record repeat="1" id="charge">\s*charge\s*=\s*{F,compchem:charge}\s*</record>
+  <record repeat="1" id="wavefunction">\s*wavefunction\s*=\s*{X,compchem:wavefunction}\s*</record>
+  
+  <templateList>
+  
+  <template id="gsym" repeat="1"
+  pattern="\s*Using symmetry\s*" endPattern=".*">
+  <record repeat="1" id="unparsed">\s*{X,n:unparsed}\s*</record>
+  </template>
+  
+  <template id="gradients" name="Gradients"
+  repeat="1" newline="$"
+  pattern="\s*.*ENERGY GRADIENTS\s*$\s*"
+  endPattern="\s*">
+  <record repeat="1" id="header">\s*{X,n:gradient_calculation_method} ENERGY GRADIENTS\s*</record>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  <record repeat="3"/>
+  <record repeat="*" makeArray="true" id="grad">{I,cc:serial}{A,cc:elementType}{F,cc:x3}{F,cc:y3}{F,cc:z3}{F,cc:grad.x3}{F,cc:grad.y3}{F,cc:grad.z3}</record>
+  </template>
+  </templateList>
+  
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+  
+  <!--  Might have timing block or not -->
+  <templateList xmlns:xi="http://www.w3.org/2001/XInclude">
+       <xi:include href="gradient.timebox.xml" />
+  </templateList>
+  
+  <!--  Create element to identify this as a gradient calculation -->
+  <transform process="addChild" 
+  xpath="." 
+  elementName="cml:parameterList"
+  position="0"/>
+  
+  <transform process="addChild"
+  xpath="./cml:parameterList"
+  elementName="cml:scalar"
+  dictRef="compchem:calculation_type"
+  value="gradient"
+  />
+  
+  <!-- Move compchem parameters into parameterList -->
+    <transform process="move"
+  xpath=".//cml:scalar[starts-with(@dictRef,'compchem:')]"
+  to="./cml:parameterList"/>
+  
+  <transform process="createWrapperParameter" 
+  xpath="./cml:parameterList/*" />  
+  
+  
+  <comment class="example.output" id="gradmodule">
+<module cmlx:templateRef="gradmodule" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <parameterList>
+    <parameter dictRef="compchem:calculation_type">
+      <scalar dataType="xsd:string">gradient</scalar>
+    </parameter>
+    <parameter dictRef="compchem:title">
+      <scalar dataType="xsd:string" cmlx:templateRef="title">gradient calculation on water with 6-31G* basis</scalar>
+    </parameter>
+    <parameter dictRef="compchem:charge">
+      <scalar dataType="xsd:double" cmlx:templateRef="charge">0.0</scalar>
+    </parameter>
+    <parameter dictRef="compchem:wavefunction">
+      <scalar dataType="xsd:string" cmlx:templateRef="wavefunction">closed shell</scalar>
+    </parameter>
+  </parameterList>
+  <module cmlx:lineCount="1" cmlx:templateRef="gsym">
+    <list cmlx:templateRef="unparsed">
+      <scalar dataType="xsd:string" dictRef="n:unparsed">Using symmetry</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="7" cmlx:templateRef="gradients">
+    <scalar dataType="xsd:string" dictRef="n:gradient_calculation_method" cmlx:templateRef="header">DFT</scalar>
+    <list cmlx:lineCount="3" cmlx:templateRef="grad">
+      <array dataType="xsd:integer" dictRef="cc:serial" size="3">1 2 3</array>
+      <array dataType="xsd:string" dictRef="cc:elementType" size="3">O H H</array>
+      <array dataType="xsd:double" dictRef="cc:x3" size="3">0.0 1.430489 -1.430489</array>
+      <array dataType="xsd:double" dictRef="cc:y3" size="3">0.0 0.0 0.0</array>
+      <array dataType="xsd:double" dictRef="cc:z3" size="3">0.221607 -0.886427 -0.886427</array>
+      <array dataType="xsd:double" dictRef="cc:grad.x3" size="3">0.0 -0.014117 0.014117</array>
+      <array dataType="xsd:double" dictRef="cc:grad.y3" size="3">0.0 0.0 0.0</array>
+      <array dataType="xsd:double" dictRef="cc:grad.z3" size="3">-0.022098 0.011049 0.011049</array>
+    </list>
+  </module>
+  <module cmlx:lineCount="7" cmlx:templateRef="timebox">
+    <scalar dataType="xsd:double" dictRef="n:cpu1">0.0</scalar>
+    <scalar dataType="xsd:double" dictRef="n:cpu2">0.03</scalar>
+    <scalar dataType="xsd:double" dictRef="n:wall1">0.0</scalar>
+    <scalar dataType="xsd:double" dictRef="n:wall2">0.03</scalar>
+  </module>
+</module>
+  </comment>
+
+</template>

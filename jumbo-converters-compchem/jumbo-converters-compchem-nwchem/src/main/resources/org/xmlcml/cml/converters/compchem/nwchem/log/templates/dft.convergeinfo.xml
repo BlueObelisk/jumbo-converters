@@ -1,0 +1,42 @@
+<template id="dft_converge_info"
+name="DFT Convergence Information" 
+repeat="*"  
+pattern="\s*Convergence Information.*$\s+\-+.*"
+endPattern="\s*$\s*"
+>
+  
+  <comment class="example.input" id="converge">
+          Convergence Information
+          -----------------------
+          Convergence aids based upon iterative change in 
+          total energy or number of iterations. 
+          Levelshifting, if invoked, occurs when the 
+          HOMO/LUMO gap drops below (HL_TOL): 1.00D-02
+          DIIS, if invoked, will attempt to extrapolate 
+          using up to (NFOCK): 10 stored Fock matrices.
+
+                    Damping( 0%)  Levelshifting(0.5)       DIIS
+                  --------------- ------------------- ---------------
+          dE  on:    start            ASAP                start   
+          dE off:    2 iters         30 iters            30 iters 
+
+
+  </comment>
+  <record repeat="2"/>
+  <record repeat="9"/>
+  <record id="deon">.*\:{1_10A,n:deon}</record>
+  <record id="deoff">.*\:{1_10A,n:deoff}</record>
+  
+  <transform process="createNameValue" xpath="cml:list/cml:list" 
+        name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+
+  <comment class="example.output" id="converge">
+    <module cmlx:templateRef="dft_converge_info" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:string" size="3" dictRef="n:deon" cmlx:templateRef="deon">start ASAP start</array>
+      <array dataType="xsd:string" size="6" dictRef="n:deoff" cmlx:templateRef="deoff">2 iters 30 iters 30 iters</array>
+    </module>
+  </comment>
+
+</template>

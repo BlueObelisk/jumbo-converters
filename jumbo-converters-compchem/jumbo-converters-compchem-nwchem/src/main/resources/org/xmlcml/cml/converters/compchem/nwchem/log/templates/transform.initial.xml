@@ -4,44 +4,79 @@
 
 <!-- ================ initialization ================================= -->
 
-  <transform process="addChild" xpath="//cml:module[@id='job1']" elementName="cml:module" id="initialization"/>
-  <transform process="addDictRef" xpath="//cml:module[@id='initialization']" value="cc:initialization"/>
+  <!-- Create initialisation module and add a parameterList-->
+  <transform process="addChild" 
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']" 
+  elementName="cml:module" 
+  dictRef="compchem:initialization"
+  id="job_initialization"
+  position="1"
+  />
+  <transform process="addChild" 
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@id='job_initialization']" 
+  elementName="cml:parameterList"
+  />
   
-  <transform process="addChild" xpath="//cml:module[@id='initialization']" elementName="cml:parameterList" />
+  <!--  Move first (should be only) input module into the init module -->
+  <transform process="moveRelative"
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@cmlx:templateRef='nwchem_module']/cml:module[@cmlx:templateRef='input_module']"
+  to="../../cml:module[@id='job_initialization']"
+  />
   
-  <!-- move modules to initialization -->
+  <!--  delete empty nwchem_module -->
+  <transform process="delete"
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@cmlx:templateRef='nwchem_module'][count(*)=0]"
+  />
   
-  <transform process="move" 
-    xpath=".//cml:module[@cmlx:templateRef='geninfo']/cml:scalar[starts-with(@dictRef,'cc:')]" 
-    to=".//cml:module[@id='initialization']/cml:parameterList"/> 
-  <transform process="createWrapperParameter" 
-     xpath="//cml:module[@id='initialization']/cml:parameterList/*" />
+  <!-- Move "molgeom" molecule from input into init & then delete any other molecules in the input -->
+  <transform process="moveRelative"
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@id='job_initialization']/cml:module[@cmlx:templateRef='input_module']/cml:module[@cmlx:templateRef='geometry']/cml:molecule[@id='molgeom'][position() = 1]"
+  to="../../../../cml:module[@id='job_initialization']"
+  />
+ <transform process="delete"
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@id='job_initialization']/cml:module[@cmlx:templateRef='input_module']//cml:molecule"/>
+  
+  <!--  Move first basis set into it -->
+ <transform process="moveRelative"
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@id='job_initialization']/cml:module[@cmlx:templateRef='input_module']/cml:list[@id='basis_set'][position() = 1]"
+  to="../../../cml:module[@id='job_initialization']"
+  />
+  
+  <!--  Delete summary_basis module -->
+  <transform process="delete"
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@id='job_initialization']/cml:module[@cmlx:templateRef='input_module']//cml:module[@cmlx:templateRef='summarybasis']"
+  />
+  
+ <!-- Now copy parameters from the first calculation initialization module into here -->
+  <transform process="copy"
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@cmlx:templateRef='nwchem_module'][position()=1]/cml:module[@dictRef='compchem:calculation']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter"        
+  to="../../../../../cml:module[@id='job_initialization']/cml:parameterList"
+  /> 
+   <!-- FILTHY HACK! -->
+  <!-- Move over the mp2 calculation_type - move not copy as we need to put at top of list _shudder_ 
+  Will fix when we can do tests and proper copies
+  -->
+  <transform process="moveRelative"
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@cmlx:templateRef='nwchem_module'][position()=2]/cml:module[@dictRef='compchem:calculation']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:calculation_method']/cml:scalar[text()='mp2']"        
+  to="../../../../../../cml:module[@id='job_initialization']/cml:parameterList"
+  position="1"
+  /> 
+    <transform process="addDictRef"
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@id='job_initialization']/cml:parameterList/cml:scalar[text()='mp2']"
+  value="compchem:calculation_method"
+  />
+  <transform process="createWrapperParameter"
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@id='job_initialization']/cml:parameterList/cml:scalar[text()='mp2']"
+  />
+  
+   
+   <!-- FIXME - when we can do a test for the geometry optimisation, we can do this better. For now we just
+   assume the above failed and do our own -->
+   <transform process="copy"
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@cmlx:templateRef='geomopt']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter"        
+  to="../../../../cml:module[@id='job_initialization']/cml:parameterList"
+  /> 
+  
 
-  <!--  and molecule -->  
-    <transform process="move" xpath=".//cml:molecule[@id='molgeom']" 
-        to=".//cml:module[@id='initialization']"/> 
 
-  <!--  tidy rest -->
-  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='foobar']"/>
-  <transform process="addChild" xpath=".//cml:module[@id='initialization']"
-     elementName="cml:module" id="initialization.userDefined" dictRef="cc:userDefinedModule"/>
-  <transform process="move" xpath=".//cml:module[
-       @cmlx:templateRef='atmass' 
-    or @cmlx:templateRef='basis' 
-    or @cmlx:templateRef='converge' 
-    or @cmlx:templateRef='effnucrep' 
-    or @cmlx:templateRef='gridinfo' 
-    or @cmlx:templateRef='gridpts' 
-    or @cmlx:templateRef='memoryUtil' 
-    or @cmlx:templateRef='nonvaritener' 
-    or @cmlx:templateRef='nucdipole' 
-    or @cmlx:templateRef='quartets' 
-    or @cmlx:templateRef='recordsize' 
-    or @cmlx:templateRef='screentol' 
-    or @cmlx:templateRef='superposatomguess' 
-    or @cmlx:templateRef='xcinfo' 
-    ]" 
-     to="//cml:module[@id='initialization.userDefined']"/>
-
-     
 </transformList>

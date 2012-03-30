@@ -1,22 +1,28 @@
 <template repeat="*"  id="times" name="Times" 
-  pattern="\s*.*\s+times\s+cpu:.*" endPattern=".*">
+  pattern="\s*.*\s+times\s+cpu:.*" endPattern=".*"
+  endPattern2="~">
 
   <comment class="example.input" id="times">
  Task  times  cpu:        0.0s     wall:        0.0s
   </comment>
   
-  <record id="times">\s*{A,n:type}\s+times\s+cpu\:\s*{F,cc:cputime}s\s+wall\:\s*{F,cc:walltime}s\s*</record>
+  <record id="times">\s*{A,n:timetype}\s+times\s+cpu\:\s*{F,compchem:cputime}s\s+wall\:\s*{F,compchem:walltime}s\s*</record>
+  
+  <transform process="moveRelative" xpath=".//cml:scalar" to="../../.."/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='times']"/>
+  
+    <!-- Add Units -->
+  <transform process="addUnits"
+  xpath=".//cml:scalar[@dictRef='compchem:walltime' or @dictRef='compchem:cputime']"
+  value="si:s"
+  />
   
   <comment class="example.output" id="times">
-    <module cmlx:templateRef="times" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <list cmlx:templateRef="times">
-        <list>
-          <scalar dataType="xsd:string" dictRef="n:type">Task</scalar>
-          <scalar dataType="xsd:double" dictRef="cc:cputime">0.0</scalar>
-          <scalar dataType="xsd:double" dictRef="cc:walltime">0.0</scalar>
-        </list>
-      </list>
-    </module>
+<module cmlx:templateRef="times" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:string" dictRef="n:timetype">Task</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:cputime" units="si:s">0.0</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:walltime" units="si:s">0.0</scalar>
+</module>
   </comment>
 
 </template>

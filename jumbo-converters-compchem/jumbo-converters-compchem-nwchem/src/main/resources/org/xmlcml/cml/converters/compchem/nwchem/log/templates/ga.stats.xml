@@ -1,0 +1,68 @@
+<template repeat="*" id="gastats" name="GA Statistics for process" 
+    pattern="\s*GA Statistics for process.*$\s+\-+\s*" 
+    endPattern="\s*$\s*"
+    endPattern2="~"
+    >
+
+  <comment class="example.input" id="gastats">
+                         GA Statistics for process    0
+                         ------------------------------
+
+       create   destroy   get      put      acc     scatter   gather  read&amp;inc
+calls: 1590     1590     1.88e+05 1.35e+05 8.20e+04    0        0     2.96e+04 
+number of processes/call 1.17e+00 1.06e+00 1.01e+00 0.00e+00 0.00e+00
+bytes total:             6.13e+08 2.92e+08 1.44e+08 0.00e+00 0.00e+00 2.37e+05
+bytes remote:            3.92e+08 1.79e+08 1.03e+08 0.00e+00 0.00e+00 0.00e+00
+Max memory consumed for GA by this process: 2399456 bytes
+MA_summarize_allocated_blocks: starting scan ...
+MA_summarize_allocated_blocks: scan completed: 0 heap blocks, 0 stack blocks
+MA usage statistics:
+
+    allocation statistics:
+                          heap       stack
+                          ----       -----
+    current number of blocks             0           0
+    maximum number of blocks            36          63
+    current total bytes              0           0
+    maximum total bytes       55925040    36479104
+    maximum total K-bytes            55926       36480
+    maximum total M-bytes               56          37
+
+
+  </comment>
+  
+  <record repeat="*" id="unparsed">\s*{X,n:unparsed}\s*</record>
+
+  <comment class="example.output" id="gastats">
+<module cmlx:templateRef="gastats" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="unparsed">
+    <scalar dataType="xsd:string" dictRef="n:unparsed">GA Statistics for process    0</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">------------------------------</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">create   destroy   get      put      acc     scatter   gather  read&amp;inc</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">calls: 1590     1590     1.88e+05 1.35e+05 8.20e+04    0        0     2.96e+04</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">number of processes/call 1.17e+00 1.06e+00 1.01e+00 0.00e+00 0.00e+00</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">bytes total:             6.13e+08 2.92e+08 1.44e+08 0.00e+00 0.00e+00 2.37e+05</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">bytes remote:            3.92e+08 1.79e+08 1.03e+08 0.00e+00 0.00e+00 0.00e+00</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">Max memory consumed for GA by this process: 2399456 bytes</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">MA_summarize_allocated_blocks: starting scan ...</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">MA_summarize_allocated_blocks: scan completed: 0 heap blocks, 0 stack blocks</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">MA usage statistics:</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">allocation statistics:</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">heap       stack</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">----       -----</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">current number of blocks             0           0</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">maximum number of blocks            36          63</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">current total bytes              0           0</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">maximum total bytes       55925040    36479104</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">maximum total K-bytes            55926       36480</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed">maximum total M-bytes               56          37</scalar>
+    <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+    <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+    <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+  </list>
+</module>
+  </comment>
+
+</template>

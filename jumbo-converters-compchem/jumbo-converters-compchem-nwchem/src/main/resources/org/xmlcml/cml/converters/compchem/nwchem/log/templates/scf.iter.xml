@@ -1,0 +1,208 @@
+<template id="scf_iter" name="iterations and energy" 
+  repeat="*"
+  newline="$"
+  pattern="\s*iter\s+energy\s+gnorm\s+gmax\s+time\s*$\s*\-+\s*\-+.*" 
+  endPattern="\s*">
+
+  <comment class="example.input" id="scf_iter">
+              iter       energy          gnorm     gmax       time
+             ----- ------------------- --------- --------- --------
+                 1      -94.6569803631  5.76D-01  1.61D-01      0.1
+                 2      -94.6769427089  2.08D-01  9.60D-02      0.1
+                 3      -94.6794323074  7.27D-03  4.02D-03      0.1
+                 4      -94.6794449267  4.80D-05  1.69D-05      0.1
+
+
+</comment>
+
+  <record repeat="2"/>
+  <record id="iter" 
+  repeat="*">\s*{I,compchem:iteration_index}\s+{F,compchem:total_energy}\s+{E,n:gnorm}\s+{E,n:gmax}\s+{F,compchem:walltime}</record>
+  
+    <!-- Add Units -->
+  <transform process="addUnits"
+  xpath=".//cml:scalar[@dictRef='compchem:total_energy']"
+  value="nonsi:hartree"
+  />
+  <transform process="addUnits"
+  xpath=".//cml:scalar[@dictRef='compchem:walltime']"
+  value="si:s"
+  />
+
+  <!-- Create calculation modules and Identify as an SCF iteration by adding terms to initialization parameterList -->
+  <transform process="rename"
+  xpath="./cml:list[@cmlx:templateRef='iter']/cml:list"
+  elementName="cml:module"
+  id="iteration"
+  dictRef="compchem:calculation" />
+  
+  <transform process="addChild"
+  xpath=".//cml:module[@id='iteration']"
+  elementName="cml:module" 
+  dictRef="compchem:initialization"
+  id="initialization"
+  position="1"/>
+  
+  <transform process="addChild"
+  xpath=".//cml:module[@id='iteration']/cml:module[@dictRef='compchem:initialization']"
+  elementName="cml:parameterList"
+  />
+  
+  <transform process="addChild"
+  xpath=".//cml:module[@id='iteration']/cml:module[@dictRef='compchem:initialization']/cml:parameterList"
+  elementName="cml:scalar"
+  dictRef="compchem:calculation_method"
+  value="scf"
+  />
+  <transform process="addChild"
+  xpath=".//cml:module[@id='iteration']/cml:module[@dictRef='compchem:initialization']/cml:parameterList"
+  elementName="cml:scalar"
+  dictRef="compchem:calculation_type"
+  value="iteration"
+  />
+  <transform process="createWrapperParameter"
+  xpath=".//cml:module[@id='iteration']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:scalar" />
+  
+  <!--  Create finalization Module with Energies -->
+  
+  <transform process="addChild"
+  xpath=".//cml:module[@id='iteration']"
+  elementName="cml:module" 
+  dictRef="compchem:finalization"
+  id="finalization"
+  />
+  
+  <transform process="addChild"
+  xpath=".//cml:module[@id='iteration']/cml:module[@dictRef='compchem:finalization']"
+  elementName="cml:propertyList"
+  />
+  
+  <transform process="moveRelative"
+  xpath=".//cml:module[@id='iteration']/cml:scalar[starts-with(@dictRef,'compchem:')]"
+  to="../cml:module[@dictRef='compchem:finalization']/cml:propertyList"/>
+  
+  <transform process="createWrapperProperty"
+  xpath=".//cml:module[@id='iteration']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:scalar" />
+  
+
+  
+  <transform process="pullup"
+   xpath="./cml:list[@cmlx:templateRef='iter']/*" />
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='iter']"/>
+  
+  
+  <comment class="example.output" id="scf_iter">
+<module cmlx:templateRef="scf_iter" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <module id="iteration" dictRef="compchem:calculation">
+    <module id="initialization" dictRef="compchem:initialization">
+      <parameterList>
+        <parameter dictRef="compchem:calculation_method">
+          <scalar dataType="xsd:string">scf</scalar>
+        </parameter>
+        <parameter dictRef="compchem:calculation_type">
+          <scalar dataType="xsd:string">iteration</scalar>
+        </parameter>
+      </parameterList>
+    </module>
+    <scalar dataType="xsd:double" dictRef="n:gnorm">0.576</scalar>
+    <scalar dataType="xsd:double" dictRef="n:gmax">0.161</scalar>
+    <module id="finalization" dictRef="compchem:finalization">
+      <propertyList>
+        <property dictRef="compchem:iteration_index">
+          <scalar dataType="xsd:integer">1</scalar>
+        </property>
+        <property dictRef="compchem:total_energy">
+          <scalar dataType="xsd:double" units="nonsi:hartree">-94.6569803631</scalar>
+        </property>
+        <property dictRef="compchem:walltime">
+          <scalar dataType="xsd:double" units="si:s">0.1</scalar>
+        </property>
+      </propertyList>
+    </module>
+  </module>
+  <module id="iteration" dictRef="compchem:calculation">
+    <module id="initialization" dictRef="compchem:initialization">
+      <parameterList>
+        <parameter dictRef="compchem:calculation_method">
+          <scalar dataType="xsd:string">scf</scalar>
+        </parameter>
+        <parameter dictRef="compchem:calculation_type">
+          <scalar dataType="xsd:string">iteration</scalar>
+        </parameter>
+      </parameterList>
+    </module>
+    <scalar dataType="xsd:double" dictRef="n:gnorm">0.208</scalar>
+    <scalar dataType="xsd:double" dictRef="n:gmax">0.096</scalar>
+    <module id="finalization" dictRef="compchem:finalization">
+      <propertyList>
+        <property dictRef="compchem:iteration_index">
+          <scalar dataType="xsd:integer">2</scalar>
+        </property>
+        <property dictRef="compchem:total_energy">
+          <scalar dataType="xsd:double" units="nonsi:hartree">-94.6769427089</scalar>
+        </property>
+        <property dictRef="compchem:walltime">
+          <scalar dataType="xsd:double" units="si:s">0.1</scalar>
+        </property>
+      </propertyList>
+    </module>
+  </module>
+  <module id="iteration" dictRef="compchem:calculation">
+    <module id="initialization" dictRef="compchem:initialization">
+      <parameterList>
+        <parameter dictRef="compchem:calculation_method">
+          <scalar dataType="xsd:string">scf</scalar>
+        </parameter>
+        <parameter dictRef="compchem:calculation_type">
+          <scalar dataType="xsd:string">iteration</scalar>
+        </parameter>
+      </parameterList>
+    </module>
+    <scalar dataType="xsd:double" dictRef="n:gnorm">0.00727</scalar>
+    <scalar dataType="xsd:double" dictRef="n:gmax">0.00402</scalar>
+    <module id="finalization" dictRef="compchem:finalization">
+      <propertyList>
+        <property dictRef="compchem:iteration_index">
+          <scalar dataType="xsd:integer">3</scalar>
+        </property>
+        <property dictRef="compchem:total_energy">
+          <scalar dataType="xsd:double" units="nonsi:hartree">-94.6794323074</scalar>
+        </property>
+        <property dictRef="compchem:walltime">
+          <scalar dataType="xsd:double" units="si:s">0.1</scalar>
+        </property>
+      </propertyList>
+    </module>
+  </module>
+  <module id="iteration" dictRef="compchem:calculation">
+    <module id="initialization" dictRef="compchem:initialization">
+      <parameterList>
+        <parameter dictRef="compchem:calculation_method">
+          <scalar dataType="xsd:string">scf</scalar>
+        </parameter>
+        <parameter dictRef="compchem:calculation_type">
+          <scalar dataType="xsd:string">iteration</scalar>
+        </parameter>
+      </parameterList>
+    </module>
+    <scalar dataType="xsd:double" dictRef="n:gnorm">4.8E-5</scalar>
+    <scalar dataType="xsd:double" dictRef="n:gmax">1.69E-5</scalar>
+    <module id="finalization" dictRef="compchem:finalization">
+      <propertyList>
+        <property dictRef="compchem:iteration_index">
+          <scalar dataType="xsd:integer">4</scalar>
+        </property>
+        <property dictRef="compchem:total_energy">
+          <scalar dataType="xsd:double" units="nonsi:hartree">-94.6794449267</scalar>
+        </property>
+        <property dictRef="compchem:walltime">
+          <scalar dataType="xsd:double" units="si:s">0.1</scalar>
+        </property>
+      </propertyList>
+    </module>
+  </module>
+</module>
+    </comment>
+
+</template>

@@ -1,0 +1,382 @@
+<template
+  id="scf_module"
+  name="NWChem SCF Module" 
+  repeat="*"
+  pattern="\s*NWChem SCF Module\s*$\s+\-+.*"
+  newline="$"
+  offset="0"
+  >
+
+  <comment class="example.input" id="scfx">
+                                 NWChem SCF Module
+                                 -----------------
+
+
+                   HF SCF calculation on water with STO-3G basis
+
+
+
+  ao basis        = "ao basis"
+  functions       =     7
+  atoms           =     3
+  closed shells   =     5
+  open shells     =     0
+  charge          =   0.00
+  wavefunction    = RHF 
+  input vectors   = atomic
+  output vectors  = ./molecule.movecs
+  use symmetry    = T
+  symmetry adapt  = T
+
+
+ Summary of "ao basis" -> "ao basis" (cartesian)
+ ------------------------------------------------------------------------------
+       Tag                 Description            Shells   Functions and Types
+ ---------------- ------------------------------  ------  ---------------------
+ O                           sto-3g                  3        5   2s1p
+ H                           sto-3g                  1        1   1s
+
+
+      Symmetry analysis of basis
+      --------------------------
+
+        a1          4
+        a2          0
+        b1          2
+        b2          1
+
+
+ Forming initial guess at       0.1s
+
+
+      Superposition of Atomic Density Guess
+      -------------------------------------
+
+ Sum of atomic energies:         -74.71095592
+
+      Non-variational initial energy
+      ------------------------------
+
+ Total energy =     -74.683500
+ 1-e energy   =    -121.780484
+ 2-e energy   =      37.904889
+ HOMO         =      -0.258445
+ LUMO         =       0.505071
+
+
+      Symmetry analysis of molecular orbitals - initial
+      -------------------------------------------------
+
+  Numbering of irreducible representations: 
+
+     1 a1          2 a2          3 b1          4 b2      
+
+  Orbital symmetries:
+
+     1 a1          2 a1          3 b1          4 a1          5 b2      
+     6 a1          7 b1      
+
+
+ Starting SCF solution at       0.2s
+
+
+
+ ----------------------------------------------
+         Quadratically convergent ROHF
+
+ Convergence threshold     :          1.000E-04
+ Maximum no. of iterations :           30
+ Final Fock-matrix accuracy:          1.000E-07
+ ----------------------------------------------
+
+
+ #quartets = 7.900D+01 #integrals = 1.640D+02 #direct =  0.0% #cached =100.0%
+
+
+ Integral file          = ./molecule.aoints.0
+ Record size in doubles =  65536        No. of integs per rec  =  43688
+ Max. records in memory =      2        Max. records in file   = 149054
+ No. of bits per label  =      8        No. of bits per value  =     64
+
+
+              iter       energy          gnorm     gmax       time
+             ----- ------------------- --------- --------- --------
+                 1      -74.9243813595  6.49D-01  5.52D-01      0.1
+                 2      -74.9621547150  1.36D-01  1.01D-01      0.1
+                 3      -74.9629674753  2.06D-02  1.64D-02      0.1
+                 4      -74.9629856144  5.45D-05  4.16D-05      0.1
+
+
+       Final RHF  results 
+       ------------------ 
+
+         Total SCF energy =    -74.962985614357
+      One-electron energy =   -122.365883795384
+      Two-electron energy =     38.210803512371
+ Nuclear repulsion energy =      9.192094668657
+
+        Time for solution =      0.0s
+
+
+
+       Symmetry analysis of molecular orbitals - final
+       -----------------------------------------------
+
+  Numbering of irreducible representations: 
+
+     1 a1          2 a2          3 b1          4 b2      
+
+  Orbital symmetries:
+
+     1 a1          2 a1          3 b1          4 a1          5 b2      
+     6 a1          7 b1      
+
+             Final eigenvalues
+             -----------------
+
+              1      
+    1  -20.2418
+    2   -1.2683
+    3   -0.6177
+    4   -0.4531
+    5   -0.3913
+    6    0.6054
+    7    0.7419
+
+                       ROHF Final Molecular Orbital Analysis
+                       -------------------------------------
+
+ Vector    2  Occ=2.000000D+00  E=-1.268298D+00  Symmetry=a1
+              MO Center= -2.8D-17, -9.9D-19, -7.2D-02, r^2= 5.4D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     2      0.833587  1 O  s                  1     -0.232793  1 O  s          
+     6      0.158700  2 H  s                  7      0.158700  3 H  s          
+
+ Vector    3  Occ=2.000000D+00  E=-6.177034D-01  Symmetry=b1
+              MO Center=  2.8D-17, -1.0D-51, -1.4D-01, r^2= 8.3D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     3      0.606495  1 O  px                 6      0.445042  2 H  s          
+     7     -0.445042  3 H  s          
+
+ Vector    4  Occ=2.000000D+00  E=-4.530557D-01  Symmetry=a1
+              MO Center=  0.0D+00,  2.0D-35,  1.6D-01, r^2= 6.2D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     5      0.776552  1 O  pz                 2      0.536883  1 O  s          
+     6     -0.277990  2 H  s                  7     -0.277990  3 H  s          
+
+ Vector    5  Occ=2.000000D+00  E=-3.912526D-01  Symmetry=b2
+              MO Center= -5.2D-33, -4.4D-18,  1.2D-01, r^2= 4.2D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     4      1.000000  1 O  py         
+
+ Vector    6  Occ=0.000000D+00  E= 6.054409D-01  Symmetry=a1
+              MO Center=  6.1D-16,  5.3D-18, -3.9D-01, r^2= 1.1D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     2      0.884136  1 O  s                  6     -0.796892  2 H  s          
+     7     -0.796892  3 H  s                  5     -0.742518  1 O  pz         
+
+ Vector    7  Occ=0.000000D+00  E= 7.419112D-01  Symmetry=b1
+              MO Center= -7.2D-16,  3.1D-33, -2.3D-01, r^2= 1.0D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     3      0.990301  1 O  px                 6     -0.838447  2 H  s          
+     7      0.838447  3 H  s          
+
+
+ center of mass
+ --------------
+ x =   0.00000000 y =   0.00000000 z =   0.09760123
+
+ moments of inertia (a.u.)
+ ------------------
+           2.197735387303           0.000000000000           0.000000000000
+           0.000000000000           6.322357589609           0.000000000000
+           0.000000000000           0.000000000000           4.124622202307
+
+  Mulliken analysis of the total density
+  --------------------------------------
+
+    Atom       Charge   Shell Charges
+ -----------   ------   -------------------------------------------------------
+    1 O    8     8.37   2.00  1.83  4.54
+    2 H    1     0.82   0.82
+    3 H    1     0.82   0.82
+
+       Multipole analysis of the density wrt the origin
+       ------------------------------------------------
+
+     L   x y z        total         open         nuclear
+     -   - - -        -----         ----         -------
+     0   0 0 0     -0.000000      0.000000     10.000000
+
+     1   1 0 0      0.000000      0.000000      0.000000
+     1   0 1 0      0.000000      0.000000      0.000000
+     1   0 0 1     -0.678952      0.000000      0.000000
+
+     2   2 0 0     -3.240572      0.000000      4.092598
+     2   1 1 0     -0.000000      0.000000      0.000000
+     2   1 0 1      0.000000      0.000000      0.000000
+     2   0 2 0     -4.531209      0.000000      0.000000
+     2   0 1 1     -0.000000      0.000000      0.000000
+     2   0 0 2     -4.009700      0.000000      1.964381
+
+
+ Parallel integral file used       1 records with       0 large values
+
+
+ Task  times  cpu:        0.1s     wall:        0.2s
+ Summary of allocated global arrays
+-----------------------------------
+  No active global arrays
+
+
+
+                         GA Statistics for process    0
+                         ------------------------------
+
+       create   destroy   get      put      acc     scatter   gather  readandinc
+calls:  235      235     1563      724     1048        0        0        0     
+number of processes/call 1.00e+00 1.00e+00 1.00e+00 0.00e+00 0.00e+00
+bytes total:             1.64e+05 9.47e+04 5.15e+04 0.00e+00 0.00e+00 0.00e+00
+bytes remote:            0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00
+Max memory consumed for GA by this process: 5448 bytes
+MA_summarize_allocated_blocks: starting scan ...
+MA_summarize_allocated_blocks: scan completed: 0 heap blocks, 0 stack blocks
+MA usage statistics:
+
+    allocation statistics:
+                          heap       stack
+                          ----       -----
+    current number of blocks             0           0
+    maximum number of blocks            18          14
+    current total bytes              0           0
+    maximum total bytes        1053744    22509032
+    maximum total K-bytes             1054       22510
+    maximum total M-bytes                2          23
+
+
+                                NWChem Input Module
+                                -------------------
+</comment>
+  
+  <record repeat="4"/>
+  <record id="title" repeat="1" >\s*{X,compchem:title}\s*</record>
+  <record repeat="3"/>
+  <record id="basis_set_label">\s*ao basis\s*=\s*{X,n:basis_set_label}\s*</record>
+  <record id="basis_set_nfunc">\s*functions\s*=\s*{I,n:basis_set_nfunc}\s*</record>
+  <record id="basis_set_ri_label">\s*ri basis\s*=\s*\"{X,n:basis_set_ri_label}\s*</record>
+  <record id="basis_set_ri_nfunc">\s*functions\s*=\s*{I,n:basis_set_ri_nfunc}\s*</record>
+  <record id="natoms">\s*atoms\s*=\s*{I,compchem:natoms}\s*</record>
+  <record id="num_alpha_electrons">\s*alpha electrons\s*=\s*{I,compchem:num_alpha_electrons}\s*</record>
+  <record id="num_beta_electrons">\s*beta  electrons\s*=\s*{I,compchem:num_beta_electrons}\s*</record>
+  <record id="num_closed_shells">\s*closed shells\s*=\s*{I,compchem:num_closed_shells}\s*</record>
+  <record id="num_open_shells">\s*open shells\s*=\s*{I,compchem:num_open_shells}\s*</record>
+  <record id="charge">\s*charge\s*=\s*{F,compchem:charge}\s*</record>
+  <record id="wavefunction_type">\s*wavefunction\s*=\s*{A,compchem:wavefunction_type}\s*</record>
+  <record id="input_vectors">\s*input vectors\s*=\s*{A,n:input_vectors}\s*</record>
+  <record id="output_vectors">\s*output vectors\s*=\s*{A,n:output_vectors}\s*</record>
+  <record id="use_symmetry">\s*use symmetry\s*=\s*{A,n:use_symmetry}\s*</record>
+  <record id="symmetry_adapt">\s*symmetry adapt\s*=\s*{A,n:symmetry_adapt}\s*</record>
+  <record id="lock_orbitals">\s*lock orbitals\s*=\s*{A,n:lock_orbitals}\s*</record>
+
+  <!-- alternative way of reading in as name/value pairs - possibly more reliable? 
+  <record id="r2" repeat="*">\s*{X,n:name}\s*=\s*{X,n:value}</record>
+  <transform process="createNameValue" xpath="./cml:list/cml:list" 
+    name="*[@dictRef='n:name']" value="*[@dictRef='n:value']"/>
+     -->
+     
+   <transform process="pullupSingleton" xpath="./cml:list"/>
+   <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+   
+  <transform process="addUnits"
+  xpath=".//cml:scalar[@dictRef='compchem:charge']"
+  value="nonsi:elementary_charge"
+  />
+   
+   <!--  Identify as a calculation -->
+   <transform process="addDictRef" 
+  xpath="."
+  value="compchem:calculation"
+  />
+  <transform process="addId" 
+  xpath="."
+  value="scf_energy"
+  />
+   
+   <!-- Create initialization module with parameterList and put variables in it -->
+   <transform process="addChild" 
+  xpath="." 
+  elementName="cml:module"
+  dictRef="compchem:initialization"
+  position="0"/>
+  
+  <transform process="addChild" 
+  xpath="./cml:module[@dictRef='compchem:initialization']" 
+  elementName="cml:parameterList"
+  />
+  
+    <!--  Create elements to identify this as an scf calculation -->
+  <transform process="addChild"
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"
+  elementName="cml:scalar"
+  dictRef="compchem:calculation_method"
+  value="scf"
+  />
+  <transform process="addChild"
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"
+  elementName="cml:scalar"
+  dictRef="compchem:calculation_type"
+  value="energy"
+  />
+  
+  <!-- Bit of a hack - move all compchem scalars into the parameterList -->
+  <transform process="move" 
+  xpath=".//cml:scalar[starts-with(@dictRef,'compchem:')]"
+  to="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"/>
+  
+  <transform process="createWrapperParameter" 
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList/*" />
+   
+   <templateList xmlns:xi="http://www.w3.org/2001/XInclude">
+      <xi:include href="basis.summary.xml"/>
+      <xi:include href="symbas.xml"/>
+      <xi:include href="guess.xml"/>
+      <xi:include href="scf.iter.xml"/>
+      <xi:include href="scf.final.xml"/>
+   </templateList>
+   
+   <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+   
+   <!-- Pull up scf iterations so that they become direct children of the SCF module -->
+   <transform process="pullup"
+   xpath="./cml:module[@cmlx:templateRef='scf_iter']/cml:module[@dictRef='compchem:calculation']"
+   />
+   
+   <!-- Create finalization module with propertyList with results from scf.final module -->
+  <transform process="addChild" 
+  xpath="." 
+  elementName="cml:module"
+  id="finalization"
+  dictRef="compchem:finalization"
+  />
+  <transform process="addChild" 
+  xpath="./cml:module[@dictRef='compchem:finalization']" 
+  elementName="cml:propertyList"
+  />
+  <transform process="move"
+  xpath=".//cml:module[@cmlx:templateRef='scf.final']/cml:scalar[starts-with(@dictRef,'compchem:')]"
+  to="./cml:module[@dictRef='compchem:finalization']/cml:propertyList"/>
+  
+  <transform process="createWrapperProperty" 
+  xpath="./cml:module[@dictRef='compchem:finalization']/cml:propertyList/*" />
+    
+  <comment class="example.output" id="scfx">
+<module/>
+    </comment>
+
+</template>

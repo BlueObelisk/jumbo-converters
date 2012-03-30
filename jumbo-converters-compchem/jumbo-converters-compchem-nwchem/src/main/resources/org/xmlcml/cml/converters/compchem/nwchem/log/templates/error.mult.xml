@@ -13,6 +13,8 @@
   <record/>
   
   <transform process="pullup" xpath=".//cml:scalar"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='oddelectron']"/>
   
   <comment class="example.output" id="errormult">
     <module cmlx:templateRef="errormultiplicity" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">

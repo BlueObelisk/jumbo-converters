@@ -1,0 +1,510 @@
+<template 
+xmlns:xi="http://www.w3.org/2001/XInclude"
+id="input_module" 
+name="NWChem Input Module" 
+repeat="*"
+pattern="\s*NWChem Input Module\s*$\s+\-+\s*"
+newline="$"
+endOffset="0"
+>
+<!-- 
+endPattern="\s*((NWChem Geometry Optimization)|(NWChem .* Module))\s*$\s+\-+\s*"
+Need to leave an offset of 2 so that the Title is available for other templates
+to see as their endPattern
+ -->
+
+
+<!-- This reads the initial input module and gets the information
+required for the intialisation module. Subsequent appearences of this
+module will be much short and probably best dealt with using a separate
+template. 
+ -->
+
+
+  <comment class="example.input" id="nwcheminput">
+                               NWChem Input Module
+                                -------------------
+
+
+                  HF SCF optimisation on water with STO-3G basis
+                  ----------------------------------------------
+
+ Scaling coordinates for geometry "geometry" by  1.889725989
+ (inverse scale =  0.529177249)
+
+ C2V symmetry detected
+
+          ------
+          auto-z
+          ------
+
+
+                             Geometry "geometry" -> ""
+                             -------------------------
+
+ Output coordinates in angstroms (scale by  1.889725989 to convert to a.u.)
+
+  No.       Tag          Charge          X              Y              Z
+ ---- ---------------- ---------- -------------- -------------- --------------
+    1 O                    8.0000     0.00000000     0.00000000     0.11726921
+    2 H                    1.0000     0.75698224     0.00000000    -0.46907685
+    3 H                    1.0000    -0.75698224     0.00000000    -0.46907685
+
+      Atomic Mass 
+      ----------- 
+
+      O                 15.994910
+      H                  1.007825
+
+
+ Effective nuclear repulsion energy (a.u.)       9.1920946687
+
+            Nuclear Dipole moment (a.u.) 
+            ----------------------------
+        X                 Y               Z
+ ---------------- ---------------- ----------------
+     0.0000000000     0.0000000000     0.0000000000
+
+      Symmetry information
+      --------------------
+
+ Group name             C2v       
+ Group number             16
+ Group order               4
+ No. of unique centers     2
+
+      Symmetry unique atoms
+
+     1    2
+
+
+
+                                Z-matrix (autoz)
+                                -------- 
+
+ Units are Angstrom for bonds and degrees for angles
+
+      Type          Name      I     J     K     L     M      Value
+      ----------- --------  ----- ----- ----- ----- ----- ----------
+    1 Stretch                  1     2                       0.95751
+    2 Stretch                  1     3                       0.95751
+    3 Bend                     2     1     3               104.47845
+
+
+            XYZ format geometry
+            -------------------
+     3
+ geometry
+ O                     0.00000000     0.00000000     0.11726921
+ H                     0.75698224     0.00000000    -0.46907685
+ H                    -0.75698224     0.00000000    -0.46907685
+
+ ==============================================================================
+                                internuclear distances
+ ------------------------------------------------------------------------------
+       center one      |      center two      | atomic units |  angstroms
+ ------------------------------------------------------------------------------
+    2 H                |   1 O                |     1.80943  |     0.95751
+    3 H                |   1 O                |     1.80943  |     0.95751
+ ------------------------------------------------------------------------------
+                         number of included internuclear distances:          2
+ ==============================================================================
+
+
+
+ ==============================================================================
+                                 internuclear angles
+ ------------------------------------------------------------------------------
+        center 1       |       center 2       |       center 3       |  degrees
+ ------------------------------------------------------------------------------
+    2 H                |   1 O                |   3 H                |   104.48
+ ------------------------------------------------------------------------------
+                            number of included internuclear angles:          1
+ ==============================================================================
+
+
+
+                      Basis "ao basis" -> "" (cartesian)
+                      -----
+  O (Oxygen)
+  ----------
+            Exponent  Coefficients 
+       -------------- ---------------------------------------------------------
+  1 S  1.30709320E+02  0.154329
+  1 S  2.38088610E+01  0.535328
+  1 S  6.44360830E+00  0.444635
+
+  2 S  5.03315130E+00 -0.099967
+  2 S  1.16959610E+00  0.399513
+  2 S  3.80389000E-01  0.700115
+
+  3 P  5.03315130E+00  0.155916
+  3 P  1.16959610E+00  0.607684
+  3 P  3.80389000E-01  0.391957
+
+  H (Hydrogen)
+  ------------
+            Exponent  Coefficients 
+       -------------- ---------------------------------------------------------
+  1 S  3.42525091E+00  0.154329
+  1 S  6.23913730E-01  0.535328
+  1 S  1.68855400E-01  0.444635
+
+
+
+ Summary of "ao basis" -> "" (cartesian)
+ ------------------------------------------------------------------------------
+       Tag                 Description            Shells   Functions and Types
+ ---------------- ------------------------------  ------  ---------------------
+ O                           sto-3g                  3        5   2s1p
+ H                           sto-3g                  1        1   1s
+
+
+
+</comment>
+
+<!-- First two lines are Input Headers -->
+<record repeat="2"/>
+<transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+
+
+<!-- Trap all possible lines before geometry. -->
+<templateList>
+   <template
+    id="title"
+    name="Title" 
+    repeat="1"
+    pattern="\s+.*\s+$\s+-+\s+"
+    endPattern=".*"
+    offset="0"
+    endOffset="0"
+    >
+    <record repeat="1" id="title">\s*{X,compchem:title}\s*</record>
+    <transform process="pullupSingleton" xpath="./cml:list[@cmlx:templateRef='title']"/>
+    <record/>
+    <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+    </template>
+    
+    <template
+    id="scaling"
+    name="scaling geom" 
+    repeat="1"
+    pattern="\s*Scaling coordinates for .*$\s*\(inverse scale.*"
+    endPattern=".*"
+    offset="0"
+    endOffset="0"
+    >
+    <record repeat="2" id="unparsed">\s*{X,n:unparsed}\s*</record>
+    </template>
+    
+    <template
+    id="no_autosym"
+    name="no autosym" 
+    repeat="1"
+    pattern="\s*Turning off AUTOSYM since.*\s*$\s*SYMMETRY directive was detected!\s*"
+    endPattern=".*"
+    offset="0"
+    endOffset="0"
+    >
+    <record repeat="*" id="unparsed">\s*{X,n:unparsed}\s*</record>
+    </template>
+    
+    <template
+    id="got_sym"
+    name="got sym" 
+    repeat="1"
+    pattern="\s*\w+\s*symmetry detected\s*"
+    endPattern=".*"
+    offset="0"
+    endOffset="0"
+    >
+    <record repeat="*" id="unparsed">\s*{X,n:unparsed}\s*</record>
+    </template>
+    
+    <template
+    id="got_autoz"
+    name="got auto_z" 
+    repeat="1"
+    pattern="\s*------\s*$\s* auto-z\s*$\s*------\s*"
+    endPattern=".*"
+    offset="0"
+    endOffset="0"
+    >
+    <record repeat="*" id="unparsed">\s*{X,n:unparsed}\s*</record>
+    </template>
+    
+    <!-- Now grab geometry and basis set -->
+    <xi:include href="geometry.xml"/>
+    <xi:include href="basis.xml"/>
+    <xi:include href="basis.summary.xml"/>
+</templateList>
+
+<!-- Title to scalar -->
+<transform process="pullupSingleton" xpath="./cml:module[@cmlx:templateRef='title']"/>
+        
+<!-- Join up basis and basis.summary information -->
+
+ <!--  Move basis module to cml:list -->
+ <transform process="rename" 
+xpath=".//cml:module[@cmlx:templateRef='basis']"
+elementName="cml:list"
+id="basis_set" 
+dictRef="compchem:basis_set"
+/> 
+
+<!-- Use title, harmonic_type and label (description?) from summary 
+NB: This assume the same basis on all atoms! Need to add code
+to check if these are different.
+-->
+<transform process="addChild"
+xpath=".//cml:list[@dictRef='compchem:basis_set']"
+elementName="cml:scalar"
+id="basis_set_title"
+dictRef="compchem:basis_set_title"
+position="0"
+value="$string(../../cml:module[@cmlx:templateRef='basis_summary']/cml:list[@cmlx:templateRef='basis_contractions']//cml:scalar[@dictRef='compchem:basis_set_title'])"
+/>
+
+<!-- basis_set_type is hard-wired for the time being -->
+<transform process="addChild"
+xpath=".//cml:list[@dictRef='compchem:basis_set']"
+elementName="cml:scalar"
+id="basis_set_type"
+dictRef="compchem:basis_set_type"
+position="1"
+value="orbital"
+/>
+
+<!-- Set harmonic_type from summary -->
+<transform process="addChild"
+xpath=".//cml:list[@dictRef='compchem:basis_set']"
+elementName="cml:scalar"
+id="basis_set_harmonic_type"
+dictRef="compchem:basis_set_harmonic_type"
+position="2"
+value="$string(../../cml:module[@cmlx:templateRef='basis_summary']/cml:list[@cmlx:templateRef='basis_summary']//cml:scalar[@dictRef='compchem:basis_set_harmonic_type'])"
+/>
+
+<!-- basis_set_contraction_type hard-wired to segmented for the time being -->
+<transform process="addChild"
+xpath=".//cml:list[@dictRef='compchem:basis_set']"
+elementName="cml:scalar"
+id="basis_set_contraction_type"
+dictRef="compchem:basis_set_contraction_type"
+position="3"
+value="segmented"
+/>
+
+<!-- Use nwchem basis type as description -->
+<transform process="addChild"
+xpath=".//cml:list[@dictRef='compchem:basis_set']"
+elementName="cml:scalar"
+id="basis_set_description"
+dictRef="compchem:basis_set_description"
+position="4"
+value="$string(../cml:list[@cmlx:templateRef='basis.title']/cml:scalar[@dictRef='n:basis_set_label'])"
+/>
+ 
+ <!-- Can now delete the basis.title module -->
+ <transform process="delete" 
+ xpath=".//cml:list[@dictRef='compchem:basis_set']/cml:list[@cmlx:templateRef='basis.title']"
+ />
+
+  <comment class="example.output" id="nwcheminput">
+<module cmlx:templateRef="input_module" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:string" dictRef="compchem:title" cmlx:templateRef="title">HF SCF optimisation on water with STO-3G basis</scalar>
+  <module cmlx:lineCount="2" cmlx:templateRef="scaling">
+    <list cmlx:templateRef="unparsed">
+      <scalar dataType="xsd:string" dictRef="n:unparsed">Scaling coordinates for geometry "geometry" by  1.889725989</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">(inverse scale =  0.529177249)</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="got_sym">
+    <list cmlx:templateRef="unparsed">
+      <scalar dataType="xsd:string" dictRef="n:unparsed">C2V symmetry detected</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="3" cmlx:templateRef="got_autoz">
+    <list cmlx:templateRef="unparsed">
+      <scalar dataType="xsd:string" dictRef="n:unparsed">------</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">auto-z</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">------</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="85" cmlx:templateRef="geometry">
+    <molecule id="molgeom" cmlx:templateRef="geom">
+      <atomArray>
+        <atom id="a1" elementType="O" x3="0.0" y3="0.0" z3="0.11726921">
+          <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">O</scalar>
+          <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">8</scalar>
+        </atom>
+        <atom id="a2" elementType="H" x3="0.75698224" y3="0.0" z3="-0.46907685">
+          <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">H</scalar>
+          <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+        </atom>
+        <atom id="a3" elementType="H" x3="-0.75698224" y3="0.0" z3="-0.46907685">
+          <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">H</scalar>
+          <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+        </atom>
+      </atomArray>
+      <formula formalCharge="0" concise="H 2 O 1">
+        <atomArray elementType="H O" count="2.0 1.0"/>
+      </formula>
+      <bondArray>
+        <bond atomRefs2="a1 a2" id="a1_a2" order="S"/>
+        <bond atomRefs2="a1 a3" id="a1_a3" order="S"/>
+      </bondArray>
+      <property dictRef="cml:molmass">
+        <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">18.01528</scalar>
+      </property>
+    </molecule>
+    <module cmlx:lineCount="5" cmlx:templateRef="atmass">
+      <array dataType="xsd:string" dictRef="compchem:atom_type" size="2">O H</array>
+      <array dataType="xsd:double" dictRef="compchem:atom_mass" size="2">15.99491 1.007825</array>
+    </module>
+    <module cmlx:lineCount="1" cmlx:templateRef="nuclear_repulsion_energy">
+      <scalar dataType="xsd:double" dictRef="compchem:nuclear_repulsion_energy" cmlx:templateRef="nuclear_repulsion_energy">9.1920946687</scalar>
+    </module>
+    <module cmlx:lineCount="5" cmlx:templateRef="nuclear_dipole_moment">
+      <array dataType="xsd:double" size="3" dictRef="compchem:nuclear_dipole_moment">0.0 0.0 0.0</array>
+    </module>
+    <module cmlx:lineCount="11" cmlx:templateRef="symminfo">
+      <scalar dataType="xsd:string" dictRef="compchem:pointgroup" cmlx:templateRef="pointgroup">C2v</scalar>
+      <scalar dataType="xsd:integer" dictRef="compchem:group_name" cmlx:templateRef="group_name">16</scalar>
+      <scalar dataType="xsd:integer" dictRef="compchem:group_order" cmlx:templateRef="group_order">4</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:sym_uniqe_centers" cmlx:templateRef="symm_unique_centers">2</scalar>
+      <list cmlx:templateRef="symmuniqatom">
+        <array dataType="xsd:integer" size="2" dictRef="n:symuniqatom">1 2</array>
+      </list>
+    </module>
+   <module cmlx:lineCount="11" cmlx:templateRef="zmat_new">
+      <list cmlx:templateRef="unparsed">
+        <scalar dataType="xsd:string" dictRef="n:unparsed">Z-matrix (autoz)</scalar>
+        <scalar dataType="xsd:string" dictRef="n:unparsed">--------</scalar>
+        <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+        <scalar dataType="xsd:string" dictRef="n:unparsed">Units are Angstrom for bonds and degrees for angles</scalar>
+        <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+        <scalar dataType="xsd:string" dictRef="n:unparsed">Type          Name      I     J     K     L     M      Value</scalar>
+        <scalar dataType="xsd:string" dictRef="n:unparsed">----------- --------  ----- ----- ----- ----- ----- ----------</scalar>
+        <scalar dataType="xsd:string" dictRef="n:unparsed">1 Stretch                  1     2                       0.95751</scalar>
+        <scalar dataType="xsd:string" dictRef="n:unparsed">2 Stretch                  1     3                       0.95751</scalar>
+        <scalar dataType="xsd:string" dictRef="n:unparsed">3 Bend                     2     1     3               104.47845</scalar>
+        <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+      </list>
+    </module>
+    <module cmlx:lineCount="7" cmlx:templateRef="xyz">
+      <scalar dataType="xsd:integer" dictRef="compchem:natoms" cmlx:templateRef="atoms">3</scalar>
+      <scalar dataType="xsd:string" dictRef="n:geomtype" cmlx:templateRef="geo">geometry</scalar>
+      <molecule id="xyz" cmlx:templateRef="mol">
+        <atomArray>
+          <atom id="a1" elementType="O" x3="0.0" y3="0.0" z3="0.11726921">
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">8</scalar>
+          </atom>
+          <atom id="a2" elementType="H" x3="0.75698224" y3="0.0" z3="-0.46907685">
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+          <atom id="a3" elementType="H" x3="-0.75698224" y3="0.0" z3="-0.46907685">
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+        </atomArray>
+        <formula formalCharge="0" concise="H 2 O 1">
+          <atomArray elementType="H O" count="2.0 1.0"/>
+        </formula>
+        <bondArray>
+          <bond atomRefs2="a1 a2" id="a1_a2" order="S"/>
+          <bond atomRefs2="a1 a3" id="a1_a3" order="S"/>
+        </bondArray>
+        <property dictRef="cml:molmass">
+          <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">18.01528</scalar>
+        </property>
+      </molecule>
+    </module>
+    <module cmlx:lineCount="10" cmlx:templateRef="internuc">
+      <list cmlx:lineCount="2" cmlx:templateRef="dist">
+        <array dataType="xsd:integer" dictRef="n:ser1" size="2">2 3</array>
+        <array dataType="xsd:string" dictRef="n:elem1" size="2">H H</array>
+        <array dataType="xsd:integer" dictRef="n:ser2" size="2">1 1</array>
+        <array dataType="xsd:string" dictRef="n:elem2" size="2">O O</array>
+        <array dataType="xsd:double" dictRef="n:dist1" size="2">1.80943 1.80943</array>
+        <array dataType="xsd:double" dictRef="n:dist1" size="2">0.95751 0.95751</array>
+      </list>
+      <list cmlx:templateRef="rlx">
+        <scalar dataType="xsd:integer" dictRef="n:count">2</scalar>
+      </list>
+    </module>
+    <module cmlx:lineCount="9" cmlx:templateRef="internucang">
+      <list cmlx:lineCount="1" cmlx:templateRef="dist">
+        <array dataType="xsd:integer" dictRef="n:ser1" size="1">2</array>
+        <array dataType="xsd:string" dictRef="n:elem1" size="1">H</array>
+        <array dataType="xsd:integer" dictRef="n:ser2" size="1">1</array>
+        <array dataType="xsd:string" dictRef="n:elem2" size="1">O</array>
+        <array dataType="xsd:integer" dictRef="n:ser3" size="1">3</array>
+        <array dataType="xsd:string" dictRef="n:elem3" size="1">H</array>
+        <array dataType="xsd:double" dictRef="n:ang1" size="1">104.48</array>
+      </list>
+    </module>
+  </module>
+  <list id="basis_set" dictRef="compchem:basis_set">
+    <scalar id="basis_set_title" dictRef="compchem:basis_set_title" dataType="xsd:string">sto-3g</scalar>
+    <scalar id="basis_set_type" dictRef="compchem:basis_set_type" dataType="xsd:string">orbital</scalar>
+    <scalar id="basis_set_harmonic_type" dictRef="compchem:basis_set_harmonic_type" dataType="xsd:string">cartesian</scalar>
+    <scalar id="basis_set_contraction_type" dictRef="compchem:basis_set_contraction_type" dataType="xsd:string">segmented</scalar>
+    <scalar id="basis_set_description" dictRef="compchem:basis_set_description" dataType="xsd:string">ao basis</scalar>
+    <list id="basis_set_contractions" dictRef="compchem:basis_set_contractions">
+      <scalar dataType="xsd:string" dictRef="compchem:atom_label">O</scalar>
+      <scalar dataType="xsd:string" dictRef="n:element_longname">Oxygen</scalar>
+      <scalar dictRef="compchem:basis_set_harmonic_type" dataType="xsd:string">cartesian</scalar>
+      <list cmlx:lineCount="3" cmlx:templateRef="contraction" dictRef="compchem:basis_set_contraction">
+        <scalar dictRef="compchem:basis_set_shell" dataType="xsd:string">S</scalar>
+        <array dataType="xsd:double" dictRef="compchem:basis_set_exponent" size="3">130.70932 23.808861 6.4436083</array>
+        <array dataType="xsd:double" dictRef="compchem:basis_set_coefficient" size="3">0.154329 0.535328 0.444635</array>
+      </list>
+      <list cmlx:lineCount="3" cmlx:templateRef="contraction" dictRef="compchem:basis_set_contraction">
+        <scalar dictRef="compchem:basis_set_shell" dataType="xsd:string">S</scalar>
+        <array dataType="xsd:double" dictRef="compchem:basis_set_exponent" size="3">5.0331513 1.1695961 0.380389</array>
+        <array dataType="xsd:double" dictRef="compchem:basis_set_coefficient" size="3">-0.099967 0.399513 0.700115</array>
+      </list>
+      <list cmlx:lineCount="3" cmlx:templateRef="contraction" dictRef="compchem:basis_set_contraction">
+        <scalar dictRef="compchem:basis_set_shell" dataType="xsd:string">P</scalar>
+        <array dataType="xsd:double" dictRef="compchem:basis_set_exponent" size="3">5.0331513 1.1695961 0.380389</array>
+        <array dataType="xsd:double" dictRef="compchem:basis_set_coefficient" size="3">0.155916 0.607684 0.391957</array>
+      </list>
+    </list>
+    <list id="basis_set_contractions" dictRef="compchem:basis_set_contractions">
+      <scalar dataType="xsd:string" dictRef="compchem:atom_label">H</scalar>
+      <scalar dataType="xsd:string" dictRef="n:element_longname">Hydrogen</scalar>
+      <scalar dictRef="compchem:basis_set_harmonic_type" dataType="xsd:string">cartesian</scalar>
+      <list cmlx:lineCount="3" cmlx:templateRef="contraction" dictRef="compchem:basis_set_contraction">
+        <scalar dictRef="compchem:basis_set_shell" dataType="xsd:string">S</scalar>
+        <array dataType="xsd:double" dictRef="compchem:basis_set_exponent" size="3">3.42525091 0.62391373 0.1688554</array>
+        <array dataType="xsd:double" dictRef="compchem:basis_set_coefficient" size="3">0.154329 0.535328 0.444635</array>
+      </list>
+    </list>
+  </list>
+  <module cmlx:lineCount="6" cmlx:templateRef="basis_summary">
+    <list cmlx:templateRef="basis_summary">
+      <scalar dataType="xsd:string" dictRef="n:basis_set_label">ao basis</scalar>
+      <scalar dataType="xsd:string" dictRef="n:basis_set_description"/>
+      <scalar dataType="xsd:string" dictRef="compchem:basis_set_harmonic_type">cartesian</scalar>
+    </list>
+    <list cmlx:templateRef="basis_contractions">
+      <list>
+        <scalar dataType="xsd:string" dictRef="compchem:atom_label">O</scalar>
+        <scalar dataType="xsd:string" dictRef="compchem:basis_set_title">sto-3g</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:contraction_nshell">3</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:contraction_nfunc">5</scalar>
+        <scalar dataType="xsd:string" dictRef="n:contraction_desc">2s1p</scalar>
+      </list>
+      <list>
+        <scalar dataType="xsd:string" dictRef="compchem:atom_label">H</scalar>
+        <scalar dataType="xsd:string" dictRef="compchem:basis_set_title">sto-3g</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:contraction_nshell">1</scalar>
+        <scalar dataType="xsd:integer" dictRef="n:contraction_nfunc">1</scalar>
+        <scalar dataType="xsd:string" dictRef="n:contraction_desc">1s</scalar>
+      </list>
+    </list>
+  </module>
+</module>
+</comment>
+
+</template>

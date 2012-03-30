@@ -1,0 +1,45 @@
+<template 
+  id="nwchem_module"
+  name="NWChem Module" 
+  repeat="*"
+  pattern     = "\s*NWChem .* Module\s*"
+  endPattern  = "\s*((NWChem Geometry Optimization)|(NWChem .* Module))\s*"
+  endPattern2 = "\s*.\sStep\s+Energy\s+Delta\sE.*"
+  endPattern3 = "~"
+  offset="0"
+  endOffset="0"
+  newline="$"
+  >
+
+<!-- 
+ This is just a container for all the different modules.
+ -->
+ 
+    <comment class="example.input" id="geometry">
+        some text
+    </comment>
+
+
+    <templateList xmlns:xi="http://www.w3.org/2001/XInclude">
+        <xi:include href="input.module.xml" />
+        <xi:include href="scf.module.xml" />
+        <xi:include href="mp2.module.xml" />
+        <xi:include href="dft.module.xml" />
+        <xi:include href="gradient.module.xml" />
+    </templateList>
+
+<!-- FOR NOW DO THIS IN THE MODULES THEMSELVES 
+Add dictRef & id so all modules become calculations except the input_module-->
+<!--   <transform process="addDictRef" 
+  xpath="./cml:module[not (@cmlx:templateRef='input_module')]"
+  value="compchem:calculation"/>
+  <transform process="addId" 
+  xpath="./cml:module[not (@cmlx:templateRef='input_module')]"
+  value="calculation"/> -->
+
+
+    <comment class="example.output" id="geometry">
+        <module />
+    </comment>
+
+</template>

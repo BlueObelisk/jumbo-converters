@@ -1,7 +1,12 @@
-<template repeat="*"  id="internuc" name="internuclear distances" newline="$"
-  pattern="\s*\=+$\s*internuclear distances\s*"  endPattern="\s*\=+\s*"
-  endOffset="1">
+<template id="internuc" name="internuclear distances" 
+ repeat="*"
+ newline="$"
+ pattern="\s*\=+\s*$\s*internuclear distances\s*"
+ endPattern="\s*\=+\s*"
+ endOffset="1">
 
+
+ -->
   <comment class="example.input" id="internuc">
  ==============================================================================
                                 internuclear distances
@@ -22,29 +27,15 @@
                          number of included internuclear distances:         10
  ==============================================================================
   </comment>    
-  <comment>
- ==============================================================================
-                                internuclear distances
- ------------------------------------------------------------------------------
-       center one      |      center two      | atomic units |       a.u.
- ------------------------------------------------------------------------------
-    5 N                |   1 Ga               |     3.63918  |     3.63918
-    6 N                |   1 Ga               |     3.61866  |     3.61866
-    6 N                |   2 Ga               |     3.63918  |     3.63918
-    6 N                |   4 Ga               |     3.61837  |     3.61837
-    7 N                |   1 Ga               |     3.61837  |     3.61837
-    7 N                |   3 Ga               |     3.63918  |     3.63918
-    8 N                |   4 Ga               |     3.63918  |     3.63918
- ------------------------------------------------------------------------------
-                         number of included internuclear distances:          7
- ==============================================================================
-  </comment>
+
   <record repeat="5"/>
-  <record id="dist" formatType="REGEX" makeArray="true" repeat="*"
+  <record id="dist" makeArray="true" repeat="*"
   >{I,n:ser1}{A,n:elem1}\s*\|\s*{I,n:ser2}{A,n:elem2}\|{F,n:dist1}\|{F,n:dist1}</record>
   <record/>
   <record id="rlx" >\s*number of included internuclear distances:\s*{I,n:count}</record>
   <record/>
+  
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
 
   <comment class="example.output" id="internuc">
     <module cmlx:templateRef="internuc" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">

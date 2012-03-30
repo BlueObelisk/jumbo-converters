@@ -1,0 +1,22 @@
+<template repeat="*"  id="dft_xcquad" name="XC quadr. integrated density " 
+  pattern="\s*XC quadr. integrated density :.*" 
+  newline="$" endPattern=".*">
+
+  <comment class="example.input" id="dft_xcquad">
+ XC quadr. integrated density :      89.999976 npts:   234067 nctrs:       27
+</comment>
+  <record id="dft_xcquad">\s*XC quadr\. integrated density :\s*{F,N:xcquad.intdens} npts:{I,n:xcquad.npts}\s*nctrs:\s*{I,n:xcquad.nctrs}</record>
+  
+  <comment class="example.output" id="xcquad">
+<module cmlx:templateRef="dft_xcquad" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="dft_xcquad">
+    <list>
+      <scalar dataType="xsd:double" dictRef="N:xcquad.intdens">89.999976</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:xcquad.npts">234067</scalar>
+      <scalar dataType="xsd:integer" dictRef="n:xcquad.nctrs">27</scalar>
+    </list>
+  </list>
+</module>
+    </comment>
+
+</template>

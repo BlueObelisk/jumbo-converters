@@ -1,51 +1,311 @@
-<template repeat="*"  id="geometry" name="Geometry" pattern="\s*Geometry.*$\s+\-+.*"
- newline="$" endPattern=".*$\s*\-+\s*">
+<template 
+repeat="*"
+id="geometry"
+name="Geometry"
+newline="$"
+pattern="\s*Geometry .*$\s+\-+.*"
+endOffset="0"
+endPattern="(\s*library name resolved from:.*)|(\s*Scaling coordinates for geometry.*)|(\s*Basis.*)|(\s*NWChem.*)|(\s*Task  times  cpu:.*)|(\s*\*\*\*\*\*\*\*\*\*.*)|(\s*@.*)|(\s*Total number of active.*)|(\s* angular momentum value.*)">
+
+<!-- Printed by nwchem/src/geom/geom.F:geom_print -->
 
   <comment class="example.input" id="geometry">
-                             Geometry "geometry" -> ""
+                            Geometry "geometry" -> ""
                              -------------------------
 
- Output coordinates in a.u. (scale by  1.000000000 to convert to a.u.)
+ Output coordinates in angstroms (scale by  1.889725989 to convert to a.u.)
 
   No.       Tag          Charge          X              Y              Z
  ---- ---------------- ---------- -------------- -------------- --------------
-    1 fe                  26.0000     0.00000000     0.00000000     0.00000000
-    2 c                    6.0000     0.00000000     0.00000000     3.41435800
-    3 c                    6.0000     0.00000000     0.00000000    -3.41435800
+    1 C                    6.0000    -0.01894486    -1.19947916    -0.00002200
+    2 N                    7.0000    -0.09471245     1.40352975     0.00000423
+    3 H                    1.0000     0.47700421    -1.43906203     0.93307063
+    4 H                    1.0000     0.55561339    -1.43429021    -0.88812877
+    5 H                    1.0000    -1.06058897    -1.49412331    -0.04578127
+    6 H                    1.0000    -0.12212079     0.19204712     0.00099846
+    7 H                    1.0000     0.92674845     1.54759517    -0.00005661
+
+      Atomic Mass 
+      ----------- 
+
+      C                 12.000000
+      N                 14.003070
+      H                  1.007825
+
+
+ Effective nuclear repulsion energy (a.u.)      33.4595568057
+
+            Nuclear Dipole moment (a.u.) 
+            ----------------------------
+        X                 Y               Z
+ ---------------- ---------------- ----------------
+     0.0000000000     0.0000000000     0.0000000000
+
+
+
+                                Z-matrix (autoz)
+                                -------- 
+
+ Units are Angstrom for bonds and degrees for angles
+
+      Type          Name      I     J     K     L     M      Value
+      ----------- --------  ----- ----- ----- ----- ----- ----------
+    1 Stretch                  1     3                       1.08353
+    2 Stretch                  1     4                       1.08351
+    3 Stretch                  1     5                       1.08348
+    4 Stretch                  1     6                       1.39535
+    5 Stretch                  2     6                       1.21179
+    6 Stretch                  2     7                       1.03157
+    7 Bend                     1     2     7                96.36069
+    8 Bend                     2     1     3               103.55210
+    9 Bend                     2     1     4               103.41833
+   10 Bend                     2     1     5               104.11421
+   11 Bend                     3     1     4               114.53351
+   12 Bend                     3     1     5               114.60018
+   13 Bend                     3     1     6               104.69799
+   14 Bend                     4     1     5               114.59805
+   15 Bend                     4     1     6               104.82871
+   16 Bend                     5     1     6               101.54519
+   17 Bend                     6     2     7                99.32399
+   18 Torsion                  3     1     2     7          62.35729
+   19 Torsion                  1     3     6     2        -171.28472
+   20 Torsion                  4     1     2     7         -57.41867
+   21 Torsion                  1     4     6     2         171.95379
+   22 Torsion                  5     1     2     7        -177.50076
+   23 Torsion                  1     5     6     2         179.30165
+   24 Torsion                  1     6     7     2         179.86676
+
+
+            XYZ format geometry
+            -------------------
+     7
+ geometry
+ C                    -0.01894486    -1.19947916    -0.00002200
+ N                    -0.09471245     1.40352975     0.00000423
+ H                     0.47700421    -1.43906203     0.93307063
+ H                     0.55561339    -1.43429021    -0.88812877
+ H                    -1.06058897    -1.49412331    -0.04578127
+ H                    -0.12212079     0.19204712     0.00099846
+ H                     0.92674845     1.54759517    -0.00005661
+
+ ==============================================================================
+                                internuclear distances
+ ------------------------------------------------------------------------------
+       center one      |      center two      | atomic units |  angstroms
+ ------------------------------------------------------------------------------
+    3 H                |   1 C                |     2.04757  |     1.08353
+    4 H                |   1 C                |     2.04753  |     1.08351
+    5 H                |   1 C                |     2.04748  |     1.08348
+    7 H                |   2 N                |     1.94939  |     1.03157
+ ------------------------------------------------------------------------------
+                         number of included internuclear distances:          4
+ ==============================================================================
+
+
+
+ ==============================================================================
+                                 internuclear angles
+ ------------------------------------------------------------------------------
+        center 1       |       center 2       |       center 3       |  degrees
+ ------------------------------------------------------------------------------
+    3 H                |   1 C                |   4 H                |   114.53
+    3 H                |   1 C                |   5 H                |   114.60
+    4 H                |   1 C                |   5 H                |   114.60
+ ------------------------------------------------------------------------------
+                            number of included internuclear angles:          3
+ ==============================================================================
+
+
   </comment>
-  <record id="rl1" repeat="7"/>
-  <record id="geomx" repeat="*" makeArray="true" 
-    >\s*{I,cc:id}\s*{A,cc:atomtypeRef}\s*{F,cc:elementType}\s*{F,cc:x3}\s*{F,cc:y3}\s*{F,cc:z3}\s*</record>
-    
-  <transform process="createMolecule" xpath="cml:list/cml:array" id="molgeom"/>    
   
+  <!--  Was geometry.xml -->
+  <record id="rl1" repeat="7"/>
+  <record id="geom" 
+  repeat="*" 
+  makeArray="true">\s*{I,cc:id}\s*{A,cc:atomtypeRef}\s*{F,cc:elementType}\s*{F,cc:x3}\s*{F,cc:y3}\s*{F,cc:z3}\s*</record>
+  
+  <transform process="createMolecule" xpath="cml:list/cml:array" id="molgeom"/>
+
+
+  <templateList xmlns:xi="http://www.w3.org/2001/XInclude">
+    <xi:include href="atmass.xml"/>
+    <xi:include href="effnucrep.xml"/>
+    <xi:include href="nucdipole.xml"/>
+    <xi:include href="symminfo.xml"/>
+    <xi:include href="zmat.new.xml"/>
+    <xi:include href="xyz.xml"/>
+    <xi:include href="internuc.xml"/>
+    <xi:include href="internucang.xml"/>
+  </templateList>
+ 
+  <!--  Move molecule into root of module --> 
+  <transform process="pullupSingleton" xpath="./cml:list[@cmlx:templateRef='geom']"/>
+  <transform process="delete" xpath="./cml:list[@cmlx:templateRef='geom']"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='junk']"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='rl1']"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+  
+
   <comment class="example.output" id="geometry">
-    <module cmlx:templateRef="geometry" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <list cmlx:lineCount="3" cmlx:templateRef="geomx">
-        <molecule id="molgeom">
-          <atomArray>
-            <atom id="a1" elementType="Fe" x3="0.0" y3="0.0" z3="0.0">
-              <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">fe</scalar>
-              <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">26</scalar>
-            </atom>
-            <atom id="a2" elementType="C" x3="0.0" y3="0.0" z3="3.414358">
-              <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">c</scalar>
-              <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
-            </atom>
-            <atom id="a3" elementType="C" x3="0.0" y3="0.0" z3="-3.414358">
-              <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">c</scalar>
-              <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
-            </atom>
-          </atomArray>
-          <formula formalCharge="0" concise="C 2 Fe 1">
-            <atomArray elementType="C Fe" count="2.0 1.0"/>
-          </formula>
-          <property dictRef="cml:molmass">
-            <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">79.8664</scalar>
-          </property>
-        </molecule>
-      </list>
-    </module>
+<module cmlx:templateRef="geometry" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <molecule id="molgeom" cmlx:templateRef="geom">
+    <atomArray>
+      <atom id="a1" elementType="C" x3="-0.01894486" y3="-1.19947916" z3="-2.2E-5">
+        <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">C</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
+      </atom>
+      <atom id="a2" elementType="N" x3="-0.09471245" y3="1.40352975" z3="4.23E-6">
+        <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">N</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">7</scalar>
+      </atom>
+      <atom id="a3" elementType="H" x3="0.47700421" y3="-1.43906203" z3="0.93307063">
+        <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">H</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+      </atom>
+      <atom id="a4" elementType="H" x3="0.55561339" y3="-1.43429021" z3="-0.88812877">
+        <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">H</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+      </atom>
+      <atom id="a5" elementType="H" x3="-1.06058897" y3="-1.49412331" z3="-0.04578127">
+        <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">H</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+      </atom>
+      <atom id="a6" elementType="H" x3="-0.12212079" y3="0.19204712" z3="9.9846E-4">
+        <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">H</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+      </atom>
+      <atom id="a7" elementType="H" x3="0.92674845" y3="1.54759517" z3="-5.661E-5">
+        <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">H</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+      </atom>
+    </atomArray>
+    <formula formalCharge="0" concise="C 1 H 5 N 1">
+      <atomArray elementType="C H N" count="1.0 5.0 1.0"/>
+    </formula>
+    <bondArray>
+      <bond atomRefs2="a1 a3" id="a1_a3" order="S"/>
+      <bond atomRefs2="a1 a4" id="a1_a4" order="S"/>
+      <bond atomRefs2="a1 a5" id="a1_a5" order="S"/>
+      <bond atomRefs2="a2 a6" id="a2_a6" order="S"/>
+      <bond atomRefs2="a2 a7" id="a2_a7" order="S"/>
+    </bondArray>
+    <property dictRef="cml:molmass">
+      <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">31.0571</scalar>
+    </property>
+  </molecule>
+  <module cmlx:lineCount="6" cmlx:templateRef="atmass">
+    <array dataType="xsd:string" dictRef="compchem:atom_type" size="3">C N H</array>
+    <array dataType="xsd:double" dictRef="compchem:atom_mass" size="3">12.0 14.00307 1.007825</array>
+  </module>
+  <module cmlx:lineCount="1" cmlx:templateRef="nuclear_repulsion_energy">
+    <scalar dataType="xsd:double" dictRef="compchem:nuclear_repulsion_energy" cmlx:templateRef="nuclear_repulsion_energy">33.4595568057</scalar>
+  </module>
+  <module cmlx:lineCount="5" cmlx:templateRef="nuclear_dipole_moment">
+    <array dataType="xsd:double" size="3" dictRef="compchem:nuclear_dipole_moment">0.0 0.0 0.0</array>
+  </module>
+  <module cmlx:lineCount="32" cmlx:templateRef="zmat_new">
+    <list cmlx:templateRef="unparsed">
+      <scalar dataType="xsd:string" dictRef="n:unparsed">Z-matrix (autoz)</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">--------</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">Units are Angstrom for bonds and degrees for angles</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">Type          Name      I     J     K     L     M      Value</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">----------- --------  ----- ----- ----- ----- ----- ----------</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">1 Stretch                  1     3                       1.08353</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">2 Stretch                  1     4                       1.08351</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">3 Stretch                  1     5                       1.08348</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">4 Stretch                  1     6                       1.39535</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">5 Stretch                  2     6                       1.21179</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">6 Stretch                  2     7                       1.03157</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">7 Bend                     1     2     7                96.36069</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">8 Bend                     2     1     3               103.55210</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">9 Bend                     2     1     4               103.41833</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">10 Bend                     2     1     5               104.11421</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">11 Bend                     3     1     4               114.53351</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">12 Bend                     3     1     5               114.60018</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">13 Bend                     3     1     6               104.69799</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">14 Bend                     4     1     5               114.59805</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">15 Bend                     4     1     6               104.82871</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">16 Bend                     5     1     6               101.54519</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">17 Bend                     6     2     7                99.32399</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">18 Torsion                  3     1     2     7          62.35729</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">19 Torsion                  1     3     6     2        -171.28472</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">20 Torsion                  4     1     2     7         -57.41867</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">21 Torsion                  1     4     6     2         171.95379</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">22 Torsion                  5     1     2     7        -177.50076</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">23 Torsion                  1     5     6     2         179.30165</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">24 Torsion                  1     6     7     2         179.86676</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+    </list>
+  </module>
+  <module cmlx:lineCount="11" cmlx:templateRef="xyz">
+    <scalar dataType="xsd:integer" dictRef="compchem:natoms" cmlx:templateRef="atoms">7</scalar>
+    <scalar dataType="xsd:string" dictRef="n:geomtype" cmlx:templateRef="geo">geometry</scalar>
+    <molecule id="xyz" cmlx:templateRef="mol">
+      <atomArray>
+        <atom id="a1" elementType="C" x3="-0.01894486" y3="-1.19947916" z3="-2.2E-5">
+          <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
+        </atom>
+        <atom id="a2" elementType="N" x3="-0.09471245" y3="1.40352975" z3="4.23E-6">
+          <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">7</scalar>
+        </atom>
+        <atom id="a3" elementType="H" x3="0.47700421" y3="-1.43906203" z3="0.93307063">
+          <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+        </atom>
+        <atom id="a4" elementType="H" x3="0.55561339" y3="-1.43429021" z3="-0.88812877">
+          <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+        </atom>
+        <atom id="a5" elementType="H" x3="-1.06058897" y3="-1.49412331" z3="-0.04578127">
+          <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+        </atom>
+        <atom id="a6" elementType="H" x3="-0.12212079" y3="0.19204712" z3="9.9846E-4">
+          <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+        </atom>
+        <atom id="a7" elementType="H" x3="0.92674845" y3="1.54759517" z3="-5.661E-5">
+          <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+        </atom>
+      </atomArray>
+      <formula formalCharge="0" concise="C 1 H 5 N 1">
+        <atomArray elementType="C H N" count="1.0 5.0 1.0"/>
+      </formula>
+      <bondArray>
+        <bond atomRefs2="a1 a3" id="a1_a3" order="S"/>
+        <bond atomRefs2="a1 a4" id="a1_a4" order="S"/>
+        <bond atomRefs2="a1 a5" id="a1_a5" order="S"/>
+        <bond atomRefs2="a2 a6" id="a2_a6" order="S"/>
+        <bond atomRefs2="a2 a7" id="a2_a7" order="S"/>
+      </bondArray>
+      <property dictRef="cml:molmass">
+        <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">31.0571</scalar>
+      </property>
+    </molecule>
+  </module>
+  <module cmlx:lineCount="12" cmlx:templateRef="internuc">
+    <list cmlx:lineCount="4" cmlx:templateRef="dist">
+      <array dataType="xsd:integer" dictRef="n:ser1" size="4">3 4 5 7</array>
+      <array dataType="xsd:string" dictRef="n:elem1" size="4">H H H H</array>
+      <array dataType="xsd:integer" dictRef="n:ser2" size="4">1 1 1 2</array>
+      <array dataType="xsd:string" dictRef="n:elem2" size="4">C C C N</array>
+      <array dataType="xsd:double" dictRef="n:dist1" size="4">2.04757 2.04753 2.04748 1.94939</array>
+      <array dataType="xsd:double" dictRef="n:dist1" size="4">1.08353 1.08351 1.08348 1.03157</array>
+    </list>
+    <list cmlx:templateRef="rlx">
+      <scalar dataType="xsd:integer" dictRef="n:count">4</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="11" cmlx:templateRef="internucang">
+    <list cmlx:lineCount="3" cmlx:templateRef="dist">
+      <array dataType="xsd:integer" dictRef="n:ser1" size="3">3 3 4</array>
+      <array dataType="xsd:string" dictRef="n:elem1" size="3">H H H</array>
+      <array dataType="xsd:integer" dictRef="n:ser2" size="3">1 1 1</array>
+      <array dataType="xsd:string" dictRef="n:elem2" size="3">C C C</array>
+      <array dataType="xsd:integer" dictRef="n:ser3" size="3">4 5 5</array>
+      <array dataType="xsd:string" dictRef="n:elem3" size="3">H H H</array>
+      <array dataType="xsd:double" dictRef="n:ang1" size="3">114.53 114.6 114.6</array>
+    </list>
+  </module>
+</module>
     </comment>
 
 </template>

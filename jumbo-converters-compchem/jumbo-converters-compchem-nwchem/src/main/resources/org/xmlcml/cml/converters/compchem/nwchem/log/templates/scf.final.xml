@@ -1,0 +1,118 @@
+<template repeat="*"  id="scf.final" name="Final SCF results" 
+  pattern="\s*Final (RHF|UHF|ROHF) \s*results\s*$\s+\-+.*" newline="$" 
+  endPattern="\s*$\s*"
+  >
+
+  <comment class="example.input" id="scf.final">
+       Final RHF  results
+       ------------------
+
+         Total SCF energy =   -134.684334043866
+      One-electron energy =   -233.466922651842
+      Two-electron energy =     98.782588607976
+ Nuclear repulsion energy =       .000000000000
+
+        Time for solution =     81.8s
+
+
+</comment>
+
+<comment>
+<comment class="example.input" id="scf.final.uhf">
+       Final UHF  results 
+       ------------------ 
+
+         Total SCF energy =    -74.962985614676
+      One electron energy =   -122.365858398494
+      Two electron energy =     38.210778115161
+ Nuclear repulsion energy =      9.192094668657
+
+                       Sz =      0.0000
+                 Sz(Sz+1) =      0.0000
+                      S^2 =     -0.0000
+
+        Time for solution =      0.0s
+
+
+</comment>
+
+The below highlights one bug (unless the regexp is incorrect)
+<record repeat="1" id="sz">\s*Sz =\s*{F,n:sz}\s*</record>
+<record repeat="1" id="sz2">\s*Sz\(Sz\+1\) =\s*{F,n:sz2}\s*</record>
+<record repeat="1" id="s2">\s*S\^2 =\s*{F,n:s2}\s*</record>
+<record repeat="1" id="shouldfail">foobar</record>
+
+Another occurred when I tried to read the time in with the below template i.e. without endPattern2
+It seems that the blank lines at the bottom of the example template are being discarded?
+
+<templateList>
+<template id="scf_time"
+repeat="*"
+pattern="\s*Time for solution=.*"
+endPattern=".*"
+>
+<record id="scf_time" >\s*Time for solution =\s*{F,n:time}s\s*</record>
+</template>
+</templateList>
+
+</comment>
+
+
+<record repeat="3"/>
+<record id="total_energy" >\s*Total SCF energy\s*=\s*{F,compchem:total_energy}\s*</record>
+<record id="1e_energy" >\s*One-electron energy\s*=\s*{F,compchem:1e_energy}\s*</record>
+<record id="2e_energy" >\s*Two-electron energy\s*=\s*{F,compchem:2e_energy}\s*</record>
+<record id="nuclear_repulsion_energy" >\s*Nuclear repulsion energy\s*=\s*{F,compchem:nuclear_repulsion_energy}\s*</record>
+
+
+<templateList>
+
+<template id="s2"
+repeat="*"
+pattern="\s*Sz =.*"
+endPattern="\s*"
+>
+<record id="s2" repeat="*">\s*{X,n:unparsed}\s*</record>
+</template>
+
+<template id="scf_time"
+repeat="*"
+pattern="\s*Time for solution =.*"
+endPattern=".*"
+endPattern2="~"
+>
+<record id="scf_time" >\s*Time for solution =\s*{F,compchem:walltime}s\s*</record>
+</template>
+</templateList>
+
+
+<transform process="pullupSingleton" xpath=".//cml:list"/>
+<transform process="pullupSingleton" xpath="./cml:module"/>
+<transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+
+  <!-- Add Units -->
+  <transform process="addUnits"
+  xpath=".//cml:scalar[@dictRef='compchem:total_energy' or @dictRef='compchem:1e_energy' or @dictRef='compchem:2e_energy' or @dictRef='compchem:nuclear_repulsion_energy']"
+  value="nonsi:hartree"
+  />
+  <transform process="addUnits"
+  xpath=".//cml:scalar[@dictRef='compchem:walltime']"
+  value="si:s"
+  />
+
+  <comment class="example.output" id="scf.final">
+<module cmlx:templateRef="scf.final" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:double" dictRef="compchem:total_energy" cmlx:templateRef="total_energy" units="nonsi:hartree">-134.684334043866</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:1e_energy" cmlx:templateRef="1e_energy" units="nonsi:hartree">-233.466922651842</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:2e_energy" cmlx:templateRef="2e_energy" units="nonsi:hartree">98.782588607976</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:nuclear_repulsion_energy" cmlx:templateRef="nuclear_repulsion_energy" units="nonsi:hartree">0.0</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:walltime" cmlx:templateRef="scf_time" units="si:s">81.8</scalar>
+</module>
+    </comment>
+    
+  <comment class="example.output" id="scf.final.uhf">
+  <module/>
+  </comment>
+    
+
+</template>

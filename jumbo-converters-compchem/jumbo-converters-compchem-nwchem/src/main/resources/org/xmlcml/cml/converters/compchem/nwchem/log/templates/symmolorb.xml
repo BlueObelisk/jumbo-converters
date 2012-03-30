@@ -1,16 +1,64 @@
 <template repeat="*"  id="symmolorb" name="Symmetry analysis of molecular orbitals" 
     pattern=".*Symmetry analysis of molecular orbitals.*$\s+\-+.*" newline="$" 
-      endPattern="\s*">
+      endPattern="\s*$\s*"
+      endPattern2="\s*Final.*Eigenvalues\s*$\s*\-*\s*"
+      endPattern3="~">
 
   <comment class="example.input" id="symmolorb">
       Symmetry analysis of molecular orbitals - initial
       -------------------------------------------------
 
+  Numbering of irreducible representations: 
+
+     1 a1          2 a2          3 b1          4 b2      
+
+  Orbital symmetries:
+
+     1 a1          2 a1          3 b1          4 a1          5 b2      
+     6 a1          7 b1      
+
+
   </comment>
+  
   <record repeat="3"/>
+
+    <templateList>
+        <template repeat="*" id="numbirrep"
+            name="Numbering of irreducible representations"
+            pattern=".*Numbering of irreducible representations:.*$\s*"
+            newline="$" endPattern="\s*">
+            <record id="unparsed" repeat="*">{X,n:unparsed}</record>
+        </template>
+
+        <template repeat="*" id="orbitalsym" name="Orbital symmetries"
+            pattern=".*Orbital symmetries:.*$\s*" newline="$"
+            endPattern="\s*" endPattern2="~">
+            <record id="unparsed" repeat="*">{X,n:unparsed}</record>
+        </template>
+
+    </templateList>
+    
+  <transform process="delete" 
+  xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
   
   <comment class="example.output" id="symmolorb">
-<module cmlx:templateRef="symmolorb" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"/>
-    </comment>
+<module cmlx:templateRef="symmolorb" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <module cmlx:lineCount="3" cmlx:templateRef="numbirrep">
+    <list cmlx:templateRef="unparsed">
+      <scalar dataType="xsd:string" dictRef="n:unparsed">Numbering of irreducible representations:</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">1 a1          2 a2          3 b1          4 b2</scalar>
+    </list>
+  </module>
+  <module cmlx:lineCount="4" cmlx:templateRef="orbitalsym">
+    <list cmlx:templateRef="unparsed">
+      <scalar dataType="xsd:string" dictRef="n:unparsed">Orbital symmetries:</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">1 a1          2 a1          3 b1          4 a1          5 b2</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">6 a1          7 b1</scalar>
+    </list>
+  </module>
+</module>
+</comment>
 
 </template>

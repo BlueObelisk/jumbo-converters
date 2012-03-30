@@ -2,35 +2,60 @@
 <transformList>
 
   <!-- build environment module -->
-
-  <transform process="addChild" xpath="//cml:module[@id='job1']" elementName="cml:module" id="environment"/>
-  <transform process="addDictRef" xpath="//cml:module[@id='environment']" value="cc:environment"/>
-
-  <transform process="addChild" xpath="//cml:module[@id='environment']" 
-      elementName="cml:parameterList" position="0"/>
-
-  <!-- move parameters to environment -->
-  <transform process="addChild" xpath=".//cml:module[@id='environment']/cml:parameterList" elementName="cml:scalar" id="compchem.program"/>
-  <transform process="addDictRef" xpath=".//cml:scalar[@id='compchem.program']" value="compchem:program"/>
-  <transform process="setValue" xpath=".//cml:scalar[@dictRef='compchem:program']" value="NWChem"/>
   
-  <transform process="move" xpath="./cml:module[@cmlx:templateRef='job']/*[starts-with(@dictRef,'compchem:')]" to="//cml:module[@id='environment']/cml:parameterList"/>
+  <!-- move citation and authors to end of environment module -->
+  <transform process="move" 
+  xpath="./cml:module[@cmlx:templateRef='citation']" 
+  to="./cml:module[@cmlx:templateRef='environment']"/>
+   
+  <transform process="move" 
+  xpath="./cml:module[@cmlx:templateRef='authors']" 
+  to="./cml:module[@cmlx:templateRef='environment']"/>
   
-  <transform process="move" xpath="//*[@dictRef='compchem:title'][1]" to="//cml:module[@id='environment']/cml:parameterList"/>
-  <transform process="createWrapperParameter" xpath="//cml:module[@id='environment']/cml:parameterList/*" />
-  <!--  tidy rest -->
-  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='acknow']"/>
-  <transform process="addChild" xpath=".//cml:module[@id='environment']"
-     elementName="cml:module" id="environment.userDefined" dictRef="cc:userDefinedModule"/>
-  <transform process="move" xpath=".//cml:module[
-       @cmlx:templateRef='argument' 
-    or @cmlx:templateRef='dirinfo'
-    or @cmlx:templateRef='integralfile'
-    or @cmlx:templateRef='job'
-    or @cmlx:templateRef='library file'
-    or @cmlx:templateRef='nccp' 
-    or @cmlx:templateRef='scaling'
-    ]" 
-     to="//cml:module[@id='environment.userDefined']"/>
+  <!-- move argument to beginning -->
+  <transform process="move" 
+  position="1"
+  xpath="./cml:module[@cmlx:templateRef='argument']" 
+  to="./cml:module[@cmlx:templateRef='environment']"/> 
+  
+  <!-- remove templateRef attribute & add environment dictRef -->
+  <transform process="addDictRef" 
+  xpath="./cml:module[@cmlx:templateRef='environment']"
+    value="compchem:environment"/>
+    
+  <transform process="addId" 
+  xpath="./cml:module[@dictRef='compchem:environment']"
+    value="environment"/>
+  <transform process="delete" 
+  xpath="./cml:module[@dictRef='compchem:environment']/@cmlx:templateRef"/>
+  <transform process="delete" 
+  xpath="./cml:module[@dictRef='compchem:environment']/@cmlx:lineCount"/>
+  
+  <!-- Create parameterList  at start -->
+  <transform process="addChild" 
+  xpath="./cml:module[@id='environment']" 
+  elementName="cml:parameterList"
+  position="0"/>
+      
+  <!-- Bit of a hack - move all compchem scalars into the parameterList -->
+  <transform process="move" 
+  xpath="./cml:module[@id='environment']//cml:scalar[starts-with(@dictRef,'compchem:')]"
+  to="./cml:module[@id='environment']/cml:parameterList"/>
+  
+  <!--  Wrap them with a parameter -->
+  <transform process="createWrapperParameter" 
+  xpath="./cml:module[@id='environment']/cml:parameterList/*" />
+  
+  <!-- Finally, move environment module into start of first job module 
+   and copy into any subsequent modules-->
+  <transform process="move"
+  xpath="./cml:module[@id='environment']" 
+  to="./cml:module[@cmlx:templateRef='nwchem_job'][position() = 1]"
+  position="1"/>
+  
+  <transform process="copy"
+  xpath="./cml:module[@cmlx:templateRef='nwchem_job'][position() = 1]/cml:module[@id='environment']" 
+  to="./cml:module[@cmlx:templateRef='nwchem_job'][position() &gt; 1]"
+  position="1"/>
      
 </transformList>  

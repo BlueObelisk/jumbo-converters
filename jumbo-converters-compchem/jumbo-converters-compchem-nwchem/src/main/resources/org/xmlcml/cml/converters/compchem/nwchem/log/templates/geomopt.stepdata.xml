@@ -1,0 +1,102 @@
+<template repeat="*"  name="Step data" id="stepdata"
+  pattern="\s*.\sStep\s+Energy\s+Delta\sE.*$.\s\-+.*" offset="0"
+  endPattern="\s*" endPattern2="~" endOffset="0"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
+
+  <comment class="example.input" id="stepdata">
+  Step       Energy      Delta E   Gmax     Grms     Xrms     Xmax   Walltime
+  ---- ---------------- -------- -------- -------- -------- -------- --------
+@   14    -311.09022722 -3.5D-07  0.00005  0.00001  0.00048  0.00138   1588.7
+                                     ok       ok       ok       ok  
+
+  </comment>
+  <comment class="example.input" id="stepdata1">
+@ Step       Energy      Delta E   Gmax     Grms     Xrms     Xmax   Walltime
+@ ---- ---------------- -------- -------- -------- -------- -------- --------
+@    0    -311.08740715  0.0D+00  0.00836  0.00198  0.00000  0.00000     98.3
+                                                       ok       ok  
+  </comment>
+  
+  
+    <comment class="example.input" id="stepdata2">
+@ Step       Energy      Delta E   Gmax     Grms     Xrms     Xmax   Walltime
+@ ---- ---------------- -------- -------- -------- -------- -------- --------
+@    0     -74.96298561  0.0D+00  0.03787  0.03139  0.00000  0.00000      0.2
+</comment>
+  
+  <record repeat="2"/>
+  <record repeat="*" id="step">.\s+{I,n:step}\s{F,compchem:total_energy}\s{E,n:deltae}\s{F,n:gmax}\s{F,n:grms}\s{F,n:xrms}\s{F,n:xmax}\s{F,compchem:walltime}\s*</record>
+  
+  <templateList>
+  <template id="ok" pattern="\s*ok\s*.*" endPattern=".*" repeat="1">
+  <record repeat="1" id="ok">{X,n:unparsed}</record>
+  </template>
+  </templateList>
+
+  <transform process="pullup" xpath=".//cml:scalar"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  
+    <!-- Add Units -->
+  <transform process="addUnits"
+  xpath=".//cml:scalar[@dictRef='compchem:total_energy']"
+  value="nonsi:hartree"
+  />
+  <transform process="addUnits"
+  xpath=".//cml:scalar[@dictRef='compchem:walltime']"
+  value="si:s"
+  />
+ 
+  <comment class="example.output" id="stepdata">
+<module cmlx:templateRef="stepdata" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="step">
+    <scalar dataType="xsd:integer" dictRef="n:step">14</scalar>
+    <scalar dataType="xsd:double" dictRef="compchem:total_energy" units="nonsi:hartree">-311.09022722</scalar>
+    <scalar dataType="xsd:double" dictRef="n:deltae">-3.5E-7</scalar>
+    <scalar dataType="xsd:double" dictRef="n:gmax">5.0E-5</scalar>
+    <scalar dataType="xsd:double" dictRef="n:grms">1.0E-5</scalar>
+    <scalar dataType="xsd:double" dictRef="n:xrms">4.8E-4</scalar>
+    <scalar dataType="xsd:double" dictRef="n:xmax">0.00138</scalar>
+    <scalar dataType="xsd:double" dictRef="compchem:walltime" units="si:s">1588.7</scalar>
+  </list>
+  <module cmlx:lineCount="1" cmlx:templateRef="ok">
+    <scalar dataType="xsd:string" dictRef="n:unparsed">ok       ok       ok       ok</scalar>
+  </module>
+</module>
+  </comment>
+
+  <comment class="example.output" id="stepdata1">
+<module cmlx:templateRef="stepdata" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="step">
+    <scalar dataType="xsd:integer" dictRef="n:step">0</scalar>
+    <scalar dataType="xsd:double" dictRef="compchem:total_energy" units="nonsi:hartree">-311.08740715</scalar>
+    <scalar dataType="xsd:double" dictRef="n:deltae">0.0</scalar>
+    <scalar dataType="xsd:double" dictRef="n:gmax">0.00836</scalar>
+    <scalar dataType="xsd:double" dictRef="n:grms">0.00198</scalar>
+    <scalar dataType="xsd:double" dictRef="n:xrms">0.0</scalar>
+    <scalar dataType="xsd:double" dictRef="n:xmax">0.0</scalar>
+    <scalar dataType="xsd:double" dictRef="compchem:walltime" units="si:s">98.3</scalar>
+  </list>
+  <module cmlx:lineCount="1" cmlx:templateRef="ok">
+    <scalar dataType="xsd:string" dictRef="n:unparsed">ok       ok</scalar>
+  </module>
+</module>
+  </comment>
+   
+    <comment class="example.output" id="stepdata2">
+<module cmlx:templateRef="stepdata" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <list cmlx:templateRef="step">
+    <scalar dataType="xsd:integer" dictRef="n:step">0</scalar>
+    <scalar dataType="xsd:double" dictRef="compchem:total_energy" units="nonsi:hartree">-74.96298561</scalar>
+    <scalar dataType="xsd:double" dictRef="n:deltae">0.0</scalar>
+    <scalar dataType="xsd:double" dictRef="n:gmax">0.03787</scalar>
+    <scalar dataType="xsd:double" dictRef="n:grms">0.03139</scalar>
+    <scalar dataType="xsd:double" dictRef="n:xrms">0.0</scalar>
+    <scalar dataType="xsd:double" dictRef="n:xmax">0.0</scalar>
+    <scalar dataType="xsd:double" dictRef="compchem:walltime" units="si:s">0.2</scalar>
+  </list>
+</module>
+  </comment>
+
+</template>

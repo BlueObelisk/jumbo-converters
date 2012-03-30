@@ -1,36 +1,64 @@
 <transformList xmlns:xi="http://www.w3.org/2001/XInclude">
 
-  <xi:include href="transform.namespaces.xml"/>    
-
-  <transform process="addChild" xpath="." elementName="cml:module" id="jobList1"  position="1"/>
-  <transform process="addDictRef" xpath="./cml:module[@id='jobList1']" value="cc:jobList" />
+  <xi:include href="transform.namespaces.xml"/>
   
-  <transform process="addChild" xpath="./cml:module[@id='jobList1']" elementName="cml:module" id="job1"/>
-  <transform process="addDictRef" xpath="./cml:module[@id='jobList1']/cml:module[@id='job1']" value="cc:job" />
+  <xi:include href="transform.environment.xml"/>
 
+  <!--  move gastats, global.array.summary and time to end of nwchem_job -->
+  <transform process="move" 
+  xpath="./cml:module[@cmlx:templateRef='summary_global_arrays']" 
+  to="./cml:module[@cmlx:templateRef='nwchem_job']"/>
+  <transform process="move" 
+  xpath="./cml:module[@cmlx:templateRef='gastats']" 
+  to="./cml:module[@cmlx:templateRef='nwchem_job']"/>
+  <transform process="move" 
+  xpath="./cml:module[@cmlx:templateRef='times']" 
+  to="./cml:module[@cmlx:templateRef='nwchem_job']"/>
 
-  <xi:include href="transform.basis.xml"/>
-  <xi:include href="transform.environment.xml"/>    
-  <xi:include href="transform.initial.xml"/>    
-  <xi:include href="transform.calculation.xml"/>    
-  <xi:include href="transform.final.xml"/>    
+  <!-- move user input into first input module -->
+  <transform process="move" 
+  xpath="./cml:module[@cmlx:templateRef='user_input']" 
+  to="./cml:module[@cmlx:templateRef='nwchem_job'][position() = 1]//cml:module[@cmlx:templateRef='input_module'][position() = 1]" 
+  position="1"/>
+  
+  <!-- Create Joblist and move all jobs from the template into it -->
+  <transform process="addChild" 
+  xpath="." 
+  elementName="cml:module" 
+  id="jobList1"  position="0"/>
+  <transform process="addDictRef" 
+  xpath="./cml:module[@id='jobList1']" 
+  value="compchem:jobList" />
+  
+  <transform process="move"
+  xpath="./cml:module[@cmlx:templateRef='nwchem_job']"
+  to="./cml:module[@id='jobList1']"/>
+  
+  <!-- Rename nwchem_job to job and give dictRef -->
+    <transform process="addDictRef" 
+  xpath="./cml:module[@id='jobList1']/cml:module[@cmlx:templateRef='nwchem_job']"
+    value="compchem:job"/>
+  <transform process="addId" 
+  xpath="./cml:module[@id='jobList1']/cml:module[@dictRef='compchem:job']"
+    value="job"/>
+  <transform process="delete" 
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/@cmlx:templateRef"/>
+  <transform process="delete" 
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/@cmlx:lineCount"/>
+  
+  <!-- Now set up initialization module -->
+  <xi:include href="transform.initial.xml"/>
 
+  <!-- Copy last calculation final module to be the jobs final -->
+  <xi:include href="transform.final.xml"/>
+ 
  <!-- ============================= clean up output =========================== -->
  
-    <transform process="delete" xpath="//cml:module[
-         @cmlx:templateRef='auth'
-      or @cmlx:templateRef='citation'
-      or @cmlx:templateRef='nwcheminpmod'
-      ]" />
+    <transform process="pullupSingleton"
+    xpath=".//cml:module[@cmlx:templateRef='nwchem_module']"
+    />
     
-    <transform process="delete" xpath="//cml:atom/cml:scalar[@dictRef='cc:atomtypeRef']" />
-    <transform process="delete" xpath="//cml:atom/cml:scalar[@dictRef='compchem:atomicNumber']" />
-    
-    <transform process="delete" xpath=".//@cmlx:templateRef" />
     <transform process="delete" xpath=".//@cmlx:lineCount" />
-
-<!--     
-    <transform process="delete" xpath="/cml:module/cml:scalar" />
--->    
+  
 </transformList>    
  

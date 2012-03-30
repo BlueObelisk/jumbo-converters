@@ -1,18 +1,18 @@
-<template repeat="*"  id="effnucrep" name="Effective nuclear repulsion energy" 
-  pattern="\s* Effective nuclear repulsion energy.*" 
+<template repeat="*"  id="nuclear_repulsion_energy" name="Effective nuclear repulsion energy" 
+  pattern="\s*Effective nuclear repulsion energy.*" 
   newline="$" endPattern=".*">
 
-  <comment class="example.input" id="effnucrep">
+  <comment class="example.input" id="nuclear_repulsion_energy">
  Effective nuclear repulsion energy (a.u.)     307.7650672208
 </comment>
-  <record id="ceffnucrep">\s*Effective nuclear repulsion energy \(a\.u\.\){F,cc:nuclear_repulsion_energy}\s*</record>
+  <record id="nuclear_repulsion_energy">\s*Effective nuclear repulsion energy \(a\.u\.\){F,compchem:nuclear_repulsion_energy}\s*</record>
   
   <transform process="pullupSingleton" xpath="./cml:list"/>
   
-  <comment class="example.output" id="effnucrep">
-<module cmlx:templateRef="effnucrep" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <scalar dataType="xsd:double" dictRef="n:effnucrep" cmlx:templateRef="ceffnucrep">307.7650672208</scalar>
-</module>
+  <comment class="example.output" id="nuclear_repulsion_energy">
+    <module cmlx:templateRef="nuclear_repulsion_energy" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dataType="xsd:double" dictRef="compchem:nuclear_repulsion_energy" cmlx:templateRef="nuclear_repulsion_energy">307.7650672208</scalar>
+    </module>
     </comment>
 
 </template>

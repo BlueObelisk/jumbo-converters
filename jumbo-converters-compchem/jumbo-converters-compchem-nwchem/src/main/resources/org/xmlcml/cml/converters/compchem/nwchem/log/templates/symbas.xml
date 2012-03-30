@@ -1,8 +1,13 @@
-<template repeat="*"  id="symbas" name="Symmetry analysis of basis" 
-  pattern="\s*Symmetry analysis of basis\s*$\s+\-+.*" newline="$" 
-    endPattern=".*$\s*\-+\s*">
+<template 
+  id="basis_symmetry"
+  name="Symmetry analysis of basis"
+  repeat="*" 
+  newline="$" 
+  pattern="\s*Symmetry analysis of basis\s*$\s+\-+\s*$\s*" 
+  endPattern="\s*">
 
-  <comment class="example.input" id="symbas">
+<!-- output by symmetry/sym_bs_irrep.F:sym_bas_irreps -->
+  <comment class="example.input" id="basis_symmetry">
       Symmetry analysis of basis
       --------------------------
  
@@ -14,57 +19,22 @@
         b2u        19
         b3g        12
         b3u        19
- 
-
- Forming initial guess at      24.1s
 
   </comment>
   
-  <record repeat="3" id="rl1"/>
-  <record id="r1" repeat="*">\s*{A,n:ir}\s{I,n:count}\s*</record>
-  <record repeat="2" id="rl2"/>
-  <record id="r2" >\s*Forming initial guess at{F,n:guess}s\s*</record>
+  <record repeat="3"/>
+  <record id="symbas" repeat="*" makeArray="true">\s*{A,n:ir}\s{I,n:count}\s*</record>
+  <transform process="pullup" xpath=".//cml:array"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='symbas']"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+  
+  
 
-  <comment class="example.output" id="symbas">
-    <module cmlx:templateRef="symbas" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <list cmlx:templateRef="r1">
-        <list>
-          <scalar dataType="xsd:string" dictRef="n:ir">ag</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:count">33</scalar>
-        </list>
-        <list>
-          <scalar dataType="xsd:string" dictRef="n:ir">au</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:count">5</scalar>
-        </list>
-        <list>
-          <scalar dataType="xsd:string" dictRef="n:ir">b1g</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:count">12</scalar>
-        </list>
-        <list>
-          <scalar dataType="xsd:string" dictRef="n:ir">b1u</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:count">19</scalar>
-        </list>
-        <list>
-          <scalar dataType="xsd:string" dictRef="n:ir">b2g</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:count">12</scalar>
-        </list>
-        <list>
-          <scalar dataType="xsd:string" dictRef="n:ir">b2u</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:count">19</scalar>
-        </list>
-        <list>
-          <scalar dataType="xsd:string" dictRef="n:ir">b3g</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:count">12</scalar>
-        </list>
-        <list>
-          <scalar dataType="xsd:string" dictRef="n:ir">b3u</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:count">19</scalar>
-        </list>
-      </list>
-      <list cmlx:templateRef="r2">
-        <scalar dataType="xsd:double" dictRef="n:guess">24.1</scalar>
-      </list>
-    </module>
+  <comment class="example.output" id="basis_symmetry">
+<module cmlx:templateRef="basis_symmetry" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <array dataType="xsd:string" dictRef="n:ir" size="8">ag au b1g b1u b2g b2u b3g b3u</array>
+  <array dataType="xsd:integer" dictRef="n:count" size="8">33 5 12 19 12 19 12 19</array>
+</module>
   </comment>
 
 </template>

@@ -1,0 +1,382 @@
+<template
+  id="dft_module"
+  name="NWChem DFT Module"
+  repeat="*"
+  pattern="\s*NWChem DFT Module\s*$\s+\-+.*"
+  newline="$"
+  >
+  <comment class="example.input" id="dft">
+                                 NWChem DFT Module
+                                 -----------------
+
+
+                 DFT B3LYP calculation on water with STO-3G basis
+
+
+  Caching 1-el integrals 
+
+            General Information
+            -------------------
+          SCF calculation type: DFT
+          Wavefunction type:  closed shell.
+          No. of atoms     :     3
+          No. of electrons :    10
+           Alpha electrons :     5
+            Beta electrons :     5
+          Charge           :     0
+          Spin multiplicity:     1
+          Use of symmetry is: on ; symmetry adaption is: on 
+          Maximum number of iterations:  30
+          AO basis - number of functions:     7
+                     number of shells:     5
+          Convergence on energy requested: 1.00D-06
+          Convergence on density requested: 1.00D-05
+          Convergence on gradient requested: 5.00D-04
+
+              XC Information
+              --------------
+                         B3LYP Method XC Potential
+                     Hartree-Fock (Exact) Exchange  0.200          
+                        Slater Exchange Functional  0.800 local    
+                    Becke 1988 Exchange Functional  0.720 non-local
+              Lee-Yang-Parr Correlation Functional  0.810          
+                  VWN I RPA Correlation Functional  0.190 local    
+
+             Grid Information
+             ----------------
+          Grid used for XC integration:  medium    
+          Radial quadrature: Mura-Knowles        
+          Angular quadrature: Lebedev. 
+          Tag              B.-S. Rad. Rad. Pts. Rad. Cut. Ang. Pts.
+          ---              ---------- --------- --------- ---------
+          O                   0.60       49           5.0       434
+          H                   0.35       45           6.0       434
+          Grid pruning is: on 
+          Number of quadrature shells:    94
+          Spatial weights used:  Erf1
+
+          Convergence Information
+          -----------------------
+          Convergence aids based upon iterative change in 
+          total energy or number of iterations. 
+          Levelshifting, if invoked, occurs when the 
+          HOMO/LUMO gap drops below (HL_TOL): 1.00D-02
+          DIIS, if invoked, will attempt to extrapolate 
+          using up to (NFOCK): 10 stored Fock matrices.
+
+                    Damping( 0%)  Levelshifting(0.5)       DIIS
+                  --------------- ------------------- ---------------
+          dE  on:    start            ASAP                start   
+          dE off:    2 iters         30 iters            30 iters 
+
+
+      Screening Tolerance Information
+      -------------------------------
+          Density screening/tol_rho: 1.00D-10
+          AO Gaussian exp screening on grid/accAOfunc:  14
+          CD Gaussian exp screening on grid/accCDfunc:  20
+          XC Gaussian exp screening on grid/accXCfunc:  20
+          Schwarz screening/accCoul: 1.00D-08
+
+
+      Superposition of Atomic Density Guess
+      -------------------------------------
+
+ Sum of atomic energies:         -74.71095592
+
+      Non-variational initial energy
+      ------------------------------
+
+ Total energy =     -74.683500
+ 1-e energy   =    -121.780484
+ 2-e energy   =      37.904889
+ HOMO         =      -0.258445
+ LUMO         =       0.505071
+
+
+      Symmetry analysis of molecular orbitals - initial
+      -------------------------------------------------
+
+  Numbering of irreducible representations: 
+
+     1 a1          2 a2          3 b1          4 b2      
+
+  Orbital symmetries:
+
+     1 a1          2 a1          3 b1          4 a1          5 b2      
+     6 a1          7 b1      
+
+   Time after variat. SCF:      0.1
+   Time prior to 1st pass:      0.1
+
+ #   = 7.900D+01 #integrals = 1.640D+02 #direct =  0.0% #cached =100.0%
+
+
+ Integral file          = ./molecule.aoints.0
+ Record size in doubles =  65536        No. of integs per rec  =  43688
+ Max. records in memory =      2        Max. records in file   = 149259
+ No. of bits per label  =      8        No. of bits per value  =     64
+
+
+ Grid_pts file          = ./molecule.gridpts.0
+ Record size in doubles =  12289        No. of grid_pts per rec  =   3070
+ Max. records in memory =     16        Max. recs in file   =    795990
+
+
+           Memory utilization after 1st SCF pass: 
+           Heap Space remaining (MW):       12.78            12778690
+          Stack Space remaining (MW):       13.11            13107047
+
+   convergence    iter        energy       DeltaE   RMS-Dens  Diis-err    time
+ ---------------- ----- ----------------- --------- --------- ---------  ------
+ d= 0,ls=0.0,diis     1    -75.2708558409 -8.45D+01  1.22D-01  2.47D-01     0.1
+ d= 0,ls=0.0,diis     2    -75.2934854750 -2.26D-02  4.86D-02  1.16D-01     0.2
+ d= 0,ls=0.0,diis     3    -75.3124327277 -1.89D-02  1.35D-03  1.16D-04     0.2
+ d= 0,ls=0.0,diis     4    -75.3124510667 -1.83D-05  3.10D-05  2.40D-08     0.2
+ d= 0,ls=0.0,diis     5    -75.3124510718 -5.10D-09  1.97D-06  3.59D-11     0.2
+
+
+         Total DFT energy =      -75.312451071835
+      One electron energy =     -122.358767371347
+           Coulomb energy =       47.307408754242
+    Exchange-Corr. energy =       -9.453187123386
+ Nuclear repulsion energy =        9.192094668657
+
+ Numeric. integr. density =       10.000000825426
+
+     Total iterative time =      0.1s
+
+
+
+                  Occupations of the irreducible representations
+                  ----------------------------------------------
+
+                     irrep           alpha         beta
+                     --------     --------     --------
+                     a1                3.0          3.0
+                     a2                0.0          0.0
+                     b1                1.0          1.0
+                     b2                1.0          1.0
+
+
+                       DFT Final Molecular Orbital Analysis
+                       ------------------------------------
+
+ Vector    1  Occ=2.000000D+00  E=-1.883518D+01  Symmetry=a1
+              MO Center=  5.8D-18, -1.1D-17,  1.2D-01, r^2= 1.5D-02
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     1      0.993396  1 O  s          
+
+ Vector    2  Occ=2.000000D+00  E=-9.355849D-01  Symmetry=a1
+              MO Center=  0.0D+00, -5.4D-33, -1.2D-01, r^2= 5.4D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     2      0.798322  1 O  s                  1     -0.227279  1 O  s          
+     5     -0.190262  1 O  pz                 6      0.173151  2 H  s          
+     7      0.173151  3 H  s          
+
+ Vector    3  Occ=2.000000D+00  E=-4.436741D-01  Symmetry=b1
+              MO Center=  0.0D+00, -1.7D-49, -1.4D-01, r^2= 8.3D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     3      0.607731  1 O  px                 6      0.443995  2 H  s          
+     7     -0.443995  3 H  s          
+
+ Vector    4  Occ=2.000000D+00  E=-2.304957D-01  Symmetry=a1
+              MO Center=  1.4D-17,  5.3D-17,  2.0D-01, r^2= 6.0D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     5      0.755371  1 O  pz                 2      0.607218  1 O  s          
+     6     -0.276206  2 H  s                  7     -0.276206  3 H  s          
+
+ Vector    5  Occ=2.000000D+00  E=-1.441939D-01  Symmetry=b2
+              MO Center=  6.5D-47, -3.6D-17,  1.2D-01, r^2= 4.2D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     4      1.000000  1 O  py         
+
+ Vector    6  Occ=0.000000D+00  E= 3.556220D-01  Symmetry=a1
+              MO Center=  1.7D-16, -6.4D-18, -3.9D-01, r^2= 1.1D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     2      0.870967  1 O  s                  6     -0.794490  2 H  s          
+     7     -0.794490  3 H  s                  5     -0.751236  1 O  pz         
+
+ Vector    7  Occ=0.000000D+00  E= 4.718277D-01  Symmetry=b1
+              MO Center= -1.1D-16,  4.4D-47, -2.4D-01, r^2= 1.0D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     3      0.989543  1 O  px                 6     -0.839002  2 H  s          
+     7      0.839002  3 H  s          
+
+
+ center of mass
+ --------------
+ x =   0.00000000 y =   0.00000000 z =   0.09760123
+
+ moments of inertia (a.u.)
+ ------------------
+           2.197735387303           0.000000000000           0.000000000000
+           0.000000000000           6.322357589609           0.000000000000
+           0.000000000000           0.000000000000           4.124622202307
+
+     Multipole analysis of the density
+     ---------------------------------
+
+     L   x y z        total         alpha         beta         nuclear
+     -   - - -        -----         -----         ----         -------
+     0   0 0 0     -0.000000     -5.000000     -5.000000     10.000000
+
+     1   1 0 0      0.000000      0.000000      0.000000      0.000000
+     1   0 1 0     -0.000000     -0.000000     -0.000000      0.000000
+     1   0 0 1     -0.660538     -0.330269     -0.330269      0.000000
+
+     2   2 0 0     -3.253767     -3.673182     -3.673182      4.092598
+     2   1 1 0      0.000000      0.000000      0.000000      0.000000
+     2   1 0 1      0.000000      0.000000      0.000000      0.000000
+     2   0 2 0     -4.533970     -2.266985     -2.266985      0.000000
+     2   0 1 1      0.000000      0.000000      0.000000      0.000000
+     2   0 0 2     -4.008014     -2.986197     -2.986197      1.964381
+
+
+ Parallel integral file used       1 records with       0 large values
+
+
+ Task  times  cpu:        0.2s     wall:        0.4s
+ Summary of allocated global arrays
+-----------------------------------
+  No active global arrays
+
+
+
+                         GA Statistics for process    0
+                         ------------------------------
+
+       create   destroy   get      put      acc     scatter   gather  readandinc
+calls:  142      142     2320      395     1391        0        0        0     
+number of processes/call 1.00e+00 1.00e+00 1.00e+00 0.00e+00 0.00e+00
+bytes total:             1.93e+05 6.13e+04 9.13e+04 0.00e+00 0.00e+00 0.00e+00
+bytes remote:            0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00
+Max memory consumed for GA by this process: 15288 bytes
+MA_summarize_allocated_blocks: starting scan ...
+MA_summarize_allocated_blocks: scan completed: 0 heap blocks, 0 stack blocks
+MA usage statistics:
+
+    allocation statistics:
+                          heap       stack
+                          ----       -----
+    current number of blocks             0           0
+    maximum number of blocks            24          51
+    current total bytes              0           0
+    maximum total bytes        2628088    22509808
+    maximum total K-bytes             2629       22510
+    maximum total M-bytes                3          23
+
+
+  </comment>
+  
+  <record repeat="4"/>
+  <record id="title">\s*{X,compchem:title}\s*</record>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  
+  <templateList xmlns:xi="http://www.w3.org/2001/XInclude">
+    <xi:include href="caching.xml"/>
+    <xi:include href="dft.info.xml"/>
+    <xi:include href="dft.xcinfo.xml"/>
+    <xi:include href="dft.gridinfo.xml"/>
+    <xi:include href="dft.convergeinfo.xml"/>
+    <xi:include href="dft.screentol.xml"/>
+    <xi:include href="guess.xml"/>
+    <xi:include href="quartets.xml"/>
+    <xi:include href="integralfile.xml"/>
+    <xi:include href="dft.gridpts.xml"/>
+    <xi:include href="dft.iter.xml"/>
+    <xi:include href="dft.final.xml"/>
+    <!-- <xi:include href="dft.final.mo.xml"/>  -->
+    <xi:include href="ga.stats.xml"/>
+    <xi:include href="ga.summary.xml"/>
+  </templateList>
+  
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+  
+  
+   <!--  Identify as a calculation -->
+   <transform process="addDictRef" 
+  xpath="."
+  value="compchem:calculation"
+  />
+  <transform process="addId" 
+  xpath="."
+  value="dft_energy"
+  />
+  
+  <!-- Create initialization module with parameterList and put variables in it -->
+  <transform process="addChild" 
+  xpath="." 
+  elementName="cml:module"
+  dictRef="compchem:initialization"
+  position="0"/>
+  
+  <transform process="addChild" 
+  xpath="./cml:module[@dictRef='compchem:initialization']" 
+  elementName="cml:parameterList"
+  />
+  
+    <!--  Create elements to identify this as an scf calculation -->
+  <transform process="addChild"
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"
+  elementName="cml:scalar"
+  dictRef="compchem:calculation_method"
+  value="dft"
+  />
+  <transform process="addChild"
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"
+  elementName="cml:scalar"
+  dictRef="compchem:calculation_type"
+  value="energy"
+  />
+  
+  <!-- Bit of a hack - move relevant compchem scalars into the parameterList -->
+  <transform process="move" 
+  xpath="./cml:scalar[@dictRef='compchem:title']"
+  to="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"/>
+  
+  <transform process="move" 
+  xpath="./cml:module[@cmlx:templateRef='dft_info']/cml:scalar[starts-with(@dictRef,'compchem:')]"
+  to="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"/>
+  
+  <!--  dft_functional_title -->
+  <transform process="move" 
+  xpath="./cml:module[@cmlx:templateRef='dft_xcinfo']/cml:scalar[@dictRef='compchem:dft_functional_title']"
+  to="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"/>
+  
+  <transform process="createWrapperParameter" 
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList/*" />
+  
+  
+  <!-- Create finalization module with propertyList and put results in it -->
+    <transform process="addChild" 
+  xpath="." 
+  elementName="cml:module"
+  id="finalization"
+  dictRef="compchem:finalization"
+  />
+  <transform process="addChild" 
+  xpath="./cml:module[@dictRef='compchem:finalization']" 
+  elementName="cml:propertyList"
+  />
+  <transform process="move"
+  xpath="./cml:module[@cmlx:templateRef='dft_final']/cml:scalar[starts-with(@dictRef,'compchem:')]"
+  to="./cml:module[@dictRef='compchem:finalization']/cml:propertyList"/>
+  
+  <transform process="createWrapperProperty" 
+  xpath="./cml:module[@dictRef='compchem:finalization']/cml:propertyList/*" />
+  
+  
+  <comment class="example.output" id="dft">
+<module/>
+  </comment>
+
+</template>
