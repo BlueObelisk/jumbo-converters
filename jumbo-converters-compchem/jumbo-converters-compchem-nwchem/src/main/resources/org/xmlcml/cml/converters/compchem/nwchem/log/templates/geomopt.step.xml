@@ -553,19 +553,18 @@ HF SCF optimisation  on water with STO-3G basis
   xpath="."
   value="step"/>
   
-  <!-- Copy first calculation initialization module and then just change
-  the calculation_type -->
+  <!-- Copy first calculation initialization module and then just change the task -->
   <transform process="copy"
   xpath="./cml:module[@cmlx:templateRef='nwchem_module'][position()=1]/cml:module[@dictRef='compchem:calculation']/cml:module[@dictRef='compchem:initialization']"  
   to="../../.."
   />
   <transform process="delete"
-  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:calculation_type']"
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:task']"
   />
   <transform process="addChild"
   xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"
   elementName="cml:scalar"
-  dictRef="compchem:calculation_type"
+  dictRef="compchem:task"
   value="step"
   />
   <transform process="createWrapperParameter"
@@ -573,17 +572,17 @@ HF SCF optimisation  on water with STO-3G basis
   />
   
      <!-- FILTHY HACK! -->
-  <!-- Move over the mp2 calculation_type - move not copy as we need to put at top of list _shudder_ 
+  <!-- Move over the mp2 method - move not copy as we need to put at top of list _shudder_ 
   Will fix when we can do tests and proper copies
   -->
   <transform process="moveRelative"
-  xpath="./cml:module[@cmlx:templateRef='nwchem_module'][position()=2]/cml:module[@dictRef='compchem:calculation']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:calculation_method']/cml:scalar[text()='mp2']"        
+  xpath="./cml:module[@cmlx:templateRef='nwchem_module'][position()=2]/cml:module[@dictRef='compchem:calculation']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:method']/cml:scalar[text()='mp2']"        
   to="../../../../../../cml:module[@dictRef='compchem:initialization']/cml:parameterList"
   position="1"
   /> 
   <transform process="addDictRef"
   xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:scalar[text()='mp2']"
-  value="compchem:calculation_method"
+  value="compchem:method"
   />
   <transform process="createWrapperParameter"
   xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:scalar[text()='mp2']"

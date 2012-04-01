@@ -65,19 +65,19 @@
   xpath="."
   value="geometry_optimization"/>
   
-  <!-- Copy over the first step's initialization module and just change the calculation_type -->
+  <!-- Copy over the first step's initialization module and just change the task -->
   <transform process="copy"
   xpath="./cml:module[@dictRef='compchem:calculation' and @id='step'][position()=1]/cml:module[@dictRef='compchem:initialization']"  
   to="../.."
   position="0"
   />
   <transform process="delete"
-  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:calculation_type']"
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:task']"
   />
   <transform process="addChild"
   xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"
   elementName="cml:scalar"
-  dictRef="compchem:calculation_type"
+  dictRef="compchem:task"
   value="geometry_optimization"
   />
   <transform process="createWrapperParameter"
