@@ -53,6 +53,10 @@ public class NWChemLog2CompchemConverterTest {
         nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:charge']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("0.0", nodes.get(0).getValue());
+        //compchem:pointgroup
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:pointgroup']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        assertFalse(nodes.isEmpty());
+        assertEquals("C2v", nodes.get(0).getValue());
         //compchem:basis_set_title
         nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:initialization']/cml:list[@dictRef='compchem:basis_set']/cml:scalar[@dictRef='compchem:basis_set_title']/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
