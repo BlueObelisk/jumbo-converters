@@ -52,6 +52,16 @@
   xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@cmlx:templateRef='nwchem_module'][position()=1]/cml:module[@dictRef='compchem:calculation']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter"        
   to="../../../../../cml:module[@id='job_initialization']/cml:parameterList"
   /> 
+  
+  <!-- Also the pointgroup from the geometry module -->
+  <transform process="copy"
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@id='job_initialization']/cml:module[@cmlx:templateRef='input_module']/cml:module[@cmlx:templateRef='geometry']/cml:module[@cmlx:templateRef='symminfo']/cml:scalar[@dictRef='compchem:pointgroup']"
+  to="../../../../../cml:module[@id='job_initialization']/cml:parameterList"
+  /> 
+  <transform process="createWrapperParameter"
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@id='job_initialization']/cml:parameterList/cml:scalar[@dictRef='compchem:pointgroup']"
+  />
+  
    <!-- FILTHY HACK! -->
   <!-- Move over the mp2 method - move not copy as we need to put at top of list _shudder_ 
   Will fix when we can do tests and proper copies

@@ -157,14 +157,19 @@ xmlns:nonsi="http://www.xml-cml.org/unit/nonSi/">
 	}
 	
 	@Test
-	public void testEnvironmentVersion() {
-		List<Node> nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:environment']/cml:parameterList/cml:parameter[@dictRef='compchem:version']/cml:scalar/text()", CMLConstants.CML_XPATH);
+	public void testEnvironmentProgram() {
+		List<Node> nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:environment']/cml:parameterList/cml:parameter[@dictRef='compchem:program']/cml:scalar/text()", CMLConstants.CML_XPATH);
 		assertFalse(nodes.isEmpty());
-		assertEquals("Development", nodes.get(0).getValue());
+		assertEquals("NWChem", nodes.get(0).getValue());
+	}
+	
+	@Test
+	public void testEnvironmentVersion() {
+	    List<Node> nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:environment']/cml:parameterList/cml:parameter[@dictRef='compchem:program_version']/cml:scalar/text()", CMLConstants.CML_XPATH);
+	    assertFalse(nodes.isEmpty());
+	    assertEquals("6.1", nodes.get(0).getValue());
 	}
 
-	
-	
 	@Test
 	public void testFindInitializationModule() {
 		List<Node> nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:initialization']", CMLConstants.CML_XPATH);
