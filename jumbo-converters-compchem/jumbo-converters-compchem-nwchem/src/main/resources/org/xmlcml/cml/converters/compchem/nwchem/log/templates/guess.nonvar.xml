@@ -14,8 +14,8 @@
 </comment>
   <record repeat="3"/>  
   <record id="total_energy" >\s*Total energy\s*=\s*{F,compchem:total_energy}\s*</record>
-  <record id="1e_energy" >\s*1-e energy\s*=\s*{F,compchem:1e_energy}\s*</record>
-  <record id="2e_energy" >\s*2-e energy\s*=\s*{F,compchem:2e_energy}\s*</record>
+  <record id="e1_energy" >\s*1-e energy\s*=\s*{F,compchem:e1_energy}\s*</record>
+  <record id="e2_energy" >\s*2-e energy\s*=\s*{F,compchem:e2_energy}\s*</record>
   <record id="homo">\s*HOMO\s*=\s*{F,n:homo}</record>
   <record id="homo">\s*LUMO\s*=\s*{F,n:lumo}</record>
   <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
@@ -23,7 +23,7 @@
 
   <!-- Add Units -->
   <transform process="addUnits"
-  xpath=".//cml:scalar[@dictRef='compchem:total_energy' or @dictRef='compchem:1e_energy' or @dictRef='compchem:2e_energy']"
+  xpath=".//cml:scalar[@dictRef='compchem:total_energy' or @dictRef='compchem:e1_energy' or @dictRef='compchem:e2_energy']"
   value="nonsi:hartree"
   />
 
@@ -31,8 +31,8 @@
   <comment class="example.output" id="nonvarinitener">
 <module cmlx:templateRef="nonvarinitener" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <scalar dataType="xsd:double" dictRef="compchem:total_energy" cmlx:templateRef="total_energy" units="nonsi:hartree">-1827.679833</scalar>
-  <scalar dataType="xsd:double" dictRef="compchem:1e_energy" cmlx:templateRef="1e_energy" units="nonsi:hartree">-4099.408592</scalar>
-  <scalar dataType="xsd:double" dictRef="compchem:2e_energy" cmlx:templateRef="2e_energy" units="nonsi:hartree">1473.233141</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:e1_energy" cmlx:templateRef="e1_energy" units="nonsi:hartree">-4099.408592</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:e2_energy" cmlx:templateRef="e2_energy" units="nonsi:hartree">1473.233141</scalar>
   <scalar dataType="xsd:double" dictRef="n:homo" cmlx:templateRef="homo">-0.328823</scalar>
   <scalar dataType="xsd:double" dictRef="n:lumo" cmlx:templateRef="homo">-0.090738</scalar>
 </module>
