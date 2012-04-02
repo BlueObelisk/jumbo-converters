@@ -41,13 +41,12 @@
   xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@id='job_initialization']/cml:module[@cmlx:templateRef='input_module']/cml:list[@id='basis_set'][position() = 1]"
   to="../../../cml:module[@id='job_initialization']"
   />
-  
   <!--  Delete summary_basis module -->
   <transform process="delete"
   xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@id='job_initialization']/cml:module[@cmlx:templateRef='input_module']//cml:module[@cmlx:templateRef='summarybasis']"
   />
   
- <!-- Now copy parameters from the first calculation initialization module into here -->
+  <!-- Now copy parameters from the first calculation initialization module into here -->
   <transform process="copy"
   xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@cmlx:templateRef='nwchem_module'][position()=1]/cml:module[@dictRef='compchem:calculation']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter"        
   to="../../../../../cml:module[@id='job_initialization']/cml:parameterList"
@@ -62,16 +61,22 @@
   xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@id='job_initialization']/cml:parameterList/cml:scalar[@dictRef='compchem:pointgroup']"
   />
   
+  <!-- Also the dft_funtional -->
+  <transform process="copy"
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@cmlx:templateRef='nwchem_module'][position()=1]/cml:module[@dictRef='compchem:calculation']/cml:module[@dictRef='compchem:initialization']/cml:list[@dictRef='compchem:dft_functional']"        
+  to="../../../../cml:module[@id='job_initialization']"
+  /> 
+  
    <!-- FILTHY HACK! -->
   <!-- Move over the mp2 method - move not copy as we need to put at top of list _shudder_ 
-  Will fix when we can do tests and proper copies
-  -->
+  Will fix when we can do tests and proper copies -->
+  
   <transform process="moveRelative"
   xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@cmlx:templateRef='nwchem_module'][position()=2]/cml:module[@dictRef='compchem:calculation']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:method']/cml:scalar[text()='mp2']"        
   to="../../../../../../cml:module[@id='job_initialization']/cml:parameterList"
   position="1"
   /> 
-    <transform process="addDictRef"
+  <transform process="addDictRef"
   xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@id='job_initialization']/cml:parameterList/cml:scalar[text()='mp2']"
   value="compchem:method"
   />
@@ -82,9 +87,15 @@
    
    <!-- FIXME - when we can do a test for the geometry optimisation, we can do this better. For now we just
    assume the above failed and do our own -->
+   <!--  parameters -->
    <transform process="copy"
   xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@cmlx:templateRef='geomopt']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter"        
   to="../../../../cml:module[@id='job_initialization']/cml:parameterList"
+  /> 
+  <!--  dft_functional -->
+   <transform process="copy"
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@cmlx:templateRef='geomopt']/cml:module[@dictRef='compchem:initialization']/cml:list[@dictRef='compchem:dft_functional']"        
+  to="../../../cml:module[@id='job_initialization']"
   /> 
   
 

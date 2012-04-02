@@ -347,14 +347,20 @@ MA usage statistics:
   xpath="./cml:module[@cmlx:templateRef='dft_info']/cml:scalar[starts-with(@dictRef,'compchem:')]"
   to="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"/>
   
-  <!--  dft_functional_title -->
-  <transform process="move" 
-  xpath="./cml:module[@cmlx:templateRef='dft_xcinfo']/cml:scalar[@dictRef='compchem:dft_functional_title']"
-  to="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"/>
-  
   <transform process="createWrapperParameter" 
   xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList/*" />
   
+  <!--  Create dft_functional as cml list and move title into it -->
+    <transform process="addChild"
+  xpath="./cml:module[@dictRef='compchem:initialization']"
+  elementName="cml:list"
+  dictRef="compchem:dft_functional"
+  id="dft_functional"
+  />
+  <transform process="move" 
+  xpath="./cml:module[@cmlx:templateRef='dft_xcinfo']/cml:scalar[@dictRef='compchem:dft_functional_title']"
+  to="./cml:module[@dictRef='compchem:initialization']/cml:list[@dictRef='compchem:dft_functional']"
+  />
   
   <!-- Create finalization module with propertyList and put results in it -->
     <transform process="addChild" 
