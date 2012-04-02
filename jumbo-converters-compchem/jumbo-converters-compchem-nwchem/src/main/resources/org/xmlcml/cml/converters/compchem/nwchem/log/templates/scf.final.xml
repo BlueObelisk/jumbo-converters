@@ -60,8 +60,8 @@ endPattern=".*"
 
 <record repeat="3"/>
 <record id="total_energy" >\s*Total SCF energy\s*=\s*{F,compchem:total_energy}\s*</record>
-<record id="1e_energy" >\s*One-electron energy\s*=\s*{F,compchem:1e_energy}\s*</record>
-<record id="2e_energy" >\s*Two-electron energy\s*=\s*{F,compchem:2e_energy}\s*</record>
+<record id="e1_energy" >\s*One-electron energy\s*=\s*{F,compchem:e1_energy}\s*</record>
+<record id="e2_energy" >\s*Two-electron energy\s*=\s*{F,compchem:e2_energy}\s*</record>
 <record id="nuclear_repulsion_energy" >\s*Nuclear repulsion energy\s*=\s*{F,compchem:nuclear_repulsion_energy}\s*</record>
 
 
@@ -103,8 +103,8 @@ endPattern2="~"
   <comment class="example.output" id="scf.final">
 <module cmlx:templateRef="scf.final" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <scalar dataType="xsd:double" dictRef="compchem:total_energy" cmlx:templateRef="total_energy" units="nonsi:hartree">-134.684334043866</scalar>
-  <scalar dataType="xsd:double" dictRef="compchem:1e_energy" cmlx:templateRef="1e_energy" units="nonsi:hartree">-233.466922651842</scalar>
-  <scalar dataType="xsd:double" dictRef="compchem:2e_energy" cmlx:templateRef="2e_energy" units="nonsi:hartree">98.782588607976</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:e1_energy" cmlx:templateRef="e1_energy" units="nonsi:hartree">-233.466922651842</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:e2_energy" cmlx:templateRef="e2_energy" units="nonsi:hartree">98.782588607976</scalar>
   <scalar dataType="xsd:double" dictRef="compchem:nuclear_repulsion_energy" cmlx:templateRef="nuclear_repulsion_energy" units="nonsi:hartree">0.0</scalar>
   <scalar dataType="xsd:double" dictRef="compchem:walltime" cmlx:templateRef="scf_time" units="si:s">81.8</scalar>
 </module>

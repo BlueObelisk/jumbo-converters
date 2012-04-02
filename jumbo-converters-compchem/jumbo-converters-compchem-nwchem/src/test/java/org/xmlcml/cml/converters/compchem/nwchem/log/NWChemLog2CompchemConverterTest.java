@@ -69,8 +69,8 @@ public class NWChemLog2CompchemConverterTest {
         nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initial_guess']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:task']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("initial_guess", nodes.get(0).getValue());
-        // 1e_energy for initial_guess
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initial_guess']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:1e_energy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        // e1_energy for initial_guess
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initial_guess']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:e1_energy']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-121.780484", nodes.get(0).getValue());
         // 2nd SCF iteration total_energy
@@ -110,8 +110,8 @@ public class NWChemLog2CompchemConverterTest {
         nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initial_guess']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:task']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("initial_guess", nodes.get(0).getValue());
-        // 1e_energy for initial_guess
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initial_guess']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:1e_energy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        // e1_energy for initial_guess
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initial_guess']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:e1_energy']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-121.780484", nodes.get(0).getValue());
         // 2nd SCF iteration total_energy
@@ -151,8 +151,8 @@ public class NWChemLog2CompchemConverterTest {
         nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initial_guess']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:task']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("initial_guess", nodes.get(0).getValue());
-        // 1e_energy for initial_guess
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initial_guess']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:1e_energy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        // e1_energy for initial_guess
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initial_guess']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:e1_energy']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-121.780484", nodes.get(0).getValue());
         // 2nd DFT iteration energy
@@ -260,8 +260,8 @@ public class NWChemLog2CompchemConverterTest {
         nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initial_guess']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:task']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("initial_guess", nodes.get(0).getValue());
-        // 1e_energy for initial_guess
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initial_guess']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:1e_energy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        // e1_energy for initial_guess
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initial_guess']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:e1_energy']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-709.201704", nodes.get(0).getValue());
         // 2nd SCF iteration total_energy
