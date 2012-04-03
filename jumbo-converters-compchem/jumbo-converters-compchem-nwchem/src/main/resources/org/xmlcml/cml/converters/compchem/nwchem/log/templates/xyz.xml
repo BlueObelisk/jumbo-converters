@@ -16,7 +16,7 @@
 
   </comment>
   <record repeat="2"/>
-  <record id="atoms">\s*{I,compchem:natoms}\s*</record>
+  <record id="atoms">\s*{I,compchem:num_atoms}\s*</record>
   <record id="geo">\s*{A,n:geomtype}\s*</record>
   <record makeArray="true" repeat="*" 
       id="mol">\s*{A,compchem:elementType}\s*{F,compchem:x3}\s*{F,compchem:y3}\s*{F,compchem:z3}\s*</record>
@@ -30,7 +30,7 @@
   
   <comment class="example.output" id="xyz">
     <module cmlx:templateRef="xyz" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <scalar dataType="xsd:integer" dictRef="compchem:natoms" cmlx:templateRef="atoms">11</scalar>
+      <scalar dataType="xsd:integer" dictRef="compchem:num_atoms" cmlx:templateRef="atoms">11</scalar>
       <scalar dataType="xsd:string" dictRef="n:geomtype" cmlx:templateRef="geo">geometry</scalar>
       <molecule id="xyz" cmlx:templateRef="mol">
         <atomArray>
