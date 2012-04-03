@@ -59,6 +59,18 @@
     />
     
     <transform process="delete" xpath=".//@cmlx:lineCount" />
+    
+    <!-- Below to 'purge' the cml and completely remove anything that's not in the compchem dictionary -->
+    <!-- 
+    <transform process="delete" xpath=".//@cmlx:templateRef" />
+    <transform process="delete" xpath=".//cml:module[not(starts-with(@dictRef,'compchem:'))]" />
+    <transform process="delete" xpath=".//cml:module/text()" />
+    <transform process="delete" xpath=".//cml:scalar[not(starts-with(@dictRef,'compchem:')) and not(parent::cml:parameter or parent::cml:property)]" />
+    <transform process="delete" xpath="./text()" />
+    <transform process="delete" xpath="//cml:list[count(*)=0]" />
+    <transform process="delete" xpath="//cml:list[count(*)=0]" />
+    <transform process="delete" xpath="//@id[starts-with(.,'copy')]" />
+     -->
   
 </transformList>    
  
