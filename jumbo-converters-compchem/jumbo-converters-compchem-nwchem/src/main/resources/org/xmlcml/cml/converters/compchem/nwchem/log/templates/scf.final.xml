@@ -17,7 +17,6 @@
 
 </comment>
 
-<comment>
 <comment class="example.input" id="scf.final.uhf">
        Final UHF  results 
        ------------------ 
@@ -36,43 +35,22 @@
 
 </comment>
 
-The below highlights one bug (unless the regexp is incorrect)
-<record repeat="1" id="sz">\s*Sz =\s*{F,n:sz}\s*</record>
-<record repeat="1" id="sz2">\s*Sz\(Sz\+1\) =\s*{F,n:sz2}\s*</record>
-<record repeat="1" id="s2">\s*S\^2 =\s*{F,n:s2}\s*</record>
-<record repeat="1" id="shouldfail">foobar</record>
-
-Another occurred when I tried to read the time in with the below template i.e. without endPattern2
-It seems that the blank lines at the bottom of the example template are being discarded?
-
-<templateList>
-<template id="scf_time"
-repeat="*"
-pattern="\s*Time for solution=.*"
-endPattern=".*"
->
-<record id="scf_time" >\s*Time for solution =\s*{F,n:time}s\s*</record>
-</template>
-</templateList>
-
-</comment>
-
-
 <record repeat="3"/>
 <record id="total_energy" >\s*Total SCF energy\s*=\s*{F,compchem:total_energy}\s*</record>
-<record id="e1_energy" >\s*One-electron energy\s*=\s*{F,compchem:e1_energy}\s*</record>
-<record id="e2_energy" >\s*Two-electron energy\s*=\s*{F,compchem:e2_energy}\s*</record>
+<record id="e1_energy" >\s*One.?electron energy\s*=\s*{F,compchem:e1_energy}\s*</record>
+<record id="e2_energy" >\s*Two.?electron energy\s*=\s*{F,compchem:e2_energy}\s*</record>
 <record id="nuclear_repulsion_energy" >\s*Nuclear repulsion energy\s*=\s*{F,compchem:nuclear_repulsion_energy}\s*</record>
 
 
 <templateList>
-
 <template id="s2"
 repeat="*"
 pattern="\s*Sz =.*"
 endPattern="\s*"
 >
-<record id="s2" repeat="*">\s*{X,n:unparsed}\s*</record>
+<record repeat="1" id="sz">\s*Sz =\s*{F,n:sz}\s*</record>
+<record repeat="1" id="sz2">\s*Sz\(Sz\+1\) =\s*{F,n:sz2}\s*</record>
+<record repeat="1" id="s2">\s*S\^2 =\s*{F,n:s2}\s*</record>
 </template>
 
 <template id="scf_time"
@@ -92,7 +70,7 @@ endPattern2="~"
 
   <!-- Add Units -->
   <transform process="addUnits"
-  xpath=".//cml:scalar[@dictRef='compchem:total_energy' or @dictRef='compchem:1e_energy' or @dictRef='compchem:2e_energy' or @dictRef='compchem:nuclear_repulsion_energy']"
+  xpath=".//cml:scalar[@dictRef='compchem:total_energy' or @dictRef='compchem:e1_energy' or @dictRef='compchem:e2_energy' or @dictRef='compchem:nuclear_repulsion_energy']"
   value="nonsi:hartree"
   />
   <transform process="addUnits"
@@ -111,7 +89,18 @@ endPattern2="~"
     </comment>
     
   <comment class="example.output" id="scf.final.uhf">
-  <module/>
+<module cmlx:templateRef="scf.final" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <scalar dataType="xsd:double" dictRef="compchem:total_energy" cmlx:templateRef="total_energy" units="nonsi:hartree">-74.962985614676</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:e1_energy" cmlx:templateRef="e1_energy" units="nonsi:hartree">-122.365858398494</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:e2_energy" cmlx:templateRef="e2_energy" units="nonsi:hartree">38.210778115161</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:nuclear_repulsion_energy" cmlx:templateRef="nuclear_repulsion_energy" units="nonsi:hartree">9.192094668657</scalar>
+  <module cmlx:lineCount="3" cmlx:templateRef="s2">
+    <scalar dataType="xsd:double" dictRef="n:sz" cmlx:templateRef="sz">0.0</scalar>
+    <scalar dataType="xsd:double" dictRef="n:sz2" cmlx:templateRef="sz2">0.0</scalar>
+    <scalar dataType="xsd:double" dictRef="n:s2" cmlx:templateRef="s2">-0.0</scalar>
+  </module>
+  <scalar dataType="xsd:double" dictRef="compchem:walltime" cmlx:templateRef="scf_time" units="si:s">0.0</scalar>
+</module>
   </comment>
     
 

@@ -87,7 +87,7 @@ public class NWChemLog2CompchemConverterTest {
         assertEquals("0.0", nodes.get(0).getValue());
     }
     
-    @Ignore @Test
+    @Test
     public void testH2oSto3gUhf() throws Exception {
         Document doc = convertFile( FILE_DIRECTORY+"h2o_sto3g_uhf.nwo" );
         //compchem:method
@@ -102,10 +102,26 @@ public class NWChemLog2CompchemConverterTest {
         nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:charge']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("0.0", nodes.get(0).getValue());
+        //compchem:pointgroup
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:pointgroup']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        assertFalse(nodes.isEmpty());
+        assertEquals("C2v", nodes.get(0).getValue());
+        //compchem:basis_set_title
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:initialization']/cml:list[@dictRef='compchem:basis_set']/cml:scalar[@dictRef='compchem:basis_set_title']/text()", CMLConstants.CML_XPATH);
+        assertFalse(nodes.isEmpty());
+        assertEquals("sto-3g", nodes.get(0).getValue());
         //compchem:wavefunction_type
         nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:wavefunction_type']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("UHF", nodes.get(0).getValue());
+        //compchem:num_alpha_electrons
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:num_alpha_electrons']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        assertFalse(nodes.isEmpty());
+        assertEquals("5", nodes.get(0).getValue());
+        //compchem:num_beta_electrons - FIXME!
+//        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:num_beta_electrons']/cml:scalar/text()", CMLConstants.CML_XPATH);
+//        assertFalse(nodes.isEmpty());
+//        assertEquals("5", nodes.get(0).getValue());
         // task for initial_guess
         nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initial_guess']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:task']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
@@ -121,8 +137,14 @@ public class NWChemLog2CompchemConverterTest {
         //Final total_energy
         nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:total_energy']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
-        assertEquals("-74.962985614357", nodes.get(0).getValue());
+        assertEquals("-74.962985614676", nodes.get(0).getValue());
+        // scf walltime
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:walltime']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        assertFalse(nodes.isEmpty());
+        assertEquals("0.0", nodes.get(0).getValue());
     }
+    
+
     
     @Test
     public void testH2oSto3gDftB3lyp() throws Exception {
