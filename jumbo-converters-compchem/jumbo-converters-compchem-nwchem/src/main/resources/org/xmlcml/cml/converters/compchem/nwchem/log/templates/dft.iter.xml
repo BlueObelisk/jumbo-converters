@@ -1,9 +1,9 @@
-<template repeat="*"  id="convergenceiter" name="Convergence Iteration" 
+<template repeat="*"  id="dft_iterations" name="DFT Iterations" 
   pattern="\s*convergence\s+iter.*$\s+\-+.*" endPattern="\s*"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   >
 
-  <comment class="example.input" id="convergenceiter">
+  <comment class="example.input" id="dft_iterations">
    convergence    iter        energy       DeltaE   RMS-Dens  Diis-err    time
  ---------------- ----- ----------------- --------- --------- ---------  ------
  d= 0,ls=0.0,diis     1  -1822.8247493675 -2.62D+03  6.20D-02  9.95D+00     1.9
@@ -13,7 +13,7 @@
 
    </comment>
    
-  <comment class="example.input" id="convergenceiter1">
+  <comment class="example.input" id="dft_iterations1">
    convergence    iter        energy       DeltaE   RMS-Dens  Diis-err    time
  ---------------- ----- ----------------- --------- --------- ---------  ------
  d= 0,ls=0.0,diis     1   -311.0881921353 -6.40D+02  5.05D-04  2.21D-03   110.6
@@ -132,8 +132,8 @@
   <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
    -->
    
-  <comment class="example.output" id="convergenceiter">
-<module cmlx:templateRef="convergenceiter" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <comment class="example.output" id="dft_iterations">
+<module cmlx:templateRef="dft_iterations" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <module id="iteration" dictRef="compchem:calculation">
     <scalar dataType="xsd:integer" dictRef="n:d">0</scalar>
     <module id="initialization" dictRef="compchem:initialization">
@@ -227,8 +227,8 @@
 </module>
   </comment>
   
-  <comment class="example.output" id="convergenceiter1">
-<module cmlx:templateRef="convergenceiter" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <comment class="example.output" id="dft_iterations1">
+<module cmlx:templateRef="dft_iterations" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <module id="iteration" dictRef="compchem:calculation">
     <scalar dataType="xsd:integer" dictRef="n:d">0</scalar>
     <module id="initialization" dictRef="compchem:initialization">
