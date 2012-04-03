@@ -1245,6 +1245,33 @@ public class TemplateTest {
 		JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
 	}
 
+	   @Test
+	    public void testTemplateRecordsReadFail() {
+	        String templateS = 
+	            "<template id='book' name='test' pattern='' dictRef=''>" +
+	            "  <templateList>" +
+	            "    <template repeatCount='*' pattern='.*start.*' id='s1' endPattern='.*end.*' endOffset='1'>" +
+	            "      <record id='r2'>Skip this line</record>" +
+	            "      <record id='r2'>Read me {I,n:foo}.*</record>" +
+	            "    </template>" +
+	            "  </templateList>" +
+	            "</template>";
+	        Template template = new Template(CMLUtil.parseXML(templateS));
+	        String toBeParsed = "" +
+	            "start\n"+
+	            "Do not read me\n"+
+	            "Read me 1\n"+
+	            "end\n"+
+	            "";
+	        template.applyMarkup(toBeParsed);
+	        LineContainer lineContainer = template.getLineContainer();
+	        Assert.assertNotNull(lineContainer);
+	        String refS = 
+	              "<module/>";
+	        
+	        JumboTestUtils.assertEqualsCanonically("offset 10 repeat", refS, lineContainer.getLinesElement(), true);
+	    }
+	
 	@Test
 	public void testTemplateNew() {
 		String templateS = 
