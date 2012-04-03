@@ -299,6 +299,14 @@ MA usage statistics:
     <xi:include href="ga.summary.xml"/>
   </templateList>
   
+  <!-- Pull up the iterations out of their module and into this one -->
+  <transform process="pullup"
+  xpath="./cml:module[@cmlx:templateRef='dft_iterations']/cml:module[@dictRef='compchem:calculation']"
+  />
+  <transform process="delete"
+  xpath="./cml:module[@cmlx:templateRef='dft_iterations']"
+  />
+  
   <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
   
   
