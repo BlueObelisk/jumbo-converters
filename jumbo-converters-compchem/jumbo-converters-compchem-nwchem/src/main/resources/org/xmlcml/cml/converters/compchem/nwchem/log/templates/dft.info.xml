@@ -32,7 +32,7 @@
   <!-- Below is a hard-coded string so we can ignore result -->
   <record repeat="1" id="scftype">\s*SCF calculation type:\s*{A,n:scftype}\s*</record>
   <record repeat="1" id="wavefunction_type">\s*Wavefunction type:\s*{X,compchem:wavefunction_type}\.\s*</record>
-  <record repeat="1" id="natoms">\s*No. of atoms     :\s*{I,compchem:num_atoms}\s*</record>
+  <record repeat="1" id="num_atoms">\s*No. of atoms     :\s*{I,compchem:num_atoms}\s*</record>
   <record repeat="1" id="nelec">\s*No. of electrons :\s*{I,compchem:num_electrons}\s*</record>
   <record repeat="1" id="nalpha">\s*Alpha electrons :\s*{I,compchem:num_alpha_electrons}\s*</record>
   <record repeat="1" id="nbeta">\s*Beta electrons :\s*{I,compchem:num_beta_electrons}\s*</record>
@@ -53,7 +53,7 @@
 <module cmlx:templateRef="dft_info" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <scalar dataType="xsd:string" dictRef="n:scftype" cmlx:templateRef="scftype">DFT</scalar>
   <scalar dataType="xsd:string" dictRef="compchem:wavefunction_type" cmlx:templateRef="wavefunction_type">closed shell</scalar>
-  <scalar dataType="xsd:integer" dictRef="compchem:num_atoms" cmlx:templateRef="natoms">11</scalar>
+  <scalar dataType="xsd:integer" dictRef="compchem:num_atoms" cmlx:templateRef="num_atoms">11</scalar>
   <scalar dataType="xsd:integer" dictRef="compchem:num_electrons" cmlx:templateRef="nelec">96</scalar>
   <scalar dataType="xsd:integer" dictRef="compchem:num_alpha_electrons" cmlx:templateRef="nalpha">48</scalar>
   <scalar dataType="xsd:integer" dictRef="compchem:num_beta_electrons" cmlx:templateRef="nbeta">48</scalar>
