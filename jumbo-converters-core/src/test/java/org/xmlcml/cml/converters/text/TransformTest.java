@@ -9,10 +9,8 @@ import org.junit.Test;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLArray;
-import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLMap;
-import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLScalar;
 import org.xmlcml.cml.testutil.JumboTestUtils;
 
@@ -188,6 +186,17 @@ public class TransformTest {
 		} catch (Exception e) {
 		}
 	}
+	
+	@Test 
+	@Ignore // not yet running
+	public void testReflection() {
+		runTestCML("moleculeReflection", 
+			"<transform process='reflect' xpath='.' method='calculateFormalCharge' />",
+			"<cml:molecule xmlns:cml='http://www.xml-cml.org/schema'><cml:atomArray><cml:atom id='a1' formalCharge='-2'/></cml:atomArray></cml:molecule>",
+			"<molecule xmlns='http://www.xml-cml.org/schema'><atomArray><atom id='a1' formalCharge='-2'/></atomArray></molecule>"
+
+			);
+	} 
 	
 	@Test 
 	@Ignore // it actually works but my comparator doesn't compare prefixed and no-prifixed elements OK
@@ -566,6 +575,15 @@ public class TransformTest {
 			"<transform process='createInteger' xpath='.'/>",
 			new CMLScalar("12"),
 			"<scalar dataType='xsd:integer' xmlns='http://www.xml-cml.org/schema'>12</scalar>"
+			);
+	}
+	
+	@Test 
+	public void testCreateList() {
+		runTest("createList", 
+			"<transform process='addSibling' xpath='cml:module' elementName='cml:list' id='list' position='0'/>",
+			"<cml xmlns='http://www.xml-cml.org/schema'><module id='mod'><scalar id='scal' dataType='xsd:string'>X</scalar></module></cml>",
+			"<cml xmlns='http://www.xml-cml.org/schema'><list id='list'/><module id='mod'><scalar id='scal' dataType='xsd:string'>X</scalar></module></cml>"
 			);
 	}
 	
@@ -1399,6 +1417,15 @@ public class TransformTest {
 	private static void runTest(String message, String transformXML, String inputXML, String refXML) {
 		Element transformElem = CMLUtil.parseXML(transformXML);
 		Element testElement = CMLUtil.parseXML(inputXML);
+//		CMLElement testElementCML = CMLElement.createCMLElement(testElement);
+		MarkupApplier transformElement = new TransformElement(transformElem);
+		transformElement.applyMarkup(testElement);
+		JumboTestUtils.assertEqualsCanonically(message, refXML, testElement, true);
+	}
+	
+	private static void runTestCML(String message, String transformXML, String inputXML, String refXML) {
+		Element transformElem = CMLUtil.parseXML(transformXML);
+		CMLElement testElement = CMLUtil.parseCML(inputXML);
 		MarkupApplier transformElement = new TransformElement(transformElem);
 		transformElement.applyMarkup(testElement);
 		JumboTestUtils.assertEqualsCanonically(message, refXML, testElement, true);
