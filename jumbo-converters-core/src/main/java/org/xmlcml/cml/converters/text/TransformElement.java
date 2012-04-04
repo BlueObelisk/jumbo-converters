@@ -1,9 +1,9 @@
 package org.xmlcml.cml.converters.text;
 
 import java.io.FileInputStream;
-
 import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -98,6 +98,7 @@ public class TransformElement implements MarkupApplier {
 	private static final String INPUT               = "input";
 	private static final String KEY                 = "key";
 	private static final String MAP                 = "map";
+	private static final String METHOD              = "method";
 	private static final String NAME                = "name";
 	private static final String OUTPUT              = "output";
 	private static final String POSITION            = "position";
@@ -131,6 +132,7 @@ public class TransformElement implements MarkupApplier {
 		INPUT, 
 		KEY,
 		MAP,
+		METHOD,
 		NAME,
 		OUTPUT,
 		POSITION,
@@ -199,6 +201,7 @@ public class TransformElement implements MarkupApplier {
 	private static final String PULLUP                 = "pullup";
 	private static final String PULLUP_SINGLETON       = "pullupSingleton";
 	private static final String READ                   = "read";
+	private static final String REFLECT                = "reflect";
 	private static final String REPARSE                = "reparse";
 	private static final String RENAME                 = "rename";
 	private static final String SET_VALUE              = "setValue";
@@ -273,6 +276,7 @@ public class TransformElement implements MarkupApplier {
 		MOVE_RELATIVE,
 		PULLUP_SINGLETON,
 		READ,
+		REFLECT,
 		REPARSE,
 		RENAME,
 		SET_VALUE,
@@ -311,6 +315,7 @@ public class TransformElement implements MarkupApplier {
 	private String input;
 	private String key;
 	private String map;
+	private String method;
 	private String name;
 	private String output;
 	private String position;
@@ -414,6 +419,7 @@ public class TransformElement implements MarkupApplier {
 		input                  = addAndIndexAttribute(INPUT);
 		key                    = addAndIndexAttribute(KEY);
 		map                    = addAndIndexAttribute(MAP);
+		method                 = addAndIndexAttribute(METHOD);
 		name                   = addAndIndexAttribute(NAME);
 		output                 = addAndIndexAttribute(OUTPUT);
 		position               = addAndIndexAttribute(POSITION);
@@ -558,6 +564,8 @@ public class TransformElement implements MarkupApplier {
 			read();
 		} else if (RENAME.equals(process)) {
 			rename();
+		} else if (REFLECT.equals(process)) {
+			reflect();
 		} else if (REPARSE.equals(process)) {
 			reparse();
 		} else if (SET_DATATYPE.equals(process)) {
@@ -1880,6 +1888,38 @@ public class TransformElement implements MarkupApplier {
 			LOG.warn("Cannot parse as element "+input);
 		}
 		return element;
+	}
+
+	/**
+	 * still under development
+	 */
+	private void reflect() {
+		assertRequired(XPATH, xpath);
+		assertRequired(METHOD, method);
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) {
+			// only works for CML at present		}
+			if (node instanceof CMLElement) {
+				CMLElement element = (CMLElement) node;
+				Class clazz = element.getClass();
+				Method[] javaMethods = clazz.getMethods();
+				for (Method javaMethod : javaMethods) {
+					if (method.equals(javaMethod.getName())) {
+						System.out.println(">"+method);
+						 Type[] types = javaMethod.getGenericParameterTypes();
+						 for (Type type : types) {
+							 System.out.println(">>>> "+type);
+						 }
+						 try {
+							 Object result = javaMethod.invoke(element/*, args*/);
+							 System.out.println(result);
+						 } catch (Exception e) {
+							 System.out.println("method failed"+ e);
+						 }
+					}
+				}
+			}
+		}
 	}
 
     private void rename() {

@@ -1246,6 +1246,7 @@ public class TemplateTest {
 	}
 
 	   @Test
+	   @Ignore
 	    public void testTemplateRecordsReadFail() {
 	        String templateS = 
 	            "<template id='book' name='test' pattern='' dictRef=''>" +
