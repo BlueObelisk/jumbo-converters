@@ -1,5 +1,5 @@
 <template
-  id="mp2_module"
+  id="mp2Module"
   name="NWChem MP2 Module" 
   repeat="*"
   pattern="\s*NWChem MP2 Semi-direct Energy/Gradient Module\s*$\s+\-+.*"
@@ -128,11 +128,10 @@ MA usage statistics:
   />
   <transform process="addId" 
   xpath="."
-  value="mp2_energy"
+  value="mp2Energy"
   />
   
-  <!--  Create initilization module -->
-     <!-- Create initialization module with parameterList and put variables in it -->
+   <!-- Create initialization module with parameterList and put variables in it -->
    <transform process="addChild" 
   xpath="." 
   elementName="cml:module"
@@ -172,6 +171,7 @@ MA usage statistics:
       <xi:include href="times.xml"/>
       <xi:include href="ga.stats.xml"/>
       <xi:include href="ga.summary.xml"/>
+      
   </templateList>
   
   <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
@@ -197,7 +197,107 @@ MA usage statistics:
   
 
   <comment class="example.output" id="nwchemmp2">
-<module/>
+<module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="mp2Module" dictRef="compchem:calculation" id="mp2Energy">
+<module dictRef="compchem:initialization">
+<parameterList>
+<parameter dictRef="compchem:method">
+<scalar dataType="xsd:string">mp2</scalar>
+</parameter>
+<parameter dictRef="compchem:task">
+<scalar dataType="xsd:string">energy</scalar>
+</parameter>
+<parameter dictRef="compchem:title">
+<scalar dataType="xsd:string" cmlx:templateRef="r1">MP2 calculation on water with STO-3G basis</scalar>
+</parameter>
+</parameterList>
+</module>
+<scalar dataType="xsd:integer" dictRef="n:num_mos" cmlx:templateRef="num_mos">7</scalar>
+<scalar dataType="xsd:integer" dictRef="n:num_frozen_core" cmlx:templateRef="num_frozen_core">0</scalar>
+<scalar dataType="xsd:integer" dictRef="n:num_frozen_virtuals" cmlx:templateRef="num_frozen_virtuals">0</scalar>
+<scalar dataType="xsd:integer" dictRef="n:num_active_alpha_occ" cmlx:templateRef="num_active_alpha_occ">5</scalar>
+<scalar dataType="xsd:integer" dictRef="n:num_active_beta_occ" cmlx:templateRef="num_active_beta_occ">5</scalar>
+<scalar dataType="xsd:integer" dictRef="n:num_active_alpha_virt" cmlx:templateRef="num_active_alpha_virt">2</scalar>
+<scalar dataType="xsd:integer" dictRef="n:num_active_beta_virt" cmlx:templateRef="num_active_beta_virt">2</scalar>
+<scalar dataType="xsd:string" dictRef="n:use_mo_sym" cmlx:templateRef="use_mo_sym">T</scalar>
+<scalar dataType="xsd:string" dictRef="n:use_skel_ao_sym" cmlx:templateRef="use_skel_ao_sym">T</scalar>
+<list cmlx:templateRef="ao_fock_back_tols">
+<array dataType="xsd:double" size="3" dictRef="n:ao_fock_back_tols">1.0E-9 1.0E-9 1.0E-9</array>
+</list> GA uses MA = F    GA memory limited = T
+ Available: 
+  local mem=  1.15D+07
+ global mem=  2.62D+07
+ local disk=  1.09D+07
+   1 passes of   5:         131729                        191                       316.
+ Semi-direct pass number   1 of   1  for RHF alpha+beta  at        0.2s
+Node 0 wrote      0.0 Mb in      0.0 s     Agg I/O rate:    11.5 Mb/s
+ Done moints_semi at        0.2s
+ Done maket at        0.2s
+ Done multipass loop at        0.2s
+<module cmlx:lineCount="7" cmlx:templateRef="mp2_final">
+<scalar dataType="xsd:double" dictRef="n:singletPairs" cmlx:templateRef="singletPairs">-0.032481632032</scalar>
+<scalar dataType="xsd:double" dictRef="n:tripletPairs" cmlx:templateRef="tripletPairs">-0.003042377479</scalar>
+</module> -----------------------
+ Performance information
+ -----------------------
+ Timer overhead =  5.22D-07 seconds/call
+               Nr. of calls         CPU time (s)                 Wall time (s)                GFlops
+             ---------------    -------------------     ------------------------------   -------------------
+Name         Min   Avg   Max    Min     Avg     Max     Min     Avg     Max   Mx/calls   Min     Max     Sum
+mp2: moin     1     1     1   8.66E-3 8.66E-3 8.66E-3  1.04E-2 1.04E-2 1.04E-2 1.04E-2   0.0     0.0     0.0   
+mp2: make     1     1     1   2.00E-4 2.00E-4 2.00E-4  2.00E-4 2.00E-4 2.00E-4 2.00E-4   0.0     0.0     0.0   
+mp2: tota     1     1     1   1.93E-2 1.93E-2 1.93E-2  2.28E-2 2.28E-2 2.28E-2 2.28E-2   0.0     0.0     0.0   
+ The average no. of pstat calls per process was 3.00D+00
+ with a timing overhead of 1.57D-06s
+<module cmlx:lineCount="1" cmlx:templateRef="times">
+<scalar dataType="xsd:string" dictRef="n:timetype">Task</scalar>
+<scalar dataType="xsd:double" dictRef="compchem:cpuTime" units="si:s">0.1</scalar>
+<scalar dataType="xsd:double" dictRef="compchem:wallTime" units="si:s">0.2</scalar>
+</module>
+<module cmlx:lineCount="3" cmlx:templateRef="summary_global_arrays">
+<list cmlx:templateRef="globalarrays">
+<scalar dataType="xsd:string" dictRef="n:globalarrays">No active global arrays</scalar>
+</list>
+</module>
+<module cmlx:lineCount="22" cmlx:templateRef="gastats">
+<list cmlx:templateRef="unparsed">
+<scalar dataType="xsd:string" dictRef="n:unparsed">GA Statistics for process    0</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">------------------------------</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed" />
+<scalar dataType="xsd:string" dictRef="n:unparsed">create   destroy   get      put      acc     scatter   gather  readandinc</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">calls:  333      333     2093     1019     1417        0        0        0</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">number of processes/call 1.00e+00 1.00e+00 1.00e+00 0.00e+00 0.00e+00</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">bytes total:             2.08e+05 1.21e+05 7.08e+04 0.00e+00 0.00e+00 0.00e+00</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">bytes remote:            0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">Max memory consumed for GA by this process: 5448 bytes</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">MA_summarize_allocated_blocks: starting scan ...</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">MA_summarize_allocated_blocks: scan completed: 0 heap blocks, 0 stack blocks</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">MA usage statistics:</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed" />
+<scalar dataType="xsd:string" dictRef="n:unparsed">allocation statistics:</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">heap       stack</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">----       -----</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">current number of blocks             0           0</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">maximum number of blocks            18          22</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">current total bytes              0           0</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">maximum total bytes        1053744    22509032</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">maximum total K-bytes             1054       22510</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">maximum total M-bytes                2          23</scalar>
+</list>
+</module>
+<module id="finalization" dictRef="compchem:finalization">
+<propertyList>
+<property dictRef="compchem:scfEnergy">
+<scalar dataType="xsd:double" cmlx:templateRef="scfEnergy" units="nonsi:hartree">-74.962985614677</scalar>
+</property>
+<property dictRef="compchem:correlationEnergy">
+<scalar dataType="xsd:double" cmlx:templateRef="correlationEnergy" units="nonsi:hartree">-0.035524009511</scalar>
+</property>
+<property dictRef="compchem:totalEnergy">
+<scalar dataType="xsd:double" cmlx:templateRef="totalEnergy" units="nonsi:hartree">-74.998509624188</scalar>
+</property>
+</propertyList>
+</module>
+</module>
 </comment>
 
 </template>

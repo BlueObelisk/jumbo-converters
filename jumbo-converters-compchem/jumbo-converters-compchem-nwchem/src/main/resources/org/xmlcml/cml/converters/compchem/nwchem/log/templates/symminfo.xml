@@ -28,11 +28,11 @@
   </comment>
   
   <record id="rl1" repeat="3"/>
-  <record id="pointgroup" repeat="1">\s*Group name\s*{A,compchem:pointgroup}\s*</record>
+  <record id="pointGroup" repeat="1">\s*Group name\s*{A,compchem:pointGroup}\s*</record>
   <transform process="pullupSingleton" xpath="./cml:list"/>
-  <record id="group_name" repeat="1">\s*Group number\s*{I,compchem:group_name}\s*</record>
+  <record id="groupName" repeat="1">\s*Group number\s*{I,compchem:groupName}\s*</record>
   <transform process="pullupSingleton" xpath="./cml:list"/>
-  <record id="group_order" repeat="1">\s*Group order\s*{I,compchem:group_order}\s*</record>
+  <record id="groupOrder" repeat="1">\s*Group order\s*{I,compchem:groupOrder}\s*</record>
   <transform process="pullupSingleton" xpath="./cml:list"/>
   <record id="symm_unique_centers" repeat="1">\s*No. of unique centers\s*{I,n:sym_uniqe_centers}\s*</record>
   <transform process="pullupSingleton" xpath="./cml:list"/>
@@ -45,9 +45,9 @@
   
   <comment class="example.output" id="symminfo">
     <module cmlx:templateRef="symminfo" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <scalar dataType="xsd:string" dictRef="compchem:pointgroup" cmlx:templateRef="pointgroup">D3h</scalar>
-      <scalar dataType="xsd:integer" dictRef="compchem:group_name" cmlx:templateRef="group_name">27</scalar>
-      <scalar dataType="xsd:integer" dictRef="compchem:group_order" cmlx:templateRef="group_order">12</scalar>
+      <scalar dataType="xsd:string" dictRef="compchem:pointGroup" cmlx:templateRef="pointGroup">D3h</scalar>
+      <scalar dataType="xsd:integer" dictRef="compchem:groupName" cmlx:templateRef="groupName">27</scalar>
+      <scalar dataType="xsd:integer" dictRef="compchem:groupOrder" cmlx:templateRef="groupOrder">12</scalar>
       <scalar dataType="xsd:integer" dictRef="n:sym_uniqe_centers" cmlx:templateRef="symm_unique_centers">5</scalar>
       <list cmlx:templateRef="symmuniqatom">
         <array dataType="xsd:integer" size="5" dictRef="n:symuniqatom">1 2 4 6 9</array>

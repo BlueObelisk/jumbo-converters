@@ -1,9 +1,9 @@
-<template id="basis_summary" name="Basis set summary" 
+<template id="basisSummary" name="Basis set summary" 
   repeat="*"
-  pattern=".*Summary of .*$\s+\-+.*" endPattern="\s*"
+  pattern='\s*Summary of \".*\" -> \".*\" \(.*\)\s*$\s+\-+.*' endPattern="\s*"
   endPattern2="~">
 
-  <comment class="example.input" id="basis_summary">
+  <comment class="example.input" id="basisSummary">
  Summary of "ao basis" -> "" (cartesian)
  ------------------------------------------------------------------------------
        Tag                 Description            Shells   Functions and Types
@@ -14,45 +14,45 @@
 
 </comment>
 
-  <record id="basis_summary">\s*Summary of "{X,n:basis_set_label}" -> "{X,n:basis_set_description}" \({A,compchem:basis_set_harmonic_type}\)\s*</record>
+  <record id="basisSummary">\s*Summary of "{X,n:basisSetLabel}" -> "{X,n:basisSetDescription}" \({A,compchem:basisSetHarmonicType}\)\s*</record>
   <record id="junk" repeat="3"/>
-  <record id="basis_contractions" repeat="*" >\s*{A,compchem:atom_label}\s+{X,compchem:basis_set_title}\s+{I,n:contraction_nshell}\s+{I,n:contraction_nfunc}\s+{A,n:contraction_desc}\s*</record>
+  <record id="basisContractions" repeat="*" >\s*{A,compchem:atomLabel}\s+{X,compchem:basisSetLabel}\s+{I,n:contractionNshell}\s+{I,n:contractionNfunc}\s+{A,n:contractionDesc}\s*</record>
   <transform process="pullupSingleton" xpath="./cml:list"/>
   
   <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='junk']"/>
   
   
-  <comment class="example.output" id="basis_summary">
-    <module cmlx:templateRef="basis_summary" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <list cmlx:templateRef="basis_summary">
-        <scalar dataType="xsd:string" dictRef="n:basis_set_label">ao basis</scalar>
-        <scalar dataType="xsd:string" dictRef="n:basis_set_description"/>
-        <scalar dataType="xsd:string" dictRef="compchem:basis_set_harmonic_type">cartesian</scalar>
-      </list>
-      <list cmlx:templateRef="basis_contractions">
-        <list>
-          <scalar dataType="xsd:string" dictRef="compchem:atom_label">o</scalar>
-          <scalar dataType="xsd:string" dictRef="compchem:basis_set_title">DZVP (DFT Orbital)</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:contraction_nshell">6</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:contraction_nfunc">15</scalar>
-          <scalar dataType="xsd:string" dictRef="n:contraction_desc">3s2p1d</scalar>
-        </list>
-        <list>
-          <scalar dataType="xsd:string" dictRef="compchem:atom_label">c</scalar>
-          <scalar dataType="xsd:string" dictRef="compchem:basis_set_title">DZVP (DFT Orbital)</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:contraction_nshell">6</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:contraction_nfunc">15</scalar>
-          <scalar dataType="xsd:string" dictRef="n:contraction_desc">3s2p1d</scalar>
-        </list>
-        <list>
-          <scalar dataType="xsd:string" dictRef="compchem:atom_label">fe</scalar>
-          <scalar dataType="xsd:string" dictRef="compchem:basis_set_title">DZVP (DFT Orbital)</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:contraction_nshell">10</scalar>
-          <scalar dataType="xsd:integer" dictRef="n:contraction_nfunc">26</scalar>
-          <scalar dataType="xsd:string" dictRef="n:contraction_desc">5s3p2d</scalar>
-        </list>
-      </list>
-    </module>
+  <comment class="example.output" id="basisSummary">
+<module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="basisSummary">
+<list cmlx:templateRef="basisSummary">
+<scalar dataType="xsd:string" dictRef="n:basisSetLabel">ao basis</scalar>
+<scalar dataType="xsd:string" dictRef="n:basisSetDescription" />
+<scalar dataType="xsd:string" dictRef="compchem:basisSetHarmonicType">cartesian</scalar>
+</list>
+<list cmlx:templateRef="basisContractions">
+<list>
+<scalar dataType="xsd:string" dictRef="compchem:atomLabel">o</scalar>
+<scalar dataType="xsd:string" dictRef="compchem:basisSetLabel">DZVP (DFT Orbital)</scalar>
+<scalar dataType="xsd:integer" dictRef="n:contractionNshell">6</scalar>
+<scalar dataType="xsd:integer" dictRef="n:contractionNfunc">15</scalar>
+<scalar dataType="xsd:string" dictRef="n:contractionDesc">3s2p1d</scalar>
+</list>
+<list>
+<scalar dataType="xsd:string" dictRef="compchem:atomLabel">c</scalar>
+<scalar dataType="xsd:string" dictRef="compchem:basisSetLabel">DZVP (DFT Orbital)</scalar>
+<scalar dataType="xsd:integer" dictRef="n:contractionNshell">6</scalar>
+<scalar dataType="xsd:integer" dictRef="n:contractionNfunc">15</scalar>
+<scalar dataType="xsd:string" dictRef="n:contractionDesc">3s2p1d</scalar>
+</list>
+<list>
+<scalar dataType="xsd:string" dictRef="compchem:atomLabel">fe</scalar>
+<scalar dataType="xsd:string" dictRef="compchem:basisSetLabel">DZVP (DFT Orbital)</scalar>
+<scalar dataType="xsd:integer" dictRef="n:contractionNshell">10</scalar>
+<scalar dataType="xsd:integer" dictRef="n:contractionNfunc">26</scalar>
+<scalar dataType="xsd:string" dictRef="n:contractionDesc">5s3p2d</scalar>
+</list>
+</list>
+</module>
     </comment>
 
 </template>

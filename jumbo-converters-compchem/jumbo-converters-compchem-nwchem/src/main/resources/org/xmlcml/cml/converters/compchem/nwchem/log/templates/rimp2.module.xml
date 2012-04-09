@@ -1,0 +1,320 @@
+<template
+  id="rimp2Module"
+  name="NWChem MP2 Module" 
+  repeat="*"
+  pattern="\s*NWChem RI-MP2 Module\s*$\s+\-+.*"
+  newline="$"
+  >
+  <comment class="example.input" id="nwchemmp2">
+                               NWChem RI-MP2 Module
+                               --------------------
+
+
+
+ SCF Reference Information:
+            File: './Ar_scf-mp2_cc-vqz.movecs'
+           Title: ''
+    Size (AOxMO):     59 x     59
+       Total Occ:              18.00
+ RI-MP2 Calculation Information:
+          Nr. of AO basis functions:         59
+     Nr. of fitting basis functions:        158
+               Nr. of MO spin cases:          1
+        Nr. of MOs to be correlated:         59
+     Nr. of occupied MOs correlated:          9
+      Nr. of virtual MOs correlated:         50
+
+          RI integral approximation: 'V'
+    Threshold for Schwarz screening:  1.000E-09
+ Smallest eigenvalue retained in fit  1.000E-08
+     Base file name for MO integrals 'mo3cint'
+    Type of storage for MO integrals 'EAF library'
+
+ Transformation block size    9, requiring     1 integral passes.
+ XForm_3cInts: Completed     1:    9 pass.             @Fri Aug  6 15:50:25 2010
+ Energy evaluation using block sizes     9    9
+ RIMP2_V_E2: Approx. ints. done (    1:    9,    1:    9) @Fri Aug  6 15:50:25 2010
+ RIMP2_V_E2: Copy to B done (    1:    9,    1:    9)  @Fri Aug  6 15:50:25 2010
+ RIMP2_V_E2: Denominators done (    1:    9,    1:    9) @Fri Aug  6 15:50:25 2010
+ RIMP2_V_E2: Completed block (    1:    9,    1:    9) @Fri Aug  6 15:50:25 2010
+
+
+          -------------------------------------------
+          SCF energy                -526.816780174633
+          Correlation energy          -0.293663610036
+          Total MP2 energy          -527.110443784669
+          -------------------------------------------
+
+ -----------------------
+ Performance information
+ -----------------------
+
+ Timer overhead =  4.00D-07 seconds/call
+
+               Nr. of calls         CPU time (s)                 Wall time (s)                GFlops
+             ---------------    -------------------     ------------------------------   -------------------
+Name         Min   Avg   Max    Min     Avg     Max     Min     Avg     Max   Mx/calls   Min     Max     Sum
+Overall       1     1     1   0.34    0.36    0.38     0.39    0.39    0.39    0.39      0.0     0.0     0.0   
+3c integr     1     1     1   0.13    0.14    0.15     0.15    0.15    0.15    0.15      0.0     0.0     0.0   
+Energy        1     1     1   9.00E-3 1.02E-2 1.10E-2  1.18E-2 1.18E-2 1.18E-2 1.18E-2   0.0     0.0     0.0   
+3c integr     1     1     1   9.30E-2 0.11    0.14     9.35E-2 0.11    0.14    0.14      0.0     0.0     0.0   
+First 2/3     3     3     3   2.00E-3 2.25E-3 3.00E-3  1.61E-3 2.21E-3 2.49E-3 8.30E-4   0.0     0.0     0.0   
+Final 1/3     1     1     1   4.00E-3 4.00E-3 4.00E-3  3.50E-3 3.50E-3 3.50E-3 3.50E-3   0.0     0.0     0.0   
+Write 3c      1     1     1    0.0     0.0     0.0     3.23E-4 4.00E-4 4.33E-4 4.33E-4   0.0     0.0     0.0   
+Read 3c i     1     1     1    0.0     0.0     0.0     1.32E-4 1.73E-4 1.88E-4 1.88E-4   0.0     0.0     0.0   
+Fitting b     1     1     1   2.00E-2 2.42E-2 2.60E-2  2.58E-2 2.58E-2 2.58E-2 2.58E-2   0.0     0.0     0.0   
+Schwarz i     1     1     1   8.10E-2 9.90E-2 0.11     0.12    0.12    0.12    0.12      0.0     0.0     0.0   
+Form 4ci      1     1     1   7.00E-3 7.50E-3 8.00E-3  7.69E-3 7.70E-3 7.70E-3 7.70E-3   0.0     0.0     0.0   
+Form A amp;      1     1     1    0.0    7.50E-4 1.00E-3  9.24E-4 9.26E-4 9.28E-4 9.28E-4   0.0     0.0     0.0   
+Denominat     1     1     1   1.00E-3 1.00E-3 1.00E-3  4.71E-4 4.72E-4 4.74E-4 4.74E-4   0.0     0.0     0.0   
+Pair Ener     1     1     1    0.0     0.0     0.0     2.50E-5 5.08E-4 1.17E-3 1.17E-3   0.0     0.0     0.0   
+
+ The average no. of pstat calls per process was 1.60D+01
+ with a timing overhead of 6.40D-06s
+
+
+ Task  times  cpu:        0.4s     wall:        0.4s
+ Summary of allocated global arrays
+-----------------------------------
+  No active global arrays
+
+
+
+                         GA Statistics for process    0
+                         ------------------------------
+
+       create   destroy   get      put      acc     scatter   gather  readandinc
+calls:  110      110     1.27e+04 7208     1.56e+04    0        0      138     
+number of processes/call 1.04e+00 1.16e+00 1.00e+00 0.00e+00 0.00e+00
+bytes total:             5.09e+06 3.32e+06 5.46e+06 0.00e+00 0.00e+00 1.10e+03
+bytes remote:            1.99e+06 1.42e+06 3.59e+06 0.00e+00 0.00e+00 0.00e+00
+Max memory consumed for GA by this process: 3046808 bytes
+MA_summarize_allocated_blocks: starting scan ...
+MA_summarize_allocated_blocks: scan completed: 0 heap blocks, 0 stack blocks
+MA usage statistics:
+
+    allocation statistics:
+                          heap       stack
+                          ----       -----
+    current number of blocks             0           0
+    maximum number of blocks            23          22
+    current total bytes              0           0
+    maximum total bytes        7364192    49292568
+    maximum total K-bytes             7365       49293
+    maximum total M-bytes                8          50
+
+
+
+</comment>
+
+
+  <record repeat="4"/>
+  <record id="r1" repeat="1" >\s*{X,compchem:title}\s*</record>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+  
+  <!--  Identify as a calculation -->
+  <transform process="addDictRef" 
+  xpath="."
+  value="compchem:calculation"
+  />
+  <transform process="addId" 
+  xpath="."
+  value="rimp2Energy"
+  />
+  
+  <!-- Create initialization module with parameterList and put variables in it -->
+  <transform process="addChild" 
+  xpath="." 
+  elementName="cml:module"
+  dictRef="compchem:initialization"
+  position="0"/>
+  
+  <transform process="addChild" 
+  xpath="./cml:module[@dictRef='compchem:initialization']" 
+  elementName="cml:parameterList"
+  />
+  
+    <!--  Create elements to identify this as an mp2 calculation -->
+  <transform process="addChild"
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"
+  elementName="cml:scalar"
+  dictRef="compchem:method"
+  value="mp2"
+  />
+  <transform process="addChild"
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"
+  elementName="cml:scalar"
+  dictRef="compchem:task"
+  value="energy"
+  />
+  
+  <!-- Bit of a hack - move all compchem scalars into the parameterList -->
+<!--   <transform process="move" 
+  xpath=".//cml:scalar[starts-with(@dictRef,'compchem:')]"
+  to="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"/> -->
+  
+  <transform process="createWrapperParameter" 
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList/*" />
+
+
+    <templateList xmlns:xi="http://www.w3.org/2001/XInclude">
+
+        <template id="rimp2Final"
+            newline="$" repeat="*"
+            pattern="\s*------+\s*$\s*SCF energy.*"
+            endPattern="\s*------+\s*" endOffset="1">
+            <record />
+            <record id="scfEnergy">\s*SCF energy\s*{F,compchem:scfEnergy}\s*</record>
+            <record id="correlationEnergy">\s*Correlation energy\s*{F,compchem:correlationEnergy}\s*</record>
+            <record id="totalEnergy">\s*Total MP2 energy\s*{F,compchem:totalEnergy}\s*</record>
+            <transform process="pullupSingleton" xpath="./cml:list" />
+            <record />
+            <transform process="delete"
+                xpath=".//cml:list[@cmlx:templateRef='missingID']" />
+            <!-- Add Units -->
+            <transform process="addUnits"
+                xpath=".//cml:scalar[@dictRef='compchem:scfEnergy' or @dictRef='compchem:correlationEnergy' or @dictRef='compchem:totalEnergy']"
+                value="nonsi:hartree" />
+        </template>
+
+        <xi:include href="times.xml" />
+        <xi:include href="ga.stats.xml" />
+        <xi:include href="ga.summary.xml" />
+
+    </templateList>
+  
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+  
+    <!-- Create finalization module with propertyList and put results in it -->
+    <transform process="addChild" 
+  xpath="." 
+  elementName="cml:module"
+  id="finalization"
+  dictRef="compchem:finalization"
+  />
+  <transform process="addChild" 
+  xpath="./cml:module[@dictRef='compchem:finalization']" 
+  elementName="cml:propertyList"
+  />
+  <transform process="move"
+  xpath="./cml:module[@cmlx:templateRef='rimp2Final']/cml:scalar[starts-with(@dictRef,'compchem:')]"
+  to="./cml:module[@dictRef='compchem:finalization']/cml:propertyList"/>
+  
+  <transform process="createWrapperProperty" 
+  xpath="./cml:module[@dictRef='compchem:finalization']/cml:propertyList/*" />
+  
+
+  <comment class="example.output" id="nwchemmp2">
+<module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="rimp2Module" dictRef="compchem:calculation" id="rimp2Energy">
+<module dictRef="compchem:initialization">
+<parameterList>
+<parameter dictRef="compchem:method">
+<scalar dataType="xsd:string">mp2</scalar>
+</parameter>
+<parameter dictRef="compchem:task">
+<scalar dataType="xsd:string">energy</scalar>
+</parameter>
+</parameterList>
+</module>
+<scalar dataType="xsd:string" dictRef="compchem:title" cmlx:templateRef="r1" /> SCF Reference Information:
+            File: './Ar_scf-mp2_cc-vqz.movecs'
+           Title: ''
+    Size (AOxMO):     59 x     59
+       Total Occ:              18.00
+ RI-MP2 Calculation Information:
+          Nr. of AO basis functions:         59
+     Nr. of fitting basis functions:        158
+               Nr. of MO spin cases:          1
+        Nr. of MOs to be correlated:         59
+     Nr. of occupied MOs correlated:          9
+      Nr. of virtual MOs correlated:         50
+          RI integral approximation: 'V'
+    Threshold for Schwarz screening:  1.000E-09
+ Smallest eigenvalue retained in fit  1.000E-08
+     Base file name for MO integrals 'mo3cint'
+    Type of storage for MO integrals 'EAF library'
+ Transformation block size    9, requiring     1 integral passes.
+ XForm_3cInts: Completed     1:    9 pass.             @Fri Aug  6 15:50:25 2010
+ Energy evaluation using block sizes     9    9
+ RIMP2_V_E2: Approx. ints. done (    1:    9,    1:    9) @Fri Aug  6 15:50:25 2010
+ RIMP2_V_E2: Copy to B done (    1:    9,    1:    9)  @Fri Aug  6 15:50:25 2010
+ RIMP2_V_E2: Denominators done (    1:    9,    1:    9) @Fri Aug  6 15:50:25 2010
+ RIMP2_V_E2: Completed block (    1:    9,    1:    9) @Fri Aug  6 15:50:25 2010
+<module cmlx:lineCount="5" cmlx:templateRef="rimp2Final" /> -----------------------
+ Performance information
+ -----------------------
+ Timer overhead =  4.00D-07 seconds/call
+               Nr. of calls         CPU time (s)                 Wall time (s)                GFlops
+             ---------------    -------------------     ------------------------------   -------------------
+Name         Min   Avg   Max    Min     Avg     Max     Min     Avg     Max   Mx/calls   Min     Max     Sum
+Overall       1     1     1   0.34    0.36    0.38     0.39    0.39    0.39    0.39      0.0     0.0     0.0   
+3c integr     1     1     1   0.13    0.14    0.15     0.15    0.15    0.15    0.15      0.0     0.0     0.0   
+Energy        1     1     1   9.00E-3 1.02E-2 1.10E-2  1.18E-2 1.18E-2 1.18E-2 1.18E-2   0.0     0.0     0.0   
+3c integr     1     1     1   9.30E-2 0.11    0.14     9.35E-2 0.11    0.14    0.14      0.0     0.0     0.0   
+First 2/3     3     3     3   2.00E-3 2.25E-3 3.00E-3  1.61E-3 2.21E-3 2.49E-3 8.30E-4   0.0     0.0     0.0   
+Final 1/3     1     1     1   4.00E-3 4.00E-3 4.00E-3  3.50E-3 3.50E-3 3.50E-3 3.50E-3   0.0     0.0     0.0   
+Write 3c      1     1     1    0.0     0.0     0.0     3.23E-4 4.00E-4 4.33E-4 4.33E-4   0.0     0.0     0.0   
+Read 3c i     1     1     1    0.0     0.0     0.0     1.32E-4 1.73E-4 1.88E-4 1.88E-4   0.0     0.0     0.0   
+Fitting b     1     1     1   2.00E-2 2.42E-2 2.60E-2  2.58E-2 2.58E-2 2.58E-2 2.58E-2   0.0     0.0     0.0   
+Schwarz i     1     1     1   8.10E-2 9.90E-2 0.11     0.12    0.12    0.12    0.12      0.0     0.0     0.0   
+Form 4ci      1     1     1   7.00E-3 7.50E-3 8.00E-3  7.69E-3 7.70E-3 7.70E-3 7.70E-3   0.0     0.0     0.0   
+Form A amp;      1     1     1    0.0    7.50E-4 1.00E-3  9.24E-4 9.26E-4 9.28E-4 9.28E-4   0.0     0.0     0.0   
+Denominat     1     1     1   1.00E-3 1.00E-3 1.00E-3  4.71E-4 4.72E-4 4.74E-4 4.74E-4   0.0     0.0     0.0   
+Pair Ener     1     1     1    0.0     0.0     0.0     2.50E-5 5.08E-4 1.17E-3 1.17E-3   0.0     0.0     0.0   
+ The average no. of pstat calls per process was 1.60D+01
+ with a timing overhead of 6.40D-06s
+<module cmlx:lineCount="1" cmlx:templateRef="times">
+<scalar dataType="xsd:string" dictRef="n:timetype">Task</scalar>
+<scalar dataType="xsd:double" dictRef="compchem:cpuTime" units="si:s">0.4</scalar>
+<scalar dataType="xsd:double" dictRef="compchem:wallTime" units="si:s">0.4</scalar>
+</module>
+<module cmlx:lineCount="3" cmlx:templateRef="summary_global_arrays">
+<list cmlx:templateRef="globalarrays">
+<scalar dataType="xsd:string" dictRef="n:globalarrays">No active global arrays</scalar>
+</list>
+</module>
+<module cmlx:lineCount="22" cmlx:templateRef="gastats">
+<list cmlx:templateRef="unparsed">
+<scalar dataType="xsd:string" dictRef="n:unparsed">GA Statistics for process    0</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">------------------------------</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed" />
+<scalar dataType="xsd:string" dictRef="n:unparsed">create   destroy   get      put      acc     scatter   gather  readandinc</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">calls:  110      110     1.27e+04 7208     1.56e+04    0        0      138</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">number of processes/call 1.04e+00 1.16e+00 1.00e+00 0.00e+00 0.00e+00</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">bytes total:             5.09e+06 3.32e+06 5.46e+06 0.00e+00 0.00e+00 1.10e+03</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">bytes remote:            1.99e+06 1.42e+06 3.59e+06 0.00e+00 0.00e+00 0.00e+00</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">Max memory consumed for GA by this process: 3046808 bytes</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">MA_summarize_allocated_blocks: starting scan ...</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">MA_summarize_allocated_blocks: scan completed: 0 heap blocks, 0 stack blocks</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">MA usage statistics:</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed" />
+<scalar dataType="xsd:string" dictRef="n:unparsed">allocation statistics:</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">heap       stack</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">----       -----</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">current number of blocks             0           0</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">maximum number of blocks            23          22</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">current total bytes              0           0</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">maximum total bytes        7364192    49292568</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">maximum total K-bytes             7365       49293</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">maximum total M-bytes                8          50</scalar>
+</list>
+</module>
+<module id="finalization" dictRef="compchem:finalization">
+<propertyList>
+<property dictRef="compchem:scfEnergy">
+<scalar dataType="xsd:double" cmlx:templateRef="scfEnergy" units="nonsi:hartree">-526.816780174633</scalar>
+</property>
+<property dictRef="compchem:correlationEnergy">
+<scalar dataType="xsd:double" cmlx:templateRef="correlationEnergy" units="nonsi:hartree">-0.293663610036</scalar>
+</property>
+<property dictRef="compchem:totalEnergy">
+<scalar dataType="xsd:double" cmlx:templateRef="totalEnergy" units="nonsi:hartree">-527.110443784669</scalar>
+</property>
+</propertyList>
+</module>
+</module>
+</comment>
+
+</template>

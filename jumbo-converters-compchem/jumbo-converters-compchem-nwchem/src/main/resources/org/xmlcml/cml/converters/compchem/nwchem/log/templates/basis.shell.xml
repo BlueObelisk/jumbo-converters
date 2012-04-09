@@ -42,7 +42,7 @@
   </comment>
   
   <!-- Read in Label and Element name -->
-  <record id="contractionsHeader">\s*{A,compchem:atom_label}\s*\({A,n:element_longname}\)\s*</record>
+  <record id="contractionsHeader">\s*{A,compchem:atomLabel}\s*\({A,n:elementLongname}\)\s*</record>
   <transform process="pullupSingleton" xpath="./cml:list"/>
   <record/>
   <record/>
@@ -51,7 +51,7 @@
   <templateList id="contractions">
     <template repeat="*" name="contraction_tmp" id="contraction_tmp" pattern="\s*\d+\s*\S+.*" 
       endPattern="\s*" endOffset="0">
-      <record repeat="*" makeArray="true" id="contraction">{I,n:basis_set_shellnum}{A,n:basis_set_shell}{E,compchem:basis_set_exponent}{F,compchem:basis_set_coefficient}</record>
+      <record repeat="*" makeArray="true" id="contraction">{I,n:basisSetShellnum}{A,n:basisSetShell}{E,compchem:basisSetExponent}{F,compchem:basisSetCoefficient}</record>
       <!--  move list up out of module -->
         <transform process="pullup" xpath="./cml:list"/>
     </template>
@@ -60,27 +60,27 @@
 <!-- add dictRef to containing lists -->
 <transform process="addDictRef"
 xpath=".//cml:list[@cmlx:templateRef='contraction']" 
-value="compchem:basis_set_contraction"/>
+value="compchem:basisSetContraction"/>
 
 <!-- Turn shellType array into list so we can extract the shellType  -->
-<transform process="split" xpath=".//cml:array[@dictRef='n:basis_set_shell']"/>
+<transform process="split" xpath=".//cml:array[@dictRef='n:basisSetShell']"/>
 
 <!-- Add scalar with shell type -->
 <transform process="addChild"
 xpath="./cml:list[@cmlx:templateRef='contraction']"
 elementName="cml:scalar"
-dictRef="compchem:basis_set_shell"
+dictRef="compchem:basisSetShell"
 position="0"
-value="$string(../cml:list/cml:scalar[@dictRef='n:basis_set_shell'])"
+value="$string(../cml:list/cml:scalar[@dictRef='n:basisSetShell'])"
 />
 
 <!-- Add atom_label and element_longname to contraction list -->
-<transform process="pullup" xpath=".//cml:scalar[@dictRef='compchem:atom_label']"/>
-<transform process="pullup" xpath=".//cml:scalar[@dictRef='n:element_longname']"/>
+<transform process="pullup" xpath=".//cml:scalar[@dictRef='compchem:atomLabel']"/>
+<transform process="pullup" xpath=".//cml:scalar[@dictRef='n:elementLongname']"/>
 
 <!-- now can remove shellnum and shell scalars-->
-<transform process="delete" xpath=".//cml:scalar[@dictRef='n:basis_set_shell']" />
-<transform process="delete" xpath=".//cml:array[@dictRef='n:basis_set_shellnum']" />
+<transform process="delete" xpath=".//cml:scalar[@dictRef='n:basisSetShell']" />
+<transform process="delete" xpath=".//cml:array[@dictRef='n:basisSetShellnum']" />
 
 <!-- delete unneeded lists and modules. -->
 <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='contraction_tmp']" />
@@ -88,40 +88,40 @@ value="$string(../cml:list/cml:scalar[@dictRef='n:basis_set_shell'])"
 <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
 
   <comment class="example.output" id="contractions">
-    <module cmlx:templateRef="contractions" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <scalar dataType="xsd:string" dictRef="compchem:atom_label">O</scalar>
-      <scalar dataType="xsd:string" dictRef="n:element_longname">Oxygen</scalar>
-      <list cmlx:lineCount="6" cmlx:templateRef="contraction" dictRef="compchem:basis_set_contraction">
-        <scalar dictRef="compchem:basis_set_shell" dataType="xsd:string">S</scalar>
-        <array dataType="xsd:double" dictRef="compchem:basis_set_exponent" size="6">5484.6717 825.23495 188.04696 52.9645 16.89757 5.7996353</array>
-        <array dataType="xsd:double" dictRef="compchem:basis_set_coefficient" size="6">0.001831 0.01395 0.068445 0.232714 0.470193 0.358521</array>
-      </list>
-      <list cmlx:lineCount="3" cmlx:templateRef="contraction" dictRef="compchem:basis_set_contraction">
-        <scalar dictRef="compchem:basis_set_shell" dataType="xsd:string">S</scalar>
-        <array dataType="xsd:double" dictRef="compchem:basis_set_exponent" size="3">15.539616 3.5999336 1.0137618</array>
-        <array dataType="xsd:double" dictRef="compchem:basis_set_coefficient" size="3">-0.110778 -0.148026 1.130767</array>
-      </list>
-      <list cmlx:lineCount="3" cmlx:templateRef="contraction" dictRef="compchem:basis_set_contraction">
-        <scalar dictRef="compchem:basis_set_shell" dataType="xsd:string">P</scalar>
-        <array dataType="xsd:double" dictRef="compchem:basis_set_exponent" size="3">15.539616 3.5999336 1.0137618</array>
-        <array dataType="xsd:double" dictRef="compchem:basis_set_coefficient" size="3">0.070874 0.339753 0.727159</array>
-      </list>
-      <list cmlx:lineCount="1" cmlx:templateRef="contraction" dictRef="compchem:basis_set_contraction">
-        <scalar dictRef="compchem:basis_set_shell" dataType="xsd:string">S</scalar>
-        <array dataType="xsd:double" dictRef="compchem:basis_set_exponent" size="1">0.2700058</array>
-        <array dataType="xsd:double" dictRef="compchem:basis_set_coefficient" size="1">1.0</array>
-      </list>
-      <list cmlx:lineCount="1" cmlx:templateRef="contraction" dictRef="compchem:basis_set_contraction">
-        <scalar dictRef="compchem:basis_set_shell" dataType="xsd:string">P</scalar>
-        <array dataType="xsd:double" dictRef="compchem:basis_set_exponent" size="1">0.2700058</array>
-        <array dataType="xsd:double" dictRef="compchem:basis_set_coefficient" size="1">1.0</array>
-      </list>
-      <list cmlx:lineCount="1" cmlx:templateRef="contraction" dictRef="compchem:basis_set_contraction">
-        <scalar dictRef="compchem:basis_set_shell" dataType="xsd:string">D</scalar>
-        <array dataType="xsd:double" dictRef="compchem:basis_set_exponent" size="1">0.8</array>
-        <array dataType="xsd:double" dictRef="compchem:basis_set_coefficient" size="1">1.0</array>
-      </list>
-    </module>
+<module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="contractions">
+<scalar dataType="xsd:string" dictRef="compchem:atomLabel">O</scalar>
+<scalar dataType="xsd:string" dictRef="n:elementLongname">Oxygen</scalar>
+<list cmlx:lineCount="6" cmlx:templateRef="contraction" dictRef="compchem:basisSetContraction">
+<scalar dictRef="compchem:basisSetShell" dataType="xsd:string">S</scalar>
+<array dataType="xsd:double" dictRef="compchem:basisSetExponent" size="6">5484.6717 825.23495 188.04696 52.9645 16.89757 5.7996353</array>
+<array dataType="xsd:double" dictRef="compchem:basisSetCoefficient" size="6">0.001831 0.01395 0.068445 0.232714 0.470193 0.358521</array>
+</list>
+<list cmlx:lineCount="3" cmlx:templateRef="contraction" dictRef="compchem:basisSetContraction">
+<scalar dictRef="compchem:basisSetShell" dataType="xsd:string">S</scalar>
+<array dataType="xsd:double" dictRef="compchem:basisSetExponent" size="3">15.539616 3.5999336 1.0137618</array>
+<array dataType="xsd:double" dictRef="compchem:basisSetCoefficient" size="3">-0.110778 -0.148026 1.130767</array>
+</list>
+<list cmlx:lineCount="3" cmlx:templateRef="contraction" dictRef="compchem:basisSetContraction">
+<scalar dictRef="compchem:basisSetShell" dataType="xsd:string">P</scalar>
+<array dataType="xsd:double" dictRef="compchem:basisSetExponent" size="3">15.539616 3.5999336 1.0137618</array>
+<array dataType="xsd:double" dictRef="compchem:basisSetCoefficient" size="3">0.070874 0.339753 0.727159</array>
+</list>
+<list cmlx:lineCount="1" cmlx:templateRef="contraction" dictRef="compchem:basisSetContraction">
+<scalar dictRef="compchem:basisSetShell" dataType="xsd:string">S</scalar>
+<array dataType="xsd:double" dictRef="compchem:basisSetExponent" size="1">0.2700058</array>
+<array dataType="xsd:double" dictRef="compchem:basisSetCoefficient" size="1">1.0</array>
+</list>
+<list cmlx:lineCount="1" cmlx:templateRef="contraction" dictRef="compchem:basisSetContraction">
+<scalar dictRef="compchem:basisSetShell" dataType="xsd:string">P</scalar>
+<array dataType="xsd:double" dictRef="compchem:basisSetExponent" size="1">0.2700058</array>
+<array dataType="xsd:double" dictRef="compchem:basisSetCoefficient" size="1">1.0</array>
+</list>
+<list cmlx:lineCount="1" cmlx:templateRef="contraction" dictRef="compchem:basisSetContraction">
+<scalar dictRef="compchem:basisSetShell" dataType="xsd:string">D</scalar>
+<array dataType="xsd:double" dictRef="compchem:basisSetExponent" size="1">0.8</array>
+<array dataType="xsd:double" dictRef="compchem:basisSetCoefficient" size="1">1.0</array>
+</list>
+</module>
   </comment>
 
 

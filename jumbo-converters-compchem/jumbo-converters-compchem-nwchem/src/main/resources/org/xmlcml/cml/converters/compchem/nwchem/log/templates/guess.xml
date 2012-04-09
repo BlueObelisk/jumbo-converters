@@ -13,7 +13,7 @@
 
 <!--   pattern="\s*(Forming initial guess at .*)|(Superposition of Atomic Density Guess\s*)"  -->
 <!--  Forming initial guess at       0.1s -->
-  <comment class="example.input" id="basis_symmetry">
+  <comment class="example.input" id="basisSymmetry">
 
 
       Superposition of Atomic Density Guess
@@ -61,11 +61,11 @@
   
   <transform process="addId"
   xpath="." 
-  value="initial_guess"/>
+  value="initialGuess"/>
   <transform process="delete" 
   xpath="./@cmlx:lineCount"/>
   
-  <!--  Create initialization module and parameterList identifying this as an intial_guess -->
+  <!--  Create initialization module and parameterList identifying this as an intialGuess -->
   
   <transform process="addChild"
   xpath="."
@@ -82,7 +82,7 @@
   xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"
   elementName="cml:scalar"
   dictRef="compchem:task"
-  value="initial_guess"
+  value="initialGuess"
   />
   <transform process="createWrapperParameter" 
   xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList/*" />  
@@ -115,12 +115,12 @@
   xpath=".//cml:list[@cmlx:templateRef='superposatomguess']"/>
    
 
-  <comment class="example.output" id="basis_symmetry">
-<module cmlx:templateRef="guess" dictRef="compchem:calculation" id="initial_guess" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <comment class="example.output" id="basisSymmetry">
+<module cmlx:templateRef="guess" dictRef="compchem:calculation" id="initialGuess" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <module dictRef="compchem:initialization">
     <parameterList>
       <parameter dictRef="compchem:task">
-        <scalar dataType="xsd:string">initial_guess</scalar>
+        <scalar dataType="xsd:string">initialGuess</scalar>
       </parameter>
     </parameterList>
   </module>
@@ -150,14 +150,14 @@
   </module>
   <module dictRef="compchem:finalization">
     <propertyList>
-      <property dictRef="compchem:total_energy">
-        <scalar dataType="xsd:double" cmlx:templateRef="total_energy" units="nonsi:hartree">-74.6835</scalar>
+      <property dictRef="compchem:totalEnergy">
+        <scalar dataType="xsd:double" cmlx:templateRef="totalEnergy" units="nonsi:hartree">-74.6835</scalar>
       </property>
-      <property dictRef="compchem:e1_energy">
-        <scalar dataType="xsd:double" cmlx:templateRef="e1_energy" units="nonsi:hartree">-121.780484</scalar>
+      <property dictRef="compchem:e1Energy">
+        <scalar dataType="xsd:double" cmlx:templateRef="e1Energy" units="nonsi:hartree">-121.780484</scalar>
       </property>
-      <property dictRef="compchem:e2_energy">
-        <scalar dataType="xsd:double" cmlx:templateRef="e2_energy" units="nonsi:hartree">37.904889</scalar>
+      <property dictRef="compchem:e2Energy">
+        <scalar dataType="xsd:double" cmlx:templateRef="e2Energy" units="nonsi:hartree">37.904889</scalar>
       </property>
     </propertyList>
   </module>

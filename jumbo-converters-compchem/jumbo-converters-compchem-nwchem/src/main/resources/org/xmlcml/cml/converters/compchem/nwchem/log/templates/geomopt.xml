@@ -85,13 +85,103 @@
   />
   
 <!--   <transform process="copy"
-  xpath="./cml:module[@cmlx:templateRef='step'][position()=1]/cml:module[@cmlx:templateRef='nwchem_module'][position()=1]/cml:module[@dictRef='compchem:calculation']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[starts-with(@dictRef,'compchem:')]"            
+  xpath="./cml:module[@cmlx:templateRef='step'][position()=1]/cml:module[@cmlx:templateRef='nwchemModule'][position()=1]/cml:module[@dictRef='compchem:calculation']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[starts-with(@dictRef,'compchem:')]"            
   to="../../../../../../cml:module[@id='initialization']/cml:parameterList" /> -->
    
   <!-- Our finalization module is the geomopt.final module so nothing to do here  -->
 
   <comment class="example.output" id="geomopt">
-  <module/>
+<module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="geomopt" dictRef="compchem:calculation" id="geometry_optimization">
+<scalar dataType="xsd:string" dictRef="compchem:title" cmlx:templateRef="title">parent diels-alder - constrained geometry optimization + saddle search</scalar>
+<list cmlx:templateRef="namevalue">
+<list>
+<scalar dataType="xsd:string" dictRef="n:fullname">maximum gradient threshold</scalar>
+<scalar dataType="xsd:string" dictRef="n:name">gmax</scalar>
+<scalar dataType="xsd:string" dictRef="n:value">0.000450</scalar>
+</list>
+<list>
+<scalar dataType="xsd:string" dictRef="n:fullname">rms gradient threshold</scalar>
+<scalar dataType="xsd:string" dictRef="n:name">grms</scalar>
+<scalar dataType="xsd:string" dictRef="n:value">0.000300</scalar>
+</list>
+<list>
+<scalar dataType="xsd:string" dictRef="n:fullname">maximum cartesian step threshold</scalar>
+<scalar dataType="xsd:string" dictRef="n:name">xmax</scalar>
+<scalar dataType="xsd:string" dictRef="n:value">0.001800</scalar>
+</list>
+<list>
+<scalar dataType="xsd:string" dictRef="n:fullname">rms cartesian step threshold</scalar>
+<scalar dataType="xsd:string" dictRef="n:name">xrms</scalar>
+<scalar dataType="xsd:string" dictRef="n:value">0.001200</scalar>
+</list>
+<list>
+<scalar dataType="xsd:string" dictRef="n:fullname">fixed trust radius</scalar>
+<scalar dataType="xsd:string" dictRef="n:name">trust</scalar>
+<scalar dataType="xsd:string" dictRef="n:value">0.100000</scalar>
+</list>
+<list>
+<scalar dataType="xsd:string" dictRef="n:fullname">maximum step size to saddle</scalar>
+<scalar dataType="xsd:string" dictRef="n:name">sadstp</scalar>
+<scalar dataType="xsd:string" dictRef="n:value">0.100000</scalar>
+</list>
+<list>
+<scalar dataType="xsd:string" dictRef="n:fullname">energy precision</scalar>
+<scalar dataType="xsd:string" dictRef="n:name">eprec</scalar>
+<scalar dataType="xsd:string" dictRef="n:value">1.0D-07</scalar>
+</list>
+<list>
+<scalar dataType="xsd:string" dictRef="n:fullname">maximum number of steps</scalar>
+<scalar dataType="xsd:string" dictRef="n:name">nptopt</scalar>
+<scalar dataType="xsd:string" dictRef="n:value">20</scalar>
+</list>
+<list>
+<scalar dataType="xsd:string" dictRef="n:fullname">initial hessian option</scalar>
+<scalar dataType="xsd:string" dictRef="n:name">inhess</scalar>
+<scalar dataType="xsd:string" dictRef="n:value">0</scalar>
+</list>
+<list>
+<scalar dataType="xsd:string" dictRef="n:fullname">line search option</scalar>
+<scalar dataType="xsd:string" dictRef="n:name">linopt</scalar>
+<scalar dataType="xsd:string" dictRef="n:value">0</scalar>
+</list>
+<list>
+<scalar dataType="xsd:string" dictRef="n:fullname">hessian update option</scalar>
+<scalar dataType="xsd:string" dictRef="n:name">modupd</scalar>
+<scalar dataType="xsd:string" dictRef="n:value">2</scalar>
+</list>
+<list>
+<scalar dataType="xsd:string" dictRef="n:fullname">saddle point option</scalar>
+<scalar dataType="xsd:string" dictRef="n:name">modsad</scalar>
+<scalar dataType="xsd:string" dictRef="n:value">1</scalar>
+</list>
+<list>
+<scalar dataType="xsd:string" dictRef="n:fullname">initial eigen-mode to follow</scalar>
+<scalar dataType="xsd:string" dictRef="n:name">moddir</scalar>
+<scalar dataType="xsd:string" dictRef="n:value">0</scalar>
+</list>
+<list>
+<scalar dataType="xsd:string" dictRef="n:fullname">initial variable to follow</scalar>
+<scalar dataType="xsd:string" dictRef="n:name">vardir</scalar>
+<scalar dataType="xsd:string" dictRef="n:value">0</scalar>
+</list>
+<list>
+<scalar dataType="xsd:string" dictRef="n:fullname">follow first negative mode</scalar>
+<scalar dataType="xsd:string" dictRef="n:name">firstneg</scalar>
+<scalar dataType="xsd:string" dictRef="n:value">T</scalar>
+</list>
+<list>
+<scalar dataType="xsd:string" dictRef="n:fullname">apply conjugacy</scalar>
+<scalar dataType="xsd:string" dictRef="n:name">opcg</scalar>
+<scalar dataType="xsd:string" dictRef="n:value">F</scalar>
+</list>
+</list>
+<list cmlx:templateRef="namevalue1">
+<list>
+<scalar dataType="xsd:string" dictRef="n:name">source of zmatrix</scalar>
+<scalar dataType="xsd:string" dictRef="n:value">autoz</scalar>
+</list>
+</list>
+</module>
   </comment>
 
 </template>

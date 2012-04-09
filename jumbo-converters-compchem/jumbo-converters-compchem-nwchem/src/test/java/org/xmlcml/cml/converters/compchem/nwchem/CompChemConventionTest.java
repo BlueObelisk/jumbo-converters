@@ -136,7 +136,7 @@ xmlns:nonsi="http://www.xml-cml.org/unit/nonSi/">
      <parameter dictRef="compchem:date">
       <scalar dataType="xsd:string" cmlx:templateRef="date">Wed Mar 14 11:38:24 2012</scalar>
      </parameter>
-     <parameter dictRef="compchem:compile_date">
+     <parameter dictRef="compchem:compileDate">
       <scalar dataType="xsd:string" cmlx:templateRef="compiled">Sat_Mar_03_17:07:28_2012</scalar>
      </parameter>
      <parameter dictRef="compchem:version">
@@ -165,7 +165,7 @@ xmlns:nonsi="http://www.xml-cml.org/unit/nonSi/">
 	
 	@Test
 	public void testEnvironmentVersion() {
-	    List<Node> nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:environment']/cml:parameterList/cml:parameter[@dictRef='compchem:program_version']/cml:scalar/text()", CMLConstants.CML_XPATH);
+	    List<Node> nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:environment']/cml:parameterList/cml:parameter[@dictRef='compchem:programVersion']/cml:scalar/text()", CMLConstants.CML_XPATH);
 	    assertFalse(nodes.isEmpty());
 	    assertEquals("6.1", nodes.get(0).getValue());
 	}
@@ -203,7 +203,7 @@ xmlns:nonsi="http://www.xml-cml.org/unit/nonSi/">
 	
 	@Test
 	public void testInitializationBasis() {
-		List<Node> nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:initialization']/cml:list[@dictRef='compchem:basis_set']/cml:scalar[@dictRef='compchem:basis_set_title']/text()", CMLConstants.CML_XPATH);
+		List<Node> nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:initialization']/cml:list[@dictRef='compchem:basisSet']/cml:scalar[@dictRef='compchem:basisSetLabel']/text()", CMLConstants.CML_XPATH);
 		assertFalse(nodes.isEmpty());
 		assertEquals("sto-3g", nodes.get(0).getValue());
 	}
@@ -254,7 +254,7 @@ xmlns:nonsi="http://www.xml-cml.org/unit/nonSi/">
 
 	@Test
 	public void testFinalizationTotalEnergy() {
-		List<Node> nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:total_energy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+		List<Node> nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:totalEnergy']/cml:scalar/text()", CMLConstants.CML_XPATH);
 		assertFalse(nodes.isEmpty());
 		assertEquals("-74.962985614357", nodes.get(0).getValue());
 	}

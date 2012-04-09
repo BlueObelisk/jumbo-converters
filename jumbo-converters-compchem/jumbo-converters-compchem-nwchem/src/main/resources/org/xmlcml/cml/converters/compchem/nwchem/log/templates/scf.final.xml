@@ -36,10 +36,10 @@
 </comment>
 
 <record repeat="3"/>
-<record id="total_energy" >\s*Total SCF energy\s*=\s*{F,compchem:total_energy}\s*</record>
-<record id="e1_energy" >\s*One.?electron energy\s*=\s*{F,compchem:e1_energy}\s*</record>
-<record id="e2_energy" >\s*Two.?electron energy\s*=\s*{F,compchem:e2_energy}\s*</record>
-<record id="nuclear_repulsion_energy" >\s*Nuclear repulsion energy\s*=\s*{F,compchem:nuclear_repulsion_energy}\s*</record>
+<record id="totalEnergy" >\s*Total SCF energy\s*=\s*{F,compchem:totalEnergy}\s*</record>
+<record id="e1Energy" >\s*One.?electron energy\s*=\s*{F,compchem:e1Energy}\s*</record>
+<record id="e2Energy" >\s*Two.?electron energy\s*=\s*{F,compchem:e2Energy}\s*</record>
+<record id="nuclearRepulsionEnergy" >\s*Nuclear repulsion energy\s*=\s*{F,compchem:nuclearRepulsionEnergy}\s*</record>
 
 
 <templateList>
@@ -59,7 +59,7 @@ pattern="\s*Time for solution =.*"
 endPattern=".*"
 endPattern2="~"
 >
-<record id="scf_time" >\s*Time for solution =\s*{F,compchem:walltime}s\s*</record>
+<record id="scf_time" >\s*Time for solution =\s*{F,compchem:wallTime}s\s*</record>
 </template>
 </templateList>
 
@@ -70,36 +70,36 @@ endPattern2="~"
 
   <!-- Add Units -->
   <transform process="addUnits"
-  xpath=".//cml:scalar[@dictRef='compchem:total_energy' or @dictRef='compchem:e1_energy' or @dictRef='compchem:e2_energy' or @dictRef='compchem:nuclear_repulsion_energy']"
+  xpath=".//cml:scalar[@dictRef='compchem:totalEnergy' or @dictRef='compchem:e1Energy' or @dictRef='compchem:e2Energy' or @dictRef='compchem:nuclearRepulsionEnergy']"
   value="nonsi:hartree"
   />
   <transform process="addUnits"
-  xpath=".//cml:scalar[@dictRef='compchem:walltime']"
+  xpath=".//cml:scalar[@dictRef='compchem:wallTime']"
   value="si:s"
   />
 
   <comment class="example.output" id="scf.final">
 <module cmlx:templateRef="scf.final" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <scalar dataType="xsd:double" dictRef="compchem:total_energy" cmlx:templateRef="total_energy" units="nonsi:hartree">-134.684334043866</scalar>
-  <scalar dataType="xsd:double" dictRef="compchem:e1_energy" cmlx:templateRef="e1_energy" units="nonsi:hartree">-233.466922651842</scalar>
-  <scalar dataType="xsd:double" dictRef="compchem:e2_energy" cmlx:templateRef="e2_energy" units="nonsi:hartree">98.782588607976</scalar>
-  <scalar dataType="xsd:double" dictRef="compchem:nuclear_repulsion_energy" cmlx:templateRef="nuclear_repulsion_energy" units="nonsi:hartree">0.0</scalar>
-  <scalar dataType="xsd:double" dictRef="compchem:walltime" cmlx:templateRef="scf_time" units="si:s">81.8</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:totalEnergy" cmlx:templateRef="totalEnergy" units="nonsi:hartree">-134.684334043866</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:e1Energy" cmlx:templateRef="e1Energy" units="nonsi:hartree">-233.466922651842</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:e2Energy" cmlx:templateRef="e2Energy" units="nonsi:hartree">98.782588607976</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:nuclearRepulsionEnergy" cmlx:templateRef="nuclearRepulsionEnergy" units="nonsi:hartree">0.0</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:wallTime" cmlx:templateRef="scf_time" units="si:s">81.8</scalar>
 </module>
     </comment>
     
   <comment class="example.output" id="scf.final.uhf">
 <module cmlx:templateRef="scf.final" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <scalar dataType="xsd:double" dictRef="compchem:total_energy" cmlx:templateRef="total_energy" units="nonsi:hartree">-74.962985614676</scalar>
-  <scalar dataType="xsd:double" dictRef="compchem:e1_energy" cmlx:templateRef="e1_energy" units="nonsi:hartree">-122.365858398494</scalar>
-  <scalar dataType="xsd:double" dictRef="compchem:e2_energy" cmlx:templateRef="e2_energy" units="nonsi:hartree">38.210778115161</scalar>
-  <scalar dataType="xsd:double" dictRef="compchem:nuclear_repulsion_energy" cmlx:templateRef="nuclear_repulsion_energy" units="nonsi:hartree">9.192094668657</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:totalEnergy" cmlx:templateRef="totalEnergy" units="nonsi:hartree">-74.962985614676</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:e1Energy" cmlx:templateRef="e1Energy" units="nonsi:hartree">-122.365858398494</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:e2Energy" cmlx:templateRef="e2Energy" units="nonsi:hartree">38.210778115161</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:nuclearRepulsionEnergy" cmlx:templateRef="nuclearRepulsionEnergy" units="nonsi:hartree">9.192094668657</scalar>
   <module cmlx:lineCount="3" cmlx:templateRef="s2">
     <scalar dataType="xsd:double" dictRef="n:sz" cmlx:templateRef="sz">0.0</scalar>
     <scalar dataType="xsd:double" dictRef="n:sz2" cmlx:templateRef="sz2">0.0</scalar>
     <scalar dataType="xsd:double" dictRef="n:s2" cmlx:templateRef="s2">-0.0</scalar>
   </module>
-  <scalar dataType="xsd:double" dictRef="compchem:walltime" cmlx:templateRef="scf_time" units="si:s">0.0</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:wallTime" cmlx:templateRef="scf_time" units="si:s">0.0</scalar>
 </module>
   </comment>
     
