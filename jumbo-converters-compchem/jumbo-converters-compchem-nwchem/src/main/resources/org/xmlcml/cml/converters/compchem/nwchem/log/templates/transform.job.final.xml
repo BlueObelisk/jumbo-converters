@@ -1,0 +1,114 @@
+<transformList>
+  
+  <!--
+  Need to fix all jobs where the molecule wasn't printed because the job uses
+  the molecule from the preceding job.
+   -->
+   
+   <!-- If a job doesn't have a molecule in it's initialization and the previous job
+   has a molecule in its finalization (indicating a geometry optimisation), copy the
+    molecule from the previous finalization into the initialization -->
+   <transform process="addAttribute"
+   xpath="./cml:module[@id='jobList1']/cml:module[@id='job'][./cml:module[@dictRef='compchem:finalization']/cml:molecule and not(self::following-sibling/cml:module[@dictRef='compchem:initialization']/cml:molecule)]"
+   name="flag"
+   value="move"
+   />
+   <transform process="copy"
+   xpath="./cml:module[@id='jobList1']/cml:module[@id='job' and @flag]/cml:module[@dictRef='compchem:finalization']/cml:molecule"
+   to="../../following-sibling::cml:module[@dictRef='compchem:job' and position()=1]/cml:module[@dictRef='compchem:initialization']"
+   />   
+   <transform process="delete"
+   xpath="//@flag"
+   />
+   
+   <!-- If the following init module of a job with a molecule in the init module doesn't contain a molecule,
+   copy in the molecule from the preceding one.
+   We need to do this multiple times to 'fill-up' any missing molecules as I can't think of any way to do
+   this in one go. Currently we do 3.
+    -->
+    
+    <!-- Pass 1 -->
+   <transform process="addAttribute"
+   xpath="./cml:module[@id='jobList1']/cml:module[@id='job' and ./cml:module[@dictRef='compchem:initialization']/cml:molecule and not(following-sibling::cml:module[@dictRef='compchem:job' and position()=1]/cml:module[@dictRef='compchem:initialization']/cml:molecule)]"
+   name="flag"
+   value="move"
+   />
+   <transform process="copy"
+   xpath="./cml:module[@id='jobList1']/cml:module[@id='job' and @flag]/cml:module[@dictRef='compchem:initialization']/cml:molecule"
+   to="../../following-sibling::cml:module[@dictRef='compchem:job' and position()=1]/cml:module[@dictRef='compchem:initialization']"
+   />   
+   <transform process="delete"
+   xpath="//@flag"
+   />
+
+    <!-- Pass 2 -->
+   <transform process="addAttribute"
+   xpath="./cml:module[@id='jobList1']/cml:module[@id='job' and ./cml:module[@dictRef='compchem:initialization']/cml:molecule and not(following-sibling::cml:module[@dictRef='compchem:job' and position()=1]/cml:module[@dictRef='compchem:initialization']/cml:molecule)]"
+   name="flag"
+   value="move"
+   />
+   <transform process="copy"
+   xpath="./cml:module[@id='jobList1']/cml:module[@id='job' and @flag]/cml:module[@dictRef='compchem:initialization']/cml:molecule"
+   to="../../following-sibling::cml:module[@dictRef='compchem:job' and position()=1]/cml:module[@dictRef='compchem:initialization']"
+   />   
+   <transform process="delete"
+   xpath="//@flag"
+   />
+   
+    <!-- Pass 3 -->
+   <transform process="addAttribute"
+   xpath="./cml:module[@id='jobList1']/cml:module[@id='job' and ./cml:module[@dictRef='compchem:initialization']/cml:molecule and not(following-sibling::cml:module[@dictRef='compchem:job' and position()=1]/cml:module[@dictRef='compchem:initialization']/cml:molecule)]"
+   name="flag"
+   value="move"
+   />
+   <transform process="copy"
+   xpath="./cml:module[@id='jobList1']/cml:module[@id='job' and @flag]/cml:module[@dictRef='compchem:initialization']/cml:molecule"
+   to="../../following-sibling::cml:module[@dictRef='compchem:job' and position()=1]/cml:module[@dictRef='compchem:initialization']"
+   />   
+   <transform process="delete"
+   xpath="//@flag"
+   />   
+   
+   
+   <!--  Same for Basis set -->
+   <!-- Pass 1 -->
+   <transform process="addAttribute"
+   xpath="./cml:module[@id='jobList1']/cml:module[@id='job' and ./cml:module[@dictRef='compchem:initialization']/cml:list[@dictRef='compchem:basisSet'] and not(following-sibling::cml:module[@dictRef='compchem:job' and position()=1]/cml:module[@dictRef='compchem:initialization']/cml:list[@dictRef='compchem:basisSet'])]"
+   name="flag"
+   value="move"
+   />
+   <transform process="copy"
+   xpath="./cml:module[@id='jobList1']/cml:module[@id='job' and @flag]/cml:module[@dictRef='compchem:initialization']/cml:list[@dictRef='compchem:basisSet']"
+   to="../../following-sibling::cml:module[@dictRef='compchem:job' and position()=1]/cml:module[@dictRef='compchem:initialization']"
+   />   
+   <transform process="delete"
+   xpath="//@flag"
+   />
+   <!-- Pass 2 -->
+   <transform process="addAttribute"
+   xpath="./cml:module[@id='jobList1']/cml:module[@id='job' and ./cml:module[@dictRef='compchem:initialization']/cml:list[@dictRef='compchem:basisSet'] and not(following-sibling::cml:module[@dictRef='compchem:job' and position()=1]/cml:module[@dictRef='compchem:initialization']/cml:list[@dictRef='compchem:basisSet'])]"
+   name="flag"
+   value="move"
+   />
+   <transform process="copy"
+   xpath="./cml:module[@id='jobList1']/cml:module[@id='job' and @flag]/cml:module[@dictRef='compchem:initialization']/cml:list[@dictRef='compchem:basisSet']"
+   to="../../following-sibling::cml:module[@dictRef='compchem:job' and position()=1]/cml:module[@dictRef='compchem:initialization']"
+   />   
+   <transform process="delete"
+   xpath="//@flag"
+   />
+      <!-- Pass 3 -->
+   <transform process="addAttribute"
+   xpath="./cml:module[@id='jobList1']/cml:module[@id='job' and ./cml:module[@dictRef='compchem:initialization']/cml:list[@dictRef='compchem:basisSet'] and not(following-sibling::cml:module[@dictRef='compchem:job' and position()=1]/cml:module[@dictRef='compchem:initialization']/cml:list[@dictRef='compchem:basisSet'])]"
+   name="flag"
+   value="move"
+   />
+   <transform process="copy"
+   xpath="./cml:module[@id='jobList1']/cml:module[@id='job' and @flag]/cml:module[@dictRef='compchem:initialization']/cml:list[@dictRef='compchem:basisSet']"
+   to="../../following-sibling::cml:module[@dictRef='compchem:job' and position()=1]/cml:module[@dictRef='compchem:initialization']"
+   />   
+   <transform process="delete"
+   xpath="//@flag"
+   />
+   
+</transformList>

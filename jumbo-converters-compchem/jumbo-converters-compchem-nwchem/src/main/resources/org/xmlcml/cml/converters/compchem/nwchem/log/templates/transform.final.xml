@@ -15,11 +15,11 @@
   
   <!-- Select last top-level calculation and copy the contents finalization module -->
   <transform process="copy"
-  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@cmlx:templateRef='nwchem_module'][position()=last()]/cml:module[@dictRef='compchem:calculation'][position()=last()]/cml:module[@dictRef='compchem:finalization']/*"
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@cmlx:templateRef='nwchemModule'][position()=last()]/cml:module[@dictRef='compchem:calculation'][position()=last()]/cml:module[@dictRef='compchem:finalization']/*"
   to="../../../../cml:module[@id='finalization']" />
   
   <!-- FIXME For geometry optimisations we just assume the above fails - as the geometry optimisation is not within
-  a nwchem_module, so we just use a different xpath - should really be more careful. -->
+  a nwchemModule, so we just use a different xpath - should really be more careful. -->
     <transform process="copy"
   xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@cmlx:templateRef='geomopt']/cml:module[@dictRef='compchem:finalization']/child::*[self::cml:propertyList or self::cml:molecule[@id='molgeom']]"
   to="../../../cml:module[@id='finalization']" />

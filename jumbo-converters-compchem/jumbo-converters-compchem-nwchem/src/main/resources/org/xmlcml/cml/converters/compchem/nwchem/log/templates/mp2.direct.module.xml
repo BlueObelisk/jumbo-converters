@@ -1,0 +1,171 @@
+<template repeat="*"  id="directMp2" name="Direct MP2" 
+  pattern="\s*Direct MP2\s*$\s*------+\s*"
+  newline="$"
+  endPattern="~">
+  
+  
+  <comment class="example.input" id="directmp2">
+                          Direct MP2
+                          ----------
+          Basis functions:                       59
+          Shells:                                17
+          Block length:                          32
+          Active occupied range:           1 -    9
+          Active virtual range:           10 -   59
+          MO coefficients read from:  ./Ar_scf-mp2_cc-vqz.movec
+          Operator matrices in core:             45
+          AO passes required:                     1
+          Use AO Integral blocking
+          Twofold algorithm used
+
+     Pass:    1     Index range:    1  -    9     Time:      2.08
+
+
+          -------------------------------------------
+          SCF energy                -526.816780174633
+          Correlation energy          -0.293668438854
+          Total MP2 energy          -527.110448613487
+          -------------------------------------------
+
+
+          Total MP2 time:           2.19
+
+ Task  times  cpu:        2.2s     wall:        2.2s
+
+
+</comment>
+
+  <!--  Identify as a calculation -->
+  <transform process="addDictRef" 
+  xpath="."
+  value="compchem:calculation"
+  />
+  <transform process="addId" 
+  xpath="."
+  value="directMp2Energy"
+  />
+  
+  <!-- Create initialization module with parameterList and put variables in it -->
+  <transform process="addChild" 
+  xpath="." 
+  elementName="cml:module"
+  dictRef="compchem:initialization"
+  position="0"/>
+  
+  <transform process="addChild" 
+  xpath="./cml:module[@dictRef='compchem:initialization']" 
+  elementName="cml:parameterList"
+  />
+  
+    <!--  Create elements to identify this as an mp2 calculation -->
+  <transform process="addChild"
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"
+  elementName="cml:scalar"
+  dictRef="compchem:method"
+  value="mp2"
+  />
+  <transform process="addChild"
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"
+  elementName="cml:scalar"
+  dictRef="compchem:task"
+  value="energy"
+  />
+  <transform process="createWrapperParameter" 
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList/*" />
+  
+      <templateList xmlns:xi="http://www.w3.org/2001/XInclude">
+
+        <template id="directMp2Final"
+            newline="$" repeat="*"
+            pattern="\s*------+\s*$\s*SCF energy.*"
+            endPattern="\s*------+\s*" endOffset="1">
+            <record />
+            <record id="scfEnergy">\s*SCF energy\s*{F,compchem:scfEnergy}\s*</record>
+            <record id="correlationEnergy">\s*Correlation energy\s*{F,compchem:correlationEnergy}\s*</record>
+            <record id="totalEnergy">\s*Total MP2 energy\s*{F,compchem:totalEnergy}\s*</record>
+            <transform process="pullupSingleton" xpath="./cml:list" />
+            <record />
+            <transform process="delete"
+                xpath=".//cml:list[@cmlx:templateRef='missingID']" />
+            <!-- Add Units -->
+            <transform process="addUnits"
+                xpath=".//cml:scalar[@dictRef='compchem:scfEnergy' or @dictRef='compchem:correlationEnergy' or @dictRef='compchem:totalEnergy']"
+                value="nonsi:hartree" />
+        </template>
+
+        <xi:include href="times.xml" />
+        <xi:include href="ga.stats.xml" />
+        <xi:include href="ga.summary.xml" />
+
+    </templateList>
+  
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+  
+    <!-- Create finalization module with propertyList and put results in it -->
+    <transform process="addChild" 
+  xpath="." 
+  elementName="cml:module"
+  id="finalization"
+  dictRef="compchem:finalization"
+  />
+  <transform process="addChild" 
+  xpath="./cml:module[@dictRef='compchem:finalization']" 
+  elementName="cml:propertyList"
+  />
+  <transform process="move"
+  xpath="./cml:module[@cmlx:templateRef='directMp2Final']/cml:scalar[starts-with(@dictRef,'compchem:')]"
+  to="./cml:module[@dictRef='compchem:finalization']/cml:propertyList"/>
+  
+  <transform process="createWrapperProperty" 
+  xpath="./cml:module[@dictRef='compchem:finalization']/cml:propertyList/*" />
+  
+  
+  
+  <comment class="example.output" id="directmp2">
+<module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="directMp2" dictRef="compchem:calculation" id="directMp2Energy">
+<module dictRef="compchem:initialization">
+<parameterList>
+<parameter dictRef="compchem:method">
+<scalar dataType="xsd:string">mp2</scalar>
+</parameter>
+<parameter dictRef="compchem:task">
+<scalar dataType="xsd:string">energy</scalar>
+</parameter>
+</parameterList>
+</module>                          Direct MP2
+                          ----------
+          Basis functions:                       59
+          Shells:                                17
+          Block length:                          32
+          Active occupied range:           1 -    9
+          Active virtual range:           10 -   59
+          MO coefficients read from:  ./Ar_scf-mp2_cc-vqz.movec
+          Operator matrices in core:             45
+          AO passes required:                     1
+          Use AO Integral blocking
+          Twofold algorithm used
+     Pass:    1     Index range:    1  -    9     Time:      2.08
+<module cmlx:lineCount="5" cmlx:templateRef="directMp2Final" />          Total MP2 time:           2.19
+<module cmlx:lineCount="1" cmlx:templateRef="times">
+<scalar dataType="xsd:string" dictRef="n:timetype">Task</scalar>
+<scalar dataType="xsd:double" dictRef="compchem:cpuTime" units="si:s">2.2</scalar>
+<scalar dataType="xsd:double" dictRef="compchem:wallTime" units="si:s">2.2</scalar>
+</module>
+<module id="finalization" dictRef="compchem:finalization">
+<propertyList>
+<property dictRef="compchem:scfEnergy">
+<scalar dataType="xsd:double" cmlx:templateRef="scfEnergy" units="nonsi:hartree">-526.816780174633</scalar>
+</property>
+<property dictRef="compchem:correlationEnergy">
+<scalar dataType="xsd:double" cmlx:templateRef="correlationEnergy" units="nonsi:hartree">-0.293668438854</scalar>
+</property>
+<property dictRef="compchem:totalEnergy">
+<scalar dataType="xsd:double" cmlx:templateRef="totalEnergy" units="nonsi:hartree">-527.110448613487</scalar>
+</property>
+</propertyList>
+</module>
+</module>
+  </comment>
+
+</template>

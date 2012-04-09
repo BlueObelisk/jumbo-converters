@@ -1,7 +1,7 @@
-<template repeat="*"  id="dft_info" name="General Information" 
+<template repeat="*"  id="dftInfo" name="General Information" 
     pattern="\s*General Information.*$\s+\-+.*" endPattern="\s*">
 
-  <comment class="example.input" id="dft_info">
+  <comment class="example.input" id="dftInfo">
             General Information
             -------------------
           SCF calculation type: DFT
@@ -31,13 +31,13 @@
   <record repeat="2"/>
   <!-- Below is a hard-coded string so we can ignore result -->
   <record repeat="1" id="scftype">\s*SCF calculation type:\s*{A,n:scftype}\s*</record>
-  <record repeat="1" id="wavefunction_type">\s*Wavefunction type:\s*{X,compchem:wavefunction_type}\.\s*</record>
-  <record repeat="1" id="num_atoms">\s*No. of atoms     :\s*{I,compchem:num_atoms}\s*</record>
-  <record repeat="1" id="nelec">\s*No. of electrons :\s*{I,compchem:num_electrons}\s*</record>
-  <record repeat="1" id="nalpha">\s*Alpha electrons :\s*{I,compchem:num_alpha_electrons}\s*</record>
-  <record repeat="1" id="nbeta">\s*Beta electrons :\s*{I,compchem:num_beta_electrons}\s*</record>
+  <record repeat="1" id="wavefunctionType">\s*Wavefunction type:\s*{X,compchem:wavefunctionType}\.\s*</record>
+  <record repeat="1" id="numAtoms">\s*No. of atoms     :\s*{I,compchem:numAtoms}\s*</record>
+  <record repeat="1" id="nelec">\s*No. of electrons :\s*{I,compchem:numElectrons}\s*</record>
+  <record repeat="1" id="nalpha">\s*Alpha electrons :\s*{I,compchem:numAlphaElectrons}\s*</record>
+  <record repeat="1" id="nbeta">\s*Beta electrons :\s*{I,compchem:numBetaElectrons}\s*</record>
   <record repeat="1" id="charge">\s*Charge           :\s*{F,compchem:charge}\s*</record>
-  <record repeat="1" id="spin">\s*Spin multiplicity:\s*{I,compchem:spin_multiplicty}\s*</record>
+  <record repeat="1" id="spin">\s*Spin multiplicity:\s*{I,compchem:spinMultiplicty}\s*</record>
   <record repeat="*" id="unparsed">\s*{X,n:unparsed}\s*</record>
 
 
@@ -49,16 +49,16 @@
   value="nonsi:elementary_charge"
   />
   
-  <comment class="example.output" id="dft_info">
-<module cmlx:templateRef="dft_info" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <comment class="example.output" id="dftInfo">
+<module cmlx:templateRef="dftInfo" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <scalar dataType="xsd:string" dictRef="n:scftype" cmlx:templateRef="scftype">DFT</scalar>
-  <scalar dataType="xsd:string" dictRef="compchem:wavefunction_type" cmlx:templateRef="wavefunction_type">closed shell</scalar>
-  <scalar dataType="xsd:integer" dictRef="compchem:num_atoms" cmlx:templateRef="num_atoms">11</scalar>
-  <scalar dataType="xsd:integer" dictRef="compchem:num_electrons" cmlx:templateRef="nelec">96</scalar>
-  <scalar dataType="xsd:integer" dictRef="compchem:num_alpha_electrons" cmlx:templateRef="nalpha">48</scalar>
-  <scalar dataType="xsd:integer" dictRef="compchem:num_beta_electrons" cmlx:templateRef="nbeta">48</scalar>
+  <scalar dataType="xsd:string" dictRef="compchem:wavefunctionType" cmlx:templateRef="wavefunctionType">closed shell</scalar>
+  <scalar dataType="xsd:integer" dictRef="compchem:numAtoms" cmlx:templateRef="numAtoms">11</scalar>
+  <scalar dataType="xsd:integer" dictRef="compchem:numElectrons" cmlx:templateRef="nelec">96</scalar>
+  <scalar dataType="xsd:integer" dictRef="compchem:numAlphaElectrons" cmlx:templateRef="nalpha">48</scalar>
+  <scalar dataType="xsd:integer" dictRef="compchem:numBetaElectrons" cmlx:templateRef="nbeta">48</scalar>
   <scalar dataType="xsd:double" dictRef="compchem:charge" cmlx:templateRef="charge" units="nonsi:elementary_charge">0.0</scalar>
-  <scalar dataType="xsd:integer" dictRef="compchem:spin_multiplicty" cmlx:templateRef="spin">1</scalar>
+  <scalar dataType="xsd:integer" dictRef="compchem:spinMultiplicty" cmlx:templateRef="spin">1</scalar>
   <list cmlx:templateRef="unparsed">
     <scalar dataType="xsd:string" dictRef="n:unparsed">Use of symmetry is: on ; symmetry adaption is: on</scalar>
     <scalar dataType="xsd:string" dictRef="n:unparsed">Maximum number of iterations:  30</scalar>

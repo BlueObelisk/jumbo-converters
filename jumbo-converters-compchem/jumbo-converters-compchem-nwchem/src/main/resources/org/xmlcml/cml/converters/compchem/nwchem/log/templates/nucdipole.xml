@@ -1,7 +1,7 @@
-<template repeat="*"  id="nuclear_dipole_moment" name="Nuclear Dipole moment" 
+<template repeat="*"  id="nuclearDipoleMoment" name="Nuclear Dipole moment" 
   pattern="\s*Nuclear Dipole moment.*$\s+\-+\s*" newline="$" endPattern="\s*">
 
-  <comment class="example.input" id="nuclear_dipole_moment">
+  <comment class="example.input" id="">
             Nuclear Dipole moment (a.u.) 
             ----------------------------
         X                 Y               Z
@@ -10,16 +10,16 @@
      
   </comment>
   <record repeat="4"/>
-  <record id="nucdipole">{3F,compchem:nuclear_dipole_moment}</record>
+  <record id="nucdipole">{3F,compchem:nuclearDipoleMoment}</record>
   <transform process="pullup" xpath=".//cml:array"/> 
   <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
   <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='nucdipole']"/>
   
 
-  <comment class="example.output" id="nuclear_dipole_moment">
-    <module cmlx:templateRef="nuclear_dipole_moment" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <array dataType="xsd:double" size="3" dictRef="compchem:nuclear_dipole_moment">0.0 0.0 0.0</array>
-    </module>
+  <comment class="example.output" id="">
+<module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="nuclearDipoleMoment">
+<array dataType="xsd:double" size="3" dictRef="compchem:nuclearDipoleMoment">0.0 0.0 0.0</array>
+</module>
   </comment>
 
 </template>

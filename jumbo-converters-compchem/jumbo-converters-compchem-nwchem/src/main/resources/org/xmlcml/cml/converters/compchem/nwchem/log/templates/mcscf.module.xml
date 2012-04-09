@@ -1,0 +1,888 @@
+<template
+  id="mcscfModule"
+  name="NWChem MCSCF Module" 
+  repeat="*"
+  pattern="\s*NWChem Direct MCSCF Module\s*$\s+\-+.*"
+  newline="$"
+  >
+  <comment class="example.input" id="nwchemmp2">
+                            NWChem Direct MCSCF Module
+                            --------------------------
+ 
+ 
+              CASSCF for CH2 1A1 - 3B1 splitting at the 3B1 geometry
+ 
+ 
+     -----------------------------------
+       Basis functions:             25
+       Inactive shells:              1
+       Active shells:                6
+       Active electrons:             6
+       Symmetry:                    b1      
+       Multiplicity:                 3
+       Orbital rotations:          132
+     -----------------------------------
+
+     -----------------------------------
+       E2 extrapolation:             F
+       Conjugacy:                    T
+       Micro CI relax:               T
+       Canonical orbitals:           T
+       Maximum iterations:          20
+       Converge threshold:    1.00E-04
+       Conjugacy resets:            20
+       Initial levelshift:        0.10
+     -----------------------------------
+
+ Loading old vectors from job with title :
+
+CASSCF for CH2 1A1 - 3B1 splitting at the 3B1 geometry
+
+
+   input molecular orbitals = ./ch2.movecs
+  output molecular orbtials = ./ch2.movecs
+
+       No. of determinants:           225
+
+
+  Starting Orbital Energies
+   -11.265405    -0.872424    -0.610207    -0.340057     0.079272     0.256538
+     0.336008     0.751522     0.790757     0.816113     0.837138     1.131910
+     1.186686     1.690036     1.894023     1.922318     2.102858     2.272006
+     2.605489     2.756986     2.885602     2.928108     3.685357     3.777785
+     4.633487
+
+  Orbital Symmetry Irreps
+a1   a1   b2   a1   b1   a1   b2   a1   b2   b1   a1   a1   b2   a2   a1  
+b1   b2   a1   b1   b2   a1   a2   b2   a1   a1  
+
+ #quartets = 1.953D+03 #integrals = 1.805D+04 #direct =  0.0% #cached =100.0%
+
+
+ Integral file          = ./ch2.aoints.0
+ Record size in doubles =  65536        No. of integs per rec  =  43688
+ Max. records in memory =      2        Max. records in file   =  48064
+ No. of bits per label  =      8        No. of bits per value  =     64
+
+
+File balance: exchanges=     0  moved=     0  time=   0.0
+
+
+
+
+          %%%%% MacroIteration   1 %%%%%
+
+
+           >>>| Valence CI:            -10.734214486605
+           >>>| MCSCF energy:          -38.905378796574
+           >>>| Gradient norm:          0.346415405D+00
+
+                              ----- Line search ------
+
+        step       energy         lsg     num-lsg   num-lsh   lsrat    time
+      ------- ---------------- --------- --------- --------- ------- --------
+       0.0000     -38.90537880 -5.68D-02  0.00D+00  0.00D+00 0.0D+00      0.8
+       1.0000     -38.94107475 -1.37D-02 -1.41D-02  4.31D-02 2.4D-01      0.9
+       1.3169     -38.94305414  1.26D-03  1.21D-03  4.71D-02 2.2D-02      1.0
+     --- Orbitals canonicalized ---
+
+
+
+          %%%%% MacroIteration   2 %%%%%
+
+
+           >>>| Valence CI:            -10.772087079862
+           >>>| MCSCF energy:          -38.943054139492
+           >>>| Gradient norm:          0.100748781D+00
+     --- Conjugacy reset ---
+
+                              ----- Line search ------
+
+        step       energy         lsg     num-lsg   num-lsh   lsrat    time
+      ------- ---------------- --------- --------- --------- ------- --------
+       0.0000     -38.94305414 -1.13D-02  0.00D+00  0.00D+00 0.0D+00      1.3
+       1.0000     -38.95230725 -6.76D-03 -6.99D-03  4.53D-03 6.0D-01      1.4
+  restricting step size    1.49337295306827     
+       2.0000     -38.95596560 -4.18D-04 -4.86D-04  6.34D-03 3.7D-02      1.5
+
+
+
+          %%%%% MacroIteration   3 %%%%%
+
+
+           >>>| Valence CI:            -10.784987343205
+           >>>| MCSCF energy:          -38.955965598250
+           >>>| Gradient norm:          0.938553408D-01
+
+                              ----- Line search ------
+
+        step       energy         lsg     num-lsg   num-lsh   lsrat    time
+      ------- ---------------- --------- --------- --------- ------- --------
+       0.0000     -38.95596560 -4.20D-03  0.00D+00  0.00D+00 0.0D+00      1.6
+       1.0000     -38.95837993 -6.53D-04 -6.41D-04  3.55D-03 1.6D-01      1.7
+       1.1841     -38.95844169 -1.94D-05 -1.88D-05  3.44D-03 4.6D-03      1.8
+
+
+
+          %%%%% MacroIteration   4 %%%%%
+
+
+           >>>| Valence CI:            -10.787258012053
+           >>>| MCSCF energy:          -38.958441685656
+           >>>| Gradient norm:          0.144559357D-01
+
+                              ----- Line search ------
+
+        step       energy         lsg     num-lsg   num-lsh   lsrat    time
+      ------- ---------------- --------- --------- --------- ------- --------
+       0.0000     -38.95844169 -1.53D-04  0.00D+00  0.00D+00 0.0D+00      1.9
+       1.0000     -38.95853930 -4.29D-05 -4.27D-05  1.10D-04 2.8D-01      2.0
+       1.3909     -38.95854784 -8.35D-07 -7.95D-07  1.08D-04 5.5D-03      2.1
+
+
+
+          %%%%% MacroIteration   5 %%%%%
+
+
+           >>>| Valence CI:            -10.787345729018
+           >>>| MCSCF energy:          -38.958547838082
+           >>>| Gradient norm:          0.280582555D-02
+
+                              ----- Line search ------
+
+        step       energy         lsg     num-lsg   num-lsh   lsrat    time
+      ------- ---------------- --------- --------- --------- ------- --------
+       0.0000     -38.95854784 -5.16D-06  0.00D+00  0.00D+00 0.0D+00      2.2
+       1.0000     -38.95855106 -1.29D-06 -1.29D-06  3.87D-06 2.5D-01      2.3
+       1.3326     -38.95855127 -3.84D-09 -3.68D-09  3.86D-06 7.5D-04      2.4
+
+
+
+          %%%%% MacroIteration   6 %%%%%
+
+
+           >>>| Valence CI:            -10.787375048923
+           >>>| MCSCF energy:          -38.958551274390
+           >>>| Gradient norm:          0.627114945D-03
+
+                              ----- Line search ------
+
+        step       energy         lsg     num-lsg   num-lsh   lsrat    time
+      ------- ---------------- --------- --------- --------- ------- --------
+       0.0000     -38.95855127 -1.93D-07  0.00D+00  0.00D+00 0.0D+00      2.4
+       1.0000     -38.95855139 -4.13D-08 -4.13D-08  1.52D-07 2.1D-01      2.5
+       1.2716     -38.95855140  5.58D-14  5.43D-14  1.52D-07 2.9D-07      2.6
+
+
+
+          %%%%% MacroIteration   7 %%%%%
+
+
+           >>>| Valence CI:            -10.787373285051
+           >>>| MCSCF energy:          -38.958551397273
+           >>>| Gradient norm:          0.556617305D-04
+
+
+
+
+     ==============================
+            MCSCF Converged
+     ==============================
+
+
+
+          Canonical Eigenvalues
+
+              1      
+    1  -11.2291
+    2   -0.8508
+    3   -0.5957
+    4   -0.2319
+    5   -0.2093
+    6   -0.0132
+    7   -0.0088
+    8    0.7662
+    9    0.7838
+   10    0.7881
+   11    0.8296
+   12    1.1019
+   13    1.1596
+   14    1.7060
+   15    1.8951
+   16    1.9296
+   17    2.1125
+   18    2.2917
+   19    2.6282
+   20    2.7532
+   21    2.8946
+   22    2.9518
+   23    3.7002
+   24    3.7870
+   25    4.6397
+ 
+
+          Converged CI vector
+
+   Index           Coefficient          Config. Occupation
+       136          0.02017529          1  3  4  5  1  3
+       137         -0.05218275          1  3  4  5  1  5
+       139          0.03077909          1  3  4  5  2  6
+       200         -0.05256083          1  2  3  5  2  4
+        55         -0.98393982          1  2  3  4  1  2
+        58         -0.02739742          1  2  3  4  1  6
+        56          0.07835952          1  2  3  4  2  3
+        57         -0.04706274          1  2  3  4  2  5
+       103          0.05747727          1  3  4  6  1  6
+       101         -0.02572072          1  3  4  6  2  3
+       102          0.04442129          1  3  4  6  2  5
+         7          0.02506781          1  2  3  6  1  4
+        73         -0.02010507          1  2  4  5  1  6
+        72         -0.03132344          1  2  4  5  2  5
+       152         -0.02244221          1  2  4  6  1  5
+        85         -0.02119535          2  3  4  5  1  2
+        88         -0.03997484          2  3  4  5  1  6
+        87         -0.04880276          2  3  4  5  2  5
+       167         -0.02793311          2  3  4  6  1  5
+       169          0.02281107          2  3  4  6  2  6
+
+
+
+          Natural orbital occupation numbers
+
+              1      
+    1    2.0000
+    2    1.9806
+    3    1.9774
+    4    0.9998
+    5    1.0000
+    6    0.0248
+    7    0.0173
+ 
+
+
+       Final MCSCF results 
+       ------------------- 
+
+       Total MCSCF energy =    -38.958551397273
+            Gradient norm =      5.6D-05
+
+    CPU time for solution =      2.5s
+   Wall time for solution =      4.7s
+
+
+ 
+                        Analysis of MCSCF natural orbitals
+                        ----------------------------------
+ 
+ Vector    1  Occ=2.000000D+00  E=-1.122911D+01  Symmetry=a1
+              MO Center=  6.3D-20, -4.0D-18,  1.1D-01, r^2= 2.7D-02
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     1      0.997495  1 C  s          
+ 
+ Vector    2  Occ=1.980552D+00  E=-8.508405D-01  Symmetry=a1
+              MO Center= -8.9D-19, -8.7D-15, -1.9D-01, r^2= 9.3D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     2      0.377139  1 C  s                  6      0.318438  1 C  s          
+    21      0.197779  3 H  s                 16      0.197779  2 H  s          
+     1     -0.178004  1 C  s          
+ 
+ Vector    3  Occ=1.977440D+00  E=-5.957249D-01  Symmetry=b2
+              MO Center=  0.0D+00, -5.3D-18, -1.2D-01, r^2= 1.2D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     4     -0.441862  1 C  py                16     -0.254164  2 H  s          
+    21      0.254164  3 H  s                 17     -0.205878  2 H  s          
+    22      0.205878  3 H  s                  8     -0.156306  1 C  py         
+ 
+ Vector    4  Occ=9.998182D-01  E=-2.318635D-01  Symmetry=a1
+              MO Center=  1.8D-19,  4.7D-17,  4.1D-01, r^2= 9.4D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     5      0.558693  1 C  pz                 9      0.403257  1 C  pz         
+     6      0.384503  1 C  s                  2      0.191042  1 C  s          
+ 
+ Vector    5  Occ=1.000000D+00  E=-2.092580D-01  Symmetry=b1
+              MO Center= -1.1D-16, -6.1D-18,  1.1D-01, r^2= 1.0D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     3     -0.617055  1 C  px                 7     -0.503886  1 C  px         
+ 
+ Vector    6  Occ=2.484655D-02  E=-1.317090D-02  Symmetry=a1
+              MO Center=  2.0D-17,  3.0D-16, -2.7D-01, r^2= 1.3D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     2      0.784492  1 C  s                 16     -0.530889  2 H  s          
+    21     -0.530889  3 H  s                  6      0.478646  1 C  s          
+     5     -0.423460  1 C  pz                17     -0.396355  2 H  s          
+    22     -0.396355  3 H  s                  9     -0.207368  1 C  pz         
+ 
+ Vector    7  Occ=1.734382D-02  E=-8.828505D-03  Symmetry=b2
+              MO Center=  0.0D+00,  2.0D-17, -1.2D-01, r^2= 1.2D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     4     -0.993416  1 C  py                16      0.540894  2 H  s          
+    21     -0.540894  3 H  s                 22     -0.364612  3 H  s          
+    17      0.364612  2 H  s                  8     -0.198231  1 C  py         
+ 
+ Vector    8  Occ=0.000000D+00  E= 7.662250D-01  Symmetry=a1
+              MO Center=  1.4D-17, -4.3D-19, -3.7D-01, r^2= 1.8D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     9      1.096924  1 C  pz                 5     -0.826935  1 C  pz         
+     6     -0.692649  1 C  s                 16      0.371532  2 H  s          
+    21      0.371532  3 H  s                  2      0.324685  1 C  s          
+ 
+ Vector    9  Occ=0.000000D+00  E= 7.838460D-01  Symmetry=b1
+              MO Center=  1.9D-16, -6.5D-18,  1.1D-01, r^2= 1.9D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     7      1.112650  1 C  px                 3     -1.044583  1 C  px         
+ 
+ Vector   10  Occ=0.000000D+00  E= 7.880746D-01  Symmetry=b2
+              MO Center= -5.6D-20, -1.1D-16,  4.9D-01, r^2= 2.0D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     8     -2.335324  1 C  py                17      1.058521  2 H  s          
+    22     -1.058521  3 H  s                  4      0.606210  1 C  py         
+    21     -0.431468  3 H  s                 16      0.431468  2 H  s          
+ 
+ Vector   11  Occ=0.000000D+00  E= 8.295884D-01  Symmetry=a1
+              MO Center= -1.1D-16,  8.5D-18,  5.2D-01, r^2= 1.8D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     6     -1.161160  1 C  s                  2      0.998693  1 C  s          
+     5      0.513222  1 C  pz                 9     -0.475690  1 C  pz         
+    21      0.366944  3 H  s                 16      0.366944  2 H  s          
+    17     -0.260879  2 H  s                 22     -0.260879  3 H  s          
+    13      0.240186  1 C  dyy        
+ 
+ Vector   12  Occ=0.000000D+00  E= 1.101937D+00  Symmetry=a1
+              MO Center= -4.3D-36, -4.0D-16, -3.9D-01, r^2= 3.8D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     6      3.676656  1 C  s                 17     -1.936366  2 H  s          
+    22     -1.936366  3 H  s                  2     -1.174801  1 C  s          
+     9     -0.867118  1 C  pz                21      0.355946  3 H  s          
+    16      0.355946  2 H  s                 10     -0.173714  1 C  dxx        
+ 
+ Vector   13  Occ=0.000000D+00  E= 1.159612D+00  Symmetry=b2
+              MO Center= -2.2D-30,  2.5D-15, -6.4D-01, r^2= 3.7D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    17      2.139617  2 H  s                 22     -2.139617  3 H  s          
+     8     -1.798276  1 C  py                16     -0.538247  2 H  s          
+    21      0.538247  3 H  s                 14      0.467477  1 C  dyz        
+     4      0.238947  1 C  py         
+ 
+ Vector   14  Occ=0.000000D+00  E= 1.706000D+00  Symmetry=a2
+              MO Center= -3.3D-17, -1.7D-16, -6.4D-02, r^2= 8.7D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    11     -1.213377  1 C  dxy               23      0.348841  3 H  px         
+    18     -0.348841  2 H  px         
+ 
+ Vector   15  Occ=0.000000D+00  E= 1.895115D+00  Symmetry=a1
+              MO Center=  2.0D-17,  1.4D-17,  3.7D-02, r^2= 8.0D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    15      0.839972  1 C  dzz               10     -0.527988  1 C  dxx        
+    20     -0.268885  2 H  pz                25     -0.268885  3 H  pz         
+    13     -0.260818  1 C  dyy                6     -0.245023  1 C  s          
+     9      0.151349  1 C  pz         
+ 
+ Vector   16  Occ=0.000000D+00  E= 1.929645D+00  Symmetry=b1
+              MO Center= -4.4D-19, -1.7D-16,  6.2D-02, r^2= 7.5D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    12      1.529454  1 C  dxz               23     -0.250615  3 H  px         
+    18     -0.250615  2 H  px         
+ 
+ Vector   17  Occ=0.000000D+00  E= 2.112538D+00  Symmetry=b2
+              MO Center=  3.4D-17,  8.3D-17, -1.4D-01, r^2= 1.2D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    14      1.016445  1 C  dyz                8     -0.661816  1 C  py         
+    16      0.393812  2 H  s                 21     -0.393812  3 H  s          
+    25     -0.366248  3 H  pz                20      0.366248  2 H  pz         
+    19      0.301058  2 H  py                24      0.301058  3 H  py         
+     4      0.162537  1 C  py         
+ 
+
+ Wrote Lagrangian and 1- and 2-particle density matrices to ./ch2.mcpdm
+
+ 
+     Multipole analysis of the density
+     ---------------------------------
+ 
+     L   x y z        total        nuclear
+     -   - - -        -----        -------
+     0   0 0 0      0.000000      8.000000
+ 
+     1   1 0 0      0.000000      0.000000
+     1   0 1 0      0.000000      0.000000
+     1   0 0 1     -0.207301      0.000000
+ 
+     2   2 0 0     -5.810122      0.000000
+     2   1 1 0      0.000000      0.000000
+     2   1 0 1      0.000000      0.000000
+     2   0 2 0     -4.405076      6.993800
+     2   0 1 1      0.000000      0.000000
+     2   0 0 2     -5.486899      1.008600
+ 
+ 
+  Mulliken analysis of the total density
+  --------------------------------------
+
+    Atom       Charge   Shell Charges
+ -----------   ------   -------------------------------------------------------
+    1 C    6     6.24   2.00  0.69  1.82  0.67  1.06  0.01
+    2 H    1     0.88   0.53  0.34  0.01
+    3 H    1     0.88   0.53  0.34  0.01
+ 
+    Mulliken analysis of the active space density
+    ---------------------------------------------
+
+    Atom       Charge   Shell Charges
+ -----------   ------   -------------------------------------------------------
+    1 C    6     4.24   0.00  0.68  1.82  0.68  1.06  0.01
+    2 H    1     0.88   0.53  0.34  0.01
+    3 H    1     0.88   0.53  0.34  0.01
+
+ Parallel integral file used       2 records with       0 large values
+
+
+</comment>
+
+
+  <record repeat="4"/>
+  <record id="r1" repeat="1" >\s*{X,compchem:title}\s*</record>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  
+    
+  <!--  Identify as a calculation -->
+  <transform process="addDictRef" 
+  xpath="."
+  value="compchem:calculation"
+  />
+  <transform process="addId" 
+  xpath="."
+  value="mcscfEnergy"
+  />
+  
+  <!-- Create initialization module with parameterList and put variables in it -->
+  <transform process="addChild" 
+  xpath="." 
+  elementName="cml:module"
+  dictRef="compchem:initialization"
+  position="0"/>
+  
+  <transform process="addChild" 
+  xpath="./cml:module[@dictRef='compchem:initialization']" 
+  elementName="cml:parameterList"
+  />
+  
+    <!--  Create elements to identify this as an mcscf calculation -->
+  <transform process="addChild"
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"
+  elementName="cml:scalar"
+  dictRef="compchem:method"
+  value="mcscf"
+  />
+  <transform process="addChild"
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"
+  elementName="cml:scalar"
+  dictRef="compchem:task"
+  value="energy"
+  />
+  
+  <!-- Bit of a hack - move all compchem scalars into the parameterList -->
+  <transform process="move" 
+  xpath=".//cml:scalar[starts-with(@dictRef,'compchem:')]"
+  to="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"/>
+  
+  <transform process="createWrapperParameter" 
+  xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList/*" />
+  
+  
+  <templateList xmlns:xi="http://www.w3.org/2001/XInclude">
+      <xi:include href="mcscf.final.xml"/>
+      <xi:include href="times.xml"/>
+      <xi:include href="ga.stats.xml"/>
+      <xi:include href="ga.summary.xml"/>
+      
+  </templateList>
+  
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+  
+    <!-- Create finalization module with propertyList and put results in it -->
+    <transform process="addChild" 
+  xpath="." 
+  elementName="cml:module"
+  id="finalization"
+  dictRef="compchem:finalization"
+  />
+  <transform process="addChild" 
+  xpath="./cml:module[@dictRef='compchem:finalization']" 
+  elementName="cml:propertyList"
+  />
+  <transform process="move"
+  xpath="./cml:module[@cmlx:templateRef='mcscfFinal']/cml:scalar[starts-with(@dictRef,'compchem:')]"
+  to="./cml:module[@dictRef='compchem:finalization']/cml:propertyList"/>
+  
+  <transform process="createWrapperProperty" 
+  xpath="./cml:module[@dictRef='compchem:finalization']/cml:propertyList/*" />
+  
+
+  <comment class="example.output" id="nwchemmp2">
+<module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="mcscfModule" dictRef="compchem:calculation" id="mcscfEnergy">
+<module dictRef="compchem:initialization">
+<parameterList>
+<parameter dictRef="compchem:method">
+<scalar dataType="xsd:string">mcscf</scalar>
+</parameter>
+<parameter dictRef="compchem:task">
+<scalar dataType="xsd:string">energy</scalar>
+</parameter>
+<parameter dictRef="compchem:title">
+<scalar dataType="xsd:string" cmlx:templateRef="r1">CASSCF for CH2 1A1 - 3B1 splitting at the 3B1 geometry</scalar>
+</parameter>
+</parameterList>
+</module>     -----------------------------------
+       Basis functions:             25
+       Inactive shells:              1
+       Active shells:                6
+       Active electrons:             6
+       Symmetry:                    b1      
+       Multiplicity:                 3
+       Orbital rotations:          132
+     -----------------------------------
+     -----------------------------------
+       E2 extrapolation:             F
+       Conjugacy:                    T
+       Micro CI relax:               T
+       Canonical orbitals:           T
+       Maximum iterations:          20
+       Converge threshold:    1.00E-04
+       Conjugacy resets:            20
+       Initial levelshift:        0.10
+     -----------------------------------
+ Loading old vectors from job with title :
+CASSCF for CH2 1A1 - 3B1 splitting at the 3B1 geometry
+   input molecular orbitals = ./ch2.movecs
+  output molecular orbtials = ./ch2.movecs
+       No. of determinants:           225
+  Starting Orbital Energies
+   -11.265405    -0.872424    -0.610207    -0.340057     0.079272     0.256538
+     0.336008     0.751522     0.790757     0.816113     0.837138     1.131910
+     1.186686     1.690036     1.894023     1.922318     2.102858     2.272006
+     2.605489     2.756986     2.885602     2.928108     3.685357     3.777785
+     4.633487
+  Orbital Symmetry Irreps
+a1   a1   b2   a1   b1   a1   b2   a1   b2   b1   a1   a1   b2   a2   a1  
+b1   b2   a1   b1   b2   a1   a2   b2   a1   a1  
+ #quartets = 1.953D+03 #integrals = 1.805D+04 #direct =  0.0% #cached =100.0%
+ Integral file          = ./ch2.aoints.0
+ Record size in doubles =  65536        No. of integs per rec  =  43688
+ Max. records in memory =      2        Max. records in file   =  48064
+ No. of bits per label  =      8        No. of bits per value  =     64
+File balance: exchanges=     0  moved=     0  time=   0.0
+          %%%%% MacroIteration   1 %%%%%
+           &gt;&gt;&gt;| Valence CI:            -10.734214486605
+           &gt;&gt;&gt;| MCSCF energy:          -38.905378796574
+           &gt;&gt;&gt;| Gradient norm:          0.346415405D+00
+                              ----- Line search ------
+        step       energy         lsg     num-lsg   num-lsh   lsrat    time
+      ------- ---------------- --------- --------- --------- ------- --------
+       0.0000     -38.90537880 -5.68D-02  0.00D+00  0.00D+00 0.0D+00      0.8
+       1.0000     -38.94107475 -1.37D-02 -1.41D-02  4.31D-02 2.4D-01      0.9
+       1.3169     -38.94305414  1.26D-03  1.21D-03  4.71D-02 2.2D-02      1.0
+     --- Orbitals canonicalized ---
+          %%%%% MacroIteration   2 %%%%%
+           &gt;&gt;&gt;| Valence CI:            -10.772087079862
+           &gt;&gt;&gt;| MCSCF energy:          -38.943054139492
+           &gt;&gt;&gt;| Gradient norm:          0.100748781D+00
+     --- Conjugacy reset ---
+                              ----- Line search ------
+        step       energy         lsg     num-lsg   num-lsh   lsrat    time
+      ------- ---------------- --------- --------- --------- ------- --------
+       0.0000     -38.94305414 -1.13D-02  0.00D+00  0.00D+00 0.0D+00      1.3
+       1.0000     -38.95230725 -6.76D-03 -6.99D-03  4.53D-03 6.0D-01      1.4
+  restricting step size    1.49337295306827     
+       2.0000     -38.95596560 -4.18D-04 -4.86D-04  6.34D-03 3.7D-02      1.5
+          %%%%% MacroIteration   3 %%%%%
+           &gt;&gt;&gt;| Valence CI:            -10.784987343205
+           &gt;&gt;&gt;| MCSCF energy:          -38.955965598250
+           &gt;&gt;&gt;| Gradient norm:          0.938553408D-01
+                              ----- Line search ------
+        step       energy         lsg     num-lsg   num-lsh   lsrat    time
+      ------- ---------------- --------- --------- --------- ------- --------
+       0.0000     -38.95596560 -4.20D-03  0.00D+00  0.00D+00 0.0D+00      1.6
+       1.0000     -38.95837993 -6.53D-04 -6.41D-04  3.55D-03 1.6D-01      1.7
+       1.1841     -38.95844169 -1.94D-05 -1.88D-05  3.44D-03 4.6D-03      1.8
+          %%%%% MacroIteration   4 %%%%%
+           &gt;&gt;&gt;| Valence CI:            -10.787258012053
+           &gt;&gt;&gt;| MCSCF energy:          -38.958441685656
+           &gt;&gt;&gt;| Gradient norm:          0.144559357D-01
+                              ----- Line search ------
+        step       energy         lsg     num-lsg   num-lsh   lsrat    time
+      ------- ---------------- --------- --------- --------- ------- --------
+       0.0000     -38.95844169 -1.53D-04  0.00D+00  0.00D+00 0.0D+00      1.9
+       1.0000     -38.95853930 -4.29D-05 -4.27D-05  1.10D-04 2.8D-01      2.0
+       1.3909     -38.95854784 -8.35D-07 -7.95D-07  1.08D-04 5.5D-03      2.1
+          %%%%% MacroIteration   5 %%%%%
+           &gt;&gt;&gt;| Valence CI:            -10.787345729018
+           &gt;&gt;&gt;| MCSCF energy:          -38.958547838082
+           &gt;&gt;&gt;| Gradient norm:          0.280582555D-02
+                              ----- Line search ------
+        step       energy         lsg     num-lsg   num-lsh   lsrat    time
+      ------- ---------------- --------- --------- --------- ------- --------
+       0.0000     -38.95854784 -5.16D-06  0.00D+00  0.00D+00 0.0D+00      2.2
+       1.0000     -38.95855106 -1.29D-06 -1.29D-06  3.87D-06 2.5D-01      2.3
+       1.3326     -38.95855127 -3.84D-09 -3.68D-09  3.86D-06 7.5D-04      2.4
+          %%%%% MacroIteration   6 %%%%%
+           &gt;&gt;&gt;| Valence CI:            -10.787375048923
+           &gt;&gt;&gt;| MCSCF energy:          -38.958551274390
+           &gt;&gt;&gt;| Gradient norm:          0.627114945D-03
+                              ----- Line search ------
+        step       energy         lsg     num-lsg   num-lsh   lsrat    time
+      ------- ---------------- --------- --------- --------- ------- --------
+       0.0000     -38.95855127 -1.93D-07  0.00D+00  0.00D+00 0.0D+00      2.4
+       1.0000     -38.95855139 -4.13D-08 -4.13D-08  1.52D-07 2.1D-01      2.5
+       1.2716     -38.95855140  5.58D-14  5.43D-14  1.52D-07 2.9D-07      2.6
+          %%%%% MacroIteration   7 %%%%%
+           &gt;&gt;&gt;| Valence CI:            -10.787373285051
+           &gt;&gt;&gt;| MCSCF energy:          -38.958551397273
+           &gt;&gt;&gt;| Gradient norm:          0.556617305D-04
+     ==============================
+            MCSCF Converged
+     ==============================
+          Canonical Eigenvalues
+              1      
+    1  -11.2291
+    2   -0.8508
+    3   -0.5957
+    4   -0.2319
+    5   -0.2093
+    6   -0.0132
+    7   -0.0088
+    8    0.7662
+    9    0.7838
+   10    0.7881
+   11    0.8296
+   12    1.1019
+   13    1.1596
+   14    1.7060
+   15    1.8951
+   16    1.9296
+   17    2.1125
+   18    2.2917
+   19    2.6282
+   20    2.7532
+   21    2.8946
+   22    2.9518
+   23    3.7002
+   24    3.7870
+   25    4.6397
+          Converged CI vector
+   Index           Coefficient          Config. Occupation
+       136          0.02017529          1  3  4  5  1  3
+       137         -0.05218275          1  3  4  5  1  5
+       139          0.03077909          1  3  4  5  2  6
+       200         -0.05256083          1  2  3  5  2  4
+        55         -0.98393982          1  2  3  4  1  2
+        58         -0.02739742          1  2  3  4  1  6
+        56          0.07835952          1  2  3  4  2  3
+        57         -0.04706274          1  2  3  4  2  5
+       103          0.05747727          1  3  4  6  1  6
+       101         -0.02572072          1  3  4  6  2  3
+       102          0.04442129          1  3  4  6  2  5
+         7          0.02506781          1  2  3  6  1  4
+        73         -0.02010507          1  2  4  5  1  6
+        72         -0.03132344          1  2  4  5  2  5
+       152         -0.02244221          1  2  4  6  1  5
+        85         -0.02119535          2  3  4  5  1  2
+        88         -0.03997484          2  3  4  5  1  6
+        87         -0.04880276          2  3  4  5  2  5
+       167         -0.02793311          2  3  4  6  1  5
+       169          0.02281107          2  3  4  6  2  6
+          Natural orbital occupation numbers
+              1      
+    1    2.0000
+    2    1.9806
+    3    1.9774
+    4    0.9998
+    5    1.0000
+    6    0.0248
+    7    0.0173
+<module cmlx:lineCount="8" cmlx:templateRef="mcscfFinal">
+<scalar dataType="xsd:double" dictRef="n:mcscfGradientNorm" cmlx:templateRef="gradientNorm">5.6E-5</scalar>
+</module>                        Analysis of MCSCF natural orbitals
+                        ----------------------------------
+ Vector    1  Occ=2.000000D+00  E=-1.122911D+01  Symmetry=a1
+              MO Center=  6.3D-20, -4.0D-18,  1.1D-01, r^2= 2.7D-02
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     1      0.997495  1 C  s          
+ Vector    2  Occ=1.980552D+00  E=-8.508405D-01  Symmetry=a1
+              MO Center= -8.9D-19, -8.7D-15, -1.9D-01, r^2= 9.3D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     2      0.377139  1 C  s                  6      0.318438  1 C  s          
+    21      0.197779  3 H  s                 16      0.197779  2 H  s          
+     1     -0.178004  1 C  s          
+ Vector    3  Occ=1.977440D+00  E=-5.957249D-01  Symmetry=b2
+              MO Center=  0.0D+00, -5.3D-18, -1.2D-01, r^2= 1.2D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     4     -0.441862  1 C  py                16     -0.254164  2 H  s          
+    21      0.254164  3 H  s                 17     -0.205878  2 H  s          
+    22      0.205878  3 H  s                  8     -0.156306  1 C  py         
+ Vector    4  Occ=9.998182D-01  E=-2.318635D-01  Symmetry=a1
+              MO Center=  1.8D-19,  4.7D-17,  4.1D-01, r^2= 9.4D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     5      0.558693  1 C  pz                 9      0.403257  1 C  pz         
+     6      0.384503  1 C  s                  2      0.191042  1 C  s          
+ Vector    5  Occ=1.000000D+00  E=-2.092580D-01  Symmetry=b1
+              MO Center= -1.1D-16, -6.1D-18,  1.1D-01, r^2= 1.0D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     3     -0.617055  1 C  px                 7     -0.503886  1 C  px         
+ Vector    6  Occ=2.484655D-02  E=-1.317090D-02  Symmetry=a1
+              MO Center=  2.0D-17,  3.0D-16, -2.7D-01, r^2= 1.3D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     2      0.784492  1 C  s                 16     -0.530889  2 H  s          
+    21     -0.530889  3 H  s                  6      0.478646  1 C  s          
+     5     -0.423460  1 C  pz                17     -0.396355  2 H  s          
+    22     -0.396355  3 H  s                  9     -0.207368  1 C  pz         
+ Vector    7  Occ=1.734382D-02  E=-8.828505D-03  Symmetry=b2
+              MO Center=  0.0D+00,  2.0D-17, -1.2D-01, r^2= 1.2D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     4     -0.993416  1 C  py                16      0.540894  2 H  s          
+    21     -0.540894  3 H  s                 22     -0.364612  3 H  s          
+    17      0.364612  2 H  s                  8     -0.198231  1 C  py         
+ Vector    8  Occ=0.000000D+00  E= 7.662250D-01  Symmetry=a1
+              MO Center=  1.4D-17, -4.3D-19, -3.7D-01, r^2= 1.8D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     9      1.096924  1 C  pz                 5     -0.826935  1 C  pz         
+     6     -0.692649  1 C  s                 16      0.371532  2 H  s          
+    21      0.371532  3 H  s                  2      0.324685  1 C  s          
+ Vector    9  Occ=0.000000D+00  E= 7.838460D-01  Symmetry=b1
+              MO Center=  1.9D-16, -6.5D-18,  1.1D-01, r^2= 1.9D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     7      1.112650  1 C  px                 3     -1.044583  1 C  px         
+ Vector   10  Occ=0.000000D+00  E= 7.880746D-01  Symmetry=b2
+              MO Center= -5.6D-20, -1.1D-16,  4.9D-01, r^2= 2.0D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     8     -2.335324  1 C  py                17      1.058521  2 H  s          
+    22     -1.058521  3 H  s                  4      0.606210  1 C  py         
+    21     -0.431468  3 H  s                 16      0.431468  2 H  s          
+ Vector   11  Occ=0.000000D+00  E= 8.295884D-01  Symmetry=a1
+              MO Center= -1.1D-16,  8.5D-18,  5.2D-01, r^2= 1.8D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     6     -1.161160  1 C  s                  2      0.998693  1 C  s          
+     5      0.513222  1 C  pz                 9     -0.475690  1 C  pz         
+    21      0.366944  3 H  s                 16      0.366944  2 H  s          
+    17     -0.260879  2 H  s                 22     -0.260879  3 H  s          
+    13      0.240186  1 C  dyy        
+ Vector   12  Occ=0.000000D+00  E= 1.101937D+00  Symmetry=a1
+              MO Center= -4.3D-36, -4.0D-16, -3.9D-01, r^2= 3.8D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+     6      3.676656  1 C  s                 17     -1.936366  2 H  s          
+    22     -1.936366  3 H  s                  2     -1.174801  1 C  s          
+     9     -0.867118  1 C  pz                21      0.355946  3 H  s          
+    16      0.355946  2 H  s                 10     -0.173714  1 C  dxx        
+ Vector   13  Occ=0.000000D+00  E= 1.159612D+00  Symmetry=b2
+              MO Center= -2.2D-30,  2.5D-15, -6.4D-01, r^2= 3.7D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    17      2.139617  2 H  s                 22     -2.139617  3 H  s          
+     8     -1.798276  1 C  py                16     -0.538247  2 H  s          
+    21      0.538247  3 H  s                 14      0.467477  1 C  dyz        
+     4      0.238947  1 C  py         
+ Vector   14  Occ=0.000000D+00  E= 1.706000D+00  Symmetry=a2
+              MO Center= -3.3D-17, -1.7D-16, -6.4D-02, r^2= 8.7D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    11     -1.213377  1 C  dxy               23      0.348841  3 H  px         
+    18     -0.348841  2 H  px         
+ Vector   15  Occ=0.000000D+00  E= 1.895115D+00  Symmetry=a1
+              MO Center=  2.0D-17,  1.4D-17,  3.7D-02, r^2= 8.0D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    15      0.839972  1 C  dzz               10     -0.527988  1 C  dxx        
+    20     -0.268885  2 H  pz                25     -0.268885  3 H  pz         
+    13     -0.260818  1 C  dyy                6     -0.245023  1 C  s          
+     9      0.151349  1 C  pz         
+ Vector   16  Occ=0.000000D+00  E= 1.929645D+00  Symmetry=b1
+              MO Center= -4.4D-19, -1.7D-16,  6.2D-02, r^2= 7.5D-01
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    12      1.529454  1 C  dxz               23     -0.250615  3 H  px         
+    18     -0.250615  2 H  px         
+ Vector   17  Occ=0.000000D+00  E= 2.112538D+00  Symmetry=b2
+              MO Center=  3.4D-17,  8.3D-17, -1.4D-01, r^2= 1.2D+00
+   Bfn.  Coefficient  Atom+Function         Bfn.  Coefficient  Atom+Function  
+  ----- ------------  ---------------      ----- ------------  ---------------
+    14      1.016445  1 C  dyz                8     -0.661816  1 C  py         
+    16      0.393812  2 H  s                 21     -0.393812  3 H  s          
+    25     -0.366248  3 H  pz                20      0.366248  2 H  pz         
+    19      0.301058  2 H  py                24      0.301058  3 H  py         
+     4      0.162537  1 C  py         
+ Wrote Lagrangian and 1- and 2-particle density matrices to ./ch2.mcpdm
+     Multipole analysis of the density
+     ---------------------------------
+     L   x y z        total        nuclear
+     -   - - -        -----        -------
+     0   0 0 0      0.000000      8.000000
+     1   1 0 0      0.000000      0.000000
+     1   0 1 0      0.000000      0.000000
+     1   0 0 1     -0.207301      0.000000
+     2   2 0 0     -5.810122      0.000000
+     2   1 1 0      0.000000      0.000000
+     2   1 0 1      0.000000      0.000000
+     2   0 2 0     -4.405076      6.993800
+     2   0 1 1      0.000000      0.000000
+     2   0 0 2     -5.486899      1.008600
+  Mulliken analysis of the total density
+  --------------------------------------
+    Atom       Charge   Shell Charges
+ -----------   ------   -------------------------------------------------------
+    1 C    6     6.24   2.00  0.69  1.82  0.67  1.06  0.01
+    2 H    1     0.88   0.53  0.34  0.01
+    3 H    1     0.88   0.53  0.34  0.01
+    Mulliken analysis of the active space density
+    ---------------------------------------------
+    Atom       Charge   Shell Charges
+ -----------   ------   -------------------------------------------------------
+    1 C    6     4.24   0.00  0.68  1.82  0.68  1.06  0.01
+    2 H    1     0.88   0.53  0.34  0.01
+    3 H    1     0.88   0.53  0.34  0.01
+ Parallel integral file used       2 records with       0 large values
+<module id="finalization" dictRef="compchem:finalization">
+<propertyList>
+<property dictRef="compchem:totalEnergy">
+<scalar dataType="xsd:double" cmlx:templateRef="mcscfEnergy" units="nonsi:hartree">-38.958551397273</scalar>
+</property>
+<property dictRef="compchem:cpuTime">
+<scalar dataType="xsd:double" cmlx:templateRef="cpuTime" units="si:s">2.5</scalar>
+</property>
+<property dictRef="compchem:wallTime">
+<scalar dataType="xsd:double" cmlx:templateRef="wallTime" units="si:s">4.7</scalar>
+</property>
+</propertyList>
+</module>
+</module>
+</comment>
+
+</template>

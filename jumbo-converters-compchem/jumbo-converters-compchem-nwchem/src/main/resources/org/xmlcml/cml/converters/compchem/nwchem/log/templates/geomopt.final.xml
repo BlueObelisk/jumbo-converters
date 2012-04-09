@@ -157,6 +157,7 @@ MA usage statistics:
      <xi:include href="geometry.xml" />
      <xi:include href="times.xml" />
      <xi:include href="ga.stats.xml" />
+     <xi:include href="ga.summary.xml"/>
   </templateList>
 
   <!-- Turn this into a finalization module -->
@@ -181,114 +182,188 @@ MA usage statistics:
   xpath="./cml:module[@cmlx:templateRef='stepdata']/cml:list[@cmlx:templateRef='step']/cml:scalar[starts-with(@dictRef,'compchem:')]"  
   to="./cml:propertyList"
   />
+  <!--  Symmetry information -->
+  <transform process="move"
+  xpath="./cml:module[@cmlx:templateRef='geometry']/cml:module[@cmlx:templateRef='symminfo']/cml:scalar[starts-with(@dictRef,'compchem:')]"  
+  to="./cml:propertyList"
+  />
+  <!--  Nuclear Repulsion and Dipole -->
+  <transform process="move"
+  xpath="./cml:module[@cmlx:templateRef='geometry']/cml:module[@cmlx:templateRef='nuclearRepulsionEnergy']/cml:scalar[@dictRef='compchem:nuclearRepulsionEnergy']"  
+  to="./cml:propertyList"
+  />
+  <transform process="move"
+  xpath="./cml:module[@cmlx:templateRef='geometry']/cml:module[@cmlx:templateRef='nuclearDipoleMoment']/cml:array[@dictRef='compchem:nuclearDipoleMoment']"  
+  to="./cml:propertyList"
+  />
+  <!--  Wrap up properties -->
   <transform process="createWrapperProperty" 
   xpath="./cml:propertyList/*" />
+  
+  <!-- Clean up empty modules. -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
+  
 
   <comment class="example.output" id="geomopt_final">
-   <module cmlx:templateRef="geomopt_final" dictRef="compchem:finalization" id="finalization" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"> ---------------------- Optimization converged ---------------------- 
-  <module cmlx:lineCount="4" cmlx:templateRef="stepdata">
-    <list cmlx:templateRef="step">
-      <scalar dataType="xsd:integer" dictRef="n:step">3</scalar>
-      <scalar dataType="xsd:double" dictRef="n:deltae">-2.1E-7</scalar>
-      <scalar dataType="xsd:double" dictRef="n:gmax">2.0E-5</scalar>
-      <scalar dataType="xsd:double" dictRef="n:grms">2.0E-5</scalar>
-      <scalar dataType="xsd:double" dictRef="n:xrms">1.9E-4</scalar>
-      <scalar dataType="xsd:double" dictRef="n:xmax">4.4E-4</scalar>
-      <scalar dataType="xsd:double" dictRef="n:walltime">0.7</scalar>
-      <list/>
-    </list> ok ok ok ok 
-  </module> Z-matrix (autoz) -------- Units are Angstrom for bonds and degrees for angles Type Name I J K L M Value Gradient ----------- -------- ----- ----- ----- ----- ----- ---------- ---------- 1 Stretch 1 2 0.98943 0.00002 2 Stretch 1 3 0.98943 0.00002 3 Bend 2 1 3 100.02505 -0.00000 
-  <module cmlx:lineCount="81" cmlx:templateRef="geometry">
-    <module cmlx:lineCount="5" cmlx:templateRef="atmass">
-      <array dataType="xsd:string" dictRef="compchem:atom_type" size="2">O H</array>
-      <array dataType="xsd:double" dictRef="compchem:atom_mass" size="2">15.99491 1.007825</array>
-    </module>
-    <module cmlx:lineCount="1" cmlx:templateRef="nuclear_repulsion_energy">
-      <scalar dataType="xsd:double" dictRef="compchem:nuclear_repulsion_energy" cmlx:templateRef="nuclear_repulsion_energy">8.9063351314</scalar>
-    </module>
-    <module cmlx:lineCount="5" cmlx:templateRef="nuclear_dipole_moment">
-      <array dataType="xsd:double" size="3" dictRef="compchem:nuclear_dipole_moment">0.0 0.0 0.4363472951</array>
-    </module>
-    <module cmlx:lineCount="11" cmlx:templateRef="symminfo">
-      <scalar dataType="xsd:string" dictRef="compchem:pointgroup" cmlx:templateRef="pointgroup">C2v</scalar>
-      <scalar dataType="xsd:integer" dictRef="compchem:group_name" cmlx:templateRef="group_name">16</scalar>
-      <scalar dataType="xsd:integer" dictRef="compchem:group_order" cmlx:templateRef="group_order">4</scalar>
-      <scalar dataType="xsd:integer" dictRef="n:sym_uniqe_centers" cmlx:templateRef="symm_unique_centers">2</scalar>
-      <list cmlx:templateRef="symmuniqatom">
-        <array dataType="xsd:integer" size="2" dictRef="n:symuniqatom">1 2</array>
-      </list>
-    </module> Final and change from initial internal coordinates -------------------------------------------------- 
-    <module cmlx:lineCount="11" cmlx:templateRef="zmat">
-      <scalar dataType="xsd:string" dictRef="n:typezz" cmlx:templateRef="typez">autoz</scalar>
-      <module cmlx:lineCount="1" cmlx:templateRef="units">
-        <list cmlx:templateRef="units">
-          <list>
-            <scalar dataType="xsd:string" dictRef="n:ll">Angstrom</scalar>
-            <scalar dataType="xsd:string" dictRef="n:aa">degrees</scalar>
-          </list>
-        </list>
-      </module> Type Name I J K L M Value Change ----------- -------- ----- ----- ----- ----- ----- ---------- ---------- 1 Stretch 1 2 0.98943 0.03192 2 Stretch 1 3 0.98943 0.03192 3 Bend 2 1 3 100.02505 -4.45339 
-    </module>
-    <module cmlx:lineCount="10" cmlx:templateRef="internuc">
-      <list cmlx:lineCount="2" cmlx:templateRef="dist">
-        <array dataType="xsd:integer" dictRef="n:ser1" size="2">2 3</array>
-        <array dataType="xsd:string" dictRef="n:elem1" size="2">H H</array>
-        <array dataType="xsd:integer" dictRef="n:ser2" size="2">1 1</array>
-        <array dataType="xsd:string" dictRef="n:elem2" size="2">O O</array>
-        <array dataType="xsd:double" dictRef="n:dist1" size="2">1.86975 1.86975</array>
-        <array dataType="xsd:double" dictRef="n:dist1" size="2">0.98943 0.98943</array>
-      </list>
-      <list cmlx:templateRef="rlx">
-        <scalar dataType="xsd:integer" dictRef="n:count">2</scalar>
-      </list>
-    </module>
-    <module cmlx:lineCount="9" cmlx:templateRef="internucang">
-      <list cmlx:lineCount="1" cmlx:templateRef="dist">
-        <array dataType="xsd:integer" dictRef="n:ser1" size="1">2</array>
-        <array dataType="xsd:string" dictRef="n:elem1" size="1">H</array>
-        <array dataType="xsd:integer" dictRef="n:ser2" size="1">1</array>
-        <array dataType="xsd:string" dictRef="n:elem2" size="1">O</array>
-        <array dataType="xsd:integer" dictRef="n:ser3" size="1">3</array>
-        <array dataType="xsd:string" dictRef="n:elem3" size="1">H</array>
-        <array dataType="xsd:double" dictRef="n:ang1" size="1">100.03</array>
-      </list>
-    </module>
-  </module>
-  <module cmlx:lineCount="1" cmlx:templateRef="times">
-    <scalar dataType="xsd:string" dictRef="n:timetype">Task</scalar>
-    <scalar dataType="xsd:double" dictRef="compchem:cputime">0.3</scalar>
-    <scalar dataType="xsd:double" dictRef="compchem:walltime">0.7</scalar>
-  </module> Summary of allocated global arrays ----------------------------------- No active global arrays 
-  <module cmlx:lineCount="22" cmlx:templateRef="gastats"> GA Statistics for process 0 ------------------------------ create destroy get put acc scatter gather readandinc calls: 1082 1082 7509 3100 3926 0 0 0 number of processes/call 1.00e+00 1.00e+00 1.00e+00 0.00e+00 0.00e+00 bytes total: 6.91e+05 3.68e+05 2.19e+05 0.00e+00 0.00e+00 0.00e+00 bytes remote: 0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00 Max memory consumed for GA by this process: 5448 bytes MA_summarize_allocated_blocks: starting scan ... MA_summarize_allocated_blocks: scan completed: 0 heap blocks, 0 stack blocks MA usage statistics: allocation statistics: heap stack ---- ----- current number of blocks 0 0 maximum number of blocks 20 29 current total bytes 0 0 maximum total bytes 1053912 22509032 maximum total K-bytes 1054 22510 maximum total M-bytes 2 23 </module>
-  <propertyList xmlns="">
-    <scalar dataType="xsd:double" dictRef="compchem:total_energy" xmlns="http://www.xml-cml.org/schema">-74.96590119</scalar>
-  </propertyList>
-  <molecule id="molgeom" cmlx:templateRef="geom">
-    <atomArray>
-      <atom id="a1" elementType="O" x3="0.0" y3="0.0" z3="0.15025565">
-        <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">O</scalar>
-        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">8</scalar>
-      </atom>
-      <atom id="a2" elementType="H" x3="0.75808408" y3="0.0" z3="-0.48557007">
-        <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">H</scalar>
-        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
-      </atom>
-      <atom id="a3" elementType="H" x3="-0.75808408" y3="0.0" z3="-0.48557007">
-        <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">H</scalar>
-        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
-      </atom>
-    </atomArray>
-    <formula formalCharge="0" concise="H 2 O 1">
-      <atomArray elementType="H O" count="2.0 1.0"/>
-    </formula>
-    <bondArray>
-      <bond atomRefs2="a1 a2" id="a1_a2" order="S"/>
-      <bond atomRefs2="a1 a3" id="a1_a3" order="S"/>
-    </bondArray>
-    <property dictRef="cml:molmass">
-      <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">18.01528</scalar>
-    </property>
-  </molecule>
+<module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="geomopt_final" dictRef="compchem:finalization" id="finalization">      ----------------------
+      Optimization converged
+      ----------------------
+<module cmlx:lineCount="4" cmlx:templateRef="stepdata">
+<list cmlx:templateRef="step">
+<scalar dataType="xsd:integer" dictRef="n:step">3</scalar>
+<scalar dataType="xsd:double" dictRef="n:deltae">-2.1E-7</scalar>
+<scalar dataType="xsd:double" dictRef="n:gmax">2.0E-5</scalar>
+<scalar dataType="xsd:double" dictRef="n:grms">2.0E-5</scalar>
+<scalar dataType="xsd:double" dictRef="n:xrms">1.9E-4</scalar>
+<scalar dataType="xsd:double" dictRef="n:xmax">4.4E-4</scalar>
+</list>                                     ok       ok       ok       ok  
+</module>                                Z-matrix (autoz)
+                                -------- 
+ Units are Angstrom for bonds and degrees for angles
+      Type          Name      I     J     K     L     M      Value     Gradient
+      ----------- --------  ----- ----- ----- ----- ----- ---------- ----------
+    1 Stretch                  1     2                       0.98943    0.00002
+    2 Stretch                  1     3                       0.98943    0.00002
+    3 Bend                     2     1     3               100.02505   -0.00000
+<module cmlx:lineCount="81" cmlx:templateRef="geometry">
+<scalar dataType="xsd:string" dictRef="n:unparsed" cmlx:templateRef="scale">Output coordinates in angstroms (scale by  1.889725989 to convert to a.u.)</scalar>
+<module cmlx:lineCount="5" cmlx:templateRef="atmass">
+<array dataType="xsd:string" dictRef="compchem:atom_type" size="2">O H</array>
+<array dataType="xsd:double" dictRef="compchem:atom_mass" size="2">15.99491 1.007825</array>
+</module>
+<module cmlx:lineCount="11" cmlx:templateRef="symminfo">
+<scalar dataType="xsd:integer" dictRef="n:sym_uniqe_centers" cmlx:templateRef="symm_unique_centers">2</scalar>
+<list cmlx:templateRef="symmuniqatom">
+<array dataType="xsd:integer" size="2" dictRef="n:symuniqatom">1 2</array>
+</list>
+</module>                Final and change from initial internal coordinates
+                --------------------------------------------------
+<module cmlx:lineCount="11" cmlx:templateRef="zmat_new">
+<list cmlx:templateRef="unparsed">
+<scalar dataType="xsd:string" dictRef="n:unparsed">Z-matrix (autoz)</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">--------</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed" />
+<scalar dataType="xsd:string" dictRef="n:unparsed">Units are Angstrom for bonds and degrees for angles</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed" />
+<scalar dataType="xsd:string" dictRef="n:unparsed">Type          Name      I     J     K     L     M      Value       Change</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">----------- --------  ----- ----- ----- ----- ----- ---------- ----------</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">1 Stretch                  1     2                       0.98943    0.03192</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">2 Stretch                  1     3                       0.98943    0.03192</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">3 Bend                     2     1     3               100.02505   -4.45339</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed" />
+</list>
+</module>
+<module cmlx:lineCount="10" cmlx:templateRef="internuc">
+<list cmlx:lineCount="2" cmlx:templateRef="dist">
+<array dataType="xsd:integer" dictRef="n:ser1" size="2">2 3</array>
+<array dataType="xsd:string" dictRef="n:elem1" size="2">H H</array>
+<array dataType="xsd:integer" dictRef="n:ser2" size="2">1 1</array>
+<array dataType="xsd:string" dictRef="n:elem2" size="2">O O</array>
+<array dataType="xsd:double" dictRef="n:dist1" size="2">1.86975 1.86975</array>
+<array dataType="xsd:double" dictRef="n:dist1" size="2">0.98943 0.98943</array>
+</list>
+<list cmlx:templateRef="rlx">
+<scalar dataType="xsd:integer" dictRef="n:count">2</scalar>
+</list>
+</module>
+<module cmlx:lineCount="9" cmlx:templateRef="internucang">
+<list cmlx:lineCount="1" cmlx:templateRef="dist">
+<array dataType="xsd:integer" dictRef="n:ser1" size="1">2</array>
+<array dataType="xsd:string" dictRef="n:elem1" size="1">H</array>
+<array dataType="xsd:integer" dictRef="n:ser2" size="1">1</array>
+<array dataType="xsd:string" dictRef="n:elem2" size="1">O</array>
+<array dataType="xsd:integer" dictRef="n:ser3" size="1">3</array>
+<array dataType="xsd:string" dictRef="n:elem3" size="1">H</array>
+<array dataType="xsd:double" dictRef="n:ang1" size="1">100.03</array>
+</list>
+</module>
+</module>
+<module cmlx:lineCount="1" cmlx:templateRef="times">
+<scalar dataType="xsd:string" dictRef="n:timetype">Task</scalar>
+<scalar dataType="xsd:double" dictRef="compchem:cpuTime" units="si:s">0.3</scalar>
+<scalar dataType="xsd:double" dictRef="compchem:wallTime" units="si:s">0.7</scalar>
+</module>
+<module cmlx:lineCount="3" cmlx:templateRef="summary_global_arrays">
+<list cmlx:templateRef="globalarrays">
+<scalar dataType="xsd:string" dictRef="n:globalarrays">No active global arrays</scalar>
+</list>
+</module>
+<module cmlx:lineCount="22" cmlx:templateRef="gastats">
+<list cmlx:templateRef="unparsed">
+<scalar dataType="xsd:string" dictRef="n:unparsed">GA Statistics for process    0</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">------------------------------</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed" />
+<scalar dataType="xsd:string" dictRef="n:unparsed">create   destroy   get      put      acc     scatter   gather  readandinc</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">calls: 1082     1082     7509     3100     3926        0        0        0</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">number of processes/call 1.00e+00 1.00e+00 1.00e+00 0.00e+00 0.00e+00</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">bytes total:             6.91e+05 3.68e+05 2.19e+05 0.00e+00 0.00e+00 0.00e+00</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">bytes remote:            0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">Max memory consumed for GA by this process: 5448 bytes</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">MA_summarize_allocated_blocks: starting scan ...</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">MA_summarize_allocated_blocks: scan completed: 0 heap blocks, 0 stack blocks</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">MA usage statistics:</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed" />
+<scalar dataType="xsd:string" dictRef="n:unparsed">allocation statistics:</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">heap       stack</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">----       -----</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">current number of blocks             0           0</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">maximum number of blocks            20          29</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">current total bytes              0           0</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">maximum total bytes        1053912    22509032</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">maximum total K-bytes             1054       22510</scalar>
+<scalar dataType="xsd:string" dictRef="n:unparsed">maximum total M-bytes                2          23</scalar>
+</list>
+</module>
+<molecule id="molgeom" cmlx:templateRef="geom">
+<atomArray>
+<atom id="a1" elementType="O" x3="0.0" y3="0.0" z3="0.15025565">
+<scalar dataType="xsd:string" dictRef="compchem:atomtypeRef">O</scalar>
+<scalar dataType="xsd:integer" dictRef="cc:atomicNumber">8</scalar>
+</atom>
+<atom id="a2" elementType="H" x3="0.75808408" y3="0.0" z3="-0.48557007">
+<scalar dataType="xsd:string" dictRef="compchem:atomtypeRef">H</scalar>
+<scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+</atom>
+<atom id="a3" elementType="H" x3="-0.75808408" y3="0.0" z3="-0.48557007">
+<scalar dataType="xsd:string" dictRef="compchem:atomtypeRef">H</scalar>
+<scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+</atom>
+</atomArray>
+<formula formalCharge="0" concise="H 2 O 1">
+<atomArray elementType="H O" count="2.0 1.0" />
+</formula>
+<bondArray>
+<bond atomRefs2="a1 a2" id="a1_a2" order="S" />
+<bond atomRefs2="a1 a3" id="a1_a3" order="S" />
+</bondArray>
+<property dictRef="cml:molmass">
+<scalar xmlns:unit="http://www.xml-cml.org/unit/si/" dataType="xsd:double" units="unit:dalton">18.01528</scalar>
+</property>
+</molecule>
+<propertyList>
+<property dictRef="compchem:totalEnergy">
+<scalar dataType="xsd:double" units="nonsi:hartree">-74.96590119</scalar>
+</property>
+<property dictRef="compchem:wallTime">
+<scalar dataType="xsd:double" units="si:s">0.7</scalar>
+</property>
+<property dictRef="compchem:pointGroup">
+<scalar dataType="xsd:string" cmlx:templateRef="pointGroup">C2v</scalar>
+</property>
+<property dictRef="compchem:groupName">
+<scalar dataType="xsd:integer" cmlx:templateRef="groupName">16</scalar>
+</property>
+<property dictRef="compchem:groupOrder">
+<scalar dataType="xsd:integer" cmlx:templateRef="groupOrder">4</scalar>
+</property>
+<property dictRef="compchem:nuclearRepulsionEnergy">
+<scalar dataType="xsd:double" cmlx:templateRef="nuclearRepulsionEnergy">8.9063351314</scalar>
+</property>
+<property dictRef="compchem:nuclearDipoleMoment">
+<array dataType="xsd:double" size="3">0.0 0.0 0.4363472951</array>
+</property>
+</propertyList>
 </module>
   </comment>
 

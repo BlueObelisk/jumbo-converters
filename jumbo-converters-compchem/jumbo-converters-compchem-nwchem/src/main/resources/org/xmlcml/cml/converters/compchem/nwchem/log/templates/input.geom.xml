@@ -9,7 +9,7 @@ end
   </comment>
   <record/>
   <record repeat="*" id="inputgeom">\s*{A,cc:elementType}\s+{F,cc:x3}\s{F,cc:y3}\s{F,cc:z3}\s*</record>
-  <record repeat="*" id="inputsymm">\s*symmetry\s+{A,cc:pointgroup}\s*</record>
+  <record repeat="*" id="inputsymm">\s*symmetry\s+{A,compchem:pointGroup}\s*</record>
   <record/>
   <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
   
@@ -30,7 +30,7 @@ end
         </list>
       </list>
       <list cmlx:templateRef="inputsymm">
-        <scalar dataType="xsd:string" dictRef="cc:pointgroup">c1</scalar>
+        <scalar dataType="xsd:string" dictRef="compchem:pointGroup">c1</scalar>
       </list>
     </module>
   </comment>

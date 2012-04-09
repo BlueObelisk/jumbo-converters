@@ -1,29 +1,27 @@
 <template 
-  id="nwchem_module"
+  id="nwchemModule"
   name="NWChem Module" 
   repeat="*"
   pattern     = "\s*NWChem .* Module\s*"
+  pattern2     = "\s*Direct MP2\s*$\s*------+\s*"
   endPattern  = "\s*((NWChem Geometry Optimization)|(NWChem .* Module))\s*"
   endPattern2 = "\s*.\sStep\s+Energy\s+Delta\sE.*"
-  endPattern3 = "~"
+  endPattern3 = "\s*Direct MP2\s*"
+  endPattern4 = "~"
   offset="0"
   endOffset="0"
   newline="$"
   >
-
-<!-- 
- This is just a container for all the different modules.
- -->
- 
-    <comment class="example.input" id="geometry">
-        some text
-    </comment>
-
+  
+  <!-- NB - patterns above can only be single-line - might need to look at changing this. -->
 
     <templateList xmlns:xi="http://www.w3.org/2001/XInclude">
         <xi:include href="input.module.xml" />
         <xi:include href="scf.module.xml" />
+        <xi:include href="mcscf.module.xml" />
+        <xi:include href="mp2.direct.module.xml" />
         <xi:include href="mp2.module.xml" />
+        <xi:include href="rimp2.module.xml" />
         <xi:include href="dft.module.xml" />
         <xi:include href="gradient.module.xml" />
     </templateList>
@@ -36,10 +34,5 @@ Add dictRef & id so all modules become calculations except the input_module-->
   <transform process="addId" 
   xpath="./cml:module[not (@cmlx:templateRef='input_module')]"
   value="calculation"/> -->
-
-
-    <comment class="example.output" id="geometry">
-        <module />
-    </comment>
 
 </template>

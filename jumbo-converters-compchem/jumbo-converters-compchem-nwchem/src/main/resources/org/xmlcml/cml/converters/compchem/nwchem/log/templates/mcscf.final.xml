@@ -1,0 +1,52 @@
+  <template id="mcscfFinal" name="MCSCF FinalResults"
+  newline="$"
+  repeat="*" 
+  pattern="\s*Final MCSCF results\s*$\s*------+\s*" 
+  endPattern="\s*$\s*"
+  endOffset="0"
+  >
+  <comment class="example.input" id="nwchemmp2">
+       Final MCSCF results 
+       ------------------- 
+
+       Total MCSCF energy =    -38.958551397273
+            Gradient norm =      5.6D-05
+
+    CPU time for solution =      2.5s
+   Wall time for solution =      4.7s
+
+
+</comment>
+
+
+  <record repeat="3"/>
+  <record id="mcscfEnergy" >\s*Total MCSCF energy =\s*{F,compchem:totalEnergy}\s*</record>
+  <record id="gradientNorm" >\s*Gradient norm =\s*{E,n:mcscfGradientNorm}\s*</record>
+  <record/>
+  <record id="cpuTime" >\s*CPU time for solution =\s*{F,compchem:cpuTime}s\s*</record>
+  <record id="wallTime" >\s*Wall time for solution =\s*{F,compchem:wallTime}s\s*</record>
+  <transform process="pullupSingleton" xpath="./cml:list"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+  
+  <!-- Add Units -->
+  <transform process="addUnits"
+  xpath=".//cml:scalar[@dictRef='compchem:totalEnergy']"
+  value="nonsi:hartree"
+  />
+      <!-- Add Units -->
+  <transform process="addUnits"
+  xpath=".//cml:scalar[@dictRef='compchem:wallTime' or @dictRef='compchem:cpuTime']"
+  value="si:s"
+  />
+  
+
+  <comment class="example.output" id="nwchemmp2">
+<module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="mcscfFinal">
+<scalar dataType="xsd:double" dictRef="compchem:totalEnergy" cmlx:templateRef="mcscfEnergy" units="nonsi:hartree">-38.958551397273</scalar>
+<scalar dataType="xsd:double" dictRef="n:mcscfGradientNorm" cmlx:templateRef="gradientNorm">5.6E-5</scalar>
+<scalar dataType="xsd:double" dictRef="compchem:cpuTime" cmlx:templateRef="cpuTime" units="si:s">2.5</scalar>
+<scalar dataType="xsd:double" dictRef="compchem:wallTime" cmlx:templateRef="wallTime" units="si:s">4.7</scalar>
+</module>
+</comment>
+
+</template>

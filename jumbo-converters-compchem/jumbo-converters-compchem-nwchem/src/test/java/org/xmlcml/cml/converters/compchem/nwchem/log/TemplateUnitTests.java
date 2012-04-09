@@ -36,8 +36,8 @@ public class TemplateUnitTests {
    @Test public void testArgument()                              {runTemplateTest("argument");}
    @Test public void testAtmass()                                {runTemplateTest("atmass");}
    @Test public void testAuthors()                               {runTemplateTest("authors");}
-   @Test public void testBasisShell()                            {runTemplateTest("basis.shell");}
    @Test public void testBasis()                                 {runTemplateTest("basis");}
+   @Test public void testBasisShell()                            {runTemplateTest("basis.shell");}
    @Test public void testBasisSummary()                          {runTemplateTest("basis.summary");}
    @Test public void testCaching()                               {runTemplateTest("caching");}
    @Test public void testCitation()                              {runTemplateTest("citation");}
@@ -47,6 +47,7 @@ public class TemplateUnitTests {
    @Test public void testDftGridpts()                            {runTemplateTest("dft.gridpts");}
    @Test public void testDftFinal()                              {runTemplateTest("dft.final");}
    @Test public void testDftFinalMo()                            {runTemplateTest("dft.final.mo");}
+   @Test public void testDftModule()                             {runTemplateTest("dft.module");}
    @Test public void testDftScreentol()                          {runTemplateTest("dft.screentol");}
    @Test public void testDftXcInfo()                             {runTemplateTest("dft.xcinfo");}
    @Test public void testDftWarningDensity()                     {runTemplateTest("dft.warn.density");}
@@ -60,7 +61,11 @@ public class TemplateUnitTests {
    @Test public void testErrorLastSys()                          {runTemplateTest("error.lastsys");}
    @Test public void testGastats()                               {runTemplateTest("ga.stats");}
    @Test public void testGaSummary()                             {runTemplateTest("ga.summary");}
+   @Test public void testGeomopt()                               {runTemplateTest("geomopt");}
+   @Test public void testGeomoptFinal()                          {runTemplateTest("geomopt.final");}
+   @Test public void testGeomoptStep()                           {runTemplateTest("geomopt.step");}
    @Test public void testGeometry()                              {runTemplateTest("geometry");}
+   @Test public void testGeometryMol()                           {runTemplateTest("geometry.mol");}
    @Test public void testGeomoptStepdata()                       {runTemplateTest("geomopt.stepdata");}
    @Test public void testGradmodule()                            {runTemplateTest("gradient.module");}
    @Test public void testGradTimebox()                           {runTemplateTest("gradient.timebox");}
@@ -72,17 +77,24 @@ public class TemplateUnitTests {
    @Test public void testInputGeom()                             {runTemplateTest("input.geom");}
    @Test public void testInputModule()                           {runTemplateTest("input.module");}
    @Test public void testInputProperty()                         {runTemplateTest("input.property");}
+   @Test public void testInputUser()                             {runTemplateTest("input.user");}
    @Test public void testIntegralfile()                          {runTemplateTest("integralfile");}
    @Test public void testInternuc()                              {runTemplateTest("internuc");}
    @Test public void testInternucang()                           {runTemplateTest("internucang");}
    @Test public void testJob()                                   {runTemplateTest("job.info");}
+   @Test public void testMcscfFinal()                            {runTemplateTest("mcscf.final");}
+   @Test public void testMcscfModule()                           {runTemplateTest("mcscf.module");}
    @Test public void testMemory()                                {runTemplateTest("memory");}
    @Test public void testMp2Final()                              {runTemplateTest("mp2.final");}
+   @Test public void testMp2Module()                             {runTemplateTest("mp2.module");}
+   @Test public void testMp2DirectModule()                       {runTemplateTest("mp2.direct.module");}
    @Test public void testNccp()                                  {runTemplateTest("nccp");}
    @Test public void testNucdipole()                             {runTemplateTest("nucdipole");}
    @Test public void testQuartets()                              {runTemplateTest("quartets");}
+   @Test public void testRimp2()                                 {runTemplateTest("rimp2.module");}
    @Test public void testScfFinal()                              {runTemplateTest("scf.final");}
    @Test public void testScfIter()                               {runTemplateTest("scf.iter");}
+   @Test public void testScfModule()                             {runTemplateTest("scf.module");}
    @Test public void testSuperposatomguess()                     {runTemplateTest("superposatomguess");}
    @Test public void testSymbas()                                {runTemplateTest("symbas");}
    @Test public void testSymminfo()                              {runTemplateTest("symminfo");}
@@ -94,15 +106,6 @@ public class TemplateUnitTests {
    /*
     * These templates are used, but for various reasons cannot be tested and should be fixed.
     */
-   @Ignore @Test public void testDftModuleOK()                                   {runTemplateTest("dft.module");}
-   @Ignore @Test public void testGeomopt()                               {runTemplateTest("geomopt");}
-   @Ignore @Test public void testGeomoptFinal()                          {runTemplateTest("geomopt.final");}
-   @Ignore @Test public void testGeomoptStep()                           {runTemplateTest("geomopt.step");}
-   @Ignore @Test public void testInputWHITEFIX()                         {runTemplateTest("input.user");}
-   @Ignore @Test public void testModule()                                {runTemplateTest("module");}
-   @Ignore @Test public void testMp2moduleOK()                           {runTemplateTest("mp2.module");}
-   @Ignore @Test public void testNwchemJob()                             {runTemplateTest("nwchem.job");}
-   @Ignore @Test public void testScfModule()                             {runTemplateTest("scf.module");}
 
    
    /*
@@ -136,7 +139,6 @@ public class TemplateUnitTests {
    @Ignore @Test public void testDftenergradOK()                         {runTemplateTest("dftenergrad");}
    @Ignore @Test public void testDftgradient()                           {runTemplateTest("dftgradient");}
    @Ignore @Test public void testDftXcquadOK()                           {runTemplateTest("dft.xcquad");}
-   @Ignore @Test public void testDirectmp2FIX()                {runTemplateTest("directmp2");}
    @Ignore @Test public void testDisclaim()                              {runTemplateTest("disclaim");}
    @Ignore @Test public void testEaffileOK()                             {runTemplateTest("eaffile");}
    @Ignore @Test public void testEchoallOK()                             {runTemplateTest("echoall");}

@@ -6,22 +6,22 @@
  Task  times  cpu:        0.0s     wall:        0.0s
   </comment>
   
-  <record id="times">\s*{A,n:timetype}\s+times\s+cpu\:\s*{F,compchem:cputime}s\s+wall\:\s*{F,compchem:walltime}s\s*</record>
+  <record id="times">\s*{A,n:timetype}\s+times\s+cpu\:\s*{F,compchem:cpuTime}s\s+wall\:\s*{F,compchem:wallTime}s\s*</record>
   
   <transform process="moveRelative" xpath=".//cml:scalar" to="../../.."/>
   <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='times']"/>
   
     <!-- Add Units -->
   <transform process="addUnits"
-  xpath=".//cml:scalar[@dictRef='compchem:walltime' or @dictRef='compchem:cputime']"
+  xpath=".//cml:scalar[@dictRef='compchem:wallTime' or @dictRef='compchem:cpuTime']"
   value="si:s"
   />
   
   <comment class="example.output" id="times">
 <module cmlx:templateRef="times" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <scalar dataType="xsd:string" dictRef="n:timetype">Task</scalar>
-  <scalar dataType="xsd:double" dictRef="compchem:cputime" units="si:s">0.0</scalar>
-  <scalar dataType="xsd:double" dictRef="compchem:walltime" units="si:s">0.0</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:cpuTime" units="si:s">0.0</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:wallTime" units="si:s">0.0</scalar>
 </module>
   </comment>
 
