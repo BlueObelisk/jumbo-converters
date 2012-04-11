@@ -7,7 +7,7 @@
      <parameter dictRef="compchem:program">
       <scalar dataType="xsd:string">NWChem</scalar>
      </parameter>
-     <parameter dictRef="compchem:program_version">
+     <parameter dictRef="compchem:programVersion">
       <scalar dataType="xsd:string">6.1</scalar>
      </parameter>
      <parameter dictRef="compchem:hostname">
@@ -16,10 +16,10 @@
      <parameter dictRef="compchem:executable">
       <scalar dataType="xsd:string" cmlx:templateRef="prog">nwchem</scalar>
      </parameter>
-     <parameter dictRef="compchem:date">
+     <parameter dictRef="compchem:runDate">
       <scalar dataType="xsd:string" cmlx:templateRef="date">Wed Mar 14 11:38:24 2012</scalar>
      </parameter>
-     <parameter dictRef="compchem:compile_date">
+     <parameter dictRef="compchem:compileDate">
       <scalar dataType="xsd:string" cmlx:templateRef="compiled">Sat_Mar_03_17:07:28_2012</scalar>
      </parameter>
      <parameter dictRef="compchem:nproc">
@@ -140,7 +140,7 @@
      </list>
     </module>
    </module>
-   <module id="job_initialization" dictRef="compchem:initialization">
+   <module id="jobInitialization" dictRef="compchem:initialization">
     <parameterList>
      <parameter dictRef="compchem:method" id="copy.0">
       <scalar dataType="xsd:string">scf</scalar>
@@ -151,20 +151,20 @@
      <parameter dictRef="compchem:title" id="copy.2">
       <scalar dataType="xsd:string" cmlx:templateRef="title">HF SCF calculation on water with STO-3G basis</scalar>
      </parameter>
-     <parameter dictRef="compchem:num_closed_shells" id="copy.3">
-      <scalar dataType="xsd:integer" cmlx:templateRef="num_closed_shells">5</scalar>
+     <parameter dictRef="compchem:numClosedShells" id="copy.3">
+      <scalar dataType="xsd:integer" cmlx:templateRef="numClosedShells">5</scalar>
      </parameter>
-     <parameter dictRef="compchem:num_open_shells" id="copy.4">
-      <scalar dataType="xsd:integer" cmlx:templateRef="num_open_shells">0</scalar>
+     <parameter dictRef="compchem:numOpenShells" id="copy.4">
+      <scalar dataType="xsd:integer" cmlx:templateRef="numOpenShells">0</scalar>
      </parameter>
      <parameter dictRef="compchem:charge" id="copy.5">
       <scalar dataType="xsd:double" cmlx:templateRef="charge" units="nonsi:elementary_charge">0.0</scalar>
      </parameter>
-     <parameter dictRef="compchem:wavefunction_type" id="copy.6">
-      <scalar dataType="xsd:string" cmlx:templateRef="wavefunction_type">RHF</scalar>
+     <parameter dictRef="compchem:wavefunctionType" id="copy.6">
+      <scalar dataType="xsd:string" cmlx:templateRef="wavefunctionType">RHF</scalar>
      </parameter>
-     <parameter dictRef="compchem:pointgroup">
-      <scalar dataType="xsd:string" cmlx:templateRef="pointgroup" id="copy.0">C2v</scalar>
+     <parameter dictRef="compchem:pointGroup">
+      <scalar dataType="xsd:string" cmlx:templateRef="pointGroup" id="copy.0">C2v</scalar>
      </parameter>
     </parameterList>
     <module cmlx:templateRef="input_module">
@@ -233,20 +233,21 @@
       </list>
      </module>
      <module cmlx:templateRef="geometry">
+      <scalar dataType="xsd:string" dictRef="n:unparsed" cmlx:templateRef="scale">Output coordinates in angstroms (scale by 1.889725989 to convert to a.u.)</scalar>
       <module cmlx:templateRef="atmass">
        <array dataType="xsd:string" dictRef="compchem:atom_type" size="2">O H</array>
        <array dataType="xsd:double" dictRef="compchem:atom_mass" size="2">15.99491 1.007825</array>
       </module>
-      <module cmlx:templateRef="nuclear_repulsion_energy">
-       <scalar dataType="xsd:double" dictRef="compchem:nuclear_repulsion_energy" cmlx:templateRef="nuclear_repulsion_energy">9.1920946687</scalar>
+      <module cmlx:templateRef="nuclearRepulsionEnergy">
+       <scalar dataType="xsd:double" dictRef="compchem:nuclearRepulsionEnergy" cmlx:templateRef="nuclearRepulsionEnergy">9.1920946687</scalar>
       </module>
-      <module cmlx:templateRef="nuclear_dipole_moment">
-       <array dataType="xsd:double" dictRef="compchem:nuclear_dipole_moment" size="3">0.0 0.0 0.0</array>
+      <module cmlx:templateRef="nuclearDipoleMoment">
+       <array dataType="xsd:double" dictRef="compchem:nuclearDipoleMoment" size="3">0.0 0.0 0.0</array>
       </module>
       <module cmlx:templateRef="symminfo">
-       <scalar dataType="xsd:string" dictRef="compchem:pointgroup" cmlx:templateRef="pointgroup">C2v</scalar>
-       <scalar dataType="xsd:integer" dictRef="compchem:group_name" cmlx:templateRef="group_name">16</scalar>
-       <scalar dataType="xsd:integer" dictRef="compchem:group_order" cmlx:templateRef="group_order">4</scalar>
+       <scalar dataType="xsd:string" dictRef="compchem:pointGroup" cmlx:templateRef="pointGroup">C2v</scalar>
+       <scalar dataType="xsd:integer" dictRef="compchem:groupName" cmlx:templateRef="groupName">16</scalar>
+       <scalar dataType="xsd:integer" dictRef="compchem:groupOrder" cmlx:templateRef="groupOrder">4</scalar>
        <scalar dataType="xsd:integer" dictRef="n:sym_uniqe_centers" cmlx:templateRef="symm_unique_centers">2</scalar>
        <list cmlx:templateRef="symmuniqatom">
         <array dataType="xsd:integer" dictRef="n:symuniqatom" size="2">1 2</array>
@@ -268,7 +269,7 @@
        </list>
       </module>
       <module cmlx:templateRef="xyz">
-       <scalar dataType="xsd:integer" dictRef="compchem:num_atoms" cmlx:templateRef="atoms">3</scalar>
+       <scalar dataType="xsd:integer" dictRef="compchem:numAtoms" cmlx:templateRef="atoms">3</scalar>
        <scalar dataType="xsd:string" dictRef="n:geomtype" cmlx:templateRef="geo">geometry</scalar>
       </module>
       <module cmlx:templateRef="internuc">
@@ -295,43 +296,20 @@
         <array dataType="xsd:double" dictRef="n:ang1" size="1">104.48</array>
        </list>
       </module>
-     </module>
-     <module cmlx:templateRef="basis_summary">
-      <list cmlx:templateRef="basis_summary">
-       <scalar dataType="xsd:string" dictRef="n:basis_set_label">ao basis</scalar>
-       <scalar dataType="xsd:string" dictRef="n:basis_set_description"/>
-       <scalar dataType="xsd:string" dictRef="compchem:basis_set_harmonic_type">cartesian</scalar>
-      </list>
-      <list cmlx:templateRef="basis_contractions">
-       <list>
-        <scalar dataType="xsd:string" dictRef="compchem:atom_label">O</scalar>
-        <scalar dataType="xsd:string" dictRef="compchem:basis_set_title">sto-3g</scalar>
-        <scalar dataType="xsd:integer" dictRef="n:contraction_nshell">3</scalar>
-        <scalar dataType="xsd:integer" dictRef="n:contraction_nfunc">5</scalar>
-        <scalar dataType="xsd:string" dictRef="n:contraction_desc">2s1p</scalar>
-       </list>
-       <list>
-        <scalar dataType="xsd:string" dictRef="compchem:atom_label">H</scalar>
-        <scalar dataType="xsd:string" dictRef="compchem:basis_set_title">sto-3g</scalar>
-        <scalar dataType="xsd:integer" dictRef="n:contraction_nshell">1</scalar>
-        <scalar dataType="xsd:integer" dictRef="n:contraction_nfunc">1</scalar>
-        <scalar dataType="xsd:string" dictRef="n:contraction_desc">1s</scalar>
-       </list>
-      </list>
-     </module>
+     </module> 
     </module>
     <molecule id="molgeom" cmlx:templateRef="geom">
      <atomArray>
       <atom id="a1" elementType="O" x3="0.0" y3="0.0" z3="0.11726921">
-       <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">O</scalar>
+       <scalar dataType="xsd:string" dictRef="compchem:atomtypeRef">O</scalar>
        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">8</scalar>
       </atom>
       <atom id="a2" elementType="H" x3="0.75698224" y3="0.0" z3="-0.46907685">
-       <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">H</scalar>
+       <scalar dataType="xsd:string" dictRef="compchem:atomtypeRef">H</scalar>
        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
       </atom>
       <atom id="a3" elementType="H" x3="-0.75698224" y3="0.0" z3="-0.46907685">
-       <scalar dataType="xsd:string" dictRef="cc:atomtypeRef">H</scalar>
+       <scalar dataType="xsd:string" dictRef="compchem:atomtypeRef">H</scalar>
        <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
       </atom>
      </atomArray>
@@ -346,45 +324,45 @@
       <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">18.01528</scalar>
      </property>
     </molecule>
-    <list id="basis_set" dictRef="compchem:basis_set">
-     <scalar id="basis_set_title" dictRef="compchem:basis_set_title" dataType="xsd:string">sto-3g</scalar>
-     <scalar id="basis_set_type" dictRef="compchem:basis_set_type" dataType="xsd:string">orbital</scalar>
-     <scalar id="basis_set_harmonic_type" dictRef="compchem:basis_set_harmonic_type" dataType="xsd:string">cartesian</scalar>
-     <scalar id="basis_set_contraction_type" dictRef="compchem:basis_set_contraction_type" dataType="xsd:string">segmented</scalar>
-     <scalar id="basis_set_description" dictRef="compchem:basis_set_description" dataType="xsd:string">ao basis</scalar>
-     <list id="basis_set_contractions" dictRef="compchem:basis_set_contractions">
-      <scalar dataType="xsd:string" dictRef="compchem:atom_label">O</scalar>
-      <scalar dataType="xsd:string" dictRef="n:element_longname">Oxygen</scalar>
-      <scalar dictRef="compchem:basis_set_harmonic_type" dataType="xsd:string">cartesian</scalar>
-      <list cmlx:templateRef="contraction" dictRef="compchem:basis_set_contraction">
-       <scalar dictRef="compchem:basis_set_shell" dataType="xsd:string">S</scalar>
-       <array dataType="xsd:double" dictRef="compchem:basis_set_exponent" size="3">130.70932 23.808861 6.4436083</array>
-       <array dataType="xsd:double" dictRef="compchem:basis_set_coefficient" size="3">0.154329 0.535328 0.444635</array>
+    <list id="basisSet" dictRef="compchem:basisSet">
+     <scalar id="basisSetLabel" dictRef="compchem:basisSetLabel" dataType="xsd:string">sto-3g</scalar>
+     <scalar id="basisSetType" dictRef="compchem:basisSetType" dataType="xsd:string">orbital</scalar>
+     <scalar id="basisSetHarmonicType" dictRef="compchem:basisSetHarmonicType" dataType="xsd:string">cartesian</scalar>
+     <scalar id="basisSetContractionType" dictRef="compchem:basisSetContractionType" dataType="xsd:string">segmented</scalar>
+     <scalar id="basisSetDescription" dictRef="compchem:basisSetDescription" dataType="xsd:string">ao basis</scalar>
+     <list id="basisSetContractions" dictRef="compchem:basisSetContractions">
+      <scalar dataType="xsd:string" dictRef="compchem:atomLabel">O</scalar>
+      <scalar dataType="xsd:string" dictRef="n:elementLongname">Oxygen</scalar>
+      <scalar dictRef="compchem:basisSetHarmonicType" dataType="xsd:string">cartesian</scalar>
+      <list cmlx:templateRef="contraction" dictRef="compchem:basisSetContraction">
+       <scalar dictRef="compchem:basisSetShell" dataType="xsd:string">S</scalar>
+       <array dataType="xsd:double" dictRef="compchem:basisSetExponent" size="3">130.70932 23.808861 6.4436083</array>
+       <array dataType="xsd:double" dictRef="compchem:basisSetCoefficient" size="3">0.154329 0.535328 0.444635</array>
       </list>
-      <list cmlx:templateRef="contraction" dictRef="compchem:basis_set_contraction">
-       <scalar dictRef="compchem:basis_set_shell" dataType="xsd:string">S</scalar>
-       <array dataType="xsd:double" dictRef="compchem:basis_set_exponent" size="3">5.0331513 1.1695961 0.380389</array>
-       <array dataType="xsd:double" dictRef="compchem:basis_set_coefficient" size="3">-0.099967 0.399513 0.700115</array>
+      <list cmlx:templateRef="contraction" dictRef="compchem:basisSetContraction">
+       <scalar dictRef="compchem:basisSetShell" dataType="xsd:string">S</scalar>
+       <array dataType="xsd:double" dictRef="compchem:basisSetExponent" size="3">5.0331513 1.1695961 0.380389</array>
+       <array dataType="xsd:double" dictRef="compchem:basisSetCoefficient" size="3">-0.099967 0.399513 0.700115</array>
       </list>
-      <list cmlx:templateRef="contraction" dictRef="compchem:basis_set_contraction">
-       <scalar dictRef="compchem:basis_set_shell" dataType="xsd:string">P</scalar>
-       <array dataType="xsd:double" dictRef="compchem:basis_set_exponent" size="3">5.0331513 1.1695961 0.380389</array>
-       <array dataType="xsd:double" dictRef="compchem:basis_set_coefficient" size="3">0.155916 0.607684 0.391957</array>
+      <list cmlx:templateRef="contraction" dictRef="compchem:basisSetContraction">
+       <scalar dictRef="compchem:basisSetShell" dataType="xsd:string">P</scalar>
+       <array dataType="xsd:double" dictRef="compchem:basisSetExponent" size="3">5.0331513 1.1695961 0.380389</array>
+       <array dataType="xsd:double" dictRef="compchem:basisSetCoefficient" size="3">0.155916 0.607684 0.391957</array>
       </list>
      </list>
-     <list id="basis_set_contractions" dictRef="compchem:basis_set_contractions">
-      <scalar dataType="xsd:string" dictRef="compchem:atom_label">H</scalar>
-      <scalar dataType="xsd:string" dictRef="n:element_longname">Hydrogen</scalar>
-      <scalar dictRef="compchem:basis_set_harmonic_type" dataType="xsd:string">cartesian</scalar>
-      <list cmlx:templateRef="contraction" dictRef="compchem:basis_set_contraction">
-       <scalar dictRef="compchem:basis_set_shell" dataType="xsd:string">S</scalar>
-       <array dataType="xsd:double" dictRef="compchem:basis_set_exponent" size="3">3.42525091 0.62391373 0.1688554</array>
-       <array dataType="xsd:double" dictRef="compchem:basis_set_coefficient" size="3">0.154329 0.535328 0.444635</array>
+     <list id="basisSetContractions" dictRef="compchem:basisSetContractions">
+      <scalar dataType="xsd:string" dictRef="compchem:atomLabel">H</scalar>
+      <scalar dataType="xsd:string" dictRef="n:elementLongname">Hydrogen</scalar>
+      <scalar dictRef="compchem:basisSetHarmonicType" dataType="xsd:string">cartesian</scalar>
+      <list cmlx:templateRef="contraction" dictRef="compchem:basisSetContraction">
+       <scalar dictRef="compchem:basisSetShell" dataType="xsd:string">S</scalar>
+       <array dataType="xsd:double" dictRef="compchem:basisSetExponent" size="3">3.42525091 0.62391373 0.1688554</array>
+       <array dataType="xsd:double" dictRef="compchem:basisSetCoefficient" size="3">0.154329 0.535328 0.444635</array>
       </list>
      </list>
     </list>
    </module>
-   <module dictRef="compchem:calculation" id="scf_energy" cmlx:templateRef="nwchem_module">
+   <module dictRef="compchem:calculation" id="scfEnergy" cmlx:templateRef="nwchemModule">
     <module dictRef="compchem:initialization">
      <parameterList>
       <parameter dictRef="compchem:method">
@@ -396,44 +374,44 @@
       <parameter dictRef="compchem:title">
        <scalar dataType="xsd:string" cmlx:templateRef="title">HF SCF calculation on water with STO-3G basis</scalar>
       </parameter>
-      <parameter dictRef="compchem:num_closed_shells">
-       <scalar dataType="xsd:integer" cmlx:templateRef="num_closed_shells">5</scalar>
+      <parameter dictRef="compchem:numClosedShells">
+       <scalar dataType="xsd:integer" cmlx:templateRef="numClosedShells">5</scalar>
       </parameter>
-      <parameter dictRef="compchem:num_open_shells">
-       <scalar dataType="xsd:integer" cmlx:templateRef="num_open_shells">0</scalar>
+      <parameter dictRef="compchem:numOpenShells">
+       <scalar dataType="xsd:integer" cmlx:templateRef="numOpenShells">0</scalar>
       </parameter>
       <parameter dictRef="compchem:charge">
        <scalar dataType="xsd:double" cmlx:templateRef="charge" units="nonsi:elementary_charge">0.0</scalar>
       </parameter>
-      <parameter dictRef="compchem:wavefunction_type">
-       <scalar dataType="xsd:string" cmlx:templateRef="wavefunction_type">RHF</scalar>
+      <parameter dictRef="compchem:wavefunctionType">
+       <scalar dataType="xsd:string" cmlx:templateRef="wavefunctionType">RHF</scalar>
       </parameter>
      </parameterList>
     </module>
-    <scalar dataType="xsd:string" dictRef="n:basis_set_label" cmlx:templateRef="basis_set_label">"ao basis"</scalar>
-    <scalar dataType="xsd:string" dictRef="n:input_vectors" cmlx:templateRef="input_vectors">atomic</scalar>
-    <scalar dataType="xsd:string" dictRef="n:output_vectors" cmlx:templateRef="output_vectors">./molecule.movecs</scalar>
-    <scalar dataType="xsd:string" dictRef="n:use_symmetry" cmlx:templateRef="use_symmetry">T</scalar>
-    <module cmlx:templateRef="basis_summary">
-     <list cmlx:templateRef="basis_summary">
-      <scalar dataType="xsd:string" dictRef="n:basis_set_label">ao basis</scalar>
-      <scalar dataType="xsd:string" dictRef="n:basis_set_description">ao basis</scalar>
-      <scalar dataType="xsd:string" dictRef="compchem:basis_set_harmonic_type">cartesian</scalar>
+    <scalar dataType="xsd:string" dictRef="n:basisSetLabel" cmlx:templateRef="basisSetLabel">"ao basis"</scalar>
+    <scalar dataType="xsd:string" dictRef="n:inputVectors" cmlx:templateRef="inputVectors">atomic</scalar>
+    <scalar dataType="xsd:string" dictRef="n:outputVectors" cmlx:templateRef="outputVectors">./molecule.movecs</scalar>
+    <scalar dataType="xsd:string" dictRef="n:useSymmetry" cmlx:templateRef="useSymmetry">T</scalar>
+    <module cmlx:templateRef="basisSummary">
+     <list cmlx:templateRef="basisSummary">
+      <scalar dataType="xsd:string" dictRef="n:basisSetLabel">ao basis</scalar>
+      <scalar dataType="xsd:string" dictRef="n:basisSetDescription">ao basis</scalar>
+      <scalar dataType="xsd:string" dictRef="compchem:basisSetHarmonicType">cartesian</scalar>
      </list>
-     <list cmlx:templateRef="basis_contractions">
+     <list cmlx:templateRef="basisContractions">
       <list>
-       <scalar dataType="xsd:string" dictRef="compchem:atom_label">O</scalar>
-       <scalar dataType="xsd:string" dictRef="compchem:basis_set_title">sto-3g</scalar>
-       <scalar dataType="xsd:integer" dictRef="n:contraction_nshell">3</scalar>
-       <scalar dataType="xsd:integer" dictRef="n:contraction_nfunc">5</scalar>
-       <scalar dataType="xsd:string" dictRef="n:contraction_desc">2s1p</scalar>
+       <scalar dataType="xsd:string" dictRef="compchem:atomLabel">O</scalar>
+       <scalar dataType="xsd:string" dictRef="compchem:basisSetLabel">sto-3g</scalar>
+       <scalar dataType="xsd:integer" dictRef="n:contractionNshell">3</scalar>
+       <scalar dataType="xsd:integer" dictRef="n:contractionNfunc">5</scalar>
+       <scalar dataType="xsd:string" dictRef="n:contractionDesc">2s1p</scalar>
       </list>
       <list>
-       <scalar dataType="xsd:string" dictRef="compchem:atom_label">H</scalar>
-       <scalar dataType="xsd:string" dictRef="compchem:basis_set_title">sto-3g</scalar>
-       <scalar dataType="xsd:integer" dictRef="n:contraction_nshell">1</scalar>
-       <scalar dataType="xsd:integer" dictRef="n:contraction_nfunc">1</scalar>
-       <scalar dataType="xsd:string" dictRef="n:contraction_desc">1s</scalar>
+       <scalar dataType="xsd:string" dictRef="compchem:atomLabel">H</scalar>
+       <scalar dataType="xsd:string" dictRef="compchem:basisSetLabel">sto-3g</scalar>
+       <scalar dataType="xsd:integer" dictRef="n:contractionNshell">1</scalar>
+       <scalar dataType="xsd:integer" dictRef="n:contractionNfunc">1</scalar>
+       <scalar dataType="xsd:string" dictRef="n:contractionDesc">1s</scalar>
       </list>
      </list>
     </module>
@@ -441,11 +419,11 @@
      <array dataType="xsd:string" dictRef="n:ir" size="4">a1 a2 b1 b2</array>
      <array dataType="xsd:integer" dictRef="n:count" size="4">4 0 2 1</array>
     </module>
-    <module cmlx:templateRef="guess" dictRef="compchem:calculation" id="initial_guess"> Forming initial guess at 0.1s 
+    <module cmlx:templateRef="guess" dictRef="compchem:calculation" id="initialGuess"> Forming initial guess at 0.1s 
      <module dictRef="compchem:initialization">
       <parameterList>
        <parameter dictRef="compchem:task">
-        <scalar dataType="xsd:string">initial_guess</scalar>
+        <scalar dataType="xsd:string">initialGuess</scalar>
        </parameter>
       </parameterList>
      </module>
@@ -475,14 +453,14 @@
      </module> Starting SCF solution at 0.2s 
      <module dictRef="compchem:finalization">
       <propertyList>
-       <property dictRef="compchem:total_energy">
-        <scalar dataType="xsd:double" cmlx:templateRef="total_energy" units="nonsi:hartree">-74.6835</scalar>
+       <property dictRef="compchem:totalEnergy">
+        <scalar dataType="xsd:double" cmlx:templateRef="totalEnergy" units="nonsi:hartree">-74.6835</scalar>
        </property>
-       <property dictRef="compchem:e1_energy">
-        <scalar dataType="xsd:double" cmlx:templateRef="e1_energy" units="nonsi:hartree">-121.780484</scalar>
+       <property dictRef="compchem:e1Energy">
+        <scalar dataType="xsd:double" cmlx:templateRef="e1Energy" units="nonsi:hartree">-121.780484</scalar>
        </property>
-       <property dictRef="compchem:e2_energy">
-        <scalar dataType="xsd:double" cmlx:templateRef="e2_energy" units="nonsi:hartree">37.904889</scalar>
+       <property dictRef="compchem:e2Energy">
+        <scalar dataType="xsd:double" cmlx:templateRef="e2Energy" units="nonsi:hartree">37.904889</scalar>
        </property>
       </propertyList>
      </module>
@@ -505,10 +483,10 @@
        <property dictRef="compchem:iteration_index">
         <scalar dataType="xsd:integer">1</scalar>
        </property>
-       <property dictRef="compchem:total_energy">
+       <property dictRef="compchem:totalEnergy">
         <scalar dataType="xsd:double" units="nonsi:hartree">-74.9243813595</scalar>
        </property>
-       <property dictRef="compchem:walltime">
+       <property dictRef="compchem:wallTime">
         <scalar dataType="xsd:double" units="si:s">0.1</scalar>
        </property>
       </propertyList>
@@ -532,10 +510,10 @@
        <property dictRef="compchem:iteration_index">
         <scalar dataType="xsd:integer">2</scalar>
        </property>
-       <property dictRef="compchem:total_energy">
+       <property dictRef="compchem:totalEnergy">
         <scalar dataType="xsd:double" units="nonsi:hartree">-74.962154715</scalar>
        </property>
-       <property dictRef="compchem:walltime">
+       <property dictRef="compchem:wallTime">
         <scalar dataType="xsd:double" units="si:s">0.1</scalar>
        </property>
       </propertyList>
@@ -559,10 +537,10 @@
        <property dictRef="compchem:iteration_index">
         <scalar dataType="xsd:integer">3</scalar>
        </property>
-       <property dictRef="compchem:total_energy">
+       <property dictRef="compchem:totalEnergy">
         <scalar dataType="xsd:double" units="nonsi:hartree">-74.9629674753</scalar>
        </property>
-       <property dictRef="compchem:walltime">
+       <property dictRef="compchem:wallTime">
         <scalar dataType="xsd:double" units="si:s">0.1</scalar>
        </property>
       </propertyList>
@@ -586,32 +564,68 @@
        <property dictRef="compchem:iteration_index">
         <scalar dataType="xsd:integer">4</scalar>
        </property>
-       <property dictRef="compchem:total_energy">
+       <property dictRef="compchem:totalEnergy">
         <scalar dataType="xsd:double" units="nonsi:hartree">-74.9629856144</scalar>
        </property>
-       <property dictRef="compchem:walltime">
+       <property dictRef="compchem:wallTime">
         <scalar dataType="xsd:double" units="si:s">0.1</scalar>
        </property>
       </propertyList>
      </module>
     </module>
-    <module cmlx:templateRef="scf_iter"/>
-    <module cmlx:templateRef="scf.final"> </module> Symmetry analysis of molecular orbitals - final ----------------------------------------------- Numbering of irreducible representations: 1 a1 2 a2 3 b1 4 b2 Orbital symmetries: 1 a1 2 a1 3 b1 4 a1 5 b2 6 a1 7 b1 Final eigenvalues ----------------- 1 1 -20.2418 2 -1.2683 3 -0.6177 4 -0.4531 5 -0.3913 6 0.6054 7 0.7419 ROHF Final Molecular Orbital Analysis ------------------------------------- Vector 2 Occ=2.000000D+00 E=-1.268298D+00 Symmetry=a1 MO Center= -2.8D-17, -9.9D-19, -7.2D-02, r^2= 5.4D-01 Bfn. Coefficient Atom+Function Bfn. Coefficient Atom+Function ----- ------------ --------------- ----- ------------ --------------- 2 0.833587 1 O s 1 -0.232793 1 O s 6 0.158700 2 H s 7 0.158700 3 H s Vector 3 Occ=2.000000D+00 E=-6.177034D-01 Symmetry=b1 MO Center= 2.8D-17, -1.0D-51, -1.4D-01, r^2= 8.3D-01 Bfn. Coefficient Atom+Function Bfn. Coefficient Atom+Function ----- ------------ --------------- ----- ------------ --------------- 3 0.606495 1 O px 6 0.445042 2 H s 7 -0.445042 3 H s Vector 4 Occ=2.000000D+00 E=-4.530557D-01 Symmetry=a1 MO Center= 0.0D+00, 2.0D-35, 1.6D-01, r^2= 6.2D-01 Bfn. Coefficient Atom+Function Bfn. Coefficient Atom+Function ----- ------------ --------------- ----- ------------ --------------- 5 0.776552 1 O pz 2 0.536883 1 O s 6 -0.277990 2 H s 7 -0.277990 3 H s Vector 5 Occ=2.000000D+00 E=-3.912526D-01 Symmetry=b2 MO Center= -5.2D-33, -4.4D-18, 1.2D-01, r^2= 4.2D-01 Bfn. Coefficient Atom+Function Bfn. Coefficient Atom+Function ----- ------------ --------------- ----- ------------ --------------- 4 1.000000 1 O py Vector 6 Occ=0.000000D+00 E= 6.054409D-01 Symmetry=a1 MO Center= 6.1D-16, 5.3D-18, -3.9D-01, r^2= 1.1D+00 Bfn. Coefficient Atom+Function Bfn. Coefficient Atom+Function ----- ------------ --------------- ----- ------------ --------------- 2 0.884136 1 O s 6 -0.796892 2 H s 7 -0.796892 3 H s 5 -0.742518 1 O pz Vector 7 Occ=0.000000D+00 E= 7.419112D-01 Symmetry=b1 MO Center= -7.2D-16, 3.1D-33, -2.3D-01, r^2= 1.0D+00 Bfn. Coefficient Atom+Function Bfn. Coefficient Atom+Function ----- ------------ --------------- ----- ------------ --------------- 3 0.990301 1 O px 6 -0.838447 2 H s 7 0.838447 3 H s center of mass -------------- x = 0.00000000 y = 0.00000000 z = 0.09760123 moments of inertia (a.u.) ------------------ 2.197735387303 0.000000000000 0.000000000000 0.000000000000 6.322357589609 0.000000000000 0.000000000000 0.000000000000 4.124622202307 Mulliken analysis of the total density -------------------------------------- Atom Charge Shell Charges ----------- ------ ------------------------------------------------------- 1 O 8 8.37 2.00 1.83 4.54 2 H 1 0.82 0.82 3 H 1 0.82 0.82 Multipole analysis of the density wrt the origin ------------------------------------------------ L x y z total open nuclear - - - - ----- ---- ------- 0 0 0 0 -0.000000 0.000000 10.000000 1 1 0 0 0.000000 0.000000 0.000000 1 0 1 0 0.000000 0.000000 0.000000 1 0 0 1 -0.678952 0.000000 0.000000 2 2 0 0 -3.240572 0.000000 4.092598 2 1 1 0 -0.000000 0.000000 0.000000 2 1 0 1 0.000000 0.000000 0.000000 2 0 2 0 -4.531209 0.000000 0.000000 2 0 1 1 -0.000000 0.000000 0.000000 2 0 0 2 -4.009700 0.000000 1.964381 Parallel integral file used 1 records with 0 large values Task times cpu: 0.1s wall: 0.2s Summary of allocated global arrays ----------------------------------- No active global arrays GA Statistics for process 0 ------------------------------ create destroy get put acc scatter gather read&amp;inc calls: 235 235 1563 724 1048 0 0 0 number of processes/call 1.00e+00 1.00e+00 1.00e+00 0.00e+00 0.00e+00 bytes total: 1.64e+05 9.47e+04 5.15e+04 0.00e+00 0.00e+00 0.00e+00 bytes remote: 0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00 Max memory consumed for GA by this process: 5448 bytes MA_summarize_allocated_blocks: starting scan ... MA_summarize_allocated_blocks: scan completed: 0 heap blocks, 0 stack blocks MA usage statistics: allocation statistics: heap stack ---- ----- current number of blocks 0 0 maximum number of blocks 18 14 current total bytes 0 0 maximum total bytes 1053744 22509032 maximum total K-bytes 1054 22510 maximum total M-bytes 2 23 
+    <module cmlx:templateRef="scfIter"/>
+    <module cmlx:templateRef="scf.final"> </module> Symmetry analysis of molecular orbitals - final ----------------------------------------------- Numbering of irreducible representations: 1 a1 2 a2 3 b1 4 b2 Orbital symmetries: 1 a1 2 a1 3 b1 4 a1 5 b2 6 a1 7 b1 Final eigenvalues ----------------- 1 1 -20.2418 2 -1.2683 3 -0.6177 4 -0.4531 5 -0.3913 6 0.6054 7 0.7419 ROHF Final Molecular Orbital Analysis ------------------------------------- Vector 2 Occ=2.000000D+00 E=-1.268298D+00 Symmetry=a1 MO Center= -2.8D-17, -9.9D-19, -7.2D-02, r^2= 5.4D-01 Bfn. Coefficient Atom+Function Bfn. Coefficient Atom+Function ----- ------------ --------------- ----- ------------ --------------- 2 0.833587 1 O s 1 -0.232793 1 O s 6 0.158700 2 H s 7 0.158700 3 H s Vector 3 Occ=2.000000D+00 E=-6.177034D-01 Symmetry=b1 MO Center= 2.8D-17, -1.0D-51, -1.4D-01, r^2= 8.3D-01 Bfn. Coefficient Atom+Function Bfn. Coefficient Atom+Function ----- ------------ --------------- ----- ------------ --------------- 3 0.606495 1 O px 6 0.445042 2 H s 7 -0.445042 3 H s Vector 4 Occ=2.000000D+00 E=-4.530557D-01 Symmetry=a1 MO Center= 0.0D+00, 2.0D-35, 1.6D-01, r^2= 6.2D-01 Bfn. Coefficient Atom+Function Bfn. Coefficient Atom+Function ----- ------------ --------------- ----- ------------ --------------- 5 0.776552 1 O pz 2 0.536883 1 O s 6 -0.277990 2 H s 7 -0.277990 3 H s Vector 5 Occ=2.000000D+00 E=-3.912526D-01 Symmetry=b2 MO Center= -5.2D-33, -4.4D-18, 1.2D-01, r^2= 4.2D-01 Bfn. Coefficient Atom+Function Bfn. Coefficient Atom+Function ----- ------------ --------------- ----- ------------ --------------- 4 1.000000 1 O py Vector 6 Occ=0.000000D+00 E= 6.054409D-01 Symmetry=a1 MO Center= 6.1D-16, 5.3D-18, -3.9D-01, r^2= 1.1D+00 Bfn. Coefficient Atom+Function Bfn. Coefficient Atom+Function ----- ------------ --------------- ----- ------------ --------------- 2 0.884136 1 O s 6 -0.796892 2 H s 7 -0.796892 3 H s 5 -0.742518 1 O pz Vector 7 Occ=0.000000D+00 E= 7.419112D-01 Symmetry=b1 MO Center= -7.2D-16, 3.1D-33, -2.3D-01, r^2= 1.0D+00 Bfn. Coefficient Atom+Function Bfn. Coefficient Atom+Function ----- ------------ --------------- ----- ------------ --------------- 3 0.990301 1 O px 6 -0.838447 2 H s 7 0.838447 3 H s center of mass -------------- x = 0.00000000 y = 0.00000000 z = 0.09760123 moments of inertia (a.u.) ------------------ 2.197735387303 0.000000000000 0.000000000000 0.000000000000 6.322357589609 0.000000000000 0.000000000000 0.000000000000 4.124622202307 Mulliken analysis of the total density -------------------------------------- Atom Charge Shell Charges ----------- ------ ------------------------------------------------------- 1 O 8 8.37 2.00 1.83 4.54 2 H 1 0.82 0.82 3 H 1 0.82 0.82 Multipole analysis of the density wrt the origin ------------------------------------------------ L x y z total open nuclear - - - - ----- ---- ------- 0 0 0 0 -0.000000 0.000000 10.000000 1 1 0 0 0.000000 0.000000 0.000000 1 0 1 0 0.000000 0.000000 0.000000 1 0 0 1 -0.678952 0.000000 0.000000 2 2 0 0 -3.240572 0.000000 4.092598 2 1 1 0 -0.000000 0.000000 0.000000 2 1 0 1 0.000000 0.000000 0.000000 2 0 2 0 -4.531209 0.000000 0.000000 2 0 1 1 -0.000000 0.000000 0.000000 2 0 0 2 -4.009700 0.000000 1.964381 Parallel integral file used 1 records with 0 large values 
+    <module cmlx:templateRef="times">
+     <scalar dataType="xsd:string" dictRef="n:timetype">Task</scalar>
+     <scalar dataType="xsd:double" dictRef="compchem:cpuTime" units="si:s">0.1</scalar>
+     <scalar dataType="xsd:double" dictRef="compchem:wallTime" units="si:s">0.2</scalar>
+    </module>
+    <module cmlx:templateRef="summary_global_arrays">
+     <list cmlx:templateRef="globalarrays">
+      <scalar dataType="xsd:string" dictRef="n:globalarrays">No active global arrays</scalar>
+     </list>
+    </module>
+    <module cmlx:templateRef="gastats">
+     <list cmlx:templateRef="unparsed">
+      <scalar dataType="xsd:string" dictRef="n:unparsed">GA Statistics for process 0</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">------------------------------</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">create destroy get put acc scatter gather read&amp;inc</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">calls: 235 235 1563 724 1048 0 0 0</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">number of processes/call 1.00e+00 1.00e+00 1.00e+00 0.00e+00 0.00e+00</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">bytes total: 1.64e+05 9.47e+04 5.15e+04 0.00e+00 0.00e+00 0.00e+00</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">bytes remote: 0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">Max memory consumed for GA by this process: 5448 bytes</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">MA_summarize_allocated_blocks: starting scan ...</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">MA_summarize_allocated_blocks: scan completed: 0 heap blocks, 0 stack blocks</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">MA usage statistics:</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed"/>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">allocation statistics:</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">heap stack</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">---- -----</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">current number of blocks 0 0</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">maximum number of blocks 18 14</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">current total bytes 0 0</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">maximum total bytes 1053744 22509032</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">maximum total K-bytes 1054 22510</scalar>
+      <scalar dataType="xsd:string" dictRef="n:unparsed">maximum total M-bytes 2 23</scalar>
+     </list>
+    </module>
     <module id="finalization" dictRef="compchem:finalization">
      <propertyList>
-      <property dictRef="compchem:total_energy">
-       <scalar dataType="xsd:double" cmlx:templateRef="total_energy" units="nonsi:hartree">-74.962985614357</scalar>
+      <property dictRef="compchem:totalEnergy">
+       <scalar dataType="xsd:double" cmlx:templateRef="totalEnergy" units="nonsi:hartree">-74.962985614357</scalar>
       </property>
-      <property dictRef="compchem:e1_energy">
-       <scalar dataType="xsd:double" cmlx:templateRef="e1_energy" units="nonsi:hartree">-122.365883795384</scalar>
+      <property dictRef="compchem:e1Energy">
+       <scalar dataType="xsd:double" cmlx:templateRef="e1Energy" units="nonsi:hartree">-122.365883795384</scalar>
       </property>
-      <property dictRef="compchem:e2_energy">
-       <scalar dataType="xsd:double" cmlx:templateRef="e2_energy" units="nonsi:hartree">38.210803512371</scalar>
+      <property dictRef="compchem:e2Energy">
+       <scalar dataType="xsd:double" cmlx:templateRef="e2Energy" units="nonsi:hartree">38.210803512371</scalar>
       </property>
-      <property dictRef="compchem:nuclear_repulsion_energy">
-       <scalar dataType="xsd:double" cmlx:templateRef="nuclear_repulsion_energy" units="nonsi:hartree">9.192094668657</scalar>
+      <property dictRef="compchem:nuclearRepulsionEnergy">
+       <scalar dataType="xsd:double" cmlx:templateRef="nuclearRepulsionEnergy" units="nonsi:hartree">9.192094668657</scalar>
       </property>
-      <property dictRef="compchem:walltime">
+      <property dictRef="compchem:wallTime">
        <scalar dataType="xsd:double" cmlx:templateRef="scf_time" units="si:s">0.0</scalar>
       </property>
      </propertyList>
@@ -619,24 +633,24 @@
    </module>
    <module cmlx:templateRef="times">
     <scalar dataType="xsd:string" dictRef="n:timetype">Total</scalar>
-    <scalar dataType="xsd:double" dictRef="compchem:cputime" units="si:s">0.1</scalar>
-    <scalar dataType="xsd:double" dictRef="compchem:walltime" units="si:s">0.3</scalar>
+    <scalar dataType="xsd:double" dictRef="compchem:cpuTime" units="si:s">0.1</scalar>
+    <scalar dataType="xsd:double" dictRef="compchem:wallTime" units="si:s">0.3</scalar>
    </module>
    <module id="finalization" dictRef="compchem:finalization">
     <propertyList id="copy.0">
-     <property dictRef="compchem:total_energy">
-      <scalar dataType="xsd:double" cmlx:templateRef="total_energy" units="nonsi:hartree">-74.962985614357</scalar>
+     <property dictRef="compchem:totalEnergy">
+      <scalar dataType="xsd:double" cmlx:templateRef="totalEnergy" units="nonsi:hartree">-74.962985614357</scalar>
      </property>
-     <property dictRef="compchem:e1_energy">
-      <scalar dataType="xsd:double" cmlx:templateRef="e1_energy" units="nonsi:hartree">-122.365883795384</scalar>
+     <property dictRef="compchem:e1Energy">
+      <scalar dataType="xsd:double" cmlx:templateRef="e1Energy" units="nonsi:hartree">-122.365883795384</scalar>
      </property>
-     <property dictRef="compchem:e2_energy">
-      <scalar dataType="xsd:double" cmlx:templateRef="e2_energy" units="nonsi:hartree">38.210803512371</scalar>
+     <property dictRef="compchem:e2Energy">
+      <scalar dataType="xsd:double" cmlx:templateRef="e2Energy" units="nonsi:hartree">38.210803512371</scalar>
      </property>
-     <property dictRef="compchem:nuclear_repulsion_energy">
-      <scalar dataType="xsd:double" cmlx:templateRef="nuclear_repulsion_energy" units="nonsi:hartree">9.192094668657</scalar>
+     <property dictRef="compchem:nuclearRepulsionEnergy">
+      <scalar dataType="xsd:double" cmlx:templateRef="nuclearRepulsionEnergy" units="nonsi:hartree">9.192094668657</scalar>
      </property>
-     <property dictRef="compchem:walltime">
+     <property dictRef="compchem:wallTime">
       <scalar dataType="xsd:double" cmlx:templateRef="scf_time" units="si:s">0.0</scalar>
      </property>
     </propertyList>
