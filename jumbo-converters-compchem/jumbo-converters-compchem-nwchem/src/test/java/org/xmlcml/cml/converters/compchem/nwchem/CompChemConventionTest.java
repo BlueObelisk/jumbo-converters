@@ -37,7 +37,7 @@ public class CompChemConventionTest {
 		
 		Element e2 = converter2.convertToXML(e1);
 		doc = CMLUtil.ensureDocument(e2);
-		CMLUtil.debug(e2, new FileOutputStream("test/h2o_sto3g.xml"), 1);
+		//CMLUtil.debug(e2, new FileOutputStream("test/h2o_sto3g.xml"), 1);
 	}
 
 	@AfterClass
@@ -151,7 +151,7 @@ xmlns:nonsi="http://www.xml-cml.org/unit/nonSi/">
 	
 	@Test
 	public void testEnvironmentHostName() {
-		List<Node> nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:environment']/cml:parameterList/cml:parameter[@dictRef='compchem:hostname']/cml:scalar/text()", CMLConstants.CML_XPATH);
+		List<Node> nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:environment']/cml:parameterList/cml:parameter[@dictRef='compchem:hostName']/cml:scalar/text()", CMLConstants.CML_XPATH);
 		assertFalse(nodes.isEmpty());
 		assertEquals("jmhts-MacBook-Air.local", nodes.get(0).getValue());
 	}
