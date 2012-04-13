@@ -17,7 +17,7 @@
 
   <record repeat="2"/>
   <record id="iter" 
-  repeat="*">\s*{I,compchem:iteration_index}\s+{F,compchem:totalEnergy}\s+{E,n:gnorm}\s+{E,n:gmax}\s+{F,compchem:wallTime}</record>
+  repeat="*">\s*{I,compchem:iterationIndex}\s+{F,compchem:totalEnergy}\s+{E,n:gnorm}\s+{E,n:gmax}\s+{F,compchem:wallTime}</record>
   
     <!-- Add Units -->
   <transform process="addUnits"
@@ -60,6 +60,11 @@
   dictRef="compchem:task"
   value="iteration"
   />
+  <!--  Move over iteration index -->
+  <transform process="moveRelative"
+  xpath=".//cml:module[@id='iteration']/cml:scalar[@dictRef='compchem:iterationIndex']"
+  to="../cml:module[@dictRef='compchem:initialization']/cml:parameterList"/>
+  
   <transform process="createWrapperParameter"
   xpath=".//cml:module[@id='iteration']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:scalar" />
   
@@ -103,15 +108,15 @@
 <parameter dictRef="compchem:task">
 <scalar dataType="xsd:string">iteration</scalar>
 </parameter>
+<parameter dictRef="compchem:iterationIndex">
+<scalar dataType="xsd:integer">1</scalar>
+</parameter>
 </parameterList>
 </module>
 <scalar dataType="xsd:double" dictRef="n:gnorm">0.576</scalar>
 <scalar dataType="xsd:double" dictRef="n:gmax">0.161</scalar>
 <module id="finalization" dictRef="compchem:finalization">
 <propertyList>
-<property dictRef="compchem:iteration_index">
-<scalar dataType="xsd:integer">1</scalar>
-</property>
 <property dictRef="compchem:totalEnergy">
 <scalar dataType="xsd:double" units="nonsi:hartree">-94.6569803631</scalar>
 </property>
@@ -130,15 +135,15 @@
 <parameter dictRef="compchem:task">
 <scalar dataType="xsd:string">iteration</scalar>
 </parameter>
+<parameter dictRef="compchem:iterationIndex">
+<scalar dataType="xsd:integer">2</scalar>
+</parameter>
 </parameterList>
 </module>
 <scalar dataType="xsd:double" dictRef="n:gnorm">0.208</scalar>
 <scalar dataType="xsd:double" dictRef="n:gmax">0.096</scalar>
 <module id="finalization" dictRef="compchem:finalization">
 <propertyList>
-<property dictRef="compchem:iteration_index">
-<scalar dataType="xsd:integer">2</scalar>
-</property>
 <property dictRef="compchem:totalEnergy">
 <scalar dataType="xsd:double" units="nonsi:hartree">-94.6769427089</scalar>
 </property>
@@ -157,15 +162,15 @@
 <parameter dictRef="compchem:task">
 <scalar dataType="xsd:string">iteration</scalar>
 </parameter>
+<parameter dictRef="compchem:iterationIndex">
+<scalar dataType="xsd:integer">3</scalar>
+</parameter>
 </parameterList>
 </module>
 <scalar dataType="xsd:double" dictRef="n:gnorm">0.00727</scalar>
 <scalar dataType="xsd:double" dictRef="n:gmax">0.00402</scalar>
 <module id="finalization" dictRef="compchem:finalization">
 <propertyList>
-<property dictRef="compchem:iteration_index">
-<scalar dataType="xsd:integer">3</scalar>
-</property>
 <property dictRef="compchem:totalEnergy">
 <scalar dataType="xsd:double" units="nonsi:hartree">-94.6794323074</scalar>
 </property>
@@ -184,15 +189,15 @@
 <parameter dictRef="compchem:task">
 <scalar dataType="xsd:string">iteration</scalar>
 </parameter>
+<parameter dictRef="compchem:iterationIndex">
+<scalar dataType="xsd:integer">4</scalar>
+</parameter>
 </parameterList>
 </module>
 <scalar dataType="xsd:double" dictRef="n:gnorm">4.8E-5</scalar>
 <scalar dataType="xsd:double" dictRef="n:gmax">1.69E-5</scalar>
 <module id="finalization" dictRef="compchem:finalization">
 <propertyList>
-<property dictRef="compchem:iteration_index">
-<scalar dataType="xsd:integer">4</scalar>
-</property>
 <property dictRef="compchem:totalEnergy">
 <scalar dataType="xsd:double" units="nonsi:hartree">-94.6794449267</scalar>
 </property>
