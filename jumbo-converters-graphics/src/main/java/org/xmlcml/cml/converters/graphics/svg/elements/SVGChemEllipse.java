@@ -8,6 +8,7 @@ import org.xmlcml.cml.graphics.StyleBundle;
 public class SVGChemEllipse extends SVGEllipse implements SVGChemElement {
 
 	public static StyleBundle DEFAULT_STYLE = new StyleBundle(
+			null,
 			"#0000ff", // fill
 			"#0000ff", // stroke
 			1.0, // strokeWidth

@@ -626,9 +626,7 @@ public class SVGChemPath extends SVGPath implements SVGChemElement, HasStereoBon
 	public static void appendPointToD(StringBuilder sb, Real2 xy) {
 		sb.append(xy.getX()+S_COMMA+xy.getY()+S_SPACE);
 	}
-	public boolean isClosed() {
-		return closed;
-	}
+	
 	public void setClosed(boolean closed) {
 		this.closed = closed;
 	}
