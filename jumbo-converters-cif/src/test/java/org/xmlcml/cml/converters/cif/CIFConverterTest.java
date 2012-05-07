@@ -50,7 +50,7 @@ public class CIFConverterTest {
         Nodes nodes=raw.query("//cml:array[@dataType=\"xsd:double\"]", CMLConstants.CML_XPATH);
         assertEquals(14, nodes.size());
     }
-    
+
     @Test
     public void convertRawToComplete() throws IOException {
         List<String> stringList = IOUtils.readLines(this.getClass().getResourceAsStream("/cif/test.cif"));
@@ -107,7 +107,7 @@ public class CIFConverterTest {
         assertEquals(2, n1.size());
 
     }
- 
+
     @Ignore
     @Test
     public void convertRawToComplete2() throws IOException {
