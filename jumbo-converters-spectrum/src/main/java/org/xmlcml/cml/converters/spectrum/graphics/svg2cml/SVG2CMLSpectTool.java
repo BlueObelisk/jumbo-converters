@@ -190,7 +190,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 		double fontWidthScale = 1.1;
 		double fontHeightScale = 1.3;
 		//		double subEps = 5.;
-		List<SVGElement> textList = SVGElement.getElementList(svg, ".//svg:text");
+		List<SVGElement> textList = SVGElement.generateElementList(svg, ".//svg:text");
 		if (textList.size() > 0) {
 			SVGText text0 = (SVGText) textList.get(0);
 			text0.setCurrentFontSize(text0.getFontSize());
@@ -617,10 +617,10 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 	}
 	
 	private Map<Integer, List<SVGG>> classifyClustersByLineContent() {
-		List<SVGElement> gList = SVGElement.getElementList(topG, "./svg:g[@class='"+CLUSTER+"']");
+		List<SVGElement> gList = SVGElement.generateElementList(topG, "./svg:g[@class='"+CLUSTER+"']");
 		Map<Integer, List<SVGG>> clusterListMap = new HashMap<Integer, List<SVGG>>();
 		for (SVGElement g : gList) {
-			Integer nline = SVGElement.getElementList(g, "./svg:line").size();
+			Integer nline = SVGElement.generateElementList(g, "./svg:line").size();
 			List<SVGG> clusterList = clusterListMap.get(nline);
 			if (clusterList == null) {
 				clusterList = new ArrayList<SVGG>();
@@ -646,7 +646,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 				}
 			}
 		}
-		List<SVGElement> peakList = SVGElement.getElementList(topG, "./svg:g[@class='"+CLUSTER+"']/svg:g[@class='"+PEAK+"']");
+		List<SVGElement> peakList = SVGElement.generateElementList(topG, "./svg:g[@class='"+CLUSTER+"']/svg:g[@class='"+PEAK+"']");
 		if (peakList.size() > 0) {
 			SVGG peakListG = new SVGG();
 			peakListG.setClassName(PEAKLIST);
@@ -661,7 +661,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 
 	private void analyzeClusterAsPeaks(SVGG g, int nline, int npeaks) {
 		
-		List<SVGElement> childList = SVGElement.getElementList(g, "./svg:*");
+		List<SVGElement> childList = SVGElement.generateElementList(g, "./svg:*");
 		int ichild = 0;
 		LOG.trace("analyze "+nline+"/"+npeaks);
 		for (int ipeak = 0; ipeak < npeaks && ichild < childList.size(); ipeak++) {
@@ -691,7 +691,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 
 	private void findFieldStrengths() {
 		getTopG();
-		List<SVGElement> fieldList = SVGElement.getElementList(
+		List<SVGElement> fieldList = SVGElement.generateElementList(
 				topG, "./svg:g[@class='"+UNKNOWN+"']/svg:text");
 		for (SVGElement text : fieldList) {
 			if (text.getValue().indexOf("MHz") != -1) {
@@ -708,7 +708,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 	
 	private void findMolecules() {
 		getTopG();
-		List<SVGElement> unknownList = SVGElement.getElementList(
+		List<SVGElement> unknownList = SVGElement.generateElementList(
 				topG, "./svg:g[@class='"+UNKNOWN+"']");
 		for (SVGElement unknown : unknownList) {
 			Real2Range r2r = unknown.getBoundingBox();
@@ -718,9 +718,9 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 				double yRangeRange = r2r.getYRange().getRange();
 				if ((xRangeRange > 50 && xRangeRange < 200) &&
 					(yRangeRange > 50 && yRangeRange < 200)) {
-					List<SVGElement> lineList = SVGElement.getElementList(
+					List<SVGElement> lineList = SVGElement.generateElementList(
 							unknown, "./svg:line");
-					List<SVGElement> textList = SVGElement.getElementList(
+					List<SVGElement> textList = SVGElement.generateElementList(
 							unknown, "./svg:text");
 					if (lineList.size() > 3 && textList.size() > 0) {
 						unknown.setClassName("molecule");
@@ -732,7 +732,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 	
 	private void removeEmptyUnknowns() {
 		getTopG();
-		List<SVGElement> unknownList = SVGElement.getElementList(
+		List<SVGElement> unknownList = SVGElement.generateElementList(
 				topG, "./svg:g[@class='"+UNKNOWN+"' and count(*) = 0]");
 		for (SVGElement unknown : unknownList) {
 			LOG.trace("DETACH EMPTY UNKNOWN");
@@ -883,7 +883,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 
 	private void groupRemainingNonGroupsAsUnknown() {
 		getTopG();	
-		List<SVGElement> elementList = SVGElement.getElementList(topG, "svg:*");
+		List<SVGElement> elementList = SVGElement.generateElementList(topG, "svg:*");
 		SVGG newG = null;
 		for (SVGElement child : elementList) {
 			if (child instanceof SVGG) {
@@ -920,7 +920,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 	
 	private void getPeakAnnotations(SVGG unknown) {
 		// look for line*n (text, line|polyline) * n
-		List<SVGElement> elementList = SVGElement.getElementList(unknown, "./svg:*");
+		List<SVGElement> elementList = SVGElement.generateElementList(unknown, "./svg:*");
 		List<SVGLine> lineList = new ArrayList<SVGLine>();
 		for (SVGElement element : elementList) {
 			if (!(element instanceof SVGLine)) {
@@ -988,7 +988,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 	
 	private void splitIntoSpectra() {
 		getTopG();
-		List<SVGElement> gList = SVGElement.getElementList(topG, "svg:g");
+		List<SVGElement> gList = SVGElement.generateElementList(topG, "svg:g");
 		spectrumToolList = new ArrayList<SpectrumAnalysisTool>();
 		SVGG spectrumG = null;
 		for (SVGElement g : gList) {
