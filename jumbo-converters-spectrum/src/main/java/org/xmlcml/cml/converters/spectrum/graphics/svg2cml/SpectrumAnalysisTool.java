@@ -70,7 +70,7 @@ public class SpectrumAnalysisTool {
 	}
 	
 	private void getSpectrumDataAndOrientation() {
-		List<SVGElement> valuesList = SVGElement.getElementList(spectrumG, "./svg:g[@class='"+SVG2CMLSpectTool.VALUES+"']/svg:polyline");
+		List<SVGElement> valuesList = SVGElement.generateElementList(spectrumG, "./svg:g[@class='"+SVG2CMLSpectTool.VALUES+"']/svg:polyline");
 		spectrumValues = (valuesList.size() == 0) ? null : (SVGPolyline) valuesList.get(0);
 		String xMonotonicity = (spectrumValues == null) ? null : spectrumValues.getAttributeValue(SVGPoly.MONOTONIC+"X");
 		String yMonotonicity = (spectrumValues == null) ? null : spectrumValues.getAttributeValue(SVGPoly.MONOTONIC+"Y");
@@ -162,7 +162,7 @@ public class SpectrumAnalysisTool {
 	 */
 	private AxisTool interpretAxisAndGetAxisTool(Orientation orientation) {
 		AxisTool axisTool = null;
-		List<SVGElement> axisGroups = SVGElement.getElementList(spectrumG, "./svg:g[@class='"+orientation.toString()+"']");
+		List<SVGElement> axisGroups = SVGElement.generateElementList(spectrumG, "./svg:g[@class='"+orientation.toString()+"']");
 		LOG.trace("AXES: "+axisGroups.size());
 		SVGG axisGroup = (axisGroups.size() > 0) ? (SVGG) axisGroups.get(0) : null; 
 		if (axisGroup != null) {
@@ -174,7 +174,7 @@ public class SpectrumAnalysisTool {
 	}
 
 	private void checkBoxMatchesAxes() {
-		List<SVGElement> boxList = SVGElement.getElementList(spectrumG, "./svg:g/svg:rect[@class='"+SVG2CMLSpectTool.BOX+"']");
+		List<SVGElement> boxList = SVGElement.generateElementList(spectrumG, "./svg:g/svg:rect[@class='"+SVG2CMLSpectTool.BOX+"']");
 		box = (boxList.size() == 0) ? null : (SVGRect) boxList.get(0);
 		if (box != null && dataAxis != null) {
 			Real2Range bbox = box.getBoundingBox();
@@ -192,13 +192,13 @@ public class SpectrumAnalysisTool {
 	}
 	
 	private void calculatePeakListValues() {
-		List<SVGElement> elements = SVGElement.getElementList(
+		List<SVGElement> elements = SVGElement.generateElementList(
 				spectrumG, "./svg:g[@class='"+SVG2CMLSpectTool.PEAKLIST+"']");
 		svgGPeakListContainer = (elements.size() == 0) ? null : (SVGG) elements.get(0);
 		cmlPeakList = new CMLPeakList();
 		cmlSpectrum.addPeakList(cmlPeakList);
 		if (svgGPeakListContainer != null) {
-			elements = SVGElement.getElementList(svgGPeakListContainer, "./svg:g[@class='"+SVG2CMLSpectTool.PEAK+"']");
+			elements = SVGElement.generateElementList(svgGPeakListContainer, "./svg:g[@class='"+SVG2CMLSpectTool.PEAK+"']");
 			List<SVGG> svgPeakList = new ArrayList<SVGG>();
 			for (int i = 0; i < elements.size(); i++) {
 				SVGG svgPeak = (SVGG) elements.get(i);
@@ -218,7 +218,7 @@ public class SpectrumAnalysisTool {
 		double integralValue = Double.NaN;
 		double calcDataValue = Double.NaN;
 
-		List<SVGElement> textList = SVGElement.getElementList(svgPeak, "./svg:text");
+		List<SVGElement> textList = SVGElement.generateElementList(svgPeak, "./svg:text");
 		String textValue = (textList.size() == 0) ? null : textList.get(0).getValue();
 		if (textValue != null) {
 			try {
@@ -227,13 +227,13 @@ public class SpectrumAnalysisTool {
 				throw new RuntimeException("Cannot parse data value as double: "+textValue);
 			}
 		}
-		List<SVGElement> brackets = SVGElement.getElementList(svgPeak, "./svg:g[@class='bracket']");
+		List<SVGElement> brackets = SVGElement.generateElementList(svgPeak, "./svg:g[@class='bracket']");
 		SVGG bracket = (brackets.size() == 0) ? null : (SVGG) brackets.get(0);
 		if (bracket != null) {
 			Real2 bracketCentroid = bracket.getBoundingBox().getCentroid();
 			dataCoord = (dataAxis.equals(horizontalAxis)) ? bracketCentroid.getX() : bracketCentroid.getY();
 		} else {
-			List<SVGElement> lines = SVGElement.getElementList(svgPeak, "./svg:line");
+			List<SVGElement> lines = SVGElement.generateElementList(svgPeak, "./svg:line");
 			if (lines.size() > 0) {
 				SVGLine line = (SVGLine) lines.get(0);
 				dataCoord = (dataAxis.equals(horizontalAxis)) ? line.getXY(0).getX() : line.getXY(0).getY();
