@@ -52,7 +52,8 @@ public class CompchemXML2XMLTemplateConverter extends XML2XMLTransformConverter 
 		return templateStream;
 	}
 
-	public static void usage() {
+	@Override
+	public void usage() {
 		System.err.println("Usage : <infile> <outfile> [<templateFile>]");
 	}
 
