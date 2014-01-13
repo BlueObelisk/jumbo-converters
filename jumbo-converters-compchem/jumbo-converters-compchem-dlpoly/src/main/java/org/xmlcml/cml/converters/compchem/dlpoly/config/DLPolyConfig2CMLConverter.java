@@ -48,13 +48,13 @@ public class DLPolyConfig2CMLConverter extends AbstractConverter {
 		return cml;
 	}
 
-	private static void usage() {
+	private static void usage1() {
 		System.out.println("usage: MDL2CMLConverter <file.mdl> <file.xml>");
 	}
 	
 	public static void main(String[] args) {
 		if (args.length != 2) {
-			usage();
+			usage1();
 		} else {
 			DLPolyConfig2CMLConverter converter = new DLPolyConfig2CMLConverter();
 			converter.convert(new File(args[0]), new File(args[1]));

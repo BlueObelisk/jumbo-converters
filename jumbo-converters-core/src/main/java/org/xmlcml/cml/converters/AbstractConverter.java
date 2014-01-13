@@ -962,7 +962,7 @@ private ArgProcessor argProcessor;
 	   return "override RegistryFoo in: "+this.getClass().getName();
    }
 
-	protected void usage() {
+	protected void usage2() {
 		System.err.println("AbstractConverter, often invoked with specific command (e.g.'cif2cml'");
 		System.err.println("Command line of form: '[command] [options], command being 'cif2cml', etc.");
 		System.err.println("Universal options ('-f' is short for '--foo', etc.):");
@@ -982,7 +982,7 @@ private ArgProcessor argProcessor;
     */
 	protected void processArgs(String[] args) throws Exception {
 		if (args == null || args.length == 0) {
-			usage();
+			usage2();
 		} else {
 			runArgs(args);
 		}
@@ -997,7 +997,7 @@ private ArgProcessor argProcessor;
      */
 	public void runArgs(String[] commandLineArgs) {
 		if (commandLineArgs == null || commandLineArgs.length == 0) {
-			usage();
+			usage2();
 		}
 		argProcessor = new ArgProcessor(commandLineArgs);
 		if (argProcessor.getInput() == null) {
