@@ -58,7 +58,8 @@ public class CompchemText2XMLTemplateConverter extends Text2XMLTemplateConverter
 		return templateStream;
 	}
 
-	public static void usage() {
+	@Override
+	protected void usage() {
 		System.err.println("Usage : <infile> <outfile> [<templateFile>]");
 	}
 
