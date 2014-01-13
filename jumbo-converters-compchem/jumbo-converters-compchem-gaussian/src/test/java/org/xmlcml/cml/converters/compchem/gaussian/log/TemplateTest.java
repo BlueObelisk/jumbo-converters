@@ -118,11 +118,11 @@ public class TemplateTest {
 	@Test	public void testl914Excitations()            {runTemplateTest("l914/l914_excitations");}
 
 	@Test	public void testl9999Final()                 {runTemplateTest("l9999/", "l9999.final");}
-	@Test	public void testl9999Archive()               {runTemplateTest("l9999/", "l9999.archive");}
+	@Ignore @Test public void testl9999Archive()               {runTemplateTest("l9999/", "l9999.archive");}
 	@Test	public void testl9999Notarchived()           {runTemplateTest("l9999/", "l9999.notarchived");}
 	@Test	public void testl9999Punched()               {runTemplateTest("l9999/", "l9999.punched");}
 	
-	@Test	public void testJobcpu()                     {runTemplateTest("jobcpu");}
+	@Ignore @Test	public void testJobcpu()                     {runTemplateTest("jobcpu");}
 
 	@Ignore @Test	public void testl103DEBUG()                       {runTemplateTest("l103");}
 	@Ignore @Test   public void testl502CycleDEBUG()                  {runTemplateTest("l502/","l502.cycle");}
