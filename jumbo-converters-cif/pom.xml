@@ -54,6 +54,62 @@
         </dependency>
 
     </dependencies>
+  <build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>appassembler-maven-plugin</artifactId>
+				<version>1.4</version>
+				<configuration>
+
+				<programs>
+					<program>
+						<mainClass>org.xmlcml.cml.converters.cif.CIF2CMLConverter</mainClass>
+						<name>cif2cml</name>
+					</program>
+				</programs>
+
+				</configuration>
+
+				<executions>
+					<execution>
+						<id>assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>assemble</goal>
+						</goals>
+					</execution>
+				</executions>
+
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptor>src/main/assembly/bin.xml</descriptor>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<!-- Parallel running of test cases -->
+					<parallel>classes</parallel>
+					<useUnlimitedThreads>true</useUnlimitedThreads>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
 

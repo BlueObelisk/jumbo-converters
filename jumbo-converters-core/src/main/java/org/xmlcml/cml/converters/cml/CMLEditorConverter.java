@@ -60,7 +60,7 @@ public class CMLEditorConverter extends AbstractConverter implements
 	
 	public static void main(String[] args) throws Exception {
 		if (args.length == 0) {
-			usage();
+//			usage();
 			test();
 
 		}
@@ -82,10 +82,6 @@ public class CMLEditorConverter extends AbstractConverter implements
 		editorConverter.getCmlEditor().setCalculateBonds(true);
 		cmlObject = (CMLElement) editorConverter.convertToXML(cmlObject);
 		cmlObject.debug("CML");
-	}
-
-	private static void usage() {
-		System.out.println("usage: [zero args runs test]");
 	}
 
 	@Override

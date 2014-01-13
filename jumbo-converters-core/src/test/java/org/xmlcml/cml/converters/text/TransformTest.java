@@ -503,7 +503,7 @@ public class TransformTest {
 	}
 	
 	@Test 
-        @Ignore
+	@Ignore
 	public void testCreateDate1() {
 		Element foo = new Element("foo");
 		CMLScalar scalar = new CMLScalar("Thu Apr  7 17:04:52 2011");
@@ -516,7 +516,7 @@ public class TransformTest {
 	}
 	
 	@Test 
-        @Ignore
+	@Ignore
 	public void testCreateDate2() {
 		Element foo = new Element("foo");
 		CMLScalar scalar = new CMLScalar("Thu Apr 14 17:04:52 2011");

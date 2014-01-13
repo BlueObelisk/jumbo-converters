@@ -617,7 +617,7 @@ public class RecordReaderTest {
 	}
 	
 	@Test
-	@Ignore
+	@Ignore ("fails on date")
         public void readDate() {
 		LineContainer lineContainer = new LineContainer("Mon Nov 20 14:40:23 2006");
 		Element recordElement = CMLUtil.parseXML("<record id='i1'>{D,x:d}</record>");
@@ -637,7 +637,7 @@ public class RecordReaderTest {
 	}
 	
 	@Test
-	@Ignore
+	@Ignore ("fails on date")
 	public void readDate1() {
 		LineContainer lineContainer = new LineContainer("Mon Nov 06 14:40:23 2006");
 		Element recordElement = CMLUtil.parseXML("<record id='i1'>{D,x:d}</record>");
@@ -657,7 +657,7 @@ public class RecordReaderTest {
 	}
 	
 	@Test
-	@Ignore
+	@Ignore ("fails on date")
 	public void readDate2() {
 		LineContainer lineContainer = new LineContainer("Mon Nov  6 14:40:23 2006");
 		Element recordElement = CMLUtil.parseXML("<record id='i1'>{D,x:d}</record>");
@@ -698,7 +698,7 @@ public class RecordReaderTest {
 	
 	
 	@Test
-	@Ignore
+	@Ignore ("fails on date")
 	public void readIntAndDate() {
 		LineContainer lineContainer = new LineContainer("123 Mon Nov 20 14:40:23 2006 bar");
 		Element recordElement = CMLUtil.parseXML("<record id='i1'>{I3,x:i}\\s{D,x:d}\\s{A,x:a}\\s*</record>");

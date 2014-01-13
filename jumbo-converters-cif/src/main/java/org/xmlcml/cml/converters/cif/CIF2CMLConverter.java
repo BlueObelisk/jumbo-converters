@@ -20,6 +20,10 @@ public class CIF2CMLConverter extends AbstractConverter{
 		
 	private static final String REG_MESSAGE = "CIF to CML converter";
 
+	public CIF2CMLConverter() {
+		
+	}
+	
 	/**
 	 * converts CIF file (as lines) to CML.
 	 * This involves conversion to (a) CIFXML (b) raw CML (c) conventionCML
@@ -71,6 +75,14 @@ public class CIF2CMLConverter extends AbstractConverter{
 	public String getRegistryMessage() {
 		return REG_MESSAGE;
 	}
+	
+	
+	
+	public static void main(String[] args) {
+		CIF2CMLConverter converter = new CIF2CMLConverter();
+		converter.runArgs(args);
+	}
+
 }
 
 
