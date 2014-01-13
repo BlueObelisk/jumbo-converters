@@ -58,8 +58,7 @@ public class CompchemText2XMLTemplateConverter extends Text2XMLTemplateConverter
 		return templateStream;
 	}
 
-	@Override
-	protected void usage() {
+	protected void usage1() {
 		System.err.println("Usage : <infile> <outfile> [<templateFile>]");
 	}
 
@@ -67,7 +66,7 @@ public class CompchemText2XMLTemplateConverter extends Text2XMLTemplateConverter
 	public static void runMain(String[] args, String code, String fileType,
 			String topTemplate) throws IOException {
 		if (args.length == 0) {
-			usage();
+			usage1();
 		} else {
 			Text2XMLTemplateConverter tc = CompchemText2XMLTemplateConverter.createTemplateConverter(code, fileType, topTemplate);
 			File in = new File(args[0]);
