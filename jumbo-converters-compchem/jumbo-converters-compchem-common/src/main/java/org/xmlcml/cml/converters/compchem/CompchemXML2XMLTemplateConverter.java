@@ -10,8 +10,6 @@ import nu.xom.Document;
 import nu.xom.Element;
 
 import org.apache.commons.io.IOUtils;
-import org.xmlcml.cml.converters.text.Template;
-import org.xmlcml.cml.converters.text.Text2XMLTemplateConverter;
 import org.xmlcml.cml.converters.text.XML2XMLTransformConverter;
 import org.xmlcml.euclid.Util;
 
@@ -52,8 +50,7 @@ public class CompchemXML2XMLTemplateConverter extends XML2XMLTransformConverter 
 		return templateStream;
 	}
 
-	@Override
-	public void usage() {
+	public static void usage1() {
 		System.err.println("Usage : <infile> <outfile> [<templateFile>]");
 	}
 
@@ -61,7 +58,7 @@ public class CompchemXML2XMLTemplateConverter extends XML2XMLTransformConverter 
 	public static void runMain(String[] args, String code, String fileType,
 			String topTemplate) throws IOException {
 		if (args.length == 0) {
-			usage();
+			usage1();
 		} else {
 			XML2XMLTransformConverter tc = CompchemXML2XMLTemplateConverter.createTemplateConverter(code, fileType, topTemplate);
 			File in = new File(args[0]);
