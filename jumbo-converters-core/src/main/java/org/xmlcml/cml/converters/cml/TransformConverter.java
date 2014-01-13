@@ -77,7 +77,7 @@ public class TransformConverter extends AbstractTransformConverter {
 	
 	public static void runMain(String[] args) throws IOException {
 		if (args.length != 1) {
-			usage();
+//			usage();
 		} else {
 			String template = args[0];
 			TransformConverter tc = TransformConverter.createTemplateConverter(new FileInputStream(template));
@@ -85,11 +85,6 @@ public class TransformConverter extends AbstractTransformConverter {
 			File out = new File(args[1]);
 			tc.convert(in, out);
 		}
-	}
-
-	private static void usage() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public static TransformConverter createTemplateConverter(InputStream templateStream) {

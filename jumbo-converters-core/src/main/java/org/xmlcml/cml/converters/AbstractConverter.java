@@ -66,6 +66,7 @@ public abstract class AbstractConverter implements Converter {
    protected Command command;
    // change if you need faithful whitespace
    protected int indent = 2;
+private ArgProcessor argProcessor;
 
    public int getIndent() {
 	   return indent;
@@ -960,9 +961,72 @@ public abstract class AbstractConverter implements Converter {
    public String getRegistryMessage() {
 	   return "override RegistryFoo in: "+this.getClass().getName();
    }
+
+	protected void usage() {
+		System.err.println("AbstractConverter, often invoked with specific command (e.g.'cif2cml'");
+		System.err.println("Command line of form: '[command] [options], command being 'cif2cml', etc.");
+		System.err.println("Universal options ('-f' is short for '--foo', etc.):");
+		System.err.println("    -i  --input  inputSpec");
+		System.err.println("                 mandatory: filename, directoryName, url, or (coming) identifier (e.g. PMID:12345678)");
+		System.err.println("    -o  --output  outputSpec");
+		System.err.println("                 optional: filename, directoryName; if absent genertes default");
+		System.err.println("    -r  --recursive");
+		System.err.println("                 recurse through directories");
+		System.err.println("");
+	}
+
+
+   /** process simple commandline arguments.
+    * 
+    * @param args passed from main(args)
+    */
+	protected void processArgs(String[] args) throws Exception {
+		if (args == null || args.length == 0) {
+			usage();
+		} else {
+			runArgs(args);
+		}
+	}
+	
+    /**
+     * Processes command line arguments.
+     * 
+     * @param commandLineArgs
+     * @throws IOException 
+     * @throws FileNotFoundException 
+     */
+	public void runArgs(String[] commandLineArgs) {
+		if (commandLineArgs == null || commandLineArgs.length == 0) {
+			usage();
+		}
+		argProcessor = new ArgProcessor(commandLineArgs);
+		if (argProcessor.getInput() == null) {
+			throw new RuntimeException("input option mandatory");
+		}
+		if (argProcessor.getOutput() == null) {
+			LOG.info("creating output filenames from input");
+			this.createOutputFile();
+		}
+		
+		File inputFile = new File(argProcessor.getInput());
+		if (!inputFile.exists()) {
+			throw new RuntimeException("Input file does not exist: "+inputFile);
+		}
+		File outputFile = new File(argProcessor.getOutput());
+		outputFile.getParentFile().mkdirs();
+		
+		convert(inputFile, outputFile);
+	}
+
+	private void createOutputFile() {
+		argProcessor.setOutput(argProcessor.getInput()+".cml");
+	}
+
+
 }
 
 class DTDProblem {
-
    boolean failed = false;
 }
+
+
