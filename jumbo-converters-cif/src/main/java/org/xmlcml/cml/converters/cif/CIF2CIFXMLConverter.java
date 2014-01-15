@@ -34,6 +34,7 @@ public class CIF2CIFXMLConverter extends AbstractConverter {
 	public CIF2CIFXMLConverter() {
 	}
 	
+
 	public Type getInputType() {
 		return Type.CIF;
 	}

@@ -1,6 +1,14 @@
 package org.xmlcml.cml.converters.cif;
 
-import java.io.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,9 +27,7 @@ import org.xmlcml.cif.CIFException;
 import org.xmlcml.cif.CIFParser;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import org.xmlcml.cml.base.CMLUtil;
 
 public class CIFConverterTest {
     @Test
@@ -134,13 +140,16 @@ public class CIFConverterTest {
     public void testKo5132() throws IOException, CIFException {
         String filename = "/ko5132.cif";
         Element cml = convertToCml(filename);
+//        CMLUtil.debug(cml, "cml");
         assertNotNull(cml);
     }
 
     @Test
     public void testKv2001() throws IOException, CIFException {
         String filename = "/kv2001.cif";
+        System.out.println(new File(filename).getAbsolutePath());
         Element cml = convertToCml(filename);
+//        CMLUtil.debug(cml, "cml");
         assertNotNull(cml);
     }
 
@@ -190,5 +199,15 @@ public class CIFConverterTest {
         RawCML2CompleteCMLConverter raw2cml = new RawCML2CompleteCMLConverter();
         return raw2cml.convertToXML(raw);
     }
+    
+    public void testKvCif() {
+    	
+    }
 
+    @Test 
+    public void testMain() {
+    	CIF2CMLConverter converter = new CIF2CMLConverter();
+    	String[] args = {"-i", "src/test/resources/kv2001.cif", "-o", "kv.cml"};
+    	converter.runArgs(args);
+    }
 }
