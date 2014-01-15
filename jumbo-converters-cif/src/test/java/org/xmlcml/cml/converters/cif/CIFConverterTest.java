@@ -207,7 +207,28 @@ public class CIFConverterTest {
     @Test 
     public void testMain() {
     	CIF2CMLConverter converter = new CIF2CMLConverter();
-    	String[] args = {"-i", "src/test/resources/kv2001.cif", "-o", "kv.cml"};
+    	String[] args = {"-i", "src/test/resources/kv2001.cif", "-o", "target/kv.cml"};
+    	converter.runArgs(args);
+    }
+    
+    @Test
+    public void testCoordinate1() {
+    	CIF2CMLConverter converter = new CIF2CMLConverter();
+    	String[] args = {"-i", "src/test/resources/coordinate-problem/2234515.cif", "-o", "target/2234515.cml"};
+    	converter.runArgs(args);
+    }
+    
+    @Test
+    public void testCoordinate2() {
+    	CIF2CMLConverter converter = new CIF2CMLConverter();
+    	String[] args = {"-i", "src/test/resources/coordinate-problem/2234529.cif", "-o", "target/2234529.cml"};
+    	converter.runArgs(args);
+    }
+    
+    @Test
+    public void testCoordinate3() {
+    	CIF2CMLConverter converter = new CIF2CMLConverter();
+    	String[] args = {"-i", "src/test/resources/coordinate-problem/2234500.cif", "-o", "target/2234500.cml"};
     	converter.runArgs(args);
     }
 }
