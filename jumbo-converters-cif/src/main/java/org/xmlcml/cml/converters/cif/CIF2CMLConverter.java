@@ -88,13 +88,9 @@ public class CIF2CMLConverter extends AbstractConverter{
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("args: "+args.length);
-		for (String arg : args) {
-			System.out.println("arg: "+arg);
-		}
-		CIFXML2CMLOptions options = new CIFXML2CMLOptions();
-		options.setSkipErrors(true);
-		CIF2CMLConverter converter = new CIF2CMLConverter(options);
+//		CIFXML2CMLOptions options = new CIFXML2CMLOptions();
+//		options.setSkipErrors(true);
+		CIF2CMLConverter converter = new CIF2CMLConverter(/*options*/);
 		converter.runArgs(args);
 	}
 

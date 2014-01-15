@@ -1019,9 +1019,9 @@ private ArgProcessor argProcessor;
 			throw new RuntimeException("cannot create output file: "+argProcessor.getOutput());
 		}
 		File outputFile = new File(argProcessor.getOutput());
-		LOG.debug("output: "+outputFile);
+//		LOG.debug("output: "+outputFile);
 		File parentFile = outputFile.getParentFile();
-		LOG.debug("parent: "+parentFile);
+//		LOG.debug("parent: "+parentFile);
 		if (parentFile != null) parentFile.mkdirs();
 		
 		convert(inputFile, outputFile);

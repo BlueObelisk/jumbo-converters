@@ -170,4 +170,8 @@ public class CML2SDFConverter extends AbstractConverter implements
 		return "null";
 	}
 
+	public static void main(String[] args) {
+		CML2SDFConverter converter = new CML2SDFConverter();
+		converter.runArgs(args);
+	}
 }

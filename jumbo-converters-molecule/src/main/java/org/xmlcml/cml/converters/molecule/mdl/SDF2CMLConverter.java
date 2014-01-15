@@ -120,7 +120,10 @@ public class SDF2CMLConverter extends AbstractConverter implements
 	}
 	
 	public static void main(String[] args) {
-		if (args.length != 2) {
+		if (args.length == 4) {
+			SDF2CMLConverter converter = new SDF2CMLConverter();
+			converter.runArgs(args);
+		} else if (args.length != 2) {
 			usage();
 		} else {
 			SDF2CMLConverter converter = new SDF2CMLConverter();
