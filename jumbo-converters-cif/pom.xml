@@ -1,61 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-        xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>cml</groupId>
-        <artifactId>jumbo-converters</artifactId>
-        <version>0.3-SNAPSHOT</version>
-    </parent>
+	<parent>
+		<groupId>cml</groupId>
+		<artifactId>jumbo-converters</artifactId>
+		<version>0.3-SNAPSHOT</version>
+	</parent>
 
-    <artifactId>jumbo-converters-cif</artifactId>
-    <version>0.4-SNAPSHOT</version>
+	<artifactId>jumbo-converters-cif</artifactId>
+	<version>0.4-SNAPSHOT</version>
 
-    <name>jumbo-converters-cif</name>
+	<name>jumbo-converters-cif</name>
 
-    <dependencies>
-        <dependency>
-            <groupId>cdk</groupId>
-            <artifactId>cdk</artifactId>
-            <version>20071025</version>
-        </dependency>
-        <dependency>
-            <groupId>org.xml-cml</groupId>
-            <artifactId>cifxom</artifactId>
-            <version>1.5-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>${jumbo.groupId}</groupId>
-            <artifactId>jumbo</artifactId>
-            <version>${jumbo.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>cml</groupId>
-            <artifactId>jumbo-converters-core</artifactId>
-            <version>0.3-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>java3d</groupId>
-            <artifactId>vecmath</artifactId>
-        </dependency>
+	<dependencies>
+		<dependency>
+			<groupId>cdk</groupId>
+			<artifactId>cdk</artifactId>
+			<version>20071025</version>
+		</dependency>
+		<dependency>
+			<groupId>org.xml-cml</groupId>
+			<artifactId>cifxom</artifactId>
+			<version>1.5-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>${jumbo.groupId}</groupId>
+			<artifactId>jumbo</artifactId>
+			<version>${jumbo.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cml</groupId>
+			<artifactId>jumbo-converters-core</artifactId>
+			<version>0.3-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>java3d</groupId>
+			<artifactId>vecmath</artifactId>
+		</dependency>
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>cml</groupId>
-            <artifactId>jumbo-converters-testutils</artifactId>
-            <version>0.3-SNAPSHOT</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>cml</groupId>
+			<artifactId>jumbo-converters-testutils</artifactId>
+			<version>0.3-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
 
-    </dependencies>
-    <!-- 
-  <build>
+	</dependencies>
+	<build>
 		<plugins>
 
 			<plugin>
@@ -64,12 +63,12 @@
 				<version>1.4</version>
 				<configuration>
 
-				<programs>
-					<program>
-						<mainClass>org.xmlcml.cml.converters.cif.CIF2CMLConverter</mainClass>
-						<name>cif2cml</name>
-					</program>
-				</programs>
+					<programs>
+						<program>
+							<mainClass>org.xmlcml.cml.converters.cif.CIF2CMLConverter</mainClass>
+							<name>cif2cml</name>
+						</program>
+					</programs>
 
 				</configuration>
 
@@ -84,60 +83,9 @@
 				</executions>
 
 			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<descriptor>src/main/assembly/bin.xml</descriptor>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<!- - Parallel running of test cases - ->
-					<parallel>classes</parallel>
-					<useUnlimitedThreads>true</useUnlimitedThreads>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
-	-->
-	<!--  build single jar -->
-	<build>
-	<plugins>
-	<plugin>
-  <artifactId>maven-assembly-plugin</artifactId>
-  <configuration>
-    <archive>
-      <manifest>
-        <mainClass>org.xmlcml.cml.converters.cif.CIF2CMLConverter</mainClass>
-      </manifest>
-    </archive>
-    <descriptorRefs>
-      <descriptorRef>jar-with-dependencies</descriptorRef>
-    </descriptorRefs>
-  </configuration>
-  <executions>
-    <execution>
-      <id>make-assembly</id> <!-- this is used for inheritance merges -->
-      <phase>package</phase> <!-- bind to the packaging phase -->
-      <goals>
-        <goal>single</goal>
-      </goals>
-    </execution>
-  </executions>
-</plugin>
-	</plugins></build>
+
 
 </project>
 

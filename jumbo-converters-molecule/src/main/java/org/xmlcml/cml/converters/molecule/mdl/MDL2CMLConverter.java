@@ -49,6 +49,10 @@ public class MDL2CMLConverter extends AbstractConverter {
 	}
 	
 	public static void main(String[] args) {
+		if (args.length == 4) {
+			MDL2CMLConverter converter = new MDL2CMLConverter();
+			converter.runArgs(args);
+		}
 		if (args.length != 2) {
 			usage();
 		} else {

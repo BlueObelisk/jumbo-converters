@@ -80,4 +80,9 @@ public class CML2MDLConverter extends AbstractConverter implements
 		return "convert CML to MDL molfile";
 	}
 
+	public static void main(String[] args) {
+		CML2MDLConverter converter = new CML2MDLConverter();
+		converter.runArgs(args);
+	}
+
 }
