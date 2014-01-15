@@ -25,6 +25,7 @@ import nu.xom.Node;
 import nu.xom.Nodes;
 
 import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.xmlcml.cif.CIF;
 import org.xmlcml.cif.CIFDataBlock;
 import org.xmlcml.cif.CIFException;
@@ -60,6 +61,8 @@ import org.xmlcml.molutil.ChemicalElement;
  *
  */
 public class CIFXML2CMLConverter extends AbstractConverter {
+
+	public final static Logger LOG = Logger.getLogger(CIFXML2CMLConverter.class);
 	
 	public static final String REG_MESSAGE = "CIFXML to CML converter";
 	
@@ -439,6 +442,9 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 
 	private void processNonCMLItems(CIFDataBlock block, CMLElement target) {
 		for (CIFItem item : block.getItemList()) {
+			if (converterOptions.omitIndeterminate(item)) {
+				continue;
+			}
 			// omit CML
 			CIFCategory category = getCMLCategory(item.getName());
 			if (category != null) {
@@ -481,6 +487,9 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 
 	private void processCMLItems(CIFDataBlock block, CMLElement target, CMLMolecule molecule, CMLCrystal crystal, CMLSymmetry symmetry) {
 		for (CIFItem item : block.getItemList()) {
+			if (converterOptions.omitIndeterminate(item)) {
+				continue;
+			}
 			String name = item.getName();
 			CIFCategory category = getCMLCategory(name);
 			if (category != null) {
@@ -555,6 +564,8 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 	}
 
 	private void addCell(CIFItem item, CMLCrystal crystal, CMLSymmetry symmetry) {
+//		item.debug();
+		LOG.trace("addcell ");
 		String[] names = {
 				"_cell_length_a",
 				"_cell_length_b",

@@ -2,6 +2,8 @@ package org.xmlcml.cml.converters.cif;
 
 import java.io.File;
 
+import org.apache.log4j.Logger;
+import org.xmlcml.cif.CIFItem;
 import org.xmlcml.cml.element.CMLDictionary;
 
 /**
@@ -11,7 +13,11 @@ import org.xmlcml.cml.element.CMLDictionary;
  *
  */
 public class CIFXML2CMLOptions {
+
+	private final static Logger LOG = Logger.getLogger(CIFXML2CMLOptions.class);
 	
+	private static final String QUERY = "?";
+
 	private SpaceGroupTool spaceGroupTool;
 
 	private CMLDictionary dictionary;
@@ -87,6 +93,20 @@ public class CIFXML2CMLOptions {
 
 	public void setOmitDefault(boolean omitDefault) {
 		this.omitDefault = omitDefault;
+	}
+
+	public boolean omitIndeterminate(CIFItem item) {
+		boolean omit = false;
+		if (item == null) {
+			omit = true;
+		} else {
+			String value = item.getValue().trim();
+			if (QUERY.equals(value) && omitIndeterminate) {
+				omit = true;
+				LOG.trace("omitted indeterminate item: "+item.getName());
+			}
+		}
+		return omit;
 	}
 	
 	

@@ -998,6 +998,7 @@ private ArgProcessor argProcessor;
 	public void runArgs(String[] commandLineArgs) {
 		if (commandLineArgs == null || commandLineArgs.length == 0) {
 			usage2();
+			return;
 		}
 		argProcessor = new ArgProcessor(commandLineArgs);
 		if (argProcessor.getInput() == null) {
@@ -1006,14 +1007,22 @@ private ArgProcessor argProcessor;
 		if (argProcessor.getOutput() == null) {
 			LOG.info("creating output filenames from input");
 			this.createOutputFile();
+		} else {
+			
 		}
 		
 		File inputFile = new File(argProcessor.getInput());
 		if (!inputFile.exists()) {
 			throw new RuntimeException("Input file does not exist: "+inputFile);
 		}
+		if (argProcessor.getOutput() == null) {
+			throw new RuntimeException("cannot create output file: "+argProcessor.getOutput());
+		}
 		File outputFile = new File(argProcessor.getOutput());
-		outputFile.getParentFile().mkdirs();
+		LOG.debug("output: "+outputFile);
+		File parentFile = outputFile.getParentFile();
+		LOG.debug("parent: "+parentFile);
+		if (parentFile != null) parentFile.mkdirs();
 		
 		convert(inputFile, outputFile);
 	}
