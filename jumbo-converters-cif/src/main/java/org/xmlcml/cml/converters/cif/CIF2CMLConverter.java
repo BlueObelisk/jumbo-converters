@@ -6,6 +6,7 @@ import nu.xom.Element;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cif.CIF;
+import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.Type;
 
@@ -60,6 +61,7 @@ public class CIF2CMLConverter extends AbstractConverter{
 	}
 	
 	private Element cml2compcml(Element cml){
+//		((CMLElement)cml).debug("raw");
 		RawCML2CompleteCMLConverter conv = new RawCML2CompleteCMLConverter();
 		return conv.convertToXML(cml);
 	}
