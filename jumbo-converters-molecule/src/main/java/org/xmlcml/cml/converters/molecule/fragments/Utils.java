@@ -1,7 +1,5 @@
 package org.xmlcml.cml.converters.molecule.fragments;
 
-import static wwmm.crystaleye.CrystalEyeConstants.CRYSTALEYE_DATE_FORMAT;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;

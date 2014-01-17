@@ -2,7 +2,6 @@ package org.xmlcml.cml.converters.molecule.fragments;
 
 import static org.xmlcml.cml.base.CMLConstants.CML_NS;
 import static org.xmlcml.cml.base.CMLConstants.CML_XPATH;
-import static wwmm.crystaleye.CrystalEyeConstants.NO_BONDS_OR_CHARGES_FLAG_DICTREF;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +18,6 @@ import org.xmlcml.cml.element.CMLIdentifier;
 import org.xmlcml.cml.element.CMLMetadata;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.tools.StereochemistryTool;
-
-import wwmm.crystaleye.tools.InchiTool;
-import wwmm.crystaleye.tools.SmilesTool;
 
 
 public class CMLUtils {
