@@ -17,6 +17,8 @@ import static org.xmlcml.euclid.EuclidConstants.S_UNDER;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import nu.xom.Attribute;
 import nu.xom.Element;
@@ -61,6 +63,8 @@ import org.xmlcml.molutil.ChemicalElement;
  *
  */
 public class CIFXML2CMLConverter extends AbstractConverter {
+
+	private static final String BAD_ELEMENT = "Bad element: ";
 
 	public final static Logger LOG = Logger.getLogger(CIFXML2CMLConverter.class);
 	
@@ -554,7 +558,11 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		String hmName = (hmNodes.size() == 0) ? null : hmNodes.get(0).getValue();
 		if (hmName != null) {
 			CMLSymmetry newSym = spaceGroupTool.getSymmetry(hmName);
-			copyElementChildren(newSym, symmetry);
+			if (newSym != null) {
+				copyElementChildren(newSym, symmetry);
+			} else {
+				LOG.error("cannot interpret H-M space group: "+hmName);
+			}
 		}
 	}
 
@@ -898,20 +906,14 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		int i = 0;
 		for (String symbol : symbols) {
 			if (ChemicalElement.getChemicalElement(symbol) == null) {
-				while(symbol.endsWith(S_MINUS)) {
-					symbol = symbol.substring(0, symbol.length()-1);
-				}
-				while(symbol.endsWith(S_PLUS)) {
-					symbol = symbol.substring(0, symbol.length()-1);
-				}
-				while(Character.isDigit(symbol.charAt(symbol.length()-1))) {
-					symbol = symbol.substring(0, symbol.length()-1);
-				}
-				if (Character.isLowerCase(symbol.charAt(0))) {
-					symbol = symbol.substring(0, 1).toUpperCase()+symbol.substring(1);
-				}
-				if (ChemicalElement.getChemicalElement(symbol) == null) {
-					throw new RuntimeException("Bad element: "+symbol);
+				// trap Ag+2, V5+, etc.
+				Pattern ELEMENT_FORMULA = Pattern.compile("([A-Z][a-z]?)[0-9+\\-]*");
+				Matcher matcher = ELEMENT_FORMULA.matcher(symbol);
+				if (matcher.matches()) {
+					if (ChemicalElement.getChemicalElement(matcher.group(1)) == null) {
+						throw new RuntimeException(BAD_ELEMENT+symbol);
+					}
+					symbol = matcher.group(1);
 				}
 			}
 			CMLAtom atom = null;

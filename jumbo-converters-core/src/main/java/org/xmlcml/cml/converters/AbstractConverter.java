@@ -67,6 +67,7 @@ public abstract class AbstractConverter implements Converter {
    // change if you need faithful whitespace
    protected int indent = 2;
 private ArgProcessor argProcessor;
+private File inputDir;
 
    public int getIndent() {
 	   return indent;
@@ -1000,10 +1001,12 @@ private ArgProcessor argProcessor;
 			usage2();
 			return;
 		}
+		
 		argProcessor = new ArgProcessor(commandLineArgs);
 		if (argProcessor.getInput() == null) {
 			throw new RuntimeException("input option mandatory");
 		}
+		
 		if (argProcessor.getOutput() == null) {
 			LOG.info("creating output filenames from input");
 			this.createOutputFile();
@@ -1015,16 +1018,50 @@ private ArgProcessor argProcessor;
 		if (!inputFile.exists()) {
 			throw new RuntimeException("Input file does not exist: "+inputFile);
 		}
+		
 		if (argProcessor.getOutput() == null) {
 			throw new RuntimeException("cannot create output file: "+argProcessor.getOutput());
 		}
-		File outputFile = new File(argProcessor.getOutput());
-//		LOG.debug("output: "+outputFile);
-		File parentFile = outputFile.getParentFile();
-//		LOG.debug("parent: "+parentFile);
-		if (parentFile != null) parentFile.mkdirs();
 		
+		if (inputFile.isDirectory()) {
+			inputDir = inputFile;
+			boolean recursive = false;
+			String[] extensions = this.getExtensions();
+			LOG.info("listing files "+extensions+" in directory: "+inputDir);
+			List<File> files = new ArrayList<File>(FileUtils.listFiles(inputDir, extensions, recursive));
+			LOG.info("processing "+files.size()+" files");
+			for (File file : files) {
+				process(file);
+			}
+		} else {
+			inputDir = null;
+			process(inputFile);
+		}
+	}
+
+	private void process(File inputFile) {
+		File outputFile = createOutputFileWithMkDirs(inputFile);
+		LOG.info("converting "+inputFile+" to "+outputFile);
 		convert(inputFile, outputFile);
+	}
+
+	/** get file extensions - should be provided by each jumbo-converter subclass */
+	
+	protected String[] getExtensions() {
+		throw new RuntimeException("Must provide file extensions for "+this.getClass());
+	}
+
+	private File createOutputFileWithMkDirs(File inputFile) {
+		String outputExtension = "cml";
+		File outputFile = new File(argProcessor.getOutput());
+		File parentFile = outputFile.getParentFile();
+		if (parentFile != null) parentFile.mkdirs();
+		if (inputDir != null) {
+			String name = inputFile.getName();
+			String basename = FilenameUtils.getBaseName(name);
+			outputFile = new File(outputFile, basename+"."+outputExtension);
+		}
+		return outputFile;
 	}
 
 	private void createOutputFile() {
