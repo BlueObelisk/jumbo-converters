@@ -147,9 +147,7 @@ public class CIFConverterTest {
     @Test
     public void testKv2001() throws IOException, CIFException {
         String filename = "/kv2001.cif";
-        System.out.println(new File(filename).getAbsolutePath());
         Element cml = convertToCml(filename);
-//        CMLUtil.debug(cml, "cml");
         assertNotNull(cml);
     }
 
@@ -229,6 +227,21 @@ public class CIFConverterTest {
     public void testCoordinate3() {
     	CIF2CMLConverter converter = new CIF2CMLConverter();
     	String[] args = {"-i", "src/test/resources/coordinate-problem/2234500.cif", "-o", "target/2234500.cml"};
+    	converter.runArgs(args);
+    }
+    
+    
+    @Test
+    public void testDir() {
+    	CIF2CMLConverter converter = new CIF2CMLConverter();
+    	String[] args = {"-i", "src/test/resources/bad/", "-o", "target/bad/"};
+    	converter.runArgs(args);
+    }
+    
+    @Test
+    public void testBad2File() {
+    	CIF2CMLConverter converter = new CIF2CMLConverter();
+    	String[] args = {"-i", "src/test/resources/bad2/", "-o", "target/bad2/"};
     	converter.runArgs(args);
     }
 }

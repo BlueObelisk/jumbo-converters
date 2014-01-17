@@ -2,6 +2,7 @@ package org.xmlcml.cml.converters.cif;
 
 import java.util.List;
 
+
 import nu.xom.Element;
 
 import org.apache.log4j.Logger;
@@ -87,6 +88,11 @@ public class CIF2CMLConverter extends AbstractConverter{
 	@Override
 	public String getRegistryMessage() {
 		return REG_MESSAGE;
+	}
+	
+	@Override
+	protected String[] getExtensions() {
+		return new String[] {"cif", "CIF"};
 	}
 	
 	public static void main(String[] args) {
