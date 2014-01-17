@@ -180,10 +180,11 @@ public class FragmentGenerator  {
 			if (!file.exists()) {
 				file.mkdirs();
 			}
-			CDKUtils.add2DCoords(molecule);
-			Cml2PngTool cp = new Cml2PngTool(molecule);
-			cp.setWidthAndHeight(width, height);
-			cp.renderMolecule(path);
+			// FIXME uncomment
+//			CDKUtils.add2DCoords(molecule);
+//			Cml2PngTool cp = new Cml2PngTool(molecule);
+//			cp.setWidthAndHeight(width, height);
+//			cp.renderMolecule(path);
 		} catch (Exception e) {
 			LOG.warn("Could not produce 2D image for molecule, due to: "+e.getMessage());
 		}

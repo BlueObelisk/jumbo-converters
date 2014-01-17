@@ -4,8 +4,10 @@ import nu.xom.Nodes;
 
 import org.xmlcml.cif.CIFDataBlock;
 import org.xmlcml.cml.base.CMLConstants;
+import org.xmlcml.cml.converters.cif.CrystalEyeUtils.CompoundClass;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLMolecule;
+import org.xmlcml.molutil.ChemicalElement;
 import org.xmlcml.molutil.ChemicalElement.Type;
 
 public class CIF2CMLUtils implements CMLConstants {
@@ -27,21 +29,21 @@ public class CIF2CMLUtils implements CMLConstants {
 		UNPROCESSED,
 		PROCESSED,
 		NONE;
-	}
 
-	public static enum CompoundClass {
-		ORGANIC("organic"),
-		INORGANIC("inorganic"),
-		ORGANOMETALLIC("organometallic");
-
-		private CompoundClass(String name) {
-			this.name = name;
-		}
-
-		private final String name;
-
-		public String toString() {
-			return name;
+		public static enum CompoundClass {
+			ORGANIC("organic"),
+			INORGANIC("inorganic"),
+			ORGANOMETALLIC("organometallic");
+		
+			private CompoundClass(String name) {
+				this.name = name;
+			}
+		
+			private final String name;
+		
+			public String toString() {
+				return name;
+			}
 		}
 	}
 
@@ -50,14 +52,17 @@ public class CIF2CMLUtils implements CMLConstants {
 		boolean hasC = false;
 		boolean hasH = false;
 		for (CMLAtom atom : molecule.getAtoms()) {
-			if (atom.getChemicalElement().isChemicalElementType(Type.METAL)) {
-				hasMetal = true;
-			}
-			String elType = atom.getElementType();
-			if ("H".equals(elType)) {
-				hasH = true;
-			} else if ("C".equals(elType)) {
-				hasC = true;
+			ChemicalElement chemicalElement = atom.getChemicalElement();
+			if (chemicalElement != null) {
+				if (atom.getChemicalElement().isChemicalElementType(Type.METAL)) {
+					hasMetal = true;
+				}
+				String elType = atom.getElementType();
+				if ("H".equals(elType)) {
+					hasH = true;
+				} else if ("C".equals(elType)) {
+					hasC = true;
+				}
 			}
 		}
 		if (!hasMetal) {

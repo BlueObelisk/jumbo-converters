@@ -906,20 +906,16 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 		int i = 0;
 		for (String symbol : symbols) {
 			if (ChemicalElement.getChemicalElement(symbol) == null) {
-				// trap Ag+2, V5+, etc.
-				Pattern ELEMENT_FORMULA = Pattern.compile("([A-Z][a-z]?)[0-9+\\-]*");
-				Matcher matcher = ELEMENT_FORMULA.matcher(symbol);
-				if (matcher.matches()) {
-					if (ChemicalElement.getChemicalElement(matcher.group(1)) == null) {
-						throw new RuntimeException(BAD_ELEMENT+symbol);
-					}
-					symbol = matcher.group(1);
-				}
+				symbol = guessSymbol(symbol);
 			}
 			CMLAtom atom = null;
 			atom = new CMLAtom("a"+(++i));
 			molecule.addAtom(atom);
-			atom.setElementType(symbol);
+			if (symbol != null) {
+				atom.setElementType(symbol);
+			} else {
+				atom.setElementType("R"); // good as any?
+			}
 		}
 		List<CMLAtom> atoms = molecule.getAtoms();
 		double[] x = loop.getNumericColumnValues(AS_FX);
@@ -997,6 +993,33 @@ public class CIFXML2CMLConverter extends AbstractConverter {
 			}
 			i++;
 		}
+	}
+
+	/** tries to guess from "mn", "MN", "MN123" etc 
+	 * 
+	 * @param symbol
+	 * @return null if cannot guess
+	 */
+	private String guessSymbol(String symbol) {
+		// trap Ag+2, V5+, etc.
+		Pattern ELEMENT_FORMULA = Pattern.compile("([A-Za-z][A-Za-z]?)[0-9+\\-]*");
+		Matcher matcher = ELEMENT_FORMULA.matcher(symbol);
+		String newSymbol = null;
+		if (matcher.matches()) {
+			LOG.trace("group: "+matcher.group(1));
+			newSymbol = guessChemicalSymbol(matcher.group(1));
+			if (ChemicalElement.getChemicalElement(newSymbol) == null) {
+				throw new RuntimeException(BAD_ELEMENT+symbol);
+			}
+		}
+		return newSymbol;
+	}
+
+	private String guessChemicalSymbol(String group) {
+		String group0 = group.substring(0, 1).toUpperCase();
+		String group1 = (group.length() == 1) ? null : group.substring(1, 2).toLowerCase();
+		String newSymbol = group0 + ((group1 == null) ? "" : group1);
+		return newSymbol;
 	}
 
 	private String getSymbol(String ss) {

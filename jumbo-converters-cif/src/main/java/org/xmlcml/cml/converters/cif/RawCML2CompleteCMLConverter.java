@@ -1,6 +1,23 @@
 package org.xmlcml.cml.converters.cif;
 
-import nu.xom.*;
+import static org.xmlcml.cml.base.CMLConstants.CML_NS;
+import static org.xmlcml.cml.base.CMLConstants.CML_XPATH;
+import static org.xmlcml.euclid.EuclidConstants.S_UNDER;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import nu.xom.Attribute;
+import nu.xom.Element;
+import nu.xom.Elements;
+import nu.xom.Node;
+import nu.xom.Nodes;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Level;
@@ -10,22 +27,33 @@ import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.Type;
-import org.xmlcml.cml.converters.cif.CIF2CMLUtils.CompoundClass;
+import org.xmlcml.cml.converters.cif.CrystalEyeUtils.CompoundClass;
 import org.xmlcml.cml.converters.cif.dict.CifDictionaryBuilder;
 import org.xmlcml.cml.converters.cif.dict.units.UnitDictionaries;
-import org.xmlcml.cml.element.*;
+import org.xmlcml.cml.element.CMLAtom;
+import org.xmlcml.cml.element.CMLAtomArray;
+import org.xmlcml.cml.element.CMLBond;
+import org.xmlcml.cml.element.CMLBondStereo;
+import org.xmlcml.cml.element.CMLCml;
+import org.xmlcml.cml.element.CMLCrystal;
+import org.xmlcml.cml.element.CMLFormula;
+import org.xmlcml.cml.element.CMLMetadata;
+import org.xmlcml.cml.element.CMLMetadataList;
+import org.xmlcml.cml.element.CMLModule;
+import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLMolecule.HydrogenControl;
-import org.xmlcml.cml.tools.*;
+import org.xmlcml.cml.element.CMLProperty;
+import org.xmlcml.cml.element.CMLScalar;
+import org.xmlcml.cml.tools.ConnectionTableTool;
+import org.xmlcml.cml.tools.CrystalTool;
+import org.xmlcml.cml.tools.DisorderTool;
+import org.xmlcml.cml.tools.DisorderToolControls;
 import org.xmlcml.cml.tools.DisorderToolControls.ProcessControl;
+import org.xmlcml.cml.tools.MoleculeTool;
+import org.xmlcml.cml.tools.StereochemistryTool;
+import org.xmlcml.cml.tools.ValencyTool;
 import org.xmlcml.euclid.RealRange;
 import org.xmlcml.molutil.ChemicalElement;
-
-import java.io.*;
-import java.util.*;
-
-import static org.xmlcml.cml.base.CMLConstants.CML_NS;
-import static org.xmlcml.cml.base.CMLConstants.CML_XPATH;
-import static org.xmlcml.euclid.EuclidConstants.S_UNDER;
 
 public class RawCML2CompleteCMLConverter extends AbstractConverter {
 
