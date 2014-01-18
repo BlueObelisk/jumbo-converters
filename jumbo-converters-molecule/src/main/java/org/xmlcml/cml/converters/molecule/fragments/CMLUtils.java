@@ -3,6 +3,9 @@ package org.xmlcml.cml.converters.molecule.fragments;
 import static org.xmlcml.cml.base.CMLConstants.CML_NS;
 import static org.xmlcml.cml.base.CMLConstants.CML_XPATH;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +15,7 @@ import nu.xom.Nodes;
 import nu.xom.Text;
 
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLBond;
 import org.xmlcml.cml.element.CMLIdentifier;
@@ -121,4 +125,11 @@ public class CMLUtils {
 		}
 	}	
 
+	public static void debugToFile(CMLElement element, String filename) {
+		try {
+			CMLUtil.debug(element, new FileOutputStream(filename), 1);
+		} catch (IOException e) {
+			throw new RuntimeException("Cannot debug", e);
+		}
+	}
 }
