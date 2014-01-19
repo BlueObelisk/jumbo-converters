@@ -39,7 +39,11 @@ public class Utils {
 		String path = file.getAbsolutePath();
 		String parent = file.getParent();
 		String fileName = path.substring(path.lastIndexOf(File.separator)+1);
-		String fileId = fileName.substring(0,fileName.indexOf("."));
+		String fileId = fileName;
+		int idx = fileName.indexOf(".");
+		if (idx != -1) {
+			fileId = fileName.substring(0,fileName.indexOf("."));
+		}
 		return parent+File.separator+fileId;
 	}
 
@@ -75,7 +79,7 @@ public class Utils {
 
 	public static void writeXML(File file, Document doc)  {
 		File writeFile = file.getParentFile();
-		if (!writeFile.exists()) {
+		if (writeFile != null && !writeFile.exists()) {
 			writeFile.mkdirs();
 		}
 		try {
