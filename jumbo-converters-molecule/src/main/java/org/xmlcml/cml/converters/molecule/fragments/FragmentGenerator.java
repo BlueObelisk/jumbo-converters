@@ -14,6 +14,7 @@ import nu.xom.Node;
 import nu.xom.Nodes;
 import nu.xom.Text;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
@@ -60,6 +61,9 @@ public class FragmentGenerator  {
 	private int moietySerial;
 	private CMLMolecule currentSubMolecule;
 	private String compoundClass;
+	private CMLMolecule molecule;
+	private String moleculeId = "mol";
+	private String basedir;
 
 	public FragmentGenerator() {
 		;
@@ -90,6 +94,18 @@ public class FragmentGenerator  {
 	}
 
 	public void createMoietiesAndFragments(CMLMolecule molecule) {
+		setMolecule(molecule);
+		createMoietiesAndFragments();
+	}
+
+	private void setMolecule(CMLMolecule molecule) {
+		this.molecule = molecule;
+	}
+
+	public void createMoietiesAndFragments() {
+		if (this.molecule == null) {
+			throw new RuntimeException("Null molecule");
+		}
 		detachExplicitBondLengthElements(molecule);
 
 		//don't generate image if the molecule is disordered
@@ -120,16 +136,16 @@ public class FragmentGenerator  {
 			if (ChemistryUtils.isBoringMolecule(subMol)) {
 				return count;
 			}
-			write2dImages(subMol, "foo.png");
+			output2dImages(subMol, "foo");
 			count++;
 		}
 		return count;
 	}
 
-	private void write2dImages(CMLMolecule molecule, String filename) {
-		write2dImage(filename+"small.png", molecule, 358, 278, false);
-		write2dImage(filename+".png", molecule, 600, 600, false);
-	}
+//	private void write2dImages(CMLMolecule molecule, String filename) {
+//		write2dImage(filename+"small.png", molecule, 358, 278, false);
+//		write2dImage(filename+".png", molecule, 600, 600, false);
+//	}
 
 	private void addSmiles2Molecule(String smiles, CMLMolecule mol) {
 		if (smiles != null && !"".equals(smiles)) {
@@ -157,11 +173,10 @@ public class FragmentGenerator  {
 
 	private void add2DCoordsAndRender(String path, CMLMolecule molecule, int width,
 			int height) {
-		//throw new RuntimeException("fix CDK");
-//		CDKUtils.add2DCoords(molecule);
-//		Cml2PngTool cp = new Cml2PngTool(molecule);
-//		cp.setWidthAndHeight(width, height);
-//		cp.renderMolecule(path);
+		CDKUtils.add2DCoords(molecule);
+		Cml2PngTool cp = new Cml2PngTool(molecule);
+		cp.setWidthAndHeight(width, height);
+		cp.renderMolecule(path);
 	}
 
 	private String getOutPath(File writeDir, String id, 
@@ -298,9 +313,12 @@ public class FragmentGenerator  {
 	private void debugFragmentList(String fragType, List<CMLMolecule> fragmentList) {
 		int serial = 0;
 		for (CMLMolecule fragment : fragmentList) {
-			File f = new File("target/moiety"+moietySerial+"/");
-			f.mkdirs();
-			CMLUtils.debugToFile(fragment, "target/moiety"+moietySerial+"/"+fragType+serial+".cml");
+			basedir = "target/";
+			String filebase = basedir + moleculeId+".m."+moietySerial+"/"+fragType+serial;
+			new File(filebase).mkdirs();
+			File f = new File(filebase+".cml");
+			CMLUtils.debugToFile(fragment, f.toString());
+			output2dImages(fragment, filebase);
 			serial++;
 		}
 	}
@@ -362,7 +380,7 @@ public class FragmentGenerator  {
 		String outPath = getOutPath(dir, id, fragType, "", subMolCount, count, CrystalEyeConstants.COMPLETE_CML_MIME);
 		Utils.writeXML(new File(outPath), new Document(molR));
 		String pathMinusMime = Utils.getPathMinusMimeSet(outPath);
-		write2dImages(molR, pathMinusMime);
+		output2dImages(molR, pathMinusMime);
 	}
 
 	private void addSMILESForNonInorganicMolecule(String compoundClass, CMLMolecule fragCopy,
@@ -406,7 +424,7 @@ public class FragmentGenerator  {
 					LOG.debug(smiles);
 				}
 				CMLUtils.debugToFile(distinctMolecule, "target/moiety"+moietySerial+".cml");
-				outputImages(distinctMolecule);
+				output2dImages(distinctMolecule, "target/moiety"+moietySerial);
 				addAtomSequenceNumbers(distinctMolecule);
 				// remove atom sequence numbers from mol now it has been written so they
 				// don't interfere with the fragments that are written
@@ -435,12 +453,15 @@ public class FragmentGenerator  {
 		}
 	}
 
-	private void outputImages(CMLMolecule mol) {
-		String filename = "foo";
+	private void output2dImages(CMLMolecule mol, String filename) {
 		String smallPngPath = filename+".small.png";
 		String pngPath = filename+".png";
-		write2dImage(pngPath, mol, 600, 600, true);
-		write2dImage(smallPngPath, mol, 358, 278, true);
+		try {
+			write2dImage(pngPath, mol, 600, 600, true);
+			write2dImage(smallPngPath, mol, 358, 278, true);
+		} catch (Exception e) {
+			LOG.warn("Cannot write images "+e);
+		}
 	}
 
 	private void generateFragments() {
@@ -484,7 +505,7 @@ public class FragmentGenerator  {
 					Utils.writeXML(new File(outPath), new Document(atomR));
 					String pathMinusMime = Utils.getPathMinusMimeSet(outPath);
 					changeRtoXx(atomR);
-					write2dImages(atomR, pathMinusMime);
+					output2dImages(atomR, pathMinusMime);
 
 					//sprout once
 					CMLMolecule sprout = subMoleculeTool.sprout(singleAtomSet);
@@ -513,7 +534,7 @@ public class FragmentGenerator  {
 
 					Utils.writeXML(new File(outPath), new Document(sproutR));
 					changeRtoXx(sproutR);
-					write2dImages(sproutR, pathMinusMime);
+					output2dImages(sproutR, pathMinusMime);
 
 					// sprout2
 					CMLMolecule sprout2 = subMoleculeTool.sprout(spAtomSet);
@@ -544,7 +565,7 @@ public class FragmentGenerator  {
 						pathMinusMime = Utils.getPathMinusMimeSet(outPath);
 						Utils.writeXML(new File(outPath), new Document(sprout2R));
 						changeRtoXx(sprout2R);
-						write2dImages(sprout2R, pathMinusMime);
+						output2dImages(sprout2R, pathMinusMime);
 					}
 				}
 			}
@@ -613,6 +634,13 @@ public class FragmentGenerator  {
 		identifier.setConvention("iupac:inchi");
 		identifier.appendChild(new Text(inchi));
 		molecule.appendChild(identifier);
+	}
+
+	public void readMolecule(File file) {
+		this.moleculeId  = FilenameUtils.getBaseName(file.getName());
+		CMLElement element = CMLUtil.parseQuietlyIntoCML(file);
+		Nodes nodes = element.query("//cml:molecule", CMLConstants.CML_XPATH);
+		molecule = (nodes.size() == 0) ? null : (CMLMolecule) nodes.get(0);
 	}
 
 }
