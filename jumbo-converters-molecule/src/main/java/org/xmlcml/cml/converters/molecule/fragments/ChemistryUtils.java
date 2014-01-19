@@ -1,5 +1,7 @@
 package org.xmlcml.cml.converters.molecule.fragments;
 
+import java.util.List;
+
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLFormula;
 import org.xmlcml.cml.element.CMLMolecule;
@@ -44,7 +46,7 @@ public class ChemistryUtils {
 		boolean hasC = false;
 		boolean hasH = false;
 		for (CMLAtom atom : molecule.getAtoms()) {
-			if (atom.getChemicalElement().isChemicalElementType(Type.METAL)) {
+			if (isMetal(atom)) {
 				hasMetal = true;
 			}
 			String elType = atom.getElementType();
@@ -65,6 +67,20 @@ public class ChemistryUtils {
 		} else {
 			throw new RuntimeException("BUG: molecules should always be assigned one of the above classes.");
 		}
+	}
+
+	public static boolean isMetal(CMLAtom atom) {
+		return atom.getChemicalElement().isChemicalElementType(Type.METAL);
+	}
+
+	public static boolean containsMetal(CMLMolecule molecule) {
+		List<CMLAtom> atoms = molecule.getAtoms();
+		for (CMLAtom atom : atoms) {
+			if (ChemistryUtils.isMetal(atom)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

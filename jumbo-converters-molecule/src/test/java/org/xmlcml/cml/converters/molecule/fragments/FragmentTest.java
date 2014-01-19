@@ -16,7 +16,7 @@ public class FragmentTest {
 		FragmentGenerator fragmentGenerator = new FragmentGenerator();
 		CMLCml cml = (CMLCml) CMLUtil.parseQuietlyIntoCML(new File("src/test/resources/molecule/fragments/2234529.cml"));
 		CMLMolecule molecule = (CMLMolecule) cml.query("//cml:molecule", CMLConstants.CML_XPATH).get(0);
-		fragmentGenerator.processStructure(cml, /*CompoundClass.ORGANIC.toString(), */molecule);
+		fragmentGenerator.createMoietiesAndFragments(/*CompoundClass.ORGANIC.toString(), */molecule);
 	}
 	
 	@Test
@@ -24,7 +24,7 @@ public class FragmentTest {
 		FragmentGenerator fragmentGenerator = new FragmentGenerator();
 		CMLCml cml = (CMLCml) CMLUtil.parseQuietlyIntoCML(new File("src/test/resources/molecule/fragments/1008945.cml"));
 		CMLMolecule molecule = (CMLMolecule) cml.query("//cml:molecule", CMLConstants.CML_XPATH).get(0);
-		fragmentGenerator.processStructure(cml, /*CompoundClass.ORGANIC.toString(),*/ molecule);
+		fragmentGenerator.createMoietiesAndFragments(/*CompoundClass.ORGANIC.toString(),*/ molecule);
 	}
 	
 	@Test
@@ -32,7 +32,7 @@ public class FragmentTest {
 		FragmentGenerator fragmentGenerator = new FragmentGenerator();
 		CMLCml cml = (CMLCml) CMLUtil.parseQuietlyIntoCML(new File("src/test/resources/molecule/fragments/metal.cml"));
 		CMLMolecule molecule = (CMLMolecule) cml.query("//cml:molecule", CMLConstants.CML_XPATH).get(0);
-		fragmentGenerator.processStructure(cml, /*CompoundClass.ORGANIC.toString(),*/ molecule);
+		fragmentGenerator.createMoietiesAndFragments(/*CompoundClass.ORGANIC.toString(),*/ molecule);
 	}
 	
 	@Test
@@ -40,7 +40,7 @@ public class FragmentTest {
 		FragmentGenerator fragmentGenerator = new FragmentGenerator();
 		CMLCml cml = (CMLCml) CMLUtil.parseQuietlyIntoCML(new File("src/test/resources/molecule/fragments/mbok1z.cml"));
 		CMLMolecule molecule = (CMLMolecule) cml.query("//cml:molecule", CMLConstants.CML_XPATH).get(0);
-		fragmentGenerator.processStructure(cml, /*CompoundClass.ORGANIC.toString(),*/ molecule);
+		fragmentGenerator.createMoietiesAndFragments(/*CompoundClass.ORGANIC.toString(),*/ molecule);
 	}
 	
 	
