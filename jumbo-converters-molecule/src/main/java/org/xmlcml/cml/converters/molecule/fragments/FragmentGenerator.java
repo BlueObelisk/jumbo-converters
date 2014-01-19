@@ -84,12 +84,12 @@ public class FragmentGenerator  {
 			CMLMolecule molecule = (CMLMolecule)cml.getFirstCMLChild(CMLMolecule.TAG);
 	
 			if (molecule.getAtomCount() < 1000) {
-				processStructure(cml, molecule);
+				createMoietiesAndFragments(molecule);
 			}
 		}
 	}
 
-	public void processStructure(CMLCml cml, CMLMolecule molecule) {
+	public void createMoietiesAndFragments(CMLMolecule molecule) {
 		detachExplicitBondLengthElements(molecule);
 
 		//don't generate image if the molecule is disordered
@@ -102,7 +102,7 @@ public class FragmentGenerator  {
 		try {
 			generateMoieties(molecule);
 		} catch(Exception e) {
-			throw new RuntimeException("Error while outputting moieties: ", e);
+			throw new RuntimeException("Error while generating moieties: ", e);
 		}
 	}
 
@@ -401,6 +401,10 @@ public class FragmentGenerator  {
 				if (ChemistryUtils.isBoringMolecule(distinctMolecule)) continue;
 				detachAnyCrystalNodesFromMolecule(distinctMolecule);
 				addDoi(distinctMolecule);
+				if (!ChemistryUtils.containsMetal(distinctMolecule)) {
+					String smiles = new SMILESTool(distinctMolecule).write();
+					LOG.debug(smiles);
+				}
 				CMLUtils.debugToFile(distinctMolecule, "target/moiety"+moietySerial+".cml");
 				outputImages(distinctMolecule);
 				addAtomSequenceNumbers(distinctMolecule);
@@ -453,7 +457,7 @@ public class FragmentGenerator  {
 		int subMol = 0;
 		for (CMLMolecule subMolecule : subMoleculeList) {
 			CMLMolecule subMolCopy = new CMLMolecule(subMolecule);
-			MoleculeTool subMoleculeTool = MoleculeTool.getOrCreateTool(subMolecule);
+			MoleculeTool subMoleculeTool = MoleculeTool.getOrCreateTool(subMolCopy);
 			subMol++;
 			List<CMLAtom> atoms = subMolecule.getAtoms();
 			int atomCount = 0;
@@ -468,14 +472,14 @@ public class FragmentGenerator  {
 					CMLMolecule atomMol = new CMLMolecule();
 					atomMol.addAtom((CMLAtom)atom.copy());
 
-					if (compoundClass != null && CompoundClass.INORGANIC.toString().equals(compoundClass)) {
+					if (isNotInorganic()) {
 						addInchiAndSmiles(atomR, atomMol);
 					}
 
 					addAtomSequenceNumbers(atomR);
 					addDoi(atomR);
 					atomR.setId(subMolecule.getId()+"_atom-nuc_"+subMol+"_"+atomCount);
-					String outPath = "foo";
+					String outPath = "target/moiety"+moietySerial+"/metal.cml";
 //					String outPath = getOutPath(dir, id, "atom-nuc", "", subMol, atomCount, CrystalEyeConstants.COMPLETE_CML_MIME);
 					Utils.writeXML(new File(outPath), new Document(atomR));
 					String pathMinusMime = Utils.getPathMinusMimeSet(outPath);
@@ -545,6 +549,10 @@ public class FragmentGenerator  {
 				}
 			}
 		}
+	}
+
+	private boolean isNotInorganic() {
+		return compoundClass != null && CompoundClass.INORGANIC.toString().equals(compoundClass);
 	}
 
 	private void changeRtoXx(CMLMolecule atomR) {
