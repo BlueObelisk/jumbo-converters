@@ -14,6 +14,7 @@ import nu.xom.Element;
 import nu.xom.Nodes;
 import nu.xom.Text;
 
+import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLAtom;
@@ -25,6 +26,8 @@ import org.xmlcml.cml.tools.StereochemistryTool;
 
 
 public class CMLUtils {
+
+	private final static Logger LOG = Logger.getLogger(CMLUtils.class);
 	
 	public static CMLMolecule getFirstParentMolecule(CMLElement cml) {
 		Nodes moleculeNodes = cml.query(CMLMolecule.NS, CML_XPATH);
@@ -53,6 +56,7 @@ public class CMLUtils {
 	 */
 	public static void calculateAndAddInchi(CMLMolecule molecule) {
 		String inchi = InchiTool.generateInchi(molecule, "");
+		LOG.debug("INCHI "+inchi);
 		CMLIdentifier identifier = new CMLIdentifier();
 		identifier.setConvention("iupac:inchi");
 		identifier.appendChild(new Text(inchi));

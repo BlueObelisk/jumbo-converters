@@ -337,7 +337,13 @@ public class RawCML2CompleteCMLConverter extends AbstractConverter {
         if(x==-1){
             return null;
         }
-        int error = Integer.parseInt(value.substring(x+1,value.indexOf(')')));
+        int error = -1;
+        try {
+        	error = Integer.parseInt(value.substring(x+1,value.indexOf(')')));
+        } catch (Exception e) {
+        	LOG.warn("Cannot parse as number(su): "+value);
+        	return null;
+        }
 
         int exponent;
         if(y==-1){

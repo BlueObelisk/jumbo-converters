@@ -244,4 +244,19 @@ public class CIFConverterTest {
     	String[] args = {"-i", "src/test/resources/bad2/", "-o", "target/bad2/"};
     	converter.runArgs(args);
     }
+    
+    @Test
+    public void testCODOrganic() {
+    	CIF2CMLConverter converter = new CIF2CMLConverter();
+    	String[] args = {"-i", "../../cifs/codOrganic20140120/", "-o", "../../cifs/codOrganic20140120/cml"};
+    	converter.runArgs(args);
+    }
+    
+    @Test
+    public void testCODMetalOrganic() {
+    	CIF2CMLConverter converter = new CIF2CMLConverter();
+    	String[] args = {"-i", "../../cifs/codMetalOrganic20140120/", "-o", "../../cifs/codMetalOrganic20140120/cml"};
+    	converter.runArgs(args);
+    }
+    
 }

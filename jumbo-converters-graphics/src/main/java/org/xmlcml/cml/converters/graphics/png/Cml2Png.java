@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.vecmath.Vector2d;
@@ -22,8 +23,8 @@ import org.openscience.cdk.geometry.GeometryTools;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IMolecule;
 import org.openscience.cdk.layout.StructureDiagramGenerator;
-import org.openscience.cdk.renderer.Java2DRenderer;
 import org.openscience.cdk.renderer.Renderer2DModel;
+import org.openscience.cdk.renderer.progz.Java2DRenderer;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.graphics.CDKUtils;
 import org.xmlcml.cml.element.CMLMolecule;
@@ -123,10 +124,19 @@ public class Cml2Png implements CMLConstants {
         g.setColor(backgroundColour);
         g.fillRect(0, 0, width, height);
 
-        GeometryTools.translateAllPositive(cdkMol);
+        LOG.warn("The args in this routine have changed and we don't yet know what they should be");
+//        This is unlikely to work I have hacked it to compile. It depends on the Jmol library :-(
+        HashMap dummyMap = new HashMap(); // no idea what this should be
+        // FIXME I think this arg has changed. The new one may be wrong but at least compiles
+//        GeometryTools.translateAllPositive(cdkMol);
+        GeometryTools.translateAllPositive(cdkMol, dummyMap);
+//        GeometryTools.translateAllPositive(cdkMol);
         // this seems to break it
 //		GeometryTools.scaleMolecule(cdkMol, new Dimension(width, height), 0.8);
-        GeometryTools.center(cdkMol, new Dimension(width, height));
+		GeometryTools.scaleMolecule(cdkMol, 0.8, dummyMap);
+//		GeometryTools.scaleMolecule(cdkMol, new Dimension(width, height), dummyMap);
+//        GeometryTools.center(cdkMol, new Dimension(width, height));
+        GeometryTools.center(cdkMol, new Dimension(width, height), dummyMap);
         r2dm.setBackgroundDimension(new Dimension(width, height));
         r2dm.setBackColor(backgroundColour);
         r2dm.setFont(new Font(fontName, fontStyle, fontSize));

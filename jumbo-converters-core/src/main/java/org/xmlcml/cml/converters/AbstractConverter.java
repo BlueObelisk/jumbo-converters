@@ -1004,17 +1004,30 @@ private File inputDir;
 		
 		argProcessor = new ArgProcessor(commandLineArgs);
 		if (argProcessor.getInput() == null) {
-			throw new RuntimeException("input option mandatory");
+			if (argProcessor.getUnlabelledArgs().size() == 0) {
+				LOG.warn("no files given as either -i or unlabelled args");
+			} else {
+				List<String> inputFilenames = argProcessor.getUnlabelledArgs();
+				for (String filename : inputFilenames) {
+					processInputFile(new File(filename));
+				}
+			}
 		}
 		
-		if (argProcessor.getOutput() == null) {
+		if (argProcessor.getOutput() == null && argProcessor.getInput() != null) {
 			LOG.info("creating output filenames from input");
 			this.createOutputFile();
 		} else {
 			
 		}
 		
-		File inputFile = new File(argProcessor.getInput());
+		if (argProcessor.getInput() != null) {
+			File inputFile = new File(argProcessor.getInput());
+			processInputFile(inputFile);
+		}
+	}
+
+	private void processInputFile(File inputFile) {
 		if (!inputFile.exists()) {
 			throw new RuntimeException("Input file does not exist: "+inputFile);
 		}
@@ -1031,7 +1044,12 @@ private File inputDir;
 			List<File> files = new ArrayList<File>(FileUtils.listFiles(inputDir, extensions, recursive));
 			LOG.info("processing "+files.size()+" files");
 			for (File file : files) {
+				try {
 				process(file);
+				} catch (Exception e) {
+					e.printStackTrace();
+					LOG.error("Cannot process "+file+" ("+e+"), skipping" );
+				}
 			}
 		} else {
 			inputDir = null;
