@@ -28,6 +28,7 @@ import org.xmlcml.cif.CIFParser;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
+import org.xmlcml.cml.converters.util.ConverterUtils;
 
 public class CIFConverterTest {
     @Test
@@ -246,16 +247,16 @@ public class CIFConverterTest {
     }
     
     @Test
-    @Ignore
     public void testCODOrganic() {
+    	if (!ConverterUtils.isUserName("pm286")) return;
     	CIF2CMLConverter converter = new CIF2CMLConverter();
     	String[] args = {"-i", "../../cifs/codOrganic20140120/", "-o", "../../cifs/codOrganic20140120/cml"};
     	converter.runArgs(args);
     }
     
     @Test
-    @Ignore
     public void testCODMetalOrganic() {
+    	if (!ConverterUtils.isUserName("pm286")) return;
     	CIF2CMLConverter converter = new CIF2CMLConverter();
     	String[] args = {"-i", "../../cifs/codMetalOrganic20140120/", "-o", "../../cifs/codMetalOrganic20140120/cml"};
     	converter.runArgs(args);

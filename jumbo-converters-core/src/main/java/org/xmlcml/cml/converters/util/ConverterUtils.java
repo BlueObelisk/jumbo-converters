@@ -144,4 +144,16 @@ public class ConverterUtils {
 	}
 
 
+	/** allows for excluding local info in tests.
+	 * 
+	 * hacky
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public static boolean isUserName(String name) {
+		return name!= null && name.equals(System.getProperty("user.name"));
+
+
+	}
 }
