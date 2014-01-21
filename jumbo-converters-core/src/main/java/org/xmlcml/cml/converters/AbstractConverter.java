@@ -175,10 +175,13 @@ private File inputDir;
          LOG.error("BUG? " + ee);
       }
       dir.mkdir();
+      // This is now allowed to be a directory
       if ((outFile.isDirectory())) {
-         throw new IllegalArgumentException(
-                 "Output file isn't a file: " + outFile);
+         LOG.info("Output file is a directory: " + outFile);
+         return;
       }
+      // cause problems on Unix (not allowed to touch /dev/null) 
+      IOException e0 = null;
       try {
          FileUtils.touch(outFile);
       } catch (IOException e) {
@@ -187,11 +190,12 @@ private File inputDir;
          } catch (IOException ee) {
             LOG.error("BUG??? " + ee);
          }
-         LOG.warn("cannot touch file: " + e.getMessage());
+         e0 = e;
       }
       if (!(outFile.canWrite())) {
          throw new IllegalArgumentException(
-                 "Output file isn't writable: " + outFile);
+                 "Output file isn't writable "+e0.getMessage());
+         // cause problems on Unix (not allowed to touch /dev/null) 
       }
    }
 
