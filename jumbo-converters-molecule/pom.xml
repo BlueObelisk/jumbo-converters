@@ -13,6 +13,50 @@
 
     <name>jumbo-converters-molecule</name>
 
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>appassembler-maven-plugin</artifactId>
+				<version>1.4</version>
+				<configuration>
+
+					<programs>
+						<program>
+							<mainClass>org.xmlcml.cml.converters.molecule.mdl.MDL2CMLConverter</mainClass>
+							<name>mdl2cml</name>
+						</program>
+						<program>
+							<mainClass>org.xmlcml.cml.converters.molecule.mdl.SDF2CMLConverter</mainClass>
+							<name>sdf2cml</name>
+						</program>
+						<program>
+							<mainClass>org.xmlcml.cml.converters.molecule.mdl.CML2MDLConverter</mainClass>
+							<name>cml2mdl</name>
+						</program>
+						<program>
+							<mainClass>org.xmlcml.cml.converters.molecule.mdl.CML2SDFConverter</mainClass>
+							<name>cml2sdf</name>
+						</program>
+					</programs>
+
+				</configuration>
+
+				<executions>
+					<execution>
+						<id>assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>assemble</goal>
+						</goals>
+					</execution>
+				</executions>
+
+			</plugin>
+		</plugins>
+	</build>
+
     <dependencies>
         <dependency>
             <groupId>cml</groupId>
@@ -32,6 +76,11 @@
             <groupId>cdk</groupId>
             <artifactId>cdk</artifactId>
             <version>20071025</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jni-inchi</groupId>
+            <artifactId>jni-inchi</artifactId>
+            <version>0.7</version>
         </dependency>
 
         <dependency>
