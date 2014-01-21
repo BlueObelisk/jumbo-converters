@@ -246,6 +246,7 @@ public class CIFConverterTest {
     }
     
     @Test
+    @Ignore
     public void testCODOrganic() {
     	CIF2CMLConverter converter = new CIF2CMLConverter();
     	String[] args = {"-i", "../../cifs/codOrganic20140120/", "-o", "../../cifs/codOrganic20140120/cml"};
@@ -253,6 +254,7 @@ public class CIFConverterTest {
     }
     
     @Test
+    @Ignore
     public void testCODMetalOrganic() {
     	CIF2CMLConverter converter = new CIF2CMLConverter();
     	String[] args = {"-i", "../../cifs/codMetalOrganic20140120/", "-o", "../../cifs/codMetalOrganic20140120/cml"};
