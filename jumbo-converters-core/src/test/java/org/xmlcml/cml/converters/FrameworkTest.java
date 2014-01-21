@@ -19,7 +19,6 @@ import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 import org.xmlcml.cml.testutil.JumboTestUtils;
-import org.xmlcml.euclid.Util;
 
 /**
  * 
@@ -88,7 +87,7 @@ public class FrameworkTest {
 		iaeFor(null, out);
 		iaeFor(in, null);
 		iaeFor(new File("."), out);
-//		iaeFor(in, new File(".")); // fails for me
+		iaeFor1(in, new File(".")); // should fail
 	}
 	
 	private void iaeFor(File in, File out) {
@@ -98,6 +97,15 @@ public class FrameworkTest {
 			converter.convert(in, out);
 			Assert.fail();
 		} catch (IllegalArgumentException e) {
+			;
+		}
+	}
+
+	private void iaeFor1(File in, File out) {
+		try {
+			converter.convert(in, out);
+			Assert.fail();
+		} catch (Exception e) {
 			;
 		}
 	}
