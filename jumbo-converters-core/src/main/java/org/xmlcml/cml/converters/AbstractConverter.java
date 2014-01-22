@@ -66,10 +66,11 @@ public abstract class AbstractConverter implements Converter {
    protected Command command;
    // change if you need faithful whitespace
    protected int indent = 2;
-private ArgProcessor argProcessor;
-private File inputDir;
-private ByteArrayInputStream bais;
-private StringBuilder stdinBuilder;
+	private ArgProcessor argProcessor;
+	private File inputDir;
+	private File inputFile;
+	private ByteArrayInputStream bais;
+	private StringBuilder stdinBuilder;
 
    public int getIndent() {
 	   return indent;
@@ -351,10 +352,17 @@ private StringBuilder stdinBuilder;
    }
 
    public void convert(InputStream in, File out) {
+      if (out.isDirectory()) {
+    	  convert(inputFile, out);
+    	  LOG.debug("Not using convert for directory");
+    	  return;
+      }
       checkOutputFile(out);
       FileOutputStream fout = null;
       try {
-         fout = new FileOutputStream(out);
+         if (!out.isDirectory()) {
+        	 fout = new FileOutputStream(out);
+         }
          convert(in, fout);
       } catch (FileNotFoundException e) {
          throw new RuntimeException(e);
@@ -1016,6 +1024,7 @@ private StringBuilder stdinBuilder;
 //				bais = new ByteArrayInputStream(argProcessor.getInputByteArray().toByteArray());
 				try {
 					List<String> lines= IOUtils.readLines(System.in);
+					
 					IOUtils.writeLines(lines, "\n", new FileOutputStream("target/cifLines.cif"));
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -1048,6 +1057,7 @@ private StringBuilder stdinBuilder;
 	}
 
 	private void processInputFile(File inputFile) {
+		this.inputFile = inputFile;
 		if (!inputFile.exists()) {
 			throw new RuntimeException("Input file does not exist: "+inputFile);
 		}
@@ -1096,15 +1106,26 @@ private StringBuilder stdinBuilder;
 	}
 
 	private File createOutputFileWithMkDirs(File inputFile) {
-		String outputExtension = "cml";
+		Type outputType = getOutputType();
+		String outputExtension = (Type.DIRECTORY.equals(outputType)) ? File.separator : outputType.toString().toLowerCase();
 		File outputFile = new File(argProcessor.getOutput());
+		File outputDir = null;
+		if (outputFile.isDirectory()) {
+			LOG.debug("output directory:"+outputFile);
+			outputDir = outputFile;
+		}
 		File parentFile = outputFile.getParentFile();
 		if (parentFile != null) parentFile.mkdirs();
-		if (inputDir != null) {
+		if (inputDir != null || outputDir != null) {
 			String name = inputFile.getName();
 			String basename = FilenameUtils.getBaseName(name);
-			outputFile = new File(outputFile, basename+"."+outputExtension);
+			basename += (outputExtension.equals(File.separator) ? outputExtension : "."+outputExtension);
+			outputFile = new File(outputDir, basename);
+			if (outputExtension.equals(File.separator)) {
+				outputFile.mkdirs();
+			}
 		}
+		LOG.debug("Will output to: "+outputFile);
 		return outputFile;
 	}
 
