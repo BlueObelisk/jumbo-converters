@@ -35,4 +35,14 @@ public class ArgProcessorTest {
 			Assert.assertEquals("args i o", "Input file does not exist: x", e.getMessage());
 		}
 	}
+	
+	@Test
+	public void testStdin() {
+		SimpleConverter converter = new SimpleConverter();
+		try {
+			converter.runArgs(new String[]{"-o",  "b"});
+		} catch (Exception e) {
+			Assert.assertEquals("args stdin", "Reading from STDIN not yet implemented", e.getMessage());
+		}
+	}
 }

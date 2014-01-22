@@ -74,6 +74,10 @@ public class FragmentGenerator  {
 		;
 	}
 
+	/** main entry point
+	 * 
+	 * @param cml requires a molecule and a scalar with @compoundClass
+	 */
 	public void processCml(CMLCml cml) {
 		Nodes classNodes = cml.query(".//cml:scalar[@dictRef='iucr:compoundClass']", CMLConstants.CML_XPATH);
 		compoundClass = "";
@@ -98,6 +102,10 @@ public class FragmentGenerator  {
 		}
 	}
 
+	/** creates moieties and fragments for molecule.
+	 * 
+	 * @param molecule
+	 */
 	public void createMoietiesAndFragments(CMLMolecule molecule) {
 		setMolecule(molecule);
 		createMoietiesAndFragments();
