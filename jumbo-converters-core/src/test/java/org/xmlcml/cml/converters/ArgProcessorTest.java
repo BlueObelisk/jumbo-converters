@@ -2,6 +2,7 @@ package org.xmlcml.cml.converters;
 
 import junit.framework.Assert;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class ArgProcessorTest {
@@ -37,6 +38,7 @@ public class ArgProcessorTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testStdin() {
 		SimpleConverter converter = new SimpleConverter();
 		try {
