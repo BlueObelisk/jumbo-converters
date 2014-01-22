@@ -69,6 +69,7 @@ public abstract class AbstractConverter implements Converter {
 private ArgProcessor argProcessor;
 private File inputDir;
 private ByteArrayInputStream bais;
+private StringBuilder stdinBuilder;
 
    public int getIndent() {
 	   return indent;
@@ -1011,8 +1012,15 @@ private ByteArrayInputStream bais;
 		// no -i given
 		if (argProcessor.getInput() == null) {
 			if (argProcessor.getUnlabelledArgs().size() == 0) {
-				LOG.warn("no files given as either -i or unlabelled args, using STDIN is exists");
-				bais = new ByteArrayInputStream(argProcessor.getInputByteArray().toByteArray());
+				LOG.warn("no files given as either -i or unlabelled args, using STDIN if it exists");
+//				bais = new ByteArrayInputStream(argProcessor.getInputByteArray().toByteArray());
+				try {
+					List<String> lines= IOUtils.readLines(System.in);
+					IOUtils.writeLines(lines, "\n", new FileOutputStream("target/cifLines.cif"));
+				} catch (IOException e) {
+					e.printStackTrace();
+					LOG.error("cannot debug to target");
+				}
 			} else {
 				List<String> inputFilenames = argProcessor.getUnlabelledArgs();
 				for (String filename : inputFilenames) {
@@ -1043,7 +1051,6 @@ private ByteArrayInputStream bais;
 		if (!inputFile.exists()) {
 			throw new RuntimeException("Input file does not exist: "+inputFile);
 		}
-		
 		
 		if (inputFile.isDirectory()) {
 			inputDir = inputFile;
