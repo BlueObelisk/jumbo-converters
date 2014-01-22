@@ -68,6 +68,7 @@ public abstract class AbstractConverter implements Converter {
    protected int indent = 2;
 private ArgProcessor argProcessor;
 private File inputDir;
+private ByteArrayInputStream bais;
 
    public int getIndent() {
 	   return indent;
@@ -1007,9 +1008,11 @@ private File inputDir;
 		}
 		
 		argProcessor = new ArgProcessor(commandLineArgs);
+		// no -i given
 		if (argProcessor.getInput() == null) {
 			if (argProcessor.getUnlabelledArgs().size() == 0) {
-				LOG.warn("no files given as either -i or unlabelled args");
+				LOG.warn("no files given as either -i or unlabelled args, using STDIN is exists");
+				bais = new ByteArrayInputStream(argProcessor.getInputByteArray().toByteArray());
 			} else {
 				List<String> inputFilenames = argProcessor.getUnlabelledArgs();
 				for (String filename : inputFilenames) {
@@ -1026,8 +1029,13 @@ private File inputDir;
 		}
 		
 		if (argProcessor.getInput() != null) {
+			if (argProcessor.getOutput() == null) {
+				throw new RuntimeException("cannot create output file: "+argProcessor.getOutput());
+			}
 			File inputFile = new File(argProcessor.getInput());
 			processInputFile(inputFile);
+		} else if (bais != null) {
+			processInputStream(bais, new File(argProcessor.getOutput()));
 		}
 	}
 
@@ -1036,9 +1044,6 @@ private File inputDir;
 			throw new RuntimeException("Input file does not exist: "+inputFile);
 		}
 		
-		if (argProcessor.getOutput() == null) {
-			throw new RuntimeException("cannot create output file: "+argProcessor.getOutput());
-		}
 		
 		if (inputFile.isDirectory()) {
 			inputDir = inputFile;
@@ -1064,7 +1069,17 @@ private File inputDir;
 	private void process(File inputFile) {
 		File outputFile = createOutputFileWithMkDirs(inputFile);
 		LOG.info("converting "+inputFile+" to "+outputFile);
-		convert(inputFile, outputFile);
+		FileInputStream fis = null;
+		try {
+			fis = new FileInputStream(inputFile);
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException("File not found: "+inputFile, e);
+		}
+		processInputStream(fis, outputFile);
+	}
+
+	private void processInputStream(InputStream is, File outputFile) {
+		convert(is, outputFile);
 	}
 
 	/** get file extensions - should be provided by each jumbo-converter subclass */

@@ -247,6 +247,13 @@ public class CIFConverterTest {
     }
     
     @Test
+    public void testMiscFile() {
+    	CIF2CMLConverter converter = new CIF2CMLConverter();
+    	String[] args = {"-i", "src/test/resources/cif/misc/", "-o", "target/cif/misc/"};
+    	converter.runArgs(args);
+    }
+    
+    @Test
     public void testCODOrganic() {
     	if (!ConverterUtils.isUserName("pm286")) return;
     	CIF2CMLConverter converter = new CIF2CMLConverter();

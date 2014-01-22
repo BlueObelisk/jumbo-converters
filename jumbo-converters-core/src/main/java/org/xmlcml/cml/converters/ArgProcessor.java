@@ -1,5 +1,7 @@
 package org.xmlcml.cml.converters;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,6 +37,8 @@ public class ArgProcessor {
 	private List<String> unlabelledArgs;
 	private List<String> extensionList = new ArrayList<String>();
 	private String xpath;
+
+	private ByteArrayOutputStream baos;
 	
 	public ArgProcessor(String[] commandLineArgs) {
 		processArgs(Arrays.asList(commandLineArgs));
@@ -66,7 +70,18 @@ public class ArgProcessor {
 			if (input != null) {
 				return;
 			} else {
-				throw new RuntimeException("Reading from STDIN not yet implemented");
+				LOG.info("Reading from STDIN - if it hangs you must supply input");
+				baos = new ByteArrayOutputStream();
+				int b;
+				while (true) {
+					try {
+						b = System.in.read();
+					} catch (IOException e) {
+						throw new RuntimeException("failed reading STDIN: ", e);
+					}
+					baos.write(b);
+					if (b == -1) break;
+				}
 			}
 		} else {
 			if (input != null) {
@@ -126,5 +141,9 @@ public class ArgProcessor {
 
 	public List<String> getUnlabelledArgs() {
 		return unlabelledArgs;
+	}
+
+	public ByteArrayOutputStream getInputByteArray() {
+		return baos;
 	}
 }
