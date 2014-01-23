@@ -41,6 +41,8 @@ public class CML2FragmentConverter extends AbstractConverter implements
 	 */
 	@Override
 	public void convert(File input, File output) {
+		LOG.info("*** input="+input+", output="+output);
+	    checkOutputFile(output);  // manages output directory creation
 		FragmentGenerator fragmentGenerator = new FragmentGenerator();
 		fragmentGenerator.readMolecule(input);
 		fragmentGenerator.setOutputDir(output);

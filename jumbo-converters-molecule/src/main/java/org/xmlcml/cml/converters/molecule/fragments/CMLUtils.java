@@ -55,12 +55,13 @@ public class CMLUtils {
 	 * @param molecule
 	 */
 	public static void calculateAndAddInchi(CMLMolecule molecule) {
-		String inchi = InchiTool.generateInchi(molecule, "");
-		LOG.debug("INCHI "+inchi);
-		CMLIdentifier identifier = new CMLIdentifier();
-		identifier.setConvention("iupac:inchi");
-		identifier.appendChild(new Text(inchi));
-		molecule.appendChild(identifier);
+		LOG.debug("Skipping InChI");
+//		String inchi = InchiTool.generateInchi(molecule, "");
+//		LOG.debug("INCHI "+inchi);
+//		CMLIdentifier identifier = new CMLIdentifier();
+//		identifier.setConvention("iupac:inchi");
+//		identifier.appendChild(new Text(inchi));
+//		molecule.appendChild(identifier);
 	}
 
 	/**
