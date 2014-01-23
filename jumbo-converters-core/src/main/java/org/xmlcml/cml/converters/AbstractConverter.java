@@ -1,6 +1,7 @@
 package org.xmlcml.cml.converters;
 
 import java.io.BufferedReader;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -71,6 +72,7 @@ public abstract class AbstractConverter implements Converter {
 	private File inputFile;
 	private ByteArrayInputStream bais;
 	private StringBuilder stdinBuilder;
+	private File outputDir;
 
    public int getIndent() {
 	   return indent;
@@ -167,6 +169,7 @@ public abstract class AbstractConverter implements Converter {
 	 *            commons-io
 	 */
    private void checkOutputFile(File out) {
+	  ObjectType outputType = getOutputType().getObjectType();
       if (out == null) {
          throw new IllegalArgumentException("output file null");
       }
@@ -177,12 +180,11 @@ public abstract class AbstractConverter implements Converter {
       } catch (IOException ee) {
          LOG.error("BUG? " + ee);
       }
-      dir.mkdir();
-      // This is now allowed to be a directory
-      if ((outFile.isDirectory())) {
-         LOG.info("Output file is a directory: " + outFile);
-         return;
+      if (ObjectType.DIRECTORY.equals(outputType)) {
+    	  verifyOrCreateOutputDirectory(outFile);
+          return;
       }
+      dir.mkdir();
       // cause problems on Unix (not allowed to touch /dev/null) 
       IOException e0 = null;
       try {
@@ -201,6 +203,22 @@ public abstract class AbstractConverter implements Converter {
          // cause problems on Unix (not allowed to touch /dev/null) 
       }
    }
+
+	private void verifyOrCreateOutputDirectory(File outFile) {
+		if (!outFile.exists()) {
+              LOG.info("creating output file as directory: " + outFile);
+              try {
+            	  outFile.mkdirs();
+              } catch (Exception e) {
+            	  throw new RuntimeException("Cannot create output directory: "+outFile);
+              }
+    	  }
+          if ((outFile.isDirectory())) {
+              LOG.info(" output file is a directory as expected: " + outFile);
+           } else {
+        	   throw new RuntimeException(""+this.getClass()+" requires output to be a directory");
+           }
+	}
 
    /**
     *
@@ -1107,25 +1125,28 @@ public abstract class AbstractConverter implements Converter {
 
 	private File createOutputFileWithMkDirs(File inputFile) {
 		Type outputType = getOutputType();
-		String outputExtension = (Type.DIRECTORY.equals(outputType)) ? File.separator : outputType.toString().toLowerCase();
+		ObjectType outputObjectType = outputType.getObjectType();
+		// get primary extensions from class
+		String outputExtension = (Type.DIRECTORY.equals(outputObjectType)) ? null : outputType.getExtensions().get(0);
 		File outputFile = new File(argProcessor.getOutput());
-		File outputDir = null;
+		outputDir = null;
 		if (outputFile.isDirectory()) {
 			LOG.debug("output directory:"+outputFile);
 			outputDir = outputFile;
 		}
 		File parentFile = outputFile.getParentFile();
 		if (parentFile != null) parentFile.mkdirs();
-		if (inputDir != null || outputDir != null) {
-			String name = inputFile.getName();
-			String basename = FilenameUtils.getBaseName(name);
-			basename += (outputExtension.equals(File.separator) ? outputExtension : "."+outputExtension);
-			outputFile = new File(outputDir, basename);
-			if (outputExtension.equals(File.separator)) {
-				outputFile.mkdirs();
+		// when 
+		if (outputDir != null) {
+			if (!ObjectType.DIRECTORY.equals(outputObjectType)) {
+				String name = inputFile.getName();
+				String basename = FilenameUtils.getBaseName(name);
+				basename += (outputExtension.equals(File.separator) ? outputExtension : "."+outputExtension);
+				outputFile = new File(outputDir, basename);
+			} else {
+				LOG.debug(this.getClass()+" will write its own output files to: "+outputDir);
 			}
 		}
-		LOG.debug("Will output to: "+outputFile);
 		return outputFile;
 	}
 
