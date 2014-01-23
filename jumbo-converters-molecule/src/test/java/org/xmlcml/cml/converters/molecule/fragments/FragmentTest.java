@@ -66,10 +66,10 @@ public class FragmentTest {
 	public void testMultipleFileInput() {
 		CML2FragmentConverter converter = new CML2FragmentConverter();
     	String[] args = {
-    			"src/test/resources/molecule/fragments/mbok1z.cml",
     			"src/test/resources/molecule/fragments/metal.cml", 
+    			"src/test/resources/molecule/fragments/mbok1z.cml",
     			"src/test/resources/molecule/fragments/1008945.cml",
-    			"-o", "target/multiple/"};
+    			"-o", "target/multiple"};
     	converter.runArgs(args);
 	}
 }
