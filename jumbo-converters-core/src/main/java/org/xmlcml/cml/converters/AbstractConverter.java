@@ -1042,10 +1042,9 @@ public abstract class AbstractConverter implements Converter {
 				LOG.warn("no files given as either -i or unlabelled args, using STDIN if it exists");
 //				bais = new ByteArrayInputStream(argProcessor.getInputByteArray().toByteArray());
 				try {
-					List<String> lines= IOUtils.readLines(System.in);
-					
-					IOUtils.writeLines(lines, "\n", new FileOutputStream("target/cifLines.cif"));
-				} catch (IOException e) {
+					throw new RuntimeException("STDIO input not working yet");
+//					List<String> lines= IOUtils.readLines(System.in);
+				} catch (Exception e) {
 					e.printStackTrace();
 					LOG.error("cannot debug to target");
 				}
@@ -1090,7 +1089,7 @@ public abstract class AbstractConverter implements Converter {
 			LOG.info("processing "+files.size()+" files");
 			for (File file : files) {
 				try {
-				process(file);
+					process(file);
 				} catch (Exception e) {
 					e.printStackTrace();
 					LOG.error("Cannot process "+file+" ("+e+"), skipping" );
@@ -1132,7 +1131,8 @@ public abstract class AbstractConverter implements Converter {
 		String outputExtension = (Type.DIRECTORY.equals(outputObjectType)) ? null : outputType.getExtensions().get(0);
 		File outputFile = new File(argProcessor.getOutput());
 		outputDir = null;
-		if (ObjectType.DIRECTORY.equals(outputObjectType)) {
+		// output file must be a directory for these conditions
+		if (ObjectType.DIRECTORY.equals(outputObjectType) || inputDir != null || argProcessor.getUnlabelledArgs().size() > 1) {
 			if (!outputFile.exists()) {
 				LOG.info("Created output directory: "+outputFile);
 				outputFile.mkdirs();
