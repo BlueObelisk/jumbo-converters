@@ -2,6 +2,8 @@ package org.xmlcml.cml.converters.molecule.fragments;
 
 import java.io.File;
 
+import org.apache.commons.io.FileUtils;
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -10,9 +12,22 @@ public class FragmentTest {
 	@Test
 	public void testFragmentsOrganic() {
 		FragmentGenerator fragmentGenerator = new FragmentGenerator();
-		fragmentGenerator.setOutputDir(new File("target/2234529"));
+		File outputDir = new File("target/2234529");
+		fragmentGenerator.setOutputDir(outputDir);
 		fragmentGenerator.readMolecule(new File("src/test/resources/molecule/fragments/2234529.cml"));
 		fragmentGenerator.createMoietiesAndFragments();
+		Assert.assertTrue("output", outputDir.exists());
+		Assert.assertTrue("output", outputDir.isDirectory());
+		Assert.assertEquals("child", 1, outputDir.listFiles().length); 
+		File molDir = new File(outputDir, "mol");
+		Assert.assertTrue("mol", molDir.exists());
+		Assert.assertTrue("mol", molDir.isDirectory());
+		Assert.assertEquals("child", 4, molDir.listFiles().length); 
+		File totalCml = new File(molDir, "total.cml");
+		Assert.assertTrue("cml", totalCml.exists());
+		Assert.assertTrue("cml", !totalCml.isDirectory());
+		Assert.assertTrue("cml", FileUtils.sizeOf(totalCml) > 0);
+		
 	}
 	
 	@Test
@@ -40,7 +55,7 @@ public class FragmentTest {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void testConverter() {
 		CML2FragmentConverter converter = new CML2FragmentConverter();
 		converter.convert(new File("src/test/resources/molecule/fragments/mbok1z.cml"), new File("target/codcy/"));

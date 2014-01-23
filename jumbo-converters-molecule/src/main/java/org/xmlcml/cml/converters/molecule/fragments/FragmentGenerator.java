@@ -672,11 +672,11 @@ public class FragmentGenerator  {
 		for (CMLBond bond : detachBondList) {
 			bond.detach();
 		}
-		String inchi = InchiTool.generateInchi(molecule, "");
-		CMLIdentifier identifier = new CMLIdentifier();
-		identifier.setConvention("iupac:inchi");
-		identifier.appendChild(new Text(inchi));
-		molecule.appendChild(identifier);
+//		String inchi = InchiTool.generateInchi(molecule, "");
+//		CMLIdentifier identifier = new CMLIdentifier();
+//		identifier.setConvention("iupac:inchi");
+//		identifier.appendChild(new Text(inchi));
+//		molecule.appendChild(identifier);
 	}
 
 	public void readMolecule(File file) {

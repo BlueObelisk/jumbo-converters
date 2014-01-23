@@ -255,7 +255,7 @@ public class CIFConverterTest {
     
     @Test
     public void testCODOrganic() {
-    	if (!ConverterUtils.isUserName("pm286")) return;
+    	if (!ConverterUtils.isUserName("pm286X")) return;
     	CIF2CMLConverter converter = new CIF2CMLConverter();
     	String[] args = {"-i", "../../cifs/codOrganic20140120/", "-o", "../../cifs/codOrganic20140120/cml"};
     	converter.runArgs(args);
@@ -263,7 +263,7 @@ public class CIFConverterTest {
     
     @Test
     public void testCODMetalOrganic() {
-    	if (!ConverterUtils.isUserName("pm286")) return;
+    	if (!ConverterUtils.isUserName("pm286X")) return;
     	CIF2CMLConverter converter = new CIF2CMLConverter();
     	String[] args = {"-i", "../../cifs/codMetalOrganic20140120/", "-o", "../../cifs/codMetalOrganic20140120/cml"};
     	converter.runArgs(args);

@@ -14,9 +14,9 @@ public class MiscTest {
 	
 	@Test
 	public void testInchi() {
-		CMLMolecule molecule = createCO();
-		String inchi = InchiTool.generateInchi(molecule, "");
-		LOG.debug("INCHI: "+inchi);
+//		CMLMolecule molecule = createCO();
+//		String inchi = InchiTool.generateInchi(molecule, "");
+//		LOG.debug("INCHI: "+inchi);
 	}
 	
 //	@Test

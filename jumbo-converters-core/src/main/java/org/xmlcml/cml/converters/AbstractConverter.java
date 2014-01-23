@@ -168,7 +168,7 @@ public abstract class AbstractConverter implements Converter {
 	 *            TODO clean this up - dodgy exception handling opportunity for
 	 *            commons-io
 	 */
-   private void checkOutputFile(File out) {
+   protected void checkOutputFile(File out) {
 	  ObjectType outputType = getOutputType().getObjectType();
       if (out == null) {
          throw new IllegalArgumentException("output file null");
@@ -182,9 +182,10 @@ public abstract class AbstractConverter implements Converter {
       }
       if (ObjectType.DIRECTORY.equals(outputType)) {
     	  verifyOrCreateOutputDirectory(outFile);
-          return;
+    	  out.mkdir();
+      } else {
+    	  dir.mkdir();
       }
-      dir.mkdir();
       // cause problems on Unix (not allowed to touch /dev/null) 
       IOException e0 = null;
       try {
@@ -1102,6 +1103,7 @@ public abstract class AbstractConverter implements Converter {
 	}
 
 	private void process(File inputFile) {
+		// FIXME
 		File outputFile = createOutputFileWithMkDirs(inputFile);
 		LOG.info("converting "+inputFile+" to "+outputFile);
 		FileInputStream fis = null;
@@ -1130,12 +1132,21 @@ public abstract class AbstractConverter implements Converter {
 		String outputExtension = (Type.DIRECTORY.equals(outputObjectType)) ? null : outputType.getExtensions().get(0);
 		File outputFile = new File(argProcessor.getOutput());
 		outputDir = null;
+		if (ObjectType.DIRECTORY.equals(outputObjectType)) {
+			if (!outputFile.exists()) {
+				LOG.info("Created output directory: "+outputFile);
+				outputFile.mkdirs();
+			}
+		}
 		if (outputFile.isDirectory()) {
 			LOG.debug("output directory:"+outputFile);
 			outputDir = outputFile;
 		}
 		File parentFile = outputFile.getParentFile();
-		if (parentFile != null) parentFile.mkdirs();
+		if (parentFile != null) {
+			LOG.info("made directory: "+parentFile);
+			parentFile.mkdirs();
+		}
 		// when 
 		if (outputDir != null) {
 			if (!ObjectType.DIRECTORY.equals(outputObjectType)) {
@@ -1143,8 +1154,9 @@ public abstract class AbstractConverter implements Converter {
 				String basename = FilenameUtils.getBaseName(name);
 				basename += (outputExtension.equals(File.separator) ? outputExtension : "."+outputExtension);
 				outputFile = new File(outputDir, basename);
+				LOG.info("Created outfile: "+outputFile);
 			} else {
-				LOG.debug(this.getClass()+" will write its own output files to: "+outputDir);
+				LOG.info(this.getClass()+" will write its own output files to: "+outputDir);
 			}
 		}
 		return outputFile;
