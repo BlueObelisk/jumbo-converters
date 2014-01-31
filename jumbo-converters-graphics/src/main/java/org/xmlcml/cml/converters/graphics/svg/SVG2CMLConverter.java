@@ -3,18 +3,16 @@ package org.xmlcml.cml.converters.graphics.svg;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import nu.xom.Builder;
 import nu.xom.Element;
 
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.graphics.svg.fromsvg.SVG2CMLTool;
 import org.xmlcml.cml.element.CMLCml;
-import org.xmlcml.cml.graphics.SVGSVG;
+import org.xmlcml.graphics.svg.SVGSVG;
 
 /**
  * 

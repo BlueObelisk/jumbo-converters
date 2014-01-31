@@ -6,16 +6,16 @@ import org.xmlcml.cml.converters.Command;
 //import org.xmlcml.cml.converters.graphics.molecule.MoleculeDisplayCommand;
 import org.xmlcml.cml.converters.graphics.molecule.MoleculeDisplayCommand;
 import org.xmlcml.cml.element.CMLMolecule;
-import org.xmlcml.cml.graphics.SVGElement;
-import org.xmlcml.cml.graphics.SVGG;
-import org.xmlcml.cml.graphics.SVGSVG;
-import org.xmlcml.cml.graphics.SVGText;
 import org.xmlcml.cml.tools.MoleculeDisplay;
 import org.xmlcml.cml.tools.MoleculeTool;
 import org.xmlcml.euclid.Real2;
 import org.xmlcml.euclid.Real2Range;
 import org.xmlcml.euclid.RealRange;
 import org.xmlcml.euclid.Transform2;
+import org.xmlcml.graphics.svg.SVGElement;
+import org.xmlcml.graphics.svg.SVGG;
+import org.xmlcml.graphics.svg.SVGSVG;
+import org.xmlcml.graphics.svg.SVGText;
 
 public class SVGCreator {
 

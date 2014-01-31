@@ -14,17 +14,17 @@ import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemLine.StereoBondTyp
 import org.xmlcml.cml.converters.graphics.svg.fromsvg.HasStereoBondType;
 import org.xmlcml.cml.converters.graphics.svg.fromsvg.SVG2CMLTool;
 import org.xmlcml.cml.converters.graphics.svg.fromsvg.SVGChem;
-import org.xmlcml.cml.graphics.SVGElement;
-import org.xmlcml.cml.graphics.SVGLine;
-import org.xmlcml.cml.graphics.SVGPath;
 import org.xmlcml.euclid.Angle;
+import org.xmlcml.euclid.Angle.Range;
 import org.xmlcml.euclid.EuclidRuntimeException;
 import org.xmlcml.euclid.Line2;
 import org.xmlcml.euclid.Real2;
 import org.xmlcml.euclid.Real2Array;
 import org.xmlcml.euclid.Real2Vector;
 import org.xmlcml.euclid.Vector2;
-import org.xmlcml.euclid.Angle.Range;
+import org.xmlcml.graphics.svg.SVGElement;
+import org.xmlcml.graphics.svg.SVGLine;
+import org.xmlcml.graphics.svg.SVGPath;
 
 public class SVGChemPath extends SVGPath implements SVGChemElement, HasStereoBondType {
 	private static Logger LOG = Logger.getLogger(SVGChemPath.class);

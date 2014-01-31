@@ -7,8 +7,8 @@ import nu.xom.Element;
 import nu.xom.Nodes;
 
 import org.xmlcml.cml.converters.graphics.svg.fromsvg.SVGChem;
-import org.xmlcml.cml.graphics.SVGElement;
-import org.xmlcml.cml.graphics.SVGRect;
+import org.xmlcml.graphics.svg.SVGElement;
+import org.xmlcml.graphics.svg.SVGRect;
 
 /** analyzes line as possible bond
  * 

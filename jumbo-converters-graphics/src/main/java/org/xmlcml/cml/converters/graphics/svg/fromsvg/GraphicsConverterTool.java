@@ -8,12 +8,11 @@ import javax.swing.JPanel;
 import nu.xom.Element;
 
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.converters.Command;
 import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemSVG;
-import org.xmlcml.cml.graphics.FontWidths;
-import org.xmlcml.cml.graphics.SVGElement;
-import org.xmlcml.cml.graphics.SVGSVG;
 import org.xmlcml.euclid.Util;
+import org.xmlcml.graphics.svg.SVGElement;
+import org.xmlcml.graphics.svg.SVGSVG;
+import org.xmlcml.graphics.svg.fonts.FontWidths;
 
 /**
  * contains some common font material and references to commonly used
@@ -66,7 +65,7 @@ public abstract class GraphicsConverterTool {
 	}
 
 	public void processSVG() {
-		svg = (SVGSVG) SVGElement.createSVG(svgElement);
+		svg = (SVGSVG) SVGElement.readAndCreateSVG(svgElement);
 		svgChem = new SVGChemSVG(svg);
 		processAfterParsing();
 	}

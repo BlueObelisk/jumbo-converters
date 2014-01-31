@@ -20,22 +20,15 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemG;
 import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemLine;
+import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemLine.StereoBondType;
 import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemPath;
 import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemRect;
 import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemSVG;
 import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemText;
-import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemLine.StereoBondType;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLBond;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLFormula;
-import org.xmlcml.cml.graphics.SVGCircle;
-import org.xmlcml.cml.graphics.SVGElement;
-import org.xmlcml.cml.graphics.SVGG;
-import org.xmlcml.cml.graphics.SVGLine;
-import org.xmlcml.cml.graphics.SVGRect;
-import org.xmlcml.cml.graphics.SVGSVG;
-import org.xmlcml.cml.graphics.SVGText;
 import org.xmlcml.euclid.Angle;
 import org.xmlcml.euclid.Line2;
 import org.xmlcml.euclid.Real2;
@@ -44,6 +37,13 @@ import org.xmlcml.euclid.Real2Range;
 import org.xmlcml.euclid.Real2Vector;
 import org.xmlcml.euclid.Transform2;
 import org.xmlcml.euclid.Vector2;
+import org.xmlcml.graphics.svg.SVGCircle;
+import org.xmlcml.graphics.svg.SVGElement;
+import org.xmlcml.graphics.svg.SVGG;
+import org.xmlcml.graphics.svg.SVGLine;
+import org.xmlcml.graphics.svg.SVGRect;
+import org.xmlcml.graphics.svg.SVGSVG;
+import org.xmlcml.graphics.svg.SVGText;
 /**
  * 
  * @author pm286
@@ -178,7 +178,7 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 		} else {
 			LOG.debug(fileId+": no row.............................");
 		}
-		SVGSVG newsvg = (SVGSVG) SVGElement.createSVG(svgElement);
+		SVGSVG newsvg = (SVGSVG) SVGElement.readAndCreateSVG(svgElement);
 		svgChem = new SVGChemSVG(newsvg);
 		processAfterParsing();
 		

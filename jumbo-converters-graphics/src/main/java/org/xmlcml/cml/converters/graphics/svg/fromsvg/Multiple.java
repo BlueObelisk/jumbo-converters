@@ -6,8 +6,8 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemLine;
 import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemSVG;
 import org.xmlcml.cml.element.CMLBond;
-import org.xmlcml.cml.graphics.SVGLine;
 import org.xmlcml.euclid.Real2;
+import org.xmlcml.graphics.svg.SVGLine;
 
 public class Multiple extends ArrayList<SVGChemLine> {
 

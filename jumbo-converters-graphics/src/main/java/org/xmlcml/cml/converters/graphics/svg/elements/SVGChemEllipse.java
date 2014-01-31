@@ -1,9 +1,9 @@
 package org.xmlcml.cml.converters.graphics.svg.elements;
 
 import org.xmlcml.cml.converters.graphics.svg.fromsvg.SVGChem;
-import org.xmlcml.cml.graphics.SVGElement;
-import org.xmlcml.cml.graphics.SVGEllipse;
-import org.xmlcml.cml.graphics.StyleBundle;
+import org.xmlcml.graphics.svg.SVGElement;
+import org.xmlcml.graphics.svg.SVGEllipse;
+import org.xmlcml.graphics.svg.StyleBundle;
 
 public class SVGChemEllipse extends SVGEllipse implements SVGChemElement {
 
@@ -12,6 +12,7 @@ public class SVGChemEllipse extends SVGEllipse implements SVGChemElement {
 			"#0000ff", // fill
 			"#0000ff", // stroke
 			1.0, // strokeWidth
+			"",
 			"",
 			1.0, // fontSize
 			"",

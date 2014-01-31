@@ -18,12 +18,12 @@ import org.xmlcml.cml.converters.graphics.svg.fromsvg.SVG2CMLTool;
 import org.xmlcml.cml.converters.graphics.svg.fromsvg.SVGChem;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLLabel;
-import org.xmlcml.cml.graphics.SVGCircle;
-import org.xmlcml.cml.graphics.SVGElement;
-import org.xmlcml.cml.graphics.SVGRect;
-import org.xmlcml.cml.graphics.SVGText;
 import org.xmlcml.euclid.Real2;
 import org.xmlcml.euclid.Util;
+import org.xmlcml.graphics.svg.SVGCircle;
+import org.xmlcml.graphics.svg.SVGElement;
+import org.xmlcml.graphics.svg.SVGRect;
+import org.xmlcml.graphics.svg.SVGText;
 import org.xmlcml.molutil.ChemicalElement;
 
 /** manages raw text

@@ -19,19 +19,19 @@ import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemRect;
 import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemSVG;
 import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemText;
 import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemTitle;
-import org.xmlcml.cml.graphics.SVGCircle;
-import org.xmlcml.cml.graphics.SVGDesc;
-import org.xmlcml.cml.graphics.SVGElement;
-import org.xmlcml.cml.graphics.SVGEllipse;
-import org.xmlcml.cml.graphics.SVGG;
-import org.xmlcml.cml.graphics.SVGLine;
-import org.xmlcml.cml.graphics.SVGPath;
-import org.xmlcml.cml.graphics.SVGPolygon;
-import org.xmlcml.cml.graphics.SVGPolyline;
-import org.xmlcml.cml.graphics.SVGRect;
-import org.xmlcml.cml.graphics.SVGSVG;
-import org.xmlcml.cml.graphics.SVGText;
-import org.xmlcml.cml.graphics.SVGTitle;
+import org.xmlcml.graphics.svg.SVGCircle;
+import org.xmlcml.graphics.svg.SVGDesc;
+import org.xmlcml.graphics.svg.SVGElement;
+import org.xmlcml.graphics.svg.SVGEllipse;
+import org.xmlcml.graphics.svg.SVGG;
+import org.xmlcml.graphics.svg.SVGLine;
+import org.xmlcml.graphics.svg.SVGPath;
+import org.xmlcml.graphics.svg.SVGPolygon;
+import org.xmlcml.graphics.svg.SVGPolyline;
+import org.xmlcml.graphics.svg.SVGRect;
+import org.xmlcml.graphics.svg.SVGSVG;
+import org.xmlcml.graphics.svg.SVGText;
+import org.xmlcml.graphics.svg.SVGTitle;
 
 public class SVGChem {
 
