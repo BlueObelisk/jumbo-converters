@@ -1,8 +1,6 @@
 package org.xmlcml.cml.converters.graphics.svg.elements;
 
 import static org.junit.Assert.fail;
-
-
 import static org.xmlcml.cml.base.CMLConstants.SVG_NS;
 
 import java.util.List;
@@ -12,12 +10,11 @@ import nu.xom.Element;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.xmlcml.cml.graphics.SVGElement;
-import org.xmlcml.cml.graphics.SVGPath;
-import org.xmlcml.cml.graphics.SVGSVG;
 import org.xmlcml.euclid.Angle;
 import org.xmlcml.euclid.Real2;
-import org.xmlcml.euclid.Util;
+import org.xmlcml.graphics.svg.SVGElement;
+import org.xmlcml.graphics.svg.SVGPath;
+import org.xmlcml.graphics.svg.SVGSVG;
 
 /**
  * @author pm286
@@ -35,7 +32,7 @@ public class SVGChemPathTest {
 		"</svg:svg>"+
 		"";
 		Element element = org.xmlcml.cml.testutil.JumboTestUtils.parseValidString(s);
-		SVGSVG svg = (SVGSVG) SVGElement.createSVG(element);
+		SVGSVG svg = (SVGSVG) SVGElement.readAndCreateSVG(element);
 		SVGChemSVG svgChem = new SVGChemSVG(svg);
 		Assert.assertNotNull("svgChem not null", svgChem);
 	}
@@ -49,13 +46,13 @@ public class SVGChemPathTest {
 		"</svg:svg>"+
 		"";
 		Element element = org.xmlcml.cml.testutil.JumboTestUtils.parseValidString(s);
-		SVGSVG svg = (SVGSVG) SVGElement.createSVG(element);
+		SVGSVG svg = (SVGSVG) SVGElement.readAndCreateSVG(element);
 		SVGChemSVG svgChem = new SVGChemSVG(svg);
 		Assert.assertNotNull("svgChem not null", svgChem);
 		List<SVGChemPath> pathList = SVGChemPath.getPathList(svgChem);
 		Assert.assertEquals("path count", 2, pathList.size());
 		org.xmlcml.cml.testutil.JumboTestUtils.assertEqualsIncludingFloat("path1", 		
-				"<svg:path style=' fill : none; stroke : black; stroke-width : 0.5;' d='M 1 2 L 3 4 5 6' xmlns:svg='"+SVG_NS+"'/>", 
+				"<svg:path stroke='black' stroke-width='0.5' fill='none' d='M 1 2 L 3 4 5 6' xmlns:svg='"+SVG_NS+"'/>", 
 				pathList.get(0), true, 0.00001);
 	}
 
@@ -203,7 +200,7 @@ public class SVGChemPathTest {
 	 */
 	private SVGChemPath makePath(String s) {
 		Element element = org.xmlcml.cml.testutil.JumboTestUtils.parseValidString(s);
-		SVGPath path = (SVGPath) SVGElement.createSVG(element);
+		SVGPath path = (SVGPath) SVGElement.readAndCreateSVG(element);
 		SVGChemPath svgPath = new SVGChemPath(path);
 		Assert.assertNotNull("svgChem not null", svgPath);
 		return svgPath;

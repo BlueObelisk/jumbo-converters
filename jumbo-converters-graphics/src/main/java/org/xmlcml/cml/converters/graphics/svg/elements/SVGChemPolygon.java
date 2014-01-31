@@ -3,11 +3,11 @@ package org.xmlcml.cml.converters.graphics.svg.elements;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.graphics.svg.fromsvg.SVGChem;
-import org.xmlcml.cml.graphics.SVGElement;
-import org.xmlcml.cml.graphics.SVGLine;
-import org.xmlcml.cml.graphics.SVGPolygon;
 import org.xmlcml.euclid.Real2;
 import org.xmlcml.euclid.Real2Array;
+import org.xmlcml.graphics.svg.SVGElement;
+import org.xmlcml.graphics.svg.SVGLine;
+import org.xmlcml.graphics.svg.SVGPolygon;
 
 /** analyzes line as possible bond
  * 

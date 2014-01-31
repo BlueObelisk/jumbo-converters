@@ -14,13 +14,13 @@ import org.xmlcml.cml.converters.graphics.svg.fromsvg.SVG2CMLTool;
 import org.xmlcml.cml.converters.graphics.svg.fromsvg.SVGChem;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLBond;
-import org.xmlcml.cml.graphics.SVGCircle;
-import org.xmlcml.cml.graphics.SVGLine;
 import org.xmlcml.euclid.Angle;
+import org.xmlcml.euclid.Angle.Range;
 import org.xmlcml.euclid.Line2;
 import org.xmlcml.euclid.Real2;
 import org.xmlcml.euclid.Vector2;
-import org.xmlcml.euclid.Angle.Range;
+import org.xmlcml.graphics.svg.SVGCircle;
+import org.xmlcml.graphics.svg.SVGLine;
 
 /** analyzes line as possible bond
  * 
@@ -132,7 +132,7 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 	 * 
 	 * @return length of line
 	 */
-	public double getLength() {
+	public Double getLength() {
 		if (Double.isNaN(length)) {
 //			getLine2();
 			getEuclidLine();

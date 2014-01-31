@@ -1,14 +1,15 @@
 package org.xmlcml.cml.converters.graphics.svg.elements;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import nu.xom.Element;
 import nu.xom.Nodes;
 
 import org.xmlcml.cml.converters.graphics.svg.fromsvg.SVGChem;
-import org.xmlcml.cml.graphics.SVGCircle;
-import org.xmlcml.cml.graphics.SVGElement;
+import org.xmlcml.graphics.svg.SVGCircle;
+import org.xmlcml.graphics.svg.SVGElement;
 
 public class SVGChemCircle extends SVGCircle implements SVGChemElement {
 

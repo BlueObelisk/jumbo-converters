@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemLine;
-import org.xmlcml.cml.graphics.SVGLine;
 import org.xmlcml.euclid.Line2;
 import org.xmlcml.euclid.Real2;
 import org.xmlcml.euclid.Real2Array;
 import org.xmlcml.euclid.RealArray;
 import org.xmlcml.euclid.RealArray.Filter;
+import org.xmlcml.graphics.svg.SVGLine;
 
 /**
  * utilities to process wiggle bond

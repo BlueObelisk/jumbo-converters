@@ -8,13 +8,13 @@ import nu.xom.ParentNode;
 import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemLine;
 import org.xmlcml.cml.converters.graphics.svg.elements.SVGChemPath;
 import org.xmlcml.cml.element.CMLBond;
-import org.xmlcml.cml.graphics.SVGElement;
-import org.xmlcml.cml.graphics.SVGLine;
 import org.xmlcml.euclid.Angle;
+import org.xmlcml.euclid.Angle.Range;
 import org.xmlcml.euclid.Line2;
 import org.xmlcml.euclid.Real2;
 import org.xmlcml.euclid.Vector2;
-import org.xmlcml.euclid.Angle.Range;
+import org.xmlcml.graphics.svg.SVGElement;
+import org.xmlcml.graphics.svg.SVGLine;
 
 /** 
  * manages lists of short bonds
