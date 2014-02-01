@@ -57,7 +57,7 @@ public class SDF2CMLConverter extends AbstractConverter implements
 		if (lines != null) {
 			lineCounter = 0;
 			while (lineCounter < lines.size()) {
-				MDLConverter converter = new MDLConverter(lineCounter);
+				ImageConverter converter = new ImageConverter(lineCounter);
 				CMLMolecule molecule = converter.readMOL(lines);
 				if (molecule == null) {
 					break;

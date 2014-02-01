@@ -70,19 +70,19 @@ public class CML2SDFConverter extends AbstractConverter implements
 	}
 
 	private CMLElement cml;
-	private MDLConverter mdlConverter;
+	private ImageConverter mdlConverter;
 
-	public MDLConverter getMdlConverter() {
+	public ImageConverter getMdlConverter() {
 		return mdlConverter;
 	}
 
-	public void setMdlConverter(MDLConverter mdlConverter) {
+	public void setMdlConverter(ImageConverter mdlConverter) {
 		this.mdlConverter = mdlConverter;
 	}
 	
 	
 	public CML2SDFConverter() {
-		mdlConverter = new MDLConverter();
+		mdlConverter = new ImageConverter();
 	}
 
 	/**
