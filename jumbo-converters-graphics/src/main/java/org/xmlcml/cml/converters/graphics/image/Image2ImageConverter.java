@@ -1,22 +1,11 @@
 package org.xmlcml.cml.converters.graphics.image;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import nu.xom.Element;
-
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.base.CMLBuilder;
-import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.converters.CMLCommon;
-import org.xmlcml.cml.converters.CMLSelector;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.Type;
-import org.xmlcml.cml.converters.molecule.MoleculeCommon;
-import org.xmlcml.cml.converters.molecule.mdl.ImageConverter.CoordType;
-import org.xmlcml.cml.element.CMLMolecule;
 
 public class Image2ImageConverter extends AbstractConverter implements
 		Converter {
@@ -34,18 +23,18 @@ public class Image2ImageConverter extends AbstractConverter implements
 		return Type.IMAGE;
 	}
 
-	private ImageConverter mdlConverter;
+	private ImageConverter imageConverter;
 
 	public ImageConverter getMdlConverter() {
-		return mdlConverter;
+		return imageConverter;
 	}
 
-	public void setMdlConverter(ImageConverter mdlConverter) {
-		this.mdlConverter = mdlConverter;
+	public void setMdlConverter(ImageConverter imageConverter) {
+		this.imageConverter = imageConverter;
 	}
 	
 	public Image2ImageConverter() {
-		mdlConverter = new ImageConverter();
+		imageConverter = new ImageConverter();
 	}
 
 	/**
