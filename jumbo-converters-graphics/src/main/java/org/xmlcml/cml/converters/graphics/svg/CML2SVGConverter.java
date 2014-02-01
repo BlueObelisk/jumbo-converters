@@ -14,6 +14,7 @@ import org.xmlcml.cml.converters.CMLSelector;
 import org.xmlcml.cml.converters.Command;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.element.CMLMolecule;
+import org.xmlcml.graphics.svg.SVGSVG;
 
 /**
  * 
@@ -152,7 +153,10 @@ SVGConverter {
 		SVGCreator svgCreator = new SVGCreator(moleculeList.get(0), cmlScaler, command);
 		svgCreator.setCommand(this.getCommand());
 		svgCreator.createSVG();
-		return svgCreator.getSVG();
+		LOG.debug("Created SVG");
+		SVGSVG svg =  svgCreator.getSVG();
+		LOG.debug("SVG: "+svg.toXML());
+		return svg;
 	}
 
 	@Override
