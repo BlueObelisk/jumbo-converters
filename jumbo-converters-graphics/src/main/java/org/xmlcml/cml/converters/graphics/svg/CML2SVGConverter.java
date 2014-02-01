@@ -153,9 +153,9 @@ SVGConverter {
 		SVGCreator svgCreator = new SVGCreator(moleculeList.get(0), cmlScaler, command);
 		svgCreator.setCommand(this.getCommand());
 		svgCreator.createSVG();
-		LOG.debug("Created SVG");
+		LOG.trace("Created SVG");
 		SVGSVG svg =  svgCreator.getSVG();
-		LOG.debug("SVG: "+svg.toXML());
+		LOG.trace("SVG: "+svg.toXML());
 		return svg;
 	}
 
