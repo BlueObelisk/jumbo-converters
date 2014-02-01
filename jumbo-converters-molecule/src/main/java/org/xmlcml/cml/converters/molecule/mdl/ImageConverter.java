@@ -50,10 +50,10 @@ import org.xmlcml.molutil.ChemicalElement;
  * branched/amended for Jumbo-converter 2008 (PMR)
  * 
  */
-public class MDLConverter {
+public class ImageConverter {
 
 	private static final Logger LOG = Logger
-		.getLogger(MDLConverter.class);
+		.getLogger(ImageConverter.class);
 	
     private enum MDLTag {
         /** unknown MDL dimensional code */
@@ -292,7 +292,7 @@ public class MDLConverter {
 	/** constructor
 	 * 
 	 */
-	public MDLConverter() {
+	public ImageConverter() {
 		init();
 	}
 	
@@ -303,7 +303,7 @@ public class MDLConverter {
 	/** constructor
 	 * start reading at given line
 	 */
-	public MDLConverter(int nline) {
+	public ImageConverter(int nline) {
 		init();
 		this.nline = nline;
 	}

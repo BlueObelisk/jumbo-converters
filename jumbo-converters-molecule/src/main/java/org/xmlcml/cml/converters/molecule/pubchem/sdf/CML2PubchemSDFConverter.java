@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.molecule.mdl.CML2SDFConverter;
-import org.xmlcml.cml.converters.molecule.mdl.MDLConverter.CoordType;
+import org.xmlcml.cml.converters.molecule.mdl.ImageConverter.CoordType;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
 

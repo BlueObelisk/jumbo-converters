@@ -37,7 +37,7 @@ public class MDL2CMLConverter extends AbstractConverter {
 	public Element convertToXML(List<String> lines) {
 		CMLCml cml = new CMLCml();
 		if (lines != null && lines.size() > 0) {
-			MDLConverter converter = new MDLConverter();
+			ImageConverter converter = new ImageConverter();
 			CMLMolecule molecule = converter.readMOL(lines);
 			cml.appendChild(molecule);
 		}

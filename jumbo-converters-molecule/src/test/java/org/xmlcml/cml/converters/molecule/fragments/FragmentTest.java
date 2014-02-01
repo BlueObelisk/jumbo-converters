@@ -174,6 +174,7 @@ public class FragmentTest {
 			}
     	},
     	TrueFileFilter.INSTANCE));
+		Collections.sort(files);
 		return files;
 	}
 }

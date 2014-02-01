@@ -1,4 +1,4 @@
-package org.xmlcml.cml.converters.molecule.mdl;
+package org.xmlcml.cml.converters.graphics.image;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,20 +18,20 @@ import org.xmlcml.cml.converters.molecule.MoleculeCommon;
 import org.xmlcml.cml.converters.molecule.mdl.ImageConverter.CoordType;
 import org.xmlcml.cml.element.CMLMolecule;
 
-public class CML2MDLConverter extends AbstractConverter implements
+public class Image2ImageConverter extends AbstractConverter implements
 		Converter {
 	
-	private static final Logger LOG = Logger.getLogger(CML2MDLConverter.class);
+	private static final Logger LOG = Logger.getLogger(Image2ImageConverter.class);
 	static {
 		LOG.setLevel(Level.INFO);
 	}
 	
 	public Type getInputType() {
-		return Type.CML;
+		return Type.IMAGE;
 	}
 
 	public Type getOutputType() {
-		return Type.MDL;
+		return Type.IMAGE;
 	}
 
 	private ImageConverter mdlConverter;
@@ -44,7 +44,7 @@ public class CML2MDLConverter extends AbstractConverter implements
 		this.mdlConverter = mdlConverter;
 	}
 	
-	public CML2MDLConverter() {
+	public Image2ImageConverter() {
 		mdlConverter = new ImageConverter();
 	}
 
@@ -54,35 +54,35 @@ public class CML2MDLConverter extends AbstractConverter implements
 	 * 
 	 * @param xml
 	 */
-	public List<String> convertToText(Element xml) {
-		CMLElement cml = CMLBuilder.ensureCML(xml);
-		CMLMolecule molecule = new CMLSelector(cml).getToplevelMoleculeDescendant(true);
-		List<String> lines = new ArrayList<String>();
-		if (molecule != null) {
-			mdlConverter.setCoordType(CoordType.EITHER);
-			mdlConverter.writeMOL(lines, molecule);
-		}
-		return lines;
+	public byte[] convertToBytes(byte[] bytes) {
+		byte[] newBytes = null;
+		return newBytes;
 	}
 
 	@Override
 	public String getRegistryInputType() {
-		return CMLCommon.CML;
+		return CMLCommon.PNG;
 	}
 	
 	@Override
 	public String getRegistryOutputType() {
-		return MoleculeCommon.MDL;
+		return CMLCommon.PNG;
 	}
 	
 	@Override
 	public String getRegistryMessage() {
-		return "convert CML to MDL molfile";
+		return "convert Image to Image";
 	}
 
 	public static void main(String[] args) {
-		CML2MDLConverter converter = new CML2MDLConverter();
+		Image2ImageConverter converter = new Image2ImageConverter();
 		converter.runArgs(args);
+	}
+	
+	@Override 
+	public void runArgs(String[] args) {
+		LOG.warn("Add image args options here");
+		super.runArgs(args);
 	}
 
 }
