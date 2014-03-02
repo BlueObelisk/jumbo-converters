@@ -17,21 +17,20 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLUtil;
-import org.xmlcml.cml.converters.Command;
 import org.xmlcml.cml.converters.graphics.svg.fromsvg.GraphicsConverterTool;
 import org.xmlcml.cml.converters.spectrum.graphics.svg2cml.AxisTool.Orientation;
 import org.xmlcml.cml.element.CMLCml;
-import org.xmlcml.cml.graphics.SVGConstants;
-import org.xmlcml.cml.graphics.SVGElement;
-import org.xmlcml.cml.graphics.SVGG;
-import org.xmlcml.cml.graphics.SVGLine;
-import org.xmlcml.cml.graphics.SVGPoly;
-import org.xmlcml.cml.graphics.SVGPolyline;
-import org.xmlcml.cml.graphics.SVGRect;
-import org.xmlcml.cml.graphics.SVGText;
+import org.xmlcml.euclid.Axis.Axis2;
 import org.xmlcml.euclid.Real2;
 import org.xmlcml.euclid.Real2Range;
-import org.xmlcml.euclid.Axis.Axis2;
+import org.xmlcml.graphics.svg.SVGConstants;
+import org.xmlcml.graphics.svg.SVGElement;
+import org.xmlcml.graphics.svg.SVGG;
+import org.xmlcml.graphics.svg.SVGLine;
+import org.xmlcml.graphics.svg.SVGPoly;
+import org.xmlcml.graphics.svg.SVGPolyline;
+import org.xmlcml.graphics.svg.SVGRect;
+import org.xmlcml.graphics.svg.SVGText;
 
 
 /**
@@ -326,7 +325,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 	private SVGPolyline mergeLinesInList(List<SVGElement> lineList) {
 		List<SVGPolyline> polylineList = new ArrayList<SVGPolyline>();
 		for (SVGElement line : lineList) {
-			polylineList.add(SVGPolyline.getOrCreatePolyline(line));
+			polylineList.add((SVGPolyline)SVGPolyline.getOrCreatePolyline(line));
 		}
 		while (polylineList.size() > 1) {
 			polylineList = SVGPolyline.binaryMergePolylines(polylineList, eps);
@@ -836,7 +835,7 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 			SVGLine linei) {
 		for (int j = i+1; j < horizontalVerticalList.size(); j++) {
 			SVGLine linej = horizontalVerticalList.get(j);
-			if (linei.getCommonPoint(linej, eps) != null ||
+			if (linei. getCommonEndPoint(linej, eps) != null ||
 					linei.makesTJointWith(linej, eps) ||
 					linej.makesTJointWith(linei, eps)) {
 				LineCluster cluster = new LineCluster(eps);
@@ -992,7 +991,8 @@ public class SVG2CMLSpectTool extends GraphicsConverterTool {
 		spectrumToolList = new ArrayList<SpectrumAnalysisTool>();
 		SVGG spectrumG = null;
 		for (SVGElement g : gList) {
-			if (VALUES.equals(g.getClassName())) {
+			// TODO this may be wrong
+			if (VALUES.equals(g.getClass())) {
 				spectrumG = new SVGG();
 				spectrumG.setClassName(SPECTRUM);
 				topG.replaceChild(g, spectrumG);
