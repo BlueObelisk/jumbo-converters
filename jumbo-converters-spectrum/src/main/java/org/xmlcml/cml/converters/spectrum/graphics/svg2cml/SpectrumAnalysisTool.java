@@ -3,7 +3,6 @@ package org.xmlcml.cml.converters.spectrum.graphics.svg2cml;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.spectrum.graphics.svg2cml.AxisTool.Orientation;
 import org.xmlcml.cml.element.CMLArray;
@@ -13,12 +12,6 @@ import org.xmlcml.cml.element.CMLSpectrum;
 import org.xmlcml.cml.element.CMLSpectrumData;
 import org.xmlcml.cml.element.CMLXaxis;
 import org.xmlcml.cml.element.CMLYaxis;
-import org.xmlcml.cml.graphics.SVGElement;
-import org.xmlcml.cml.graphics.SVGG;
-import org.xmlcml.cml.graphics.SVGLine;
-import org.xmlcml.cml.graphics.SVGPoly;
-import org.xmlcml.cml.graphics.SVGPolyline;
-import org.xmlcml.cml.graphics.SVGRect;
 import org.xmlcml.cml.tools.PeakTool;
 import org.xmlcml.euclid.Real;
 import org.xmlcml.euclid.Real2;
@@ -27,6 +20,12 @@ import org.xmlcml.euclid.Real2Range;
 import org.xmlcml.euclid.RealArray;
 import org.xmlcml.euclid.RealRange;
 import org.xmlcml.euclid.Util;
+import org.xmlcml.graphics.svg.SVGElement;
+import org.xmlcml.graphics.svg.SVGG;
+import org.xmlcml.graphics.svg.SVGLine;
+import org.xmlcml.graphics.svg.SVGPoly;
+import org.xmlcml.graphics.svg.SVGPolyline;
+import org.xmlcml.graphics.svg.SVGRect;
 
 public class SpectrumAnalysisTool {
 	private final static Logger LOG = Logger.getLogger(SpectrumAnalysisTool.class);

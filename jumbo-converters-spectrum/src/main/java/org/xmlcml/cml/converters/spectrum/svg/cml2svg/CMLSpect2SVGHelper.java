@@ -2,7 +2,9 @@ package org.xmlcml.cml.converters.spectrum.svg.cml2svg;
 
 import nu.xom.Element;
 
-import org.xmlcml.cml.graphics.SVGG;
+import org.xmlcml.graphics.svg.SVGG;
+
+
 
 public class CMLSpect2SVGHelper {
 	

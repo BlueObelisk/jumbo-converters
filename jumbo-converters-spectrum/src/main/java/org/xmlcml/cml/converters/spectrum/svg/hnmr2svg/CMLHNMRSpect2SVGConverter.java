@@ -11,7 +11,7 @@ import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.Type;
 import org.xmlcml.cml.converters.spectrum.SpectrumCommon;
 import org.xmlcml.cml.converters.spectrum.svg.cml2svg.CMLSpect2SVGHelper;
-import org.xmlcml.cml.graphics.SVGG;
+import org.xmlcml.graphics.svg.SVGG;
 
 /**
  * 

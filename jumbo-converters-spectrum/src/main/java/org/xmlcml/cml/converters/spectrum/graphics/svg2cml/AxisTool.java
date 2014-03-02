@@ -11,14 +11,14 @@ import nu.xom.Nodes;
 
 import org.apache.log4j.Logger;
 import org.xmlcml.cml.base.CMLConstants;
-import org.xmlcml.cml.graphics.SVGElement;
-import org.xmlcml.cml.graphics.SVGLine;
-import org.xmlcml.cml.graphics.SVGText;
 import org.xmlcml.euclid.Real;
 import org.xmlcml.euclid.Real2;
 import org.xmlcml.euclid.Real2Range;
 import org.xmlcml.euclid.RealArray;
 import org.xmlcml.euclid.Util;
+import org.xmlcml.graphics.svg.SVGElement;
+import org.xmlcml.graphics.svg.SVGLine;
+import org.xmlcml.graphics.svg.SVGText;
 
 public class AxisTool {
 	private static Logger LOG = Logger.getLogger(AxisTool.class);
@@ -343,7 +343,7 @@ public class AxisTool {
 				s += " orientation: "+orientation+S_NEWLINE;
 				s += " axialLine: "+axialLine+S_NEWLINE;
 				s += " lengthLineMap: "+((lengthLineMap == null) ? "null" : ""+lengthLineMap.size())+S_NEWLINE;
-				s += " g: "+((g == null) ? "null" : g.getClassName()+" "+g.getBoundingBox())+S_NEWLINE;
+				s += " g: "+((g == null) ? "null" : g.getClass()+" "+g.getBoundingBox())+S_NEWLINE;
 				s += " majorTickLength "+majorTickLength+S_NEWLINE;
 				s += " minorTickLength "+minorTickLength+S_NEWLINE;
 				s += " majorTickInfo "+majorTickInfo+S_NEWLINE;
