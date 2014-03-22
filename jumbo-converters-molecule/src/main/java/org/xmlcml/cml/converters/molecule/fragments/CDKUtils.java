@@ -13,15 +13,16 @@ import javax.vecmath.Point2d;
 import nu.xom.Node;
 
 import org.apache.commons.io.IOUtils;
-import org.openscience.cdk.CDKConstants;
-import org.openscience.cdk.ChemFile;
+import org.openscience.cdk.exception.CDKException;
+import org.openscience.cdk.graph.ConnectivityChecker;
 import org.openscience.cdk.interfaces.IAtom;
+import org.openscience.cdk.interfaces.IAtomContainer;
+import org.openscience.cdk.interfaces.IAtomContainerSet;
 import org.openscience.cdk.interfaces.IBond;
 import org.openscience.cdk.interfaces.IChemFile;
-import org.openscience.cdk.interfaces.IMolecule;
-import org.openscience.cdk.interfaces.IMoleculeSet;
 import org.openscience.cdk.io.CMLReader;
 import org.openscience.cdk.layout.StructureDiagramGenerator;
+import org.openscience.cdk.silent.ChemFile;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLAtom;
 import org.xmlcml.cml.element.CMLBond;
@@ -32,7 +33,7 @@ import org.xmlcml.euclid.Real2;
 
 public class CDKUtils {
    
-    public static IMolecule getCdkMol(CMLMolecule cmlMol) {
+    public static IAtomContainer getCdkMol(CMLMolecule cmlMol) {
         CMLMolecule molCopy = (CMLMolecule)cmlMol.copy();
         CMLCrystal cryst = (CMLCrystal)molCopy.getFirstCMLChild(CMLCrystal.TAG);
         if (cryst != null) {
@@ -43,12 +44,13 @@ public class CDKUtils {
         try {
             bis = new BufferedInputStream(new ByteArrayInputStream(molCopy.toXML().getBytes()));
             IChemFile cf = (IChemFile) new CMLReader(bis).read(new ChemFile());
-            IMoleculeSet mols = cf.getChemSequence(0).getChemModel(0).getMoleculeSet();
-            if (mols.getMoleculeCount() > 1) {
+            IAtomContainerSet mols = cf.getChemSequence(0).getChemModel(0).getMoleculeSet();
+            
+            if (mols.getAtomContainerCount() > 1) {
                 throw new RuntimeException("CDK found more than one molecule in molecule.");
             }
            
-            IMolecule cdkMol = mols.getMolecule(0);
+            IAtomContainer cdkMol = mols.getAtomContainer(0);
             Map<String, IAtom> atomMap = new HashMap<String, IAtom>();
             for (int i = 0; i < cdkMol.getAtomCount(); i++) {
                 IAtom atom = cdkMol.getAtom(i);
@@ -69,12 +71,12 @@ public class CDKUtils {
                         IAtom atom0 = atomMap.get(bond.getAtoms().get(0).getId());
                         IAtom atom1 = atomMap.get(bond.getAtoms().get(1).getId());
                         IBond iBond = cdkMol.getBond(atom0, atom1);
-                        iBond.setStereo(CDKConstants.STEREO_BOND_UP);
+                        iBond.setStereo(IBond.Stereo.UP);
                     } else if (CMLBond.HATCH.equals(stereo)) {
                         IAtom atom0 = atomMap.get(bond.getAtoms().get(0).getId());
                         IAtom atom1 = atomMap.get(bond.getAtoms().get(1).getId());
                         IBond iBond = cdkMol.getBond(atom0, atom1);
-                        iBond.setStereo(CDKConstants.STEREO_BOND_DOWN);
+                        iBond.setStereo(IBond.Stereo.DOWN);
                     }
                 } else if (bondStereoNodes.size() > 1) {
                     throw new RuntimeException("Error: CMLBond has more than one bondStereo set: "+bond);
@@ -89,23 +91,37 @@ public class CDKUtils {
             IOUtils.closeQuietly(bis);
         }
     }
+    
+    private static void layout(IAtomContainer mol) {
+        try {
+            StructureDiagramGenerator sdg = new StructureDiagramGenerator();
+            sdg.setUseTemplates(false);
+            sdg.setMolecule(mol, false);
+            sdg.generateCoordinates();
+        } catch (CDKException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static CMLMolecule add2DCoords(CMLMolecule molecule) {
         CMLMolecule minimalMol = new MinimalCmlCrystalTool(molecule).getMinimalMol();
-        IMolecule mol = getCdkMol(minimalMol);
+        IAtomContainer mol = getCdkMol(minimalMol);
         for (int i = 0; i < mol.getAtomCount(); i++) {
             IAtom atom = mol.getAtom(i);
             atom.setPoint2d(null);
             atom.setPoint3d(null);
         }
-        StructureDiagramGenerator sdg = new StructureDiagramGenerator();
-        sdg.setMolecule(mol);
-        try {
-            sdg.generateCoordinates();
-        } catch (Exception e) {
-            throw new RuntimeException("Error generating molecule coordinates: "+e.getMessage());
+
+        if (ConnectivityChecker.isConnected(mol)) {
+            layout(mol);
+        } else {
+            // deal with disconnected atom containers - note not dodging position 
+            IAtomContainerSet molecules = ConnectivityChecker.partitionIntoMolecules(mol);
+            for (IAtomContainer subContainer : molecules.atomContainers()) {
+                layout(subContainer);
+            }
         }
-        mol = sdg.getMolecule();
+        
         for (int i = 0; i < mol.getAtomCount(); i++) {
             IAtom atom = mol.getAtom(i);
             Point2d p = atom.getPoint2d();

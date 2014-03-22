@@ -11,15 +11,16 @@ import javax.vecmath.Point2d;
 import nu.xom.Node;
 
 import org.openscience.cdk.CDKConstants;
-import org.openscience.cdk.ChemFile;
 import org.openscience.cdk.exception.CDKException;
+import org.openscience.cdk.graph.ConnectivityChecker;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IBond;
 import org.openscience.cdk.interfaces.IChemFile;
-import org.openscience.cdk.interfaces.IMolecule;
-import org.openscience.cdk.interfaces.IMoleculeSet;
+import org.openscience.cdk.interfaces.IAtomContainer;
+import org.openscience.cdk.interfaces.IAtomContainerSet;
 import org.openscience.cdk.io.CMLReader;
 import org.openscience.cdk.layout.StructureDiagramGenerator;
+import org.openscience.cdk.silent.ChemFile;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLAtom;
@@ -32,7 +33,7 @@ import org.xmlcml.euclid.Real2;
 
 public class CDKUtils implements CMLConstants {
 
-	public static IMolecule getCdkMol(CMLMolecule cmlMol) {
+	public static IAtomContainer getCdkMol(CMLMolecule cmlMol) {
 		CMLMolecule molCopy = (CMLMolecule)cmlMol.copy();
 		CMLCrystal cryst = (CMLCrystal)molCopy.getFirstCMLChild(CMLCrystal.TAG);
 		if (cryst != null) {
@@ -40,16 +41,16 @@ public class CDKUtils implements CMLConstants {
 		}
 		
 		ByteArrayInputStream bais = null;
-		IMolecule cdkMol = null;
+        IAtomContainer cdkMol = null;
 		try {
 			bais = new ByteArrayInputStream(cmlMol.toXML().getBytes());
 			IChemFile cf = (IChemFile) new CMLReader(bais).read(new ChemFile());
 			bais.close();
-			IMoleculeSet mols = cf.getChemSequence(0).getChemModel(0).getMoleculeSet();
-			if (mols.getMoleculeCount() > 1) {
+            IAtomContainerSet mols = cf.getChemSequence(0).getChemModel(0).getMoleculeSet();
+			if (mols.getAtomContainerCount() > 1) {
 				throw new RuntimeException("CDK found more than one molecule in molecule.");
 			}
-			cdkMol = mols.getMolecule(0);
+			cdkMol = mols.getAtomContainer(0);
 		} catch (IOException e) {
 			throw new RuntimeException("Error reading molecule: "+e.getMessage());
 		} catch (CDKException e) {
@@ -65,7 +66,7 @@ public class CDKUtils implements CMLConstants {
 		return cdkMol;
 	}
 
-	public static IMolecule cmlMol2CdkMol(CMLMolecule cmlMol) {
+	public static IAtomContainer cmlMol2CdkMol(CMLMolecule cmlMol) {
 		//FIXME - remove this section and fix CDK instead!
 		CMLCrystal cryst = (CMLCrystal)cmlMol.getFirstCMLChild(CMLCrystal.TAG);
 		CMLCrystal crystCopy = null;
@@ -82,16 +83,16 @@ public class CDKUtils implements CMLConstants {
 		/*----end section to remove----*/
 
 		ByteArrayInputStream bais = null;
-		IMolecule cdkMol = null;
+        IAtomContainer cdkMol = null;
 		try {
 			bais = new ByteArrayInputStream(cmlMol.toXML().getBytes());
 			IChemFile cf = (IChemFile) new CMLReader(bais).read(new ChemFile());
 			bais.close();
-			IMoleculeSet mols = cf.getChemSequence(0).getChemModel(0).getMoleculeSet();
-			if (mols.getMoleculeCount() > 1) {
+            IAtomContainerSet mols = cf.getChemSequence(0).getChemModel(0).getMoleculeSet();
+			if (mols.getAtomContainerCount() > 1) {
 				throw new RuntimeException("CDK found more than one molecule in molecule.");
 			}
-			cdkMol = mols.getMolecule(0);
+			cdkMol = mols.getAtomContainer(0);
 
 			Map<String, IAtom> atomMap = new HashMap<String, IAtom>();
 			for (int i = 0; i < cdkMol.getAtomCount(); i++) {
@@ -113,12 +114,12 @@ public class CDKUtils implements CMLConstants {
 						IAtom atom0 = atomMap.get(bond.getAtoms().get(0).getId());
 						IAtom atom1 = atomMap.get(bond.getAtoms().get(1).getId());
 						IBond iBond = cdkMol.getBond(atom0, atom1);
-						iBond.setStereo(CDKConstants.STEREO_BOND_DOWN);
+						iBond.setStereo(IBond.Stereo.DOWN);
 					} else if (CMLBond.HATCH.equals(stereo)) {
 						IAtom atom0 = atomMap.get(bond.getAtoms().get(0).getId());
 						IAtom atom1 = atomMap.get(bond.getAtoms().get(1).getId());
 						IBond iBond = cdkMol.getBond(atom0, atom1);
-						iBond.setStereo(CDKConstants.STEREO_BOND_UP);
+						iBond.setStereo(IBond.Stereo.UP);
 					}
 				} else if (bondStereoNodes.size() > 1) {
 					throw new RuntimeException("Error: CMLBond has more than one bondStereo set: "+bond);
@@ -143,21 +144,35 @@ public class CDKUtils implements CMLConstants {
 		return cdkMol;
 	}
 
+    private static void layout(IAtomContainer mol) {
+        try {
+            StructureDiagramGenerator sdg = new StructureDiagramGenerator();
+            sdg.setUseTemplates(false);
+            sdg.setMolecule(mol, false);
+            sdg.generateCoordinates();
+        } catch (CDKException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 	public static CMLMolecule add2DCoords(CMLMolecule molecule) {
-		IMolecule mol = cmlMol2CdkMol(molecule);
+		IAtomContainer mol = cmlMol2CdkMol(molecule);
 		for (int i = 0; i < mol.getAtomCount(); i++) {
 			IAtom atom = mol.getAtom(i);
 			atom.setPoint2d(null);
 			atom.setPoint3d(null);
 		}
-		StructureDiagramGenerator sdg = new StructureDiagramGenerator();
-		sdg.setMolecule(mol);
-		try {
-			sdg.generateCoordinates();
-		} catch (Exception e) {
-			throw new RuntimeException("Error generating molecule coordinates: "+e.getMessage());
-		}
-		mol = sdg.getMolecule();
+
+        if (ConnectivityChecker.isConnected(mol)) {
+            layout(mol);
+        } else {
+            // deal with disconnected atom containers - note not dodging position 
+            IAtomContainerSet molecules = ConnectivityChecker.partitionIntoMolecules(mol);
+            for (IAtomContainer subContainer : molecules.atomContainers()) {
+                layout(subContainer);
+            }
+        }
+        
 		for (int i = 0; i < mol.getAtomCount(); i++) {
 			IAtom atom = mol.getAtom(i);
 			Point2d p = atom.getPoint2d();

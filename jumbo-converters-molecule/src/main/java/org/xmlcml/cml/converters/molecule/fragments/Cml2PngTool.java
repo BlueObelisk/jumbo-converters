@@ -4,19 +4,25 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 
 import org.openscience.cdk.geometry.GeometryTools;
-import org.openscience.cdk.interfaces.IMolecule;
-import org.openscience.cdk.renderer.Renderer2D;
-import org.openscience.cdk.renderer.Renderer2DModel;
+import org.openscience.cdk.interfaces.IAtomContainer;
+import org.openscience.cdk.renderer.AtomContainerRenderer;
+import org.openscience.cdk.renderer.font.AWTFontManager;
+import org.openscience.cdk.renderer.generators.BasicAtomGenerator;
+import org.openscience.cdk.renderer.generators.BasicBondGenerator;
+import org.openscience.cdk.renderer.generators.BasicSceneGenerator;
+import org.openscience.cdk.renderer.visitor.AWTDrawVisitor;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.tools.MoleculeTool;
@@ -72,11 +78,14 @@ public class Cml2PngTool {
         }
     }
 
-    public void renderMolecule(OutputStream out) {           
-        Renderer2DModel r2dm = new Renderer2DModel();
-        Renderer2D r2d = new Renderer2D(r2dm);
+    public void renderMolecule(OutputStream out) {
+        
+        AtomContainerRenderer renderer = new AtomContainerRenderer(Arrays.asList(new BasicSceneGenerator(),
+                                                                                 new BasicBondGenerator(),
+                                                                                 new BasicAtomGenerator()),
+                                                                   new AWTFontManager());
        
-        IMolecule cdkMol = CDKUtils.getCdkMol(cmlMol);
+        IAtomContainer cdkMol = CDKUtils.getCdkMol(cmlMol);
         int atomCount = cdkMol.getAtomCount();
         if (atomCount > 1 && atomCount < 20) {
             fontSize = 14;
@@ -95,16 +104,21 @@ public class Cml2PngTool {
         g.setColor(backgroundColour);       
         g.fillRect(0, 0, width, height);
        
-        GeometryTools.translateAllPositive(cdkMol,r2dm.getRenderingCoordinates());
-        GeometryTools.scaleMolecule(cdkMol, new Dimension(width, height), 0.8,r2dm.getRenderingCoordinates());
-        GeometryTools.center(cdkMol, new Dimension(width, height), r2dm.getRenderingCoordinates());
-        r2dm.setBackgroundDimension(new Dimension(width, height));
-        r2dm.setBackColor(backgroundColour);
-        r2dm.setFont(new Font(fontName, fontStyle, fontSize));
-        r2dm.setShowImplicitHydrogens(true);
-        r2dm.setShowEndCarbons(true);
+//        GeometryTools.translateAllPositive(cdkMol,r2dm.getRenderingCoordinates());
+//        GeometryTools.scaleMolecule(cdkMol, new Dimension(width, height), 0.8,r2dm.getRenderingCoordinates());
+//        GeometryTools.center(cdkMol, new Dimension(width, height), r2dm.getRenderingCoordinates());
+//        r2dm.setBackgroundDimension(new Dimension(width, height));
+//        r2dm.setBackColor(backgroundColour);
+//        r2dm.setFont(new Font(fontName, fontStyle, fontSize));
+//        r2dm.setShowImplicitHydrogens(true);
+//        r2dm.setShowEndCarbons(true);
+        renderer.getRenderer2DModel().set(BasicSceneGenerator.BackgroundColor.class,
+                                          backgroundColour);
        
-        if(cdkMol != null) r2d.paintMolecule(cdkMol, img.createGraphics(), true, true);
+        if(cdkMol != null) renderer.paint(cdkMol,
+                                          new AWTDrawVisitor(img.createGraphics()),
+                                          new Rectangle2D.Double(0, 0, width, height),
+                                          true);
         try {
             ImageIO.write(img, format, out);
         } catch (IOException e) {
