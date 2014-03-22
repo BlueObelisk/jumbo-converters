@@ -5,11 +5,13 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
@@ -20,11 +22,16 @@ import nu.xom.Nodes;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.openscience.cdk.geometry.GeometryTools;
+import org.openscience.cdk.graph.Cycles;
 import org.openscience.cdk.interfaces.IAtom;
-import org.openscience.cdk.interfaces.IMolecule;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.layout.StructureDiagramGenerator;
-import org.openscience.cdk.renderer.Renderer2DModel;
-import org.openscience.cdk.renderer.progz.Java2DRenderer;
+import org.openscience.cdk.renderer.AtomContainerRenderer;
+import org.openscience.cdk.renderer.font.AWTFontManager;
+import org.openscience.cdk.renderer.generators.BasicAtomGenerator;
+import org.openscience.cdk.renderer.generators.BasicBondGenerator;
+import org.openscience.cdk.renderer.generators.BasicSceneGenerator;
+import org.openscience.cdk.renderer.visitor.AWTDrawVisitor;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.converters.graphics.CDKUtils;
 import org.xmlcml.cml.element.CMLMolecule;
@@ -101,9 +108,11 @@ public class Cml2Png implements CMLConstants {
             }
         }
 
-        Renderer2DModel r2dm = new Renderer2DModel();
-        Java2DRenderer r2d = new Java2DRenderer(r2dm);
-        IMolecule cdkMol = CDKUtils.cmlMol2CdkMol(cmlMol);
+        
+
+//        Renderer2DModel r2dm = new Renderer2DModel();
+//        Java2DRenderer r2d = new Java2DRenderer(r2dm);
+        IAtomContainer cdkMol = CDKUtils.cmlMol2CdkMol(cmlMol);
         int atomCount = cdkMol.getAtomCount();
         if (atomCount > 1 && atomCount < 20) {
             fontSize = 14;
@@ -117,6 +126,10 @@ public class Cml2Png implements CMLConstants {
             fontSize = 10;
         }
 
+        AtomContainerRenderer renderer = new AtomContainerRenderer(Arrays.asList(new BasicSceneGenerator(),
+                                                                                 new BasicBondGenerator(),
+                                                                                 new BasicAtomGenerator()),
+                                                                   new AWTFontManager());
 
 
         BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
@@ -124,30 +137,29 @@ public class Cml2Png implements CMLConstants {
         g.setColor(backgroundColour);
         g.fillRect(0, 0, width, height);
 
-        LOG.warn("The args in this routine have changed and we don't yet know what they should be");
-//        This is unlikely to work I have hacked it to compile. It depends on the Jmol library :-(
-        HashMap dummyMap = new HashMap(); // no idea what this should be
-        // FIXME I think this arg has changed. The new one may be wrong but at least compiles
-//        GeometryTools.translateAllPositive(cdkMol);
-        GeometryTools.translateAllPositive(cdkMol, dummyMap);
-//        GeometryTools.translateAllPositive(cdkMol);
-        // this seems to break it
-//		GeometryTools.scaleMolecule(cdkMol, new Dimension(width, height), 0.8);
-		GeometryTools.scaleMolecule(cdkMol, 0.8, dummyMap);
-//		GeometryTools.scaleMolecule(cdkMol, new Dimension(width, height), dummyMap);
-//        GeometryTools.center(cdkMol, new Dimension(width, height));
-        GeometryTools.center(cdkMol, new Dimension(width, height), dummyMap);
-        r2dm.setBackgroundDimension(new Dimension(width, height));
-        r2dm.setBackColor(backgroundColour);
-        r2dm.setFont(new Font(fontName, fontStyle, fontSize));
-        r2dm.setShowImplicitHydrogens(true);
-        r2dm.setShowEndCarbons(true);
-        r2dm.setForeColor(Color.black);
-        r2dm.setColorAtomsByType(true);
+//        LOG.warn("The args in this routine have changed and we don't yet know what they should be");
+//        
+//        GeometryTools.translateAllPositive(cdkMol,r2dm.getRenderingCoordinates());
+//        GeometryTools.scaleMolecule(cdkMol, new Dimension(width, height), 0.8,r2dm.getRenderingCoordinates());
+//        GeometryTools.center(cdkMol, new Dimension(width, height), r2dm.getRenderingCoordinates());
+//        r2dm.setBackgroundDimension(new Dimension(width, height));
+//        r2dm.setBackColor(backgroundColour);
+//        r2dm.setFont(new Font(fontName, fontStyle, fontSize));
+//        r2dm.setShowImplicitHydrogens(true);
+//        r2dm.setShowEndCarbons(true);
+        renderer.getRenderer2DModel().set(BasicSceneGenerator.BackgroundColor.class,
+                                          backgroundColour);
+
+        if(cdkMol != null) renderer.paint(cdkMol,
+                                          new AWTDrawVisitor(img.createGraphics()),
+                                          new Rectangle2D.Double(0, 0, width, height),
+                                          true);
 
         if (cdkMol != null) {
             try {
-                r2d.paintMolecule(cdkMol, img.createGraphics(), new Rectangle(width, height));
+                renderer.paint(cdkMol,
+                               new AWTDrawVisitor(img.createGraphics()),
+                               new Rectangle2D.Double(0, 0, width, height), true);
             } catch (Exception e) {
                 LOG.error("Cannot create PNG " + e.getMessage());
             }
@@ -161,7 +173,7 @@ public class Cml2Png implements CMLConstants {
         }
     }
 
-    private IMolecule forceSDGGenerationOfCoords(IMolecule cdkMol) {
+    private IAtomContainer forceSDGGenerationOfCoords(IAtomContainer cdkMol) {
         for (int i = 0; i < cdkMol.getAtomCount(); i++) {
             IAtom atom = cdkMol.getAtom(i);
             atom.setPoint2d(null);
