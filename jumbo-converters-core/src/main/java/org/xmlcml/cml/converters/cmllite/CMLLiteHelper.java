@@ -122,7 +122,7 @@ public class CMLLiteHelper {
 
 	private void normalizeId(Attribute idAtt) {
 		String value = idAtt.getValue();
-		value = value.replaceAll("[&^%$£\"!(),;'/#~=+*{}\\[\\]]", "_");
+		value = value.replaceAll("[&^%$\u00A3\"!(),;'/#~=+*{}\\[\\]]", "_");
 		idAtt.setValue(value);
 	}
 	
