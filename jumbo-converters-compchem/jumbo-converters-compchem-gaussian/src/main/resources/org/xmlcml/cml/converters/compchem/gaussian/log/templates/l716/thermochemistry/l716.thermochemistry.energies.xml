@@ -1,0 +1,65 @@
+<template id="l716.thermochemistry.energies" name="Thermochemistry Energies" repeat="*"
+    pattern="\s*Zero-point correction.*" 
+    endPattern="\s*" endOffset="1"
+    >
+    
+  <comment class="example.input" id="l716.thermochemistry.energies">
+ Zero-point correction=                           0.045230 (Hartree/Particle)
+ Thermal correction to Energy=                    0.048094
+ Thermal correction to Enthalpy=                  0.049039
+ Thermal correction to Gibbs Free Energy=         0.027907
+ Sum of electronic and zero-point Energies=            -40.473159
+ Sum of electronic and thermal Energies=               -40.470295
+ Sum of electronic and thermal Enthalpies=             -40.469351
+ Sum of electronic and thermal Free Energies=          -40.490482
+ 
+  </comment>
+
+  <record id="thermo.ZeroPointEnergy" repeat="*">\s*Zero-point correction=\s*{F,g:thermo.ZeroPointEnergy,u:hartree}.+</record>
+  <record id="thermo.thermCorrEnergy" repeat="*">\s*Thermal correction to Energy=\s*{F,g:thermo.thermalCorrEnergy,u:hartree}.+</record>
+  <record id="thermo.thermCorrEnthal" repeat="*">\s*Thermal correction to Enthalpy=\s*{F,g:thermo.thermalCorrEnthalpy,u:hartree}.+</record>
+  <record id="thermo.thermCorrFreeEn" repeat="*">\s*Thermal correction to Gibbs Free Energy=\s*{F,g:thermo.thermalCorrFreeEnergy,u:hartree}.+</record>
+  <record id="thermo.sumElZeroPointE" repeat="*">\s*Sum of electronic and zero-point Energies=\s*{F,g:thermo.sumElectronicZpe,u:hartree}.+</record>
+  <record id="thermo.sumElTherEnergy" repeat="*">\s*Sum of electronic and thermal Energies=\s*{F,g:thermo.sumElectronicThermalEnergies,u:hartree}.+</record>
+  <record id="thermo.sumElTherEnthal" repeat="*">\s*Sum of electronic and thermal Enthalpies=\s*{F,g:thermo.sumElectronicThermalEnthalpies,u:hartree}.+</record>
+  <record id="thermo.sumElTherFreeEn" repeat="*">\s*Sum of electronic and thermal Free Energies=\s*{F,g:thermo.sumElectronicThermalFreeEnergies,u:hartree}.+</record>
+
+  <transform process="pullup" xpath=".//cml:scalar" /> 
+
+  <!-- add units -->
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='g:thermo.ZeroPointEnergy']" 
+      value="nonSi:hartree" dataType="xsd:double"/>
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='g:thermo.thermalCorrEnergy']" 
+      value="nonSi:hartree"/>
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='g:thermo.thermalCorrEnthalpy']" 
+      value="nonSi:hartree"/>
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='g:thermo.thermalCorrFreeEnergy']" 
+      value="nonSi:hartree"/>
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='g:thermo.sumElectronicZpe']" 
+      value="nonSi:hartree"/>
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='g:thermo.sumElectronicThermalEnergies']" 
+      value="nonSi:hartree"/>
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='g:thermo.sumElectronicThermalEnthalpies']" 
+      value="nonSi:hartree"/>
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='g:thermo.sumElectronicThermalFreeEnergies']" 
+      value="nonSi:hartree"/>
+
+ <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+
+  <comment class="example.output" id="l716.thermochemistry.energies">
+<module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" 
+    cmlx:templateRef="l716.thermochemistry.energies" >
+    <scalar dataType="xsd:double" dictRef="g:thermo.ZeroPointEnergy" units="nonSi:hartree">0.04523</scalar>
+    <scalar dataType="xsd:double" dictRef="g:thermo.thermalCorrEnergy" units="nonSi:hartree">0.048094</scalar>
+    <scalar dataType="xsd:double" dictRef="g:thermo.thermalCorrEnthalpy" units="nonSi:hartree">0.049039</scalar>
+    <scalar dataType="xsd:double" dictRef="g:thermo.thermalCorrFreeEnergy" units="nonSi:hartree">0.027907</scalar>
+    <scalar dataType="xsd:double" dictRef="g:thermo.sumElectronicZpe" units="nonSi:hartree">-40.473159</scalar>
+    <scalar dataType="xsd:double" dictRef="g:thermo.sumElectronicThermalEnergies" units="nonSi:hartree">-40.470295</scalar>
+    <scalar dataType="xsd:double" dictRef="g:thermo.sumElectronicThermalEnthalpies" units="nonSi:hartree">-40.469351</scalar>
+    <scalar dataType="xsd:double" dictRef="g:thermo.sumElectronicThermalFreeEnergies" units="nonSi:hartree">-40.490482</scalar>
+  </module>
+  </comment>
+</template>
+ 
