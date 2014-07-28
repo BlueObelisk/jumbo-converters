@@ -98,7 +98,6 @@ public class TemplateTest {
 	@Test	public void testl716LowFreq()                {runTemplateTest("l716/", "l716.lowfreq");}
 	@Test	public void testl716Polarizability()         {runTemplateTest("l716/", "l716.polarizability");}
 	@Test	public void testl716SecondDerivative()       {runTemplateTest("l716/", "l716.secondderiv");}
-	@Test	public void testl716Zeropoint()              {runTemplateTest("l716/", "l716.zeropoint");}
 	
 	@Test	public void testl716ThermochemINCLUDE()      {runTemplateTest("l716/thermochemistry/", "l716.thermochemistry");}
 	@Test	public void testl716ThermochemMass()         {runTemplateTest("l716/thermochemistry/", "l716.thermochemistry.mass");}
@@ -109,6 +108,7 @@ public class TemplateTest {
 	@Test	public void testl716ThermochemTempPress()    {runTemplateTest("l716/thermochemistry/", "l716.thermochemistry.temperature");}
 	@Test	public void testl716ThermochemTop()          {runTemplateTest("l716/thermochemistry/", "l716.thermochemistry.top");}
 	@Test	public void testl716ThermochemVibTemp()      {runTemplateTest("l716/thermochemistry/", "l716.thermochemistry.vibtemp");}
+	@Test	public void testl716ThermchemEnergies()      {runTemplateTest("l716/thermochemistry/", "l716.thermochemistry.energies");}
 	@Test	public void testl716ThermochemZpe()          {runTemplateTest("l716/thermochemistry/", "l716.thermochemistry.zpe");}
 	@Test	public void testl716Thermoprops()            {runTemplateTest("l716/thermochemistry/", "l716.thermoprops");}
 
