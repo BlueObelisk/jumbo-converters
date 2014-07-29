@@ -15,33 +15,33 @@
  
   </comment>
 
-  <record id="thermo.ZeroPointEnergy" repeat="*">\s*Zero-point correction=\s*{F,g:thermo.ZeroPointEnergy,u:hartree}.+</record>
-  <record id="thermo.thermCorrEnergy" repeat="*">\s*Thermal correction to Energy=\s*{F,g:thermo.thermalCorrEnergy,u:hartree}.+</record>
-  <record id="thermo.thermCorrEnthal" repeat="*">\s*Thermal correction to Enthalpy=\s*{F,g:thermo.thermalCorrEnthalpy,u:hartree}.+</record>
-  <record id="thermo.thermCorrFreeEn" repeat="*">\s*Thermal correction to Gibbs Free Energy=\s*{F,g:thermo.thermalCorrFreeEnergy,u:hartree}.+</record>
-  <record id="thermo.sumElZeroPointE" repeat="*">\s*Sum of electronic and zero-point Energies=\s*{F,g:thermo.sumElectronicZpe,u:hartree}.+</record>
-  <record id="thermo.sumElTherEnergy" repeat="*">\s*Sum of electronic and thermal Energies=\s*{F,g:thermo.sumElectronicThermalEnergies,u:hartree}.+</record>
-  <record id="thermo.sumElTherEnthal" repeat="*">\s*Sum of electronic and thermal Enthalpies=\s*{F,g:thermo.sumElectronicThermalEnthalpies,u:hartree}.+</record>
-  <record id="thermo.sumElTherFreeEn" repeat="*">\s*Sum of electronic and thermal Free Energies=\s*{F,g:thermo.sumElectronicThermalFreeEnergies,u:hartree}.+</record>
+  <record id="thermo.ZeroPointEnergy" repeat="*">\s*Zero-point correction=\s*{F,cc:ZeroPointEnergy,u:hartree}.+</record>
+  <record id="thermo.thermCorrEnergy" repeat="*">\s*Thermal correction to Energy=\s*{F,cc:thermalCorrectionToEnergy,u:hartree}.+</record>
+  <record id="thermo.thermCorrEnthal" repeat="*">\s*Thermal correction to Enthalpy=\s*{F,cc:thermalCorrectionToEnthalpy,u:hartree}.+</record>
+  <record id="thermo.thermCorrFreeEn" repeat="*">\s*Thermal correction to Gibbs Free Energy=\s*{F,cc:thermalCorrectionToGibbsEnergy,u:hartree}.+</record>
+  <record id="thermo.sumElZeroPointE" repeat="*">\s*Sum of electronic and zero-point Energies=\s*{F,cc:Energy_0K,u:hartree}.+</record>
+  <record id="thermo.sumElTherEnergy" repeat="*">\s*Sum of electronic and thermal Energies=\s*{F,cc:Energy_T,u:hartree}.+</record>
+  <record id="thermo.sumElTherEnthal" repeat="*">\s*Sum of electronic and thermal Enthalpies=\s*{F,cc:Enthalpy_T,u:hartree}.+</record>
+  <record id="thermo.sumElTherFreeEn" repeat="*">\s*Sum of electronic and thermal Free Energies=\s*{F,cc:GibbsEnergy_T,u:hartree}.+</record>
 
   <transform process="pullup" xpath=".//cml:scalar" /> 
 
   <!-- add units -->
-  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='g:thermo.ZeroPointEnergy']" 
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:ZeroPointEnergy']" 
       value="nonSi:hartree" dataType="xsd:double"/>
-  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='g:thermo.thermalCorrEnergy']" 
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:thermalCorrectionToEnergy']" 
       value="nonSi:hartree"/>
-  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='g:thermo.thermalCorrEnthalpy']" 
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:thermalCorrectionToEnthalpy']" 
       value="nonSi:hartree"/>
-  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='g:thermo.thermalCorrFreeEnergy']" 
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:thermalCorrectionToGibbsEnergy']" 
       value="nonSi:hartree"/>
-  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='g:thermo.sumElectronicZpe']" 
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:Energy_0K']" 
       value="nonSi:hartree"/>
-  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='g:thermo.sumElectronicThermalEnergies']" 
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:Energy_T']" 
       value="nonSi:hartree"/>
-  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='g:thermo.sumElectronicThermalEnthalpies']" 
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:Enthalpy_T']" 
       value="nonSi:hartree"/>
-  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='g:thermo.sumElectronicThermalFreeEnergies']" 
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:GibbsEnergy_T']" 
       value="nonSi:hartree"/>
 
  <!--  delete empty lists -->
@@ -51,14 +51,14 @@
   <comment class="example.output" id="l716.thermochemistry.energies">
 <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" 
     cmlx:templateRef="l716.thermochemistry.energies" >
-    <scalar dataType="xsd:double" dictRef="g:thermo.ZeroPointEnergy" units="nonSi:hartree">0.04523</scalar>
-    <scalar dataType="xsd:double" dictRef="g:thermo.thermalCorrEnergy" units="nonSi:hartree">0.048094</scalar>
-    <scalar dataType="xsd:double" dictRef="g:thermo.thermalCorrEnthalpy" units="nonSi:hartree">0.049039</scalar>
-    <scalar dataType="xsd:double" dictRef="g:thermo.thermalCorrFreeEnergy" units="nonSi:hartree">0.027907</scalar>
-    <scalar dataType="xsd:double" dictRef="g:thermo.sumElectronicZpe" units="nonSi:hartree">-40.473159</scalar>
-    <scalar dataType="xsd:double" dictRef="g:thermo.sumElectronicThermalEnergies" units="nonSi:hartree">-40.470295</scalar>
-    <scalar dataType="xsd:double" dictRef="g:thermo.sumElectronicThermalEnthalpies" units="nonSi:hartree">-40.469351</scalar>
-    <scalar dataType="xsd:double" dictRef="g:thermo.sumElectronicThermalFreeEnergies" units="nonSi:hartree">-40.490482</scalar>
+    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:ZeroPointEnergy"                >0.04523</scalar>
+    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:thermalCorrectionToEnergy"      >0.048094</scalar>
+    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:thermalCorrectionToEnthalpy"    >0.049039</scalar>
+    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:thermalCorrectionToGibbsEnergy" >0.027907</scalar>
+    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:Energy_0K"                      >-40.473159</scalar>
+    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:Energy_T"                       >-40.470295</scalar>
+    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:Enthalpy_T"                     >-40.469351</scalar>
+    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:GibbsEnergy_T"                  >-40.490482</scalar>
   </module>
   </comment>
 </template>
