@@ -21,7 +21,8 @@ import nu.xom.Nodes;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
-import org.openscience.cdk.geometry.GeometryTools;
+//import org.openscience.cdk.geometry.GeometryTools; //Legacy: use org.openscience.cdk.geometry.GeometryUtil instead. 
+//import org.openscience.cdk.geometry.GeometryUtil;
 import org.openscience.cdk.graph.Cycles;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
