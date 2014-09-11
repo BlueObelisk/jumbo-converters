@@ -119,15 +119,23 @@ public class TemplateTest {
 	@Test	public void testl914Excitations()            {runTemplateTest("l914/l914_excitations");}
 
 	@Test	public void testl9999Final()                 {runTemplateTest("l9999/", "l9999.final");}
-	@Ignore @Test public void testl9999Archive()               {runTemplateTest("l9999/", "l9999.archive");}
+	//@Ignore 
+	@Test   public void testl9999Archive()               {runTemplateTest("l9999/", "l9999.archive");}
 	@Test	public void testl9999Notarchived()           {runTemplateTest("l9999/", "l9999.notarchived");}
 	@Test	public void testl9999Punched()               {runTemplateTest("l9999/", "l9999.punched");}
 	
+    @Test   public void testCompositeSummaryG3()         {runTemplateTest("composite/", "composite.summary.G3");}
+    @Test   public void testCompositeSummaryG3B3()       {runTemplateTest("composite/", "composite.summary.G3B3");}
+    @Test   public void testCompositeSummaryG3MP2()      {runTemplateTest("composite/", "composite.summary.G3MP2");}
+    @Test   public void testCompositeSummaryG3MP2B3()    {runTemplateTest("composite/", "composite.summary.G3MP2B3");}
+    @Test   public void testCompositeSummaryG4()         {runTemplateTest("composite/", "composite.summary.G4");}
+    @Test   public void testCompositeSummaryG4MP2()      {runTemplateTest("composite/", "composite.summary.G4MP2");}
+
 	@Ignore @Test	public void testJobcpu()                     {runTemplateTest("jobcpu");}
 
 	@Ignore @Test	public void testl103DEBUG()                       {runTemplateTest("l103");}
 	@Ignore @Test   public void testl502CycleDEBUG()                  {runTemplateTest("l502/","l502.cycle");}
-	@Test	public void testl601PopanalDEBUG()                {runTemplateTest("l601/", "l601.popanal");}
+	@Test	        public void testl601PopanalDEBUG()                {runTemplateTest("l601/", "l601.popanal");}
 	@Ignore @Test   public void testl716ForceMatrixDEBUG()            {runTemplateTest("l716/", "l716.forcematrix");}
 	@Ignore @Test   public void testl716DEBUG()                       {runTemplateTest("l716");}
 	
