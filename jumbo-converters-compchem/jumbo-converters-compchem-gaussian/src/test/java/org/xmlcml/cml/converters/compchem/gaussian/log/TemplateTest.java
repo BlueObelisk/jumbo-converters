@@ -92,7 +92,8 @@ public class TemplateTest {
 
 	@Test	public void testl716Diagvib()                {runTemplateTest("l716/", "l716.diagvib");}
 	@Test	public void testl716Dipole()                 {runTemplateTest("l716/", "l716.dipole");}
-	@Test   public void testl716ForceConstants()         {runTemplateTest("l716/", "l716.forceconstants");}
+	@Test	public void testl716ForceConstants()         {runTemplateTest("l716/", "l716.forceconstants");}
+	@Test	public void testl716ForceMatrix()            {runTemplateTest("l716/", "l716.forcematrix");}
 	@Test	public void testl716Forces()                 {runTemplateTest("l716/", "l716.forces");}
 	@Test	public void testl716FreqChunk()              {runTemplateTest("l716/", "l716.freq.chunk");}
 	@Test	public void testl716IRSpectrum()             {runTemplateTest("l716/", "l716.irspectrum");}
