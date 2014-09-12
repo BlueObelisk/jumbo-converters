@@ -6,6 +6,15 @@
   <transform process="addChild" xpath="//cml:property[cml:module[@cmlx:templateRef='l716.forcematrix']]"
     elementName="cml:table" id="l716.forcematrix"/>
   <transform process="moveRelative" xpath="//cml:property[@dictRef='cc:frequencies']/cml:module/cml:array" to="../../cml:table"/>
+
+  <transform process="pullupSingleton" xpath=".//cml:module[@cmlx:templateRef='l716.lowfreq']"/>
+  <transform process="pullupSingleton" xpath=".//cml:module[@cmlx:templateRef='l716.diagvib']"/>
+  
+  <transform process="createWrapperProperty"
+             xpath=".//cml:array[@dictRef='g:l716.lowfreq' or @dictRef='cc:diagvib' ]"/>
+  <transform process="pullup"
+             xpath=".//cml:property[@dictRef='g:l716.lowfreq' or @dictRef='cc:diagvib' ]" repeat="2"/>
+             
    
 <!--  tidy thermochemistry -->
   <transform process="addDictRef" xpath="//cml:property[cml:module[@cmlx:templateRef='l716.thermochemistry']]"
