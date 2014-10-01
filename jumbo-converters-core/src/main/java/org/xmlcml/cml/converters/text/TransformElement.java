@@ -647,7 +647,8 @@ public class TransformElement implements MarkupApplier {
 			List<Node> fromNodeList = TransformElement.queryUsingNamespaces(element, from, fromPos);
 			for (Node fromNode : fromNodeList) {
 				Element fromElement = (Element) fromNode;
-				String valuex = (String) evaluateValue(fromElement, value);
+				Object valueObj = evaluateValue(fromElement, value);
+				String valuex = (valueObj == null) ? null : valueObj.toString() ;
 				if (valuex != null) {
 					if (uri != null) {
 						fromElement.addAttribute(new Attribute(name, uri, valuex));
