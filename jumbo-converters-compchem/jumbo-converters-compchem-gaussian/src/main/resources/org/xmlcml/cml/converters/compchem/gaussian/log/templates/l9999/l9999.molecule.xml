@@ -39,16 +39,11 @@
     
   <transform process="addId" value="mol9999" xpath=".//cml:molecule[starts-with(@id,'a')]"/>
   
-  <transform process="addAttribute" xpath=".//cml:molecule" name="spinMultiplicity" 
-    value="$number(.//cml:scalar[@dictRef='x:spinMultiplicity'])"/>
-  <transform process="addAttribute" xpath=".//cml:molecule" name="formalCharge" 
-    value="$number(.//cml:scalar[@dictRef='x:formalCharge'])"/>
+  <transform process="addAttribute" xpath=".//cml:molecule[@id]" name="spinMultiplicity" 
+    value="$number(../../../..//cml:scalar[@dictRef='x:spinMultiplicity'])"/>
+  <transform process="addAttribute" xpath=".//cml:molecule[@id]" name="formalCharge" 
+    value="$number(../../../..//cml:scalar[@dictRef='x:formalCharge'])"/>
   
-  <transform process="addAttribute" xpath=".//cml:molecule[@id='mol9999']" name="spinMultiplicity" 
-      value="$number(.//cml:scalar[@dictRef='x:spinMultiplicity'])"/>
-  <transform process="addAttribute" xpath=".//cml:molecule[@id='mol9999']'" name="formalCharge" 
-      value="$number(.//cml:scalar[@dictRef='x:formalCharge'])"/>
-      
   <transform process="delete" xpath=".//cml:list[@type='chargemult']"/> 
   <transform process="pullup" xpath=".//cml:molecule" repeat="3"/> 
   
