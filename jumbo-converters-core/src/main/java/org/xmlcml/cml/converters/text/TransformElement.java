@@ -1071,6 +1071,7 @@ public class TransformElement implements MarkupApplier {
 			if (node instanceof CMLScalar) {
 				CMLScalar scalar = (CMLScalar) node;
 				String val = scalar.getValue();
+				val = val.replaceAll(" +", " "); // JodaDate chokes on extranous spaces
 				try {
 					Object dateTimeDuration = null;
 					if (DHMS.equals(format)) {
