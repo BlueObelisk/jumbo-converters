@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://www.xml-cml.org/schema"  convention="convention:compchem"
+    cmlx:templateRef="gamessus.log"
+    xmlns:cml="http://www.xml-cml.org/dictionary/cml/"
+    xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"
+    xmlns:convention="http://www.xml-cml.org/convention/"
+    xmlns:cc="http://www.xml-cml.org/dictionary/compchem/"
+    xmlns:compchem="http://www.xml-cml.org/dictionary/compchem/"
+    xmlns:gamus="http://www.xml-cml.org/dictionary/gamessus/"
+    xmlns:nonsi="http://www.xml-cml.org/unit/nonSi/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
+  <module id="jobList1" dictRef="cc:jobList">
+    <module cmlx:templateRef="job" dictRef="cc:job" id="job1">
+      <module id="environment" dictRef="cc:environment">
+        <parameterList>
+          <parameter dictRef="cc:hostname">
+            <scalar dataType="xsd:string">cl221</scalar>
+          </parameter>
+          <parameter dictRef="cc:version">
+            <scalar dataType="xsd:string">GAMESS VERSION = 12 JAN 2009 (R1)</scalar>
+          </parameter>
+          <parameter dictRef="cc:run.date">
+            <scalar dataType="xsd:string">Fri Jul 11 15:57:49 2014</scalar>
+          </parameter>
+          <parameter dictRef="cc:program">
+            <scalar dataType="xsd:string">GAMESS</scalar>
+          </parameter>
+          <parameter dictRef="cc:program.date">
+            <scalar dataType="xsd:string">12 JAN 2009</scalar>
+          </parameter>
+        </parameterList>
+      </module><!-- cc:environment -->
+
+      <module id="initialization" dictRef="cc:initialization">
+        <parameterList>
+          <parameter dictRef="cc:method">
+            <scalar dataType="xsd:string">dft</scalar>
+          </parameter>
+          <parameter dictRef="cc:dftFunctional">
+            <scalar dataType="xsd:string">B3LYP</scalar>
+          </parameter>
+          <parameter dictRef="cc:basis">
+            <scalar dataType="xsd:string">6-31G</scalar>
+          </parameter>
+          <parameter dictRef="cc:title">
+            <scalar dataType="xsd:string">methane B3LYP/6-31G OPT</scalar>
+          </parameter>
+          <parameter dictRef="cc:spinMultiplicity">
+            <scalar dataType="xsd:integer">1</scalar>
+          </parameter>
+          <parameter dictRef="cc:charge">
+            <scalar dataType="xsd:integer">0</scalar>
+          </parameter>
+          <parameter dictRef="cc:pointGroup">
+            <scalar dataType="xsd:string">C1</scalar>
+          </parameter>
+          <parameter dictRef="gamus:operation">
+            <scalar dataType="xsd:string">OPTIMIZE</scalar>
+          </parameter>
+          <parameter dictRef="gamus:basis">
+            <scalar dataType="xsd:string">GBASIS=N31 NGAUSS=6</scalar>
+          </parameter>
+          <parameter dictRef="gamus:contrl">
+            <scalar dataType="xsd:string">SCFTYP=RHF RUNTYP=OPTIMIZE DFTTYP=B3LYP</scalar>
+          </parameter>
+          <parameter dictRef="gamus:statpt">
+            <scalar dataType="xsd:string">OPTTOL=0.0001 NSTEP=20</scalar>
+          </parameter>
+        </parameterList>
+        <molecule id="mol.inp" cmlx:templateRef="atom">
+          <atomArray>
+            <atom id="a1" elementType="C" x3=" 0.00" y3=" 0.00" z3=" 0.00"   />
+            <atom id="a2" elementType="H" x3=" 0.00" y3="-0.89" z3="-0.6293" />
+            <atom id="a3" elementType="H" x3=" 0.00" y3=" 0.89" z3="-0.6293" />
+            <atom id="a4" elementType="H" x3="-0.89" y3=" 0.00" z3=" 0.6293" />
+            <atom id="a5" elementType="H" x3=" 0.89" y3=" 0.00" z3=" 0.6293" />
+          </atomArray>
+          <formula formalCharge="0" concise="C 1 H 4"/>
+        </molecule>
+        <!--
+        Initialization ends with:
+             ..... DONE SETTING UP THE RUN .....
+             STEP CPU TIME =     0.00 TOTAL CPU TIME =        0.0 (    0.0 MIN)
+             TOTAL WALL CLOCK TIME=        0.0 SECONDS, CPU UTILIZATION IS   0.00%
+            {empty-line}
+        -->
+      </module><!-- cc:initialization -->
+
+      <module id="calculation" dictRef="cc:calculation">
+      <!-- skip for now -->
+      <!--
+      step start:
+        BEGINNING GEOMETRY SEARCH POINT NSERCH=   1 ...
+
+      step end: first empty line after:
+        MAXIMUM GRADIENT =
+       -->
+      </module><!-- cc:calculation -->
+
+      <module id="finalization" dictRef="cc:finalization">
+        <molecule id="mol9999">
+          <atomArray>
+            <atom id="a1" elementType="C" x3=" 0.0000000207" y3=" 0.0000000242" z3=" 0.0000001057" />
+            <atom id="a2" elementType="H" x3="-0.0000000394" y3="-0.8928898864" z3="-0.6312411128" />
+            <atom id="a3" elementType="H" x3="-0.0000000397" y3=" 0.8928899116" z3="-0.6312411667" />
+            <atom id="a4" elementType="H" x3="-0.8928901424" y3="-0.0000000246" z3=" 0.6312410377" />
+            <atom id="a5" elementType="H" x3=" 0.8928902008" y3="-0.0000000248" z3=" 0.6312411362" />
+          </atomArray>
+          <bondArray>
+            <bond atomRefs2="a1 a2" id="a1_a2" order="S"/>
+            <bond atomRefs2="a1 a3" id="a1_a3" order="S"/>
+            <bond atomRefs2="a1 a4" id="a1_a4" order="S"/>
+            <bond atomRefs2="a1 a5" id="a1_a5" order="S"/>
+            <bond atomRefs2="a2 a6" id="a2_a6" order="S"/>
+            <bond atomRefs2="a2 a7" id="a2_a7" order="S"/>
+            <bond atomRefs2="a2 a8" id="a2_a8" order="S"/>
+          </bondArray>
+          <formula formalCharge="0" concise="C 1 H 4">
+            <atomArray elementType="C H" count="1.0 4.0"/>
+          </formula>
+        </molecule>
+        <propertyList>
+          <property dictRef="cc:e1Energy">
+            <scalar dataType="xsd:double" units="nonSi:hartree">-79.7377346216</scalar>
+          </property>
+          <property dictRef="cc:e2Energy">
+            <scalar dataType="xsd:double" units="nonSi:hartree"> 25.8705774569</scalar>
+          </property>
+          <property dictRef="cc:nuclearRepulsionEnergy">
+            <scalar dataType="xsd:double" units="nonSi:hartree"> 13.3925231918</scalar>
+          </property>
+          <property dictRef="cc:totalEnergy">
+            <scalar dataType="xsd:double" units="nonSi:hartree">-40.4746339728</scalar>
+          </property>
+        </propertyList>
+      </module><!-- cc:finalization -->
+
+    </module><!-- cc:job -->
+  </module><!-- cc:jobList -->
+</module><!-- convention="convention:compchem" -->
