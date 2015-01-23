@@ -1,18 +1,36 @@
-<template id="atoms" repeat="*" name="COORDINATES OF ALL ATOMS" 
-  pattern="\s* COORDINATES OF ALL ATOMS ARE \(ANGS\)\s*"  endPattern="\s*">
-  <comment>
+<template id="coords.temp"
+  repeat="*"
+  name="COORDINATES OF ALL ATOMS"
+  pattern="\s* COORDINATES OF ALL ATOMS ARE \(ANGS\)\s*"  offset="0"
+  endPattern="\s*" endOffset="0" >
+
+  <comment class="example.input" id="coordinates">
  COORDINATES OF ALL ATOMS ARE (ANGS)
    ATOM   CHARGE       X              Y              Z
  ------------------------------------------------------------
- H1          1.0  -2.9805271364    .9147039208    .1059830464
- C2          6.0  -2.0999914660    .2907269834   -.0395326325
- N3          7.0   -.9976813639   1.0413606479   -.1642905198
- ...
- H15         1.0    .8862540998  -2.4282130682    .6268551582
- H16         1.0   -.5854990105  -1.5842704744    .5426395725
-
+ C           6.0   0.0000000207   0.0000000242   0.0000001057
+ H           1.0  -0.0000000394  -0.8928898864  -0.6312411128
+ H           1.0  -0.0000000397   0.8928899116  -0.6312411667
+ H           1.0  -0.8928901424  -0.0000000246   0.6312410377
+ H           1.0   0.8928902008  -0.0000000248   0.6312411362
   </comment>
+
   <record repeat="3" id="zzzq">{X,x:zzzq}</record>
-  <record repeat="3" id="atom">\s{A6,n:label}{F,c:elementType}\s{F,m:x3}\s{F,m:y3}\s{F,m:z3}.*</record>
-  <record repeat="*" id="xxxaa">{X,x:xxxaa}</record>
+  <record repeat="*" id="atom">\s{A6,n:label}{F,c:elementType}\s{F,m:x3}\s{F,m:y3}\s{F,m:z3}.*</record>
+  <record repeat="*" id="xxxaa">\s+$</record>
+
+  <comment class="example.output" id="coordinates">
+    <module cmlx:templateRef="coords.temp" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+        <molecule id="mol">
+          <atomArray>
+            <atom id="a1" elementType="C" x3=" 0.0000000207" y3=" 0.0000000242" z3=" 0.0000001057" />
+            <atom id="a2" elementType="H" x3="-0.0000000394" y3="-0.8928898864" z3="-0.6312411128" />
+            <atom id="a3" elementType="H" x3="-0.0000000397" y3=" 0.8928899116" z3="-0.6312411667" />
+            <atom id="a4" elementType="H" x3="-0.8928901424" y3="-0.0000000246" z3=" 0.6312410377" />
+            <atom id="a5" elementType="H" x3=" 0.8928902008" y3="-0.0000000248" z3=" 0.6312411362" />
+          </atomArray>
+        </molecule>
+    </module>
+  </comment>
+
 </template>
