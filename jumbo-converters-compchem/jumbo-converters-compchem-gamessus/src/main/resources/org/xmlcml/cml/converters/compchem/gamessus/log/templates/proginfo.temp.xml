@@ -1,6 +1,10 @@
-<template id="chunker" repeat="*" name="Program Info" pattern="\s*\*+\s*$\s*\*\s*+\s*GAMESS VERSION.*" 
-  newline="$" endPattern="\s*UNIVERSITY OF NOTRE DAME.*" endOffset="1">
-  <comment>
+<template id="proginfo.temp"
+  name="Program Info"
+  repeat="*"
+  newline="$"
+  pattern="\s*\*+\s*$\s*\*\s*+\s*GAMESS VERSION.*"
+  endPattern="\s*UNIVERSITY OF NOTRE DAME.*" endOffset="1">
+  <comment class="example.input" id="proginfo.2006R2">
           ******************************************************
           *         GAMESS VERSION = 22 FEB 2006 (R2)          *
           *             FROM IOWA STATE UNIVERSITY             *
@@ -13,11 +17,76 @@
 
      SINCE 1993, STUDENTS AND POSTDOCS WORKING AT IOWA STATE UNIVERSITY
      AND ALSO IN THEIR VARIOUS JOBS AFTER LEAVING ISU HAVE MADE IMPORTANT
+     CONTRIBUTIONS TO THE CODE:
+     ...
+     LYUDMILA SLIPCHENKO, JIE SONG, TETSUYA TAKETSUGU, SIMON WEBB.
+
+     ADDITIONAL CODE HAS BEEN PROVIDED BY COLLABORATORS IN OTHER GROUPS:
+     IOWA STATE UNIVERSITY: JOE IVANIC, KLAUS RUEDENBERG
      ...
      UNIVERSITY OF NOTRE DAME: DAN CHIPMAN
 
   </comment>
+  <comment class="example.input" id="proginfo.2009R1">
+          ******************************************************
+          *         GAMESS VERSION = 12 JAN 2009 (R1)          *
+          *             FROM IOWA STATE UNIVERSITY             *
+          * M.W.SCHMIDT, K.K.BALDRIDGE, J.A.BOATZ, S.T.ELBERT, *
+          *   M.S.GORDON, J.H.JENSEN, S.KOSEKI, N.MATSUNAGA,   *
+          *          K.A.NGUYEN, S.J.SU, T.L.WINDUS,           *
+          *       TOGETHER WITH M.DUPUIS, J.A.MONTGOMERY       *
+          *         J.COMPUT.CHEM.  14, 1347-1363(1993)        *
+          **************** 64 BIT LINUX VERSION ****************
+
+  SINCE 1993, STUDENTS AND POSTDOCS WORKING AT IOWA STATE UNIVERSITY
+  AND ALSO IN THEIR VARIOUS JOBS AFTER LEAVING ISU HAVE MADE IMPORTANT
+  CONTRIBUTIONS TO THE CODE:
+  ...
+     SIMON WEBB, SOOHAENG YOO, FEDERICO ZAHARIEV
+
+  ADDITIONAL CODE HAS BEEN PROVIDED BY COLLABORATORS IN OTHER GROUPS:
+     IOWA STATE UNIVERSITY: JOE IVANIC, KLAUS RUEDENBERG
+  ...
+     WASEDA UNIVERSITY:
+          MASATO KOBAYASHI, TOMOKO AKAMA, HIROMI NAKAI
+
+  </comment>
+
   <record/>
   <record id="version">\s*\*\s*GAMESS VERSION = {X,g:version}\s*\*\s*</record>
   <record repeat="*"/>
+
+
+
+
+
+
+  <comment class="example.output" id="proginfo.2006R2">
+    <module cmlx:templateRef="coords.temp" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="cc:program">
+        <scalar dataType="xsd:string">GAMESS-US</scalar>
+      </parameter>
+      <parameter dictRef="cc:programVersion">
+        <scalar dataType="xsd:string">22 FEB 2006 (R2)</scalar>
+      </parameter>
+      <parameter dictRef="cc:programPlatform">
+        <scalar dataType="xsd:string">IBM (AIX)</scalar>
+      </parameter>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="proginfo.2009R1">
+    <module cmlx:templateRef="coords.temp" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="cc:program">
+        <scalar dataType="xsd:string">GAMESS-US</scalar>
+      </parameter>
+      <parameter dictRef="cc:programVersion">
+        <scalar dataType="xsd:string">12 JAN 2009 (R1)</scalar>
+      </parameter>
+      <parameter dictRef="cc:programPlatform">
+        <scalar dataType="xsd:string">64 BIT LINUX</scalar>
+      </parameter>
+    </module>
+  </comment>
+
 </template>
