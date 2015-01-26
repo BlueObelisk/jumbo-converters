@@ -36,7 +36,7 @@ public class TemplateTest {
 
 	////////////  //////////// ADD TEMPLATE TESTS HERE: ////////////  ////////////
 	@Ignore	@Test	public void testl0Entering()                 {runTemplateTest("l0.entering");}
-//			@Test	public void testCoordsTemp()                 {runTemplateTest("coords.temp");}
+//			@Test	public void testCoordsTemp()                 {runTemplateTest("coordinates.angstom");}
 
 
 
