@@ -1,0 +1,72 @@
+<template id="energy.components"
+  repeat="*"
+  name="energy.components"
+  pattern=""      offset="0"
+  endPattern=""   endOffset="0" >
+
+  <comment class="example.input" id="energy.components">
+          -----------------
+          ENERGY COMPONENTS
+          -----------------
+
+         WAVEFUNCTION NORMALIZATION =       1.0000000000
+
+                ONE ELECTRON ENERGY =     -79.7377346216
+                TWO ELECTRON ENERGY =      25.8705774569
+           NUCLEAR REPULSION ENERGY =      13.3925231918
+                                      ------------------
+                       TOTAL ENERGY =     -40.4746339728
+
+ ELECTRON-ELECTRON POTENTIAL ENERGY =      25.8705774569
+  NUCLEUS-ELECTRON POTENTIAL ENERGY =    -119.9727613821
+   NUCLEUS-NUCLEUS POTENTIAL ENERGY =      13.3925231918
+                                      ------------------
+             TOTAL POTENTIAL ENERGY =     -80.7096607333
+               TOTAL KINETIC ENERGY =      40.2350267605
+                 VIRIAL RATIO (V/T) =       2.0059551896
+  </comment>
+
+  <record repeat="3" id="zzzq">{X,x:zzzq}</record>
+
+
+  <comment class="example.output" id="energy.components">
+    <module cmlx:templateRef="energy.components" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+        <propertyList>
+          <property dictRef="cc:e1Energy">
+            <scalar dataType="xsd:double" units="nonSi:hartree">-79.7377346216</scalar>
+          </property>
+          <property dictRef="cc:e2Energy">
+            <scalar dataType="xsd:double" units="nonSi:hartree"> 25.8705774569</scalar>
+          </property>
+          <property dictRef="cc:nuclearRepulsionEnergy">
+            <scalar dataType="xsd:double" units="nonSi:hartree"> 13.3925231918</scalar>
+          </property>
+          <property dictRef="cc:totalEnergy">
+            <scalar dataType="xsd:double" units="nonSi:hartree">-40.4746339728</scalar>
+          </property>
+          <property dictRef="g:WavefunctionNormalization">
+            <scalar dataType="xsd:double">1.0</scalar>
+          </property>
+          <property dictRef="g:ElectronElectronPotentialEnergy">
+            <scalar dataType="xsd:double">25.8705774569</scalar>
+          </property>
+          <property dictRef="g:NucleusElectronPotentialEnergy">
+            <scalar dataType="xsd:double">-119.9727613821</scalar>
+          </property>
+          <property dictRef="g:NucleusNucleusPotentialEnergy">
+            <scalar dataType="xsd:double">13.3925231918</scalar>
+          </property>
+          <property dictRef="g:TotalNucleusPotentialEnergy">
+            <scalar dataType="xsd:double">-80.7096607333</scalar>
+          </property>
+          <property dictRef="g:TotalKineticPotentialEnergy">
+            <scalar dataType="xsd:double">40.2350267605</scalar>
+          </property>
+          <property dictRef="g:VirialRatio_VT">
+            <scalar dataType="xsd:double">2.0059551896</scalar>
+          </property>
+        </propertyList>
+    </module>
+  </comment>
+
+</template>
