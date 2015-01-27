@@ -37,7 +37,8 @@ public class TemplateTest {
 	////////////  //////////// ADD TEMPLATE TESTS HERE: ////////////  ////////////
 	@Ignore	@Test	public void testl0Entering()                 {runTemplateTest("l0.entering");}
 			@Test	public void testCoordsTemp()                 {runTemplateTest("coordinates.angstom");}
-			@Test	public void testEnvrironScript()             {runTemplateTest("environ.01.script");}
+			@Test	public void testEnvironScript()             {runTemplateTest("environ.01.script");}
+			@Test	public void testEnvironProgInfoScript()             {runTemplateTest("environ.02.proginfo");}
 
 
 
