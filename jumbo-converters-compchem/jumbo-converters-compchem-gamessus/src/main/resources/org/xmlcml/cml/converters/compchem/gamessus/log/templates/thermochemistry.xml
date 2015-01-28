@@ -1,0 +1,117 @@
+<template id="thermo.chemisrty"
+  repeat="*"
+  name="thermo.chemisrty"
+  newline="$"
+  pattern="\s*-+\s*$\s*THERMOCHEMISTRY AT T="      offset="0"
+  endPattern="VIB. THERMAL CORRECTION.+CAL/MOL\s*$\s*$"   endOffset="1" >
+
+  <comment class="example.input" id="thermo.chemisrty">
+    -------------------------------
+    THERMOCHEMISTRY AT T=  298.15 K
+    -------------------------------
+
+USING IDEAL GAS, RIGID ROTOR, HARMONIC NORMAL MODE APPROXIMATIONS.
+P=  1.01325E+05 PASCAL.
+ALL FREQUENCIES ARE SCALED BY   1.00000
+THE MOMENTS OF INERTIA ARE (IN AMU*BOHR**2)
+    11.47724    11.47725    11.47950
+THE ROTATIONAL SYMMETRY NUMBER IS  1.0
+THE ROTATIONAL CONSTANTS ARE (IN GHZ)
+   157.10126   157.10111   157.07032
+THE HARMONIC ZERO POINT ENERGY IS (SCALED BY   1.000)
+       0.045157 HARTREE/MOLECULE     9910.720032 CM**-1/MOLECULE
+      28.336199 KCAL/MOL              118.558656 KJ/MOL
+
+              Q               LN Q
+ELEC.     1.00000E+00       0.000000
+TRANS.    2.52294E+06      14.740935
+ROT.      4.40190E+02       6.087207
+VIB.      1.00498E+00       0.004970
+TOT.      1.11611E+09      20.833112
+
+             E         H         G         CV        CP        S
+          KJ/MOL    KJ/MOL    KJ/MOL   J/MOL-K   J/MOL-K   J/MOL-K
+ELEC.      0.000     0.000     0.000     0.000     0.000     0.000
+TRANS.     3.718     6.197   -36.542    12.472    20.786   143.348
+ROT.       3.718     3.718   -15.090    12.472    12.472    63.083
+VIB.     118.643   118.643   118.546     1.928     1.928     0.323
+TOTAL    126.079   128.558    66.915    26.871    35.185   206.754
+VIB. THERMAL CORRECTION E(T)-E(0) = H(T)-H(0) =    83.954 J/MOL
+
+             E         H         G         CV        CP        S
+        KCAL/MOL  KCAL/MOL  KCAL/MOL CAL/MOL-K CAL/MOL-K CAL/MOL-K
+ELEC.      0.000     0.000     0.000     0.000     0.000     0.000
+TRANS.     0.889     1.481    -8.734     2.981     4.968    34.261
+ROT.       0.889     0.889    -3.607     2.981     2.981    15.077
+VIB.      28.356    28.356    28.333     0.461     0.461     0.077
+TOTAL     30.134    30.726    15.993     6.422     8.409    49.415
+VIB. THERMAL CORRECTION E(T)-E(0) = H(T)-H(0) =    20.066 CAL/MOL
+
+  </comment>
+
+  <record/>
+
+
+  <comment class="example.output" id="thermo.chemisrty">
+    <module cmlx:templateRef="thermo.chemisrty" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="cc:thermochemistry">
+        <list id="thermochemistry">
+          <scalar dataType="xsd:double" dictRef="cc:temp" units="si:k">298.15</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:press" units="si:pascal">1.01325E+05</scalar>
+
+          <scalar dataType="xsd:double" dictRef="x:FreqScaleFactor">1.0</scalar>
+          <array dataType="xsd:double" dictRef="x:momentOfInertia" units="nonSi:Da.Bohr2" size="3">11.47724 11.47725 11.47950</array>
+          <scalar dataType="xsd:double" dictRef="x:rotSymmNumber">1.0</scalar>
+          <array dataType="xsd:double" dictRef="cc:rotconst" units="nonSi:GHz" size="3">157.10126 157.10111 157.07032</array>
+          <scalar dataType="xsd:double" dictRef="cc:ZeroPointEnergy" units="nonSi:hartree">0.04515</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:ZeroPointEnergy" units="nonSi:cm-1">9910.720032</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:ZeroPointEnergy" units="nonSi:kcal.mol-1">28.336199</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:ZeroPointEnergy" units="nonSi:kj.mol-1">118.558656</scalar>
+        </list>
+      </property>
+
+      <scalar dictRef="cmlx:unparsed">              Q               LN Q</scalar>
+      <scalar dictRef="cmlx:unparsed">ELEC.     1.00000E+00       0.000000</scalar>
+      <scalar dictRef="cmlx:unparsed">TRANS.    2.52294E+06      14.740935</scalar>
+      <scalar dictRef="cmlx:unparsed">ROT.      4.40190E+02       6.087207</scalar>
+      <scalar dictRef="cmlx:unparsed">VIB.      1.00498E+00       0.004970</scalar>
+      <scalar dictRef="cmlx:unparsed">TOT.      1.11611E+09      20.833112</scalar>
+
+      <scalar dictRef="cmlx:unparsed">             E         H         G         CV        CP        S</scalar>
+      <scalar dictRef="cmlx:unparsed">          KJ/MOL    KJ/MOL    KJ/MOL   J/MOL-K   J/MOL-K   J/MOL-K</scalar>
+      <scalar dictRef="cmlx:unparsed">ELEC.      0.000     0.000     0.000     0.000     0.000     0.000</scalar>
+      <scalar dictRef="cmlx:unparsed">TRANS.     3.718     6.197   -36.542    12.472    20.786   143.348</scalar>
+      <scalar dictRef="cmlx:unparsed">ROT.       3.718     3.718   -15.090    12.472    12.472    63.083</scalar>
+      <scalar dictRef="cmlx:unparsed">VIB.     118.643   118.643   118.546     1.928     1.928     0.323</scalar>
+      <!-- <scalar dictRef="cmlx:unparsed">TOTAL    126.079   128.558    66.915    26.871    35.185   206.754</scalar> -->
+      <list>
+        <scalar dataType="xsd:double" units="nonSi:kj.mol-1"    dictRef="cc:thermalCorrectionToEnergy"     >126.079</scalar>
+        <scalar dataType="xsd:double" units="nonSi:kj.mol-1"    dictRef="cc:thermalCorrectionToEnthalpy"   >128.558</scalar>
+        <scalar dataType="xsd:double" units="nonSi:kj.mol-1"    dictRef="cc:thermalCorrectionToGibbsEnergy"> 66.915</scalar>
+        <scalar dataType="xsd:double" units="nonSi:j.k-1.mol-1" dictRef="x:molarHeatCapacity_CV"           > 26.871</scalar>
+        <scalar dataType="xsd:double" units="nonSi:j.k-1.mol-1" dictRef="x:molarHeatCapacity_CP"           > 35.185</scalar>
+        <scalar dataType="xsd:double" units="nonSi:j.k-1.mol-1" dictRef="x:molarEntropy_S"                 >206.754</scalar>  
+      </list>
+      <scalar dictRef="cmlx:unparsed">VIB. THERMAL CORRECTION E(T)-E(0) = H(T)-H(0) =    83.954 J/MOL</scalar>
+
+      <scalar dictRef="cmlx:unparsed">             E         H         G         CV        CP        S</scalar>
+      <scalar dictRef="cmlx:unparsed">        KCAL/MOL  KCAL/MOL  KCAL/MOL CAL/MOL-K CAL/MOL-K CAL/MOL-K</scalar>
+      <scalar dictRef="cmlx:unparsed">ELEC.      0.000     0.000     0.000     0.000     0.000     0.000</scalar>
+      <scalar dictRef="cmlx:unparsed">TRANS.     0.889     1.481    -8.734     2.981     4.968    34.261</scalar>
+      <scalar dictRef="cmlx:unparsed">ROT.       0.889     0.889    -3.607     2.981     2.981    15.077</scalar>
+      <scalar dictRef="cmlx:unparsed">VIB.      28.356    28.356    28.333     0.461     0.461     0.077</scalar>
+      <!-- <scalar dictRef="cmlx:unparsed">TOTAL     30.134    30.726    15.993     6.422     8.409    49.415</scalar> -->
+      <list>
+        <scalar dataType="xsd:double" units="nonSi:kcal.mol-1"    dictRef="cc:thermalCorrectionToEnergy"     >30.134</scalar>
+        <scalar dataType="xsd:double" units="nonSi:kcal.mol-1"    dictRef="cc:thermalCorrectionToEnthalpy"   >30.726</scalar>
+        <scalar dataType="xsd:double" units="nonSi:kcal.mol-1"    dictRef="cc:thermalCorrectionToGibbsEnergy">15.993</scalar>
+        <scalar dataType="xsd:double" units="nonSi:cal.k-1.mol-1" dictRef="x:molarHeatCapacity_CV"           > 6.422</scalar>
+        <scalar dataType="xsd:double" units="nonSi:cal.k-1.mol-1" dictRef="x:molarHeatCapacity_CP"           > 8.409</scalar>
+        <scalar dataType="xsd:double" units="nonSi:cal.k-1.mol-1" dictRef="x:molarEntropy_S"                 >49.415</scalar>
+      </list>
+      <scalar dictRef="cmlx:unparsed">VIB. THERMAL CORRECTION E(T)-E(0) = H(T)-H(0) =    20.066 CAL/MOL</scalar>
+
+    </module>
+  </comment>
+
+</template>
