@@ -1,0 +1,34 @@
+<template id="dipole.moment"
+  repeat="*"
+  name="dipole.moment"
+  pattern="\s*-*\s*$\s*ELECTROSTATIC MOMENTS\s*"      offset="0"
+  endPattern="\s*DX\s+DY\s+DZ\s+/D/\s+\(DEBYE\)\s*$.+$"   endOffset="1" >
+
+  <comment class="example.input" id="dipole.moment">
+          ---------------------
+          ELECTROSTATIC MOMENTS
+          ---------------------
+
+ POINT   1           X           Y           Z (BOHR)    CHARGE
+                 0.000000    0.000000    0.000001        0.00 (A.U.)
+         DX          DY          DZ         /D/  (DEBYE)
+     0.000010    0.000010    0.000027    0.000031
+  </comment>
+
+  <record repeat="5"/>
+
+
+  <comment class="example.output" id="dipole.moment">
+	<module cmlx:templateRef="dipole.moment" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+		<scalar dictRef="cmlx:unparsed"> POINT   1           X           Y           Z (BOHR)    CHARGE</scalar>
+		<scalar dictRef="cmlx:unparsed">                 0.000000    0.000000    0.000001        0.00 (A.U.)</scalar>
+		<property dictRef="cc:dipole">
+			<array dataType="xsd:double" size="3" units="nonSi:debye">0.000010    0.000010    0.000027</array>
+		</property>
+		<property dictRef="x:dipole">
+			<scalar  dataType="xsd:double" units="nonSi:debye">0.000031</scalar>
+		</property>
+	</module>
+  </comment>
+
+</template>
