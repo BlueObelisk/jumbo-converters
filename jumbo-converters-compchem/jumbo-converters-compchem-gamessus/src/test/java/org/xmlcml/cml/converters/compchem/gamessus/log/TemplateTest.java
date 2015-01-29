@@ -39,7 +39,8 @@ public class TemplateTest {
 			@Test	public void testCoordsTemp()                 {runTemplateTest("coordinates.angstom");}
 			@Test	public void testEnvironScript()             {runTemplateTest("environ.01.script");}
 			@Test	public void testEnvironProgInfoScript()             {runTemplateTest("environ.02.proginfo");}
-
+			@Test	public void testDipoleMoment()             {runTemplateTest("dipole.moment");}
+			@Test	public void testEnergyComponents()             {runTemplateTest("energy.components");}
 
 
 
