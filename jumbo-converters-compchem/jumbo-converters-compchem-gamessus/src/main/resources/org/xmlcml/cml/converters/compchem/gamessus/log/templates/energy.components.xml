@@ -26,26 +26,95 @@
                  VIRIAL RATIO (V/T) =       2.0059551896
   </comment>
 
-  <record repeat="3" id="zzzq">{X,x:zzzq}</record>
+  <record repeat="4" />
+  <record id="e">\s*.+\s=\s*{F,g:WavefunctionNormalization}\s*</record>
+  <record repeat="1" />
+  <record id="e">\s*.+\s=\s*{F,cc:e1Energy}\s*</record>
+  <record id="e">\s*.+\s=\s*{F,cc:e2Energy}\s*</record>
+  <record id="e">\s*.+\s=\s*{F,cc:nuclearRepulsionEnergy}\s*</record>
+  <record repeat="1" />
+  <record id="e">\s*.+\s=\s*{F,cc:totalEnergy}\s*</record>
+  <record repeat="1" />
+  <record id="e">\s*.+\s=\s*{F,g:ElectronElectronPotentialEnergy}\s*</record>
+  <record id="e">\s*.+\s=\s*{F,g:NucleusElectronPotentialEnergy}\s*</record>
+  <record id="e">\s*.+\s=\s*{F,g:NucleusNucleusPotentialEnergy}\s*</record>
+  <record repeat="1" />
+  <record id="e">\s*.+\s=\s*{F,g:TotalNucleusPotentialEnergy}\s*</record>
+  <record id="e">\s*.+\s=\s*{F,g:TotalKineticPotentialEnergy}\s*</record>
+  <record id="e">\s*.+\s=\s*{F,g:VirialRatio_VT}\s*</record>
+
+  <transform process="move"
+                 to="."
+                 xpath=".//*[contains(@dictRef,'g:WavefunctionNormalization') or contains(@dictRef,'cc:e1Energy') or contains(@dictRef,'cc:e2Energy') or contains(@dictRef,'cc:nuclearRepulsionEnergy') or contains(@dictRef,'cc:totalEnergy') or contains(@dictRef,'g:ElectronElectronPotentialEnergy') or contains(@dictRef,'g:NucleusElectronPotentialEnergy') or contains(@dictRef,'g:NucleusNucleusPotentialEnergy') or contains(@dictRef,'g:TotalNucleusPotentialEnergy') or contains(@dictRef,'g:TotalKineticPotentialEnergy') or contains(@dictRef,'g:VirialRatio_VT')]" />
+
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='cc:e1Energy']"/>
+
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='cc:e2Energy']"/>
+
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='cc:nuclearRepulsionEnergy']"/>
+
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='cc:totalEnergy']"/>
+
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='g:WavefunctionNormalization']"/>
+
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='g:ElectronElectronPotentialEnergy']"/>
+  
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='g:NucleusElectronPotentialEnergy']"/>
+
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='g:NucleusNucleusPotentialEnergy']"/>
+
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='g:TotalNucleusPotentialEnergy']"/>
+
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='g:TotalKineticPotentialEnergy']"/>
+
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='g:VirialRatio_VT']"/>
+  
+  <transform process="addChild"
+                 xpath="."
+                 elementName="cml:propertyList"
+                 position="0" />
+
+  <transform process="move"
+                 to="./cml:propertyList"
+                 xpath="./cml:property" />
+
+ <transform process="addUnits" value="nonSi:hartree"
+  xpath=".//cml:property[ @dictRef='cc:e1Energy' or @dictRef='cc:e2Energy' or 
+            @dictRef='cc:nuclearRepulsionEnergy' or @dictRef='cc:totalEnergy']/cml:scalar"  />
+
+<transform process="delete" xpath=".//cml:list[count(*)=0]" />
+<transform process="delete" xpath=".//cml:list[@cmlx:templateRef='e']" />
+<transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']" />
 
 
   <comment class="example.output" id="energy.components">
     <module cmlx:templateRef="energy.components" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
         <propertyList>
+          <property dictRef="g:WavefunctionNormalization">
+            <scalar dataType="xsd:double">1.0</scalar>
+          </property>
           <property dictRef="cc:e1Energy">
             <scalar dataType="xsd:double" units="nonSi:hartree">-79.7377346216</scalar>
           </property>
           <property dictRef="cc:e2Energy">
-            <scalar dataType="xsd:double" units="nonSi:hartree"> 25.8705774569</scalar>
+            <scalar dataType="xsd:double" units="nonSi:hartree">25.8705774569</scalar>
           </property>
           <property dictRef="cc:nuclearRepulsionEnergy">
-            <scalar dataType="xsd:double" units="nonSi:hartree"> 13.3925231918</scalar>
+            <scalar dataType="xsd:double" units="nonSi:hartree">13.3925231918</scalar>
           </property>
           <property dictRef="cc:totalEnergy">
             <scalar dataType="xsd:double" units="nonSi:hartree">-40.4746339728</scalar>
-          </property>
-          <property dictRef="g:WavefunctionNormalization">
-            <scalar dataType="xsd:double">1.0</scalar>
           </property>
           <property dictRef="g:ElectronElectronPotentialEnergy">
             <scalar dataType="xsd:double">25.8705774569</scalar>
