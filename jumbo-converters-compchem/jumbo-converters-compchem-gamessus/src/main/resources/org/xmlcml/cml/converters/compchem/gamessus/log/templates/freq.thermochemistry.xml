@@ -1,11 +1,11 @@
-<template id="thermo.chemisrty"
+<template id="freq.thermochem"
   repeat="*"
-  name="thermo.chemisrty"
+  name="freq.thermochem"
   newline="$"
-  pattern="\s*-+\s*$\s*THERMOCHEMISTRY AT T="              offset="0"
-  endPattern="VIB. THERMAL CORRECTION.+CAL/MOL\s*$\s*$" endOffset="1" >
+  pattern="\s*-+\s*$\s*THERMOCHEMISTRY AT T=.+$\s*-+\s*"  offset="0"
+  endPattern="\s*VIB\. THERMAL CORRECTION.+CAL/MOL\s*" endOffset="1" >
 
-  <comment class="example.input" id="thermo.chemisrty">
+  <comment class="example.input" id="freq.thermochem">
     -------------------------------
     THERMOCHEMISTRY AT T=  298.15 K
     -------------------------------
@@ -46,14 +46,18 @@ ROT.       0.889     0.889    -3.607     2.981     2.981    15.077
 VIB.      28.356    28.356    28.333     0.461     0.461     0.077
 TOTAL     30.134    30.726    15.993     6.422     8.409    49.415
 VIB. THERMAL CORRECTION E(T)-E(0) = H(T)-H(0) =    20.066 CAL/MOL
-
   </comment>
 
-  <record/>
+  <!-- <record/> -->
 
 
-  <comment class="example.output" id="thermo.chemisrty">
-    <module cmlx:templateRef="thermo.chemisrty" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+
+
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+
+  <comment class="example.output" id="freq.thermochem">
+    <module cmlx:templateRef="freq.thermochem" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <property dictRef="cc:thermochemistry">
         <list id="thermochemistry">
           <scalar dataType="xsd:double" dictRef="cc:temp" units="si:k">298.15</scalar>
