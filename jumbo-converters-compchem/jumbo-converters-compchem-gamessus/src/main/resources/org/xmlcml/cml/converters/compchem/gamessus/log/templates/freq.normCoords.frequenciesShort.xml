@@ -1,0 +1,47 @@
+<template id="freq.normCoords.frequenciesShort"
+  repeat="*"
+  name="freq.normCoords.frequenciesShort"
+  pattern="\s*MODE\s+FREQ.+\s+SYMMETRY\s+RED\. MASS\s+IR INTENS\.\s*"  offset="0"
+  endPattern="\s+$"                                                  endOffset="1" >
+
+  <comment class="example.input" id="freq.normCoords.frequenciesShort">
+  MODE FREQ(CM**-1)  SYMMETRY  RED. MASS  IR INTENS.
+     1      15.406    A        1.008615    0.000002
+     2      15.392    A        1.008617    0.000002
+     3       0.010    A        3.206275    0.000000
+     4       0.535    A        3.198384    0.000000
+     5       0.536    A        3.198355    0.000000
+     6       8.481    A        1.007825    0.000000
+     7    1367.927    A        1.179255    0.360913
+     8    1370.372    A        1.178935    0.362746
+     9    1370.378    A        1.178935    0.362823
+    10    1591.924    A        1.007825    0.000000
+    11    1591.944    A        1.007825    0.000000
+    12    3051.135    A        1.007825    0.000000
+    13    3158.449    A        1.101414    0.631137
+    14    3159.653    A        1.101685    0.628605
+    15    3159.658    A        1.101685    0.628561
+
+  </comment>
+
+  <!-- <record /> -->
+
+
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+
+  <comment class="example.output" id="freq.normCoords.frequenciesShort">
+    <module cmlx:templateRef="freq.normCoords.frequenciesShort" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="cc:frequencies">
+        <table id="frequenciesShort">
+          <array dataType="xsd:integer" dictRef="x:serial"       size="15">1 2 3 4 5 6 7 8 9 10 11 12 13 14 15</array>
+          <array dataType="xsd:string"  dictRef="x:symmetry"     size="15" delimiter="|">|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|</array>
+          <array dataType="xsd:double"  dictRef="cc:frequency"   size="15">15.406 15.392 0.010 0.535 0.536 8.481 1367.927 1370.372 1370.378 1591.924 1591.944 3051.135 3158.449 3159.653 3159.658</array>
+          <array dataType="xsd:double"  dictRef="cc:redmass"     size="15">1.008615 1.008617 3.206275 3.198384 3.198355 1.007825 1.179255 1.178935 1.178935 1.007825 1.007825 1.007825 1.101414 1.101685 1.101685</array>
+          <array dataType="xsd:double"  dictRef="cc:irintensity" size="15">0.000002 0.000002 0.000000 0.000000 0.000000 0.000000 0.360913 0.362746 0.362823 0.000000 0.000000 0.000000 0.631137 0.628605 0.628561</array>
+        </table>
+      </property>
+    </module>
+  </comment>
+
+</template>

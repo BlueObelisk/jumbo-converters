@@ -36,17 +36,25 @@ public class TemplateTest {
 
 	////////////  //////////// ADD TEMPLATE TESTS HERE: ////////////  ////////////
 	@Ignore @Test   public void testl0Entering()                {runTemplateTest("l0.entering");}
-			@Test   public void testCoordsTemp()                {runTemplateTest("coordinates.angstom");}
+			@Test   public void testCoordinatesAngstrom()       {runTemplateTest("coordinates.angstom");}
 			@Test   public void testDipoleMoment()              {runTemplateTest("dipole.moment");}
 			@Test   public void testEnergyComponents()          {runTemplateTest("energy.components");}
 			@Test   public void testEnvironScript()             {runTemplateTest("environ.01.script");}
 			@Test   public void testEnvironProgInfoScript()     {runTemplateTest("environ.02.proginfo");}
 
 
-	@Ignore @Test   public void testInputCard()                 {runTemplateTest("init.01.inputcard.xml");}
-	@Ignore @Test   public void testThermochemistry()           {runTemplateTest("freq.thermochemistry.xml");}
+	////////////  //////////// READY TO WORK ON: ////////////  ////////////
+	@Ignore @Test   public void testFreqThermochemistry()       {runTemplateTest("freq.thermochemistry");}
+	@Ignore	@Test   public void testFreqAtomicWeights()         {runTemplateTest("freq.atomicWeights");}
+	@Ignore	@Test   public void testFreqFrequenciesShort()      {runTemplateTest("freq.normCoords.frequenciesShort");}
+	@Ignore	@Test   public void testFreqNormalCoordAnalysis()   {runTemplateTest("freq.normalCoordAnalysis");}
+	@Ignore @Test   public void testInputCard()                 {runTemplateTest("init.01.inputcard");}
 
 
+
+	////////////  //////////// KEEP FOR LATER: ////////////  ////////////
+	@Ignore	@Test   public void testFreqForceConstantMatrix()   {runTemplateTest("freq.forceConstantMatrix");}
+	@Ignore	@Test   public void testFreqFrequenciesLong()       {runTemplateTest("freq.normCoords.frequenciesLong");}
 
 
 

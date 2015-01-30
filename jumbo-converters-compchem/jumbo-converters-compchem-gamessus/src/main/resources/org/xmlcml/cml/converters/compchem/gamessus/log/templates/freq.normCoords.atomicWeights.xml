@@ -1,0 +1,39 @@
+<template id="freq.normCoords.atomicWeights"
+  repeat="*"
+  name="ATOMIC WEIGHTS"
+  pattern="\s*-+\s*$\s*NORMAL COORDINATE ANALYSIS IN THE HARMONIC APPROXIMATION\s*$\s*-+\s*$" offset="0"
+  endPattern="\s*MODES.+ARE TAKEN AS.+"                                                    endOffset="0" >
+
+  <comment class="example.input" id="freq.normCoords.atomicWeights">
+          --------------------------------------------------------
+          NORMAL COORDINATE ANALYSIS IN THE HARMONIC APPROXIMATION
+          --------------------------------------------------------
+
+          ATOMIC WEIGHTS (AMU)
+
+    1     C                12.00000
+    2     H                 1.00782
+    3     H                 1.00782
+    4     H                 1.00782
+    5     H                 1.00782
+
+  </comment>
+
+  <!-- <record repeat="6" /> -->
+
+
+
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+
+  <comment class="example.output" id="freq.normCoords.atomicWeights">
+    <module cmlx:templateRef="freq.normCoords.atomicWeights" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list>
+        <array dataType="xsd:integer" dictRef="cc:serial" size="5">1 2 3 4 5</array>
+        <array dataType="xsd:string" dictRef="x:elementType" size="5" delimiter="|">|C|H|H|H|H|</array>
+        <array dataType="xsd:double" dictRef="cc:atomicmass" size="5" units="nonSi:dalton">12.0 1.00782 1.00782 1.00782 1.00782</array>
+      </list>        
+    </module>
+  </comment>
+
+</template>
