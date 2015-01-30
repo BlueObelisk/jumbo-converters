@@ -35,15 +35,16 @@ public class TemplateTest {
 
 
 	////////////  //////////// ADD TEMPLATE TESTS HERE: ////////////  ////////////
-	@Ignore	@Test	public void testl0Entering()                 {runTemplateTest("l0.entering");}
-			@Test	public void testCoordsTemp()                 {runTemplateTest("coordinates.angstom");}
-			@Test	public void testEnvironScript()             {runTemplateTest("environ.01.script");}
-			@Test	public void testEnvironProgInfoScript()             {runTemplateTest("environ.02.proginfo");}
-			@Test	public void testDipoleMoment()             {runTemplateTest("dipole.moment");}
-			@Test	public void testEnergyComponents()             {runTemplateTest("energy.components");}
+	@Ignore @Test   public void testl0Entering()                {runTemplateTest("l0.entering");}
+			@Test   public void testCoordsTemp()                {runTemplateTest("coordinates.angstom");}
+			@Test   public void testDipoleMoment()              {runTemplateTest("dipole.moment");}
+			@Test   public void testEnergyComponents()          {runTemplateTest("energy.components");}
+			@Test   public void testEnvironScript()             {runTemplateTest("environ.01.script");}
+			@Test   public void testEnvironProgInfoScript()     {runTemplateTest("environ.02.proginfo");}
 
 
-
+	@Ignore @Test   public void testInputCard()                 {runTemplateTest("init.01.inputcard.xml");}
+	@Ignore @Test   public void testThermochemistry()           {runTemplateTest("freq.thermochemistry.xml");}
 
 
 
