@@ -40,7 +40,7 @@ public class TemplateTest {
 			@Test   public void testDipoleMoment()              {runTemplateTest("dipole.moment");}
 			@Test   public void testEnergyComponents()          {runTemplateTest("energy.components");}
 			@Test   public void testEnvironScript()             {runTemplateTest("environ.01.script");}
-			@Test   public void testEnvironProgInfoScript()     {runTemplateTest("environ.02.proginfo");}
+			@Test   public void testEnvironProgInfoScript()     {runTemplateTest("environ.03.proginfo");}
 
 
 	////////////  //////////// READY TO WORK ON: ////////////  ////////////
