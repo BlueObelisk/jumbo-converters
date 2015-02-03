@@ -24,8 +24,27 @@
 
   </comment>
 
-  <!-- <record /> -->
+  <record repeat="1" />
+  <record repeat="15" id="1">\s*{I,x:serial}\s+{F,cc:frequency}\s+{A,x:symmetry}\s+{F,cc:redmass}\s+{F,cc:irintensity}\s*</record>
 
+  <transform process="move" to="." xpath=".//*[contains(@dictRef,'x:serial') or contains(@dictRef,'cc:frequency') or contains(@dictRef,'x:symmetry') or contains(@dictRef,'cc:redmass') or contains(@dictRef,'cc:irintensity')]" />
+
+  <transform process="createArray" xpath="." from=".//*[@dictRef='x:serial']" />
+  <transform process="createArray" xpath="." from=".//*[@dictRef='x:symmetry']" delimiter="|" />
+  <transform process="createArray" xpath="." from=".//*[@dictRef='cc:frequency']" />
+  <transform process="createArray" xpath="." from=".//*[@dictRef='cc:redmass']" />
+  <transform process="createArray" xpath="." from=".//*[@dictRef='cc:irintensity']" />
+
+  <transform process="addChild"
+                 xpath="."
+                 elementName="cml:table"
+                 id="frequenciesShort"
+                 dictRef="cc:frequencies"
+                 position="0" />
+
+  <transform process="move" to=".//cml:table[@id='frequenciesShort']" xpath=".//*[contains(@dictRef,'x:serial') or contains(@dictRef,'cc:frequency') or contains(@dictRef,'x:symmetry') or contains(@dictRef,'cc:redmass') or contains(@dictRef,'cc:irintensity')]" />
+
+  <transform process="createWrapperProperty" xpath=".//cml:table[@dictRef='cc:frequencies']" />
 
   <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
   <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
@@ -35,10 +54,10 @@
       <property dictRef="cc:frequencies">
         <table id="frequenciesShort">
           <array dataType="xsd:integer" dictRef="x:serial"       size="15">1 2 3 4 5 6 7 8 9 10 11 12 13 14 15</array>
+          <array dataType="xsd:double"  dictRef="cc:frequency"   size="15">15.406 15.392 0.01 0.535 0.536 8.481 1367.927 1370.372 1370.378 1591.924 1591.944 3051.135 3158.449 3159.653 3159.658</array>
           <array dataType="xsd:string"  dictRef="x:symmetry"     size="15" delimiter="|">|A|A|A|A|A|A|A|A|A|A|A|A|A|A|A|</array>
-          <array dataType="xsd:double"  dictRef="cc:frequency"   size="15">15.406 15.392 0.010 0.535 0.536 8.481 1367.927 1370.372 1370.378 1591.924 1591.944 3051.135 3158.449 3159.653 3159.658</array>
           <array dataType="xsd:double"  dictRef="cc:redmass"     size="15">1.008615 1.008617 3.206275 3.198384 3.198355 1.007825 1.179255 1.178935 1.178935 1.007825 1.007825 1.007825 1.101414 1.101685 1.101685</array>
-          <array dataType="xsd:double"  dictRef="cc:irintensity" size="15">0.000002 0.000002 0.000000 0.000000 0.000000 0.000000 0.360913 0.362746 0.362823 0.000000 0.000000 0.000000 0.631137 0.628605 0.628561</array>
+          <array dataType="xsd:double"  dictRef="cc:irintensity" size="15">2.0E-6 2.0E-6 0.0 0.0 0.0 0.0 0.360913 0.362746 0.362823 0.0 0.0 0.0 0.631137 0.628605 0.628561</array>
         </table>
       </property>
     </module>
