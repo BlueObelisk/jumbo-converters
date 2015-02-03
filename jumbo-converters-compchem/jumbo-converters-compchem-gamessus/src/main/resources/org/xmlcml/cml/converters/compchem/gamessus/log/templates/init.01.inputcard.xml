@@ -27,10 +27,14 @@
     1000000 WORDS OF MEMORY AVAILABLE
   </comment>
 
-  <record  id="ex">\s*EXECUTION OF GAMESS BEGUN {X,g:date}\s*</record>
-  <record repeat="2"/>
-  <record id="card">\s*INPUT CARD>{X,g:card}\s*</record>
-  <record repeat="*"/>
+  <record  id="ex">\s*EXECUTION OF GAMESS BEGUN {X,cc:run.date}\s*</record>
+  <record repeat="2" />
+  <record id="card">\s*INPUT CARD>\s+\$BASIS\s+{X,gamus:basis}\s+\$END\s*</record>
+  <record id="control">\s*INPUT CARD>\s+\$CONTRL\s+{X,gamus:contrl}\s+\$END\s*</record>
+  <record id="stat">\s*INPUT CARD>\s+\$STATPT\s+{X,gamus:statpt}\s+\$END\s*</record>
+  <record repeat="2" />
+  <record id="basis">\s*.*\/{A,cc:basis}\s+.*</record>
+
 
 
 
@@ -53,9 +57,6 @@
             <scalar dataType="xsd:string">OPTTOL=0.0001 NSTEP=20</scalar>
           </parameter>
 
-          <parameter dictRef="cc:basis">
-            <scalar dataType="xsd:string">6-31G</scalar> <!-- Don't worry about this yet. -->
-          </parameter>
           <parameter dictRef="gamus:operation">
             <scalar dataType="xsd:string">OPTIMIZE</scalar>
           </parameter>
@@ -87,5 +88,8 @@
 
     </module>
   </comment>
-
+<!-- TODO basis set
+          <parameter dictRef="cc:basis">
+            <scalar dataType="xsd:string">6-31G</scalar>
+          </parameter> -->
 </template>
