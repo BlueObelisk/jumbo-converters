@@ -60,6 +60,31 @@ public class TemplateTest {
 
 	////////////  //////////// END OF TEMPLATE TESTS ////////////  ////////////
 
+	////////////  //////////// ADD LOGFILE TESTS HERE: ////////////  ////////////
+
+	@Ignore
+			@Test   public void testMethane_B3LYP_631G_Opt()      {try {runTest("ch4_B3LYP_631G_Opt_20090112R1");  } catch (Exception e){System.out.println(e) ;} }
+	@Ignore
+			@Test   public void testMethane_B3LYP_631Gd_Opt()     {try {runTest("ch4_B3LYP_631Gd_Opt_20130501R1"); } catch (Exception e){System.out.println(e) ;} }
+	@Ignore
+			@Test   public void testMethane_B3LYP_631Gd_Freq()    {try {runTest("ch4_B3LYP_631Gd_Freq_20130501R1");} catch (Exception e){System.out.println(e) ;} }
+
+	@Ignore
+			@Test public void runDocumentTests() {
+		for (int i=0; i<=3 ; i++) {
+			try{
+				System.out.println("Running test"+i) ;
+				runTest("test"+i) ;
+			} catch (Exception e) {
+				System.out.println(e) ;
+			}
+		}
+
+	}
+
+
+	////////////  //////////// END OF LOGFILE TESTS ////////////  ////////////
+
 	// test functions:
 	private void runTest(String test) throws FileNotFoundException, IOException {
 		String inputName = TEST_DIR+"in/"+test+".log";
