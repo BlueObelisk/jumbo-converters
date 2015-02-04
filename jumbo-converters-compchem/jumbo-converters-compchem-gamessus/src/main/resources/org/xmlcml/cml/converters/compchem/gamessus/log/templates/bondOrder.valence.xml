@@ -1,0 +1,52 @@
+<template id="bondOrder.valence"
+  repeat="*"
+  name="BOND ORDER AND VALENCE ANALYSIS"
+  pattern="\s+-*\s*$\s+BOND ORDER AND VALENCE ANALYSIS.+$\s*-+\s*"      offset="0"
+  endPattern="\s+$\s*-+\s*"   endOffset="0" >
+
+  <comment class="example.input" id="bondOrder.valence">
+          -------------------------------
+          BOND ORDER AND VALENCE ANALYSIS     BOND ORDER THRESHOLD=0.050
+          -------------------------------
+
+                   BOND                       BOND                       BOND
+  ATOM PAIR DIST  ORDER      ATOM PAIR DIST  ORDER      ATOM PAIR DIST  ORDER
+    1   2  1.093  0.966        1   3  1.093  0.966        1   4  1.093  0.966
+    1   5  1.093  0.966
+
+                       TOTAL       BONDED        FREE
+      ATOM            VALENCE     VALENCE     VALENCE
+    1 C                 3.863       3.863       0.000
+    2 H                 0.939       0.939       0.000
+    3 H                 0.939       0.939       0.000
+    4 H                 0.939       0.939       0.000
+    5 H                 0.939       0.939       0.000
+
+  </comment>
+
+  <record id="bondOrder.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+  <comment class="example.output" id="bondOrder.valence">
+    <module cmlx:templateRef="bondOrder.valence" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="g:bondorders">
+        <list>
+            <array dataType="xsd:integer" dictRef="g:atomId1"  size="4">1 1 1 1</array>
+            <array dataType="xsd:integer" dictRef="g:atomId2"  size="4">2 3 4 5</array>
+            <array dataType="xsd:double" dictRef="g:distance"  size="4">1.093 1.093 1.093 1.093</array>
+            <array dataType="xsd:double" dictRef="g:bondOrder" size="4">0.966 0.966 0.966 0.966</array>
+        </list>
+      </property>
+      <property dictRef="g:valences">
+        <list>
+          <array dataType="xsd:integer" dictRef="g:atomId"       size="5">1 2 3 4 5</array>
+          <array dataType="xsd:string" dictRef="g:atomLabel"     size="5">C H H H H</array>
+          <array dataType="xsd:double" dictRef="g:totalValence"  size="5">3.863 0.939 0.939 0.939 0.939</array>
+          <array dataType="xsd:double" dictRef="g:bondedValence" size="5">3.863 0.939 0.939 0.939 0.939</array>
+          <array dataType="xsd:double" dictRef="g:freeValence"   size="5">0.0 0.0 0.0 0.0 0.0 </array>
+        </list>
+      </property>
+    </module>
+  </comment>
+
+</template>
