@@ -1,0 +1,241 @@
+<template id="init.02.basis.options"
+  repeat="*"
+  name="BASIS OPTIONS"
+  pattern="\s*BASIS OPTIONS\s*$\s*-+\s*"      offset="0"
+  endPattern="\s*$"   endOffset="0" >
+
+  <comment class="example.input" id="init.02.basis.options.321G">
+     BASIS OPTIONS
+     -------------
+     GBASIS=N21          IGAUSS=       3      POLAR=POPN31  
+     NDFUNC=       0     NFFUNC=       0     DIFFSP=       F
+     NPFUNC=       0      DIFFS=       F     BASNAM=        
+  </comment>
+  <comment class="example.input" id="init.02.basis.options.631G">
+     BASIS OPTIONS
+     -------------
+     GBASIS=N31          IGAUSS=       6      POLAR=POPN31  
+     NDFUNC=       0     NFFUNC=       0     DIFFSP=       F
+     NPFUNC=       0      DIFFS=       F     BASNAM=        
+  </comment>
+  <comment class="example.input" id="init.02.basis.options.631Gd">
+     BASIS OPTIONS
+     -------------
+     GBASIS=N31          IGAUSS=       6      POLAR=POPN31  
+     NDFUNC=       1     NFFUNC=       0     DIFFSP=       F
+     NPFUNC=       0      DIFFS=       F     BASNAM=        
+  </comment>
+ 
+
+  <record repeat="2"/>
+  <record id="basis1">\s*GBASIS={A8,g:basis_gBasis}\s+IGAUSS=\s*{I,g:basis_iGauss}\s+POLAR={A,g:basis_polar}\s*</record>
+  <record id="basis2">\s*NDFUNC=\s*{I,g:basis_nDfunc}\s+NFFUNC=\s*{I,g:basis_nFfunc}\s+DIFFSP=\s*{A,g:basis_diff_SP}\s*</record>
+  <record id="basis3">\s*NPFUNC=\s*{I,g:basis_nPfunc}\s+DIFFS=\s*{A,g:basis_diff_S}\s+BASNAM={X,g:basis_basnam}</record>
+ 
+  <transform process="addChild"     xpath="."    elementName="cml:parameter"    dictRef="g:basisOptions" />
+  <transform process="addChild"     xpath="./cml:parameter[@dictRef='g:basisOptions']"    elementName="cml:list" />
+  <transform process="move"         xpath="./cml:list[contains(@cmlx:templateRef, 'basis' )]/*/cml:scalar" 
+                                    to="./cml:parameter[@dictRef='g:basisOptions']/cml:list"  />
+
+  <transform process="addChild"     xpath="./cml:parameter[@dictRef='g:basisOptions']/cml:list" dictRef="cc:basis" elementName="cml:scalar"  />
+
+  
+
+  <!--  
+        ###########################################
+        ########## DETECT THE BASIS SETS ##########
+        ########################################### 
+
+  TODO: add more basis sets
+  -->
+
+  <!-- GBASIS = STO  - Pople's STO-NG minimal basis set.  Available H-Xe, for NGAUSS=2,3,4,5,6. -->
+  <transform process="setValue"     value="STO-2G"        xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='2' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='STO' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='0' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='0' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='F' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='F' ]
+    ]" />
+  <transform process="setValue"     value="STO-3G"        xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='3' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='STO' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='0' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='0' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='F' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='F' ]
+    ]" />
+  <transform process="setValue"     value="STO-4G"        xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='4' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='STO' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='0' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='0' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='F' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='F' ]
+    ]" />
+  <transform process="setValue"     value="STO-5G"        xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='5' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='STO' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='0' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='0' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='F' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='F' ]
+    ]" />
+  <transform process="setValue"     value="STO-6G"        xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='6' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='STO' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='0' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='0' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='F' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='F' ]
+    ]" />
+
+  <!-- x-21G BASIS SETS -->
+  <transform process="setValue"     value="3-21G"         xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='3' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='N21' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='0' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='0' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='F' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='F' ]
+    ]" />
+  <transform process="setValue"     value="6-21G"         xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='6' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='N21' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='0' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='0' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='F' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='F' ]
+    ]" />
+
+  <!-- 6-31G BASIS SETS -->
+  <transform process="setValue"     value="6-31G"         xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='6' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='N31' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='0' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='0' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='F' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='F' ]
+    ]" />
+  <transform process="setValue"     value="6-31G(d)"      xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='6' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='N31' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='1' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='0' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='F' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='F' ]
+    ]" />
+  <transform process="setValue"     value="6-31G(d,p)"    xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='6' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='N31' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='1' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='1' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='F' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='F' ]
+    ]" />
+    <!-- with diffuse functions -->
+  <transform process="setValue"     value="6-31+G(d)"     xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='6' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='N31' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='1' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='0' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='T' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='F' ]
+    ]" />
+  <transform process="setValue"     value="6-31++G(d)"    xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='6' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='N31' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='1' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='0' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='T' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='T' ]
+    ]" />
+  <transform process="setValue"     value="6-31+G(d,p)"   xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='6' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='N31' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='1' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='1' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='T' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='F' ]
+    ]" />
+  <transform process="setValue"     value="6-31++G(d,p)"  xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='6' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='N31' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='1' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='1' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='T' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='T' ]
+    ]" />
+
+  <!-- 6-311G BASIS SETS -->
+  <transform process="setValue"     value="6-311G"        xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='6' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='N311' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='0' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='0' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='F' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='F' ]
+    ]" />
+  <transform process="setValue"     value="6-311G(d)"     xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='6' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='N311' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='1' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='0' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='F' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='F' ]
+    ]" />
+  <transform process="setValue"     value="6-311G(d,p)"   xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='6' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='N311' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='1' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='1' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='F' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='F' ]
+    ]" />
+    <!-- with diffuse functions -->
+  <transform process="setValue"     value="6-311+G(d)"    xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='6' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='N311' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='1' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='0' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='T' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='F' ]
+    ]" />
+  <transform process="setValue"     value="6-311++G(d)"   xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='6' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='N311' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='1' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='0' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='T' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='T' ]
+    ]" />
+  <transform process="setValue"     value="6-311+G(d,p)"  xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='6' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='N311' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='1' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='1' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='T' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='F' ]
+    ]" />
+  <transform process="setValue"     value="6-311++G(d,p)" xpath=".//cml:scalar[@dictRef='cc:basis' 
+    and ../*[@dictRef='g:basis_iGauss'  and text()='6' ]  and ../*[@dictRef='g:basis_gBasis'  and text()='N311' ]
+    and ../*[@dictRef='g:basis_nDfunc'  and text()='1' ]  and ../*[@dictRef='g:basis_nPfunc'  and text()='1' ]   and ../*[@dictRef='g:basis_nFfunc'  and text()='0' ]
+    and ../*[@dictRef='g:basis_diff_SP' and text()='T' ]  and ../*[@dictRef='g:basis_diff_S'  and text()='T' ]
+    ]" />
+
+ 
+  
+  <transform process="pullup" xpath=".//cml:scalar[@dictRef='cc:basis']" />
+  <transform process="pullup" xpath=".//cml:scalar[@dictRef='cc:basis']" />
+  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='cc:basis']" />
+
+
+  <!-- Delete empty lists -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+
+  <comment class="example.output" id="init.02.basis.options.321G">
+    <module cmlx:templateRef="init.02.basis.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="cc:basis">
+            <scalar dataType="xsd:string">3-21G</scalar>
+      </parameter>
+      <parameter dictRef="g:basisOptions">
+        <list>
+          <scalar dictRef="g:basis_gBasis"  dataType="xsd:string" >N21</scalar>
+          <scalar dictRef="g:basis_iGauss"  dataType="xsd:integer">3</scalar>
+          <scalar dictRef="g:basis_polar"   dataType="xsd:string" >POPN31</scalar>
+          <scalar dictRef="g:basis_nDfunc"  dataType="xsd:integer">0</scalar>
+          <scalar dictRef="g:basis_nFfunc"  dataType="xsd:integer">0</scalar>
+          <scalar dictRef="g:basis_diff_SP" dataType="xsd:string" >F</scalar>
+          <scalar dictRef="g:basis_nPfunc"  dataType="xsd:integer">0</scalar>
+          <scalar dictRef="g:basis_diff_S"  dataType="xsd:string" >F</scalar>
+          <scalar dictRef="g:basis_basnam"  dataType="xsd:string" />
+        </list>
+      </parameter>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="init.02.basis.options.631G">
+    <module cmlx:templateRef="init.02.basis.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="cc:basis">
+            <scalar dataType="xsd:string">6-31G</scalar>
+      </parameter>
+      <parameter dictRef="g:basisOptions">
+        <list>
+          <scalar dictRef="g:basis_gBasis"  dataType="xsd:string" >N31</scalar>
+          <scalar dictRef="g:basis_iGauss"  dataType="xsd:integer">6</scalar>
+          <scalar dictRef="g:basis_polar"   dataType="xsd:string" >POPN31</scalar>
+          <scalar dictRef="g:basis_nDfunc"  dataType="xsd:integer">0</scalar>
+          <scalar dictRef="g:basis_nFfunc"  dataType="xsd:integer">0</scalar>
+          <scalar dictRef="g:basis_diff_SP" dataType="xsd:string" >F</scalar>
+          <scalar dictRef="g:basis_nPfunc"  dataType="xsd:integer">0</scalar>
+          <scalar dictRef="g:basis_diff_S"  dataType="xsd:string" >F</scalar>
+          <scalar dictRef="g:basis_basnam"  dataType="xsd:string" />
+        </list>
+      </parameter>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="init.02.basis.options.631Gd">
+    <module cmlx:templateRef="init.02.basis.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="cc:basis">
+            <scalar dataType="xsd:string">6-31G(d)</scalar>
+      </parameter>
+      <parameter dictRef="g:basisOptions">
+        <list>
+          <scalar dictRef="g:basis_gBasis"  dataType="xsd:string" >N31</scalar>
+          <scalar dictRef="g:basis_iGauss"  dataType="xsd:integer">6</scalar>
+          <scalar dictRef="g:basis_polar"   dataType="xsd:string" >POPN31</scalar>
+          <scalar dictRef="g:basis_nDfunc"  dataType="xsd:integer">1</scalar>
+          <scalar dictRef="g:basis_nFfunc"  dataType="xsd:integer">0</scalar>
+          <scalar dictRef="g:basis_diff_SP" dataType="xsd:string" >F</scalar>
+          <scalar dictRef="g:basis_nPfunc"  dataType="xsd:integer">0</scalar>
+          <scalar dictRef="g:basis_diff_S"  dataType="xsd:string" >F</scalar>
+          <scalar dictRef="g:basis_basnam"  dataType="xsd:string" />
+        </list>
+      </parameter>
+    </module>
+  </comment>
+
+</template>
