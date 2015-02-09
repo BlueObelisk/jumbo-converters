@@ -1,0 +1,40 @@
+<template id="init.gridbased.dft.options"
+  repeat="*"
+  name="LEBEDEV GRID-BASED DFT OPTIONS"
+  pattern="\s*LEBEDEV GRID-BASED DFT OPTIONS\s*$\s*-+\s*"      offset="0"
+  endPattern="\s*$"   endOffset="0" >
+
+  <comment class="example.input" id="init.gridbased.dft.options">
+     LEBEDEV GRID-BASED DFT OPTIONS
+     ------------------------------
+     DFTTYP=B3LYP   
+     NRAD  =      96     NLEB  =     302
+     NRAD0 =      24     NLEB0 =     110
+     SWOFF =    5.00E-03 (PURE SCF -> DFT)
+     SWITCH=    3.00E-04 (COARSE -> TIGHT GRID)
+     THRESH=    0.00E+00 GTHRE=    1.00E+00
+  </comment>
+
+  <record id="init.gridbased.dft.options.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+  <comment class="example.output" id="init.gridbased.dft.options">
+    <module cmlx:templateRef="init.gridbased.dft.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+        <parameter dictRef="g:LebedevGridBasedDftOptions">
+          <list>
+            <scalar dictRef="cc:dftFunctional" dataType="xsd:string">B3LYP</scalar>
+            <scalar dictRef="g:dft.nrad"       dataType="xsd:integer">96</scalar>
+            <scalar dictRef="g:dft.nleb"       dataType="xsd:integer">302</scalar>
+            <scalar dictRef="g:dft.nrad0"      dataType="xsd:integer">24</scalar>
+            <scalar dictRef="g:dft.nleb0"      dataType="xsd:integer">110</scalar>
+            <scalar dictRef="g:dft.swoff"      dataType="xsd:double" >5.00E-03</scalar>
+            <scalar dictRef="g:dft.switch"     dataType="xsd:double" >3.00E-04</scalar>
+            <scalar dictRef="g:dft.thres"      dataType="xsd:double" >0.0</scalar>
+            <scalar dictRef="g:dft.gthre"      dataType="xsd:double" >1.0</scalar>
+          </list>
+        </parameter>
+    </module>
+  </comment>
+
+</template>
+

@@ -35,30 +35,35 @@ public class TemplateTest {
 
 
 	////////////  //////////// ADD TEMPLATE TESTS HERE: ////////////  ////////////
-	@Ignore @Test   public void testl0Entering()                {runTemplateTest("l0.entering");}
 			@Test   public void testCoordinatesAngstrom()       {runTemplateTest("coordinates.angstom");}
 			@Test   public void testDipoleMoment()              {runTemplateTest("dipole.moment");}
 			@Test   public void testEnergyComponents()          {runTemplateTest("energy.components");}
 			@Test   public void testEnvironScript()             {runTemplateTest("environ.01.script");}
 			@Test   public void testEnvironProgInfoScript()     {runTemplateTest("environ.03.proginfo");}
-			@Test   public void testBasisOption()               {runTemplateTest("init.02.basis.options");}
 			@Test   public void testFreqAtomicWeights()         {runTemplateTest("freq.normCoords.atomicWeights");}
 			@Test   public void testFreqFrequenciesShort()      {runTemplateTest("freq.normCoords.frequenciesShort");}
 			@Test   public void testFreqThermochemistry()       {runTemplateTest("freq.thermochemistry");}
-	@Ignore @Test   public void testInputCard()                 {runTemplateTest("init.01.inputcard");}
-
+			@Test   public void testRunTitle()                  {runTemplateTest("init.runTitle");}
 
 	////////////  //////////// READY TO WORK ON: ////////////  ////////////
-	@Ignore	@Test   public void testKickoff()                   {runTemplateTest("environ.02.kickoff");}
+	@Ignore	@Test   public void testBondOrder()                 {runTemplateTest("bondOrder.valence");}
 	@Ignore	@Test   public void testCompositeG3MP2Summary()     {runTemplateTest("composite.G3MP2.summary");}
 	@Ignore	@Test   public void testCompositeG4MP2Summary()     {runTemplateTest("composite.G4MP2.summary");}
+	@Ignore	@Test   public void testKickoff()                   {runTemplateTest("environ.02.kickoff");}
 	@Ignore	@Test   public void testFreqNormalCoordAnalysis()   {runTemplateTest("freq.normalCoordAnalysis");}
+	@Ignore @Test   public void testControlOptions()            {runTemplateTest("init.control.options");}
+	@Ignore @Test   public void testDFTOptions()                {runTemplateTest("init.gridbased.dft.options");}
+	@Ignore @Test   public void testSystemOptions()             {runTemplateTest("init.system.options");}
 
 
 
 	////////////  //////////// KEEP FOR LATER: ////////////  ////////////
+	@Ignore @Test   public void testInputCard()                 {runTemplateTest("init.01.inputcard");}
+	@Ignore @Test   public void testBasisOptions()              {runTemplateTest("init.02.basis.options");}
 	@Ignore	@Test   public void testFreqForceConstantMatrix()   {runTemplateTest("freq.forceConstantMatrix");}
 	@Ignore	@Test   public void testFreqFrequenciesLong()       {runTemplateTest("freq.normCoords.frequenciesLong");}
+	
+
 
 
 
