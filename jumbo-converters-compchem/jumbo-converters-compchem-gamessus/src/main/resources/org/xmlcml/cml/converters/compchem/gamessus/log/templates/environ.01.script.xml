@@ -1,7 +1,7 @@
 <template id="environ.01.script" repeat="*" name="GAMESS execution script"
   newline="$"
-  pattern="\s*\-+\s*GAMESS execution script\s*\-+.*"
-  endPattern="\s*">
+  pattern="\s*-+\s*GAMESS execution script.+\s*-+\s*"
+  endPattern="\s*Distributed Data Interface kickoff.+">
 
   <comment class="example.input" id="environ.01.script1">
 ----- GAMESS execution script -----
@@ -12,7 +12,7 @@ Filesystem           1K-blocks      Used Available Use% Mounted on
 /dev/gpfs_scratch    3898716160 119676928 3779039232   4% /gpfs/scratch
   </comment>
   <comment class="example.input" id="environ.01.script2">
------ GAMESS execution script -----
+----- GAMESS execution script 'rungms' -----
 This job is running on host cl221
 under operating system Linux at Fri Jul 11 15:57:47 NDT 2014
 Available scratch disk space (Kbyte units) at beginning of the job is
@@ -24,7 +24,7 @@ samqfs://scratch/ostueker
   <record/>
   <record id="host">\s*This job is running on host\s+{A,cc:hostname}\s*$</record>
   <record id="date">\s*under operating system Linux at\s+{X,cc:run.date}\s*$</record>
-  <record repeat="*" id="scr">{X,g:script}</record>
+  <record repeat="*" id="environ.01.script.UNPARSED">{X,x:UNPARSED}</record>
 
   <transform process="createWrapperParameter"
               xpath=".//cml:scalar[@dictRef='cc:hostname' or @dictRef='cc:run.date' ]" />
@@ -53,6 +53,12 @@ samqfs://scratch/ostueker
           <scalar dataType="xsd:string">Thu Jun 12 13:14:43 CEST 2008</scalar>
         </parameter>
       </parameterList>
+      <list cmlx:templateRef="environ.01.script.UNPARSED">
+        <scalar dataType="xsd:string" dictRef="x:UNPARSED">Available scratch disk space (Kbyte units) at beginning of the job is</scalar>
+        <scalar dataType="xsd:string" dictRef="x:UNPARSED">Filesystem           1K-blocks      Used Available Use% Mounted on</scalar>
+        <scalar dataType="xsd:string" dictRef="x:UNPARSED">/dev/gpfs_scratch    3898716160 119676928 3779039232   4% /gpfs/scratch</scalar>
+        <scalar dataType="xsd:string" dictRef="x:UNPARSED" />
+      </list>
     </module>
   </comment>
 
@@ -66,7 +72,14 @@ samqfs://scratch/ostueker
 				<scalar dataType="xsd:string">Fri Jul 11 15:57:47 NDT 2014</scalar>
 			</parameter>
 		</parameterList>
-	</module>
+    <list cmlx:templateRef="environ.01.script.UNPARSED">
+      <scalar dataType="xsd:string" dictRef="x:UNPARSED">Available scratch disk space (Kbyte units) at beginning of the job is</scalar>
+      <scalar dataType="xsd:string" dictRef="x:UNPARSED">Filesystem           1K-blocks      Used Available Use% Mounted on</scalar>
+      <scalar dataType="xsd:string" dictRef="x:UNPARSED">samqfs://scratch/ostueker</scalar>
+      <scalar dataType="xsd:string" dictRef="x:UNPARSED">8586374784 7421998816 1164375968  87% /globalscratch/ostueker</scalar>
+      <scalar dataType="xsd:string" dictRef="x:UNPARSED" />
+    </list>
+	 </module>
   </comment>
 
 </template>
