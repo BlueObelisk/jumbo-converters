@@ -1,0 +1,44 @@
+<template id="init.control.options"
+  repeat="*"
+  name="CONTROL OPTIONS"
+  newline="$"
+  pattern="\s*.CONTRL OPTIONS\s*$\s*-+\s*"      offset="0"
+  endPattern="\s*$"   endOffset="0" >
+
+  <comment class="example.input" id="init.control.options">
+     $CONTRL OPTIONS
+     ---------------
+ SCFTYP=RHF          RUNTYP=OPTIMIZE     EXETYP=RUN     
+ MPLEVL=       0     CITYP =NONE         CCTYP =NONE         VBTYP =NONE    
+ DFTTYP=B3LYP        TDDFT =NONE    
+ MULT  =       1     ICHARG=       0     NZVAR =       0     COORD =UNIQUE  
+ PP    =NONE         RELWFN=NONE         LOCAL =NONE         NUMGRD=       F
+ ISPHER=      -1     NOSYM =       0     MAXIT =      30     UNITS =ANGS    
+ PLTORB=       F     MOLPLT=       F     AIMPAC=       F     FRIEND=        
+ NPRINT=       7     IREST =       0     GEOM  =INPUT   
+ NORMF =       0     NORMP =       0     ITOL  =      20     ICUT  =       9
+ INTTYP=BEST         GRDTYP=BEST         QMTTOL= 1.0E-06
+  </comment>
+
+  <record id="init.control.options.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+
+  <!-- Delete empty lists -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+
+  <comment class="example.output" id="init.control.options">
+    <module cmlx:templateRef="init.control.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="g:contrl.options">
+        <list>
+          <scalar dictRef="g:scftyp" dataType="xsd:string">RHF</scalar>
+          <scalar dictRef="g:runtyp" dataType="xsd:string">OPTIMIZE</scalar>
+          <scalar dictRef="g:exetyp" dataType="xsd:string">RUN</scalar>
+          <!-- ...and so forth... -->
+        </list>
+      </parameter>
+    </module>
+  </comment>
+
+</template>
