@@ -19,8 +19,46 @@
     ----------------------------------------------------------------
   </comment>
 
-  <record id="G3MP2.unparsed" repeat="*">{X,x:UNPARSED}</record>
+  <!-- <record id="G3MP2.unparsed" repeat="*">{X,x:UNPARSED}</record> -->
+  <record repeat="3" />
+  <record id="calc1">\s.*\s+=\s+{F,g:MP2.6-31G}\s+.*\s+=\s+{F,g:CCSD.6-31G}\s*</record>
+  <record id="calc2">.*=\s+{F,g:MP2.G3MP2LARGE}\s+.*=\s+{F,g:BasisContributon}\s*</record>
+  <record id="calc3">.*=\s+{F,cc:ZeroPointEnergy}\s+.*=\s+{F,g:ZpeScaleFactor}\s*</record>
+  <record id="calc4">.*=\s+{F,g:HigherLevelCorr}\s+.*=\s+{F,g:FreeEnergy}\s*</record>
+  <record id="calc5">.*=\s+{F,g:ThermalEnergy}\s+.*=\s+{F,g:ThermalEnthalpy}\s*</record>
+  <record />
+  <record id="calc6">.*=\s+{F,cc:Energy.K}\s+.*=\s+{F,cc:Energy.T}\s*</record>
+  <record id="calc7">.*=\s+{F,cc:Enthalpy.T}\s+.*=\s+{F,cc:GibbsEnergy.T}\s*</record>
+  <record />
 
+  <transform process="addChild"
+                 xpath="."
+                 elementName="cml:list"
+                 position="0"
+                 dictRef="g:composite_G3MP2" />
+
+  <transform process="move" xpath=".//cml:scalar[@dictRef]" to="cml:list[@dictRef='g:composite_G3MP2']" />
+
+  <transform process="createWrapperProperty" xpath="cml:list[@dictRef='g:composite_G3MP2']"/>
+
+  <transform process="addAttribute"
+                   xpath=".//cml:property"
+                   name="cmlx:templateRef"
+                   value="composite.G3MP2.summary" />
+
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='g:MP2.6-31G']"         value="g:MP2/6-31G(D)"/>
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='g:CCSD.6-31G']"        value="g:CCSD(T)/6-31G(D)"/>
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='g:MP2.G3MP2LARGE']"    value="g:MP2/G3MP2LARGE"/>
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='cc:Energy.K']"           value="cc:Energy(0K)"/>
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='cc:Energy.T']"           value="cc:Energy(T)"/>
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='cc:Enthalpy.T']"         value="cc:Enthalpy(T)"/>
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='cc:GibbsEnergy.T']"      value="cc:GibbsEnergy(T)"/>
+
+  <transform process="addUnits" value="nonSi:hartree" xpath=".//*[contains(@dictRef,'g:MP') or contains(@dictRef,'cc:') or contains(@dictRef,'g:CC') or contains(@dictRef,'g:Ba') or contains(@dictRef,'g:Hi') or contains(@dictRef,'g:Fr') or contains(@dictRef,'g:Th')]" />
+
+  <!-- Delete empty lists -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
 
   <comment class="example.output" id="composite.G3MP2.summary">
     <module cmlx:templateRef="composite.G3MP2.summary" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">

@@ -16,9 +16,31 @@
  MXSEQ2=     300 MXSEQ3=     150
   </comment>
 
-  <record id="init.system.options.unparsed" repeat="*">{X,x:UNPARSED}</record>
+  <!-- <record id="init.system.options.unparsed" repeat="*">{X,x:UNPARSED}</record> -->
+  <record repeat="2" />
+  <record id="mem">\s*.*=\s+{I,g:replicated.memory}.*\s*</record>
+  <record id="mem2">\s*.*=\s+{I,g:distributed.memddi}.*\s*</record>
+  <record id="mem3">\s*.*\s.*\s.*\s+{I,g:memddi.processors}\s.*\s.*\s+{I,g:words.processor}.*\s*</record>
+  <record id="mem4">\s*.*\s.*\s.*\s.*\s.*\s.*=\s+{I,g:total.memory}.*\s*</record>
+  <record id="mem5">\s*.*=\s+{F,g:timelim.mins}\s.*\s.*\s+{F,g:timelim.days}.*\s*</record>
+  <record id="mem6">\s*.*=\s{A,g:parall}\s+.*=\s+{A,g:bal.type}\s+.*=\s+{I,g:kdiag}\s+.*=\s{A,g:corefl}\s*</record>
+  <record id="mem7">\s*.*=\s+{I,g:mxseq2}\s.*=\s+{I,g:mxseq3}\s*</record>
 
+  <transform process="addChild"
+                 xpath="."
+                 elementName="cml:list"
+                 position="0"
+                 dictRef="g:system.options" />
 
+  <transform process="move" xpath=".//cml:scalar[@dictRef]" to="cml:list[@dictRef='g:system.options']" />
+
+  <transform process="createWrapperParameter" xpath=".//cml:list[@dictRef='g:system.options']"/>
+
+  <transform process="addUnits" value="nonSi:words" xpath=".//*[@dictRef='g:replicated.memory' or @dictRef='g:distributed.memddi' or @dictRef='g:words.processor' or @dictRef='g:total.memory']" />
+
+  <transform process="addUnits" value="nonSi:mins" xpath=".//*[@dictRef='g:timelim.mins']" />
+
+  <transform process="addUnits" value="nonSi:days" xpath=".//*[@dictRef='g:timelim.days']" />
 
   <!-- Delete empty lists -->
   <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
@@ -28,9 +50,19 @@
     <module cmlx:templateRef="init.system.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <parameter dictRef="g:system.options">
         <list>
-          <scalar dictRef="g:replicated.memory"  dataType="xsd:integer" units="nonSI:words">1000000</scalar>
-          <scalar dictRef="g:distributed.memddi" dataType="xsd:integer" units="nonSI:words">0</scalar>
-          <!-- ...and so forth... -->
+          <scalar dataType="xsd:integer" dictRef="g:replicated.memory" units="nonSi:words">1000000</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:distributed.memddi" units="nonSi:words">0</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:memddi.processors">1</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:words.processor" units="nonSi:words">0</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:total.memory" units="nonSi:words">1000000</scalar>
+          <scalar dataType="xsd:double" dictRef="g:timelim.mins" units="nonSi:mins">525600.0</scalar>
+          <scalar dataType="xsd:double" dictRef="g:timelim.days" units="nonSi:days">365.0</scalar>
+          <scalar dataType="xsd:string" dictRef="g:parall">F</scalar>
+          <scalar dataType="xsd:string" dictRef="g:bal.type">DLB</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:kdiag">0</scalar>
+          <scalar dataType="xsd:string" dictRef="g:corefl">F</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:mxseq2">300</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:mxseq3">150</scalar>
         </list>
       </parameter>
     </module>
