@@ -44,16 +44,16 @@ public class TemplateTest {
 			@Test   public void testFreqFrequenciesShort()      {runTemplateTest("freq.normCoords.frequenciesShort");}
 			@Test   public void testFreqThermochemistry()       {runTemplateTest("freq.thermochemistry");}
 			@Test   public void testRunTitle()                  {runTemplateTest("init.runTitle");}
+			@Test   public void testControlOptions()            {runTemplateTest("init.control.options");}
+			@Test   public void testSystemOptions()             {runTemplateTest("init.system.options");}
+			@Test   public void testCompositeG3MP2Summary()     {runTemplateTest("composite.G3MP2.summary");}
+			@Test   public void testCompositeG4MP2Summary()     {runTemplateTest("composite.G4MP2.summary");}
+	@Ignore @Test   public void testKickoff()                   {runTemplateTest("environ.02.kickoff");}
 
 	////////////  //////////// READY TO WORK ON: ////////////  ////////////
-	@Ignore	@Test   public void testBondOrder()                 {runTemplateTest("bondOrder.valence");}
-	@Ignore	@Test   public void testCompositeG3MP2Summary()     {runTemplateTest("composite.G3MP2.summary");}
-	@Ignore	@Test   public void testCompositeG4MP2Summary()     {runTemplateTest("composite.G4MP2.summary");}
-	@Ignore	@Test   public void testKickoff()                   {runTemplateTest("environ.02.kickoff");}
+	@Ignore @Test   public void testBondOrder()                 {runTemplateTest("bondOrder.valence");}
 	@Ignore	@Test   public void testFreqNormalCoordAnalysis()   {runTemplateTest("freq.normalCoordAnalysis");}
-	@Ignore @Test   public void testControlOptions()            {runTemplateTest("init.control.options");}
 	@Ignore @Test   public void testDFTOptions()                {runTemplateTest("init.gridbased.dft.options");}
-	@Ignore @Test   public void testSystemOptions()             {runTemplateTest("init.system.options");}
 
 
 
