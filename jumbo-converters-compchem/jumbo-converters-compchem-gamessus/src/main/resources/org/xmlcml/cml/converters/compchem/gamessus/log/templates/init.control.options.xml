@@ -20,9 +20,34 @@
  INTTYP=BEST         GRDTYP=BEST         QMTTOL= 1.0E-06
   </comment>
 
-  <record id="init.control.options.unparsed" repeat="*">{X,x:UNPARSED}</record>
+  <!-- <record id="init.control.options.unparsed">{X,x:UNPARSED}</record> -->
+  <record repeat="2" />
+  <record id="typ1">\s*.*={A,g:scftyp}\s+.*={A,g:runtyp}\s+.*={A,g:exetyp}\s*</record>
+  <record id="typ2">\s*.*=\s+{I,g:mplvl}\s+.*={A,g:cityp}\s+.*={A,g:cctyp}\s+.*={A,g:vbtyp}\s*</record>
+  <record id="typ3">\s*.*={A,g:dfttyp}\s+.*={A,g:tddft}\s*</record>
+  <record id="typ4">\s*.*=\s+{I,g:mult}\s+.*=\s+{I,g:icharg}\s+.*=\s+{I,g:nzvar}\s+.*={A,g:coord}\s*</record>
+  <record id="typ5">\s*.*={A,g:pp}\s+.*={A,g:relwfn}\s+.*={A,g:local}\s+.*=\s+{A,g:numgrd}\s*</record>
+  <record id="typ6">\s*.*=\s+{I,g:ispher}\s+.*=.*{I,g:nosym}\s+.*=\s+{I,g:maxit}\s+.*={A,g:units}\s*</record>
+  <record id="typ7">\s*.*=\s+{A,g:pltorb}\s+.*=\s+{A,g:molplt}\s+.*=\s+{A,g:aimpac}\s+.*={X,g:friend}\s*</record>
+  <record id="typ8">\s*.*=\s+{I,g:nprint}\s+.*=\s+{I,g:irest}\s+.*={A,g:geom}\s*</record>
+  <record id="typ9">\s*.*=\s+{I,g:normf}\s+.*=\s+{I,g:normp}\s+.*=\s+{I,g:itol}\s+.*=\s+{I,g:icut}\s*</record>
+  <record id="typ10">\s*.*={A,g:inttyp}\s+.*={A,g:grdtyp}\s+.*=\s{X,g:qmttol}\s*</record>
 
+  <transform process="setDataType" value="xsd:double"
+    xpath=".//*[@dictRef='g:qmttol']" />
 
+  <transform process="addChild"
+                 xpath="."
+                 elementName="cml:list"
+                 position="0"
+                 dictRef="g:contrl.options" />
+
+  <transform process="move" xpath=".//cml:scalar[@dictRef]"
+                 to="cml:list[@dictRef='g:contrl.options']" />
+                 
+
+  <transform process="createWrapperParameter"
+                  xpath=".//cml:list[@dictRef='g:contrl.options']"/>
 
   <!-- Delete empty lists -->
   <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
@@ -32,10 +57,41 @@
     <module cmlx:templateRef="init.control.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <parameter dictRef="g:contrl.options">
         <list>
-          <scalar dictRef="g:scftyp" dataType="xsd:string">RHF</scalar>
-          <scalar dictRef="g:runtyp" dataType="xsd:string">OPTIMIZE</scalar>
-          <scalar dictRef="g:exetyp" dataType="xsd:string">RUN</scalar>
-          <!-- ...and so forth... -->
+          <scalar dataType="xsd:string" dictRef="g:scftyp">RHF</scalar>
+          <scalar dataType="xsd:string" dictRef="g:runtyp">OPTIMIZE</scalar>
+          <scalar dataType="xsd:string" dictRef="g:exetyp">RUN</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:mplvl">0</scalar>
+          <scalar dataType="xsd:string" dictRef="g:cityp">NONE</scalar>
+          <scalar dataType="xsd:string" dictRef="g:cctyp">NONE</scalar>
+          <scalar dataType="xsd:string" dictRef="g:vbtyp">NONE</scalar>
+          <scalar dataType="xsd:string" dictRef="g:dfttyp">B3LYP</scalar>
+          <scalar dataType="xsd:string" dictRef="g:tddft">NONE</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:mult">1</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:icharg">0</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:nzvar">0</scalar>
+          <scalar dataType="xsd:string" dictRef="g:coord">UNIQUE</scalar>
+          <scalar dataType="xsd:string" dictRef="g:pp">NONE</scalar>
+          <scalar dataType="xsd:string" dictRef="g:relwfn">NONE</scalar>
+          <scalar dataType="xsd:string" dictRef="g:local">NONE</scalar>
+          <scalar dataType="xsd:string" dictRef="g:numgrd">F</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:ispher">-1</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:nosym">0</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:maxit">30</scalar>
+          <scalar dataType="xsd:string" dictRef="g:units">ANGS</scalar>
+          <scalar dataType="xsd:string" dictRef="g:pltorb">F</scalar>
+          <scalar dataType="xsd:string" dictRef="g:molplt">F</scalar>
+          <scalar dataType="xsd:string" dictRef="g:aimpac">F</scalar>
+          <scalar dataType="xsd:string" dictRef="g:friend" />
+          <scalar dataType="xsd:integer" dictRef="g:nprint">7</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:irest">0</scalar>
+          <scalar dataType="xsd:string" dictRef="g:geom">INPUT</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:normf">0</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:normp">0</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:itol">20</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:icut">9</scalar>
+          <scalar dataType="xsd:string" dictRef="g:inttyp">BEST</scalar>
+          <scalar dataType="xsd:string" dictRef="g:grdtyp">BEST</scalar>
+          <scalar dataType="xsd:double" dictRef="g:qmttol">1.0E-6</scalar>
         </list>
       </parameter>
     </module>
