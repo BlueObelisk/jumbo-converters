@@ -1,0 +1,33 @@
+<template id="init.guess.options"
+  repeat="*"
+  name="GUESS OPTIONS"
+  pattern="\s*-+\s*$\s*GUESS OPTIONS\s*$\s*-+\s*"      offset="0"
+  endPattern="\s*$"   endOffset="0" >
+
+  <comment class="example.input" id="init.guess.options">
+          -------------
+          GUESS OPTIONS
+          -------------
+          GUESS =HUCKEL            NORB  =       0          NORDER=       0
+          MIX   =       F          PRTMO =       F          PUNMO =       F
+          TOLZ  = 1.0E-08          TOLE  = 1.0E-05
+          SYMDEN=       F          PURIFY=       F
+  </comment>
+
+  <record id="init.guess.options.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+  <comment class="example.output" id="init.guess.options">
+    <module cmlx:templateRef="init.guess.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+        <parameter dictRef="g:guessOptions">
+          <list>
+            <scalar dictRef="g:guess"  dataType="xsd:string" >HUCKEL</scalar>
+            <scalar dictRef="g:norb"   dataType="xsd:integer">0</scalar>
+            <scalar dictRef="g:norder" dataType="xsd:integer">0</scalar>
+            <!-- and so on -->
+          </list>
+        </parameter>
+    </module>
+  </comment>
+
+</template>

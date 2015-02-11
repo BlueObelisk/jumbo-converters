@@ -1,0 +1,54 @@
+<template id="init.stationaryPointLocationRun"
+  repeat="*"
+  name="STATIONARY POINT LOCATION RUN"
+  pattern="\s*-+\s*$\s*STATIONARY POINT LOCATION RUN\s*$\s*-+\s*"      offset="0"
+  endPattern="\sBEGINNING GEOMETRY SEARCH.+"   endOffset="0" >
+
+  <comment class="example.input" id="init.stationaryPointLocationRun">
+          -----------------------------
+          STATIONARY POINT LOCATION RUN
+          -----------------------------
+
+ OBTAINING INITIAL HESSIAN, HESS=GUESS   
+ CARTESIAN COORDINATE OPTIMIZATION USING BADGER'S RULE FORCE CONSTANT GUESS
+
+          PARAMETERS CONTROLLING GEOMETRY SEARCH ARE
+          METHOD =QA                  UPHESS =BFGS    
+          NNEG   =         0          NFRZ   =         0
+          NSTEP  =        20          IFOLOW =         1
+          HESS   =GUESS               RESTAR =         F
+          IHREP  =         0          HSSEND =         F
+          NPRT   =         0          NPUN   =         0
+          OPTTOL = 1.000E-04          RMIN   = 1.500E-03
+          RMAX   = 1.000E-01          RLIM   = 7.000E-02
+          DXMAX  = 3.000E-01          PURIFY =         F
+          MOVIE  =         F          TRUPD  =         T
+          TRMAX  = 5.000E-01          TRMIN  = 5.000E-02
+          ITBMAT =         5          STPT   =         F
+          STSTEP = 1.000E-02          PROJCT=          T
+
+ BEGINNING GEOMETRY SEARCH POINT NSERCH=   0 ...
+  </comment>
+
+  <record id="init.stationaryPointLocationRun.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+  <comment class="example.output" id="init.stationaryPointLocationRun">
+    <module cmlx:templateRef="init.stationaryPointLocationRun" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="g:geometrySearchOptions">
+        <list>
+          <scalar dictRef="g:geomSearch_method" dataType="xsd:string" >QA</scalar>
+          <scalar dictRef="g:geomSearch_uphess" dataType="xsd:string" >BFGS</scalar>
+          <scalar dictRef="g:geomSearch_nneg"   dataType="xsd:integer">0</scalar>
+          <scalar dictRef="g:geomSearch_nfrz"   dataType="xsd:integer">0</scalar>
+          <scalar dictRef="g:geomSearch_nstep"  dataType="xsd:integer">20</scalar>
+          <scalar dictRef="g:geomSearch_ifolow" dataType="xsd:integer">1</scalar>
+          <scalar dictRef="g:geomSearch_hess"   dataType="xsd:string" >guess</scalar>
+          <scalar dictRef="g:geomSearch_restar" dataType="xsd:string" >F</scalar>
+          <!-- and so forth -->
+        </list>
+      </parameter>
+    </module>
+  </comment>
+
+</template>
