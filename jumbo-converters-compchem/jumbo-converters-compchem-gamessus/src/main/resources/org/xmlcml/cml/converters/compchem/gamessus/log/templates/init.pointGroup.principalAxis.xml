@@ -1,0 +1,29 @@
+<template id="init.pointGroup.principalAxis"
+  repeat="*"
+  name="init.pointGroup.principalAxis"
+  pattern="\s*THE POINT GROUP OF THE MOLECULE IS.+"      offset="0"
+  endPattern="\sTHE ORDER OF THE PRINCIPAL AXIS IS.+"   endOffset="1" >
+
+  <comment class="example.input" id="init.pointGroup.principalAxis">
+ THE POINT GROUP OF THE MOLECULE IS C1      
+ THE ORDER OF THE PRINCIPAL AXIS IS     0
+  </comment>
+
+  <record id="pointGroup"  repeat="1">\s*THE POINT GROUP OF THE MOLECULE IS {A,cc:pointGroup}.+</record>
+  <record id="princAxis"   repeat="1">\s*THE ORDER OF THE PRINCIPAL AXIS IS {I,g:principalAxisOrder}.+</record>
+
+  <transform process="createWrapperParameter" xpath=".//cml:scalar" />
+  <transform process="pullupSingleton" xpath="./cml:list" />
+
+  <comment class="example.output" id="init.pointGroup.principalAxis">
+    <module cmlx:templateRef="init.pointGroup.principalAxis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+        <parameter dictRef="cc:pointGroup" cmlx:templateRef="pointGroup">
+          <scalar dataType="xsd:string">C1</scalar>
+        </parameter>
+        <parameter dictRef="g:principalAxisOrder" cmlx:templateRef="princAxis">
+          <scalar dataType="xsd:integer">0</scalar>
+        </parameter>
+    </module>
+  </comment>
+
+</template>

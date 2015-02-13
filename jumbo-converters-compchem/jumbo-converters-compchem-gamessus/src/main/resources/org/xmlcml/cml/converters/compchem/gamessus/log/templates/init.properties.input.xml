@@ -1,0 +1,69 @@
+<template id="init.properties.input"
+  repeat="*"
+  name="PROPERTIES INPUT"
+  pattern="\s*-+\s*$\s*PROPERTIES INPUT\s*$\s*-+\s*$\s*$\s*.+"      offset="0"
+  endPattern="\s*$"   endOffset="0" >
+
+  <comment class="example.input" id="init.properties.input">
+          ----------------
+          PROPERTIES INPUT
+          ----------------
+
+     MOMENTS            FIELD           POTENTIAL          DENSITY
+ IEMOM =       1   IEFLD =       0   IEPOT =       0   IEDEN =       0
+ WHERE =COMASS     WHERE =NUCLEI     WHERE =NUCLEI     WHERE =NUCLEI  
+ OUTPUT=BOTH       OUTPUT=BOTH       OUTPUT=BOTH       OUTPUT=BOTH    
+ IEMINT=       0   IEFINT=       0                     IEDINT=       0
+                                                       MORB  =       0
+          EXTRAPOLATION IN EFFECT
+          DIIS IN EFFECT
+ ORBITAL PRINTING OPTION: NPREO=     1    23     2     1
+
+  </comment>
+
+  <record id="init.properties.input.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+  <comment class="example.output" id="init.properties.input">
+    <module cmlx:templateRef="init.properties.input" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="g:properties.input.moments">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="g:iemom">1</scalar>
+          <scalar dataType="xsd:string"  dictRef="g:where">COMASS</scalar>
+          <scalar dataType="xsd:string"  dictRef="g:output">BOTH</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:iemint">0</scalar>
+        </list>
+      </parameter>
+      <parameter dictRef="g:properties.input.field">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="g:iefld">0</scalar>
+          <scalar dataType="xsd:string"  dictRef="g:where">NUCLEI</scalar>
+          <scalar dataType="xsd:string"  dictRef="g:output">BOTH</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:iefint">0</scalar>
+        </list>
+      </parameter>
+      <parameter dictRef="g:properties.input.potential">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="g:iepot">0</scalar>
+          <scalar dataType="xsd:string"  dictRef="g:where">NUCLEI</scalar>
+          <scalar dataType="xsd:string"  dictRef="g:output">BOTH</scalar>
+        </list>
+      </parameter>
+      <parameter dictRef="g:properties.input.density">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="g:ieden">0</scalar>
+          <scalar dataType="xsd:string"  dictRef="g:where">NUCLEI</scalar>
+          <scalar dataType="xsd:string"  dictRef="g:output">BOTH</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:iedint">0</scalar>
+          <scalar dataType="xsd:integer" dictRef="g:morb">0</scalar>
+        </list>
+      </parameter>
+      <list cmlx:templateRef="init.properties.input.unparsed">
+       <scalar dataType="xsd:string" dictRef="x:UNPARSED">EXTRAPOLATION IN EFFECT</scalar>
+       <scalar dataType="xsd:string" dictRef="x:UNPARSED">DIIS IN EFFECT</scalar>
+       <scalar dataType="xsd:string" dictRef="x:UNPARSED">ORBITAL PRINTING OPTION: NPREO= 1 17 2 1</scalar>
+      </list>
+    </module>
+  </comment>
+
+</template>
