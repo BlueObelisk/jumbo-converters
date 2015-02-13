@@ -43,6 +43,7 @@ public class TemplateTest {
 			@Test   public void testEnvironScript()             {runTemplateTest("environ.01.script");}
 			@Test   public void testKickoff()                   {runTemplateTest("environ.02.kickoff");}
 			@Test   public void testEnvironProgInfoScript()     {runTemplateTest("environ.03.proginfo");}
+			@Test   public void testFreqEnergyGradients()       {runTemplateTest("freq.energy.gradient");}
 			@Test   public void testFreqAtomicWeights()         {runTemplateTest("freq.normCoords.atomicWeights");}
 			@Test   public void testFreqFrequenciesShort()      {runTemplateTest("freq.normCoords.frequenciesShort");}
 			@Test   public void testFreqThermochemistry()       {runTemplateTest("freq.thermochemistry");}
