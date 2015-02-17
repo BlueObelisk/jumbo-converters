@@ -48,12 +48,12 @@ public class TemplateTest {
 			@Test   public void testSystemOptions()             {runTemplateTest("init.system.options");}
 			@Test   public void testCompositeG3MP2Summary()     {runTemplateTest("composite.G3MP2.summary");}
 			@Test   public void testCompositeG4MP2Summary()     {runTemplateTest("composite.G4MP2.summary");}
-	@Ignore @Test   public void testKickoff()                   {runTemplateTest("environ.02.kickoff");}
+			@Test   public void testKickoff()                   {runTemplateTest("environ.02.kickoff");}
+			@Test   public void testDFTOptions()                {runTemplateTest("init.gridbased.dft.options");}
 
 	////////////  //////////// READY TO WORK ON: ////////////  ////////////
 	@Ignore @Test   public void testBondOrder()                 {runTemplateTest("bondOrder.valence");}
 	@Ignore	@Test   public void testFreqNormalCoordAnalysis()   {runTemplateTest("freq.normalCoordAnalysis");}
-	@Ignore @Test   public void testDFTOptions()                {runTemplateTest("init.gridbased.dft.options");}
 
 
 

@@ -15,8 +15,29 @@
      THRESH=    0.00E+00 GTHRE=    1.00E+00
   </comment>
 
-  <record id="init.gridbased.dft.options.unparsed" repeat="*">{X,x:UNPARSED}</record>
+  <record repeat="2" />
+  <record id="data">\s*.*={X,cc:dftFunctional}\s*</record>
+  <record id="data">\s*.*=\s+{I,g:dft.nrad}\s+.*=\s+{I,g:dft.nleb}\s*</record>
+  <record id="data">\s*.*=\s+{I,g:dft.nrad0}\s+.*=\s+{I,g:dft.nleb0}\s*</record>
+  <record id="data">\s*.*=\s+{X,g:dft.swoff}\s\(.+\s*</record>
+  <record id="data">\s*.*=\s+{X,g:dft.switch}\s\(.+\s*</record>
+  <record id="data">\s*.*=\s+{X,g:dft.thres}\s.*=\s+{X,g:dft.gthre}\s*</record>
 
+  <transform process="setDataType" value="xsd:double" xpath=".//*[contains(@dictRef,'g:dft.s') or contains(@dictRef,'g:dft.t') or contains(@dictRef,'g:dft.g')]" />
+
+  <transform process="addChild"
+                 xpath="."
+                 elementName="cml:list"
+                 position="0"
+                 dictRef="g:LebedevGridBasedDftOptions" />
+  
+  <transform process="move" xpath=".//*[contains(@dictRef,'cc:') or contains(@dictRef,'g:dft.')]" to=".//*[@dictRef='g:LebedevGridBasedDftOptions']" />
+
+  <transform process="createWrapperParameter" xpath=".//*[@dictRef='g:LebedevGridBasedDftOptions']"/>
+
+
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
 
   <comment class="example.output" id="init.gridbased.dft.options">
     <module cmlx:templateRef="init.gridbased.dft.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
@@ -27,8 +48,8 @@
             <scalar dictRef="g:dft.nleb"       dataType="xsd:integer">302</scalar>
             <scalar dictRef="g:dft.nrad0"      dataType="xsd:integer">24</scalar>
             <scalar dictRef="g:dft.nleb0"      dataType="xsd:integer">110</scalar>
-            <scalar dictRef="g:dft.swoff"      dataType="xsd:double" >5.00E-03</scalar>
-            <scalar dictRef="g:dft.switch"     dataType="xsd:double" >3.00E-04</scalar>
+            <scalar dictRef="g:dft.swoff"      dataType="xsd:double" >0.005</scalar>
+            <scalar dictRef="g:dft.switch"     dataType="xsd:double" >3.0E-4</scalar>
             <scalar dictRef="g:dft.thres"      dataType="xsd:double" >0.0</scalar>
             <scalar dictRef="g:dft.gthre"      dataType="xsd:double" >1.0</scalar>
           </list>
