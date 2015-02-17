@@ -1,0 +1,58 @@
+<template id="bondOrder.valence.val"
+  repeat="*"
+  name="Valences"
+  pattern="\s*TOTAL\s+BONDED\s+FREE\s*"      offset="0"
+  endPattern="~"   endOffset="0" >
+
+  <comment class="example.input" id="bondOrder.ch4">
+                       TOTAL       BONDED        FREE
+      ATOM            VALENCE     VALENCE     VALENCE
+    1 C                 3.863       3.863       0.000
+    2 H                 0.939       0.939       0.000
+    3 H                 0.939       0.939       0.000
+    4 H                 0.939       0.939       0.000
+    5 H                 0.939       0.939       0.000
+  </comment>
+  <comment class="example.input" id="bondOrder.ch2o2">
+                       TOTAL       BONDED        FREE
+      ATOM            VALENCE     VALENCE     VALENCE
+    1 C                 3.833       3.833       0.000
+    2 O                 2.079       2.079       0.000
+    3 O                 1.851       1.851       0.000
+    4 H                 0.927       0.927       0.000
+    5 H                 0.825       0.825       0.000
+  </comment>
+
+ 
+  <record id="bondOrder.Valence.val.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+  <comment class="example.output" id="bondOrder.ch4">
+    <module cmlx:templateRef="bondOrder.valence.val" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="g:valences">
+        <list>
+          <array dataType="xsd:integer" dictRef="g:atomId"       size="5">1 2 3 4 5</array>
+          <array dataType="xsd:string" dictRef="g:atomLabel"     size="5">C H H H H</array>
+          <array dataType="xsd:double" dictRef="g:totalValence"  size="5">3.863 0.939 0.939 0.939 0.939</array>
+          <array dataType="xsd:double" dictRef="g:bondedValence" size="5">3.863 0.939 0.939 0.939 0.939</array>
+          <array dataType="xsd:double" dictRef="g:freeValence"   size="5">0.0 0.0 0.0 0.0 0.0 </array>
+        </list>
+      </property>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="bondOrder.ch2o2">
+    <module cmlx:templateRef="bondOrder.valence.val" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="g:valences">
+        <list>
+          <array dataType="xsd:integer" dictRef="g:atomId"       size="5">1 2 3 4 5</array>
+          <array dataType="xsd:string" dictRef="g:atomLabel"     size="5">C O O H H</array>
+          <array dataType="xsd:double" dictRef="g:totalValence"  size="5">3.833 2.079 1.851 0.927 0.825</array>
+          <array dataType="xsd:double" dictRef="g:bondedValence" size="5">3.833 2.079 1.851 0.927 0.825</array>
+          <array dataType="xsd:double" dictRef="g:freeValence"   size="5">0.0 0.0 0.0 0.0 0.0 </array>
+        </list>
+      </property>
+    </module>
+  </comment>
+
+</template>
