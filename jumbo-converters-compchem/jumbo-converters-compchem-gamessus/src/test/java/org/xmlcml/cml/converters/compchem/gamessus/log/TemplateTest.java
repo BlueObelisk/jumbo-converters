@@ -54,24 +54,24 @@ public class TemplateTest {
 			@Test   public void testPointGroup()                {runTemplateTest("init.pointGroup.principalAxis");}
 			@Test   public void testRunTitle()                  {runTemplateTest("init.runTitle");}
 			@Test   public void testSystemOptions()             {runTemplateTest("init.system.options");}
+			@Test   public void testValences()                	{runTemplateTest("bondOrders.valence.val");}
+			@Test   public void testGuessOptions()              {runTemplateTest("init.guess.options");}
+			@Test   public void testPropertiesInput()           {runTemplateTest("init.properties.input");}
+			@Test   public void testStatPointLocationRun()      {runTemplateTest("init.stationaryPointLocationRun");}
+			@Test   public void testInputCoordinates()          {runTemplateTest("init.inputCoordinates.bohr");}
+			@Test   public void testBondOrderValence()          {runTemplateTest("bondOrder.valence");}
 
 
 	////////////  //////////// READY TO WORK ON: ////////////  ////////////
-	@Ignore	@Test   public void testValences()                	{runTemplateTest("bondOrders.valence.val");}
-	@Ignore	@Test   public void testFreqNormalCoordAnalysis()   {runTemplateTest("freq.normalCoordAnalysis");}
-	@Ignore	@Test   public void testGuessOptions()              {runTemplateTest("init.guess.options");}
-	@Ignore	@Test   public void testInputCoordinates()          {runTemplateTest("init.inputCoordinates.bohr");}
-	@Ignore	@Test   public void testPropertiesInput()           {runTemplateTest("init.properties.input");}
-	@Ignore	@Test   public void testStatPointLocationRun()      {runTemplateTest("init.stationaryPointLocationRun");}
 
 
 	////////////  //////////// KEEP FOR LATER: ////////////  ////////////
 	@Ignore @Test   public void testDistanceMatrix()            {runTemplateTest("internuclear.distance.matrix");}
-	@Ignore @Test   public void testBondOrderValence()          {runTemplateTest("bondOrder.valence");}
 	@Ignore @Test   public void testInputCard()                 {runTemplateTest("init.01.inputcard");}
 	@Ignore	@Test   public void testBasisOptions()              {runTemplateTest("init.02.basis.options");}
 	@Ignore	@Test   public void testFreqForceConstantMatrix()   {runTemplateTest("freq.forceConstantMatrix");}
 	@Ignore	@Test   public void testFreqFrequenciesLong()       {runTemplateTest("freq.normCoords.frequenciesLong");}
+	@Ignore	@Test   public void testFreqNormalCoordAnalysis()   {runTemplateTest("freq.normalCoordAnalysis");}
 
 
 

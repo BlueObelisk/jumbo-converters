@@ -14,7 +14,24 @@
           SYMDEN=       F          PURIFY=       F
   </comment>
 
-  <record id="init.guess.options.unparsed" repeat="*">{X,x:UNPARSED}</record>
+  <record repeat="3" />
+  <record id="opt">\s*.*={A,g:guess}\s+.*=\s+{I,g:norb}\s+.*=\s+{I,g:norder}\s*</record>
+  <record id="opt">\s*.*={A,g:mix}\s+.*=\s+{A,g:prtmo}\s+.*=\s+{A,g:punmo}\s*</record>
+  <record id="opt">\s*.*=\s+{X,g:tolz}\s+TOLE\s+=\s+{X,g:tole}\s*</record>
+  <record id="opt">\s*.*=\s+{A,g:symden}\s+.*=\s+{A,g:purify}\s*</record>
+
+  <transform process="addChild" xpath="." elementName="cml:list" dictRef="g:guessOptions" />
+
+  <transform process="move"
+                 to=".//*[@dictRef='g:guessOptions']"
+                 xpath=".//*[contains(@dictRef,'g:')]" />
+
+  <transform process="createWrapperParameter" xpath=".//*[@dictRef='g:guessOptions']"/>
+
+  <transform process="setDataType" value="xsd:double" xpath=".//*[contains(@dictRef,'g:tol')]" />
+
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
 
 
   <comment class="example.output" id="init.guess.options">
@@ -24,7 +41,13 @@
             <scalar dictRef="g:guess"  dataType="xsd:string" >HUCKEL</scalar>
             <scalar dictRef="g:norb"   dataType="xsd:integer">0</scalar>
             <scalar dictRef="g:norder" dataType="xsd:integer">0</scalar>
-            <!-- and so on -->
+            <scalar dictRef="g:mix"    dataType="xsd:string" >F</scalar>
+            <scalar dictRef="g:prtmo"  dataType="xsd:string" >F</scalar>
+            <scalar dictRef="g:punmo"  dataType="xsd:string" >F</scalar>
+            <scalar dictRef="g:tolz"   dataType="xsd:double" >1.0E-8</scalar>
+            <scalar dictRef="g:tole"   dataType="xsd:double" >1.0E-5</scalar>
+            <scalar dictRef="g:symden" dataType="xsd:string" >F</scalar>
+            <scalar dictRef="g:purify" dataType="xsd:string" >F</scalar>
           </list>
         </parameter>
     </module>
