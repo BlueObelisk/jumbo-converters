@@ -186,6 +186,7 @@ public class TransformElement implements MarkupApplier {
 	private static final String CREATE_TORSION         = "createTorsion";
 	private static final String GROUP_SIBLINGS         = "groupSiblings";
 	private static final String CREATE_STRING          = "createString";
+	private static final String CREATE_TRIANGULARMATRIX= "createTriangularMatrix";
 	private static final String CREATE_VECTOR3         = "createVector3";
 	private static final String CREATE_WRAPPER         = "createWrapper";
 	private static final String CREATE_WRAPPER_METADATA= "createWrapperMetadata";
@@ -528,6 +529,8 @@ public class TransformElement implements MarkupApplier {
 			createTable();
 		} else if (CREATE_TORSION.equals(process)) {
 			createTorsion();
+		} else if (CREATE_TRIANGULARMATRIX.equals(process)) {
+			createTriangularMatrix();
 		} else if (CREATE_VECTOR3.equals(process)) {
 			createVector3();
 		} else if (CREATE_WRAPPER.equals(process)) {
@@ -1507,6 +1510,37 @@ public class TransformElement implements MarkupApplier {
 				element.appendChild(torsion);
 				setValue(element, torsion);
 			}
+		}
+	}
+
+	// WORK IN PROGRES
+	private void createTriangularMatrix() {
+		/**
+<list xmlns='http://www.xml-cml.org/schema' >
+	<array dataType='xsd:double' size='5'>0.0 0.1 0.2 0.3 0.4</array>
+	<array dataType='xsd:double' size='5'>1.0 1.1 1.2 1.3 1.4</array>
+	<array dataType='xsd:double' size='5'>2.0 2.1 2.2 2.3 2.4</array>
+	<array dataType='xsd:double' size='5'>3.0 3.1 3.2 3.3 3.4</array>
+	<array dataType='xsd:double' size='5'>4.0 4.1 4.2 4.3 4.4</array>
+</list>
+		 */
+		assertRequired(DICT_REF, dictRef);
+		assertRequired(FROM, from);
+		assertRequired(XPATH, xpath);
+//		String[] dictRefNames = splitDictRef();
+		List<Node> nodeList = getXpathQueryResults();
+		for (Node node : nodeList) 
+		{
+			Element element = (Element)node;
+			Nodes arrayNodes = TransformElement.queryUsingNamespaces(element, from);
+			CMLArray fullArray = new CMLArray("double");
+
+			for (int j = 0; j < arrayNodes.size(); j++) 
+			{
+				CMLArray lineArray = (CMLArray) arrayNodes.get(j);
+
+					fullArray = fullArray.plus(lineArray.createSubArray(0,j));
+			} 
 		}
 	}
 
