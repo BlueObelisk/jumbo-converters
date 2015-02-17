@@ -14,8 +14,21 @@
  H           1.0     1.6818561291        0.0000000000        1.1892045641
   </comment>
 
-  <record id="init.inputCoordinates.bohr.unparsed" repeat="*">{X,x:UNPARSED}</record>
+  <record repeat="2" />
+  <record id="init" makeArray="true" repeat="5">\s*{A,x:atomLabel}\s+{F,cc:elementType}\s+{F,cc:x3}\s+{F,cc:y3}\s+{F,cc:z3}</record>
 
+  <transform process="addChild" xpath="." elementName="cml:list" dictRef="cc:coordinates" />
+
+  <transform process="move"
+                 to=".//*[@dictRef='cc:coordinates']"
+                 xpath=".//*[contains(@dictRef,'cc:') or contains(@dictRef,'x:')]" />
+
+  <transform process="createWrapperProperty" xpath=".//*[@dictRef='cc:coordinates']"/>
+
+  <transform process="addUnits" xpath=".//*[@dictRef='cc:x3' or @dictRef='cc:y3' or @dictRef='cc:z3']" value="nonSi:bohr" />
+  
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
 
   <comment class="example.output" id="init.inputCoordinates.bohr">
     <module cmlx:templateRef="init.inputCoordinates.bohr" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">

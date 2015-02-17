@@ -21,8 +21,48 @@
 
   </comment>
 
-  <record id="init.properties.input.unparsed" repeat="*">{X,x:UNPARSED}</record>
+  <record repeat="5" />
+  <record id="init">\s*.*=\s+{I,g:iemom}\s+.*=\s+{I,g:iefld}\s+.*=\s+{I,g:iepot}\s+.*=\s+{I,g:ieden}\s*</record>
+  <record id="init">\s*.*={A,g:where}\s+.*={A,g:where2}\s+.*={A,g:where3}\s+.*={A,g:where4}\s*</record>
+  <record id="init">\s*.*={A,g:output}\s+.*={A,g:output2}\s+.*={A,g:output3}\s+.*={A,g:output4}\s*</record>
+  <record id="init">\s*.*=\s+{I,g:iemint}\s+.*=\s+{I,g:iefint}\s+.*=\s+{I,g:iedint}\s*</record>
+  <record id="init">\s+.*=\s+{I,g:morb}\s*</record>
+  <record id="init.properties.input.unparsed" repeat="3">\s*{X,x:UNPARSED}\s*</record>
 
+  <transform process="addChild" xpath="." elementName="cml:list" dictRef="g:properties.input.moments" position="0" />
+  <transform process="addChild" xpath="." elementName="cml:list" dictRef="g:properties.input.field" position="1" />
+  <transform process="addChild" xpath="." elementName="cml:list" dictRef="g:properties.input.potential" position="2" />
+  <transform process="addChild" xpath="." elementName="cml:list" dictRef="g:properties.input.density" position="3" />
+
+  <transform process="move"
+                 to=".//*[@dictRef='g:properties.input.moments']"
+                 xpath=".//*[@dictRef='g:iemom' or @dictRef='g:where' or @dictRef='g:output' or @dictRef='g:iemint']" />
+  <transform process="move"
+                 to=".//*[@dictRef='g:properties.input.field']"
+                 xpath=".//*[@dictRef='g:iefld' or @dictRef='g:where2' or @dictRef='g:output2' or @dictRef='g:iefint']" />
+  <transform process="move"
+                 to=".//*[@dictRef='g:properties.input.potential']"
+                 xpath=".//*[@dictRef='g:iepot' or @dictRef='g:where3' or @dictRef='g:output3']" />
+  <transform process="move"
+                 to=".//*[@dictRef='g:properties.input.density']"
+                 xpath=".//*[@dictRef='g:ieden' or @dictRef='g:where4' or @dictRef='g:output4' or @dictRef='g:iedint' or @dictRef='g:morb']" />
+
+  <transform process="createWrapperParameter" xpath=".//*[@dictRef='g:properties.input.moments']"/>
+  <transform process="createWrapperParameter" xpath=".//*[@dictRef='g:properties.input.field']"/>
+  <transform process="createWrapperParameter" xpath=".//*[@dictRef='g:properties.input.potential']"/>
+  <transform process="createWrapperParameter" xpath=".//*[@dictRef='g:properties.input.density']"/>
+
+  <transform process="addDictRef"
+                 xpath="//*[contains(@dictRef,'where')]"
+                 value="g:where "/>
+
+  <transform process="addDictRef"
+                 xpath="//*[contains(@dictRef,'output')]"
+                 value="g:output"/>
+
+
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
 
   <comment class="example.output" id="init.properties.input">
     <module cmlx:templateRef="init.properties.input" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
@@ -61,7 +101,7 @@
       <list cmlx:templateRef="init.properties.input.unparsed">
        <scalar dataType="xsd:string" dictRef="x:UNPARSED">EXTRAPOLATION IN EFFECT</scalar>
        <scalar dataType="xsd:string" dictRef="x:UNPARSED">DIIS IN EFFECT</scalar>
-       <scalar dataType="xsd:string" dictRef="x:UNPARSED">ORBITAL PRINTING OPTION: NPREO= 1 17 2 1</scalar>
+       <scalar dataType="xsd:string" dictRef="x:UNPARSED">ORBITAL PRINTING OPTION: NPREO=     1    23     2     1</scalar>
       </list>
     </module>
   </comment>
