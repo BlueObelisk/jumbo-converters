@@ -16,14 +16,20 @@
  /gpfs/apps/GAMESS/bin//gamess.02.x PESs/B3LYP/cc-pVDZ/B3LYP_Df-15_p-15.inp 
   </comment>
 
-  <record id="kickoff.unparsed" repeat="*">{X,x:UNPARSED}</record>
+  <!-- <record id="kickoff.unparsed" repeat="*">{X,x:UNPARSED}</record> -->
+  <record />
+  <record id="data">\s*.*\s{I,cc:numProcs}\s.*\s.*\s.*\s{I,g:numNodes}\s.*</record>
+  <record id="data">\s*{X,g:command}\s*</record>
+  
+  <transform process="move" xpath=".//*[contains(@dictRef,'g:num') or contains(@dictRef,'g:com') or contains(@dictRef,'cc:num')]" to="." />
+  <transform process="setDataType" value="xsd:string" xpath=".//*[contains(@dictRef,'g:num') or contains(@dictRef,'cc:num')]" />
+  <transform process="createWrapperParameter" xpath=".//*[contains(@dictRef,'g:num') or contains(@dictRef,'g:com') or contains(@dictRef,'cc:num')]"/>
 
   <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
   <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
 
   <comment class="example.output" id="kickoff.1proc.1node">
     <module cmlx:templateRef="environ.02.kickoff" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <parameterList>
         <parameter dictRef="cc:numProcs">
           <scalar dataType="xsd:string">1</scalar>
         </parameter>
@@ -33,13 +39,11 @@
         <parameter dictRef="g:command">
           <scalar dataType="xsd:string">/usr/local/gamess-1may2013/gamess.01.x methane_GAMESS_B3LYP_631Gd_OPT_1may2013</scalar>
         </parameter>
-      </parameterList>
     </module>
   </comment>
 
   <comment class="example.output" id="kickoff.16proc.16node">
     <module cmlx:templateRef="environ.02.kickoff" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <parameterList>
         <parameter dictRef="cc:numProcs">
           <scalar dataType="xsd:string">16</scalar>
         </parameter>
@@ -49,7 +53,6 @@
         <parameter dictRef="g:command">
           <scalar dataType="xsd:string">/gpfs/apps/GAMESS/bin//gamess.02.x PESs/B3LYP/cc-pVDZ/B3LYP_Df-15_p-15.inp</scalar>
         </parameter>
-      </parameterList>
     </module>
   </comment>
 
