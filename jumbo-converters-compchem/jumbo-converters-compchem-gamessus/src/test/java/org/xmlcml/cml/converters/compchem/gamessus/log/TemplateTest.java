@@ -35,7 +35,9 @@ public class TemplateTest {
 
 
 	////////////  //////////// ADD TEMPLATE TESTS HERE: ////////////  ////////////
+			@Test   public void testBondOrderValence()          {runTemplateTest("bondOrder.valence");}
 			@Test   public void testBondOrders()                {runTemplateTest("bondOrders.valence.bo");}
+			@Test   public void testValences()                	{runTemplateTest("bondOrders.valence.val");}
 			@Test   public void testCompositeG3MP2Summary()     {runTemplateTest("composite.G3MP2.summary");}
 			@Test   public void testCompositeG4MP2Summary()     {runTemplateTest("composite.G4MP2.summary");}
 			@Test   public void testCoordinatesAngstrom()       {runTemplateTest("coordinates.angstom");}
@@ -48,18 +50,18 @@ public class TemplateTest {
 			@Test   public void testFreqAtomicWeights()         {runTemplateTest("freq.normCoords.atomicWeights");}
 			@Test   public void testFreqFrequenciesShort()      {runTemplateTest("freq.normCoords.frequenciesShort");}
 			@Test   public void testFreqThermochemistry()       {runTemplateTest("freq.thermochemistry");}
+			@Test   public void testInputCard()                 {runTemplateTest("init.01.inputcard");}
+			@Test   public void testBasisOptions()              {runTemplateTest("init.02.basis.options");}
 			@Test   public void testControlOptions()            {runTemplateTest("init.control.options");}
 			@Test   public void testDispersCorrection()         {runTemplateTest("init.empirical.dispersion.correction");}
 			@Test   public void testDFTOptions()                {runTemplateTest("init.gridbased.dft.options");}
-			@Test   public void testPointGroup()                {runTemplateTest("init.pointGroup.principalAxis");}
-			@Test   public void testRunTitle()                  {runTemplateTest("init.runTitle");}
-			@Test   public void testSystemOptions()             {runTemplateTest("init.system.options");}
-			@Test   public void testValences()                	{runTemplateTest("bondOrders.valence.val");}
 			@Test   public void testGuessOptions()              {runTemplateTest("init.guess.options");}
-			@Test   public void testPropertiesInput()           {runTemplateTest("init.properties.input");}
-			@Test   public void testStatPointLocationRun()      {runTemplateTest("init.stationaryPointLocationRun");}
 			@Test   public void testInputCoordinates()          {runTemplateTest("init.inputCoordinates.bohr");}
-			@Test   public void testBondOrderValence()          {runTemplateTest("bondOrder.valence");}
+			@Test   public void testPointGroup()                {runTemplateTest("init.pointGroup.principalAxis");}
+			@Test   public void testPropertiesInput()           {runTemplateTest("init.properties.input");}
+			@Test   public void testRunTitle()                  {runTemplateTest("init.runTitle");}
+			@Test   public void testStatPointLocationRun()      {runTemplateTest("init.stationaryPointLocationRun");}
+			@Test   public void testSystemOptions()             {runTemplateTest("init.system.options");}
 
 
 	////////////  //////////// READY TO WORK ON: ////////////  ////////////
@@ -67,11 +69,9 @@ public class TemplateTest {
 
 	////////////  //////////// KEEP FOR LATER: ////////////  ////////////
 	@Ignore @Test   public void testDistanceMatrix()            {runTemplateTest("internuclear.distance.matrix");}
-	@Ignore @Test   public void testInputCard()                 {runTemplateTest("init.01.inputcard");}
-	@Ignore	@Test   public void testBasisOptions()              {runTemplateTest("init.02.basis.options");}
 	@Ignore	@Test   public void testFreqForceConstantMatrix()   {runTemplateTest("freq.forceConstantMatrix");}
-	@Ignore	@Test   public void testFreqFrequenciesLong()       {runTemplateTest("freq.normCoords.frequenciesLong");}
 	@Ignore	@Test   public void testFreqNormalCoordAnalysis()   {runTemplateTest("freq.normalCoordAnalysis");}
+	@Ignore	@Test   public void testFreqFrequenciesLong()       {runTemplateTest("freq.normCoords.frequenciesLong");}
 
 
 
