@@ -35,6 +35,7 @@ public class TemplateTest {
 
 
 	////////////  //////////// ADD TEMPLATE TESTS HERE: ////////////  ////////////
+			@Test   public void testBondOrders()                {runTemplateTest("bondOrders.valence.bo");}
 			@Test   public void testCompositeG3MP2Summary()     {runTemplateTest("composite.G3MP2.summary");}
 			@Test   public void testCompositeG4MP2Summary()     {runTemplateTest("composite.G4MP2.summary");}
 			@Test   public void testCoordinatesAngstrom()       {runTemplateTest("coordinates.angstom");}
@@ -56,6 +57,7 @@ public class TemplateTest {
 
 
 	////////////  //////////// READY TO WORK ON: ////////////  ////////////
+	@Ignore	@Test   public void testValences()                	{runTemplateTest("bondOrders.valence.val");}
 	@Ignore	@Test   public void testFreqNormalCoordAnalysis()   {runTemplateTest("freq.normalCoordAnalysis");}
 	@Ignore	@Test   public void testGuessOptions()              {runTemplateTest("init.guess.options");}
 	@Ignore	@Test   public void testInputCoordinates()          {runTemplateTest("init.inputCoordinates.bohr");}
@@ -64,7 +66,8 @@ public class TemplateTest {
 
 
 	////////////  //////////// KEEP FOR LATER: ////////////  ////////////
-	@Ignore @Test   public void testBondOrder()                 {runTemplateTest("bondOrder.valence");}
+	@Ignore @Test   public void testDistanceMatrix()            {runTemplateTest("internuclear.distance.matrix");}
+	@Ignore @Test   public void testBondOrderValence()          {runTemplateTest("bondOrder.valence");}
 	@Ignore @Test   public void testInputCard()                 {runTemplateTest("init.01.inputcard");}
 	@Ignore	@Test   public void testBasisOptions()              {runTemplateTest("init.02.basis.options");}
 	@Ignore	@Test   public void testFreqForceConstantMatrix()   {runTemplateTest("freq.forceConstantMatrix");}
