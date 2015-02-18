@@ -13,50 +13,58 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
 <template id='gamessus.log' output="VERBOSE"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:c="http://www.xml-cml.org/dictionary"
-  xmlns:m="http://www.xml-cml.org/dictionary/gamessus">
-  <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
-  <!-- major sections -->
-    <xi:include href="environ.01.script.xml"/>
-    <xi:include href="environ.02.kickoff.xml"/>
-    <xi:include href="environ.03.proginfo.xml"/>
-
-    <xi:include href="init.01.inputcard.xml"/>
-    <xi:include href="init.02.basis.options.xml"/>
-    <xi:include href="init.runTitle.xml"/>
-    <xi:include href="init.pointGroup.principalAxis.xml"/>
-    <xi:include href="init.inputCoordinates.bohr.xml" />
-    <!-- INTERNUCLEAR DISTANCES (ANGS.) -->
-    <!-- ATOMIC BASIS SET -->
-    <xi:include href="init.gridbased.dft.options.xml"/>
-    <xi:include href="init.empirical.dispersion.correction.xml" />
-    <xi:include href="init.control.options.xml"/>
-    <xi:include href="init.system.options.xml"/>
-    <xi:include href="init.properties.input.xml" />
-    <!-- INTEGRAL TRANSFORMATION OPTIONS -->
-    <!-- INTEGRAL INPUT OPTIONS -->
-    <!-- THE POINT GROUP IS C1 , NAXIS= 0, ORDER= 1 -->
-    <!-- DIMENSIONS OF THE SYMMETRY SUBSPACES ARE -->
-    <xi:include href="init.stationaryPointLocationRun.xml"/>
-    <xi:include href="init.guess.options.xml"/>
+  xmlns:m="http://www.xml-cml.org/dictionary/gamessus"
+  xmlns:xi="http://www.w3.org/2001/XInclude">
+  <templateList>
+    <template id="job"
+      pattern="\s*-+\s*GAMESS execution script.+\s*-+\s*"
+      endPattern="\s*EXECUTION OF GAMESS TERMINATED NORMALLY.+"        endOffset="2"
+      newline="$" repeat="*"> 
+      <templateList id='main'>
 
 
-    <xi:include href="coordinates.angstom.xml"/>
-    <!-- MOLECULAR ORBITALS -->
-    <xi:include href="energy.components.xml"/>
-    <!-- MULLIKEN AND LOWDIN POPULATION ANALYSES -->
-    <xi:include href="bondOrder.valence.xml"/>
-    <xi:include href="dipole.moment.xml"/>
+        <!-- major sections -->
+        <xi:include href="environ.01.script.xml"/>
+        <xi:include href="environ.02.kickoff.xml"/>
+        <xi:include href="environ.03.proginfo.xml"/>
+
+        <xi:include href="init.01.inputcard.xml"/>
+        <xi:include href="init.02.basis.options.xml"/>
+        <xi:include href="init.runTitle.xml"/>
+        <xi:include href="init.pointGroup.principalAxis.xml"/>
+        <xi:include href="init.inputCoordinates.bohr.xml" />
+        <!-- INTERNUCLEAR DISTANCES (ANGS.) -->
+        <!-- ATOMIC BASIS SET -->
+        <xi:include href="init.gridbased.dft.options.xml"/>
+        <xi:include href="init.empirical.dispersion.correction.xml" />
+        <xi:include href="init.control.options.xml"/>
+        <xi:include href="init.system.options.xml"/>
+        <xi:include href="init.properties.input.xml" />
+        <!-- INTEGRAL TRANSFORMATION OPTIONS -->
+        <!-- INTEGRAL INPUT OPTIONS -->
+        <!-- THE POINT GROUP IS C1 , NAXIS= 0, ORDER= 1 -->
+        <!-- DIMENSIONS OF THE SYMMETRY SUBSPACES ARE -->
+        <xi:include href="init.stationaryPointLocationRun.xml"/>
+        <xi:include href="init.guess.options.xml"/>
 
 
-    <!-- finalization of Frequency (Hessian) calculation -->
-    <xi:include href="freq.energy.gradient.xml"/>
-    <xi:include href="freq.forceConstantMatrix.xml" />
-    <xi:include href="freq.normalCoordAnalysis.xml" />
+        <xi:include href="coordinates.angstom.xml"/>
+        <!-- MOLECULAR ORBITALS -->
+        <xi:include href="energy.components.xml"/>
+        <!-- MULLIKEN AND LOWDIN POPULATION ANALYSES -->
+        <xi:include href="bondOrder.valence.xml"/>
+        <xi:include href="dipole.moment.xml"/>
 
-    <!-- <xi:include href="chunker.temp.xml"/> -->
+
+        <!-- finalization of Frequency (Hessian) calculation -->
+        <xi:include href="freq.energy.gradient.xml"/>
+        <xi:include href="freq.forceConstantMatrix.xml" />
+        <xi:include href="freq.normalCoordAnalysis.xml" />
+
+        <!-- <xi:include href="chunker.temp.xml"/> -->
+      </templateList>
+    </template>
   </templateList>
-
-
   <!--  don't worry if you don't understand all of this. It's almost boilerplate -->
   <!--  Do the grouping after all the main body has been  processed   -->
 
