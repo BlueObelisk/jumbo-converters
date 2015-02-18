@@ -85,6 +85,8 @@ public class TemplateTest {
 			@Test   public void testMethane_B3LYP_631Gd_Opt()     {try {runTest("ch4_B3LYP_631Gd_Opt_20130501R1"); } catch (Exception e){System.out.println(e) ;} }
 	@Ignore
 			@Test   public void testMethane_B3LYP_631Gd_Freq()    {try {runTest("ch4_B3LYP_631Gd_Freq_20130501R1");} catch (Exception e){System.out.println(e) ;} }
+	@Ignore
+			@Test   public void testMethane_B3LYP_631Gd_OptFreq() {try {runTest("ch4_B3LYP_631Gd_Opt_HessEnd_20130501R1");} catch (Exception e){System.out.println(e) ;} }
 
 	@Ignore
 			@Test public void runDocumentTests() {

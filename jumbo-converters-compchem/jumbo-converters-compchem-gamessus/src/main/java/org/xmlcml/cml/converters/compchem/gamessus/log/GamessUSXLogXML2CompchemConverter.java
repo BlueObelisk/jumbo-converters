@@ -73,9 +73,16 @@ public class GamessUSXLogXML2CompchemConverter extends XML2XMLTransformConverter
             GamessUSXLogXML2CompchemConverter converter = new GamessUSXLogXML2CompchemConverter();
             converter.runTests(args[0]);
         } else if (args.length == 2) {
-            GamessUSXLogXML2CompchemConverter converter = new GamessUSXLogXML2CompchemConverter(BASE_URI,
-                    "templates/"+args[1]);
-            converter.runTests(args[0]);
+            // GamessUSXLogXML2CompchemConverter converter = new GamessUSXLogXML2CompchemConverter(BASE_URI,
+            //         "templates/"+args[1]);
+            // converter.runTests(args[0]);
+            InputStream transformStream = Util.getResourceUsingContextClassLoader(
+                    "org/xmlcml/cml/converters/compchem/gamessus/log/gamessus2compchem.xml", GamessUSXLogXML2CompchemConverter.class);
+            XML2XMLConverter converter = new GamessUSXLogXML2CompchemConverter(transformStream);
+            File in = new File(args[0]);
+            File out = new File(args[1]);
+            converter.convert(in, out);
+
         } else {
             InputStream transformStream = Util.getResourceUsingContextClassLoader(
                     "org/xmlcml/cml/converters/compchem/gamessus/log/gamessus2compchem.xml", GamessUSXLogXML2CompchemConverter.class);
