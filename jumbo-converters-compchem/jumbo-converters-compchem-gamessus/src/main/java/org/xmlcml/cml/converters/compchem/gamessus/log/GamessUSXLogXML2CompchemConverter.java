@@ -87,7 +87,7 @@ public class GamessUSXLogXML2CompchemConverter extends XML2XMLTransformConverter
             InputStream transformStream = Util.getResourceUsingContextClassLoader(
                     "org/xmlcml/cml/converters/compchem/gamessus/log/gamessus2compchem.xml", GamessUSXLogXML2CompchemConverter.class);
             XML2XMLConverter converter = new GamessUSXLogXML2CompchemConverter(transformStream);
-            File in = new File("src/test/resources/compchem/gamessus/log/ref/ch4_B3LYP_631Gd_Opt_20130501R1.xml");
+            File in = new File("src/test/resources/compchem/gamessus/log/out/ch4_B3LYP_631Gd_Opt_20130501R1.xml");
             File out = new File("test/ch4_B3LYP_631Gd_Opt_20130501R1.compchem.xml");
             converter.convert(in, out);
         }
