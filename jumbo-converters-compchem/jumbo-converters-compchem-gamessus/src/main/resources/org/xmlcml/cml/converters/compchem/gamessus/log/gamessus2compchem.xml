@@ -1,0 +1,51 @@
+<transformList
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
+
+
+
+
+  <!-- below are examples from gaussian -->
+
+<!-- 
+  <xi:include href="transform.namespaces.xml"/>
+
+  <transform process="addChild" xpath="." elementName="cml:module" id="jobList1" dictRef="cc:jobList"/>
+
+  <transform process="addDictRef" xpath="./cml:module[@cmlx:templateRef='job']" value="cc:job" />
+  <transform process="addAttribute" xpath="./cml:module[@cmlx:templateRef='job']" name="id" value="job" />
+  <transform process="move" xpath=".//cml:module[@dictRef='cc:job']" to=".//cml:module[@dictRef='cc:jobList']" />
+
+  <xi:include href="transform.preclean.xml"/>
+  
+  <xi:include href="transform.environment.xml"/>
+  <xi:include href="transform.initial.xml"/>
+  <xi:include href="transform.calculation.xml"/>
+  <xi:include href="transform.final.xml"/>
+  <xi:include href="transform.composite.xml"/>
+ -->
+
+  <!-- move remaining modules to calculation -->
+  
+  <!-- <transform process="move" xpath="/cml:module/cml:module[not(@id='jobList1')]" to="//cml:module[@id='calculation']"/>  -->
+
+<!--  group calculation modules --> 
+
+<!-- 
+  <transform process="addSibling" xpath="./cml:module[@id='calculation']/cml:module[@cmlx:templateRef='l202.rotconst']" 
+      elementName="cml:module" id="l202.group" position="1"/> 
+  <transform process="groupSiblings" xpath=".//cml:module[@id='l202.group']" /> 
+  <transform process="move" xpath=".//cml:module[@id='l202.group']" to="/cml:module/cml:module[@id='calculation']"/> 
+
+  <transform process="addDictRef" xpath=".//cml:module[@id='calculation']/cml:module" value="cc:userDefinedModule" />
+
+  <transform process="addAttribute" xpath=".//cml:molecule" name="formalCharge" 
+    value="$number(//cml:scalar[@dictRef='formalCharge'][1])" />
+  <transform process="addAttribute" xpath=".//cml:molecule" name="spinMultiplicity" 
+    value="$number(//cml:scalar[@dictRef='spinMultiplicity'][1])" />
+    
+  <xi:include href="transform.clean.xml"/>
+ -->
+
+</transformList>    
+ 
