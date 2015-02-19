@@ -1397,7 +1397,7 @@ public class TransformElement implements MarkupApplier {
 	}
 
 	private void createNameValue() {
-		/**
+		/*
   <list templateRef="list1">
     <list>
       <scalar dataType="xsd:string" dictRef="n:name">hostname</scalar>
@@ -1516,43 +1516,68 @@ public class TransformElement implements MarkupApplier {
 	// WORK IN PROGRES
 	private void createTriangularMatrix() {
 		/**
-<list xmlns='http://www.xml-cml.org/schema' >
-	<array dataType='xsd:double' size='5'>0.0 0.1 0.2 0.3 0.4</array>
-	<array dataType='xsd:double' size='5'>1.0 1.1 1.2 1.3 1.4</array>
-	<array dataType='xsd:double' size='5'>2.0 2.1 2.2 2.3 2.4</array>
-	<array dataType='xsd:double' size='5'>3.0 3.1 3.2 3.3 3.4</array>
-	<array dataType='xsd:double' size='5'>4.0 4.1 4.2 4.3 4.4</array>
-</list>
+			<transform process='createTriangularMatrix' xpath='.' from='cml:array' dictRef='x:y' />
+		converts:
+		 	<list xmlns='http://www.xml-cml.org/schema' >
+		 		<array dataType='xsd:double' size='5'>0.0 0.1 0.2 0.3 0.4</array>
+		 		<array dataType='xsd:double' size='5'>1.0 1.1 1.2 1.3 1.4</array>
+		 		<array dataType='xsd:double' size='5'>2.0 2.1 2.2 2.3 2.4</array>
+		 		<array dataType='xsd:double' size='5'>3.0 3.1 3.2 3.3 3.4</array>
+		 		<array dataType='xsd:double' size='5'>4.0 4.1 4.2 4.3 4.4</array>
+		 	</list>
+
+	 	to:
+	 		<list xmlns='http://www.xml-cml.org/schema' >
+				<array dictRef='x:y' dataType='xsd:double' size='15'>0.0 1.0 1.1 2.0 2.1 2.2 3.0 3.1 3.2 3.3 4.0 4.1 4.2 4.3 4.4</array>
+			</list>
 		 */
 		assertRequired(DICT_REF, dictRef);
 		assertRequired(FROM, from);
 		assertRequired(XPATH, xpath);
 //		String[] dictRefNames = splitDictRef();
+
 		List<Node> nodeList = getXpathQueryResults();
-		for (Node node : nodeList) 
-		{
+		for (Node node : nodeList) { // all cml:list nodes
+		
 			Element element = (Element)node;
 			Nodes arrayNodes = TransformElement.queryUsingNamespaces(element, from);
-			CMLArray fullArray = new CMLArray("double");
-
+			CMLArray fullArray = new CMLArray("xsd:double");
+			Node node0 = null;
+			
 			for (int j = 0; j < arrayNodes.size(); j++) 
 			{
 				CMLArray lineArray = (CMLArray) arrayNodes.get(j);
 
-					fullArray = fullArray.plus(lineArray.createSubArray(0,j));
-			} 
-		}
+				if (lineArray.getArraySize() >= j){
+					fullArray = fullArray.plus(lineArray.createSubArray(0, j ));
+				} else {
+					CMLUtil.debug(element, "PAR");
+					throw new RuntimeException("Lower Triangle of matrix cannot be extracted.");
+				}
+
+				if (j == 0) {
+					node0 = lineArray;
+				} else {
+					lineArray.detach();
+				}
+
+			} // for all cml:arrays in current cml:list node
+
+			fullArray.setDictRef(dictRef);
+			node0.getParent().replaceChild(node0, fullArray);
+
+		}// for all cml:list nodes
 	}
 
 	private void createVector3() {
-		/**
- <list templateRef="vv2">
-   <list>
-     <scalar dataType="xsd:double" dictRef="n:mo1">1.2</scalar> 
-     <scalar dataType="xsd:double" dictRef="n:mo2">-0.061</scalar> 
-     <scalar dataType="xsd:double" dictRef="n:mo3">-2.7E-15</scalar> 
-  </list>
-</list>
+		/*
+			 <list templateRef="vv2">
+			   <list>
+			      <scalar dataType="xsd:double" dictRef="n:mo1">1.2</scalar> 
+			      <scalar dataType="xsd:double" dictRef="n:mo2">-0.061</scalar> 
+			      <scalar dataType="xsd:double" dictRef="n:mo3">-2.7E-15</scalar> 
+			   </list>
+			 </list>
 		 */
 		assertRequired(DICT_REF, dictRef);
 		assertRequired(FROM, from);
