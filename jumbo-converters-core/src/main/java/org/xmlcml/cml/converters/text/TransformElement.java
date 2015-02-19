@@ -1515,7 +1515,7 @@ public class TransformElement implements MarkupApplier {
 
 	// WORK IN PROGRES
 	private void createTriangularMatrix() {
-		/**
+		/*
 			<transform process='createTriangularMatrix' xpath='.' from='cml:array' dictRef='x:y' />
 		converts:
 		 	<list xmlns='http://www.xml-cml.org/schema' >
@@ -1544,18 +1544,21 @@ public class TransformElement implements MarkupApplier {
 			CMLArray fullArray = new CMLArray("xsd:double");
 			Node node0 = null;
 			
-			for (int j = 0; j < arrayNodes.size(); j++) 
+			for (int i = 0; i < arrayNodes.size(); i++) 
 			{
-				CMLArray lineArray = (CMLArray) arrayNodes.get(j);
+				CMLArray lineArray = (CMLArray) arrayNodes.get(i);
 
-				if (lineArray.getArraySize() >= j){
-					fullArray = fullArray.plus(lineArray.createSubArray(0, j ));
+				if (lineArray.getArraySize() >= i){
+					// fullArray.append( lineArray.createSubArray(0, i) );
+					for (int j = 0; j <= i; j++){
+						fullArray.append( lineArray.getDoubles()[j] );
+					}
 				} else {
 					CMLUtil.debug(element, "PAR");
 					throw new RuntimeException("Lower Triangle of matrix cannot be extracted.");
 				}
 
-				if (j == 0) {
+				if (i == 0) {
 					node0 = lineArray;
 				} else {
 					lineArray.detach();

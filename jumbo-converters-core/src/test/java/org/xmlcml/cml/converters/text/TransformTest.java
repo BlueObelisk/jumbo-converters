@@ -705,9 +705,23 @@ public class TransformTest {
 			);
 	}
 	
-	@Ignore
 	@Test
 	public void testCreateTriangularMatrix(){
+		/**
+		 * Test for extracting lower triangle from a square matrix.
+		 */
+
+		// create input XML with cmlxom datatypes
+		CMLList list = new CMLList();
+		for (double i=0.0 ; i < 5.0 ; i += 1.0 ){
+			CMLArray array = new CMLArray("xsd:double");
+			for (double j=0.0 ; j < 0.5 ; j += 0.1 ){
+				array.append(i+j);
+			}
+			list.appendChild(array);
+		}
+
+		// String representation of input data
 		String listXML =
 			"<list xmlns='http://www.xml-cml.org/schema' >" +
 			  "<array dataType='xsd:double' size='5'>0.0 0.1 0.2 0.3 0.4</array>" +
@@ -716,16 +730,17 @@ public class TransformTest {
 			  "<array dataType='xsd:double' size='5'>3.0 3.1 3.2 3.3 3.4</array>" +
 			  "<array dataType='xsd:double' size='5'>4.0 4.1 4.2 4.3 4.4</array>" +
 			"</list>" ;
-		String transformXML = "<transform process='createTriangularMatrix' xpath='.' from='cml:array' dictRef='x:y' />" ;
-		String arrayXML = 
-			"<list xmlns='http://www.xml-cml.org/schema' >" +
-			  "<array dictRef='x:y' size='15'>0.0 1.0 1.1 2.0 2.1 2.2 3.0 3.1 3.2 3.3 4.0 4.1 4.2 4.3 4.4</array>" +
-			"</list>" ;
 
+		// compare input data with String representation
+		JumboTestUtils.assertEqualsIncludingFloat("test", listXML, list, true, 0.000001);
+
+		// run the transform
 		runTest("createTriangularMatrix",
-			transformXML,
-			listXML,
-			arrayXML
+			"<transform process='createTriangularMatrix' xpath='.' from='cml:array' dictRef='x:y' />",
+			list,
+			"<list xmlns='http://www.xml-cml.org/schema' >" +
+			  "<array dataType='xsd:double' dictRef='x:y' size='15'>0.0 1.0 1.1 2.0 2.1 2.2 3.0 3.1 3.2 3.3 4.0 4.1 4.2 4.3 4.4</array>" +
+			"</list>"
 			);
 	}
 
