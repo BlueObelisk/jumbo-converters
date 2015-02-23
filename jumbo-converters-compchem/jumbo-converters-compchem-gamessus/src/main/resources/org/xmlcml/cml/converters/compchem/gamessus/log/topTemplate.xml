@@ -22,43 +22,62 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
       newline="$" repeat="*"> 
       <templateList id='main'>
 
-
-        <!-- major sections -->
-        <xi:include href="environ.01.script.xml"/>
-        <xi:include href="environ.02.kickoff.xml"/>
-        <xi:include href="environ.03.proginfo.xml"/>
-
-        <xi:include href="init.01.inputcard.xml"/>
-        <xi:include href="init.02.basis.options.xml"/>
-        <xi:include href="init.runTitle.xml"/>
-        <xi:include href="init.pointGroup.principalAxis.xml"/>
-        <xi:include href="init.inputCoordinates.bohr.xml" />
-        <!-- INTERNUCLEAR DISTANCES (ANGS.) -->
-        <!-- ATOMIC BASIS SET -->
-        <xi:include href="init.gridbased.dft.options.xml"/>
-        <xi:include href="init.empirical.dispersion.correction.xml" />
-        <xi:include href="init.control.options.xml"/>
-        <xi:include href="init.system.options.xml"/>
-        <xi:include href="init.properties.input.xml" />
-        <!-- INTEGRAL TRANSFORMATION OPTIONS -->
-        <!-- INTEGRAL INPUT OPTIONS -->
-        <!-- THE POINT GROUP IS C1 , NAXIS= 0, ORDER= 1 -->
-        <!-- DIMENSIONS OF THE SYMMETRY SUBSPACES ARE -->
-        <xi:include href="init.stationaryPointLocationRun.xml"/>
-        <xi:include href="init.guess.options.xml"/>
+        <!-- START of  module environment -->
+          <xi:include href="environ.01.script.xml"/>
+          <xi:include href="environ.02.kickoff.xml"/>
+          <xi:include href="environ.03.proginfo.xml"/>
+        <!-- END of module environment -->
 
 
-        <xi:include href="coordinates.angstom.xml"/>
-        <!-- MOLECULAR ORBITALS -->
-        <xi:include href="energy.components.xml"/>
-        <!-- MULLIKEN AND LOWDIN POPULATION ANALYSES -->
-        <xi:include href="bondOrder.valence.xml"/>
-        <xi:include href="dipole.moment.xml"/>
+        <!-- START of module initialization -->
+          <xi:include href="init.01.inputcard.xml"/>
+          <xi:include href="init.02.basis.options.xml"/>
+          <xi:include href="init.runTitle.xml"/>
+          <xi:include href="init.pointGroup.principalAxis.xml"/>
+          <xi:include href="init.inputCoordinates.bohr.xml" />
+          <xi:include href="internuclear.distance.matrix.xml"/>
+          <!-- TODO: ATOMIC BASIS SET -->
+          <xi:include href="init.gridbased.dft.options.xml"/>
+          <xi:include href="init.empirical.dispersion.correction.xml" />
+          <xi:include href="init.control.options.xml"/>
+          <xi:include href="init.system.options.xml"/>
+          <xi:include href="init.properties.input.xml" />
+          <!-- TODO: INTEGRAL TRANSFORMATION OPTIONS -->
+          <!-- TODO: INTEGRAL INPUT OPTIONS -->
+          <!-- TODO: THE POINT GROUP IS C1 , NAXIS= 0, ORDER= 1 -->
+          <!-- TODO: DIMENSIONS OF THE SYMMETRY SUBSPACES ARE -->
+        <!-- END of module initialization -->
 
-        <!-- finalization of Frequency (Hessian) calculation -->
-        <xi:include href="freq.energy.gradient.xml"/>
-        <xi:include href="freq.forceConstantMatrix.xml" />
-        <xi:include href="freq.normalCoordAnalysis.xml" />
+
+        <!-- START of module calculation -->
+          <xi:include href="init.stationaryPointLocationRun.xml"/>
+          <xi:include href="init.guess.options.xml"/>
+          <!-- START of module calculation-step -->
+            <xi:include href="coordinates.angstom.xml"/>
+            <!-- TODO: MOLECULAR ORBITALS -->
+            <xi:include href="energy.components.xml"/>
+            <!-- TODO: MULLIKEN AND LOWDIN POPULATION ANALYSES -->
+            <xi:include href="bondOrder.valence.xml"/>
+            <xi:include href="dipole.moment.xml"/>
+            <!-- TODO: GRADIENT (HARTREE/BOHR) -->
+          <!-- END of module calculation-step -->
+        <!-- END of module calculation -->
+
+        <!-- START of module finalization -->
+          <!-- in Geometry Optimization: -->
+            <xi:include href="coordinates.angstom.xml"/>
+            <!-- TODO: INTERNUCLEAR DISTANCES -->
+            <!-- TODO: MOLECULAR ORBITALS -->
+            <xi:include href="energy.components.xml"/>
+            <!-- TODO: MULLIKEN AND LOWDIN POPULATION ANALYSES -->
+            <xi:include href="bondOrder.valence.xml"/>
+            <xi:include href="dipole.moment.xml"/>
+          <!-- in Frequency (Hessian) calculation: -->
+            <xi:include href="freq.energy.gradient.xml"/>
+            <xi:include href="freq.forceConstantMatrix.xml" />
+            <xi:include href="freq.normalCoordAnalysis.xml" />
+        <!-- END of module finalization -->
+
 
         <!-- <xi:include href="chunker.temp.xml"/> -->
       </templateList>
