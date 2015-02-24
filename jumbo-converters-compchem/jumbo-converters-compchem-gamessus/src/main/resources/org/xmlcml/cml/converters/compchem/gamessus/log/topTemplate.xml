@@ -4,7 +4,7 @@ It should generally be found in the directory structure
   src/main/resources/org/xmlcml/cml/converters/compchem/gamessus/log
 It uses include files from
   src/main/resources/org/xmlcml/cml/converters/compchem/gamessus/log/templates
-  (though I am not quite sure why the subdirectories are not explcit here)
+  (though I am not quite sure why the subdirectories are not explicit here)
 
 The ORDER of the subtemplates may be important. Templates are processed in the order
   in this files and the subtemplates. Some of the files are marked with comments
@@ -18,18 +18,31 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
   <templateList>
     <template id="job"
       pattern="\s*-+\s*GAMESS execution script.+\s*-+\s*"
-      endPattern="\s*EXECUTION OF GAMESS TERMINATED NORMALLY.+"        endOffset="2"
+      pattern2="\s+\*+\s*$\s+THE HESSIAN WILL NOW BE COMPUTED AT THE STATIONARY POINT.\s*$\s+\*+\s*" offset2="0"
+      endPattern="\s*\.+END OF GEOMETRY SEARCH\.+\s*"                   endOffset="3"
+      endPattern3="\s*EXECUTION OF GAMESS TERMINATED NORMALLY.+"        endOffset3="2"
       newline="$" repeat="*"> 
       <templateList id='main'>
 
+        <template id="environment"
+          pattern="\s*-+\s*GAMESS execution script.+\s*-+\s*" offset="0"
+          endPattern="\s*EXECUTION OF GAMESS BEGUN.*"      endOffset="0"
+          newline="$" repeat="*" >
         <!-- START of  module environment -->
-          <xi:include href="environ.01.script.xml"/>
-          <xi:include href="environ.02.kickoff.xml"/>
-          <xi:include href="environ.03.proginfo.xml"/>
+          <templateList>
+            <xi:include href="environ.01.script.xml"/>
+            <xi:include href="environ.02.kickoff.xml"/>
+            <xi:include href="environ.03.proginfo.xml"/>
+          </templateList>
         <!-- END of module environment -->
+        </template>
 
-
+      <template id="initialization"
+        pattern="\s*EXECUTION OF GAMESS BEGUN.*" offset="0"
+        endPattern="\s*\.+\s*DONE SETTING UP THE RUN\s*\.+\s*" endOffset="3"
+        newline="$" repeat="*">
         <!-- START of module initialization -->
+        <templateList>
           <xi:include href="init.01.inputcard.xml"/>
           <xi:include href="init.02.basis.options.xml"/>
           <xi:include href="init.runTitle.xml"/>
@@ -46,25 +59,50 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
           <!-- TODO: INTEGRAL INPUT OPTIONS -->
           <!-- TODO: THE POINT GROUP IS C1 , NAXIS= 0, ORDER= 1 -->
           <!-- TODO: DIMENSIONS OF THE SYMMETRY SUBSPACES ARE -->
+        </templateList>
         <!-- END of module initialization -->
+      </template>
 
-
+      <template id="calculation"
+        pattern="\s*-+\s*$\s*STATIONARY POINT LOCATION RUN\s*$\s*-+\s*" offset="0"
+        endPattern="\s*\*+\s*EQUILIBRIUM GEOMETRY LOCATED\s*\*+\s*" endOffset="0"
+        newline="$" repeat="*">
+        <templateList>
         <!-- START of module calculation -->
           <xi:include href="init.stationaryPointLocationRun.xml"/>
           <xi:include href="init.guess.options.xml"/>
+          
           <!-- START of module calculation-step -->
-            <xi:include href="coordinates.angstom.xml"/>
-            <!-- TODO: MOLECULAR ORBITALS -->
-            <xi:include href="energy.components.xml"/>
-            <!-- TODO: MULLIKEN AND LOWDIN POPULATION ANALYSES -->
-            <xi:include href="bondOrder.valence.xml"/>
-            <xi:include href="dipole.moment.xml"/>
-            <!-- TODO: GRADIENT (HARTREE/BOHR) -->
+          <template  id="calculation-step"
+            pattern="\s* BEGINNING GEOMETRY SEARCH POINT NSERCH=.+"
+            pattern2="\s*\d+\s+ATOM\s+\d+\s*$\s+-+\s*$\s+COORD\s+\d+\s+NUCLEAR COORDINATES\s*$\s+-+\s+VIB\s+\d+.*"
+
+            endPattern="\s* BEGINNING GEOMETRY SEARCH POINT NSERCH=.+" endOffset="0"
+            endPattern2="\s*\d+\s+ATOM\s+\d+\s*$\s+-+\s*$\s+COORD\s+\d+\s+NUCLEAR COORDINATES\s*$\s+-+\s+VIB\s+\d+.*" endOffset2="0"
+            endPattern3="~"
+            repeat="*" >
+            <templateList>
+              <xi:include href="coordinates.angstom.xml"/>
+              <!-- TODO: MOLECULAR ORBITALS -->
+              <xi:include href="energy.components.xml"/>
+              <!-- TODO: MULLIKEN AND LOWDIN POPULATION ANALYSES -->
+              <xi:include href="bondOrder.valence.xml"/>
+              <xi:include href="dipole.moment.xml"/>
+              <!-- TODO: GRADIENT (HARTREE/BOHR) -->
+            </templateList>
+          </template>
           <!-- END of module calculation-step -->
         <!-- END of module calculation -->
+        </templateList>
 
+      </template>
 
+      <template id="finalization"
+        pattern="\s*\*+\s*EQUILIBRIUM GEOMETRY LOCATED\s*\*+\s*" offset="0"
+        endPattern="\s*\.+\s*END OF GEOMETRY SEARCH\s*\.+\s*" endOffset="3"
+        newline="$" repeat="*">
         <!-- START of module finalization -->
+        <templateList>
           <!-- in Geometry Optimization: -->
             <xi:include href="coordinates.angstom.xml"/>
             <!-- TODO: INTERNUCLEAR DISTANCES -->
@@ -77,7 +115,9 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
             <xi:include href="freq.energy.gradient.xml"/>
             <xi:include href="freq.forceConstantMatrix.xml" />
             <xi:include href="freq.normalCoordAnalysis.xml" />
+        </templateList>
         <!-- END of module finalization -->
+      </template>
 
         <!-- <xi:include href="chunker.temp.xml"/> -->
       </templateList>
