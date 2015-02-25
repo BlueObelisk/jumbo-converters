@@ -47,6 +47,7 @@ public class TemplateTest {
 			@Test   public void testKickoff()                   {runTemplateTest("environ.02.kickoff");}
 			@Test   public void testEnvironProgInfoScript()     {runTemplateTest("environ.03.proginfo");}
 			@Test   public void testFreqEnergyGradients()       {runTemplateTest("freq.energy.gradient");}
+			@Test   public void testFreqForceConstantMatrix()   {runTemplateTest("freq.forceConstantMatrix");}
 			@Test   public void testFreqAtomicWeights()         {runTemplateTest("freq.normCoords.atomicWeights");}
 			@Test   public void testFreqFrequenciesShort()      {runTemplateTest("freq.normCoords.frequenciesShort");}
 			@Test   public void testFreqThermochemistry()       {runTemplateTest("freq.thermochemistry");}
@@ -62,14 +63,13 @@ public class TemplateTest {
 			@Test   public void testRunTitle()                  {runTemplateTest("init.runTitle");}
 			@Test   public void testStatPointLocationRun()      {runTemplateTest("init.stationaryPointLocationRun");}
 			@Test   public void testSystemOptions()             {runTemplateTest("init.system.options");}
+			@Test   public void testDistanceMatrix()            {runTemplateTest("internuclear.distance.matrix");}
 
 
 	////////////  //////////// READY TO WORK ON: ////////////  ////////////
 
 
 	////////////  //////////// KEEP FOR LATER: ////////////  ////////////
-	@Ignore @Test   public void testDistanceMatrix()            {runTemplateTest("internuclear.distance.matrix");}
-	@Ignore	@Test   public void testFreqForceConstantMatrix()   {runTemplateTest("freq.forceConstantMatrix");}
 	@Ignore	@Test   public void testFreqNormalCoordAnalysis()   {runTemplateTest("freq.normalCoordAnalysis");}
 	@Ignore	@Test   public void testFreqFrequenciesLong()       {runTemplateTest("freq.normCoords.frequenciesLong");}
 
