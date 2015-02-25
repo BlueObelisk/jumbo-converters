@@ -50,6 +50,65 @@
 
   </comment>
 
+  <record repeat="3" id="ForceConstantMatrix.header" />
+
+  <templateList>
+    <template id="ForceConstantMatrix.2col" repeat="*"
+      pattern="\s*$(\s+\d+){2}\s*$(\s+\w+){2}\s*$(\s+X\s+Y\s+Z){2}\s*" offset="1"
+      endPattern="\s*$" >
+      <record repeat="3" id="header">{X,x:header}</record>
+      <templateList>
+        <template id="forceConstantsBlock" repeat="*"
+          pattern="\s*\d*\s+\w+\s+X.+" endPattern="\s*Z.+" endOffset="1" >
+          <!-- <record repeat="1" formatType="FORTRAN" id="X">(I3{x:serial},3X,A8{x:elem},5X,A1{x:axis},F9.6{x:fconst},F9.6{x:fconst},F9.6{x:fconst},F9.6{x:fconst},F9.6{x:fconst},F9.6{x:fconst})</record> -->
+          <record id="X" repeat="1">{I3,x:serial}{A8,x:elem}[^XYZ]+X{F,x:fconst}{F,x:fconst}{F,x:fconst}{F,x:fconst}{F,x:fconst}{F,x:fconst}</record>
+          <record id="Y" repeat="1">[^XYZ]+Y{F,x:fconst}{F,x:fconst}{F,x:fconst}{F,x:fconst}{F,x:fconst}{F,x:fconst}</record>
+          <record id="Z" repeat="1">[^XYZ]+Z{F,x:fconst}{F,x:fconst}{F,x:fconst}{F,x:fconst}{F,x:fconst}{F,x:fconst}</record>
+        </template>
+      </templateList>
+    </template>
+
+    <template id="ForceConstantMatrix.1col" repeat="*"
+      pattern="\s*$(\s+\d+){1}\s*$(\s+\w+){1}\s*$(\s+X\s+Y\s+Z){1}\s*" offset="1"
+      endPattern="\s*$" >
+      <record repeat="3" id="header">{X,x:header}</record>
+      <templateList>
+        <template id="forceConstantsBlock" repeat="*"
+          pattern="\s*\d*\s+\w+\s+X.+" endPattern="\s*Z.+" endOffset="1" >
+          <record id="X" repeat="1">{I3,x:serial}{A8,x:elem}[^XYZ]+X{F,x:fconst}{F,x:fconst}{F,x:fconst}</record>
+          <record id="Y" repeat="1">[^XYZ]+Y{F,x:fconst}{F,x:fconst}{F,x:fconst}</record>
+          <record id="Z" repeat="1">[^XYZ]+Z{F,x:fconst}{F,x:fconst}{F,x:fconst}</record>
+        </template>
+      </templateList>
+    </template>
+  </templateList>
+
+
+  <!-- join scalars to array: -->
+  <transform process="createArray" from="./cml:scalar[@dictRef='x:fconst']"
+             xpath=".//cml:module[@cmlx:templateRef='forceConstantsBlock']/cml:list/cml:list" />
+
+  <!-- add <scalar dictRef='x:axis'> with value X, Y or Z -->
+  <transform process="addChild"     elementName="cml:scalar" position="0" dictRef="x:axis" value="X" xpath=".//cml:list[@cmlx:templateRef='X']/cml:list" />
+  <transform process="addChild"     elementName="cml:scalar" position="0" dictRef="x:axis" value="Y" xpath=".//cml:list[@cmlx:templateRef='Y']/cml:list" />
+  <transform process="addChild"     elementName="cml:scalar" position="0" dictRef="x:axis" value="Z" xpath=".//cml:list[@cmlx:templateRef='Z']/cml:list" />
+
+  <!-- add attribute cmlx:row to arrays, e.g. '1X', '1Y', '1Z', '2X', ... '5Z' -->
+  <transform process="addAttribute" name="cmlx:row" value="$string(../../../cml:list/cml:list/cml:scalar[@dictRef='x:serial'])$string(../cml:scalar[@dictRef='x:axis'])" xpath=".//cml:array[@dictRef='x:fconst']" />
+  <!-- join arrays using @cmlx:row as key for which arrays belong to the same line -->
+  <transform process="joinArrays"   key="$string(@cmlx:row)" xpath=".//cml:array[@cmlx:row]" />
+  <transform process="addAttribute" name="cmlx:row" value="$string(../../../cml:list/cml:list/cml:scalar[@dictRef='x:serial'])$string(../cml:scalar[@dictRef='x:axis'])" xpath=".//cml:array[@dictRef='x:fconst']" />
+
+  <!-- collect arrays in a single <cml:list> -->
+  <transform process="addChild"     elementName="cml:list" dictRef="cc:forceConstantMatrix" xpath="."  />
+  <transform process="move"         to="./cml:list[@dictRef='cc:forceConstantMatrix']" xpath=".//cml:array[@dictRef='x:fconst']" />
+
+  <!-- clean-up -->
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='ForceConstantMatrix.header']"/>
+  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='ForceConstantMatrix.2col']"/>
+  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='ForceConstantMatrix.1col']"/>
+
+
   <!-- 
     This is a particulary difficult one!
 
@@ -119,11 +178,30 @@
    -->
 
 
-   <record id="unparsed" repeat="*">{X,x:UNPARSED}</record>
-
-
 
   <comment class="example.output" id="force.constant.matrix">
+    <module cmlx:templateRef="force.constant.matrix" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list dictRef="cc:forceConstantMatrix">
+        <array cmlx:row="1X" dataType="xsd:double" dictRef="x:fconst" size="6">0.556796 0.0 0.0 -0.047763 0.0 0.0</array>
+        <array cmlx:row="1Y" dataType="xsd:double" dictRef="x:fconst" size="6">0.0 0.556795 0.0 0.0 -0.230638 -0.128932</array>
+        <array cmlx:row="1Z" dataType="xsd:double" dictRef="x:fconst" size="6">0.0 0.0 0.555093 0.0 -0.129037 -0.138774</array>
+        <array cmlx:row="2X" dataType="xsd:double" dictRef="x:fconst" size="6">-0.047763 0.0 0.0 0.04657 0.0 0.0</array>
+        <array cmlx:row="2Y" dataType="xsd:double" dictRef="x:fconst" size="6">0.0 -0.230638 -0.129037 0.0 0.247696 0.14204</array>
+        <array cmlx:row="2Z" dataType="xsd:double" dictRef="x:fconst" size="6">0.0 -0.128932 -0.138774 0.0 0.14204 0.146939</array>
+        <array cmlx:row="3X" dataType="xsd:double" dictRef="x:fconst" size="12">-0.047763 0.0 0.0 -0.00176 0.0 0.0 0.04657 0.0 0.0 0.001477 -0.024164 0.014865</array>
+        <array cmlx:row="3Y" dataType="xsd:double" dictRef="x:fconst" size="12">0.0 -0.230638 0.129037 0.0 -0.02001 0.016623 0.0 0.247697 -0.14204 -6.3E-4 0.001478 -0.00181</array>
+        <array cmlx:row="3Z" dataType="xsd:double" dictRef="x:fconst" size="12">0.0 0.128932 -0.138774 0.0 -0.016623 0.013821 0.0 -0.14204 0.14694 -0.00181 0.014865 -0.010993</array>
+        <array cmlx:row="4X" dataType="xsd:double" dictRef="x:fconst" size="12">-0.230639 0.0 0.129037 0.001477 6.3E-4 -0.00181 0.001477 -6.3E-4 -0.00181 0.247697 0.0 -0.14204</array>
+        <array cmlx:row="4Y" dataType="xsd:double" dictRef="x:fconst" size="12">0.0 -0.047764 0.0 0.024164 0.001478 -0.014865 -0.024164 0.001478 0.014865 0.0 0.04657 0.0</array>
+        <array cmlx:row="4Z" dataType="xsd:double" dictRef="x:fconst" size="12">0.128932 0.0 -0.138774 0.014865 0.00181 -0.010993 0.014865 -0.00181 -0.010993 -0.14204 0.0 0.146939</array>
+        <array cmlx:row="5X" dataType="xsd:double" dictRef="x:fconst" size="15">-0.230639 0.0 -0.129037 0.001478 -6.3E-4 0.00181 0.001478 6.3E-4 0.00181 -0.020009 0.0 -0.016623 0.247697 -0.0 0.14204</array>
+        <array cmlx:row="5Y" dataType="xsd:double" dictRef="x:fconst" size="15">0.0 -0.047764 0.0 -0.024164 0.001478 -0.014865 0.024164 0.001478 0.014865 0.0 -0.00176 0.0 0.0 0.04657 0.0</array>
+        <array cmlx:row="5Z" dataType="xsd:double" dictRef="x:fconst" size="15">-0.128932 0.0 -0.138774 -0.014865 0.00181 -0.010993 -0.014865 -0.00181 -0.010993 0.016623 0.0 0.013821 0.14204 0.0 0.14694</array>
+      </list>
+    </module>
+  </comment>
+
+  <comment>
     <module cmlx:templateRef="force.constant.matrix" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
         <array dataType="xsd:double" dictRef="cc:forceConstants" size="120">0.556796 0.0 0.556795 0.0 0.0 0.555093 -0.047763 0.0 0.0 0.04657 0.0 -0.230638 -0.129037 0.0 0.247696 0.0 -0.128932 -0.138774 0.0 0.14204 0.146939 -0.047763 0.0 0.0 -0.00176 0.0 0.0 0.04657 0.0 -0.230638 0.129037 0.0 -0.02001 0.016623 0.0 0.247697 0.0 0.128932 -0.138774 0.0 -0.016623 0.013821 0.0 -0.14204 0.14694 -0.230639 0.0 0.129037 0.001477 0.00063 -0.00181 0.001477 -0.00063 -0.00181 0.247697 0.0 -0.047764 0.0 0.024164 0.001478 -0.014865 -0.024164 0.001478 0.014865 0.0 0.04657 0.128932 0.0 -0.138774 0.014865 0.00181 -0.010993 0.014865 -0.00181 -0.010993 -0.14204 0.0 0.146939 -0.230639 0.0 -0.129037 0.001478 -0.00063 0.00181 0.001478 0.00063 0.00181 -0.020009 0.0 -0.016623 0.247697 0.0 -0.047764 0.0 -0.024164 0.001478 -0.014865 0.024164 0.001478 0.014865 0.0 -0.00176 0.0 0.0 0.04657 -0.128932 0.0 -0.138774 -0.014865 0.00181 -0.010993 -0.014865 -0.00181 -0.010993 0.016623 0.0 0.013821 0.14204 0.0 0.14694</array>
     </module>
