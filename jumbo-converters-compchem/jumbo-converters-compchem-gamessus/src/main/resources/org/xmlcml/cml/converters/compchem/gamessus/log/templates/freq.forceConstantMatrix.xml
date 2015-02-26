@@ -2,7 +2,7 @@
   repeat="*"
   name="force.constant.matrix"
   pattern="\s*-+\s*$\s*CARTESIAN FORCE CONSTANT MATRIX\s*$\s*-+\s*" offset="0"
-  endPattern="\s*-+\s*"                                          endOffset="0" >
+  endPattern="\s*-+\s+.*"                                        endOffset="0" >
 
   <comment class="example.input" id="force.constant.matrix">
           -------------------------------
@@ -100,7 +100,7 @@
   <transform process="addAttribute" name="cmlx:row" value="$string(../../../cml:list/cml:list/cml:scalar[@dictRef='x:serial'])$string(../cml:scalar[@dictRef='x:axis'])" xpath=".//cml:array[@dictRef='x:fconst']" />
 
   <!-- collect arrays in a single <cml:list> -->
-  <transform process="addChild"     elementName="cml:list" dictRef="cc:forceConstantMatrix" xpath="."  />
+  <transform process="addChild"     elementName="cml:list" dictRef="cc:forceConstantMatrix" position="0" xpath="." />
   <transform process="move"         to="./cml:list[@dictRef='cc:forceConstantMatrix']" xpath=".//cml:array[@dictRef='x:fconst']" />
 
   <!-- clean-up -->
