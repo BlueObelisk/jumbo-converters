@@ -1,0 +1,31 @@
+<template id="gradient"
+  repeat="*"
+  name="GRADIENT (HARTREE/BOHR)"
+  pattern="\s*-+\s*$\s*GRADIENT \(HARTREE/BOHR\)\s*$\s*-+\s*" offset="0"
+  endPattern="\s*MAXIMUM GRADIENT =.+RMS GRADIENT =.+"     endOffset="1" >
+
+  <comment class="example.input" id="gradient">
+                                 -----------------------
+                                 GRADIENT (HARTREE/BOHR)
+                                 -----------------------
+        ATOM     ZNUC       DE/DX         DE/DY         DE/DZ
+ --------------------------------------------------------------
+    1  C            6.0    -0.0000002    -0.0000002    -0.0000006
+    2  H            1.0     0.0000001     0.0019239     0.0013415
+    3  H            1.0     0.0000001    -0.0019239     0.0013415
+    4  H            1.0     0.0019241     0.0000001    -0.0013411
+    5  H            1.0    -0.0019241     0.0000001    -0.0013412
+
+          MAXIMUM GRADIENT = 0.0019241    RMS GRADIENT = 0.0012112
+  </comment>
+
+  <record id="gradient.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+  <comment class="example.output" id="gradient">
+    <module cmlx:templateRef="gradient" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+        
+    </module>
+  </comment>
+
+</template>
