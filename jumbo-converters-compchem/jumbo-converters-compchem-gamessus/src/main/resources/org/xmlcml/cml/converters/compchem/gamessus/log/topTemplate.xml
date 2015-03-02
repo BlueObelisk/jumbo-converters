@@ -49,7 +49,7 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
           <xi:include href="init.pointGroup.principalAxis.xml"/>
           <xi:include href="init.inputCoordinates.bohr.xml" />
           <xi:include href="internuclear.distance.matrix.xml"/>
-          <!-- TODO: ATOMIC BASIS SET -->
+          <xi:include href="atomic.basis.set.xml"/>             <!-- TODO! -->
           <xi:include href="init.gridbased.dft.options.xml"/>
           <xi:include href="init.empirical.dispersion.correction.xml" />
           <xi:include href="init.control.options.xml"/>
@@ -76,6 +76,7 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
         <!-- START of module calculation -->
           <xi:include href="init.stationaryPointLocationRun.xml"/>
           <xi:include href="init.guess.options.xml"/>
+          <xi:include href="energy.components.xml"/>
           
           <!-- START of module calculation-step -->
           <template  id="calculation-step"
@@ -88,13 +89,14 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
 
             repeat="*" >
             <templateList>
+              <xi:include href="eigenvectors.xml"/>               <!-- TODO! -->
               <xi:include href="coordinates.angstom.xml"/>
-              <!-- TODO: MOLECULAR ORBITALS -->
+              <xi:include href="molecular.orbitals.xml"/>         <!-- TODO! -->
               <xi:include href="energy.components.xml"/>
               <!-- TODO: MULLIKEN AND LOWDIN POPULATION ANALYSES -->
               <xi:include href="bondOrder.valence.xml"/>
               <xi:include href="dipole.moment.xml"/>
-              <!-- TODO: GRADIENT (HARTREE/BOHR) -->
+              <xi:include href="gradient.xml"/>                   <!-- TODO! -->
             </templateList>
           </template>
           <!-- END of module calculation-step -->
@@ -125,7 +127,8 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
           <!-- in Frequency (Hessian) calculation: -->
             <xi:include href="freq.energy.gradient.xml"/>
             <xi:include href="freq.forceConstantMatrix.xml" />
-            <xi:include href="freq.normalCoordAnalysis.xml" />
+            <!-- TODO: DIPOLE DERIVATIVE TENSOR -->
+            <xi:include href="freq.normalCoordAnalysis.xml" />  <!-- TODO: frequenciesLong,  -->
         </templateList>
         <!-- END of module finalization -->
       </template>
