@@ -8,15 +8,25 @@
              xpath=".//cml:module[@cmlx:templateRef='environment']" 
              value="cc:environment" />
   <transform process="addDictRef" 
-             xpath=".//cml:module[@cmlx:templateRef='initialization']" 
-             value="cc:initialization" />
-  <transform process="addDictRef" 
              xpath=".//cml:module[@cmlx:templateRef='calculation']" 
              value="cc:calculation" />
   <transform process="addDictRef" 
              xpath=".//cml:module[@cmlx:templateRef='finalization']" 
              value="cc:finalization" />
 
+  <transform process="addChild" 
+             xpath=".//cml:module[@dictRef='cc:job']"
+             elementName="cml:module"
+             position="1"
+             id="initialization" />
+
+  <transform process="addDictRef" 
+             xpath=".//cml:module[@id='initialization']" 
+             value="cc:initialization" />
+
+  <transform process="moveRelative"
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@cmlx:templateRef='initialization']/cml:module"
+             to="../../cml:module[@dictRef='cc:initialization']" />
 
   <!-- ENVIRONMENT MODULE -->
   <transform process="addChild" 
@@ -36,16 +46,16 @@
              xpath=".//cml:module[@cmlx:templateRef='environ.01.script' or @cmlx:templateRef='environ.03.proginfo']/cml:parameterList/cml:parameter"/>
   
   <transform process="move" 
-             xpath=".//*[@cmlx:templateRef='environ.01.script' or @cmlx:templateRef='environ.02.kickoff' or @cmlx:templateRef='environ.03.proginfo']/cml:parameter" 
+             xpath=".//*[@cmlx:templateRef='environ.01.script' or @cmlx:templateRef='environ.02.kickoff' or @cmlx:templateRef='environ.03.proginfo']/cml:parameter"
              to=".//*[@id='environment']" />
 
 
   <!-- INITIALIZATION MODULE -->
-  <transform process="move" 
-             xpath=".//*[@cmlx:templateRef='calculation-step'][1]" 
-             to=".//cml:module[@dictRef='cc:initialization']" />
+  <!-- <transform process="move" 
+             xpath=".//cml:module[@cmlx:templateRef='calculation']/cml:module[@cmlx:templateRef='calculation-step'][1]  " 
+             to=".//cml:module[@dictRef='cc:initialization']" /> -->
 
-  <transform process="addChild" 
+  <!-- <transform process="addChild" 
              xpath=".//cml:module[@dictRef='cc:initialization']" 
              elementName="parameterList"
              id="initialization" />
@@ -69,13 +79,12 @@
 
   <transform process="move" 
              xpath=".//*[@dictRef='cc:initialization']/cml:module/cml:parameter" 
-             to=".//*[@id='initialization']" />
+             to=".//*[@id='initialization']" /> -->
 
 
   <!-- CLEAN UP -->
-  <transform process="delete" xpath=".//cml:parameterList[count(*)=0]"/>
-  <!-- <transform process="delete" xpath=".//cml:propertyList[count(*)=0]"/> -->
-  <!-- <transform process="delete" xpath=".//cml:module[count(*)=0]"/> -->
+  <!-- <transform process="delete" xpath=".//cml:parameterList[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:module[count(*)=0]"/> -->
 
 
   <!-- <transform process="move" xpath=".//cml:parameter[@dictRef='x:UNPARSED']" to=".//cml:module[@cmlx:templateRef='environ.01.script']/cml:parameterList" />

@@ -65,7 +65,12 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
 
       <template id="calculation"
         pattern="\s*-+\s*$\s*STATIONARY POINT LOCATION RUN\s*$\s*-+\s*" offset="0"
+        pattern2="\s*\*+\s*$\s*THE HESSIAN WILL NOW BE COMPUTED AT THE STATIONARY POINT\.\s*$\s*\*+\s*" offset2="0"
+        pattern3="\s*-+\s*$\s*HESSIAN MATRIX CONTROL PARAMETERS\s*$\s*-+\s*" offset3="0"
+
         endPattern="\s*\*+\s*EQUILIBRIUM GEOMETRY LOCATED\s*\*+\s*" endOffset="0"
+        endPattern2="\s*\.+\s+END OF NUMERICAL HESSIAN CALCULATION\s+\.+\s*" endOffset2="0"
+
         newline="$" repeat="*">
         <templateList>
         <!-- START of module calculation -->
@@ -74,12 +79,13 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
           
           <!-- START of module calculation-step -->
           <template  id="calculation-step"
-            pattern="\s* BEGINNING GEOMETRY SEARCH POINT NSERCH=.+"
-            pattern2="\s*\d+\s+ATOM\s+\d+\s*$\s+-+\s*$\s+COORD\s+\d+\s+NUCLEAR COORDINATES\s*$\s+-+\s+VIB\s+\d+.*"
+            pattern="\s* BEGINNING GEOMETRY SEARCH POINT NSERCH=.+" offset="0"
+            pattern2="\s+-+\s*$\s+COORD\s+\d+\s+NUCLEAR COORDINATES\s*$\s+-+\s*$\s+VIB\s+\d+.*" offset2="-1"
 
             endPattern="\s* BEGINNING GEOMETRY SEARCH POINT NSERCH=.+" endOffset="0"
-            endPattern2="\s*\d+\s+ATOM\s+\d+\s*$\s+-+\s*$\s+COORD\s+\d+\s+NUCLEAR COORDINATES\s*$\s+-+\s+VIB\s+\d+.*" endOffset2="0"
+            endPattern2="\d+\s+ATOM\s+\d+\s*$\s+-+.*" endOffset2="0"
             endPattern3="~"
+
             repeat="*" >
             <templateList>
               <xi:include href="coordinates.angstom.xml"/>
@@ -99,7 +105,11 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
 
       <template id="finalization"
         pattern="\s*\*+\s*EQUILIBRIUM GEOMETRY LOCATED\s*\*+\s*" offset="0"
+        pattern2="\s*\.+\s+END OF NUMERICAL HESSIAN CALCULATION\s+\.+\s*" offset2="0"
+
         endPattern="\s*\.+\s*END OF GEOMETRY SEARCH\s*\.+\s*" endOffset="3"
+        endPattern2="\s*\.+\s*END OF NORMAL COORDINATE ANALYSIS\s*\.+\s*" endOffset2="3"
+
         newline="$" repeat="*">
 
         <!-- START of module finalization -->
@@ -129,7 +139,7 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
   <!--  Do the grouping after all the main body has been  processed   -->
 
    <!--  this finds all modules with given templateRef and groups them an all sibligs into a new
-   higher level module. Each modules geeedily eats sibling till the next module  -->
+   higher level module. Each modules greedily eats sibling till the next module  -->
 <!-- <transform process="group" name="./*[@cmlx:templateRef='gamessusmod']"/> -->
 
   <!--  labels the first group as the initial one -->
