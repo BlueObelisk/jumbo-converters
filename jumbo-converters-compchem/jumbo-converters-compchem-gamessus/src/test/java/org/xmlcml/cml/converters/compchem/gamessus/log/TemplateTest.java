@@ -67,7 +67,7 @@ public class TemplateTest {
 
 
 	////////////  //////////// READY TO WORK ON: ////////////  ////////////
-
+	@Ignore	@Test   public void testAtomicBasisSet()            {runTemplateTest("atomic.basis.set");}
 
 	////////////  //////////// KEEP FOR LATER: ////////////  ////////////
 	@Ignore	@Test   public void testFreqNormalCoordAnalysis()   {runTemplateTest("freq.normalCoordAnalysis");}
