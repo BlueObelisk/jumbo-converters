@@ -68,27 +68,27 @@
         <template id="dis.matrix_5col" repeat="*"
           pattern="\s+\d+\s+\w+\s+(\d+\.\d+\s\*?\s+){5}"    offset="0"
           endPattern="~" endOffset="0" >
-          <record id="row" repeat="*">{I,g:row}\s{A,cc:elementType}\s+{F,cc:distance}\s\*?{F,cc:distance}\s\*?{F,cc:distance}\s\*?{F,cc:distance}\s\*?{F,cc:distance}.*</record>
+          <record id="row" repeat="*">{I,m:row}\s{A,cc:elementType}\s+{F,cc:distance}\s\*?{F,cc:distance}\s\*?{F,cc:distance}\s\*?{F,cc:distance}\s\*?{F,cc:distance}.*</record>
         </template>
         <template id="dis.matrix_4col" repeat="1"
           pattern="\s+\d+\s+\w+\s+(\d+\.\d+\s\*?\s+){4}"    offset="0"
           endPattern="~" endOffset="0" >
-          <record id="row" repeat="*">{I,g:row}\s{A,cc:elementType}\s+{F,cc:distance}\s\*?{F,cc:distance}\s\*?{F,cc:distance}\s\*?{F,cc:distance}.*</record>
+          <record id="row" repeat="*">{I,m:row}\s{A,cc:elementType}\s+{F,cc:distance}\s\*?{F,cc:distance}\s\*?{F,cc:distance}\s\*?{F,cc:distance}.*</record>
         </template>
         <template id="dis.matrix_3col" repeat="1"
           pattern="\s+\d+\s+\w+\s+(\d+\.\d+\s\*?\s+){3}"    offset="0"
           endPattern="~" endOffset="0" >
-          <record id="row" repeat="*">{I,g:row}\s{A,cc:elementType}\s+{F,cc:distance}\s\*?{F,cc:distance}\s\*?{F,cc:distance}.*</record>
+          <record id="row" repeat="*">{I,m:row}\s{A,cc:elementType}\s+{F,cc:distance}\s\*?{F,cc:distance}\s\*?{F,cc:distance}.*</record>
         </template>
         <template id="dis.matrix_2col" repeat="1"
           pattern="\s+\d+\s+\w+\s+(\d+\.\d+\s\*?\s+){2}"    offset="0"
           endPattern="~" endOffset="0" >
-          <record id="row" repeat="*">{I,g:row}\s{A,cc:elementType}\s+{F,cc:distance}\s\*?{F,cc:distance}.*</record>
+          <record id="row" repeat="*">{I,m:row}\s{A,cc:elementType}\s+{F,cc:distance}\s\*?{F,cc:distance}.*</record>
         </template>
         <template id="dis.matrix_1col" repeat="1"
           pattern="\s+\d+\s+\w+\s+(\d+\.\d+\s\*?\s+){1}"    offset="0"
           endPattern="~" endOffset="0" >
-          <record id="row" repeat="*">{I,g:row}\s{A,cc:elementType}\s+{F,cc:distance}.*</record>
+          <record id="row" repeat="*">{I,m:row}\s{A,cc:elementType}\s+{F,cc:distance}.*</record>
         </template>
       </templateList>
 
@@ -103,11 +103,11 @@
                 from="./cml:scalar[@dictRef='cc:distance']"
                xpath=".//cml:module[contains(@cmlx:templateRef,'dis.matrix')]/cml:list/cml:list" />
   <transform process="addAttribute"  name="cmlx:row"
-               value="$string(../cml:scalar[@dictRef='g:row'])"
+               value="$string(../cml:scalar[@dictRef='m:row'])"
                xpath=".//cml:array[@dictRef='cc:distance']" />
   <transform process="joinArrays" key="$string(@cmlx:row)" xpath=".//cml:array[@cmlx:row]" />
   <transform process="addAttribute"  name="cmlx:row"
-               value="$string(../cml:scalar[@dictRef='g:row'])"
+               value="$string(../cml:scalar[@dictRef='m:row'])"
                xpath=".//cml:array[@dictRef='cc:distance']" />
   <transform process="pullup"   xpath=".//cml:array[@dictRef='cc:distance']" repeat="3" />
   <transform process="addChild" xpath="."
@@ -117,7 +117,7 @@
 
   <!-- cleanup -->
   <transform process="delete" xpath=".//cml:scalar[@dictRef='x:header']"/>
-  <transform process="delete" xpath=".//cml:scalar[@dictRef='g:row']"/>
+  <transform process="delete" xpath=".//cml:scalar[@dictRef='m:row']"/>
   <transform process="delete" xpath=".//cml:scalar[@dictRef='cc:elementType']"/>
   <transform process="delete" xpath=".//cml:array[@dictRef='x:serial']"/>
   <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='internuclear.distance.matrix.unparsed']" />

@@ -35,29 +35,29 @@
     <template id="bondOrders_3col"  repeat="*"
       pattern="(\s+\d+\s+\d+\s+\d+\.\d+\s+\d+\.\d+){3}\s*"
       endPattern=".+">
-      <record id='bondOrder' repeat="*">\s*{I,g:atomId1}{I,g:atomId2}{F,g:distance}{F,g:bondOrder}{I,g:atomId1}{I,g:atomId2}{F,g:distance}{F,g:bondOrder}{I,g:atomId1}{I,g:atomId2}{F,g:distance}{F,g:bondOrder}\s*</record>
+      <record id='bondOrder' repeat="*">\s*{I,m:atomId1}{I,m:atomId2}{F,m:distance}{F,m:bondOrder}{I,m:atomId1}{I,m:atomId2}{F,m:distance}{F,m:bondOrder}{I,m:atomId1}{I,m:atomId2}{F,m:distance}{F,m:bondOrder}\s*</record>
     </template>
     <template id="bondOrders_2col"  repeat="*"
       pattern="(\s+\d+\s+\d+\s+\d+\.\d+\s+\d+\.\d+){2}\s*"
       endPattern="~">
-      <record id='bondOrder' repeat="*">\s*{I,g:atomId1}{I,g:atomId2}{F,g:distance}{F,g:bondOrder}{I,g:atomId1}{I,g:atomId2}{F,g:distance}{F,g:bondOrder}\s*</record>
+      <record id='bondOrder' repeat="*">\s*{I,m:atomId1}{I,m:atomId2}{F,m:distance}{F,m:bondOrder}{I,m:atomId1}{I,m:atomId2}{F,m:distance}{F,m:bondOrder}\s*</record>
     </template>
     <template id="bondOrders_1col"  repeat="*"
       pattern="\s+\d+\s+\d+\s+\d+\.\d+\s+\d+\.\d+\s*"
       endPattern="~">
-      <record id='bondOrder' repeat="*">\s*{I,g:atomId1}{I,g:atomId2}{F,g:distance}{F,g:bondOrder}\s*</record>
+      <record id='bondOrder' repeat="*">\s*{I,m:atomId1}{I,m:atomId2}{F,m:distance}{F,m:bondOrder}\s*</record>
     </template>
   </templateList>
 
-  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='g:atomId1']" />
-  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='g:atomId2']" />
-  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='g:distance']" />
-  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='g:bondOrder']" />
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='m:atomId1']" />
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='m:atomId2']" />
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='m:distance']" />
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='m:bondOrder']" />
 
-  <transform process="addChild" xpath="." elementName="cml:list" dictRef="g:bondorders" />
-  <transform process='move' to="./cml:list[@dictRef='g:bondorders']" 
-             xpath=".//cml:array[@dictRef='g:atomId1' or @dictRef='g:atomId2' or @dictRef='g:distance' or @dictRef='g:bondOrder'  ]" />
-  <transform process="createWrapperProperty" xpath="./cml:list[@dictRef='g:bondorders']" />
+  <transform process="addChild" xpath="." elementName="cml:list" dictRef="m:bondorders" />
+  <transform process='move' to="./cml:list[@dictRef='m:bondorders']" 
+             xpath=".//cml:array[@dictRef='m:atomId1' or @dictRef='m:atomId2' or @dictRef='m:distance' or @dictRef='m:bondOrder'  ]" />
+  <transform process="createWrapperProperty" xpath="./cml:list[@dictRef='m:bondorders']" />
 
   <!-- Delete empty lists and modules -->
   <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
@@ -68,12 +68,12 @@
 
   <comment class="example.output" id="bondOrder.ch4">
     <module cmlx:templateRef="bondOrders.valence.bo" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <property dictRef="g:bondorders">
+      <property dictRef="m:bondorders">
         <list>
-          <array dataType="xsd:integer" dictRef="g:atomId1"  size="4">1 1 1 1</array>
-          <array dataType="xsd:integer" dictRef="g:atomId2"  size="4">2 3 4 5</array>
-          <array dataType="xsd:double" dictRef="g:distance"  size="4">1.093 1.093 1.093 1.093</array>
-          <array dataType="xsd:double" dictRef="g:bondOrder" size="4">0.966 0.966 0.966 0.966</array>
+          <array dataType="xsd:integer" dictRef="m:atomId1"  size="4">1 1 1 1</array>
+          <array dataType="xsd:integer" dictRef="m:atomId2"  size="4">2 3 4 5</array>
+          <array dataType="xsd:double" dictRef="m:distance"  size="4">1.093 1.093 1.093 1.093</array>
+          <array dataType="xsd:double" dictRef="m:bondOrder" size="4">0.966 0.966 0.966 0.966</array>
         </list>
       </property>
     </module>
@@ -81,12 +81,12 @@
 
   <comment class="example.output" id="bondOrder.ch2o2">
     <module cmlx:templateRef="bondOrders.valence.bo" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <property dictRef="g:bondorders">
+      <property dictRef="m:bondorders">
         <list>
-          <array dataType="xsd:integer" dictRef="g:atomId1"  size="5">1 1 1 2 3</array>
-          <array dataType="xsd:integer" dictRef="g:atomId2"  size="5">2 3 4 3 5</array>
-          <array dataType="xsd:double" dictRef="g:distance"  size="5">1.208 1.342 1.08 2.21 0.967</array>
-          <array dataType="xsd:double" dictRef="g:bondOrder" size="5">1.948 0.988 0.877 0.071 0.777</array>
+          <array dataType="xsd:integer" dictRef="m:atomId1"  size="5">1 1 1 2 3</array>
+          <array dataType="xsd:integer" dictRef="m:atomId2"  size="5">2 3 4 3 5</array>
+          <array dataType="xsd:double" dictRef="m:distance"  size="5">1.208 1.342 1.08 2.21 0.967</array>
+          <array dataType="xsd:double" dictRef="m:bondOrder" size="5">1.948 0.988 0.877 0.071 0.777</array>
         </list>
       </property>
     </module>
@@ -94,12 +94,12 @@
 
   <comment class="example.output" id="bondOrder.c6h6">
     <module cmlx:templateRef="bondOrders.valence.bo" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <property dictRef="g:bondorders">
+      <property dictRef="m:bondorders">
         <list>
-          <array dataType="xsd:integer" dictRef="g:atomId1"  size="15">1 1 1 1 2 2 2 3 3 3 4 4 5 5 6</array>
-          <array dataType="xsd:integer" dictRef="g:atomId2"  size="15">2 4 6 7 3 5 8 4 6 9 5 10 6 11 12</array>
-          <array dataType="xsd:double" dictRef="g:distance"  size="15">1.382 2.765 1.382 1.08 1.382 2.765 1.08 1.382 2.765 1.08 1.382 1.08 1.382 1.08 1.08</array>
-          <array dataType="xsd:double" dictRef="g:bondOrder" size="15">1.453 0.103 1.453 0.934 1.453 0.103 0.934 1.453 0.103 0.934 1.453 0.934 1.453 0.934 0.934</array>
+          <array dataType="xsd:integer" dictRef="m:atomId1"  size="15">1 1 1 1 2 2 2 3 3 3 4 4 5 5 6</array>
+          <array dataType="xsd:integer" dictRef="m:atomId2"  size="15">2 4 6 7 3 5 8 4 6 9 5 10 6 11 12</array>
+          <array dataType="xsd:double" dictRef="m:distance"  size="15">1.382 2.765 1.382 1.08 1.382 2.765 1.08 1.382 2.765 1.08 1.382 1.08 1.382 1.08 1.08</array>
+          <array dataType="xsd:double" dictRef="m:bondOrder" size="15">1.453 0.103 1.453 0.934 1.453 0.103 0.934 1.453 0.103 0.934 1.453 0.934 1.453 0.934 0.934</array>
         </list>
       </property>
     </module>
