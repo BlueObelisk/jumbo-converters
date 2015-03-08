@@ -55,7 +55,7 @@
 
   <record/>
   <record id="version">\s*\*\s*GAMESS VERSION = {X,cc:programVersion}\s*\*\s*</record>
-  <record id="authors" repeat="*">\s+\*\s{X,g:authors}\s\*\s*</record>
+  <record id="authors" repeat="*">\s+\*\s{X,m:authors}\s\*\s*</record>
   <record id="platform">\s*\*+\s*{X,cc:programPlatform}\s*VERSION\s*\*+\s*</record>
   <record repeat="*" />
 
@@ -84,7 +84,7 @@
   <transform process="setDataType" value="xsd:string"
     xpath=".//cml:scalar[@dictRef='cc:program']" />
 
-  <transform process="delete" xpath=".//cml:scalar[@dictRef='g:authors']"/>
+  <transform process="delete" xpath=".//cml:scalar[@dictRef='m:authors']"/>
 
   <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
   <transform process="delete" xpath=".//cml:list[count(*)=0]"/>

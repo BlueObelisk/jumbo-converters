@@ -31,28 +31,28 @@
   </comment>
 
   <record repeat="8" />
-  <record id="stat">\s*.*={A,g:geomSearch_method}\s+.*={A,g:geomSearch_uphess}\s*</record>
-  <record id="stat">\s*.*=\s+{I,g:geomSearch_nneg}\s+.*=\s+{I,g:geomSearch_nfrz}\s*</record>
-  <record id="stat">\s*.*=\s+{I,g:geomSearch_nstep}\s+.*=\s+{I,g:geomSearch_ifolow}\s*</record>
-  <record id="stat">\s*.*={A,g:geomSearch_hess}\s+.*=\s+{A,g:geomSearch_restar}\s*</record>
-  <record id="stat">\s*.*=\s+{I,g:geomSearch_ihrep}\s+.*=\s+{A,g:geomSearch_hssend}\s*</record>
-  <record id="stat">\s*.*=\s+{I,g:geomSearch_nprt}\s+.*=\s+{I,g:geomSearch_npun}\s*</record>
-  <record id="stat">\s*.*=\s+{X,g:geomSearch_opttol}\s+RMIN\s+=\s+{X,g:geomSearch_rmin}\s*</record>
-  <record id="stat">\s*.*=\s+{X,g:geomSearch_rmax}\s+RLIM\s+=\s+{X,g:geomSearch_rlim}\s*</record>
-  <record id="stat">\s*.*=\s+{X,g:geomSearch_dxmax}\s+PURIFY\s+=\s+{A,g:geomSearch_purify}\s*</record>
-  <record id="stat">\s*.*=\s+{A,g:geomSearch_movie}\s+.*=\s+{A,g:geomSearch_trupd}\s*</record>
-  <record id="stat">\s*.*=\s+{X,g:geomSearch_trmax}\s+TRMIN\s+=\s+{X,g:geomSearch_trmin}\s*</record>
-  <record id="stat">\s*.*=\s+{I,g:geomSearch_itbmat}\s+.*=\s+{A,g:geomSearch_stpt}\s*</record>
-  <record id="stat">\s*.*=\s+{X,g:geomSearch_ststep}\s+PROJCT=\s+{A,g:geomSearch_projct}\s*</record>
+  <record id="stat">\s*.*={A,m:geomSearch_method}\s+.*={A,m:geomSearch_uphess}\s*</record>
+  <record id="stat">\s*.*=\s+{I,m:geomSearch_nneg}\s+.*=\s+{I,m:geomSearch_nfrz}\s*</record>
+  <record id="stat">\s*.*=\s+{I,m:geomSearch_nstep}\s+.*=\s+{I,m:geomSearch_ifolow}\s*</record>
+  <record id="stat">\s*.*={A,m:geomSearch_hess}\s+.*=\s+{A,m:geomSearch_restar}\s*</record>
+  <record id="stat">\s*.*=\s+{I,m:geomSearch_ihrep}\s+.*=\s+{A,m:geomSearch_hssend}\s*</record>
+  <record id="stat">\s*.*=\s+{I,m:geomSearch_nprt}\s+.*=\s+{I,m:geomSearch_npun}\s*</record>
+  <record id="stat">\s*.*=\s+{X,m:geomSearch_opttol}\s+RMIN\s+=\s+{X,m:geomSearch_rmin}\s*</record>
+  <record id="stat">\s*.*=\s+{X,m:geomSearch_rmax}\s+RLIM\s+=\s+{X,m:geomSearch_rlim}\s*</record>
+  <record id="stat">\s*.*=\s+{X,m:geomSearch_dxmax}\s+PURIFY\s+=\s+{A,m:geomSearch_purify}\s*</record>
+  <record id="stat">\s*.*=\s+{A,m:geomSearch_movie}\s+.*=\s+{A,m:geomSearch_trupd}\s*</record>
+  <record id="stat">\s*.*=\s+{X,m:geomSearch_trmax}\s+TRMIN\s+=\s+{X,m:geomSearch_trmin}\s*</record>
+  <record id="stat">\s*.*=\s+{I,m:geomSearch_itbmat}\s+.*=\s+{A,m:geomSearch_stpt}\s*</record>
+  <record id="stat">\s*.*=\s+{X,m:geomSearch_ststep}\s+PROJCT=\s+{A,m:geomSearch_projct}\s*</record>
   <record repeat="2" />
 
-  <transform process="addChild" xpath="." elementName="cml:list" dictRef="g:geometrySearchOptions" />
+  <transform process="addChild" xpath="." elementName="cml:list" dictRef="m:geometrySearchOptions" />
 
   <transform process="move"
-                 to=".//*[@dictRef='g:geometrySearchOptions']"
-                 xpath=".//*[contains(@dictRef,'g:')]" />
+                 to=".//*[@dictRef='m:geometrySearchOptions']"
+                 xpath=".//*[contains(@dictRef,'m:')]" />
 
-  <transform process="createWrapperParameter" xpath=".//*[@dictRef='g:geometrySearchOptions']"/>
+  <transform process="createWrapperParameter" xpath=".//*[@dictRef='m:geometrySearchOptions']"/>
 
   <transform process="setDataType" value="xsd:double" xpath=".//*[contains(@dictRef,'opttol') or contains(@dictRef,'rm') or contains(@dictRef,'rl') or contains(@dictRef,'dx') or contains(@dictRef,'trm') or contains(@dictRef,'sts')]" />
 
@@ -61,34 +61,34 @@
 
   <comment class="example.output" id="init.stationaryPointLocationRun">
     <module cmlx:templateRef="init.stationaryPointLocationRun" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <parameter dictRef="g:geometrySearchOptions">
+      <parameter dictRef="m:geometrySearchOptions">
         <list>
-          <scalar dictRef="g:geomSearch_method" dataType="xsd:string" >QA</scalar>
-          <scalar dictRef="g:geomSearch_uphess" dataType="xsd:string" >BFGS</scalar>
-          <scalar dictRef="g:geomSearch_nneg"   dataType="xsd:integer">0</scalar>
-          <scalar dictRef="g:geomSearch_nfrz"   dataType="xsd:integer">0</scalar>
-          <scalar dictRef="g:geomSearch_nstep"  dataType="xsd:integer">20</scalar>
-          <scalar dictRef="g:geomSearch_ifolow" dataType="xsd:integer">1</scalar>
-          <scalar dictRef="g:geomSearch_hess"   dataType="xsd:string" >GUESS</scalar>
-          <scalar dictRef="g:geomSearch_restar" dataType="xsd:string" >F</scalar>
-          <scalar dictRef="g:geomSearch_ihrep"  dataType="xsd:integer" >0</scalar>
-          <scalar dictRef="g:geomSearch_hssend" dataType="xsd:string" >F</scalar>
-          <scalar dictRef="g:geomSearch_nprt"   dataType="xsd:integer" >0</scalar>
-          <scalar dictRef="g:geomSearch_npun"   dataType="xsd:integer" >0</scalar>
-          <scalar dictRef="g:geomSearch_opttol" dataType="xsd:double" >1.0E-4</scalar>
-          <scalar dictRef="g:geomSearch_rmin"   dataType="xsd:double" >0.0015</scalar>
-          <scalar dictRef="g:geomSearch_rmax"   dataType="xsd:double" >0.1</scalar>
-          <scalar dictRef="g:geomSearch_rlim"   dataType="xsd:double" >0.07</scalar>
-          <scalar dictRef="g:geomSearch_dxmax"  dataType="xsd:double" >0.3</scalar>
-          <scalar dictRef="g:geomSearch_purify" dataType="xsd:string" >F</scalar>
-          <scalar dictRef="g:geomSearch_movie"  dataType="xsd:string" >F</scalar>
-          <scalar dictRef="g:geomSearch_trupd"  dataType="xsd:string" >T</scalar>
-          <scalar dictRef="g:geomSearch_trmax"  dataType="xsd:double" >0.5</scalar>
-          <scalar dictRef="g:geomSearch_trmin"  dataType="xsd:double" >0.05</scalar>
-          <scalar dictRef="g:geomSearch_itbmat" dataType="xsd:integer" >5</scalar>
-          <scalar dictRef="g:geomSearch_stpt"   dataType="xsd:string" >F</scalar>
-          <scalar dictRef="g:geomSearch_ststep" dataType="xsd:double" >0.01</scalar>
-          <scalar dictRef="g:geomSearch_projct" dataType="xsd:string" >T</scalar>
+          <scalar dictRef="m:geomSearch_method" dataType="xsd:string" >QA</scalar>
+          <scalar dictRef="m:geomSearch_uphess" dataType="xsd:string" >BFGS</scalar>
+          <scalar dictRef="m:geomSearch_nneg"   dataType="xsd:integer">0</scalar>
+          <scalar dictRef="m:geomSearch_nfrz"   dataType="xsd:integer">0</scalar>
+          <scalar dictRef="m:geomSearch_nstep"  dataType="xsd:integer">20</scalar>
+          <scalar dictRef="m:geomSearch_ifolow" dataType="xsd:integer">1</scalar>
+          <scalar dictRef="m:geomSearch_hess"   dataType="xsd:string" >GUESS</scalar>
+          <scalar dictRef="m:geomSearch_restar" dataType="xsd:string" >F</scalar>
+          <scalar dictRef="m:geomSearch_ihrep"  dataType="xsd:integer" >0</scalar>
+          <scalar dictRef="m:geomSearch_hssend" dataType="xsd:string" >F</scalar>
+          <scalar dictRef="m:geomSearch_nprt"   dataType="xsd:integer" >0</scalar>
+          <scalar dictRef="m:geomSearch_npun"   dataType="xsd:integer" >0</scalar>
+          <scalar dictRef="m:geomSearch_opttol" dataType="xsd:double" >1.0E-4</scalar>
+          <scalar dictRef="m:geomSearch_rmin"   dataType="xsd:double" >0.0015</scalar>
+          <scalar dictRef="m:geomSearch_rmax"   dataType="xsd:double" >0.1</scalar>
+          <scalar dictRef="m:geomSearch_rlim"   dataType="xsd:double" >0.07</scalar>
+          <scalar dictRef="m:geomSearch_dxmax"  dataType="xsd:double" >0.3</scalar>
+          <scalar dictRef="m:geomSearch_purify" dataType="xsd:string" >F</scalar>
+          <scalar dictRef="m:geomSearch_movie"  dataType="xsd:string" >F</scalar>
+          <scalar dictRef="m:geomSearch_trupd"  dataType="xsd:string" >T</scalar>
+          <scalar dictRef="m:geomSearch_trmax"  dataType="xsd:double" >0.5</scalar>
+          <scalar dictRef="m:geomSearch_trmin"  dataType="xsd:double" >0.05</scalar>
+          <scalar dictRef="m:geomSearch_itbmat" dataType="xsd:integer" >5</scalar>
+          <scalar dictRef="m:geomSearch_stpt"   dataType="xsd:string" >F</scalar>
+          <scalar dictRef="m:geomSearch_ststep" dataType="xsd:double" >0.01</scalar>
+          <scalar dictRef="m:geomSearch_projct" dataType="xsd:string" >T</scalar>
         </list>
       </parameter>
     </module>

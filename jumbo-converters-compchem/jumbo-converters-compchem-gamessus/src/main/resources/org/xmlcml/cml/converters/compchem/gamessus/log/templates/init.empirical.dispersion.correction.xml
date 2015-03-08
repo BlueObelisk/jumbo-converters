@@ -8,14 +8,14 @@
 GRIMME'S EMPIRICAL DISPERSION CORRECTION= F
   </comment>
 
-  <record id="grimme" repeat="*">GRIMME'S EMPIRICAL DISPERSION CORRECTION={A,g:grimme.empirical.dispersion.correction}</record>
+  <record id="grimme" repeat="*">GRIMME'S EMPIRICAL DISPERSION CORRECTION={A,m:grimme.empirical.dispersion.correction}</record>
 
-  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='g:grimme.empirical.dispersion.correction']"/>
+  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='m:grimme.empirical.dispersion.correction']"/>
   <transform process="pullupSingleton" xpath="./cml:list[@cmlx:templateRef='grimme']" />
 
   <comment class="example.output" id="init.empirical.dispersion.correction">
     <module cmlx:templateRef="init.empirical.dispersion.correction" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <parameter dictRef="g:grimme.empirical.dispersion.correction" cmlx:templateRef="grimme">
+      <parameter dictRef="m:grimme.empirical.dispersion.correction" cmlx:templateRef="grimme">
         <scalar dataType="xsd:string">F</scalar>
       </parameter>
     </module>
