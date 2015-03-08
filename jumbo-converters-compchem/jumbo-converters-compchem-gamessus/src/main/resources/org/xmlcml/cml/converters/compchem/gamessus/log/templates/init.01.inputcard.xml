@@ -29,23 +29,23 @@
 
   <record  id="ex">\s*EXECUTION OF GAMESS BEGUN {X,x:run.date}\s*</record>
   <record repeat="2" />
-  <record id="inputcard" repeat="*">\s*INPUT CARD&gt;{X,gam:inputCard}</record>
-  <record id="memAvail" repeat="*">\s*{I,gam:MemoryAvailable}\s*WORDS OF MEMORY AVAILABLE\s*</record>
+  <record id="inputcard" repeat="*">\s*INPUT CARD&gt;{X,m:inputCard}</record>
+  <record id="memAvail" repeat="*">\s*{I,m:MemoryAvailable}\s*WORDS OF MEMORY AVAILABLE\s*</record>
   
   <transform process="createDate" dictRef="cc:run.date" xpath=".//cml:scalar[@dictRef='x:run.date']" />
 
 <!--   <transform process="createDate" format="EEE MMM d HH:mm:ss yyyy" dictRef="cc:run.date" 
              xpath=".//cml:scalar[@dictRef='x:run.date']" /> -->
 
-  <transform process="addDictRef" value="gam:InputCards" xpath=".//cml:list[@cmlx:templateRef='inputcard']" />
-  <transform process="addUnits" value="nonSi:words" xpath=".//cml:scalar[@dictRef='gam:MemoryAvailable']" />
+  <transform process="addDictRef" value="m:InputCards" xpath=".//cml:list[@cmlx:templateRef='inputcard']" />
+  <transform process="addUnits" value="nonSi:words" xpath=".//cml:scalar[@dictRef='m:MemoryAvailable']" />
 
 
   <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='cc:run.date']" />
-  <transform process="createWrapperParameter" xpath=".//cml:list[@dictRef='gam:InputCards']" />
-  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='gam:MemoryAvailable']" />
+  <transform process="createWrapperParameter" xpath=".//cml:list[@dictRef='m:InputCards']" />
+  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='m:MemoryAvailable']" />
 
-  <transform process="pullup" xpath=".//cml:parameter[@dictRef='cc:run.date' or @dictRef='gam:MemoryAvailable' ]" />
+  <transform process="pullup" xpath=".//cml:parameter[@dictRef='cc:run.date' or @dictRef='m:MemoryAvailable' ]" />
 
 
   <!-- Delete empty lists -->
@@ -59,26 +59,26 @@
     <parameter dictRef="cc:run.date">
       <scalar dataType="xsd:date">2014-07-11T15:57:49-02:30</scalar>
     </parameter>
-    <parameter dictRef="gam:InputCards">
+    <parameter dictRef="m:InputCards">
       <list cmlx:templateRef="inputcard">
-        <scalar dataType="xsd:string" dictRef="gam:inputCard">$BASIS GBASIS=N31 NGAUSS=6 $END</scalar>
-        <scalar dataType="xsd:string" dictRef="gam:inputCard">$CONTRL SCFTYP=RHF RUNTYP=OPTIMIZE DFTTYP=B3LYP ICHARG=0 MULT=1 $END</scalar>
-        <scalar dataType="xsd:string" dictRef="gam:inputCard">$STATPT OPTTOL=0.0001 NSTEP=20 $END</scalar>
-        <scalar dataType="xsd:string" dictRef="gam:inputCard" />
-        <scalar dataType="xsd:string" dictRef="gam:inputCard">$DATA</scalar>
-        <scalar dataType="xsd:string" dictRef="gam:inputCard">methane B3LYP/6-31G OPT</scalar>
-        <scalar dataType="xsd:string" dictRef="gam:inputCard">C1</scalar>
-        <scalar dataType="xsd:string" dictRef="gam:inputCard">C      6.0      0.0000000000   -0.0000000000    0.0000000000</scalar>
-        <scalar dataType="xsd:string" dictRef="gam:inputCard">H      1.0      0.0000000000   -0.8900000000   -0.6293000000</scalar>
-        <scalar dataType="xsd:string" dictRef="gam:inputCard">H      1.0      0.0000000000    0.8900000000   -0.6293000000</scalar>
-        <scalar dataType="xsd:string" dictRef="gam:inputCard">H      1.0     -0.8900000000   -0.0000000000    0.6293000000</scalar>
-        <scalar dataType="xsd:string" dictRef="gam:inputCard">H      1.0      0.8900000000   -0.0000000000    0.6293000000</scalar>
-        <scalar dataType="xsd:string" dictRef="gam:inputCard">$END</scalar>
-        <scalar dataType="xsd:string" dictRef="gam:inputCard" />
-        <scalar dataType="xsd:string" dictRef="gam:inputCard" />
+        <scalar dataType="xsd:string" dictRef="m:inputCard">$BASIS GBASIS=N31 NGAUSS=6 $END</scalar>
+        <scalar dataType="xsd:string" dictRef="m:inputCard">$CONTRL SCFTYP=RHF RUNTYP=OPTIMIZE DFTTYP=B3LYP ICHARG=0 MULT=1 $END</scalar>
+        <scalar dataType="xsd:string" dictRef="m:inputCard">$STATPT OPTTOL=0.0001 NSTEP=20 $END</scalar>
+        <scalar dataType="xsd:string" dictRef="m:inputCard" />
+        <scalar dataType="xsd:string" dictRef="m:inputCard">$DATA</scalar>
+        <scalar dataType="xsd:string" dictRef="m:inputCard">methane B3LYP/6-31G OPT</scalar>
+        <scalar dataType="xsd:string" dictRef="m:inputCard">C1</scalar>
+        <scalar dataType="xsd:string" dictRef="m:inputCard">C      6.0      0.0000000000   -0.0000000000    0.0000000000</scalar>
+        <scalar dataType="xsd:string" dictRef="m:inputCard">H      1.0      0.0000000000   -0.8900000000   -0.6293000000</scalar>
+        <scalar dataType="xsd:string" dictRef="m:inputCard">H      1.0      0.0000000000    0.8900000000   -0.6293000000</scalar>
+        <scalar dataType="xsd:string" dictRef="m:inputCard">H      1.0     -0.8900000000   -0.0000000000    0.6293000000</scalar>
+        <scalar dataType="xsd:string" dictRef="m:inputCard">H      1.0      0.8900000000   -0.0000000000    0.6293000000</scalar>
+        <scalar dataType="xsd:string" dictRef="m:inputCard">$END</scalar>
+        <scalar dataType="xsd:string" dictRef="m:inputCard" />
+        <scalar dataType="xsd:string" dictRef="m:inputCard" />
         </list>
     </parameter>
-    <parameter dictRef="gam:MemoryAvailable">
+    <parameter dictRef="m:MemoryAvailable">
       <scalar dataType="xsd:integer" units="nonSi:words">1000000</scalar>
     </parameter>
 

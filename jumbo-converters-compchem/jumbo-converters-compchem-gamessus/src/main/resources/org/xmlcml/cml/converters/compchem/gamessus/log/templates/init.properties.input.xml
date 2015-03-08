@@ -22,43 +22,43 @@
   </comment>
 
   <record repeat="5" />
-  <record id="init">\s*.*=\s+{I,g:iemom}\s+.*=\s+{I,g:iefld}\s+.*=\s+{I,g:iepot}\s+.*=\s+{I,g:ieden}\s*</record>
-  <record id="init">\s*.*={A,g:where}\s+.*={A,g:where2}\s+.*={A,g:where3}\s+.*={A,g:where4}\s*</record>
-  <record id="init">\s*.*={A,g:output}\s+.*={A,g:output2}\s+.*={A,g:output3}\s+.*={A,g:output4}\s*</record>
-  <record id="init">\s*.*=\s+{I,g:iemint}\s+.*=\s+{I,g:iefint}\s+.*=\s+{I,g:iedint}\s*</record>
-  <record id="init">\s+.*=\s+{I,g:morb}\s*</record>
+  <record id="init">\s*.*=\s+{I,m:iemom}\s+.*=\s+{I,m:iefld}\s+.*=\s+{I,m:iepot}\s+.*=\s+{I,m:ieden}\s*</record>
+  <record id="init">\s*.*={A,m:where}\s+.*={A,m:where2}\s+.*={A,m:where3}\s+.*={A,m:where4}\s*</record>
+  <record id="init">\s*.*={A,m:output}\s+.*={A,m:output2}\s+.*={A,m:output3}\s+.*={A,m:output4}\s*</record>
+  <record id="init">\s*.*=\s+{I,m:iemint}\s+.*=\s+{I,m:iefint}\s+.*=\s+{I,m:iedint}\s*</record>
+  <record id="init">\s+.*=\s+{I,m:morb}\s*</record>
   <record id="init.properties.input.unparsed" repeat="3">\s*{X,x:UNPARSED}\s*</record>
 
-  <transform process="addChild" xpath="." elementName="cml:list" dictRef="g:properties.input.moments" position="0" />
-  <transform process="addChild" xpath="." elementName="cml:list" dictRef="g:properties.input.field" position="1" />
-  <transform process="addChild" xpath="." elementName="cml:list" dictRef="g:properties.input.potential" position="2" />
-  <transform process="addChild" xpath="." elementName="cml:list" dictRef="g:properties.input.density" position="3" />
+  <transform process="addChild" xpath="." elementName="cml:list" dictRef="m:properties.input.moments" position="0" />
+  <transform process="addChild" xpath="." elementName="cml:list" dictRef="m:properties.input.field" position="1" />
+  <transform process="addChild" xpath="." elementName="cml:list" dictRef="m:properties.input.potential" position="2" />
+  <transform process="addChild" xpath="." elementName="cml:list" dictRef="m:properties.input.density" position="3" />
 
   <transform process="move"
-                 to=".//*[@dictRef='g:properties.input.moments']"
-                 xpath=".//*[@dictRef='g:iemom' or @dictRef='g:where' or @dictRef='g:output' or @dictRef='g:iemint']" />
+                 to=".//*[@dictRef='m:properties.input.moments']"
+                 xpath=".//*[@dictRef='m:iemom' or @dictRef='m:where' or @dictRef='m:output' or @dictRef='m:iemint']" />
   <transform process="move"
-                 to=".//*[@dictRef='g:properties.input.field']"
-                 xpath=".//*[@dictRef='g:iefld' or @dictRef='g:where2' or @dictRef='g:output2' or @dictRef='g:iefint']" />
+                 to=".//*[@dictRef='m:properties.input.field']"
+                 xpath=".//*[@dictRef='m:iefld' or @dictRef='m:where2' or @dictRef='m:output2' or @dictRef='m:iefint']" />
   <transform process="move"
-                 to=".//*[@dictRef='g:properties.input.potential']"
-                 xpath=".//*[@dictRef='g:iepot' or @dictRef='g:where3' or @dictRef='g:output3']" />
+                 to=".//*[@dictRef='m:properties.input.potential']"
+                 xpath=".//*[@dictRef='m:iepot' or @dictRef='m:where3' or @dictRef='m:output3']" />
   <transform process="move"
-                 to=".//*[@dictRef='g:properties.input.density']"
-                 xpath=".//*[@dictRef='g:ieden' or @dictRef='g:where4' or @dictRef='g:output4' or @dictRef='g:iedint' or @dictRef='g:morb']" />
+                 to=".//*[@dictRef='m:properties.input.density']"
+                 xpath=".//*[@dictRef='m:ieden' or @dictRef='m:where4' or @dictRef='m:output4' or @dictRef='m:iedint' or @dictRef='m:morb']" />
 
-  <transform process="createWrapperParameter" xpath=".//*[@dictRef='g:properties.input.moments']"/>
-  <transform process="createWrapperParameter" xpath=".//*[@dictRef='g:properties.input.field']"/>
-  <transform process="createWrapperParameter" xpath=".//*[@dictRef='g:properties.input.potential']"/>
-  <transform process="createWrapperParameter" xpath=".//*[@dictRef='g:properties.input.density']"/>
+  <transform process="createWrapperParameter" xpath=".//*[@dictRef='m:properties.input.moments']"/>
+  <transform process="createWrapperParameter" xpath=".//*[@dictRef='m:properties.input.field']"/>
+  <transform process="createWrapperParameter" xpath=".//*[@dictRef='m:properties.input.potential']"/>
+  <transform process="createWrapperParameter" xpath=".//*[@dictRef='m:properties.input.density']"/>
 
   <transform process="addDictRef"
                  xpath="//*[contains(@dictRef,'where')]"
-                 value="g:where "/>
+                 value="m:where "/>
 
   <transform process="addDictRef"
                  xpath="//*[contains(@dictRef,'output')]"
-                 value="g:output"/>
+                 value="m:output"/>
 
 
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
@@ -66,36 +66,36 @@
 
   <comment class="example.output" id="init.properties.input">
     <module cmlx:templateRef="init.properties.input" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <parameter dictRef="g:properties.input.moments">
+      <parameter dictRef="m:properties.input.moments">
         <list>
-          <scalar dataType="xsd:integer" dictRef="g:iemom">1</scalar>
-          <scalar dataType="xsd:string"  dictRef="g:where">COMASS</scalar>
-          <scalar dataType="xsd:string"  dictRef="g:output">BOTH</scalar>
-          <scalar dataType="xsd:integer" dictRef="g:iemint">0</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:iemom">1</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:where">COMASS</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:output">BOTH</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:iemint">0</scalar>
         </list>
       </parameter>
-      <parameter dictRef="g:properties.input.field">
+      <parameter dictRef="m:properties.input.field">
         <list>
-          <scalar dataType="xsd:integer" dictRef="g:iefld">0</scalar>
-          <scalar dataType="xsd:string"  dictRef="g:where">NUCLEI</scalar>
-          <scalar dataType="xsd:string"  dictRef="g:output">BOTH</scalar>
-          <scalar dataType="xsd:integer" dictRef="g:iefint">0</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:iefld">0</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:where">NUCLEI</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:output">BOTH</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:iefint">0</scalar>
         </list>
       </parameter>
-      <parameter dictRef="g:properties.input.potential">
+      <parameter dictRef="m:properties.input.potential">
         <list>
-          <scalar dataType="xsd:integer" dictRef="g:iepot">0</scalar>
-          <scalar dataType="xsd:string"  dictRef="g:where">NUCLEI</scalar>
-          <scalar dataType="xsd:string"  dictRef="g:output">BOTH</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:iepot">0</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:where">NUCLEI</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:output">BOTH</scalar>
         </list>
       </parameter>
-      <parameter dictRef="g:properties.input.density">
+      <parameter dictRef="m:properties.input.density">
         <list>
-          <scalar dataType="xsd:integer" dictRef="g:ieden">0</scalar>
-          <scalar dataType="xsd:string"  dictRef="g:where">NUCLEI</scalar>
-          <scalar dataType="xsd:string"  dictRef="g:output">BOTH</scalar>
-          <scalar dataType="xsd:integer" dictRef="g:iedint">0</scalar>
-          <scalar dataType="xsd:integer" dictRef="g:morb">0</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:ieden">0</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:where">NUCLEI</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:output">BOTH</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:iedint">0</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:morb">0</scalar>
         </list>
       </parameter>
       <list cmlx:templateRef="init.properties.input.unparsed">
