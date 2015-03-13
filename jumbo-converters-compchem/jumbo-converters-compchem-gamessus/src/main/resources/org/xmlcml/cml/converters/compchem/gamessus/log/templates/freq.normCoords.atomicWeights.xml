@@ -20,7 +20,7 @@
   </comment>
 
   <record repeat="6" />
-  <record id="serial" repeat="5">\s*{I,cc:serial}\s+{A,x:elementType}\s+{F,cc:atomicmass}\s*</record>
+  <record id="serial" repeat="*">\s*{I,cc:serial}\s+{A,x:elementType}\s+{F,cc:atomicmass}\s*</record>
 
   <transform process="createArray" xpath=".//cml:list[@cmlx:templateRef='serial']" from=".//*[@dictRef='cc:serial']" />
   <transform process="createArray" delimiter="|" xpath=".//cml:list[@cmlx:templateRef='serial']" from=".//*[@dictRef='x:elementType']"/>

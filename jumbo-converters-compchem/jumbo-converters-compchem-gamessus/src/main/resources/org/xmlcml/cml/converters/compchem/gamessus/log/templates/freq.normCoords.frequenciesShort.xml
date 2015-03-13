@@ -2,7 +2,7 @@
   repeat="*"
   name="freq.normCoords.frequenciesShort"
   pattern="\s*MODE\s+FREQ.+\s+SYMMETRY\s+RED\. MASS\s+IR INTENS\.\s*"  offset="0"
-  endPattern="\s+$"                                                  endOffset="1" >
+  endPattern="\s+$"                                                  endOffset="0" >
 
   <comment class="example.input" id="freq.normCoords.frequenciesShort">
   MODE FREQ(CM**-1)  SYMMETRY  RED. MASS  IR INTENS.
@@ -21,11 +21,10 @@
     13    3158.449    A        1.101414    0.631137
     14    3159.653    A        1.101685    0.628605
     15    3159.658    A        1.101685    0.628561
-
   </comment>
 
   <record repeat="1" />
-  <record repeat="15" id="1">\s*{I,x:serial}\s+{F,cc:frequency}\s+{A,x:symmetry}\s+{F,cc:redmass}\s+{F,cc:irintensity}\s*</record>
+  <record repeat="*" id="1">\s*{I,x:serial}\s+{F,cc:frequency}\s+{A,x:symmetry}\s+{F,cc:redmass}\s+{F,cc:irintensity}\s*</record>
 
   <transform process="move" to="." xpath=".//*[contains(@dictRef,'x:serial') or contains(@dictRef,'cc:frequency') or contains(@dictRef,'x:symmetry') or contains(@dictRef,'cc:redmass') or contains(@dictRef,'cc:irintensity')]" />
 

@@ -13,9 +13,26 @@
  H           1.0    -1.6818561291        0.0000000000        1.1892045641
  H           1.0     1.6818561291        0.0000000000        1.1892045641
   </comment>
+  <comment class="example.input" id="init.inputCoordinates.bohr.2">
+ ATOM      ATOMIC                      COORDINATES (BOHR)
+           CHARGE         X                   Y                   Z
+ C           6.0    -0.4618540497       -2.3109940090        0.0000492250
+ C           6.0    -3.1045049966       -2.2928003103        0.0000282293
+ C           6.0    -4.4219011806       -0.0000210046       -0.0000709656
+ C           6.0    -3.1043887122        2.2927641490       -0.0000878550
+ C           6.0    -0.4618240987        2.3111629293        0.0000921683
+ C           6.0     0.8117774032        0.0000276776        0.0000867234
+ CL         17.0     4.0781993452       -0.0000446949       -0.0000483895
+ H           1.0     0.5809267085       -4.0855150094        0.0000139672
+ H           1.0    -4.1367453490       -4.0744001976        0.0000300694
+ H           1.0    -6.4796781357        0.0000795639       -0.0000564318
+ H           1.0    -4.1369422130        4.0742162012       -0.0000611851
+ H           1.0     0.5811969006        4.0855100450        0.0005913492
+  </comment>
+
 
   <record repeat="2" />
-  <record id="init" makeArray="true" repeat="5">\s*{A,x:atomLabel}\s+{F,cc:elementType}\s+{F,cc:x3}\s+{F,cc:y3}\s+{F,cc:z3}</record>
+  <record id="init" makeArray="true" repeat="*">\s*{A,x:atomLabel}\s+{F,cc:elementType}\s+{F,cc:x3}\s+{F,cc:y3}\s+{F,cc:z3}</record>
 
   <transform process="addChild" xpath="." elementName="cml:list" dictRef="cc:coordinates" />
 
@@ -39,6 +56,20 @@
           <array dataType="xsd:double" dictRef="cc:x3" units="nonSi:bohr" size="5" >0.0 0.0 0.0 -1.6818561291 1.6818561291</array>
           <array dataType="xsd:double" dictRef="cc:y3" units="nonSi:bohr" size="5" >0.0 -1.6818561291 1.6818561291 0.0 0.0</array>
           <array dataType="xsd:double" dictRef="cc:z3" units="nonSi:bohr" size="5" >0.0 -1.1892045641 -1.1892045641 1.1892045641 1.1892045641</array>
+        </list>
+      </property>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="init.inputCoordinates.bohr.2">
+    <module cmlx:templateRef="init.inputCoordinates.bohr" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="cc:coordinates">
+      <list>
+        <array dataType="xsd:string" dictRef="x:atomLabel" size="12">C C C C C C CL H H H H H</array>
+        <array dataType="xsd:double" dictRef="cc:elementType" size="12">6.0 6.0 6.0 6.0 6.0 6.0 17.0 1.0 1.0 1.0 1.0 1.0</array>
+        <array dataType="xsd:double" dictRef="cc:x3" size="12" units="nonSi:bohr">-0.4618540497 -3.1045049966 -4.4219011806 -3.1043887122 -0.4618240987 0.8117774032 4.0781993452 0.5809267085 -4.136745349 -6.4796781357 -4.136942213 0.5811969006</array>
+        <array dataType="xsd:double" dictRef="cc:y3" size="12" units="nonSi:bohr">-2.310994009 -2.2928003103 -2.10046E-5 2.292764149 2.3111629293 2.76776E-5 -4.46949E-5 -4.0855150094 -4.0744001976 7.95639E-5 4.0742162012 4.085510045</array>
+        <array dataType="xsd:double" dictRef="cc:z3" size="12" units="nonSi:bohr">4.9225E-5 2.82293E-5 -7.09656E-5 -8.7855E-5 9.21683E-5 8.67234E-5 -4.83895E-5 1.39672E-5 3.00694E-5 -5.64318E-5 -6.11851E-5 5.913492E-4</array>
         </list>
       </property>
     </module>
