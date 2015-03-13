@@ -77,9 +77,11 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
         pattern3="\s*-+\s*$\s*HESSIAN MATRIX CONTROL PARAMETERS\s*$\s*-+\s*" offset3="0"
 
         endPattern="\s*\*+\s*EQUILIBRIUM GEOMETRY LOCATED\s*\*+\s*" endOffset="0"
-        endPattern2="\s*\.+\s+END OF NUMERICAL HESSIAN CALCULATION\s+\.+\s*" endOffset2="0"
+        endPattern2="\s*-+\s*$\s*ENERGY GRADIENT\s*$\s*-+\s*"       endOffset2="-1"
 
         newline="$" repeat="*">
+        <!-- endPattern3="\s*\.+\s+END OF NUMERICAL HESSIAN CALCULATION\s+\.+\s*" endOffset3="0" -->
+
         <templateList>
         <!-- START of module calculation -->
           <xi:include href="init.stationaryPointLocationRun.xml"/>
@@ -114,13 +116,15 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
       </template>
 
       <template id="finalization"
-        pattern="\s*\*+\s*EQUILIBRIUM GEOMETRY LOCATED\s*\*+\s*" offset="0"
-        pattern2="\s*\.+\s+END OF NUMERICAL HESSIAN CALCULATION\s+\.+\s*" offset2="0"
+        pattern="\s*\*+\s*EQUILIBRIUM GEOMETRY LOCATED\s*\*+\s*"          offset="0"
+        pattern2="\s*-+\s*$\s*ENERGY GRADIENT\s*$\s*-+\s*"                offset2="0"
 
         endPattern="\s*\.+\s*END OF GEOMETRY SEARCH\s*\.+\s*" endOffset="3"
         endPattern2="\s*\.+\s*END OF NORMAL COORDINATE ANALYSIS\s*\.+\s*" endOffset2="3"
 
         newline="$" repeat="*">
+        <!-- pattern3="\s*\.+\s+END OF NUMERICAL HESSIAN CALCULATION\s+\.+\s*" offset3="0" -->
+        
         <!-- START of module finalization -->
         <templateList>
           <!-- in Geometry Optimization: -->
