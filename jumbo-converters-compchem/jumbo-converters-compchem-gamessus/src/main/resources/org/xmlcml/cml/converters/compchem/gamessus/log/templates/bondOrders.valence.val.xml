@@ -24,7 +24,7 @@
   </comment>
 
   <record repeat="2" />
-  <record id="bondOrder" repeat="5" makeArray="true">\s*{I,m:atomId}\s+{A,m:atomLabel}\s+{F,m:totalValence}\s+{F,m:bondedValence}\s+{F,m:freeValence}\s*</record>
+  <record id="bondOrder" repeat="*" makeArray="true">\s*{I,m:atomId}\s+{A,m:atomLabel}\s+{F,m:totalValence}\s+{F,m:bondedValence}\s+{F,m:freeValence}\s*</record>
 
   <transform process="addChild" xpath="." elementName="cml:list" dictRef="m:valences" />
 
