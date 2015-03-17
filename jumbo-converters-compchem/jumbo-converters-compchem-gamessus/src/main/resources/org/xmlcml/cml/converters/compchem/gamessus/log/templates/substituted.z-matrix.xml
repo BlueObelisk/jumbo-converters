@@ -1,0 +1,68 @@
+<template id="substituted.z-matrix"
+  repeat="*"
+  name="substituted.z-matrix"
+  pattern="\s*(YOUR|THE CURRENT) FULLY SUBSTITUTED Z-MATRIX IS\s*"      offset="0"
+  endPattern="\s+"   endOffset="0" >
+
+  <comment class="example.input" id="substituted.z-matrix">
+ YOUR FULLY SUBSTITUTED Z-MATRIX IS
+ C   
+ H      1   1.0930000
+ H      1   1.0930000  2  107.4622
+ H      1   1.0930000  2  107.4622  3  120.0000  0
+ H      1   1.0930000  2  107.4622  3  240.0000  0
+  </comment>
+  <comment>
+THE CURRENT FULLY SUBSTITUTED Z-MATRIX IS
+ C   
+ C      1   1.3984639
+ C      2   1.3993081  1   120.2754758
+ C      3   1.3993415  2   120.2358360  1    -0.0015568  0
+ C      4   1.3984190  3   120.2820564  2    -0.0024591  0
+ C      1   1.3963621  2   118.4652258  3     0.0029024  0
+ CL     6   1.7285162  1   118.8584108  2  -179.9967689  0
+ H      1   1.0891692  2   120.8346828  3  -179.9963622  0
+ H      2   1.0895936  1   119.6930996  3   179.9980955  0
+ H      3   1.0889287  2   119.8838214  1  -179.9990258  0
+ H      4   1.0896090  3   120.0197012  2  -179.9966570  0
+ H      5   1.0891544  4   120.8473604  3  -179.9834424  0
+  </comment>
+
+<!-- see file: l101.zmatvariables.xml 
+in  jumbo-converters-compchem/jumbo-converters-compchem-gaussian/src/main/resources/org/xmlcml/cml/converters/compchem/gaussian/log/templates/l101/
+
+However in this case we don't have a variable-map.
+-->
+
+  <record id="zmatrix.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+  <transform process="addDictRef" xpath=".//cml:list[@cmlx:templateRef='zmatrix.unparsed']" value="x:zmatrix.unparsed" />
+
+
+  <comment class="example.output" id="substituted.z-matrix">
+    <module cmlx:templateRef="substituted.z-matrix" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <molecule id="zinitial">
+        <zMatrix>
+          <length atomRefs2="a1 a2">1.093</length>
+          <length atomRefs2="a1 a3">1.093</length>
+          <angle atomRefs3="a2 a1 a3">107.4622</angle>
+          <length atomRefs2="a1 a4">1.1.093</length>
+          <angle atomRefs3="a2 a1 a4">107.4622</angle>
+          <torsion atomRefs4="a3 a2 a1 a4">120.0</torsion>
+          <length atomRefs2="a1 a5">1.093</length>
+          <angle atomRefs3="a2 a1 a5">107.4622</angle>
+          <torsion atomRefs4="a3 a2 a1 a5">240.0</torsion>
+        </zMatrix>
+        <atomArray>
+          <!-- NOT ACTUAL COORDINATES -->
+          <atom elementType="C" id="a1" x3="1.093" y3="0.0" z3="0.0"/>
+          <atom elementType="H" id="a2" x3="0.0" y3="0.0" z3="0.0"/>
+          <atom elementType="H" id="a3" x3="1.4840003546705822" y3="1.0493463378857821" z3="0.0"/>
+          <atom elementType="H" id="a4" x3="1.4839994389430116" y3="-0.524673330822134" z3="0.9087608663603304"/>
+          <atom elementType="H" id="a5" x3="1.484000171525091" y3="-0.5246732013187714" z3="-0.9087606420539267"/>
+        </atomArray>
+      </molecule>
+    </module>
+  </comment>
+
+</template>
