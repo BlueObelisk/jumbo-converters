@@ -76,6 +76,11 @@ public class TemplateTest {
 	@Ignore	@Test   public void testFreqNormalCoordAnalysis()   {runTemplateTest("freq.normalCoordAnalysis");}
 	@Ignore	@Test   public void testFreqFrequenciesLong()       {runTemplateTest("freq.normCoords.frequenciesLong");}
 
+	@Ignore	@Test   public void testHessianControlParam()       {runTemplateTest("init.hessian.matrix.control.parameters");}
+	@Ignore	@Test   public void testMomentsOfInertia()          {runTemplateTest("init.moments.of.inertia");}
+	@Ignore	@Test   public void testSubstitutedZmatrix()        {runTemplateTest("substituted.z-matrix");}
+
+
 	////////////  //////////// END OF TEMPLATE TESTS ////////////  ////////////
 
 	////////////  //////////// ADD LOGFILE TESTS HERE: ////////////  ////////////
