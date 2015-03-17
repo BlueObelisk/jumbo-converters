@@ -1,0 +1,34 @@
+<template id="init.hessian.matrix.control.parameters"
+  repeat="*"
+  name="init.hessian.matrix.control.parameters"
+  pattern="\s*-+\s*$\s*HESSIAN MATRIX CONTROL PARAMETERS\s*$\s*-+.+"      offset="0"
+  endPattern="\s*"   endOffset="0" >
+
+  <comment class="example.input" id="init.hessian.matrix.control.parameters">
+     ---------------------------------
+     HESSIAN MATRIX CONTROL PARAMETERS
+     ---------------------------------
+     METHOD=ANALYTIC   NVIB  =       2   VIBSIZ= 0.01000
+     RDHESS=       F   PURIFY=       F   PRTIFC=       F
+     VIBANL=       F   DECOMP=       F   PROJCT=       F
+     SCLFAC= 1.00000   PRTSCN=       F   NPRT  =       0
+     PULCOR=       F   NPUN  =       0   REDOVB=       T
+  </comment>
+
+  <record id="init.hessian.matrix.control.parameters.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+  <comment class="example.output" id="init.hessian.matrix.control.parameters">
+    <module cmlx:templateRef="init.hessian.matrix.control.parameters" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="m:hessianMatrixControlParameters">
+        <list>
+          <scalar dataType="xsd:string"  dictRef="m:hessian.METHOD">ANALYTIC</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:hessian.NVIB">2</scalar>
+          <scalar dataType="xsd:double"  dictRef="m:hessian.VIBSIZ">0.01</scalar>
+          <!-- ... -->
+        </list>
+      </parameter>
+    </module>
+  </comment>
+
+</template>

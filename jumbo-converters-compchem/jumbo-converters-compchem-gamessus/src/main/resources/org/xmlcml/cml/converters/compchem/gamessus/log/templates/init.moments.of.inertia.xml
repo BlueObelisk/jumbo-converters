@@ -1,0 +1,26 @@
+<template id="init.moments.of.inertia"
+  repeat="*"
+  name="init.moments.of.inertia"
+  pattern="\s*THE MOMENTS OF INERTIA ARE \([^\)]\).+"      offset="0"
+  endPattern="\s+"   endOffset="0" >
+
+  <comment class="example.input" id="init.moments.of.inertia">
+ THE MOMENTS OF INERTIA ARE (AMU-ANGSTROM**2)
+ IXX=    90.016   IYY=   318.686   IZZ=   408.703
+  </comment>
+
+  <record id="init.inertia.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+  <comment class="example.output" id="init.moments.of.inertia">
+    <module cmlx:templateRef="init.moments.of.inertia" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="m:moments.of.inertia">
+        <list>
+          <array dataType="xsd:string" dictRef="m:axis" size="3">IXX IYY IZZ</array>
+          <array dataType="xsd:string" dictRef="m:value" size="3" units="nonSi:dalton.angstrom2">I90.016 318.686 408.703</array>
+        </list>
+      </parameter>
+    </module>
+  </comment>
+
+</template>
