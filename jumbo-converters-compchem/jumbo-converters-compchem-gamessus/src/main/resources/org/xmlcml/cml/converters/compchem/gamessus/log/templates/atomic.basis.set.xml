@@ -51,7 +51,7 @@
 
       9   S      22             0.1612778    1.000000000000
 
- H         
+ H     
 
      10   S      23            18.7311370    0.033494604338
      10   S      24             2.8253944    0.234726953484
@@ -70,8 +70,242 @@
  THE NUCLEAR REPULSION ENERGY IS       13.4352856837
   </comment>
 
+  <!-- RECORD -->
+  <record id="unparsed" repeat="2" />
+  <record id="atomic.basis.set.unparsed" repeat="2">\s*{X,x:UNPARSED}\s*</record>
+  <record id="unparsed" repeat="3" />
 
-  <record id="atomic.basis.set.unparsed" repeat="*">{X,x:UNPARSED}</record>
+  <templateList>
+    <template id="atomic.basis.set" repeat="*" 
+      pattern="\s*\w+\s*"                                  offset="0"
+      endPattern="\s*\w+\s*"                               endOffset="0"
+      endPattern2="\s*TOTAL NUMBER OF BASIS SET SHELLS.+$" endOffset2="0">
+      <record id="basisSet">\s*{A,cc:elementType}\s*</record>
+      <templateList>
+        <template id="Set1" repeat="*"
+                  pattern="\s*\d+\s+.\s+\d+\s+-*\d+\.\d+\s+-*\d+\.\d+\s*" offset="0"
+                  endPattern="\s*"                                        endOffset="0"
+                  endPattern2="~"                                         endOffset2="0">
+            <record id="basisSetContractions" makeArray="true" repeat="*">\s*\d+\s+{A,cc:basisSetShell}\s+{I,m:PRIMITIVE}\s+{F,cc:basisSetExponent}\s+{F,cc:basisSetCoefficient}\s*</record>
+        </template>
+        <template id="Set2" repeat="*"
+                  pattern="\s*\d+\s+.\s+\d+\s+-*\d+\.\d+\s+-*\d+\.\d+\s+-*\d+\.\d+\s*" offset="0"
+                  endPattern="\s*"                                                     endOffset="0"
+                  endPattern2="~"                                                      endOffset2="0">
+            <record id="basisSetContractions" makeArray="true" repeat="*">\s*\d+\s+{A,cc:basisSetShell}\s+{I,m:PRIMITIVE}\s+{F,cc:basisSetExponent}\s+{F,cc:basisSetCoefficient}\s+{F,cc:basisSetCoefficient}\s*</record>
+        </template>
+      </templateList>
+    </template>
+  </templateList>
+
+  <record id="Summary">\s*.*\s+=\s+{I,m:TotalNumberOfBasisSetShells}\s*</record>
+  <record id="Summary">\s*.*\s+=\s+{I,m:NumberOfCartesianGaussianBasisFunctions}\s*</record>
+  <record id="Summary">\s*.*\s+=\s+{I,m:NumberOfElectrons}\s*</record>
+  <record id="Summary">\s*.*\s+=\s+{I,m:ChargeOfMolecule}\s*</record>
+  <record id="Summary">\s*.*\s+=\s+{I,m:SpinMultiplicity}\s*</record>
+  <record id="Summary">\s*.*\s+=\s+{I,m:NumberOfOccupiedOrbitalsAlpha}\s*</record>
+  <record id="Summary">\s*.*\s+=\s+{I,m:NumberOfOccupiedOrbitalsBeta}\s*</record>
+  <record id="Summary">\s*.*\s+=\s+{I,m:TotalNumberOfAtoms}\s*</record>
+
+  <record id="basisSummary">\s*THE NUCLEAR REPULSION ENERGY IS\s+{F,cc:nuclearRepulsionEnergy}\s*</record>
+
+  <!-- ORGANIZE -->
+  <transform process="pullup"
+             xpath=".//cml:list[@cmlx:templateRef='basisSetContractions']" />
+
+  <transform process="addChild" 
+             xpath="." 
+             elementName="cml:list" 
+             id="basisSetContractions" 
+             position="2" 
+             dictRef="cc:basisSetContractions" />
+
+  <transform process="move"
+             xpath="(.//cml:module[@cmlx:templateRef='atomic.basis.set'])[1]"
+             to="(.//cml:list[@dictRef='cc:basisSetContractions'])[1]" />
+
+  <transform process="addChild" 
+             xpath="." 
+             elementName="cml:list" 
+             id="basisSetContractions" 
+             position="3" 
+             dictRef="cc:basisSetContractions" />
+
+  <transform process="move"
+             xpath="(.//cml:module[@cmlx:templateRef='atomic.basis.set'])[2]"
+             to="(.//cml:list[@dictRef='cc:basisSetContractions'])[2]" />
+
+  <transform process="addChild" 
+             xpath="." 
+             elementName="cml:list" 
+             id="basisSetContractions" 
+             position="4" 
+             dictRef="cc:basisSetContractions" />
+
+  <transform process="move"
+             xpath="(.//cml:module[@cmlx:templateRef='atomic.basis.set'])[3]"
+             to="(.//cml:list[@dictRef='cc:basisSetContractions'])[3]" />
+
+  <transform process="addChild" 
+             xpath="." 
+             elementName="cml:list" 
+             id="basisSetContractions" 
+             position="5" 
+             dictRef="cc:basisSetContractions" />
+
+  <transform process="move"
+             xpath="(.//cml:module[@cmlx:templateRef='atomic.basis.set'])[4]"
+             to="(.//cml:list[@dictRef='cc:basisSetContractions'])[4]" />
+
+  <transform process="addChild" 
+             xpath="." 
+             elementName="cml:list" 
+             id="basisSetContractions" 
+             position="6" 
+             dictRef="cc:basisSetContractions" />
+
+  <transform process="move"
+             xpath="(.//cml:module[@cmlx:templateRef='atomic.basis.set'])[5]"
+             to="(.//cml:list[@dictRef='cc:basisSetContractions'])[5]" />
+
+  <transform process="pullup"
+             xpath=".//cml:module[@cmlx:templateRef='atomic.basis.set']/cml:list" />
+
+  <transform process="pullup"
+             xpath=".//cml:list[@cmlx:templateRef='basisSet']/cml:scalar" />
+
+  <transform process="addChild" 
+             xpath=".//cml:list[@dictRef='cc:basisSetContractions']" 
+             elementName="cml:list" 
+             id="basisSetContraction"
+             position="1" 
+             dictRef="cc:list1" />
+
+  <transform process="moveRelative"
+             xpath=".//cml:list[@dictRef='cc:basisSetContractions']/cml:list[@cmlx:templateRef='basisSetContractions'][1]"
+             to="../cml:list[@dictRef='cc:list1']" />
+
+  <transform process="addChild" 
+             xpath=".//cml:list[@dictRef='cc:basisSetContractions']" 
+             elementName="cml:list" 
+             id="basisSetContraction"
+             position="2" 
+             dictRef="cc:list2" />
+
+  <transform process="moveRelative"
+             xpath=".//cml:list[@dictRef='cc:basisSetContractions']/cml:list[@cmlx:templateRef='basisSetContractions'][1]"
+             to="../cml:list[@dictRef='cc:list2']" />
+
+  <transform process="addChild" 
+             xpath=".//cml:list[@dictRef='cc:basisSetContractions']" 
+             elementName="cml:list" 
+             id="basisSetContraction"
+             position="3" 
+             dictRef="cc:list3" />
+
+  <transform process="moveRelative"
+             xpath=".//cml:list[@dictRef='cc:basisSetContractions']/cml:list[@cmlx:templateRef='basisSetContractions'][1]"
+             to="../cml:list[@dictRef='cc:list3']" />
+
+  <transform process="addDictRef"
+             xpath=".//cml:list[contains(@dictRef,'list')]"
+             value="cc:basisSetContraction" />
+
+  <transform process="pullup"
+             xpath=".//cml:list[@dictRef='cc:basisSetContractions']/cml:list[@dictRef='cc:basisSetContraction']/cml:list[@cmlx:templateRef='basisSetContractions']/cml:array" /> 
+
+  <transform process="addChild" 
+             xpath="." 
+             elementName="cml:list" 
+             id="basisSet" 
+             position="2" 
+             dictRef="cc:basisSet" />
+
+  <transform process="move"
+             xpath=".//cml:list[@dictRef='cc:basisSetContractions']"
+             to=".//cml:list[@dictRef='cc:basisSet']" />
+
+  <transform process="createWrapperParameter"
+             xpath=".//cml:list[@dictRef='cc:basisSet']" />
+
+  <transform process="addChild" 
+             xpath="." 
+             elementName="cml:list"
+             position="3" 
+             dictRef="m:basisSetSummary" />
+
+  <transform process="move"
+             xpath=".//cml:list[@cmlx:templateRef='Summary']/cml:scalar"
+             to=".//cml:list[@dictRef='m:basisSetSummary']" />
+
+  <transform process="createWrapperParameter"
+             xpath=".//cml:list[@dictRef='m:basisSetSummary']" />
+
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+
+  <transform process="addChild"
+             xpath=".//cml:list[@id='basisSetContraction']"
+             elementName="cml:scalar"
+             position="0"
+             dictRef="cc:basisSetShell" />
+
+  <transform process="setValue"
+             xpath=".//cml:list[@id='basisSetContraction']/cml:scalar[@dictRef='cc:basisSetShell']"
+             value="S" />
+
+  <transform process="setValue"
+             xpath="(.//cml:list[@id='basisSetContraction']/cml:scalar[@dictRef='cc:basisSetShell'])[2]"
+             value="L" />
+
+  <transform process="setValue"
+             xpath="(.//cml:list[@id='basisSetContraction']/cml:scalar[@dictRef='cc:basisSetShell'])[3]"
+             value="L" />
+
+  <transform process="addUnits"
+             xpath=".//cml:scalar[@dictRef='cc:nuclearRepulsionEnergy']"
+             value="nonSi:hartree" />
+
+  <transform process="createWrapperParameter"
+             xpath=".//cml:list[@cmlx:templateRef='basisSummary']/cml:scalar[@dictRef='cc:nuclearRepulsionEnergy']" />
+
+  <transform process="pullup"
+             xpath=".//cml:list[@cmlx:templateRef='basisSummary']/cml:parameter" />
+
+  <transform process="addAttribute"
+             xpath=".//cml:scalar[@dictRef='cc:elementType']"
+             name="id"
+             value="elementType" />
+
+  <transform process="addDictRef"
+             xpath="(.//cml:array[@dictRef='cc:basisSetCoefficient'])[2]"
+             value="cc:basisSetCoefficient1" />
+
+  <transform process="addDictRef"
+             xpath="(.//cml:array[@dictRef='cc:basisSetCoefficient'])[2]"
+             value="cc:basisSetCoefficient2" />
+
+  <transform process="addDictRef"
+             xpath="(.//cml:array[@dictRef='cc:basisSetCoefficient'])[2]"
+             value="cc:basisSetCoefficient1" />
+
+  <transform process="addDictRef"
+             xpath="(.//cml:array[@dictRef='cc:basisSetCoefficient'])[2]"
+             value="cc:basisSetCoefficient2" />
+
+  <transform process="addDictRef"
+             xpath=".//cml:scalar[@dictRef='m:NumberOfOccupiedOrbitalsAlpha']"
+             value="m:NumberOfOccupiedOrbitals(alpha)" />
+
+  <transform process="addDictRef"
+             xpath=".//cml:scalar[@dictRef='m:NumberOfOccupiedOrbitalsBeta']"
+             value="m:NumberOfOccupiedOrbitals(beta)" />
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:list[@id='basisSetContraction']/cml:array[@dictRef='cc:basisSetShell']"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
 
   <comment class="example.output" id="atomic.basis.set">
     <module cmlx:templateRef="atomic.basis.set" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
@@ -88,22 +322,22 @@
             <list dictRef="cc:basisSetContraction" id="basisSetContraction">
               <scalar dataType="xsd:string" dictRef="cc:basisSetShell">S</scalar>
               <array size="6" dataType="xsd:integer" dictRef="m:PRIMITIVE">1 2 3 4 5 6</array>
-              <array size="6" dataType="xsd:double" dictRef="cc:basisSetExponent">3047.5248800 457.3695180 103.9486850 29.2101553 9.2866630 3.1639270</array>
+              <array size="6" dataType="xsd:double" dictRef="cc:basisSetExponent">3047.52488 457.369518 103.948685 29.2101553 9.286663 3.163927</array>
               <array size="6" dataType="xsd:double" dictRef="cc:basisSetCoefficient">0.001834737132 0.014037322813 0.068842622264 0.232184443216 0.467941348435 0.362311985337</array>
             </list>
             <list dictRef="cc:basisSetContraction" id="basisSetContraction">
               <scalar dataType="xsd:string" dictRef="cc:basisSetShell">L</scalar>
               <array size="3" dataType="xsd:integer" dictRef="m:PRIMITIVE">7 8 9</array>
               <array size="3" dataType="xsd:double" dictRef="cc:basisSetExponent">7.8682723 1.8812885 0.5442493</array>
-              <array size="3" dataType="xsd:double" dictRef="cc:basisSetCoefficient">-0.119332419775 -0.160854151696 1.143456437840</array>
-              <array size="3" dataType="xsd:double" dictRef="cc:basisSetCoefficient">0.068999066591 0.316423960957 0.744308290898</array>
+              <array size="3" dataType="xsd:double" dictRef="cc:basisSetCoefficient1">-0.119332419775 -0.160854151696 1.14345643784</array>
+              <array size="3" dataType="xsd:double" dictRef="cc:basisSetCoefficient2">0.068999066591 0.316423960957 0.744308290898</array>
             </list>
             <list dictRef="cc:basisSetContraction" id="basisSetContraction">
               <scalar dataType="xsd:string" dictRef="cc:basisSetShell">L</scalar>
               <array size="1" dataType="xsd:integer" dictRef="m:PRIMITIVE">10</array>
               <array size="1" dataType="xsd:double" dictRef="cc:basisSetExponent">0.1687145</array>
-              <array size="1" dataType="xsd:double" dictRef="cc:basisSetCoefficient">1.0</array>
-              <array size="1" dataType="xsd:double" dictRef="cc:basisSetCoefficient">1.0</array>
+              <array size="1" dataType="xsd:double" dictRef="cc:basisSetCoefficient1">1.0</array>
+              <array size="1" dataType="xsd:double" dictRef="cc:basisSetCoefficient2">1.0</array>
             </list>
           </list>
 
@@ -112,12 +346,12 @@
             <list dictRef="cc:basisSetContraction" id="basisSetContraction">
               <scalar dataType="xsd:string" dictRef="cc:basisSetShell">S</scalar>
               <array size="3" dataType="xsd:integer" dictRef="m:PRIMITIVE">11 12 13</array>
-              <array size="3" dataType="xsd:double" dictRef="cc:basisSetExponent">18.7311370 2.8253944 0.6401217</array>
+              <array size="3" dataType="xsd:double" dictRef="cc:basisSetExponent">18.731137 2.8253944 0.6401217</array>
               <array size="3" dataType="xsd:double" dictRef="cc:basisSetCoefficient">0.033494604338 0.234726953484 0.813757326146</array>
             </list>
             <list dictRef="cc:basisSetContraction" id="basisSetContraction">
               <scalar dataType="xsd:string" dictRef="cc:basisSetShell">S</scalar>
-              <array size="3" dataType="xsd:integer" dictRef="m:PRIMITIVE">14</array>
+              <array size="1" dataType="xsd:integer" dictRef="m:PRIMITIVE">14</array>
               <array size="1" dataType="xsd:double" dictRef="cc:basisSetExponent">0.1612778</array>
               <array size="1" dataType="xsd:double" dictRef="cc:basisSetCoefficient">1.0</array>
             </list>
@@ -128,7 +362,7 @@
             <list dictRef="cc:basisSetContraction" id="basisSetContraction">
               <scalar dataType="xsd:string" dictRef="cc:basisSetShell">S</scalar>
               <array size="3" dataType="xsd:integer" dictRef="m:PRIMITIVE">15 16 17</array>
-              <array size="3" dataType="xsd:double" dictRef="cc:basisSetExponent">18.7311370 2.8253944 0.6401217</array>
+              <array size="3" dataType="xsd:double" dictRef="cc:basisSetExponent">18.731137 2.8253944 0.6401217</array>
               <array size="3" dataType="xsd:double" dictRef="cc:basisSetCoefficient">0.033494604338 0.234726953484 0.813757326146</array>
             </list>
             <list dictRef="cc:basisSetContraction" id="basisSetContraction">
@@ -144,7 +378,7 @@
             <list dictRef="cc:basisSetContraction" id="basisSetContraction">
               <scalar dataType="xsd:string" dictRef="cc:basisSetShell">S</scalar>
               <array size="3" dataType="xsd:integer" dictRef="m:PRIMITIVE">19 20 21</array>
-              <array size="3" dataType="xsd:double" dictRef="cc:basisSetExponent">18.7311370 2.8253944 0.6401217</array>
+              <array size="3" dataType="xsd:double" dictRef="cc:basisSetExponent">18.731137 2.8253944 0.6401217</array>
               <array size="3" dataType="xsd:double" dictRef="cc:basisSetCoefficient">0.033494604338 0.234726953484 0.813757326146</array>
             </list>
             <list dictRef="cc:basisSetContraction" id="basisSetContraction">
@@ -160,7 +394,7 @@
             <list dictRef="cc:basisSetContraction" id="basisSetContraction">
               <scalar dataType="xsd:string" dictRef="cc:basisSetShell">S</scalar>
               <array size="3" dataType="xsd:integer" dictRef="m:PRIMITIVE">23 24 25</array>
-              <array size="3" dataType="xsd:double" dictRef="cc:basisSetExponent">18.7311370 2.8253944 0.6401217</array>
+              <array size="3" dataType="xsd:double" dictRef="cc:basisSetExponent">18.731137 2.8253944 0.6401217</array>
               <array size="3" dataType="xsd:double" dictRef="cc:basisSetCoefficient">0.033494604338 0.234726953484 0.813757326146</array>
             </list>
             <list dictRef="cc:basisSetContraction" id="basisSetContraction">
