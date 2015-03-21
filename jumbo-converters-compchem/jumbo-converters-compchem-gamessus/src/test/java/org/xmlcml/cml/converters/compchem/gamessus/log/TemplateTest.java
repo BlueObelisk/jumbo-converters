@@ -65,10 +65,10 @@ public class TemplateTest {
 			@Test   public void testSystemOptions()             {runTemplateTest("init.system.options");}
 			@Test   public void testDistanceMatrix()            {runTemplateTest("internuclear.distance.matrix");}
 			@Test   public void testAtomicBasisSet()            {runTemplateTest("atomic.basis.set");}
+			@Test   public void testGradient()                  {runTemplateTest("gradient");}
 
 
 	////////////  //////////// READY TO WORK ON: ////////////  ////////////
-	@Ignore	@Test   public void testGradient()                  {runTemplateTest("gradient");}
 
 
 	////////////  //////////// KEEP FOR LATER: ////////////  ////////////
