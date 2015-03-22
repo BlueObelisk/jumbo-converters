@@ -66,6 +66,9 @@ public class TemplateTest {
 			@Test   public void testDistanceMatrix()            {runTemplateTest("internuclear.distance.matrix");}
 			@Test   public void testAtomicBasisSet()            {runTemplateTest("atomic.basis.set");}
 			@Test   public void testGradient()                  {runTemplateTest("gradient");}
+			@Test   public void testHessianControlParam()       {runTemplateTest("init.hessian.matrix.control.parameters");}
+			@Test   public void testMomentsOfInertia()          {runTemplateTest("init.moments.of.inertia");}
+			@Test   public void testSubstitutedZmatrix()        {runTemplateTest("substituted.z-matrix");}
 
 
 	////////////  //////////// READY TO WORK ON: ////////////  ////////////
@@ -74,10 +77,6 @@ public class TemplateTest {
 	////////////  //////////// KEEP FOR LATER: ////////////  ////////////
 	@Ignore	@Test   public void testFreqNormalCoordAnalysis()   {runTemplateTest("freq.normalCoordAnalysis");}
 	@Ignore	@Test   public void testFreqFrequenciesLong()       {runTemplateTest("freq.normCoords.frequenciesLong");}
-
-	@Ignore	@Test   public void testHessianControlParam()       {runTemplateTest("init.hessian.matrix.control.parameters");}
-	@Ignore	@Test   public void testMomentsOfInertia()          {runTemplateTest("init.moments.of.inertia");}
-	@Ignore	@Test   public void testSubstitutedZmatrix()        {runTemplateTest("substituted.z-matrix");}
 
 
 	////////////  //////////// END OF TEMPLATE TESTS ////////////  ////////////

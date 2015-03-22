@@ -34,10 +34,40 @@ in  jumbo-converters-compchem/jumbo-converters-compchem-gaussian/src/main/resour
 However in this case we don't have a variable-map.
 -->
 
-  <record id="zmatrix.unparsed" repeat="*">{X,x:UNPARSED}</record>
+  <!-- RECORD -->
+  <record />
+  <record id="atom1">\s*{A,cc:elementType}\s*</record>
+  <record id="atom2">\s*{A,cc:elementType}\s+{I,x:junk}\s+{F,cc:length}\s*</record>
+  <record id="atom3">\s*{A,cc:elementType}\s+{I,x:junk}\s+{F,cc:length}\s+{I,x:junk}\s+{F,cc:angle}\s*</record>
+  <record id="atom4" repeat="2">\s*{A,cc:elementType}\s+{I,x:junk}\s+{F,cc:length}\s+{I,x:junk}\s+{F,cc:angle}\s+{I,x:junk}\s+{F,cc:torsion}\s+{I,g:unknown}\s*</record>
 
-  <transform process="addDictRef" xpath=".//cml:list[@cmlx:templateRef='zmatrix.unparsed']" value="x:zmatrix.unparsed" />
+  <!-- ORGANIZE -->
+  <!-- <transform process="move"
+             xpath=".//cml:scalar[@dictRef='cc:elementType']"
+             to="." /> -->
 
+  <transform process="createAtom" 
+             xpath=".//cml:scalar[@dictRef='cc:elementType']" />
+
+  <transform process="createLength" 
+             xpath=".//cml:list/cml:list[cml:atom]" 
+             atomRefs="$string(cml:scalar[1]) $string(cml:atom/@id)" 
+             value="$string(cml:scalar[2])" />
+
+  <transform process="createAngle" 
+             xpath=".//cml:list/cml:list[cml:atom]" 
+             atomRefs="$string(cml:scalar[3]) $string(cml:scalar[1]) $string(cml:atom/@id)" 
+             value="$string(cml:scalar[4])"/>
+
+  <transform process="createTorsion" 
+             xpath=".//cml:list/cml:list[cml:atom]" 
+             atomRefs="$string(cml:scalar[5]) $string(cml:scalar[3]) $string(cml:scalar[1]) $string(cml:atom/@id)" 
+             value="$string(cml:scalar[6])"/>
+
+  <transform process="createZMatrix" xpath="." id="zinitial"/>
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath="./cml:list"/>
 
   <comment class="example.output" id="substituted.z-matrix">
     <module cmlx:templateRef="substituted.z-matrix" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
@@ -46,7 +76,7 @@ However in this case we don't have a variable-map.
           <length atomRefs2="a1 a2">1.093</length>
           <length atomRefs2="a1 a3">1.093</length>
           <angle atomRefs3="a2 a1 a3">107.4622</angle>
-          <length atomRefs2="a1 a4">1.1.093</length>
+          <length atomRefs2="a1 a4">1.093</length>
           <angle atomRefs3="a2 a1 a4">107.4622</angle>
           <torsion atomRefs4="a3 a2 a1 a4">120.0</torsion>
           <length atomRefs2="a1 a5">1.093</length>
@@ -54,12 +84,11 @@ However in this case we don't have a variable-map.
           <torsion atomRefs4="a3 a2 a1 a5">240.0</torsion>
         </zMatrix>
         <atomArray>
-          <!-- NOT ACTUAL COORDINATES -->
           <atom elementType="C" id="a1" x3="1.093" y3="0.0" z3="0.0"/>
           <atom elementType="H" id="a2" x3="0.0" y3="0.0" z3="0.0"/>
-          <atom elementType="H" id="a3" x3="1.4840003546705822" y3="1.0493463378857821" z3="0.0"/>
-          <atom elementType="H" id="a4" x3="1.4839994389430116" y3="-0.524673330822134" z3="0.9087608663603304"/>
-          <atom elementType="H" id="a5" x3="1.484000171525091" y3="-0.5246732013187714" z3="-0.9087606420539267"/>
+          <atom elementType="H" id="a3" x3="1.4209836518521932" y3="1.042629236170605" z3="0.0"/>
+          <atom elementType="H" id="a4" x3="1.4209836518521932" y3="-0.5213146180853023" z3="0.9029434052521093"/>
+          <atom elementType="H" id="a5" x3="1.4209836518521932" y3="-0.521314618085303" z3="-0.9029434052521089"/>
         </atomArray>
       </molecule>
     </module>
