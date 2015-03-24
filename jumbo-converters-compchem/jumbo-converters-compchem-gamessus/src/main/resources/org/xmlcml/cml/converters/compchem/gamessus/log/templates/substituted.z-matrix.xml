@@ -4,7 +4,7 @@
   pattern="\s*(YOUR|THE CURRENT) FULLY SUBSTITUTED Z-MATRIX IS\s*"      offset="0"
   endPattern="\s+"   endOffset="0" >
 
-  <comment class="example.input" id="substituted.z-matrix">
+  <comment class="example.input" id="substituted.z-matrix.ch4">
  YOUR FULLY SUBSTITUTED Z-MATRIX IS
  C   
  H      1   1.0930000
@@ -12,7 +12,7 @@
  H      1   1.0930000  2  107.4622  3  120.0000  0
  H      1   1.0930000  2  107.4622  3  240.0000  0
   </comment>
-  <comment>
+  <comment class="example.input" id="substituted.z-matrix.c6h5cl">
 THE CURRENT FULLY SUBSTITUTED Z-MATRIX IS
  C   
  C      1   1.3984639
@@ -39,7 +39,7 @@ However in this case we don't have a variable-map.
   <record id="atom1">\s*{A,cc:elementType}\s*</record>
   <record id="atom2">\s*{A,cc:elementType}\s+{I,x:junk}\s+{F,cc:length}\s*</record>
   <record id="atom3">\s*{A,cc:elementType}\s+{I,x:junk}\s+{F,cc:length}\s+{I,x:junk}\s+{F,cc:angle}\s*</record>
-  <record id="atom4" repeat="2">\s*{A,cc:elementType}\s+{I,x:junk}\s+{F,cc:length}\s+{I,x:junk}\s+{F,cc:angle}\s+{I,x:junk}\s+{F,cc:torsion}\s+{I,g:unknown}\s*</record>
+  <record id="atom4" repeat="*">\s*{A,cc:elementType}\s+{I,x:junk}\s+{F,cc:length}\s+{I,x:junk}\s+{F,cc:angle}\s+{I,x:junk}\s+{F,cc:torsion}\s+{I,g:unknown}\s*</record>
 
   <!-- ORGANIZE -->
   <!-- <transform process="move"
@@ -64,14 +64,14 @@ However in this case we don't have a variable-map.
              atomRefs="$string(cml:scalar[5]) $string(cml:scalar[3]) $string(cml:scalar[1]) $string(cml:atom/@id)" 
              value="$string(cml:scalar[6])"/>
 
-  <transform process="createZMatrix" xpath="." id="zinitial"/>
+  <transform process="createZMatrix" xpath="." id="z-matrix"/>
 
   <!-- CLEAN UP -->
   <transform process="delete" xpath="./cml:list"/>
 
-  <comment class="example.output" id="substituted.z-matrix">
+  <comment class="example.output" id="substituted.z-matrix.ch4">
     <module cmlx:templateRef="substituted.z-matrix" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <molecule id="zinitial">
+      <molecule id="z-matrix">
         <zMatrix>
           <length atomRefs2="a1 a2">1.093</length>
           <length atomRefs2="a1 a3">1.093</length>
@@ -89,6 +89,59 @@ However in this case we don't have a variable-map.
           <atom elementType="H" id="a3" x3="1.4209836518521932" y3="1.042629236170605" z3="0.0"/>
           <atom elementType="H" id="a4" x3="1.4209836518521932" y3="-0.5213146180853023" z3="0.9029434052521093"/>
           <atom elementType="H" id="a5" x3="1.4209836518521932" y3="-0.521314618085303" z3="-0.9029434052521089"/>
+        </atomArray>
+      </molecule>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="substituted.z-matrix.c6h5cl">
+    <module cmlx:templateRef="substituted.z-matrix" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <molecule id="z-matrix">
+        <zMatrix>
+          <length atomRefs2="a1 a2">1.3984639</length>
+          <length atomRefs2="a2 a3">1.3993081</length>
+          <angle atomRefs3="a1 a2 a3">120.2754758</angle>
+          <length atomRefs2="a3 a4">1.3993415</length>
+          <angle atomRefs3="a2 a3 a4">120.235836</angle>
+          <torsion atomRefs4="a1 a2 a3 a4">-0.0015568</torsion>
+          <length atomRefs2="a4 a5">1.398419</length>
+          <angle atomRefs3="a3 a4 a5">120.2820564</angle>
+          <torsion atomRefs4="a2 a3 a4 a5">-0.0024591</torsion>
+          <length atomRefs2="a1 a6">1.3963621</length>
+          <angle atomRefs3="a2 a1 a6">118.4652258</angle>
+          <torsion atomRefs4="a3 a2 a1 a6">0.0029024</torsion>
+          <length atomRefs2="a6 a7">1.7285162</length>
+          <angle atomRefs3="a1 a6 a7">118.8584108</angle>
+          <torsion atomRefs4="a2 a1 a6 a7">-179.9967689</torsion>
+          <length atomRefs2="a1 a8">1.0891692</length>
+          <angle atomRefs3="a2 a1 a8">120.8346828</angle>
+          <torsion atomRefs4="a3 a2 a1 a8">-179.9963622</torsion>
+          <length atomRefs2="a2 a9">1.0895936</length>
+          <angle atomRefs3="a1 a2 a9">119.6930996</angle>
+          <torsion atomRefs4="a3 a1 a2 a9">179.9980955</torsion>
+          <length atomRefs2="a3 a10">1.0889287</length>
+          <angle atomRefs3="a2 a3 a10">119.8838214</angle>
+          <torsion atomRefs4="a1 a2 a3 a10">-179.9990258</torsion>
+          <length atomRefs2="a4 a11">1.089609</length>
+          <angle atomRefs3="a3 a4 a11">120.0197012</angle>
+          <torsion atomRefs4="a2 a3 a4 a11">-179.996657</torsion>
+          <length atomRefs2="a5 a12">1.0891544</length>
+          <angle atomRefs3="a4 a5 a12">120.8473604</angle>
+          <torsion atomRefs4="a3 a4 a5 a12">-179.9834424</torsion>
+        </zMatrix>
+        <atomArray>
+          <atom elementType="C" id="a1" x3="0.0" y3="0.0" z3="0.0"/>
+          <atom elementType="C" id="a2" x3="1.3984639" y3="0.0" z3="0.0"/>
+          <atom elementType="C" id="a3" x3="2.103936301216217" y3="1.2084584601250616" z3="0.0"/>
+          <atom elementType="C" id="a4" x3="1.4151080444530344" y3="2.4265193228194355" z3="-3.284940808506503E-5"/>
+          <atom elementType="C" id="a5" x3="0.016823108716850443" y3="2.4458824538974913" z3="-1.1775588862781025E-4"/>
+          <atom elementType="C" id="a6" x3="-0.6655415005795754" y3="1.2275510667405762" z3="-6.218336235990739E-5"/>
+          <atom elementType="CL" id="a7" x3="-2.3940169988417708" y3="1.2394127016873715" z3="2.25874141221456E-5"/>
+          <atom elementType="H" id="a8" x3="-0.5582675324935888" y3="-0.9352148976927066" z3="5.937827861502502E-5"/>
+          <atom elementType="H" id="a9" x3="1.9381985042091041" y3="-0.9465203480064944" z3="3.1462142914456444E-5"/>
+          <atom elementType="H" id="a10" x3="3.192839560430228" y3="1.2010149731003334" z3="-1.6053243922013193E-5"/>
+          <atom elementType="H" id="a11" x3="1.9679889392650523" y3="3.365439173506937" z3="-8.778411175882812E-5"/>
+          <atom elementType="H" id="a12" x3="-0.5286426831336897" y3="3.3886041992223586" z3="-4.1415403344371646E-4"/>
         </atomArray>
       </molecule>
     </module>
