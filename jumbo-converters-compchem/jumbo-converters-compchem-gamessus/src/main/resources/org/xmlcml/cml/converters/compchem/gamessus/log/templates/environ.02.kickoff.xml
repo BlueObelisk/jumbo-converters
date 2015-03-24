@@ -18,7 +18,7 @@
 
   <!-- <record id="kickoff.unparsed" repeat="*">{X,x:UNPARSED}</record> -->
   <record />
-  <record id="data">\s*.*\s{I,cc:numProcs}\s.*\s.*\s.*\s{I,m:numNodes}\s.*</record>
+  <record id="data">\s*Initiating\s{I,cc:numProcs}\scompute processes on\s{I,m:numNodes}\snodes to run the following command:\s*</record>
   <record id="data">\s*{X,m:command}\s*</record>
   
   <transform process="move" xpath=".//*[contains(@dictRef,'m:num') or contains(@dictRef,'m:com') or contains(@dictRef,'cc:num')]" to="." />

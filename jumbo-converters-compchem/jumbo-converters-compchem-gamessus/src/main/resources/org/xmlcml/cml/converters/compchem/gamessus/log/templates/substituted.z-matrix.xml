@@ -42,10 +42,7 @@ However in this case we don't have a variable-map.
   <record id="atom4" repeat="*">\s*{A,cc:elementType}\s+{I,x:junk}\s+{F,cc:length}\s+{I,x:junk}\s+{F,cc:angle}\s+{I,x:junk}\s+{F,cc:torsion}\s+{I,g:unknown}\s*</record>
 
   <!-- ORGANIZE -->
-  <!-- <transform process="move"
-             xpath=".//cml:scalar[@dictRef='cc:elementType']"
-             to="." /> -->
-
+  <!-- CREATE MOLECULE WITH ZMATRIX AND ATOM ARRAY FROM LISTS -->
   <transform process="createAtom" 
              xpath=".//cml:scalar[@dictRef='cc:elementType']" />
 
@@ -67,7 +64,8 @@ However in this case we don't have a variable-map.
   <transform process="createZMatrix" xpath="." id="z-matrix"/>
 
   <!-- CLEAN UP -->
-  <transform process="delete" xpath="./cml:list"/>
+  <!-- DELETE ALL LISTS AFTER GETTING THE DATA FROM THEM -->
+  <transform process="delete" xpath="./cml:list" />
 
   <comment class="example.output" id="substituted.z-matrix.ch4">
     <module cmlx:templateRef="substituted.z-matrix" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
