@@ -16,12 +16,12 @@
   </comment>
 
   <record repeat="2" />
-  <record id="data">\s*.*={X,cc:dftFunctional}\s*</record>
-  <record id="data">\s*.*=\s+{I,m:dft.nrad}\s+.*=\s+{I,m:dft.nleb}\s*</record>
-  <record id="data">\s*.*=\s+{I,m:dft.nrad0}\s+.*=\s+{I,m:dft.nleb0}\s*</record>
-  <record id="data">\s*.*=\s+{X,m:dft.swoff}\s\(.+\s*</record>
-  <record id="data">\s*.*=\s+{X,m:dft.switch}\s\(.+\s*</record>
-  <record id="data">\s*.*=\s+{X,m:dft.thres}\s.*=\s+{X,m:dft.gthre}\s*</record>
+  <record id="data">\s*DFTTYP\s*={X,cc:dftFunctional}\s*</record>
+  <record id="data">\s*NRAD\s*=\s+{I,m:dft.nrad}\s+NLEB\s*=\s+{I,m:dft.nleb}\s*</record>
+  <record id="data">\s*NRAD0\s*=\s+{I,m:dft.nrad0}\s+NLEB0\s*=\s+{I,m:dft.nleb0}\s*</record>
+  <record id="data">\s*SWOFF\s*=\s+{X,m:dft.swoff}\s\(.+\s*</record>
+  <record id="data">\s*SWITCH\s*=\s+{X,m:dft.switch}\s\(.+\s*</record>
+  <record id="data">\s*THRESH\s*=\s+{X,m:dft.thres}\s.*=\s+{X,m:dft.gthre}\s*</record>
 
   <transform process="setDataType" value="xsd:double" xpath=".//*[contains(@dictRef,'m:dft.s') or contains(@dictRef,'m:dft.t') or contains(@dictRef,'m:dft.g')]" />
 

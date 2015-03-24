@@ -22,16 +22,16 @@
 
   <!-- <record id="init.control.options.unparsed">{X,x:UNPARSED}</record> -->
   <record repeat="2" />
-  <record id="typ1">\s*.*={A,m:scftyp}\s+.*={A,m:runtyp}\s+.*={A,m:exetyp}\s*</record>
-  <record id="typ2">\s*.*=\s+{I,m:mplvl}\s+.*={A,m:cityp}\s+.*={A,m:cctyp}\s+.*={A,m:vbtyp}\s*</record>
-  <record id="typ3">\s*.*={A,m:dfttyp}\s+.*={A,m:tddft}\s*</record>
-  <record id="typ4">\s*.*=\s+{I,m:mult}\s+.*=\s+{I,m:icharg}\s+.*=\s+{I,m:nzvar}\s+.*={A,m:coord}\s*</record>
-  <record id="typ5">\s*.*={A,m:pp}\s+.*={A,m:relwfn}\s+.*={A,m:local}\s+.*=\s+{A,m:numgrd}\s*</record>
-  <record id="typ6">\s*.*=\s+{I,m:ispher}\s+.*=.*{I,m:nosym}\s+.*=\s+{I,m:maxit}\s+.*={A,m:units}\s*</record>
-  <record id="typ7">\s*.*=\s+{A,m:pltorb}\s+.*=\s+{A,m:molplt}\s+.*=\s+{A,m:aimpac}\s+.*={X,m:friend}\s*</record>
-  <record id="typ8">\s*.*=\s+{I,m:nprint}\s+.*=\s+{I,m:irest}\s+.*={A,m:geom}\s*</record>
-  <record id="typ9">\s*.*=\s+{I,m:normf}\s+.*=\s+{I,m:normp}\s+.*=\s+{I,m:itol}\s+.*=\s+{I,m:icut}\s*</record>
-  <record id="typ10">\s*.*={A,m:inttyp}\s+.*={A,m:grdtyp}\s+.*=\s{X,m:qmttol}\s*</record>
+  <record id="typ1">\s*SCFTYP\s*={A,m:scftyp}\s+RUNTYP\s*={A,m:runtyp}\s+EXETYP\s*={A,m:exetyp}\s*</record>
+  <record id="typ2">\s*MPLEVL\s*=\s+{I,m:mplvl}\s+CITYP\s*={A,m:cityp}\s+CCTYP\s*={A,m:cctyp}\s+VBTYP\s*={A,m:vbtyp}\s*</record>
+  <record id="typ3">\s*DFTTYP\s*={A,m:dfttyp}\s+TDDFT\s*={A,m:tddft}\s*</record>
+  <record id="typ4">\s*MULT\s*=\s+{I,m:mult}\s+ICHARG\s*=\s+{I,m:icharg}\s+NZVAR\s*=\s+{I,m:nzvar}\s+COORD\s*={A,m:coord}\s*</record>
+  <record id="typ5">\s*PP\s*={A,m:pp}\s+RELWFN\s*={A,m:relwfn}\s+LOCAL\s*={A,m:local}\s+NUMGRD\s*=\s+{A,m:numgrd}\s*</record>
+  <record id="typ6">\s*ISPHER\s*=\s+{I,m:ispher}\s+NOSYM\s*=.*{I,m:nosym}\s+MAXIT\s*=\s+{I,m:maxit}\s+UNITS\s*={A,m:units}\s*</record>
+  <record id="typ7">\s*PLTORB\s*=\s+{A,m:pltorb}\s+MOLPLT\s*=\s+{A,m:molplt}\s+AIMPAC\s*=\s+{A,m:aimpac}\s+FRIEND\s*={X,m:friend}\s*</record>
+  <record id="typ8">\s*NPRINT\s*=\s+{I,m:nprint}\s+IREST\s*=\s+{I,m:irest}\s+GEOM\s*={A,m:geom}\s*</record>
+  <record id="typ9">\s*NORMF\s*=\s+{I,m:normf}\s+NORMP\s*=\s+{I,m:normp}\s+ITOL\s*=\s+{I,m:itol}\s+ICUT\s*=\s+{I,m:icut}\s*</record>
+  <record id="typ10">\s*INTTYP\s*={A,m:inttyp}\s+GRDTYP\s*={A,m:grdtyp}\s+QMTTOL\s*=\s{X,m:qmttol}\s*</record>
 
   <transform process="setDataType" value="xsd:double"
     xpath=".//*[@dictRef='m:qmttol']" />

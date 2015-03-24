@@ -21,14 +21,14 @@
 
   <!-- <record id="G3MP2.unparsed" repeat="*">{X,x:UNPARSED}</record> -->
   <record repeat="3" />
-  <record id="calc1">\s.*\s+=\s+{F,m:MP2.6-31G}\s+.*\s+=\s+{F,m:CCSD.6-31G}\s*</record>
-  <record id="calc2">.*=\s+{F,m:MP2.G3MP2LARGE}\s+.*=\s+{F,m:BasisContributon}\s*</record>
-  <record id="calc3">.*=\s+{F,cc:ZeroPointEnergy}\s+.*=\s+{F,m:ZpeScaleFactor}\s*</record>
-  <record id="calc4">.*=\s+{F,m:HigherLevelCorr}\s+.*=\s+{F,m:FreeEnergy}\s*</record>
-  <record id="calc5">.*=\s+{F,m:ThermalEnergy}\s+.*=\s+{F,m:ThermalEnthalpy}\s*</record>
+  <record id="calc1">\s*MP2[^=]+\s*=\s+{F,m:MP2.6-31G}\s+CCSD[^=]+\s*=\s+{F,m:CCSD.6-31G}\s*</record>
+  <record id="calc2">\s*MP2/G3MP2LARGE\s*=\s+{F,m:MP2.G3MP2LARGE}\s+BASIS CONTRIBUT\s*=\s+{F,m:BasisContributon}\s*</record>
+  <record id="calc3">\s*ZPE[^=]+\s*=\s+{F,cc:ZeroPointEnergy}\s+ZPE SCALE FACTOR\s*=\s+{F,m:ZpeScaleFactor}\s*</record>
+  <record id="calc4">\s*HLC\s*=\s+{F,m:HigherLevelCorr}\s+FREE ENERGY\s*=\s+{F,m:FreeEnergy}\s*</record>
+  <record id="calc5">\s*THERMAL ENERGY\s*=\s+{F,m:ThermalEnergy}\s+THERMAL ENTHALPY\s*=\s+{F,m:ThermalEnthalpy}\s*</record>
   <record />
-  <record id="calc6">.*=\s+{F,cc:Energy.K}\s+.*=\s+{F,cc:Energy.T}\s*</record>
-  <record id="calc7">.*=\s+{F,cc:Enthalpy.T}\s+.*=\s+{F,cc:GibbsEnergy.T}\s*</record>
+  <record id="calc6">\s*E[^=]+\s*=\s+{F,cc:Energy.K}\s+E[^=]+\s*=\s+{F,cc:Energy.T}\s*</record>
+  <record id="calc7">\s*H[^=]+\s*=\s+{F,cc:Enthalpy.T}\s+G[^=]+\s*=\s+{F,cc:GibbsEnergy.T}\s*</record>
   <record />
 
   <transform process="addChild"

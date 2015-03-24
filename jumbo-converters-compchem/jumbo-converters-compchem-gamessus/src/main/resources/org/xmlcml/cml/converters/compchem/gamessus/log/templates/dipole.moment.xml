@@ -41,6 +41,13 @@
                  to="."
                  xpath=".//*[contains(@dictRef,'cmlx:unparsed') or contains(@dictRef,'cc:dipole') or contains(@dictRef,'x:dipole')]" />
 
+  <transform process="addDictRef"
+             xpath=".//cml:scalar[@dictRef='cmlx:unparsed']"
+             value="x:UNPARSED" />
+
+  <transform process="createWrapperProperty"
+             xpath=".//cml:scalar[@dictRef='x:UNPARSED']" />
+
   <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
   <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='dipole']"/>
 
@@ -48,8 +55,12 @@
 
   <comment class="example.output" id="dipole.moment">
 	<module cmlx:templateRef="dipole.moment" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-		<scalar dictRef="cmlx:unparsed">POINT   1           X           Y           Z (BOHR)    CHARGE</scalar>
-		<scalar dictRef="cmlx:unparsed">0.000000    0.000000    0.000001        0.00 (A.U.)</scalar>
+		<property dictRef="x:UNPARSED">
+      <scalar dataType="xsd:string">POINT   1           X           Y           Z (BOHR)    CHARGE</scalar>
+    </property>
+    <property dictRef="x:UNPARSED">
+		  <scalar dataType="xsd:string">0.000000    0.000000    0.000001        0.00 (A.U.)</scalar>
+    </property>
 		<property dictRef="cc:dipole">
 			<array dataType="xsd:double" size="3" units="nonSi:debye">1.0E-5 1.0E-5 2.7E-5</array>
 		</property>
