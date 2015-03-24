@@ -62,62 +62,60 @@
   <transform process="createWrapperParameter"
               xpath=".//cml:scalar[@dictRef='cc:programVersion' or @dictRef='cc:programPlatform' ]" />
 
-  <transform process="addChild" xpath="."
+  <!-- <transform process="addChild" xpath="."
                elementName="cml:parameterList" position="0" />
 
-  <transform process="move" to="./cml:parameterList"    xpath=".//cml:parameter[./cml:scalar]" />
+  <transform process="move" to="./cml:parameterList"    xpath=".//cml:parameter[./cml:scalar]" /> -->
+
+  <transform process="pullup"
+             xpath=".//cml:list[@cmlx:templateRef='version' or @cmlx:templateRef='platform']/cml:parameter" />
 
   <transform process="addChild" 
-                 xpath="./cml:parameterList"
-                 elementName="cml:parameter"
-                 position="0"
-                 dictRef="cc:program"
-                 />
+             xpath="."
+             elementName="cml:parameter"
+             position="0"
+             dictRef="cc:program" />
 
   <transform process="addChild" 
-                 xpath=".//cml:parameter[@dictRef='cc:program']"
-                 elementName="cml:scalar"
-                 position="0"
-                  value="GAMESS-US"
-                 />
+             xpath=".//cml:parameter[@dictRef='cc:program']"
+             elementName="cml:scalar"
+             position="0"
+             value="GAMESS-US" />
 
   <transform process="setDataType" value="xsd:string"
     xpath=".//cml:scalar[@dictRef='cc:program']" />
 
   <transform process="delete" xpath=".//cml:scalar[@dictRef='m:authors']"/>
 
+  <!-- Clean Up -->
   <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
   <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
 
   <comment class="example.output" id="proginfo.2006R2">
     <module cmlx:templateRef="environ.03.proginfo" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <parameterList>
-        <parameter dictRef="cc:program">
-          <scalar dataType="xsd:string">GAMESS-US</scalar>
-        </parameter>
-        <parameter dictRef="cc:programVersion">
-          <scalar dataType="xsd:string">22 FEB 2006 (R2)</scalar>
-        </parameter>
-        <parameter dictRef="cc:programPlatform">
-          <scalar dataType="xsd:string">IBM (AIX)</scalar>
-        </parameter>
-      </parameterList>
+      <parameter dictRef="cc:program">
+        <scalar dataType="xsd:string">GAMESS-US</scalar>
+      </parameter>
+      <parameter dictRef="cc:programVersion">
+        <scalar dataType="xsd:string">22 FEB 2006 (R2)</scalar>
+      </parameter>
+      <parameter dictRef="cc:programPlatform">
+        <scalar dataType="xsd:string">IBM (AIX)</scalar>
+      </parameter>
     </module>
   </comment>
 
   <comment class="example.output" id="proginfo.2009R1">
     <module cmlx:templateRef="environ.03.proginfo" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <parameterList>
-        <parameter dictRef="cc:program">
-          <scalar dataType="xsd:string">GAMESS-US</scalar>
-        </parameter>
-        <parameter dictRef="cc:programVersion">
-          <scalar dataType="xsd:string">12 JAN 2009 (R1)</scalar>
-        </parameter>
-        <parameter dictRef="cc:programPlatform">
-          <scalar dataType="xsd:string">64 BIT LINUX</scalar>
-        </parameter>
-      </parameterList>
+      <parameter dictRef="cc:program">
+        <scalar dataType="xsd:string">GAMESS-US</scalar>
+      </parameter>
+      <parameter dictRef="cc:programVersion">
+        <scalar dataType="xsd:string">12 JAN 2009 (R1)</scalar>
+      </parameter>
+      <parameter dictRef="cc:programPlatform">
+        <scalar dataType="xsd:string">64 BIT LINUX</scalar>
+      </parameter>
     </module>
   </comment>
 

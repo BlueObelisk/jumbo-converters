@@ -98,14 +98,14 @@
     </template>
   </templateList>
 
-  <record id="Summary">\s*.*\s+=\s+{I,m:TotalNumberOfBasisSetShells}\s*</record>
-  <record id="Summary">\s*.*\s+=\s+{I,m:NumberOfCartesianGaussianBasisFunctions}\s*</record>
-  <record id="Summary">\s*.*\s+=\s+{I,m:NumberOfElectrons}\s*</record>
-  <record id="Summary">\s*.*\s+=\s+{I,m:ChargeOfMolecule}\s*</record>
-  <record id="Summary">\s*.*\s+=\s+{I,m:SpinMultiplicity}\s*</record>
-  <record id="Summary">\s*.*\s+=\s+{I,m:NumberOfOccupiedOrbitalsAlpha}\s*</record>
-  <record id="Summary">\s*.*\s+=\s+{I,m:NumberOfOccupiedOrbitalsBeta}\s*</record>
-  <record id="Summary">\s*.*\s+=\s+{I,m:TotalNumberOfAtoms}\s*</record>
+  <record id="Summary">\s*TOTAL NUMBER OF BASIS SET SHELLS\s+=\s+{I,m:TotalNumberOfBasisSetShells}\s*</record>
+  <record id="Summary">\s*NUMBER OF CARTESIAN GAUSSIAN BASIS FUNCTIONS\s+=\s+{I,m:NumberOfCartesianGaussianBasisFunctions}\s*</record>
+  <record id="Summary">\s*NUMBER OF ELECTRONS\s+=\s+{I,m:NumberOfElectrons}\s*</record>
+  <record id="Summary">\s*CHARGE OF MOLECULE\s+=\s+{I,m:ChargeOfMolecule}\s*</record>
+  <record id="Summary">\s*SPIN MULTIPLICITY\s+=\s+{I,m:SpinMultiplicity}\s*</record>
+  <record id="Summary">\s*NUMBER OF OCCUPIED ORBITALS \(ALPHA\)\s+=\s+{I,m:NumberOfOccupiedOrbitalsAlpha}\s*</record>
+  <record id="Summary">\s*NUMBER OF OCCUPIED ORBITALS \(BETA \)\s+=\s+{I,m:NumberOfOccupiedOrbitalsBeta}\s*</record>
+  <record id="Summary">\s*TOTAL NUMBER OF ATOMS\s+=\s+{I,m:TotalNumberOfAtoms}\s*</record>
 
   <record id="basisSummary">\s*THE NUCLEAR REPULSION ENERGY IS\s+{F,cc:nuclearRepulsionEnergy}\s*</record>
 
@@ -300,6 +300,13 @@
              xpath=".//cml:scalar[@dictRef='m:NumberOfOccupiedOrbitalsBeta']"
              value="m:NumberOfOccupiedOrbitals(beta)" />
 
+  <transform process="addDictRef"
+             xpath=".//cml:list[@cmlx:templateRef='atomic.basis.set.unparsed']"
+             value="x:UNPARSED" />
+
+  <transform process="createWrapperParameter"
+             xpath=".//cml:list[@dictRef='x:UNPARSED']" />
+
   <!-- CLEAN UP -->
   <transform process="delete" xpath=".//cml:list[@id='basisSetContraction']/cml:array[@dictRef='cc:basisSetShell']"/>
   <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
@@ -309,11 +316,12 @@
 
   <comment class="example.output" id="atomic.basis.set">
     <module cmlx:templateRef="atomic.basis.set" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <list cmlx:templateRef="atomic.basis.set.unparsed">
-        <scalar dataType="xsd:string" dictRef="x:UNPARSED">THE CONTRACTED PRIMITIVE FUNCTIONS HAVE BEEN UNNORMALIZED</scalar>
-        <scalar dataType="xsd:string" dictRef="x:UNPARSED">THE CONTRACTED BASIS FUNCTIONS ARE NOW NORMALIZED TO UNITY</scalar>
-      </list>
-
+      <parameter dictRef='x:UNPARSED'>
+        <list cmlx:templateRef="atomic.basis.set.unparsed">
+          <scalar dataType="xsd:string" dictRef="x:UNPARSED">THE CONTRACTED PRIMITIVE FUNCTIONS HAVE BEEN UNNORMALIZED</scalar>
+          <scalar dataType="xsd:string" dictRef="x:UNPARSED">THE CONTRACTED BASIS FUNCTIONS ARE NOW NORMALIZED TO UNITY</scalar>
+        </list>
+      </parameter>
       <parameter dictRef="cc:basisSet">
         <list id="basisSet">
 

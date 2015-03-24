@@ -40,7 +40,7 @@
                  to=".//*[@dictRef='cc:coordinates']"
                  xpath=".//*[contains(@dictRef,'cc:') or contains(@dictRef,'x:')]" />
 
-  <transform process="createWrapperProperty" xpath=".//*[@dictRef='cc:coordinates']"/>
+  <transform process="createWrapperParameter" xpath=".//*[@dictRef='cc:coordinates']"/>
 
   <transform process="addUnits" xpath=".//*[@dictRef='cc:x3' or @dictRef='cc:y3' or @dictRef='cc:z3']" value="nonSi:bohr" />
   
@@ -49,7 +49,7 @@
 
   <comment class="example.output" id="init.inputCoordinates.bohr">
     <module cmlx:templateRef="init.inputCoordinates.bohr" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <property dictRef="cc:coordinates">
+      <parameter dictRef="cc:coordinates">
         <list>
           <array dataType="xsd:string" dictRef="x:atomLabel"    size="5" >C H H H H</array>
           <array dataType="xsd:double" dictRef="cc:elementType" size="5" >6.0 1.0 1.0 1.0 1.0</array>
@@ -57,13 +57,13 @@
           <array dataType="xsd:double" dictRef="cc:y3" units="nonSi:bohr" size="5" >0.0 -1.6818561291 1.6818561291 0.0 0.0</array>
           <array dataType="xsd:double" dictRef="cc:z3" units="nonSi:bohr" size="5" >0.0 -1.1892045641 -1.1892045641 1.1892045641 1.1892045641</array>
         </list>
-      </property>
+      </parameter>
     </module>
   </comment>
 
   <comment class="example.output" id="init.inputCoordinates.bohr.2">
     <module cmlx:templateRef="init.inputCoordinates.bohr" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <property dictRef="cc:coordinates">
+      <parameter dictRef="cc:coordinates">
       <list>
         <array dataType="xsd:string" dictRef="x:atomLabel" size="12">C C C C C C CL H H H H H</array>
         <array dataType="xsd:double" dictRef="cc:elementType" size="12">6.0 6.0 6.0 6.0 6.0 6.0 17.0 1.0 1.0 1.0 1.0 1.0</array>
@@ -71,7 +71,7 @@
         <array dataType="xsd:double" dictRef="cc:y3" size="12" units="nonSi:bohr">-2.310994009 -2.2928003103 -2.10046E-5 2.292764149 2.3111629293 2.76776E-5 -4.46949E-5 -4.0855150094 -4.0744001976 7.95639E-5 4.0742162012 4.085510045</array>
         <array dataType="xsd:double" dictRef="cc:z3" size="12" units="nonSi:bohr">4.9225E-5 2.82293E-5 -7.09656E-5 -8.7855E-5 9.21683E-5 8.67234E-5 -4.83895E-5 1.39672E-5 3.00694E-5 -5.64318E-5 -6.11851E-5 5.913492E-4</array>
         </list>
-      </property>
+      </parameter>
     </module>
   </comment>
 

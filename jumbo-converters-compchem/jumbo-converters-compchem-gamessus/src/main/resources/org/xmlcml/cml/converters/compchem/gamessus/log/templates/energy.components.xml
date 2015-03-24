@@ -27,21 +27,21 @@
   </comment>
 
   <record repeat="4" />
-  <record id="e">\s*.+\s=\s*{F,m:WavefunctionNormalization}\s*</record>
+  <record id="e">\s*WAVEFUNCTION NORMALIZATION\s*=\s*{F,m:WavefunctionNormalization}\s*</record>
   <record repeat="1" />
-  <record id="e">\s*.+\s=\s*{F,cc:e1Energy}\s*</record>
-  <record id="e">\s*.+\s=\s*{F,cc:e2Energy}\s*</record>
-  <record id="e">\s*.+\s=\s*{F,cc:nuclearRepulsionEnergy}\s*</record>
+  <record id="e">\s*ONE ELECTRON ENERGY\s*=\s*{F,cc:e1Energy}\s*</record>
+  <record id="e">\s*TWO ELECTRON ENERGY\s*=\s*{F,cc:e2Energy}\s*</record>
+  <record id="e">\s*NUCLEAR REPULSION ENERGY\s*=\s*{F,cc:nuclearRepulsionEnergy}\s*</record>
   <record repeat="1" />
-  <record id="e">\s*.+\s=\s*{F,cc:totalEnergy}\s*</record>
+  <record id="e">\s*TOTAL ENERGY\s*=\s*{F,cc:totalEnergy}\s*</record>
   <record repeat="1" />
-  <record id="e">\s*.+\s=\s*{F,m:ElectronElectronPotentialEnergy}\s*</record>
-  <record id="e">\s*.+\s=\s*{F,m:NucleusElectronPotentialEnergy}\s*</record>
-  <record id="e">\s*.+\s=\s*{F,m:NucleusNucleusPotentialEnergy}\s*</record>
+  <record id="e">\s*ELECTRON-ELECTRON POTENTIAL ENERGY\s*=\s*{F,m:ElectronElectronPotentialEnergy}\s*</record>
+  <record id="e">\s*NUCLEUS-ELECTRON POTENTIAL ENERGY\s*=\s*{F,m:NucleusElectronPotentialEnergy}\s*</record>
+  <record id="e">\s*NUCLEUS-NUCLEUS POTENTIAL ENERGY\s*=\s*{F,m:NucleusNucleusPotentialEnergy}\s*</record>
   <record repeat="1" />
-  <record id="e">\s*.+\s=\s*{F,m:TotalNucleusPotentialEnergy}\s*</record>
-  <record id="e">\s*.+\s=\s*{F,m:TotalKineticPotentialEnergy}\s*</record>
-  <record id="e">\s*.+\s=\s*{F,m:VirialRatio_VT}\s*</record>
+  <record id="e">\s*TOTAL POTENTIAL ENERGY\s*=\s*{F,m:TotalNucleusPotentialEnergy}\s*</record>
+  <record id="e">\s*TOTAL KINETIC ENERGY\s*=\s*{F,m:TotalKineticPotentialEnergy}\s*</record>
+  <record id="e">\s*VIRIAL RATIO \(V/T\)\s*=\s*{F,m:VirialRatio_VT}\s*</record>
 
   <transform process="move"
                  to="."
@@ -80,14 +80,14 @@
   <transform process="createWrapperProperty"
                    xpath=".//*[@dictRef='m:VirialRatio_VT']"/>
   
-  <transform process="addChild"
+  <!-- <transform process="addChild"
                  xpath="."
                  elementName="cml:propertyList"
-                 position="0" />
+                 position="0" /> -->
 
-  <transform process="move"
+  <!-- <transform process="move"
                  to="./cml:propertyList"
-                 xpath="./cml:property" />
+                 xpath="./cml:property" /> -->
 
  <transform process="addUnits" value="nonSi:hartree"
   xpath=".//cml:property[ @dictRef='cc:e1Energy' or @dictRef='cc:e2Energy' or 
@@ -100,41 +100,39 @@
 
   <comment class="example.output" id="energy.components">
     <module cmlx:templateRef="energy.components" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-        <propertyList>
-          <property dictRef="m:WavefunctionNormalization">
-            <scalar dataType="xsd:double">1.0</scalar>
-          </property>
-          <property dictRef="cc:e1Energy">
-            <scalar dataType="xsd:double" units="nonSi:hartree">-79.7377346216</scalar>
-          </property>
-          <property dictRef="cc:e2Energy">
-            <scalar dataType="xsd:double" units="nonSi:hartree">25.8705774569</scalar>
-          </property>
-          <property dictRef="cc:nuclearRepulsionEnergy">
-            <scalar dataType="xsd:double" units="nonSi:hartree">13.3925231918</scalar>
-          </property>
-          <property dictRef="cc:totalEnergy">
-            <scalar dataType="xsd:double" units="nonSi:hartree">-40.4746339728</scalar>
-          </property>
-          <property dictRef="m:ElectronElectronPotentialEnergy">
-            <scalar dataType="xsd:double">25.8705774569</scalar>
-          </property>
-          <property dictRef="m:NucleusElectronPotentialEnergy">
-            <scalar dataType="xsd:double">-119.9727613821</scalar>
-          </property>
-          <property dictRef="m:NucleusNucleusPotentialEnergy">
-            <scalar dataType="xsd:double">13.3925231918</scalar>
-          </property>
-          <property dictRef="m:TotalNucleusPotentialEnergy">
-            <scalar dataType="xsd:double">-80.7096607333</scalar>
-          </property>
-          <property dictRef="m:TotalKineticPotentialEnergy">
-            <scalar dataType="xsd:double">40.2350267605</scalar>
-          </property>
-          <property dictRef="m:VirialRatio_VT">
-            <scalar dataType="xsd:double">2.0059551896</scalar>
-          </property>
-        </propertyList>
+      <property dictRef="m:WavefunctionNormalization">
+        <scalar dataType="xsd:double">1.0</scalar>
+      </property>
+      <property dictRef="cc:e1Energy">
+        <scalar dataType="xsd:double" units="nonSi:hartree">-79.7377346216</scalar>
+      </property>
+      <property dictRef="cc:e2Energy">
+        <scalar dataType="xsd:double" units="nonSi:hartree">25.8705774569</scalar>
+      </property>
+      <property dictRef="cc:nuclearRepulsionEnergy">
+        <scalar dataType="xsd:double" units="nonSi:hartree">13.3925231918</scalar>
+      </property>
+      <property dictRef="cc:totalEnergy">
+        <scalar dataType="xsd:double" units="nonSi:hartree">-40.4746339728</scalar>
+      </property>
+      <property dictRef="m:ElectronElectronPotentialEnergy">
+        <scalar dataType="xsd:double">25.8705774569</scalar>
+      </property>
+      <property dictRef="m:NucleusElectronPotentialEnergy">
+        <scalar dataType="xsd:double">-119.9727613821</scalar>
+      </property>
+      <property dictRef="m:NucleusNucleusPotentialEnergy">
+        <scalar dataType="xsd:double">13.3925231918</scalar>
+      </property>
+      <property dictRef="m:TotalNucleusPotentialEnergy">
+        <scalar dataType="xsd:double">-80.7096607333</scalar>
+      </property>
+      <property dictRef="m:TotalKineticPotentialEnergy">
+        <scalar dataType="xsd:double">40.2350267605</scalar>
+      </property>
+      <property dictRef="m:VirialRatio_VT">
+        <scalar dataType="xsd:double">2.0059551896</scalar>
+      </property>
     </module>
   </comment>
 

@@ -50,18 +50,18 @@ VIB. THERMAL CORRECTION E(T)-E(0) = H(T)-H(0) =    20.066 CAL/MOL
   </comment>
 
   <record repeat="1" />
-  <record id="t">\s*.*\s+{F,cc:temp}\s+.\s*</record>
+  <record id="t">\s*THERMOCHEMISTRY AT T=\s+{F,cc:temp}\s+.\s*</record>
   <record repeat="3" />
   <record id="t">\s*P=\s+{A,cc:press}\s+.*</record>
-  <record id="t">\s*.*\s+{F,x:FreqScaleFactor}\s*</record>
+  <record id="t">\s*ALL FREQUENCIES ARE SCALED BY\s+{F,x:FreqScaleFactor}\s*</record>
   <record repeat="1" />
   <record id="t">\s*{F,x:momentOfInertia}\s*{F,x:momentOfInertia}\s*{F,x:momentOfInertia}\s*</record>
-  <record id="t">\s*.*\s+{F,x:rotSymmNumber}\s*</record>
+  <record id="t">\s*THE ROTATIONAL SYMMETRY NUMBER IS\s+{F,x:rotSymmNumber}\s*</record>
   <record repeat="1" />
   <record id="t">\s*{F,cc:rotconst}\s*{F,cc:rotconst}\s*{F,cc:rotconst}\s*</record>
   <record repeat="1" />
-  <record id="t">\s+{F,cc:ZeroPointEnergy}\s+.*\s+{F,cc:ZeroPointEnergy}.*</record>
-  <record id="t">\s+{F,cc:ZeroPointEnergy}\s+.*\s+{F,cc:ZeroPointEnergy}.*</record>
+  <record id="t">\s+{F,cc:ZeroPointEnergy}\s+HARTREE/MOLECULE\s+{F,cc:ZeroPointEnergy}\s+CM\*\*-1/MOLECULE\s*</record>
+  <record id="t">\s+{F,cc:ZeroPointEnergy}\s+KCAL/MOL\s+{F,cc:ZeroPointEnergy}\s+KJ/MOL\s*</record>
   <record repeat="1" />
   <record id="t">{X,cmlx:unparsed}</record>
   <record id="t">{X,cmlx:unparsed}</record>
@@ -76,7 +76,7 @@ VIB. THERMAL CORRECTION E(T)-E(0) = H(T)-H(0) =    20.066 CAL/MOL
   <record id="t">{X,cmlx:unparsed}</record>
   <record id="t">{X,cmlx:unparsed}</record>
   <record id="t">{X,cmlx:unparsed}</record>
-  <record id="test1">.*\s+{F,cc:thermalCorrectionToEnergy}\s+{F,cc:thermalCorrectionToEnthalpy}\s+{F,cc:thermalCorrectionToGibbsEnergy}\s+{F,x:molarHeatCapacity_CV}\s+{F,x:molarHeatCapacity_CP}\s+{F,x:molarEntropy_S}\s*</record>
+  <record id="test1">\s*TOTAL\s+{F,cc:thermalCorrectionToEnergy}\s+{F,cc:thermalCorrectionToEnthalpy}\s+{F,cc:thermalCorrectionToGibbsEnergy}\s+{F,x:molarHeatCapacity_CV}\s+{F,x:molarHeatCapacity_CP}\s+{F,x:molarEntropy_S}\s*</record>
   <record id="t">{X,cmlx:unparsed}</record>
   <record repeat="1" />
   <record id="t">{X,cmlx:unparsed}</record>
@@ -85,7 +85,7 @@ VIB. THERMAL CORRECTION E(T)-E(0) = H(T)-H(0) =    20.066 CAL/MOL
   <record id="t">{X,cmlx:unparsed}</record>
   <record id="t">{X,cmlx:unparsed}</record>
   <record id="t">{X,cmlx:unparsed}</record>
-  <record id="test2">.*\s+{F,cc:thermalCorrectionToEnergy}\s+{F,cc:thermalCorrectionToEnthalpy}\s+{F,cc:thermalCorrectionToGibbsEnergy}\s+{F,x:molarHeatCapacity_CV}\s+{F,x:molarHeatCapacity_CP}\s+{F,x:molarEntropy_S}\s*</record>
+  <record id="test2">\s*TOTAL\s+{F,cc:thermalCorrectionToEnergy}\s+{F,cc:thermalCorrectionToEnthalpy}\s+{F,cc:thermalCorrectionToGibbsEnergy}\s+{F,x:molarHeatCapacity_CV}\s+{F,x:molarHeatCapacity_CP}\s+{F,x:molarEntropy_S}\s*</record>
   <record id="t">{X,cmlx:unparsed}</record>
 
   <transform process="pullupSingleton" xpath=".//cml:list[@cmlx:templateRef='test1']" />

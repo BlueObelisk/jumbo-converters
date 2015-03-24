@@ -18,13 +18,13 @@
 
   <!-- <record id="init.system.options.unparsed" repeat="*">{X,x:UNPARSED}</record> -->
   <record repeat="2" />
-  <record id="mem">\s*.*=\s+{I,m:replicated.memory}.*\s*</record>
-  <record id="mem2">\s*.*=\s+{I,m:distributed.memddi}.*\s*</record>
-  <record id="mem3">\s*.*\s.*\s.*\s+{I,m:memddi.processors}\s.*\s.*\s+{I,m:words.processor}.*\s*</record>
-  <record id="mem4">\s*.*\s.*\s.*\s.*\s.*\s.*=\s+{I,m:total.memory}.*\s*</record>
-  <record id="mem5">\s*.*=\s+{F,m:timelim.mins}\s.*\s.*\s+{F,m:timelim.days}.*\s*</record>
-  <record id="mem6">\s*.*=\s{A,m:parall}\s+.*=\s+{A,m:bal.type}\s+.*=\s+{I,m:kdiag}\s+.*=\s{A,m:corefl}\s*</record>
-  <record id="mem7">\s*.*=\s+{I,m:mxseq2}\s.*=\s+{I,m:mxseq3}\s*</record>
+  <record id="mem">\s*REPLICATED MEMORY\s*=\s+{I,m:replicated.memory}\s+WORDS \(ON EVERY NODE\)\.\s*</record>
+  <record id="mem2">\s*DISTRIBUTED MEMDDI\s*=\s+{I,m:distributed.memddi}\s+MILLION WORDS IN AGGREGATE,\s*</record>
+  <record id="mem3">\s*MEMDDI DISTRIBUTED OVER\s+{I,m:memddi.processors}\s+PROCESSORS IS\s+{I,m:words.processor}\s+WORDS/PROCESSOR\.\s*</record>
+  <record id="mem4">\s*TOTAL MEMORY REQUESTED ON EACH PROCESSOR\s*=\s+{I,m:total.memory}\s+WORDS\.\s*</record>
+  <record id="mem5">\s*TIMLIM\s*=\s+{F,m:timelim.mins}\s+MINUTES, OR\s+{F,m:timelim.days}\s+DAYS\.\s*</record>
+  <record id="mem6">\s*PARALL\s*=\s+{A,m:parall}\s+BALTYP\s*=\s+{A,m:bal.type}\s+KDIAG\s*=\s+{I,m:kdiag}\s+COREFL\s*=\s+{A,m:corefl}\s*</record>
+  <record id="mem7">\s*MXSEQ2\s*=\s+{I,m:mxseq2}\sMXSEQ3\s*=\s+{I,m:mxseq3}\s*</record>
 
   <transform process="addChild"
                  xpath="."
