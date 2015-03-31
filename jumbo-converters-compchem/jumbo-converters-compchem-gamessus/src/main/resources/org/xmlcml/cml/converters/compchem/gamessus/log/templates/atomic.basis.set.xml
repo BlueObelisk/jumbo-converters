@@ -2,7 +2,8 @@
   repeat="*"
   name="atomic.basis.set"
   pattern="\s*ATOMIC BASIS SET\s*$\s*-+\s*"            offset="0"
-  endPattern="\s*THE NUCLEAR REPULSION ENERGY IS.+" endOffset="1" >
+  endPattern="\s*THE NUCLEAR REPULSION ENERGY IS.+" endOffset="1" 
+  xmlns:xi="http://www.w3.org/2001/XInclude">
 
   <comment class="example.input" id="atomic.basis.set">
      ATOMIC BASIS SET
@@ -86,219 +87,49 @@
                   pattern="\s*\d+\s+.\s+\d+\s+-*\d+\.\d+\s+-*\d+\.\d+\s*" offset="0"
                   endPattern="\s*"                                        endOffset="0"
                   endPattern2="~"                                         endOffset2="0">
-            <record id="basisSetContractions" makeArray="true" repeat="*">\s*\d+\s+{A,cc:basisSetShell}\s+{I,m:PRIMITIVE}\s+{F,cc:basisSetExponent}\s+{F,cc:basisSetCoefficient}\s*</record>
+            <record id="basisSetContractions" makeArray="true" repeat="*">\s*\d+\s+{A,cc:basisSetShell}\s+{I,m:PRIMITIVE}\s+{F,cc:basisSetExponent}\s+{F,cc:basisSetCoefficient1}\s*</record>
         </template>
         <template id="Set2" repeat="*"
                   pattern="\s*\d+\s+.\s+\d+\s+-*\d+\.\d+\s+-*\d+\.\d+\s+-*\d+\.\d+\s*" offset="0"
                   endPattern="\s*"                                                     endOffset="0"
                   endPattern2="~"                                                      endOffset2="0">
-            <record id="basisSetContractions" makeArray="true" repeat="*">\s*\d+\s+{A,cc:basisSetShell}\s+{I,m:PRIMITIVE}\s+{F,cc:basisSetExponent}\s+{F,cc:basisSetCoefficient}\s+{F,cc:basisSetCoefficient}\s*</record>
+            <record id="basisSetContractions" makeArray="true" repeat="*">\s*\d+\s+{A,cc:basisSetShell}\s+{I,m:PRIMITIVE}\s+{F,cc:basisSetExponent}\s+{F,cc:basisSetCoefficient1}\s+{F,cc:basisSetCoefficient2}\s*</record>
         </template>
       </templateList>
     </template>
+    <xi:include href="atomic.basis.set.values.xml" />
   </templateList>
 
-  <record id="Summary">\s*TOTAL NUMBER OF BASIS SET SHELLS\s+=\s+{I,m:TotalNumberOfBasisSetShells}\s*</record>
-  <record id="Summary">\s*NUMBER OF CARTESIAN GAUSSIAN BASIS FUNCTIONS\s+=\s+{I,m:NumberOfCartesianGaussianBasisFunctions}\s*</record>
-  <record id="Summary">\s*NUMBER OF ELECTRONS\s+=\s+{I,m:NumberOfElectrons}\s*</record>
-  <record id="Summary">\s*CHARGE OF MOLECULE\s+=\s+{I,m:ChargeOfMolecule}\s*</record>
-  <record id="Summary">\s*SPIN MULTIPLICITY\s+=\s+{I,m:SpinMultiplicity}\s*</record>
-  <record id="Summary">\s*NUMBER OF OCCUPIED ORBITALS \(ALPHA\)\s+=\s+{I,m:NumberOfOccupiedOrbitalsAlpha}\s*</record>
-  <record id="Summary">\s*NUMBER OF OCCUPIED ORBITALS \(BETA \)\s+=\s+{I,m:NumberOfOccupiedOrbitalsBeta}\s*</record>
-  <record id="Summary">\s*TOTAL NUMBER OF ATOMS\s+=\s+{I,m:TotalNumberOfAtoms}\s*</record>
-
-  <record id="basisSummary">\s*THE NUCLEAR REPULSION ENERGY IS\s+{F,cc:nuclearRepulsionEnergy}\s*</record>
 
   <!-- ORGANIZE -->
-  <transform process="pullup"
-             xpath=".//cml:list[@cmlx:templateRef='basisSetContractions']" />
-
   <transform process="addChild" 
-             xpath="." 
-             elementName="cml:list" 
-             id="basisSetContractions" 
-             position="2" 
-             dictRef="cc:basisSetContractions" />
-
-  <transform process="move"
-             xpath="(.//cml:module[@cmlx:templateRef='atomic.basis.set'])[1]"
-             to="(.//cml:list[@dictRef='cc:basisSetContractions'])[1]" />
-
-  <transform process="addChild" 
-             xpath="." 
-             elementName="cml:list" 
-             id="basisSetContractions" 
-             position="3" 
-             dictRef="cc:basisSetContractions" />
-
-  <transform process="move"
-             xpath="(.//cml:module[@cmlx:templateRef='atomic.basis.set'])[2]"
-             to="(.//cml:list[@dictRef='cc:basisSetContractions'])[2]" />
-
-  <transform process="addChild" 
-             xpath="." 
-             elementName="cml:list" 
-             id="basisSetContractions" 
-             position="4" 
-             dictRef="cc:basisSetContractions" />
-
-  <transform process="move"
-             xpath="(.//cml:module[@cmlx:templateRef='atomic.basis.set'])[3]"
-             to="(.//cml:list[@dictRef='cc:basisSetContractions'])[3]" />
-
-  <transform process="addChild" 
-             xpath="." 
-             elementName="cml:list" 
-             id="basisSetContractions" 
-             position="5" 
-             dictRef="cc:basisSetContractions" />
-
-  <transform process="move"
-             xpath="(.//cml:module[@cmlx:templateRef='atomic.basis.set'])[4]"
-             to="(.//cml:list[@dictRef='cc:basisSetContractions'])[4]" />
-
-  <transform process="addChild" 
-             xpath="." 
-             elementName="cml:list" 
-             id="basisSetContractions" 
-             position="6" 
-             dictRef="cc:basisSetContractions" />
-
-  <transform process="move"
-             xpath="(.//cml:module[@cmlx:templateRef='atomic.basis.set'])[5]"
-             to="(.//cml:list[@dictRef='cc:basisSetContractions'])[5]" />
-
-  <transform process="pullup"
-             xpath=".//cml:module[@cmlx:templateRef='atomic.basis.set']/cml:list" />
-
-  <transform process="pullup"
-             xpath=".//cml:list[@cmlx:templateRef='basisSet']/cml:scalar" />
-
-  <transform process="addChild" 
-             xpath=".//cml:list[@dictRef='cc:basisSetContractions']" 
-             elementName="cml:list" 
-             id="basisSetContraction"
-             position="1" 
-             dictRef="cc:list1" />
+             xpath=".//cml:list[@cmlx:templateRef='basisSet']" 
+             elementName="cml:list" id="basisSetContractions" position="0" dictRef="cc:basisSetContractions" />
 
   <transform process="moveRelative"
-             xpath=".//cml:list[@dictRef='cc:basisSetContractions']/cml:list[@cmlx:templateRef='basisSetContractions'][1]"
-             to="../cml:list[@dictRef='cc:list1']" />
-
-  <transform process="addChild" 
-             xpath=".//cml:list[@dictRef='cc:basisSetContractions']" 
-             elementName="cml:list" 
-             id="basisSetContraction"
-             position="2" 
-             dictRef="cc:list2" />
-
-  <transform process="moveRelative"
-             xpath=".//cml:list[@dictRef='cc:basisSetContractions']/cml:list[@cmlx:templateRef='basisSetContractions'][1]"
-             to="../cml:list[@dictRef='cc:list2']" />
-
-  <transform process="addChild" 
-             xpath=".//cml:list[@dictRef='cc:basisSetContractions']" 
-             elementName="cml:list" 
-             id="basisSetContraction"
-             position="3" 
-             dictRef="cc:list3" />
-
-  <transform process="moveRelative"
-             xpath=".//cml:list[@dictRef='cc:basisSetContractions']/cml:list[@cmlx:templateRef='basisSetContractions'][1]"
-             to="../cml:list[@dictRef='cc:list3']" />
-
-  <transform process="addDictRef"
-             xpath=".//cml:list[contains(@dictRef,'list')]"
-             value="cc:basisSetContraction" />
+             xpath=".//cml:list[@cmlx:templateRef='basisSet']/cml:scalar"
+             to="../cml:list[@dictRef='cc:basisSetContractions']" />
 
   <transform process="pullup"
-             xpath=".//cml:list[@dictRef='cc:basisSetContractions']/cml:list[@dictRef='cc:basisSetContraction']/cml:list[@cmlx:templateRef='basisSetContractions']/cml:array" /> 
+             xpath=".//cml:list[@dictRef='cc:basisSetContractions']"/>
 
   <transform process="addChild" 
-             xpath="." 
-             elementName="cml:list" 
-             id="basisSet" 
-             position="2" 
-             dictRef="cc:basisSet" />
+             xpath=".//cml:list[@cmlx:templateRef='basisSetContractions']" 
+             elementName="cml:list" id="basisSetContraction" position="0" dictRef="cc:basisSetContraction" />
 
-  <transform process="move"
-             xpath=".//cml:list[@dictRef='cc:basisSetContractions']"
-             to=".//cml:list[@dictRef='cc:basisSet']" />
+  <transform process="moveRelative"
+             xpath=".//cml:list[@cmlx:templateRef='basisSetContractions']/cml:array"
+             to="../cml:list[@dictRef='cc:basisSetContraction']" />
 
-  <transform process="createWrapperParameter"
-             xpath=".//cml:list[@dictRef='cc:basisSet']" />
-
-  <transform process="addChild" 
-             xpath="." 
-             elementName="cml:list"
-             position="3" 
-             dictRef="m:basisSetSummary" />
-
-  <transform process="move"
-             xpath=".//cml:list[@cmlx:templateRef='Summary']/cml:scalar"
-             to=".//cml:list[@dictRef='m:basisSetSummary']" />
-
-  <transform process="createWrapperParameter"
-             xpath=".//cml:list[@dictRef='m:basisSetSummary']" />
-
-  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
-
-  <transform process="addChild"
-             xpath=".//cml:list[@id='basisSetContraction']"
-             elementName="cml:scalar"
-             position="0"
-             dictRef="cc:basisSetShell" />
-
-  <transform process="setValue"
-             xpath=".//cml:list[@id='basisSetContraction']/cml:scalar[@dictRef='cc:basisSetShell']"
-             value="S" />
-
-  <transform process="setValue"
-             xpath="(.//cml:list[@id='basisSetContraction']/cml:scalar[@dictRef='cc:basisSetShell'])[2]"
-             value="L" />
-
-  <transform process="setValue"
-             xpath="(.//cml:list[@id='basisSetContraction']/cml:scalar[@dictRef='cc:basisSetShell'])[3]"
-             value="L" />
-
-  <transform process="addUnits"
-             xpath=".//cml:scalar[@dictRef='cc:nuclearRepulsionEnergy']"
-             value="nonSi:hartree" />
-
-  <transform process="createWrapperParameter"
-             xpath=".//cml:list[@cmlx:templateRef='basisSummary']/cml:scalar[@dictRef='cc:nuclearRepulsionEnergy']" />
+  <transform process="moveRelative"
+             xpath=".//cml:module[@cmlx:templateRef='atomic.basis.set']/cml:module/cml:list"
+             to="../../cml:list[@dictRef='cc:basisSetContractions']" />
 
   <transform process="pullup"
-             xpath=".//cml:list[@cmlx:templateRef='basisSummary']/cml:parameter" />
+             xpath=".//cml:list[@dictRef='cc:basisSetContractions']/cml:list[@cmlx:templateRef='basisSetContractions']/cml:list" />
 
-  <transform process="addAttribute"
-             xpath=".//cml:scalar[@dictRef='cc:elementType']"
-             name="id"
-             value="elementType" />
-
-  <transform process="addDictRef"
-             xpath="(.//cml:array[@dictRef='cc:basisSetCoefficient'])[2]"
-             value="cc:basisSetCoefficient1" />
-
-  <transform process="addDictRef"
-             xpath="(.//cml:array[@dictRef='cc:basisSetCoefficient'])[2]"
-             value="cc:basisSetCoefficient2" />
-
-  <transform process="addDictRef"
-             xpath="(.//cml:array[@dictRef='cc:basisSetCoefficient'])[2]"
-             value="cc:basisSetCoefficient1" />
-
-  <transform process="addDictRef"
-             xpath="(.//cml:array[@dictRef='cc:basisSetCoefficient'])[2]"
-             value="cc:basisSetCoefficient2" />
-
-  <transform process="addDictRef"
-             xpath=".//cml:scalar[@dictRef='m:NumberOfOccupiedOrbitalsAlpha']"
-             value="m:NumberOfOccupiedOrbitals(alpha)" />
-
-  <transform process="addDictRef"
-             xpath=".//cml:scalar[@dictRef='m:NumberOfOccupiedOrbitalsBeta']"
-             value="m:NumberOfOccupiedOrbitals(beta)" />
+  <transform process="pullup"
+             xpath=".//cml:list[@dictRef='cc:basisSetContractions']" />
 
   <transform process="addDictRef"
              xpath=".//cml:list[@cmlx:templateRef='atomic.basis.set.unparsed']"
@@ -308,11 +139,12 @@
              xpath=".//cml:list[@dictRef='x:UNPARSED']" />
 
   <!-- CLEAN UP -->
-  <transform process="delete" xpath=".//cml:list[@id='basisSetContraction']/cml:array[@dictRef='cc:basisSetShell']"/>
   <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
   <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
   <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
   <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
+
+ 
 
   <comment class="example.output" id="atomic.basis.set">
     <module cmlx:templateRef="atomic.basis.set" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
@@ -324,7 +156,6 @@
       </parameter>
       <parameter dictRef="cc:basisSet">
         <list id="basisSet">
-
           <list dictRef="cc:basisSetContractions" id="basisSetContractions">
             <scalar dataType="xsd:string" id="elementType" dictRef="cc:elementType">C</scalar>
             <list dictRef="cc:basisSetContraction" id="basisSetContraction">

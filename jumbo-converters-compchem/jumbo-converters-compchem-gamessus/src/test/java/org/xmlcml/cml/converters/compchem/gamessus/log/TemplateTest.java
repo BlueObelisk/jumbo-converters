@@ -65,6 +65,7 @@ public class TemplateTest {
 			@Test   public void testSystemOptions()             {runTemplateTest("init.system.options");}
 			@Test   public void testDistanceMatrix()            {runTemplateTest("internuclear.distance.matrix");}
 			@Test   public void testAtomicBasisSet()            {runTemplateTest("atomic.basis.set");}
+			@Test   public void testAtomicBasisSetValues()      {runTemplateTest("atomic.basis.set.values");}
 			@Test   public void testGradient()                  {runTemplateTest("gradient");}
 			@Test   public void testHessianControlParam()       {runTemplateTest("init.hessian.matrix.control.parameters");}
 			@Test   public void testMomentsOfInertia()          {runTemplateTest("init.moments.of.inertia");}
