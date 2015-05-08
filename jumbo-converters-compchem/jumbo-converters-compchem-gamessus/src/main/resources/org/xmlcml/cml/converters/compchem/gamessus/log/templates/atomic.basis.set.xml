@@ -76,6 +76,7 @@
   <record id="atomic.basis.set.unparsed" repeat="2">\s*{X,x:UNPARSED}\s*</record>
   <record id="unparsed" repeat="3" />
 
+
   <templateList>
     <template id="atomic.basis.set" repeat="*" 
       pattern="\s*\w+\s*"                                  offset="0"
@@ -87,7 +88,7 @@
                   pattern="\s*\d+\s+.\s+\d+\s+-*\d+\.\d+\s+-*\d+\.\d+\s*" offset="0"
                   endPattern="\s*"                                        endOffset="0"
                   endPattern2="~"                                         endOffset2="0">
-            <record id="basisSetContractions" makeArray="true" repeat="*">\s*\d+\s+{A,cc:basisSetShell}\s+{I,m:PRIMITIVE}\s+{F,cc:basisSetExponent}\s+{F,cc:basisSetCoefficient1}\s*</record>
+            <record id="basisSetContractions" makeArray="true" repeat="*">\s*\d+\s+{A,cc:basisSetShell}\s+{I,m:PRIMITIVE}\s+{F,cc:basisSetExponent}\s+{F,cc:basisSetCoefficient}\s*</record>
         </template>
         <template id="Set2" repeat="*"
                   pattern="\s*\d+\s+.\s+\d+\s+-*\d+\.\d+\s+-*\d+\.\d+\s+-*\d+\.\d+\s*" offset="0"
@@ -102,41 +103,43 @@
 
 
   <!-- ORGANIZE -->
-  <transform process="addChild" 
-             xpath=".//cml:list[@cmlx:templateRef='basisSet']" 
+  <transform process="addChild"     xpath=".//cml:list[@cmlx:templateRef='basisSet']" 
              elementName="cml:list" id="basisSetContractions" position="0" dictRef="cc:basisSetContractions" />
 
-  <transform process="moveRelative"
-             xpath=".//cml:list[@cmlx:templateRef='basisSet']/cml:scalar"
-             to="../cml:list[@dictRef='cc:basisSetContractions']" />
+  <transform process="moveRelative" xpath=".//cml:list[@cmlx:templateRef='basisSet']/cml:scalar"
+                                    to="../cml:list[@dictRef='cc:basisSetContractions']" />
 
-  <transform process="pullup"
-             xpath=".//cml:list[@dictRef='cc:basisSetContractions']"/>
+  <transform process="pullup"       xpath=".//cml:list[@dictRef='cc:basisSetContractions']"/>
 
-  <transform process="addChild" 
-             xpath=".//cml:list[@cmlx:templateRef='basisSetContractions']" 
+  <transform process="addChild"     xpath=".//cml:list[@cmlx:templateRef='basisSetContractions']" 
              elementName="cml:list" id="basisSetContraction" position="0" dictRef="cc:basisSetContraction" />
 
-  <transform process="moveRelative"
-             xpath=".//cml:list[@cmlx:templateRef='basisSetContractions']/cml:array"
-             to="../cml:list[@dictRef='cc:basisSetContraction']" />
+  <transform process="moveRelative" xpath=".//cml:list[@cmlx:templateRef='basisSetContractions']/cml:scalar"
+                                    to="../cml:list[@dictRef='cc:basisSetContraction']" />
+  <transform process="moveRelative" xpath=".//cml:list[@cmlx:templateRef='basisSetContractions']/cml:array"
+                                    to="../cml:list[@dictRef='cc:basisSetContraction']" />
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='atomic.basis.set']/cml:module/cml:list"
+                                    to="../../cml:list[@dictRef='cc:basisSetContractions']" />
 
-  <transform process="moveRelative"
-             xpath=".//cml:module[@cmlx:templateRef='atomic.basis.set']/cml:module/cml:list"
-             to="../../cml:list[@dictRef='cc:basisSetContractions']" />
+  <!-- turn <array dictRef="cc:basisSetShell"> into <scalar dictRef="cc:basisSetShell"> -->
+  <transform process="split"        xpath=".//cml:list[@id='basisSetContraction']/cml:array[@dictRef='cc:basisSetShell']"/>
+  <transform process="pullup"       xpath=".//cml:list[@id='basisSetContraction']/cml:list/cml:scalar[@dictRef='cc:basisSetShell'][1]"/>
+  <transform process="delete"       xpath=".//cml:list[@id='basisSetContraction']/cml:list/cml:scalar[@dictRef='cc:basisSetShell']"/>
 
-  <transform process="pullup"
-             xpath=".//cml:list[@dictRef='cc:basisSetContractions']/cml:list[@cmlx:templateRef='basisSetContractions']/cml:list" />
 
-  <transform process="pullup"
-             xpath=".//cml:list[@dictRef='cc:basisSetContractions']" />
+  <transform process="pullup"       xpath=".//cml:list[@dictRef='cc:basisSetContractions']/cml:list[@cmlx:templateRef='basisSetContractions']/cml:list" />
+  <transform process="pullup"       xpath=".//cml:list[@dictRef='cc:basisSetContractions']" />
 
-  <transform process="addDictRef"
-             xpath=".//cml:list[@cmlx:templateRef='atomic.basis.set.unparsed']"
-             value="x:UNPARSED" />
+  <!-- group  "cc:basisSetContractions" in a <parameter><list /></parameter> -->
+  <transform process="addChild"     elementName="cml:list" id="basisSet" position="2" dictRef="cc:basisSet"  xpath="."/>
+  <transform process="moveRelative" xpath="./cml:list[@dictRef='cc:basisSetContractions']"  to="../cml:list[@id='basisSet']" />  
+  <transform process="createWrapperParameter" xpath="./cml:list[@id='basisSet']" />
 
-  <transform process="createWrapperParameter"
-             xpath=".//cml:list[@dictRef='x:UNPARSED']" />
+  <transform process="pullup"       xpath=".//cml:module[@cmlx:templateRef='atomic.basis.set.values']/cml:parameter" />
+
+  <!-- UNPARSED -->
+  <transform process="addDictRef"   xpath=".//cml:list[@cmlx:templateRef='atomic.basis.set.unparsed']"      value="x:UNPARSED" />
+  <transform process="createWrapperParameter" xpath=".//cml:list[@dictRef='x:UNPARSED']" />
 
   <!-- CLEAN UP -->
   <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
@@ -157,7 +160,7 @@
       <parameter dictRef="cc:basisSet">
         <list id="basisSet">
           <list dictRef="cc:basisSetContractions" id="basisSetContractions">
-            <scalar dataType="xsd:string" id="elementType" dictRef="cc:elementType">C</scalar>
+            <scalar dataType="xsd:string" dictRef="cc:elementType">C</scalar>
             <list dictRef="cc:basisSetContraction" id="basisSetContraction">
               <scalar dataType="xsd:string" dictRef="cc:basisSetShell">S</scalar>
               <array size="6" dataType="xsd:integer" dictRef="m:PRIMITIVE">1 2 3 4 5 6</array>
@@ -181,7 +184,7 @@
           </list>
 
           <list dictRef="cc:basisSetContractions" id="basisSetContractions">
-            <scalar dataType="xsd:string" id="elementType" dictRef="cc:elementType">H</scalar>
+            <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
             <list dictRef="cc:basisSetContraction" id="basisSetContraction">
               <scalar dataType="xsd:string" dictRef="cc:basisSetShell">S</scalar>
               <array size="3" dataType="xsd:integer" dictRef="m:PRIMITIVE">11 12 13</array>
@@ -197,7 +200,7 @@
           </list>
 
           <list dictRef="cc:basisSetContractions" id="basisSetContractions">
-            <scalar dataType="xsd:string" id="elementType" dictRef="cc:elementType">H</scalar>
+            <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
             <list dictRef="cc:basisSetContraction" id="basisSetContraction">
               <scalar dataType="xsd:string" dictRef="cc:basisSetShell">S</scalar>
               <array size="3" dataType="xsd:integer" dictRef="m:PRIMITIVE">15 16 17</array>
@@ -213,7 +216,7 @@
           </list>
 
           <list dictRef="cc:basisSetContractions" id="basisSetContractions">
-            <scalar dataType="xsd:string" id="elementType" dictRef="cc:elementType">H</scalar>
+            <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
             <list dictRef="cc:basisSetContraction" id="basisSetContraction">
               <scalar dataType="xsd:string" dictRef="cc:basisSetShell">S</scalar>
               <array size="3" dataType="xsd:integer" dictRef="m:PRIMITIVE">19 20 21</array>
@@ -229,7 +232,7 @@
           </list>
 
           <list dictRef="cc:basisSetContractions" id="basisSetContractions">
-            <scalar dataType="xsd:string" id="elementType" dictRef="cc:elementType">H</scalar>
+            <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
             <list dictRef="cc:basisSetContraction" id="basisSetContraction">
               <scalar dataType="xsd:string" dictRef="cc:basisSetShell">S</scalar>
               <array size="3" dataType="xsd:integer" dictRef="m:PRIMITIVE">23 24 25</array>
