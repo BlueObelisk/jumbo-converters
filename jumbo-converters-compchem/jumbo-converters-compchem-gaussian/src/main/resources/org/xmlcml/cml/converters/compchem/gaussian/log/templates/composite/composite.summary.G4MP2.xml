@@ -37,11 +37,11 @@
   <!-- Improve some dictrefs -->
   <transform process="addDictRef" xpath="./cml:scalar[@dictRef='g:E_ZPE']"             value="cc:ZeroPointEnergy"/>
   <transform process="addDictRef" xpath="./cml:scalar[@dictRef='g:E_Thermal']"         value="cc:thermalCorrectionToEnergy"/>
-  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='g:E_CCSD_T']"          value="g:E_CCSD(T)"/>
-  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='g:Energy_G4MP2_0K']"   value="cc:Energy(0K)"/>
-  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='g:Energy_G4MP2']"      value="cc:Energy(T)"/>
-  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='g:Enthalpy_G4MP2']"    value="cc:Enthalpy(T)"/>
-  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='g:GibbsEnergy_G4MP2']" value="cc:GibbsEnergy(T)"/>
+  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='g:E_CCSD_T']"          value="g:E_CCSD_T"/>
+  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='g:Energy_G4MP2_0K']"   value="cc:Energy_0K"/>
+  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='g:Energy_G4MP2']"      value="cc:Energy_T"/>
+  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='g:Enthalpy_G4MP2']"    value="cc:Enthalpy_T"/>
+  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='g:GibbsEnergy_G4MP2']" value="cc:GibbsEnergy_T"/>
   
   <!-- Add units -->
   <transform process="addUnits" xpath="./cml:scalar[@dictRef]" value="nonSi:hartree"/>
@@ -61,14 +61,14 @@
       <scalar dataType="xsd:double" units="nonSi:atm"     dictRef="cc:pressure"                 >1.0</scalar>
       <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:ZeroPointEnergy"          >0.050464</scalar>
       <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:thermalCorrectionToEnergy">0.053793</scalar>
-      <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="g:E_CCSD(T)"                 >-115.374477</scalar>
+      <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="g:E_CCSD_T"                  >-115.374477</scalar>
       <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="g:E_Empiric"                 >-0.066304</scalar>
       <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="g:DE_MP2"                    >-0.167765</scalar>
       <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="g:DE_HF"                     >-0.012963</scalar>
-      <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:Energy(0K)"               >-115.571046</scalar>
-      <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:Energy(T)"                >-115.567717</scalar>
-      <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:Enthalpy(T)"              >-115.566773</scalar>
-      <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:GibbsEnergy(T)"           >-115.59379</scalar>
+      <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:Energy_0K"                >-115.571046</scalar>
+      <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:Energy_T"                 >-115.567717</scalar>
+      <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:Enthalpy_T"               >-115.566773</scalar>
+      <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:GibbsEnergy_T"            >-115.59379</scalar>
     </list>
   </property>
   </module>
