@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  this is the top template file for Q-Chem log files.
+It should generally be found in the directory structure
+  src/main/resources/org/xmlcml/cml/converters/compchem/qchem/log
+It uses include files from
+  src/main/resources/org/xmlcml/cml/converters/compchem/qchem/log/templates
+  (though I am not quite sure why the subdirectories are not explicit here)
+
+The ORDER of the subtemplates may be important. Templates are processed in the order
+  in this files and the subtemplates. Some of the files are marked with comments
+ -->
+
+<template id='qchem.log' output="VERBOSE"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:c="http://www.xml-cml.org/dictionary"
+  xmlns:cml="http://www.xml-cml.org/dictionary/cml/"
+  xmlns:cc="http://www.xml-cml.org/dictionary/compchem/"
+  xmlns:compchem="http://www.xml-cml.org/dictionary/compchem/"
+  xmlns:convention="http://www.xml-cml.org/convention/"
+  xmlns:si="http://www.xml-cml.org/unit/si/"
+  xmlns:nonSi="http://www.xml-cml.org/unit/nonSi/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:m="http://www.xml-cml.org/dictionary/qchem"
+  convention="convention:compchem"
+  xmlns:xi="http://www.w3.org/2001/XInclude">
+  <templateList>
+    <template id="job"
+      pattern="\s*-+\s*GAMESS execution script.+\s*-+\s*"
+      endPattern="\s*\.+END OF GEOMETRY SEARCH\.+\s*"                   endOffset="3"
+      newline="$" repeat="*"> 
+      <templateList id='main'>
+
+        <template id="environment"
+          pattern="\s*-+\s*GAMESS execution script.+\s*-+\s*" offset="0"
+          endPattern="\s*EXECUTION OF GAMESS BEGUN.*"      endOffset="0"
+          newline="$" repeat="*" >
+        <!-- START of  module environment -->
+          <templateList>
+  
+
+          </templateList>
+        <!-- END of module environment -->
+        </template>
+
+      <template id="initialization"
+        pattern="\s*EXECUTION OF GAMESS BEGUN.*" offset="0"
+        endPattern="\s*\.+\s*DONE SETTING UP THE RUN\s*\.+\s*" endOffset="3"
+        newline="$" repeat="*">
+        <!-- START of module initialization -->
+        <templateList>
+
+        </templateList>
+        <!-- END of module initialization -->
+      </template>
+
+      <template id="calculation"
+        pattern="\s*-+\s*$\s*STATIONARY POINT LOCATION RUN\s*$\s*-+\s*" offset="0"
+        endPattern="\s*\*+\s*EQUILIBRIUM GEOMETRY LOCATED\s*\*+\s*" endOffset="0"
+        newline="$" repeat="*">
+        <!-- endPattern3="\s*\.+\s+END OF NUMERICAL HESSIAN CALCULATION\s+\.+\s*" endOffset3="0" -->
+
+        <templateList>
+        <!-- START of module calculation -->
+
+        <!-- END of module calculation -->
+        </templateList>
+
+      </template>
+
+      <template id="finalization"
+        pattern="\s*\*+\s*EQUILIBRIUM GEOMETRY LOCATED\s*\*+\s*"          offset="0"
+        endPattern="\s*\.+\s*END OF GEOMETRY SEARCH\s*\.+\s*" endOffset="3"
+        newline="$" repeat="*">
+        
+        <!-- START of module finalization -->
+        <templateList>
+        </templateList>
+        <!-- END of module finalization -->
+      </template>
+
+      </templateList>
+    </template>
+  </templateList>
+  
+</template>
