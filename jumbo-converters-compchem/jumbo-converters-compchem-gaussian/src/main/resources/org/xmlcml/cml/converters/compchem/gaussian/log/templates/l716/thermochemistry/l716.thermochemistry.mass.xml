@@ -11,14 +11,17 @@
   <record id="molmass">\s*Molecular mass:{F,cc:molmass}amu\.\s*</record>
   <transform process="pullupSingleton" xpath="./cml:list[@cmlx:templateRef='molmass']"/>
   
+  <transform process="addUnits" xpath=".//cml:array[@dictRef='cc:atomicmass']" value="nonSi:dalton"/>
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:molmass']" value="nonSi:dalton"/>
+
   <comment class="example.output" id="l716.thermochemistry.mass">
     <module cmlx:templateRef="l716.thermochemistry.mass" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <list cmlx:lineCount="3" cmlx:templateRef="mass">
         <array dataType="xsd:integer" dictRef="cc:serial" size="3">1 2 13</array>
         <array dataType="xsd:integer" dictRef="x:elementType" size="3">6 6 17</array>
-        <array dataType="xsd:double" dictRef="cc:atomicmass" size="3">12.0 12.0 34.96885</array>
+        <array dataType="xsd:double" dictRef="cc:atomicmass" units="nonSi:dalton" size="3">12.0 12.0 34.96885</array>
       </list>
-      <scalar dataType="xsd:double" dictRef="cc:molmass" cmlx:templateRef="molmass">146.97683</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:molmass" units="nonSi:dalton" cmlx:templateRef="molmass">146.97683</scalar>
     </module>
   </comment>
 </template>
