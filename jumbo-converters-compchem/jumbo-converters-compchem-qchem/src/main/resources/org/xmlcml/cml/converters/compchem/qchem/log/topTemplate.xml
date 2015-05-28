@@ -25,15 +25,15 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
   xmlns:xi="http://www.w3.org/2001/XInclude">
   <templateList>
     <template id="job"
-      pattern="\s*-+\s*GAMESS execution script.+\s*-+\s*"
-      endPattern="\s*\.+END OF GEOMETRY SEARCH\.+\s*"                   endOffset="3"
+      pattern="\s*Welcome to Q-Chem\s*-+\s*"
+      endPattern="\s*\*\s+Thank you very much for using Q-Chem\.  Have a nice day\.\s+\*\s*"                   endOffset="3"
       newline="$" repeat="*"> 
       <templateList id='main'>
 
         <template id="environment"
-          pattern="\s*-+\s*GAMESS execution script.+\s*-+\s*" offset="0"
-          endPattern="\s*EXECUTION OF GAMESS BEGUN.*"      endOffset="0"
-          newline="$" repeat="*" >
+          pattern="\s*Welcome to Q-Chem\s*-+\s*"                 offset="0"
+          endPattern="\s*-+$\s*User input:\s*$\s*-+"          endOffset="0"
+          newline="$" repeat="1" >
         <!-- START of  module environment -->
           <templateList>
   
@@ -43,8 +43,8 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
         </template>
 
       <template id="initialization"
-        pattern="\s*EXECUTION OF GAMESS BEGUN.*" offset="0"
-        endPattern="\s*\.+\s*DONE SETTING UP THE RUN\s*\.+\s*" endOffset="3"
+        pattern="\s*-+$\s*User input:\s*$\s*-+"                  offset="0"
+        endPattern="\s*-+$\s*Writing REM_CC_EA\.+\s*"         endOffset="1"
         newline="$" repeat="*">
         <!-- START of module initialization -->
         <templateList>
@@ -54,10 +54,10 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
       </template>
 
       <template id="calculation"
-        pattern="\s*-+\s*$\s*STATIONARY POINT LOCATION RUN\s*$\s*-+\s*" offset="0"
-        endPattern="\s*\*+\s*EQUILIBRIUM GEOMETRY LOCATED\s*\*+\s*" endOffset="0"
+        pattern="\s*Writing REM_CC_EA\.+\s*$\s*-+\s*" offset="0"
+        endPattern="\s*\*\* +OPTIMIZATION CONVERGED +\*\*\s*"  endOffset="-1"
+        endPattern2="\s*\*\* +VIBRATIONAL ANALYSIS +\*\*\s*"   endOffset2="-2"
         newline="$" repeat="*">
-        <!-- endPattern3="\s*\.+\s+END OF NUMERICAL HESSIAN CALCULATION\s+\.+\s*" endOffset3="0" -->
 
         <templateList>
         <!-- START of module calculation -->
@@ -68,8 +68,9 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
       </template>
 
       <template id="finalization"
-        pattern="\s*\*+\s*EQUILIBRIUM GEOMETRY LOCATED\s*\*+\s*"          offset="0"
-        endPattern="\s*\.+\s*END OF GEOMETRY SEARCH\s*\.+\s*" endOffset="3"
+        pattern="\s*\*\* +OPTIMIZATION CONVERGED +\*\*\s*"       offset="-1"
+        pattern2="\s*\*\* +VIBRATIONAL ANALYSIS +\*\*\s*"        offset2="-2"
+        endPattern="\s*\*\s+Thank you very much for using Q-Chem\.  Have a nice day\.\s+\*\s*"                   endOffset="3"
         newline="$" repeat="*">
         
         <!-- START of module finalization -->
