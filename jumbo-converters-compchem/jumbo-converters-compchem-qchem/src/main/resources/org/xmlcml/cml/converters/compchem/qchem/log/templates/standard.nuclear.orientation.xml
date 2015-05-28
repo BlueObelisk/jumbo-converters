@@ -1,0 +1,73 @@
+<template id="standard.nuclear.orientation"
+  repeat="*"
+  name="standard.nuclear.orientation"
+  pattern="\s*Standard Nuclear Orientation \(Angstroms\)\s*"        offset="0"
+  endPattern="\s*Molecular Point Group.*"                        endOffset="0" >
+
+  <comment class="example.input" id="standard.nuclear.orientation">
+       Standard Nuclear Orientation (Angstroms)
+    I     Atom         X            Y            Z
+ ----------------------------------------------------
+    1      C       0.000000     0.000000     0.000001
+    2      H       0.000000     0.000000    -1.069999
+    3      H       1.008807     0.000000     0.356664
+    4      H      -0.504404    -0.873653     0.356664
+    5      H      -0.504404     0.873653     0.356664
+ ----------------------------------------------------
+  </comment>
+
+
+  <record repeat="3" />
+  <record id="atoms" makeArray="true" repeat="*"
+    >\s*{I,cc:serial}{A,cc:elementType}{F,cc:x3}{F,cc:y3}{F,cc:z3}</record>
+  <record/>
+
+  <transform process="createMolecule" xpath="./cml:list[@cmlx:templateRef='atoms']/cml:array" id="mol.standard.orientation" />
+  <transform process="pullup" xpath="./cml:list/cml:molecule" />
+
+  <!--  delete empty lists -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+
+  <comment class="example.output" id="standard.nuclear.orientation">
+    <module cmlx:templateRef="standard.nuclear.orientation" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <molecule id="mol.standard.orientation">
+        <atomArray>
+          <atom elementType="C" id="a1" x3="0.0" y3="0.0" z3="1.0E-6">
+            <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
+          </atom>
+          <atom elementType="H" id="a2" x3="0.0" y3="0.0" z3="-1.069999">
+            <scalar dataType="xsd:integer" dictRef="cc:serial">2</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+          <atom elementType="H" id="a3" x3="1.008807" y3="0.0" z3="0.356664">
+            <scalar dataType="xsd:integer" dictRef="cc:serial">3</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+          <atom elementType="H" id="a4" x3="-0.504404" y3="-0.873653" z3="0.356664">
+            <scalar dataType="xsd:integer" dictRef="cc:serial">4</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+          <atom elementType="H" id="a5" x3="-0.504404" y3="0.873653" z3="0.356664">
+            <scalar dataType="xsd:integer" dictRef="cc:serial">5</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+        </atomArray>
+        <formula concise="C 1 H 4" formalCharge="0">
+          <atomArray count="1.0 4.0" elementType="C H"/>
+        </formula>
+        <bondArray>
+          <bond atomRefs2="a1 a2" id="a1_a2" order="S"/>
+          <bond atomRefs2="a1 a3" id="a1_a3" order="S"/>
+          <bond atomRefs2="a1 a4" id="a1_a4" order="S"/>
+          <bond atomRefs2="a1 a5" id="a1_a5" order="S"/>
+        </bondArray>
+        <property dictRef="cml:molmass">
+          <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">16.04246</scalar>
+        </property>
+      </molecule>
+    </module>
+  </comment>
+
+</template>

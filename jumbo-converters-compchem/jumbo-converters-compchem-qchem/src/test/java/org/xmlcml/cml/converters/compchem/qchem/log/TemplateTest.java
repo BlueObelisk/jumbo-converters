@@ -35,7 +35,7 @@ public class TemplateTest {
 	}
 
 	////////////  //////////// ADD TEMPLATE TESTS HERE: ////////////  ////////////
-	@Ignore		@Test   public void testBondOrderValence()          {runTemplateTest("bondOrder.valence");}
+	@Test   public void testStdNuclOrient()          {runTemplateTest("standard.nuclear.orientation");}
 
 
 	////////////  //////////// READY TO WORK ON: ////////////  ////////////
