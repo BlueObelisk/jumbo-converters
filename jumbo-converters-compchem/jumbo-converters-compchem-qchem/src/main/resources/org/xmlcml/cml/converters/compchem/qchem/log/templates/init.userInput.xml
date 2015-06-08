@@ -1,0 +1,149 @@
+<template id="init.userInput"
+  repeat="*"
+  name="init.userInput"
+  pattern=""      offset="0"
+  endPattern=""   endOffset="0" >
+
+  <comment class="example. input" id="init.userInput.b3lyp">
+--------------------------------------------------------------
+User input:
+--------------------------------------------------------------
+$rem
+   JOBTYPE     Opt
+   EXCHANGE    HF
+   CORRELATION None
+   BASIS       6-31G(d)
+$end
+
+$comment
+Methane HF 6-31G(d)
+$end
+
+$molecule
+  0 1
+  C1
+  H2 C1 r
+  H3 C1 r H2 a 
+  H4 C1 r H2 a  H3 d4
+  H5 C1 r H2 a  H3 d5
+
+   r  =         1.070
+   a  =       109.471
+   d4 =       240.000
+   d5 =       120.000
+$end
+
+--------------------------------------------------------------
+  </comment>
+  <comment class="example.input" id="init.userInput.b3lyp">
+--------------------------------------------------------------
+User input:
+--------------------------------------------------------------
+$rem
+   JOBTYPE     Opt
+   EXCHANGE    Becke3LYP
+   BASIS       6-31G(d)
+$end
+
+$comment
+Methane B3LYP 6-31G(d)
+$end
+
+$molecule
+ 0 1
+ C  0.000000  0.000000 -0.000001
+ H  0.000000  0.000000 -1.083700
+ H  1.021721  0.000000  0.361232
+ H -0.510860 -0.884836  0.361232
+ H -0.510860  0.884836  0.361232
+$end
+--------------------------------------------------------------
+  </comment>
+  <comment class="example.input" id="init.userInput.mp2">
+--------------------------------------------------------------
+User input:
+--------------------------------------------------------------
+$rem
+   JOBTYPE     Opt
+   EXCHANGE    HF
+   CORRELATION MP2
+   BASIS       6-31G(d)
+$end
+
+$comment
+Methanol MP2 6-31G(d)
+$end
+
+$molecule
+0 1
+  C   0.0000000   0.0000000   0.0000000
+  O   1.3983000   0.0000000   0.0000000
+  H  -0.3860176   0.0000000  -1.0424227
+  H  -0.3860176   0.8760285   0.5649947
+  H  -0.3591708  -0.9216623   0.5022980
+  H   1.6713155   0.8376781  -0.4565273
+$end
+
+--------------------------------------------------------------
+  </comment>
+
+
+
+  <record id="init.userInput" repeat="*">{X,q:userInput}</record>
+
+
+  <transform process="addSibling" elementName="cml:scalar" position="1" id="method"
+    xpath=".//cml:list[
+      cml:scalar[@dictRef='q:userInput' and contains(text(), 'EXCHANGE')    and contains(text(), 'HF')   ] and  
+      ( not(cml:scalar[@dictRef='q:userInput' and contains(text(), 'CORRELATION')]) 
+         or cml:scalar[@dictRef='q:userInput' and contains(text(), 'CORRELATION') and contains(text(), 'None')] )
+    ]"
+    value="HF"        dictRef="cc:method"
+    />
+
+  <transform process="addSibling" elementName="cml:scalar" position="1" id="method"
+    xpath=".//cml:list[
+      cml:scalar[@dictRef='q:userInput' and contains(text(), 'EXCHANGE')    and contains(text(), 'B3LYP') ] and
+      ( not(cml:scalar[@dictRef='q:userInput' and contains(text(), 'CORRELATION')]) 
+         or cml:scalar[@dictRef='q:userInput' and contains(text(), 'CORRELATION') and contains(text(), 'None')] )
+    ]"
+    value="DFT"       dictRef="cc:method"
+    />
+
+  <transform process="addSibling" elementName="cml:scalar" position="1" id="dftFunctionalLabel"
+    xpath=".//cml:list[
+      cml:scalar[@dictRef='q:userInput' and contains(text(), 'EXCHANGE')    and 
+      ( contains(text(), 'B3LYP') or contains(text(), 'Becke3LYP') )
+      ] and
+      (      cml:scalar[@dictRef='q:userInput' and contains(text(), 'CORRELATION') and contains(text(), 'None') ] or 
+        not( cml:scalar[@dictRef='q:userInput' and contains(text(), 'CORRELATION')]))
+    ]"
+    value="B3LYP"     dictRef="cc:dftFunctionalLabel"
+    />
+
+  <transform process="addSibling" elementName="cml:scalar" position="1" id="method"
+    xpath=".//cml:list[
+      cml:scalar[@dictRef='q:userInput' and contains(text(), 'EXCHANGE')    and contains(text(), 'HF')   ] and  
+      cml:scalar[@dictRef='q:userInput' and contains(text(), 'CORRELATION') and contains(text(), 'MP2')  ]
+    ]"
+    value="MP2"        dictRef="cc:method"
+    />
+
+
+  <comment class="example.output" id="init.userInput.hf">
+    <module cmlx:templateRef="init.userInput" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+        
+    </module>
+  </comment>
+  <comment class="example.output" id="init.userInput.b3lyp">
+    <module cmlx:templateRef="init.userInput" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+        
+    </module>
+  </comment>
+  <comment class="example.output" id="init.userInput.mp2">
+    <module cmlx:templateRef="init.userInput" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+        
+    </module>
+  </comment>
+
+</template>

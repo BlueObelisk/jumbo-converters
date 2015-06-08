@@ -1,0 +1,77 @@
+<template id="thermochemistry"
+  repeat="*"
+  name="thermochemistry"
+  pattern="\s*STANDARD THERMODYNAMIC QUANTITIES AT.+"      offset="0"
+  endPattern="\s*Total Entropy:.+"   endOffset="1" >
+
+  <comment class="example.input" id="thermochemistry">
+ STANDARD THERMODYNAMIC QUANTITIES AT   298.18 K  AND     1.00 ATM
+
+   This Molecule has  0 Imaginary Frequencies
+   Zero point vibrational energy:       29.979 kcal/mol
+
+   Atom    1 Element C  Has Mass   12.00000
+   Atom    2 Element H  Has Mass    1.00783
+   Atom    3 Element H  Has Mass    1.00783
+   Atom    4 Element H  Has Mass    1.00783
+   Atom    5 Element H  Has Mass    1.00783
+   Molecular Mass:    16.031320 amu
+   Principal axes and moments of inertia in atomic units:
+                             1           2           3
+    Eigenvalues --       11.27121    11.27121    11.27121
+          X               0.70711     0.40825    -0.57735
+          Y               0.70711    -0.40825     0.57735
+          Z               0.00000     0.81650     0.57735
+   Rotational Symmetry Number is  12
+   The Molecule is a Spherical Top
+   Translational Enthalpy:        0.889 kcal/mol
+   Rotational Enthalpy:           0.889 kcal/mol
+   Vibrational Enthalpy:         29.991 kcal/mol
+   gas constant (RT):             0.593 kcal/mol
+   Translational Entropy:        34.262  cal/mol.K
+   Rotational Entropy:           10.085  cal/mol.K
+   Vibrational Entropy:           0.047  cal/mol.K
+
+   Total Enthalpy:               32.361 kcal/mol
+   Total Entropy:                44.394  cal/mol.K
+  </comment>
+
+  <record id="thermochemistry.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+  <comment class="example.output" id="thermochemistry">
+    <module cmlx:templateRef="thermochemistry" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="cc:thermochemistry">
+        <list id="thermochemistry">
+          <scalar dataType="xsd:double"   dictRef="cc:temp"  units="si:k">298.18</scalar>
+          <scalar dataType="xsd:double"   dictRef="cc:press" units="nonSi:atm" >1.0</scalar>
+          <scalar dataType="xsd:double"   dictRef="cc:zpe"   units="nonSi:kcal.mol-1">29.979</scalar>
+          <list cmlx:templateRef="mass">
+            <array dataType="xsd:integer" dictRef="cc:serial"      size="5">1 2 3 4 5</array>
+            <array dataType="xsd:string"  dictRef="cc:elementType" size="5">C H H H H</array>
+            <array dataType="xsd:double"  dictRef="cc:atomicmass"  size="5" units="nonSi:dalton">12.0 1.00783 1.00783 1.00783 1.00783</array>
+          </list>
+          <scalar dataType="xsd:double" dictRef="cc:molmass" units="nonSi:dalton">16.0313</scalar>
+          <list dictRef="cc:principalAxes">
+            <array dataType="xsd:double"  dictRef="cc:principalAxesEigenval" size="3">11.27121 11.27121 11.27121</array>
+            <array dataType="xsd:double"  dictRef="cc:principalcomp" size="3">0.70711 0.70711 0.0</array>
+            <array dataType="xsd:double"  dictRef="cc:principalcomp" size="3">0.40825 -0.40825 0.8165</array>
+            <array dataType="xsd:double"  dictRef="cc:principalcomp" size="3">-0.57735 0.57735  0.57735</array>
+          </list>
+          <scalar dataType="xsd:integer" dictRef="cc:symmnumber">12</scalar>
+          <scalar dataType="xsd:string"  dictRef="q:top">Spherical</scalar>
+          <scalar dataType="xsd:double"  dictRef="q:transEnthalpy" units="nonSi:kcal.mol-1">0.889</scalar>
+          <scalar dataType="xsd:double"  dictRef="q:rotEnthalpy"   units="nonSi:kcal.mol-1">0.889</scalar>
+          <scalar dataType="xsd:double"  dictRef="q:vibEnthalpy"   units="nonSi:kcal.mol-1">29.991</scalar>
+          <scalar dataType="xsd:double"  dictRef="q:gasConstant"   units="nonSi:kcal.mol-1">0.593</scalar>
+          <scalar dataType="xsd:double"  dictRef="q:transEntropy"  units="nonSi:cal.mol-1.k-1">34.262</scalar>
+          <scalar dataType="xsd:double"  dictRef="q:rotEntropy"    units="nonSi:cal.mol-1.k-1">10.085</scalar>
+          <scalar dataType="xsd:double"  dictRef="q:vibEntropy"    units="nonSi:cal.mol-1.k-1">0.047</scalar>
+          <scalar dataType="xsd:double"  dictRef="cc:thermalCorrectionToEnthalpy" units="nonSi:kcal.mol-1">32.361</scalar>
+          <scalar dataType="xsd:double"  dictRef="q:totalEntropy"  units="nonSi:cal.mol-1.k-1">44.394</scalar>
+        </list>
+      </property>
+    </module>
+  </comment>
+
+</template>

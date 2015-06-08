@@ -1,0 +1,151 @@
+<template id="vibrational.analysis"
+  repeat="*"
+  name="vibrational.analysis"
+  pattern="\s*\*\* +VIBRATIONAL ANALYSIS +\*\*.*"        offset="-2"
+  endPattern="\s*STANDARD THERMODYNAMIC QUANTITIES.+" endOffset="0" >
+
+  <comment class="example.input" id="vibrational.analysis">
+ **********************************************************************
+ **                                                                  **
+ **                       VIBRATIONAL ANALYSIS                       **
+ **                       --------------------                       **
+ **                                                                  **
+ **        VIBRATIONAL FREQUENCIES (CM**-1) AND NORMAL MODES         **
+ **     FORCE CONSTANTS (mDYN/ANGSTROM) AND REDUCED MASSES (AMU)     **
+ **                  INFRARED INTENSITIES (KM/MOL)                   **
+ **                                                                  **
+ **********************************************************************
+ 
+
+ Mode:                 1                      2                      3
+ Frequency:      1488.03                1488.03                1488.03
+ Force Cnst:      1.5370                 1.5370                 1.5370
+ Red. Mass:       1.1782                 1.1782                 1.1782
+ IR Active:          YES                    YES                    YES
+ IR Intens:       10.276                 10.276                 10.276
+ Raman Active:       YES                    YES                    YES
+               X      Y      Z        X      Y      Z        X      Y      Z
+ C          0.072 -0.072 -0.072   -0.091 -0.007 -0.084   -0.045 -0.101  0.057
+ H          0.055 -0.055 -0.055    0.442  0.033  0.410    0.218  0.492 -0.274
+ H         -0.214  0.214  0.483    0.126  0.349  0.093    0.430  0.280 -0.062
+ H         -0.214  0.483  0.214    0.417  0.007  0.435   -0.162  0.112  0.106
+ H         -0.483  0.214  0.214    0.101 -0.309  0.068    0.049  0.324 -0.442
+ TransDip  -0.059  0.059  0.059    0.075  0.006  0.070    0.037  0.084 -0.047
+
+ Mode:                 4                      5                      6
+ Frequency:      1702.62                1702.62                3196.89
+ Force Cnst:      1.7214                 1.7214                 6.0686
+ Red. Mass:       1.0078                 1.0078                 1.0078
+ IR Active:          NO                     NO                     NO 
+ IR Intens:        0.000                  0.000                  0.000
+ Raman Active:       YES                    YES                    YES
+               X      Y      Z        X      Y      Z        X      Y      Z
+ C          0.000  0.000  0.000    0.000  0.000  0.000    0.000  0.000  0.000
+ H          0.293  0.393 -0.099    0.284 -0.112  0.396   -0.289  0.289  0.289
+ H         -0.293 -0.393 -0.099   -0.284  0.112  0.396    0.289 -0.289  0.289
+ H         -0.293  0.393  0.099   -0.284 -0.112 -0.396    0.289  0.289 -0.289
+ H          0.293 -0.393  0.099    0.284  0.112 -0.396   -0.289 -0.289 -0.289
+ TransDip   0.000  0.000  0.000    0.000  0.000  0.000    0.000  0.000  0.000
+
+ Mode:                 7                      8                      9
+ Frequency:      3301.37                3301.37                3301.37
+ Force Cnst:      7.0790                 7.0790                 7.0790
+ Red. Mass:       1.1024                 1.1024                 1.1024
+ IR Active:          YES                    YES                    YES
+ IR Intens:       39.838                 39.838                 39.838
+ Raman Active:       YES                    YES                    YES
+               X      Y      Z        X      Y      Z        X      Y      Z
+ C          0.054 -0.054 -0.054   -0.076 -0.040 -0.036   -0.002  0.064 -0.067
+ H         -0.498  0.498  0.498   -0.014 -0.007 -0.006    0.000  0.012 -0.012
+ H         -0.159  0.159 -0.179    0.212 -0.233  0.219    0.421 -0.410  0.410
+ H         -0.159 -0.179  0.159    0.239  0.245 -0.259   -0.407 -0.395  0.394
+ H          0.179  0.159  0.159    0.464  0.471  0.472    0.015  0.027  0.004
+ TransDip   0.117 -0.117 -0.117   -0.165 -0.087 -0.078   -0.005  0.140 -0.146
+
+  </comment>
+  <record id="vibrational.analysis.unparsed" repeat="12">{X,x:UNPARSED}</record>
+
+  <!-- See  1716.forcematrix.xml  in jumbo-converters-compchem-gaussian -->
+
+  <templateList>
+    <template id="vibrational.modes.chunker"
+      name="vibrational.modes.chunker"
+      repeat="*"
+      pattern="\s*Mode:"             offset="0"
+      endPattern="\s*TransDip.+"  endOffset="1" >
+      <templateList>
+        <template id="vibrational.modes"
+          name="vibrational.modes"
+          repeat="1"
+          pattern="\s*Mode:"                 offset="0"
+          endPattern="\s*Raman Active:.+" endOffset="1" >
+          <comment>
+           Mode:                 1                      2                      3
+           Frequency:      1488.03                1488.03                1488.03
+           Force Cnst:      1.5370                 1.5370                 1.5370
+           Red. Mass:       1.1782                 1.1782                 1.1782
+           IR Active:          YES                    YES                    YES
+           IR Intens:       10.276                 10.276                 10.276
+           Raman Active:       YES                    YES                    YES        
+          </comment>
+
+
+          <record id="vibrational.modes.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+        </template>
+        <template id="vibrational.displacements"
+          name="vibrational.displacements"
+          repeat="1"
+          pattern="\s*X +Y +Z +.+"         offset="0"
+          endPattern="\s*TransDip.+"    endOffset="1" >
+          <comment>
+                         X      Y      Z        X      Y      Z        X      Y      Z
+           C          0.072 -0.072 -0.072   -0.091 -0.007 -0.084   -0.045 -0.101  0.057
+           H          0.055 -0.055 -0.055    0.442  0.033  0.410    0.218  0.492 -0.274
+           H         -0.214  0.214  0.483    0.126  0.349  0.093    0.430  0.280 -0.062
+           H         -0.214  0.483  0.214    0.417  0.007  0.435   -0.162  0.112  0.106
+           H         -0.483  0.214  0.214    0.101 -0.309  0.068    0.049  0.324 -0.442
+           TransDip  -0.059  0.059  0.059    0.075  0.006  0.070    0.037  0.084 -0.047
+          </comment>
+
+
+          <record id="vibrational.displacements.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+        </template>
+      </templateList>
+    </template>
+  </templateList>
+  
+  <record id="vibrational.analysis.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+  <comment class="example.output" id="vibrational.analysis">
+    <module cmlx:templateRef="vibrational.analysis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="cc:frequencies">
+        <table id="forcematrix">
+          <array dataType="xsd:integer" dictRef="x:serial" size="9">1 2 3 4 5 6 7 8 9</array>
+          <array dataType="xsd:double" dictRef="cc:frequency" size="9">1488.03 1488.03 1488.03 1702.62 1702.62 3196.89 3301.37 3301.37 3301.37</array>
+          <array dataType="xsd:double" dictRef="cc:forceconst" size="9">1.5370 1.5370 1.5370 1.7214 1.7214 6.0686 7.0790 7.0790 7.0790</array>
+          <array dataType="xsd:double" dictRef="cc:redmass" size="9">1.1782 1.1782 1.1782 1.0078 1.0078 1.0078 1.1024 1.1024 1.1024 </array>
+          <array dataType="xsd:string" dictRef="q:ir_active" size="9">YES YES YES NO NO NO YES YES YES</array>
+          <array dataType="xsd:double" dictRef="cc:irintensity" size="9">10.276 10.276 10.276 0.0 0.0 0.0 39.838 39.838 39.838</array>
+          <array dataType="xsd:string" dictRef="q:raman_active" size="9">YES YES YES YES YES YES YES YES YES</array>
+        </table>
+      </property>
+      <property dictRef="q:vibdisplacements">
+        <array dataType="xsd:string" dictRef="cc:elementType"  size="5">C H H H H</array>
+        <array dataType="xsd:double" dictRef="cc:displacement" size="135"
+>0.072 -0.072 -0.072   -0.091 -0.007 -0.084   -0.045 -0.101  0.057    0.000  0.000  0.000    0.000  0.000  0.000    0.000  0.000  0.000    0.054 -0.054 -0.054   -0.076 -0.040 -0.036  -0.002  0.064 -0.067
+ 0.055 -0.055 -0.055    0.442  0.033  0.410    0.218  0.492 -0.274    0.293  0.393 -0.099    0.284 -0.112  0.396   -0.289  0.289  0.289   -0.498  0.498  0.498   -0.014 -0.007 -0.006   0.000  0.012 -0.012
+-0.214  0.214  0.483    0.126  0.349  0.093    0.430  0.280 -0.062   -0.293 -0.393 -0.099   -0.284  0.112  0.396    0.289 -0.289  0.289   -0.159  0.159 -0.179    0.212 -0.233  0.219   0.421 -0.410  0.410
+-0.214  0.483  0.214    0.417  0.007  0.435   -0.162  0.112  0.106   -0.293  0.393  0.099   -0.284 -0.112 -0.396    0.289  0.289 -0.289   -0.159 -0.179  0.159    0.239  0.245 -0.259  -0.407 -0.395  0.394
+-0.483  0.214  0.214    0.101 -0.309  0.068    0.049  0.324 -0.442    0.293 -0.393  0.099    0.284  0.112 -0.396   -0.289 -0.289 -0.289    0.179  0.159  0.159    0.464  0.471  0.472   0.015  0.027  0.004</array>
+      <array dataType="xsd:double" dictRef="q:transitionDipole" size="27"
+>-0.059  0.059  0.059    0.075  0.006  0.070    0.037  0.084 -0.047    0.000  0.000  0.000    0.000  0.000  0.000    0.000  0.000  0.000    0.117 -0.117 -0.117   -0.165 -0.087 -0.078  -0.005  0.140 -0.146</array>
+      </property>
+    </module>
+  </comment>
+
+</template>

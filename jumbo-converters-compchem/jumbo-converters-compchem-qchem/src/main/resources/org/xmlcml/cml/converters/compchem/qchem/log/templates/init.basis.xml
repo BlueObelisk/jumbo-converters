@@ -1,0 +1,47 @@
+<template id="init.basis"
+  repeat="*"
+  name="init.basis"
+  pattern="\s*Requested basis set is.+"      offset="0"
+  endPattern="\sThere are.+shells and.+basis functions.+"   endOffset="1" >
+
+  <comment class="example.input" id="init.basis.1">
+ Requested basis set is STO-3G
+ There are 6 shells and 9 basis functions
+  </comment>
+  <comment class="example.input" id="init.basis.2">
+ Requested basis set is 6-311G(d,p)
+ There are 62 shells and 164 basis functions
+  </comment>
+
+  <record id="init.basis.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+  <comment class="example.output" id="init.basis.1">
+    <module cmlx:templateRef="init.basis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="cc:basisSetLabel">
+        <scalar dataType="xsd:string">STO-3G</scalar>
+      </parameter>
+      <parameter dictRef="q:numShells">
+        <scalar dataType="xsd:integer">6</scalar>
+      </parameter>
+      <parameter dictRef="q:numBasisFunctions">
+        <scalar dataType="xsd:integer">9</scalar>
+      </parameter>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="init.basis.2">
+    <module cmlx:templateRef="init.basis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="cc:basisSetLabel">
+        <scalar dataType="xsd:string">6-311G(d,p)</scalar>
+      </parameter>
+      <parameter dictRef="q:numShells">
+        <scalar dataType="xsd:integer">62</scalar>
+      </parameter>
+      <parameter dictRef="q:numBasisFunctions">
+        <scalar dataType="xsd:integer">164</scalar>
+      </parameter>
+    </module>
+  </comment>
+
+</template>

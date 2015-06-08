@@ -25,9 +25,10 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
   xmlns:xi="http://www.w3.org/2001/XInclude">
   <templateList>
     <template id="job"
-      pattern="\s*Welcome to Q-Chem\s*-+\s*"
-      endPattern="\s*\*\s+Thank you very much for using Q-Chem\.  Have a nice day\.\s+\*\s*"                   endOffset="3"
-      newline="$" repeat="*"> 
+      pattern="\s*You are running Q-Chem version.+"
+      pattern2="\s*Welcome to Q-Chem\s*-+\s*"
+      endPattern="\s*\*\s+Thank you very much for using Q-Chem\.  Have a nice day\.\s+\*\s*"
+      endOffset="3" newline="$" repeat="*">
       <templateList id='main'>
 
         <template id="environment"
@@ -73,7 +74,7 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
         pattern2="\s*\*\* +VIBRATIONAL ANALYSIS +\*\*\s*"        offset2="-2"
         endPattern="\s*\*\s+Thank you very much for using Q-Chem\.  Have a nice day\.\s+\*\s*"                   endOffset="3"
         newline="$" repeat="*">
-        
+
         <!-- START of module finalization -->
         <templateList>
         </templateList>
