@@ -1,0 +1,100 @@
+<template id="gradients"
+  repeat="*"
+  name="gradients"
+  pattern="\s*Calculating analytic gradient of the SCF energy.+" offset="0"
+  endPattern="\s*Gradient time:.+"                            endOffset="1" >
+
+  <comment class="example.input" id="gradients.CH4">
+ Calculating analytic gradient of the SCF energy
+ Gradient of SCF Energy
+            1           2           3           4           5
+    1   0.0000000   0.0000000  -0.0098386   0.0049193   0.0049193
+    2   0.0000000   0.0000000   0.0000000   0.0085205  -0.0085205
+    3   0.0000000   0.0104359  -0.0034790  -0.0034790  -0.0034790
+ Max gradient component =       1.044E-02
+ RMS gradient           =       5.389E-03
+ Gradient time:  CPU 0.15 s  wall 0.21 s
+  </comment>
+  <comment class="example.input" id="gradients.CH3OH">
+   Calculating analytic gradient of the SCF energy
+   Gradient of XC Energy
+              1           2           3           4           5           6
+      1   0.0210706  -0.1097500   0.0460822   0.0460822   0.0804710  -0.0839561
+      2  -0.0163315   0.2059736  -0.0817756  -0.0817752   0.1650837  -0.1911749
+      3   0.0000002  -0.0000002  -0.1441326   0.1441327  -0.0000002   0.0000001
+   Gradient of SCF Energy
+              1           2           3           4           5           6
+      1  -0.0143184   0.0227996  -0.0046109  -0.0046109   0.0060268  -0.0052862
+      2   0.0018792   0.0146627  -0.0019107  -0.0019106   0.0079599  -0.0206804
+      3   0.0000000  -0.0000000  -0.0077987   0.0077987  -0.0000000   0.0000000
+   Max gradient component =       2.280E-02
+   RMS gradient           =       9.632E-03
+   Gradient time:  CPU 0.67 s  wall 1.25 s
+  </comment>
+  <comment class="example.input" id="gradients.C6H5Cl">
+   Calculating analytic gradient of the SCF energy
+   Gradient of SCF Energy
+              1           2           3           4           5           6
+      1   0.0027427  -0.0056068  -0.0000000   0.0056068  -0.0027427   0.0000000
+      2   0.0000000   0.0000000  -0.0000000  -0.0000000   0.0000000   0.0000000
+      3   0.0019001  -0.0016705   0.0007585  -0.0016705   0.0019001   0.0237547
+              7           8           9          10          11          12
+      1  -0.0000000  -0.0091398  -0.0076314  -0.0000000   0.0076314   0.0091398
+      2  -0.0000000   0.0000000  -0.0000000  -0.0000000  -0.0000000   0.0000000
+      3  -0.0109881   0.0030929  -0.0054735  -0.0092229  -0.0054735   0.0030929
+   Max gradient component =       2.375E-02
+   RMS gradient           =       5.831E-03
+   Gradient time:  CPU 3.50 s  wall 7.39 s
+  </comment>
+
+  <record id="gradients.unparsed" repeat="1">{X,x:UNPARSED}</record>  
+
+
+  <templateList>
+  <!-- Sub-Templates for: 
+  * Gradient of XC Energy
+  * Gradient of SCF Energy
+
+  We will have a 3*n values for the gradients (X, Y & Z for n = number of atoms).
+  With a maximum 6 Atoms per line. (last line will have n%6 columns)
+  
+  -->
+  </templateList>
+
+
+  <record id="gradients.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+  <comment class="example.output" id="gradients.CH4">
+    <module cmlx:templateRef="gradients" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="cc:gradients">
+        <list>
+          <array dataType="xsd:integer" dictRef="q:atomId" size="5">1 2 3 4 5</array>
+          <array dataType="xsd:double" dictRef="q:DE.DX-1" size="5">0.0 0.0 -0.0098386 0.0049193 0.0049193</array>
+          <array dataType="xsd:double" dictRef="q:DE.DY-1" size="5">0.0 0.0 0.0 0.0085205 0.0085205</array>
+          <array dataType="xsd:double" dictRef="q:DE.DZ-1" size="5">0.0 0.0104359 -0.003479 -0.0034790 -0.003479</array>
+        </list>
+      </property>
+      <property dictRef="q:max.gradient">
+        <scalar dataType="xsd:double" units="nonSi:hartree.bohr-1">1.044E-02</scalar>
+      </property>
+      <property dictRef="q:rms.gradient">
+        <scalar dataType="xsd:double" units="nonSi:hartree.bohr-1">5.389E-03</scalar>
+      </property>
+        
+    </module>
+  </comment>
+
+
+  <comment class="example.output" id="gradients.CH3OH">
+    <module cmlx:templateRef="gradients" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+        
+    </module>
+  </comment>
+  <comment class="example.output" id="gradients.C6H5Cl">
+    <module cmlx:templateRef="gradients" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+        
+    </module>
+  </comment>
+
+</template>

@@ -1,0 +1,62 @@
+<template id="orbital.energies.symmetries"
+  repeat="*"
+  name="orbital.energies.symmetries"
+  pattern="\s+Orbital Energies .a\.u\.. and Symmetries.+$\s*-+"      offset="-1"
+  endPattern="\s*-+$\s+"   endOffset="1" >
+
+  <comment class="example.input" id="orbital.energies.symmetries">
+ --------------------------------------------------------------
+             Orbital Energies (a.u.) and Symmetries
+ --------------------------------------------------------------
+ 
+ Alpha MOs, Restricted
+ -- Occupied --                  
+-11.205  -0.945  -0.546  -0.546  -0.546
+  1 A1    2 A1    1 T2    1 T2    1 T2                                         
+ -- Virtual --                   
+  0.257   0.328   0.328   0.328   0.728   0.728   0.728   1.184
+  3 A1    2 T2    2 T2    2 T2    3 T2    3 T2    3 T2    4 T2                 
+  1.184   1.184   1.252   1.315   1.941   1.941   2.592   2.592
+  4 T2    4 T2    4 A1    5 A1    1 E     1 E     5 T2    5 T2                 
+  2.592   4.612
+  5 T2    6 A1                                                                 
+ 
+ Beta MOs, Restricted
+ -- Occupied --                  
+-11.205  -0.945  -0.546  -0.546  -0.546
+  1 A1    2 A1    1 T2    1 T2    1 T2                                         
+ -- Virtual --                   
+  0.257   0.328   0.328   0.328   0.728   0.728   0.728   1.184
+  3 A1    2 T2    2 T2    2 T2    3 T2    3 T2    3 T2    4 T2                 
+  1.184   1.184   1.252   1.315   1.941   1.941   2.592   2.592
+  4 T2    4 T2    4 A1    5 A1    1 E     1 E     5 T2    5 T2                 
+  2.592   4.612
+  5 T2    6 A1                                                                 
+ --------------------------------------------------------------
+  </comment>
+
+
+  <record id="orbital.energies.symmetries.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+
+  <comment class="example.output" id="orbital.energies.symmetries">
+    <module cmlx:templateRef="orbital.energies.symmetries" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="q:orbitalEnergies">
+        <array dataType="xsd:double" dictRef="q:alphaocc"  size="5"  units="nonSi:hartree">-11.205 -0.945 -0.546 -0.546 -0.546</array>
+        <array dataType="xsd:double" dictRef="q:alphavirt" size="18" units="nonSi:hartree">0.257 0.328 0.328 0.328 0.728 0.728 0.728 1.184 1.184 1.184 1.252 1.315 1.941 1.941 2.592 2.592 2.592 4.612</array>
+        <array dataType="xsd:double" dictRef="q:betaocc"   size="5"  units="nonSi:hartree">-11.205 -0.945 -0.546 -0.546 -0.546</array>
+        <array dataType="xsd:double" dictRef="q:betavirt"  size="18" units="nonSi:hartree">0.257 0.328 0.328 0.328 0.728 0.728 0.728 1.184 1.184 1.184 1.252 1.315 1.941 1.941 2.592 2.592 2.592 4.612</array>
+      </property>
+      <property dictRef="q:occupiedOrbitalSymmetries">
+        <array delimiter="|" dataType="xsd:string" size="5">|A1|A1|T2|T2|T2|</array>
+        <array delimiter="|" dataType="xsd:string" size="5">|A1|A1|T2|T2|T2|</array>
+      </property>
+      <property dictRef="q:virtualOrbitalSymmetries">
+        <array delimiter="|" dataType="xsd:string" size="18">|A1|T2|T2|T2|T2|T2|T2|T2|T2|T2|A1|A1|E|E|T2|T2|T2|A1|</array>
+        <array delimiter="|" dataType="xsd:string" size="18">|A1|T2|T2|T2|T2|T2|T2|T2|T2|T2|A1|A1|E|E|T2|T2|T2|A1|</array>
+      </property>
+    </module>
+  </comment>
+
+</template>

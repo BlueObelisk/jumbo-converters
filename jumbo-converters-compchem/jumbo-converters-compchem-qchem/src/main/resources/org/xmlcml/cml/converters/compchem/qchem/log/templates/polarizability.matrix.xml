@@ -1,0 +1,29 @@
+<template id="polarizability.matrix"
+  repeat="*"
+  name="polarizability.matrix"
+  pattern="\s*Polarizability Matrix .a.u.+"      offset="0"
+  endPattern="\s+$"   endOffset="0" >
+
+  <comment class="example.input" id="polarizability.matrix">
+ Polarizability Matrix (a.u.)
+            1           2           3
+    1 -12.1472869  -0.0000016  -0.0000016
+    2  -0.0000016 -12.1472869   0.0000016
+    3  -0.0000016   0.0000016 -12.1472869
+  </comment>
+
+  <record id="polarizability.matrix.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+  <!-- TODO: (later) restrict to lower triangle matrix and merge to one <array> of size 6 -->
+  <comment class="example.output" id="polarizability.matrix">
+  <module cmlx:templateRef="polarizability.matrix" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+  <property dictRef="cc:polarizability">
+    <array dataType="xsd:double" size="3" cmlx:row="1">-12.1472869  -0.0000016  -0.0000016</array>
+    <array dataType="xsd:double" size="3" cmlx:row="2"> -0.0000016 -12.1472869   0.0000016</array>
+    <array dataType="xsd:double" size="3" cmlx:row="3"> -0.0000016   0.0000016 -12.1472869</array>
+  </property>
+  </module>
+  </comment>
+
+</template>

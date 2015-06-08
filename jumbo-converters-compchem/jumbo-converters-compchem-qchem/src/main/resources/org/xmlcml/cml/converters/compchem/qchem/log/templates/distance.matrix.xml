@@ -1,0 +1,55 @@
+<template id="distance.matrix"
+  repeat="*"
+  name="distance.matrix"
+  pattern=""      offset="0"
+  endPattern=""   endOffset="0" >
+
+  <comment class="example.input" id="distance.matrix">
+                       Distance Matrix (Angstroms)
+             C (  1)   C (  2)   C (  3)   C (  4)   C (  5)   C (  6)
+   C (  2)  1.385468
+   C (  3)  2.404513  1.385392
+   C (  4)  2.774401  2.396744  1.385392
+   C (  5)  2.410679  2.774401  2.404513  1.385468
+   C (  6)  1.383064  2.386410  2.758836  2.386410  1.383064
+   Cl(  7)  2.706469  3.992778  4.503835  3.992778  2.706469  1.744999
+   H (  8)  1.073515  2.144183  3.381430  3.847872  3.379406  2.133788
+   H (  9)  2.130342  1.075108  2.138422  3.372941  3.849501  3.359706
+   H ( 10)  3.377865  2.137556  1.074905  2.137556  3.377865  3.833741
+   H ( 11)  3.849501  3.372941  2.138422  1.075108  2.130342  3.359706
+   H ( 12)  3.379406  3.847872  3.381430  2.144183  1.073515  2.133788
+             Cl(  7)   H (  8)   H (  9)   H ( 10)   H ( 11)
+   H (  8)  2.838997
+   H (  9)  4.836733  2.464047
+   H ( 10)  5.578740  4.270361  2.465264
+   H ( 11)  4.836733  4.922956  4.264484  2.465264
+   H ( 12)  2.838997  4.259361  4.922956  4.270361  2.464047
+  </comment>
+
+  <record id="distance.matrix.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+  <!-- 
+    ToDo: (later) cross-check with other codes!
+    * maybe create row="1" with value 0.0 and append 0.0 to other rows
+    * maybe merge into a single array (Gaussian's l202.distmat.xml)
+   -->
+  <comment class="example.output" id="distance.matrix">
+    <module cmlx:templateRef="distance.matrix" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list dictRef="cc:distance.matrix">
+        <array dataType="xsd:double" size="1"  units="nonSi:angstrom" cmlx:row="2" >1.385468</array>
+        <array dataType="xsd:double" size="2"  units="nonSi:angstrom" cmlx:row="3" >2.404513  1.385392</array>
+        <array dataType="xsd:double" size="3"  units="nonSi:angstrom" cmlx:row="4" >2.774401  2.396744  1.385392</array>
+        <array dataType="xsd:double" size="4"  units="nonSi:angstrom" cmlx:row="5" >2.410679  2.774401  2.404513  1.385468</array>
+        <array dataType="xsd:double" size="5"  units="nonSi:angstrom" cmlx:row="6" >1.383064  2.386410  2.758836  2.386410  1.383064</array>
+        <array dataType="xsd:double" size="6"  units="nonSi:angstrom" cmlx:row="7" >2.706469  3.992778  4.503835  3.992778  2.706469  1.744999 </array>
+        <array dataType="xsd:double" size="7"  units="nonSi:angstrom" cmlx:row="8" >1.073515  2.144183  3.381430  3.847872  3.379406  2.133788  2.838997</array>
+        <array dataType="xsd:double" size="8"  units="nonSi:angstrom" cmlx:row="9" >2.130342  1.075108  2.138422  3.372941  3.849501  3.359706  4.836733  2.464047</array>
+        <array dataType="xsd:double" size="9"  units="nonSi:angstrom" cmlx:row="10">3.377865  2.137556  1.074905  2.137556  3.377865  3.833741  5.578740  4.270361  2.465264</array>
+        <array dataType="xsd:double" size="10" units="nonSi:angstrom" cmlx:row="11">3.849501  3.372941  2.138422  1.075108  2.130342  3.359706  4.836733  4.922956  4.264484  2.465264</array>
+        <array dataType="xsd:double" size="11" units="nonSi:angstrom" cmlx:row="12">3.379406  3.847872  3.381430  2.144183  1.073515  2.133788  2.838997  4.259361  4.922956  4.270361  2.464047</array>
+      </list>
+    </module>
+  </comment>
+
+</template>

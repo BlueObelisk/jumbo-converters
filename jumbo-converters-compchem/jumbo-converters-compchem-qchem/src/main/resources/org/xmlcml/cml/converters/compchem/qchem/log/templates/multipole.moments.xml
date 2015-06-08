@@ -1,0 +1,65 @@
+<template id="multipole.moments"
+  repeat="*"
+  name="multipole.moments"
+  pattern="\s*-+$\s*Cartesian Multipole Moments.*$\s*-+$"      offset="0"
+  endPattern="\s*-+$"   endOffset="1" >
+
+  <comment class="example.input" id="multipole.moments">
+ -----------------------------------------------------------------
+                    Cartesian Multipole Moments
+ -----------------------------------------------------------------
+    Charge (ESU x 10^10)
+                 0.0000
+    Dipole Moment (Debye)
+         X       0.7211      Y      -1.5317      Z       0.0000
+       Tot       1.6930
+    Quadrupole Moments (Debye-Ang)
+        XX     -12.5289     XY       2.2369     YY     -12.0463
+        XZ       0.0000     YZ       0.0000     ZZ     -13.5832
+    Octapole Moments (Debye-Ang^2)
+       XXX      -4.5760    XXY      -2.1106    XYY      -1.8165
+       YYY      -0.2562    XXZ       0.0000    XYZ       0.0000
+       YYZ       0.0000    XZZ      -0.5875    YZZ      -0.4240
+       ZZZ       0.0000
+    Hexadecapole Moments (Debye-Ang^3)
+      XXXX     -59.5385   XXXY       4.0359   XXYY     -12.1286
+      XYYY       3.0253   YYYY     -19.5171   XXXZ       0.0000
+      XXYZ       0.0000   XYYZ       0.0000   YYYZ       0.0000
+      XXZZ     -13.7458   XYZZ       0.0991   YYZZ      -6.5664
+      XZZZ       0.0000   YZZZ       0.0000   ZZZZ     -19.1041
+ -----------------------------------------------------------------
+  </comment>
+
+  <record id="multipole.moments.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+  <comment class="example.output" id="multipole.moments">
+    <module cmlx:templateRef="multipole.moments" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="cc:dipole">
+        <list>
+          <array  dataType="xsd:double"  size="3" units="nonSi:debeye">0.7211 -1.5317 0.0</array>
+          <scalar dataType="xsd:double" units="nonSi:debeye">1.693</scalar>
+        </list>
+      </property>
+      <property dictRef="cc:quadrupole">
+        <list>
+           <array dataType="xsd:string" size="6">XX XY YY XZ YZ ZZ</array>
+           <array dataType="xsd:double" size="6" units="nonSi:debeye.angstrom">-12.5289 2.2369 -12.0463 0.0 0.0 -13.5832</array>
+        </list>
+      </property>
+      <property dictRef="cc:octapole">
+        <list>
+          <array  dataType="xsd:double" size="10">XXX XXY XYY YYY XXZ XYZ YYZ XZZ YZZ ZZZ</array>
+          <array  dataType="xsd:double" size="10" units="nonSi:debeye.angstrom2">-4.5760 -2.1106 -1.8165 -0.2562 0.0 0.0 0.0 -0.5875 -0.4240 0.0</array>
+        </list>
+      </property>
+      <property dictRef="cc:hexadecapole">
+        <list>
+          <array  dataType="xsd:double" size="15">XXXX XXXY XXYY XYYY YYYY XXXZ XXYZ XYYZ YYYZ XXZZ XYZZ YYZZ XZZZ YZZZ ZZZZ</array>
+          <array  dataType="xsd:double" size="15" units="nonSi:debeye.angstrom3">59.5385 4.0359 -12.1286 3.0253 -19.5171 0.0 0.0 0.0 0.0 13.7458 0.0991 -6.5664 0.0 0.0 -19.1041</array>
+        </list>
+      </property>
+    </module>
+  </comment>
+
+</template>

@@ -1,0 +1,41 @@
+<template id="coordinates.angstoms"
+  repeat="*"
+  name="coordinates.angstoms"
+  pattern="\s*Coordinates \(Angstroms\)\s*"      offset="0"
+  endPattern="\s*"   endOffset="0" >
+
+  <comment class="example.input" id="coordinates.angstoms">
+                       Coordinates (Angstroms)
+     ATOM              X           Y           Z
+    1  C           0.652989   -0.023084    0.000000
+    2  O          -0.736533    0.133348    0.000000
+    3  H           0.980777   -0.561977   -0.915316
+    4  H           0.980777   -0.561977    0.915316
+    5  H           1.127333    0.979796    0.000000
+    6  H          -1.114561   -0.784123    0.000000
+   Point Group: cs    Number of degrees of freedom:   8
+  </comment>
+
+  <record id="coordinates.angstoms.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+  <!-- 
+    * process="createMolecule" 
+    * "Point group" and "degrees of freedom" as properties
+  -->
+
+  <comment class="example.output" id="coordinates.angstoms">
+    <module cmlx:templateRef="coordinates.angstoms" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+    <molecule>
+
+    </molecule>
+    <property dictRef="cc:pointGroup">
+      <scalar dataType="xsd:string">cs</scalar>      
+    </property>
+    <property dictRef="cc:degfreedom">
+      <scalar dataType="xsd:integer">8</scalar>      
+    </property>
+
+    </module>
+  </comment>
+
+</template>
