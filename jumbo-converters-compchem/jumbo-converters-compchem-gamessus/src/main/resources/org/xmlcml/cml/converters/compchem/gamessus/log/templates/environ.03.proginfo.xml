@@ -1,0 +1,122 @@
+<template id="environ.03.proginfo"
+  name="Program Info"
+  repeat="*"
+  newline="$"
+  pattern="\s*\*+\s*$\s*\*\s*+\s*GAMESS VERSION.*"  offset="0"
+  endPattern="~"    endOffset="0">
+
+  <comment class="example.input" id="proginfo.2006R2">
+          ******************************************************
+          *         GAMESS VERSION = 22 FEB 2006 (R2)          *
+          *             FROM IOWA STATE UNIVERSITY             *
+          * M.W.SCHMIDT, K.K.BALDRIDGE, J.A.BOATZ, S.T.ELBERT, *
+          *   M.S.GORDON, J.H.JENSEN, S.KOSEKI, N.MATSUNAGA,   *
+          *          K.A.NGUYEN, S.J.SU, T.L.WINDUS,           *
+          *       TOGETHER WITH M.DUPUIS, J.A.MONTGOMERY       *
+          *         J.COMPUT.CHEM.  14, 1347-1363(1993)        *
+          ****************** IBM (AIX) VERSION *****************
+
+     SINCE 1993, STUDENTS AND POSTDOCS WORKING AT IOWA STATE UNIVERSITY
+     AND ALSO IN THEIR VARIOUS JOBS AFTER LEAVING ISU HAVE MADE IMPORTANT
+     CONTRIBUTIONS TO THE CODE:
+     ...
+     LYUDMILA SLIPCHENKO, JIE SONG, TETSUYA TAKETSUGU, SIMON WEBB.
+
+     ADDITIONAL CODE HAS BEEN PROVIDED BY COLLABORATORS IN OTHER GROUPS:
+     IOWA STATE UNIVERSITY: JOE IVANIC, KLAUS RUEDENBERG
+     ...
+     UNIVERSITY OF NOTRE DAME: DAN CHIPMAN
+
+  </comment>
+  <comment class="example.input" id="proginfo.2009R1">
+          ******************************************************
+          *         GAMESS VERSION = 12 JAN 2009 (R1)          *
+          *             FROM IOWA STATE UNIVERSITY             *
+          * M.W.SCHMIDT, K.K.BALDRIDGE, J.A.BOATZ, S.T.ELBERT, *
+          *   M.S.GORDON, J.H.JENSEN, S.KOSEKI, N.MATSUNAGA,   *
+          *          K.A.NGUYEN, S.J.SU, T.L.WINDUS,           *
+          *       TOGETHER WITH M.DUPUIS, J.A.MONTGOMERY       *
+          *         J.COMPUT.CHEM.  14, 1347-1363(1993)        *
+          **************** 64 BIT LINUX VERSION ****************
+
+  SINCE 1993, STUDENTS AND POSTDOCS WORKING AT IOWA STATE UNIVERSITY
+  AND ALSO IN THEIR VARIOUS JOBS AFTER LEAVING ISU HAVE MADE IMPORTANT
+  CONTRIBUTIONS TO THE CODE:
+  ...
+     SIMON WEBB, SOOHAENG YOO, FEDERICO ZAHARIEV
+
+  ADDITIONAL CODE HAS BEEN PROVIDED BY COLLABORATORS IN OTHER GROUPS:
+     IOWA STATE UNIVERSITY: JOE IVANIC, KLAUS RUEDENBERG
+  ...
+     WASEDA UNIVERSITY:
+          MASATO KOBAYASHI, TOMOKO AKAMA, HIROMI NAKAI
+
+  </comment>
+
+  <record/>
+  <record id="version">\s*\*\s*GAMESS VERSION = {X,cc:programVersion}\s*\*\s*</record>
+  <record id="authors" repeat="*">\s+\*\s{X,m:authors}\s\*\s*</record>
+  <record id="platform">\s*\*+\s*{X,cc:programPlatform}\s*VERSION\s*\*+\s*</record>
+  <record repeat="*" />
+
+  <transform process="createWrapperParameter"
+              xpath=".//cml:scalar[@dictRef='cc:programVersion' or @dictRef='cc:programPlatform' ]" />
+
+  <!-- <transform process="addChild" xpath="."
+               elementName="cml:parameterList" position="0" />
+
+  <transform process="move" to="./cml:parameterList"    xpath=".//cml:parameter[./cml:scalar]" /> -->
+
+  <transform process="pullup"
+             xpath=".//cml:list[@cmlx:templateRef='version' or @cmlx:templateRef='platform']/cml:parameter" />
+
+  <transform process="addChild" 
+             xpath="."
+             elementName="cml:parameter"
+             position="0"
+             dictRef="cc:program" />
+
+  <transform process="addChild" 
+             xpath=".//cml:parameter[@dictRef='cc:program']"
+             elementName="cml:scalar"
+             position="0"
+             value="GAMESS-US" />
+
+  <transform process="setDataType" value="xsd:string"
+    xpath=".//cml:scalar[@dictRef='cc:program']" />
+
+  <transform process="delete" xpath=".//cml:scalar[@dictRef='m:authors']"/>
+
+  <!-- Clean Up -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+
+  <comment class="example.output" id="proginfo.2006R2">
+    <module cmlx:templateRef="environ.03.proginfo" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="cc:program">
+        <scalar dataType="xsd:string">GAMESS-US</scalar>
+      </parameter>
+      <parameter dictRef="cc:programVersion">
+        <scalar dataType="xsd:string">22 FEB 2006 (R2)</scalar>
+      </parameter>
+      <parameter dictRef="cc:programPlatform">
+        <scalar dataType="xsd:string">IBM (AIX)</scalar>
+      </parameter>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="proginfo.2009R1">
+    <module cmlx:templateRef="environ.03.proginfo" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="cc:program">
+        <scalar dataType="xsd:string">GAMESS-US</scalar>
+      </parameter>
+      <parameter dictRef="cc:programVersion">
+        <scalar dataType="xsd:string">12 JAN 2009 (R1)</scalar>
+      </parameter>
+      <parameter dictRef="cc:programPlatform">
+        <scalar dataType="xsd:string">64 BIT LINUX</scalar>
+      </parameter>
+    </module>
+  </comment>
+
+</template>

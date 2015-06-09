@@ -1,0 +1,33 @@
+<template id="init.runTitle"
+  repeat="*"
+  name="init.runTitle"
+  pattern="\s*RUN TITLE\s*$\s*-+\s*"      offset="0"
+  endPattern="\s*$"   endOffset="0" >
+
+  <comment class="example.input" id="init.runTitle">
+     RUN TITLE
+     ---------
+ methane B3LYP/6-31G OPT               
+   </comment>
+
+  <record repeat="2" />
+  <record id="init.title" repeat="1">\s*{X,cc:title}\s*</record>
+
+
+  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='cc:title']" />
+  <transform process="pullupSingleton"        xpath=".//cml:list[./cml:parameter]" />
+
+
+  <!-- Delete empty lists -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+
+  <comment class="example.output" id="init.runTitle">
+    <module cmlx:templateRef="init.runTitle" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="cc:title" cmlx:templateRef="init.title">
+        <scalar dataType="xsd:string">methane B3LYP/6-31G OPT</scalar>
+      </parameter>
+    </module>
+  </comment>
+
+</template>

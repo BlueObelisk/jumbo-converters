@@ -1,0 +1,79 @@
+<template id="gradient"
+  repeat="*"
+  name="GRADIENT (HARTREE/BOHR)"
+  pattern="\s*-+\s*$\s*GRADIENT \(HARTREE/BOHR\)\s*$\s*-+\s*" offset="0"
+  endPattern="\s*MAXIMUM GRADIENT =.+RMS GRADIENT =.+"     endOffset="1" >
+
+  <comment class="example.input" id="gradient">
+                                 -----------------------
+                                 GRADIENT (HARTREE/BOHR)
+                                 -----------------------
+        ATOM     ZNUC       DE/DX         DE/DY         DE/DZ
+ --------------------------------------------------------------
+    1  C            6.0    -0.0000002    -0.0000002    -0.0000006
+    2  H            1.0     0.0000001     0.0019239     0.0013415
+    3  H            1.0     0.0000001    -0.0019239     0.0013415
+    4  H            1.0     0.0019241     0.0000001    -0.0013411
+    5  H            1.0    -0.0019241     0.0000001    -0.0013412
+
+          MAXIMUM GRADIENT = 0.0019241    RMS GRADIENT = 0.0012112
+  </comment>
+
+  <!-- RECORD -->
+  <record repeat="5" />
+  <record id="gradient" makeArray="true" repeat="5">\s*{I,m:atomId}\s+{A,m:atomLabel}\s+{F,cc:elementType}\s+{F,m:DE.DX-1}\s+{F,m:DE.DY-1}\s+{F,m:DE.DZ-1}\s*</record>
+  <record />
+  <record id="gradient2">\s+.*=\s+{F,m:max.gradient}\s+.*=\s+{F,m:rms.gradient}\s*</record>
+
+  <!-- ORGANIZE -->
+  <transform process="addChild"
+             xpath="."
+             position="0"
+             elementName="cml:list"
+             dictRef="cc:gradients" />
+
+  <transform process="move"
+             xpath=".//cml:list[@cmlx:templateRef='gradient']/cml:array"
+             to=".//cml:list[@dictRef='cc:gradients']" />
+
+  <transform process="createWrapperProperty" 
+             xpath=".//cml:list[@dictRef='cc:gradients']" />
+
+  <transform process="move"
+             xpath=".//cml:list[@cmlx:templateRef='gradient2']/cml:list/cml:scalar"
+             to="." />
+
+  <transform process="addUnits"
+             xpath=".//*[@dictRef='m:DE.DX-1' or @dictRef='m:DE.DY-1' or @dictRef='m:DE.DZ-1' or @dictRef='m:max.gradient' or @dictRef='m:rms.gradient']"
+             value="nonSi:hartree.bohr-1" />
+
+  <transform process="createWrapperProperty" 
+             xpath=".//cml:scalar[@dictRef='m:max.gradient' or @dictRef='m:rms.gradient']" />
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+
+
+  <comment class="example.output" id="gradient">
+    <module cmlx:templateRef="gradient" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="cc:gradients">
+        <list>
+          <array dataType="xsd:integer" dictRef="m:atomId"       size="5">1 2 3 4 5</array>
+          <array dataType="xsd:string"  dictRef="m:atomLabel"    size="5">C H H H H</array>
+          <array dataType="xsd:double"  dictRef="cc:elementType" size="5">6.0 1.0 1.0 1.0 1.0</array>
+          <array dataType="xsd:double"  dictRef="m:DE.DX-1" units="nonSi:hartree.bohr-1" size="5">-2.0E-7 1.0E-7 1.0E-7 0.0019241 -0.0019241</array>
+          <array dataType="xsd:double"  dictRef="m:DE.DY-1" units="nonSi:hartree.bohr-1" size="5">-2.0E-7 0.0019239 -0.0019239 1.0E-7 1.0E-7</array>
+          <array dataType="xsd:double"  dictRef="m:DE.DZ-1" units="nonSi:hartree.bohr-1" size="5">-6.0E-7 0.0013415 0.0013415 -0.0013411 -0.0013412</array>
+        </list>
+      </property>
+      <property dictRef="m:max.gradient">
+        <scalar dataType="xsd:double" units="nonSi:hartree.bohr-1">0.0019241</scalar>
+      </property> 
+      <property dictRef="m:rms.gradient">
+        <scalar dataType="xsd:double" units="nonSi:hartree.bohr-1">0.0012112</scalar>
+      </property>
+    </module>
+  </comment>
+
+</template>

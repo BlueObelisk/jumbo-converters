@@ -1,0 +1,158 @@
+<template id="internuclear.distance.matrix"
+  repeat="*"
+  name="internuclear.distance.matrix"
+  pattern="\s*INTERNUCLEAR DISTANCES \(ANGS.\)\s*$\s*-+\s*"      offset="0"
+  endPattern="\s+[*] \.\.\. LESS THAN\s+.+$\s*"   endOffset="1" >
+
+  <comment class="example.input" id="internuclear.distance.matrix">
+          INTERNUCLEAR DISTANCES (ANGS.)
+          ------------------------------
+
+                1 C          2 C          3 C          4 C          5 C     
+
+   1 C       0.0000000    1.3823286 *  2.3943211 *  2.7647492 *  2.3943074 *
+   2 C       1.3823286 *  0.0000000    1.3823746 *  2.3943072 *  2.7646411 *
+   3 C       2.3943211 *  1.3823746 *  0.0000000    1.3823206 *  2.3942275 *
+   4 C       2.7647492 *  2.3943072 *  1.3823206 *  0.0000000    1.3823287 *
+   5 C       2.3943074 *  2.7646411 *  2.3942275 *  1.3823287 *  0.0000000  
+   6 C       1.3823207 *  2.3942275 *  2.7646571 *  2.3943211 *  1.3823752 *
+   7 H       1.0799462 *  2.1377587 *  3.3730857    3.8446881    3.3730686  
+   8 H       2.1377828 *  1.0800005 *  2.1378242 *  3.3731074    3.8446416  
+   9 H       3.3730902    2.1377893 *  1.0799825 *  2.1377866 *  3.3730443  
+  10 H       3.8446856    3.3730665    2.1377389 *  1.0799367 *  2.1377548 *
+  11 H       3.3731074    3.8446416    3.3730434    2.1377827 *  1.0800007 *
+  12 H       2.1377866 *  3.3730442    3.8446394    3.3730902    2.1377893 *
+
+                6 C          7 H          8 H          9 H         10 H     
+
+   1 C       1.3823207 *  1.0799462 *  2.1377828 *  3.3730902    3.8446856  
+   2 C       2.3942275 *  2.1377587 *  1.0800005 *  2.1377893 *  3.3730665  
+   3 C       2.7646571 *  3.3730857    2.1378242 *  1.0799825 *  2.1377389 *
+   4 C       2.3943211 *  3.8446881    3.3731074    2.1377866 *  1.0799367 *
+   5 C       1.3823752 *  3.3730686    3.8446416    3.3730443    2.1377548 *
+   6 C       0.0000000    2.1377449 *  3.3730434    3.8446394    3.3730828  
+   7 H       2.1377449 *  0.0000000    2.4623148 *  4.2648446    4.9246247  
+   8 H       3.3730434    2.4623148 *  0.0000000    2.4623110 *  4.2648594  
+   9 H       3.8446394    4.2648446    2.4623110 *  0.0000000    2.4623210 *
+  10 H       3.3730828    4.9246247    4.2648594    2.4623210 *  0.0000000  
+  11 H       2.1378243 *  4.2648617    4.9246420    4.2648592    2.4623110 *
+  12 H       1.0799827 *  2.4623246 *  4.2648592    4.9246218    4.2648419  
+
+               11 H         12 H     
+
+   1 C       3.3731074    2.1377866 *
+   2 C       3.8446416    3.3730442  
+   3 C       3.3730434    3.8446394  
+   4 C       2.1377827 *  3.3730902  
+   5 C       1.0800007 *  2.1377893 *
+   6 C       2.1378243 *  1.0799827 *
+   7 H       4.2648617    2.4623246 *
+   8 H       4.9246420    4.2648592  
+   9 H       4.2648592    4.9246218  
+  10 H       2.4623110 *  4.2648419  
+  11 H       0.0000000    2.4623110 *
+  12 H       2.4623110 *  0.0000000  
+
+  * ... LESS THAN  3.000
+  </comment>
+
+  <record id="internuclear.distance.matrix.unparsed" repeat="3">{X,x:UNPARSED}</record>
+
+  <templateList>
+    <template  id="dist.matrix" repeat="*"
+      pattern="\s+(\d+ [A-Za-z]+\s*)+$\s*$" offset="0"
+      endPattern="\s*$" endOffset="0" >
+      <record id="serial" repeat="2">{X,x:header}</record>
+
+      <templateList>
+        <template id="dis.matrix_5col" repeat="*"
+          pattern="\s+\d+\s+\w+\s+(\d+\.\d+\s\*?\s+){5}"    offset="0"
+          endPattern="~" endOffset="0" >
+          <record id="row" repeat="*">{I,m:row}\s{A,cc:elementType}\s+{F,cc:distance}\s\*?{F,cc:distance}\s\*?{F,cc:distance}\s\*?{F,cc:distance}\s\*?{F,cc:distance}.*</record>
+        </template>
+        <template id="dis.matrix_4col" repeat="1"
+          pattern="\s+\d+\s+\w+\s+(\d+\.\d+\s\*?\s+){4}"    offset="0"
+          endPattern="~" endOffset="0" >
+          <record id="row" repeat="*">{I,m:row}\s{A,cc:elementType}\s+{F,cc:distance}\s\*?{F,cc:distance}\s\*?{F,cc:distance}\s\*?{F,cc:distance}.*</record>
+        </template>
+        <template id="dis.matrix_3col" repeat="1"
+          pattern="\s+\d+\s+\w+\s+(\d+\.\d+\s\*?\s+){3}"    offset="0"
+          endPattern="~" endOffset="0" >
+          <record id="row" repeat="*">{I,m:row}\s{A,cc:elementType}\s+{F,cc:distance}\s\*?{F,cc:distance}\s\*?{F,cc:distance}.*</record>
+        </template>
+        <template id="dis.matrix_2col" repeat="1"
+          pattern="\s+\d+\s+\w+\s+(\d+\.\d+\s\*?\s+){2}"    offset="0"
+          endPattern="~" endOffset="0" >
+          <record id="row" repeat="*">{I,m:row}\s{A,cc:elementType}\s+{F,cc:distance}\s\*?{F,cc:distance}.*</record>
+        </template>
+        <template id="dis.matrix_1col" repeat="1"
+          pattern="\s+\d+\s+\w+\s+(\d+\.\d+\s\*?\s+){1}"    offset="0"
+          endPattern="~" endOffset="0" >
+          <record id="row" repeat="*">{I,m:row}\s{A,cc:elementType}\s+{F,cc:distance}.*</record>
+        </template>
+      </templateList>
+
+      <record id="unparsed" repeat="*">{X,x:UNPARSED}</record>
+    </template>
+  </templateList>
+
+  <record id="internuclear.distance.matrix.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+  <transform process="createArray"
+                from="./cml:scalar[@dictRef='cc:distance']"
+               xpath=".//cml:module[contains(@cmlx:templateRef,'dis.matrix')]/cml:list/cml:list" />
+  <transform process="addAttribute"  name="cmlx:row"
+               value="$string(../cml:scalar[@dictRef='m:row'])"
+               xpath=".//cml:array[@dictRef='cc:distance']" />
+  <transform process="joinArrays" key="$string(@cmlx:row)" xpath=".//cml:array[@cmlx:row]" />
+  <transform process="addAttribute"  name="cmlx:row"
+               value="$string(../cml:scalar[@dictRef='m:row'])"
+               xpath=".//cml:array[@dictRef='cc:distance']" />
+  <transform process="pullup"   xpath=".//cml:array[@dictRef='cc:distance']" repeat="3" />
+  <transform process="addChild" xpath="."
+             elementName="cml:list" dictRef="cc:distance.matrix" />
+  <transform process="move"     xpath=".//cml:array[@dictRef='cc:distance']"
+                                to="./cml:list[@dictRef='cc:distance.matrix']" />
+
+  <!-- cleanup -->
+  <transform process="delete" xpath=".//cml:scalar[@dictRef='x:header']"/>
+  <transform process="delete" xpath=".//cml:scalar[@dictRef='m:row']"/>
+  <transform process="delete" xpath=".//cml:scalar[@dictRef='cc:elementType']"/>
+  <transform process="delete" xpath=".//cml:array[@dictRef='x:serial']"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='internuclear.distance.matrix.unparsed']" />
+  <!--  delete empty lists and modules -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
+
+
+  <comment class="example.output" id="internuclear.distance.matrix">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="internuclear.distance.matrix">
+    <list dictRef="cc:distance.matrix">
+    <array dataType="xsd:double" size="12" dictRef="cc:distance" cmlx:row="1">0.0 1.3823286 2.3943211 2.7647492 2.3943074 1.3823207 1.0799462 2.1377828 3.3730902 3.8446856 3.3731074 2.1377866</array>
+    <array dataType="xsd:double" size="12" dictRef="cc:distance" cmlx:row="2">1.3823286 0.0 1.3823746 2.3943072 2.7646411 2.3942275 2.1377587 1.0800005 2.1377893 3.3730665 3.8446416 3.3730442</array>
+    <array dataType="xsd:double" size="12" dictRef="cc:distance" cmlx:row="3">2.3943211 1.3823746 0.0 1.3823206 2.3942275 2.7646571 3.3730857 2.1378242 1.0799825 2.1377389 3.3730434 3.8446394</array>
+    <array dataType="xsd:double" size="12" dictRef="cc:distance" cmlx:row="4">2.7647492 2.3943072 1.3823206 0.0 1.3823287 2.3943211 3.8446881 3.3731074 2.1377866 1.0799367 2.1377827 3.3730902</array>
+    <array dataType="xsd:double" size="12" dictRef="cc:distance" cmlx:row="5">2.3943074 2.7646411 2.3942275 1.3823287 0.0 1.3823752 3.3730686 3.8446416 3.3730443 2.1377548 1.0800007 2.1377893</array>
+    <array dataType="xsd:double" size="12" dictRef="cc:distance" cmlx:row="6">1.3823207 2.3942275 2.7646571 2.3943211 1.3823752 0.0 2.1377449 3.3730434 3.8446394 3.3730828 2.1378243 1.0799827</array>
+    <array dataType="xsd:double" size="12" dictRef="cc:distance" cmlx:row="7">1.0799462 2.1377587 3.3730857 3.8446881 3.3730686 2.1377449 0.0 2.4623148 4.2648446 4.9246247 4.2648617 2.4623246</array>
+    <array dataType="xsd:double" size="12" dictRef="cc:distance" cmlx:row="8">2.1377828 1.0800005 2.1378242 3.3731074 3.8446416 3.3730434 2.4623148 0.0 2.462311 4.2648594 4.924642 4.2648592</array>
+    <array dataType="xsd:double" size="12" dictRef="cc:distance" cmlx:row="9">3.3730902 2.1377893 1.0799825 2.1377866 3.3730443 3.8446394 4.2648446 2.462311 0.0 2.462321 4.2648592 4.9246218</array>
+    <array dataType="xsd:double" size="12" dictRef="cc:distance" cmlx:row="10">3.8446856 3.3730665 2.1377389 1.0799367 2.1377548 3.3730828 4.9246247 4.2648594 2.462321 0.0 2.462311 4.2648419</array>
+    <array dataType="xsd:double" size="12" dictRef="cc:distance" cmlx:row="11">3.3731074 3.8446416 3.3730434 2.1377827 1.0800007 2.1378243 4.2648617 4.924642 4.2648592 2.462311 0.0 2.462311</array>
+    <array dataType="xsd:double" size="12" dictRef="cc:distance" cmlx:row="12">2.1377866 3.3730442 3.8446394 3.3730902 2.1377893 1.0799827 2.4623246 4.2648592 4.9246218 4.2648419 2.462311 0.0</array>
+    </list>
+    </module>
+  </comment>
+
+  <comment>
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="internuclear.distance.matrix">
+      <property dictRef="cc:distance.matrix">
+        <array dataType="xsd:double" size="78">0.0 1.3823286 0.0 2.3943211 1.3823746 0.0 2.7647492 2.3943072 1.3823206 0.0 2.3943074 2.7646411 2.3942275 1.3823287 0.0 1.3823207 2.3942275 2.7646571 2.3943211 1.3823752 0.0 1.0799462 2.1377587 3.3730857 3.8446881 3.3730686 2.1377449 0.0 2.1377828 1.0800005 2.1378242 3.3731074 3.8446416 3.3730434 2.4623148 0.0 3.3730902 2.1377893 1.0799825 2.1377866 3.3730443 3.8446394 4.2648446 2.462311 0.0 3.8446856 3.3730665 2.1377389 1.0799367 2.1377548 3.3730828 4.9246247 4.2648594 2.462321 0.0 3.3731074 3.8446416 3.3730434 2.1377827 1.0800007 2.1378243 4.2648617 4.924642 4.2648592 2.462311 0.0 2.1377866 3.3730442 3.8446394 3.3730902 2.1377893 1.0799827 2.4623246 4.2648592 4.9246218 4.2648419 2.462311 0.0</array>
+      </property>
+    </module>
+  </comment>
+
+</template>

@@ -1,0 +1,43 @@
+<template id="freq.energy.gradient"
+  repeat="*"
+  name="ENERGY GRADIENT"
+  pattern="\s*-+\s*$\s*ENERGY GRADIENT\s*$\s*-+\s*$\s*$\s*UNITS ARE.+"      offset="0"
+  endPattern="\s*$"   endOffset="0" >
+
+  <comment class="example.input" id="freq.energy.gradient">
+          ---------------
+          ENERGY GRADIENT
+          ---------------
+
+ UNITS ARE HARTREE/BOHR    E'X               E'Y               E'Z 
+    1 C               -0.000000240      -0.000000203      -0.000000628
+    2 H                0.000000077       0.000000267       0.000000408
+    3 H                0.000000077      -0.000000195       0.000000449
+    4 H                0.000000408       0.000000065      -0.000000090
+    5 H               -0.000000322       0.000000065      -0.000000139
+  </comment>
+
+  <record repeat="5"/>
+  <record id="gradients" repeat="*">.+{F,cc:gradients} {F,cc:gradients} {F,cc:gradients}</record>
+  <!-- <record id="freq.energy.gradient.unparsed" repeat="*">{X,x:UNPARSED}</record> -->
+
+  <transform process="createArray" xpath="." from="./cml:list[@cmlx:templateRef='gradients']//cml:scalar[contains(@dictRef,'cc:gradients')]" />
+
+  <transform process="createWrapperProperty" xpath=".//cml:array[@dictRef='cc:gradients']" />
+  <transform process="addUnits"              xpath=".//cml:property[@dictRef='cc:gradients']/cml:array" value="nonSI:hartree.bohr-1" />
+
+  <transform process="pullup" xpath=".//cml:property[@dictRef='cc:gradients']" />
+  <transform process="pullup" xpath=".//cml:property[@dictRef='cc:gradients']" />
+  
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+
+  <comment class="example.output" id="freq.energy.gradient">
+    <module cmlx:templateRef="freq.energy.gradient" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+        <property dictRef="cc:gradients">
+          <array dataType="xsd:double" units="nonSI:hartree.bohr-1" size="15">0.0 -2.03E-7 -6.28E-7 7.0 2.67E-7 4.08E-7 7.0 -1.95E-7 4.49E-7 8.0 6.5E-8 -9.0E-8 2.0 6.5E-8 -1.39E-7</array>
+        </property>
+    </module>
+  </comment>
+
+</template>

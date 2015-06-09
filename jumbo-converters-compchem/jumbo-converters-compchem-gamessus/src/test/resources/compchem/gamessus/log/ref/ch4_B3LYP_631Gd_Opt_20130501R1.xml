@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module cmlx:templateRef="gamessus.log" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:c="http://www.xml-cml.org/dictionary" xmlns:m="http://www.xml-cml.org/dictionary/gamessus">
+ <module cmlx:lineCount="10" cmlx:templateRef="environ.01.script">
+  <parameterList>
+   <parameter dictRef="cc:hostname">
+    <scalar dataType="xsd:string">cl200</scalar>
+   </parameter>
+   <parameter dictRef="cc:run.date">
+    <scalar dataType="xsd:string">Tue Jan 27 17:27:46 NST 2015</scalar>
+   </parameter>
+  </parameterList>
+  <list cmlx:templateRef="environ.01.script.UNPARSED">
+   <scalar dataType="xsd:string" dictRef="x:UNPARSED">Available scratch disk space (Kbyte units) at beginning of the job is</scalar>
+   <scalar dataType="xsd:string" dictRef="x:UNPARSED">Filesystem 1K-blocks Used Available Use% Mounted on</scalar>
+   <scalar dataType="xsd:string" dictRef="x:UNPARSED">/dev/hda1 15401436 10634476 3984600 73% /</scalar>
+   <scalar dataType="xsd:string" dictRef="x:UNPARSED">GAMESS temporary binary files will be written to /tmp/7620910.1.short.q/ostueker/gamess</scalar>
+   <scalar dataType="xsd:string" dictRef="x:UNPARSED">GAMESS supplementary output files will be written to /tmp/7620910.1.short.q/ostueker/gamess</scalar>
+   <scalar dataType="xsd:string" dictRef="x:UNPARSED">Copying input file methane_GAMESS_B3LYP_631Gd_OPT_1may2013.inp to your run's scratch directory...</scalar>
+   <scalar dataType="xsd:string" dictRef="x:UNPARSED"/>
+  </list>
+ </module>
+ <module cmlx:lineCount="3" cmlx:templateRef="environ.02.kickoff">
+  <parameter dictRef="cc:numProcs">
+   <scalar dataType="xsd:string">1</scalar>
+  </parameter>
+  <parameter dictRef="g:numNodes">
+   <scalar dataType="xsd:string">1</scalar>
+  </parameter>
+  <parameter dictRef="g:command">
+   <scalar dataType="xsd:string">/usr/local/gamess-1may2013/gamess.01.x methane_GAMESS_B3LYP_631Gd_OPT_1may2013</scalar>
+  </parameter>
+ </module>
+ <module cmlx:lineCount="65" cmlx:templateRef="environ.03.proginfo">
+  <parameterList>
+   <parameter dictRef="cc:program">
+    <scalar dataType="xsd:string">GAMESS-US</scalar>
+   </parameter>
+   <parameter dictRef="cc:programVersion">
+    <scalar dataType="xsd:string">1 MAY 2013 (R1)</scalar>
+   </parameter>
+   <parameter dictRef="cc:programPlatform">
+    <scalar dataType="xsd:string">64 BIT LINUX</scalar>
+   </parameter>
+  </parameterList>
+ </module>
+ <module cmlx:lineCount="17" cmlx:templateRef="init.01.inputcard">
+  <parameter dictRef="cc:run.date">
+   <scalar dataType="xsd:date">2015-01-27T17:27:46-03:30</scalar>
+  </parameter>
+  <parameter dictRef="gam:InputCards">
+   <list cmlx:templateRef="inputcard">
+    <scalar dataType="xsd:string" dictRef="gam:inputCard">$BASIS GBASIS=N31 NGAUSS=6 NDFUNC=1 $END</scalar>
+    <scalar dataType="xsd:string" dictRef="gam:inputCard">$CONTRL SCFTYP=RHF RUNTYP=OPTIMIZE DFTTYP=B3LYP $END</scalar>
+    <scalar dataType="xsd:string" dictRef="gam:inputCard">$STATPT OPTTOL=0.0001 NSTEP=20 $END</scalar>
+    <scalar dataType="xsd:string" dictRef="gam:inputCard"/>
+    <scalar dataType="xsd:string" dictRef="gam:inputCard">$DATA</scalar>
+    <scalar dataType="xsd:string" dictRef="gam:inputCard">methane B3LYP/6-31Gd OPT</scalar>
+    <scalar dataType="xsd:string" dictRef="gam:inputCard">C1</scalar>
+    <scalar dataType="xsd:string" dictRef="gam:inputCard">C 6.0 0.0000000000 -0.0000000000 0.0000000000</scalar>
+    <scalar dataType="xsd:string" dictRef="gam:inputCard">H 1.0 0.0000000000 -0.8900000000 -0.6293000000</scalar>
+    <scalar dataType="xsd:string" dictRef="gam:inputCard">H 1.0 0.0000000000 0.8900000000 -0.6293000000</scalar>
+    <scalar dataType="xsd:string" dictRef="gam:inputCard">H 1.0 -0.8900000000 -0.0000000000 0.6293000000</scalar>
+    <scalar dataType="xsd:string" dictRef="gam:inputCard">H 1.0 0.8900000000 -0.0000000000 0.6293000000</scalar>
+    <scalar dataType="xsd:string" dictRef="gam:inputCard">$END</scalar>
+   </list>
+  </parameter>
+  <parameter dictRef="gam:MemoryAvailable">
+   <scalar dataType="xsd:integer" units="nonSi:words">1000000</scalar>
+  </parameter>
+ </module>
+ <module cmlx:lineCount="5" cmlx:templateRef="init.02.basis.options">
+  <parameter dictRef="cc:basis">
+   <scalar dataType="xsd:string">6-31G(d)</scalar>
+  </parameter>
+  <parameter dictRef="g:basisOptions">
+   <list>
+    <scalar dataType="xsd:string" dictRef="g:basis_gBasis">N31</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:basis_iGauss">6</scalar>
+    <scalar dataType="xsd:string" dictRef="g:basis_polar">POPN31</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:basis_nDfunc">1</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:basis_nFfunc">0</scalar>
+    <scalar dataType="xsd:string" dictRef="g:basis_diff_SP">F</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:basis_nPfunc">0</scalar>
+    <scalar dataType="xsd:string" dictRef="g:basis_diff_S">F</scalar>
+    <scalar dataType="xsd:string" dictRef="g:basis_basnam"/>
+    <scalar dictRef="xx:polFunc" dataType="xsd:string">(d)</scalar>
+    <scalar dictRef="xx:basisBaseName" dataType="xsd:string">6-31G</scalar>
+   </list>
+  </parameter>
+ </module> 
+ <module cmlx:lineCount="3" cmlx:templateRef="init.runTitle">
+  <parameter dictRef="cc:title" cmlx:templateRef="init.title">
+   <scalar dataType="xsd:string">methane B3LYP/6-31Gd OPT</scalar>
+  </parameter>
+ </module>
+ <module cmlx:lineCount="2" cmlx:templateRef="init.pointGroup.principalAxis">
+  <parameter dictRef="cc:pointGroup" cmlx:templateRef="pointGroup">
+   <scalar dataType="xsd:string">C1</scalar>
+  </parameter>
+  <parameter dictRef="g:principalAxisOrder" cmlx:templateRef="princAxis">
+   <scalar dataType="xsd:integer">0</scalar>
+  </parameter>
+ </module>
+ <module cmlx:lineCount="7" cmlx:templateRef="init.inputCoordinates.bohr">
+  <property dictRef="cc:coordinates">
+   <list>
+    <array dataType="xsd:string" dictRef="x:atomLabel" size="5">C H H H H</array>
+    <array dataType="xsd:double" dictRef="cc:elementType" size="5">6.0 1.0 1.0 1.0 1.0</array>
+    <array dataType="xsd:double" dictRef="cc:x3" size="5" units="nonSi:bohr">0.0 0.0 0.0 -1.6818561291 1.6818561291</array>
+    <array dataType="xsd:double" dictRef="cc:y3" size="5" units="nonSi:bohr">0.0 -1.6818561291 1.6818561291 0.0 0.0</array>
+    <array dataType="xsd:double" dictRef="cc:z3" size="5" units="nonSi:bohr">0.0 -1.1892045641 -1.1892045641 1.1892045641 1.1892045641</array>
+   </list>
+  </property>
+ </module> INTERNUCLEAR DISTANCES (ANGS.) ------------------------------ 1 C 2 H 3 H 4 H 5 H 1 C 0.0000000 1.0900085 * 1.0900085 * 1.0900085 * 1.0900085 * 2 H 1.0900085 * 0.0000000 1.7800000 * 1.7799646 * 1.7799646 * 3 H 1.0900085 * 1.7800000 * 0.0000000 1.7799646 * 1.7799646 * 4 H 1.0900085 * 1.7799646 * 1.7799646 * 0.0000000 1.7800000 * 5 H 1.0900085 * 1.7799646 * 1.7799646 * 1.7800000 * 0.0000000 * ... LESS THAN 3.000 ATOMIC BASIS SET ---------------- THE CONTRACTED PRIMITIVE FUNCTIONS HAVE BEEN UNNORMALIZED THE CONTRACTED BASIS FUNCTIONS ARE NOW NORMALIZED TO UNITY SHELL TYPE PRIMITIVE EXPONENT CONTRACTION COEFFICIENT(S) C 1 S 1 3047.5248800 0.001834737132 1 S 2 457.3695180 0.014037322813 1 S 3 103.9486850 0.068842622264 1 S 4 29.2101553 0.232184443216 1 S 5 9.2866630 0.467941348435 1 S 6 3.1639270 0.362311985337 2 L 7 7.8682723 -0.119332419775 0.068999066591 2 L 8 1.8812885 -0.160854151696 0.316423960957 2 L 9 0.5442493 1.143456437840 0.744308290898 3 L 10 0.1687145 1.000000000000 1.000000000000 4 D 11 0.8000000 1.000000000000 H 5 S 12 18.7311370 0.033494604338 5 S 13 2.8253944 0.234726953484 5 S 14 0.6401217 0.813757326146 6 S 15 0.1612778 1.000000000000 H 7 S 16 18.7311370 0.033494604338 7 S 17 2.8253944 0.234726953484 7 S 18 0.6401217 0.813757326146 8 S 19 0.1612778 1.000000000000 H 9 S 20 18.7311370 0.033494604338 9 S 21 2.8253944 0.234726953484 9 S 22 0.6401217 0.813757326146 10 S 23 0.1612778 1.000000000000 H 11 S 24 18.7311370 0.033494604338 11 S 25 2.8253944 0.234726953484 11 S 26 0.6401217 0.813757326146 12 S 27 0.1612778 1.000000000000 TOTAL NUMBER OF BASIS SET SHELLS = 12 NUMBER OF CARTESIAN GAUSSIAN BASIS FUNCTIONS = 23 NUMBER OF ELECTRONS = 10 CHARGE OF MOLECULE = 0 SPIN MULTIPLICITY = 1 NUMBER OF OCCUPIED ORBITALS (ALPHA) = 5 NUMBER OF OCCUPIED ORBITALS (BETA ) = 5 TOTAL NUMBER OF ATOMS = 5 THE NUCLEAR REPULSION ENERGY IS 13.4352856837 
+ <module cmlx:lineCount="8" cmlx:templateRef="init.gridbased.dft.options">
+  <parameter dictRef="g:LebedevGridBasedDftOptions">
+   <list>
+    <scalar dataType="xsd:string" dictRef="cc:dftFunctional">B3LYP</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:dft.nrad">96</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:dft.nleb">302</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:dft.nrad0">24</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:dft.nleb0">110</scalar>
+    <scalar dataType="xsd:double" dictRef="g:dft.swoff">0.005</scalar>
+    <scalar dataType="xsd:double" dictRef="g:dft.switch">3.0E-4</scalar>
+    <scalar dataType="xsd:double" dictRef="g:dft.thres">0.0</scalar>
+    <scalar dataType="xsd:double" dictRef="g:dft.gthre">1.0</scalar>
+   </list>
+  </parameter>
+ </module> GRIMME'S EMPIRICAL DISPERSION CORRECTION= F 
+ <module cmlx:lineCount="12" cmlx:templateRef="init.control.options">
+  <parameter dictRef="g:contrl.options">
+   <list>
+    <scalar dataType="xsd:string" dictRef="g:scftyp">RHF</scalar>
+    <scalar dataType="xsd:string" dictRef="g:runtyp">OPTIMIZE</scalar>
+    <scalar dataType="xsd:string" dictRef="g:exetyp">RUN</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:mplvl">0</scalar>
+    <scalar dataType="xsd:string" dictRef="g:cityp">NONE</scalar>
+    <scalar dataType="xsd:string" dictRef="g:cctyp">NONE</scalar>
+    <scalar dataType="xsd:string" dictRef="g:vbtyp">NONE</scalar>
+    <scalar dataType="xsd:string" dictRef="g:dfttyp">B3LYP</scalar>
+    <scalar dataType="xsd:string" dictRef="g:tddft">NONE</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:mult">1</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:icharg">0</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:nzvar">0</scalar>
+    <scalar dataType="xsd:string" dictRef="g:coord">UNIQUE</scalar>
+    <scalar dataType="xsd:string" dictRef="g:pp">NONE</scalar>
+    <scalar dataType="xsd:string" dictRef="g:relwfn">NONE</scalar>
+    <scalar dataType="xsd:string" dictRef="g:local">NONE</scalar>
+    <scalar dataType="xsd:string" dictRef="g:numgrd">F</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:ispher">-1</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:nosym">0</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:maxit">30</scalar>
+    <scalar dataType="xsd:string" dictRef="g:units">ANGS</scalar>
+    <scalar dataType="xsd:string" dictRef="g:pltorb">F</scalar>
+    <scalar dataType="xsd:string" dictRef="g:molplt">F</scalar>
+    <scalar dataType="xsd:string" dictRef="g:aimpac">F</scalar>
+    <scalar dataType="xsd:string" dictRef="g:friend"/>
+    <scalar dataType="xsd:integer" dictRef="g:nprint">7</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:irest">0</scalar>
+    <scalar dataType="xsd:string" dictRef="g:geom">INPUT</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:normf">0</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:normp">0</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:itol">20</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:icut">9</scalar>
+    <scalar dataType="xsd:string" dictRef="g:inttyp">BEST</scalar>
+    <scalar dataType="xsd:string" dictRef="g:grdtyp">BEST</scalar>
+    <scalar dataType="xsd:double" dictRef="g:qmttol">1.0E-6</scalar>
+   </list>
+  </parameter>
+ </module>
+ <module cmlx:lineCount="9" cmlx:templateRef="init.system.options">
+  <parameter dictRef="g:system.options">
+   <list>
+    <scalar dataType="xsd:integer" dictRef="g:replicated.memory" units="nonSi:words">1000000</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:distributed.memddi" units="nonSi:words">0</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:memddi.processors">1</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:words.processor" units="nonSi:words">0</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:total.memory" units="nonSi:words">1000000</scalar>
+    <scalar dataType="xsd:double" dictRef="g:timelim.mins" units="nonSi:mins">525600.0</scalar>
+    <scalar dataType="xsd:double" dictRef="g:timelim.days" units="nonSi:days">365.0</scalar>
+    <scalar dataType="xsd:string" dictRef="g:parall">F</scalar>
+    <scalar dataType="xsd:string" dictRef="g:bal.type">DLB</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:kdiag">0</scalar>
+    <scalar dataType="xsd:string" dictRef="g:corefl">F</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:mxseq2">300</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:mxseq3">150</scalar>
+   </list>
+  </parameter>
+ </module>
+ <module cmlx:lineCount="13" cmlx:templateRef="init.properties.input">
+  <parameter dictRef="g:properties.input.moments">
+   <list>
+    <scalar dataType="xsd:integer" dictRef="g:iemom">1</scalar>
+    <scalar dataType="xsd:string" dictRef="g:where">COMASS</scalar>
+    <scalar dataType="xsd:string" dictRef="g:output">BOTH</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:iemint">0</scalar>
+   </list>
+  </parameter>
+  <parameter dictRef="g:properties.input.field">
+   <list>
+    <scalar dataType="xsd:integer" dictRef="g:iefld">0</scalar>
+    <scalar dataType="xsd:string" dictRef="g:where">NUCLEI</scalar>
+    <scalar dataType="xsd:string" dictRef="g:output">BOTH</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:iefint">0</scalar>
+   </list>
+  </parameter>
+  <parameter dictRef="g:properties.input.potential">
+   <list>
+    <scalar dataType="xsd:integer" dictRef="g:iepot">0</scalar>
+    <scalar dataType="xsd:string" dictRef="g:where">NUCLEI</scalar>
+    <scalar dataType="xsd:string" dictRef="g:output">BOTH</scalar>
+   </list>
+  </parameter>
+  <parameter dictRef="g:properties.input.density">
+   <list>
+    <scalar dataType="xsd:integer" dictRef="g:ieden">0</scalar>
+    <scalar dataType="xsd:string" dictRef="g:where">NUCLEI</scalar>
+    <scalar dataType="xsd:string" dictRef="g:output">BOTH</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:iedint">0</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:morb">0</scalar>
+   </list>
+  </parameter>
+  <list cmlx:templateRef="init.properties.input.unparsed">
+   <scalar dataType="xsd:string" dictRef="x:UNPARSED">EXTRAPOLATION IN EFFECT</scalar>
+   <scalar dataType="xsd:string" dictRef="x:UNPARSED">DIIS IN EFFECT</scalar>
+   <scalar dataType="xsd:string" dictRef="x:UNPARSED">ORBITAL PRINTING OPTION: NPREO= 1 23 2 1</scalar>
+  </list>
+ </module> ------------------------------- INTEGRAL TRANSFORMATION OPTIONS ------------------------------- NWORD = 0 CUTOFF = 1.0E-09 MPTRAN = 0 DIRTRF = F AOINTS =DUP ---------------------- INTEGRAL INPUT OPTIONS ---------------------- NOPK = 1 NORDER= 0 SCHWRZ= F ------------------------------------------ THE POINT GROUP IS C1 , NAXIS= 0, ORDER= 1 ------------------------------------------ DIMENSIONS OF THE SYMMETRY SUBSPACES ARE A = 23 ..... DONE SETTING UP THE RUN ..... STEP CPU TIME = 0.00 TOTAL CPU TIME = 0.0 ( 0.0 MIN) TOTAL WALL CLOCK TIME= 0.0 SECONDS, CPU UTILIZATION IS 0.00% 
+ <module cmlx:lineCount="22" cmlx:templateRef="init.stationaryPointLocationRun">
+  <parameter dictRef="g:geometrySearchOptions">
+   <list>
+    <scalar dataType="xsd:string" dictRef="g:geomSearch_method">QA</scalar>
+    <scalar dataType="xsd:string" dictRef="g:geomSearch_uphess">BFGS</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:geomSearch_nneg">0</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:geomSearch_nfrz">0</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:geomSearch_nstep">20</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:geomSearch_ifolow">1</scalar>
+    <scalar dataType="xsd:string" dictRef="g:geomSearch_hess">GUESS</scalar>
+    <scalar dataType="xsd:string" dictRef="g:geomSearch_restar">F</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:geomSearch_ihrep">0</scalar>
+    <scalar dataType="xsd:string" dictRef="g:geomSearch_hssend">F</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:geomSearch_nprt">0</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:geomSearch_npun">0</scalar>
+    <scalar dataType="xsd:double" dictRef="g:geomSearch_opttol">1.0E-4</scalar>
+    <scalar dataType="xsd:double" dictRef="g:geomSearch_rmin">0.0015</scalar>
+    <scalar dataType="xsd:double" dictRef="g:geomSearch_rmax">0.1</scalar>
+    <scalar dataType="xsd:double" dictRef="g:geomSearch_rlim">0.07</scalar>
+    <scalar dataType="xsd:double" dictRef="g:geomSearch_dxmax">0.3</scalar>
+    <scalar dataType="xsd:string" dictRef="g:geomSearch_purify">F</scalar>
+    <scalar dataType="xsd:string" dictRef="g:geomSearch_movie">F</scalar>
+    <scalar dataType="xsd:string" dictRef="g:geomSearch_trupd">T</scalar>
+    <scalar dataType="xsd:double" dictRef="g:geomSearch_trmax">0.5</scalar>
+    <scalar dataType="xsd:double" dictRef="g:geomSearch_trmin">0.05</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:geomSearch_itbmat">5</scalar>
+    <scalar dataType="xsd:string" dictRef="g:geomSearch_stpt">F</scalar>
+    <scalar dataType="xsd:double" dictRef="g:geomSearch_ststep">0.01</scalar>
+    <scalar dataType="xsd:string" dictRef="g:geomSearch_projct">T</scalar>
+   </list>
+  </parameter>
+ </module> BEGINNING GEOMETRY SEARCH POINT NSERCH= 0 ... 
+ <module cmlx:lineCount="8" cmlx:templateRef="coordinates.angstom">
+  <molecule id="mol.input.card" cmlx:templateRef="atom">
+   <atomArray>
+    <atom id="a1" elementType="C" x3="0.0" y3="0.0" z3="0.0">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
+    </atom>
+    <atom id="a2" elementType="H" x3="0.0" y3="-0.89" z3="-0.6293">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+    <atom id="a3" elementType="H" x3="0.0" y3="0.89" z3="-0.6293">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+    <atom id="a4" elementType="H" x3="-0.89" y3="0.0" z3="0.6293">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+    <atom id="a5" elementType="H" x3="0.89" y3="0.0" z3="0.6293">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+   </atomArray>
+   <formula formalCharge="0" concise="C 1 H 4">
+    <atomArray elementType="C H" count="1.0 4.0"/>
+   </formula>
+   <bondArray>
+    <bond atomRefs2="a1 a2" id="a1_a2" order="S"/>
+    <bond atomRefs2="a1 a3" id="a1_a3" order="S"/>
+    <bond atomRefs2="a1 a4" id="a1_a4" order="S"/>
+    <bond atomRefs2="a1 a5" id="a1_a5" order="S"/>
+   </bondArray>
+   <property dictRef="cml:molmass">
+    <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">16.04246</scalar>
+   </property>
+  </molecule>
+ </module> ******************** 1 ELECTRON INTEGRALS ******************** ...... END OF ONE-ELECTRON INTEGRALS ...... STEP CPU TIME = 0.00 TOTAL CPU TIME = 0.0 ( 0.0 MIN) TOTAL WALL CLOCK TIME= 0.0 SECONDS, CPU UTILIZATION IS 0.00% 
+ <module cmlx:lineCount="7" cmlx:templateRef="init.guess.options">
+  <parameter dictRef="g:guessOptions">
+   <list>
+    <scalar dataType="xsd:string" dictRef="g:guess">HUCKEL</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:norb">0</scalar>
+    <scalar dataType="xsd:integer" dictRef="g:norder">0</scalar>
+    <scalar dataType="xsd:string" dictRef="g:mix">F</scalar>
+    <scalar dataType="xsd:string" dictRef="g:prtmo">F</scalar>
+    <scalar dataType="xsd:string" dictRef="g:punmo">F</scalar>
+    <scalar dataType="xsd:double" dictRef="g:tolz">1.0E-8</scalar>
+    <scalar dataType="xsd:double" dictRef="g:tole">1.0E-5</scalar>
+    <scalar dataType="xsd:string" dictRef="g:symden">F</scalar>
+    <scalar dataType="xsd:string" dictRef="g:purify">F</scalar>
+   </list>
+  </parameter>
+ </module> INITIAL GUESS ORBITALS GENERATED BY HUCKEL ROUTINE. HUCKEL GUESS REQUIRES 7663 WORDS. SYMMETRIES FOR INITIAL GUESS ORBITALS FOLLOW. BOTH SET(S). 5 ORBITALS ARE OCCUPIED ( 1 CORE ORBITALS). 2=A 3=A 4=A 5=A 6=A 7=A 8=A 9=A 10=A 11=A 12=A 13=A 14=A 15=A ...... END OF INITIAL ORBITAL SELECTION ...... STEP CPU TIME = 0.00 TOTAL CPU TIME = 0.0 ( 0.0 MIN) TOTAL WALL CLOCK TIME= 0.0 SECONDS, CPU UTILIZATION IS 0.00% ---------------------- AO INTEGRAL TECHNOLOGY ---------------------- S,P,L SHELL ROTATED AXIS INTEGRALS, REPROGRAMMED BY KAZUYA ISHIMURA (IMS) AND JOSE SIERRA (SYNSTAR). S,P,D,L SHELL ROTATED AXIS INTEGRALS PROGRAMMED BY KAZUYA ISHIMURA (INSTITUTE FOR MOLECULAR SCIENCE). S,P,D,F,G SHELL TO TOTAL QUARTET ANGULAR MOMENTUM SUM 5, ERIC PROGRAM BY GRAHAM FLETCHER (ELORET AND NASA ADVANCED SUPERCOMPUTING DIVISION, AMES RESEARCH CENTER). S,P,D,F,G,L SHELL GENERAL RYS QUADRATURE PROGRAMMED BY MICHEL DUPUIS (PACIFIC NORTHWEST NATIONAL LABORATORY). -------------------- 2 ELECTRON INTEGRALS -------------------- THE -PK- OPTION IS OFF, THE INTEGRALS ARE NOT IN SUPERMATRIX FORM. STORING 15000 INTEGRALS/RECORD ON DISK, USING 12 BYTES/INTEGRAL. TWO ELECTRON INTEGRAL EVALUATION REQUIRES 90474 WORDS OF MEMORY. II,JST,KST,LST = 1 1 1 1 NREC = 1 INTLOC = 1 II,JST,KST,LST = 2 1 1 1 NREC = 1 INTLOC = 2 II,JST,KST,LST = 3 1 1 1 NREC = 1 INTLOC = 34 II,JST,KST,LST = 4 1 1 1 NREC = 1 INTLOC = 214 II,JST,KST,LST = 5 1 1 1 NREC = 1 INTLOC = 1189 II,JST,KST,LST = 6 1 1 1 NREC = 1 INTLOC = 2365 II,JST,KST,LST = 7 1 1 1 NREC = 1 INTLOC = 3802 II,JST,KST,LST = 8 1 1 1 NREC = 1 INTLOC = 5512 II,JST,KST,LST = 9 1 1 1 NREC = 1 INTLOC = 7564 II,JST,KST,LST = 10 1 1 1 NREC = 1 INTLOC =10658 II,JST,KST,LST = 11 1 1 1 NREC = 1 INTLOC =14175 II,JST,KST,LST = 12 1 1 1 NREC = 2 INTLOC = 3243 TOTAL NUMBER OF NONZERO TWO-ELECTRON INTEGRALS = 22838 2 INTEGRAL RECORDS WERE STORED ON DISK FILE 8. ...... END OF TWO-ELECTRON INTEGRALS ..... STEP CPU TIME = 0.05 TOTAL CPU TIME = 0.0 ( 0.0 MIN) TOTAL WALL CLOCK TIME= 0.1 SECONDS, CPU UTILIZATION IS 100.00% -------------------------- R-B3LYP SCF CALCULATION -------------------------- NUCLEAR ENERGY = 13.4352856837 MAXIT = 30 NPUNCH= 2 EXTRAP=T DAMP=F SHIFT=F RSTRCT=F DIIS=T DEM=F SOSCF=F DENSITY MATRIX CONVERGENCE THRESHOLD= 1.00E-05 COARSE -&gt; FINE DFT GRID SWITCH THRESHOLD= 3.00E-04 (SWITCH IN $DFT) HF -&gt; DFT SWITCH THRESHOLD= 5.00E-03 (SWOFF IN $DFT) MEMORY REQUIRED FOR RHF ITERS= 228890 WORDS. DFT CODE IS SWITCHING FROM THE FINE GRID NRAD= 96, NLEB= 302 TO THE COARSE GRID NRAD0= 24, NLEB0= 110 EXCHANGE FUNCTIONAL =B88&amp;HFX CORRELATION FUNCTIONAL=LYP88&amp;VWN5 DFT THRESHOLD =.276E-07 GRID CHANGE THRESHOLD =.300E-03 FOR AN EULER-MACLAURIN QUADRATURE USING 96 RADIAL POINTS: SMALLEST GAUSSIAN PRIMITIVE EXPONENT= 0.1612777588 OF TYPE -S- ON ATOM NUMBER 2 HAS RADIAL NORMALIZATION= 1.000000 LARGEST GAUSSIAN PRIMITIVE EXPONENT= 3047.5248800000 OF TYPE -S- ON ATOM NUMBER 1 HAS RADIAL NORMALIZATION= 1.000000 DFT IS SWITCHED OFF, PERFORMING PURE SCF UNTIL SWOFF THRESHOLD IS REACHED. ITER EX DEM TOTAL ENERGY E CHANGE DENSITY CHANGE DIIS ERROR * * * INITIATING DIIS PROCEDURE * * * 1 0 0 -40.1094042202 -40.1094042202 0.122766430 0.499327014 2 1 0 -40.1905588114 -0.0811545912 0.043653848 0.049483992 3 2 0 -40.1944283432 -0.0038695318 0.015131841 0.025316004 4 3 0 -40.1950297839 -0.0006014407 0.004373408 0.004731989 CONVERGED TO SWOFF, SO DFT CALCULATION IS NOW SWITCHED ON. * * * INITIATING DIIS PROCEDURE * * * 5 4 0 -40.4770373379 -0.2820075540 0.048544114 0.118398948 6 5 0 -40.4794696528 -0.0024323150 0.029041039 0.029333902 7 6 0 -40.4797148744 -0.0002452216 0.013550504 0.024917410 8 7 0 -40.4804393808 -0.0007245064 0.000051863 0.000105646 DFT CODE IS SWITCHING BACK TO THE FINE GRID * * * INITIATING DIIS PROCEDURE * * * 9 8 0 -40.4823386039 -0.0018992231 0.000951109 0.001112048 10 9 0 -40.4823396976 -0.0000010937 0.000153357 0.000125187 11 10 0 -40.4823396934 0.0000000042 0.000080523 0.000144067 12 11 0 -40.4823397177 -0.0000000243 0.000003136 0.000005014 13 12 0 -40.4823397177 0.0000000000 0.000000065 0.000000105 14 13 0 -40.4823397177 0.0000000000 0.000000007 0.000000012 ----------------- DENSITY CONVERGED ----------------- TIME TO FORM FOCK OPERATORS= 4.1 SECONDS ( 0.3 SEC/ITER) TIME TO SOLVE SCF EQUATIONS= 0.0 SECONDS ( 0.0 SEC/ITER) FINAL R-B3LYP ENERGY IS -40.4823397177 AFTER 14 ITERATIONS DFT EXCHANGE + CORRELATION ENERGY = -5.5542051091 TOTAL ELECTRON NUMBER = 9.9998918868 ------------ EIGENVECTORS ------------ 1 2 3 4 5 -10.1620 -0.6878 -0.3862 -0.3862 -0.3862 A A A A A 1 C 1 S 0.992796 -0.198553 0.000000 0.000000 -0.000001 2 C 1 S 0.049845 0.380293 -0.000001 -0.000001 -0.000004 3 C 1 X 0.000000 0.000000 0.446739 0.001440 -0.005421 4 C 1 Y 0.000000 0.000000 -0.001349 0.446709 0.007490 5 C 1 Z 0.000000 0.000000 0.005444 -0.007473 0.446678 6 C 1 S -0.014706 0.360128 0.000008 0.000009 0.000025 7 C 1 X 0.000000 -0.000001 0.214315 0.000691 -0.002603 8 C 1 Y 0.000000 -0.000002 -0.000647 0.214301 0.003596 9 C 1 Z 0.000000 -0.000004 0.002615 -0.003588 0.214316 10 C 1 XX -0.009362 0.001541 0.000270 -0.000372 0.022184 11 C 1 YY -0.009362 0.001541 -0.000271 0.000371 -0.022185 12 C 1 ZZ -0.009362 0.001544 0.000000 0.000000 -0.000001 13 C 1 XY 0.000000 0.000000 0.000000 0.000000 0.000000 14 C 1 XZ 0.000000 0.000000 0.025619 0.000083 -0.000311 15 C 1 YZ 0.000000 0.000000 0.000077 -0.025617 -0.000430 16 H 2 S -0.000160 0.134978 -0.001342 -0.236793 -0.173444 17 H 2 S 0.002617 0.038656 -0.001131 -0.199619 -0.146214 18 H 3 S -0.000160 0.134978 -0.002789 0.242461 -0.165409 19 H 3 S 0.002617 0.038659 -0.002351 0.204389 -0.139445 20 H 4 S -0.000160 0.134979 -0.237578 -0.003607 0.172333 21 H 4 S 0.002617 0.038661 -0.200281 -0.003042 0.145264 22 H 5 S -0.000160 0.134979 0.241708 -0.002062 0.166517 23 H 5 S 0.002617 0.038664 0.203754 -0.001740 0.140366 6 7 8 9 10 0.1218 0.1807 0.1807 0.1808 0.5356 A A A A A 1 C 1 S -0.162735 -0.000003 -0.000002 0.000001 -0.000001 2 C 1 S 0.194573 0.000011 0.000005 -0.000003 0.000009 3 C 1 X -0.000002 -0.011083 -0.011481 -0.382731 0.001906 4 C 1 Y -0.000004 -0.011039 0.382741 -0.011161 0.000179 5 C 1 Z -0.000009 0.382725 0.010706 -0.011405 -0.761740 6 C 1 S 2.625459 0.000032 0.000020 -0.000006 -0.000012 7 C 1 X -0.000004 -0.039503 -0.040923 -1.364232 -0.003639 8 C 1 Y -0.000014 -0.039355 1.364271 -0.039785 -0.000340 9 C 1 Z -0.000027 1.364235 0.038168 -0.040646 1.454132 10 C 1 XX -0.012782 -0.016878 -0.000472 0.000503 -0.087803 11 C 1 YY -0.012783 0.016878 0.000472 -0.000503 0.087804 12 C 1 ZZ -0.012782 0.000000 0.000000 0.000000 0.000001 13 C 1 XY 0.000000 0.000000 0.000000 0.000000 0.000000 14 C 1 XZ 0.000000 0.000564 0.000585 0.019488 0.000254 15 C 1 YZ 0.000000 -0.000562 0.019489 -0.000568 -0.000023 16 H 2 S -0.018211 0.069731 0.104821 -0.005163 0.285826 17 H 2 S -0.996371 1.041962 1.566667 -0.077163 0.131073 18 H 3 S -0.018207 0.075660 -0.100755 0.000832 0.286013 19 H 3 S -0.996344 1.130597 -1.505898 0.012438 0.131161 20 H 4 S -0.018204 -0.075676 -0.005118 -0.100618 -0.286935 21 H 4 S -0.996327 -1.130789 -0.076483 -1.503872 -0.131576 22 H 5 S -0.018203 -0.069722 0.001049 0.104951 -0.284910 23 H 5 S -0.996319 -1.041825 0.015682 1.568608 -0.130650 11 12 13 14 15 0.5356 0.5356 0.9035 0.9036 0.9036 A A A A A 1 C 1 S 0.000000 0.000000 -0.000003 -0.000001 -0.000001 2 C 1 S 0.000004 0.000002 -0.000017 -0.000005 -0.000006 3 C 1 X 0.000015 -0.761733 -0.008618 -0.854231 0.002164 4 C 1 Y -0.761738 -0.000015 0.010826 -0.002274 -0.854204 5 C 1 Z -0.000179 -0.001905 -0.854157 0.008589 -0.010848 6 C 1 S -0.000005 -0.000003 0.000057 0.000016 0.000022 7 C 1 X -0.000030 1.454267 0.012378 1.226731 -0.003108 8 C 1 Y 1.454272 0.000029 -0.015549 0.003265 1.226693 9 C 1 Z 0.000340 0.003639 1.226632 -0.012337 0.015581 10 C 1 XX -0.000020 -0.000220 0.177414 -0.001784 0.002252 11 C 1 YY 0.000020 0.000220 -0.177417 0.001783 -0.002253 12 C 1 ZZ 0.000000 0.000000 -0.000002 -0.000001 -0.000001 13 C 1 XY 0.000000 0.000000 0.000000 0.000000 0.000000 14 C 1 XZ 0.000002 -0.101391 0.002066 0.204879 -0.000519 15 C 1 YZ 0.101391 0.000002 0.002596 -0.000545 -0.204874 16 H 2 S 0.404416 0.000724 -0.503559 0.003222 -0.731676 17 H 2 S 0.185583 0.000332 0.969530 -0.006214 1.408746 18 H 3 S -0.404285 0.000708 -0.521938 0.007083 0.718640 19 H 3 S -0.185518 0.000324 1.004922 -0.013646 -1.383670 20 H 4 S -0.000075 0.403633 0.505404 -0.730338 0.008342 21 H 4 S -0.000034 0.185223 -0.973148 1.406176 -0.016078 22 H 5 S -0.000058 -0.405067 0.520034 0.720020 0.004667 23 H 5 S -0.000027 -0.185876 -1.001322 -1.386323 -0.009002 16 17 18 19 20 0.9558 1.1041 1.6593 1.6594 2.2515 A A A A A 1 C 1 S 0.100368 -0.100255 0.000013 0.000000 0.000000 2 C 1 S -0.812001 -2.059465 0.000109 0.000000 -0.000001 3 C 1 X -0.000003 0.000003 0.000000 0.000000 0.154572 4 C 1 Y -0.000007 0.000004 0.000000 0.000000 -0.000034 5 C 1 Z -0.000015 0.000010 0.000000 0.000000 0.000227 6 C 1 S 1.112631 5.479111 -0.000367 0.000000 0.000002 7 C 1 X 0.000006 -0.000003 0.000000 0.000000 0.432546 8 C 1 Y 0.000013 -0.000005 0.000000 0.000000 -0.000094 9 C 1 Z 0.000029 -0.000013 0.000000 0.000000 0.000637 10 C 1 XX -0.022521 -0.113778 -0.499992 0.000000 0.001442 11 C 1 YY -0.022523 -0.113769 -0.499992 0.000000 -0.001442 12 C 1 ZZ -0.022562 -0.113695 1.000008 0.000000 0.000000 13 C 1 XY 0.000000 0.000000 0.000000 1.000000 0.000000 14 C 1 XZ 0.000000 -0.000001 0.000000 0.000000 1.131732 15 C 1 YZ -0.000001 0.000002 0.000000 0.000000 0.000247 16 H 2 S 0.651937 -0.292366 0.000051 0.000000 0.000558 17 H 2 S -0.539524 -1.041085 0.000060 0.000000 -0.000062 18 H 3 S 0.651947 -0.292375 0.000051 0.000000 0.000853 19 H 3 S -0.539550 -1.041073 0.000060 0.000000 -0.000095 20 H 4 S 0.651955 -0.292384 0.000051 0.000000 0.677366 21 H 4 S -0.539571 -1.041060 0.000060 0.000000 -0.075550 22 H 5 S 0.651959 -0.292390 0.000051 0.000000 -0.678776 23 H 5 S -0.539583 -1.041052 0.000060 0.000000 0.075706 21 22 23 2.2515 2.2515 4.1850 A A A 1 C 1 S 0.000000 0.000000 -0.488480 2 C 1 S 0.000002 -0.000005 2.934751 3 C 1 X -0.000034 -0.000227 0.000000 4 C 1 Y -0.154572 0.000097 0.000000 5 C 1 Z 0.000097 0.154575 0.000000 6 C 1 S -0.000004 0.000009 2.459286 7 C 1 X -0.000095 -0.000636 0.000000 8 C 1 Y -0.432546 0.000274 0.000000 9 C 1 Z 0.000273 0.432476 0.000000 10 C 1 XX 0.000619 0.980116 -1.880679 11 C 1 YY -0.000619 -0.980114 -1.880680 12 C 1 ZZ 0.000000 0.000001 -1.880679 13 C 1 XY 0.000000 0.000000 0.000000 14 C 1 XZ -0.000248 -0.001665 0.000000 15 C 1 YZ 1.131733 -0.000715 0.000000 16 H 2 S -0.677769 0.479900 0.129252 17 H 2 S 0.075596 -0.053562 -0.498233 18 H 3 S 0.678374 0.479044 0.129252 19 H 3 S -0.075661 -0.053467 -0.498233 20 H 4 S -0.000451 -0.480468 0.129251 21 H 4 S 0.000051 0.053621 -0.498233 22 H 5 S -0.000154 -0.478473 0.129251 23 H 5 S 0.000018 0.053398 -0.498233 ...... END OF RHF CALCULATION ...... STEP CPU TIME = 4.20 TOTAL CPU TIME = 4.3 ( 0.1 MIN) TOTAL WALL CLOCK TIME= 4.6 SECONDS, CPU UTILIZATION IS 92.39% --------------------------------------------------------------------- PROPERTIES FOR THE B3LYP DFT FUNCTIONAL (RHF TYPE) DENSITY MATRIX --------------------------------------------------------------------- 
+ <module cmlx:lineCount="19" cmlx:templateRef="energy.components">
+  <propertyList>
+   <property dictRef="g:WavefunctionNormalization">
+    <scalar dataType="xsd:double">1.0</scalar>
+   </property>
+   <property dictRef="cc:e1Energy">
+    <scalar dataType="xsd:double" units="nonSi:hartree">-79.8315728853</scalar>
+   </property>
+   <property dictRef="cc:e2Energy">
+    <scalar dataType="xsd:double" units="nonSi:hartree">25.9139474839</scalar>
+   </property>
+   <property dictRef="cc:nuclearRepulsionEnergy">
+    <scalar dataType="xsd:double" units="nonSi:hartree">13.4352856837</scalar>
+   </property>
+   <property dictRef="cc:totalEnergy">
+    <scalar dataType="xsd:double" units="nonSi:hartree">-40.4823397177</scalar>
+   </property>
+   <property dictRef="g:ElectronElectronPotentialEnergy">
+    <scalar dataType="xsd:double">25.9139474839</scalar>
+   </property>
+   <property dictRef="g:NucleusElectronPotentialEnergy">
+    <scalar dataType="xsd:double">-119.9174064334</scalar>
+   </property>
+   <property dictRef="g:NucleusNucleusPotentialEnergy">
+    <scalar dataType="xsd:double">13.4352856837</scalar>
+   </property>
+   <property dictRef="g:TotalNucleusPotentialEnergy">
+    <scalar dataType="xsd:double">-80.5681732658</scalar>
+   </property>
+   <property dictRef="g:TotalKineticPotentialEnergy">
+    <scalar dataType="xsd:double">40.0858335481</scalar>
+   </property>
+   <property dictRef="g:VirialRatio_VT">
+    <scalar dataType="xsd:double">2.0098914288</scalar>
+   </property>
+  </propertyList>
+ </module> --------------------------------------- MULLIKEN AND LOWDIN POPULATION ANALYSES --------------------------------------- ATOMIC MULLIKEN POPULATION IN EACH MOLECULAR ORBITAL 1 2 3 4 5 2.000000 2.000000 2.000000 2.000000 2.000000 1 1.997956 1.345009 1.095099 1.095099 1.095150 2 0.000511 0.163741 0.000014 0.441686 0.236972 3 0.000511 0.163746 0.000061 0.463079 0.215526 4 0.000511 0.163750 0.444621 0.000103 0.233936 5 0.000511 0.163754 0.460205 0.000034 0.218416 ----- POPULATIONS IN EACH AO ----- MULLIKEN LOWDIN 1 C 1 S 1.99164 1.98042 2 C 1 S 0.67349 0.36313 3 C 1 X 0.71584 0.64461 4 C 1 Y 0.71584 0.64461 5 C 1 Z 0.71584 0.64410 6 C 1 S 0.67688 0.35363 7 C 1 X 0.36980 0.50746 8 C 1 Y 0.36980 0.50746 9 C 1 Z 0.36985 0.50646 10 C 1 XX 0.00505 0.15285 11 C 1 YY 0.00505 0.15285 12 C 1 ZZ 0.00032 0.14578 13 C 1 XY 0.00000 0.00000 14 C 1 XZ 0.00946 0.01685 15 C 1 YZ 0.00946 0.01685 16 H 2 S 0.52312 0.48201 17 H 2 S 0.31981 0.35872 18 H 3 S 0.52312 0.48201 19 H 3 S 0.31980 0.35872 20 H 4 S 0.52312 0.48201 21 H 4 S 0.31980 0.35872 22 H 5 S 0.52312 0.48201 23 H 5 S 0.31980 0.35872 ----- MULLIKEN ATOMIC OVERLAP POPULATIONS ----- (OFF-DIAGONAL ELEMENTS NEED TO BE MULTIPLIED BY 2) 1 2 3 4 5 1 5.0905119 2 0.3844399 0.5391901 3 0.3844473 -0.0269037 0.5391838 4 0.3844542 -0.0269009 -0.0269022 0.5391776 5 0.3844602 -0.0269017 -0.0269029 -0.0269078 0.5391716 TOTAL MULLIKEN AND LOWDIN ATOMIC POPULATIONS ATOM MULL.POP. CHARGE LOW.POP. CHARGE 1 C 6.628314 -0.628314 6.637078 -0.637078 2 H 0.842924 0.157076 0.840731 0.159269 3 H 0.842922 0.157078 0.840731 0.159269 4 H 0.842921 0.157079 0.840730 0.159270 5 H 0.842919 0.157081 0.840729 0.159271 
+ <module cmlx:lineCount="16" cmlx:templateRef="bondOrder.valence">
+  <property dictRef="g:bondOrderThreshold">
+   <scalar dataType="xsd:double">0.05</scalar>
+  </property>
+  <property dictRef="g:bondorders">
+   <list>
+    <array dataType="xsd:integer" size="4" dictRef="g:atomId1">1 1 1 1</array>
+    <array dataType="xsd:integer" size="4" dictRef="g:atomId2">2 3 4 5</array>
+    <array dataType="xsd:double" size="4" dictRef="g:distance">1.09 1.09 1.09 1.09</array>
+    <array dataType="xsd:double" size="4" dictRef="g:bondOrder">0.964 0.964 0.964 0.964</array>
+   </list>
+  </property>
+  <property dictRef="g:valences">
+   <list>
+    <array dataType="xsd:integer" dictRef="g:atomId" size="5">1 2 3 4 5</array>
+    <array dataType="xsd:string" dictRef="g:atomLabel" size="5">C H H H H</array>
+    <array dataType="xsd:double" dictRef="g:totalValence" size="5">3.856 0.936 0.936 0.936 0.936</array>
+    <array dataType="xsd:double" dictRef="g:bondedValence" size="5">3.856 0.936 0.936 0.936 0.936</array>
+    <array dataType="xsd:double" dictRef="g:freeValence" size="5">0.0 0.0 0.0 0.0 0.0</array>
+   </list>
+  </property>
+ </module>
+ <module cmlx:lineCount="7" cmlx:templateRef="dipole.moment">
+  <scalar dataType="xsd:string" dictRef="cmlx:unparsed">POINT 1 X Y Z (BOHR) CHARGE</scalar>
+  <scalar dataType="xsd:string" dictRef="cmlx:unparsed">0.000000 0.000000 0.000000 0.00 (A.U.)</scalar>
+ </module> 0.000010 0.000010 0.000027 0.000031 ...... END OF PROPERTY EVALUATION ...... STEP CPU TIME = 0.00 TOTAL CPU TIME = 4.3 ( 0.1 MIN) TOTAL WALL CLOCK TIME= 4.6 SECONDS, CPU UTILIZATION IS 92.39% BEGINNING ONE ELECTRON GRADIENT... ..... END OF 1-ELECTRON GRADIENT ...... STEP CPU TIME = 0.01 TOTAL CPU TIME = 4.3 ( 0.1 MIN) TOTAL WALL CLOCK TIME= 4.6 SECONDS, CPU UTILIZATION IS 92.61% ---------------------- GRADIENT OF THE ENERGY ---------------------- MEMORY FOR GRID POINT CONTRIBUTIONS TO THE DFT GRADIENT= 196865 WORDS. STEP CPU TIME = 1.01 TOTAL CPU TIME = 5.3 ( 0.1 MIN) TOTAL WALL CLOCK TIME= 5.6 SECONDS, CPU UTILIZATION IS 93.77% THE MINIMUM MEMORY REQUIRED FOR THIS RUN IS 74081 WORDS. USING 988631 WORDS FOR 2E- DERIVATIVE INTEGRAL CONTRIBUTIONS. THE COARSE/FINE SCHWARZ SCREENINGS SKIPPED 0/ 0 BLOCKS. THE NUMBER OF GRADIENT INTEGRAL BLOCKS COMPUTED WAS 3002 ...... END OF 2-ELECTRON GRADIENT ...... STEP CPU TIME = 0.03 TOTAL CPU TIME = 5.3 ( 0.1 MIN) TOTAL WALL CLOCK TIME= 5.7 SECONDS, CPU UTILIZATION IS 93.81% NSERCH= 0 ENERGY= -40.4823397 ----------------------- GRADIENT (HARTREE/BOHR) ----------------------- ATOM ZNUC DE/DX DE/DY DE/DZ -------------------------------------------------------------- 1 C 6.0 -0.0000002 -0.0000002 -0.0000006 2 H 1.0 0.0000001 0.0019941 0.0013919 3 H 1.0 0.0000001 -0.0019940 0.0013919 4 H 1.0 0.0019942 0.0000001 -0.0013915 5 H 1.0 -0.0019941 0.0000001 -0.0013916 MAXIMUM GRADIENT = 0.0019942 RMS GRADIENT = 0.0012557 NSERCH: 0 E= -40.4823397177 GRAD. MAX= 0.0019942 R.M.S.= 0.0012557 FORCE CONSTANT MATRIX NOT UPDATED --- TAKING FIRST STEP MIN SEARCH, CORRECT HESSIAN, TRYING PURE NR STEP NR STEP HAS LENGTH = 0.009926 RADIUS OF STEP TAKEN= 0.00993 CURRENT TRUST RADIUS= 0.30000 BEGINNING GEOMETRY SEARCH POINT NSERCH= 1 ... 
+ <module cmlx:lineCount="8" cmlx:templateRef="coordinates.angstom">
+  <molecule id="a5" cmlx:templateRef="atom">
+   <atomArray>
+    <atom id="a1" elementType="C" x3="1.0561E-6" y3="9.226E-7" z3="2.8973E-6">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
+    </atom>
+    <atom id="a2" elementType="H" x3="-7.977E-7" y3="-0.8922604696" z3="-0.6306332721">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+    <atom id="a3" elementType="H" x3="-7.977E-7" y3="0.8922609187" z3="-0.6306345596">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+    <atom id="a4" elementType="H" x3="-0.8922645271" y3="-6.858E-7" z3="0.6306317125">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+    <atom id="a5" elementType="H" x3="0.8922650664" y3="-6.859E-7" z3="0.6306332219">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+   </atomArray>
+   <formula formalCharge="0" concise="C 1 H 4">
+    <atomArray elementType="C H" count="1.0 4.0"/>
+   </formula>
+   <bondArray>
+    <bond atomRefs2="a1 a2" id="a1_a2" order="S"/>
+    <bond atomRefs2="a1 a3" id="a1_a3" order="S"/>
+    <bond atomRefs2="a1 a4" id="a1_a4" order="S"/>
+    <bond atomRefs2="a1 a5" id="a1_a5" order="S"/>
+   </bondArray>
+   <property dictRef="cml:molmass">
+    <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">16.04246</scalar>
+   </property>
+  </molecule>
+ </module> INTERNUCLEAR DISTANCES (ANGS.) ------------------------------ 1 C 2 H 3 H 4 H 5 H 1 C 0.0000000 1.0926264 * 1.0926260 * 1.0926255 * 1.0926251 * 2 H 1.0926264 * 0.0000000 1.7845214 * 1.7841108 * 1.7841130 * 3 H 1.0926260 * 1.7845214 * 0.0000000 1.7841126 * 1.7841148 * 4 H 1.0926255 * 1.7841108 * 1.7841126 * 0.0000000 1.7845296 * 5 H 1.0926251 * 1.7841130 * 1.7841148 * 1.7845296 * 0.0000000 * ... LESS THAN 3.000 ...... END OF ONE-ELECTRON INTEGRALS ...... STEP CPU TIME = 0.00 TOTAL CPU TIME = 5.3 ( 0.1 MIN) TOTAL WALL CLOCK TIME= 5.7 SECONDS, CPU UTILIZATION IS 93.81% TOTAL NUMBER OF NONZERO TWO-ELECTRON INTEGRALS = 31472 3 INTEGRAL RECORDS WERE STORED ON DISK FILE 8. ...... END OF TWO-ELECTRON INTEGRALS ..... STEP CPU TIME = 0.01 TOTAL CPU TIME = 5.3 ( 0.1 MIN) TOTAL WALL CLOCK TIME= 5.7 SECONDS, CPU UTILIZATION IS 93.82% -------------------------- R-B3LYP SCF CALCULATION -------------------------- DENSITY MATRIX CONVERGENCE THRESHOLD= 1.00E-05 COARSE -&gt; FINE DFT GRID SWITCH THRESHOLD= 3.00E-04 (SWITCH IN $DFT) HF -&gt; DFT SWITCH THRESHOLD= 5.00E-03 (SWOFF IN $DFT) DFT CODE IS SWITCHING FROM THE FINE GRID NRAD= 96, NLEB= 302 TO THE COARSE GRID NRAD0= 24, NLEB0= 110 ITER EX DEM TOTAL ENERGY E CHANGE DENSITY CHANGE DIIS ERROR * * * INITIATING DIIS PROCEDURE * * * 1 0 0 -40.4804721650 -40.4804721650 0.001783557 0.001882723 2 1 0 -40.4804731623 -0.0000009973 0.001064449 0.001804916 3 2 0 -40.4804767016 -0.0000035392 0.000121780 0.000230052 DFT CODE IS SWITCHING BACK TO THE FINE GRID * * * INITIATING DIIS PROCEDURE * * * 4 3 0 -40.4823690522 -0.0018923507 0.000938487 0.001107946 5 4 0 -40.4823701515 -0.0000010993 0.000165289 0.000132552 6 5 0 -40.4823701463 0.0000000052 0.000086382 0.000160502 7 6 0 -40.4823701746 -0.0000000283 0.000002880 0.000004555 8 7 0 -40.4823701746 0.0000000000 0.000000063 0.000000092 9 8 0 -40.4823701746 0.0000000000 0.000000008 0.000000013 ----------------- DENSITY CONVERGED ----------------- TIME TO FORM FOCK OPERATORS= 4.1 SECONDS ( 0.5 SEC/ITER) TIME TO SOLVE SCF EQUATIONS= 0.0 SECONDS ( 0.0 SEC/ITER) FINAL R-B3LYP ENERGY IS -40.4823701746 AFTER 9 ITERATIONS DFT EXCHANGE + CORRELATION ENERGY = -5.5512204828 TOTAL ELECTRON NUMBER = 9.9998923272 ...... END OF RHF CALCULATION ...... STEP CPU TIME = 4.13 TOTAL CPU TIME = 9.4 ( 0.2 MIN) TOTAL WALL CLOCK TIME= 9.8 SECONDS, CPU UTILIZATION IS 96.42% ..... END OF 1-ELECTRON GRADIENT ...... STEP CPU TIME = 0.00 TOTAL CPU TIME = 9.4 ( 0.2 MIN) TOTAL WALL CLOCK TIME= 9.8 SECONDS, CPU UTILIZATION IS 96.42% MEMORY FOR GRID POINT CONTRIBUTIONS TO THE DFT GRADIENT= 196865 WORDS. STEP CPU TIME = 1.03 TOTAL CPU TIME = 10.5 ( 0.2 MIN) TOTAL WALL CLOCK TIME= 10.8 SECONDS, CPU UTILIZATION IS 96.77% ...... END OF 2-ELECTRON GRADIENT ...... STEP CPU TIME = 0.02 TOTAL CPU TIME = 10.5 ( 0.2 MIN) TOTAL WALL CLOCK TIME= 10.8 SECONDS, CPU UTILIZATION IS 96.77% NSERCH= 1 ENERGY= -40.4823702 ----------------------- GRADIENT (HARTREE/BOHR) ----------------------- ATOM ZNUC DE/DX DE/DY DE/DZ -------------------------------------------------------------- 1 C 6.0 0.0000004 0.0000004 0.0000012 2 H 1.0 -0.0000001 0.0005192 0.0003974 3 H 1.0 -0.0000001 -0.0005193 0.0003974 4 H 1.0 0.0005190 -0.0000001 -0.0003980 5 H 1.0 -0.0005192 -0.0000001 -0.0003979 MAXIMUM GRADIENT = 0.0005193 RMS GRADIENT = 0.0003377 NSERCH: 1 E= -40.4823701746 GRAD. MAX= 0.0005193 R.M.S.= 0.0003377 HESSIAN UPDATED USING THE BFGS FORMULA ACTUAL ENERGY CHANGE WAS -0.0000304569 PREDICTED ENERGY CHANGE WAS -0.0000240661 RATIO= 1.266 MIN SEARCH, CORRECT HESSIAN, TRYING PURE NR STEP NR STEP HAS LENGTH = 0.004117 RADIUS OF STEP TAKEN= 0.00412 CURRENT TRUST RADIUS= 0.05000 BEGINNING GEOMETRY SEARCH POINT NSERCH= 2 ... 
+ <module cmlx:lineCount="8" cmlx:templateRef="coordinates.angstom">
+  <molecule id="a5" cmlx:templateRef="atom">
+   <atomArray>
+    <atom id="a1" elementType="C" x3="-1.5302E-6" y3="-1.3276E-6" z3="-4.0967E-6">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
+    </atom>
+    <atom id="a2" elementType="H" x3="1.1325E-6" y3="-0.892771542" z3="-0.6315980274">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+    <atom id="a3" elementType="H" x3="1.1325E-6" y3="0.8927708779" z3="-0.6315961496">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+    <atom id="a4" elementType="H" x3="-0.8927658633" y3="9.958E-7" z3="0.6316001974">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+    <atom id="a5" elementType="H" x3="0.8927651285" y3="9.959E-7" z3="0.6315980763">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+   </atomArray>
+   <formula formalCharge="0" concise="C 1 H 4">
+    <atomArray elementType="C H" count="1.0 4.0"/>
+   </formula>
+   <bondArray>
+    <bond atomRefs2="a1 a2" id="a1_a2" order="S"/>
+    <bond atomRefs2="a1 a3" id="a1_a3" order="S"/>
+    <bond atomRefs2="a1 a4" id="a1_a4" order="S"/>
+    <bond atomRefs2="a1 a5" id="a1_a5" order="S"/>
+   </bondArray>
+   <property dictRef="cml:molmass">
+    <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">16.04246</scalar>
+   </property>
+  </molecule>
+ </module> INTERNUCLEAR DISTANCES (ANGS.) ------------------------------ 1 C 2 H 3 H 4 H 5 H 1 C 0.0000000 1.0935948 * 1.0935953 * 1.0935960 * 1.0935966 * 2 H 1.0935948 * 0.0000000 1.7855424 * 1.7859859 * 1.7859829 * 3 H 1.0935953 * 1.7855424 * 0.0000000 1.7859832 * 1.7859802 * 4 H 1.0935960 * 1.7859859 * 1.7859832 * 0.0000000 1.7855310 * 5 H 1.0935966 * 1.7859829 * 1.7859802 * 1.7855310 * 0.0000000 * ... LESS THAN 3.000 ...... END OF ONE-ELECTRON INTEGRALS ...... STEP CPU TIME = 0.00 TOTAL CPU TIME = 10.5 ( 0.2 MIN) TOTAL WALL CLOCK TIME= 10.8 SECONDS, CPU UTILIZATION IS 96.77% TOTAL NUMBER OF NONZERO TWO-ELECTRON INTEGRALS = 31608 3 INTEGRAL RECORDS WERE STORED ON DISK FILE 8. ...... END OF TWO-ELECTRON INTEGRALS ..... STEP CPU TIME = 0.01 TOTAL CPU TIME = 10.5 ( 0.2 MIN) TOTAL WALL CLOCK TIME= 10.9 SECONDS, CPU UTILIZATION IS 96.77% -------------------------- R-B3LYP SCF CALCULATION -------------------------- DENSITY MATRIX CONVERGENCE THRESHOLD= 1.00E-05 COARSE -&gt; FINE DFT GRID SWITCH THRESHOLD= 3.00E-04 (SWITCH IN $DFT) HF -&gt; DFT SWITCH THRESHOLD= 5.00E-03 (SWOFF IN $DFT) DFT CODE IS SWITCHING FROM THE FINE GRID NRAD= 96, NLEB= 302 TO THE COARSE GRID NRAD0= 24, NLEB0= 110 ITER EX DEM TOTAL ENERGY E CHANGE DENSITY CHANGE DIIS ERROR * * * INITIATING DIIS PROCEDURE * * * 1 0 0 -40.4804791238 -40.4804791238 0.000992805 0.000943708 2 1 0 -40.4804800702 -0.0000009464 0.000597344 0.000749457 3 2 0 -40.4804805810 -0.0000005109 0.000186834 0.000358121 DFT CODE IS SWITCHING BACK TO THE FINE GRID * * * INITIATING DIIS PROCEDURE * * * 4 3 0 -40.4823713634 -0.0018907824 0.000935027 0.001108402 5 4 0 -40.4823724663 -0.0000011029 0.000172738 0.000137739 6 5 0 -40.4823724605 0.0000000058 0.000090144 0.000168061 7 6 0 -40.4823724915 -0.0000000310 0.000002756 0.000004323 8 7 0 -40.4823724916 0.0000000000 0.000000063 0.000000091 9 8 0 -40.4823724916 0.0000000000 0.000000008 0.000000014 ----------------- DENSITY CONVERGED ----------------- TIME TO FORM FOCK OPERATORS= 4.1 SECONDS ( 0.5 SEC/ITER) TIME TO SOLVE SCF EQUATIONS= 0.0 SECONDS ( 0.0 SEC/ITER) FINAL R-B3LYP ENERGY IS -40.4823724916 AFTER 9 ITERATIONS DFT EXCHANGE + CORRELATION ENERGY = -5.5501173806 TOTAL ELECTRON NUMBER = 9.9998921531 ...... END OF RHF CALCULATION ...... STEP CPU TIME = 4.15 TOTAL CPU TIME = 14.7 ( 0.2 MIN) TOTAL WALL CLOCK TIME= 15.0 SECONDS, CPU UTILIZATION IS 97.60% ..... END OF 1-ELECTRON GRADIENT ...... STEP CPU TIME = 0.00 TOTAL CPU TIME = 14.7 ( 0.2 MIN) TOTAL WALL CLOCK TIME= 15.0 SECONDS, CPU UTILIZATION IS 97.60% MEMORY FOR GRID POINT CONTRIBUTIONS TO THE DFT GRADIENT= 196865 WORDS. STEP CPU TIME = 1.02 TOTAL CPU TIME = 15.7 ( 0.3 MIN) TOTAL WALL CLOCK TIME= 16.0 SECONDS, CPU UTILIZATION IS 97.75% ...... END OF 2-ELECTRON GRADIENT ...... STEP CPU TIME = 0.02 TOTAL CPU TIME = 15.7 ( 0.3 MIN) TOTAL WALL CLOCK TIME= 16.1 SECONDS, CPU UTILIZATION IS 97.76% NSERCH= 2 ENERGY= -40.4823725 ----------------------- GRADIENT (HARTREE/BOHR) ----------------------- ATOM ZNUC DE/DX DE/DY DE/DZ -------------------------------------------------------------- 1 C 6.0 -0.0000012 -0.0000010 -0.0000032 2 H 1.0 0.0000004 0.0000386 -0.0000522 3 H 1.0 0.0000004 -0.0000382 -0.0000520 4 H 1.0 0.0000392 0.0000003 0.0000538 5 H 1.0 -0.0000387 0.0000003 0.0000536 MAXIMUM GRADIENT = 0.0000538 RMS GRADIENT = 0.0000339 NSERCH: 2 E= -40.4823724916 GRAD. MAX= 0.0000538 R.M.S.= 0.0000339 HESSIAN UPDATED USING THE BFGS FORMULA ACTUAL ENERGY CHANGE WAS -0.0000023169 PREDICTED ENERGY CHANGE WAS -0.0000024424 RATIO= 0.949 MIN SEARCH, CORRECT HESSIAN, TRYING PURE NR STEP NR STEP HAS LENGTH = 0.003283 RADIUS OF STEP TAKEN= 0.00328 CURRENT TRUST RADIUS= 0.05000 BEGINNING GEOMETRY SEARCH POINT NSERCH= 3 ... 
+ <module cmlx:lineCount="8" cmlx:templateRef="coordinates.angstom">
+  <molecule id="a5" cmlx:templateRef="atom">
+   <atomArray>
+    <atom id="a1" elementType="C" x3="3.3683E-6" y3="2.9373E-6" z3="9.051E-6">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
+    </atom>
+    <atom id="a2" elementType="H" x3="-2.5277E-6" y3="-0.8933195963" z3="-0.6309330298">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+    <atom id="a3" elementType="H" x3="-2.5277E-6" y3="0.8933210413" z3="-0.6309371503">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+    <atom id="a4" elementType="H" x3="-0.8933322366" y3="-2.1911E-6" z3="0.6309281807">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+    <atom id="a5" elementType="H" x3="0.8933339237" y3="-2.1912E-6" z3="0.6309329484">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+   </atomArray>
+   <formula formalCharge="0" concise="C 1 H 4">
+    <atomArray elementType="C H" count="1.0 4.0"/>
+   </formula>
+   <bondArray>
+    <bond atomRefs2="a1 a2" id="a1_a2" order="S"/>
+    <bond atomRefs2="a1 a3" id="a1_a3" order="S"/>
+    <bond atomRefs2="a1 a4" id="a1_a4" order="S"/>
+    <bond atomRefs2="a1 a5" id="a1_a5" order="S"/>
+   </bondArray>
+   <property dictRef="cml:molmass">
+    <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">16.04246</scalar>
+   </property>
+  </molecule>
+ </module> INTERNUCLEAR DISTANCES (ANGS.) ------------------------------ 1 C 2 H 3 H 4 H 5 H 1 C 0.0000000 1.0936695 * 1.0936683 * 1.0936670 * 1.0936656 * 2 H 1.0936695 * 0.0000000 1.7866406 * 1.7855945 * 1.7856012 * 3 H 1.0936683 * 1.7866406 * 0.0000000 1.7856003 * 1.7856071 * 4 H 1.0936670 * 1.7855945 * 1.7856003 * 0.0000000 1.7866662 * 5 H 1.0936656 * 1.7856012 * 1.7856071 * 1.7866662 * 0.0000000 * ... LESS THAN 3.000 ...... END OF ONE-ELECTRON INTEGRALS ...... STEP CPU TIME = 0.00 TOTAL CPU TIME = 15.7 ( 0.3 MIN) TOTAL WALL CLOCK TIME= 16.1 SECONDS, CPU UTILIZATION IS 97.70% TOTAL NUMBER OF NONZERO TWO-ELECTRON INTEGRALS = 31842 3 INTEGRAL RECORDS WERE STORED ON DISK FILE 8. ...... END OF TWO-ELECTRON INTEGRALS ..... STEP CPU TIME = 0.02 TOTAL CPU TIME = 15.7 ( 0.3 MIN) TOTAL WALL CLOCK TIME= 16.1 SECONDS, CPU UTILIZATION IS 97.76% -------------------------- R-B3LYP SCF CALCULATION -------------------------- DENSITY MATRIX CONVERGENCE THRESHOLD= 1.00E-05 COARSE -&gt; FINE DFT GRID SWITCH THRESHOLD= 3.00E-04 (SWITCH IN $DFT) HF -&gt; DFT SWITCH THRESHOLD= 5.00E-03 (SWOFF IN $DFT) DFT CODE IS SWITCHING FROM THE FINE GRID NRAD= 96, NLEB= 302 TO THE COARSE GRID NRAD0= 24, NLEB0= 110 ITER EX DEM TOTAL ENERGY E CHANGE DENSITY CHANGE DIIS ERROR * * * INITIATING DIIS PROCEDURE * * * 1 0 0 -40.4804821591 -40.4804821591 0.000897328 0.001085091 2 1 0 -40.4804833093 -0.0000011502 0.000228887 0.000193829 DFT CODE IS SWITCHING BACK TO THE FINE GRID * * * INITIATING DIIS PROCEDURE * * * 3 2 0 -40.4823712764 -0.0018879671 0.001120970 0.001213777 4 3 0 -40.4823723753 -0.0000010989 0.000115526 0.000118738 5 4 0 -40.4823723760 -0.0000000008 0.000068941 0.000116235 6 5 0 -40.4823723903 -0.0000000143 0.000006911 0.000013121 7 6 0 -40.4823723906 -0.0000000002 0.000000065 0.000000099 8 7 0 -40.4823723906 0.0000000000 0.000000008 0.000000014 ----------------- DENSITY CONVERGED ----------------- TIME TO FORM FOCK OPERATORS= 4.0 SECONDS ( 0.5 SEC/ITER) TIME TO SOLVE SCF EQUATIONS= 0.0 SECONDS ( 0.0 SEC/ITER) FINAL R-B3LYP ENERGY IS -40.4823723906 AFTER 8 ITERATIONS DFT EXCHANGE + CORRELATION ENERGY = -5.5500357013 TOTAL ELECTRON NUMBER = 9.9998926671 ...... END OF RHF CALCULATION ...... STEP CPU TIME = 4.08 TOTAL CPU TIME = 19.8 ( 0.3 MIN) TOTAL WALL CLOCK TIME= 20.8 SECONDS, CPU UTILIZATION IS 95.33% ..... END OF 1-ELECTRON GRADIENT ...... STEP CPU TIME = 0.00 TOTAL CPU TIME = 19.8 ( 0.3 MIN) TOTAL WALL CLOCK TIME= 20.8 SECONDS, CPU UTILIZATION IS 95.33% MEMORY FOR GRID POINT CONTRIBUTIONS TO THE DFT GRADIENT= 196865 WORDS. STEP CPU TIME = 1.03 TOTAL CPU TIME = 20.8 ( 0.3 MIN) TOTAL WALL CLOCK TIME= 21.8 SECONDS, CPU UTILIZATION IS 95.55% ...... END OF 2-ELECTRON GRADIENT ...... STEP CPU TIME = 0.02 TOTAL CPU TIME = 20.8 ( 0.3 MIN) TOTAL WALL CLOCK TIME= 21.8 SECONDS, CPU UTILIZATION IS 95.55% NSERCH= 3 ENERGY= -40.4823724 ----------------------- GRADIENT (HARTREE/BOHR) ----------------------- ATOM ZNUC DE/DX DE/DY DE/DZ -------------------------------------------------------------- 1 C 6.0 0.0000019 0.0000016 0.0000050 2 H 1.0 -0.0000006 -0.0000919 0.0000472 3 H 1.0 -0.0000006 0.0000913 0.0000470 4 H 1.0 -0.0000927 -0.0000005 -0.0000497 5 H 1.0 0.0000920 -0.0000005 -0.0000494 MAXIMUM GRADIENT = 0.0000927 RMS GRADIENT = 0.0000537 NSERCH: 3 E= -40.4823723906 GRAD. MAX= 0.0000927 R.M.S.= 0.0000537 HESSIAN UPDATED USING THE BFGS FORMULA ACTUAL ENERGY CHANGE WAS 0.0000001010 PREDICTED ENERGY CHANGE WAS -0.0000002148 RATIO= -0.470 MIN SEARCH, CORRECT HESSIAN, TRYING PURE NR STEP NR STEP HAS LENGTH = 0.001934 RADIUS OF STEP TAKEN= 0.00193 CURRENT TRUST RADIUS= 0.05000 BEGINNING GEOMETRY SEARCH POINT NSERCH= 4 ... 
+ <module cmlx:lineCount="8" cmlx:templateRef="coordinates.angstom">
+  <molecule id="a5" cmlx:templateRef="atom">
+   <atomArray>
+    <atom id="a1" elementType="C" x3="1.801E-7" y3="1.596E-7" z3="5.55E-7">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
+    </atom>
+    <atom id="a2" elementType="H" x3="-1.454E-7" y3="-0.8929760668" z3="-0.6313057057">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+    <atom id="a3" elementType="H" x3="-1.453E-7" y3="0.8929761388" z3="-0.6313059209">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+    <atom id="a4" elementType="H" x3="-0.8929768613" y3="-1.158E-7" z3="0.6313053936">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+    <atom id="a5" elementType="H" x3="0.8929769719" y3="-1.157E-7" z3="0.631305678">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+   </atomArray>
+   <formula formalCharge="0" concise="C 1 H 4">
+    <atomArray elementType="C H" count="1.0 4.0"/>
+   </formula>
+   <bondArray>
+    <bond atomRefs2="a1 a2" id="a1_a2" order="S"/>
+    <bond atomRefs2="a1 a3" id="a1_a3" order="S"/>
+    <bond atomRefs2="a1 a4" id="a1_a4" order="S"/>
+    <bond atomRefs2="a1 a5" id="a1_a5" order="S"/>
+   </bondArray>
+   <property dictRef="cml:molmass">
+    <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">16.04246</scalar>
+   </property>
+  </molecule>
+ </module> INTERNUCLEAR DISTANCES (ANGS.) ------------------------------ 1 C 2 H 3 H 4 H 5 H 1 C 0.0000000 1.0935969 * 1.0935968 * 1.0935967 * 1.0935967 * 2 H 1.0935969 * 0.0000000 1.7859522 * 1.7857772 * 1.7857776 * 3 H 1.0935968 * 1.7859522 * 0.0000000 1.7857775 * 1.7857779 * 4 H 1.0935967 * 1.7857772 * 1.7857775 * 0.0000000 1.7859538 * 5 H 1.0935967 * 1.7857776 * 1.7857779 * 1.7859538 * 0.0000000 * ... LESS THAN 3.000 ...... END OF ONE-ELECTRON INTEGRALS ...... STEP CPU TIME = 0.00 TOTAL CPU TIME = 20.8 ( 0.3 MIN) TOTAL WALL CLOCK TIME= 21.8 SECONDS, CPU UTILIZATION IS 95.55% TOTAL NUMBER OF NONZERO TWO-ELECTRON INTEGRALS = 29915 2 INTEGRAL RECORDS WERE STORED ON DISK FILE 8. ...... END OF TWO-ELECTRON INTEGRALS ..... STEP CPU TIME = 0.01 TOTAL CPU TIME = 20.9 ( 0.3 MIN) TOTAL WALL CLOCK TIME= 21.8 SECONDS, CPU UTILIZATION IS 95.55% -------------------------- R-B3LYP SCF CALCULATION -------------------------- DENSITY MATRIX CONVERGENCE THRESHOLD= 1.00E-05 COARSE -&gt; FINE DFT GRID SWITCH THRESHOLD= 3.00E-04 (SWITCH IN $DFT) HF -&gt; DFT SWITCH THRESHOLD= 5.00E-03 (SWOFF IN $DFT) DFT CODE IS SWITCHING FROM THE FINE GRID NRAD= 96, NLEB= 302 TO THE COARSE GRID NRAD0= 24, NLEB0= 110 ITER EX DEM TOTAL ENERGY E CHANGE DENSITY CHANGE DIIS ERROR * * * INITIATING DIIS PROCEDURE * * * 1 0 0 -40.4804806592 -40.4804806592 0.000967897 0.001127321 2 1 0 -40.4804818177 -0.0000011584 0.000140812 0.000105971 DFT CODE IS SWITCHING BACK TO THE FINE GRID * * * INITIATING DIIS PROCEDURE * * * 3 2 0 -40.4823714728 -0.0018896551 0.001038230 0.001167414 4 3 0 -40.4823725777 -0.0000011049 0.000037205 0.000076685 5 4 0 -40.4823725805 -0.0000000028 0.000009976 0.000009411 6 5 0 -40.4823725805 -0.0000000001 0.000005186 0.000009625 ----------------- DENSITY CONVERGED ----------------- TIME TO FORM FOCK OPERATORS= 2.7 SECONDS ( 0.4 SEC/ITER) TIME TO SOLVE SCF EQUATIONS= 0.0 SECONDS ( 0.0 SEC/ITER) FINAL R-B3LYP ENERGY IS -40.4823725805 AFTER 6 ITERATIONS DFT EXCHANGE + CORRELATION ENERGY = -5.5501214763 TOTAL ELECTRON NUMBER = 9.9998923629 ...... END OF RHF CALCULATION ...... STEP CPU TIME = 2.78 TOTAL CPU TIME = 23.6 ( 0.4 MIN) TOTAL WALL CLOCK TIME= 25.1 SECONDS, CPU UTILIZATION IS 94.26% ..... END OF 1-ELECTRON GRADIENT ...... STEP CPU TIME = 0.00 TOTAL CPU TIME = 23.6 ( 0.4 MIN) TOTAL WALL CLOCK TIME= 25.1 SECONDS, CPU UTILIZATION IS 94.26% MEMORY FOR GRID POINT CONTRIBUTIONS TO THE DFT GRADIENT= 196865 WORDS. STEP CPU TIME = 1.02 TOTAL CPU TIME = 24.6 ( 0.4 MIN) TOTAL WALL CLOCK TIME= 26.1 SECONDS, CPU UTILIZATION IS 94.44% ...... END OF 2-ELECTRON GRADIENT ...... STEP CPU TIME = 0.03 TOTAL CPU TIME = 24.7 ( 0.4 MIN) TOTAL WALL CLOCK TIME= 26.1 SECONDS, CPU UTILIZATION IS 94.49% NSERCH= 4 ENERGY= -40.4823726 ----------------------- GRADIENT (HARTREE/BOHR) ----------------------- ATOM ZNUC DE/DX DE/DY DE/DZ -------------------------------------------------------------- 1 C 6.0 -0.0000001 -0.0000001 -0.0000003 2 H 1.0 0.0000000 0.0000002 0.0000002 3 H 1.0 0.0000000 -0.0000001 0.0000003 4 H 1.0 0.0000002 0.0000000 -0.0000001 5 H 1.0 -0.0000002 0.0000000 -0.0000001 MAXIMUM GRADIENT = 0.0000003 RMS GRADIENT = 0.0000002 NSERCH: 4 E= -40.4823725805 GRAD. MAX= 0.0000003 R.M.S.= 0.0000002 ***** EQUILIBRIUM GEOMETRY LOCATED ***** 
+ <module cmlx:lineCount="8" cmlx:templateRef="coordinates.angstom">
+  <molecule id="a5" cmlx:templateRef="atom">
+   <atomArray>
+    <atom id="a1" elementType="C" x3="1.801E-7" y3="1.596E-7" z3="5.55E-7">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
+    </atom>
+    <atom id="a2" elementType="H" x3="-1.454E-7" y3="-0.8929760668" z3="-0.6313057057">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+    <atom id="a3" elementType="H" x3="-1.453E-7" y3="0.8929761388" z3="-0.6313059209">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+    <atom id="a4" elementType="H" x3="-0.8929768613" y3="-1.158E-7" z3="0.6313053936">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+    <atom id="a5" elementType="H" x3="0.8929769719" y3="-1.157E-7" z3="0.631305678">
+     <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+    </atom>
+   </atomArray>
+   <formula formalCharge="0" concise="C 1 H 4">
+    <atomArray elementType="C H" count="1.0 4.0"/>
+   </formula>
+   <bondArray>
+    <bond atomRefs2="a1 a2" id="a1_a2" order="S"/>
+    <bond atomRefs2="a1 a3" id="a1_a3" order="S"/>
+    <bond atomRefs2="a1 a4" id="a1_a4" order="S"/>
+    <bond atomRefs2="a1 a5" id="a1_a5" order="S"/>
+   </bondArray>
+   <property dictRef="cml:molmass">
+    <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">16.04246</scalar>
+   </property>
+  </molecule>
+ </module> INTERNUCLEAR DISTANCES (ANGS.) ------------------------------ 1 C 2 H 3 H 4 H 5 H 1 C 0.0000000 1.0935969 * 1.0935968 * 1.0935967 * 1.0935967 * 2 H 1.0935969 * 0.0000000 1.7859522 * 1.7857772 * 1.7857776 * 3 H 1.0935968 * 1.7859522 * 0.0000000 1.7857775 * 1.7857779 * 4 H 1.0935967 * 1.7857772 * 1.7857775 * 0.0000000 1.7859538 * 5 H 1.0935967 * 1.7857776 * 1.7857779 * 1.7859538 * 0.0000000 * ... LESS THAN 3.000 NUCLEAR ENERGY = 13.3912020574 ELECTRONIC ENERGY = -53.8735746379 TOTAL ENERGY = -40.4823725805 ------------------ MOLECULAR ORBITALS ------------------ 1 2 3 4 5 -10.1635 -0.6867 -0.3856 -0.3856 -0.3855 A A A A A 1 C 1 S 0.992804 0.198438 0.000000 0.000000 0.000001 2 C 1 S 0.049775 -0.380179 0.000001 0.000001 0.000004 3 C 1 X 0.000000 0.000000 -0.446153 -0.000131 0.000810 4 C 1 Y 0.000000 0.000000 0.000129 -0.446153 -0.000873 5 C 1 Z 0.000000 0.000000 -0.000810 0.000872 -0.446155 6 C 1 S -0.014628 -0.361757 -0.000008 -0.000010 -0.000026 7 C 1 X 0.000000 0.000001 -0.214630 -0.000063 0.000392 8 C 1 Y 0.000000 0.000002 0.000062 -0.214631 -0.000423 9 C 1 Z 0.000000 0.000004 -0.000393 0.000423 -0.214681 10 C 1 XX -0.009347 -0.001504 -0.000040 0.000044 -0.022177 11 C 1 YY -0.009347 -0.001505 0.000041 -0.000043 0.022179 12 C 1 ZZ -0.009347 -0.001498 0.000000 0.000000 0.000001 13 C 1 XY 0.000000 0.000000 0.000000 0.000000 0.000000 14 C 1 XZ 0.000000 0.000000 -0.025604 -0.000008 0.000047 15 C 1 YZ 0.000000 0.000000 -0.000007 0.025604 0.000050 16 H 2 S -0.000159 -0.134633 0.000238 0.239199 0.169836 17 H 2 S 0.002599 -0.038747 0.000202 0.202341 0.143684 18 H 3 S -0.000159 -0.134633 0.000377 -0.239860 0.168899 19 H 3 S 0.002599 -0.038750 0.000319 -0.202892 0.142897 20 H 4 S -0.000159 -0.134634 0.239223 0.000402 -0.169800 21 H 4 S 0.002599 -0.038753 0.202360 0.000341 -0.143642 22 H 5 S -0.000159 -0.134634 -0.239837 0.000261 -0.168931 23 H 5 S 0.002599 -0.038756 -0.202872 0.000222 -0.142911 6 7 8 9 10 0.1209 0.1796 0.1796 0.1796 0.5366 A A A A A 1 C 1 S -0.162982 0.000003 0.000002 -0.000001 -0.000001 2 C 1 S 0.195904 -0.000011 -0.000005 0.000003 0.000008 3 C 1 X -0.000002 0.002938 0.001688 0.384288 0.000869 4 C 1 Y -0.000005 0.002378 -0.384291 0.001670 -0.000174 5 C 1 Z -0.000010 -0.384238 -0.002365 0.002949 -0.764728 6 C 1 S 2.606710 -0.000032 -0.000019 0.000004 -0.000012 7 C 1 X -0.000004 0.010383 0.005967 1.358460 -0.001651 8 C 1 Y -0.000015 0.008413 -1.358474 0.005903 0.000332 9 C 1 Z -0.000028 -1.358179 -0.008365 0.010417 1.452959 10 C 1 XX -0.012753 0.016860 0.000104 -0.000129 -0.088252 11 C 1 YY -0.012754 -0.016861 -0.000104 0.000130 0.088253 12 C 1 ZZ -0.012755 0.000000 0.000000 0.000000 0.000001 13 C 1 XY 0.000000 0.000000 0.000000 0.000000 0.000000 14 C 1 XZ 0.000000 -0.000149 -0.000085 -0.019458 0.000116 15 C 1 YZ 0.000000 0.000120 -0.019458 0.000085 0.000024 16 H 2 S -0.019296 -0.072624 -0.103994 0.001012 0.285647 17 H 2 S -0.991222 -1.070247 -1.533847 0.014915 0.130083 18 H 3 S -0.019292 -0.073905 0.103094 0.000112 0.285460 19 H 3 S -0.991195 -1.089165 1.520561 0.001643 0.130002 20 H 4 S -0.019289 0.074060 0.000907 0.102979 -0.286017 21 H 4 S -0.991178 1.091404 0.013367 1.518908 -0.130245 22 H 5 S -0.019288 0.072476 -0.000003 -0.104104 -0.285098 23 H 5 S -0.991171 1.068062 -0.000049 -1.535473 -0.129829 11 12 13 14 15 0.5366 0.5366 0.9008 0.9008 0.9008 A A A A A 1 C 1 S 0.000000 0.000000 0.000003 -0.000001 0.000001 2 C 1 S 0.000004 -0.000002 0.000018 -0.000006 0.000006 3 C 1 X 0.000003 0.764715 0.001284 -0.850423 -0.000443 4 C 1 Y -0.764718 0.000003 -0.001859 -0.000445 0.850420 5 C 1 Z 0.000174 0.000868 0.850381 0.001282 0.001860 6 C 1 S -0.000005 0.000003 -0.000057 0.000017 -0.000021 7 C 1 X -0.000006 -1.453565 -0.001847 1.222386 0.000636 8 C 1 Y 1.453564 -0.000006 0.002674 0.000640 -1.222383 9 C 1 Z -0.000332 -0.001652 -1.222357 -0.001845 -0.002676 10 C 1 XX 0.000021 0.000101 -0.176715 -0.000267 -0.000385 11 C 1 YY -0.000020 -0.000101 0.176718 0.000266 0.000387 12 C 1 ZZ 0.000000 0.000000 0.000002 0.000000 0.000001 13 C 1 XY 0.000000 0.000000 0.000000 0.000000 0.000000 14 C 1 XZ 0.000000 0.101917 -0.000307 0.204063 0.000106 15 C 1 YZ 0.101917 0.000000 -0.000445 -0.000107 0.204063 16 H 2 S 0.403769 -0.000327 0.511629 0.000390 0.726944 17 H 2 S 0.184426 -0.000149 -0.982202 -0.000758 -1.395448 18 H 3 S -0.403903 -0.000323 0.514800 0.001151 -0.724688 19 H 3 S -0.184483 -0.000147 -0.988295 -0.002218 1.391138 20 H 4 S 0.000064 -0.403511 -0.512093 -0.726592 -0.001493 21 H 4 S 0.000029 -0.184310 0.983154 1.394779 0.002882 22 H 5 S 0.000067 0.404163 -0.514282 0.725041 -0.000737 23 H 5 S 0.000031 0.184603 0.987361 -1.391810 0.001431 --------------------------------------------------------------------- PROPERTIES FOR THE B3LYP DFT FUNCTIONAL (RHF TYPE) DENSITY MATRIX --------------------------------------------------------------------- 
+ <module cmlx:lineCount="19" cmlx:templateRef="energy.components">
+  <propertyList>
+   <property dictRef="g:WavefunctionNormalization">
+    <scalar dataType="xsd:double">1.0</scalar>
+   </property>
+   <property dictRef="cc:e1Energy">
+    <scalar dataType="xsd:double" units="nonSi:hartree">-79.7490933323</scalar>
+   </property>
+   <property dictRef="cc:e2Energy">
+    <scalar dataType="xsd:double" units="nonSi:hartree">25.8755186944</scalar>
+   </property>
+   <property dictRef="cc:nuclearRepulsionEnergy">
+    <scalar dataType="xsd:double" units="nonSi:hartree">13.3912020574</scalar>
+   </property>
+   <property dictRef="cc:totalEnergy">
+    <scalar dataType="xsd:double" units="nonSi:hartree">-40.4823725805</scalar>
+   </property>
+   <property dictRef="g:ElectronElectronPotentialEnergy">
+    <scalar dataType="xsd:double">25.8755186944</scalar>
+   </property>
+   <property dictRef="g:NucleusElectronPotentialEnergy">
+    <scalar dataType="xsd:double">-119.8164898104</scalar>
+   </property>
+   <property dictRef="g:NucleusNucleusPotentialEnergy">
+    <scalar dataType="xsd:double">13.3912020574</scalar>
+   </property>
+   <property dictRef="g:TotalNucleusPotentialEnergy">
+    <scalar dataType="xsd:double">-80.5497690587</scalar>
+   </property>
+   <property dictRef="g:TotalKineticPotentialEnergy">
+    <scalar dataType="xsd:double">40.0673964782</scalar>
+   </property>
+   <property dictRef="g:VirialRatio_VT">
+    <scalar dataType="xsd:double">2.010356952</scalar>
+   </property>
+  </propertyList>
+ </module> --------------------------------------- MULLIKEN AND LOWDIN POPULATION ANALYSES --------------------------------------- ATOMIC MULLIKEN POPULATION IN EACH MOLECULAR ORBITAL 1 2 3 4 5 2.000000 2.000000 2.000000 2.000000 2.000000 1 1.997978 1.347472 1.093744 1.093745 1.093821 2 0.000505 0.163125 0.000000 0.451879 0.227802 3 0.000505 0.163130 0.000001 0.454374 0.225300 4 0.000505 0.163134 0.451968 0.000001 0.227700 5 0.000505 0.163139 0.454286 0.000001 0.225377 ----- POPULATIONS IN EACH AO ----- MULLIKEN LOWDIN 1 C 1 S 1.99164 1.98037 2 C 1 S 0.67287 0.36317 3 C 1 X 0.71379 0.64271 4 C 1 Y 0.71379 0.64271 5 C 1 Z 0.71379 0.64221 6 C 1 S 0.68015 0.35519 7 C 1 X 0.37052 0.50818 8 C 1 Y 0.37052 0.50818 9 C 1 Z 0.37060 0.50722 10 C 1 XX 0.00498 0.15284 11 C 1 YY 0.00498 0.15284 12 C 1 ZZ 0.00026 0.14579 13 C 1 XY 0.00000 0.00000 14 C 1 XZ 0.00943 0.01676 15 C 1 YZ 0.00943 0.01676 16 H 2 S 0.52196 0.48115 17 H 2 S 0.32136 0.36011 18 H 3 S 0.52195 0.48115 19 H 3 S 0.32136 0.36011 20 H 4 S 0.52195 0.48115 21 H 4 S 0.32135 0.36011 22 H 5 S 0.52195 0.48115 23 H 5 S 0.32135 0.36011 ----- MULLIKEN ATOMIC OVERLAP POPULATIONS ----- (OFF-DIAGONAL ELEMENTS NEED TO BE MULTIPLIED BY 2) 1 2 3 4 5 1 5.0916472 2 0.3837677 0.5399996 3 0.3837752 -0.0268087 0.5399930 4 0.3837823 -0.0268230 -0.0268242 0.5399866 5 0.3837884 -0.0268237 -0.0268249 -0.0268127 0.5399803 TOTAL MULLIKEN AND LOWDIN ATOMIC POPULATIONS ATOM MULL.POP. CHARGE LOW.POP. CHARGE 1 C 6.626761 -0.626761 6.634934 -0.634934 2 H 0.843312 0.156688 0.841268 0.158732 3 H 0.843311 0.156689 0.841267 0.158733 4 H 0.843309 0.156691 0.841266 0.158734 5 H 0.843307 0.156693 0.841265 0.158735 
+ <module cmlx:lineCount="16" cmlx:templateRef="bondOrder.valence">
+  <property dictRef="g:bondOrderThreshold">
+   <scalar dataType="xsd:double">0.05</scalar>
+  </property>
+  <property dictRef="g:bondorders">
+   <list>
+    <array dataType="xsd:integer" size="4" dictRef="g:atomId1">1 1 1 1</array>
+    <array dataType="xsd:integer" size="4" dictRef="g:atomId2">2 3 4 5</array>
+    <array dataType="xsd:double" size="4" dictRef="g:distance">1.094 1.094 1.094 1.094</array>
+    <array dataType="xsd:double" size="4" dictRef="g:bondOrder">0.964 0.964 0.964 0.964</array>
+   </list>
+  </property>
+  <property dictRef="g:valences">
+   <list>
+    <array dataType="xsd:integer" dictRef="g:atomId" size="5">1 2 3 4 5</array>
+    <array dataType="xsd:string" dictRef="g:atomLabel" size="5">C H H H H</array>
+    <array dataType="xsd:double" dictRef="g:totalValence" size="5">3.855 0.936 0.936 0.936 0.936</array>
+    <array dataType="xsd:double" dictRef="g:bondedValence" size="5">3.855 0.936 0.936 0.936 0.936</array>
+    <array dataType="xsd:double" dictRef="g:freeValence" size="5">0.0 0.0 0.0 0.0 0.0</array>
+   </list>
+  </property>
+ </module>
+ <module cmlx:lineCount="7" cmlx:templateRef="dipole.moment">
+  <scalar dataType="xsd:string" dictRef="cmlx:unparsed">POINT 1 X Y Z (BOHR) CHARGE</scalar>
+  <scalar dataType="xsd:string" dictRef="cmlx:unparsed">0.000000 0.000000 0.000001 0.00 (A.U.)</scalar>
+ </module> 0.000010 0.000010 0.000027 0.000031 ...... END OF PROPERTY EVALUATION ...... STEP CPU TIME = 0.00 TOTAL CPU TIME = 24.7 ( 0.4 MIN) TOTAL WALL CLOCK TIME= 26.1 SECONDS, CPU UTILIZATION IS 94.45% $VIB IVIB= 0 IATOM= 0 ICOORD= 0 E= -40.4823725805 -1.279125091E-07-1.122763270E-07-3.164462479E-07 3.856695704E-08 1.847608623E-07 2.394766967E-07 3.859267268E-08-1.402779976E-07 2.559565124E-07 2.384419775E-07 3.388387366E-08-8.015911737E-08-1.876890981E-07 3.390958863E-08-9.882784379E-08 9.738264861E-06 9.887399166E-06 2.749836294E-05 ......END OF GEOMETRY SEARCH...... STEP CPU TIME = 0.00 TOTAL CPU TIME = 24.7 ( 0.4 MIN) TOTAL WALL CLOCK TIME= 26.1 SECONDS, CPU UTILIZATION IS 94.45% 988751 WORDS OF DYNAMIC MEMORY USED EXECUTION OF GAMESS TERMINATED NORMALLY Tue Jan 27 17:28:12 2015 DDI: 263624 bytes (0.3 MB / 0 MWords) used by master data server. ---------------------------------------- CPU timing information for all processes ======================================== 0: 24.606 + 0.86 = 24.693 ---------------------------------------- ddikick.x: exited gracefully. ----- accounting info ----- Files used on the master node cl200 were: -rw-r--r-- 1 ostueker rpoirier 37581 Jan 27 17:28 /tmp/7620910.1.short.q/ostueker/gamess/methane_GAMESS_B3LYP_631Gd_OPT_1may2013.dat -rw-r--r-- 1 ostueker rpoirier 480 Jan 27 17:27 /tmp/7620910.1.short.q/ostueker/gamess/methane_GAMESS_B3LYP_631Gd_OPT_1may2013.F05 -rw-r--r-- 1 ostueker rpoirier 360048 Jan 27 17:28 /tmp/7620910.1.short.q/ostueker/gamess/methane_GAMESS_B3LYP_631Gd_OPT_1may2013.F08 -rw-r--r-- 1 ostueker rpoirier 1538088 Jan 27 17:28 /tmp/7620910.1.short.q/ostueker/gamess/methane_GAMESS_B3LYP_631Gd_OPT_1may2013.F10 -rw-r--r-- 1 ostueker rpoirier 1551408 Jan 27 17:28 /tmp/7620910.1.short.q/ostueker/gamess/methane_GAMESS_B3LYP_631Gd_OPT_1may2013.F22 Tue Jan 27 17:28:15 NST 2015 0.161u 0.153s 0:29.86 1.0% 0+0k 0+0io 0pf+0w 
+</module>

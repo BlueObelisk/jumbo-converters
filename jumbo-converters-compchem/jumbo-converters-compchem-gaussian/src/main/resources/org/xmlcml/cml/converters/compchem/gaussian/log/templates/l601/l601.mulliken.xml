@@ -1,5 +1,5 @@
 <template id="mulliken" name="mulliken" repeat="*"
-    newline="$" pattern="\s*Mulliken atomic charges:\s*" 
+    newline="$" pattern="\s*Mulliken (atomic )?charges:\s*" 
     endPattern="\s*Charge=.*" endOffset="1"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     >
@@ -25,28 +25,85 @@
  Charge=     0.0000 electrons
   </comment>
 
+  <comment class="example.input" id="l601.mulliken.g09">
+ Mulliken charges:
+               1
+     1  C    0.205030
+     2  O   -0.561496
+     3  O   -0.561496
+     4  H   -0.082038
+ Sum of Mulliken charges =  -1.00000
+ Mulliken charges with hydrogens summed into heavy atoms:
+               1
+     1  C    0.122992
+     2  O   -0.561496
+     3  O   -0.561496
+ Electronic spatial extent (au):  &lt;R**2>=            124.8225
+ Charge=             -1.0000 electrons
+  </comment>
+  
+  <comment class="example.input" id="l601.mulliken.g09.apt">
+ Mulliken charges:
+               1
+     1  C    0.279621
+     2  O   -0.598632
+     3  O   -0.598632
+     4  H   -0.082357
+ Sum of Mulliken charges =  -1.00000
+ Mulliken charges with hydrogens summed into heavy atoms:
+               1
+     1  C    0.197264
+     2  O   -0.598632
+     3  O   -0.598632
+ APT charges:
+               1
+     1  C    1.116271
+     2  O   -0.927259
+     3  O   -0.927259
+     4  H   -0.261754
+ Sum of APT charges =  -1.00000
+ APT charges with hydrogens summed into heavy atoms:
+               1
+     1  C    0.854518
+     2  O   -0.927259
+     3  O   -0.927259
+ Electronic spatial extent (au):  &lt;R**2>=            138.1451
+ Charge=             -1.0000 electrons
+  </comment>
+
   <templateList>
-    <template id="l601.mullik" repeat="*" pattern=".*[Aa]tomic charges.*" 
-      endPattern="\s*Sum of.*" endOffset="1">
+    <template id="l601.mullik" repeat="*" 
+      pattern="\s*(Mulliken|APT|Atomic)\s*([Aa]tomic )?charges.*" offset="0"
+      endPattern="\s*[A-Za-z]+.*"                             endOffset="0"
+      >
       <record id="title">{X,g:title}</record>
       <record id="serial">{I,cc:serial}</record>
       <record id="row" repeat="*" makeArray="true">{I,cc:serial}{A,cc:elementType}{F,x:charge}</record>
-      <record id="sum">\s*Sum of\s*{A,x:type}\s*charges={F,x:charge.sum}</record>
+    </template>
+    <template id="l601.sum" pattern="\s*Sum of.*" repeat="*"
+      endPattern=".*" endOffset="0">
+      <record id="sum">\s*Sum of\s*{A,x:type}\s*charges\s*={F,x:charge.sum}</record>
     </template>
     <template id="l601.spatial" pattern="\s*Electronic spatial extent.*" repeat="*"
-      endPattern=".*" endOffset="0">
+      endPattern=".+" endOffset="0">
       <record id="l601.elect">\s*Electronic spatial extent.*={F,g:electextent2}\s*</record>
     </template>
     <template id="l601.charge" pattern="\s*Charge\s*=.*" repeat="*"
-      endPattern=".*" endOffset="0">
-      <record id="l601.charge">\s*Charge=\s*{F,g:charge}\s*electrons\s*</record>
+      endPattern="~" endOffset="0">
+      <record id="l601.charge">\s*Charge\s*=\s*{F,g:charge}\s*electrons\s*</record>
     </template>
   </templateList>
-  
+
+  <transform process="moveRelative" xpath="./cml:module[@cmlx:templateRef='l601.sum']"
+             to="preceding-sibling::cml:module[@cmlx:templateRef='l601.mullik'][1]"/>
+  <transform process="pullup" 
+             xpath="//cml:module[@cmlx:templateRef='l601.mullik']/cml:module[@cmlx:templateRef='l601.sum']/cml:list[@cmlx:templateRef='sum']"/>
+
   <transform process="pullup" xpath=".//cml:scalar"/>
   <transform process="pullup" xpath=".//cml:list/cml:scalar"/>
   <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='l601.spatial']/cml:scalar"/>
   <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='l601.charge']/cml:scalar"/>
+  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.sum']"/>
   <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.spatial']"/>
   <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.charge']"/>
   
@@ -56,7 +113,7 @@
 
   <comment class="example.output" id="l601.mulliken">
     <module cmlx:templateRef="mulliken" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <module cmlx:lineCount="8" cmlx:templateRef="l601.mullik">
+      <module cmlx:lineCount="7" cmlx:templateRef="l601.mullik">
         <scalar dataType="xsd:string" dictRef="g:title">Mulliken atomic charges:</scalar>
         <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
         <list cmlx:lineCount="5" cmlx:templateRef="row">
@@ -67,7 +124,7 @@
         <scalar dataType="xsd:string" dictRef="x:type">Mulliken</scalar>
         <scalar dataType="xsd:double" dictRef="x:charge.sum">0.0</scalar>
       </module>
-      <module cmlx:lineCount="8" cmlx:templateRef="l601.mullik">
+      <module cmlx:lineCount="7" cmlx:templateRef="l601.mullik">
         <scalar dataType="xsd:string" dictRef="g:title">Atomic charges with hydrogens summed into heavy atoms:</scalar>
         <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
         <list cmlx:lineCount="5" cmlx:templateRef="row">
@@ -82,5 +139,80 @@
       <scalar dataType="xsd:double" dictRef="g:charge">0.0</scalar>
     </module>
   </comment>
+  
+  <comment class="example.output" id="l601.mulliken.g09">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="mulliken">
+      <module cmlx:lineCount="6" cmlx:templateRef="l601.mullik">
+        <scalar dataType="xsd:string" dictRef="g:title">Mulliken charges:</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+        <list cmlx:lineCount="4" cmlx:templateRef="row">
+          <array dataType="xsd:integer" dictRef="cc:serial" size="4">1 2 3 4</array>
+          <array dataType="xsd:string" dictRef="cc:elementType" size="4">C O O H</array>
+          <array dataType="xsd:double" dictRef="x:charge" size="4">0.20503 -0.561496 -0.561496 -0.082038</array>
+        </list>
+        <scalar dataType="xsd:string" dictRef="x:type">Mulliken</scalar>
+        <scalar dataType="xsd:double" dictRef="x:charge.sum">-1.0</scalar>
+      </module>
+      <module cmlx:lineCount="5" cmlx:templateRef="l601.mullik">
+        <scalar dataType="xsd:string" dictRef="g:title">Mulliken charges with hydrogens summed into heavy atoms:</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+        <list cmlx:lineCount="3" cmlx:templateRef="row">
+          <array dataType="xsd:integer" dictRef="cc:serial" size="3">1 2 3</array>
+          <array dataType="xsd:string" dictRef="cc:elementType" size="3">C O O</array>
+          <array dataType="xsd:double" dictRef="x:charge" size="3">0.122992 -0.561496 -0.561496</array>
+        </list>
+      </module>
+      <scalar dataType="xsd:double" dictRef="g:electextent2">124.8225</scalar>
+      <scalar dataType="xsd:double" dictRef="g:charge">-1.0</scalar>
+    </module>
+  </comment>
+  
+  <comment class="example.output" id="l601.mulliken.g09.apt">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="mulliken">
+      <module cmlx:lineCount="6" cmlx:templateRef="l601.mullik">
+        <scalar dataType="xsd:string" dictRef="g:title">Mulliken charges:</scalar>
+        <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+        <list cmlx:lineCount="4" cmlx:templateRef="row">
+          <array dataType="xsd:integer" dictRef="cc:serial" size="4">1 2 3 4</array>
+          <array dataType="xsd:string" dictRef="cc:elementType" size="4">C O O H</array>
+          <array dataType="xsd:double" dictRef="x:charge" size="4">0.279621 -0.598632 -0.598632 -0.082357</array>
+        </list>
+        <scalar dataType="xsd:string" dictRef="x:type">Mulliken</scalar>
+        <scalar dataType="xsd:double" dictRef="x:charge.sum">-1.0</scalar>
+      </module>
+    <module cmlx:lineCount="5" cmlx:templateRef="l601.mullik">
+      <scalar dataType="xsd:string" dictRef="g:title">Mulliken charges with hydrogens summed into heavy atoms:</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+      <list cmlx:lineCount="3" cmlx:templateRef="row">
+        <array dataType="xsd:integer" dictRef="cc:serial" size="3">1 2 3</array>
+        <array dataType="xsd:string" dictRef="cc:elementType" size="3">C O O</array>
+        <array dataType="xsd:double" dictRef="x:charge" size="3">0.197264 -0.598632 -0.598632</array>
+      </list>
+    </module>
+    <module cmlx:lineCount="6" cmlx:templateRef="l601.mullik">
+      <scalar dataType="xsd:string" dictRef="g:title">APT charges:</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+      <list cmlx:lineCount="4" cmlx:templateRef="row">
+        <array dataType="xsd:integer" dictRef="cc:serial" size="4">1 2 3 4</array>
+        <array dataType="xsd:string" dictRef="cc:elementType" size="4">C O O H</array>
+        <array dataType="xsd:double" dictRef="x:charge" size="4">1.116271 -0.927259 -0.927259 -0.261754</array>
+      </list>
+      <scalar dataType="xsd:string" dictRef="x:type">APT</scalar>
+      <scalar dataType="xsd:double" dictRef="x:charge.sum">-1.0</scalar>
+    </module>
+    <module cmlx:lineCount="5" cmlx:templateRef="l601.mullik">
+      <scalar dataType="xsd:string" dictRef="g:title">APT charges with hydrogens summed into heavy atoms:</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+      <list cmlx:lineCount="3" cmlx:templateRef="row">
+        <array dataType="xsd:integer" dictRef="cc:serial" size="3">1 2 3</array>
+        <array dataType="xsd:string" dictRef="cc:elementType" size="3">C O O</array>
+        <array dataType="xsd:double" dictRef="x:charge" size="3">0.854518 -0.927259 -0.927259</array>
+      </list>
+    </module>
+    <scalar dataType="xsd:double" dictRef="g:electextent2">138.1451</scalar>
+    <scalar dataType="xsd:double" dictRef="g:charge">-1.0</scalar>
+    </module>
+  </comment>
+
 </template>
  

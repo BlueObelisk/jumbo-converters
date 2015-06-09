@@ -19,7 +19,11 @@
 
     <xi:include href="transform.molecule.tidy.xml"/>    
     
-
+    <!-- TODO: Maybe too drastic. I don't know where these formulas come from. (not from l9999.archive.xml)  (OStueker)-->
+    <transform process="delete" xpath="//cml:module[@cmlx:templateRef='gaussian.log']/cml:formula" />
+    
+    <transform process="delete" xpath=".//cml:property[count(*)=0]" />
+    
 <!--   
   <transform process="delete" xpath="/cml:module/text() | /cml:module/cml:scalar" to="/cml:module/cml:module[@id='calculation']"/> 
  -->    

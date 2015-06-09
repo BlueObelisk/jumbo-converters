@@ -18,6 +18,7 @@
  1/14=-1,18=20,26=3,38=1/1,3;
  ...
  ...
+ .2291885,-0.599998,0.7121097,-1.2842093\PG=C01 [X(C1H4O1)]\\@
  Job cpu time:  0 days  0 hours  0 minutes 16.2 seconds.
  File lengths (MBytes):  RWF=     12 Int=      0 D2E=      0 Chk=      7 Scr=      1
  Normal termination of Gaussian 03 at Mon Nov 20 14:40:23 2006.
@@ -27,6 +28,7 @@
  ------------------------------------------------------------------
  1/10=4,29=7,30=1,38=1,40=1,46=1/1,3;
  ...
+ 00006752,-0.00007743,0.00002339\\\@
  Job cpu time:  0 days  0 hours  0 minutes 12.7 seconds.
  File lengths (MBytes):  RWF=     12 Int=      0 D2E=      0 Chk=      7 Scr=      1
  Normal termination of Gaussian 03 at Mon Nov 20 14:40:36 2006.
@@ -34,8 +36,13 @@
     </comment>
   
   <templateList>
-    <template id="job" pattern="\s*((Link1\:\s+Proceeding to internal job step number)|(Entering Gaussian System)).*"
-       endPattern="\s*Normal termination of.*" endOffset="1" repeat="*">
+    <template id="job"
+       pattern="\s*((Link1\:\s+Proceeding to internal job step number)|(Entering Gaussian System)).*"
+       pattern2="\s*Temperature=.+"          offset2="-3"
+       endPattern="\s*Temperature=.+"        endOffset="-3"
+       endPattern2="\s*Normal termination.+" endOffset2="1" 
+       newline="$" repeat="*"> 
+       <!-- endPattern: last line of Archive plus 3 lines ("Job cpu time" + "File lengths" + "Normal termination") -->
       <templateList id='main'>
         <xi:include href="l0.entering.xml"/> 
         <xi:include href="l1/l1.legal.xml"/> 
@@ -75,6 +82,14 @@
         <xi:include href="l1102.xml"/>
         <xi:include href="l1110.xml"/>
         <xi:include href="l1002.minotr.xml"/>
+        
+        <xi:include href="composite/composite.summary.G3.xml" />
+        <xi:include href="composite/composite.summary.G3B3.xml" />
+        <xi:include href="composite/composite.summary.G3MP2.xml" />
+        <xi:include href="composite/composite.summary.G3MP2B3.xml" />
+        <xi:include href="composite/composite.summary.G4.xml" />
+        <xi:include href="composite/composite.summary.G4MP2.xml" />
+        
         <xi:include href="l9999/l9999.final.xml"/>
         <xi:include href="l9999/l9999.archive.xml"/>
         <xi:include href="l9999/l9999.punched.xml"/>
