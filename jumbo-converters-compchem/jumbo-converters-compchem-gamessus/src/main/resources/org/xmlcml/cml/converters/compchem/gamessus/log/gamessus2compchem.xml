@@ -1,0 +1,269 @@
+<transformList xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <!-- ADD JOBLIST MODULE -->
+  <transform process="addChild"
+             xpath="."
+             elementName="cml:module"
+             id="jobList1"
+             position="0"
+             dictRef="cc:jobList" />
+
+  <!-- ADD DICTREF TO MODULES -->
+  <transform process="addDictRef"
+             xpath=".//cml:module[@cmlx:templateRef='job']" 
+             value="cc:job" />
+  <transform process="addDictRef" 
+             xpath=".//cml:module[@cmlx:templateRef='calculation']" 
+             value="cc:calculation" />
+  <transform process="addDictRef" 
+             xpath=".//cml:module[@cmlx:templateRef='finalization']" 
+             value="cc:finalization" />
+
+  <transform process="addAttribute"
+                   xpath=".//cml:module[@dictRef='cc:job']"
+                   name="id"
+                   value="job" />
+
+  <!-- MOVE ALL JOB MODULES TO JOBLIST MODULE -->
+  <transform process="move" 
+             xpath=".//cml:module[@dictRef='cc:job']"
+             to=".//cml:module[@dictRef='cc:jobList']" />
+
+  <!-- ENVIRONMENT MODULE -->
+  <transform process="addChild" 
+             xpath=".//cml:module[@dictRef='cc:job']"
+             elementName="cml:module"
+             position="0"
+             id="environment" />
+
+  <transform process="addDictRef" 
+             xpath=".//cml:module[@id='environment']" 
+             value="cc:environment" />
+
+  <transform process="addChild" 
+             xpath=".//cml:module[@dictRef='cc:environment']" 
+             elementName="cml:parameterList"
+             position="0"
+             id="environment" />
+
+  <transform process="moveRelative" 
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@cmlx:templateRef='environment']/cml:module/cml:parameter"
+             to="../../../cml:module[@dictRef='cc:environment']/cml:parameterList[@id='environment']" />
+
+  <!-- INITIALIZATION MODULE -->
+  <transform process="addChild" 
+             xpath=".//cml:module[@dictRef='cc:job']"
+             elementName="cml:module"
+             position="1"
+             id="initialization" />
+
+  <transform process="addDictRef" 
+             xpath=".//cml:module[@id='initialization']"
+             value="cc:initialization" />
+
+  <transform process="moveRelative"
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@cmlx:templateRef='initialization']/cml:module"
+             to="../../cml:module[@dictRef='cc:initialization']" />
+
+  <!-- <transform process="createWrapperParameter" 
+             xpath=".//cml:module[@cmlx:templateRef='environ.01.script']/cml:list[@dictRef='x:UNPARSED']" /> -->
+
+  <!-- <transform process="addDictRef" 
+             xpath=".//cml:module[@cmlx:templateRef='init.inputCoordinates.bohr']/cml:property/cml:list"
+             value="cc:coordinates" /> -->
+
+  <!-- <transform process="createWrapperParameter"
+             xpath=".//cml:module[@cmlx:templateRef='init.inputCoordinates.bohr']/cml:property/cml:list" /> -->
+
+  <!-- <transform process="pullupSingleton"
+             xpath=".//cml:module[@dictRef='cc:initialization']/cml:module[@cmlx:templateRef='init.inputCoordinates.bohr']/cml:property" /> -->
+
+  <!-- <transform process="addDictRef"
+             xpath=".//cml:module[@cmlx:templateRef='atomic.basis.set' or @cmlx:templateRef='init.properties.input']/cml:list"
+             value="x:UNPARSED"/> -->
+
+  <!-- <transform process="createWrapperParameter"
+             xpath=".//cml:module[@dictRef='cc:initialization']/cml:module/cml:list" /> -->
+
+  <transform process="addChild" 
+             xpath=".//cml:module[@dictRef='cc:initialization']"
+             elementName="cml:parameterList"
+             position="0"
+             id="initialization" />
+
+  <transform process="moveRelative" 
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:initialization']/cml:module/cml:parameter"
+             to="../../cml:parameterList[@id='initialization']" />
+
+  <!-- FINALIZATION MODULE -->
+  <transform process="pullupSingleton"
+             xpath=".//cml:module[@cmlx:templateRef='coordinates.angstom']" />
+
+  <transform process="addChild" 
+             xpath=".//cml:module[@dictRef='cc:finalization']"
+             elementName="cml:propertyList"
+             position="2"
+             id="finalization" />
+
+  <!-- <transform process="addDictRef"
+             xpath=".//cml:module[@dictRef='cc:finalization']/cml:module[@cmlx:templateRef='freq.normalCoordAnalysis']/cml:list"
+             value="cc:atomicmass" /> -->
+
+  <transform process="pullup"
+             xpath=".//cml:module[@dictRef='cc:finalization']/cml:module[@cmlx:templateRef='freq.normalCoordAnalysis']/cml:module" />
+
+  <transform process="addDictRef"
+             xpath=".//cml:module[@dictRef='cc:finalization']/cml:module[@cmlx:templateRef='freq.normCoords.frequenciesLong']/cml:list"
+             value="x:UNPARSED" />
+
+  <!-- <transform process="addDictRef"
+             xpath=".//cml:module[@dictRef='cc:finalization']/cml:module[@cmlx:templateRef='freq.thermochem']/cml:list[@id='unparsed']"
+             value="x:UNPARSED" />
+ 
+  <transform process="createWrapperProperty"
+             xpath=".//cml:module[@dictRef='cc:finalization']/cml:module/cml:list" /> -->
+
+  <!-- <transform process="pullup"
+             xpath=".//cml:module[@dictRef='cc:finalization']/cml:module[@cmlx:templateRef='energy.components']/cml:propertyList/cml:property" /> -->
+
+  <!-- <transform process="createWrapperProperty"
+             xpath=".//cml:module[@dictRef='cc:finalization']/cml:module[@cmlx:templateRef='dipole.moment']/cml:scalar" /> -->
+
+  <transform process="moveRelative"
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module/cml:property"
+             to="../../cml:propertyList[@id='finalization']" />
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:parameterList[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:propertyList[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
+
+  <!-- <transform process="move" 
+             xpath=".//cml:module[@cmlx:templateRef='calculation']/cml:module[@cmlx:templateRef='calculation-step'][1]  " 
+             to=".//cml:module[@dictRef='cc:initialization']" /> -->
+
+  <!-- <transform process="addChild" 
+             xpath=".//cml:module[@dictRef='cc:initialization']" 
+             elementName="parameterList"
+             id="initialization" />
+
+  <transform process="addDictRef"
+             xpath=".//*[@cmlx:templateRef='init.inputCoordinates.bohr']/cml:property/cml:list"
+             value="cc:coordinates"/>
+
+  <transform process="addDictRef"
+             xpath=".//*[@cmlx:templateRef='init.properties.input']/cml:list"
+             value="x:UNPARSED"/>
+
+  <transform process="createWrapperParameter" 
+             xpath=".//*[@cmlx:templateRef='init.inputCoordinates.bohr']/cml:property/cml:list[@dictRef='cc:coordinates']" />
+
+  <transform process="createWrapperParameter" 
+             xpath=".//*[@cmlx:templateRef='init.properties.input']/cml:list[@dictRef='x:UNPARSED']" />
+
+  <transform process="pullupSingleton" 
+             xpath=".//*[@cmlx:templateRef='init.inputCoordinates.bohr']/cml:property']" />
+
+           -->
+
+
+
+
+  <!-- <transform process="move" xpath=".//cml:parameter[@dictRef='x:UNPARSED']" to=".//cml:module[@cmlx:templateRef='environ.01.script']/cml:parameterList" />
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='environ.02.kickoff']/cml:parameter" to=".//cml:module[@cmlx:templateRef='environ.01.script']/cml:parameterList" />
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='environ.03.proginfo']/cml:parameterList/cml:parameter" to=".//cml:module[@cmlx:templateRef='environ.01.script']/cml:parameterList" />
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='environ.01.script']/cml:list/*[@dictRef='x:UNPARSED']" to=".//cml:module[@dictRef='cc:environment']/cml:module[@cmlx:templateRef='environ.01.script']/cml:parameterList" /> -->
+
+  <!-- <transform process="pullupSingleton" xpath=".//cml:module[@cmlx:templateRef='environ.01.script']"/> -->
+  
+  <!-- <transform process="pullup" xpath="./cml:module[@cmlx:templateRef='coordinates.angstom']/cml:molecule" /> -->
+
+
+  <!-- <transform process="pullupSingleton" xpath=".//cml:module[@dictRef='cc:initialization']/cml:module[@cmlx:templateRef='coordinates.angstom']" /> -->
+  
+  <!-- <transform process="move" xpath=".//cml:module[contains(@cmlx:templateRef,'init')]" to=".//cml:module[@dictRef='cc:initialization']" />   -->
+
+  <!-- <transform process="addChild" xpath=".//cml:module[@dictRef='cc:initialization']" elementName="cml:parameterList" position="1" /> -->
+
+  <!-- <transform process="pullupSingleton" xpath=".//cml:module[@cmlx:templateRef='init.inputCoordinates.bohr']/cml:property" /> -->
+
+  <!-- <transform process="addDictRef"
+                 xpath=".//cml:module[@cmlx:templateRef='init.inputCoordinates.bohr']/cml:list"
+                 value="cc:coordinates"/> -->
+
+  <!-- <transform process="addDictRef"
+                 xpath=".//cml:module[@cmlx:templateRef='init.properties.input']/cml:list"
+                 value="x:UNPARSED"/> -->
+
+  <!-- <transform process="createWrapperParameter" xpath=".//cml:module[@cmlx:templateRef='init.inputCoordinates.bohr' or @cmlx:templateRef='init.properties.input']/cml:list[@dictRef='cc:coordinates' or @dictRef='x:UNPARSED']" /> -->
+
+  <!-- <transform process="move" xpath=".//cml:module/cml:parameter" to=".//cml:module[@dictRef='cc:initialization']/cml:parameterList" />   -->
+
+  <!-- <transform process="move" xpath=".//cml:module[@cmlx:templateRef='coordinates.angstom'][last()]" to=".//cml:module[@dictRef='cc:finalization']" /> -->
+  <!-- <transform process="move" xpath=".//cml:module[@cmlx:templateRef='energy.components'][last()]" to=".//cml:module[@dictRef='cc:finalization']" /> -->
+  <!-- <transform process="move" xpath=".//cml:module[@cmlx:templateRef='bondOrder.valence'][last()]" to=".//cml:module[@dictRef='cc:finalization']" /> -->
+  <!-- <transform process="move" xpath=".//cml:module[@cmlx:templateRef='dipole.moment'][last()]" to=".//cml:module[@dictRef='cc:finalization']" /> -->
+  <!-- <transform process="move" xpath=".//cml:module[@cmlx:templateRef='freq.energy.gradient'][last()]" to=".//cml:module[@dictRef='cc:finalization']" /> -->
+  <!-- <transform process="move" xpath=".//cml:module[@cmlx:templateRef='freq.forceConstantMatrix'][last()]" to=".//cml:module[@dictRef='cc:finalization']" /> -->
+  <!-- <transform process="move" xpath=".//cml:module[@cmlx:templateRef='freq.normalCoordAnalysis'][last()]" to=".//cml:module[@dictRef='cc:finalization']" /> -->
+
+  <!-- <transform process="pullupSingleton" xpath=".//cml:module[@dictRef='cc:finalization']/cml:module[@cmlx:templateRef='coordinates.angstom']" /> -->
+
+  <!-- <transform process="addChild" xpath=".//cml:module[@dictRef='cc:finalization']" elementName="cml:propertyList" position="1" /> -->
+
+  <!-- <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='energy.components']/cml:propertyList/cml:property" /> -->
+
+  <!-- <transform process="createWrapperProperty" xpath=".//cml:module[@cmlx:templateRef='dipole.moment']/cml:scalar[@dictRef='cmlx:unparsed']" /> -->
+
+  <!-- <transform process="move" xpath=".//cml:module[@dictRef='cc:finalization']/cml:module/cml:property" to=".//cml:module[@dictRef='cc:finalization']/cml:propertyList" /> -->
+
+  <!-- <transform process="move" xpath=".//cml:module[@cmlx:templateRef='coordinates.angstom']" to=".//cml:module[@dictRef='cc:calculation']" /> -->
+  <!-- <transform process="move" xpath=".//cml:module[@cmlx:templateRef='energy.components' or @cmlx:templateRef='bondOrder.valence']" to=".//cml:module[@dictRef='cc:calculation']" /> -->
+
+
+
+
+  <!-- below are examples from gaussian -->
+
+<!-- 
+  <xi:include href="transform.namespaces.xml"/>
+
+  <transform process="addChild" xpath="." elementName="cml:module" id="jobList1" dictRef="cc:jobList"/>
+
+  <transform process="addDictRef" xpath="./cml:module[@cmlx:templateRef='job']" value="cc:job" />
+  <transform process="addAttribute" xpath="./cml:module[@cmlx:templateRef='job']" name="id" value="job" />
+  <transform process="move" xpath=".//cml:module[@dictRef='cc:job']" to=".//cml:module[@dictRef='cc:jobList']" />
+
+  <xi:include href="transform.preclean.xml"/>
+  
+  <xi:include href="transform.initial.xml"/>
+  <xi:include href="transform.calculation.xml"/>
+  <xi:include href="transform.final.xml"/>
+  <xi:include href="transform.composite.xml"/>
+ -->
+
+  <!-- move remaining modules to calculation -->
+  
+  <!-- <transform process="move" xpath="/cml:module/cml:module[not(@id='jobList1')]" to="//cml:module[@id='calculation']"/>  -->
+
+<!--  group calculation modules --> 
+
+<!-- 
+  <transform process="addSibling" xpath="./cml:module[@id='calculation']/cml:module[@cmlx:templateRef='l202.rotconst']" 
+      elementName="cml:module" id="l202.group" position="1"/> 
+  <transform process="groupSiblings" xpath=".//cml:module[@id='l202.group']" /> 
+  <transform process="move" xpath=".//cml:module[@id='l202.group']" to="/cml:module/cml:module[@id='calculation']"/> 
+
+  <transform process="addDictRef" xpath=".//cml:module[@id='calculation']/cml:module" value="cc:userDefinedModule" />
+
+  <transform process="addAttribute" xpath=".//cml:molecule" name="formalCharge" 
+    value="$number(//cml:scalar[@dictRef='formalCharge'][1])" />
+  <transform process="addAttribute" xpath=".//cml:molecule" name="spinMultiplicity" 
+    value="$number(//cml:scalar[@dictRef='spinMultiplicity'][1])" />
+    
+  <xi:include href="transform.clean.xml"/>
+ -->
+
+</transformList>    
+ 

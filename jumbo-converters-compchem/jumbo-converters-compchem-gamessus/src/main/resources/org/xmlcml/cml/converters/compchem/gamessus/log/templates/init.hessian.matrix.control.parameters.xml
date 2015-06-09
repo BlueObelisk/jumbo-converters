@@ -1,0 +1,68 @@
+<template id="init.hessian.matrix.control.parameters"
+  repeat="*"
+  name="init.hessian.matrix.control.parameters"
+  pattern="\s*-+\s*$\s*HESSIAN MATRIX CONTROL PARAMETERS\s*$\s*-+.+"      offset="0"
+  endPattern="\s*"   endOffset="0" >
+
+  <comment class="example.input" id="init.hessian.matrix.control.parameters">
+     ---------------------------------
+     HESSIAN MATRIX CONTROL PARAMETERS
+     ---------------------------------
+     METHOD=ANALYTIC   NVIB  =       2   VIBSIZ= 0.01000
+     RDHESS=       F   PURIFY=       F   PRTIFC=       F
+     VIBANL=       F   DECOMP=       F   PROJCT=       F
+     SCLFAC= 1.00000   PRTSCN=       F   NPRT  =       0
+     PULCOR=       F   NPUN  =       0   REDOVB=       T
+  </comment>
+
+  <!-- RECORD -->
+  <record repeat="3" />
+  <record id="hessian">\s*METHOD\s*={A,m:hessian.METHOD}\s+NVIB\s*=\s+{I,m:hessian.NVIB}\s+VIBSIZ\s*=\s+{F,m:hessian.VIBSIZ}\s*</record>
+  <record id="hessian">\s*RDHESS\s*={A,m:hessian.RDHESS}\s+PURIFY\s*=\s+{A,m:hessian.PURIFY}\s+PRTIFC\s*=\s+{A,m:hessian.PRTIFC}\s*</record>
+  <record id="hessian">\s*VIBANL\s*={A,m:hessian.VIBANL}\s+DECOMP\s*=\s+{A,m:hessian.DECOMP}\s+PROJCT\s*=\s+{A,m:hessian.PROJCT}\s*</record>
+  <record id="hessian">\s*SCLFAC\s*={F,m:hessian.SCLFAC}\s+PRTSCN\s*=\s+{A,m:hessian.PRTSCN}\s+NPRT\s*=\s+{I,m:hessian.NPRT}\s*</record>
+  <record id="hessian">\s*PULCOR\s*={A,m:hessian.PULCOR}\s+NPUN\s*=\s+{I,m:hessian.NPUN}\s+REDOVB\s*=\s+{A,m:hessian.REDOVB}\s*</record>
+
+  <!-- ORGANIZE -->
+  <transform process="addChild"
+             xpath="."
+             position="0"
+             elementName="cml:list"
+             dictRef="m:hessianMatrixControlParameters" />
+
+  <transform process="move"
+             xpath=".//cml:list[@cmlx:templateRef='hessian']/cml:list/cml:scalar"
+             to=".//cml:list[@dictRef='m:hessianMatrixControlParameters']" />
+
+  <transform process="createWrapperParameter"
+             xpath=".//cml:list[@dictRef='m:hessianMatrixControlParameters']" />
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+
+  <comment class="example.output" id="init.hessian.matrix.control.parameters">
+    <module cmlx:templateRef="init.hessian.matrix.control.parameters" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="m:hessianMatrixControlParameters">
+        <list>
+          <scalar dataType="xsd:string"  dictRef="m:hessian.METHOD">ANALYTIC</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:hessian.NVIB">2</scalar>
+          <scalar dataType="xsd:double"  dictRef="m:hessian.VIBSIZ">0.01</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:hessian.RDHESS">F</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:hessian.PURIFY">F</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:hessian.PRTIFC">F</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:hessian.VIBANL">F</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:hessian.DECOMP">F</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:hessian.PROJCT">F</scalar>
+          <scalar dataType="xsd:double"  dictRef="m:hessian.SCLFAC">1.0</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:hessian.PRTSCN">F</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:hessian.NPRT">0</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:hessian.PULCOR">F</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:hessian.NPUN">0</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:hessian.REDOVB">T</scalar>
+        </list>
+      </parameter>
+    </module>
+  </comment>
+
+</template>
