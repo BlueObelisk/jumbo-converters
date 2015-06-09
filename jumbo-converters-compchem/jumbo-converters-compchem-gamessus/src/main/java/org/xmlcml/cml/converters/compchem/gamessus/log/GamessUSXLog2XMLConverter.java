@@ -1,12 +1,12 @@
 package org.xmlcml.cml.converters.compchem.gamessus.log;
 
+import java.io.File;
 import java.io.IOException;
-
-
 
 import nu.xom.Element;
 
 import org.xmlcml.cml.converters.compchem.CompchemText2XMLTemplateConverter;
+import org.xmlcml.cml.converters.text.XML2XMLTransformConverter;
 import org.xmlcml.cml.converters.compchem.gamessus.GamessUSXCommon;
 
 public class GamessUSXLog2XMLConverter extends CompchemText2XMLTemplateConverter {
@@ -22,10 +22,17 @@ public class GamessUSXLog2XMLConverter extends CompchemText2XMLTemplateConverter
 	}
 	
 	public static void main(String[] args) throws IOException {
-		CompchemText2XMLTemplateConverter converter = new GamessUSXLog2XMLConverter();
-//		File in = new File("D:\\projects\\nwchem-tests\\in\\ch3f_rot\\ch3f_rot.out");
-//		File out = new File("test-out.xml");
-//		converter.convert(in, out);
+		if (args.length == 2) {
+			CompchemText2XMLTemplateConverter converter = new GamessUSXLog2XMLConverter();
+			File in = new File(args[0]);
+			File out = new File(args[1]);
+			converter.convert(in, out);
+		} else {
+			CompchemText2XMLTemplateConverter converter = new GamessUSXLog2XMLConverter();
+//			File in = new File("D:\\projects\\nwchem-tests\\in\\ch3f_rot\\ch3f_rot.out");
+//			File out = new File("test-out.xml");
+//			converter.convert(in, out);
+		}
 	}
 	
 	@Override

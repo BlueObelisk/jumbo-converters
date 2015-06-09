@@ -1,0 +1,69 @@
+<template id="bondOrder.valence.val"
+  repeat="*"
+  name="Valences"
+  pattern="\s*TOTAL\s+BONDED\s+FREE\s*"      offset="0"
+  endPattern="~"   endOffset="0" >
+
+  <comment class="example.input" id="bondOrder.ch4">
+                       TOTAL       BONDED        FREE
+      ATOM            VALENCE     VALENCE     VALENCE
+    1 C                 3.863       3.863       0.000
+    2 H                 0.939       0.939       0.000
+    3 H                 0.939       0.939       0.000
+    4 H                 0.939       0.939       0.000
+    5 H                 0.939       0.939       0.000
+  </comment>
+  <comment class="example.input" id="bondOrder.ch2o2">
+                       TOTAL       BONDED        FREE
+      ATOM            VALENCE     VALENCE     VALENCE
+    1 C                 3.833       3.833       0.000
+    2 O                 2.079       2.079       0.000
+    3 O                 1.851       1.851       0.000
+    4 H                 0.927       0.927       0.000
+    5 H                 0.825       0.825       0.000
+  </comment>
+
+  <record repeat="2" />
+  <record id="bondOrder" repeat="*" makeArray="true">\s*{I,m:atomId}\s+{A,m:atomLabel}\s+{F,m:totalValence}\s+{F,m:bondedValence}\s+{F,m:freeValence}\s*</record>
+
+  <transform process="addChild" xpath="." elementName="cml:list" dictRef="m:valences" />
+
+  <transform process="move"
+                 to=".//*[@dictRef='m:valences']"
+                 xpath=".//*[contains(@dictRef,'m:a') or contains(@dictRef,'m:t') or contains(@dictRef,'m:b') or contains(@dictRef,'m:f')]" />
+
+  <transform process="createWrapperProperty" xpath=".//*[@dictRef='m:valences']"/>
+
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+
+
+  <comment class="example.output" id="bondOrder.ch4">
+    <module cmlx:templateRef="bondOrder.valence.val" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="m:valences">
+        <list>
+          <array dataType="xsd:integer" dictRef="m:atomId"       size="5">1 2 3 4 5</array>
+          <array dataType="xsd:string" dictRef="m:atomLabel"     size="5">C H H H H</array>
+          <array dataType="xsd:double" dictRef="m:totalValence"  size="5">3.863 0.939 0.939 0.939 0.939</array>
+          <array dataType="xsd:double" dictRef="m:bondedValence" size="5">3.863 0.939 0.939 0.939 0.939</array>
+          <array dataType="xsd:double" dictRef="m:freeValence"   size="5">0.0 0.0 0.0 0.0 0.0</array>
+        </list>
+      </property>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="bondOrder.ch2o2">
+    <module cmlx:templateRef="bondOrder.valence.val" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="m:valences">
+        <list>
+          <array dataType="xsd:integer" dictRef="m:atomId"       size="5">1 2 3 4 5</array>
+          <array dataType="xsd:string" dictRef="m:atomLabel"     size="5">C O O H H</array>
+          <array dataType="xsd:double" dictRef="m:totalValence"  size="5">3.833 2.079 1.851 0.927 0.825</array>
+          <array dataType="xsd:double" dictRef="m:bondedValence" size="5">3.833 2.079 1.851 0.927 0.825</array>
+          <array dataType="xsd:double" dictRef="m:freeValence"   size="5">0.0 0.0 0.0 0.0 0.0</array>
+        </list>
+      </property>
+    </module>
+  </comment>
+
+</template>
