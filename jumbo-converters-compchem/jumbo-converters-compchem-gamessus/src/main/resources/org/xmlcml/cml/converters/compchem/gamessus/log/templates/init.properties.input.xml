@@ -1,0 +1,117 @@
+<template id="init.properties.input"
+  repeat="*"
+  name="PROPERTIES INPUT"
+  pattern="\s*-+\s*$\s*PROPERTIES INPUT\s*$\s*-+\s*$\s*$\s*.+"      offset="0"
+  endPattern="\s*$"   endOffset="0" >
+
+  <comment class="example.input" id="init.properties.input">
+          ----------------
+          PROPERTIES INPUT
+          ----------------
+
+     MOMENTS            FIELD           POTENTIAL          DENSITY
+ IEMOM =       1   IEFLD =       0   IEPOT =       0   IEDEN =       0
+ WHERE =COMASS     WHERE =NUCLEI     WHERE =NUCLEI     WHERE =NUCLEI  
+ OUTPUT=BOTH       OUTPUT=BOTH       OUTPUT=BOTH       OUTPUT=BOTH    
+ IEMINT=       0   IEFINT=       0                     IEDINT=       0
+                                                       MORB  =       0
+          EXTRAPOLATION IN EFFECT
+          DIIS IN EFFECT
+ ORBITAL PRINTING OPTION: NPREO=     1    23     2     1
+
+  </comment>
+
+  <record repeat="5" />
+  <record id="init">\s*IEMOM\s*=\s+{I,m:iemom}\s+IEFLD\s*=\s+{I,m:iefld}\s+IEPOT\s*=\s+{I,m:iepot}\s+IEDEN\s*=\s+{I,m:ieden}\s*</record>
+  <record id="init">\s*WHERE\s*={A,m:where}\s+WHERE\s*={A,m:where2}\s+WHERE\s*={A,m:where3}\s+WHERE\s*={A,m:where4}\s*</record>
+  <record id="init">\s*OUTPUT\s*={A,m:output}\s+OUTPUT\s*={A,m:output2}\s+OUTPUT\s*={A,m:output3}\s+OUTPUT\s*={A,m:output4}\s*</record>
+  <record id="init">\s*IEMINT\s*=\s+{I,m:iemint}\s+IEFINT\s*=\s+{I,m:iefint}\s+IEDINT\s*=\s+{I,m:iedint}\s*</record>
+  <record id="init">\s+MORB\s*=\s+{I,m:morb}\s*</record>
+  <record id="init.properties.input.unparsed" repeat="3">\s*{X,x:UNPARSED}\s*</record>
+
+  <transform process="addChild" xpath="." elementName="cml:list" dictRef="m:properties.input.moments" position="0" />
+  <transform process="addChild" xpath="." elementName="cml:list" dictRef="m:properties.input.field" position="1" />
+  <transform process="addChild" xpath="." elementName="cml:list" dictRef="m:properties.input.potential" position="2" />
+  <transform process="addChild" xpath="." elementName="cml:list" dictRef="m:properties.input.density" position="3" />
+
+  <transform process="move"
+                 to=".//*[@dictRef='m:properties.input.moments']"
+                 xpath=".//*[@dictRef='m:iemom' or @dictRef='m:where' or @dictRef='m:output' or @dictRef='m:iemint']" />
+  <transform process="move"
+                 to=".//*[@dictRef='m:properties.input.field']"
+                 xpath=".//*[@dictRef='m:iefld' or @dictRef='m:where2' or @dictRef='m:output2' or @dictRef='m:iefint']" />
+  <transform process="move"
+                 to=".//*[@dictRef='m:properties.input.potential']"
+                 xpath=".//*[@dictRef='m:iepot' or @dictRef='m:where3' or @dictRef='m:output3']" />
+  <transform process="move"
+                 to=".//*[@dictRef='m:properties.input.density']"
+                 xpath=".//*[@dictRef='m:ieden' or @dictRef='m:where4' or @dictRef='m:output4' or @dictRef='m:iedint' or @dictRef='m:morb']" />
+
+  <transform process="createWrapperParameter" xpath=".//*[@dictRef='m:properties.input.moments']"/>
+  <transform process="createWrapperParameter" xpath=".//*[@dictRef='m:properties.input.field']"/>
+  <transform process="createWrapperParameter" xpath=".//*[@dictRef='m:properties.input.potential']"/>
+  <transform process="createWrapperParameter" xpath=".//*[@dictRef='m:properties.input.density']"/>
+
+  <transform process="addDictRef"
+                 xpath="//*[contains(@dictRef,'where')]"
+                 value="m:where "/>
+
+  <transform process="addDictRef"
+                 xpath="//*[contains(@dictRef,'output')]"
+                 value="m:output"/>
+
+  <transform process="addDictRef"
+             xpath=".//cml:list[@cmlx:templateRef='init.properties.input.unparsed']"
+             value="x:UNPARSED" />
+
+  <transform process="createWrapperParameter"
+             xpath=".//cml:list[@dictRef='x:UNPARSED']" />
+
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+
+  <comment class="example.output" id="init.properties.input">
+    <module cmlx:templateRef="init.properties.input" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="m:properties.input.moments">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="m:iemom">1</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:where">COMASS</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:output">BOTH</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:iemint">0</scalar>
+        </list>
+      </parameter>
+      <parameter dictRef="m:properties.input.field">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="m:iefld">0</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:where">NUCLEI</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:output">BOTH</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:iefint">0</scalar>
+        </list>
+      </parameter>
+      <parameter dictRef="m:properties.input.potential">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="m:iepot">0</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:where">NUCLEI</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:output">BOTH</scalar>
+        </list>
+      </parameter>
+      <parameter dictRef="m:properties.input.density">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="m:ieden">0</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:where">NUCLEI</scalar>
+          <scalar dataType="xsd:string"  dictRef="m:output">BOTH</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:iedint">0</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:morb">0</scalar>
+        </list>
+      </parameter>
+      <parameter dictRef="x:UNPARSED">
+        <list cmlx:templateRef="init.properties.input.unparsed">
+         <scalar dataType="xsd:string" dictRef="x:UNPARSED">EXTRAPOLATION IN EFFECT</scalar>
+         <scalar dataType="xsd:string" dictRef="x:UNPARSED">DIIS IN EFFECT</scalar>
+         <scalar dataType="xsd:string" dictRef="x:UNPARSED">ORBITAL PRINTING OPTION: NPREO=     1    23     2     1</scalar>
+        </list>
+      </parameter>
+    </module>
+  </comment>
+
+</template>

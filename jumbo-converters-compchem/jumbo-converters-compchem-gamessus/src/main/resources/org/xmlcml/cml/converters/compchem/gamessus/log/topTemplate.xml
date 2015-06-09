@@ -1,43 +1,176 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--  this is the top template file for Molcas log files.
+<!--  this is the top template file for GAMESS-US log files.
 It should generally be found in the directory structure
   src/main/resources/org/xmlcml/cml/converters/compchem/gamessus/log
-It uses include files from 
+It uses include files from
   src/main/resources/org/xmlcml/cml/converters/compchem/gamessus/log/templates
-  (though I am not quite sure why the subdirectories are not explcit here)
-  
-The ORDER of the subtemplates may be important. Templates are processed in the order 
+  (though I am not quite sure why the subdirectories are not explicit here)
+
+The ORDER of the subtemplates may be important. Templates are processed in the order
   in this files and the subtemplates. Some of the files are marked with comments
  -->
- 
+
 <template id='gamessus.log' output="VERBOSE"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:c="http://www.xml-cml.org/dictionary"
-  xmlns:m="http://www.xml-cml.org/dictionary/gamessus">
-  <templateList id='main' xmlns:xi="http://www.w3.org/2001/XInclude">
-  <!-- major sections -->
-      <xi:include href="templates/script.temp.xml"/> 
-      <xi:include href="templates/proginfo.temp.xml"/> 
-      <xi:include href="templates/input.temp.xml"/> 
-      <xi:include href="templates/coords.temp.xml"/> 
-      
-      <xi:include href="templates/chunker.temp.xml"/> 
+  xmlns:cml="http://www.xml-cml.org/dictionary/cml/"
+  xmlns:cc="http://www.xml-cml.org/dictionary/compchem/"
+  xmlns:compchem="http://www.xml-cml.org/dictionary/compchem/"
+  xmlns:convention="http://www.xml-cml.org/convention/"
+  xmlns:si="http://www.xml-cml.org/unit/si/"
+  xmlns:nonSi="http://www.xml-cml.org/unit/nonSi/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:m="http://www.xml-cml.org/dictionary/gamessus"
+  convention="convention:compchem"
+  xmlns:xi="http://www.w3.org/2001/XInclude">
+  <templateList>
+    <template id="job"
+      pattern="\s*-+\s*GAMESS execution script.+\s*-+\s*"
+      pattern2="\s+\*+\s*$\s+THE HESSIAN WILL NOW BE COMPUTED AT THE STATIONARY POINT.\s*$\s+\*+\s*" offset2="0"
+      endPattern="\s*\.+END OF GEOMETRY SEARCH\.+\s*"                   endOffset="3"
+      endPattern3="\s*EXECUTION OF GAMESS TERMINATED NORMALLY.+"        endOffset3="2"
+      newline="$" repeat="*"> 
+      <templateList id='main'>
+
+        <template id="environment"
+          pattern="\s*-+\s*GAMESS execution script.+\s*-+\s*" offset="0"
+          endPattern="\s*EXECUTION OF GAMESS BEGUN.*"      endOffset="0"
+          newline="$" repeat="*" >
+        <!-- START of  module environment -->
+          <templateList>
+            <xi:include href="environ.01.script.xml"/>
+            <xi:include href="environ.02.kickoff.xml"/>
+            <xi:include href="environ.03.proginfo.xml"/>
+          </templateList>
+        <!-- END of module environment -->
+        </template>
+
+      <template id="initialization"
+        pattern="\s*EXECUTION OF GAMESS BEGUN.*" offset="0"
+        endPattern="\s*\.+\s*DONE SETTING UP THE RUN\s*\.+\s*" endOffset="3"
+        newline="$" repeat="*">
+        <!-- START of module initialization -->
+        <templateList>
+          <xi:include href="init.01.inputcard.xml"/>
+          <xi:include href="init.02.basis.options.xml"/>
+          <xi:include href="init.runTitle.xml"/>
+          <xi:include href="init.pointGroup.principalAxis.xml"/>
+          <xi:include href="substituted.z-matrix.xml"/>         <!-- TODO! -->
+          <xi:include href="init.moments.of.inertia.xml"/>      <!-- TODO! -->
+          <xi:include href="init.inputCoordinates.bohr.xml" />
+          <xi:include href="internuclear.distance.matrix.xml"/>
+          <xi:include href="atomic.basis.set.xml"/>             <!-- TODO! -->
+          <xi:include href="init.gridbased.dft.options.xml"/>
+          <xi:include href="init.empirical.dispersion.correction.xml" />
+          <xi:include href="init.control.options.xml"/>
+          <xi:include href="init.system.options.xml"/>
+          <xi:include href="init.properties.input.xml" />
+          <!-- TODO: INTEGRAL TRANSFORMATION OPTIONS -->
+          <!-- TODO: INTEGRAL INPUT OPTIONS -->
+          <!-- TODO: THE POINT GROUP IS C1 , NAXIS= 0, ORDER= 1 -->
+          <!-- TODO: DIMENSIONS OF THE SYMMETRY SUBSPACES ARE -->
+        </templateList>
+        <!-- END of module initialization -->
+      </template>
+
+      <template id="calculation"
+        pattern="\s*-+\s*$\s*STATIONARY POINT LOCATION RUN\s*$\s*-+\s*" offset="0"
+        pattern2="\s*\*+\s*$\s*THE HESSIAN WILL NOW BE COMPUTED AT THE STATIONARY POINT\.\s*$\s*\*+\s*" offset2="0"
+        pattern3="\s*-+\s*$\s*HESSIAN MATRIX CONTROL PARAMETERS\s*$\s*-+\s*" offset3="0"
+
+        endPattern="\s*\*+\s*EQUILIBRIUM GEOMETRY LOCATED\s*\*+\s*" endOffset="0"
+        endPattern2="\s*-+\s*$\s*ENERGY GRADIENT\s*$\s*-+\s*"       endOffset2="-1"
+
+        newline="$" repeat="*">
+        <!-- endPattern3="\s*\.+\s+END OF NUMERICAL HESSIAN CALCULATION\s+\.+\s*" endOffset3="0" -->
+
+        <templateList>
+        <!-- START of module calculation -->
+          <xi:include href="init.stationaryPointLocationRun.xml"/>
+          <xi:include href="init.hessian.matrix.control.parameters.xml"/> <!-- TODO! -->
+
+          <!-- START of module calculation-step -->
+          <template  id="calculation-step"
+            pattern="\s* BEGINNING GEOMETRY SEARCH POINT NSERCH=.+" offset="0"
+            pattern2="\s+-+\s*$\s+COORD\s+\d+\s+NUCLEAR COORDINATES\s*$\s+-+\s*$\s+VIB\s+\d+.*" offset2="-1"
+
+            endPattern="\s* BEGINNING GEOMETRY SEARCH POINT NSERCH=.+" endOffset="0"
+            endPattern2="\d+\s+ATOM\s+\d+\s*$\s+-+.*" endOffset2="0"
+            endPattern3="~"
+
+            repeat="*" >
+            <templateList>
+              <xi:include href="eigenvectors.xml"/>               <!-- TODO! -->
+              <xi:include href="coordinates.angstom.xml"/>
+              <xi:include href="substituted.z-matrix.xml"/>       <!-- TODO! -->
+              <xi:include href="init.guess.options.xml"/>
+              <xi:include href="internuclear.distance.matrix.xml"/>
+              <xi:include href="molecular.orbitals.xml"/>         <!-- TODO! -->
+              <xi:include href="energy.components.xml"/>
+              <!-- TODO: MULLIKEN AND LOWDIN POPULATION ANALYSES -->
+              <xi:include href="bondOrder.valence.xml"/>
+              <xi:include href="dipole.moment.xml"/>
+              <xi:include href="gradient.xml"/>                   <!-- TODO! -->
+            </templateList>
+          </template>
+          <!-- END of module calculation-step -->
+        <!-- END of module calculation -->
+        </templateList>
+
+      </template>
+
+      <template id="finalization"
+        pattern="\s*\*+\s*EQUILIBRIUM GEOMETRY LOCATED\s*\*+\s*"          offset="0"
+        pattern2="\s*-+\s*$\s*ENERGY GRADIENT\s*$\s*-+\s*"                offset2="0"
+
+        endPattern="\s*\.+\s*END OF GEOMETRY SEARCH\s*\.+\s*" endOffset="3"
+        endPattern2="\s*\.+\s*END OF NORMAL COORDINATE ANALYSIS\s*\.+\s*" endOffset2="3"
+
+        newline="$" repeat="*">
+        <!-- pattern3="\s*\.+\s+END OF NUMERICAL HESSIAN CALCULATION\s+\.+\s*" offset3="0" -->
+        
+        <!-- START of module finalization -->
+        <templateList>
+          <!-- in Geometry Optimization: -->
+            <xi:include href="coordinates.angstom.xml"/>
+            <xi:include href="substituted.z-matrix.xml"/>       <!-- TODO! -->
+            <xi:include href="internuclear.distance.matrix.xml"/>
+            <!-- TODO: MOLECULAR ORBITALS -->
+            <xi:include href="energy.components.xml"/>
+            <!-- TODO: MULLIKEN AND LOWDIN POPULATION ANALYSES -->
+            <xi:include href="bondOrder.valence.xml"/>
+            <xi:include href="dipole.moment.xml"/>
+          <!-- in Frequency (Hessian) calculation: -->
+            <xi:include href="freq.energy.gradient.xml"/>
+            <xi:include href="freq.forceConstantMatrix.xml" />
+            <!-- TODO: DIPOLE DERIVATIVE TENSOR -->
+            <xi:include href="freq.normalCoordAnalysis.xml" />  <!-- TODO: frequenciesLong,  -->
+        </templateList>
+        <!-- END of module finalization -->
+      </template>
+
+
+        <!-- <xi:include href="chunker.temp.xml"/> -->
+      </templateList>
+    </template>
   </templateList>
-  
   <!--  don't worry if you don't understand all of this. It's almost boilerplate -->
-  <!--  Do the grouping after all the main body has been  processed
-   -->
-   <!--  this finds all modules with given templateRef and groups them an all sibligs into a new 
-   higher level module. Each modules geeedily eats sibling till the next module
-    -->
-  <transform process="group" name="./*[@cmlx:templateRef='gamessusmod']"/>
+  <!--  Do the grouping after all the main body has been  processed   -->
+
+   <!--  this finds all modules with given templateRef and groups them an all sibligs into a new
+   higher level module. Each modules greedily eats sibling till the next module  -->
+<!-- <transform process="group" name="./*[@cmlx:templateRef='gamessusmod']"/> -->
+
   <!--  labels the first group as the initial one -->
-  <transform process="addRole" name="./*[@role='group'][1]" value="initial"/>
+<!-- <transform process="addRole" name="./*[@role='group'][1]" value="initial"/> -->
+
   <!--  labels the last group as final (typical XPath/XSL construction to get the number of
   the last group -->
-  <transform process="addRole" name="./*[@role='group'][count(//*[@role='group'])]" value="final"/>
+<!-- <transform process="addRole" name="./*[@role='group'][count(//*[@role='group'])]" value="final"/> -->
+
   <!--  labels the new leading group as calculation -->
-  <transform process="addRole" name="./*[@role='group']" value="calculation"/>
+<!-- <transform process="addRole" name="./*[@role='group']" value="calculation"/> -->
+
   <!--  and groups it and its siblings not yet working -->
-  <!-- <transform process="group" name="./*[@role='calculation']"/> -->
+<!-- <transform process="group" name="./*[@role='calculation']"/> -->
 </template>

@@ -1,0 +1,164 @@
+<transformList
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
+
+  <!-- move <formula> into <molecule> -->
+  <transform process="moveRelative" 
+             xpath=".//cml:module[@id='job']/cml:formula" 
+             to="parent::cml:module[@id='job']/cml:module[@id='finalization']/cml:molecule[@id='mol9999']" />
+
+<!--  ====================== Composite methods ===================== -->
+
+  <transform process="pullupSingleton" 
+             xpath=".//cml:module[@cmlx:templateRef='composite.summary.G3'      or
+                                  @cmlx:templateRef='composite.summary.G3MP2'   or
+                                  @cmlx:templateRef='composite.summary.G3B3'    or
+                                  @cmlx:templateRef='composite.summary.G3MP2B3' or
+                                  @cmlx:templateRef='composite.summary.G4'      or
+                                  @cmlx:templateRef='composite.summary.G4MP2'   ]" />
+
+  <transform process="moveRelative"
+             xpath=".//cml:property[@cmlx:templateRef='composite.summary.G3'      or
+                                    @cmlx:templateRef='composite.summary.G3B3'    or
+                                    @cmlx:templateRef='composite.summary.G3MP2'   or
+                                    @cmlx:templateRef='composite.summary.G3MP2B3' or
+                                    @cmlx:templateRef='composite.summary.G4'      or 
+                                    @cmlx:templateRef='composite.summary.G4MP2'   ]"
+             to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='finalization']/cml:propertyList"           />
+
+  <!-- wrap several energy terms into a property-list -->
+  <transform process="addChild"      xpath=".//cml:module[@id='job']"  
+             elementName="cml:list"  dictRef="x:electronicEnergies"  position="0" />
+  <transform process="moveRelative"
+             xpath=".//cml:module[@id='job']/cml:scalar[    starts-with(@dictRef, 'x:CCSD')
+                      or starts-with(@dictRef, 'x:G1')   or starts-with(@dictRef, 'x:G2')
+                      or starts-with(@dictRef, 'x:G3')   or starts-with(@dictRef, 'x:G4') 
+                      or starts-with(@dictRef, 'x:HF')   or starts-with(@dictRef, 'x:MP2')
+                      or starts-with(@dictRef, 'x:MP3')  or starts-with(@dictRef, 'x:MP4')
+                      or starts-with(@dictRef, 'x:QCISD')   ]"
+             to="../cml:list[@dictRef='x:electronicEnergies']" /> 
+
+  <transform process="delete" xpath=".//cml:list[@dictRef='x:electronicEnergies' and count(*)=0]" />
+  <transform process="createWrapperProperty" xpath=".//*[@dictRef='x:electronicEnergies' ]"/>
+  <transform process="moveRelative" xpath=".//cml:module[@id='job']/cml:property[@dictRef='x:electronicEnergies']" 
+                                       to="../cml:module[@id='finalization']/cml:propertyList" />
+
+
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:CCSD'                ]" value="g:energy.CCSD" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:CCSD(T)'             ]" value="g:energy.CCSD_T" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:CCSD(T)/G3Bas1'      ]" value="g:energy.CCSD_T.G3Bas1" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:CCSD(T)/GTBas1'      ]" value="g:energy.CCSD_T.GTBas1" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:G1'                  ]" value='g:energy.G1' />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:G2'                  ]" value='g:energy.G2' />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:G2MP2'               ]" value='g:energy.G2MP2' />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:G3'                  ]" value="g:energy.G3" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:G3B3'                ]" value="g:energy.G3B3" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:G3MP2'               ]" value="g:energy.G3MP2" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:G3MP2B3'             ]" value="g:energy.G3MP2B3" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:G4'                  ]" value="g:energy.G4" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:G4MP2'               ]" value="g:energy.G4MP2" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:HF/GFHFB1'           ]" value="g:energy.HF.GFHFB1" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:HF/GFHFB2'           ]" value="g:energy.HF.GFHFB2" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:HF/GFHFB3'           ]" value="g:energy.HF.GFHFB3" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:HF/GFHFB4'           ]" value="g:energy.HF.GFHFB4" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:HF/GTLargeXP'        ]" value="g:energy.HF.GTLargeXP" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:HF/GTMP2LargeXP'     ]" value="g:energy.HF.GTMP2LargeXP" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP2'                 ]" value='g:energy.MP2' />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP2/6-311+G(3df,2p)' ]" value="g:energy.MP2.6-311pG_3df2p" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP2/6-311+G(d,p)'    ]" value="g:energy.MP2.6-311pG_dp" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP2/6-311G(2df,p)'   ]" value="g:energy.MP2.6-311G_2dfp" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP2/6-311G(d,p)'     ]" value="g:energy.MP2.6-311G_dp" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP2/G3Bas1'          ]" value="g:energy.MP2.G3Bas1" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP2/GTBas1'          ]" value="g:energy.MP2.GTBas1" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP2/GTBas2'          ]" value="g:energy.MP2.GTBas2" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP2/GTBas3'          ]" value="g:energy.MP2.GTBas3" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP2/GTLarge'         ]" value="g:energy.MP2.GTLarge" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP2/GTLargeXP'       ]" value="g:energy.MP2.GTLargeXP" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP2/GTMP2Large'      ]" value="g:energy.MP2.GTMP2Large" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP2/GTMP2LargeXP'    ]" value="g:energy.MP2.GTMP2LargeXP" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP3'                 ]" value='g:energy.MP3' />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP4/6-311+G(d,p)'    ]" value="g:energy.MP4.6-311pG_dp" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP4/6-311G(2df,p)'   ]" value="g:energy.MP4.6-311G_2dfp" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP4/6-311G(d,p)'     ]" value="g:energy.MP4.6-311G_dp" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP4/GTBas1'          ]" value="g:energy.MP4.GTBas1" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP4/GTBas2'          ]" value="g:energy.MP4.GTBas2" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP4/GTBas3'          ]" value="g:energy.MP4.GTBas3" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP4D'                ]" value='g:energy.MP4D' />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP4DQ'               ]" value='g:energy.MP4DQ' />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP4SDQ'              ]" value='g:energy.MP4SDQ' />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:MP4SDTQ'             ]" value="g:energy.MP4SDTQ" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:QCISD'               ]" value='g:energy.QCISD' />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:QCISD(T)'            ]" value="g:energy.QCISD_T" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:QCISD(T)/6-311G(d,p)']" value="g:energy.QCISD_T.6-311G_dp" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='x:QCISD(T)/G3Bas1'     ]" value="g:energy.QCISD_T.G3Bas1" />
+
+  <!-- add DataType, unit and improve dictRef of energy terms -->
+  <transform process="setDataType" value="xsd:double"
+             xpath=".//cml:property[@dictRef='x:electronicEnergies']/cml:list/cml:scalar" /> 
+  <transform process="addUnits" value="nonSi:hartree"
+             xpath=".//cml:property[@dictRef='x:electronicEnergies']/cml:list/cml:scalar" />
+
+<!--Energy Terms in final (Mixed) ARCHIVE: 
+Energy_ 
+G3:
+dictRef='x:MP2/G3Bas1'
+dictRef='x:QCISD(T)/G3Bas1'
+dictRef='x:MP4/GTBas1'
+dictRef='x:MP2/GTBas2'
+dictRef='x:MP4/GTBas2'
+dictRef='x:MP2/GTBas3'
+dictRef='x:MP4/GTBas3'
+dictRef='x:MP2/GTLarge'
+dictRef='x:G3'
+
+G3B3:
+dictRef='x:MP2/G3Bas1'
+dictRef='x:QCISD(T)/G3Bas1'
+dictRef='x:MP4/GTBas1'
+dictRef='x:MP2/GTBas2'
+dictRef='x:MP4/GTBas2'
+dictRef='x:MP2/GTBas3'
+dictRef='x:MP4/GTBas3'
+dictRef='x:MP2/GTLarge'
+dictRef='x:G3B3'
+
+G3MP2:
+dictRef='x:MP2/G3Bas1'
+dictRef='x:QCISD(T)/G3Bas1'
+dictRef='x:MP2/GTMP2Large'
+dictRef='x:G3MP2'
+
+G3MP2B3:
+dictRef='x:MP2/G3Bas1'
+dictRef='x:QCISD(T)/G3Bas1'
+dictRef='x:MP2/GTMP2Large'
+dictRef='x:G3MP2B3'
+
+G4:
+dictRef='x:CCSD(T)/G3Bas1'
+dictRef='x:MP2/GTBas1'
+dictRef='x:MP2/GTBas2'
+dictRef='x:MP2/GTBas3'
+dictRef='x:MP2/GTLargeXP'
+dictRef='x:MP4/GTBas1'
+dictRef='x:MP4/GTBas2'
+dictRef='x:MP4/GTBas3'
+dictRef='x:HF/GTLargeXP'
+dictRef='x:HF/GFHFB1'
+dictRef='x:HF/GFHFB2'
+dictRef='x:G4'
+
+G4MP2:
+dictRef='x:CCSD(T)/GTBas1'
+dictRef='x:MP2/GTBas1'
+dictRef='x:MP2/GTBas2'
+dictRef='x:MP2/GTBas3'
+dictRef='x:MP2/GTMP2LargeXP'
+dictRef='x:HF/GTMP2LargeXP'
+dictRef='x:HF/GFHFB3'
+dictRef='x:HF/GFHFB4'
+dictRef='x:G4MP2'
+ -->
+
+
+</transformList>
