@@ -39,21 +39,21 @@ public class TemplateTest {
 	@Test   public void testEnvironPlatformNew()	{runTemplateTest("env.platform.new");}
 	@Test   public void testEnvironVersion()		{runTemplateTest("env.version");}
 	@Test   public void testStdNuclOrient()			{runTemplateTest("standard.nuclear.orientation");}
+	@Test   public void testCoordsAngstoms()     	{runTemplateTest("coordinates.angstoms");}
+	@Test   public void testEnvironHostname()	    {runTemplateTest("env.hostname");}
+	@Test   public void testEnvironTimestamp()	    {runTemplateTest("env.timestamp");}
+	@Test   public void testInitBasis()				{runTemplateTest("init.basis");}
+	@Test   public void testMullikenCharges()	    {runTemplateTest("mulliken.charges");}
+	@Ignore @Test   public void testThermoChemistry()		{runTemplateTest("thermochemistry");}
 
 
 	////////////  //////////// READY TO WORK ON: ////////////  ////////////
-	@Ignore @Test public void testCoordsAngstoms()			{runTemplateTest("coordinates.angstoms");}
 	@Ignore @Test public void testDistanceMatrix()			{runTemplateTest("distance.matrix");}
-	@Ignore @Test public void testEnvironHostname()			{runTemplateTest("env.hostname");}
-	@Ignore @Test public void testEnvironTimetamp()			{runTemplateTest("env.timestamp");}
 	@Ignore @Test public void testFreqForceConstMatrix()	{runTemplateTest("freq.forceConstantMatrix");}
 	@Ignore @Test public void testFreqVibAnalalysis()		{runTemplateTest("freq.vib.analysis");}
 	@Ignore @Test public void testGradients()				{runTemplateTest("gradients");}
-	@Ignore @Test public void testInitBasis()				{runTemplateTest("init.basis");}
-	@Ignore @Test public void testMullikenCharges()			{runTemplateTest("mulliken.charges");}
 	@Ignore @Test public void testMultipoleMoments()		{runTemplateTest("multipole.moments");}
 	@Ignore @Test public void testPolarizabilityMatrix()	{runTemplateTest("polarizability.matrix");}
-	@Ignore @Test public void testThermoChemistry()			{runTemplateTest("thermochemistry");}
 
 
 	////////////  //////////// KEEP FOR LATER: ////////////  ////////////
