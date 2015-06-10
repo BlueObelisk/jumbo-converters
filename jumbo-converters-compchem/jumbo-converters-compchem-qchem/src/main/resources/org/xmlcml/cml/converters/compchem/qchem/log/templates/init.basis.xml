@@ -13,8 +13,18 @@
  There are 62 shells and 164 basis functions
   </comment>
 
-  <record id="init.basis.unparsed" repeat="*">{X,x:UNPARSED}</record>
+  <record id="init.basisSetLabel">\s*Requested basis set is {X,cc:basisSetLabel}\s*</record>
+  <record id="init.basisSetLabel">\s*There are {I,q:numShells} shells and {I,q:numBasisFunctions} basis functions\s*</record>
 
+  <transform process="createWrapperParameter" 
+             xpath=".//*[@dictRef='cc:basisSetLabel' or @dictRef='q:numShells' or @dictRef='q:numBasisFunctions']" />
+
+  <transform process="move" 
+             xpath=".//*[@dictRef='cc:basisSetLabel' or @dictRef='q:numShells' or @dictRef='q:numBasisFunctions']"
+             to="." />
+
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
 
   <comment class="example.output" id="init.basis.1">
     <module cmlx:templateRef="init.basis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
