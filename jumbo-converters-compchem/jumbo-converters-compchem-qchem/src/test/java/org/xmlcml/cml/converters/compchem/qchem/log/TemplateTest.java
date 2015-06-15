@@ -53,6 +53,7 @@ public class TemplateTest {
 	@Ignore @Test public void testFreqForceConstMatrix()	{runTemplateTest("freq.forceConstantMatrix");}
 	@Ignore @Test public void testFreqVibAnalalysis()		{runTemplateTest("freq.vib.analysis");}
 	@Ignore @Test public void testGradients()				{runTemplateTest("gradients");}
+	@Ignore @Test public void testEnvironAuthors()			{runTemplateTest("env.authors");}
 
 
 	////////////  //////////// KEEP FOR LATER: ////////////  ////////////
