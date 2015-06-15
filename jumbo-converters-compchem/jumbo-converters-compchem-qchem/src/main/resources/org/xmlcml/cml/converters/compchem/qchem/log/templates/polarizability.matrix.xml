@@ -12,16 +12,30 @@
     3  -0.0000016   0.0000016 -12.1472869
   </comment>
 
-  <record id="polarizability.matrix.unparsed" repeat="*">{X,x:UNPARSED}</record>
+  <!-- RECORD -->
+  <record id="polarizability.matrix.unparsed" repeat="2" />
+  <record id="polarizability.matrix" makeArray="true" repeat="*">\s*.+\s+{F,cc:polarizability}\s+{F,cc:polarizability2}\s+{F,cc:polarizability3}\s*</record>
 
+  <!-- TRANSFORM -->
+  <transform process="move" xpath=".//*[contains(@dictRef,'cc:polarizability')]" to="." />
+  <transform process="createWrapperProperty" xpath=".//*[contains(@dictRef,'cc:polarizability')]" />
+  <transform process="pullupSingleton" xpath=".//*[@dictRef='cc:polarizability2' or @dictRef='cc:polarizability3']" />
+  <transform process="move" xpath=".//cml:array" to=".//cml:property" />
+  <transform process="addAttribute" xpath="(.//cml:property/cml:array)[1]" name="cmlx:row" value="1" />
+  <transform process="addAttribute" xpath="(.//cml:property/cml:array)[2]" name="cmlx:row" value="2" />
+  <transform process="addAttribute" xpath="(.//cml:property/cml:array)[3]" name="cmlx:row" value="3" />
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
 
   <!-- TODO: (later) restrict to lower triangle matrix and merge to one <array> of size 6 -->
   <comment class="example.output" id="polarizability.matrix">
   <module cmlx:templateRef="polarizability.matrix" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <property dictRef="cc:polarizability">
-    <array dataType="xsd:double" size="3" cmlx:row="1">-12.1472869  -0.0000016  -0.0000016</array>
-    <array dataType="xsd:double" size="3" cmlx:row="2"> -0.0000016 -12.1472869   0.0000016</array>
-    <array dataType="xsd:double" size="3" cmlx:row="3"> -0.0000016   0.0000016 -12.1472869</array>
+    <array dataType="xsd:double" size="3" cmlx:row="1">-12.1472869 -1.6E-6 -1.6E-6</array>
+    <array dataType="xsd:double" size="3" cmlx:row="2">-1.6E-6 -12.1472869 1.6E-6</array>
+    <array dataType="xsd:double" size="3" cmlx:row="3">-1.6E-6 1.6E-6 -12.1472869</array>
   </property>
   </module>
   </comment>

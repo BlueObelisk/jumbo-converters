@@ -30,14 +30,64 @@
  -----------------------------------------------------------------
   </comment>
 
-  <record id="multipole.moments.unparsed" repeat="*">{X,x:UNPARSED}</record>
+  <!-- RECORD -->
+  <record id="unparsed" repeat="6" />
+  <record id="dipole">\s*.+\s+{F,cc:dipole}\s+.+\s+{F,cc:dipole}\s+.+\s+{F,cc:dipole}\s*</record>
+  <record id="total">\s*.+\s+{F,cc:dipole}\s*</record>
+  <record id="unparsed" />
+  <record id="quadrupole" repeat="*">\s*{A,cc:quadrupole}\s+{F,cc:quadrupole}\s+{A,cc:quadrupole}\s+{F,cc:quadrupole}\s+{A,cc:quadrupole}\s+{F,cc:quadrupole}\s*</record>
+  <record id="unparsed" />
+  <record id="octapole" repeat="*">\s*{A,cc:octapole}\s+{F,cc:octapole}\s+{A,cc:octapole}\s+{F,cc:octapole}\s+{A,cc:octapole}\s+{F,cc:octapole}\s*</record>
+  <record id="octapole">\s*{A,cc:octapole}\s+{F,cc:octapole}\s*</record>
+  <record id="unparsed" />
+  <record id="hexadecapole" repeat="*">\s*{A,cc:hexadecapole}\s+{F,cc:hexadecapole}\s+{A,cc:hexadecapole}\s+{F,cc:hexadecapole}\s+{A,cc:hexadecapole}\s+{F,cc:hexadecapole}\s*</record>
+  <record id="unparsed" />
+
+  <!-- TRANSFORM -->
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='dipole']/cml:list/cml:scalar[@dictRef='cc:dipole']" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='quadrupole']/cml:list/cml:scalar[@dataType='xsd:string']" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='quadrupole']/cml:list/cml:scalar[@dataType='xsd:double']" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='octapole']/cml:list/cml:scalar[@dataType='xsd:string']" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='octapole']/cml:list/cml:scalar[@dataType='xsd:double']" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='hexadecapole']/cml:list/cml:scalar[@dataType='xsd:string']" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='hexadecapole']/cml:list/cml:scalar[@dataType='xsd:double']" />
+
+  <transform process="move" xpath=".//*[contains(@dictRef,'cc')]" to="." />
+
+  <transform process="createWrapperProperty" xpath=".//*[contains(@dictRef,'cc')]" />
+
+  <transform process="move" xpath="(.//cml:property[@dictRef='cc:dipole'])[2]/cml:scalar" to="(.//cml:property[@dictRef='cc:dipole'])[1]" />
+  <transform process="move" xpath="(.//cml:property[@dictRef='cc:quadrupole'])[2]/cml:array" to="(.//cml:property[@dictRef='cc:quadrupole'])[1]" />
+  <transform process="move" xpath="(.//cml:property[@dictRef='cc:octapole'])[2]/cml:array" to="(.//cml:property[@dictRef='cc:octapole'])[1]" />
+  <transform process="move" xpath="(.//cml:property[@dictRef='cc:hexadecapole'])[2]/cml:array" to="(.//cml:property[@dictRef='cc:hexadecapole'])[1]" />
+
+  <transform process="addChild" xpath=".//cml:property" elementName="cml:list" />
+  <transform process="moveRelative" xpath=".//cml:property/cml:array"  to="../cml:list" />
+  <transform process="moveRelative" xpath=".//cml:property/cml:scalar" to="../cml:list" />
+
+  <transform process="addUnits" xpath=".//cml:property[@dictRef='cc:dipole']/cml:list/cml:array"  value="nonSi:debeye" />
+  <transform process="addUnits" xpath=".//cml:property[@dictRef='cc:dipole']/cml:list/cml:scalar" value="nonSi:debeye" />
+  <transform process="addUnits" 
+             xpath=".//cml:property[@dictRef='cc:quadrupole']/cml:list/cml:array[@dataType='xsd:double']" 
+             value="nonSi:debeye.angstrom" />
+  <transform process="addUnits" 
+             xpath=".//cml:property[@dictRef='cc:octapole']/cml:list/cml:array[@dataType='xsd:double']" 
+             value="nonSi:debeye.angstrom2" />
+  <transform process="addUnits" 
+             xpath=".//cml:property[@dictRef='cc:hexadecapole']/cml:list/cml:array[@dataType='xsd:double']" 
+             value="nonSi:debeye.angstrom3" />
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:property[count(*)=0]" />
 
 
   <comment class="example.output" id="multipole.moments">
     <module cmlx:templateRef="multipole.moments" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <property dictRef="cc:dipole">
         <list>
-          <array  dataType="xsd:double"  size="3" units="nonSi:debeye">0.7211 -1.5317 0.0</array>
+          <array  dataType="xsd:double" size="3" units="nonSi:debeye">0.7211 -1.5317 0.0</array>
           <scalar dataType="xsd:double" units="nonSi:debeye">1.693</scalar>
         </list>
       </property>
@@ -49,14 +99,14 @@
       </property>
       <property dictRef="cc:octapole">
         <list>
-          <array  dataType="xsd:double" size="10">XXX XXY XYY YYY XXZ XYZ YYZ XZZ YZZ ZZZ</array>
-          <array  dataType="xsd:double" size="10" units="nonSi:debeye.angstrom2">-4.5760 -2.1106 -1.8165 -0.2562 0.0 0.0 0.0 -0.5875 -0.4240 0.0</array>
+          <array  dataType="xsd:string" size="10">XXX XXY XYY YYY XXZ XYZ YYZ XZZ YZZ ZZZ</array>
+          <array  dataType="xsd:double" size="10" units="nonSi:debeye.angstrom2">-4.576 -2.1106 -1.8165 -0.2562 0.0 0.0 0.0 -0.5875 -0.424 0.0</array>
         </list>
       </property>
       <property dictRef="cc:hexadecapole">
         <list>
-          <array  dataType="xsd:double" size="15">XXXX XXXY XXYY XYYY YYYY XXXZ XXYZ XYYZ YYYZ XXZZ XYZZ YYZZ XZZZ YZZZ ZZZZ</array>
-          <array  dataType="xsd:double" size="15" units="nonSi:debeye.angstrom3">59.5385 4.0359 -12.1286 3.0253 -19.5171 0.0 0.0 0.0 0.0 13.7458 0.0991 -6.5664 0.0 0.0 -19.1041</array>
+          <array  dataType="xsd:string" size="15">XXXX XXXY XXYY XYYY YYYY XXXZ XXYZ XYYZ YYYZ XXZZ XYZZ YYZZ XZZZ YZZZ ZZZZ</array>
+          <array  dataType="xsd:double" size="15" units="nonSi:debeye.angstrom3">-59.5385 4.0359 -12.1286 3.0253 -19.5171 0.0 0.0 0.0 0.0 -13.7458 0.0991 -6.5664 0.0 0.0 -19.1041</array>
         </list>
       </property>
     </module>

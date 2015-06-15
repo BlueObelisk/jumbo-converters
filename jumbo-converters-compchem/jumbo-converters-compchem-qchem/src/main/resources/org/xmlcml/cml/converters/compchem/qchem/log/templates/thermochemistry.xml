@@ -36,41 +36,138 @@
    Total Entropy:                44.394  cal/mol.K
   </comment>
 
-  <record id="thermochemistry.unparsed" repeat="*">{X,x:UNPARSED}</record>
+  <!-- RECORD -->
+  <record id="thermochemistry">\s*STANDARD THERMODYNAMIC QUANTITIES AT\s+{F,cc:temp} K\s+AND\s+{F,cc:press} ATM\s*</record>
+  <record id="thermochemistry.unparsed" repeat="2" />
+  <record id="thermochemistry">\s*Zero point vibrational energy:\s+{F,cc:zpe}.*</record>
+  <record id="thermochemistry.unparsed" />
+  <record id="mass" makeArray="true" repeat="*">\s*Atom\s+{I,cc:serial}\s+Element\s+{A,cc:elementType}\s+Has Mass\s+{F,cc:atomicmass}\s*</record>
+  <record id="molmass">\s*Molecular Mass:\s+{F,cc:molmass}\s+.*</record>
+  <record id="thermochemistry.unparsed" repeat="2" />
+  <record id="principalAxes">\s*Eigenvalues\s+--\s+{F,cc:principalAxesEigenval}\s+{F,cc:principalAxesEigenval}\s+{F,cc:principalAxesEigenval}\s*</record>
+  <record id="principalAxes2" makeArray="true" repeat="*">\s+.\s+{F,cc:principalcomp}\s+{F,cc:principalcomp}\s+{F,cc:principalcomp}\s*</record>
+  <record id="symmnumber">\s*Rotational Symmetry Number is {I,cc:symmnumber}\s*</record>
+  <record id="top">\s*The Molecule is a {A,q:top} Top\s*</record>
+  <record id="transEnthalpy">\s*Translational Enthalpy:\s+{F,q:transEnthalpy}.*</record>
+  <record id="rotEnthalpy">\s*Rotational Enthalpy:\s+{F,q:rotEnthalpy}.*</record>
+  <record id="vibEnthalpy">\s*Vibrational Enthalpy:\s+{F,q:vibEnthalpy}.*</record>
+  <record id="gasConstant">\s*gas constant \(RT\):\s+{F,q:gasConstant}.*</record>
+  <record id="transEntropy">\s*Translational Entropy:\s+{F,q:transEntropy}.*</record>
+  <record id="rotEntropy">\s*Rotational Entropy:\s+{F,q:rotEntropy}.*</record>
+  <record id="vibEntropy">\s*Vibrational Entropy:\s+{F,q:vibEntropy}.*</record>
+  <record id="thermochemistry.unparsed" />
+  <record id="totalEnthalpy">\s*Total Enthalpy:\s+{F,cc:thermalCorrectionToEnthalpy}.*</record>
+  <record id="totalEntropy">\s*Total Entropy:\s+{F,q:totalEntropy}.*</record>
 
+  <!-- TRANSFORM -->
+  <transform process="addUnits" xpath=".//*[@dictRef='cc:temp']"                                         value="si:k" />
+  <transform process="addUnits" xpath=".//*[@dictRef='cc:press']"                                        value="nonSi:atm" />
+  <transform process="addUnits" xpath=".//*[@dictRef='cc:zpe']"                                          value="nonSi:kcal.mol-1" />
+  <transform process="addUnits" xpath=".//*[@dictRef='cc:molmass' or @dictRef='cc:atomicmass']"          value="nonSi:dalton" />
+  <transform process="addUnits" xpath=".//*[contains(@dictRef,'Enthalpy') or @dictRef='q:gasConstant']"  value="nonSi:kcal.mol-1" />
+  <transform process="addUnits" xpath=".//*[contains(@dictRef,'Entropy')]"                               value="nonSi:cal.mol-1.k-1" />
+
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='cc:principalAxesEigenval']" />
+  <transform process="createTable" xpath=".//*[@cmlx:templateRef='mass']" />
+  <transform process="pullup" xpath=".//cml:list/cml:list/cml:scalar[contains(@dictRef,'cc') or contains(@dictRef,'q')]" />
+  <transform process="pullup" xpath=".//cml:list/cml:scalar[contains(@dictRef,'cc') or contains(@dictRef,'q')]" />
+  <transform process="pullup" xpath=".//cml:list/cml:list/cml:array[contains(@dictRef,'cc') or contains(@dictRef,'q')]" />
+  <transform process="pullup" xpath=".//cml:list/cml:array[contains(@dictRef,'cc') or contains(@dictRef,'q')]" />
+  <transform process="addDictRef" xpath=".//cml:table" value="cc:atomicmass" />
+  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='cc:temp' or @dictRef='cc:press']" />
+  <transform process="createWrapperParameter" xpath=".//cml:table[@dictRef='cc:atomicmass']" />
+  <transform process="addChild"
+             xpath="."
+             elementName="cml:parameterList"
+             position="0" />
+  <transform process="move" xpath=".//cml:parameter" to=".//cml:parameterList" />
+  <transform process="addChild"
+             xpath="."
+             elementName="cml:list"
+             dictRef="cc:principalAxes"
+             position="7" />
+  <transform process="move" xpath=".//cml:array[contains(@dictRef,'cc:principal')]" to=".//cml:list[@dictRef='cc:principalAxes']" />
+  <transform process="createWrapperProperty" xpath=".//cml:scalar[contains(@dictRef,'cc') or contains(@dictRef,'q')]" />
+  <transform process="createWrapperProperty" xpath=".//cml:list[@dictRef='cc:principalAxes']" />
+  <transform process="addChild"
+             xpath="."
+             elementName="cml:propertyList"
+             position="1" />
+  <transform process="move" xpath=".//cml:property" to=".//cml:propertyList" />
+
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
 
   <comment class="example.output" id="thermochemistry">
     <module cmlx:templateRef="thermochemistry" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <property dictRef="cc:thermochemistry">
-        <list id="thermochemistry">
-          <scalar dataType="xsd:double"   dictRef="cc:temp"  units="si:k">298.18</scalar>
-          <scalar dataType="xsd:double"   dictRef="cc:press" units="nonSi:atm" >1.0</scalar>
-          <scalar dataType="xsd:double"   dictRef="cc:zpe"   units="nonSi:kcal.mol-1">29.979</scalar>
-          <list cmlx:templateRef="mass">
-            <array dataType="xsd:integer" dictRef="cc:serial"      size="5">1 2 3 4 5</array>
-            <array dataType="xsd:string"  dictRef="cc:elementType" size="5">C H H H H</array>
-            <array dataType="xsd:double"  dictRef="cc:atomicmass"  size="5" units="nonSi:dalton">12.0 1.00783 1.00783 1.00783 1.00783</array>
-          </list>
-          <scalar dataType="xsd:double" dictRef="cc:molmass" units="nonSi:dalton">16.0313</scalar>
-          <list dictRef="cc:principalAxes">
+      <parameterList>
+        <parameter dictRef="cc:temp">
+          <scalar dataType="xsd:double" units="si:k">298.18</scalar>
+        </parameter>
+        <parameter dictRef="cc:press">
+          <scalar dataType="xsd:double" units="nonSi:atm" >1.0</scalar>
+        </parameter>
+        <parameter dictRef="cc:atomicmass">
+          <table tableType="columnBased">
+            <arrayList>
+              <array dataType="xsd:integer" dictRef="cc:serial" size="5">1 2 3 4 5</array>
+              <array dataType="xsd:string" dictRef="cc:elementType" size="5">C H H H H</array>
+              <array dataType="xsd:double" dictRef="cc:atomicmass" size="5" units="nonSi:dalton">12.0 1.00783 1.00783 1.00783 1.00783</array>
+            </arrayList>
+          </table>
+        </parameter>
+      </parameterList>
+      <propertyList>
+        <property dictRef="cc:zpe">
+          <scalar dataType="xsd:double" units="nonSi:kcal.mol-1">29.979</scalar>
+        </property>
+        <property dictRef="cc:molmass">
+          <scalar dataType="xsd:double" units="nonSi:dalton">16.03132</scalar>
+        </property>
+        <property dictRef="cc:principalAxes">
+          <list>
             <array dataType="xsd:double"  dictRef="cc:principalAxesEigenval" size="3">11.27121 11.27121 11.27121</array>
             <array dataType="xsd:double"  dictRef="cc:principalcomp" size="3">0.70711 0.70711 0.0</array>
             <array dataType="xsd:double"  dictRef="cc:principalcomp" size="3">0.40825 -0.40825 0.8165</array>
-            <array dataType="xsd:double"  dictRef="cc:principalcomp" size="3">-0.57735 0.57735  0.57735</array>
+            <array dataType="xsd:double"  dictRef="cc:principalcomp" size="3">-0.57735 0.57735 0.57735</array>
           </list>
-          <scalar dataType="xsd:integer" dictRef="cc:symmnumber">12</scalar>
-          <scalar dataType="xsd:string"  dictRef="q:top">Spherical</scalar>
-          <scalar dataType="xsd:double"  dictRef="q:transEnthalpy" units="nonSi:kcal.mol-1">0.889</scalar>
-          <scalar dataType="xsd:double"  dictRef="q:rotEnthalpy"   units="nonSi:kcal.mol-1">0.889</scalar>
-          <scalar dataType="xsd:double"  dictRef="q:vibEnthalpy"   units="nonSi:kcal.mol-1">29.991</scalar>
-          <scalar dataType="xsd:double"  dictRef="q:gasConstant"   units="nonSi:kcal.mol-1">0.593</scalar>
-          <scalar dataType="xsd:double"  dictRef="q:transEntropy"  units="nonSi:cal.mol-1.k-1">34.262</scalar>
-          <scalar dataType="xsd:double"  dictRef="q:rotEntropy"    units="nonSi:cal.mol-1.k-1">10.085</scalar>
-          <scalar dataType="xsd:double"  dictRef="q:vibEntropy"    units="nonSi:cal.mol-1.k-1">0.047</scalar>
-          <scalar dataType="xsd:double"  dictRef="cc:thermalCorrectionToEnthalpy" units="nonSi:kcal.mol-1">32.361</scalar>
-          <scalar dataType="xsd:double"  dictRef="q:totalEntropy"  units="nonSi:cal.mol-1.k-1">44.394</scalar>
-        </list>
-      </property>
+        </property>
+        <property dictRef="cc:symmnumber">
+          <scalar dataType="xsd:integer">12</scalar>
+        </property>
+        <property dictRef="q:top">
+          <scalar dataType="xsd:string">Spherical</scalar>
+        </property>
+        <property dictRef="q:transEnthalpy">
+          <scalar dataType="xsd:double" units="nonSi:kcal.mol-1">0.889</scalar>
+        </property>
+        <property dictRef="q:rotEnthalpy">
+          <scalar dataType="xsd:double" units="nonSi:kcal.mol-1">0.889</scalar>
+        </property>
+        <property dictRef="q:vibEnthalpy">
+          <scalar dataType="xsd:double" units="nonSi:kcal.mol-1">29.991</scalar>
+        </property>
+        <property dictRef="q:gasConstant">
+          <scalar dataType="xsd:double" units="nonSi:kcal.mol-1">0.593</scalar>
+        </property>
+        <property dictRef="q:transEntropy">
+          <scalar dataType="xsd:double" units="nonSi:cal.mol-1.k-1">34.262</scalar>
+        </property>
+        <property dictRef="q:rotEntropy">
+          <scalar dataType="xsd:double" units="nonSi:cal.mol-1.k-1">10.085</scalar>
+        </property>
+        <property dictRef="q:vibEntropy">
+          <scalar dataType="xsd:double" units="nonSi:cal.mol-1.k-1">0.047</scalar>
+        </property>
+        <property dictRef="cc:thermalCorrectionToEnthalpy">
+          <scalar dataType="xsd:double" units="nonSi:kcal.mol-1">32.361</scalar>
+        </property>
+        <property dictRef="q:totalEntropy">
+          <scalar dataType="xsd:double" units="nonSi:cal.mol-1.k-1">44.394</scalar>
+        </property>
+      </propertyList>
     </module>
   </comment>
 
