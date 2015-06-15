@@ -44,16 +44,15 @@ public class TemplateTest {
 	@Test   public void testEnvironTimestamp()	    {runTemplateTest("env.timestamp");}
 	@Test   public void testInitBasis()				{runTemplateTest("init.basis");}
 	@Test   public void testMullikenCharges()	    {runTemplateTest("mulliken.charges");}
-	@Ignore @Test   public void testThermoChemistry()		{runTemplateTest("thermochemistry");}
-
+	@Test   public void testThermoChemistry()		{runTemplateTest("thermochemistry");}
+	@Test   public void testMultipoleMoments()		{runTemplateTest("multipole.moments");}
+	@Test   public void testPolarizabilityMatrix()	{runTemplateTest("polarizability.matrix");}
+	@Test   public void testDistanceMatrix()	    {runTemplateTest("distance.matrix");}
 
 	////////////  //////////// READY TO WORK ON: ////////////  ////////////
-	@Ignore @Test public void testDistanceMatrix()			{runTemplateTest("distance.matrix");}
 	@Ignore @Test public void testFreqForceConstMatrix()	{runTemplateTest("freq.forceConstantMatrix");}
 	@Ignore @Test public void testFreqVibAnalalysis()		{runTemplateTest("freq.vib.analysis");}
 	@Ignore @Test public void testGradients()				{runTemplateTest("gradients");}
-	@Ignore @Test public void testMultipoleMoments()		{runTemplateTest("multipole.moments");}
-	@Ignore @Test public void testPolarizabilityMatrix()	{runTemplateTest("polarizability.matrix");}
 
 
 	////////////  //////////// KEEP FOR LATER: ////////////  ////////////
