@@ -48,12 +48,12 @@ public class TemplateTest {
 	@Test   public void testMultipoleMoments()		{runTemplateTest("multipole.moments");}
 	@Test   public void testPolarizabilityMatrix()	{runTemplateTest("polarizability.matrix");}
 	@Test   public void testDistanceMatrix()	    {runTemplateTest("distance.matrix");}
+	@Test   public void testFreqForceConstMatrix()	{runTemplateTest("freq.forceConstantMatrix");}
+	@Test   public void testFreqVibAnalalysis()		{runTemplateTest("freq.vib.analysis");}
+	@Test 	public void testGradients()				{runTemplateTest("gradients");}
+	@Test 	public void testEnvironAuthors()	 	{runTemplateTest("env.authors");}
 
 	////////////  //////////// READY TO WORK ON: ////////////  ////////////
-	@Ignore @Test public void testFreqForceConstMatrix()	{runTemplateTest("freq.forceConstantMatrix");}
-	@Ignore @Test public void testFreqVibAnalalysis()		{runTemplateTest("freq.vib.analysis");}
-	@Ignore @Test public void testGradients()				{runTemplateTest("gradients");}
-	@Ignore @Test public void testEnvironAuthors()			{runTemplateTest("env.authors");}
 
 
 	////////////  //////////// KEEP FOR LATER: ////////////  ////////////

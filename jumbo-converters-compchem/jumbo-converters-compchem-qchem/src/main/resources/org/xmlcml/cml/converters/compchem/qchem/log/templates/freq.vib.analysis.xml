@@ -63,22 +63,22 @@
  TransDip   0.117 -0.117 -0.117   -0.165 -0.087 -0.078   -0.005  0.140 -0.146
 
   </comment>
-  <record id="vibrational.analysis.unparsed" repeat="12">{X,x:UNPARSED}</record>
+  <record id="unparsed" repeat="12" />
 
   <!-- See  1716.forcematrix.xml  in jumbo-converters-compchem-gaussian -->
 
   <templateList>
     <template id="vibrational.modes.chunker"
-      name="vibrational.modes.chunker"
-      repeat="*"
-      pattern="\s*Mode:"             offset="0"
-      endPattern="\s*TransDip.+"  endOffset="1" >
+              name="vibrational.modes.chunker"
+              repeat="*"
+              pattern="\s*Mode:.+"           offset="0"
+              endPattern="\s*TransDip.+"  endOffset="1" >
       <templateList>
         <template id="vibrational.modes"
-          name="vibrational.modes"
-          repeat="1"
-          pattern="\s*Mode:"                 offset="0"
-          endPattern="\s*Raman Active:.+" endOffset="1" >
+                  name="vibrational.modes"
+                  repeat="1"
+                  pattern="\s*Mode:.+"                 offset="0"
+                  endPattern="\s*Raman Active:.+" endOffset="1" >
           <comment>
            Mode:                 1                      2                      3
            Frequency:      1488.03                1488.03                1488.03
@@ -89,16 +89,20 @@
            Raman Active:       YES                    YES                    YES        
           </comment>
 
-
-          <record id="vibrational.modes.unparsed" repeat="*">{X,x:UNPARSED}</record>
-
+          <record id="serial">\s*Mode:\s+{I,x:serial}\s+{I,x:serial}\s+{I,x:serial}\s*</record>
+          <record id="frequency">\s*Frequency:\s+{F,cc:frequency}\s+{F,cc:frequency}\s+{F,cc:frequency}\s*</record>
+          <record id="forceconst">\s*Force Cnst:\s+{F,cc:forceconst}\s+{F,cc:forceconst}\s+{F,cc:forceconst}\s*</record>
+          <record id="redmass">\s*Red. Mass:\s+{F,cc:redmass}\s+{F,cc:redmass}\s+{F,cc:redmass}\s*</record>
+          <record id="iractive">\s*IR Active:\s+{A,q:ir_active}\s+{A,q:ir_active}\s+{A,q:ir_active}\s*</record>
+          <record id="irintensity">\s*IR Intens:\s+{F,cc:irintensity}\s+{F,cc:irintensity}\s+{F,cc:irintensity}\s*</record>
+          <record id="raman_active">\s*Raman Active:\s+{A,q:raman_active}\s+{A,q:raman_active}\s+{A,q:raman_active}\s*</record>
 
         </template>
         <template id="vibrational.displacements"
           name="vibrational.displacements"
           repeat="1"
-          pattern="\s*X +Y +Z +.+"         offset="0"
-          endPattern="\s*TransDip.+"    endOffset="1" >
+          pattern="\s*X\s+Y\s+Z.+"         offset="0"
+          endPattern="\s*TransDip.+"       endOffset="0" >
           <comment>
                          X      Y      Z        X      Y      Z        X      Y      Z
            C          0.072 -0.072 -0.072   -0.091 -0.007 -0.084   -0.045 -0.101  0.057
@@ -109,17 +113,86 @@
            TransDip  -0.059  0.059  0.059    0.075  0.006  0.070    0.037  0.084 -0.047
           </comment>
 
-
-          <record id="vibrational.displacements.unparsed" repeat="*">{X,x:UNPARSED}</record>
-
-
+          <record id="unparsed" />
+          <record id="displacement" repeat="*">\s*{A,cc:elementType}\s+{1_9F,cc:displacement}\s*</record>
+        </template>
+        <template id="vibrational.displacements.transdip"
+                  name="vibrational.displacement.transdip"
+                  repeat="1"
+                  pattern="\s*TransDip.+"    offset="0"
+                  endPattern="$"             endOffset="1">
+          <record id="transDip" repeat="*">\s*TransDip\s+{1_9F,q:transitionDipole}\s*</record>
         </template>
       </templateList>
     </template>
   </templateList>
   
-  <record id="vibrational.analysis.unparsed" repeat="*">{X,x:UNPARSED}</record>
+  <!-- PULL OUT CHILDREN OF EXTRA MODULES -->
+  <transform process="pullup" xpath=".//cml:module/cml:module" />
+  <transform process="pullup" xpath=".//cml:module/cml:list" />
 
+  <!-- CREATE ARRAYS -->
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='serial']/cml:list/cml:scalar[@dictRef='x:serial']" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='frequency']/cml:list/cml:scalar[@dictRef='cc:frequency']" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='forceconst']/cml:list/cml:scalar[@dictRef='cc:forceconst']" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='redmass']/cml:list/cml:scalar[@dictRef='cc:redmass']" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='iractive']/cml:list/cml:scalar[@dictRef='q:ir_active']" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='irintensity']/cml:list/cml:scalar[@dictRef='cc:irintensity']" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='raman_active']/cml:list/cml:scalar[@dictRef='q:raman_active']" />
+
+  <!-- ADD ELEMENT TYPE AS ATTRIBUTE TO ARRAYS FOR MERGING -->
+  <transform process="addAttribute" xpath=".//cml:list[@cmlx:templateRef='displacement']/cml:list/cml:array" name="cmlx:elementType" value="$string(../cml:scalar[@dictRef='cc:elementType'])" />
+
+  <!-- MERGE ARRAYS -->
+  <transform process="joinArrays" 
+             xpath=".//cml:list[@cmlx:templateRef='displacement']/cml:list/cml:array[@cmlx:elementType]"
+             key="$string(@cmlx:elementType)" />
+
+  <transform process="joinArrays" xpath=".//cml:list[@cmlx:templateRef='displacement']/cml:list/cml:array[@dictRef='cc:displacement']" />
+
+  <transform process="joinArrays" xpath=".//cml:list[@cmlx:templateRef='transDip']/cml:array[@dictRef='q:transitionDipole']" />
+
+  <!-- CREATE ARRAY OF ELEMENT TYPES -->
+  <transform process="createArray" xpath="." from="(.//cml:list[@cmlx:templateRef='displacement'])[1]/cml:list/cml:scalar[@dictRef='cc:elementType']" />
+
+  <!-- REMOVE ALL OTHER EXTRA SCALARS CONTAINING ELEMENT TYPE -->
+  <transform process="delete" xpath=".//cml:scalar[@dictRef='cc:elementType']" />
+
+  <!-- PULL UP -->
+  <transform process="pullup" xpath=".//cml:list/cml:list/cml:array" />
+  <transform process="pullup" xpath=".//cml:list/cml:array" />
+
+  <!-- CREATE LIST AND MOVE ARRAYS REFERRING TO VIBRATIONAL DISPLACEMENT INTO IT -->
+  <transform process="addChild"
+             xpath="."
+             elementName="cml:list"
+             position="0"
+             dictRef="q:vibdisplacements" />
+
+  <transform process="move" xpath=".//cml:array[@dictRef='cc:elementType' or @dictRef='cc:displacement' or @dictRef='q:transitionDipole']" to=".//cml:list[@dictRef='q:vibdisplacements']" />
+
+  <!-- WRAP LIST IN PROPERTY AND PULL UP ALL ARRAYS WITHIN IT -->
+  <transform process="createWrapperProperty" xpath=".//cml:list[@dictRef='q:vibdisplacements']" />
+  <transform process="pullup" xpath=".//cml:property[@dictRef='q:vibdisplacements']/cml:list/cml:array" />
+
+  <!-- CREATE NEW TABLE -->
+  <transform process="addChild"
+             xpath="."
+             elementName="cml:table"
+             position="0"
+             dictRef="cc:frequencies"
+             id="forcematrix" />
+
+  <!-- MOVE ALL REMAINING ARRAYS INTO IT -->
+  <transform process="move" xpath=".//cml:array[contains(@dictRef,'cc:f') or contains(@dictRef,'cc:r') or contains(@dictRef,'q:ir') or contains(@dictRef,'cc:ir') or contains(@dictRef,'q:r') or contains(@dictRef,'x:s')]" to=".//cml:table[@dictRef='cc:frequencies']" />
+
+  <!-- WRAP TABLE IN PROPERTY -->
+  <transform process="createWrapperProperty" xpath=".//cml:table[@dictRef='cc:frequencies']" />
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:module[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
 
   <comment class="example.output" id="vibrational.analysis">
     <module cmlx:templateRef="vibrational.analysis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
@@ -127,8 +200,8 @@
         <table id="forcematrix">
           <array dataType="xsd:integer" dictRef="x:serial" size="9">1 2 3 4 5 6 7 8 9</array>
           <array dataType="xsd:double" dictRef="cc:frequency" size="9">1488.03 1488.03 1488.03 1702.62 1702.62 3196.89 3301.37 3301.37 3301.37</array>
-          <array dataType="xsd:double" dictRef="cc:forceconst" size="9">1.5370 1.5370 1.5370 1.7214 1.7214 6.0686 7.0790 7.0790 7.0790</array>
-          <array dataType="xsd:double" dictRef="cc:redmass" size="9">1.1782 1.1782 1.1782 1.0078 1.0078 1.0078 1.1024 1.1024 1.1024 </array>
+          <array dataType="xsd:double" dictRef="cc:forceconst" size="9">1.537 1.537 1.537 1.7214 1.7214 6.0686 7.079 7.079 7.079</array>
+          <array dataType="xsd:double" dictRef="cc:redmass" size="9">1.1782 1.1782 1.1782 1.0078 1.0078 1.0078 1.1024 1.1024 1.1024</array>
           <array dataType="xsd:string" dictRef="q:ir_active" size="9">YES YES YES NO NO NO YES YES YES</array>
           <array dataType="xsd:double" dictRef="cc:irintensity" size="9">10.276 10.276 10.276 0.0 0.0 0.0 39.838 39.838 39.838</array>
           <array dataType="xsd:string" dictRef="q:raman_active" size="9">YES YES YES YES YES YES YES YES YES</array>
@@ -137,13 +210,9 @@
       <property dictRef="q:vibdisplacements">
         <array dataType="xsd:string" dictRef="cc:elementType"  size="5">C H H H H</array>
         <array dataType="xsd:double" dictRef="cc:displacement" size="135"
->0.072 -0.072 -0.072   -0.091 -0.007 -0.084   -0.045 -0.101  0.057    0.000  0.000  0.000    0.000  0.000  0.000    0.000  0.000  0.000    0.054 -0.054 -0.054   -0.076 -0.040 -0.036  -0.002  0.064 -0.067
- 0.055 -0.055 -0.055    0.442  0.033  0.410    0.218  0.492 -0.274    0.293  0.393 -0.099    0.284 -0.112  0.396   -0.289  0.289  0.289   -0.498  0.498  0.498   -0.014 -0.007 -0.006   0.000  0.012 -0.012
--0.214  0.214  0.483    0.126  0.349  0.093    0.430  0.280 -0.062   -0.293 -0.393 -0.099   -0.284  0.112  0.396    0.289 -0.289  0.289   -0.159  0.159 -0.179    0.212 -0.233  0.219   0.421 -0.410  0.410
--0.214  0.483  0.214    0.417  0.007  0.435   -0.162  0.112  0.106   -0.293  0.393  0.099   -0.284 -0.112 -0.396    0.289  0.289 -0.289   -0.159 -0.179  0.159    0.239  0.245 -0.259  -0.407 -0.395  0.394
--0.483  0.214  0.214    0.101 -0.309  0.068    0.049  0.324 -0.442    0.293 -0.393  0.099    0.284  0.112 -0.396   -0.289 -0.289 -0.289    0.179  0.159  0.159    0.464  0.471  0.472   0.015  0.027  0.004</array>
+>0.072 -0.072 -0.072 -0.091 -0.007 -0.084 -0.045 -0.101 0.057 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.054 -0.054 -0.054 -0.076 -0.04 -0.036 -0.002 0.064 -0.067 0.055 -0.055 -0.055 0.442 0.033 0.41 0.218 0.492 -0.274 -0.214 0.214 0.483 0.126 0.349 0.093 0.43 0.28 -0.062 -0.214 0.483 0.214 0.417 0.007 0.435 -0.162 0.112 0.106 -0.483 0.214 0.214 0.101 -0.309 0.068 0.049 0.324 -0.442 0.293 0.393 -0.099 0.284 -0.112 0.396 -0.289 0.289 0.289 -0.293 -0.393 -0.099 -0.284 0.112 0.396 0.289 -0.289 0.289 -0.293 0.393 0.099 -0.284 -0.112 -0.396 0.289 0.289 -0.289 0.293 -0.393 0.099 0.284 0.112 -0.396 -0.289 -0.289 -0.289 -0.498 0.498 0.498 -0.014 -0.007 -0.006 0.0 0.012 -0.012 -0.159 0.159 -0.179 0.212 -0.233 0.219 0.421 -0.41 0.41 -0.159 -0.179 0.159 0.239 0.245 -0.259 -0.407 -0.395 0.394 0.179 0.159 0.159 0.464 0.471 0.472 0.015 0.027 0.004</array>
       <array dataType="xsd:double" dictRef="q:transitionDipole" size="27"
->-0.059  0.059  0.059    0.075  0.006  0.070    0.037  0.084 -0.047    0.000  0.000  0.000    0.000  0.000  0.000    0.000  0.000  0.000    0.117 -0.117 -0.117   -0.165 -0.087 -0.078  -0.005  0.140 -0.146</array>
+>-0.059 0.059 0.059 0.075 0.006 0.07 0.037 0.084 -0.047 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.117 -0.117 -0.117 -0.165 -0.087 -0.078 -0.005 0.14 -0.146</array>
       </property>
     </module>
   </comment>

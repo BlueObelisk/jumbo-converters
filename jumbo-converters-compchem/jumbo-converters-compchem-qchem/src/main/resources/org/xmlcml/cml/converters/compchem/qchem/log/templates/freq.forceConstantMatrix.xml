@@ -63,29 +63,68 @@
     see also: force.constant.matrix.xml in jumbo-converters-compchem-gamessus
    -->
 
-  <record id="freq.forceConstantMatrix.unparsed" repeat="*">{X,x:UNPARSED}</record>
+  <record id="unparsed" />
+  <templateList>
+    <template id="freq.forceConstantMatrix"
+              name="freq.forceConstantMatrix"
+              repeat="*"
+              pattern="(\s*\d+\s+){6}"       offset="0"
+              endPattern="(\s*\d+\s+){3,6}"  endOffset="0"
+              endPattern2="\s+"              endOffset2="0">
+              <record id="unparsed" />
+              <record id="freq.forceConstantMatrix" repeat="*">\s*{I,g:row}\s+{1_6F,x:fconst}\s*</record>
+    </template>
+    <template id="freq.forceConstantMatrix"
+              name="freq.forceConstantMatrix"
+              repeat="*"
+              pattern="(\s*\d+\s+){3,6}"     offset="0"
+              endPattern="\s+"               endOffset="0">
+              <record id="unparsed" />
+              <record id="freq.forceConstantMatrix" repeat="*">\s*{I,g:row}\s+{1_3F,x:fconst}\s*</record>
+              <record id="unparsed" />
+    </template>
+  </templateList>
 
+  <transform process="pullup" xpath=".//cml:module/cml:list" />
+  <transform process="pullup" xpath=".//cml:list/cml:list" />
+  <transform process="addAttribute" 
+             xpath=".//cml:list/cml:array"
+             name="cmlx:row"
+             value="$string(../cml:scalar[@dictRef='g:row'])" />
+  <transform process="joinArrays" xpath=".//cml:array[@cmlx:row]" key="$string(@cmlx:row)" />
+  <transform process="addChild"
+             xpath="."
+             elementName="cml:list"
+             dictRef="cc:forceConstantMatrix" />
+  <transform process="move" xpath=".//cml:list/cml:array" to=".//cml:list[@dictRef='cc:forceConstantMatrix']" />
+
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:list/cml:scalar[@dictRef='g:row']" />
+  <transform process="delete" xpath=".//cml:module[count(*)=0]" /> 
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
 
 
   <!-- TODO: (later) restrict to lower triangle matrix and merge to one <array> of size (3n*(3n+1))/2 -->
   <comment class="example.output" id="freq.forceConstantMatrix">
     <module cmlx:templateRef="freq.forceConstantMatrix" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <list dictRef="cc:forceConstantMatrix">
-<array dataType="xsd:double" size="15" dictRef="x:fconst" cmlx:row="1" >0.6221807 0.0000001 0.0000001 -0.1555452 0.0979651 0.0979651 -0.1555452 0.0979652 -0.0979652 -0.1555452 -0.0979652 0.0979652 -0.1555452 -0.0979652 -0.0979652</array>
-<array dataType="xsd:double" size="15" dictRef="x:fconst" cmlx:row="2" >0.0000001 0.6221807 -0.0000001 0.0979651 -0.1555452 -0.0979651 0.0979652 -0.1555452 0.0979652 -0.0979652 -0.1555452 0.0979652 -0.0979652 -0.1555452 -0.0979652</array>
-<array dataType="xsd:double" size="15" dictRef="x:fconst" cmlx:row="3" >0.0000001 -0.0000001 0.6221807 0.0979651 -0.0979651 -0.1555452 -0.0979652 0.0979652 -0.1555452 0.0979652 0.0979652 -0.1555452 -0.0979652 -0.0979652 -0.1555452</array>
-<array dataType="xsd:double" size="15" dictRef="x:fconst" cmlx:row="4" >-0.1555452 0.0979651 0.0979651 0.1628832 -0.1087913 -0.1087913 -0.0120235 0.0108262 0.0132711 -0.0120235 0.0132711 0.0108262 0.0167089 -0.0132712 -0.0132712</array>
-<array dataType="xsd:double" size="15" dictRef="x:fconst" cmlx:row="5" >0.0979651 -0.1555452 -0.0979651 -0.1087913 0.1628832 0.1087913 0.0108262 -0.0120235 -0.0132711 -0.0132711 0.0167089 0.0132711 0.0132711 -0.0120235 -0.0108262</array>
-<array dataType="xsd:double" size="15" dictRef="x:fconst" cmlx:row="6" >0.0979651 -0.0979651 -0.1555452 -0.1087913 0.1087913 0.1628833 -0.0132711 0.0132711 0.0167089 0.0108262 -0.0132711 -0.0120235 0.0132711 -0.0108262 -0.0120235</array>
-<array dataType="xsd:double" size="15" dictRef="x:fconst" cmlx:row="7" >-0.1555452 0.0979652 -0.0979652 -0.0120235 0.0108262 -0.0132711 0.1628833 -0.1087914 0.1087914 0.0167089 -0.0132711 0.0132712 -0.0120235 0.0132712 -0.0108262</array>
-<array dataType="xsd:double" size="15" dictRef="x:fconst" cmlx:row="8" >0.0979652 -0.1555452 0.0979652 0.0108262 -0.0120235 0.0132711 -0.1087914 0.1628833 -0.1087914 0.0132712 -0.0120235 0.0108262 -0.0132711 0.0167089 -0.0132711</array>
-<array dataType="xsd:double" size="15" dictRef="x:fconst" cmlx:row="9" >-0.0979652 0.0979652 -0.1555452 0.0132711 -0.0132711 0.0167089 0.1087914 -0.1087914 0.1628833 -0.0132711 0.0108262 -0.0120235 -0.0108262 0.0132711 -0.0120235</array>
-<array dataType="xsd:double" size="15" dictRef="x:fconst" cmlx:row="10">-0.1555452 -0.0979652 0.0979652 -0.0120235 -0.0132711 0.0108262 0.0167089 0.0132712 -0.0132711 0.1628833 0.1087914 -0.1087914 -0.0120235 -0.0108262 0.0132711</array>
-<array dataType="xsd:double" size="15" dictRef="x:fconst" cmlx:row="11">-0.0979652 -0.1555452 0.0979652 0.0132711 0.0167089 -0.0132711 -0.0132711 -0.0120235 0.0108262 0.1087914 0.1628833 -0.1087914 -0.0108262 -0.0120235 0.0132711</array>
-<array dataType="xsd:double" size="15" dictRef="x:fconst" cmlx:row="12">0.0979652 0.0979652 -0.1555452 0.0108262 0.0132711 -0.0120235 0.0132712 0.0108262 -0.0120235 -0.1087914 -0.1087914 0.1628833 -0.0132711 -0.0132712 0.0167089</array>
-<array dataType="xsd:double" size="15" dictRef="x:fconst" cmlx:row="13">-0.1555452 -0.0979652 -0.0979652 0.0167089 0.0132711 0.0132711 -0.0120235 -0.0132711 -0.0108262 -0.0120235 -0.0108262 -0.0132711 0.1628833 0.1087914 0.1087914</array>
-<array dataType="xsd:double" size="15" dictRef="x:fconst" cmlx:row="14">-0.0979652 -0.1555452 -0.0979652 -0.0132712 -0.0120235 -0.0108262 0.0132712 0.0167089 0.0132711 -0.0108262 -0.0120235 -0.0132712 0.1087914 0.1628833 0.1087914</array>
-<array dataType="xsd:double" size="15" dictRef="x:fconst" cmlx:row="15">-0.0979652 -0.0979652 -0.1555452 -0.0132712 -0.0108262 -0.0120235 -0.0108262 -0.0132711 -0.0120235 0.0132711 0.0132711 0.0167089 0.1087914 0.1087914 0.1628833</array>
+<array dataType="xsd:double" size="15" dictRef="x:fconst">0.6221807 1.0E-7 1.0E-7 -0.1555452 0.0979651 0.0979651 -0.1555452 0.0979652 -0.0979652 -0.1555452 -0.0979652 0.0979652 -0.1555452 -0.0979652 -0.0979652</array>
+<array dataType="xsd:double" size="15" dictRef="x:fconst">1.0E-7 0.6221807 -1.0E-7 0.0979651 -0.1555452 -0.0979651 0.0979652 -0.1555452 0.0979652 -0.0979652 -0.1555452 0.0979652 -0.0979652 -0.1555452 -0.0979652</array>
+<array dataType="xsd:double" size="15" dictRef="x:fconst">1.0E-7 -1.0E-7 0.6221807 0.0979651 -0.0979651 -0.1555452 -0.0979652 0.0979652 -0.1555452 0.0979652 0.0979652 -0.1555452 -0.0979652 -0.0979652 -0.1555452</array>
+<array dataType="xsd:double" size="15" dictRef="x:fconst">-0.1555452 0.0979651 0.0979651 0.1628832 -0.1087913 -0.1087913 -0.0120235 0.0108262 0.0132711 -0.0120235 0.0132711 0.0108262 0.0167089 -0.0132712 -0.0132712</array>
+<array dataType="xsd:double" size="15" dictRef="x:fconst">0.0979651 -0.1555452 -0.0979651 -0.1087913 0.1628832 0.1087913 0.0108262 -0.0120235 -0.0132711 -0.0132711 0.0167089 0.0132711 0.0132711 -0.0120235 -0.0108262</array>
+<array dataType="xsd:double" size="15" dictRef="x:fconst">0.0979651 -0.0979651 -0.1555452 -0.1087913 0.1087913 0.1628833 -0.0132711 0.0132711 0.0167089 0.0108262 -0.0132711 -0.0120235 0.0132711 -0.0108262 -0.0120235</array>
+<array dataType="xsd:double" size="15" dictRef="x:fconst">-0.1555452 0.0979652 -0.0979652 -0.0120235 0.0108262 -0.0132711 0.1628833 -0.1087914 0.1087914 0.0167089 -0.0132711 0.0132712 -0.0120235 0.0132712 -0.0108262</array>
+<array dataType="xsd:double" size="15" dictRef="x:fconst">0.0979652 -0.1555452 0.0979652 0.0108262 -0.0120235 0.0132711 -0.1087914 0.1628833 -0.1087914 0.0132712 -0.0120235 0.0108262 -0.0132711 0.0167089 -0.0132711</array>
+<array dataType="xsd:double" size="15" dictRef="x:fconst">-0.0979652 0.0979652 -0.1555452 0.0132711 -0.0132711 0.0167089 0.1087914 -0.1087914 0.1628833 -0.0132711 0.0108262 -0.0120235 -0.0108262 0.0132711 -0.0120235</array>
+<array dataType="xsd:double" size="15" dictRef="x:fconst">-0.1555452 -0.0979652 0.0979652 -0.0120235 -0.0132711 0.0108262 0.0167089 0.0132712 -0.0132711 0.1628833 0.1087914 -0.1087914 -0.0120235 -0.0108262 0.0132711</array>
+<array dataType="xsd:double" size="15" dictRef="x:fconst">-0.0979652 -0.1555452 0.0979652 0.0132711 0.0167089 -0.0132711 -0.0132711 -0.0120235 0.0108262 0.1087914 0.1628833 -0.1087914 -0.0108262 -0.0120235 0.0132711</array>
+<array dataType="xsd:double" size="15" dictRef="x:fconst">0.0979652 0.0979652 -0.1555452 0.0108262 0.0132711 -0.0120235 0.0132712 0.0108262 -0.0120235 -0.1087914 -0.1087914 0.1628833 -0.0132711 -0.0132712 0.0167089</array>
+<array dataType="xsd:double" size="15" dictRef="x:fconst">-0.1555452 -0.0979652 -0.0979652 0.0167089 0.0132711 0.0132711 -0.0120235 -0.0132711 -0.0108262 -0.0120235 -0.0108262 -0.0132711 0.1628833 0.1087914 0.1087914</array>
+<array dataType="xsd:double" size="15" dictRef="x:fconst">-0.0979652 -0.1555452 -0.0979652 -0.0132712 -0.0120235 -0.0108262 0.0132712 0.0167089 0.0132711 -0.0108262 -0.0120235 -0.0132712 0.1087914 0.1628833 0.1087914</array>
+<array dataType="xsd:double" size="15" dictRef="x:fconst">-0.0979652 -0.0979652 -0.1555452 -0.0132712 -0.0108262 -0.0120235 -0.0108262 -0.0132711 -0.0120235 0.0132711 0.0132711 0.0167089 0.1087914 0.1087914 0.1628833</array>
       </list>
     </module>
   </comment>
