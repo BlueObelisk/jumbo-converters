@@ -1,8 +1,8 @@
 <template id="gradients"
   repeat="*"
   name="gradients"
-  pattern="\s*Calculating analytic gradient of the SCF energy.+" offset="0"
-  endPattern="\s*Gradient time:.+"                            endOffset="1" >
+  pattern="\s*Calculating analytic gradient of the SCF energy\s*"   offset="0"
+  endPattern="\s*Gradient time:.+"                                  endOffset="1" >
 
   <comment class="example.input" id="gradients.CH4">
  Calculating analytic gradient of the SCF energy
@@ -73,7 +73,7 @@
                     repeat="*"
                     pattern="(\s*\d+\s*){1,6}"                  offset="0"
                     endPattern="(\s*\d+\s*){1,6}"               endOffset="0"
-                    endPattern2="\s*3(\s*.*\d.\d+\s*){1,6}"     endOffset2="1">
+                    endPattern2="\s*3(\s*.*\d+\.\d+\s*){1,6}"   endOffset2="1">
 
             <!-- RECORD -->
             <record id="atomID">\s*{1_6I,q:atomId}\s*</record>
@@ -83,11 +83,6 @@
 
           </template>
       </templateList>
-
-      <!-- RECORD BOTH GRADIENTS AS STRINGS AND CONVERT THEM TO DOUBLE LATER -->
-      <record id="max.gradient">\s*Max gradient component\s+=\s+{X,q:max.gradient}\s*</record>
-      <record id="rms.gradient">\s*RMS gradient\s+=\s+{X,q:rms.gradient}\s*</record>
-      <record id="gradients.unparsed" />
     </template>
 
     <!-- TEMPLATE FOR SCF ENERGY GRADIENT -->
@@ -95,7 +90,7 @@
               name="gradients.scf"
               repeat="1"
               pattern="\s*Gradient of SCF Energy\s*"     offset="0"
-              endPattern="\s+"                           endOffset="0">
+              endPattern="\s*Gradient time.+"            endOffset="1">
 
       <record id="gradients.unparsed" />
 

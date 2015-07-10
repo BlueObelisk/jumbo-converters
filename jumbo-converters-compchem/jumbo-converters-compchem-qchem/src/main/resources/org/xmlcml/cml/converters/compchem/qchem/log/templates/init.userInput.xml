@@ -1,10 +1,10 @@
 <template id="init.userInput"
   repeat="*"
   name="init.userInput"
-  pattern=""      offset="0"
-  endPattern=""   endOffset="0" >
+  pattern="\s*-+\s*$\s*User input:\s*$-+\s*"      offset="0"
+  endPattern="\s*-+\s*"                           endOffset="1" >
 
-  <comment class="example. input" id="init.userInput.b3lyp">
+  <comment class="example.input" id="init.userInput.hf">
 --------------------------------------------------------------
 User input:
 --------------------------------------------------------------
@@ -88,11 +88,53 @@ $end
   </comment>
 
 
+  <templateList>
+    <template id="userInput"
+              name="userInput"
+              pattern="\s*-+\s*$\s*User input:\s*$-+\s*"    offset="0"
+              endPattern="\s*-+\s*"                         endOffset="0">
+      <record id="unparsed" repeat="3" />
+      <!-- record everything as scalars -->
+      <record id="init.userInput" repeat="*">{X,q:inputFile}</record>
+    </template>
+  </templateList>
 
-  <record id="init.userInput" repeat="*">{X,q:userInput}</record>
+  <record id="unparsed" />
+
+  <!-- create a list at the root node -->
+  <transform process="addChild"
+             xpath="."
+             elementName="cml:list"
+             position="0"
+             dictRef="q:userInput" />
+
+  <!-- move all scalars to newly created list -->
+  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='init.userInput']/cml:scalar" to=".//cml:list[@dictRef='q:userInput']" />
+
+  <!-- if they exist, copy 'JOBTYPE','EXCHANGE' and 'CORRELATION' scalars to the root node for reparsing -->
+  <transform process="copy" xpath=".//cml:list/cml:scalar[@dictRef='q:inputFile' and contains(text(),'JOBTYPE')]" to="../.." />
+  <transform process="copy" xpath=".//cml:list/cml:scalar[@dictRef='q:inputFile' and contains(text(),'EXCHANGE')]" to="../.." />
+  <transform process="copy" xpath=".//cml:list/cml:scalar[@dictRef='q:inputFile' and contains(text(),'CORRELATION')]" to="../.." />
+
+  <!-- reparse the copies of the scalars -->
+  <transform process="reparse" xpath=".//cml:scalar[@id='copy.0' and contains(text(),'JOBTYPE')]" regex="\s*JOBTYPE\s*=?\s*{A,q:jobType}\s*" />
+  <transform process="reparse" xpath=".//cml:scalar[@id='copy.0' and contains(text(),'EXCHANGE')]" regex="\s*EXCHANGE\s*=?\s*{A,q:exchange}\s*" />
+  <transform process="reparse" xpath=".//cml:scalar[@id='copy.0' and contains(text(),'CORRELATION')]" regex="\s*CORRELATION\s*=?\s*{A,q:correlation}\s*" />
+
+  <!-- pull up scalars from list and then from module -->
+  <transform process="pullupSingleton" xpath=".//cml:list[@cmlx:templateRef='reparse']" />
+  <transform process="pullupSingleton" xpath=".//cml:module" />
+
+  <!-- wrap scalars as parameters -->
+  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='q:jobType' or @dictRef='q:exchange' or @dictRef='q:correlation']" />
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:module[count(*)=0]" />
 
 
-  <transform process="addSibling" elementName="cml:scalar" position="1" id="method"
+  <!-- <transform process="addSibling" elementName="cml:scalar" position="1" id="method"
     xpath=".//cml:list[
       cml:scalar[@dictRef='q:userInput' and contains(text(), 'EXCHANGE')    and contains(text(), 'HF')   ] and  
       ( not(cml:scalar[@dictRef='q:userInput' and contains(text(), 'CORRELATION')]) 
@@ -127,22 +169,113 @@ $end
       cml:scalar[@dictRef='q:userInput' and contains(text(), 'CORRELATION') and contains(text(), 'MP2')  ]
     ]"
     value="MP2"        dictRef="cc:method"
-    />
+    /> -->
 
 
   <comment class="example.output" id="init.userInput.hf">
     <module cmlx:templateRef="init.userInput" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-        
+      <list dictRef="q:userInput">
+        <scalar dataType="xsd:string" dictRef="q:inputFile">$rem</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">JOBTYPE     Opt</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">EXCHANGE    HF</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">CORRELATION None</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">BASIS       6-31G(d)</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">$end</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile" />
+        <scalar dataType="xsd:string" dictRef="q:inputFile">$comment</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">Methane HF 6-31G(d)</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">$end</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile" />
+        <scalar dataType="xsd:string" dictRef="q:inputFile">$molecule</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">0 1</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">C1</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">H2 C1 r</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">H3 C1 r H2 a</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">H4 C1 r H2 a  H3 d4</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">H5 C1 r H2 a  H3 d5</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile" />
+        <scalar dataType="xsd:string" dictRef="q:inputFile">r  =         1.070</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">a  =       109.471</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">d4 =       240.000</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">d5 =       120.000</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">$end</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile" />
+      </list>
+      <parameter dictRef="q:jobType">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">Opt</scalar>
+      </parameter>
+      <parameter dictRef="q:exchange">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">HF</scalar>
+      </parameter>
+      <parameter dictRef="q:correlation">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">None</scalar>
+      </parameter>
     </module>
   </comment>
   <comment class="example.output" id="init.userInput.b3lyp">
     <module cmlx:templateRef="init.userInput" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-        
+      <list dictRef="q:userInput">
+        <scalar dataType="xsd:string" dictRef="q:inputFile">$rem</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">JOBTYPE     Opt</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">EXCHANGE    Becke3LYP</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">BASIS       6-31G(d)</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">$end</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile" />
+        <scalar dataType="xsd:string" dictRef="q:inputFile">$comment</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">Methane B3LYP 6-31G(d)</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">$end</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile" />
+        <scalar dataType="xsd:string" dictRef="q:inputFile">$molecule</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">0 1</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">C  0.000000  0.000000 -0.000001</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">H  0.000000  0.000000 -1.083700</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">H  1.021721  0.000000  0.361232</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">H -0.510860 -0.884836  0.361232</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">H -0.510860  0.884836  0.361232</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">$end</scalar>
+      </list>
+      <parameter dictRef="q:jobType">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">Opt</scalar>
+      </parameter>
+      <parameter dictRef="q:exchange">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">Becke3LYP</scalar>
+      </parameter>
     </module>
   </comment>
   <comment class="example.output" id="init.userInput.mp2">
     <module cmlx:templateRef="init.userInput" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-        
+      <list dictRef="q:userInput">
+        <scalar dataType="xsd:string" dictRef="q:inputFile">$rem</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">JOBTYPE     Opt</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">EXCHANGE    HF</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">CORRELATION MP2</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">BASIS       6-31G(d)</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">$end</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile" />
+        <scalar dataType="xsd:string" dictRef="q:inputFile">$comment</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">Methanol MP2 6-31G(d)</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">$end</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile" />
+        <scalar dataType="xsd:string" dictRef="q:inputFile">$molecule</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">0 1</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">C   0.0000000   0.0000000   0.0000000</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">O   1.3983000   0.0000000   0.0000000</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">H  -0.3860176   0.0000000  -1.0424227</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">H  -0.3860176   0.8760285   0.5649947</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">H  -0.3591708  -0.9216623   0.5022980</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">H   1.6713155   0.8376781  -0.4565273</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile">$end</scalar>
+        <scalar dataType="xsd:string" dictRef="q:inputFile" />
+      </list>
+      <parameter dictRef="q:jobType">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">Opt</scalar>
+      </parameter>
+      <parameter dictRef="q:exchange">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">HF</scalar>
+      </parameter>
+      <parameter dictRef="q:correlation">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">MP2</scalar>
+      </parameter>
     </module>
   </comment>
 

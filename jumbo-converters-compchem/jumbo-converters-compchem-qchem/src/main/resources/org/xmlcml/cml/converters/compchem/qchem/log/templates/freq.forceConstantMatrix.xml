@@ -2,7 +2,7 @@
   repeat="*"
   name="freq.forceConstantMatrix"
   pattern="\s*Hessian of the SCF Energy\s*"      offset="0"
-  endPattern="\s*Gradient time:.+"   endOffset="0" >
+  endPattern="\s*Gradient time:.+"               endOffset="1">
 
   <comment class="example.input" id="freq.forceConstantMatrix">
  Hessian of the SCF Energy
@@ -57,6 +57,37 @@
  Gradient time:  CPU 0.96 s  wall 1.28 s
   </comment>
 
+  <comment class="example.input" id="freq.forceConstantMatrix2">
+     Hessian of the SCF Energy
+            1           2           3           4           5           6
+    1   0.9042606  -0.0000000   0.0000000  -0.5055137  -0.0000000   0.1518667
+    2  -0.0000000   0.9042606  -0.0000000  -0.0000000  -0.0973267   0.0000000
+    3   0.0000000  -0.0000000   0.1393616   0.1140679   0.0000000  -0.0464539
+    4  -0.5055137  -0.0000000   0.1140679   0.5230993   0.0000000  -0.1229269
+    5  -0.0000000  -0.0973267   0.0000000   0.0000000   0.0723467  -0.0000000
+    6   0.1518667   0.0000000  -0.0464539  -0.1229269  -0.0000000   0.0410330
+    7  -0.1993734  -0.1767502  -0.0570340  -0.0087928  -0.0345245  -0.0144699
+    8  -0.1767502  -0.4034670  -0.0987857  -0.0023384   0.0124900   0.0032395
+    9  -0.0759333  -0.1315204  -0.0464539   0.0044295   0.0141510   0.0027104
+   10  -0.1993734   0.1767502  -0.0570340  -0.0087928   0.0345245  -0.0144699
+   11   0.1767502  -0.4034670   0.0987857   0.0023384   0.0124900  -0.0032395
+   12  -0.0759333   0.1315204  -0.0464539   0.0044295  -0.0141510   0.0027104
+            7           8           9          10          11          12
+    1  -0.1993734  -0.1767502  -0.0759333  -0.1993734   0.1767502  -0.0759333
+    2  -0.1767502  -0.4034670  -0.1315204   0.1767502  -0.4034670   0.1315204
+    3  -0.0570340  -0.0987857  -0.0464539  -0.0570340   0.0987857  -0.0464539
+    4  -0.0087928  -0.0023384   0.0044295  -0.0087928   0.0023384   0.0044295
+    5  -0.0345245   0.0124900   0.0141510   0.0345245   0.0124900  -0.0141510
+    6  -0.0144699   0.0032395   0.0027104  -0.0144699  -0.0032395   0.0027104
+    7   0.1850348   0.1951816   0.0614635   0.0231314   0.0160930   0.0100404
+    8   0.1951816   0.4104112   0.1064578  -0.0160930  -0.0194342  -0.0109116
+    9   0.0614635   0.1064578   0.0410330   0.0100404   0.0109116   0.0027104
+   10   0.0231314  -0.0160930   0.0100404   0.1850348  -0.1951816   0.0614635
+   11   0.0160930  -0.0194342   0.0109116  -0.1951816   0.4104112  -0.1064578
+   12   0.0100404  -0.0109116   0.0027104   0.0614635  -0.1064578   0.0410330
+ Gradient time:  CPU 2.18 s  wall 4.72 s
+  </comment>
+
   <!-- For n number of Atoms this matrix will consist of 3n-by-3n float values.
     Therefore the last chunk will have either 3 or 6 collumns.
 
@@ -68,23 +99,25 @@
     <template id="freq.forceConstantMatrix"
               name="freq.forceConstantMatrix"
               repeat="*"
-              pattern="(\s*\d+\s+){6}"       offset="0"
-              endPattern="(\s*\d+\s+){3,6}"  endOffset="0"
-              endPattern2="\s+"              endOffset2="0">
+              pattern="(\s*\d+\s*){3,6}"     offset="0"
+              endPattern="(\s*\d+\s*){3,6}"  endOffset="0"
+              endPattern2="\s*Gradient time.+"              endOffset2="0">
               <record id="unparsed" />
               <record id="freq.forceConstantMatrix" repeat="*">\s*{I,g:row}\s+{1_6F,x:fconst}\s*</record>
     </template>
-    <template id="freq.forceConstantMatrix"
+<!--     <template id="freq.forceConstantMatrix"
               name="freq.forceConstantMatrix"
               repeat="*"
-              pattern="(\s*\d+\s+){3,6}"     offset="0"
+              pattern="(\s*\d+\s*){3,6}"     offset="0"
               endPattern="\s+"               endOffset="0">
               <record id="unparsed" />
               <record id="freq.forceConstantMatrix" repeat="*">\s*{I,g:row}\s+{1_3F,x:fconst}\s*</record>
               <record id="unparsed" />
-    </template>
+    </template> -->
   </templateList>
 
+  <record id="unparsed" />
+  
   <transform process="pullup" xpath=".//cml:module/cml:list" />
   <transform process="pullup" xpath=".//cml:list/cml:list" />
   <transform process="addAttribute" 
@@ -97,7 +130,7 @@
              elementName="cml:list"
              dictRef="cc:forceConstantMatrix" />
   <transform process="move" xpath=".//cml:list/cml:array" to=".//cml:list[@dictRef='cc:forceConstantMatrix']" />
-
+ 
 
   <!-- CLEAN UP -->
   <transform process="delete" xpath=".//cml:list/cml:scalar[@dictRef='g:row']" />
@@ -129,4 +162,22 @@
     </module>
   </comment>
 
+  <comment class="example.output" id="freq.forceConstantMatrix2">
+    <module cmlx:templateRef="freq.forceConstantMatrix" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list dictRef="cc:forceConstantMatrix">
+        <array dataType="xsd:double" size="12" dictRef="x:fconst">0.9042606 -0.0 0.0 -0.5055137 -0.0 0.1518667 -0.1993734 -0.1767502 -0.0759333 -0.1993734 0.1767502 -0.0759333</array>
+        <array dataType="xsd:double" size="12" dictRef="x:fconst">-0.0 0.9042606 -0.0 -0.0 -0.0973267 0.0 -0.1767502 -0.403467 -0.1315204 0.1767502 -0.403467 0.1315204</array>
+        <array dataType="xsd:double" size="12" dictRef="x:fconst">0.0 -0.0 0.1393616 0.1140679 0.0 -0.0464539 -0.057034 -0.0987857 -0.0464539 -0.057034 0.0987857 -0.0464539</array>
+        <array dataType="xsd:double" size="12" dictRef="x:fconst">-0.5055137 -0.0 0.1140679 0.5230993 0.0 -0.1229269 -0.0087928 -0.0023384 0.0044295 -0.0087928 0.0023384 0.0044295</array>
+        <array dataType="xsd:double" size="12" dictRef="x:fconst">-0.0 -0.0973267 0.0 0.0 0.0723467 -0.0 -0.0345245 0.01249 0.014151 0.0345245 0.01249 -0.014151</array>
+        <array dataType="xsd:double" size="12" dictRef="x:fconst">0.1518667 0.0 -0.0464539 -0.1229269 -0.0 0.041033 -0.0144699 0.0032395 0.0027104 -0.0144699 -0.0032395 0.0027104</array>
+        <array dataType="xsd:double" size="12" dictRef="x:fconst">-0.1993734 -0.1767502 -0.057034 -0.0087928 -0.0345245 -0.0144699 0.1850348 0.1951816 0.0614635 0.0231314 0.016093 0.0100404</array>
+        <array dataType="xsd:double" size="12" dictRef="x:fconst">-0.1767502 -0.403467 -0.0987857 -0.0023384 0.01249 0.0032395 0.1951816 0.4104112 0.1064578 -0.016093 -0.0194342 -0.0109116</array>
+        <array dataType="xsd:double" size="12" dictRef="x:fconst">-0.0759333 -0.1315204 -0.0464539 0.0044295 0.014151 0.0027104 0.0614635 0.1064578 0.041033 0.0100404 0.0109116 0.0027104</array>
+        <array dataType="xsd:double" size="12" dictRef="x:fconst">-0.1993734 0.1767502 -0.057034 -0.0087928 0.0345245 -0.0144699 0.0231314 -0.016093 0.0100404 0.1850348 -0.1951816 0.0614635</array>
+        <array dataType="xsd:double" size="12" dictRef="x:fconst">0.1767502 -0.403467 0.0987857 0.0023384 0.01249 -0.0032395 0.016093 -0.0194342 0.0109116 -0.1951816 0.4104112 -0.1064578</array>
+        <array dataType="xsd:double" size="12" dictRef="x:fconst">-0.0759333 0.1315204 -0.0464539 0.0044295 -0.014151 0.0027104 0.0100404 -0.0109116 0.0027104 0.0614635 -0.1064578 0.041033</array>
+      </list>
+    </module>
+  </comment>
 </template>

@@ -1,8 +1,8 @@
 <template id="orbital.energies.symmetries"
   repeat="*"
   name="orbital.energies.symmetries"
-  pattern="\s+Orbital Energies .a\.u\.. and Symmetries.+$\s*-+"      offset="-1"
-  endPattern="\s*-+$\s+"   endOffset="1" >
+  pattern="\s+Orbital Energies .a\.u\.. and Symmetries\s*"           offset="-1"
+  endPattern="\s*Ground-State Mulliken Net Atomic Charges\s*"        endOffset="0" > 
 
   <comment class="example.input" id="orbital.energies.symmetries">
  --------------------------------------------------------------
@@ -36,8 +36,203 @@
   </comment>
 
 
-  <record id="orbital.energies.symmetries.unparsed" repeat="*">{X,x:UNPARSED}</record>
+  <comment class="example.input" id="orbital.energies.symmetries2">
+ --------------------------------------------------------------
+             Orbital Energies (a.u.) and Symmetries
+ --------------------------------------------------------------
+ 
+ Alpha MOs, Restricted
+ -- Occupied --                  
+-21.012  -1.807  -1.120  -1.120  -0.973
+  1 A1    2 A1    1 E     1 E     3 A1                                         
+ -- Virtual --                   
+ -0.149  -0.054  -0.054   0.205   0.205   0.315   0.606   0.722
+  4 A1    2 E     2 E     3 E     3 E     5 A1    6 A1    4 E                  
+  0.722   0.993   0.993   0.996   1.466   1.540   1.597   1.597
+  4 E     5 E     5 E     7 A1    1 A2    8 A1    6 E     6 E                  
+  1.850   1.850   2.112   2.426   2.426   2.619   3.263   3.263
+  7 E     7 E     9 A1    8 E     8 E    10 A1    9 E     9 E                  
+  3.338   3.786   3.786   5.185   5.672   5.672  51.102
+ 11 A1   10 E    10 E    12 A1   11 E    11 E    13 A1                         
+ 
+ Beta MOs, Restricted
+ -- Occupied --                  
+-21.012  -1.807  -1.120  -1.120  -0.973
+  1 A1    2 A1    1 E     1 E     3 A1                                         
+ -- Virtual --                   
+ -0.149  -0.054  -0.054   0.205   0.205   0.315   0.606   0.722
+  4 A1    2 E     2 E     3 E     3 E     5 A1    6 A1    4 E                  
+  0.722   0.993   0.993   0.996   1.466   1.540   1.597   1.597
+  4 E     5 E     5 E     7 A1    1 A2    8 A1    6 E     6 E                  
+  1.850   1.850   2.112   2.426   2.426   2.619   3.263   3.263
+  7 E     7 E     9 A1    8 E     8 E    10 A1    9 E     9 E                  
+  3.338   3.786   3.786   5.185   5.672   5.672  51.102
+ 11 A1   10 E    10 E    12 A1   11 E    11 E    13 A1                         
+ --------------------------------------------------------------
+  </comment>
 
+
+  <record id="unparsed" repeat="4" />
+
+  <templateList>
+    <template id="orbital.energies.alpha"
+              name="orbital.energies.alpha"
+              repeat="1"
+              pattern="\s*Alpha MOs, Restricted\s*"     offset="0"
+              endPattern="\s*Beta MOs, Restricted\s*"   endOffset="0">
+      <record id="unparsed" />
+      <templateList>
+        <template id="alpha.occupied"
+                  name="alpha.occupied"
+                  repeat="1"
+                  pattern="\s*-- Occupied --\s*"     offset="0"
+                  endPattern="\s*-- Virtual --\s*"   endOffset="0">
+          <record id="unparsed" />
+          <templateList>
+            <template id="alpha.occupied.chunk"
+                      name="alpha.occupied.chunk"
+                      repeat="*"
+                      pattern="(\s*-*\d+\.\d+\s*){1,8}"      offset="0"
+                      endPattern="(\s*\d+\s+\w\s*){1,8}"     endOffset="2">
+                <record id="alphaocc">\s*{1_8F,q:alphaocc}\s*</record>
+                <record id="alphaocc.symmetries">\s*{X,q:occupiedOrbitalSymmetries}\s*</record>
+            </template>
+          </templateList>
+        </template>
+        <template id="alpha.virtual"
+                  name="alpha.virtual"
+                  repeat="1"
+                  pattern="\s*-- Virtual --\s*"    offset="0"
+                  endPattern="\s+"                 endOffset="0">
+          <record id="unparsed" />
+          <templateList>
+            <template id="alpha.occupied.chunk"
+                      name="alpha.occupied.chunk"
+                      repeat="*"
+                      pattern="(\s*-*\d+\.\d+\s*){1,8}"      offset="0"
+                      endPattern="(\s*\d+\s+\w\s*){1,8}"     endOffset="2">
+                <record id="alphavirt">\s*{1_8F,q:alphavirt}\s*</record>
+                <record id="alphavirt.symmetries">\s*{X,q:virtualOrbitalSymmetries}\s*</record>
+            </template>
+          </templateList>
+        </template>
+      </templateList>
+    </template>
+    <template id="orbital.energies.beta"
+              name="orbital.energies.beta"
+              repeat="1"
+              pattern="\s*Beta MOs, Restricted\s*"     offset="0"
+              endPattern="\s*-+\s*"                    endOffset="1">
+      <record id="unparsed" />
+      <templateList>
+        <template id="beta.occupied"
+                  name="beta.occupied"
+                  repeat="1"
+                  pattern="\s*-- Occupied --\s*"    offset="0"
+                  endPattern="\s*-- Virtual --\s*"  endOffset="0">
+          <record id="unparsed" />
+          <templateList>
+            <template id="beta.occupied.chunk"
+                      name="beta.occupied.chunk"
+                      repeat="*"
+                      pattern="(\s*-*\d+\.\d+\s*){1,8}"      offset="0"
+                      endPattern="(\s*\d+\s+\w\s*){1,8}"     endOffset="2">
+                <record id="betaocc">\s*{1_8F,q:betaocc}\s*</record>
+                <record id="betaocc.symmetries">\s*{X,q:occupiedOrbitalSymmetries}\s*</record>
+            </template>
+          </templateList>
+        </template>
+        <template id="beta.virtual"
+                  name="beta.virtual"
+                  repeat="1"
+                  pattern="\s*-- Virtual --\s*"    offset="0"
+                  endPattern="\s*-+\s*"            endOffset="0">
+          <record id="unparsed" />
+          <templateList>
+            <template id="beta.virtual.chunk"
+                      name="beta.virtual.chunk"
+                      repeat="*"
+                      pattern="(\s*-*\d+\.\d+\s*){1,8}"      offset="0"
+                      endPattern="(\s*\d+\s+\w\s*){1,8}"     endOffset="2">
+                <record id="betavirt">\s*{1_8F,q:betavirt}\s*</record>
+                <record id="betavirt.symmetries">\s*{X,q:virtualOrbitalSymmetries}\s*</record>
+            </template>
+          </templateList>
+        </template>
+      </templateList>
+      <record id="unparsed" />
+    </template>
+  </templateList>
+
+  <!-- PULL UP ALL LISTS FROM MODULES -->
+  <transform process="move" xpath=".//cml:module/cml:module/cml:module/cml:list" to="." />
+
+  <!-- GROUP ALL RELATED ARRAYS -->
+  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='alphaocc']/cml:array" to="(.//cml:list[@cmlx:templateRef='alphaocc'])[1]" />
+  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='alphavirt']/cml:array" to="(.//cml:list[@cmlx:templateRef='alphavirt'])[1]" />
+  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='betaocc']/cml:array" to="(.//cml:list[@cmlx:templateRef='betaocc'])[1]" />
+  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='betavirt']/cml:array" to="(.//cml:list[@cmlx:templateRef='betavirt'])[1]" />
+  
+  <!-- GROUP ALL RELATED SCALARS -->
+  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='alphaocc.symmetries']/cml:scalar" to="(.//cml:list[@cmlx:templateRef='alphaocc.symmetries'])[1]" />
+  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='alphavirt.symmetries']/cml:scalar" to="(.//cml:list[@cmlx:templateRef='alphavirt.symmetries'])[1]" />
+  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='betaocc.symmetries']/cml:scalar" to="(.//cml:list[@cmlx:templateRef='betaocc.symmetries'])[1]" />
+  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='betavirt.symmetries']/cml:scalar" to="(.//cml:list[@cmlx:templateRef='betavirt.symmetries'])[1]" />
+
+  <!-- SPLIT SCALARS -->
+  <transform process="split" xpath=".//cml:list[contains(@cmlx:templateRef,'symmetries')]/cml:scalar" splitter="(^| +)\d+ " />
+
+  <!-- DELETE EMPTY FIRST SCALAR OF EACH LIST -->
+  <transform process="delete" xpath=".//cml:list[contains(@cmlx:templateRef,'symmetries')]/cml:list[@dictRef='q:occupiedOrbitalSymmetries' or @dictRef='q:virtualOrbitalSymmetries']/cml:scalar[1]" />
+
+  <!-- MERGE RELATED SCALARS INTO ARRAYS -->
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='alphaocc.symmetries']/cml:list[@dictRef='q:occupiedOrbitalSymmetries']/cml:scalar" delimiter="|" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='alphavirt.symmetries']/cml:list[@dictRef='q:virtualOrbitalSymmetries']/cml:scalar" delimiter="|" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='betaocc.symmetries']/cml:list[@dictRef='q:occupiedOrbitalSymmetries']/cml:scalar" delimiter="|" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='betavirt.symmetries']/cml:list[@dictRef='q:virtualOrbitalSymmetries']/cml:scalar" delimiter="|" />
+
+  <!-- JOIN ARRAYS -->
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='q:alphaocc']" />
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='q:alphavirt']" />
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='q:betaocc']" />
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='q:betavirt']" />
+
+
+  <!-- CREATE PROPERTY FOR ORBITAL ENERGIES -->
+  <transform process="addChild"
+             elementName="cml:property"
+             xpath="."
+             position="0"
+             dictRef="q:orbitalEnergies" />
+
+  <!-- MOVE ARRAYS TO PROPERTY -->
+  <transform process="move" xpath=".//cml:array[@dictRef='q:alphaocc' or @dictRef='q:alphavirt' or @dictRef='q:betaocc' or @dictRef='q:betavirt']" to=".//cml:property[@dictRef='q:orbitalEnergies']" />
+
+  <!-- ADD UNITS TO ARRAYS -->
+  <transform process="addUnits" xpath=".//cml:property[@dictRef='q:orbitalEnergies']/cml:array" value="nonSi:hartree" />
+
+  <!-- WRAP LISTS IN PROPERTIES -->
+  <transform process="createWrapperProperty" xpath=".//cml:list[@dictRef='q:occupiedOrbitalSymmetries' or @dictRef='q:virtualOrbitalSymmetries']" />
+
+  <!-- PULL UP ARRAYS AND DELETE LISTS -->
+  <transform process="pullupSingleton" xpath=".//cml:property/cml:list" />
+
+  <!-- MOVE PROPERTIES TO ROOT NODE -->
+  <transform process="move" xpath=".//cml:property[@dictRef='q:occupiedOrbitalSymmetries' or @dictRef='q:virtualOrbitalSymmetries']" to="." />
+
+  <!-- MOVE ARRAYS TO UNIQUE PROPERTIES -->
+  <transform process="move" xpath=".//cml:property[@dictRef='q:occupiedOrbitalSymmetries']/cml:array" to=".//cml:property[@dictRef='q:occupiedOrbitalSymmetries'][1]" />
+  <transform process="move" xpath=".//cml:property[@dictRef='q:virtualOrbitalSymmetries']/cml:array" to=".//cml:property[@dictRef='q:virtualOrbitalSymmetries'][1]" />
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+
+  <transform process="delete" xpath=".//cml:module[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:module[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:module[count(*)=0]" />
+
+  <transform process="delete" xpath=".//cml:property[count(*)=0]" />
 
 
   <comment class="example.output" id="orbital.energies.symmetries">
@@ -55,6 +250,25 @@
       <property dictRef="q:virtualOrbitalSymmetries">
         <array delimiter="|" dataType="xsd:string" size="18">|A1|T2|T2|T2|T2|T2|T2|T2|T2|T2|A1|A1|E|E|T2|T2|T2|A1|</array>
         <array delimiter="|" dataType="xsd:string" size="18">|A1|T2|T2|T2|T2|T2|T2|T2|T2|T2|A1|A1|E|E|T2|T2|T2|A1|</array>
+      </property>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="orbital.energies.symmetries2">
+    <module cmlx:templateRef="orbital.energies.symmetries" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="q:orbitalEnergies">
+        <array dataType="xsd:double" dictRef="q:alphaocc"  size="5"  units="nonSi:hartree">-21.012 -1.807 -1.12 -1.12 -0.973</array>
+        <array dataType="xsd:double" dictRef="q:alphavirt" size="31" units="nonSi:hartree">-0.149 -0.054 -0.054 0.205 0.205 0.315 0.606 0.722 0.722 0.993 0.993 0.996 1.466 1.54 1.597 1.597 1.85 1.85 2.112 2.426 2.426 2.619 3.263 3.263 3.338 3.786 3.786 5.185 5.672 5.672 51.102</array>
+        <array dataType="xsd:double" dictRef="q:betaocc"   size="5"  units="nonSi:hartree">-21.012 -1.807 -1.12 -1.12 -0.973</array>
+        <array dataType="xsd:double" dictRef="q:betavirt"  size="31" units="nonSi:hartree">-0.149 -0.054 -0.054 0.205 0.205 0.315 0.606 0.722 0.722 0.993 0.993 0.996 1.466 1.54 1.597 1.597 1.85 1.85 2.112 2.426 2.426 2.619 3.263 3.263 3.338 3.786 3.786 5.185 5.672 5.672 51.102</array>
+      </property>
+      <property dictRef="q:occupiedOrbitalSymmetries">
+        <array delimiter="|" dataType="xsd:string" size="5">|A1|A1|E|E|A1|</array>
+        <array delimiter="|" dataType="xsd:string" size="5">|A1|A1|E|E|A1|</array>
+      </property>
+      <property dictRef="q:virtualOrbitalSymmetries">
+        <array delimiter="|" dataType="xsd:string" size="31">|A1|E|E|E|E|A1|A1|E|E|E|E|A1|A2|A1|E|E|E|E|A1|E|E|A1|E|E|A1|E|E|A1|E|E|A1|</array>
+        <array delimiter="|" dataType="xsd:string" size="31">|A1|E|E|E|E|A1|A1|E|E|E|E|A1|A2|A1|E|E|E|E|A1|E|E|A1|E|E|A1|E|E|A1|E|E|A1|</array>
       </property>
     </module>
   </comment>
