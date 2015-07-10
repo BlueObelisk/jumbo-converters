@@ -1153,7 +1153,7 @@ public class TransformTest {
 		String refXML =
 		"<foo>" +
 		"  <module xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>" +
-		"    <list cmlx:templateRef='foo'>" +
+		"    <list cmlx:templateRef='reparse'>" +
 		"      <scalar dataType='xsd:string' dictRef='x:y'>1.23</scalar>" +
 		"    </list>" +
 		"  </module>" +
@@ -1193,7 +1193,7 @@ public class TransformTest {
 			String refXML =
 				"<foo>" +
 				"  <module xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>" +
-				"    <list cmlx:templateRef='foo'>" +
+				"    <list cmlx:templateRef='reparse'>" +
 				"      <list>" +
 				"        <scalar dataType='xsd:string' dictRef='x:y'>abc</scalar>" +
 				"        <scalar dataType='xsd:double' dictRef='x:z'>2.34</scalar>" +
