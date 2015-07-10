@@ -25,45 +25,57 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
   xmlns:xi="http://www.w3.org/2001/XInclude">
   <templateList>
     <template id="job"
-      pattern="\s*You are running Q-Chem version.+"
-      pattern2="\s*Welcome to Q-Chem\s*-+\s*"
+      pattern="\s*You are running Q-Chem version.+"      offset="0"
+      pattern2="\s*now end server.+"                     offset2="1"
+      pattern3="\s*Welcome to Q-Chem\s*"                 offset3="0"
       endPattern="\s*\*\s+Thank you very much for using Q-Chem\.  Have a nice day\.\s+\*\s*"
       endOffset="3" newline="$" repeat="*">
       <templateList id='main'>
 
         <template id="environment"
-          pattern="\s*Welcome to Q-Chem\s*-+\s*"                 offset="0"
-          endPattern="\s*-+$\s*User input:\s*$\s*-+"          endOffset="0"
+          pattern="\s*You are running Q-Chem version.+"  offset="0"
+          pattern2="\s*Process.+"                        offset2="0"
+          pattern3="\s*Welcome to Q-Chem\s*"             offset3="0"
+          endPattern="\s*User input:\s*"                 endOffset="-1"
           newline="$" repeat="1" >
         <!-- START of  module environment -->
           <templateList>
-  
-
+            <xi:include href="../templates/env.version.xml" />
+            <xi:include href="../templates/env.hostname.xml" />
+            <xi:include href="../templates/env.authors.xml" />
+            <xi:include href="../templates/env.platform.xml" />
+            <xi:include href="../templates/env.timestamp.xml" />
           </templateList>
         <!-- END of module environment -->
         </template>
 
       <template id="initialization"
-        pattern="\s*-+$\s*User input:\s*$\s*-+"                  offset="0"
-        endPattern="\s*-+$\s*Writing REM_CC_EA\.+\s*"         endOffset="1"
+        pattern="\s*User input:\s*"                       offset="-1"
+        endPattern="\s*Writing REM_CC_EA\s+.+\s*"         endOffset="0"
         newline="$" repeat="*">
         <!-- START of module initialization -->
         <templateList>
-
+          <xi:include href="../templates/init.userInput.xml" />
         </templateList>
         <!-- END of module initialization -->
       </template>
 
       <template id="calculation"
-        pattern="\s*Writing REM_CC_EA\.+\s*$\s*-+\s*" offset="0"
+        pattern="\s*Writing REM_CC_EA\s+.+\s*"                 offset="2"
         endPattern="\s*\*\* +OPTIMIZATION CONVERGED +\*\*\s*"  endOffset="-1"
         endPattern2="\s*\*\* +VIBRATIONAL ANALYSIS +\*\*\s*"   endOffset2="-2"
         newline="$" repeat="*">
 
         <templateList>
         <!-- START of module calculation -->
-          <xi:include href="templates/standard.nuclear.orientation.xml"/>
-
+          <xi:include href="../templates/standard.nuclear.orientation.xml"/>
+          <xi:include href="../templates/init.basis.xml" /> 
+          <xi:include href="../templates/orbital.energies.symmetries.xml" />
+          <xi:include href="../templates/mulliken.charges.xml" />
+          <xi:include href="../templates/multipole.moments.xml" />
+          <xi:include href="../templates/gradients.xml" />
+          <xi:include href="../templates/coordinates.angstoms.xml" />
+          <xi:include href="../templates/freq.forceConstantMatrix.xml" />
         <!-- END of module calculation -->
         </templateList>
 
@@ -77,6 +89,9 @@ The ORDER of the subtemplates may be important. Templates are processed in the o
 
         <!-- START of module finalization -->
         <templateList>
+          <xi:include href="../templates/orbital.energies.symmetries.xml" />
+          <xi:include href="../templates/mulliken.charges.xml" />
+          <xi:include href="../templates/multipole.moments.xml" />
         </templateList>
         <!-- END of module finalization -->
       </template>

@@ -35,29 +35,30 @@ public class TemplateTest {
 	}
 
 	////////////  //////////// ADD TEMPLATE TESTS HERE: ////////////  ////////////
+	@Test   public void testEnvironVersion()		{runTemplateTest("env.version");}
+	@Test   public void testEnvironHostname()	    {runTemplateTest("env.hostname");}
+	@Test 	public void testEnvironAuthors()	 	{runTemplateTest("env.authors");}
 	@Test   public void testEnvironPlatformOld()	{runTemplateTest("env.platform");}
 	@Test   public void testEnvironPlatformNew()	{runTemplateTest("env.platform.new");}
-	@Test   public void testEnvironVersion()		{runTemplateTest("env.version");}
-	@Test   public void testStdNuclOrient()			{runTemplateTest("standard.nuclear.orientation");}
-	@Test   public void testCoordsAngstoms()     	{runTemplateTest("coordinates.angstoms");}
-	@Test   public void testEnvironHostname()	    {runTemplateTest("env.hostname");}
 	@Test   public void testEnvironTimestamp()	    {runTemplateTest("env.timestamp");}
+	@Test   public void testInitUserInput()			{runTemplateTest("init.userInput");}
 	@Test   public void testInitBasis()				{runTemplateTest("init.basis");}
+	@Test   public void testStdNuclOrient()			{runTemplateTest("standard.nuclear.orientation");}
+	@Test 	public void testOrbitalEnergies()	 	{runTemplateTest("orbital.energies.symmetries");}
 	@Test   public void testMullikenCharges()	    {runTemplateTest("mulliken.charges");}
-	@Test   public void testThermoChemistry()		{runTemplateTest("thermochemistry");}
 	@Test   public void testMultipoleMoments()		{runTemplateTest("multipole.moments");}
+	@Test 	public void testGradients()				{runTemplateTest("gradients");}
+	@Test   public void testCoordsAngstoms()     	{runTemplateTest("coordinates.angstoms");}
+	@Test   public void testThermoChemistry()		{runTemplateTest("thermochemistry");}
 	@Test   public void testPolarizabilityMatrix()	{runTemplateTest("polarizability.matrix");}
 	@Test   public void testDistanceMatrix()	    {runTemplateTest("distance.matrix");}
 	@Test   public void testFreqForceConstMatrix()	{runTemplateTest("freq.forceConstantMatrix");}
 	@Test   public void testFreqVibAnalalysis()		{runTemplateTest("freq.vib.analysis");}
-	@Test 	public void testGradients()				{runTemplateTest("gradients");}
-	@Test 	public void testEnvironAuthors()	 	{runTemplateTest("env.authors");}
 
 	////////////  //////////// READY TO WORK ON: ////////////  ////////////
 
 
 	////////////  //////////// KEEP FOR LATER: ////////////  ////////////
-	@Ignore @Test   public void testInitUserInput()			{runTemplateTest("init.userInput");}
 
 
 	////////////  //////////// END OF TEMPLATE TESTS ////////////  ////////////
