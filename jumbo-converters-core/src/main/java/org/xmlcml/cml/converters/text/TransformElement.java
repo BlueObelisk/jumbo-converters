@@ -1950,8 +1950,10 @@ public class TransformElement implements MarkupApplier {
 
 	private void reparse() {
 		if (template == null) {
-			System.err.println("*** Must have a template for reparse ***");
-			return;
+			// Get Template that is the parent of the current transform node.
+			this.setTemplate(
+				new Template( (Element)transformElement.getParent() )
+			);
 		}
 		assertRequired(XPATH, xpath);
 		String regexS = getRegex();
