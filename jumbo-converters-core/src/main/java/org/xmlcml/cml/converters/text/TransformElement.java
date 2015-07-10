@@ -1958,7 +1958,7 @@ public class TransformElement implements MarkupApplier {
 		assertRequired(XPATH, xpath);
 		String regexS = getRegex();
 		Element recordReaderElement = new Element("record");
-		recordReaderElement.addAttribute(new Attribute("id", "foo"));
+		recordReaderElement.addAttribute(new Attribute("id", "reparse"));
 		recordReaderElement.appendChild(regexS);
 		RecordReader recordReader = new RecordReader(recordReaderElement, template);
 		List<Node> nodeList = getXpathQueryResults();
