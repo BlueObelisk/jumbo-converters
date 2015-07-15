@@ -54,6 +54,8 @@ public class TemplateTest {
 	@Test   public void testDistanceMatrix()	    {runTemplateTest("distance.matrix");}
 	@Test   public void testFreqForceConstMatrix()	{runTemplateTest("freq.forceConstantMatrix");}
 	@Test   public void testFreqVibAnalalysis()		{runTemplateTest("freq.vib.analysis");}
+	@Test   public void testMolecularPointGroup()   {runTemplateTest("molecular.point.group");}
+	@Test   public void testTotalEnergy()   		{runTemplateTest("total.energy");}
 
 	////////////  //////////// READY TO WORK ON: ////////////  ////////////
 
