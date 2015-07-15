@@ -115,11 +115,14 @@ $end
   <transform process="copy" xpath=".//cml:list/cml:scalar[@dictRef='q:inputFile' and contains(text(),'JOBTYPE')]" to="../.." />
   <transform process="copy" xpath=".//cml:list/cml:scalar[@dictRef='q:inputFile' and contains(text(),'EXCHANGE')]" to="../.." />
   <transform process="copy" xpath=".//cml:list/cml:scalar[@dictRef='q:inputFile' and contains(text(),'CORRELATION')]" to="../.." />
+  <transform process="copy" xpath=".//cml:list/cml:scalar[@dictRef='q:inputFile' and contains(text(),'comment')]/following-sibling" to="../.." />
+  <transform process="copy" xpath=".//cml:list/cml:scalar[@dictRef='q:inputFile' and contains(text(),'comment')]/following-sibling::cml:scalar[1]" to="../.." />
 
   <!-- reparse the copies of the scalars -->
   <transform process="reparse" xpath=".//cml:scalar[@id='copy.0' and contains(text(),'JOBTYPE')]" regex="\s*JOBTYPE\s*=?\s*{A,q:jobType}\s*" />
   <transform process="reparse" xpath=".//cml:scalar[@id='copy.0' and contains(text(),'EXCHANGE')]" regex="\s*EXCHANGE\s*=?\s*{A,q:exchange}\s*" />
   <transform process="reparse" xpath=".//cml:scalar[@id='copy.0' and contains(text(),'CORRELATION')]" regex="\s*CORRELATION\s*=?\s*{A,q:correlation}\s*" />
+  <transform process="reparse" xpath=".//cml:scalar[@id='copy.0']" regex="\s*{X,cc:title}\s*" />
 
   <!-- pull up scalars from list and then from module -->
   <transform process="pullupSingleton" xpath=".//cml:list[@cmlx:templateRef='reparse']" />
@@ -127,7 +130,7 @@ $end
 
   <!-- wrap scalars as parameters -->
   <transform process="createWrapperParameter" xpath=".//cml:list[@dictRef='q:userInput']" />
-  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='q:jobType' or @dictRef='q:exchange' or @dictRef='q:correlation']" />
+  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='q:jobType' or @dictRef='q:exchange' or @dictRef='q:correlation' or @dictRef='cc:title']" />
 
   <!-- CLEAN UP -->
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
@@ -213,6 +216,9 @@ $end
       <parameter dictRef="q:correlation">
         <scalar dataType="xsd:string" cmlx:templateRef="reparse">None</scalar>
       </parameter>
+      <parameter dictRef="cc:title">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">Methane HF 6-31G(d)</scalar>
+      </parameter>
     </module>
   </comment>
   <comment class="example.output" id="init.userInput.b3lyp">
@@ -244,6 +250,9 @@ $end
       </parameter>
       <parameter dictRef="q:exchange">
         <scalar dataType="xsd:string" cmlx:templateRef="reparse">Becke3LYP</scalar>
+      </parameter>
+      <parameter dictRef="cc:title">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">Methane B3LYP 6-31G(d)</scalar>
       </parameter>
     </module>
   </comment>
@@ -282,6 +291,9 @@ $end
       </parameter>
       <parameter dictRef="q:correlation">
         <scalar dataType="xsd:string" cmlx:templateRef="reparse">MP2</scalar>
+      </parameter>
+      <parameter dictRef="cc:title">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">Methanol MP2 6-31G(d)</scalar>
       </parameter>
     </module>
   </comment>
