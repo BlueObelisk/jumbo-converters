@@ -9,6 +9,28 @@
 	           position="0"
 	           dictRef="cc:jobList" />
 
+  <!-- add id to all modules -->
+  <transform process="addAttribute"
+             xpath=".//cml:module[@cmlx:templateRef='job']"
+             name="id"
+             value="job" />
+  <transform process="addAttribute"
+             xpath=".//cml:module[@cmlx:templateRef='environment']"
+             name="id"
+             value="environment" />
+  <transform process="addAttribute"
+             xpath=".//cml:module[@cmlx:templateRef='initialization']"
+             name="id"
+             value="initialization" />
+  <transform process="addAttribute"
+             xpath=".//cml:module[@cmlx:templateRef='calculation']"
+             name="id"
+             value="calculation" />
+  <transform process="addAttribute"
+             xpath=".//cml:module[@cmlx:templateRef='finalization']"
+             name="id"
+             value="finalization" />
+
 	<!-- add dictRef to all modules -->
   <transform process="addDictRef"
              xpath=".//cml:module[@cmlx:templateRef='job']" 
