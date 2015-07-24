@@ -51,7 +51,7 @@
   <transform process="move"         xpath="./cml:list[contains(@cmlx:templateRef, 'basis' )]/*/cml:scalar" 
                                     to="./cml:parameter[@dictRef='m:basisOptions']/cml:list"  />
 
-  <transform process="addChild"     xpath="./cml:parameter[@dictRef='m:basisOptions']/cml:list" dictRef="cc:basis" elementName="cml:scalar" value="UNKNOWN" />
+  <transform process="addChild"     xpath="./cml:parameter[@dictRef='m:basisOptions']/cml:list" dictRef="cc:basisSetLabel" elementName="cml:scalar" value="UNKNOWN" />
 
   <transform process="addChild"     xpath="./cml:parameter[@dictRef='m:basisOptions']/cml:list" dictRef="xx:polFunc"       elementName="cml:scalar" value="UNKNOWN" />
   <transform process="addChild"     xpath="./cml:parameter[@dictRef='m:basisOptions']/cml:list" dictRef="xx:basisBaseName" elementName="cml:scalar" value="UNKNOWN" />
@@ -247,55 +247,55 @@
     and ../*[@dictRef='m:basis_nDfunc'  and text()='3' ]  and ../*[@dictRef='m:basis_nFfunc'  and text()='1' ]  and ../*[@dictRef='m:basis_nPfunc'  and text()='3' ]]" />
 
   <!-- Join Basis Set Base Name and polarization functions -->
-  <transform process="setValue" xpath=".//cml:scalar[@dictRef='cc:basis']" 
+  <transform process="setValue" xpath=".//cml:scalar[@dictRef='cc:basisSetLabel']" 
     value="$string(..//cml:scalar[@dictRef='xx:basisBaseName' ])$string(..//cml:scalar[@dictRef='xx:polFunc' ])"   />
 
 
   <!-- SYSTEMATIC BASIS SET FAMILIES -->
 
   <!-- Pople's G3MP2Large and G3MP3LargeXP Basis Sets  -->
-  <transform process="setValue"  value="G3MP2Large"    xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='G3L' ] ]" />
-  <transform process="setValue"  value="G3MP2LargeXP"  xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='G3LX' ] ]" />
+  <transform process="setValue"  value="G3MP2Large"    xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='G3L' ] ]" />
+  <transform process="setValue"  value="G3MP2LargeXP"  xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='G3LX' ] ]" />
 
   <!-- Dunning-type Correlation Consistent basis sets -->
-  <transform process="setValue"  value="cc-pVDZ"       xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='CCD' ] ]" />
-  <transform process="setValue"  value="cc-pVTZ"       xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='CCT' ] ]" />
-  <transform process="setValue"  value="cc-pVQZ"       xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='CCQ' ] ]" />
-  <transform process="setValue"  value="cc-pV5Z"       xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='CC5' ] ]" />
-  <transform process="setValue"  value="cc-pV6Z"       xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='CC6' ] ]" />
-  <transform process="setValue"  value="aug-cc-pVDZ"   xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='ACCD' ] ]" />
-  <transform process="setValue"  value="aug-cc-pVTZ"   xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='ACCT' ] ]" />
-  <transform process="setValue"  value="aug-cc-pVQZ"   xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='ACCQ' ] ]" />
-  <transform process="setValue"  value="aug-cc-pV5Z"   xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='ACC5' ] ]" />
-  <transform process="setValue"  value="aug-cc-pV6Z"   xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='ACC6' ] ]" />
+  <transform process="setValue"  value="cc-pVDZ"       xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='CCD' ] ]" />
+  <transform process="setValue"  value="cc-pVTZ"       xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='CCT' ] ]" />
+  <transform process="setValue"  value="cc-pVQZ"       xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='CCQ' ] ]" />
+  <transform process="setValue"  value="cc-pV5Z"       xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='CC5' ] ]" />
+  <transform process="setValue"  value="cc-pV6Z"       xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='CC6' ] ]" />
+  <transform process="setValue"  value="aug-cc-pVDZ"   xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='ACCD' ] ]" />
+  <transform process="setValue"  value="aug-cc-pVTZ"   xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='ACCT' ] ]" />
+  <transform process="setValue"  value="aug-cc-pVQZ"   xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='ACCQ' ] ]" />
+  <transform process="setValue"  value="aug-cc-pV5Z"   xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='ACC5' ] ]" />
+  <transform process="setValue"  value="aug-cc-pV6Z"   xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='ACC6' ] ]" />
 
-  <transform process="setValue"  value="cc-pCVDZ"      xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='CCDC' ] ]" />
-  <transform process="setValue"  value="cc-pCVTZ"      xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='CCTC' ] ]" />
-  <transform process="setValue"  value="cc-pCVQZ"      xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='CCQC' ] ]" />
-  <transform process="setValue"  value="cc-pCV5Z"      xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='CC5C' ] ]" />
-  <transform process="setValue"  value="cc-pCV6Z"      xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='CC6C' ] ]" />
-  <transform process="setValue"  value="aug-cc-pCVDZ"  xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='ACCDC' ] ]" />
-  <transform process="setValue"  value="aug-cc-pCVTZ"  xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='ACCTC' ] ]" />
-  <transform process="setValue"  value="aug-cc-pCVQZ"  xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='ACCQC' ] ]" />
-  <transform process="setValue"  value="aug-cc-pCV5Z"  xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='ACC5C' ] ]" />
-  <transform process="setValue"  value="aug-cc-pCV6Z"  xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='ACC6C' ] ]" />
+  <transform process="setValue"  value="cc-pCVDZ"      xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='CCDC' ] ]" />
+  <transform process="setValue"  value="cc-pCVTZ"      xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='CCTC' ] ]" />
+  <transform process="setValue"  value="cc-pCVQZ"      xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='CCQC' ] ]" />
+  <transform process="setValue"  value="cc-pCV5Z"      xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='CC5C' ] ]" />
+  <transform process="setValue"  value="cc-pCV6Z"      xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='CC6C' ] ]" />
+  <transform process="setValue"  value="aug-cc-pCVDZ"  xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='ACCDC' ] ]" />
+  <transform process="setValue"  value="aug-cc-pCVTZ"  xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='ACCTC' ] ]" />
+  <transform process="setValue"  value="aug-cc-pCVQZ"  xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='ACCQC' ] ]" />
+  <transform process="setValue"  value="aug-cc-pCV5Z"  xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='ACC5C' ] ]" />
+  <transform process="setValue"  value="aug-cc-pCV6Z"  xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='ACC6C' ] ]" />
 
-  <transform process="setValue"  value="cc-pwCVDZ"     xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='CCDWC' ] ]" />
-  <transform process="setValue"  value="cc-pwCVTZ"     xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='CCTWC' ] ]" />
-  <transform process="setValue"  value="cc-pwCVQZ"     xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='CCQWC' ] ]" />
-  <transform process="setValue"  value="cc-pwCV5Z"     xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='CC5WC' ] ]" />
-  <transform process="setValue"  value="cc-pwCV6Z"     xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='CC6WC' ] ]" />
-  <transform process="setValue"  value="aug-cc-pwCVDZ" xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='ACCDWC' ] ]" />
-  <transform process="setValue"  value="aug-cc-pwCVTZ" xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='ACCTWC' ] ]" />
-  <transform process="setValue"  value="aug-cc-pwCVQZ" xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='ACCQWC' ] ]" />
-  <transform process="setValue"  value="aug-cc-pwCV5Z" xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='ACC5WC' ] ]" />
-  <transform process="setValue"  value="aug-cc-pwCV6Z" xpath=".//cml:scalar[@dictRef='cc:basis' and ../*[@dictRef='m:basis_gBasis'  and text()='ACC6WC' ] ]" />
+  <transform process="setValue"  value="cc-pwCVDZ"     xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='CCDWC' ] ]" />
+  <transform process="setValue"  value="cc-pwCVTZ"     xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='CCTWC' ] ]" />
+  <transform process="setValue"  value="cc-pwCVQZ"     xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='CCQWC' ] ]" />
+  <transform process="setValue"  value="cc-pwCV5Z"     xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='CC5WC' ] ]" />
+  <transform process="setValue"  value="cc-pwCV6Z"     xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='CC6WC' ] ]" />
+  <transform process="setValue"  value="aug-cc-pwCVDZ" xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='ACCDWC' ] ]" />
+  <transform process="setValue"  value="aug-cc-pwCVTZ" xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='ACCTWC' ] ]" />
+  <transform process="setValue"  value="aug-cc-pwCVQZ" xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='ACCQWC' ] ]" />
+  <transform process="setValue"  value="aug-cc-pwCV5Z" xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='ACC5WC' ] ]" />
+  <transform process="setValue"  value="aug-cc-pwCV6Z" xpath=".//cml:scalar[@dictRef='cc:basisSetLabel' and ../*[@dictRef='m:basis_gBasis'  and text()='ACC6WC' ] ]" />
 
 
 
-  <transform process="pullup" xpath=".//cml:scalar[@dictRef='cc:basis']" />
-  <transform process="pullup" xpath=".//cml:scalar[@dictRef='cc:basis']" />
-  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='cc:basis']" />
+  <transform process="pullup" xpath=".//cml:scalar[@dictRef='cc:basisSetLabel']" />
+  <transform process="pullup" xpath=".//cml:scalar[@dictRef='cc:basisSetLabel']" />
+  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='cc:basisSetLabel']" />
 
 
   <!-- Delete empty lists -->
@@ -304,7 +304,7 @@
 
   <comment class="example.output" id="init.02.basis.options.321G">
     <module cmlx:templateRef="init.02.basis.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <parameter dictRef="cc:basis">
+      <parameter dictRef="cc:basisSetLabel">
             <scalar dataType="xsd:string">3-21G</scalar>
       </parameter>
       <parameter dictRef="m:basisOptions">
@@ -328,7 +328,7 @@
 
   <comment class="example.output" id="init.02.basis.options.631G">
     <module cmlx:templateRef="init.02.basis.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <parameter dictRef="cc:basis">
+      <parameter dictRef="cc:basisSetLabel">
             <scalar dataType="xsd:string">6-31G</scalar>
       </parameter>
       <parameter dictRef="m:basisOptions">
@@ -352,7 +352,7 @@
 
   <comment class="example.output" id="init.02.basis.options.631Gd">
     <module cmlx:templateRef="init.02.basis.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <parameter dictRef="cc:basis">
+      <parameter dictRef="cc:basisSetLabel">
             <scalar dataType="xsd:string">6-31G(d)</scalar>
       </parameter>
       <parameter dictRef="m:basisOptions">
@@ -376,7 +376,7 @@
 
   <comment class="example.output" id="init.02.basis.options.6311ppG3df2p">
     <module cmlx:templateRef="init.02.basis.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <parameter dictRef="cc:basis">
+      <parameter dictRef="cc:basisSetLabel">
             <scalar dataType="xsd:string">6-311++G(3df,2p)</scalar>
       </parameter>
       <parameter dictRef="m:basisOptions">
@@ -400,7 +400,7 @@
 
   <comment class="example.output" id="init.02.basis.options.G3MP2Large" >
     <module cmlx:templateRef="init.02.basis.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <parameter dictRef="cc:basis">
+      <parameter dictRef="cc:basisSetLabel">
             <scalar dataType="xsd:string">G3MP2Large</scalar>
       </parameter>
       <parameter dictRef="m:basisOptions">
