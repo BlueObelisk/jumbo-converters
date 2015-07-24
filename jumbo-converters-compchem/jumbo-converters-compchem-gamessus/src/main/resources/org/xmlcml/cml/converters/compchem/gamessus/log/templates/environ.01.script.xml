@@ -22,8 +22,8 @@ samqfs://scratch/ostueker
   </comment>
 
   <record/>
-  <record id="host">\s*This job is running on host\s+{A,cc:hostname}\s*$</record>
-  <record id="date">\s*under operating system Linux at\s+{X,cc:run.date}\s*$</record>
+  <record id="host">\s*This job is running on host\s+{A,cc:hostName}\s*$</record>
+  <record id="date">\s*under operating system Linux at\s+{X,cc:runDate}\s*$</record>
   <record repeat="*" id="environ.01.script.UNPARSED">{X,x:UNPARSED}</record>
 
   <transform process="addDictRef"
@@ -31,7 +31,7 @@ samqfs://scratch/ostueker
              value="x:UNPARSED"/>
 
   <transform process="createWrapperParameter"
-              xpath=".//cml:scalar[@dictRef='cc:hostname' or @dictRef='cc:run.date' ]" />
+              xpath=".//cml:scalar[@dictRef='cc:hostName' or @dictRef='cc:runDate' ]" />
 
   <transform process="pullup"
              xpath=".//cml:list[@cmlx:templateRef='host' or @cmlx:templateRef='date']/cml:parameter" />
@@ -49,10 +49,10 @@ samqfs://scratch/ostueker
 
   <comment class="example.output" id="environ.01.script1">
     <module cmlx:templateRef="environ.01.script" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <parameter dictRef="cc:hostname">
+      <parameter dictRef="cc:hostName">
         <scalar dataType="xsd:string">s04c3b08</scalar>
       </parameter>
-      <parameter dictRef="cc:run.date">
+      <parameter dictRef="cc:runDate">
         <scalar dataType="xsd:string">Thu Jun 12 13:14:43 CEST 2008</scalar>
       </parameter>
       <parameter dictRef="x:UNPARSED">
@@ -68,10 +68,10 @@ samqfs://scratch/ostueker
 
   <comment class="example.output" id="environ.01.script2">
 	<module cmlx:templateRef="environ.01.script" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-		<parameter dictRef="cc:hostname">
+		<parameter dictRef="cc:hostName">
 			<scalar dataType="xsd:string">cl221</scalar>
 		</parameter>
-		<parameter dictRef="cc:run.date">
+		<parameter dictRef="cc:runDate">
 			<scalar dataType="xsd:string">Fri Jul 11 15:57:47 NDT 2014</scalar>
 		</parameter>
     <parameter dictRef="x:UNPARSED">
