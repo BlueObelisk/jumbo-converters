@@ -125,7 +125,7 @@ public class CompChemConventionTest {
 	
 	@Test
 	public void testEnvironmentVersion() {
-		List<Node> nodes = CMLUtil.getQueryNodes(job1, "./cml:module[@dictRef='cc:environment']/cml:parameterList/cml:parameter[@dictRef='cc:version']/cml:scalar/text()", CMLConstants.CML_XPATH);
+		List<Node> nodes = CMLUtil.getQueryNodes(job1, "./cml:module[@dictRef='cc:environment']/cml:parameterList/cml:parameter[@dictRef='cc:programVersion']/cml:scalar/text()", CMLConstants.CML_XPATH);
 		assertFalse(nodes.isEmpty());
 		assertEquals("x86-Linux-G03RevB.04", nodes.get(0).getValue());
 	}
