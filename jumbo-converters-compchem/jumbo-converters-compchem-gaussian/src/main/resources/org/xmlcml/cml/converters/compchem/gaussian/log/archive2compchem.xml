@@ -2,14 +2,14 @@
 
   <!-- structuring for the compchem convention -->
   <transform process="createWrapperParameter" 
-      xpath=".//cml:scalar[@dictRef='cc:hostname' or 
+      xpath=".//cml:scalar[@dictRef='cc:hostName' or 
                            @dictRef='cc:jobname' or
                            @dictRef='cc:method' or
                            @dictRef='cc:basis'
                            ]"/>
   <transform process="createWrapperMetadata" 
       xpath=".//cml:scalar[@dictRef='cc:programVersion' or
-                           @dictRef='cc:date' or
+                           @dictRef='cc:runDate' or
                            @dictRef='cc:title']"/>
   <transform process="createWrapperProperty" 
       xpath=".//*[@dictRef='cc:electronicstate' or

@@ -117,7 +117,7 @@ public class CompChemConventionTest {
 	//@Ignore
 	@Test
 	public void testEnvironmentHostName() {
-		List<Node> nodes = CMLUtil.getQueryNodes(job1, "./cml:module[@dictRef='cc:environment']/cml:parameterList/cml:parameter[@dictRef='cc:hostname']/cml:scalar/text()", CMLConstants.CML_XPATH);
+		List<Node> nodes = CMLUtil.getQueryNodes(job1, "./cml:module[@dictRef='cc:environment']/cml:parameterList/cml:parameter[@dictRef='cc:hostName']/cml:scalar/text()", CMLConstants.CML_XPATH);
 //		job1.debug("JOB1");
 		assertFalse("should have hostName", nodes.isEmpty());
 		assertEquals("GINC-DEEPTHOUGHT", nodes.get(0).getValue());
