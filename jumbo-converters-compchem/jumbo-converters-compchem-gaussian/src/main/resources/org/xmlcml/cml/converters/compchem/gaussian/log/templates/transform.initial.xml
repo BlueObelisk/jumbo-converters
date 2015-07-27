@@ -33,6 +33,9 @@
     xpath=".//cml:module[@cmlx:templateRef='job']/cml:scalar[@dictRef='cc:method'][last()]" 
     to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"/> 
   <transform process="moveRelative" 
+    xpath=".//cml:scalar[@dictRef='cc:wavefunctionType'][last()]" 
+    to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"/> 
+  <transform process="moveRelative" 
     xpath=".//cml:module[@cmlx:templateRef='job']/cml:scalar[@dictRef='cc:basis'][last()]" 
     to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"/> 
 
@@ -44,7 +47,9 @@
   <transform process="moveRelative" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:formula'][last()]" 
       to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"/> 
   <transform process="moveRelative" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:degfreedom'][last()]" 
-       to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"/> 
+       to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"/>
+  <transform process="moveRelative" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:title'][last()]" 
+       to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"/>
 
   <transform process="moveRelative"   to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"
       xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l301.basis']/cml:scalar[@dictRef='cc:basis']" />
