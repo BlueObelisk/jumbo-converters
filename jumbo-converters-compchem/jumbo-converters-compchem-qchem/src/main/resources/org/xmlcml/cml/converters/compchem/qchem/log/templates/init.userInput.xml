@@ -128,9 +128,25 @@ $end
   <transform process="pullupSingleton" xpath=".//cml:list[@cmlx:templateRef='reparse']" />
   <transform process="pullupSingleton" xpath=".//cml:module" />
 
+  <!-- determine cc:method -->
+  <transform process="copy" xpath=".//cml:scalar[@dictRef='q:exchange']" to=".." />
+  <transform process="copy" xpath=".//cml:scalar[@dictRef='q:correlation']" to=".." />
+  <transform process="setValue" xpath=".//cml:scalar[@dictRef='q:correlation' and @id='copy.0']" value=" $string(.)" />
+  <transform process="createString"
+             xpath=".//cml:scalar[@id='copy.0' and not(contains(text(),'None'))]" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='q:exchange' and @id='copy.0']" value="cc:method" />
+  <transform process="delete" xpath=".//cml:scalar[@dictRef='q:correlation' and @id='copy.0']" />
+  
+
+  <!-- <transform process="setValue" xpath=".//cml:scalar[@dictRef='q:correlation' and @id='copy.0' and not(contains(text(),'None'))]" 
+             value="$string(../cml:scalar[@dictRef='q:exchange']) $string(.)" />
+  <transform process="setValue" xpath=".//cml:scalar[@dictRef='q:correlation' and @id='copy.0' and contains(text(),'None')]" 
+             value="$string(../cml:scalar[@dictRef='q:exchange'])" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='q:correlation'][2]" value="cc:method" /> -->
+
   <!-- wrap scalars as parameters -->
   <transform process="createWrapperParameter" xpath=".//cml:list[@dictRef='q:userInput']" />
-  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='q:jobType' or @dictRef='q:exchange' or @dictRef='q:correlation' or @dictRef='cc:title']" />
+  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='q:jobType' or @dictRef='q:exchange' or @dictRef='q:correlation' or @dictRef='cc:title' or @dictRef='cc:method']" />
 
   <!-- CLEAN UP -->
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
@@ -219,6 +235,9 @@ $end
       <parameter dictRef="cc:title">
         <scalar dataType="xsd:string" cmlx:templateRef="reparse">Methane HF 6-31G(d)</scalar>
       </parameter>
+      <parameter dictRef="cc:method">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">HF</scalar>
+      </parameter>
     </module>
   </comment>
   <comment class="example.output" id="init.userInput.b3lyp">
@@ -253,6 +272,9 @@ $end
       </parameter>
       <parameter dictRef="cc:title">
         <scalar dataType="xsd:string" cmlx:templateRef="reparse">Methane B3LYP 6-31G(d)</scalar>
+      </parameter>
+      <parameter dictRef="cc:method">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">Becke3LYP</scalar>
       </parameter>
     </module>
   </comment>
@@ -294,6 +316,9 @@ $end
       </parameter>
       <parameter dictRef="cc:title">
         <scalar dataType="xsd:string" cmlx:templateRef="reparse">Methanol MP2 6-31G(d)</scalar>
+      </parameter>
+      <parameter dictRef="cc:method">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">HF MP2</scalar>
       </parameter>
     </module>
   </comment>
