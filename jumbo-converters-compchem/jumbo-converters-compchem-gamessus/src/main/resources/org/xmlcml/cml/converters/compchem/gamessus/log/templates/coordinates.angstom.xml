@@ -21,7 +21,7 @@
   <record repeat="*" makeArray="true" id="atom">\s{A6,n:label}{F,c:elementType}\s{F,m:x3}\s{F,m:y3}\s{F,m:z3}.*</record>
 
   <transform process="createMolecule"
-                  xpath="./cml:list[@cmlx:templateRef='atom']/cml:array" id="mol.input.card"/>
+                  xpath="./cml:list[@cmlx:templateRef='atom']/cml:array" id="mol.coordinates.angstom"/>
   <transform process="pullupSingleton"
                   xpath=".//cml:list[@cmlx:templateRef='atom']" />
 
@@ -33,7 +33,7 @@
 
   <comment class="example.output" id="coordinates">
     <module cmlx:templateRef="coordinates.angstom" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <molecule id="mol.input.card" cmlx:templateRef="atom">
+      <molecule id="mol.coordinates.angstom" cmlx:templateRef="atom">
         <atomArray>
           <atom id="a1" elementType="C" x3="2.07E-8" y3="2.42E-8" z3="1.057E-7">
             <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
