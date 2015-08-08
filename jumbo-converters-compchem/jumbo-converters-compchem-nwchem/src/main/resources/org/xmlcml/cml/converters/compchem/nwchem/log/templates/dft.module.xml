@@ -355,20 +355,21 @@ MA usage statistics:
   xpath="./cml:module[@cmlx:templateRef='dftInfo']/cml:scalar[starts-with(@dictRef,'compchem:')]"
   to="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"/>
   
+  <transform process="move" 
+  xpath="./cml:module[@cmlx:templateRef='dftXcinfo']/cml:scalar[@dictRef='compchem:dftFunctionalLabel']"
+  to="./cml:module[@dictRef='compchem:initialization']/cml:parameterList"/>
+  />
+
   <transform process="createWrapperParameter" 
   xpath="./cml:module[@dictRef='compchem:initialization']/cml:parameterList/*" />
   
   <!--  Create dft_functional as cml list and move title into it -->
-    <transform process="addChild"
+    <!-- <transform process="addChild"
   xpath="./cml:module[@dictRef='compchem:initialization']"
   elementName="cml:list"
   dictRef="compchem:dftFunctional"
   id="dftFunctional"
-  />
-  <transform process="move" 
-  xpath="./cml:module[@cmlx:templateRef='dftXcinfo']/cml:scalar[@dictRef='compchem:dftFunctionalLabel']"
-  to="./cml:module[@dictRef='compchem:initialization']/cml:list[@dictRef='compchem:dftFunctional']"
-  />
+  /> -->
   
   <!-- Create finalization module with propertyList and put results in it -->
     <transform process="addChild" 
@@ -423,9 +424,12 @@ MA usage statistics:
 <parameter dictRef="compchem:spinMultiplicty">
 <scalar dataType="xsd:integer" cmlx:templateRef="spin">1</scalar>
 </parameter>
+<parameter dictRef="compchem:dftFunctionalLabel">
+<scalar dataType="xsd:string" cmlx:templateRef="dftFunctionalLabel">B3LYP</scalar>
+</parameter>
 </parameterList>
 <list id="dftFunctional" dictRef="compchem:dftFunctional">
-<scalar dataType="xsd:string" dictRef="compchem:dftFunctionalLabel" cmlx:templateRef="dftFunctionalLabel">B3LYP</scalar>
+
 </list>
 </module>
 <module cmlx:lineCount="1" cmlx:templateRef="caching">
