@@ -166,7 +166,7 @@ public class CompChemConventionTest {
 	
 	@Test
 	public void testInitializationBasis() {
-		List<Node> nodes = CMLUtil.getQueryNodes(job1, "./cml:module[@dictRef='cc:initialization']/cml:parameterList/cml:parameter[@dictRef='cc:basis']/cml:scalar/text()", CMLConstants.CML_XPATH);
+		List<Node> nodes = CMLUtil.getQueryNodes(job1, "./cml:module[@dictRef='cc:initialization']/cml:parameterList/cml:parameter[@dictRef='cc:basisSetLabel']/cml:scalar/text()", CMLConstants.CML_XPATH);
 		assertFalse(nodes.isEmpty());
 		assertEquals("6-31G(d)", nodes.get(0).getValue());
 	}
