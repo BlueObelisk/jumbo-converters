@@ -89,13 +89,34 @@
     delimiter="|" splitter="," from="." dictRef="cc:polarizability" dataType="xsd:double"/>
 
 
-  <!-- Determine cc:wavefunctionType depending on cc:method -->
+  <!-- determine cc:wavefunctionType from cc:method -->
   <transform process="copy" to=".." xpath=".//cml:scalar[@dictRef='cc:method']" />
   <transform process="setValue"     value="restricted open shell"
              xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0' and starts-with(./text(),'RO')]"  />
   <transform process="setValue" xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0' and starts-with(./text(),'R')]" value="closed shell" />
   <transform process="setValue" xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0' and starts-with(./text(),'U')]" value="open shell" />
   <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0']" value="cc:wavefunctionType" />
+
+  <!-- determine cc:dftFunctionalLabel from cc:method -->
+  <transform process="copy" to=".." xpath=".//cml:scalar[@dictRef='cc:method' and (contains(text(),'HFS') or contains(text(),'XAlpha') or contains(text(),'HFB') or contains(text(),'VSXC') or contains(text(),'HCTH') or contains(text(),'HCTH93') or contains(text(),'HCTH147') or contains(text(),'HCTH407') or contains(text(),'tHCTH') or contains(text(),'M06L') or contains(text(),'B97D') or contains(text(),'B97D3') or contains(text(),'SOGGA11') or contains(text(),'M11L') or contains(text(),'N12') or contains(text(),'MN12L') or contains(text(),'B3LYP') or contains(text(),'B3P86') or contains(text(),'B3PW91') or contains(text(),'B1B95') or contains(text(),'mPW1PW91') or contains(text(),'mPW1LYP') or contains(text(),'mPW1PBE') or contains(text(),'mPW3PBE') or contains(text(),'B98') or contains(text(),'B971') or contains(text(),'B972') or contains(text(),'PBE1PBE') or contains(text(),'B1LYP') or contains(text(),'O3LYP') or contains(text(),'BHandH') or contains(text(),'BHandHLYP') or contains(text(),'BMK') or contains(text(),'M06') or contains(text(),'M06HF') or contains(text(),'M062X') or contains(text(),'tHCTHhyb') or contains(text(),'APFD') or contains(text(),'APF') or contains(text(),'SOGGA11X') or contains(text(),'PBEh1PBE') or contains(text(),'TPSSh') or contains(text(),'X3LYP') or contains(text(),'HSEH1PBE') or contains(text(),'OHSE2PBE') or contains(text(),'OHSE1PBE') or contains(text(),'wB97XD') or contains(text(),'wB97') or contains(text(),'wB97X') or contains(text(),'LC-wPBE') or contains(text(),'CAM-B3LYP') or contains(text(),'HISSbPBE') or contains(text(),'M11') or contains(text(),'N12SX') or contains(text(),'MN12SX'))]" />
+  <transform process="setValue" value="$substring(.,1)" 
+             xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0' and (starts-with(./text(),'R') or starts-with(./text(),'U'))]" />
+  <transform process="setValue" value="$substring(.,2)" 
+             xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0' and starts-with(./text(),'RO')]" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0']" value="cc:dftFunctionalLabel" />
+
+
+  <!-- determine cc:task from g:operation -->
+  <transform process="copy" xpath=".//cml:scalar[@dictRef='g:operation']" to=".." />
+  <transform process="setValue" value="geometry_optimization"
+             xpath=".//cml:scalar[@dictRef='g:operation' and @id='copy.0' and (contains(text(),'FOpt') or contains(text(),'Opt'))]" />
+  <transform process="setValue" value="frequency"
+             xpath=".//cml:scalar[@dictRef='g:operation' and @id='copy.0' and contains(text(),'Freq')]" />
+  <transform process="setValue" value="energy"
+             xpath=".//cml:scalar[@dictRef='g:operation' and @id='copy.0' and contains(text(),'SP')]" />
+  <transform process="setValue" value="gradient"
+             xpath=".//cml:scalar[@dictRef='g:operation' and @id='copy.0' and contains(text(),'Force')]" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='g:operation' and @id='copy.0']" value="cc:task" />
 
      
   <!-- tidy -->
@@ -130,11 +151,13 @@
       <scalar dataType="xsd:string" dictRef="cc:hostName">GINC-DEEPTHOUGHT</scalar>
       <scalar dataType="xsd:string" dictRef="g:operation">Freq</scalar>
       <scalar dataType="xsd:string" dictRef="cc:method">RB3LYP</scalar>
-      <scalar dataType="xsd:string" dictRef="cc:basis">6-31G(d)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:basisSetLabel">6-31G(d)</scalar>
       <scalar dataType="xsd:string" dictRef="cc:jobname">WWW-DATA</scalar>
       <scalar dataType="xsd:date" dictRef="cc:runDate">2006-11-20T00:00:00Z</scalar>
       <scalar dataType="xsd:string" dictRef="g:zmat">0</scalar>
       <scalar dataType="xsd:string" id="copy.0" dictRef="cc:wavefunctionType">closed shell</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:dftFunctionalLabel">B3LYP</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:task">frequency</scalar>
       <scalar dataType="xsd:string" dictRef="g:keyword">#N</scalar>
       <scalar dataType="xsd:string" dictRef="g:keyword">GEOM=ALLCHECK</scalar>
       <scalar dataType="xsd:string" dictRef="g:keyword">GUESS=READ</scalar>
@@ -180,11 +203,12 @@
       <scalar dataType="xsd:string" dictRef="cc:hostName">GINC-NODE14</scalar>
       <scalar dataType="xsd:string" dictRef="g:operation">FOpt</scalar>
       <scalar dataType="xsd:string" dictRef="cc:method">RmPWB95</scalar>
-      <scalar dataType="xsd:string" dictRef="cc:basis">6-31+G(d,p)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:basisSetLabel">6-31+G(d,p)</scalar>
       <scalar dataType="xsd:string" dictRef="cc:jobname">CHS60A</scalar>
       <scalar dataType="xsd:date" dictRef="cc:runDate">2006-12-20T00:00:00Z</scalar>
       <scalar dataType="xsd:string" dictRef="g:zmat">0</scalar>
       <scalar dataType="xsd:string" id="copy.0" dictRef="cc:wavefunctionType">closed shell</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:task">geometry_optimization</scalar>
       <scalar dataType="xsd:string" dictRef="g:keyword">#PMPWB95/6-31+G(D,P)</scalar>
       <scalar dataType="xsd:string" dictRef="g:keyword">OPT</scalar>
       <scalar dataType="xsd:string" dictRef="g:keyword">IOP(3/76=0560004400)</scalar>
@@ -250,7 +274,7 @@
       <scalar dataType="xsd:string" dictRef="cc:hostName">GINC-ALTIX</scalar>
       <scalar dataType="xsd:string" dictRef="g:operation">Force</scalar>
       <scalar dataType="xsd:string" dictRef="cc:method">ROHF</scalar>
-      <scalar dataType="xsd:string" dictRef="cc:basis">4-31G</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:basisSetLabel">4-31G</scalar>
       <scalar dataType="xsd:string" dictRef="cc:jobname">FRISCH</scalar>
       <scalar dataType="xsd:date" dictRef="cc:runDate">2010-06-12T00:00:00Z</scalar>
       <scalar dataType="xsd:string" dictRef="g:keyword">#p</scalar>

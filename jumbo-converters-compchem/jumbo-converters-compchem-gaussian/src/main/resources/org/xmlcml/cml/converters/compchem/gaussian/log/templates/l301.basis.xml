@@ -41,7 +41,7 @@
  NAtoms=    6 NActive=    6 NUniq=    2 SFac= 4.00D+00 NAtFMM=   50 NAOKFM=F Big=F
   </comment>
   
-  <record id="basis">\s*Standard basis: {A,cc:basis} {X,cc:diffuse}</record> 
+  <record id="basis">\s*Standard basis: {A,cc:basisSetLabel} {X,cc:diffuse}</record> 
   <templateList id="ernie">
     <template pattern="\s*Ernie.*" endPattern=".*" id="ernie">
       <record id="ernie" repeat="*">\s*Ernie: Thresh={E,g:thresh}\s*Tol={E,g:tol}\s*Strict={A,g:strict}\.\s*</record> 
@@ -96,7 +96,7 @@
     
   <comment class="example.output" id="l301.basis">
     <module cmlx:templateRef="l301.basis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <scalar dataType="xsd:string" dictRef="cc:basis">6-31G(d)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:basisSetLabel">6-31G(d)</scalar>
       <scalar dataType="xsd:string" dictRef="cc:diffuse">(6D, 7F)</scalar>
       <list cmlx:lineCount="4" cmlx:templateRef="symmadapt">
         <array dataType="xsd:integer" dictRef="cc:adapted" size="4">8 5 5 5</array>
@@ -123,7 +123,7 @@
   
   <comment class="example.output" id="l301.basis.09">
 <module cmlx:templateRef="l301.basis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <scalar dataType="xsd:string" dictRef="cc:basis">3-21G</scalar>
+  <scalar dataType="xsd:string" dictRef="cc:basisSetLabel">3-21G</scalar>
   <scalar dataType="xsd:string" dictRef="cc:diffuse">(6D, 7F)</scalar>
   <module cmlx:lineCount="1" cmlx:templateRef="ernie">
     <scalar dataType="xsd:double" dictRef="g:thresh">0.0010</scalar>
