@@ -136,6 +136,18 @@ $end
              xpath=".//cml:scalar[@id='copy.0' and not(contains(text(),'None'))]" />
   <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='q:exchange' and @id='copy.0']" value="cc:method" />
   <transform process="delete" xpath=".//cml:scalar[@dictRef='q:correlation' and @id='copy.0']" />
+
+  <!-- determine cc:task from JOBTYPE -->
+  <transform process="copy" xpath=".//cml:scalar[@dictRef='q:jobType']" to=".." />
+  <transform process="setValue" value="geometry_optimization"
+             xpath=".//cml:scalar[@dictRef='q:jobType' and @id='copy.0' and (contains(text(),'FOpt') or contains(text(),'Opt'))]" />
+  <transform process="setValue" value="frequency"
+             xpath=".//cml:scalar[@dictRef='q:jobType' and @id='copy.0' and contains(text(),'Freq')]" />
+  <transform process="setValue" value="energy"
+             xpath=".//cml:scalar[@dictRef='q:jobType' and @id='copy.0' and contains(text(),'SP')]" />
+  <transform process="setValue" value="gradient"
+             xpath=".//cml:scalar[@dictRef='q:jobType' and @id='copy.0' and contains(text(),'Force')]" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='q:jobType' and @id='copy.0']" value="cc:task" />
   
 
   <!-- <transform process="setValue" xpath=".//cml:scalar[@dictRef='q:correlation' and @id='copy.0' and not(contains(text(),'None'))]" 
@@ -146,7 +158,7 @@ $end
 
   <!-- wrap scalars as parameters -->
   <transform process="createWrapperParameter" xpath=".//cml:list[@dictRef='q:userInput']" />
-  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='q:jobType' or @dictRef='q:exchange' or @dictRef='q:correlation' or @dictRef='cc:title' or @dictRef='cc:method']" />
+  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='q:jobType' or @dictRef='q:exchange' or @dictRef='q:correlation' or @dictRef='cc:title' or @dictRef='cc:method' or @dictRef='cc:task']" />
 
   <!-- CLEAN UP -->
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
@@ -238,6 +250,9 @@ $end
       <parameter dictRef="cc:method">
         <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">HF</scalar>
       </parameter>
+      <parameter dictRef="cc:task">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">geometry_optimization</scalar>
+      </parameter>
     </module>
   </comment>
   <comment class="example.output" id="init.userInput.b3lyp">
@@ -275,6 +290,9 @@ $end
       </parameter>
       <parameter dictRef="cc:method">
         <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">Becke3LYP</scalar>
+      </parameter>
+      <parameter dictRef="cc:task">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">geometry_optimization</scalar>
       </parameter>
     </module>
   </comment>
@@ -319,6 +337,9 @@ $end
       </parameter>
       <parameter dictRef="cc:method">
         <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">HF MP2</scalar>
+      </parameter>
+      <parameter dictRef="cc:task">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">geometry_optimization</scalar>
       </parameter>
     </module>
   </comment>
