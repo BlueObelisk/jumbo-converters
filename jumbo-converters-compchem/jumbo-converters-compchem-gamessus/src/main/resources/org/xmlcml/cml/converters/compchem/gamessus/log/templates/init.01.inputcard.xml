@@ -27,12 +27,12 @@
     1000000 WORDS OF MEMORY AVAILABLE
   </comment>
 
-  <record  id="ex">\s*EXECUTION OF GAMESS BEGUN {X,x:run.date}\s*</record>
+  <record  id="ex">\s*EXECUTION OF GAMESS BEGUN {X,x:runDate}\s*</record>
   <record repeat="2" />
   <record id="inputcard" repeat="*">\s*INPUT CARD&gt;{X,m:inputCard}</record>
   <record id="memAvail" repeat="*">\s*{I,m:MemoryAvailable}\s*WORDS OF MEMORY AVAILABLE\s*</record>
   
-  <transform process="createDate" dictRef="cc:run.date" xpath=".//cml:scalar[@dictRef='x:run.date']" />
+  <transform process="createDate" dictRef="cc:runDate" xpath=".//cml:scalar[@dictRef='x:runDate']" />
 
 <!--   <transform process="createDate" format="EEE MMM d HH:mm:ss yyyy" dictRef="cc:run.date" 
              xpath=".//cml:scalar[@dictRef='x:run.date']" /> -->
@@ -41,11 +41,11 @@
   <transform process="addUnits" value="nonSi:words" xpath=".//cml:scalar[@dictRef='m:MemoryAvailable']" />
 
 
-  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='cc:run.date']" />
+  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='cc:runDate']" />
   <transform process="createWrapperParameter" xpath=".//cml:list[@dictRef='m:InputCards']" />
   <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='m:MemoryAvailable']" />
 
-  <transform process="pullup" xpath=".//cml:parameter[@dictRef='cc:run.date' or @dictRef='m:MemoryAvailable' ]" />
+  <transform process="pullup" xpath=".//cml:parameter[@dictRef='cc:runDate' or @dictRef='m:MemoryAvailable' ]" />
 
 
   <!-- Delete empty lists -->
@@ -56,7 +56,7 @@
   <comment class="example.output" id="init.01.inputcard.1">
     <module cmlx:templateRef="init.01.inputcard" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
 
-    <parameter dictRef="cc:run.date">
+    <parameter dictRef="cc:runDate">
       <scalar dataType="xsd:date">2014-07-11T15:57:49-02:30</scalar>
     </parameter>
     <parameter dictRef="m:InputCards">
