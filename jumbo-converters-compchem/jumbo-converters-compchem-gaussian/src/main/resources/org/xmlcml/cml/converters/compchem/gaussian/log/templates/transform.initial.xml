@@ -43,7 +43,7 @@
     to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"/>
   <transform process="moveRelative" 
     xpath=".//cml:module[@cmlx:templateRef='job']/cml:scalar[@dictRef='cc:dftFunctionalLabel'][last()]" 
-    to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"/> 
+    to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"/>
 
   <transform process="moveRelative" 
     xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:pointgroup'][last()]" 
@@ -57,6 +57,10 @@
   <transform process="moveRelative" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:title'][last()]" 
        to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"/>
 
+  <transform process="moveRelative"   to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"
+      xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l101.zmatcommas']/cml:parameter[@dictRef='cc:charge']" />
+  <transform process="moveRelative"   to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"
+      xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l101.zmatcommas']/cml:parameter[@dictRef='cc:spinMultiplicity']" />
 
   <transform process="moveRelative"   to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"
       xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l301.basis']/cml:scalar[@dictRef='cc:basisSetLabel']" />

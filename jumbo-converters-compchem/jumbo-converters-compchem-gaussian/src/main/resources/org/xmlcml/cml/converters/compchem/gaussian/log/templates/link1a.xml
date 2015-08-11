@@ -4,49 +4,243 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     >
     
-  <comment class="example.input" id="link1a">
+
+  <comment class="example.input" id="link1a.1">
  Link1:  Proceeding to internal job step number  2.
- ------------------------------------------------------------------
- #N Geom=AllCheck Guess=Read SCRF=Check GenChk RB3LYP/6-31G(d) Freq
- ------------------------------------------------------------------
- 1/10=4,29=7,30=1,38=1,40=1,46=1/1,3;
- 2/40=1/2;
- 3/5=1,6=6,7=1,11=2,16=1,25=1,30=1,70=2,71=2,74=-5/1,2,3;
- 4/5=1,7=1/1;
- 5/5=2,38=6/2;
+ --------------------------------------------------------------------
+ #N Geom=AllCheck Guess=TCheck SCRF=Check GenChk RB3LYP/6-31G(d) Freq
+ --------------------------------------------------------------------
+ 1/10=4,29=7,30=1,38=1,40=1/1,3;
+ 2/12=2,40=1/2;
+ 3/5=1,6=6,7=1,11=2,14=-4,16=1,25=1,30=1,70=2,71=2,74=-5,116=1,140=1/1,2,3;
+ 4/5=101/1;
+ 5/5=2,98=1/2;
  8/6=4,10=90,11=11/1;
  11/6=1,8=1,9=11,15=111,16=1/1,2,10;
  10/6=1/2;
  6/7=2,8=2,9=2,10=2,18=1,28=1/1;
  7/8=1,10=1,25=1/1,2,3,16;
- 1/10=4,30=1,46=1/3;
+ 1/10=4,30=1/3;
  99//99;
- ---
- CH4
- ---
- Redundant internal coordinates taken from checkpoint file:
- /tmp/webmo/1/Gau-28333.chk
+ Structure from the checkpoint file:  "/globalscratch/ostueker/Gau-17020.chk"
+ -----
+ CH3OH
+ -----
  Charge =  0 Multiplicity = 1
- C,0,0.,0.,0.
- H,0,0.0000000995,0.0000001925,1.09326594
- H,0,1.0307409799,0.0000001096,-0.3644220738
- H,0,-0.5153703892,-0.8926480531,-0.3644217759
- H,0,-0.5153706902,0.892647751,-0.3644220902
+ Redundant internal coordinates found in file.
+ C,0,0.000697259,-0.0007974864,0.0008757967
+ O,0,-0.0058141461,0.0129600181,1.4189594302
+ H,0,1.0185603166,0.0008715044,-0.4199578783
+ H,0,-0.5468942547,-0.8594391056,-0.4187418153
+ H,0,-0.5021976353,0.9139004967,-0.3250127827
+ H,0,0.4404632805,-0.7914916473,1.7229872493
  Recover connectivity data from disk.
-
   </comment>
+
+  <comment class="example.input" id="link1a.2">
+ Link1:  Proceeding to internal job step number  2.
+ --------------------------------------------------------------------
+ #T Geom=AllCheck Guess=TCheck SCRF=Check GenChk RB3LYP/6-31G(d) Freq
+ --------------------------------------------------------------------
+ ----------
+ CH3-OH Cs`
+ ----------
+ Redundant internal coordinates taken from checkpoint file:
+ /globalscratch/rpoirier/S1/Gau-11076.chk
+ Charge =  0 Multiplicity = 1
+ C,0,-0.0520944118,0.,-0.0001403608
+ O,0,0.0260930976,0.,1.4162325011
+ H,0,0.9762870001,0.,-0.3716839655
+ H,0,-0.5588503457,-0.8931636191,-0.3979842496
+ H,0,-0.5588503457,0.8931636191,-0.3979842496
+ H,0,-0.8793669588,0.,1.7605259156
+ Recover connectivity data from disk.
+  </comment>
+
   <record id="link1">\sLink1:\s\sProceeding to internal job step number{I,g:link1}\.\s*</record>
   <templateList>
     <xi:include href="l1/l1.keywords.xml"/>
     <xi:include href="l1/l1.control.xml"/>
     <xi:include href="l101/l101.title.xml"/>
+
     <xi:include href="l101/l101.redundantcoords.xml"/>
     <xi:include href="l101/l101.zmatcommas.xml"/>
   </templateList>  
   <record repeat="*" id="link1a">{X,g:link1a}</record>
+
+  <transform process="createWrapper" xpath="./text()" elementName="UNPARSED" />
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:scalar[count(text())=0]" />
+  <transform process="delete" xpath=".//UNPARSED/cml:array[count(text())=0]" />
+  <transform process="delete" xpath=".//UNPARSED[count(*)=0]" />
   
-  <comment class="example.output.raw" id="link1a">
- </comment>
+  <comment class="example.output" id="link1a.1">
+  <module cmlx:templateRef="link1a" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+    <list cmlx:templateRef="link1">
+      <scalar dataType="xsd:integer" dictRef="g:link1">2</scalar>
+    </list>
+    <module cmlx:lineCount="3" cmlx:templateRef="l1.keywords">
+      <scalar dataType="xsd:string" dictRef="cc:keyword">#N</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:keyword">Geom=AllCheck</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:keyword">Guess=TCheck</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:keyword">SCRF=Check</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:keyword">GenChk</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:keyword">RB3LYP/6-31G(d)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:keyword">Freq</scalar>
+    </module>
+    <module cmlx:lineCount="12" cmlx:templateRef="l1.control">
+      <list cmlx:templateRef="control">
+        <scalar dataType="xsd:string" dictRef="g:control">1/10=4,29=7,30=1,38=1,40=1/1,3</scalar>
+        <scalar dataType="xsd:string" dictRef="g:control">2/12=2,40=1/2</scalar>
+        <scalar dataType="xsd:string" dictRef="g:control">3/5=1,6=6,7=1,11=2,14=-4,16=1,25=1,30=1,70=2,71=2,74=-5,116=1,140=1/1,2,3</scalar>
+        <scalar dataType="xsd:string" dictRef="g:control">4/5=101/1</scalar>
+        <scalar dataType="xsd:string" dictRef="g:control">5/5=2,98=1/2</scalar>
+        <scalar dataType="xsd:string" dictRef="g:control">8/6=4,10=90,11=11/1</scalar>
+        <scalar dataType="xsd:string" dictRef="g:control">11/6=1,8=1,9=11,15=111,16=1/1,2,10</scalar>
+        <scalar dataType="xsd:string" dictRef="g:control">10/6=1/2</scalar>
+        <scalar dataType="xsd:string" dictRef="g:control">6/7=2,8=2,9=2,10=2,18=1,28=1/1</scalar>
+        <scalar dataType="xsd:string" dictRef="g:control">7/8=1,10=1,25=1/1,2,3,16</scalar>
+        <scalar dataType="xsd:string" dictRef="g:control">1/10=4,30=1/3</scalar>
+        <scalar dataType="xsd:string" dictRef="g:control">99//99</scalar>
+      </list>
+    </module>
+    <UNPARSED xmlns="">
+      <array dataType="xsd:string" size="6" xmlns="http://www.xml-cml.org/schema">Structure from the checkpoint file: &quot;/globalscratch/ostueker/Gau-17020.chk&quot;</array>
+    </UNPARSED>
+    <module cmlx:lineCount="3" cmlx:templateRef="l101.title">
+      <scalar cmlx:templateRef="title" dataType="xsd:string" dictRef="cc:title">CH3OH</scalar>
+    </module>
+    <module cmlx:lineCount="8" cmlx:templateRef="l101.zmatcommas">
+      <molecule cmlx:templateRef="zmatcommas" formalCharge="0" id="zmat" spinMultiplicity="1">
+        <atomArray>
+          <atom elementType="C" id="a1" x3="6.97259E-4" y3="-7.974864E-4" z3="8.757967E-4">
+            <scalar dataType="xsd:integer" dictRef="g:type">0</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
+          </atom>
+          <atom elementType="O" id="a2" x3="-0.0058141461" y3="0.0129600181" z3="1.4189594302">
+            <scalar dataType="xsd:integer" dictRef="g:type">0</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">8</scalar>
+          </atom>
+          <atom elementType="H" id="a3" x3="1.0185603166" y3="8.715044E-4" z3="-0.4199578783">
+            <scalar dataType="xsd:integer" dictRef="g:type">0</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+          <atom elementType="H" id="a4" x3="-0.5468942547" y3="-0.8594391056" z3="-0.4187418153">
+            <scalar dataType="xsd:integer" dictRef="g:type">0</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+          <atom elementType="H" id="a5" x3="-0.5021976353" y3="0.9139004967" z3="-0.3250127827">
+            <scalar dataType="xsd:integer" dictRef="g:type">0</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+          <atom elementType="H" id="a6" x3="0.4404632805" y3="-0.7914916473" z3="1.7229872493">
+            <scalar dataType="xsd:integer" dictRef="g:type">0</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+        </atomArray>
+        <formula concise="C 1 H 4 O 1" formalCharge="0">
+          <atomArray count="1.0 4.0 1.0" elementType="C H O"/>
+        </formula>
+        <bondArray>
+          <bond atomRefs2="a1 a2" id="a1_a2" order="S"/>
+          <bond atomRefs2="a1 a3" id="a1_a3" order="S"/>
+          <bond atomRefs2="a1 a4" id="a1_a4" order="S"/>
+          <bond atomRefs2="a1 a5" id="a1_a5" order="S"/>
+          <bond atomRefs2="a2 a6" id="a2_a6" order="S"/>
+        </bondArray>
+        <property dictRef="cml:molmass">
+          <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">32.04186</scalar>
+        </property>
+      </molecule>
+      <parameter dictRef="cc:charge">
+        <scalar dataType="xsd:integer" units="nonSi:elementary_charge">0</scalar>
+      </parameter>
+      <parameter dictRef="cc:spinMultiplicity">
+        <scalar dataType="xsd:integer">1</scalar>
+      </parameter>
+    </module>
+    <list cmlx:templateRef="link1a">
+      <scalar dataType="xsd:string" dictRef="g:link1a">Recover connectivity data from disk.</scalar>
+    </list>
+  </module>
+  </comment>
+
+  <comment class="example.output" id="link1a.2">
+  <module cmlx:templateRef="link1a" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+    <list cmlx:templateRef="link1">
+      <scalar dataType="xsd:integer" dictRef="g:link1">2</scalar>
+    </list>
+    <module cmlx:lineCount="3" cmlx:templateRef="l1.keywords">
+      <scalar dataType="xsd:string" dictRef="cc:keyword">#T</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:keyword">Geom=AllCheck</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:keyword">Guess=TCheck</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:keyword">SCRF=Check</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:keyword">GenChk</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:keyword">RB3LYP/6-31G(d)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:keyword">Freq</scalar>
+    </module>
+    <module cmlx:lineCount="3" cmlx:templateRef="l101.title">
+      <scalar cmlx:templateRef="title" dataType="xsd:string" dictRef="cc:title">CH3-OH Cs`</scalar>
+    </module>
+    <module cmlx:lineCount="2" cmlx:templateRef="l101.redundantcoords">
+      <scalar cmlx:templateRef="redundant" dataType="xsd:string" dictRef="g:redundant">Redundant internal coordinates taken from checkpoint file:</scalar>
+      <scalar cmlx:templateRef="checkpoint" dataType="xsd:string" dictRef="g:checkpoint">/globalscratch/rpoirier/S1/Gau-11076.chk</scalar>
+    </module>
+    <module cmlx:lineCount="7" cmlx:templateRef="l101.zmatcommas">
+      <molecule cmlx:templateRef="zmatcommas" formalCharge="0" id="a6" spinMultiplicity="1">
+        <atomArray>
+          <atom elementType="C" id="a1" x3="-0.0520944118" y3="0.0" z3="-1.403608E-4">
+            <scalar dataType="xsd:integer" dictRef="g:type">0</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
+          </atom>
+          <atom elementType="O" id="a2" x3="0.0260930976" y3="0.0" z3="1.4162325011">
+            <scalar dataType="xsd:integer" dictRef="g:type">0</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">8</scalar>
+          </atom>
+          <atom elementType="H" id="a3" x3="0.9762870001" y3="0.0" z3="-0.3716839655">
+            <scalar dataType="xsd:integer" dictRef="g:type">0</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+          <atom elementType="H" id="a4" x3="-0.5588503457" y3="-0.8931636191" z3="-0.3979842496">
+            <scalar dataType="xsd:integer" dictRef="g:type">0</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+          <atom elementType="H" id="a5" x3="-0.5588503457" y3="0.8931636191" z3="-0.3979842496">
+            <scalar dataType="xsd:integer" dictRef="g:type">0</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+          <atom elementType="H" id="a6" x3="-0.8793669588" y3="0.0" z3="1.7605259156">
+            <scalar dataType="xsd:integer" dictRef="g:type">0</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+        </atomArray>
+        <formula concise="C 1 H 4 O 1" formalCharge="0">
+          <atomArray count="1.0 4.0 1.0" elementType="C H O"/>
+        </formula>
+        <bondArray>
+          <bond atomRefs2="a1 a2" id="a1_a2" order="S"/>
+          <bond atomRefs2="a1 a3" id="a1_a3" order="S"/>
+          <bond atomRefs2="a1 a4" id="a1_a4" order="S"/>
+          <bond atomRefs2="a1 a5" id="a1_a5" order="S"/>
+          <bond atomRefs2="a2 a6" id="a2_a6" order="S"/>
+        </bondArray>
+        <property dictRef="cml:molmass">
+          <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">32.04186</scalar>
+        </property>
+      </molecule>
+      <parameter dictRef="cc:charge">
+        <scalar dataType="xsd:integer" units="nonSi:elementary_charge">0</scalar>
+      </parameter>
+      <parameter dictRef="cc:spinMultiplicity">
+        <scalar dataType="xsd:integer">1</scalar>
+      </parameter>
+    </module>
+    <list cmlx:templateRef="link1a">
+      <scalar dataType="xsd:string" dictRef="g:link1a">Recover connectivity data from disk.</scalar>
+    </list>
+  </module>
+  </comment>
  
 </template>
  
