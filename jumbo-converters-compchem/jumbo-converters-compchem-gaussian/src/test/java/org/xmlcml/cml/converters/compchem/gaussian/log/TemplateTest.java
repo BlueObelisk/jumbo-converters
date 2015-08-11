@@ -49,7 +49,11 @@ public class TemplateTest {
 			@Test	public void testl101Title()                  {runTemplateTest("l101/", "l101.title");}
 			@Test	public void testl101Variables()              {runTemplateTest("l101/", "l101.variables");}
 			@Test	public void testl101Zmat()                   {runTemplateTest("l101/", "l101.zmat");}
+			@Test	public void testl101ZmatCommas()             {runTemplateTest("l101/", "l101.zmatcommas");}
 			@Test	public void testl101ZmatVariables()          {runTemplateTest("l101/", "l101.zmatvariables");}
+			@Test	public void testl101() 		                 {runTemplateTest("l101/", "l101");}
+
+			@Test	public void testlink1a() 		             {runTemplateTest("link1a");}
 
 			@Test	public void testl103Deltas()                 {runTemplateTest("l103/", "l103.deltas");}
 			@Test	public void testl103Init()                   {runTemplateTest("l103/", "l103.init");}
