@@ -1,4 +1,8 @@
-<template repeat="*" id="input.basis" pattern="\s*[bB][aA][sS][iI][sS]\s*.*" endPattern="\s*[eE][nN][Dd]\s*" endOffset="1">
+<template id="input.basis" 
+          repeat="*"
+          pattern="\s*[bB][aA][sS][iI][sS]\s*.*"
+          endPattern="\s*[eE][nN][Dd]\s*"
+          endOffset="1">
 
   <comment class="example.input" id="input.basis">
 BASIS "ao basis" PRINT
@@ -7,35 +11,96 @@ BASIS "ao basis" PRINT
  H library 3-21g
 end
   </comment>
+
+  <comment class="example.input" id="input.basis2">
+basis
+  * library 6-31G*
+end
+  </comment>
+
   <record id="basis">\s*[bB][aA][sS][iI][sS]\s*{X,n:basiskeywords}</record>
   <record repeat="*" id="basisx">\s*{A,n:elem}\s+{A,n:source}\s+{A,n:basis}.*\s*</record>
   <record/>
   <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
+
+  <!-- Determine compchem:basisSetLabel from n:basis -->
+  <transform process="copy"   to="../../.."
+             xpath=".//cml:list[@cmlx:templateRef='basisx']/cml:list/cml:scalar[@dictRef='n:basis' and contains(text(),'*')]" />
+  <transform process="setValue" value="6-311G(d,p)"
+             xpath=".//cml:scalar[@dictRef='n:basis' and @id='copy.0' and text()='6-311G**']" />
+  <transform process="setValue" value="6-311++G(d,p)"
+             xpath=".//cml:scalar[@dictRef='n:basis' and @id='copy.0' and text()='6-311++G**']" />
+  <transform process="setValue" value="$6-31G(d,p)"
+             xpath=".//cml:scalar[@dictRef='n:basis' and @id='copy.0' and text()='6-31G**']" />
+  <transform process="setValue" value="6-31++G(d,p)"
+             xpath=".//cml:scalar[@dictRef='n:basis' and @id='copy.0' and text()='6-31++G**']" />
+  <transform process="setValue" value="3-21G(d)"
+             xpath=".//cml:scalar[@dictRef='n:basis' and @id='copy.0' and text()='3-21G*']" />
+  <transform process="setValue" value="3-21++G(d)"
+             xpath=".//cml:scalar[@dictRef='n:basis' and @id='copy.0' and text()='3-21++G*']" />
+  <transform process="setValue" value="6-311G(d)"
+             xpath=".//cml:scalar[@dictRef='n:basis' and @id='copy.0' and text()='6-311G*']" />
+  <transform process="setValue" value="$6-311+G(d)"
+             xpath=".//cml:scalar[@dictRef='n:basis' and @id='copy.0' and text()='6-311+G*']" />
+  <transform process="setValue" value="6-31G(d)"
+             xpath=".//cml:scalar[@dictRef='n:basis' and @id='copy.0' and text()='6-31G*']" />
+  <transform process="setValue" value="6-31++G(d)"
+             xpath=".//cml:scalar[@dictRef='n:basis' and @id='copy.0' and text()='6-31++G*']" />
+  <transform process="setValue" value="6-31+G(d)"
+             xpath=".//cml:scalar[@dictRef='n:basis' and @id='copy.0' and text()='6-31+G*']" />
+  <transform process="setValue" value="m6-31G(d)"
+             xpath=".//cml:scalar[@dictRef='n:basis' and @id='copy.0' and text()='m6-31G*']" />
+  <transform process="setValue" value="s3-21G(d)"
+             xpath=".//cml:scalar[@dictRef='n:basis' and @id='copy.0' and text()='s3-21G*']" />
+  <transform process="setValue" value="s6-31G(d)"
+             xpath=".//cml:scalar[@dictRef='n:basis' and @id='copy.0' and text()='s6-31G*']" />
+  <transform process="setValue" value="STO-3G(d)"
+             xpath=".//cml:scalar[@dictRef='n:basis' and @id='copy.0' and text()='STO-3G*']" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='n:basis' and @id='copy.0']" value="compchem:basisSetLabel" />
+  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='compchem:basisSetLabel']" />
   
   
   <comment class="example.output" id="input.basis">
-<module cmlx:templateRef="input.basis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <list cmlx:templateRef="basis">
-    <scalar dataType="xsd:string" dictRef="n:basiskeywords">"ao basis" PRINT</scalar>
-  </list>
-  <list cmlx:templateRef="basisx">
-    <list>
-      <scalar dataType="xsd:string" dictRef="n:elem">C</scalar>
-      <scalar dataType="xsd:string" dictRef="n:source">library</scalar>
-      <scalar dataType="xsd:string" dictRef="n:basis">3-21g</scalar>
-    </list>
-    <list>
-      <scalar dataType="xsd:string" dictRef="n:elem">N</scalar>
-      <scalar dataType="xsd:string" dictRef="n:source">library</scalar>
-      <scalar dataType="xsd:string" dictRef="n:basis">3-21g</scalar>
-    </list>
-    <list>
-      <scalar dataType="xsd:string" dictRef="n:elem">H</scalar>
-      <scalar dataType="xsd:string" dictRef="n:source">library</scalar>
-      <scalar dataType="xsd:string" dictRef="n:basis">3-21g</scalar>
-    </list>
-  </list>
-</module>
+    <module cmlx:templateRef="input.basis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <list cmlx:templateRef="basis">
+        <scalar dataType="xsd:string" dictRef="n:basiskeywords">"ao basis" PRINT</scalar>
+      </list>
+      <list cmlx:templateRef="basisx">
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:elem">C</scalar>
+          <scalar dataType="xsd:string" dictRef="n:source">library</scalar>
+          <scalar dataType="xsd:string" dictRef="n:basis">3-21g</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:elem">N</scalar>
+          <scalar dataType="xsd:string" dictRef="n:source">library</scalar>
+          <scalar dataType="xsd:string" dictRef="n:basis">3-21g</scalar>
+        </list>
+        <list>
+          <scalar dataType="xsd:string" dictRef="n:elem">H</scalar>
+          <scalar dataType="xsd:string" dictRef="n:source">library</scalar>
+          <scalar dataType="xsd:string" dictRef="n:basis">3-21g</scalar>
+        </list>
+      </list>
+    </module>
+    </comment>
+
+    <comment class="example.output" id="input.basis2">
+      <module cmlx:templateRef="input.basis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+        <list cmlx:templateRef="basis">
+          <scalar dataType="xsd:string" dictRef="n:basiskeywords"/>
+        </list>
+        <list cmlx:templateRef="basisx">
+          <list>
+            <scalar dataType="xsd:string" dictRef="n:elem">*</scalar>
+            <scalar dataType="xsd:string" dictRef="n:source">library</scalar>
+            <scalar dataType="xsd:string" dictRef="n:basis">6-31G*</scalar>
+          </list>
+        </list>
+        <parameter dictRef="compchem:basisSetLabel">
+          <scalar dataType="xsd:string" id="copy.0">6-31G(d)</scalar>
+        </parameter>
+      </module>
     </comment>
 
 </template>
