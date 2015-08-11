@@ -41,6 +41,7 @@
   xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@id='jobInitialization']/cml:module[@cmlx:templateRef='input_module']/cml:list[@id='basisSet'][position() = 1]"
   to="../../../cml:module[@id='jobInitialization']"
   />
+
   <!--  Delete basisSummary module -->
   <transform process="delete"
   xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@id='jobInitialization']/cml:module[@cmlx:templateRef='input_module']//cml:module[@cmlx:templateRef='basisSummary']"
@@ -120,4 +121,9 @@
   to="../../../cml:module[@id='jobInitialization']"
   /> 
 
+  <!-- Move parameter compchem:basisSetLabel to initialization parameterList -->
+  <transform process="moveRelative"
+  xpath="./cml:module[@id='jobList1']/cml:module[@id='job']/cml:module[@id='jobInitialization']/cml:module[@cmlx:templateRef='input_module']/cml:module[@cmlx:templateRef='user_input']/cml:module[@cmlx:templateRef='input.basis']/cml:parameter[@dictRef='compchem:basisSetLabel']"
+  to="../../../../../cml:module[@id='jobInitialization']/cml:parameterList"
+  />
 </transformList>
