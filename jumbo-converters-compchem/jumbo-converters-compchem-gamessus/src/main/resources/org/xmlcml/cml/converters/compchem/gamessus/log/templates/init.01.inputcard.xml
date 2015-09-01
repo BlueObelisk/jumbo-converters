@@ -32,10 +32,8 @@
   <record id="inputcard" repeat="*">\s*INPUT CARD&gt;{X,m:inputCard}</record>
   <record id="memAvail" repeat="*">\s*{I,m:MemoryAvailable}\s*WORDS OF MEMORY AVAILABLE\s*</record>
   
-  <transform process="createDate" dictRef="cc:runDate" xpath=".//cml:scalar[@dictRef='x:runDate']" />
-
-<!--   <transform process="createDate" format="EEE MMM d HH:mm:ss yyyy" dictRef="cc:run.date" 
-             xpath=".//cml:scalar[@dictRef='x:run.date']" /> -->
+  <transform process="createDate" format="EEE MMM d HH:mm:ss yyyy" dictRef="cc:runDate" 
+             xpath=".//cml:scalar[@dictRef='x:runDate']" />
 
   <transform process="addDictRef" value="m:InputCards" xpath=".//cml:list[@cmlx:templateRef='inputcard']" />
   <transform process="addUnits" value="nonSi:words" xpath=".//cml:scalar[@dictRef='m:MemoryAvailable']" />
@@ -57,7 +55,7 @@
     <module cmlx:templateRef="init.01.inputcard" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
 
     <parameter dictRef="cc:runDate">
-      <scalar dataType="xsd:date">2014-07-11T15:57:49-02:30</scalar>
+      <scalar dataType="xsd:date">2014-07-11T15:57:49Z</scalar>
     </parameter>
     <parameter dictRef="m:InputCards">
       <list cmlx:templateRef="inputcard">
