@@ -1,0 +1,49 @@
+<template id="mulliken.lodwin.atomic.pop"
+  repeat="*"
+  name="mulliken.lodwin.atomic.pop"
+  pattern=" +TOTAL MULLIKEN AND LOWDIN ATOMIC POPULATIONS.*"      offset="0"
+  endPattern="\s*"   endOffset="0" >
+
+  <comment class="example.input" id="mulliken.lodwin.atomic.pop">
+          TOTAL MULLIKEN AND LOWDIN ATOMIC POPULATIONS
+       ATOM         MULL.POP.    CHARGE          LOW.POP.     CHARGE
+    1 C             6.202279   -0.202279         6.287777   -0.287777
+    2 O             8.607599   -0.607599         8.472951   -0.472951
+    3 H             0.871974    0.128026         0.870414    0.129586
+    4 H             0.871914    0.128086         0.868854    0.131146
+    5 H             0.839222    0.160778         0.844464    0.155536
+    6 H             0.607012    0.392988         0.655541    0.344459
+
+  </comment>
+
+  <record id="mulliken.lodwin.atomic.pop.unparsed" repeat="*">{X,x:UNPARSED}</record>
+
+
+  <comment class="example.output" id="mulliken.lodwin.atomic.pop">
+    <module cmlx:templateRef="mulliken.lodwin.atomic.pop" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+     
+    <property dictRef="cc:mulliken">
+        <list>
+            <array  dataType="xsd:integer" dictRef="cc:serial"         size="6">1 2 3 4 5 6</array>
+            <array  dataType="xsd:string"  dictRef="cc:elementType"    size="6">C O H H H H</array>
+            <array  dataType="xsd:double"  dictRef="cc:mullikenPop"    size="6"
+                >6.202279 8.607599 0.871974 0.871914 0.839222 0.607012</array>
+            <array dataType="xsd:double"   dictRef="cc:mullikenCharge" size="6" units="nonSi:elementaryCharge"
+                >-0.202279 -0.607599 0.128026 0.128086 0.160778 0.392988</array>
+        </list>
+    </property>
+
+    <property dictRef="cc:lodwin">
+        <list>
+            <array  dataType="xsd:integer" dictRef="cc:serial"         size="6">1 2 3 4 5 6</array>
+            <array  dataType="xsd:string"  dictRef="cc:elementType"    size="6">C O H H H H</array>
+            <array  dataType="xsd:double"  dictRef="cc:lodwinPop"    size="6"
+                >6.287777 8.472951 0.870414 0.868854 0.844464 0.655541</array>
+            <array dataType="xsd:double"   dictRef="cc:lodwinCharge" size="6" units="nonSi:elementaryCharge"
+                >-0.287777 -0.472951 0.129586 0.131146 0.155536 0.344459</array>
+        </list>
+    </property>
+    </module>
+  </comment>
+
+</template>
