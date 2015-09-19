@@ -102,7 +102,7 @@ public class WiggleBond {
 		SVGLine line = new SVGLine(line2);
 		SVGChemLine chemLine = new SVGChemLine(line);
 		chemLine.setOpacity(0.2);
-		chemLine.setSvgClass("wiggleBond");
+		chemLine.setSVGClassName("wiggleBond");
 		chemLine.setStrokeWidth(5.);
 		return chemLine;
 	}
