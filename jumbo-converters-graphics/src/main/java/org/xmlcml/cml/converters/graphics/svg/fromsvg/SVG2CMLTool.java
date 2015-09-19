@@ -381,7 +381,7 @@ public class SVG2CMLTool extends GraphicsConverterTool {
     	// manage hatches
     	List<SVGChemLine> lines = SVGChemLine.getLineList(svgChem);
     	for (SVGChemLine line : lines) {
-    		String ss = line.getSvgClass();
+    		String ss = line.getSVGClassName();
     		if (ss != null && ss.indexOf("unjoined") != -1) {
     			for (CMLAtom atom : atomList) {
     				Real2 atomXY = atom.getXY2();
@@ -399,10 +399,10 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 		Real2 lineXY = line.getXY(serial);
 		if (lineXY.getDistance(atomXY) < 5.0) {
 			line.setXY(atomXY, serial);
-			String newsvg = line.getSvgClass();
+			String newsvg = line.getSVGClassName();
 			if (newsvg != null) {
 				newsvg = newsvg.replace("unjoined", "");
-				line.setSvgClass(ss.trim());
+				line.setSVGClassName(ss.trim());
 			}
 		}
 	}
@@ -486,7 +486,7 @@ public class SVG2CMLTool extends GraphicsConverterTool {
     	for (SVGChemLine line : lineList) {
     		CMLAtom atom0 = line.getAtoms()[0];
     		CMLAtom atom1 = line.getAtoms()[1];
-    		if ("arrow".equals(((SVGElement)line.getParent()).getSvgClass())) {
+    		if ("arrow".equals(((SVGElement)line.getParent()).getSVGClassName())) {
     			// omit reaction arrows
     		} else if (atom0 == null && atom1 == null) {
     			boolean isolated = true;
@@ -687,7 +687,7 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 				double rad = line.getEuclidLine().getVector().getAngleMadeWith(path.getArrowDirection()).getRadian();
 				if (Math.abs(rad) > Math.PI * 0.95 ) {
 					ParentNode parent = line.getParent();
-					Arrow arrow = new Arrow(line, path);
+					SVGChemG arrow = new Arrow(line, path);
 					parent.appendChild(arrow);
 				}
 			}
@@ -805,8 +805,8 @@ public class SVG2CMLTool extends GraphicsConverterTool {
 			if (line.getAtoms()[0] == null || line.getAtoms()[1] == null) {
 				unjoinedBonds.add(line);
 				line.setStroke("#ff00ff");
-				String ss = line.getSvgClass();
-				line.setSvgClass("unjoined"+((ss == null) ? "" : " "+ss));
+				String ss = line.getSVGClassName();
+				line.setSVGClassName("unjoined"+((ss == null) ? "" : " "+ss));
 			}
 		}
 		addBoundingBoxAndDisplay("unjoined bonds");
