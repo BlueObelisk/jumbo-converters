@@ -8,10 +8,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
-import org.xmlcml.cml.element.CMLArray;
-import org.xmlcml.cml.element.CMLList;
-import org.xmlcml.cml.element.CMLMap;
-import org.xmlcml.cml.element.CMLScalar;
+import org.xmlcml.cml.element.*;
 import org.xmlcml.cml.testutil.JumboTestUtils;
 
 public class TransformTest {
@@ -201,11 +198,11 @@ public class TransformTest {
 	@Test 
 	@Ignore // it actually works but my comparator doesn't compare prefixed and no-prifixed elements OK
 	public void testAddNamespacedChild() {
-		runTest("addChild", 
-			"<transform process='addChild' xpath='.|.//*' elementName='dc:author' id='plughChild' position='0'/>",
-			"<foo xmlns:dc='http://purl.org/dc/elements/1.1/'><plugh/></foo>",
-			"<foo xmlns:dc='http://purl.org/dc/elements/1.1/'><dc:author id='plughChild'/><plugh><dc:author id='plughChild'/></plugh></foo>"
-			);
+		runTest("addChild",
+                "<transform process='addChild' xpath='.|.//*' elementName='dc:author' id='plughChild' position='0'/>",
+                "<foo xmlns:dc='http://purl.org/dc/elements/1.1/'><plugh/></foo>",
+                "<foo xmlns:dc='http://purl.org/dc/elements/1.1/'><dc:author id='plughChild'/><plugh><dc:author id='plughChild'/></plugh></foo>"
+        );
 	}
 	
 	@Test 
@@ -249,7 +246,83 @@ public class TransformTest {
 			"<foo><plugh><label dictRef='a:b' value='lab' xmlns='http://www.xml-cml.org/schema'/></plugh></foo>"
 			);
 	}
-	
+
+	@Test
+	public void testSetValueMap1(){
+        Element foo = new Element("foo");
+        Element bar = new Element("bar");
+        bar.appendChild("dh");
+        foo.appendChild(bar);
+        CMLMap map = new CMLMap();
+        CMLLink link = new CMLLink();
+        link.setFrom("dh");
+        link.setTo("118.44");
+        map.addLink(link);
+        map.setId("map");
+        foo.appendChild(map);
+
+        String listXML =
+            "<foo>"+
+            "  <bar>dh</bar>" +
+            "  <map id='map' xmlns='http://www.xml-cml.org/schema' >" +
+            "    <link from='dh' to='118.44' />" +
+            "  </map>" +
+            "</foo>" ;
+        JumboTestUtils.assertEqualsIncludingFloat("test", listXML, foo, true, 0.0001);
+
+		runTest( "setValue",
+			"<transform process='setValue' xpath='./bar' value='$string(.)'  map='//*[@id=\"map\"]' />",
+            foo,
+            "<foo>"+
+            "  <bar>118.44</bar>" +
+            "  <map xmlns='http://www.xml-cml.org/schema' id='map' >" +
+            "    <link from='dh' to='118.44' />" +
+            "  </map>" +
+            "</foo>"
+		);
+	}
+
+    @Test
+    public void testSetValueMap2(){
+        Element foo = new Element("foo");
+        Element bar1 = new Element("bar");
+        bar1.appendChild("dh");
+        foo.appendChild(bar1);
+        Element bar2 = new Element("bar");
+        bar2.appendChild("-dh");
+        foo.appendChild(bar2);
+        CMLMap map = new CMLMap();
+        CMLLink link = new CMLLink();
+        link.setFrom("dh");
+        link.setTo("118.44");
+        map.addLink(link);
+        map.setId("map");
+        foo.appendChild(map);
+
+        String listXML =
+                "<foo>"+
+                "  <bar>dh</bar>" +
+                "  <bar>-dh</bar>" +
+                "  <map id='map' xmlns='http://www.xml-cml.org/schema' >" +
+                "    <link from='dh' to='118.44' />" +
+                "  </map>" +
+                "</foo>" ;
+
+                JumboTestUtils.assertEqualsIncludingFloat("test", listXML, foo, true, 0.0001);
+
+        runTest("setValue",
+                "<transform process='setValue' xpath='./bar' value='$string(.)'  map='//*[@id=\"map\"]' />",
+                foo,
+                "<foo>" +
+                        "  <bar>118.44</bar>" +
+                        "  <bar>-118.44</bar>" +
+                        "  <map xmlns='http://www.xml-cml.org/schema' id='map' >" +
+                        "    <link from='dh' to='118.44' />" +
+                        "  </map>" +
+                        "</foo>"
+        );
+    }
+
 	@Test 
 	public void testAddLink() {
 		Element foo = new Element("foo");

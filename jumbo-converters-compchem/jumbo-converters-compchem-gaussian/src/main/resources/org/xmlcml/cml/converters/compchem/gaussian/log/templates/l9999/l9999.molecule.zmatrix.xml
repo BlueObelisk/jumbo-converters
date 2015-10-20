@@ -2,7 +2,12 @@
   while=".//cml:module[@id='moleculeRoot']//cml:scalar[@dictRef='g:zmat' and .=1]" 
   id="l9999.molecule.zmat"
 >
-  
+
+  <!-- <transform process="split" splitter="=" xpath=".//cml:list[@dictRef='g:archive.namevalue']/cml:scalar"/> -->
+  <transform process="addMap"  id="symbols"  xpath="."
+             from=".//cml:list[@dictRef='g:archive.namevalue']/cml:list/cml:scalar[1]"
+               to=".//cml:list[@dictRef='g:archive.namevalue']/cml:list/cml:scalar[2]" />
+ 
   <transform process="addChild" xpath=".//cml:module[@id='moleculeRoot']"
     elementName="cml:list" id="atom1" position="0"/>
 
@@ -10,12 +15,12 @@
     to=".//cml:module[@id='moleculeRoot']/cml:list[@id='atom1']"/>
 
   <transform process="createAtom" xpath=".//cml:module[@id='moleculeRoot']/cml:list/cml:scalar[1]" />
-  
+
   <transform process="setValue" 
     xpath=".//cml:module[@id='moleculeRoot']/cml:list[not(@dictRef)]/cml:scalar[2] |
            .//cml:module[@id='moleculeRoot']/cml:list[not(@dictRef)]/cml:scalar[4] |
            .//cml:module[@id='moleculeRoot']/cml:list[not(@dictRef)]/cml:scalar[6]"
-     map="//cml:map[@id='symbols']" value="$string(.)"/>
+      map="//cml:map[@id='symbols']" value="$string(.)"/>
 
   <transform process="createLength" xpath=".//cml:module[@id='moleculeRoot']/cml:list" 
     atomRefs="$string(cml:scalar[1]) $string(cml:atom/@id)" value="$string(cml:scalar[2])"/>
@@ -27,4 +32,5 @@
 
   <transform process="createZMatrix" xpath=".//cml:module[@id='moleculeRoot']" id="zfinal"/>
 
+  <transform process="delete" xpath="//cml:map[@id='symbols']" />
 </transformList>

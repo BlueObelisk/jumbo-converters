@@ -65,8 +65,22 @@
  \A=90.08384\\Version=IA64L-G09RevB.01\State=2-A1\HF=-39.5017819\RMSD=3
  .598e-09\RMSF=6.166e-04\Dipole=0.,0.,-0.0014405\Quadrupole=0.3811032,0
  .3811032,-0.7622064,0.,0.,0.\PG=C03V [C3(C1),3SGV(H1)]\\@
+
   </comment>
   
+  <comment class="example.input" id="l9999.archive.3">
+ 1\1\GINC-QUANTUM\FOpt\RB3LYP\6-31G(d)\C1H4O1\RDJ3\07-Apr-1999\1\\#B3LY
+ P/6-31G* OPT=Z-MATRIX FREQ\\methanol CH3OH casno=67561\\0,1\C\O,1,rco\
+ H,1,rh1,2,ah1\H,1,rh2,2,ah2,3,dh,0\H,1,rh2,2,ah2,3,-dh,0\H,2,roh,1,aoh
+ ,3,180.,0\\rco=1.41847336\rh1=1.09361976\rh2=1.10147076\roh=0.96868828
+ \ah1=106.69076505\ah2=112.72457639\aoh=107.65474501\dh=118.44859594\\V
+ ersion=IBM-RS6000-G98RevA.6\State=1-A'\HF=-115.7144072\RMSD=5.682e-09\
+ RMSF=7.916e-05\Dipole=-0.5657059,0.,-0.3521908\PG=CS [SG(C1H2O1),X(H2)
+ ]\\@
+
+  </comment>
+
+
   <!--  make a list of the records -->
   <record repeat="*" id="ginc">\s{X,g:ginc1}</record>
   
@@ -310,5 +324,38 @@
     </module>
   </comment>
   
+
+  <comment class="example.output" id="l9999.archive.3">
+  <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l9999.archive">
+    <scalar dataType="xsd:string" dictRef="cc:hostName">GINC-QUANTUM</scalar>
+    <scalar dataType="xsd:string" dictRef="g:operation">FOpt</scalar>
+    <scalar dataType="xsd:string" dictRef="cc:method">RB3LYP</scalar>
+    <scalar dataType="xsd:string" dictRef="cc:basisSetLabel">6-31G(d)</scalar>
+    <formula concise="C 1 H 4 O 1" dictRef="cc:formula.user" />
+    <scalar dataType="xsd:string" dictRef="cc:jobname">RDJ3</scalar>
+    <scalar dataType="xsd:date" dictRef="cc:runDate">1999-04-07T00:00:00Z</scalar>
+    <scalar dataType="xsd:string" dictRef="g:zmat">1</scalar>
+    <scalar dataType="xsd:string" id="copy.0" dictRef="cc:wavefunctionType">closed shell</scalar>
+    <scalar dataType="xsd:string" id="copy.0" dictRef="cc:dftFunctionalLabel">B3LYP</scalar>
+    <scalar dataType="xsd:string" id="copy.0" dictRef="cc:task">geometry_optimization</scalar>
+    <scalar dataType="xsd:string" dictRef="g:keyword">#B3LYP/6-31G*</scalar>
+    <scalar dataType="xsd:string" dictRef="g:keyword">OPT=Z-MATRIX</scalar>
+    <scalar dataType="xsd:string" dictRef="g:keyword">FREQ</scalar>
+    <scalar dataType="xsd:string" dictRef="cc:title">methanol CH3OH casno=67561</scalar>
+    <scalar dataType="xsd:string" dictRef="x:formalCharge">0</scalar>
+    <scalar dataType="xsd:string" dictRef="x:spinMultiplicity">1</scalar>
+    <scalar dataType="xsd:string" dictRef="g:archive">@</scalar>
+    <map id="symbols">
+      <link from="rco" to="1.41847336" />
+      <link from="rh1" to="1.09361976" />
+      <link from="rh2" to="1.10147076" />
+      <link from="roh" to="0.96868828" />
+      <link from="ah1" to="106.69076505" />
+      <link from="ah2" to="112.72457639" />
+      <link from="aoh" to="107.65474501" />
+      <link from="dh" to="118.44859594" />
+    </map>
+  </module>
+  </comment>
 </template>
  

@@ -1,6 +1,7 @@
 <transformList id="l9999.namevalue"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   >
+  <transform process="debugNodes" xpath=".//cml:list[@dictRef='g:archive.namevalue']" />
   
 <!-- nameValue pairs -->  
   <transform process="createNameValue" regex="\s*(.*)\s*=\s*(.*)\s*" xpath=".//cml:list[@dictRef='g:archive.namevalue']/cml:scalar"/>
@@ -12,5 +13,6 @@
   <transform process="createDouble" xpath=".//cml:list[@dictRef='g:archive.namevalue']/cml:scalar[@dictRef='x:HF']" dictRef="cc:hfenergy"/>
   <transform process="createDouble" xpath=".//cml:list[@dictRef='g:archive.namevalue']/cml:scalar[@dictRef='x:RMSD']" dictRef="cc:rmsd"/>
   <transform process="createDouble" xpath=".//cml:list[@dictRef='g:archive.namevalue']/cml:scalar[@dictRef='x:RMSF']" dictRef="cc:rmsf"/>
-  
+  <transform process="createInteger" xpath=".//cml:list[@dictRef='g:archive.namevalue']/cml:scalar[@dictRef='x:formalCharge']" dictRef="cc:formalCharge" />
+
 </transformList>
