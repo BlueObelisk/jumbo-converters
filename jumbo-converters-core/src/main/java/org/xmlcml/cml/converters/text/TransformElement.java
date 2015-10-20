@@ -2072,7 +2072,24 @@ public class TransformElement implements MarkupApplier {
 		String value = valuex;
 		if (map != null && valuex != null) {
 			CMLLink link = map.getLink(valuex, Direction.FROM);
-			value = (link != null) ? link.getTo() : valuex;
+			if (link != null)
+				{ value = link.getTo(); }
+			// if symbol starts with `-` see if we can find the symbol without `-` in the map
+			else if (valuex.startsWith("-")) {
+				link = map.getLink(valuex.substring(1), Direction.FROM);
+				if (link != null ){
+					try  // try if value is integer
+						{ value = String.valueOf(Integer.parseInt(link.getTo()) * -1 ); }
+					catch (NumberFormatException e1) {
+						try  // try if value is double
+							{ value = String.valueOf(Double.parseDouble(link.getTo()) * -1.0); }
+						catch (Exception e2)
+							{ value = valuex; }
+					}
+				} else
+					{value = valuex;}
+			} else
+				{value = valuex;}
 		}
 		return value;
 	}
