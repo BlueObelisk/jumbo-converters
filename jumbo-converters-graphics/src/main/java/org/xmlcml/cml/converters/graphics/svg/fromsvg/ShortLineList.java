@@ -130,14 +130,14 @@ public class ShortLineList extends ArrayList<SVGChemLine> {
 			SVGChemPath.appendPointToD(sb, line22.getTo());
 			SVGChemPath.appendPointToD(sb, line22.getFrom());
 			SVGChemPath.appendPointToD(sb, line21.getFrom());
-			hatchLine.setSvgClass("parallel");
+			hatchLine.setSVGClassName("parallel");
 		} else {
-			hatchLine.setSvgClass("pointed");
+			hatchLine.setSVGClassName("pointed");
 			int line1 = 0;
 			int line2 = size()-1;
 			
 			if (wedgeFactor < -MIN_WEDGE_FACTOR) {
-				hatchLine.setSvgClass("antipointed");
+				hatchLine.setSVGClassName("antipointed");
 				line2 = 0;
 				line1 = size()-1;
 			}

@@ -66,7 +66,12 @@ public class SVGChemLine extends SVGLine implements SVGChemElement, Comparable<S
 		getLength();
 		getMidPoint();
 	}
-	
+
+	public void setSVGClassName(String string) {
+		this.addAttribute(new Attribute("class", string));
+	}
+
+
 	/**
 	 * @return x1
 	 */

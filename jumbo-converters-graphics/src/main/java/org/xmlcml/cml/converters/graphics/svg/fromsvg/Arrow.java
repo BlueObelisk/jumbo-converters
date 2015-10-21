@@ -24,7 +24,7 @@ public class Arrow extends SVGChemG {
 		arrowHead.detach();
 		this.appendChild(line);
 		this.appendChild(arrowHead);
-		this.setSvgClass("arrow");
+		this.setSVGClassName("arrow");
 	}
 	
 	public static List<Arrow> getArrowList(SVGChemElement svgChem) {
