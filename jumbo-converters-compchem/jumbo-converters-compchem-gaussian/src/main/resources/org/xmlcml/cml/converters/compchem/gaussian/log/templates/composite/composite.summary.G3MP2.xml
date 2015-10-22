@@ -1,0 +1,75 @@
+<template
+  id="composite.summary.G3MP2"
+  name="Composite Method G3MP2 - Summary"
+  repeat="*"
+  newline="$" 
+  pattern="\s*Temperature=.+$.+$.+$.+$.+$.+$\s+1\\1\\GINC.+\\Mixed\\G3MP2\\.+"
+  offset="0"
+  endPattern=".+\\.+"
+  endOffset="-1"
+  xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <comment class="example.input" id="composite.summary.G3MP2">
+ Temperature=              298.150000 Pressure=                      1.000000
+ E(ZPE)=                     0.049409 E(Thermal)=                    0.052755
+ E(QCISD(T))=             -115.374854 E(Empiric)=                   -0.064953
+ DE(MP2)=                   -0.161819
+ G3MP2(0 K)=              -115.552217 G3MP2 Energy=               -115.548872
+ G3MP2 Enthalpy=          -115.547927 G3MP2 Free Energy=          -115.574944
+  </comment>
+
+  <record id="G3.Temp.Press"     repeat="1">\s*Temperature=\s*{F,cc:temperature}\s+Pressure=\s*{F,cc:pressure}\s*</record>
+  <record id="G3.contributions1" repeat="1">\s*E\(ZPE\)=\s*{F,g:E_ZPE}\s+E\(Thermal\)=\s*{F,g:E_Thermal}\s*</record>
+  <record id="G3.contributions2" repeat="1">\s*E\(QCISD\(T\)\)=\s*{F,g:E_QCISD_T}\s+E\(Empiric\)=\s*{F,g:E_Empiric}\s*</record>
+  <record id="G3.contributions3" repeat="1">\s*DE\(MP2\)=\s*{F,g:DE_MP2}\s*</record>
+  <record id="G3a"               repeat="1">\s*G3MP2\(0 K\)=\s*{F,g:Energy_G3MP2_0K}\s+G3MP2 Energy=\s*{F,g:Energy_G3MP2}\s*$</record>
+  <record id="G3b"               repeat="1">\s*G3MP2 Enthalpy=\s*{F,g:Enthalpy_G3MP2}\s+G3MP2 Free Energy=\s*{F,g:GibbsEnergy_G3MP2}\s*</record>
+
+  <!-- Pull up scalars -->
+  <transform process="pullup" xpath=".//cml:list/cml:list/cml:scalar[@dictRef]"  />
+  <transform process="pullup" xpath=".//cml:list/cml:scalar[@dictRef]" />
+
+  <!-- Delete empty lists -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+
+  <!-- Improve some dictrefs -->
+  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='g:E_ZPE']"             value="cc:ZeroPointEnergy"/>
+  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='g:E_Thermal']"         value="cc:thermalCorrectionToEnergy"/>
+  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='g:E_QCISD_T']"         value="g:E_QCISD_T"/>
+  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='g:Energy_G3MP2_0K']"   value="cc:Energy_0K"/>
+  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='g:Energy_G3MP2']"      value="cc:Energy_T"/>
+  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='g:Enthalpy_G3MP2']"    value="cc:Enthalpy_T"/>
+  <transform process="addDictRef" xpath="./cml:scalar[@dictRef='g:GibbsEnergy_G3MP2']" value="cc:GibbsEnergy_T"/>
+
+  <!-- Add units -->
+  <transform process="addUnits" xpath="./cml:scalar[@dictRef]" value="nonSi:hartree" />
+  <transform process="addUnits" xpath="./cml:scalar[@dictRef='cc:temperature']" value="si:kelvin" />
+  <transform process="addUnits" xpath="./cml:scalar[@dictRef='cc:pressure']" value="nonSi:atm" />
+
+  <!-- group scalars in a list -->
+  <transform process="addChild" elementName="cml:property" dictRef="g:composite_G3MP2" xpath="." position="0" />
+  <transform process="addChild" elementName="cml:list"     xpath="./cml:property[@dictRef='g:composite_G3MP2']" position="0" />
+  <transform process="move"     xpath="./cml:scalar[@dictRef]" to="./cml:property[@dictRef='g:composite_G3MP2']/cml:list" />
+
+  <comment class="example.output" id="composite.summary.G3MP2">
+  <module cmlx:templateRef="composite.summary.G3MP2" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+    <property dictRef="g:composite_G3MP2">
+      <list>
+        <scalar dataType="xsd:double" units="si:kelvin"     dictRef="cc:temperature"              >298.15</scalar>
+        <scalar dataType="xsd:double" units="nonSi:atm"     dictRef="cc:pressure"                 >1.0</scalar>
+        <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:ZeroPointEnergy"          >0.049409</scalar>
+        <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:thermalCorrectionToEnergy">0.052755</scalar>
+        <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="g:E_QCISD_T"                 >-115.374854</scalar>
+        <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="g:E_Empiric"                 >-0.064953</scalar>
+        <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="g:DE_MP2"                    >-0.161819</scalar>
+        <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:Energy_0K"                >-115.552217</scalar>
+        <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:Energy_T"                 >-115.548872</scalar>
+        <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:Enthalpy_T"               >-115.547927</scalar>
+        <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:GibbsEnergy_T"            >-115.574944</scalar>
+      </list>
+    </property>
+  </module>
+  </comment>
+
+</template>

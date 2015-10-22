@@ -1,0 +1,71 @@
+<template id="init.system.options"
+  repeat="*"
+  name="SYSTEM OPTIONS"
+  pattern="\s*.SYSTEM OPTIONS\s*$\s*-+\s*"      offset="0"
+  endPattern="\s*$"   endOffset="0" >
+
+  <comment class="example.input" id="init.system.options">
+     $SYSTEM OPTIONS
+     ---------------
+  REPLICATED MEMORY=     1000000 WORDS (ON EVERY NODE).
+ DISTRIBUTED MEMDDI=           0 MILLION WORDS IN AGGREGATE,
+ MEMDDI DISTRIBUTED OVER   1 PROCESSORS IS           0 WORDS/PROCESSOR.
+ TOTAL MEMORY REQUESTED ON EACH PROCESSOR=     1000000 WORDS.
+ TIMLIM=      525600.00 MINUTES, OR     365.0 DAYS.
+ PARALL= F  BALTYP=  DLB     KDIAG=    0  COREFL= F
+ MXSEQ2=     300 MXSEQ3=     150
+  </comment>
+
+  <!-- <record id="init.system.options.unparsed" repeat="*">{X,x:UNPARSED}</record> -->
+  <record repeat="2" />
+  <record id="mem">\s*REPLICATED MEMORY\s*=\s+{I,m:replicated.memory}\s+WORDS \(ON EVERY NODE\)\.\s*</record>
+  <record id="mem2">\s*DISTRIBUTED MEMDDI\s*=\s+{I,m:distributed.memddi}\s+MILLION WORDS IN AGGREGATE,\s*</record>
+  <record id="mem3">\s*MEMDDI DISTRIBUTED OVER\s+{I,m:memddi.processors}\s+PROCESSORS IS\s+{I,m:words.processor}\s+WORDS/PROCESSOR\.\s*</record>
+  <record id="mem4">\s*TOTAL MEMORY REQUESTED ON EACH PROCESSOR\s*=\s+{I,m:total.memory}\s+WORDS\.\s*</record>
+  <record id="mem5">\s*TIMLIM\s*=\s+{F,m:timelim.mins}\s+MINUTES, OR\s+{F,m:timelim.days}\s+DAYS\.\s*</record>
+  <record id="mem6">\s*PARALL\s*=\s+{A,m:parall}\s+BALTYP\s*=\s+{A,m:bal.type}\s+KDIAG\s*=\s+{I,m:kdiag}\s+COREFL\s*=\s+{A,m:corefl}\s*</record>
+  <record id="mem7">\s*MXSEQ2\s*=\s+{I,m:mxseq2}\sMXSEQ3\s*=\s+{I,m:mxseq3}\s*</record>
+
+  <transform process="addChild"
+                 xpath="."
+                 elementName="cml:list"
+                 position="0"
+                 dictRef="m:system.options" />
+
+  <transform process="move" xpath=".//cml:scalar[@dictRef]" to="cml:list[@dictRef='m:system.options']" />
+
+  <transform process="createWrapperParameter" xpath=".//cml:list[@dictRef='m:system.options']"/>
+
+  <transform process="addUnits" value="nonSi:words" xpath=".//*[@dictRef='m:replicated.memory' or @dictRef='m:distributed.memddi' or @dictRef='m:words.processor' or @dictRef='m:total.memory']" />
+
+  <transform process="addUnits" value="nonSi:mins" xpath=".//*[@dictRef='m:timelim.mins']" />
+
+  <transform process="addUnits" value="nonSi:days" xpath=".//*[@dictRef='m:timelim.days']" />
+
+  <!-- Delete empty lists -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+
+  <comment class="example.output" id="init.system.options">
+    <module cmlx:templateRef="init.system.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="m:system.options">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="m:replicated.memory" units="nonSi:words">1000000</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:distributed.memddi" units="nonSi:words">0</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:memddi.processors">1</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:words.processor" units="nonSi:words">0</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:total.memory" units="nonSi:words">1000000</scalar>
+          <scalar dataType="xsd:double" dictRef="m:timelim.mins" units="nonSi:mins">525600.0</scalar>
+          <scalar dataType="xsd:double" dictRef="m:timelim.days" units="nonSi:days">365.0</scalar>
+          <scalar dataType="xsd:string" dictRef="m:parall">F</scalar>
+          <scalar dataType="xsd:string" dictRef="m:bal.type">DLB</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:kdiag">0</scalar>
+          <scalar dataType="xsd:string" dictRef="m:corefl">F</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:mxseq2">300</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:mxseq3">150</scalar>
+        </list>
+      </parameter>
+    </module>
+  </comment>
+
+</template>

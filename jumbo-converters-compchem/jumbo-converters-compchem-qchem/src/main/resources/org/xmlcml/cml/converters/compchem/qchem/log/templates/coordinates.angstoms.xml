@@ -1,0 +1,89 @@
+<template id="coordinates.angstoms"
+  repeat="*"
+  name="coordinates.angstoms"
+  pattern="\s*Coordinates \(Angstroms\)\s*"      offset="0"
+  endPattern="\s*"   endOffset="0" >
+
+  <comment class="example.input" id="coordinates.angstoms">
+                       Coordinates (Angstroms)
+     ATOM              X           Y           Z
+    1  C           0.652989   -0.023084    0.000000
+    2  O          -0.736533    0.133348    0.000000
+    3  H           0.980777   -0.561977   -0.915316
+    4  H           0.980777   -0.561977    0.915316
+    5  H           1.127333    0.979796    0.000000
+    6  H          -1.114561   -0.784123    0.000000
+   Point Group: cs    Number of degrees of freedom:   8
+  </comment>
+
+  <!-- RECORD -->
+  <record id="unparsed" repeat="2" />
+  <record id="atom" makeArray="true" repeat="*">\s*{I,cc:serial}\s*{A,cc:elementType}\s*{F,cc:x3}\s*{F,cc:y3}\s*{F,cc:z3}\s*</record>
+  <record id="coordinates.properties">\s*Point Group:\s*{A,cc:pointGroup}\s+Number of degrees of freedom:{I,cc:degfreedom}\s*</record>
+
+  <!-- TRANSFORM -->
+  <transform process="createMolecule" xpath="./cml:list[@cmlx:templateRef='atom']/cml:array" id="molecule" />
+  <transform process="createWrapperProperty" xpath=".//*[@dictRef='cc:pointGroup' or @dictRef='cc:degfreedom']" />
+  <transform process="move" 
+             xpath=".//cml:list[@cmlx:templateRef='coordinates.properties']/cml:list/cml:property" 
+             to=".//cml:molecule[@id='molecule']" />
+  <transform process="pullup" xpath=".//cml:molecule" />
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+
+  <comment class="example.output" id="coordinates.angstoms">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="coordinates.angstoms">
+      <molecule id="molecule">
+        <atomArray>
+          <atom id="a1" elementType="C" x3="0.652989" y3="-0.023084" z3="0.0">
+            <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
+          </atom>
+          <atom id="a2" elementType="O" x3="-0.736533" y3="0.133348" z3="0.0">
+            <scalar dataType="xsd:integer" dictRef="cc:serial">2</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">8</scalar>
+          </atom>
+          <atom id="a3" elementType="H" x3="0.980777" y3="-0.561977" z3="-0.915316">
+            <scalar dataType="xsd:integer" dictRef="cc:serial">3</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+          <atom id="a4" elementType="H" x3="0.980777" y3="-0.561977" z3="0.915316">
+            <scalar dataType="xsd:integer" dictRef="cc:serial">4</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+          <atom id="a5" elementType="H" x3="1.127333" y3="0.979796" z3="0.0">
+            <scalar dataType="xsd:integer" dictRef="cc:serial">5</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+          <atom id="a6" elementType="H" x3="-1.114561" y3="-0.784123" z3="0.0">
+            <scalar dataType="xsd:integer" dictRef="cc:serial">6</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+        </atomArray>
+        <formula formalCharge="0" concise="C 1 H 4 O 1">
+          <atomArray elementType="C H O" count="1.0 4.0 1.0" />
+        </formula>
+        <bondArray>
+          <bond atomRefs2="a1 a2" id="a1_a2" order="S" />
+          <bond atomRefs2="a1 a3" id="a1_a3" order="S" />
+          <bond atomRefs2="a1 a4" id="a1_a4" order="S" />
+          <bond atomRefs2="a1 a5" id="a1_a5" order="S" />
+          <bond atomRefs2="a2 a6" id="a2_a6" order="S" />
+        </bondArray>
+        <property dictRef="cml:molmass">
+          <scalar xmlns:unit="http://www.xml-cml.org/unit/si/" dataType="xsd:double" units="unit:dalton">32.04186</scalar>
+        </property>
+        <property dictRef="cc:pointGroup">
+          <scalar dataType="xsd:string">cs</scalar>
+        </property>
+        <property dictRef="cc:degfreedom">
+          <scalar dataType="xsd:integer">8</scalar>
+        </property>
+      </molecule>
+    </module>
+
+  </comment>
+
+</template>

@@ -647,7 +647,8 @@ public class TransformElement implements MarkupApplier {
 			List<Node> fromNodeList = TransformElement.queryUsingNamespaces(element, from, fromPos);
 			for (Node fromNode : fromNodeList) {
 				Element fromElement = (Element) fromNode;
-				String valuex = (String) evaluateValue(fromElement, value);
+				Object valueObj = evaluateValue(fromElement, value);
+				String valuex = (valueObj == null) ? null : valueObj.toString() ;
 				if (valuex != null) {
 					if (uri != null) {
 						fromElement.addAttribute(new Attribute(name, uri, valuex));
@@ -1070,6 +1071,7 @@ public class TransformElement implements MarkupApplier {
 			if (node instanceof CMLScalar) {
 				CMLScalar scalar = (CMLScalar) node;
 				String val = scalar.getValue();
+				val = val.replaceAll(" +", " "); // JodaDate chokes on extranous spaces
 				try {
 					Object dateTimeDuration = null;
 					if (DHMS.equals(format)) {
@@ -1948,13 +1950,15 @@ public class TransformElement implements MarkupApplier {
 
 	private void reparse() {
 		if (template == null) {
-			System.err.println("*** Must have a template for reparse ***");
-			return;
+			// Get Template that is the parent of the current transform node.
+			this.setTemplate(
+				new Template( (Element)transformElement.getParent() )
+			);
 		}
 		assertRequired(XPATH, xpath);
 		String regexS = getRegex();
 		Element recordReaderElement = new Element("record");
-		recordReaderElement.addAttribute(new Attribute("id", "foo"));
+		recordReaderElement.addAttribute(new Attribute("id", "reparse"));
 		recordReaderElement.appendChild(regexS);
 		RecordReader recordReader = new RecordReader(recordReaderElement, template);
 		List<Node> nodeList = getXpathQueryResults();
@@ -2068,7 +2072,24 @@ public class TransformElement implements MarkupApplier {
 		String value = valuex;
 		if (map != null && valuex != null) {
 			CMLLink link = map.getLink(valuex, Direction.FROM);
-			value = (link != null) ? link.getTo() : valuex;
+			if (link != null)
+				{ value = link.getTo(); }
+			// if symbol starts with `-` see if we can find the symbol without `-` in the map
+			else if (valuex.startsWith("-")) {
+				link = map.getLink(valuex.substring(1), Direction.FROM);
+				if (link != null ){
+					try  // try if value is integer
+						{ value = String.valueOf(Integer.parseInt(link.getTo()) * -1 ); }
+					catch (NumberFormatException e1) {
+						try  // try if value is double
+							{ value = String.valueOf(Double.parseDouble(link.getTo()) * -1.0); }
+						catch (Exception e2)
+							{ value = valuex; }
+					}
+				} else
+					{value = valuex;}
+			} else
+				{value = valuex;}
 		}
 		return value;
 	}

@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.element.CMLArray;
+import org.xmlcml.cml.element.CMLLink;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLMap;
 import org.xmlcml.cml.element.CMLScalar;
@@ -166,13 +167,13 @@ public class TransformTest {
 	}
 	
 	   @Test 
-	    public void testAddChild6() {
-	        runTest("addChild", 
-	            "<transform process='addChild' xpath='./foo2a' elementName='cml:scalar' id='child' position='0' value='$string(../..//foo3)'/>",
-	            "<foo1><foo2a/><foo2b><foo3>hello</foo3></foo2b></foo1>",
-	            "<foo1><foo2a><scalar id='child' dataType='xsd:string' xmlns='http://www.xml-cml.org/schema'>hello</scalar></foo2a><foo2b><foo3>hello</foo3></foo2b></foo1>"
-	            );
-	    }
+		public void testAddChild6() {
+			runTest("addChild", 
+				"<transform process='addChild' xpath='./foo2a' elementName='cml:scalar' id='child' position='0' value='$string(../..//foo3)'/>",
+				"<foo1><foo2a/><foo2b><foo3>hello</foo3></foo2b></foo1>",
+				"<foo1><foo2a><scalar id='child' dataType='xsd:string' xmlns='http://www.xml-cml.org/schema'>hello</scalar></foo2a><foo2b><foo3>hello</foo3></foo2b></foo1>"
+				);
+		}
 	
 	@Test 
 	public void testAddUnNamespacedChild() {
@@ -201,7 +202,7 @@ public class TransformTest {
 	@Test 
 	@Ignore // it actually works but my comparator doesn't compare prefixed and no-prifixed elements OK
 	public void testAddNamespacedChild() {
-		runTest("addChild", 
+		runTest("addChild",
 			"<transform process='addChild' xpath='.|.//*' elementName='dc:author' id='plughChild' position='0'/>",
 			"<foo xmlns:dc='http://purl.org/dc/elements/1.1/'><plugh/></foo>",
 			"<foo xmlns:dc='http://purl.org/dc/elements/1.1/'><dc:author id='plughChild'/><plugh><dc:author id='plughChild'/></plugh></foo>"
@@ -249,7 +250,99 @@ public class TransformTest {
 			"<foo><plugh><label dictRef='a:b' value='lab' xmlns='http://www.xml-cml.org/schema'/></plugh></foo>"
 			);
 	}
-	
+
+	@Test
+	public void testSetValueMap1(){
+		Element foo = new Element("foo");
+		Element bar = new Element("bar");
+		bar.appendChild("dh");
+		foo.appendChild(bar);
+		CMLMap map = new CMLMap();
+		CMLLink link = new CMLLink();
+		link.setFrom("dh");
+		link.setTo("118.44");
+		map.addLink(link);
+		map.setId("map");
+		foo.appendChild(map);
+
+		String listXML =
+			"<foo>"+
+			"  <bar>dh</bar>" +
+			"  <map id='map' xmlns='http://www.xml-cml.org/schema' >" +
+			"    <link from='dh' to='118.44' />" +
+			"  </map>" +
+			"</foo>" ;
+		JumboTestUtils.assertEqualsIncludingFloat("test", listXML, foo, true, 0.0001);
+
+		runTest( "setValue",
+			"<transform process='setValue' xpath='./bar' value='$string(.)'  map='//*[@id=\"map\"]' />",
+			foo,
+			"<foo>"+
+			"  <bar>118.44</bar>" +
+			"  <map xmlns='http://www.xml-cml.org/schema' id='map' >" +
+			"    <link from='dh' to='118.44' />" +
+			"  </map>" +
+			"</foo>"
+		);
+	}
+
+	@Test
+	public void testSetValueMap2(){
+		Element foo = new Element("foo");
+		Element bar1 = new Element("bar");
+		bar1.appendChild("dh1");
+		foo.appendChild(bar1);
+		Element bar2 = new Element("bar");
+		bar2.appendChild("-dh1");
+		foo.appendChild(bar2);
+		Element bar3 = new Element("bar");
+		bar3.appendChild("dh2");
+		foo.appendChild(bar3);
+		Element bar4 = new Element("bar");
+		bar4.appendChild("-dh2");
+		foo.appendChild(bar4);
+		CMLMap map = new CMLMap();
+		CMLLink link1 = new CMLLink();
+		link1.setFrom("dh1");
+		link1.setTo("118.44");
+		map.addLink(link1);
+		CMLLink link2 = new CMLLink();
+		link2.setFrom("dh2");
+		link2.setTo("-120.1");
+		map.addLink(link2);
+		map.setId("map");
+		foo.appendChild(map);
+
+		String listXML =
+			"<foo>"+
+			"  <bar>dh1</bar>" +
+			"  <bar>-dh1</bar>" +
+			"  <bar>dh2</bar>" +
+			"  <bar>-dh2</bar>" +
+			"  <map id='map' xmlns='http://www.xml-cml.org/schema' >" +
+			"    <link from='dh1' to='118.44' />" +
+			"    <link from='dh2' to='-120.1' />" +
+			"  </map>" +
+			"</foo>" ;
+
+		JumboTestUtils.assertEqualsIncludingFloat("test", listXML, foo, true, 0.0001);
+
+		runTest("setValue",
+			"<transform process='setValue' xpath='./bar' value='$string(.)'  map='//*[@id=\"map\"]' />",
+			foo,
+			"<foo>" +
+			"  <bar>118.44</bar>" +
+			"  <bar>-118.44</bar>" +
+			"  <bar>-120.1</bar>" +
+			"  <bar>120.1</bar>" +
+			"  <map xmlns='http://www.xml-cml.org/schema' id='map' >" +
+			"    <link from='dh1' to='118.44' />" +
+			"    <link from='dh2' to='-120.1' />" +
+			"  </map>" +
+			"</foo>"
+		);
+	}
+
 	@Test 
 	public void testAddLink() {
 		Element foo = new Element("foo");
@@ -262,7 +355,7 @@ public class TransformTest {
 		a.addAttribute(new Attribute("id", "a2"));
 		foo.appendChild(a);
 		String listXML = 
-		    "<foo>" +
+			"<foo>" +
 			"  <map xmlns='http://www.xml-cml.org/schema'/>" +
 			"  <a id='a1'/>" +
 			"  <a id='a2'/>" +
@@ -402,14 +495,14 @@ public class TransformTest {
 			);
 	}
 	
-    @Test 
-    public void testAddSibling11() {
-        runTest("addSibling", 
-            "<transform process='addSibling' xpath='./foo2a' elementName='cml:scalar' id='child' position='1' value='$string(..//foo3)'/>",
-            "<foo1><foo2a/><foo2b><foo3>hello</foo3></foo2b></foo1>",
-            "<foo1><foo2a/><scalar id='child' dataType='xsd:string' xmlns='http://www.xml-cml.org/schema'>hello</scalar><foo2b><foo3>hello</foo3></foo2b></foo1>"
-            );
-    }
+	@Test 
+	public void testAddSibling11() {
+		runTest("addSibling", 
+			"<transform process='addSibling' xpath='./foo2a' elementName='cml:scalar' id='child' position='1' value='$string(..//foo3)'/>",
+			"<foo1><foo2a/><foo2b><foo3>hello</foo3></foo2b></foo1>",
+			"<foo1><foo2a/><scalar id='child' dataType='xsd:string' xmlns='http://www.xml-cml.org/schema'>hello</scalar><foo2b><foo3>hello</foo3></foo2b></foo1>"
+			);
+	}
 	
 	@Test 
 	public void testAddUnits() {
@@ -472,7 +565,7 @@ public class TransformTest {
 		foo.appendChild(new CMLScalar("d"));
 		foo.appendChild(new CMLScalar("e"));
 		String listXML = 
-		    "<foo>" +
+			"<foo>" +
 			"  <scalar xmlns='http://www.xml-cml.org/schema'>a</scalar>" +
 			"  <scalar xmlns='http://www.xml-cml.org/schema'>b</scalar>" +
 			"  <scalar xmlns='http://www.xml-cml.org/schema'>c</scalar>" +
@@ -490,7 +583,7 @@ public class TransformTest {
 	}
 	
 	@Test 
-        @Ignore
+		@Ignore
 	public void testCreateDate() {
 		Element foo = new Element("foo");
 		CMLScalar scalar = new CMLScalar("Thu Apr  7 17:04:52 2011");
@@ -610,7 +703,7 @@ public class TransformTest {
 	public void testCreateMolecule() {
 		CMLList list = makeListArrays();
 		String listXML = 
-			    "<list xmlns='http://www.xml-cml.org/schema'>" +
+				"<list xmlns='http://www.xml-cml.org/schema'>" +
 				"  <array dataType='xsd:string' size='3' dictRef='cc:elementType'>C H N</array>" +
 				"  <array dataType='xsd:double' size='3' dictRef='cc:x3'>1.2 2.3 3.4</array>" +
 				"</list>";
@@ -668,12 +761,12 @@ public class TransformTest {
 			list.appendChild(b);
 		}
 		String listXML = 
-		    "<foo>" +
-		    "  <list xmlns='http://www.xml-cml.org/schema'>" +
+			"<foo>" +
+			"  <list xmlns='http://www.xml-cml.org/schema'>" +
 			"    <scalar dataType='xsd:string' dictRef='x:name'>Humpty0</scalar>" +
 			"    <scalar dataType='xsd:double' dictRef='x:value'>1.1</scalar>" +
 			"  </list>" +
-		    "  <list xmlns='http://www.xml-cml.org/schema'>" +
+			"  <list xmlns='http://www.xml-cml.org/schema'>" +
 			"    <scalar dataType='xsd:string' dictRef='x:name'>Humpty1</scalar>" +
 			"    <scalar dataType='xsd:double' dictRef='x:value'>2.2</scalar>" +
 			"  </list>" +
@@ -715,7 +808,7 @@ public class TransformTest {
 		scalar = new CMLScalar(3.3);
 		list.appendChild(scalar);
 		String listXML = 
-		    "<list xmlns='http://www.xml-cml.org/schema'>" +
+			"<list xmlns='http://www.xml-cml.org/schema'>" +
 			"  <scalar dataType='xsd:double'>1.1</scalar>" +
 			"  <scalar dataType='xsd:double'>2.2</scalar>" +
 			"  <scalar dataType='xsd:double'>3.3</scalar>" +
@@ -881,7 +974,7 @@ public class TransformTest {
 		array = new CMLArray(new double[]{6.6,7.7});
 		list.appendChild(array);
 		String listXML = 
-		    "<list xmlns='http://www.xml-cml.org/schema'>" +
+			"<list xmlns='http://www.xml-cml.org/schema'>" +
 			"  <array dataType='xsd:double' size='5'>1.1 2.2 3.3 4.4 5.5</array>" +
 			"  <array dataType='xsd:double' size='2'>6.6 7.7</array>" +
 			"</list>";
@@ -889,7 +982,7 @@ public class TransformTest {
 		runTest("joinArrays", 
 			"<transform process='joinArrays' xpath='./cml:array'/>",
 			list,
-		    "<list xmlns='http://www.xml-cml.org/schema'>" +
+			"<list xmlns='http://www.xml-cml.org/schema'>" +
 			"  <array dataType='xsd:double' size='7'>1.1 2.2 3.3 4.4 5.5 6.6 7.7</array>" +
 			"</list>"
 			);
@@ -905,7 +998,7 @@ public class TransformTest {
 		array.setDictRef("a:b");
 		list.appendChild(array);
 		String listXML = 
-		    "<list xmlns='http://www.xml-cml.org/schema'>" +
+			"<list xmlns='http://www.xml-cml.org/schema'>" +
 			"  <array dataType='xsd:double' dictRef='a:b' size='5'>1.1 2.2 3.3 4.4 5.5</array>" +
 			"  <array dataType='xsd:double' dictRef='a:b' size='2'>6.6 7.7</array>" +
 			"</list>";
@@ -913,7 +1006,7 @@ public class TransformTest {
 		runTest("joinArrays", 
 			"<transform process='joinArrays' xpath='./cml:array'/>",
 			list,
-		    "<list xmlns='http://www.xml-cml.org/schema'>" +
+			"<list xmlns='http://www.xml-cml.org/schema'>" +
 			"  <array dataType='xsd:double' dictRef='a:b' size='7'>1.1 2.2 3.3 4.4 5.5 6.6 7.7</array>" +
 			"</list>"
 			);
@@ -1109,36 +1202,36 @@ public class TransformTest {
 			);
 	}
 				
-    @Test
-    public void testRename() {
-        runTest("rename",
-                "<transform process='rename' xpath='.//foo'  elementName='bar' />",
-                "<one><foo id='foo' dictRef='bar:foo'/></one>",
-                "<one><bar id='foo' dictRef='bar:foo'/></one>");
-    }
+	@Test
+	public void testRename() {
+		runTest("rename",
+				"<transform process='rename' xpath='.//foo'  elementName='bar' />",
+				"<one><foo id='foo' dictRef='bar:foo'/></one>",
+				"<one><bar id='foo' dictRef='bar:foo'/></one>");
+	}
 
-    @Test
-    public void testRename1() {
-        runTest("rename",
-                "<transform process='rename' xpath='.//foo'  elementName='bar' />",
-                "<one><foo/></one>", "<one><bar/></one>");
-    }
+	@Test
+	public void testRename1() {
+		runTest("rename",
+				"<transform process='rename' xpath='.//foo'  elementName='bar' />",
+				"<one><foo/></one>", "<one><bar/></one>");
+	}
 
-    @Test
-    public void testRename2() {
-        runTest("rename",
-                "<transform process='rename' xpath='.//foo'  elementName='bar' id='foo' dictRef='bar:foo'/>",
-                "<one><foo/></one>",
-                "<one><bar id='foo' dictRef='bar:foo'/></one>");
-    }
-    
-    @Test
-    public void testRename3() {
-        runTest("rename",
-                "<transform process='rename' xpath='.//foo'  elementName='bar'/>",
-                "<one><foo><child1><child1c/></child1><child2/><child3/><child4/></foo></one>",
-                "<one><bar><child1><child1c/></child1><child2/><child3/><child4/></bar></one>");
-    }
+	@Test
+	public void testRename2() {
+		runTest("rename",
+				"<transform process='rename' xpath='.//foo'  elementName='bar' id='foo' dictRef='bar:foo'/>",
+				"<one><foo/></one>",
+				"<one><bar id='foo' dictRef='bar:foo'/></one>");
+	}
+	
+	@Test
+	public void testRename3() {
+		runTest("rename",
+				"<transform process='rename' xpath='.//foo'  elementName='bar'/>",
+				"<one><foo><child1><child1c/></child1><child2/><child3/><child4/></foo></one>",
+				"<one><bar><child1><child1c/></child1><child2/><child3/><child4/></bar></one>");
+	}
 
 	@Test 
 	public void testReparse() {
@@ -1153,7 +1246,7 @@ public class TransformTest {
 		String refXML =
 		"<foo>" +
 		"  <module xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>" +
-		"    <list cmlx:templateRef='foo'>" +
+		"    <list cmlx:templateRef='reparse'>" +
 		"      <scalar dataType='xsd:string' dictRef='x:y'>1.23</scalar>" +
 		"    </list>" +
 		"  </module>" +
@@ -1193,7 +1286,7 @@ public class TransformTest {
 			String refXML =
 				"<foo>" +
 				"  <module xmlns='http://www.xml-cml.org/schema' xmlns:cmlx='http://www.xml-cml.org/schema/cmlx'>" +
-				"    <list cmlx:templateRef='foo'>" +
+				"    <list cmlx:templateRef='reparse'>" +
 				"      <list>" +
 				"        <scalar dataType='xsd:string' dictRef='x:y'>abc</scalar>" +
 				"        <scalar dataType='xsd:double' dictRef='x:z'>2.34</scalar>" +

@@ -13,6 +13,20 @@
   <transform process="addAttribute" xpath=".//cml:module[@id='moleculeRoot' and not(cml:list[count(*)!=4])]/cml:list[@type='molecule']" 
     from="./cml:scalar" fromPosition="4" name="dictRef" value="cc:z3"/>
 
+  <!-- DIRTY HACK: 
+  In (at least) Gaussian N composite methods the SP- and Mixed- archives have a freeze-code (0) after the element symbol,
+  and therefore consist of 5 values per atom (symbol, freeze-code, X-, Y- & Z-coordinate. 
+  --> 
+  <!-- make sure all lists have 5 children -->  
+  <transform process="addAttribute" xpath=".//cml:module[@id='moleculeRoot' and not(cml:list[count(*)!=5]) ]/cml:list[@type='molecule']" 
+    from="./cml:scalar" fromPosition="1" name="dictRef" value="cc:elementType"/>
+  <transform process="addAttribute" xpath=".//cml:module[@id='moleculeRoot' and not(cml:list[count(*)!=5]) ]/cml:list[@type='molecule']" 
+    from="./cml:scalar" fromPosition="3" name="dictRef" value="cc:x3"/>
+  <transform process="addAttribute" xpath=".//cml:module[@id='moleculeRoot' and not(cml:list[count(*)!=5]) ]/cml:list[@type='molecule']" 
+    from="./cml:scalar" fromPosition="4" name="dictRef" value="cc:y3"/>
+  <transform process="addAttribute" xpath=".//cml:module[@id='moleculeRoot' and not(cml:list[count(*)!=5]) ]/cml:list[@type='molecule']" 
+    from="./cml:scalar" fromPosition="5" name="dictRef" value="cc:z3"/>
+
     
      <!-- make arrays taking one from each row -->
   <transform process="createArray" xpath=".//cml:module[@id='moleculeRoot']" dataType="xsd:string" 

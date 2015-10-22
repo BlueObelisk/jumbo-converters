@@ -1,0 +1,86 @@
+<template id="composite.G3MP2.summary"
+  repeat="*"
+  name="SUMMARY OF G3(MP2) CALCULATIONS"
+  pattern="\s*-+\s*$\s*SUMMARY OF G3\(MP2\) CALCULATIONS\s*"      offset="0"
+  endPattern="\s+$"   endOffset="0" >
+
+  <comment class="example.input" id="composite.G3MP2.summary">
+    ----------------------------------------------------------------
+                   SUMMARY OF G3(MP2) CALCULATIONS
+    ----------------------------------------------------------------
+    MP2/6-31G(D)    =   -40.332552   CCSD(T)/6-31G(D) =   -40.355850
+    MP2/G3MP2LARGE  =   -40.404248   BASIS CONTRIBUT  =    -0.071696
+    ZPE(HF/6-31G(D))=     0.042659   ZPE SCALE FACTOR =     0.892900
+    HLC             =    -0.036680   FREE ENERGY      =     0.028134
+    THERMAL ENERGY  =     0.050629   THERMAL ENTHALPY =     0.051573
+    ----------------------------------------------------------------
+    E(G3(MP2)) @ 0K =   -40.421567   E(G3(MP2)) @298K =   -40.418715
+    H(G3(MP2))      =   -40.417771   G(G3(MP2))       =   -40.441209
+    ----------------------------------------------------------------
+  </comment>
+
+  <!-- <record id="G3MP2.unparsed" repeat="*">{X,x:UNPARSED}</record> -->
+  <record repeat="3" />
+  <record id="calc1">\s*MP2[^=]+\s*=\s+{F,m:MP2.6-31G}\s+CCSD[^=]+\s*=\s+{F,m:CCSD.6-31G}\s*</record>
+  <record id="calc2">\s*MP2/G3MP2LARGE\s*=\s+{F,m:MP2.G3MP2LARGE}\s+BASIS CONTRIBUT\s*=\s+{F,m:BasisContributon}\s*</record>
+  <record id="calc3">\s*ZPE[^=]+\s*=\s+{F,cc:ZeroPointEnergy}\s+ZPE SCALE FACTOR\s*=\s+{F,m:ZpeScaleFactor}\s*</record>
+  <record id="calc4">\s*HLC\s*=\s+{F,m:HigherLevelCorr}\s+FREE ENERGY\s*=\s+{F,m:FreeEnergy}\s*</record>
+  <record id="calc5">\s*THERMAL ENERGY\s*=\s+{F,m:ThermalEnergy}\s+THERMAL ENTHALPY\s*=\s+{F,m:ThermalEnthalpy}\s*</record>
+  <record />
+  <record id="calc6">\s*E[^=]+\s*=\s+{F,cc:Energy.K}\s+E[^=]+\s*=\s+{F,cc:Energy.T}\s*</record>
+  <record id="calc7">\s*H[^=]+\s*=\s+{F,cc:Enthalpy.T}\s+G[^=]+\s*=\s+{F,cc:GibbsEnergy.T}\s*</record>
+  <record />
+
+  <transform process="addChild"
+                 xpath="."
+                 elementName="cml:list"
+                 position="0"
+                 dictRef="m:composite_G3MP2" />
+
+  <transform process="move" xpath=".//cml:scalar[@dictRef]" to="cml:list[@dictRef='m:composite_G3MP2']" />
+
+  <transform process="createWrapperProperty" xpath="cml:list[@dictRef='m:composite_G3MP2']"/>
+
+  <transform process="addAttribute"
+                   xpath=".//cml:property"
+                   name="cmlx:templateRef"
+                   value="composite.G3MP2.summary" />
+
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='m:MP2.6-31G']"         value="m:MP2/6-31G(D)"/>
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='m:CCSD.6-31G']"        value="m:CCSD(T)/6-31G(D)"/>
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='m:MP2.G3MP2LARGE']"    value="m:MP2/G3MP2LARGE"/>
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='cc:Energy.K']"           value="cc:Energy(0K)"/>
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='cc:Energy.T']"           value="cc:Energy(T)"/>
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='cc:Enthalpy.T']"         value="cc:Enthalpy(T)"/>
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='cc:GibbsEnergy.T']"      value="cc:GibbsEnergy(T)"/>
+
+  <transform process="addUnits" value="nonSi:hartree" xpath=".//*[contains(@dictRef,'m:MP') or contains(@dictRef,'cc:') or contains(@dictRef,'m:CC') or contains(@dictRef,'m:Ba') or contains(@dictRef,'m:Hi') or contains(@dictRef,'m:Fr') or contains(@dictRef,'m:Th')]" />
+
+  <!-- Delete empty lists -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+
+  <comment class="example.output" id="composite.G3MP2.summary">
+    <module cmlx:templateRef="composite.G3MP2.summary" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="m:composite_G3MP2" cmlx:templateRef="composite.G3MP2.summary">
+        <list>
+          <scalar dataType="xsd:double" dictRef="m:MP2/6-31G(D)"     units="nonSi:hartree" >-40.332552</scalar>
+          <scalar dataType="xsd:double" dictRef="m:CCSD(T)/6-31G(D)" units="nonSi:hartree" >-40.35585</scalar>
+          <scalar dataType="xsd:double" dictRef="m:MP2/G3MP2LARGE"   units="nonSi:hartree" >-40.404248</scalar>
+          <scalar dataType="xsd:double" dictRef="m:BasisContributon" units="nonSi:hartree" >-0.071696</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:ZeroPointEnergy" units="nonSi:hartree" >0.042659</scalar>
+          <scalar dataType="xsd:double" dictRef="m:ZpeScaleFactor"                         >0.8929</scalar>
+          <scalar dataType="xsd:double" dictRef="m:HigherLevelCorr"  units="nonSi:hartree" >-0.03668</scalar>
+          <scalar dataType="xsd:double" dictRef="m:FreeEnergy"       units="nonSi:hartree" >0.028134</scalar>
+          <scalar dataType="xsd:double" dictRef="m:ThermalEnergy"    units="nonSi:hartree" >0.050629</scalar>
+          <scalar dataType="xsd:double" dictRef="m:ThermalEnthalpy"  units="nonSi:hartree" >0.051573</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:Energy(0K)"      units="nonSi:hartree" >-40.421567</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:Energy(T)"       units="nonSi:hartree" >-40.418715</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:Enthalpy(T)"     units="nonSi:hartree" >-40.417771</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:GibbsEnergy(T)"  units="nonSi:hartree" >-40.441209</scalar>
+        </list>
+      </property>        
+    </module>
+  </comment>
+
+</template>

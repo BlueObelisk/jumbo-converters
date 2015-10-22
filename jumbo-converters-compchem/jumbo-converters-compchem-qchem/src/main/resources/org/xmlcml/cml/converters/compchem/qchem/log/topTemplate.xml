@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  this is the top template file for Q-Chem log files.
+It should generally be found in the directory structure
+  src/main/resources/org/xmlcml/cml/converters/compchem/qchem/log
+It uses include files from
+  src/main/resources/org/xmlcml/cml/converters/compchem/qchem/log/templates
+  (though I am not quite sure why the subdirectories are not explicit here)
+
+The ORDER of the subtemplates may be important. Templates are processed in the order
+  in this files and the subtemplates. Some of the files are marked with comments
+ -->
+
+<template id='qchem.log' output="VERBOSE"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:c="http://www.xml-cml.org/dictionary"
+  xmlns:cml="http://www.xml-cml.org/dictionary/cml/"
+  xmlns:cc="http://www.xml-cml.org/dictionary/compchem/"
+  xmlns:compchem="http://www.xml-cml.org/dictionary/compchem/"
+  xmlns:convention="http://www.xml-cml.org/convention/"
+  xmlns:si="http://www.xml-cml.org/unit/si/"
+  xmlns:nonSi="http://www.xml-cml.org/unit/nonSi/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:m="http://www.xml-cml.org/dictionary/qchem"
+  convention="convention:compchem"
+  xmlns:xi="http://www.w3.org/2001/XInclude">
+  <templateList>
+    <template id="job"
+      pattern="\s*You are running Q-Chem version.+"      offset="0"
+      pattern2="\s*now end server.+"                     offset2="1"
+      pattern3="\s*Welcome to Q-Chem\s*"                 offset3="0"
+      endPattern="\s*\*\s+Thank you very much for using Q-Chem\.  Have a nice day\.\s+\*\s*"
+      endOffset="3" newline="$" repeat="*">
+      <templateList id='main'>
+
+        <template id="environment"
+          pattern="\s*You are running Q-Chem version.+"  offset="0"
+          pattern2="\s*Process.+"                        offset2="0"
+          pattern3="\s*Welcome to Q-Chem\s*"             offset3="0"
+          endPattern="\s*User input:\s*"                 endOffset="-1"
+          newline="$" repeat="1" >
+        <!-- START of  module environment -->
+          <templateList>
+            <xi:include href="../templates/env.version.xml" />
+            <xi:include href="../templates/env.hostname.xml" />
+            <xi:include href="../templates/env.authors.xml" />
+            <xi:include href="../templates/env.platform.xml" />
+            <xi:include href="../templates/env.timestamp.xml" />
+          </templateList>
+        <!-- END of module environment -->
+        </template>
+
+      <template id="initialization"
+        pattern="\s*User input:\s*"                       offset="-1"
+        endPattern="\s*Writing REM_CC_EA\s+.+\s*"         endOffset="0"
+        newline="$" repeat="*">
+        <!-- START of module initialization -->
+        <templateList>
+          <xi:include href="../templates/init.userInput.xml" />
+        </templateList>
+        <!-- END of module initialization -->
+      </template>
+
+      <template id="calculation"
+        pattern="\s*Writing REM_CC_EA\s+.+\s*"                 offset="2"
+        endPattern="\s*\*\* +OPTIMIZATION CONVERGED +\*\*\s*"  endOffset="-1"
+        endPattern2="\s*\*\* +VIBRATIONAL ANALYSIS +\*\*\s*"   endOffset2="-2"
+        newline="$" repeat="*">
+
+        <templateList>
+        <!-- START of module calculation -->
+          <xi:include href="../templates/standard.nuclear.orientation.xml"/>
+          <xi:include href="../templates/molecular.point.group.xml" />
+          <xi:include href="../templates/init.basis.xml" /> 
+          <xi:include href="../templates/orbital.energies.symmetries.xml" />
+          <xi:include href="../templates/mulliken.charges.xml" />
+          <xi:include href="../templates/multipole.moments.xml" />
+          <xi:include href="../templates/gradients.xml" />
+          <xi:include href="../templates/coordinates.angstoms.xml" />
+          <xi:include href="../templates/total.energy.xml" />
+          <xi:include href="../templates/polarizability.matrix.xml" />
+          <xi:include href="../templates/freq.forceConstantMatrix.xml" />
+          <xi:include href="../templates/distance.matrix.xml" />
+        <!-- END of module calculation -->
+        </templateList>
+
+      </template>
+
+      <template id="finalization"
+        pattern="\s*\*\* +OPTIMIZATION CONVERGED +\*\*\s*"       offset="-1"
+        pattern2="\s*\*\* +VIBRATIONAL ANALYSIS +\*\*\s*"        offset2="-2"
+        endPattern="\s*\*\s+Thank you very much for using Q-Chem\.  Have a nice day\.\s+\*\s*"                   endOffset="3"
+        newline="$" repeat="*">
+
+        <!-- START of module finalization -->
+        <templateList>
+          <xi:include href="../templates/orbital.energies.symmetries.xml" />
+          <xi:include href="../templates/mulliken.charges.xml" />
+          <xi:include href="../templates/multipole.moments.xml" />
+          <xi:include href="../templates/freq.vib.analysis.xml" />
+          <xi:include href="../templates/thermochemistry.xml" />
+        </templateList>
+        <!-- END of module finalization -->
+      </template>
+
+      </templateList>
+    </template>
+  </templateList>
+  
+</template>
