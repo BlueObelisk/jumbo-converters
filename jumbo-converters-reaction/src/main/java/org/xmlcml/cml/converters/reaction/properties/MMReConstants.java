@@ -141,7 +141,7 @@ public class MMReConstants {
 	static {
 		UNIT_MAP.put("ml", Unit.MILLILITRE);
 		UNIT_MAP.put("mL", Unit.MILLILITRE);
-		UNIT_MAP.put("µL", Unit.MICROLITRE);
+		UNIT_MAP.put("\u03BCL", Unit.MICROLITRE);
 		UNIT_MAP.put(MICRO+"L", Unit.MICROLITRE);
 		UNIT_MAP.put(MICRO+"l", Unit.MICROLITRE);
 		

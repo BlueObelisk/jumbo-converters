@@ -1,0 +1,77 @@
+<template id="mulliken.charges"
+  repeat="*"
+  name="mulliken.charges"
+  pattern="\s*Ground-State Mulliken Net Atomic Charges.+" offset="0"
+  endPattern="\s*Sum of atomic charges =.+"            endOffset="1" >
+
+  <comment class="example.input" id="mulliken.charges.h3op">
+          Ground-State Mulliken Net Atomic Charges
+
+     Atom                 Charge (a.u.)
+  ----------------------------------------
+      1 O                    -0.221449
+      2 H                     0.407150
+      3 H                     0.407150
+      4 H                     0.407150
+  ----------------------------------------
+  Sum of atomic charges =     1.000000
+  </comment>
+
+  <comment class="example.input" id="mulliken.charges.ch3oh">
+          Ground-State Mulliken Net Atomic Charges
+
+     Atom                 Charge (a.u.)
+  ----------------------------------------
+      1 C                    -0.205027
+      2 O                    -0.605033
+      3 H                     0.129122
+      4 H                     0.129122
+      5 H                     0.161319
+      6 H                     0.390497
+  ----------------------------------------
+  Sum of atomic charges =     0.000000
+</comment>
+
+  <record id="mulliken.charges.unparsed" repeat="4" />
+  <record id="mulliken.charges" repeat="*" makeArray="true">\s*{I,cc:serial}\s+{A,cc:elementType}\s+{F,cc:mulliken}\s*</record>
+  <record id="mulliken.charges.unparsed" />
+  <record id="mulliken.charges2">\s*Sum of atomic charges =\s+{F,cc:charge}\s*</record>
+
+  <transform process="move" 
+             xpath=".//cml:list[@cmlx:templateRef='mulliken.charges2']/cml:scalar"
+             to=".//cml:list[@cmlx:templateRef='mulliken.charges']" />
+  <transform process="addDictRef" xpath=".//cml:list[@cmlx:templateRef='mulliken.charges']" value="cc:mullikenCharges" />
+  <transform process="createWrapperProperty" xpath=".//cml:list[@dictRef='cc:mullikenCharges']" />
+  <transform process="pullup" xpath=".//cml:property/cml:list/cml:array" />
+  <transform process="pullup" xpath=".//cml:property/cml:list/cml:scalar" />
+  <transform process="addUnits" xpath=".//*[@dictRef='cc:mulliken' or @dictRef='cc:charge']" value="nonSi:elementaryCharge" />
+
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+
+
+  <comment class="example.output" id="mulliken.charges.h3op">
+    <module cmlx:templateRef="mulliken.charges" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="cc:mullikenCharges">
+        <array  dataType="xsd:integer" dictRef="cc:serial"      size="4">1 2 3 4</array>
+        <array  dataType="xsd:string"  dictRef="cc:elementType" size="4">O H H H</array>
+        <array  dataType="xsd:double"  dictRef="cc:mulliken"    size="4" units="nonSi:elementaryCharge">-0.221449 0.40715 0.40715 0.40715</array>
+        <scalar dataType="xsd:double"  dictRef="cc:charge"               units="nonSi:elementaryCharge">1.0</scalar>
+      </property>
+    </module>
+  </comment>
+
+
+  <comment class="example.output" id="mulliken.charges.ch3oh">
+    <module cmlx:templateRef="mulliken.charges" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="cc:mullikenCharges">
+        <array  dataType="xsd:integer" dictRef="cc:serial"      size="6">1 2 3 4 5 6</array>
+        <array  dataType="xsd:string"  dictRef="cc:elementType" size="6">C O H H H H</array>
+        <array  dataType="xsd:double"  dictRef="cc:mulliken"    size="6" units="nonSi:elementaryCharge">-0.205027 -0.605033 0.129122 0.129122 0.161319 0.390497</array>
+        <scalar dataType="xsd:double"  dictRef="cc:charge"               units="nonSi:elementaryCharge">0.0</scalar>
+      </property>
+    </module>
+  </comment>
+
+
+</template>

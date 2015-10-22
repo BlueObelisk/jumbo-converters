@@ -57,20 +57,30 @@
   <transform process="addAttribute" xpath=".//cml:molecule" name="formalCharge"
      value="$string(..//cml:scalar[@dictRef='x:formalCharge'])"/>
 
-  <transform process="delete" xpath="./cml:list"/>
+  <transform process="move" xpath=".//cml:scalar[@dictRef='x:formalCharge' or @dictRef='x:multiplicity']" to="." />
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='x:formalCharge']" value="nonSi:elementary_charge" />
+  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='x:formalCharge' or @dictRef='x:multiplicity']" />
+  <transform process="addDictRef" xpath=".//cml:parameter[@dictRef='x:formalCharge']" value="cc:charge" />
+  <transform process="addDictRef" xpath=".//cml:parameter[@dictRef='x:multiplicity']" value="cc:spinMultiplicity" />
+
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[contains(@cmlx:templateRef,'atom')]" />
   
   <comment class="example.output" id="l101.zmatvariables">
-    <module cmlx:templateRef="l101.zmatvariables" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l101.zmatvariables">
       <map id="variableMap">
-        <link from="B1" to="1.113"/>
-        <link from="B2" to="1.113"/>
-        <link from="B3" to="1.113"/>
-        <link from="B4" to="1.113"/>
-        <link from="A1" to="109.47124"/>
-        <link from="A2" to="109.47119"/>
-        <link from="D1" to="120.0"/>
-        <link from="A3" to="109.47123"/>
-        <link from="D2" to="-120.0"/>
+        <link from="B1" to="1.113" />
+        <link from="B2" to="1.113" />
+        <link from="B3" to="1.113" />
+        <link from="B4" to="1.113" />
+        <link from="A1" to="109.47124" />
+        <link from="A2" to="109.47119" />
+        <link from="D1" to="120.0" />
+        <link from="A3" to="109.47123" />
+        <link from="D2" to="-120.0" />
       </map>
       <molecule id="zinitial" spinMultiplicity="1" formalCharge="0">
         <zMatrix>
@@ -85,13 +95,19 @@
           <torsion atomRefs4="a3 a2 a1 a5">-120.0</torsion>
         </zMatrix>
         <atomArray>
-          <atom elementType="C" id="a1" x3="1.113" y3="0.0" z3="0.0"/>
-          <atom elementType="H" id="a2" x3="0.0" y3="0.0" z3="0.0"/>
-          <atom elementType="H" id="a3" x3="1.4840003546705822" y3="1.0493463378857821" z3="0.0"/>
-          <atom elementType="H" id="a4" x3="1.4839994389430116" y3="-0.524673330822134" z3="0.9087608663603304"/>
-          <atom elementType="H" id="a5" x3="1.484000171525091" y3="-0.5246732013187714" z3="-0.9087606420539267"/>
+          <atom elementType="C" id="a1" x3="1.113" y3="0.0" z3="0.0" />
+          <atom elementType="H" id="a2" x3="0.0" y3="0.0" z3="0.0" />
+          <atom elementType="H" id="a3" x3="1.4840003546705822" y3="1.0493463378857821" z3="0.0" />
+          <atom elementType="H" id="a4" x3="1.4839994389430116" y3="-0.524673330822134" z3="0.9087608663603304" />
+          <atom elementType="H" id="a5" x3="1.484000171525091" y3="-0.5246732013187714" z3="-0.9087606420539267" />
         </atomArray>
       </molecule>
+      <parameter dictRef="cc:charge">
+        <scalar dataType="xsd:integer" units="nonSi:elementary_charge">0</scalar>
+      </parameter>
+      <parameter dictRef="cc:spinMultiplicity">
+        <scalar dataType="xsd:integer">1</scalar>
+      </parameter>
     </module>
   </comment>
 </template>

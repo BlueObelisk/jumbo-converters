@@ -1,0 +1,61 @@
+<template id="init.gridbased.dft.options"
+  repeat="*"
+  name="LEBEDEV GRID-BASED DFT OPTIONS"
+  pattern="\s*LEBEDEV GRID-BASED DFT OPTIONS\s*$\s*-+\s*"      offset="0"
+  endPattern="\s*$"   endOffset="0" >
+
+  <comment class="example.input" id="init.gridbased.dft.options">
+     LEBEDEV GRID-BASED DFT OPTIONS
+     ------------------------------
+     DFTTYP=B3LYP   
+     NRAD  =      96     NLEB  =     302
+     NRAD0 =      24     NLEB0 =     110
+     SWOFF =    5.00E-03 (PURE SCF -> DFT)
+     SWITCH=    3.00E-04 (COARSE -> TIGHT GRID)
+     THRESH=    0.00E+00 GTHRE=    1.00E+00
+  </comment>
+
+  <record repeat="2" />
+  <record id="data">\s*DFTTYP\s*={X,cc:dftFunctional}\s*</record>
+  <record id="data">\s*NRAD\s*=\s+{I,m:dft.nrad}\s+NLEB\s*=\s+{I,m:dft.nleb}\s*</record>
+  <record id="data">\s*NRAD0\s*=\s+{I,m:dft.nrad0}\s+NLEB0\s*=\s+{I,m:dft.nleb0}\s*</record>
+  <record id="data">\s*SWOFF\s*=\s+{X,m:dft.swoff}\s\(.+\s*</record>
+  <record id="data">\s*SWITCH\s*=\s+{X,m:dft.switch}\s\(.+\s*</record>
+  <record id="data">\s*THRESH\s*=\s+{X,m:dft.thres}\s.*=\s+{X,m:dft.gthre}\s*</record>
+
+  <transform process="setDataType" value="xsd:double" xpath=".//*[contains(@dictRef,'m:dft.s') or contains(@dictRef,'m:dft.t') or contains(@dictRef,'m:dft.g')]" />
+
+  <transform process="addChild"
+                 xpath="."
+                 elementName="cml:list"
+                 position="0"
+                 dictRef="m:LebedevGridBasedDftOptions" />
+  
+  <transform process="move" xpath=".//*[contains(@dictRef,'cc:') or contains(@dictRef,'m:dft.')]" to=".//*[@dictRef='m:LebedevGridBasedDftOptions']" />
+
+  <transform process="createWrapperParameter" xpath=".//*[@dictRef='m:LebedevGridBasedDftOptions']"/>
+
+
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+
+  <comment class="example.output" id="init.gridbased.dft.options">
+    <module cmlx:templateRef="init.gridbased.dft.options" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+        <parameter dictRef="m:LebedevGridBasedDftOptions">
+          <list>
+            <scalar dictRef="cc:dftFunctional" dataType="xsd:string">B3LYP</scalar>
+            <scalar dictRef="m:dft.nrad"       dataType="xsd:integer">96</scalar>
+            <scalar dictRef="m:dft.nleb"       dataType="xsd:integer">302</scalar>
+            <scalar dictRef="m:dft.nrad0"      dataType="xsd:integer">24</scalar>
+            <scalar dictRef="m:dft.nleb0"      dataType="xsd:integer">110</scalar>
+            <scalar dictRef="m:dft.swoff"      dataType="xsd:double" >0.005</scalar>
+            <scalar dictRef="m:dft.switch"     dataType="xsd:double" >3.0E-4</scalar>
+            <scalar dictRef="m:dft.thres"      dataType="xsd:double" >0.0</scalar>
+            <scalar dictRef="m:dft.gthre"      dataType="xsd:double" >1.0</scalar>
+          </list>
+        </parameter>
+    </module>
+  </comment>
+
+</template>
+
