@@ -47,29 +47,55 @@
 
   <transform process="copy" xpath=".//cml:scalar[@dictRef='m:runtyp']" to="../../.." />
 
-  <transform process="setValue" xpath=".//cml:scalar[@id='copy.0' and @dictRef='m:runtyp' and starts-with(./text(),'OPT')]" value="geometry_optimization" /> 
-  <transform process="setValue" xpath=".//cml:scalar[@id='copy.0' and @dictRef='m:runtyp' and starts-with(./text(),'HESSIAN')]" value="frequency" /> 
-  <transform process="setValue" xpath=".//cml:scalar[@id='copy.0' and @dictRef='m:runtyp' and starts-with(./text(),'ENERGY')]" value="energy" /> 
-
-  <transform process="addDictRef" xpath=".//cml:scalar[@id='copy.0']" value="cc:task" />
+  <!-- determine cc:task -->
+  <transform process="setValue"   value="geometry_optimization"
+             xpath=".//cml:scalar[@id='copy.0' and @dictRef='m:runtyp' and starts-with(./text(),'OPT')]" /> 
+  <transform process="setValue"   value="frequency"
+             xpath=".//cml:scalar[@id='copy.0' and @dictRef='m:runtyp' and starts-with(./text(),'HESSIAN')]" /> 
+  <transform process="setValue"   value="energy"
+             xpath=".//cml:scalar[@id='copy.0' and @dictRef='m:runtyp' and starts-with(./text(),'ENERGY')]" /> 
+  <transform process="addDictRef" xpath=".//cml:scalar[@id='copy.0' and @dictRef='m:runtyp']" value="cc:task" />
 
   <!-- determine cc:method-->
-  <transform process="copy" xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='m:dfttyp']" to=".." />
+  <!-- case 1 -->
+  <transform process="copy"       to=".."
+             xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='m:dfttyp' and not(contains(text(),'NONE'))]" />
   <transform process="setValue"   value="DFT"
-             xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='m:dfttyp' and @id='copy.0' and not(contains(text(),'NONE'))]" />
-  <transform process="setValue"   value="$string(../cml:scalar[@dictRef='m:scftyp'])"
-             xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='m:dfttyp' and @id='copy.0' and contains(text(),'NONE')]" />
-  <transform process="addDictRef" xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='m:dfttyp' and @id='copy.0']" value="cc:method" />
+             xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='m:dfttyp' and @id='copy.0']" />
+  <transform process="addDictRef" value="cc:method"
+             xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='m:dfttyp' and @id='copy.0']" />
+
+  <!-- case 2 -->
+  <transform process="copy"       to=".."
+             xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='m:mplvl' and not(contains(text(),'0'))]" />
+  <transform process="setValue"   value="MP$string(.)"
+             xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='m:mplvl' and @id='copy.0']" />
+  <transform process="addDictRef" value="cc:method"
+             xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='m:mplvl' and @id='copy.0']" />
+
+  <!-- case 3 -->
+  <transform process="copy"       to=".."
+             xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='m:scftyp' and not(contains(text(),'NONE'))]" />
+  <transform process="addDictRef" value="cc:method"
+             xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='m:scftyp' and @id='copy.0']" />
+
+  <!-- case 4 -->
+  <transform process="copy"       to=".."
+             xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='m:cityp' and not(contains(text(),'NONE'))]" />
+  <transform process="addDictRef" value="cc:method"
+             xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='m:cityp' and @id='copy.0']" />
 
   <!-- determine cc:dftFunctionalLabel if cc:method is DFT -->
-  <transform process="copy" xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='cc:method' and contains(text(),'DFT')]" to=".." />
+  <transform process="copy"       to=".."
+             xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='cc:method' and contains(text(),'DFT')]" />
   <transform process="setValue"   value="$string(../cml:scalar[@dictRef='m:dfttyp'])"
              xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='cc:method' and @id='copy.0.copy']" />
   <transform process="addDictRef" value="cc:dftFunctionalLabel"
              xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='cc:method' and @id='copy.0.copy']" />
 
   <!-- determine cc:wavefunctionType -->
-  <transform process="copy" xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='m:scftyp']" to=".." />
+  <transform process="copy"       to=".."     
+             xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='m:scftyp']" />
   <transform process="setValue"   value="restricted open shell"
              xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='m:scftyp' and @id='copy.0' and starts-with(./text(),'RO')]" />
   <transform process="setValue"   value="closed shell"
@@ -79,8 +105,15 @@
   <transform process="addDictRef" value="cc:wavefunctionType"
              xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='m:scftyp' and @id='copy.0']" />
 
-  <transform process="move" xpath=".//cml:parameter/cml:list/cml:scalar[contains(@dictRef,'cc:')]" to="." />
-  <transform process="createWrapperParameter" xpath=".//cml:scalar[contains(@dictRef,'cc:')]" />
+  <transform process="move" to="." xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='cc:method'][1]" />
+  <transform process="move" to="." 
+             xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='cc:task' or @dictRef='cc:dftFunctionalLabel' or @dictRef='cc:wavefunctionType']" />
+
+  <transform process="createWrapperParameter" xpath="./cml:scalar[contains(@dictRef,'cc:')]" />
+
+  <!-- Delete any left over cc:method scalars in list -->
+  <!-- may not be the best way to do this -->
+  <transform process="delete" xpath="./cml:parameter/cml:list/cml:scalar[@dictRef='cc:method']" />
 
 
   <!-- Delete empty lists -->
