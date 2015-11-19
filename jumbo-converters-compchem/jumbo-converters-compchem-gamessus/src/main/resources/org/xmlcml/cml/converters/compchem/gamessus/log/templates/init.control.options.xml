@@ -105,7 +105,9 @@
   <transform process="addDictRef" value="cc:wavefunctionType"
              xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='m:scftyp' and @id='copy.0']" />
 
+  <!-- move only first encountered cc:method scalar as rest will be irrelevant due to various cases-->
   <transform process="move" to="." xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='cc:method'][1]" />
+
   <transform process="move" to="." 
              xpath=".//cml:parameter/cml:list/cml:scalar[@dictRef='cc:task' or @dictRef='cc:dftFunctionalLabel' or @dictRef='cc:wavefunctionType']" />
 
