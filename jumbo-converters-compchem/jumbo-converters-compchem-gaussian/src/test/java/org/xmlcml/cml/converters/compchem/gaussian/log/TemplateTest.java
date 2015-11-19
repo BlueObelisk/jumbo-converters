@@ -51,7 +51,7 @@ public class TemplateTest {
 			@Test	public void testl101Zmat()                   {runTemplateTest("l101/", "l101.zmat");}
 			@Test	public void testl101ZmatCommas()             {runTemplateTest("l101/", "l101.zmatcommas");}
 			@Test	public void testl101ZmatVariables()          {runTemplateTest("l101/", "l101.zmatvariables");}
-			@Test	public void testl101() 		                 {runTemplateTest("l101/", "l101");}
+	@Ignore @Test	public void testl101() 		                 {runTemplateTest("l101/", "l101");} //seems redundant
 
 			@Test	public void testlink1a() 		             {runTemplateTest("link1a");}
 
@@ -70,7 +70,8 @@ public class TemplateTest {
 			@Test	public void testl202Rotconsts()              {runTemplateTest("l202/", "l202.rotconst");}
 			@Test	public void testl202Stoichiometry()          {runTemplateTest("l202/", "l202.stoich");}
 
-	@Ignore @Test	public void testl301BasisFIXME()             {runTemplateTest("l301.basis");}
+			@Test	public void testl301BasisFIXME()             {runTemplateTest("l301.basis");}
+	@Ignore	@Test	public void testTopTemplate()             	 {runTemplateTest("topTemplateTest");}	//for debugging only
 			@Test	public void testl302Basis()                  {runTemplateTest("l302.basis");}
 			@Test	public void testl302aBasis()                 {runTemplateTest("l302a.basis");}
 

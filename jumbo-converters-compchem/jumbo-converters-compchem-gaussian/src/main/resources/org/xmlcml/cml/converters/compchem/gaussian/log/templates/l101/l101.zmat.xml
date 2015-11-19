@@ -1,6 +1,6 @@
   <template id="l101.zmat" repeat="*" 
-    pattern=".*Symbolic Z\-matrix.*$\s*Charge.*Multiplicity.*$\s*\S+\s+\S+\s+\S+\s+\S+\s*" 
-    endPattern="\s*">
+    pattern="\s*Symbolic Z-matrix:\s*$\s*Charge\s*=\s*\d+\s*Multiplicity\s*=\s*\d\s*$\s*\w+\s+-?\d+\.\d+\s*" 
+    endPattern="\s*Grad.+"    endOffset="0">
   <comment class="example.input" id="l1.zmat">
  Symbolic Z-matrix:
  Charge =  0 Multiplicity = 1
@@ -8,33 +8,64 @@
  C                     1.98961  -0.3388    0.40746 
  H                     0.63164   1.77722  -0.58197 
   </comment>
-  <record/>
-  <record id="charge">.*Charge ={I,x:formalCharge} Multiplicity ={I,x:multiplicity}</record>
-  <record id="mol" repeat="*" makeArray="true">{A,gau:elementType} {F,gau:x3,unit:angstrom}  {F,gau:y3,unit:angstrom} {F,gau:z3,unit:angstrom}</record>
+
+  <comment class="example.input" id="l1.zmat1">
+ Symbolic Z-matrix:
+ Charge =  0 Multiplicity = 1
+ C                    0     0.        0.        0. 
+ O                    0     0.        0.        1.39956 
+ H                    0     1.00794   0.       -0.40813 
+ H                    0    -0.54121  -0.85044  -0.4079 
+ H                    0    -0.49708   0.90543  -0.31905 
+ H                    0     0.43517  -0.77899   1.71464 
+  </comment>
+
+  <record />
+  <record id="charge">\s*Charge\s*=\s*{I,x:formalCharge}\s*Multiplicity\s*=\s*{I,x:multiplicity}\s*</record>
+
+  <templateList>
+    <template id="zmat1"
+              pattern="\s*.\s+\d+\s+.*"
+              endPattern="~"            endOffset="1">
+      <record id="mol" repeat="*" makeArray="true">\s*{A,gau:elementType}\s*{I,g:type}\s*{F,gau:x3,unit:angstrom}\s*{F,gau:y3,unit:angstrom}\s*{F,gau:z3,unit:angstrom}\s*</record>
+    </template>
+    <template id="zmat2"
+              pattern="\s*.\s+.*"
+              endPattern="~"            endOffset="1">
+      <record id="mol" repeat="*" makeArray="true">\s*{A,gau:elementType}\s*{F,gau:x3,unit:angstrom}\s*{F,gau:y3,unit:angstrom}\s*{F,gau:z3,unit:angstrom}\s*</record>
+    </template>
+  </templateList>
   
+  <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='zmat1' or @cmlx:templateRef='zmat2']/cml:list" />
+  <transform process="pullup" xpath=".//cml:list[@cmlx:templateRef='charge']/cml:list/cml:scalar" />
+  <transform process="pullup" xpath=".//cml:list[@cmlx:templateRef='charge']/cml:scalar" />
+
   <transform process="createMolecule" id="zmat" xpath=".//cml:array"/>
-  <transform process="pullupSingleton" xpath="./cml:list"/>
+  <transform process="pullupSingleton" xpath=".//cml:list[@cmlx:templateRef='mol']" />
 
   <transform process="addAttribute" xpath=".//cml:molecule" name="spinMultiplicity" 
-     value="$string(..//cml:scalar[@dictRef='x:multiplicity'])"/>
+             value="$string(..//cml:scalar[@dictRef='x:multiplicity'])"/>
   <transform process="addAttribute" xpath=".//cml:molecule" name="formalCharge"
-     value="$string(..//cml:scalar[@dictRef='x:formalCharge'])"/>
+             value="$string(..//cml:scalar[@dictRef='x:formalCharge'])"/>
 
-  <transform process="move" xpath=".//cml:scalar[@dictRef='x:formalCharge' or @dictRef='x:multiplicity']" to="." />
   <transform process="addUnits" xpath=".//cml:scalar[@dictRef='x:formalCharge']" value="nonSi:elementary_charge" />
   <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='x:formalCharge' or @dictRef='x:multiplicity']" />
   <transform process="addDictRef" xpath=".//cml:parameter[@dictRef='x:formalCharge']" value="cc:charge" />
   <transform process="addDictRef" xpath=".//cml:parameter[@dictRef='x:multiplicity']" value="cc:spinMultiplicity" />
 
-  
-  <!-- <transform process="delete" xpath="./cml:list[@cmlx:templateRef='charge']"/> -->
-  
   <!--  delete empty lists -->
- <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
- <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:module[count(*)=0]" />
   
   <comment class="example.output" id="l1.zmat">
     <module cmlx:templateRef="l101.zmat" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="cc:charge">
+        <scalar dataType="xsd:integer" units="nonSi:elementary_charge">0</scalar>
+      </parameter>
+      <parameter dictRef="cc:spinMultiplicity">
+        <scalar dataType="xsd:integer">1</scalar>
+      </parameter>
       <molecule id="zmat" cmlx:templateRef="mol" formalCharge="0"  spinMultiplicity="1">
         <atomArray>
           <atom id="a1" elementType="H" x3="2.67317" y3="-0.69436" z3="1.17604">
@@ -57,12 +88,58 @@
           <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">13.01864</scalar>
         </property>
       </molecule>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="l1.zmat1">
+    <module cmlx:templateRef="l101.zmat" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <parameter dictRef="cc:charge">
         <scalar dataType="xsd:integer" units="nonSi:elementary_charge">0</scalar>
       </parameter>
       <parameter dictRef="cc:spinMultiplicity">
         <scalar dataType="xsd:integer">1</scalar>
       </parameter>
+      <molecule cmlx:templateRef="mol" formalCharge="0" id="a3" spinMultiplicity="1">
+        <atomArray>
+          <atom elementType="C" id="a1" x3="0.0" y3="0.0" z3="0.0">
+            <scalar dataType="xsd:integer" dictRef="g:type">0</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">6</scalar>
+          </atom>
+          <atom elementType="O" id="a2" x3="0.0" y3="0.0" z3="1.39956">
+            <scalar dataType="xsd:integer" dictRef="g:type">0</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">8</scalar>
+          </atom>
+          <atom elementType="H" id="a3" x3="1.00794" y3="0.0" z3="-0.40813">
+            <scalar dataType="xsd:integer" dictRef="g:type">0</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+          <atom elementType="H" id="a4" x3="-0.54121" y3="-0.85044" z3="-0.4079">
+            <scalar dataType="xsd:integer" dictRef="g:type">0</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+          <atom elementType="H" id="a5" x3="-0.49708" y3="0.90543" z3="-0.31905">
+            <scalar dataType="xsd:integer" dictRef="g:type">0</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+          <atom elementType="H" id="a6" x3="0.43517" y3="-0.77899" z3="1.71464">
+            <scalar dataType="xsd:integer" dictRef="g:type">0</scalar>
+            <scalar dataType="xsd:integer" dictRef="cc:atomicNumber">1</scalar>
+          </atom>
+        </atomArray>
+        <formula concise="C 1 H 4 O 1" formalCharge="0">
+          <atomArray count="1.0 4.0 1.0" elementType="C H O"/>
+        </formula>
+        <bondArray>
+          <bond atomRefs2="a1 a2" id="a1_a2" order="S"/>
+          <bond atomRefs2="a1 a3" id="a1_a3" order="S"/>
+          <bond atomRefs2="a1 a4" id="a1_a4" order="S"/>
+          <bond atomRefs2="a1 a5" id="a1_a5" order="S"/>
+          <bond atomRefs2="a2 a6" id="a2_a6" order="S"/>
+        </bondArray>
+        <property dictRef="cml:molmass">
+          <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">32.04186</scalar>
+        </property>
+      </molecule>
     </module>
   </comment>
 </template>
