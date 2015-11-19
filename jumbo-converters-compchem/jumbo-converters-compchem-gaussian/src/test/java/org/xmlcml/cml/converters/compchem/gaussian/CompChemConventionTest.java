@@ -161,7 +161,7 @@ public class CompChemConventionTest {
 		List<Node> nodes = CMLUtil.getQueryNodes(job1, "./cml:module[@dictRef='cc:initialization']/cml:parameterList/cml:parameter[@dictRef='cc:method']/cml:scalar/text()", CMLConstants.CML_XPATH);
 //		job1.debug("INIT");
 		assertFalse(nodes.isEmpty());
-		assertEquals("RB3LYP", nodes.get(0).getValue());
+		assertEquals("DFT", nodes.get(0).getValue());
 	}
 	
 	@Test
@@ -218,7 +218,7 @@ public class CompChemConventionTest {
 	@Test
 	public void testFinalizationHFEnergy() {
 		List<Node> propertyNodes = CMLUtil.getQueryNodes(job1, "./cml:module[@dictRef='cc:finalization']/cml:propertyList", CMLConstants.CML_XPATH);
-		List<Node> nodes = CMLUtil.getQueryNodes(job1, "./cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:property[@dictRef='cc:hfenergy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+		List<Node> nodes = CMLUtil.getQueryNodes(job1, "./cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:property[@dictRef='cc:Energy_total']/cml:scalar/text()", CMLConstants.CML_XPATH);
 		assertFalse("should find hfenergy node", nodes.isEmpty());
 		assertEquals("-40.5183892", nodes.get(0).getValue());
 	}

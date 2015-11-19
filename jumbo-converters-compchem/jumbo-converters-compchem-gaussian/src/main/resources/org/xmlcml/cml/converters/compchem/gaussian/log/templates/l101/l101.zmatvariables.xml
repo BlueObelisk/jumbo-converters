@@ -1,5 +1,7 @@
-<template id="l101.zmatvariables" pattern="\s*Symbolic.*" endPattern="\s*" repeat="*"
-  >
+<template id="l101.zmatvariables" 
+          pattern="\s*Symbolic Z-matrix:\s*$\s*Charge\s*=\s*\d+\s*Multiplicity\s*=\s*\d\s*$\s*\w+\s*$" 
+          endPattern="\s*Grad.+"  endOffset="0" 
+          repeat="*">
   <comment class="example.input" id="l101.zmatvariables">
  Symbolic Z-matrix:
  Charge =  0 Multiplicity = 1
@@ -18,23 +20,121 @@
   D1                  120.                       
   A3                  109.47123                  
   D2                 -120.                       
- 
+  </comment>
+
+  <comment class="example.inputx" id="l101.zmatvariables1">
+ Symbolic Z-matrix:
+ Charge =  0 Multiplicity = 1
+ C1
+ O1                   C1   OC1
+ H2                   C1   CH2      O1   A1
+ H3                   C1   CH3      H2   A2       O1   -T1      0
+ H4                   C1   CH4      H3   A3       H2   T2       0
+ H5                   O1   OH1      C1   A4       H3   T3       0
+       Variables:
+  OC1                   1.39956                  
+  CH2                   1.08743                  
+  CH3                   1.08745                  
+  CH4                   1.08106                  
+  OH1                   0.94629                  
+  A1                  112.04405                  
+  A2                  108.69446                  
+  A3                  108.38827                  
+  A4                  109.44878                  
+  T1                  124.34948                  
+  T2                  117.60671                  
+  T3                   61.66159
+  </comment>
+
+  <comment class="example.input" id="l101.zmatvariables2">
+ Symbolic Z-matrix:
+ Charge =  0 Multiplicity = 1
+ C
+ O                    1    OC1
+ H                    1    CH2      2    A1
+ H                    1    CH3      3    A2       2    T1       0
+ H                    1    CH4      4    A3       3    T2       0
+ H                    2    OH1      1    A4       4    T3       0
+       Variables:
+  OC1                   1.39956                  
+  CH2                   1.08743                  
+  CH3                   1.08745                  
+  CH4                   1.08106                  
+  OH1                   0.94629                  
+  A1                  112.04405                  
+  A2                  108.69446                  
+  A3                  108.38827                  
+  A4                  109.44878                  
+  T1                 -124.34948                  
+  T2                  117.60671                  
+  T3                   61.66159  
+  </comment>
+
+  <comment class="example.input" id="l101.zmatvariables3">
+ Symbolic Z-matrix:
+ Charge =  0 Multiplicity = 1
+ C
+ O                    1    OC1
+ H                    1    CH2      2    A1
+ H                    1    CH3      3    A2       2    T1       0
+ H                    1    CH4      4    A3       3    T2       0
+ H                    2    OH1      1    A4       4    T3       0
+       Variables:
+  OC1                   1.39956                  
+  CH2                   1.08743                  
+  CH3                   1.08745                  
+  CH4                   1.08106                  
+  OH1                   0.94629                  
+  A1                  112.04405                  
+  A2                  108.69446                  
+  A3                  108.38827                  
+  A4                  109.44878                  
+  T1                 -124.34948                  
+  T2                  117.60671                  
+  T3                   61.66159                  
   </comment>
   
-  <record/>
+  <record />
   <record id="chargemult">\s*Charge\s*={I,x:formalCharge}\s*Multiplicity\s*={I,x:multiplicity}\s*</record>
   <record id="atom1">\s*{A,cc:elementType}\s*</record>
-  <record id="atom2">\s*{A,cc:elementType}\s{I,x:junk}\s{A,cc:name}\s*</record>
-  <record id="atom3">\s*{A,cc:elementType}\s{I,x:junk}\s{A,cc:name}\s{I,x:junk}\s{A,cc:name}\s*</record>
-  <record id="atom4" repeat="*">\s*{A,cc:elementType}\s{I,x:junk}\s{A,cc:name}\s{I,x:junk}\s{A,cc:name}\s{I,x:junk}\s{A,cc:name}\s{I,g:unknown}\s*</record>
+  <record id="atom2">\s*{A,cc:elementType}\s+{A,x:junk}\s+{A,cc:name}\s*</record>
+  <record id="atom3">\s*{A,cc:elementType}\s+{A,x:junk}\s+{A,cc:name}\s+{A,x:junk}\s+{A,cc:name}\s*</record>
+  <record id="atom4" repeat="*">\s*{A,cc:elementType}\s+{A,x:junk}\s+{A,cc:name}\s+{A,x:junk}\s+{A,cc:name}\s+{A,x:junk}\s+{A,cc:name}\s+{I,g:unknown}\s*</record>
   <record/>
-  <record id="variable" repeat="*">\s*{A,x:name}\s{F,x:value}\s*</record>
+  <record id="variable" repeat="*">\s*{A,x:name}\s+{F,x:value}\s*</record>
 
+
+  <!-- <templateList>
+    <template id="zmatvar1"
+              pattern="\s*\w+\s+$\s*\w+\s+\d+\s+\w+\s*"
+              endPattern="~">
+      <record id="atom1">\s*{A,cc:elementType}\s*</record>
+      <record id="atom2">\s*{A,cc:elementType}\s{I,x:junk}\s{A,cc:name}\s*</record>
+      <record id="atom3">\s*{A,cc:elementType}\s{I,x:junk}\s{A,cc:name}\s{I,x:junk}\s{A,cc:name}\s*</record>
+      <record id="atom4" repeat="*">\s*{A,cc:elementType}\s{I,x:junk}\s{A,cc:name}\s{I,x:junk}\s{A,cc:name}\s{I,x:junk}\s{A,cc:name}\s{I,g:unknown}\s*</record>
+      <record/>
+      <record id="variable" repeat="*">\s*{A,x:name}\s+{F,x:value}\s*</record>
+    </template>
+    <template id="zmatvar2"
+              pattern="\s*\w+\s+$\s*\w+\s+\w+\s+\w+\s*"
+              endPattern="~">
+      <record id="atom1">\s*{A,cc:elementType}\s*</record>
+      <record id="atom2">\s*{A,cc:elementType}\s{A,x:junk}\s{A,cc:name}\s*</record>
+      <record id="atom3">\s*{A,cc:elementType}\s{A,x:junk}\s{A,cc:name}\s{A,x:junk}\s{A,cc:name}\s*</record>
+      <record id="atom4" repeat="*">\s*{A,cc:elementType}\s{A,x:junk}\s{A,cc:name}\s{A,x:junk}\s{A,cc:name}\s{A,x:junk}\s{A,cc:name}\s{I,g:unknown}\s*</record>
+      <record />
+      <record id="variable" repeat="*">\s*{A,x:name}\s+{F,x:value}\s*</record>
+
+      <transform process="setValue" xpath=".//cml:scalar[@dictRef='x:junk']" value="$substring(.,1)" />
+      <transform process="createDouble" xpath=".//cml:scalar[@dictRef='x:junk']" dictRef="x:junk" />
+    </template>
+  </templateList> -->
+  
 
   <transform process="addMap" xpath="." id="variableMap"
     from=".//cml:scalar[@dictRef='x:name']" 
     to=".//cml:scalar[@dictRef='x:value']"/>
-  <transform process="delete" xpath="./cml:list[@cmlx:templateRef='variable']"/>
+  <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='variable']"/>
   
   <transform process="createAtom" xpath=".//cml:scalar[@dictRef='cc:elementType']" />
   
@@ -43,7 +143,7 @@
            .//cml:list/cml:scalar[4] |
            .//cml:list/cml:scalar[6]"
      map="//cml:map[@id='variableMap']" value="$string(.)"/>
-
+     
   <transform process="createLength" xpath=".//cml:list/cml:list[cml:atom]" 
     atomRefs="$string(cml:scalar[1]) $string(cml:atom/@id)" value="$string(cml:scalar[2])"/>
   <transform process="createAngle" xpath=".//cml:list/cml:list[cml:atom]" 
@@ -51,7 +151,7 @@
   <transform process="createTorsion" xpath=".//cml:list/cml:list[cml:atom]" 
     atomRefs="$string(cml:scalar[5]) $string(cml:scalar[3]) $string(cml:scalar[1]) $string(cml:atom/@id)" value="$string(cml:scalar[6])"/>
 
-  <transform process="createZMatrix" xpath="." id="zinitial"/>
+  <transform process="createZMatrix" xpath="." id="zinitial" />
   <transform process="addAttribute" xpath=".//cml:molecule" name="spinMultiplicity" 
      value="$string(..//cml:scalar[@dictRef='x:multiplicity'])"/>
   <transform process="addAttribute" xpath=".//cml:molecule" name="formalCharge"
@@ -67,7 +167,9 @@
   <!-- CLEAN UP -->
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <!-- HARSH DELETE -->
   <transform process="delete" xpath=".//cml:list[contains(@cmlx:templateRef,'atom')]" />
+  <transform process="delete" xpath=".//cml:module[count(*)=0]" />
   
   <comment class="example.output" id="l101.zmatvariables">
     <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l101.zmatvariables">
@@ -100,6 +202,104 @@
           <atom elementType="H" id="a3" x3="1.4840003546705822" y3="1.0493463378857821" z3="0.0" />
           <atom elementType="H" id="a4" x3="1.4839994389430116" y3="-0.524673330822134" z3="0.9087608663603304" />
           <atom elementType="H" id="a5" x3="1.484000171525091" y3="-0.5246732013187714" z3="-0.9087606420539267" />
+        </atomArray>
+      </molecule>
+      <parameter dictRef="cc:charge">
+        <scalar dataType="xsd:integer" units="nonSi:elementary_charge">0</scalar>
+      </parameter>
+      <parameter dictRef="cc:spinMultiplicity">
+        <scalar dataType="xsd:integer">1</scalar>
+      </parameter>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="l101.zmatvariables2">
+    <module cmlx:templateRef="l101.zmatvariables" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <map id="variableMap">
+        <link from="OC1" to="1.39956"/>
+        <link from="CH2" to="1.08743"/>
+        <link from="CH3" to="1.08745"/>
+        <link from="CH4" to="1.08106"/>
+        <link from="OH1" to="0.94629"/>
+        <link from="A1" to="112.04405"/>
+        <link from="A2" to="108.69446"/>
+        <link from="A3" to="108.38827"/>
+        <link from="A4" to="109.44878"/>
+        <link from="T1" to="-124.34948"/>
+        <link from="T2" to="117.60671"/>
+        <link from="T3" to="61.66159"/>
+      </map>
+      <molecule formalCharge="0" id="zinitial" spinMultiplicity="1">
+        <zMatrix>
+          <length atomRefs2="a1 a2">1.39956</length>
+          <length atomRefs2="a1 a3">1.08743</length>
+          <angle atomRefs3="a2 a1 a3">112.04405</angle>
+          <length atomRefs2="a1 a4">1.08745</length>
+          <angle atomRefs3="a3 a1 a4">108.69446</angle>
+          <torsion atomRefs4="a2 a3 a1 a4">-124.34948</torsion>
+          <length atomRefs2="a1 a5">1.08106</length>
+          <angle atomRefs3="a4 a1 a5">108.38827</angle>
+          <torsion atomRefs4="a3 a4 a1 a5">117.60671</torsion>
+          <length atomRefs2="a2 a6">0.94629</length>
+          <angle atomRefs3="a1 a2 a6">109.44878</angle>
+          <torsion atomRefs4="a4 a1 a2 a6">61.66159</torsion>
+        </zMatrix>
+        <atomArray>
+          <atom elementType="C" id="a1" x3="1.39956" y3="0.0" z3="0.0"/>
+          <atom elementType="O" id="a2" x3="0.0" y3="0.0" z3="0.0"/>
+          <atom elementType="H" id="a3" x3="1.8076934857991995" y3="1.007934056706784" z3="0.0"/>
+          <atom elementType="H" id="a4" x3="1.807463209790486" y3="-0.5412097823675105" z3="0.8504436756260411"/>
+          <atom elementType="H" id="a5" x3="1.7186132391814923" y3="-0.49708333282298667" z3="-0.9054302371786516"/>
+          <atom elementType="H" id="a6" x3="-0.3150805455733647" y3="0.4351718560594073" z3="0.7789829713125963"/>
+        </atomArray>
+      </molecule>
+      <parameter dictRef="cc:charge">
+        <scalar dataType="xsd:integer" units="nonSi:elementary_charge">0</scalar>
+      </parameter>
+      <parameter dictRef="cc:spinMultiplicity">
+        <scalar dataType="xsd:integer">1</scalar>
+      </parameter>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="l101.zmatvariables3">
+    <module cmlx:templateRef="l101.zmatvariables" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <map id="variableMap">
+        <link from="OC1" to="1.39956"/>
+        <link from="CH2" to="1.08743"/>
+        <link from="CH3" to="1.08745"/>
+        <link from="CH4" to="1.08106"/>
+        <link from="OH1" to="0.94629"/>
+        <link from="A1" to="112.04405"/>
+        <link from="A2" to="108.69446"/>
+        <link from="A3" to="108.38827"/>
+        <link from="A4" to="109.44878"/>
+        <link from="T1" to="-124.34948"/>
+        <link from="T2" to="117.60671"/>
+        <link from="T3" to="61.66159"/>
+      </map>
+      <molecule formalCharge="0" id="zinitial" spinMultiplicity="1">
+        <zMatrix>
+          <length atomRefs2="a1 a2">1.39956</length>
+          <length atomRefs2="a1 a3">1.08743</length>
+          <angle atomRefs3="a2 a1 a3">112.04405</angle>
+          <length atomRefs2="a1 a4">1.08745</length>
+          <angle atomRefs3="a3 a1 a4">108.69446</angle>
+          <torsion atomRefs4="a2 a3 a1 a4">-124.34948</torsion>
+          <length atomRefs2="a1 a5">1.08106</length>
+          <angle atomRefs3="a4 a1 a5">108.38827</angle>
+          <torsion atomRefs4="a3 a4 a1 a5">117.60671</torsion>
+          <length atomRefs2="a2 a6">0.94629</length>
+          <angle atomRefs3="a1 a2 a6">109.44878</angle>
+          <torsion atomRefs4="a4 a1 a2 a6">61.66159</torsion>
+        </zMatrix>
+        <atomArray>
+          <atom elementType="C" id="a1" x3="1.39956" y3="0.0" z3="0.0"/>
+          <atom elementType="O" id="a2" x3="0.0" y3="0.0" z3="0.0"/>
+          <atom elementType="H" id="a3" x3="1.8076934857991995" y3="1.007934056706784" z3="0.0"/>
+          <atom elementType="H" id="a4" x3="1.807463209790486" y3="-0.5412097823675105" z3="0.8504436756260411"/>
+          <atom elementType="H" id="a5" x3="1.7186132391814923" y3="-0.49708333282298667" z3="-0.9054302371786516"/>
+          <atom elementType="H" id="a6" x3="-0.3150805455733647" y3="0.4351718560594073" z3="0.7789829713125963"/>
         </atomArray>
       </molecule>
       <parameter dictRef="cc:charge">
