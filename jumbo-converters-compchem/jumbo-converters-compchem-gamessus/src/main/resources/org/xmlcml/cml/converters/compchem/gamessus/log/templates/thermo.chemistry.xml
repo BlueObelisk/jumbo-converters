@@ -60,8 +60,8 @@ VIB. THERMAL CORRECTION E(T)-E(0) = H(T)-H(0) =    20.066 CAL/MOL
   <record repeat="1" />
   <record id="t">\s*{F,cc:rotconst}\s*{F,cc:rotconst}\s*{F,cc:rotconst}\s*</record>
   <record repeat="1" />
-  <record id="t">\s+{F,cc:ZeroPointEnergy}\s+HARTREE/MOLECULE\s+{F,cc:ZeroPointEnergy}\s+CM\*\*-1/MOLECULE\s*</record>
-  <record id="t">\s+{F,cc:ZeroPointEnergy}\s+KCAL/MOL\s+{F,cc:ZeroPointEnergy}\s+KJ/MOL\s*</record>
+  <record id="t">\s+{F,cc:Energy_ZPVE}\s+HARTREE/MOLECULE\s+{F,cc:Energy_ZPVE}\s+CM\*\*-1/MOLECULE\s*</record>
+  <record id="t">\s+{F,cc:Energy_ZPVE}\s+KCAL/MOL\s+{F,cc:Energy_ZPVE}\s+KJ/MOL\s*</record>
   <record repeat="1" />
   <record id="t">{X,cmlx:unparsed}</record>
   <record id="t">{X,cmlx:unparsed}</record>
@@ -90,7 +90,7 @@ VIB. THERMAL CORRECTION E(T)-E(0) = H(T)-H(0) =    20.066 CAL/MOL
 
   <transform process="pullupSingleton" xpath=".//cml:list[@cmlx:templateRef='test1']" />
 
-  <!-- <transform process="move" to="." xpath=".//*[contains(@dictRef,'cc:temp') or contains(@dictRef,'cc:press') or contains(@dictRef,'x:FreqScaleFactor') or contains(@dictRef,'x:momentOfInertia') or contains(@dictRef,'x:rotSymmNumber') or contains(@dictRef,'cc:rotconst') or contains(@dictRef,'cc:ZeroPointEnergy') or contains(@dictRef,'cmlx:unparsed') or contains(@dictRef,'cc:thermalCorrectionToEnergy') or contains(@dictRef,'cc:thermalCorrectionToEnthalpy') or contains(@dictRef,'cc:thermalCorrectionToGibbsEnergy') or contains(@dictRef,'x:molarHeatCapacity_CV') or contains(@dictRef,'x:molarHeatCapacity_CP') or contains(@dictRef,'x:molarEntropy_S')]" />
+  <!-- <transform process="move" to="." xpath=".//*[contains(@dictRef,'cc:temp') or contains(@dictRef,'cc:press') or contains(@dictRef,'x:FreqScaleFactor') or contains(@dictRef,'x:momentOfInertia') or contains(@dictRef,'x:rotSymmNumber') or contains(@dictRef,'cc:rotconst') or contains(@dictRef,'cc:Energy_ZPVE') or contains(@dictRef,'cmlx:unparsed') or contains(@dictRef,'cc:thermalCorrectionToEnergy') or contains(@dictRef,'cc:thermalCorrectionToEnthalpy') or contains(@dictRef,'cc:thermalCorrectionToGibbsEnergy') or contains(@dictRef,'x:molarHeatCapacity_CV') or contains(@dictRef,'x:molarHeatCapacity_CP') or contains(@dictRef,'x:molarEntropy_S')]" />
 
   <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']" />
   <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='t']" />
@@ -115,7 +115,7 @@ VIB. THERMAL CORRECTION E(T)-E(0) = H(T)-H(0) =    20.066 CAL/MOL
 
   <transform process="move"
                  to="cml:list[@id='thermochemistry']"
-                 xpath=".//*[contains(@dictRef,'cc:temp') or contains(@dictRef,'cc:press') or contains(@dictRef,'x:FreqScaleFactor') or contains(@dictRef,'x:momentOfInertia') or contains(@dictRef,'x:rotSymmNumber') or contains(@dictRef,'cc:rotconst') or contains(@dictRef,'cc:ZeroPointEnergy')]" />
+                 xpath=".//*[contains(@dictRef,'cc:temp') or contains(@dictRef,'cc:press') or contains(@dictRef,'x:FreqScaleFactor') or contains(@dictRef,'x:momentOfInertia') or contains(@dictRef,'x:rotSymmNumber') or contains(@dictRef,'cc:rotconst') or contains(@dictRef,'cc:Energy_ZPVE')]" />
 
   <transform process="createArray"
                    xpath=".//cml:list[@id='thermochemistry']"
@@ -129,7 +129,7 @@ VIB. THERMAL CORRECTION E(T)-E(0) = H(T)-H(0) =    20.066 CAL/MOL
   <transform process="addUnits" value="si:pascal" xpath=".//*[@dictRef='cc:press']" />
   <transform process="addUnits" value="si:Da.Bohr2" xpath=".//*[@dictRef='x:momentOfInertia']" />
   <transform process="addUnits" value="nonSi:GHz" xpath=".//*[@dictRef='cc:rotconst']" />
-  <transform process="addUnits" value="nonSi:hartree" xpath=".//*[@dictRef='cc:ZeroPointEnergy']" />
+  <transform process="addUnits" value="nonSi:hartree" xpath=".//*[@dictRef='cc:Energy_ZPVE']" />
   <transform process="addUnits" value="nonSi:kj.mol-1" xpath=".//*[contains(@dictRef,'cc:thermalCorrectionToEnergy') or contains(@dictRef,'cc:thermalCorrectionToEnthalpy') or contains(@dictRef,'cc:thermalCorrectionToGibbsEnergy')]" />
   <transform process="addUnits" value="nonSi:j.k-1.mol-1" xpath=".//*[contains(@dictRef,'x:molarHeatCapacity_CV') or contains(@dictRef,'x:molarHeatCapacity_CP') or contains(@dictRef,'x:molarEntropy_S')]" /> -->
 <!-- 
@@ -146,10 +146,10 @@ VIB. THERMAL CORRECTION E(T)-E(0) = H(T)-H(0) =    20.066 CAL/MOL
           <array dataType="xsd:double" dictRef="x:momentOfInertia" units="nonSi:Da.Bohr2" size="3">11.47724 11.47725 11.47950</array>
           <scalar dataType="xsd:double" dictRef="x:rotSymmNumber">1.0</scalar>
           <array dataType="xsd:double" dictRef="cc:rotconst" units="nonSi:GHz" size="3">157.10126 157.10111 157.07032</array>
-          <scalar dataType="xsd:double" dictRef="cc:ZeroPointEnergy" units="nonSi:hartree">0.04515</scalar>
-          <scalar dataType="xsd:double" dictRef="cc:ZeroPointEnergy" units="nonSi:cm-1">9910.720032</scalar>
-          <scalar dataType="xsd:double" dictRef="cc:ZeroPointEnergy" units="nonSi:kcal.mol-1">28.336199</scalar>
-          <scalar dataType="xsd:double" dictRef="cc:ZeroPointEnergy" units="nonSi:kj.mol-1">118.558656</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:Energy_ZPVE" units="nonSi:hartree">0.04515</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:Energy_ZPVE" units="nonSi:cm-1">9910.720032</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:Energy_ZPVE" units="nonSi:kcal.mol-1">28.336199</scalar>
+          <scalar dataType="xsd:double" dictRef="cc:Energy_ZPVE" units="nonSi:kj.mol-1">118.558656</scalar>
         </list>
       </property>
 
