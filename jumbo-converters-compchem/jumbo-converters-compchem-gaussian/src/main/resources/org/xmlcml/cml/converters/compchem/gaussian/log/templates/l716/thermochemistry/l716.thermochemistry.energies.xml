@@ -15,7 +15,7 @@
  
   </comment>
 
-  <record id="thermo.ZeroPointEnergy" repeat="*">\s*Zero-point correction=\s*{F,cc:ZeroPointEnergy,u:hartree}.+</record>
+  <record id="thermo.ZeroPointEnergy" repeat="*">\s*Zero-point correction=\s*{F,cc:Energy_ZPVE,u:hartree}.+</record>
   <record id="thermo.thermCorrEnergy" repeat="*">\s*Thermal correction to Energy=\s*{F,cc:thermalCorrectionToEnergy,u:hartree}.+</record>
   <record id="thermo.thermCorrEnthal" repeat="*">\s*Thermal correction to Enthalpy=\s*{F,cc:thermalCorrectionToEnthalpy,u:hartree}.+</record>
   <record id="thermo.thermCorrFreeEn" repeat="*">\s*Thermal correction to Gibbs Free Energy=\s*{F,cc:thermalCorrectionToGibbsEnergy,u:hartree}.+</record>
@@ -27,7 +27,7 @@
   <transform process="pullup" xpath=".//cml:scalar" /> 
 
   <!-- add units -->
-  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:ZeroPointEnergy']" 
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:Energy_ZPVE']" 
       value="nonSi:hartree" dataType="xsd:double"/>
   <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:thermalCorrectionToEnergy']" 
       value="nonSi:hartree"/>
@@ -51,7 +51,7 @@
   <comment class="example.output" id="l716.thermochemistry.energies">
 <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" 
     cmlx:templateRef="l716.thermochemistry.energies" >
-    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:ZeroPointEnergy"                >0.04523</scalar>
+    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:Energy_ZPVE"                    >0.04523</scalar>
     <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:thermalCorrectionToEnergy"      >0.048094</scalar>
     <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:thermalCorrectionToEnthalpy"    >0.049039</scalar>
     <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:thermalCorrectionToGibbsEnergy" >0.027907</scalar>
