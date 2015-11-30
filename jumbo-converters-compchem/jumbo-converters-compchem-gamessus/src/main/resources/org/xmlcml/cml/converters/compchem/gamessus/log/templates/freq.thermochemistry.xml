@@ -87,7 +87,7 @@ VIB. THERMAL CORRECTION E(T)-E(0) = H(T)-H(0) =    20.066 CAL/MOL
   <transform process="addUnits" value="nonSi:j.k-1.mol-1"   xpath=".//*[@dictRef='x:mhcvjkmol'  or @dictRef='x:mhcpjkmol'  or @dictRef='x:mesjkmol']" />
 
   <!-- fix DictRefs -->
-  <transform process="addDictRef" value="cc:ZeroPointEnergy"                xpath=".//*[contains(@dictRef,'cc:zpe')]"  />
+  <transform process="addDictRef" value="cc:Energy_ZPVE"                xpath=".//*[contains(@dictRef,'cc:zpe')]"  />
   <transform process="addDictRef" value="cc:thermalCorrectionToEnergy"      xpath=".//*[@dictRef='cc:tcekjmol'  or @dictRef='cc:tcekcal']" />
   <transform process="addDictRef" value="cc:thermalCorrectionToEnthalpy"    xpath=".//*[@dictRef='cc:tcenkjmol' or @dictRef='cc:tcenkcal']" />
   <transform process="addDictRef" value="cc:thermalCorrectionToGibbsEnergy" xpath=".//*[@dictRef='cc:tcgekjmol' or @dictRef='cc:tcgekcal']" />
@@ -112,7 +112,7 @@ VIB. THERMAL CORRECTION E(T)-E(0) = H(T)-H(0) =    20.066 CAL/MOL
 
   <!-- Move scalars to propertyList -->
   <transform process="move"      to=".//cml:propertyList" 
-             xpath=".//cml:scalar[@dictRef='x:momentOfInertia' or @dictRef='x:FreqScaleFactor' or @dictRef='x:rotSymmNumber' or @dictRef='cc:rotconst' or @dictRef='cc:ZeroPointEnergy' or @dictRef='cc:thermalCorrectionToEnergy' or @dictRef='cc:thermalCorrectionToEnthalpy' or @dictRef='cc:thermalCorrectionToGibbsEnergy' or @dictRef='x:molarHeatCapacity_CV' or @dictRef='x:molarHeatCapacity_CP' or @dictRef='x:molarEntropy_S']" />
+             xpath=".//cml:scalar[@dictRef='x:momentOfInertia' or @dictRef='x:FreqScaleFactor' or @dictRef='x:rotSymmNumber' or @dictRef='cc:rotconst' or @dictRef='cc:Energy_ZPVE' or @dictRef='cc:thermalCorrectionToEnergy' or @dictRef='cc:thermalCorrectionToEnthalpy' or @dictRef='cc:thermalCorrectionToGibbsEnergy' or @dictRef='x:molarHeatCapacity_CV' or @dictRef='x:molarHeatCapacity_CP' or @dictRef='x:molarEntropy_S']" />
 
   <transform process="move"      to=".//cml:propertyList" 
              xpath=".//cml:list[ @cmlx:templateRef='total_kj' or @cmlx:templateRef='total_kcal']//cml:scalar" />
@@ -178,16 +178,16 @@ VIB. THERMAL CORRECTION E(T)-E(0) = H(T)-H(0) =    20.066 CAL/MOL
             <property dictRef="cc:rotconst">
                 <scalar dataType="xsd:double" units="nonSi:GHz">157.07032</scalar>
             </property>
-            <property dictRef="cc:ZeroPointEnergy">
+            <property dictRef="cc:Energy_ZPVE">
                 <scalar dataType="xsd:double" units="nonSi:hartree">0.045157</scalar>
             </property>
-            <property dictRef="cc:ZeroPointEnergy">
+            <property dictRef="cc:Energy_ZPVE">
                 <scalar dataType="xsd:double" units="nonSi:cm-1">9910.720032</scalar>
             </property>
-            <property dictRef="cc:ZeroPointEnergy">
+            <property dictRef="cc:Energy_ZPVE">
                 <scalar dataType="xsd:double" units="nonSi:kcal.mol-1">28.336199</scalar>
             </property>
-            <property dictRef="cc:ZeroPointEnergy">
+            <property dictRef="cc:Energy_ZPVE">
                 <scalar dataType="xsd:double" units="nonSi:kj.mol-1">118.558656</scalar>
             </property>
             <property dictRef="cc:thermalCorrectionToEnergy">
