@@ -26,7 +26,7 @@
   <record/>
   <record id="pointGrp">\s*Molecular Point Group{A,cc:pointGroup}NOp ={I,q:pointGroupNop}</record>
   <record id="abelianGrp">\s*Largest Abelian Subgroup{A,q:largestAbelianSubgroup}NOp ={I,q:largestAbelianSubgroupNop}</record>
-  <record id="nuclearRep">\s*Nuclear Repulsion Energy ={F,cc:nuclearRepulsionEnergy}hartrees\s*</record>
+  <record id="nuclearRep">\s*Nuclear Repulsion Energy ={F,cc:Energy_NucRep}hartrees\s*</record>
   <record id="alphaBeta">\s*There are{I,cc:numAlphaElectrons}alpha and{I,cc:numBetaElectrons}beta electrons\s*</record>
 
 
@@ -38,7 +38,7 @@
                       @dictRef='q:pointGroupNop'             or
                       @dictRef='q:largestAbelianSubgroup'    or
                       @dictRef='q:largestAbelianSubgroupNop' or
-                      @dictRef='cc:nuclearRepulsionEnergy'   or
+                      @dictRef='cc:Energy_NucRep'            or
                       @dictRef='cc:numAlphaElectrons'        or
                       @dictRef='cc:numBetaElectrons'
     ]" />
@@ -47,7 +47,7 @@
                       @dictRef='q:pointGroupNop'             or
                       @dictRef='q:largestAbelianSubgroup'    or
                       @dictRef='q:largestAbelianSubgroupNop' or
-                      @dictRef='cc:nuclearRepulsionEnergy'   or
+                      @dictRef='cc:Energy_NucRep'            or
                       @dictRef='cc:numAlphaElectrons'        or
                       @dictRef='cc:numBetaElectrons'
     ]" />
@@ -56,12 +56,12 @@
                       @dictRef='q:pointGroupNop'             or
                       @dictRef='q:largestAbelianSubgroup'    or
                       @dictRef='q:largestAbelianSubgroupNop' or
-                      @dictRef='cc:nuclearRepulsionEnergy'   or
+                      @dictRef='cc:Energy_NucRep'            or
                       @dictRef='cc:numAlphaElectrons'        or
                       @dictRef='cc:numBetaElectrons'
     ]" />
   <transform process="addUnits" value="nonSi:hartree"
-    xpath="./cml:property[@dictRef='cc:nuclearRepulsionEnergy']/cml:scalar" />
+    xpath="./cml:property[@dictRef='cc:Energy_NucRep']/cml:scalar" />
   <transform process="moveRelative" xpath="./cml:property" to="../cml:molecule" />
 
 
@@ -121,7 +121,7 @@
         <property dictRef="q:largestAbelianSubgroupNop">
           <scalar dataType="xsd:integer">2</scalar>
         </property>
-        <property dictRef="cc:nuclearRepulsionEnergy">
+        <property dictRef="cc:Energy_NucRep">
           <scalar dataType="xsd:double" units="nonSi:hartree">40.3447830971</scalar>
         </property>
         <property dictRef="cc:numAlphaElectrons">
