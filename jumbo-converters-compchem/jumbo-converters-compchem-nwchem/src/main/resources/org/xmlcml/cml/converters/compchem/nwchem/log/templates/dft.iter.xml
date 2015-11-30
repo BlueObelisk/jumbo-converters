@@ -37,7 +37,7 @@
   
   <templateList>
     <template pattern="\s*d\=.*" endPattern=".*" repeat="*" id="cycle">
-      <record id="converge" repeat="*">\s*d\=\s*{I,n:d}\,ls={F,n:ls}\,diis\s*{I,compchem:iterationIndex}\s*{F,compchem:totalEnergy}\s*{E,n:deltae}\s*{E,n:rms}\s*{E,n:diserr}\s*{F,compchem:wallTime}</record>
+      <record id="converge" repeat="*">\s*d\=\s*{I,n:d}\,ls={F,n:ls}\,diis\s*{I,compchem:iterationIndex}\s*{F,compchem:Energy_total}\s*{E,n:deltae}\s*{E,n:rms}\s*{E,n:diserr}\s*{F,compchem:wallTime}</record>
     </template>
     <xi:include href="dft.warn.density.xml"/>
   </templateList>
@@ -52,7 +52,7 @@
   
   <!-- Add Units -->
   <transform process="addUnits"
-  xpath=".//cml:scalar[@dictRef='compchem:totalEnergy']"
+  xpath=".//cml:scalar[@dictRef='compchem:Energy_total']"
   value="nonsi:hartree"
   />
   <transform process="addUnits"
@@ -161,7 +161,7 @@
 <scalar dataType="xsd:double" dictRef="n:diserr">9.95</scalar>
 <module id="finalization" dictRef="compchem:finalization">
 <propertyList>
-<property dictRef="compchem:totalEnergy">
+<property dictRef="compchem:Energy_total">
 <scalar dataType="xsd:double" units="nonsi:hartree">-1822.8247493675</scalar>
 </property>
 <property dictRef="compchem:wallTime">
@@ -191,7 +191,7 @@
 <scalar dataType="xsd:double" dictRef="n:diserr">67.8</scalar>
 <module id="finalization" dictRef="compchem:finalization">
 <propertyList>
-<property dictRef="compchem:totalEnergy">
+<property dictRef="compchem:Energy_total">
 <scalar dataType="xsd:double" units="nonsi:hartree">-1811.2270745263</scalar>
 </property>
 <property dictRef="compchem:wallTime">
@@ -221,7 +221,7 @@
 <scalar dataType="xsd:double" dictRef="n:diserr">1.05E-7</scalar>
 <module id="finalization" dictRef="compchem:finalization">
 <propertyList>
-<property dictRef="compchem:totalEnergy">
+<property dictRef="compchem:Energy_total">
 <scalar dataType="xsd:double" units="nonsi:hartree">-1823.6801961701</scalar>
 </property>
 <property dictRef="compchem:wallTime">
@@ -260,7 +260,7 @@
 </module>
 <module id="finalization" dictRef="compchem:finalization">
 <propertyList>
-<property dictRef="compchem:totalEnergy">
+<property dictRef="compchem:Energy_total">
 <scalar dataType="xsd:double" units="nonsi:hartree">-311.0881921353</scalar>
 </property>
 <property dictRef="compchem:wallTime">
@@ -294,7 +294,7 @@
 </module>
 <module id="finalization" dictRef="compchem:finalization">
 <propertyList>
-<property dictRef="compchem:totalEnergy">
+<property dictRef="compchem:Energy_total">
 <scalar dataType="xsd:double" units="nonsi:hartree">-311.0885755592</scalar>
 </property>
 <property dictRef="compchem:wallTime">
@@ -328,7 +328,7 @@
 </module>
 <module id="finalization" dictRef="compchem:finalization">
 <propertyList>
-<property dictRef="compchem:totalEnergy">
+<property dictRef="compchem:Energy_total">
 <scalar dataType="xsd:double" units="nonsi:hartree">-311.0885727791</scalar>
 </property>
 <property dictRef="compchem:wallTime">
@@ -362,7 +362,7 @@
 </module>
 <module id="finalization" dictRef="compchem:finalization">
 <propertyList>
-<property dictRef="compchem:totalEnergy">
+<property dictRef="compchem:Energy_total">
 <scalar dataType="xsd:double" units="nonsi:hartree">-311.0886135492</scalar>
 </property>
 <property dictRef="compchem:wallTime">
@@ -392,7 +392,7 @@
 <scalar dataType="xsd:double" dictRef="n:diserr">4.82E-7</scalar>
 <module id="finalization" dictRef="compchem:finalization">
 <propertyList>
-<property dictRef="compchem:totalEnergy">
+<property dictRef="compchem:Energy_total">
 <scalar dataType="xsd:double" units="nonsi:hartree">-311.0886138331</scalar>
 </property>
 <property dictRef="compchem:wallTime">

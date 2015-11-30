@@ -69,16 +69,16 @@ public class NWChemLog2CompchemConverterTest {
         nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initialGuess']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:task']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("initialGuess", nodes.get(0).getValue());
-        // e1Energy for initialGuess
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initialGuess']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:e1Energy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        // Energy_1e for initialGuess
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initialGuess']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_1e']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-121.780484", nodes.get(0).getValue());
-        // 2nd SCF iteration totalEnergy
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation'][position()=3]/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:totalEnergy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        // 2nd SCF iteration Energy_total
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation'][position()=3]/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_total']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-74.962154715", nodes.get(0).getValue());
-        //Final totalEnergy
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:totalEnergy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        //Final Energy_total
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_total']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-74.962985614357", nodes.get(0).getValue());
         // scf wallTime
@@ -126,16 +126,16 @@ public class NWChemLog2CompchemConverterTest {
         nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initialGuess']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:task']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("initialGuess", nodes.get(0).getValue());
-        // e1Energy for initialGuess
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initialGuess']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:e1Energy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        // Energy_1e for initialGuess
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initialGuess']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_1e']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-121.780484", nodes.get(0).getValue());
-        // 2nd SCF iteration totalEnergy
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation'][position()=3]/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:totalEnergy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        // 2nd SCF iteration Energy_total
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation'][position()=3]/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_total']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-74.9625138416", nodes.get(0).getValue());
-        //Final totalEnergy
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:totalEnergy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        //Final Energy_total
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_total']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-74.962985614676", nodes.get(0).getValue());
         // scf wallTime
@@ -173,16 +173,16 @@ public class NWChemLog2CompchemConverterTest {
         nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initialGuess']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:task']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("initialGuess", nodes.get(0).getValue());
-        // e1Energy for initialGuess
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initialGuess']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:e1Energy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        // Energy_1e for initialGuess
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initialGuess']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_1e']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-121.780484", nodes.get(0).getValue());
         // 2nd DFT iteration energy
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='iteration'][position()=3]/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:totalEnergy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='iteration'][position()=3]/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_total']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-75.3124327277", nodes.get(0).getValue()); 
-        // Final totalEnergy
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:totalEnergy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        // Final Energy_total
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_total']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-75.312451071835", nodes.get(0).getValue());
         // dft wallTime
@@ -208,7 +208,7 @@ public class NWChemLog2CompchemConverterTest {
         assertFalse(nodes.isEmpty());
         assertEquals("0.0", nodes.get(0).getValue());
         // Final Energy
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:totalEnergy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_total']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-74.96590119", nodes.get(0).getValue());
         // Get z coordinate of first atom to test we have the correct molecule
@@ -242,7 +242,7 @@ public class NWChemLog2CompchemConverterTest {
         assertFalse(nodes.isEmpty());
         assertEquals("B3LYP", nodes.get(0).getValue());
         // Final Energy
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:totalEnergy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_total']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-75.3227749", nodes.get(0).getValue());
         // Get z coordinate of first atom to test we have the correct molecule
@@ -282,16 +282,16 @@ public class NWChemLog2CompchemConverterTest {
         nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initialGuess']/cml:module[@dictRef='compchem:initialization']/cml:parameterList/cml:parameter[@dictRef='compchem:task']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("initialGuess", nodes.get(0).getValue());
-        // e1Energy for initialGuess
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initialGuess']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:e1Energy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        // Energy_1e for initialGuess
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation' and @id='initialGuess']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_1e']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-709.201704", nodes.get(0).getValue());
-        // 2nd SCF iteration totalEnergy
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation'][position()=3]/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:totalEnergy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        // 2nd SCF iteration Energy_total
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']//cml:module[@dictRef='compchem:calculation'][position()=3]/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_total']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-229.4183271268", nodes.get(0).getValue());
-        //Final totalEnergy
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:totalEnergy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        //Final Energy_total
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_total']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-229.94606251021", nodes.get(0).getValue());
     }
@@ -312,7 +312,7 @@ public class NWChemLog2CompchemConverterTest {
         assertFalse(nodes.isEmpty());
         assertEquals("0.0", nodes.get(0).getValue());
         // Final Energy
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:totalEnergy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job']/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_total']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-75.00613631", nodes.get(0).getValue());
         // Get z coordinate of first atom to test we have the correct molecule
@@ -341,7 +341,7 @@ public class NWChemLog2CompchemConverterTest {
         assertEquals("cc-pvqz", nodes.get(0).getValue());
         
         // 1st Job - Final Energy
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job' and position()=1]/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:totalEnergy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job' and position()=1]/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_total']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-527.110448613487", nodes.get(0).getValue());
         
@@ -361,7 +361,7 @@ public class NWChemLog2CompchemConverterTest {
         assertEquals("0.0", nodes.get(0).getValue());
         
         // 2nd Job - Final Energy
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job' and position()=2]/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:totalEnergy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job' and position()=2]/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_total']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-527.110448613487", nodes.get(0).getValue());
         
@@ -381,7 +381,7 @@ public class NWChemLog2CompchemConverterTest {
         assertEquals("0.0", nodes.get(0).getValue());
         
         // 3rd Job - Final Energy
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job' and position()=3]/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:totalEnergy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job' and position()=3]/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_total']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-527.110443784669", nodes.get(0).getValue());
         
@@ -412,7 +412,7 @@ public class NWChemLog2CompchemConverterTest {
         assertEquals("6-31g**", nodes.get(0).getValue());
         
         // 1st Job - Final Energy
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job' and position()=1]/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:totalEnergy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job' and position()=1]/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_total']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-38.857160053103", nodes.get(0).getValue());
         
@@ -437,7 +437,7 @@ public class NWChemLog2CompchemConverterTest {
         assertEquals("0.205", nodes.get(0).getValue());
         
         // 2nd Job - Final Energy
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job' and position()=2]/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:totalEnergy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job' and position()=2]/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_total']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-38.95876065", nodes.get(0).getValue());
         
@@ -459,7 +459,7 @@ public class NWChemLog2CompchemConverterTest {
         assertEquals("0.23336589", nodes.get(0).getValue());
         
         // 3rd Job - Final Energy
-        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job' and position()=3]/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:totalEnergy']/cml:scalar/text()", CMLConstants.CML_XPATH);
+        nodes = CMLUtil.getQueryNodes(doc, "/cml:*[@convention='convention:compchem']/cml:module[@dictRef='compchem:jobList']/cml:module[@dictRef='compchem:job' and position()=3]/cml:module[@dictRef='compchem:finalization']/cml:propertyList/cml:property[@dictRef='compchem:Energy_total']/cml:scalar/text()", CMLConstants.CML_XPATH);
         assertFalse(nodes.isEmpty());
         assertEquals("-38.916059261199", nodes.get(0).getValue());
         

@@ -165,16 +165,16 @@ MA usage statistics:
             pattern="\s*------+\s*$\s*SCF energy.*"
             endPattern="\s*------+\s*" endOffset="1">
             <record />
-            <record id="scfEnergy">\s*SCF energy\s*{F,compchem:scfEnergy}\s*</record>
-            <record id="correlationEnergy">\s*Correlation energy\s*{F,compchem:correlationEnergy}\s*</record>
-            <record id="totalEnergy">\s*Total MP2 energy\s*{F,compchem:totalEnergy}\s*</record>
+            <record id="Energy_SCF">\s*SCF energy\s*{F,compchem:Energy_SCF}\s*</record>
+            <record id="Energy_corr">\s*Correlation energy\s*{F,compchem:Energy_corr}\s*</record>
+            <record id="Energy_total">\s*Total MP2 energy\s*{F,compchem:Energy_total}\s*</record>
             <transform process="pullupSingleton" xpath="./cml:list" />
             <record />
             <transform process="delete"
                 xpath=".//cml:list[@cmlx:templateRef='missingID']" />
             <!-- Add Units -->
             <transform process="addUnits"
-                xpath=".//cml:scalar[@dictRef='compchem:scfEnergy' or @dictRef='compchem:correlationEnergy' or @dictRef='compchem:totalEnergy']"
+                xpath=".//cml:scalar[@dictRef='compchem:Energy_SCF' or @dictRef='compchem:Energy_corr' or @dictRef='compchem:Energy_total']"
                 value="nonsi:hartree" />
         </template>
 
@@ -303,14 +303,14 @@ Pair Ener     1     1     1    0.0     0.0     0.0     2.50E-5 5.08E-4 1.17E-3 1
 </module>
 <module id="finalization" dictRef="compchem:finalization">
 <propertyList>
-<property dictRef="compchem:scfEnergy">
-<scalar dataType="xsd:double" cmlx:templateRef="scfEnergy" units="nonsi:hartree">-526.816780174633</scalar>
+<property dictRef="compchem:Energy_SCF">
+<scalar dataType="xsd:double" cmlx:templateRef="Energy_SCF" units="nonsi:hartree">-526.816780174633</scalar>
 </property>
-<property dictRef="compchem:correlationEnergy">
-<scalar dataType="xsd:double" cmlx:templateRef="correlationEnergy" units="nonsi:hartree">-0.293663610036</scalar>
+<property dictRef="compchem:Energy_corr">
+<scalar dataType="xsd:double" cmlx:templateRef="Energy_corr" units="nonsi:hartree">-0.293663610036</scalar>
 </property>
-<property dictRef="compchem:totalEnergy">
-<scalar dataType="xsd:double" cmlx:templateRef="totalEnergy" units="nonsi:hartree">-527.110443784669</scalar>
+<property dictRef="compchem:Energy_total">
+<scalar dataType="xsd:double" cmlx:templateRef="Energy_total" units="nonsi:hartree">-527.110443784669</scalar>
 </property>
 </propertyList>
 </module>
