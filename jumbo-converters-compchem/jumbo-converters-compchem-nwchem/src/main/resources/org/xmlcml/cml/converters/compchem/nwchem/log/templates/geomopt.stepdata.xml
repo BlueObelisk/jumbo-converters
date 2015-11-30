@@ -26,7 +26,7 @@
 </comment>
   
   <record repeat="2"/>
-  <record repeat="*" id="step">.\s+{I,n:step}\s{F,compchem:totalEnergy}\s{E,n:deltae}\s{F,n:gmax}\s{F,n:grms}\s{F,n:xrms}\s{F,n:xmax}\s{F,compchem:wallTime}\s*</record>
+  <record repeat="*" id="step">.\s+{I,n:step}\s{F,compchem:Energy_total}\s{E,n:deltae}\s{F,n:gmax}\s{F,n:grms}\s{F,n:xrms}\s{F,n:xmax}\s{F,compchem:wallTime}\s*</record>
   
   <templateList>
   <template id="ok" pattern="\s*ok\s*.*" endPattern=".*" repeat="1">
@@ -40,7 +40,7 @@
   
     <!-- Add Units -->
   <transform process="addUnits"
-  xpath=".//cml:scalar[@dictRef='compchem:totalEnergy']"
+  xpath=".//cml:scalar[@dictRef='compchem:Energy_total']"
   value="nonsi:hartree"
   />
   <transform process="addUnits"
@@ -52,7 +52,7 @@
 <module cmlx:templateRef="stepdata" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <list cmlx:templateRef="step">
     <scalar dataType="xsd:integer" dictRef="n:step">14</scalar>
-    <scalar dataType="xsd:double" dictRef="compchem:totalEnergy" units="nonsi:hartree">-311.09022722</scalar>
+    <scalar dataType="xsd:double" dictRef="compchem:Energy_total" units="nonsi:hartree">-311.09022722</scalar>
     <scalar dataType="xsd:double" dictRef="n:deltae">-3.5E-7</scalar>
     <scalar dataType="xsd:double" dictRef="n:gmax">5.0E-5</scalar>
     <scalar dataType="xsd:double" dictRef="n:grms">1.0E-5</scalar>
@@ -70,7 +70,7 @@
 <module cmlx:templateRef="stepdata" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <list cmlx:templateRef="step">
     <scalar dataType="xsd:integer" dictRef="n:step">0</scalar>
-    <scalar dataType="xsd:double" dictRef="compchem:totalEnergy" units="nonsi:hartree">-311.08740715</scalar>
+    <scalar dataType="xsd:double" dictRef="compchem:Energy_total" units="nonsi:hartree">-311.08740715</scalar>
     <scalar dataType="xsd:double" dictRef="n:deltae">0.0</scalar>
     <scalar dataType="xsd:double" dictRef="n:gmax">0.00836</scalar>
     <scalar dataType="xsd:double" dictRef="n:grms">0.00198</scalar>
@@ -88,7 +88,7 @@
 <module cmlx:templateRef="stepdata" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
   <list cmlx:templateRef="step">
     <scalar dataType="xsd:integer" dictRef="n:step">0</scalar>
-    <scalar dataType="xsd:double" dictRef="compchem:totalEnergy" units="nonsi:hartree">-74.96298561</scalar>
+    <scalar dataType="xsd:double" dictRef="compchem:Energy_total" units="nonsi:hartree">-74.96298561</scalar>
     <scalar dataType="xsd:double" dictRef="n:deltae">0.0</scalar>
     <scalar dataType="xsd:double" dictRef="n:gmax">0.03787</scalar>
     <scalar dataType="xsd:double" dictRef="n:grms">0.03139</scalar>

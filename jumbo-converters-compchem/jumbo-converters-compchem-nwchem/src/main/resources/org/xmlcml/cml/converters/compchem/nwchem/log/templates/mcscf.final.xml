@@ -20,7 +20,7 @@
 
 
   <record repeat="3"/>
-  <record id="mcscfEnergy" >\s*Total MCSCF energy =\s*{F,compchem:totalEnergy}\s*</record>
+  <record id="mcscfEnergy" >\s*Total MCSCF energy =\s*{F,compchem:Energy_total}\s*</record>
   <record id="gradientNorm" >\s*Gradient norm =\s*{E,n:mcscfGradientNorm}\s*</record>
   <record/>
   <record id="cpuTime" >\s*CPU time for solution =\s*{F,compchem:cpuTime}s\s*</record>
@@ -30,7 +30,7 @@
   
   <!-- Add Units -->
   <transform process="addUnits"
-  xpath=".//cml:scalar[@dictRef='compchem:totalEnergy']"
+  xpath=".//cml:scalar[@dictRef='compchem:Energy_total']"
   value="nonsi:hartree"
   />
       <!-- Add Units -->
@@ -42,7 +42,7 @@
 
   <comment class="example.output" id="nwchemmp2">
 <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="mcscfFinal">
-<scalar dataType="xsd:double" dictRef="compchem:totalEnergy" cmlx:templateRef="mcscfEnergy" units="nonsi:hartree">-38.958551397273</scalar>
+<scalar dataType="xsd:double" dictRef="compchem:Energy_total" cmlx:templateRef="mcscfEnergy" units="nonsi:hartree">-38.958551397273</scalar>
 <scalar dataType="xsd:double" dictRef="n:mcscfGradientNorm" cmlx:templateRef="gradientNorm">5.6E-5</scalar>
 <scalar dataType="xsd:double" dictRef="compchem:cpuTime" cmlx:templateRef="cpuTime" units="si:s">2.5</scalar>
 <scalar dataType="xsd:double" dictRef="compchem:wallTime" cmlx:templateRef="wallTime" units="si:s">4.7</scalar>
