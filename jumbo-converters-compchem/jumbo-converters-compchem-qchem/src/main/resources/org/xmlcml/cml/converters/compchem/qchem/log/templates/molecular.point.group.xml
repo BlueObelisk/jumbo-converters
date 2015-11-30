@@ -12,12 +12,12 @@
 
 	<record id="mol.point.group">\s*Molecular Point Group\s+{X,cc:pointGroup}\s+NOp\s+=\s+{I,q:molecularPointGroupNOp}\s*</record>
 	<record id="abelian.Subgroup">\s*Largest Abelian Subgroup\s+{X,q:abelianSubgroup}\s+NOp\s+=\s+{I,q:abelianSubgroupNOp}\s*</record>
-	<record id="nuclear.repulsion.energy">\s*Nuclear Repulsion Energy\s+=\s+{F,cc:nuclearRepulsionEnergy}.+</record>
+	<record id="nuclear.repulsion.energy">\s*Nuclear Repulsion Energy\s+=\s+{F,cc:Energy_NucRep}.+</record>
 
 	<transform process="move" xpath=".//cml:list/cml:list/cml:scalar" to="." />
 	<transform process="move" xpath=".//cml:list/cml:scalar" to="." />
 
-	<transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:nuclearRepulsionEnergy']" value="nonSi:hartree" />
+	<transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:Energy_NucRep']" value="nonSi:hartree" />
 
 	<transform process="createWrapperProperty" xpath=".//cml:scalar[contains(@dictRef,'cc:') or contains(@dictRef,'q:')]" />
 
@@ -39,7 +39,7 @@
 		<property dictRef="q:abelianSubgroupNOp">
 			<scalar dataType="xsd:integer">2</scalar>
 		</property>
-		<property dictRef="cc:nuclearRepulsionEnergy">
+		<property dictRef="cc:Energy_NucRep">
 			<scalar dataType="xsd:double" units="nonSi:hartree">13.8390061377</scalar>
 		</property>
 		</module>
