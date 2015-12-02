@@ -135,6 +135,129 @@ $end
   <transform process="createString"
              xpath=".//cml:scalar[@id='copy.0' and not(contains(text(),'None'))]" />
   <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='q:exchange' and @id='copy.0']" value="cc:method" />
+  <transform process="setValue" xpath=".//cml:scalar[@dictRef='cc:method' and contains(text(),' ')]" 
+  			 value="$string(../cml:scalar[@dictRef='q:correlation'])" />
+
+  <!-- determine cc:dftFunctionalLabel if cc:method contains a DFT functional label-->
+  <transform process="copy" to=".." 
+  			 xpath=".//cml:scalar[@dictRef='cc:method' and (
+             contains(text(),'HFS')      or 
+             contains(text(),'XAlpha')    or 
+             contains(text(),'HFB')       or 
+             contains(text(),'VSXC')      or 
+             contains(text(),'HCTH')      or 
+             contains(text(),'HCTH93')    or 
+             contains(text(),'HCTH147')   or 
+             contains(text(),'HCTH407')   or 
+             contains(text(),'tHCTH')     or 
+             contains(text(),'M06L')      or 
+             contains(text(),'B97D')      or 
+             contains(text(),'B97D3')     or 
+             contains(text(),'SOGGA11')   or 
+             contains(text(),'M11L')      or 
+             contains(text(),'N12')       or 
+             contains(text(),'MN12L')     or 
+             contains(text(),'B3LYP')     or 
+             contains(text(),'Becke3LYP') or
+             contains(text(),'B3P86')     or 
+             contains(text(),'B3PW91')    or 
+             contains(text(),'B1B95')     or 
+             contains(text(),'mPW1PW91')  or 
+             contains(text(),'mPW1LYP')   or 
+             contains(text(),'mPW1PBE')   or 
+             contains(text(),'mPW3PBE')   or 
+             contains(text(),'B98')       or 
+             contains(text(),'B971')      or 
+             contains(text(),'B972')      or 
+             contains(text(),'PBE1PBE')   or 
+             contains(text(),'B1LYP')     or 
+             contains(text(),'O3LYP')     or 
+             contains(text(),'BHandH')    or 
+             contains(text(),'BHandHLYP') or 
+             contains(text(),'BMK')       or 
+             contains(text(),'M06')       or 
+             contains(text(),'M06HF')     or 
+             contains(text(),'M062X')     or 
+             contains(text(),'tHCTHhyb')  or 
+             contains(text(),'APFD')      or 
+             contains(text(),'APF')       or 
+             contains(text(),'SOGGA11X')  or 
+             contains(text(),'PBEh1PBE')  or 
+             contains(text(),'TPSSh')     or 
+             contains(text(),'X3LYP')     or 
+             contains(text(),'HSEH1PBE')  or 
+             contains(text(),'OHSE2PBE')  or 
+             contains(text(),'OHSE1PBE')  or 
+             contains(text(),'wB97XD')    or 
+             contains(text(),'wB97')      or 
+             contains(text(),'wB97X')     or 
+             contains(text(),'LC-wPBE')   or
+             contains(text(),'CAM-B3LYP') or 
+             contains(text(),'HISSbPBE')  or 
+             contains(text(),'M11')       or 
+             contains(text(),'N12SX')     or 
+             contains(text(),'MN12SX'))]" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0.copy']" value="cc:dftFunctionalLabel" />
+
+  <!-- set cc:method to DFT if it contains a DFT functional label -->
+  <transform process="setValue" value="DFT" 
+  			 xpath=".//cml:scalar[@dictRef='cc:method' and (
+             contains(text(),'HFS')      or 
+             contains(text(),'XAlpha')    or 
+             contains(text(),'HFB')       or 
+             contains(text(),'VSXC')      or 
+             contains(text(),'HCTH')      or 
+             contains(text(),'HCTH93')    or 
+             contains(text(),'HCTH147')   or 
+             contains(text(),'HCTH407')   or 
+             contains(text(),'tHCTH')     or 
+             contains(text(),'M06L')      or 
+             contains(text(),'B97D')      or 
+             contains(text(),'B97D3')     or 
+             contains(text(),'SOGGA11')   or 
+             contains(text(),'M11L')      or 
+             contains(text(),'N12')       or 
+             contains(text(),'MN12L')     or 
+             contains(text(),'B3LYP')     or 
+             contains(text(),'Becke3LYP') or
+             contains(text(),'B3P86')     or 
+             contains(text(),'B3PW91')    or 
+             contains(text(),'B1B95')     or 
+             contains(text(),'mPW1PW91')  or 
+             contains(text(),'mPW1LYP')   or 
+             contains(text(),'mPW1PBE')   or 
+             contains(text(),'mPW3PBE')   or 
+             contains(text(),'B98')       or 
+             contains(text(),'B971')      or 
+             contains(text(),'B972')      or 
+             contains(text(),'PBE1PBE')   or 
+             contains(text(),'B1LYP')     or 
+             contains(text(),'O3LYP')     or 
+             contains(text(),'BHandH')    or 
+             contains(text(),'BHandHLYP') or 
+             contains(text(),'BMK')       or 
+             contains(text(),'M06')       or 
+             contains(text(),'M06HF')     or 
+             contains(text(),'M062X')     or 
+             contains(text(),'tHCTHhyb')  or 
+             contains(text(),'APFD')      or 
+             contains(text(),'APF')       or 
+             contains(text(),'SOGGA11X')  or 
+             contains(text(),'PBEh1PBE')  or 
+             contains(text(),'TPSSh')     or 
+             contains(text(),'X3LYP')     or 
+             contains(text(),'HSEH1PBE')  or 
+             contains(text(),'OHSE2PBE')  or 
+             contains(text(),'OHSE1PBE')  or 
+             contains(text(),'wB97XD')    or 
+             contains(text(),'wB97')      or 
+             contains(text(),'wB97X')     or 
+             contains(text(),'LC-wPBE')   or
+             contains(text(),'CAM-B3LYP') or 
+             contains(text(),'HISSbPBE')  or 
+             contains(text(),'M11')       or 
+             contains(text(),'N12SX')     or 
+             contains(text(),'MN12SX'))]" />
   <transform process="delete" xpath=".//cml:scalar[@dictRef='q:correlation' and @id='copy.0']" />
 
   <!-- determine cc:task from JOBTYPE -->
@@ -149,16 +272,9 @@ $end
              xpath=".//cml:scalar[@dictRef='q:jobType' and @id='copy.0' and contains(text(),'Force')]" />
   <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='q:jobType' and @id='copy.0']" value="cc:task" />
   
-
-  <!-- <transform process="setValue" xpath=".//cml:scalar[@dictRef='q:correlation' and @id='copy.0' and not(contains(text(),'None'))]" 
-             value="$string(../cml:scalar[@dictRef='q:exchange']) $string(.)" />
-  <transform process="setValue" xpath=".//cml:scalar[@dictRef='q:correlation' and @id='copy.0' and contains(text(),'None')]" 
-             value="$string(../cml:scalar[@dictRef='q:exchange'])" />
-  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='q:correlation'][2]" value="cc:method" /> -->
-
   <!-- wrap scalars as parameters -->
   <transform process="createWrapperParameter" xpath=".//cml:list[@dictRef='q:userInput']" />
-  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='q:jobType' or @dictRef='q:exchange' or @dictRef='q:correlation' or @dictRef='cc:title' or @dictRef='cc:method' or @dictRef='cc:task']" />
+  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='q:jobType' or @dictRef='q:exchange' or @dictRef='q:correlation' or @dictRef='cc:title' or @dictRef='cc:method' or @dictRef='cc:task' or @dictRef='cc:dftFunctionalLabel']" />
 
   <!-- CLEAN UP -->
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
@@ -289,8 +405,11 @@ $end
         <scalar dataType="xsd:string" cmlx:templateRef="reparse">Methane B3LYP 6-31G(d)</scalar>
       </parameter>
       <parameter dictRef="cc:method">
-        <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">Becke3LYP</scalar>
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">DFT</scalar>
       </parameter>
+      <parameter dictRef="cc:dftFunctionalLabel">
+		<scalar cmlx:templateRef="reparse" dataType="xsd:string" id="copy.0.copy">Becke3LYP</scalar>
+	  </parameter>
       <parameter dictRef="cc:task">
         <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">geometry_optimization</scalar>
       </parameter>
@@ -336,7 +455,7 @@ $end
         <scalar dataType="xsd:string" cmlx:templateRef="reparse">Methanol MP2 6-31G(d)</scalar>
       </parameter>
       <parameter dictRef="cc:method">
-        <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">HF MP2</scalar>
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">MP2</scalar>
       </parameter>
       <parameter dictRef="cc:task">
         <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">geometry_optimization</scalar>
