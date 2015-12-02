@@ -88,14 +88,16 @@
   <transform process="createArray" xpath=".//cml:scalar[@dictRef='x:Polar']" 
     delimiter="|" splitter="," from="." dictRef="cc:polarizability" dataType="xsd:double"/>
 
-
   <!-- determine cc:wavefunctionType from cc:method -->
   <transform process="copy" to=".." xpath=".//cml:scalar[@dictRef='cc:method']" />
-  <transform process="setValue"     value="restricted open shell"
+  <transform process="setValue"   value="restricted open shell"
              xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0' and starts-with(./text(),'RO')]"  />
-  <transform process="setValue" xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0' and starts-with(./text(),'R')]" value="closed shell" />
-  <transform process="setValue" xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0' and starts-with(./text(),'U')]" value="open shell" />
-  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0']" value="cc:wavefunctionType" />
+  <transform process="setValue"   value="closed shell"
+             xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0' and starts-with(./text(),'R')]" />
+  <transform process="setValue"   value="open shell"
+             xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0' and starts-with(./text(),'U')]" />
+  <transform process="addDictRef" value="cc:wavefunctionType"
+             xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0']" />
 
   <!-- determine cc:dftFunctionalLabel from cc:method -->
   <transform process="copy"     to=".." 
