@@ -214,6 +214,7 @@ public class TransformElement implements MarkupApplier {
 	// molecule operations (move elsewhere later)
 
 	private static final String UNIT_SI_URI = "http://www.xml-cml.org/unit/si/";
+	private static final String UNIT_NONSI_URI = "http://www.xml-cml.org/unit/nonSi/";
 //	private static final String COMPCHEM_URI = "http://www.xml-cml.org/unit/dictionary/compchem";
 //	private static final String COMPCHEM = "compchem";
 	private static final String COMPCHEM_CC = "cc";
@@ -2750,7 +2751,7 @@ public class TransformElement implements MarkupApplier {
 		double mwt = moleculeTool.getCalculatedMolecularMass(HydrogenControl.USE_HYDROGEN_COUNT);
 //		double mwt = moleculeTool.getCalculatedMolecularMass();
 		CMLScalar scmwt = new CMLScalar(mwt);
-		scmwt.setUnits("unit", "dalton", UNIT_SI_URI);
+		scmwt.setUnits("unit", "dalton", UNIT_NONSI_URI);
 		CMLProperty mmprop = new CMLProperty(); 
 		mmprop.setDictRef("cml:molmass");
 		mmprop.appendChild(scmwt);

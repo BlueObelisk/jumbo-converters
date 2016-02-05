@@ -729,7 +729,7 @@ public class TransformTest {
 			"      <atomArray elementType='C H N' count='1.0 1.0 1.0'/>" +
 			"    </formula>" +
 			"    <property dictRef='cml:molmass'>" +
-			"      <scalar dataType='xsd:double' units='unit:dalton' xmlns:unit='http://www.xml-cml.org/unit/si/'>26.017400000000002</scalar>" +
+			"      <scalar dataType='xsd:double' units='unit:dalton' xmlns:unit='http://www.xml-cml.org/unit/nonSi/'>26.017400000000002</scalar>" +
 			"    </property>" +
 			"  </molecule>" +
 			"</list>"
