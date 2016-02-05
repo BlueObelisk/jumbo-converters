@@ -583,33 +583,30 @@ public class TransformTest {
 	}
 	
 	@Test 
-		@Ignore
 	public void testCreateDate() {
 		Element foo = new Element("foo");
-		CMLScalar scalar = new CMLScalar("Thu Apr  7 17:04:52 2011");
+		CMLScalar scalar = new CMLScalar("Wed Apr  6 17:04:52 2011");
 		foo.appendChild(scalar);
 		runTest("createDate", 
-			"<transform process='createDate' xpath='./cml:scalar' format='EEE MMM d HH:mm:ss yyyy'/>",
+			"<transform process='createDate' xpath='./cml:scalar' format='EEE MMM  d HH:mm:ss yyyy'/>",
 			foo,
-			"<foo><scalar dataType='xsd:string' xmlns='http://www.xml-cml.org/schema'>Thu Apr  7 17:04:52 2011</scalar></foo>"
+			"<foo><scalar dataType='xsd:date' xmlns='http://www.xml-cml.org/schema'>2011-04-06T17:04:52Z</scalar></foo>"
 			);
 	}
 	
 	@Test 
-	@Ignore
 	public void testCreateDate1() {
 		Element foo = new Element("foo");
 		CMLScalar scalar = new CMLScalar("Thu Apr  7 17:04:52 2011");
 		foo.appendChild(scalar);
 		runTest("createDate", 
-			"<transform process='createDate' xpath='./cml:scalar' format='EEE MMM  d HH:mm:ss yyyy'/>",
+			"<transform process='createDate' xpath='./cml:scalar' format='EEE MMM dd HH:mm:ss yyyy'/>",
 			foo,
 			"<foo><scalar dataType='xsd:date' xmlns='http://www.xml-cml.org/schema'>2011-04-07T17:04:52Z</scalar></foo>"
 			);
 	}
 	
 	@Test 
-	@Ignore
 	public void testCreateDate2() {
 		Element foo = new Element("foo");
 		CMLScalar scalar = new CMLScalar("Thu Apr 14 17:04:52 2011");
@@ -620,7 +617,20 @@ public class TransformTest {
 			"<foo><scalar dataType='xsd:date' xmlns='http://www.xml-cml.org/schema'>2011-04-14T17:04:52Z</scalar></foo>"
 			);
 	}
-	
+
+	@Test
+	public void testCreateDate3() {
+		Element foo = new Element("foo");
+		CMLScalar scalar = new CMLScalar("0 days  0 hours  0 minutes 12.7 seconds");
+		foo.appendChild(scalar);
+		runTest("createDate",
+				"<transform process='createDate' xpath='./cml:scalar' format='DHMS'/>",
+				foo,
+				"<foo><scalar dataType='xsd:string' xmlns='http://www.xml-cml.org/schema'>PT12.700S</scalar></foo>"
+		);
+	}
+
+
 	@Test 
 	public void testCreateDouble0() {
 		runTest("createDouble", 

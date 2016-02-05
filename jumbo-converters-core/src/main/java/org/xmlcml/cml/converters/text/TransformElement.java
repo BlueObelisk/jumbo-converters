@@ -1072,24 +1072,31 @@ public class TransformElement implements MarkupApplier {
 			if (node instanceof CMLScalar) {
 				CMLScalar scalar = (CMLScalar) node;
 				String val = scalar.getValue();
-				val = val.replaceAll(" +", " "); // JodaDate chokes on extranous spaces
 				try {
-					Object dateTimeDuration = null;
+					Object dateTimeDuration;
 					if (DHMS.equals(format)) {
+						// Duration
 						dateTimeDuration = createDMHS(val);
-					} else if (format != null) {
-						dateTimeDuration = JodaDate.parseDate(val, format);
+						scalar.setValue(dateTimeDuration.toString());
 					} else {
-						dateTimeDuration = JodaDate.parseDate(val);
+						// Date
+						if (format != null) {
+							if (format.equals("EEE MMM d HH:mm:ss yyyy") ||
+								format.equals("EEE MMM dd HH:mm:ss yyyy") )
+								val = val.replaceAll(" +", " "); // JodaDate chokes on extranous spaces
+							dateTimeDuration = JodaDate.parseDate(val, format);
+						} else {
+							dateTimeDuration = JodaDate.parseDate(val);
+						}
+						scalar.setValue(dateTimeDuration.toString());
+						if (dictRef != null) {
+							scalar.setDictRef(dictRef);
+						}
+						// create new scalar and replace
+						CMLScalar date = new CMLScalar((DateTime) dateTimeDuration);
+						date.setDictRef(scalar.getDictRef());
+						scalar.getParent().replaceChild(scalar, date);
 					}
-					scalar.setValue(dateTimeDuration.toString());
-					if (dictRef != null) {
-						scalar.setDictRef(dictRef);
-					}
-					// create new scalar and replace
-					CMLScalar date = new CMLScalar((DateTime)dateTimeDuration);
-					date.setDictRef(scalar.getDictRef());
-					scalar.getParent().replaceChild(scalar, date);
 				} catch (Exception e) {
 					LOG.warn("Cannot parse/set date/duration: "+val+ " (format='"+format+"'); "+e);
 				}
