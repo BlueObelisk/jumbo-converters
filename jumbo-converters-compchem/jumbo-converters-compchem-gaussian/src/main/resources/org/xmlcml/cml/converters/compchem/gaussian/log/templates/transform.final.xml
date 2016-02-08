@@ -58,12 +58,52 @@
   
  <!-- wrap all properties -->
   <transform process="createWrapperProperty" xpath="//cml:module[@id='finalization']/cml:propertyList/*" />  
-  <transform process="createWrapper" xpath="//cml:module[@id='finalization']/cml:propertyList/cml:module" elementName="cml:property"/>  
+  <transform process="createWrapper" xpath="//cml:module[@id='finalization']/cml:propertyList/cml:module" elementName="cml:property"/>
 
   <xi:include href="transform.l716.tidy.xml"/>
   <xi:include href="transform.l601.tidy.xml"/>
 
-  <transform process="delete" xpath="//cml:module[@id='finalization']//cml:property/cml:module[count(*)=0]"/>  
+  <transform process="delete" xpath="//cml:module[@id='finalization']//cml:property/cml:module[count(*)=0]"/>
+
+  <!-- create and update thermochemistry module -->
   
+  <transform process="addChild"
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']"
+             elementName="cml:module"
+             dictRef="cc:thermochemistry" />
+
+  <transform process="moveRelative" xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:property[contains(@dictRef,'thermochemistry')]"
+             to="../../cml:module[@dictRef='cc:thermochemistry']" />
+
+  <transform process="addChild"
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:thermochemistry']"
+             elementName="cml:parameterList" />
   
+  <transform process="moveRelative" to="../../../cml:parameterList"
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:thermochemistry']/cml:property[@dictRef='cc:thermochemistry']//cml:scalar[@dictRef='cc:temp' or @dictRef='cc:press']" />
+
+  <transform process="addChild"
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:thermochemistry']"
+             elementName="cml:propertyList" />
+
+  <transform process="moveRelative" to="../../cml:propertyList"
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:thermochemistry']/cml:property[contains(@dictRef,'cc:thermochemistry')]/cml:list" />
+
+  <transform process="pullup" xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:thermochemistry']/cml:propertyList/cml:list/cml:list/cml:array" />
+  <transform process="pullup" xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:thermochemistry']/cml:propertyList/cml:list/cml:scalar" />
+  <transform process="pullup" xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:thermochemistry']/cml:propertyList/cml:list/cml:array" />
+
+  <transform process="createWrapperParameter" 
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:thermochemistry']/cml:parameterList/cml:scalar[contains(@dictRef,'cc:')]" />
+  <transform process="createWrapperProperty"  
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:thermochemistry']/cml:propertyList/cml:scalar[contains(@dictRef,'cc:')]" />
+  <transform process="createWrapperProperty"  
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:thermochemistry']/cml:propertyList/cml:array[contains(@dictRef,'cc:') or contains(@dictRef,'x:')]" />
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:parameterList[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:propertyList[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:module[count(*)=0]" />
 </transformList> 
