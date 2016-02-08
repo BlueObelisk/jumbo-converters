@@ -93,7 +93,7 @@ public class TemplateTest {
 			@Test	public void testl701()                       {runTemplateTest("l701");}
 			@Test	public void testl702()                       {runTemplateTest("l702");}
 			@Test	public void testl703()                       {runTemplateTest("l703");}
-	@Ignore @Test	public void testl716()                       {runTemplateTest("l716");}
+			@Test	public void testl716()                       {runTemplateTest("l716");}
 
 			@Test	public void testl716Diagvib()                {runTemplateTest("l716/", "l716.diagvib");}
 			@Test	public void testl716Dipole()                 {runTemplateTest("l716/", "l716.dipole");}
