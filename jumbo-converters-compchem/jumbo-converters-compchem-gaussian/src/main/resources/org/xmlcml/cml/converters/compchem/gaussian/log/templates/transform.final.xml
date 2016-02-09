@@ -151,7 +151,7 @@
              cml:property[@dictRef='cc:molmass' or @dictRef='cc:symmnumber'or @dictRef='cc:Energy_ZPVE' or @dictRef='cc:rottemp' or @dictRef='cc:rotconst' or @dictRef='cc:vibtemp']" />
 
   <transform process="moveRelative" to="../../cml:module[@dictRef='cc:frequencyAnalysis']/cml:propertyList"
-             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:property[@dictRef='cc:frequencies']" />
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:property[@dictRef='cc:frequencies' or @dictRef='cc:vibrations' or @dictRef='cc:forces' or @dictRef='g:l716.lowfreq']" />
 
   <!-- CLEAN UP -->
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
