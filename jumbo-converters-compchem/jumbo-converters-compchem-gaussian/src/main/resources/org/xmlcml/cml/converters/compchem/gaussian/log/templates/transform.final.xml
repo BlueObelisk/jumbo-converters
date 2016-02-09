@@ -56,7 +56,7 @@
   <transform process="pullup" xpath="//cml:module[@cmlx:templateRef='l601.polariz']/cml:array"/>
   <transform process="delete" xpath="//cml:module[count(*)=0]"/>
 
-  <transform process="moveRelative" to="../../../cml:propertyList"
+  <transform process="moveRelative" to="./ancestor::cml:module[@dictRef='cc:finalization']/cml:propertyList"
              xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:userDefinedModule']/cml:module[@cmlx:templateRef='l9999.archive']/cml:array[@dictRef='cc:forceConstants' or @dictRef='cc:gradients']" />
   
  <!-- wrap all properties -->
@@ -153,7 +153,7 @@
              xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:frequencyAnalysis']/cml:module[@dictRef='cc:thermochemistry']/cml:propertyList/
              cml:property[@dictRef='cc:molmass' or @dictRef='cc:symmnumber'or @dictRef='cc:Energy_ZPVE' or @dictRef='cc:rottemp' or @dictRef='cc:rotconst' or @dictRef='cc:vibtemp']" />
 
-  <transform process="moveRelative" to="../../cml:module[@dictRef='cc:frequencyAnalysis']/cml:propertyList"
+  <transform process="moveRelative" to="./ancestor::cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:frequencyAnalysis']/cml:propertyList"
              xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:property[@dictRef='cc:frequencies' or @dictRef='cc:vibrations' or @dictRef='cc:forces' or @dictRef='g:l716.lowfreq']" />
 
   <!-- CLEAN UP -->
