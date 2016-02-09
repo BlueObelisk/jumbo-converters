@@ -98,9 +98,15 @@
   <transform process="moveRelative" to="../../cml:propertyList"
              xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:thermochemistry']/cml:property[contains(@dictRef,'cc:thermochemistry')]/cml:list" />
 
-  <transform process="pullup" xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:thermochemistry']/cml:propertyList/cml:list/cml:scalar" />
-  <transform process="pullup" xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:thermochemistry']/cml:propertyList/cml:list/cml:array" />
-  <transform process="pullup" xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:thermochemistry']/cml:propertyList/cml:list/cml:list" />
+  <transform process="moveRelative" to="../../cml:module[@dictRef='cc:thermochemistry']/cml:propertyList"
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:property[@dictRef='cc:GibbsEnergy_T']" />
+
+  <transform process="pullup" 
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:thermochemistry']/cml:propertyList/cml:list/cml:scalar" />
+  <transform process="pullup" 
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:thermochemistry']/cml:propertyList/cml:list/cml:array" />
+  <transform process="pullup" 
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:thermochemistry']/cml:propertyList/cml:list/cml:list" />
 
   <transform process="addDictRef" value="cc:isotopes"
              xpath=".//cml:module[@dictRef='cc:thermochemistry']/cml:propertyList/cml:list[@cmlx:templateRef='mass']" />
@@ -143,6 +149,9 @@
   <transform process="moveRelative" to="../../../cml:propertyList"
              xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:frequencyAnalysis']/cml:module[@dictRef='cc:thermochemistry']/cml:propertyList/
              cml:property[@dictRef='cc:molmass' or @dictRef='cc:symmnumber'or @dictRef='cc:Energy_ZPVE' or @dictRef='cc:rottemp' or @dictRef='cc:rotconst' or @dictRef='cc:vibtemp']" />
+
+  <transform process="moveRelative" to="../../cml:module[@dictRef='cc:frequencyAnalysis']/cml:propertyList"
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:property[@dictRef='cc:frequencies']" />
 
   <!-- CLEAN UP -->
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
