@@ -55,6 +55,9 @@
   <transform process="pullup" xpath="//cml:module[@cmlx:templateRef='l716']/cml:module[starts-with(@cmlx:templateRef,'l716.')]"/>
   <transform process="pullup" xpath="//cml:module[@cmlx:templateRef='l601.polariz']/cml:array"/>
   <transform process="delete" xpath="//cml:module[count(*)=0]"/>
+
+  <transform process="moveRelative" to="../../../cml:propertyList"
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:userDefinedModule']/cml:module[@cmlx:templateRef='l9999.archive']/cml:array[@dictRef='cc:forceConstants' or @dictRef='cc:gradients']" />
   
  <!-- wrap all properties -->
   <transform process="createWrapperProperty" xpath="//cml:module[@id='finalization']/cml:propertyList/*" />  
@@ -123,7 +126,7 @@
   <transform process="createWrapperProperty"  
              xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:thermochemistry']/cml:propertyList/cml:array[contains(@dictRef,'cc:') or contains(@dictRef,'x:')]" />
 
-  
+  <!-- create and update frequencyAnalysis module -->
   <transform process="addChild"
              xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']"
              elementName="cml:module"
