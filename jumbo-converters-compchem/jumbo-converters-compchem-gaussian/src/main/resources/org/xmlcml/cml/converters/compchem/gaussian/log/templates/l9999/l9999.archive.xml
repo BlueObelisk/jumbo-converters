@@ -66,7 +66,18 @@
  .598e-09\RMSF=6.166e-04\Dipole=0.,0.,-0.0014405\Quadrupole=0.3811032,0
  .3811032,-0.7622064,0.,0.,0.\PG=C03V [C3(C1),3SGV(H1)]\\@
   </comment>
-  
+
+  <comment class="example.input" id="l9999.archive.3">
+ 1\1\GINC-CL039\FOpt\RB3LYP\6-31G(d)\C1H4O1\OSTUEKER\01-Feb-2016\1\\#N 
+ B3LYP/6-31G(d) OPT=Z-Matrix\\CH3-OH B3LYP/6-31G(d)\\0,1\C\O,1,OC1\H,1,
+ CH2,2,A1\H,1,CH3,3,A2,2,T1,0\H,1,CH4,4,A3,3,T2,0\H,2,OH1,1,A4,4,T3,0\\
+ OC1=1.41814514\CH2=1.10141494\CH3=1.10144001\CH4=1.09351343\OH1=0.9687
+ 1553\A1=112.72343371\A2=108.3578584\A3=108.05004555\A4=107.70822612\T1
+ =-125.46196522\T2=116.83857153\T3=61.73502188\\Version=AM64L-G09RevD.0
+ 1\State=1-A\HF=-115.7144049\RMSD=6.278e-09\RMSF=1.264e-04\Dipole=0.271
+ 6719,-0.4961831,-0.3514142\Quadrupole=-0.2941556,0.5210199,-0.2268642,
+ -0.6353641,0.7562674,-1.3841767\PG=C01 [X(C1H4O1)]\\@
+  </comment>  
   <!--  make a list of the records -->
   <record repeat="*" id="ginc">\s{X,g:ginc1}</record>
   
@@ -75,12 +86,12 @@
   <xi:include href="l9999.archive.line1.xml"/>
  
 <!--  additional lines -->  
-  <transform process="createArray" xpath=".//cml:scalar[@dictRef='g:archive']" splitter="," from="." 
-      dictRef="g:forces" dataType="xsd:double"/>
+  <transform process="createArray" xpath=".//cml:scalar[@dictRef='g:archive']" splitter="," from="." dictRef="g:forces" dataType="xsd:double"/>
   
   <xi:include href="l9999.molecule.xml"/>  
-  <xi:include href="l9999.namevalue.xml"/>  
   
+  <xi:include href="l9999.namevalue.xml"/>  
+
   <transform process="createArray" xpath=".//cml:scalar[@dictRef='x:Dipole']" 
     splitter="," from="." dictRef="cc:dipole" dataType="xsd:double"/>
   <transform process="createArray" xpath=".//cml:scalar[@dictRef='x:DipoleDeriv']" 
@@ -245,15 +256,16 @@
   <transform process="pullup" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar" />
   <transform process="pullup" xpath=".//cml:list[@dictRef='g:archive1']/cml:formula" />
   <transform process="pullup" xpath=".//cml:list[@dictRef='g:archive.namevalue']/cml:scalar" />  
-  <transform process="pullup" xpath=".//cml:list[@dictRef='g:archive.namevalue']/cml:array[@dictRef!='g:forces']" />
+  <transform process="pullup" xpath=".//cml:list[@dictRef='g:archive.namevalue']/cml:array" />
   <transform process="pullupSingleton" xpath=".//cml:list[@cmlx:templateRef='ginc']" />
   <transform process="pullup" xpath=".//cml:list[@dictRef='g:archive']/cml:scalar" />
-  <transform process="pullup" xpath=".//cml:list[@dictRef='g:archive']/cml:array[@dictRef!='g:forces']" />
+  <transform process="pullup" xpath=".//cml:list[@dictRef='g:archive']/cml:array" />
   <transform process="pullup" xpath=".//cml:list[@dictRef='g:archive']/cml:formula" />
+  <!-- 
   
-  <!-- <transform process="pullup" xpath=".//cml:scalar[@dictRef] | .//cml:array[@dictRef and @dictRef!='g:forces'] | .//cml:formula" repeat="4" /> -->
+  <transform process="pullup" xpath=".//cml:scalar[@dictRef] | .//cml:array[@dictRef and @dictRef!='g:forces'] | .//cml:formula" repeat="4" />
 
-  <transform process="pullup" xpath=".//cml:array[@dictRef='g:forces']" />
+  <transform process="pullup" xpath=".//cml:array[@dictRef='g:forces']" /> -->
  
   <transform process="addDictRef" xpath="./cml:molecule/cml:formula" value="cc:formula.calc"/>
   <transform process="addDictRef" xpath="./cml:formula" value="cc:formula.user"/>
@@ -269,10 +281,9 @@
   
   <xi:include href="l9999.archive.delete.xml"/>  
 
-
-
-  
   <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:map[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
@@ -350,7 +361,6 @@
       <scalar dataType="xsd:double" dictRef="cc:rmsd" units="nonsi:unknown">3.238E-9</scalar>
       <scalar dataType="xsd:double" dictRef="cc:rmsf" units="nonsi:unknown">6.157E-5</scalar>
       <scalar dataType="xsd:string" dictRef="cc:pointgroup">C01 [X(C6H6)]</scalar>
-      <scalar dataType="xsd:string" dictRef="g:archive">@</scalar>
       <array dataType="xsd:double" size="3" dictRef="cc:dipole" units="nonsi:debye">-3.0E-7 -7.1E-6 3.0E-7</array>
       <molecule id="mol9999" spinMultiplicity="1" formalCharge="0">
         <atomArray>
@@ -438,6 +448,70 @@
       </molecule>
       <scalar dataType="xsd:string" id="copy.0" dictRef="cc:wavefunctionType">restricted open shell</scalar>
       <module id="moleculeRoot"/>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="l9999.archive.3">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l9999.archive">
+      <scalar dataType="xsd:string" dictRef="cc:hostName">GINC-CL039</scalar>
+      <scalar dataType="xsd:string" dictRef="g:operation">FOpt</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:method">DFT</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:basisSetLabel">6-31G(d)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:jobname">OSTUEKER</scalar>
+      <scalar dataType="xsd:date" dictRef="cc:runDate">2016-02-01T00:00:00Z</scalar>
+      <scalar dataType="xsd:string" dictRef="g:zmat">1</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:wavefunctionType">closed shell</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:dftFunctionalLabel">B3LYP</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:task">geometry_optimization</scalar>
+      <scalar dataType="xsd:string" dictRef="g:keyword">#NB3LYP/6-31G(d)</scalar>
+      <scalar dataType="xsd:string" dictRef="g:keyword">OPT=Z-Matrix</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:title">CH3-OH B3LYP/6-31G(d)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:programVersion">AM64L-G09RevD.01</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:electronicstate">1-A</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:Energy_total" units="nonsi:hartree">-115.7144049</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:rmsd" units="nonsi:unknown">6.278E-9</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:rmsf" units="nonsi:unknown">1.264E-4</scalar>
+      <scalar dataType="xsd:string" dictRef="x:Quadrupole">-0.2941556,0.5210199,-0.2268642,-0.6353641,0.7562674,-1.3841767</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:pointgroup">C01 [X(C1H4O1)]</scalar>
+      <array dataType="xsd:double" size="3" dictRef="cc:dipole" units="nonsi:debye">0.2716719 -0.4961831 -0.3514142</array>
+      <molecule id="mol9999" spinMultiplicity="1" formalCharge="0">
+        <zMatrix>
+          <length atomRefs2="a1 a2">1.41814514</length>
+          <length atomRefs2="a1 a3">1.10141494</length>
+          <angle atomRefs3="a2 a1 a3">112.72343371</angle>
+          <length atomRefs2="a1 a4">1.10144001</length>
+          <angle atomRefs3="a3 a1 a4">108.3578584</angle>
+          <torsion atomRefs4="a2 a3 a1 a4">-125.46196522</torsion>
+          <length atomRefs2="a1 a5">1.09351343</length>
+          <angle atomRefs3="a4 a1 a5">108.05004555</angle>
+          <torsion atomRefs4="a3 a4 a1 a5">116.83857153</torsion>
+          <length atomRefs2="a2 a6">0.96871553</length>
+          <angle atomRefs3="a1 a2 a6">107.70822612</angle>
+          <torsion atomRefs4="a4 a1 a2 a6">61.73502188</torsion>
+        </zMatrix>
+        <atomArray>
+          <atom elementType="C" id="a1" x3="1.41814514" y3="0.0" z3="0.0" />
+          <atom elementType="O" id="a2" x3="0.0" y3="0.0" z3="0.0" />
+          <atom elementType="H" id="a3" x3="1.8436033639809346" y3="1.0159233089668689" z3="0.0" />
+          <atom elementType="H" id="a4" x3="1.8435609893414606" y3="-0.5542516431262755" z3="0.851467302278665" />
+          <atom elementType="H" id="a5" x3="1.733037548320647" y3="-0.4991838583651846" z3="-0.9205595408880598" />
+          <atom elementType="H" id="a6" x3="-0.29465404209159046" y3="0.44278230639949057" z3="0.8096496789858043" />
+        </atomArray>
+      </molecule>
+      <map id="variableMap">
+        <link from="OC1" to="1.41814514" />
+        <link from="CH2" to="1.10141494" />
+        <link from="CH3" to="1.10144001" />
+        <link from="CH4" to="1.09351343" />
+        <link from="OH1" to="0.96871553" />
+        <link from="A1" to="112.72343371" />
+        <link from="A2" to="108.3578584" />
+        <link from="A3" to="108.05004555" />
+        <link from="A4" to="107.70822612" />
+        <link from="T1" to="-125.46196522" />
+        <link from="T2" to="116.83857153" />
+        <link from="T3" to="61.73502188" />
+      </map>
     </module>
   </comment>
   

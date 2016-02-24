@@ -3,11 +3,12 @@
   >
   
 <!--  molecule -->
-  <transform process="createArray" xpath=".//cml:list[@dictRef='cc:molecule']/cml:scalar" from="." 
-      splitter=","/>
+  <transform process="createArray" xpath=".//cml:list[@dictRef='cc:molecule']/cml:scalar" from="." splitter=","/>
+  <transform process="addChild" xpath=".//cml:list[@dictRef='cc:molecule']" elementName="cml:list" position="2" />
+  <transform process="moveRelative" xpath=".//cml:list[@dictRef='cc:molecule']/cml:scalar" to="../cml:list" />
   <transform process="split" xpath=".//cml:list[@dictRef='cc:molecule']/cml:array" from="." />
   <transform process="addAttribute" xpath=".//cml:list[@dictRef='cc:molecule']/cml:list" name="type" value="molecule" />
-  <transform process="addAttribute" xpath=".//cml:list[@dictRef='cc:molecule']/cml:list[1]" name="type" value="chargemult" />
+  <transform process="addAttribute" xpath=".//cml:list[@dictRef='cc:molecule']/cml:list[1]" name="type" value="chargemult" /> 
 
   <!-- might be a z-matrix, so need to pass it to special routine -->
   <!--
@@ -29,22 +30,25 @@
   <transform process="move" xpath=".//cml:list[@type='molecule']" to=".//cml:module[@id='moleculeRoot']"/>
 
   <transform process="addAttribute" xpath=".//cml:list[@type='chargemult']" 
-    from="./cml:scalar" fromPosition="1" name="dictRef" value="x:formalCharge"/>
+             from="./cml:scalar" fromPosition="1" name="dictRef" value="x:formalCharge"/>
   <transform process="addAttribute" xpath=".//cml:list[@type='chargemult']" 
-    from="./cml:scalar" fromPosition="2" name="dictRef" value="x:spinMultiplicity"/>
+             from="./cml:scalar" fromPosition="2" name="dictRef" value="x:spinMultiplicity"/>
 
   <!--  these are alternatives -->
   <xi:include href="l9999.molecule.array.xml"/>    
   <xi:include href="l9999.molecule.zmatrix.xml"/>    
-    
-  <transform process="addId" value="mol9999" xpath=".//cml:molecule[starts-with(@id,'a')]"/>
   
-  <transform process="addAttribute" xpath=".//cml:molecule[@id]" name="spinMultiplicity" 
+    
+  <transform process="addId" value="mol9999" xpath=".//cml:module[@id='moleculeRoot']//cml:molecule"/>
+  
+  <transform process="addAttribute" xpath=".//cml:molecule[@id='mol9999']" name="spinMultiplicity" 
     value="$number(../../../..//cml:scalar[@dictRef='x:spinMultiplicity'])"/>
-  <transform process="addAttribute" xpath=".//cml:molecule[@id]" name="formalCharge" 
+  <transform process="addAttribute" xpath=".//cml:molecule[@id='mol9999']" name="formalCharge" 
     value="$number(../../../..//cml:scalar[@dictRef='x:formalCharge'])"/>
   
-  <transform process="delete" xpath=".//cml:list[@type='chargemult']"/> 
-  <transform process="pullup" xpath=".//cml:molecule" repeat="3"/> 
+  <transform process="delete" xpath=".//cml:list[@dictRef='cc:molecule']/cml:list[@type='chargemult']"/> 
+  <transform process="pullup" xpath=".//cml:molecule" repeat="2"/> 
+  <transform process="pullup" xpath=".//cml:map[@id='variableMap']" repeat="2"/> 
+
   
 </transformList>

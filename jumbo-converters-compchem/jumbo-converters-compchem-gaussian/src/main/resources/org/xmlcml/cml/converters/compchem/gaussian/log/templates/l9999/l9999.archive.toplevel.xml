@@ -3,15 +3,18 @@
 >
   
   <transform process="createString" xpath="./cml:list/cml:scalar"/>
-  <transform process="split" xpath="./cml:list/cml:scalar" splitter="\\\\" dictRef="g:archive"/>
-  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[1]" value="g:archive1"/>
-  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[2]" value="cc:keywords"/>
-  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[3]" value="cc:title"/>
+  <transform process="split" xpath="./cml:list/cml:scalar" splitter="\\\\" dictRef="g:archive" />
+  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[1]" value="g:archive1" />
+  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[2]" value="cc:keywords" />
+  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[3]" value="cc:title" />
   <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[4]" value="cc:molecule"/>
-  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[5]" value="g:archive.namevalue"/>
+  <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[contains(text(),'Version')]" value="g:archive.namevalue"/>
   
-    <!--  remove endmarker -->
-  <transform process="delete" xpath="./cml:list/cml:list/cml:scalar[contains(.,'@') and string-length(.)=2]"/>
+  <!-- remove endmarker -->
+  <!-- this one checks for string of length 2 which is not uniform in all examples -->
+  <!-- <transform process="delete" xpath="./cml:list/cml:list/cml:scalar[contains(.,'@') and string-length(.)=2]"/> -->
+  <!-- so using this one instead -->
+  <transform process="delete" xpath="./cml:list/cml:list/cml:scalar[contains(.,'@')]"/>
   <transform process="split" xpath="./cml:list/cml:list/cml:scalar" splitter="\\"/>
   <transform process="split" xpath="./cml:list/cml:list/cml:scalar[@dictRef='cc:keywords']" dictRef="g:keyword"/>
 
