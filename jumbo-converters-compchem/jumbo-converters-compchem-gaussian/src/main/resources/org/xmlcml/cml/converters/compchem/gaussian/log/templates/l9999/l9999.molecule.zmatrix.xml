@@ -23,10 +23,12 @@
 
   <transform process="createAtom" xpath=".//cml:scalar[@dictRef='cc:elementType']" />
 
-  <transform process="setValue" map="//cml:map[@id='variableMap']" value="$string(.)"
-             xpath=".//cml:list[@id='molRoot0']/cml:module[@id='moleculeRoot']/cml:list[@type='molecule']/cml:scalar[2] |
-                    .//cml:list[@id='molRoot0']/cml:module[@id='moleculeRoot']/cml:list[@type='molecule']/cml:scalar[4] |
-                    .//cml:list[@id='molRoot0']/cml:module[@id='moleculeRoot']/cml:list[@type='molecule']/cml:scalar[6]" />
+  <transform process="moveRelative" xpath=".//cml:map[@id='variableMap']" to="../cml:list[@id='molRoot0']/cml:module[@id='moleculeRoot']" />
+
+  <transform process="setValue" map="./ancestor::*/cml:map[@id='variableMap']" value="$string(.)"
+             xpath="./cml:list[@id='molRoot0']/cml:module[@id='moleculeRoot']/cml:list[@type='molecule']/cml:scalar[2] |
+                    ./cml:list[@id='molRoot0']/cml:module[@id='moleculeRoot']/cml:list[@type='molecule']/cml:scalar[4] |
+                    ./cml:list[@id='molRoot0']/cml:module[@id='moleculeRoot']/cml:list[@type='molecule']/cml:scalar[6]" />
 
   <transform process="createLength"  xpath=".//cml:list[@id='molRoot0']/cml:module[@id='moleculeRoot']/cml:list[@type='molecule']" 
     atomRefs="$string(cml:scalar[1]) $string(cml:atom/@id)" value="$string(cml:scalar[2])"/>
@@ -37,7 +39,10 @@
 
   <transform process="createZMatrix" xpath=".//cml:module[@id='moleculeRoot']" id="zfinal" />
 
-  <transform process="move" xpath=".//cml:map[@id='variableMap']" to=".//cml:module[@id='moleculeRoot']" />
+
+
+
+
 
   <!-- <transform process="addChild" xpath=".//cml:module[@id='moleculeRoot']" elementName="cml:list" position="0" />
   <transform process="move" xpath=".//cml:module[@id='moleculeRoot']/cml:molecule" to=".//cml:module[@id='moleculeRoot']/cml:list" />
