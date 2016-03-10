@@ -1,10 +1,9 @@
 <template id="l716.thermochemistry.energies" name="Thermochemistry Energies" repeat="*"
-    pattern="\s*Zero-point correction.*" 
+    pattern="\s*Zero-point correction.*" offset="1"
     endPattern="\s*" endOffset="1"
     >
     
   <comment class="example.input" id="l716.thermochemistry.energies">
- Zero-point correction=                           0.045230 (Hartree/Particle)
  Thermal correction to Energy=                    0.048094
  Thermal correction to Enthalpy=                  0.049039
  Thermal correction to Gibbs Free Energy=         0.027907
@@ -15,7 +14,7 @@
  
   </comment>
 
-  <record id="thermo.ZeroPointEnergy" repeat="*">\s*Zero-point correction=\s*{F,cc:Energy_ZPVE,u:hartree}.+</record>
+  
   <record id="thermo.thermCorrEnergy" repeat="*">\s*Thermal correction to Energy=\s*{F,cc:thermalCorrectionToEnergy,u:hartree}.+</record>
   <record id="thermo.thermCorrEnthal" repeat="*">\s*Thermal correction to Enthalpy=\s*{F,cc:thermalCorrectionToEnthalpy,u:hartree}.+</record>
   <record id="thermo.thermCorrFreeEn" repeat="*">\s*Thermal correction to Gibbs Free Energy=\s*{F,cc:thermalCorrectionToGibbsEnergy,u:hartree}.+</record>
@@ -27,8 +26,6 @@
   <transform process="pullup" xpath=".//cml:scalar" /> 
 
   <!-- add units -->
-  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:Energy_ZPVE']" 
-      value="nonSi:hartree" dataType="xsd:double"/>
   <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:thermalCorrectionToEnergy']" 
       value="nonSi:hartree"/>
   <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:thermalCorrectionToEnthalpy']" 
@@ -51,7 +48,6 @@
   <comment class="example.output" id="l716.thermochemistry.energies">
 <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" 
     cmlx:templateRef="l716.thermochemistry.energies" >
-    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:Energy_ZPVE"                    >0.04523</scalar>
     <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:thermalCorrectionToEnergy"      >0.048094</scalar>
     <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:thermalCorrectionToEnthalpy"    >0.049039</scalar>
     <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:thermalCorrectionToGibbsEnergy" >0.027907</scalar>
