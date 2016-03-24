@@ -48,32 +48,65 @@
   <transform process="addUnits"   xpath="./cml:scalar[@dictRef='cc:temperature']" value="si:kelvin"/>
   <transform process="addUnits"   xpath="./cml:scalar[@dictRef='cc:pressure']"    value="nonSi:atm"/>
 
-  <!-- group scalars in a list -->
-  <transform process="addChild" elementName="cml:property" dictRef="g:composite_G4" xpath="." position="0"  />
-  <transform process="addChild" elementName="cml:list"     xpath="./cml:property[@dictRef='g:composite_G4']" position="0" />
-  <transform process="move"     xpath="./cml:scalar[@dictRef]"  to="./cml:property[@dictRef='g:composite_G4']/cml:list" />
+  <!-- separate parameters and properties -->
+  <transform process="addChild" elementName="cml:parameterList" xpath="." position="0" />
+  <transform process="addChild" elementName="cml:propertyList" xpath="." position="1" />
+
+  <transform process="move" xpath="./cml:scalar[@dictRef='method' or @dictRef='cc:temperature' or @dictRef='cc:pressure']" to="./cml:parameterList" />
+  <transform process="move" xpath="./cml:scalar[contains(@dictRef,'cc:') or contains(@dictRef,'g:')]"                      to="./cml:propertyList" />
+
+  <transform process="createWrapperParameter" xpath="./cml:parameterList/cml:scalar" />
+  <transform process="createWrapperProperty"  xpath="./cml:propertyList/cml:scalar" />
   
   <comment class="example.output" id="composite.summary.G4">
-  <module cmlx:templateRef="composite.summary.G4" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <property dictRef="g:composite_G4">
-    <list>
-    <scalar dataType="xsd:double" units="si:kelvin"     dictRef="cc:temperature"              >298.15</scalar>
-    <scalar dataType="xsd:double" units="nonSi:atm"     dictRef="cc:pressure"                 >1.0</scalar>
-    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:Energy_ZPVE"              >0.050464</scalar>
-    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:thermalCorrectionToEnergy">0.053793</scalar>
-    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="g:E_CCSD_T"                  >-115.374477</scalar>
-    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="g:E_Empiric"                 >-0.048629</scalar>
-    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="g:DE_Plus"                   >-0.01203</scalar>
-    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="g:DE_2DF"                    >-0.110133</scalar>
-    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="g:E_Delta-G3XP"              >-0.143944</scalar>
-    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="g:DE_HF"                     >-0.013006</scalar>
-    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:Energy_0K"                >-115.651756</scalar>
-    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:Energy_T"                 >-115.648428</scalar>
-    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:Enthalpy_T"               >-115.647483</scalar>
-    <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:GibbsEnergy_T"            >-115.674501</scalar>
-    </list>
-  </property>
-  </module>
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="composite.summary.G4">
+      <parameterList>
+        <parameter dictRef="cc:temperature">
+          <scalar dataType="xsd:double" units="si:kelvin">298.15</scalar>
+        </parameter>
+        <parameter dictRef="cc:pressure">
+          <scalar dataType="xsd:double" units="nonSi:atm">1.0</scalar>
+        </parameter>
+      </parameterList>
+      <propertyList>
+        <property dictRef="cc:Energy_ZPVE">
+          <scalar dataType="xsd:double" units="nonSi:hartree">0.050464</scalar>
+        </property>
+        <property dictRef="cc:thermalCorrectionToEnergy">
+          <scalar dataType="xsd:double" units="nonSi:hartree">0.053793</scalar>
+        </property>
+        <property dictRef="g:E_CCSD_T">
+          <scalar dataType="xsd:double" units="nonSi:hartree">-115.374477</scalar>
+        </property>
+        <property dictRef="g:E_Empiric">
+          <scalar dataType="xsd:double" units="nonSi:hartree">-0.048629</scalar>
+        </property>
+        <property dictRef="g:DE_Plus">
+          <scalar dataType="xsd:double" units="nonSi:hartree">-0.01203</scalar>
+        </property>
+        <property dictRef="g:DE_2DF">
+          <scalar dataType="xsd:double" units="nonSi:hartree">-0.110133</scalar>
+        </property>
+        <property dictRef="g:E_Delta-G3XP">
+          <scalar dataType="xsd:double" units="nonSi:hartree">-0.143944</scalar>
+        </property>
+        <property dictRef="g:DE_HF">
+          <scalar dataType="xsd:double" units="nonSi:hartree">-0.013006</scalar>
+        </property>
+        <property dictRef="cc:Energy_0K">
+          <scalar dataType="xsd:double" units="nonSi:hartree">-115.651756</scalar>
+        </property>
+        <property dictRef="cc:Energy_T">
+          <scalar dataType="xsd:double" units="nonSi:hartree">-115.648428</scalar>
+        </property>
+        <property dictRef="cc:Enthalpy_T">
+          <scalar dataType="xsd:double" units="nonSi:hartree">-115.647483</scalar>
+        </property>
+        <property dictRef="cc:GibbsEnergy_T">
+          <scalar dataType="xsd:double" units="nonSi:hartree">-115.674501</scalar>
+        </property>
+      </propertyList>
+    </module>
   </comment>
 
 </template>
