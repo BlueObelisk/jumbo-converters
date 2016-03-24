@@ -18,13 +18,22 @@
                                   @cmlx:templateRef='composite.summary.G4MP2'   ]" />
 
   <transform process="moveRelative"
-             xpath=".//cml:property[@cmlx:templateRef='composite.summary.G3'      or
-                                    @cmlx:templateRef='composite.summary.G3B3'    or
-                                    @cmlx:templateRef='composite.summary.G3MP2'   or
-                                    @cmlx:templateRef='composite.summary.G3MP2B3' or
-                                    @cmlx:templateRef='composite.summary.G4'      or 
-                                    @cmlx:templateRef='composite.summary.G4MP2'   ]"
-             to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='finalization']/cml:propertyList"           />
+             xpath=".//cml:module[@cmlx:templateRef='composite.summary.G3'      or
+                                  @cmlx:templateRef='composite.summary.G3B3'    or
+                                  @cmlx:templateRef='composite.summary.G3MP2'   or
+                                  @cmlx:templateRef='composite.summary.G3MP2B3' or
+                                  @cmlx:templateRef='composite.summary.G4'      or 
+                                  @cmlx:templateRef='composite.summary.G4MP2'   ]"
+             to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='finalization']" />
+
+  <transform process="addDictRef"
+             xpath=".//cml:module[@cmlx:templateRef='composite.summary.G3'      or
+                                  @cmlx:templateRef='composite.summary.G3B3'    or
+                                  @cmlx:templateRef='composite.summary.G3MP2'   or
+                                  @cmlx:templateRef='composite.summary.G3MP2B3' or
+                                  @cmlx:templateRef='composite.summary.G4'      or 
+                                  @cmlx:templateRef='composite.summary.G4MP2'   ]"
+             value="cc:composite_method" />
 
   <!-- wrap several energy terms into a property-list -->
   <transform process="addChild"      xpath=".//cml:module[@id='job']"  
