@@ -47,7 +47,12 @@
     value="$number(../../../..//cml:scalar[@dictRef='x:formalCharge'])"/>
   
   <transform process="delete" xpath=".//cml:list[@dictRef='cc:molecule']/cml:list[@type='chargemult']"/> 
-  <transform process="pullup" xpath=".//cml:molecule" repeat="2"/> 
+  <transform process="pullup" xpath=".//cml:molecule" repeat="2"/>
+
+  <!-- delete empty molecule if exists -->
+  <transform process="delete" xpath=".//cml:molecule[@id='mol9999']/cml:atomArray/cml:atom[@elementType='0']" />
+  <transform process="delete" xpath=".//cml:molecule[@id='mol9999']/cml:atomArray[count(*)=0]" />
+
   <transform process="pullup" xpath=".//cml:map[@id='variableMap']" repeat="2"/> 
 
   
