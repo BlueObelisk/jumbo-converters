@@ -1,7 +1,6 @@
 <transformList
-  while=".//cml:module[@id='moleculeRoot']//cml:scalar[@dictRef='g:zmat' and .=1]" 
-  id="l9999.molecule.zmat"
->
+  while=".//cml:module[@id='moleculeRoot']//cml:scalar[@dictRef='g:zmat' and contains(text(),'1')]" 
+  id="l9999.molecule.zmat">
   
   <transform process="split" xpath=".//cml:list[@cmlx:templateRef='ginc']/cml:list[@dictRef='g:archive']/cml:list[@dictRef='g:archive']/cml:scalar" splitter="="/>
 
@@ -38,9 +37,6 @@
     atomRefs="$string(cml:scalar[5]) $string(cml:scalar[3]) $string(cml:scalar[1]) $string(cml:atom/@id)" value="$string(cml:scalar[6])"/>
 
   <transform process="createZMatrix" xpath=".//cml:module[@id='moleculeRoot']" id="zfinal" />
-
-
-
 
 
 

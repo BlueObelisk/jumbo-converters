@@ -50,7 +50,7 @@
   <!-- separate parameters and properties -->
   <transform process="addChild" elementName="cml:parameterList" xpath="." position="0" />
   <transform process="addChild" elementName="cml:propertyList" xpath="." position="1" />
-
+  
   <transform process="move" xpath="./cml:scalar[@dictRef='method' or @dictRef='cc:temperature' or @dictRef='cc:pressure']" to="./cml:parameterList" />
   <transform process="move" xpath="./cml:scalar[contains(@dictRef,'cc:') or contains(@dictRef,'g:')]"                      to="./cml:propertyList" />
 
