@@ -45,17 +45,17 @@
 --> 
   <record repeat="*" id="xzz"/>
   
-  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:d']" dictRef="cc:dipole"/>
-  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:q']" dictRef="cc:quadrupole"/>
-  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:qb']" dictRef="cc:quadrupole"/>
-  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:qq']" dictRef="cc:quadrupole"/>
-  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:o']" dictRef="cc:octapole"/>
-  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:h']" dictRef="cc:hexadecapole"/>
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:d']" dictRef="cc:dipoleMomentVector"/>
+  <!-- <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:q']" dictRef="cc:quadrupoleMomentVector"/> -->
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:q' or @dictRef='x:qb']" dictRef="cc:quadrupoleMomentVector"/>
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:qq']" dictRef="cc:tracelessQuadrupoleVector"/>
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:o']" dictRef="cc:octapoleVector"/>
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:h']" dictRef="cc:hexadecapoleVector"/>
 
   <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:dipoleMoment']" value="nonsi:debye" />
 
-  <transform process="addDictRef" xpath=".//cml:array[@size='3']" value="cc:dipoleMomentVector" />
-  <transform process="addUnits" xpath=".//cml:array[@dictRef='cc:dipoleMomentVector']" value="nonsi:debye" />
+  <transform process="addUnits" xpath=".//cml:array[@dictRef='cc:dipoleMomentVector']"     value="nonsi:debye" />
+  <transform process="addUnits" xpath=".//cml:array[@dictRef='cc:quadrupoleMomentVector']" value="nonsi:debye" />
 
   <transform process="delete" xpath=".//cml:scalar[contains(@dictRef,'type')]"/>
   <transform process="pullup" xpath=".//cml:scalar | .//cml:array" repeat="2"/>
@@ -65,14 +65,13 @@
  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
 
   <comment class="example.output" id="l601.multipole">
-    <module cmlx:templateRef="multipole" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="multipole">
       <array dataType="xsd:double" size="3" dictRef="cc:dipoleMomentVector" units="nonsi:debye">0.0 0.0 0.0</array>
       <scalar dataType="xsd:double" dictRef="cc:dipoleMoment" units="nonsi:debye">0.0</scalar>
-      <array dataType="xsd:double" size="3" dictRef="cc:dipoleMomentVector" units="nonsi:debye">-8.3036 -8.3036 -8.3036</array>
-      <array dataType="xsd:double" size="3" dictRef="cc:dipoleMomentVector" units="nonsi:debye">0.0 0.0 0.0</array>
-      <array dataType="xsd:double" size="6" dictRef="cc:quadrupole">0.0 0.0 0.0 0.0 0.0 0.0</array>
-      <array dataType="xsd:double" size="10" dictRef="cc:octapole">0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 -0.7195</array>
-      <array dataType="xsd:double" size="15" dictRef="cc:hexadecapole">-16.2252 -16.2252 -16.2252 0.0 0.0 0.0 0.0 0.0 0.0 -4.9297 -4.9297 -4.9297 0.0 0.0 0.0</array>
+      <array dataType="xsd:double" size="6" dictRef="cc:quadrupoleMomentVector" units="nonsi:debye">-8.3036 -8.3036 -8.3036 0.0 0.0 0.0</array>
+      <array dataType="xsd:double" size="6" dictRef="cc:tracelessQuadrupoleVector">0.0 0.0 0.0 0.0 0.0 0.0</array>
+      <array dataType="xsd:double" size="10" dictRef="cc:octapoleVector">0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 -0.7195</array>
+      <array dataType="xsd:double" size="15" dictRef="cc:hexadecapoleVector">-16.2252 -16.2252 -16.2252 0.0 0.0 0.0 0.0 0.0 0.0 -4.9297 -4.9297 -4.9297 0.0 0.0 0.0</array>
     </module>
  </comment>
 </template>
