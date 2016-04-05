@@ -23,7 +23,13 @@
   
   <transform process="createMolecule" xpath="./cml:list[@cmlx:templateRef='atom']/cml:array" id="mol.l202.orient"/>
   <transform process="pullupSingleton" xpath="./cml:list"/>
-  <transform process="addAttribute" xpath=".//cml:molecule[@cmlx:templateRef='atom']" name="orientation" value="$string(../cml:scalar[@dictRef='x:orientation'])" />
+
+  <transform process="addAttribute" name="orientation" 
+    xpath=".//cml:molecule[@cmlx:templateRef='atom' and starts-with(../cml:scalar[@dictRef='x:orientation'], 'Input')]" 
+    value="input" />
+  <transform process="addAttribute" name="orientation" 
+    xpath=".//cml:molecule[@cmlx:templateRef='atom' and starts-with(../cml:scalar[@dictRef='x:orientation'], 'Standard')]" 
+    value="standard" />
 
   <!-- remove orientation scalar -->
   <transform process="delete" xpath=".//cml:scalar[@dictRef='x:orientation']" />
@@ -34,7 +40,7 @@
   
   <comment class="example.output" id="l202.orient">
     <module cmlx:templateRef="l202.orient" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <molecule id="mol.l202.orient" cmlx:templateRef="atom" orientation="Input">
+      <molecule id="mol.l202.orient" cmlx:templateRef="atom" orientation="input">
         <atomArray>
           <atom id="a1" elementType="C" x3="0.0" y3="0.0" z3="0.0">
             <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
