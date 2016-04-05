@@ -329,14 +329,19 @@
   <transform process="move" xpath=".//cml:formula[@dictRef='cc:formula.user']" to=".//cml:molecule"/>
   
   <transform process="addDictRef" xpath=".//cml:*[@dictRef='g:forces' and preceding-sibling::cml:*[@dictRef='g:forces']]"
-    value="cc:gradients"/>
+             value="cc:gradients"/>
   <transform process="addDictRef" xpath=".//cml:*[@dictRef='g:forces']" value="cc:forceConstantMatrix"/>
 
   <transform process="addAttribute" xpath=".//cml:array[@dictRef='cc:forceConstantMatrix']" name="type" value="lowerTriangle" />
 
+  <transform process="addDictRef" xpath=".//cml:array[@size='3']" value="cc:dipoleMomentVector" />
+
   <xi:include href="l9999.archive.addUnits.xml"/>  
   
   <xi:include href="l9999.archive.delete.xml"/>  
+  
+  <transform process="move" xpath=".//cml:array[@dictRef='cc:dipoleMomentVector']" to="./cml:molecule[@id='mol9999']" />
+  <transform process="createWrapperProperty" xpath=".//cml:molecule[@id='mol9999']/cml:array[@dictRef='cc:dipoleMomentVector']" />
 
   <!--  delete empty lists -->
  <transform process="delete" xpath=".//cml:map[count(*)=0]"/>
@@ -372,7 +377,6 @@
       <scalar dataType="xsd:double" dictRef="cc:rmsd" units="nonsi:unknown">8.723E-11</scalar>
       <scalar dataType="xsd:double" dictRef="cc:rmsf" units="nonsi:unknown">8.224E-8</scalar>
       <scalar dataType="xsd:string" dictRef="cc:pointgroup">TD [O(C1),4C3(H1)]</scalar>
-      <array dataType="xsd:double" size="3" dictRef="cc:dipole" units="nonsi:debye">0.0 0.0 0.0</array>
       <array dataType="xsd:double" size="45" dictRef="cc:dipolederiv" units="nonsi:unknown">7.872E-4 0.0 0.0 0.0 7.871E-4 0.0 0.0 0.0 7.871E-4 0.0733391 0.0 0.0 0.0 0.0733391 0.0 0.0 0.0 -0.1472685 -0.1227565 0.0 0.0693303 0.0 0.0733391 0.0 0.0693303 0.0 0.0488271 0.0243152 -0.0849119 -0.0346651 -0.0849119 -0.0737327 -0.0600418 -0.0346651 -0.0600418 0.0488271 0.0243151 0.0849119 -0.0346652 0.0849119 -0.0737326 0.0600418 -0.0346652 0.0600418 0.0488271</array>
       <array dataType="xsd:double" size="6" dictRef="cc:polarizability" units="nonsi:unknown">12.3528403 0.0 12.3528403 0.0 0.0 12.3528403</array>
       <array dataType="xsd:double" size="120" dictRef="cc:forceConstantMatrix" type="lowerTriangle">0.55936081 0.0 0.55936081 0.0 0.0 0.55936081 -0.0482856 0.0 -3.0E-8 0.04683066 0.0 -0.0482856 -5.0E-8 0.0 0.04683066 -3.0E-8 -5.0E-8 -0.32294941 3.0E-8 5.0E-8 0.34888521 -0.29243119 -3.0E-8 0.08631853 0.00266595 0.0 -6.7139E-4 0.31532358 -3.0E-8 -0.0482856 0.0 0.0 -0.00169598 0.0 3.0E-8 0.04683066 0.08631853 0.0 -0.07880382 0.03266432 0.0 -0.00864527 -0.09492661 -1.0E-8 0.08039229 -0.10932197 -0.10571814 -0.04315922 -6.055E-4 0.00188877 3.357E-4 -0.01277916 -0.02604072 -0.01202812 0.11395386 -0.10571814 -0.23139487 -0.07475399 0.00188877 0.00157546 5.8144E-4 0.00117778 0.00157546 0.00158693 0.11626084 0.24820043 -0.04315922 -0.07475399 -0.07880377 -0.01633216 -0.02828814 -0.00864526 0.00463974 0.01121013 0.00352839 0.04746326 0.0822088 0.08039224 -0.10932205 0.10571817 -0.04315928 -6.055E-4 -0.00188877 3.357E-4 -0.01277917 0.02604071 -0.01202812 0.00875278 -0.01360924 0.00738839 0.11395394 0.10571817 -0.23139475 0.07475403 -0.00188877 0.00157547 -5.8144E-4 -0.00117778 0.00157546 -0.00158694 0.01360926 -0.01995648 0.0096232 -0.11626087 0.24820029 -0.04315928 0.07475403 -0.07880382 -0.01633217 0.02828813 -0.00864527 0.00463974 -0.01121013 0.0035284 0.00738838 -0.00962319 0.00352839 0.04746332 -0.08220885 0.0803923</array>
@@ -393,6 +397,9 @@
         </bondArray>
         <property dictRef="cml:molmass">
           <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/nonSi/">16.04246</scalar>
+        </property>
+        <property dictRef="cc:dipoleMomentVector">
+          <array dataType="xsd:double" size="3" units="nonSi:elementaryCharge.bohr">0.0 0.0 0.0</array>
         </property>
       </molecule>
     </module>
@@ -419,7 +426,6 @@
       <scalar dataType="xsd:double" dictRef="cc:rmsd" units="nonsi:unknown">3.238E-9</scalar>
       <scalar dataType="xsd:double" dictRef="cc:rmsf" units="nonsi:unknown">6.157E-5</scalar>
       <scalar dataType="xsd:string" dictRef="cc:pointgroup">C01 [X(C6H6)]</scalar>
-      <array dataType="xsd:double" size="3" dictRef="cc:dipole" units="nonsi:debye">-3.0E-7 -7.1E-6 3.0E-7</array>
       <molecule id="mol9999" spinMultiplicity="1" formalCharge="0">
         <atomArray>
           <atom id="a1" elementType="C" x3="-1.199436146" y3="1.08374E-4" z3="-0.692895244"/>
@@ -451,6 +457,9 @@
         </bondArray>
         <property dictRef="cml:molmass">
           <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/nonSi/">78.11184</scalar>
+        </property>
+        <property dictRef="cc:dipoleMomentVector">
+          <array dataType="xsd:double" size="3" units="nonSi:elementaryCharge.bohr">-3.0E-7 -7.1E-6 3.0E-7</array>
         </property>
       </molecule>
     </module>
@@ -531,7 +540,6 @@
       <scalar dataType="xsd:double" dictRef="cc:rmsf" units="nonsi:unknown">1.264E-4</scalar>
       <scalar dataType="xsd:string" dictRef="x:Quadrupole">-0.2941556,0.5210199,-0.2268642,-0.6353641,0.7562674,-1.3841767</scalar>
       <scalar dataType="xsd:string" dictRef="cc:pointgroup">C01 [X(C1H4O1)]</scalar>
-      <array dataType="xsd:double" size="3" dictRef="cc:dipole" units="nonsi:debye">0.2716719 -0.4961831 -0.3514142</array>
       <molecule id="mol9999" spinMultiplicity="1" formalCharge="0">
         <zMatrix>
           <length atomRefs2="a1 a2">1.41814514</length>
@@ -555,6 +563,9 @@
           <atom elementType="H" id="a5" x3="1.733037548320647" y3="-0.4991838583651846" z3="-0.9205595408880598" />
           <atom elementType="H" id="a6" x3="-0.29465404209159046" y3="0.44278230639949057" z3="0.8096496789858043" />
         </atomArray>
+        <property dictRef="cc:dipoleMomentVector">
+          <array dataType="xsd:double" size="3" units="nonSi:elementaryCharge.bohr">0.2716719 -0.4961831 -0.3514142</array>
+        </property>
       </molecule>
       <map id="variableMap">
         <link from="OC1" to="1.41814514" />
@@ -597,7 +608,6 @@
       <scalar dataType="xsd:double" dictRef="cc:rmsd" units="nonsi:unknown">1.408E-9</scalar>
       <scalar dataType="xsd:double" dictRef="cc:rmsf" units="nonsi:unknown">7.916E-5</scalar>
       <scalar dataType="xsd:string" dictRef="cc:pointgroup">CS [SG(C1H2O1),X(H2)]</scalar>
-      <array dataType="xsd:double" size="3" dictRef="cc:dipole" units="nonsi:debye">-0.565706 0.0 -0.3521908</array>
       <array dataType="xsd:double" size="54" dictRef="cc:dipolederiv" units="nonsi:unknown">0.2938738 0.0 -0.0230506 0.0 0.4282052 0.0 -1.637E-4 0.0 0.84526 -0.2245583 0.0 0.0441241 0.0 -0.5595038 0.0 -0.0017546 0.0 -0.9155653 -0.1363157 0.0 0.0702392 0.0 0.0643765 0.0 0.0428804 0.0 0.0052138 -0.0087263 -0.0968186 -0.064606 -0.0910043 -0.1503827 -0.0978693 -0.0227174 -0.0727822 -0.0960426 -0.0087263 0.0968186 -0.064606 0.0910043 -0.1503827 0.0978693 -0.0227174 0.0727822 -0.0960426 0.0844531 0.0 0.0378991 0.0 0.3676874 0.0 0.0044724 2.0E-7 0.257177</array>
       <array dataType="xsd:double" size="6" dictRef="cc:polarizability" units="nonsi:unknown">16.1743189 4.0E-7 14.0057022 -1.0838251 3.0E-7 16.9434332</array>
       <array dataType="xsd:double" size="171" dictRef="cc:forceConstantMatrix" type="lowerTriangle">0.61243817 0.0 0.56200221 -0.01126074 0.0 0.48520316 -0.09589866 0.0 0.0248821 0.54374531 0.0 -0.06300243 0.0 0.0 0.04636701 -0.02510973 0.0 -0.24542387 -0.12442288 0.0 0.4114917 -0.30504784 0.0 0.06780913 0.00399403 0.0 0.00477342 0.32342923 0.0 -0.05367524 0.0 0.0 0.00177295 0.0 0.0 0.04890891 0.05545895 0.0 -0.06379901 0.04002567 0.0 -0.02268207 -0.07579575 0.0 0.08462678 -0.10495509 -0.08946955 -0.03586909 0.00540604 0.00206965 -0.00222984 -0.01259161 -0.02764517 -0.01037771 0.10342069 -0.09052715 -0.22216157 -0.06551992 0.00314702 0.00920029 -0.00561902 5.1679E-4 0.00117202 0.00124479 0.10008647 0.23423639 -0.0333673 -0.06418558 -0.07737804 -0.01581824 -0.0287232 -0.03298654 0.00229001 0.00709918 0.00501955 0.04331449 0.07828905 0.09648231 -0.10495509 0.08946955 -0.03586909 0.00540604 -0.00206966 -0.00222984 -0.01259161 0.02764517 -0.01037771 0.00790635 -0.01343459 0.00514388 0.10342069 0.09052715 -0.22216158 0.06551991 -0.00314702 0.00920029 0.00561902 -5.1679E-4 0.00117202 -0.00124479 0.01343459 -0.02273834 0.00763061 -0.10008647 0.23423639 -0.0333673 0.06418558 -0.07737804 -0.01581825 0.0287232 -0.03298654 0.00229001 -0.00709918 0.00501955 0.00514388 -0.00763061 0.00723189 0.04331449 -0.07828905 0.09648231 -0.00158151 0.0 -0.0096923 -0.46265276 0.0 0.14921888 0.0028078 0.0 0.00106653 8.1362E-4 2.1146E-4 -0.00156283 8.1362E-4 -2.1146E-4 -0.00156283 0.45979923 0.0 -0.00100139 0.0 0.0 -0.0035381 0.0 0.0 6.4933E-4 0.0 0.001524 2.9121E-4 -1.1005E-4 -0.001524 2.9121E-4 1.1005E-4 0.0 0.00330774 0.04764615 0.0 -0.02122422 0.09115159 0.0 -0.07741267 -0.00136684 0.0 -0.0081848 1.828E-5 -7.6429E-4 0.00163083 1.828E-5 7.643E-4 0.00163083 -0.13746745 0.0 0.10356003</array>
@@ -625,6 +635,9 @@
           <atom elementType="H" id="a5" x3="1.8439734083535528" y3="-0.48397599312351397" z3="-0.8932831477567513" />
           <atom elementType="H" id="a6" x3="-0.2937842735066108" y3="-0.9230643446962683" z3="-1.1304277951393342E-16" />
         </atomArray>
+        <property dictRef="cc:dipoleMomentVector">
+          <array dataType="xsd:double" size="3" units="nonSi:elementaryCharge.bohr">-0.565706 0.0 -0.3521908</array>
+        </property>
       </molecule>
       <map id="variableMap">
         <link from="rco" to="1.41847336" />
@@ -661,7 +674,6 @@
       <scalar dataType="xsd:double" dictRef="cc:rmsd" units="nonsi:unknown">5.682E-9</scalar>
       <scalar dataType="xsd:double" dictRef="cc:rmsf" units="nonsi:unknown">7.916E-5</scalar>
       <scalar dataType="xsd:string" dictRef="cc:pointgroup">CS [SG(C1H2O1),X(H2)]</scalar>
-      <array dataType="xsd:double" size="3" dictRef="cc:dipole" units="nonsi:debye">-0.5657059 0.0 -0.3521908</array>
       <molecule id="mol9999" spinMultiplicity="1" formalCharge="0">
         <zMatrix>
           <length atomRefs2="a1 a2">1.41847336</length>
@@ -685,6 +697,9 @@
           <atom elementType="H" id="a5" x3="1.8439734083535528" y3="-0.48397599312351397" z3="-0.8932831477567513" />
           <atom elementType="H" id="a6" x3="-0.2937842735066108" y3="-0.9230643446962683" z3="-1.1304277951393342E-16" />
         </atomArray>
+        <property dictRef="cc:dipoleMomentVector">
+          <array dataType="xsd:double" size="3" units="nonSi:elementaryCharge.bohr">-0.5657059 0.0 -0.3521908</array>
+        </property>
       </molecule>
       <map id="variableMap">
         <link from="rco" to="1.41847336" />
