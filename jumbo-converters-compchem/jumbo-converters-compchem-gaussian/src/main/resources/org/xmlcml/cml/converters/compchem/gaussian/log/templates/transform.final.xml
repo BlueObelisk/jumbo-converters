@@ -156,6 +156,8 @@
   <transform process="moveRelative" to="./ancestor::cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:frequencyAnalysis']/cml:propertyList"
              xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:property[@dictRef='cc:frequencies' or @dictRef='cc:vibrations' or @dictRef='cc:forces' or @dictRef='g:l716.lowfreq']" />
 
+  <transform process="pullup" xpath=".//cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:property[@dictRef='cc:popanal']//cml:property" repeat="2" />
+
   <!-- CLEAN UP -->
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />

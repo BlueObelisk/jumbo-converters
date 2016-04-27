@@ -35,15 +35,17 @@
   
   <transform process="addAttribute" xpath=".//cml:list/cml:list/cml:array" name="cmlx:temp" value="$string(../cml:scalar)"/>
 
-  <transform process="addDictRef" xpath=".//cml:array[@cmlx:temp='Alpha  occ.']" value="g:alphaocc"/>
+  <transform process="addDictRef" xpath=".//cml:array[@cmlx:temp='Alpha  occ.']" value="cc:occOrbitalEigenvalues"/>
   <transform process="addDictRef" xpath=".//cml:array[@cmlx:temp='Beta  occ.']" value="g:betaocc"/>
-  <transform process="addDictRef" xpath=".//cml:array[@cmlx:temp='Alpha virt.']" value="g:alphavirt"/>
+  <transform process="addDictRef" xpath=".//cml:array[@cmlx:temp='Alpha virt.']" value="cc:virtorbitalEigenvalues"/>
   <transform process="addDictRef" xpath=".//cml:array[@cmlx:temp='Beta virt.']" value="g:betavirt"/>
   
-  <transform process="joinArrays" xpath=".//cml:array[@dictRef='g:alphaocc']"/>
-  <transform process="joinArrays" xpath=".//cml:array[@dictRef='g:alphavirt']"/>
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='cc:occOrbitalEigenvalues']"/>
+  <transform process="joinArrays" xpath=".//cml:array[@dictRef='cc:virtorbitalEigenvalues']"/>
   <transform process="joinArrays" xpath=".//cml:array[@dictRef='g:betaocc']"/>
   <transform process="joinArrays" xpath=".//cml:array[@dictRef='g:betavirt']"/>
+
+  <transform process="addUnits" xpath=".//cml:array[@dictRef='cc:occOrbitalEigenvalues' or @dictRef='cc:virtorbitalEigenvalues']" value="nonSi:hartree" />
   
   <transform process="delete" xpath=".//cml:scalar[@dictRef='g:name']"/>
   <transform process="delete" xpath=".//@cmlx:temp"/>
@@ -55,15 +57,15 @@
   
   <comment class="example.output" id="l601.alphabeta">
     <module cmlx:templateRef="l601.alphabetaeigen" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <array dataType="xsd:double" size="5" dictRef="g:alphaocc">-10.17514 -0.68437 -0.38581 -0.38581 -0.38581</array>
-      <array dataType="xsd:double" size="18" dictRef="g:alphavirt">0.11292 0.17036 0.17036 0.17036 0.53917 0.53917 0.53917 0.88316 0.88316 0.88316 0.91927 1.0938 1.66027 1.66027 2.21731 2.21731 2.21731 4.16488</array>
+      <array dataType="xsd:double" size="5" dictRef="cc:occOrbitalEigenvalues" units="nonSi:hartree">-10.17514 -0.68437 -0.38581 -0.38581 -0.38581</array>
+      <array dataType="xsd:double" size="18" dictRef="cc:virtorbitalEigenvalues" units="nonSi:hartree">0.11292 0.17036 0.17036 0.17036 0.53917 0.53917 0.53917 0.88316 0.88316 0.88316 0.91927 1.0938 1.66027 1.66027 2.21731 2.21731 2.21731 4.16488</array>
     </module>
  </comment>
  
   <comment class="example.output" id="l601.alphabeta1">
     <module cmlx:templateRef="l601.alphabetaeigen" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <array dataType="xsd:double" size="34" dictRef="g:alphaocc">-101.48091 -14.37146 -10.25937 -10.20799 -10.2023 -10.20228 -10.19743 -10.19743 -9.39329 -7.16108 -7.14822 -7.14811 -0.97438 -0.8743 -0.78003 -0.76592 -0.73339 -0.64816 -0.64089 -0.56529 -0.55984 -0.51547 -0.4666 -0.46182 -0.45222 -0.43053 -0.39353 -0.37103 -0.36613 -0.29022 -0.28837 -0.25928 -0.25694 -0.22275</array>
-      <array dataType="xsd:double" size="12" dictRef="g:alphavirt">-0.03561 -0.02951 -0.02007 0.00681 0.0071 0.03442 0.03691 0.04968 0.05946 0.0646 35.61899 215.72824</array>
+      <array dataType="xsd:double" size="34" dictRef="cc:occOrbitalEigenvalues" units="nonSi:hartree">-101.48091 -14.37146 -10.25937 -10.20799 -10.2023 -10.20228 -10.19743 -10.19743 -9.39329 -7.16108 -7.14822 -7.14811 -0.97438 -0.8743 -0.78003 -0.76592 -0.73339 -0.64816 -0.64089 -0.56529 -0.55984 -0.51547 -0.4666 -0.46182 -0.45222 -0.43053 -0.39353 -0.37103 -0.36613 -0.29022 -0.28837 -0.25928 -0.25694 -0.22275</array>
+      <array dataType="xsd:double" size="12" dictRef="cc:virtorbitalEigenvalues" units="nonSi:hartree">-0.03561 -0.02951 -0.02007 0.00681 0.0071 0.03442 0.03691 0.04968 0.05946 0.0646 35.61899 215.72824</array>
       <array dataType="xsd:double" size="33" dictRef="g:betaocc">-101.47689 -14.36908 -10.25753 -10.20541 -10.20118 -10.20115 -10.19751 -10.1975 -9.38942 -7.14844 -7.14581 -7.14571 -0.96967 -0.86975 -0.7785 -0.75793 -0.70704 -0.6454 -0.63788 -0.5638 -0.55806 -0.51339 -0.46458 -0.4597 -0.45189 -0.41899 -0.39167 -0.3694 -0.34544 -0.28576 -0.25188 -0.24866 -0.24699</array>
       <array dataType="xsd:double" size="13" dictRef="g:betavirt">-0.15115 -0.02773 -0.02075 -0.01342 0.00692 0.00756 0.03482 0.03714 0.0509 0.06074 26.1406 35.62144 215.73194</array>
     </module>
