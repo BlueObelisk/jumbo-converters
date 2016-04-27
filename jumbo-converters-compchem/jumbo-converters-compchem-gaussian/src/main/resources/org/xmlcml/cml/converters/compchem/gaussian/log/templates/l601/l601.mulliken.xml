@@ -86,11 +86,11 @@
     </template>
     <template id="l601.spatial" pattern="\s*Electronic spatial extent.*" repeat="*"
       endPattern=".+" endOffset="0">
-      <record id="l601.elect">\s*Electronic spatial extent.*={F,g:electextent2}\s*</record>
+      <record id="l601.elect">\s*Electronic spatial extent.*={F,cc:electronicExtent}\s*</record>
     </template>
     <template id="l601.charge" pattern="\s*Charge\s*=.*" repeat="*"
       endPattern="~" endOffset="0">
-      <record id="l601.charge">\s*Charge\s*=\s*{F,g:charge}\s*electrons\s*</record>
+      <record id="l601.charge">\s*Charge\s*=\s*{F,cc:charge}\s*electrons\s*</record>
     </template>
   </templateList>
 
@@ -106,6 +106,12 @@
   <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.sum']"/>
   <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.spatial']"/>
   <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.charge']"/>
+
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:charge']" value="nonSi:elementaryCharge" />
+  <transform process="addUnits" xpath=".//cml:array[@dictRef='x:charge']" value="nonSi:elementaryCharge" />
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:electronicExtent']" value="nonSi:bohr2" />
+  <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='l601.mullik'][1]//cml:array[@dictRef='x:charge']" value="cc:mulliken" />
+  <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='l601.mullik'][2]//cml:array[@dictRef='x:charge']" value="x:chargesum.heavyAtoms" />
   
   <!--  delete empty lists -->
  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
@@ -119,7 +125,7 @@
         <list cmlx:lineCount="5" cmlx:templateRef="row">
           <array dataType="xsd:integer" dictRef="cc:serial" size="5">1 2 3 4 5</array>
           <array dataType="xsd:string" dictRef="cc:elementType" size="5">C H H H H</array>
-          <array dataType="xsd:double" dictRef="x:charge" size="5">-0.619218 0.154804 0.154804 0.154804 0.154804</array>
+          <array dataType="xsd:double" dictRef="cc:mulliken" units="nonSi:elementaryCharge" size="5">-0.619218 0.154804 0.154804 0.154804 0.154804</array>
         </list>
         <scalar dataType="xsd:string" dictRef="x:type">Mulliken</scalar>
         <scalar dataType="xsd:double" dictRef="x:charge.sum">0.0</scalar>
@@ -130,13 +136,13 @@
         <list cmlx:lineCount="5" cmlx:templateRef="row">
           <array dataType="xsd:integer" dictRef="cc:serial" size="5">1 2 3 4 5</array>
           <array dataType="xsd:string" dictRef="cc:elementType" size="5">C H H H H</array>
-          <array dataType="xsd:double" dictRef="x:charge" size="5">0.0 0.0 0.0 0.0 0.0</array>
+          <array dataType="xsd:double" dictRef="x:chargesum.heavyAtoms" units="nonSi:elementaryCharge" size="5">0.0 0.0 0.0 0.0 0.0</array>
         </list>
         <scalar dataType="xsd:string" dictRef="x:type">Mulliken</scalar>
         <scalar dataType="xsd:double" dictRef="x:charge.sum">0.0</scalar>
       </module>
-      <scalar dataType="xsd:double" dictRef="g:electextent2">36.2154</scalar>
-      <scalar dataType="xsd:double" dictRef="g:charge">0.0</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:electronicExtent" units="nonSi:bohr2">36.2154</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:charge" units="nonSi:elementaryCharge">0.0</scalar>
     </module>
   </comment>
   
@@ -148,7 +154,7 @@
         <list cmlx:lineCount="4" cmlx:templateRef="row">
           <array dataType="xsd:integer" dictRef="cc:serial" size="4">1 2 3 4</array>
           <array dataType="xsd:string" dictRef="cc:elementType" size="4">C O O H</array>
-          <array dataType="xsd:double" dictRef="x:charge" size="4">0.20503 -0.561496 -0.561496 -0.082038</array>
+          <array dataType="xsd:double" dictRef="cc:mulliken" units="nonSi:elementaryCharge" size="4">0.20503 -0.561496 -0.561496 -0.082038</array>
         </list>
         <scalar dataType="xsd:string" dictRef="x:type">Mulliken</scalar>
         <scalar dataType="xsd:double" dictRef="x:charge.sum">-1.0</scalar>
@@ -159,11 +165,11 @@
         <list cmlx:lineCount="3" cmlx:templateRef="row">
           <array dataType="xsd:integer" dictRef="cc:serial" size="3">1 2 3</array>
           <array dataType="xsd:string" dictRef="cc:elementType" size="3">C O O</array>
-          <array dataType="xsd:double" dictRef="x:charge" size="3">0.122992 -0.561496 -0.561496</array>
+          <array dataType="xsd:double" dictRef="x:chargesum.heavyAtoms" units="nonSi:elementaryCharge" size="3">0.122992 -0.561496 -0.561496</array>
         </list>
       </module>
-      <scalar dataType="xsd:double" dictRef="g:electextent2">124.8225</scalar>
-      <scalar dataType="xsd:double" dictRef="g:charge">-1.0</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:electronicExtent" units="nonSi:bohr2">124.8225</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:charge" units="nonSi:elementaryCharge">-1.0</scalar>
     </module>
   </comment>
   
@@ -175,7 +181,7 @@
         <list cmlx:lineCount="4" cmlx:templateRef="row">
           <array dataType="xsd:integer" dictRef="cc:serial" size="4">1 2 3 4</array>
           <array dataType="xsd:string" dictRef="cc:elementType" size="4">C O O H</array>
-          <array dataType="xsd:double" dictRef="x:charge" size="4">0.279621 -0.598632 -0.598632 -0.082357</array>
+          <array dataType="xsd:double" dictRef="cc:mulliken" units="nonSi:elementaryCharge" size="4">0.279621 -0.598632 -0.598632 -0.082357</array>
         </list>
         <scalar dataType="xsd:string" dictRef="x:type">Mulliken</scalar>
         <scalar dataType="xsd:double" dictRef="x:charge.sum">-1.0</scalar>
@@ -186,7 +192,7 @@
       <list cmlx:lineCount="3" cmlx:templateRef="row">
         <array dataType="xsd:integer" dictRef="cc:serial" size="3">1 2 3</array>
         <array dataType="xsd:string" dictRef="cc:elementType" size="3">C O O</array>
-        <array dataType="xsd:double" dictRef="x:charge" size="3">0.197264 -0.598632 -0.598632</array>
+        <array dataType="xsd:double" dictRef="x:chargesum.heavyAtoms" units="nonSi:elementaryCharge" size="3">0.197264 -0.598632 -0.598632</array>
       </list>
     </module>
     <module cmlx:lineCount="6" cmlx:templateRef="l601.mullik">
@@ -195,7 +201,7 @@
       <list cmlx:lineCount="4" cmlx:templateRef="row">
         <array dataType="xsd:integer" dictRef="cc:serial" size="4">1 2 3 4</array>
         <array dataType="xsd:string" dictRef="cc:elementType" size="4">C O O H</array>
-        <array dataType="xsd:double" dictRef="x:charge" size="4">1.116271 -0.927259 -0.927259 -0.261754</array>
+        <array dataType="xsd:double" dictRef="x:charge" units="nonSi:elementaryCharge" size="4">1.116271 -0.927259 -0.927259 -0.261754</array>
       </list>
       <scalar dataType="xsd:string" dictRef="x:type">APT</scalar>
       <scalar dataType="xsd:double" dictRef="x:charge.sum">-1.0</scalar>
@@ -206,11 +212,11 @@
       <list cmlx:lineCount="3" cmlx:templateRef="row">
         <array dataType="xsd:integer" dictRef="cc:serial" size="3">1 2 3</array>
         <array dataType="xsd:string" dictRef="cc:elementType" size="3">C O O</array>
-        <array dataType="xsd:double" dictRef="x:charge" size="3">0.854518 -0.927259 -0.927259</array>
+        <array dataType="xsd:double" dictRef="x:charge" units="nonSi:elementaryCharge" size="3">0.854518 -0.927259 -0.927259</array>
       </list>
     </module>
-    <scalar dataType="xsd:double" dictRef="g:electextent2">138.1451</scalar>
-    <scalar dataType="xsd:double" dictRef="g:charge">-1.0</scalar>
+    <scalar dataType="xsd:double" dictRef="cc:electronicExtent" units="nonSi:bohr2">138.1451</scalar>
+    <scalar dataType="xsd:double" dictRef="cc:charge" units="nonSi:elementaryCharge">-1.0</scalar>
     </module>
   </comment>
 

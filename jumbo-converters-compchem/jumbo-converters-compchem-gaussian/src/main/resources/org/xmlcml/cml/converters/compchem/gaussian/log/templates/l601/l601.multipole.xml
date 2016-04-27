@@ -40,10 +40,10 @@
   <record id="xxxz">\s*XXXZ={F,x:h}YYYX={F,x:h}YYYZ={F,x:h}ZZZX={F,x:h}\s*</record>
   <record id="zzzy">\s*ZZZY={F,x:h}XXYY={F,x:h}XXZZ={F,x:h}YYZZ={F,x:h}\s*</record>
   <record id="xxyz">\s*XXYZ={F,x:h}YYXZ={F,x:h}ZZXY={F,x:h}\s*</record>
-<!-- 
-  <record id="nnke">\s*N\-N={F,g:nn}E\-N={F,g:nn}\s*KE={F,g:ke}\s*</record>
---> 
-  <record repeat="*" id="xzz"/>
+ 
+  <record id="nnke">\s*N\-N\s*=\s*{X,g:nn}\s*E\-N\s*=\s*{X,cc:potentialEnergy}\s*KE\s*=\s*{X,cc:kineticEnergy}\s*</record>
+ 
+  <!-- <record repeat="*" id="xzz"/> -->
   
   <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:d']" dictRef="cc:dipoleMomentVector"/>
   <!-- <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:q']" dictRef="cc:quadrupoleMomentVector"/> -->
@@ -53,6 +53,7 @@
   <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:h']" dictRef="cc:hexadecapoleMoment"/>
 
   <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:dipoleMoment']" value="nonSi:debye" />
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:kineticEnergy' or @dictRef='cc:potentialEnergy']" value="nonSi:hartree" />
 
   <transform process="addUnits" xpath=".//cml:array[@dictRef='cc:dipoleMomentVector']"     value="nonSi:debye" />
   <transform process="addUnits" value="nonSi:debye.angstrom"
@@ -75,6 +76,9 @@
       <array dataType="xsd:double" size="6" dictRef="cc:tracelessQuadrupoleMoment" units="nonSi:debye.angstrom">0.0 0.0 0.0 0.0 0.0 0.0</array>
       <array dataType="xsd:double" size="10" dictRef="cc:octapoleMoment" units="nonSi:debye.angstrom2">0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 -0.7195</array>
       <array dataType="xsd:double" size="15" dictRef="cc:hexadecapoleMoment" units="nonSi:debye.angstrom3">-16.2252 -16.2252 -16.2252 0.0 0.0 0.0 0.0 0.0 0.0 -4.9297 -4.9297 -4.9297 0.0 0.0 0.0</array>
+      <scalar dataType="xsd:string" dictRef="g:nn">1.339525332293D+01</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:potentialEnergy" units="nonSi:hartree">-1.198300348205D+02</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:kineticEnergy" units="nonSi:hartree">4.007106437468D+01</scalar>
     </module>
  </comment>
 </template>
