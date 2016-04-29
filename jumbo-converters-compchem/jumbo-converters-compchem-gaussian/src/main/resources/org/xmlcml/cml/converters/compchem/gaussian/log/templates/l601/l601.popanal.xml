@@ -315,21 +315,23 @@
              elementName="cml:arrayList"
              position="0" />
 
-  <transform process="addAttribute" xpath=".//cml:arrayList" name="shape" value="irregular" />
 
-  <transform process="move" xpath=".//cml:module[contains(@cmlx:templateRef,'l4601')]/cml:list/cml:array" to=".//cml:property[@dictRef='cc:orbitalSymmetry']/cml:arrayList" />
-  <transform process="move" xpath=".//cml:array[@dictRef='cc:occOrbitalEigenvalues' or @dictRef='cc:virtorbitalEigenvalues']" to=".//cml:property[@dictRef='cc:orbitalEigenvalues']/cml:arrayList" />
+  <transform process="move" xpath=".//cml:module[contains(@cmlx:templateRef,'l4601')]/cml:list/cml:array" 
+             to=".//cml:property[@dictRef='cc:orbitalSymmetry']/cml:arrayList" />
+  <transform process="move" xpath=".//cml:array[@dictRef='cc:occOrbitalEigenvalues' or @dictRef='cc:virtOrbitalEigenvalues']" 
+             to=".//cml:property[@dictRef='cc:orbitalEigenvalues']/cml:arrayList" />
 
-
-  <transform process="createTable" xpath=".//cml:module[@cmlx:templateRef='l601.mullik']/cml:list[@cmlx:templateRef='row']" />
-  <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='l601.mullik'][1]/cml:table" value="cc:netAtomicCharge" />
-  <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='l601.mullik'][2]/cml:table" value="cc:netChargeSummedToHeavyAtom" />
+  <transform process="addAttribute" name="shape" value="irregular"
+             xpath=".//cml:property[@dictRef='cc:orbitalSymmetry' or @dictRef='cc:orbitalEigenvalues']/cml:arrayList" />
+  <transform process="addAttribute" name="convention" value="gaussianOrbitalSymmetryLabels"
+             xpath=".//cml:property[@dictRef='cc:orbitalSymmetry']//cml:array" />
 
   <transform process="pullupSingleton" xpath=".//cml:module[@cmlx:templateRef='l601.state']" />
   <transform process="pullupSingleton" xpath=".//cml:module[@cmlx:templateRef='l601.condensed']" />
   <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='mulliken']/cml:module[@cmlx:templateRef='l601.mullik']/cml:table" />
   <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='mulliken']/cml:table" />
-  <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='mulliken']/cml:module[@cmlx:templateRef='l601.mullik']/cml:scalar[@dictRef='cc:electronicExtent' or @dictRef='cc:charge']" />
+  <transform process="pullup" 
+             xpath=".//cml:module[@cmlx:templateRef='mulliken']/cml:module[@cmlx:templateRef='l601.mullik']/cml:scalar[@dictRef='cc:electronicExtent' or @dictRef='cc:charge']" />
   <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='mulliken']/cml:scalar[@dictRef='cc:electronicExtent' or @dictRef='cc:charge']" />
   <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='multipole']/cml:scalar[@dictRef='cc:potentialEnergy' or @dictRef='cc:kineticEnergy']" />
 
@@ -348,19 +350,21 @@
  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
  <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
+
 
   <comment class="example.output" id="l601.popanal">
     <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l601.popanal">
       <property dictRef="cc:orbitalSymmetry">
         <arrayList shape="irregular">
-          <array dataType="xsd:string" size="9" dictRef="cc:occOrbitalSymmetry">(A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
-          <array dataType="xsd:string" size="29" dictRef="cc:virtOrbitalSymmetry">(A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
+          <array dataType="xsd:string" size="9" dictRef="cc:occOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
+          <array dataType="xsd:string" size="29" dictRef="cc:virtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
         </arrayList>
       </property>
       <property dictRef="cc:orbitalEigenvalues">
         <arrayList shape="irregular">
           <array dataType="xsd:double" size="9" dictRef="cc:occOrbitalEigenvalues" units="nonSi:hartree">-19.13558 -10.2193 -1.01861 -0.68303 -0.50832 -0.43839 -0.42416 -0.32709 -0.26334</array>
-          <array dataType="xsd:double" size="29" dictRef="cc:virtorbitalEigenvalues" units="nonSi:hartree">0.08046 0.13626 0.17255 0.17959 0.21408 0.54161 0.5648 0.57415 0.79617 0.85898 0.87944 0.91798 0.96296 0.97574 1.02496 1.11848 1.46642 1.50037 1.59532 1.74098 2.0635 2.1237 2.15489 2.36907 2.41916 2.48291 2.80459 3.71571 4.22019</array>
+          <array dataType="xsd:double" size="29" dictRef="cc:virtOrbitalEigenvalues" units="nonSi:hartree">0.08046 0.13626 0.17255 0.17959 0.21408 0.54161 0.5648 0.57415 0.79617 0.85898 0.87944 0.91798 0.96296 0.97574 1.02496 1.11848 1.46642 1.50037 1.59532 1.74098 2.0635 2.1237 2.15489 2.36907 2.41916 2.48291 2.80459 3.71571 4.22019</array>
         </arrayList>
       </property>
       <property dictRef="cc:electronicState">
@@ -390,18 +394,6 @@
       <property dictRef="cc:charge">
         <scalar dataType="xsd:double" units="nonSi:elementaryCharge">0.0</scalar>
       </property>
-      <module cmlx:lineCount="15" cmlx:templateRef="mulliken">
-        <module cmlx:lineCount="8" cmlx:templateRef="l601.mullik">
-          <scalar dataType="xsd:string" dictRef="g:title">Mulliken charges:</scalar>
-          <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
-          <scalar dataType="xsd:string" dictRef="x:type">Mulliken</scalar>
-          <scalar dataType="xsd:double" dictRef="x:charge.sum">0.0</scalar>
-        </module>
-        <module cmlx:lineCount="4" cmlx:templateRef="l601.mullik">
-          <scalar dataType="xsd:string" dictRef="g:title">Mulliken charges with hydrogens summed into heavy atoms:</scalar>
-          <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
-        </module>
-      </module>
       <property dictRef="cc:potentialEnergy">
         <scalar dataType="xsd:string" units="nonSi:hartree">-3.527625224978D+02</scalar>
       </property>
@@ -427,14 +419,14 @@
     <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l601.popanal">
       <property dictRef="cc:orbitalSymmetry">
         <arrayList shape="irregular">
-          <array dataType="xsd:string" size="47" dictRef="cc:occOrbitalSymmetry">(A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
-          <array dataType="xsd:string" size="90" dictRef="cc:virtOrbitalSymmetry">(A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
+          <array dataType="xsd:string" size="47" dictRef="cc:occOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
+          <array dataType="xsd:string" size="90" dictRef="cc:virtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
         </arrayList>
       </property>
       <property dictRef="cc:orbitalEigenvalues">
         <arrayList shape="irregular">
           <array dataType="xsd:double" size="47" dictRef="cc:occOrbitalEigenvalues" units="nonSi:hartree">-20.52168 -20.4663 -20.46585 -11.3504 -11.34946 -11.22473 -11.22393 -11.22312 -11.22288 -11.20313 -11.20278 -11.19492 -11.19453 -1.50186 -1.435 -1.38485 -1.18289 -1.11698 -1.0503 -1.04827 -0.94032 -0.88084 -0.8511 -0.83643 -0.79764 -0.73423 -0.69779 -0.6937 -0.68645 -0.65461 -0.65387 -0.63349 -0.61812 -0.6179 -0.6077 -0.57953 -0.57132 -0.55915 -0.5348 -0.5123 -0.50145 -0.48347 -0.46607 -0.45949 -0.43659 -0.36229 -0.32444</array>
-          <array dataType="xsd:double" size="90" dictRef="cc:virtorbitalEigenvalues" units="nonSi:hartree">0.07339 0.09473 0.18748 0.22031 0.23633 0.26848 0.27712 0.28222 0.31404 0.32337 0.32823 0.32986 0.36296 0.36592 0.3687 0.38871 0.41148 0.41332 0.42258 0.45866 0.47903 0.48362 0.56226 0.57578 0.64963 0.66597 0.68659 0.70559 0.84615 0.861 0.87238 0.92484 0.93682 0.94051 0.96626 0.96727 0.99866 1.0062 1.02604 1.0319 1.0523 1.09013 1.0903 1.10977 1.13454 1.15774 1.16331 1.17335 1.20259 1.23267 1.27396 1.27416 1.27708 1.29188 1.30509 1.31565 1.34021 1.35603 1.36657 1.38068 1.39617 1.4143 1.4546 1.49114 1.52618 1.59559 1.62071 1.69688 1.73433 1.77582 1.83154 1.87398 1.91085 1.9143 1.94422 1.94519 1.99512 2.03822 2.04686 2.09438 2.1414 2.16336 2.42483 2.46497 2.52192 2.61856 3.24406 3.57056 3.76549 3.94609</array>
+          <array dataType="xsd:double" size="90" dictRef="cc:virtOrbitalEigenvalues" units="nonSi:hartree">0.07339 0.09473 0.18748 0.22031 0.23633 0.26848 0.27712 0.28222 0.31404 0.32337 0.32823 0.32986 0.36296 0.36592 0.3687 0.38871 0.41148 0.41332 0.42258 0.45866 0.47903 0.48362 0.56226 0.57578 0.64963 0.66597 0.68659 0.70559 0.84615 0.861 0.87238 0.92484 0.93682 0.94051 0.96626 0.96727 0.99866 1.0062 1.02604 1.0319 1.0523 1.09013 1.0903 1.10977 1.13454 1.15774 1.16331 1.17335 1.20259 1.23267 1.27396 1.27416 1.27708 1.29188 1.30509 1.31565 1.34021 1.35603 1.36657 1.38068 1.39617 1.4143 1.4546 1.49114 1.52618 1.59559 1.62071 1.69688 1.73433 1.77582 1.83154 1.87398 1.91085 1.9143 1.94422 1.94519 1.99512 2.03822 2.04686 2.09438 2.1414 2.16336 2.42483 2.46497 2.52192 2.61856 3.24406 3.57056 3.76549 3.94609</array>
         </arrayList>
       </property>
       <property dictRef="cc:electronicState">
@@ -464,16 +456,6 @@
       <property dictRef="cc:charge">
         <scalar dataType="xsd:double" units="nonSi:elementaryCharge">0.0</scalar>
       </property>
-      <module cmlx:lineCount="44" cmlx:templateRef="mulliken">
-        <module cmlx:lineCount="25" cmlx:templateRef="l601.mullik">
-          <scalar dataType="xsd:string" dictRef="g:title">Mulliken atomic charges:</scalar>
-          <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
-        </module>
-        <module cmlx:lineCount="15" cmlx:templateRef="l601.mullik">
-          <scalar dataType="xsd:string" dictRef="g:title">Mulliken charges with hydrogens summed into heavy atoms:</scalar>
-          <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
-        </module>
-      </module>
       <property dictRef="cc:potentialEnergy">
         <scalar dataType="xsd:string" units="nonSi:hartree">-3.066552593713D+03</scalar>
       </property>
