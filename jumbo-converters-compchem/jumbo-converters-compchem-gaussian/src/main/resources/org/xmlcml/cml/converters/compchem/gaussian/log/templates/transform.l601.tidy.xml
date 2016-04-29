@@ -26,27 +26,26 @@
   </module>
 -->    
 
-  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.mullik' and 
+  <!-- <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.mullik' and 
     cml:scalar[@dictRef='g:title' and 
     (normalize-space(.)='Atomic charges with hydrogens summed into heavy atoms:' or
      normalize-space(.)='APT Atomic charges with hydrogens summed into heavy atoms:' or
      normalize-space(.)='APT atomic charges:' 
      )
-    ]]" />    
+    ]]" />   -->  
       
   <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='l601.mullik' and 
     cml:scalar[@dictRef='g:title' and normalize-space(.)='Mulliken atomic charges:']]" 
     value="cc:mulliken"/>    
-  <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='l601.mullik']//cml:array[@dictRef='x:charge']" 
-    value="cc:mulliken"/>    
-  <transform process="split" xpath=".//cml:array[@dictRef='cc:mulliken']"/>    
+  <!-- <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='l601.mullik']//cml:array[@dictRef='x:charge']" value="cc:mulliken"/>     -->
+  <!-- <transform process="split" xpath=".//cml:array[@dictRef='cc:mulliken']"/>     -->
   <transform process="copy" xpath="//cml:module[@dictRef='cc:job'][last()]/cml:module[@dictRef='cc:finalization']//cml:module[@dictRef='cc:mulliken']//cml:scalar[@dictRef='cc:mulliken']"
     to="./ancestor::cml:module[@dictRef='cc:finalization']//cml:molecule[@id='mol9999']/cml:atomArray/cml:atom"/>
-  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.mullik' and 
+  <!-- <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.mullik' and 
     cml:scalar[@dictRef='g:title' and 
     (normalize-space(.)='Mulliken atomic charges:'
      )
-    ]]" />    
+    ]]" />   -->  
 
   <transform process="delete" xpath=".//cml:scalar[@dictRef='g:electextent2']" />    
   
