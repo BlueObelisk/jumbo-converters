@@ -48,7 +48,7 @@
   <transform process="addAttribute" xpath=".//cml:molecule" name="formalCharge"
              value="$string(..//cml:scalar[@dictRef='x:formalCharge'])"/>
 
-  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='x:formalCharge']" value="nonSi:elementary_charge" />
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='x:formalCharge']" value="nonSi:elementaryCharge" />
   <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='x:formalCharge' or @dictRef='x:multiplicity']" />
   <transform process="addDictRef" xpath=".//cml:parameter[@dictRef='x:formalCharge']" value="cc:charge" />
   <transform process="addDictRef" xpath=".//cml:parameter[@dictRef='x:multiplicity']" value="cc:spinMultiplicity" />
@@ -61,7 +61,7 @@
   <comment class="example.output" id="l1.zmat">
     <module cmlx:templateRef="l101.zmat" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <parameter dictRef="cc:charge">
-        <scalar dataType="xsd:integer" units="nonSi:elementary_charge">0</scalar>
+        <scalar dataType="xsd:integer" units="nonSi:elementaryCharge">0</scalar>
       </parameter>
       <parameter dictRef="cc:spinMultiplicity">
         <scalar dataType="xsd:integer">1</scalar>
@@ -94,7 +94,7 @@
   <comment class="example.output" id="l1.zmat1">
     <module cmlx:templateRef="l101.zmat" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <parameter dictRef="cc:charge">
-        <scalar dataType="xsd:integer" units="nonSi:elementary_charge">0</scalar>
+        <scalar dataType="xsd:integer" units="nonSi:elementaryCharge">0</scalar>
       </parameter>
       <parameter dictRef="cc:spinMultiplicity">
         <scalar dataType="xsd:integer">1</scalar>
