@@ -39,7 +39,7 @@
   <transform process="pullupSingleton" xpath=".//cml:list[@cmlx:templateRef='zmatcommas']" />
 
   <transform process="move" xpath=".//cml:scalar[@dictRef='x:formalCharge' or @dictRef='x:multiplicity']" to="." />
-  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='x:formalCharge']" value="nonSi:elementary_charge" />
+  <transform process="addUnits" xpath=".//cml:scalar[@dictRef='x:formalCharge']" value="nonSi:elementaryCharge" />
   <transform process="addAttribute" xpath=".//cml:molecule" name="formalCharge" 
   	 	       value="$string(..//cml:scalar[@dictRef='x:formalCharge'])" />
   <transform process="addAttribute" xpath=".//cml:molecule" name="spinMultiplicity" 
@@ -99,7 +99,7 @@
 				</property>
 			</molecule>
 			<parameter dictRef="cc:charge">
-				<scalar dataType="xsd:integer" units="nonSi:elementary_charge">0</scalar>
+				<scalar dataType="xsd:integer" units="nonSi:elementaryCharge">0</scalar>
 			</parameter>
 			<parameter dictRef="cc:spinMultiplicity">
 				<scalar dataType="xsd:integer">1</scalar>
@@ -150,7 +150,7 @@
 				</property>
 			</molecule>
 			<parameter dictRef="cc:charge">
-				<scalar dataType="xsd:integer" units="nonSi:elementary_charge">0</scalar>
+				<scalar dataType="xsd:integer" units="nonSi:elementaryCharge">0</scalar>
 			</parameter>
 			<parameter dictRef="cc:spinMultiplicity">
 				<scalar dataType="xsd:integer">1</scalar>
