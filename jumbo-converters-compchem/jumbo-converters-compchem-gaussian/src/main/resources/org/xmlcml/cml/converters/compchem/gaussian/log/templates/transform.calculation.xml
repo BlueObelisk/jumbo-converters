@@ -17,7 +17,7 @@
       starts-with(@cmlx:templateRef,'l302')
       ] | 
       .//cml:scalar[@dictRef='cc:Energy_NucRep']" 
-      to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='calculation']/cml:module[@id='otherComponents']"/> 
+      to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='calculation']/cml:module[@id='otherComponents']"/>
 
   <transform process="addAttribute" xpath=".//cml:module[@id='calculation']//cml:molecule" name="spinMultiplicity" value="$string(../../../../cml:module[@id='initialization']//cml:parameter[@dictRef='cc:spinMultiplicity'])" />
   <transform process="addAttribute" xpath=".//cml:module[@id='calculation']/*/*/cml:molecule" name="formalCharge" value="$string(../../../../cml:module[@id='initialization']//cml:parameter[@dictRef='cc:charge'])" />
