@@ -61,13 +61,13 @@
   <array dataType="xsd:double" dictRef="cc:hexadecapole" size="15">-15.7513 -15.7513 -15.7513 0.0 0.0 0.0 0.0 0.0 0.0 -4.8059 -4.8059 -4.8059 0.0 0.0 0.0</array> 
   </module>
  -->
-   <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='multipole']" value="cc:multipole"/>
-   <transform process="createList" xpath=".//cml:module[@cmlx:templateRef='multipole']"/>
-   <transform process="moveRelative" xpath=".//cml:list[@dictRef='cc:multipole']" 
-     to="./ancestor::cml:propertyList[1]"/>
+   <!-- <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='multipole']" value="cc:multipole"/> -->
+   <!-- <transform process="createList" xpath=".//cml:module[@cmlx:templateRef='multipole']"/> -->
+   <!-- <transform process="moveRelative" xpath=".//cml:list[@dictRef='cc:multipole']" 
+     to="./ancestor::cml:propertyList[1]"/> -->
 
-   <transform process="moveRelative" to="./ancestor::cml:propertyList"
-              xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:list[@dictRef='cc:multipole']/cml:scalar[@dictRef='cc:dipoleMoment']" />
+   <!-- <transform process="moveRelative" to="./ancestor::cml:propertyList"
+              xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:list[@dictRef='cc:multipole']/cml:scalar[@dictRef='cc:dipoleMoment']" /> -->
    
    <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.condensed']"/>
    
