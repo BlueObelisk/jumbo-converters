@@ -26,20 +26,20 @@
   <record  id="dipoletype">\s*Dipole moment \({X,g:dipoletype}\):\s*</record>
   <record  id="dipole">\s*X={F,x:d}Y={F,x:d}Z={F,x:d}Tot={F,cc:dipoleMoment}\s*</record>
   <record  id="quadrupoletype">\s*Quadrupole moment \({X,g:quadpoletype}\):\s*</record>
-  <record id="quadrupol">\s*XX={F,x:q}YY={F,x:q}ZZ={F,x:q}\s*</record>
-  <record id="xy">\s*XY={F,x:qb}XZ={F,x:qb}YZ={F,x:qb}\s*</record>
+  <record id="quadrupole">\s*{A,x:coordQuad}\s*={F,x:q}\s*{A,x:coordQuad}\s*={F,x:q}\s*{A,x:coordQuad}\s*={F,x:q}\s*</record>
+  <record id="xy">\s*{A,x:coordQuad}\s*={F,x:qb}\s*{A,x:coordQuad}\s*={F,x:qb}\s*{A,x:coordQuad}\s*={F,x:qb}\s*</record>
   <record id="quadrupoletypea">\s*Traceless Quadrupole moment \({X,g:quadpoletype}\):\s*</record>
-  <record id="xx">\s*XX={F,x:qq}YY={F,x:qq}ZZ={F,x:qq}\s*</record>
-  <record id="xya">\s*XY={F,x:qq}XZ={F,x:qq}YZ={F,x:qq}\s*</record>y
+  <record id="tracequadrupole">\s*{A,x:coordTraceQuad}\s*={F,x:qq}\s*{A,x:coordTraceQuad}\s*={F,x:qq}\s*{A,x:coordTraceQuad}\s*={F,x:qq}\s*</record>
+  <record id="xya">\s*{A,x:coordTraceQuad}\s*={F,x:qq}\s*{A,x:coordTraceQuad}\s*={F,x:qq}\s*{A,x:coordTraceQuad}\s*={F,x:qq}\s*</record>y
   <record id="octapoletype">\s*Octapole moment \({X,g:octapoletype}\):\s*</record>
-  <record id="xxx">\s*XXX={F,x:o}YYY={F,x:o}ZZZ={F,x:o}XYY={F,x:o}\s*</record>
-  <record id="xxy">\s*XXY={F,x:o}XXZ={F,x:o}XZZ={F,x:o}YZZ={F,x:o}\s*</record>
-  <record id="yyz">\s*YYZ={F,x:o}XYZ={F,x:o}\s*</record>
+  <record id="octapole">\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*</record>
+  <record id="xxy">\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*</record>
+  <record id="yyz">\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*</record>
   <record id="hexadecapoletype">\s*Hexadecapole moment \({X,g:hexadecapoletype}\):\s*</record>
-  <record id="xxxx">\s*XXXX={F,x:h}YYYY={F,x:h}ZZZZ={F,x:h}XXXY={F,x:h}\s*</record>
-  <record id="xxxz">\s*XXXZ={F,x:h}YYYX={F,x:h}YYYZ={F,x:h}ZZZX={F,x:h}\s*</record>
-  <record id="zzzy">\s*ZZZY={F,x:h}XXYY={F,x:h}XXZZ={F,x:h}YYZZ={F,x:h}\s*</record>
-  <record id="xxyz">\s*XXYZ={F,x:h}YYXZ={F,x:h}ZZXY={F,x:h}\s*</record>
+  <record id="hexadecapole">\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*</record>
+  <record id="xxxz">\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*</record>
+  <record id="zzzy">\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*</record>
+  <record id="xxyz">\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*</record>
  
   <record id="nnke">\s*N\-N\s*=\s*{X,cc:Energy_NucRep}\s*E\-N\s*=\s*{X,cc:potentialEnergy}\s*KE\s*=\s*{X,cc:kineticEnergy}\s*</record>
  
@@ -47,6 +47,10 @@
   
   <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:d']" dictRef="cc:dipoleMomentVector"/>
   <!-- <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:q']" dictRef="cc:quadrupoleMomentVector"/> -->
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:coordQuad']" dictRef="cc:coordinateLabel"/>
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:coordTraceQuad']" dictRef="cc:coordinateLabel"/>
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:coordOct']" dictRef="cc:coordinateLabel"/>
+  <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:coordHex']" dictRef="cc:coordinateLabel"/>
   <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:q' or @dictRef='x:qb']" dictRef="cc:quadrupoleMoment"/>
   <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:qq']" dictRef="cc:tracelessQuadrupoleMoment"/>
   <transform process="createArray" xpath="." from=".//cml:scalar[@dictRef='x:o']" dictRef="cc:octapoleMoment"/>
@@ -64,10 +68,21 @@
   <transform process="addUnits" xpath=".//cml:array[@dictRef='cc:octapoleMoment']" value="nonSi:debye.angstrom2" />
   <transform process="addUnits" xpath=".//cml:array[@dictRef='cc:hexadecapoleMoment']" value="nonSi:debye.angstrom3" />
 
-  <transform process="delete" xpath=".//cml:scalar[contains(@dictRef,'type')]"/>
-  <transform process="pullup" xpath=".//cml:scalar | .//cml:array" repeat="2"/>
+  <transform process="delete" xpath=".//cml:scalar[contains(@dictRef,'type')]" />
+  <transform process="pullup" xpath=".//cml:scalar" repeat="2" />
+  <transform process="pullup" xpath=".//cml:array[@dictRef='cc:dipoleMomentVector']" repeat="2" />
 
-  <transform process="createWrapperProperty" xpath=".//cml:array[@dictRef='cc:dipoleMomentVector' or @dictRef='cc:quadrupoleMoment' or @dictRef='cc:tracelessQuadrupoleMoment' or @dictRef='cc:octapoleMoment' or @dictRef='cc:hexadecapoleMoment']" />
+  <transform process="pullupSingleton" xpath=".//cml:list[@cmlx:templateRef='quadrupole' or @cmlx:templateRef='tracequadrupole' or @cmlx:templateRef='octapole' or @cmlx:templateRef='hexadecapole']" />
+
+  <transform process="createTable" xpath=".//cml:list[@cmlx:templateRef='quadrupole' or @cmlx:templateRef='tracequadrupole' or @cmlx:templateRef='octapole' or @cmlx:templateRef='hexadecapole']" />
+
+  <transform process="addDictRef" xpath=".//cml:table[1]" value="cc:quadrupoleMoment" />
+  <transform process="addDictRef" xpath=".//cml:table[2]" value="cc:tracelessQuadrupoleMoment" />
+  <transform process="addDictRef" xpath=".//cml:table[3]" value="cc:octapoleMoment" />
+  <transform process="addDictRef" xpath=".//cml:table[4]" value="cc:hexadecapoleMoment" />
+
+  <transform process="createWrapperProperty" xpath=".//cml:array[@dictRef='cc:dipoleMomentVector']" />
+  <transform process="createWrapperProperty" xpath=".//cml:table[@dictRef='cc:quadrupoleMoment' or @dictRef='cc:tracelessQuadrupoleMoment' or @dictRef='cc:octapoleMoment' or @dictRef='cc:hexadecapoleMoment']" />
 
   <transform process="createWrapperProperty" xpath=".//cml:scalar[@dictRef='cc:dipoleMoment' or @dictRef='cc:Energy_NucRep' or @dictRef='cc:potentialEnergy' or @dictRef='cc:kineticEnergy']" />
 
@@ -78,23 +93,43 @@
 
   <comment class="example.output" id="l601.multipole">
     <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="multipole">
-      <property dictRef="cc:dipoleMomentVector">
-        <array dataType="xsd:double" size="3" units="nonSi:debye">0.0 0.0 0.0</array>
-      </property>
       <property dictRef="cc:dipoleMoment">
         <scalar dataType="xsd:double" units="nonSi:debye">0.0</scalar>
       </property>
+      <property dictRef="cc:dipoleMomentVector">
+        <array dataType="xsd:double" size="3" units="nonSi:debye">0.0 0.0 0.0</array>
+      </property>
       <property dictRef="cc:quadrupoleMoment">
-        <array dataType="xsd:double" size="6" units="nonSi:debye.angstrom">-8.3036 -8.3036 -8.3036 0.0 0.0 0.0</array>
+        <table tableType="columnBased">
+          <arrayList>
+            <array dataType="xsd:string" size="6" dictRef="cc:coordinateLabel">XX YY ZZ XY XZ YZ</array>
+            <array dataType="xsd:double" size="6" dictRef="cc:quadrupoleMoment" units="nonSi:debye.angstrom">-8.3036 -8.3036 -8.3036 0.0 0.0 0.0</array>
+          </arrayList>
+        </table>
       </property>
       <property dictRef="cc:tracelessQuadrupoleMoment">
-        <array dataType="xsd:double" size="6" units="nonSi:debye.angstrom">0.0 0.0 0.0 0.0 0.0 0.0</array>
+        <table tableType="columnBased">
+          <arrayList>
+            <array dataType="xsd:string" size="6" dictRef="cc:coordinateLabel">XX YY ZZ XY XZ YZ</array>
+            <array dataType="xsd:double" size="6" dictRef="cc:tracelessQuadrupoleMoment" units="nonSi:debye.angstrom">0.0 0.0 0.0 0.0 0.0 0.0</array>
+          </arrayList>
+        </table>
       </property>
       <property dictRef="cc:octapoleMoment">
-        <array dataType="xsd:double" size="10" units="nonSi:debye.angstrom2">0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 -0.7195</array>
+        <table tableType="columnBased">
+          <arrayList>
+            <array dataType="xsd:string" size="10" dictRef="cc:coordinateLabel">XXX YYY ZZZ XYY XXY XXZ XZZ YZZ YYZ XYZ</array>
+            <array dataType="xsd:double" size="10" dictRef="cc:octapoleMoment" units="nonSi:debye.angstrom2">0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 -0.7195</array>
+          </arrayList>
+        </table>
       </property>
       <property dictRef="cc:hexadecapoleMoment">
-        <array dataType="xsd:double" size="15" units="nonSi:debye.angstrom3">-16.2252 -16.2252 -16.2252 0.0 0.0 0.0 0.0 0.0 0.0 -4.9297 -4.9297 -4.9297 0.0 0.0 0.0</array>
+        <table tableType="columnBased">
+          <arrayList>
+            <array dataType="xsd:string" size="15" dictRef="cc:coordinateLabel">XXXX YYYY ZZZZ XXXY XXXZ YYYX YYYZ ZZZX ZZZY XXYY XXZZ YYZZ XXYZ YYXZ ZZXY</array>
+            <array dataType="xsd:double" size="15" dictRef="cc:hexadecapoleMoment" units="nonSi:debye.angstrom3">-16.2252 -16.2252 -16.2252 0.0 0.0 0.0 0.0 0.0 0.0 -4.9297 -4.9297 -4.9297 0.0 0.0 0.0</array>
+          </arrayList>
+        </table>
       </property>
       <property dictRef="cc:Energy_NucRep">
         <scalar units="nonSi:hartree" dataType="xsd:double">13.39525332293</scalar>
