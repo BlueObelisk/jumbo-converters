@@ -20,7 +20,10 @@
              xpath=".//cml:module[@cmlx:templateRef='l601.popanal'][last()] |
                     .//cml:module[starts-with(@cmlx:templateRef,'l716')][last()] |
                     .//cml:module[starts-with(@cmlx:templateRef,'l801')][last()]" 
-             to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='finalization']/cml:propertyList"/> 
+             to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='finalization']/cml:propertyList"/>
+
+  <transform process="moveRelative" to="./ancestor::cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:calculation']"
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@cmlx:templateRef='l601.popanal']" />
     
   <transform process="moveRelative" xpath="
     .//cml:module[@cmlx:templateRef='l9999.final'][1] |
@@ -155,10 +158,14 @@
   <transform process="moveRelative" to="./ancestor::cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:frequencyAnalysis']/cml:propertyList"
              xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:property[@dictRef='cc:frequencies' or @dictRef='cc:vibrations' or @dictRef='cc:forces' or @dictRef='g:l716.lowfreq']" />
 
-  <transform process="pullup" xpath=".//cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:property[@dictRef='cc:popanal']//cml:property" repeat="2" />
+  <transform process="pullup" xpath=".//cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:property[@dictRef='cc:popanal']//cml:property[@dictRef='cc:orbitalSymmetry' or @dictRef='cc:orbitalEigenvalues' or @dictRef='cc:electronicState' or @dictRef='cc:netAtomicCharge' or @dictRef='cc:netChargeSummedToHeavyAtom' or @dictRef='cc:electronicExtent' or @dictRef='cc:charge' or @dictRef='cc:atomicOverlapPopulation']" repeat="2" />
 
-  <transform process="moveRelative" to="./ancestor::cml:module[@id='job']/cml:module[@id='calculation']"
-             xpath=".//cml:module[@cmlx:templateRef='l601.popanal']" />
+  <transform process="pullup" xpath=".//cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:property[@dictRef='cc:popanal']//cml:property[@dictRef='cc:dipoleMoment' or @dictRef='cc:Energy_NucRep' or @dictRef='cc:potentialEnergy' or @dictRef='cc:kineticEnergy']" repeat="3" />
+
+  <!-- <transform process="pullup" xpath=".//cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:property[@dictRef='cc:popanal']//cml:module[@dictRef='cc:multipole']" repeat="3" /> -->
+
+  <transform process="moveRelative" to="./ancestor::cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']"
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:property[@dictRef='cc:popanal']/cml:module/cml:module[@dictRef='cc:multipole']" />
 
   <!-- CLEAN UP -->
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
