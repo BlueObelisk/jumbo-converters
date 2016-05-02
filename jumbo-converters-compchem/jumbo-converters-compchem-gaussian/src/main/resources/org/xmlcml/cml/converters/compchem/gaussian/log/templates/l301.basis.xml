@@ -139,6 +139,15 @@
   
   <!-- TRANSFORMS -->
   <transform process="createTable" xpath=".//cml:list[@cmlx:templateRef='symmadapt']" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='1']]" name="rows" value="1" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='2']]" name="rows" value="2" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='3']]" name="rows" value="3" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='4']]" name="rows" value="4" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='5']]" name="rows" value="5" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='6']]" name="rows" value="6" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='7']]" name="rows" value="7" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='8']]" name="rows" value="8" />
+  <transform process="addAttribute" xpath=".//cml:table" name="columns" value="2" />
   
   <transform process="pullup" xpath=".//cml:scalar | .//cml:module/cml:array | .//cml:list/cml:array" repeat="2" />
   <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='basis' or @cmlx:templateRef='integral' or @cmlx:templateRef='natoms' or @cmlx:templateRef='ernie']/cml:scalar" />
@@ -165,7 +174,7 @@
     <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l301.basis">
       <scalar dataType="xsd:string" dictRef="cc:basisSetLabel">6-31G(d)</scalar>
       <scalar dataType="xsd:string" dictRef="cc:diffuse">(6D, 7F)</scalar>
-      <table tableType="columnBased">
+      <table tableType="columnBased" rows="4" columns="2">
         <arrayList>
           <array dataType="xsd:integer" dictRef="cc:adapted" size="4">8 5 5 5</array>
           <array dataType="xsd:string" dictRef="cc:symm" size="4">A B1 B2 B3</array>
@@ -199,7 +208,7 @@
       <scalar dataType="xsd:double" dictRef="g:thresh">0.001</scalar>
       <scalar dataType="xsd:double" dictRef="g:tol">1.0E-6</scalar>
       <scalar dataType="xsd:string" dictRef="g:strict">F</scalar>
-      <table tableType="columnBased">
+      <table tableType="columnBased" rows="8" columns="2">
         <arrayList>
           <array dataType="xsd:integer" dictRef="cc:adapted" size="8">7 0 2 4 0 7 4 2</array>
           <array dataType="xsd:string" dictRef="cc:symm" size="8">AG B1G B2G B3G AU B1U B2U B3U</array>
@@ -233,7 +242,7 @@
     <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l301.basis">
       <scalar dataType="xsd:string" dictRef="cc:basisSetLabel">6-31G(d)</scalar>
       <scalar dataType="xsd:string" dictRef="cc:diffuse">(6D, 7F)</scalar>
-      <table tableType="columnBased">
+      <table tableType="columnBased" rows="2" columns="2">
         <arrayList>
           <array dataType="xsd:integer" dictRef="cc:adapted" size="2">38 38</array>
           <array dataType="xsd:string" dictRef="cc:symm" size="2">A A</array>
@@ -264,7 +273,7 @@
     <module cmlx:templateRef="l301.basis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <scalar dataType="xsd:string" dictRef="cc:basisSetLabel">6-31G</scalar>
       <scalar dataType="xsd:string" dictRef="cc:diffuse">(6D, 7F)</scalar>
-      <table tableType="columnBased">
+      <table tableType="columnBased" rows="1" columns="2">
         <arrayList>
           <array dataType="xsd:integer" dictRef="cc:adapted" size="1">26</array>
           <array dataType="xsd:string" dictRef="cc:symm" size="1">A</array>
@@ -295,7 +304,7 @@
     <module cmlx:templateRef="l301.basis" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <scalar dataType="xsd:string" dictRef="cc:basisSetLabel">6-31G</scalar>
       <scalar dataType="xsd:string" dictRef="cc:diffuse">(6D, 7F)</scalar>
-      <table tableType="columnBased">
+      <table tableType="columnBased" rows="2" columns="2">
         <arrayList>
           <array dataType="xsd:integer" dictRef="cc:adapted" size="2">26 26</array>
           <array dataType="xsd:string" dictRef="cc:symm" size="2">A A</array>

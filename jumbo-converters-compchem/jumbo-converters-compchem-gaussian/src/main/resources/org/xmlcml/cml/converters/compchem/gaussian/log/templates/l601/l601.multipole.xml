@@ -81,6 +81,11 @@
   <transform process="addDictRef" xpath=".//cml:table[3]" value="cc:octapoleMoment" />
   <transform process="addDictRef" xpath=".//cml:table[4]" value="cc:hexadecapoleMoment" />
 
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='6']]" name="rows" value="6" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='10']]" name="rows" value="10" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='15']]" name="rows" value="15" />
+  <transform process="addAttribute" xpath=".//cml:table" name="columns" value="2" />
+
   <transform process="createWrapperProperty" xpath=".//cml:array[@dictRef='cc:dipoleMomentVector']" />
   <transform process="createWrapperProperty" xpath=".//cml:table[@dictRef='cc:quadrupoleMoment' or @dictRef='cc:tracelessQuadrupoleMoment' or @dictRef='cc:octapoleMoment' or @dictRef='cc:hexadecapoleMoment']" />
 
@@ -100,7 +105,7 @@
         <array dataType="xsd:double" size="3" units="nonSi:debye">0.0 0.0 0.0</array>
       </property>
       <property dictRef="cc:quadrupoleMoment">
-        <table tableType="columnBased">
+        <table tableType="columnBased" rows="6" columns="2">
           <arrayList>
             <array dataType="xsd:string" size="6" dictRef="cc:coordinateLabel">XX YY ZZ XY XZ YZ</array>
             <array dataType="xsd:double" size="6" dictRef="cc:quadrupoleMoment" units="nonSi:debye.angstrom">-8.3036 -8.3036 -8.3036 0.0 0.0 0.0</array>
@@ -108,7 +113,7 @@
         </table>
       </property>
       <property dictRef="cc:tracelessQuadrupoleMoment">
-        <table tableType="columnBased">
+        <table tableType="columnBased" rows="6" columns="2">
           <arrayList>
             <array dataType="xsd:string" size="6" dictRef="cc:coordinateLabel">XX YY ZZ XY XZ YZ</array>
             <array dataType="xsd:double" size="6" dictRef="cc:tracelessQuadrupoleMoment" units="nonSi:debye.angstrom">0.0 0.0 0.0 0.0 0.0 0.0</array>
@@ -116,7 +121,7 @@
         </table>
       </property>
       <property dictRef="cc:octapoleMoment">
-        <table tableType="columnBased">
+        <table tableType="columnBased" rows="10" columns="2">
           <arrayList>
             <array dataType="xsd:string" size="10" dictRef="cc:coordinateLabel">XXX YYY ZZZ XYY XXY XXZ XZZ YZZ YYZ XYZ</array>
             <array dataType="xsd:double" size="10" dictRef="cc:octapoleMoment" units="nonSi:debye.angstrom2">0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 -0.7195</array>
@@ -124,7 +129,7 @@
         </table>
       </property>
       <property dictRef="cc:hexadecapoleMoment">
-        <table tableType="columnBased">
+        <table tableType="columnBased" rows="15" columns="2">
           <arrayList>
             <array dataType="xsd:string" size="15" dictRef="cc:coordinateLabel">XXXX YYYY ZZZZ XXXY XXXZ YYYX YYYZ ZZZX ZZZY XXYY XXZZ YYZZ XXYZ YYXZ ZZXY</array>
             <array dataType="xsd:double" size="15" dictRef="cc:hexadecapoleMoment" units="nonSi:debye.angstrom3">-16.2252 -16.2252 -16.2252 0.0 0.0 0.0 0.0 0.0 0.0 -4.9297 -4.9297 -4.9297 0.0 0.0 0.0</array>
