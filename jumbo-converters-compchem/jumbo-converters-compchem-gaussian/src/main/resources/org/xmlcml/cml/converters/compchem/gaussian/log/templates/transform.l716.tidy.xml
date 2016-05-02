@@ -8,18 +8,7 @@
   <transform process="moveRelative" xpath="//cml:property[@dictRef='cc:frequencies']/cml:module/cml:array" to="../../cml:list[@id='l716.forcematrix']" />
   <transform process="createTable" xpath=".//cml:list[@id='l716.forcematrix']" />
 
-  <transform process="addAttribute" xpath=".//cml:property[@dictRef='cc:frequencies']/cml:table[cml:arrayList/cml:array[@size='1']]" name="rows" value="1" />
-  <transform process="addAttribute" xpath=".//cml:property[@dictRef='cc:frequencies']/cml:table[cml:arrayList/cml:array[@size='2']]" name="rows" value="2" />
-  <transform process="addAttribute" xpath=".//cml:property[@dictRef='cc:frequencies']/cml:table[cml:arrayList/cml:array[@size='3']]" name="rows" value="3" />
-  <transform process="addAttribute" xpath=".//cml:property[@dictRef='cc:frequencies']/cml:table[cml:arrayList/cml:array[@size='4']]" name="rows" value="4" />
-  <transform process="addAttribute" xpath=".//cml:property[@dictRef='cc:frequencies']/cml:table[cml:arrayList/cml:array[@size='5']]" name="rows" value="5" />
-  <transform process="addAttribute" xpath=".//cml:property[@dictRef='cc:frequencies']/cml:table[cml:arrayList/cml:array[@size='6']]" name="rows" value="6" />
-  <transform process="addAttribute" xpath=".//cml:property[@dictRef='cc:frequencies']/cml:table[cml:arrayList/cml:array[@size='7']]" name="rows" value="7" />
-  <transform process="addAttribute" xpath=".//cml:property[@dictRef='cc:frequencies']/cml:table[cml:arrayList/cml:array[@size='8']]" name="rows" value="8" />
-  <transform process="addAttribute" xpath=".//cml:property[@dictRef='cc:frequencies']/cml:table[cml:arrayList/cml:array[@size='9']]" name="rows" value="9" />
-  <transform process="addAttribute" xpath=".//cml:property[@dictRef='cc:frequencies']/cml:table[cml:arrayList/cml:array[@size='10']]" name="rows" value="10" />
-  <transform process="addAttribute" xpath=".//cml:property[@dictRef='cc:frequencies']/cml:table[cml:arrayList/cml:array[@size='11']]" name="rows" value="11" />
-  <transform process="addAttribute" xpath=".//cml:property[@dictRef='cc:frequencies']/cml:table[cml:arrayList/cml:array[@size='12']]" name="rows" value="12" />
+  <transform process="addAttribute" xpath=".//cml:property[@dictRef='cc:frequencies']/cml:table" name="rows" value="$number(./cml:arrayList/cml:array/@size)" />
   <transform process="addAttribute" xpath=".//cml:property[@dictRef='cc:frequencies']/cml:table" name="columns" value="6" />
 
   <transform process="pullupSingleton" xpath=".//cml:module[@cmlx:templateRef='l716.lowfreq']"/>

@@ -175,31 +175,7 @@ Mulliken charges:
   <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='l601.mullik'][3]/cml:table" value="cc:netAtomicCharge" />
   <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='l601.mullik'][4]/cml:table" value="cc:netChargeSummedToHeavyAtom" />
 
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='1']]" name="rows" value="1" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='2']]" name="rows" value="2" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='3']]" name="rows" value="3" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='4']]" name="rows" value="4" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='5']]" name="rows" value="5" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='6']]" name="rows" value="6" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='7']]" name="rows" value="7" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='8']]" name="rows" value="8" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='9']]" name="rows" value="9" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='10']]" name="rows" value="10" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='11']]" name="rows" value="11" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='12']]" name="rows" value="12" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='13']]" name="rows" value="13" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='14']]" name="rows" value="14" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='15']]" name="rows" value="15" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='16']]" name="rows" value="16" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='17']]" name="rows" value="17" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='18']]" name="rows" value="18" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='19']]" name="rows" value="19" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='20']]" name="rows" value="20" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='21']]" name="rows" value="21" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='22']]" name="rows" value="22" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='23']]" name="rows" value="23" />
-
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='23']]" name="rows" value="23" />
+  <transform process="addAttribute" xpath=".//cml:table" name="rows" value="$number(./cml:arrayList/cml:array/@size)" />
   <transform process="addAttribute" xpath=".//cml:table[@dictRef='cc:netAtomicCharge' or @dictRef='cc:netChargeSummedToHeavyAtom']" name="columns" value="3" />
   <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@dictRef='cc:atomicPolarTensorDerivedCharge']]" name="columns" value="4" />
 

@@ -139,14 +139,7 @@
   
   <!-- TRANSFORMS -->
   <transform process="createTable" xpath=".//cml:list[@cmlx:templateRef='symmadapt']" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='1']]" name="rows" value="1" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='2']]" name="rows" value="2" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='3']]" name="rows" value="3" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='4']]" name="rows" value="4" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='5']]" name="rows" value="5" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='6']]" name="rows" value="6" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='7']]" name="rows" value="7" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='8']]" name="rows" value="8" />
+  <transform process="addAttribute" xpath=".//cml:table" name="rows" value="$number(./cml:arrayList/cml:array/@size)" />
   <transform process="addAttribute" xpath=".//cml:table" name="columns" value="2" />
   
   <transform process="pullup" xpath=".//cml:scalar | .//cml:module/cml:array | .//cml:list/cml:array" repeat="2" />

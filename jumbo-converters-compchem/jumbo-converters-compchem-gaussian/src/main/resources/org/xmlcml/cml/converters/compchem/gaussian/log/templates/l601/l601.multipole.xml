@@ -81,9 +81,7 @@
   <transform process="addDictRef" xpath=".//cml:table[3]" value="cc:octapoleMoment" />
   <transform process="addDictRef" xpath=".//cml:table[4]" value="cc:hexadecapoleMoment" />
 
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='6']]" name="rows" value="6" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='10']]" name="rows" value="10" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='15']]" name="rows" value="15" />
+  <transform process="addAttribute" xpath=".//cml:table" name="rows" value="$number(./cml:arrayList/cml:array/@size)" />
   <transform process="addAttribute" xpath=".//cml:table" name="columns" value="2" />
 
   <transform process="createWrapperProperty" xpath=".//cml:array[@dictRef='cc:dipoleMomentVector']" />
