@@ -175,6 +175,34 @@ Mulliken charges:
   <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='l601.mullik'][3]/cml:table" value="cc:netAtomicCharge" />
   <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='l601.mullik'][4]/cml:table" value="cc:netChargeSummedToHeavyAtom" />
 
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='1']]" name="rows" value="1" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='2']]" name="rows" value="2" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='3']]" name="rows" value="3" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='4']]" name="rows" value="4" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='5']]" name="rows" value="5" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='6']]" name="rows" value="6" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='7']]" name="rows" value="7" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='8']]" name="rows" value="8" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='9']]" name="rows" value="9" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='10']]" name="rows" value="10" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='11']]" name="rows" value="11" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='12']]" name="rows" value="12" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='13']]" name="rows" value="13" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='14']]" name="rows" value="14" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='15']]" name="rows" value="15" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='16']]" name="rows" value="16" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='17']]" name="rows" value="17" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='18']]" name="rows" value="18" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='19']]" name="rows" value="19" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='20']]" name="rows" value="20" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='21']]" name="rows" value="21" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='22']]" name="rows" value="22" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='23']]" name="rows" value="23" />
+
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@size='23']]" name="rows" value="23" />
+  <transform process="addAttribute" xpath=".//cml:table[@dictRef='cc:netAtomicCharge' or @dictRef='cc:netChargeSummedToHeavyAtom']" name="columns" value="3" />
+  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@dictRef='cc:atomicPolarTensorDerivedCharge']]" name="columns" value="4" />
+
   <!-- delete redundant scalars and modules -->
   <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.mullik']/cml:scalar[@dictRef='g:title' or @dictRef='cc:serial' or @dictRef='x:type' or @dictRef='x:charge.sum']" />
   <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.mullik'][3]" />
@@ -187,7 +215,7 @@ Mulliken charges:
   <comment class="example.output" id="l601.mulliken">
     <module cmlx:templateRef="mulliken" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <module cmlx:lineCount="7" cmlx:templateRef="l601.mullik">
-        <table tableType="columnBased" dictRef="cc:netAtomicCharge">
+        <table tableType="columnBased" dictRef="cc:netAtomicCharge" rows="5" columns="3">
           <arrayList>
             <array dataType="xsd:integer" dictRef="cc:serial" size="5">1 2 3 4 5</array>
             <array dataType="xsd:string" dictRef="cc:elementType" size="5">C H H H H</array>
@@ -196,7 +224,7 @@ Mulliken charges:
         </table>
       </module>
       <module cmlx:lineCount="7" cmlx:templateRef="l601.mullik">
-        <table tableType="columnBased" dictRef="cc:netChargeSummedToHeavyAtom">
+        <table tableType="columnBased" dictRef="cc:netChargeSummedToHeavyAtom" rows="5" columns="3">
           <arrayList>
             <array dataType="xsd:integer" dictRef="cc:serial" size="5">1 2 3 4 5</array>
             <array dataType="xsd:string" dictRef="cc:elementType" size="5">C H H H H</array>
@@ -212,7 +240,7 @@ Mulliken charges:
   <comment class="example.output" id="l601.mulliken.g09">
     <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="mulliken">
       <module cmlx:lineCount="6" cmlx:templateRef="l601.mullik">
-        <table tableType="columnBased" dictRef="cc:netAtomicCharge">
+        <table tableType="columnBased" dictRef="cc:netAtomicCharge" rows="4" columns="3">
           <arrayList>
             <array dataType="xsd:integer" dictRef="cc:serial" size="4">1 2 3 4</array>
             <array dataType="xsd:string" dictRef="cc:elementType" size="4">C O O H</array>
@@ -221,7 +249,7 @@ Mulliken charges:
         </table>
       </module>
       <module cmlx:lineCount="5" cmlx:templateRef="l601.mullik">
-        <table tableType="columnBased" dictRef="cc:netChargeSummedToHeavyAtom">
+        <table tableType="columnBased" dictRef="cc:netChargeSummedToHeavyAtom" rows="3" columns="3">
           <arrayList>
             <array dataType="xsd:integer" dictRef="cc:serial" size="3">1 2 3</array>
             <array dataType="xsd:string" dictRef="cc:elementType" size="3">C O O</array>
@@ -237,7 +265,7 @@ Mulliken charges:
   <comment class="example.output" id="l601.mulliken.g09.apt">
     <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="mulliken">
       <module cmlx:lineCount="6" cmlx:templateRef="l601.mullik">
-        <table tableType="columnBased" dictRef="cc:netAtomicCharge">
+        <table tableType="columnBased" dictRef="cc:netAtomicCharge" rows="4" columns="4">
           <arrayList>
             <array dataType="xsd:integer" dictRef="cc:serial" size="4">1 2 3 4</array>
             <array dataType="xsd:string" dictRef="cc:elementType" size="4">C O O H</array>
@@ -247,7 +275,7 @@ Mulliken charges:
         </table>
       </module>
       <module cmlx:lineCount="5" cmlx:templateRef="l601.mullik">
-        <table tableType="columnBased" dictRef="cc:netChargeSummedToHeavyAtom">
+        <table tableType="columnBased" dictRef="cc:netChargeSummedToHeavyAtom" rows="3" columns="4">
           <arrayList>
             <array dataType="xsd:integer" dictRef="cc:serial" size="3">1 2 3</array>
             <array dataType="xsd:string" dictRef="cc:elementType" size="3">C O O</array>
@@ -264,7 +292,7 @@ Mulliken charges:
   <comment class="example.output" id="l601.mulliken2">
     <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="mulliken">
       <module cmlx:lineCount="8" cmlx:templateRef="l601.mullik">
-        <table tableType="columnBased" dictRef="cc:netAtomicCharge">
+        <table tableType="columnBased" dictRef="cc:netAtomicCharge" rows="6" columns="3">
           <arrayList>
             <array dataType="xsd:integer" dictRef="cc:serial" size="6">1 2 3 4 5 6</array>
             <array dataType="xsd:string" dictRef="cc:elementType" size="6">C O H H H H</array>
@@ -273,7 +301,7 @@ Mulliken charges:
         </table>
       </module>
       <module cmlx:lineCount="4" cmlx:templateRef="l601.mullik">
-        <table tableType="columnBased" dictRef="cc:netChargeSummedToHeavyAtom">
+        <table tableType="columnBased" dictRef="cc:netChargeSummedToHeavyAtom" rows="2" columns="3">
           <arrayList>
             <array dataType="xsd:integer" dictRef="cc:serial" size="2">1 2</array>
             <array dataType="xsd:string" dictRef="cc:elementType" size="2">C O</array>
@@ -289,7 +317,7 @@ Mulliken charges:
   <comment class="example.output" id="l601.mulliken3">
     <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="mulliken">
       <module cmlx:lineCount="8" cmlx:templateRef="l601.mullik">
-        <table tableType="columnBased" dictRef="cc:netAtomicCharge">
+        <table tableType="columnBased" dictRef="cc:netAtomicCharge" rows="6" columns="4">
           <arrayList>
             <array dataType="xsd:integer" dictRef="cc:serial" size="6">1 2 3 4 5 6</array>
             <array dataType="xsd:string" dictRef="cc:elementType" size="6">C O H H H H</array>
@@ -299,7 +327,7 @@ Mulliken charges:
         </table>
       </module>
       <module cmlx:lineCount="4" cmlx:templateRef="l601.mullik">
-        <table tableType="columnBased" dictRef="cc:netChargeSummedToHeavyAtom">
+        <table tableType="columnBased" dictRef="cc:netChargeSummedToHeavyAtom" rows="2" columns="4">
           <arrayList>
             <array dataType="xsd:integer" dictRef="cc:serial" size="2">1 2</array>
             <array dataType="xsd:string" dictRef="cc:elementType" size="2">C O</array>
