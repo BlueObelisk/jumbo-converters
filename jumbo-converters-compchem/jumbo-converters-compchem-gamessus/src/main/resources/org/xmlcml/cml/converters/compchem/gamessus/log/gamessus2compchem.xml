@@ -137,6 +137,9 @@
              xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module/cml:property"
              to="../../cml:propertyList[@id='finalization']" />
 
+  <!-- add convention attribute to molecule -->
+  <transform process="addAttribute" xpath=".//cml:molecule" name="convention" value="convention:molecular" />
+
   <!-- CLEAN UP -->
   <transform process="delete" xpath=".//cml:parameterList[count(*)=0]"/>
   <transform process="delete" xpath=".//cml:propertyList[count(*)=0]"/>
