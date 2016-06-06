@@ -169,6 +169,8 @@
 
   <transform process="addAttribute" xpath=".//cml:molecule" name="convention" value="convention:molecular" />
 
+  <transform process="pullup" xpath=".//cml:property[@dictRef='cc:popanal']/cml:module/cml:module/cml:property" repeat="3" />
+
   <!-- CLEAN UP -->
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
