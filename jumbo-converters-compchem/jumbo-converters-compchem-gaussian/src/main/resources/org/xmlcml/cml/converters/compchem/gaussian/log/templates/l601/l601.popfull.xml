@@ -65,17 +65,17 @@
 				  endPattern2="~" 															 endOffset2="1">
 			
 			<record />
-			<record id="mulliken" repeat="*">\s*{I,x:serial}\s+\d*\s*\w*\s*\w+\s+{1_5F,cc:mulliken}\s*</record>
+			<record id="mulliken" repeat="*">\s*{I,x:serial}\s+\d*\s*\w*\s*\w+\s+{1_5F,x:mulliken}\s*</record>
 
 		</template>
 	</templateList>
 
-	<transform process="joinArrays" xpath=".//cml:module[@cmlx:templateRef='l601.popfull']//cml:array[@dictRef='cc:mulliken']" />
+	<transform process="joinArrays" xpath=".//cml:module[@cmlx:templateRef='l601.popfull']//cml:array[@dictRef='x:mulliken']" />
 	<transform process="createArray" xpath="." from=".//cml:module[@cmlx:templateRef='l601.popfull'][1]//cml:scalar[@dictRef='x:serial']" />
 
-	<transform process="pullup" xpath=".//cml:array[@dictRef='cc:mulliken']" repeat="3" />
+	<transform process="pullup" xpath=".//cml:array[@dictRef='x:mulliken']" repeat="3" />
 
-	<transform process="createMatrix" xpath="." from=".//cml:array[@dictRef='cc:mulliken']" dictRef="cc:mulliken" />
+	<transform process="createMatrix" xpath="." from=".//cml:array[@dictRef='x:mulliken']" dictRef="cc:mulliken" />
 
 	<!-- add attributes to matrix -->
 	<transform process="addAttribute" xpath=".//cml:matrix[@dictRef='cc:mulliken']" name="rows" 

@@ -143,7 +143,7 @@ public class TemplateTest {
 
 	@Ignore @Test	public void testl103DEBUG()                  {runTemplateTest("l103");}
 	@Ignore @Test	public void testl502CycleDEBUG()             {runTemplateTest("l502/","l502.cycle");}
-			@Test	public void testl601PopanalDEBUG()           {runTemplateTest("l601/", "l601.popanal");}
+	@Ignore	@Test	public void testl601PopanalDEBUG()           {runTemplateTest("l601/", "l601.popanal");}
 	@Ignore @Test	public void testl716ForceMatrixDEBUG()       {runTemplateTest("l716/", "l716.forcematrix");}
 	@Ignore @Test	public void testl716DEBUG()                  {runTemplateTest("l716");}
 
