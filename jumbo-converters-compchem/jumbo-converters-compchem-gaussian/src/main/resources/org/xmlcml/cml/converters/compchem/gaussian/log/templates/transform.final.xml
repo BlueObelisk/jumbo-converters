@@ -60,6 +60,12 @@
 
   <transform process="moveRelative" to="./ancestor::cml:module[@dictRef='cc:finalization']/cml:propertyList"
              xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:userDefinedModule']/cml:module[@cmlx:templateRef='l9999.archive']/cml:array[@dictRef='cc:forceConstantMatrix' or @dictRef='cc:gradients']" />
+
+  <transform process="createMatrix" xpath="." dictRef="cc:forceConstantMatrix"
+             from=".//cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:array[@dictRef='cc:forceConstantMatrix']" />
+  <transform process="addUnits" xpath=".//cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:matrix[@dictRef='cc:forceConstantMatrix']" value="nonSi:hartree.bohr-2" />
+  <transform process="addAttribute" name="matrixType" value="squareSymmetricLT" 
+             xpath=".//cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:matrix[@dictRef='cc:forceConstantMatrix']" />
   
  <!-- wrap all properties -->
   <transform process="createWrapperProperty" xpath="//cml:module[@id='finalization']/cml:propertyList/*" />  
