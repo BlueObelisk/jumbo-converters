@@ -143,8 +143,7 @@
              position="0" />
 
   <transform process="moveRelative" to="../../../cml:parameterList"
-             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:frequencyAnalysis']/cml:module[@dictRef='cc:thermochemistry']/cml:parameterList/
-             cml:parameter[@dictRef='cc:isotopes']" />
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:frequencyAnalysis']/cml:module[@dictRef='cc:thermochemistry']/cml:parameterList/cml:parameter[@dictRef='cc:isotopes']" />
 
   <transform process="addChild"
              xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:frequencyAnalysis']"
@@ -157,6 +156,17 @@
 
   <transform process="moveRelative" to="./ancestor::cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:frequencyAnalysis']/cml:propertyList"
              xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:property[@dictRef='cc:frequencies' or @dictRef='cc:vibrations' or @dictRef='cc:forces' or @dictRef='g:l716.lowfreq']" />
+
+  <transform process="createTable" xpath=".//cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:frequencyAnalysis']/cml:parameterList//cml:list[@cmlx:templateRef='mass']" />
+  <transform process="addAttribute" name="cmlx:templateRef" value="mass"
+             xpath=".//cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:frequencyAnalysis']/cml:parameterList/cml:parameter[@dictRef='cc:isotopes']" />
+  <transform process="addAttribute" name="tableType" value="columnBased"
+             xpath=".//cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:frequencyAnalysis']/cml:parameterList//cml:table" />
+  <transform process="addAttribute" name="rows" 
+             value="$string(//cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:frequencyAnalysis']/cml:parameterList//cml:table//cml:array[@dictRef='cc:serial']/@size)"
+             xpath=".//cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:frequencyAnalysis']/cml:parameterList//cml:table" />
+  <transform process="addAttribute" name="columns" value="3"
+             xpath=".//cml:module[@dictRef='cc:finalization']/cml:module[@dictRef='cc:frequencyAnalysis']/cml:parameterList//cml:table" />
 
   <transform process="pullup" xpath=".//cml:module[@dictRef='cc:finalization']/cml:propertyList/cml:property[@dictRef='cc:popanal']//cml:property[@dictRef='cc:orbitalSymmetry' or @dictRef='cc:orbitalEigenvalues' or @dictRef='cc:electronicState' or @dictRef='cc:netAtomicCharge' or @dictRef='cc:netChargeSummedToHeavyAtom' or @dictRef='cc:electronicExtent' or @dictRef='cc:charge' or @dictRef='cc:atomicOverlapPopulation']" repeat="2" />
 
