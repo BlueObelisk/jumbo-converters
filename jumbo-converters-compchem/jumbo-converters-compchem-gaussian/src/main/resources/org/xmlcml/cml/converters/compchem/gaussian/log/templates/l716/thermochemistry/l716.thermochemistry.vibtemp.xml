@@ -1,19 +1,31 @@
-<template id="l716.thermochemistry.vibtemp" repeat="*" pattern="\s*Vibrational temperatures.*"
-  endPattern="\s*">
+<template id="l716.thermochemistry.vibtemp" repeat="*" pattern="\s*Vibrational temperatures.*" endPattern="\s*">
   <comment class="example.input" id="l716.thermochemistry.vibtemp">
- Vibrational temperatures:   1976.16  1976.16  1976.16  2293.35  2293.35
+    Vibrational temperatures:   1976.16  1976.16  1976.16  2293.35  2293.35
           (Kelvin)           4393.44  4552.17  4552.17  4552.17
   </comment>
+  <comment class="example.input" id="l716.thermochemistry.vibtemp2">
+    Vibrational temperatures:    517.40
+          (Kelvin)
+  </comment>
+
   <record id="vibtemp" >\s*Vibrational temperatures: \s*{1_5F,cc:vibtemp}\s*</record>
-  <record id="vibtemp" repeat="*">\s*\(Kelvin\)\s*{1_5F,x:x}\s*</record>
+  <record id="vibtemp" repeat="*">\s*\(Kelvin\)\s*{1_5F,x:x}*\s*</record>
+  
   <transform process="joinArrays" xpath=".//cml:array" />
   <transform process="pullup" xpath=".//cml:array" />
   <transform process="addUnits" xpath=".//cml:array[@dictRef='cc:vibtemp']" value="si:k"/>
   <transform process="delete" xpath="./cml:list" />
   
+
   <comment class="example.output" id="l716.thermochemistry.vibtemp">
     <module cmlx:templateRef="l716.thermochemistry.vibtemp" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <array dataType="xsd:double" size="9" dictRef="cc:vibtemp" units="si:k">1976.16 1976.16 1976.16 2293.35 2293.35 4393.44 4552.17 4552.17 4552.17</array>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="l716.thermochemistry.vibtemp2">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l716.thermochemistry.vibtemp">
+      <array dataType="xsd:double" size="1" dictRef="cc:vibtemp" units="si:k">517.4</array>
     </module>
   </comment>
 </template>
