@@ -10,6 +10,7 @@ import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xmlcml.cml.base.CMLConstants;
@@ -100,7 +101,7 @@ public class FragmentTest {
     	converter.runArgs(args);
 	}
 	
-	@Test
+	@Before @Test
 	public void testMoietyMorgan() {
 		CML2FragmentConverter converter = new CML2FragmentConverter();
     	String[] args = {
