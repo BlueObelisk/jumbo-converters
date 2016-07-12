@@ -1,10 +1,10 @@
-<template id="l716.thermochemistry.rotconsts" repeat="*" pattern="\s*Rotational constants \(GHZ\).*"
+<template id="l716.thermochemistry.rotconsts" repeat="*" pattern="\s*Rotational constant[s]* \(GHZ\).*"
   endPattern=".*">
   <comment class="example.input" id="l716.thermochemistry.rotconsts">
  Rotational constants (GHZ):         157.33005   157.33005   157.33005
   </comment>
   
-  <record id="rotconst" >\s*Rotational constants \(GHZ\):\s*{3F,cc:rotconst}\s*</record>
+  <record id="rotconst" >\s*Rotational constant[s]* \(GHZ\):\s*{1_3F,cc:rotconst}\s*</record>
   
   <transform process="pullupSingleton" xpath=".//cml:list"/>
   <transform process="addUnits" xpath=".//cml:array[@dictRef='cc:rotconst']" value="nonSi:GHz"/>
