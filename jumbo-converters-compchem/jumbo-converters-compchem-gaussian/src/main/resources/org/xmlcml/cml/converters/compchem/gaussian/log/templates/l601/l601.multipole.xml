@@ -1,6 +1,7 @@
 <template id="multipole" name="multipole" repeat="*"
     pattern="\s*Dipole moment.*" 
-    endPattern="(\s*N\-N=.*)" endOffset="1">
+    endPattern="(\s*N\-N=.*)" endOffset="1"
+    endPattern2="\s*Calling.*" endOffset2="0">
     
   <comment class="example.input" id="l601.multipole">
  Dipole moment (field-independent basis, Debye):
@@ -22,26 +23,39 @@
  XXYZ=     0.0000 YYXZ=     0.0000 ZZXY=     0.0000
   N-N= 1.339525332293D+01 E-N=-1.198300348205D+02  KE= 4.007106437468D+01
   </comment>
+
+  <comment class="example.inputx" id="l601.multipole.terse">
+    Dipole moment (field-independent basis, Debye):
+    X=              1.6748    Y=              0.9614    Z=              0.0000  Tot=              1.9311
+ Calling FoFJK, ICntrl=      2127 FMM=F ISym2X=1 I1Cent= 0 IOpClX= 0 NMat=1 NMatS=1 NMatT=0.
+  </comment>
   
-  <record  id="dipoletype">\s*Dipole moment \({X,g:dipoletype}\):\s*</record>
-  <record  id="dipole">\s*X={F,x:d}Y={F,x:d}Z={F,x:d}Tot={F,cc:dipoleMoment}\s*</record>
-  <record  id="quadrupoletype">\s*Quadrupole moment \({X,g:quadpoletype}\):\s*</record>
-  <record id="quadrupole">\s*{A,x:coordQuad}\s*={F,x:q}\s*{A,x:coordQuad}\s*={F,x:q}\s*{A,x:coordQuad}\s*={F,x:q}\s*</record>
-  <record id="xy">\s*{A,x:coordQuad}\s*={F,x:qb}\s*{A,x:coordQuad}\s*={F,x:qb}\s*{A,x:coordQuad}\s*={F,x:qb}\s*</record>
-  <record id="quadrupoletypea">\s*Traceless Quadrupole moment \({X,g:quadpoletype}\):\s*</record>
-  <record id="tracequadrupole">\s*{A,x:coordTraceQuad}\s*={F,x:qq}\s*{A,x:coordTraceQuad}\s*={F,x:qq}\s*{A,x:coordTraceQuad}\s*={F,x:qq}\s*</record>
-  <record id="xya">\s*{A,x:coordTraceQuad}\s*={F,x:qq}\s*{A,x:coordTraceQuad}\s*={F,x:qq}\s*{A,x:coordTraceQuad}\s*={F,x:qq}\s*</record>y
-  <record id="octapoletype">\s*Octapole moment \({X,g:octapoletype}\):\s*</record>
-  <record id="octapole">\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*</record>
-  <record id="xxy">\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*</record>
-  <record id="yyz">\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*</record>
-  <record id="hexadecapoletype">\s*Hexadecapole moment \({X,g:hexadecapoletype}\):\s*</record>
-  <record id="hexadecapole">\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*</record>
-  <record id="xxxz">\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*</record>
-  <record id="zzzy">\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*</record>
-  <record id="xxyz">\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*</record>
- 
-  <record id="nnke">\s*N\-N\s*=\s*{X,cc:Energy_NucRep}\s*E\-N\s*=\s*{X,cc:potentialEnergy}\s*KE\s*=\s*{X,cc:kineticEnergy}\s*</record>
+  <record id="dipoletype">\s*Dipole moment \({X,g:dipoletype}\):\s*</record>
+  <record id="dipole">\s*X=\s*{F,x:d}Y={F,x:d}\s*Z=\s*{F,x:d}\s*Tot=\s*{F,cc:dipoleMoment}\s*</record>
+  
+  <templateList>
+    <template id="multipole.moments"
+              pattern="\s*Quadrupole moment.*"
+              endPattern="(\s*N\-N=.*)" endOffset="1">
+      <record id="quadrupoletype">\s*Quadrupole moment \({X,g:quadpoletype}\):\s*</record>
+      <record id="quadrupole">\s*{A,x:coordQuad}\s*={F,x:q}\s*{A,x:coordQuad}\s*={F,x:q}\s*{A,x:coordQuad}\s*={F,x:q}\s*</record>
+      <record id="xy">\s*{A,x:coordQuad}\s*={F,x:qb}\s*{A,x:coordQuad}\s*={F,x:qb}\s*{A,x:coordQuad}\s*={F,x:qb}\s*</record>
+      <record id="quadrupoletypea">\s*Traceless Quadrupole moment \({X,g:quadpoletype}\):\s*</record>
+      <record id="tracequadrupole">\s*{A,x:coordTraceQuad}\s*={F,x:qq}\s*{A,x:coordTraceQuad}\s*={F,x:qq}\s*{A,x:coordTraceQuad}\s*={F,x:qq}\s*</record>
+      <record id="xya">\s*{A,x:coordTraceQuad}\s*={F,x:qq}\s*{A,x:coordTraceQuad}\s*={F,x:qq}\s*{A,x:coordTraceQuad}\s*={F,x:qq}\s*</record>y
+      <record id="octapoletype">\s*Octapole moment \({X,g:octapoletype}\):\s*</record>
+      <record id="octapole">\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*</record>
+      <record id="xxy">\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*</record>
+      <record id="yyz">\s*{A,x:coordOct}\s*={F,x:o}\s*{A,x:coordOct}\s*={F,x:o}\s*</record>
+      <record id="hexadecapoletype">\s*Hexadecapole moment \({X,g:hexadecapoletype}\):\s*</record>
+      <record id="hexadecapole">\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*</record>
+      <record id="xxxz">\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*</record>
+      <record id="zzzy">\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*</record>
+      <record id="xxyz">\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*{A,x:coordHex}\s*={F,x:h}\s*</record>
+     
+      <record id="nnke">\s*N\-N\s*=\s*{X,cc:Energy_NucRep}\s*E\-N\s*=\s*{X,cc:potentialEnergy}\s*KE\s*=\s*{X,cc:kineticEnergy}\s*</record>
+    </template>
+  </templateList>
  
   <!-- <record repeat="*" id="xzz"/> -->
   
@@ -89,10 +103,13 @@
 
   <transform process="createWrapperProperty" xpath=".//cml:scalar[@dictRef='cc:dipoleMoment' or @dictRef='cc:Energy_NucRep' or @dictRef='cc:potentialEnergy' or @dictRef='cc:kineticEnergy']" />
 
+  <transform process="pullup" xpath="./cml:module[@cmlx:templateRef='multipole.moments']/cml:property" />
+
   
   <!--  delete empty lists -->
  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
 
   <comment class="example.output" id="l601.multipole">
     <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="multipole">
@@ -143,6 +160,11 @@
       <property dictRef="cc:kineticEnergy">
         <scalar units="nonSi:hartree" dataType="xsd:double">40.07106437468</scalar>
       </property>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="l601.multipole.terse">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="multipole">
     </module>
   </comment>
 </template>
