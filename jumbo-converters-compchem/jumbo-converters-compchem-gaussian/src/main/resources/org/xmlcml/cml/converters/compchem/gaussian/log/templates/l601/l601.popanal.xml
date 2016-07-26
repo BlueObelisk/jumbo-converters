@@ -2,6 +2,7 @@
     repeat="*" 
     pattern="\s*\*+\s*$\s*$\s*Population analysis using the SCF density.*" 
     endPattern="\sN\-N\=.*" endOffset="1"
+    endPattern2="\s*Calling.*" endOffset2="1"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     >
 
@@ -543,6 +544,51 @@
  N-N= 9.087942469670D+00 E-N=-1.987561495959D+02  KE= 7.581967573657D+01
   </comment>
 
+  <comment class="example.input" id="l601.popanal.terse">
+ **********************************************************************
+
+            Population analysis using the SCF density.
+
+ **********************************************************************
+
+ Orbital symmetries:
+       Occupied  (A') (A') (A') (A') (A') (A") (A') (A') (A")
+       Virtual   (A') (A') (A') (A") (A') (A') (A") (A') (A') (A')
+                 (A') (A") (A') (A") (A') (A') (A") (A') (A') (A")
+                 (A') (A') (A') (A') (A") (A') (A") (A') (A') (A")
+                 (A') (A") (A') (A') (A") (A') (A') (A') (A')
+ The electronic state is 1-A'.
+ Alpha  occ. eigenvalues --  -19.10696 -10.20900  -1.01502  -0.68311  -0.50904
+ Alpha  occ. eigenvalues --   -0.43687  -0.42591  -0.33389  -0.26862
+ Alpha virt. eigenvalues --    0.03142   0.06960   0.11337   0.12036   0.18363
+ Alpha virt. eigenvalues --    0.31069   0.31532   0.40749   0.45141   0.51957
+ Alpha virt. eigenvalues --    0.56968   0.57057   0.74280   0.83319   0.83395
+ Alpha virt. eigenvalues --    0.95350   1.29366   1.30269   1.39378   1.50072
+ Alpha virt. eigenvalues --    1.51410   1.67917   2.04544   2.25393   2.33779
+ Alpha virt. eigenvalues --    2.34535   2.78247   2.79867   2.92970   2.99331
+ Alpha virt. eigenvalues --    3.12087   3.15669   3.34115   3.82691   4.81401
+ Alpha virt. eigenvalues --    4.96154   5.31514  23.38330  49.81124
+          Condensed to atoms (all electrons):
+ Mulliken charges:
+               1
+     1  C   -0.395474
+     2  O   -0.566983
+     3  H    0.383798
+     4  H    0.180737
+     5  H    0.198961
+     6  H    0.198961
+ Sum of Mulliken charges =   0.00000
+ Mulliken charges with hydrogens summed into heavy atoms:
+               1
+     1  C    0.183185
+     2  O   -0.183185
+ Electronic spatial extent (au):  &lt;R**2>=             84.8176
+ Charge=              0.0000 electrons
+ Dipole moment (field-independent basis, Debye):
+    X=              1.6748    Y=              0.9614    Z=              0.0000  Tot=              1.9311
+ Calling FoFJK, ICntrl=      2127 FMM=F ISym2X=1 I1Cent= 0 IOpClX= 0 NMat=1 NMatS=1 NMatT=0.
+  </comment>
+
   <record repeat="5"/>
   <record repeat="2"/>
   <templateList>
@@ -958,8 +1004,59 @@
 <matrix rows="3" columns="3" dataType="xsd:double" matrixType="squareSymmetric" units="nonSi:elementaryCharge" cmlx:templateRef="l601.condensed" dictRef="cc:mulliken">8.289135 0.242579 0.242579 0.242579 0.393696 -0.023422 0.242579 -0.023422 0.393696</matrix>
 </property>
 </module>
-
     </comment>
-  
+
+    <comment class="example.output" id="l601.popanal.terse">
+      <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l601.popanal">
+<property dictRef="cc:orbitalSymmetry">
+<arrayList shape="irregular">
+<array dataType="xsd:string" size="9" dictRef="cc:occOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A') (A') (A") (A') (A') (A")</array>
+<array dataType="xsd:string" size="39" dictRef="cc:virtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A") (A') (A') (A") (A') (A') (A') (A') (A") (A') (A") (A') (A') (A") (A') (A') (A") (A') (A') (A') (A') (A") (A') (A") (A') (A') (A") (A') (A") (A') (A') (A") (A') (A') (A') (A')</array>
+</arrayList>
+</property>
+<property dictRef="cc:orbitalEigenvalues">
+<arrayList shape="irregular">
+<array dataType="xsd:double" size="9" dictRef="cc:occOrbitalEigenvalues" units="nonSi:hartree">-19.10696 -10.209 -1.01502 -0.68311 -0.50904 -0.43687 -0.42591 -0.33389 -0.26862</array>
+<array dataType="xsd:double" size="39" dictRef="cc:virtOrbitalEigenvalues" units="nonSi:hartree">0.03142 0.0696 0.11337 0.12036 0.18363 0.31069 0.31532 0.40749 0.45141 0.51957 0.56968 0.57057 0.7428 0.83319 0.83395 0.9535 1.29366 1.30269 1.39378 1.50072 1.5141 1.67917 2.04544 2.25393 2.33779 2.34535 2.78247 2.79867 2.9297 2.99331 3.12087 3.15669 3.34115 3.82691 4.81401 4.96154 5.31514 23.3833 49.81124</array>
+</arrayList>
+</property>
+<property dictRef="cc:electronicState">
+<scalar dataType="xsd:string" cmlx:templateRef="l601.state">1-A'.</scalar>
+</property>
+<property dictRef="cc:netAtomicCharge">
+<table tableType="columnBased" rows="6" columns="3">
+<arrayList>
+<array dataType="xsd:integer" dictRef="cc:serial" size="6">1 2 3 4 5 6</array>
+<array dataType="xsd:string" dictRef="cc:elementType" size="6">C O H H H H</array>
+<array dataType="xsd:double" size="6" units="nonSi:elementaryCharge" dictRef="cc:mulliken">-0.395474 -0.566983 0.383798 0.180737 0.198961 0.198961</array>
+</arrayList>
+</table>
+</property>
+<property dictRef="cc:netChargeSummedToHeavyAtom">
+<table tableType="columnBased" rows="2" columns="3">
+<arrayList>
+<array dataType="xsd:integer" dictRef="cc:serial" size="2">1 2</array>
+<array dataType="xsd:string" dictRef="cc:elementType" size="2">C O</array>
+<array dataType="xsd:double" size="2" units="nonSi:elementaryCharge" dictRef="cc:mulliken">0.183185 -0.183185</array>
+</arrayList>
+</table>
+</property>
+<property dictRef="cc:electronicExtent">
+<scalar dataType="xsd:double" units="nonSi:bohr2">84.8176</scalar>
+</property>
+<property dictRef="cc:charge">
+<scalar dataType="xsd:double" units="nonSi:elementaryCharge">0.0</scalar>
+</property>
+<module cmlx:lineCount="2" cmlx:templateRef="multipole" dictRef="cc:multipole">
+<property dictRef="cc:dipoleMoment">
+<scalar dataType="xsd:double" units="nonSi:debye">1.9311</scalar>
+</property>
+<property dictRef="cc:dipoleMomentVector">
+<array dataType="xsd:double" size="3" units="nonSi:debye">1.6748 0.9614 0.0</array>
+</property>
+</module> Calling FoFJK, ICntrl=      2127 FMM=F ISym2X=1 I1Cent= 0 IOpClX= 0 NMat=1 NMatS=1 NMatT=0.
+</module>
+    </comment>
+      
 </template>
  
