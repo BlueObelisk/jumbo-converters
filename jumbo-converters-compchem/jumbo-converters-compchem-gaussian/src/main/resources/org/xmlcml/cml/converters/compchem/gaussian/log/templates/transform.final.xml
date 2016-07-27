@@ -189,6 +189,11 @@
 
   <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='l601.molecular' or @cmlx:templateRef='l601.density' or @cmlx:templateRef='l601.popfull']/cml:property" />
 
+  <transform process="moveRelative" xpath=".//cml:module[@id='finalization']/cml:module[@dictRef='cc:userDefinedModule']//cml:scalar[@dictRef='cc:pointGroup']"
+             to="./ancestor::cml:module[@id='finalization']/cml:propertyList" />
+
+  <transform process="createWrapperProperty" xpath=".//cml:module[@id='finalization']/cml:propertyList/cml:scalar[@dictRef='cc:pointGroup']" />
+
   <!-- CLEAN UP -->
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
