@@ -1,4 +1,4 @@
-<template id="l716.thermochemistry.vibtemp" repeat="*" pattern="\s*Vibrational temperatures.*" endPattern="\s*">
+<template id="l716.thermochemistry.vibtemp" repeat="*" pattern="\s*V[Ii][Bb][Rr][Aa][Tt][Ii][Oo][Nn][Aa][lL] [Tt][Ee][Mm][Pp][Ee][Rr][Aa][Tt][Uu][Rr][Ee][Ss].*" endPattern="\s*">
   <comment class="example.input" id="l716.thermochemistry.vibtemp">
     Vibrational temperatures:   1976.16  1976.16  1976.16  2293.35  2293.35
           (Kelvin)           4393.44  4552.17  4552.17  4552.17
@@ -8,8 +8,8 @@
           (Kelvin)
   </comment>
 
-  <record id="vibtemp" >\s*Vibrational temperatures: \s*{1_5F,cc:vibtemp}\s*</record>
-  <record id="vibtemp" repeat="*">\s*\(Kelvin\)\s*{1_5F,x:x}*\s*</record>
+  <record id="vibtemp" >\s*\s*V[Ii][Bb][Rr][Aa][Tt][Ii][Oo][Nn][Aa][lL] [Tt][Ee][Mm][Pp][Ee][Rr][Aa][Tt][Uu][Rr][Ee][Ss]:\s*{1_5F,cc:vibtemp}\s*</record>
+  <record id="vibtemp" repeat="*">\s*\(K[Ee][Ll][Vv][Ii][Nn]\)\s*{1_5F,x:x}*\s*</record>
   
   <transform process="joinArrays" xpath=".//cml:array" />
   <transform process="pullup" xpath=".//cml:array" />

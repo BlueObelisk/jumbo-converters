@@ -140,7 +140,7 @@ public class TemplateTest {
 			@Test	public void testCompositeSummaryG4()         {runTemplateTest("composite/", "composite.summary.G4");}
 			@Test	public void testCompositeSummaryG4MP2()      {runTemplateTest("composite/", "composite.summary.G4MP2");}
 
-	@Ignore @Test	public void testJobcpu()                     {runTemplateTest("jobcpu");}
+			@Test	public void testJobcpu()                     {runTemplateTest("jobcpu");}
 
 	@Ignore @Test	public void testl103DEBUG()                  {runTemplateTest("l103");}
 	@Ignore @Test	public void testl502CycleDEBUG()             {runTemplateTest("l502/","l502.cycle");}
