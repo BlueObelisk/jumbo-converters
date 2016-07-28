@@ -1,8 +1,7 @@
 <template id="mulliken" name="mulliken" repeat="*"
-    newline="$" pattern="\s*Mulliken (atomic )?charges:\s*" 
+    newline="$" pattern="\s*(Mulliken|Total) (atomic )?charges:\s*" 
     endPattern="\s*Charge=.*" endOffset="1"
-    xmlns:xi="http://www.w3.org/2001/XInclude"
-    >
+    xmlns:xi="http://www.w3.org/2001/XInclude">
     
   <comment class="example.input" id="l601.mulliken">
  Mulliken atomic charges:
@@ -120,9 +119,32 @@ Mulliken charges:
  Charge=              0.0000 electrons
   </comment>
 
+  <comment class="example.input" id="l601.mulliken.g98">
+  Total atomic charges:
+              1
+  1  C   -0.218528
+  2  O   -0.607451
+  3  H    0.165221
+  4  H    0.133337
+  5  H    0.133337
+  6  H    0.394084
+ Sum of Mulliken charges=   0.00000
+ Atomic charges with hydrogens summed into heavy atoms:
+              1
+  1  C    0.213367
+  2  O   -0.213367
+  3  H    0.000000
+  4  H    0.000000
+  5  H    0.000000
+  6  H    0.000000
+ Sum of Mulliken charges=   0.00000
+ Electronic spatial extent (au):  &lt;R**2>=    81.9482
+ Charge=     0.0000 electrons
+  </comment>
+
   <templateList>
     <template id="l601.mullik" repeat="*" 
-      pattern="\s*(Mulliken|APT|Atomic)\s*([Aa]tomic )?charges.*" offset="0"
+      pattern="\s*(Mulliken|APT|Total|Atomic)\s*([Aa]tomic )?charges.*" offset="0"
       endPattern="\s*[A-Za-z]+.*"                             endOffset="0"
       >
       <record id="title">{X,g:title}</record>
@@ -313,6 +335,31 @@ Mulliken charges:
         </table>
       </module>
       <scalar dataType="xsd:double" dictRef="cc:electronicExtent" units="nonSi:bohr2">84.0823</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:charge" units="nonSi:elementaryCharge">0.0</scalar>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="l601.mulliken.g98">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="mulliken">
+      <module cmlx:lineCount="8" cmlx:templateRef="l601.mullik">
+        <table tableType="columnBased" dictRef="cc:netAtomicCharge" rows="6" columns="3">
+          <arrayList>
+            <array dataType="xsd:integer" dictRef="cc:serial" size="6">1 2 3 4 5 6</array>
+            <array dataType="xsd:string" dictRef="cc:elementType" size="6">C O H H H H</array>
+            <array dataType="xsd:double" size="6" units="nonSi:elementaryCharge" dictRef="cc:mulliken">-0.218528 -0.607451 0.165221 0.133337 0.133337 0.394084</array>
+          </arrayList>
+        </table>
+      </module>
+      <module cmlx:lineCount="8" cmlx:templateRef="l601.mullik">
+        <table tableType="columnBased" dictRef="cc:netChargeSummedToHeavyAtom" rows="6" columns="3">
+          <arrayList>
+            <array dataType="xsd:integer" dictRef="cc:serial" size="6">1 2 3 4 5 6</array>
+            <array dataType="xsd:string" dictRef="cc:elementType" size="6">C O H H H H</array>
+            <array dataType="xsd:double" size="6" units="nonSi:elementaryCharge" dictRef="cc:mulliken">0.213367 -0.213367 0.0 0.0 0.0 0.0</array>
+          </arrayList>
+        </table>
+      </module>
+      <scalar dataType="xsd:double" dictRef="cc:electronicExtent" units="nonSi:bohr2">81.9482</scalar>
       <scalar dataType="xsd:double" dictRef="cc:charge" units="nonSi:elementaryCharge">0.0</scalar>
     </module>
   </comment>

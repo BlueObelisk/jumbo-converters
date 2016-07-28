@@ -6,22 +6,45 @@
  Job cpu time:  0 days  0 hours  0 minutes 12.7 seconds.
  File lengths (MBytes):  RWF=     12 Int=      0 D2E=      0 Chk=      7 Scr=      1
  Normal termination of Gaussian 03 at Mon Nov 20 14:40:36 2006.
-  </comment> 
+  </comment>
+
+  <comment class="example.input" id="jobcpu.g98">
+ Job cpu time:  0 days  0 hours  2 minutes 35.8 seconds.
+ File lengths (MBytes):  RWF=   10 Int=    0 D2E=    0 Chk=    6 Scr=    1
+ Normal termination of Gaussian 98.
+  </comment>
   
   <record id="jobcpu">\s*Job cpu time:\s*{X,cc:jobtime}</record>
   <record id="files"/>
-  <record id="date">\s*Normal termination of {X,cc:program} at {X,cc:jobdatetime.end}\.\s*</record>
+
+  <templateList>
+    <template id="jobcpu1" repeat="*"
+              pattern="\s*Normal termination of \w+\s+\w+\s+at\s+.+"
+              endPattern="~" endOffset="1">
+      <record id="date">\s*Normal termination of {X,cc:program} at {X,cc:jobdatetime.end}\.\s*</record>
+    </template>
+
+    <template id="jobcpu2" repeat="*"
+              pattern="\s*Normal termination of \w+\s+\w+\.\s*"
+              endPattern="~" endOffset="1">
+      <record id="date">\s*Normal termination of {X,cc:program}\.\s*</record>
+    </template>
+  </templateList>
   
+
   <transform process="createDate" xpath=".//cml:scalar[@dictRef='cc:jobtime']" format="DHMS"/>
   <transform process="createDate" xpath=".//cml:scalar[@dictRef='cc:jobdatetime.end']" 
       format="EEE MMM d HH:mm:ss yyyy"/>
   <transform process="pullup" xpath=".//cml:scalar"/>
   <transform process="pullup" xpath=".//cml:scalar[@dictRef='cc:jobdatetime.end']"/>
   <transform process="pullup" xpath=".//cml:scalar[@dictRef='cc:program']"/>
+
+  <transform process="pullup" xpath="./cml:module[@cmlx:templateRef='jobcpu1']/cml:scalar" />
   
   <!--  delete empty lists -->
  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
   
   <comment class="example.output" id="jobcpu">
     <module cmlx:templateRef="jobcpu" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
@@ -31,4 +54,11 @@
     </module>
   </comment> 
   
+
+  <comment class="example.output" id="jobcpu.g98">
+    <module cmlx:templateRef="jobcpu" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <scalar dictRef="cc:jobtime" dataType="xsd:string">PT155.800S</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:program">Gaussian 98</scalar>
+    </module>
+  </comment>
 </template>

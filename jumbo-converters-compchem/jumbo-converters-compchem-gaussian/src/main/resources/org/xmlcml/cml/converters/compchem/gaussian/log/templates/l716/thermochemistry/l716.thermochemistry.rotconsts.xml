@@ -1,10 +1,14 @@
-<template id="l716.thermochemistry.rotconsts" repeat="*" pattern="\s*Rotational constant[s]* \(GHZ\).*"
+<template id="l716.thermochemistry.rotconsts" repeat="*" pattern="\s*R[Oo][Tt][Aa][Tt][Ii][Oo][Nn][Aa][Ll] [Cc][Oo][Nn][Ss][Tt][Aa][Nn][Tt][Ss]* \(GHZ\).*"
   endPattern=".*">
   <comment class="example.input" id="l716.thermochemistry.rotconsts">
  Rotational constants (GHZ):         157.33005   157.33005   157.33005
   </comment>
+
+  <comment class="example.input" id="l716.thermochemistry.rotconsts2">
+ ROTATIONAL CONSTANTS (GHZ)          127.17272    24.77948    23.89247
+  </comment>
   
-  <record id="rotconst" >\s*Rotational constant[s]* \(GHZ\):\s*{1_3F,cc:rotconst}\s*</record>
+  <record id="rotconst" >\s*R[Oo][Tt][Aa][Tt][Ii][Oo][Nn][Aa][Ll] [Cc][Oo][Nn][Ss][Tt][Aa][Nn][Tt][Ss]* \(GHZ\)[:]*\s*{1_3F,cc:rotconst}\s*</record>
   
   <transform process="pullupSingleton" xpath=".//cml:list"/>
   <transform process="addUnits" xpath=".//cml:array[@dictRef='cc:rotconst']" value="nonSi:GHz"/>
@@ -12,6 +16,12 @@
   <comment class="example.output" id="l716.thermochemistry.rotconsts">
     <module cmlx:templateRef="l716.thermochemistry.rotconsts" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <array dataType="xsd:double" size="3" dictRef="cc:rotconst" cmlx:templateRef="rotconst" units="nonSi:GHz">157.33005 157.33005 157.33005</array>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="l716.thermochemistry.rotconsts2">
+    <module cmlx:templateRef="l716.thermochemistry.rotconsts" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:double" size="3" dictRef="cc:rotconst" cmlx:templateRef="rotconst" units="nonSi:GHz">127.17272 24.77948 23.89247</array>
     </module>
   </comment>
 </template>
