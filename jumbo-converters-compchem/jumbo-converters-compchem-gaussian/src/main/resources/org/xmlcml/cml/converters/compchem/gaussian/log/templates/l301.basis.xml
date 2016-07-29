@@ -1,5 +1,6 @@
 <template id="l301.basis" name="basis" repeat="*"
-    pattern="\s*Standard basis.*" 
+    pattern="\s*Standard basis.*"
+    pattern2="\s*\d+\s+basis.+"
     endPattern="\s*NAtoms=.*$\s*Integral buffers will be.*" endOffset="4"
     endPattern2="\s*NAtoms=.*"                              endOffset2="1">
     
@@ -77,6 +78,13 @@
  Integral buffers will be    131072 words long.
  Raffenetti 1 integral format.
  Two-electron integral symmetry is turned on.
+  </comment>
+
+  <comment class="example.input" id="l301.basis.terse">
+    38 basis functions,    72 primitive gaussians,    38 cartesian basis functions
+     9 alpha electrons        9 beta electrons
+       nuclear repulsion energy        40.2258276030 Hartrees.
+ NAtoms=    6 NActive=    6 NUniq=    5 SFac= 1.08D+00 NAtFMM=   80 NAOKFM=F Big=F
   </comment>
   
   <record id="basis">\s*Standard basis:\s*{A,cc:basisSetLabel}\s*{X,cc:diffuse}\s*</record> 
@@ -321,6 +329,25 @@
       <scalar dataType="xsd:string" dictRef="g:twoe">Two-electron</scalar>
       <scalar dataType="xsd:string" dictRef="g:raffenetti">Raffenetti</scalar>
       <scalar dataType="xsd:integer" dictRef="g:raff">1</scalar>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="l301.basis.terse">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l301.basis">
+      <property dictRef="cc:Energy_NucRep">
+        <scalar dataType="xsd:double" units="nonSi:hartree">40.225827603</scalar>
+      </property>
+      <scalar dataType="xsd:integer" dictRef="cc:basiscount">38</scalar>
+      <scalar dataType="xsd:integer" dictRef="g:primbasis">72</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:cartesianbasis">38</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:alphae">9</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:betae">9</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:natoms">6</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:nactiveatoms">6</scalar>
+      <scalar dataType="xsd:integer" dictRef="cc:uniqatoms">5</scalar>
+      <scalar dataType="xsd:double" dictRef="g:sfac">1.08</scalar>
+      <scalar dataType="xsd:integer" dictRef="g:natfmm">80</scalar>
+      <scalar dataType="xsd:string" dictRef="g:big">F</scalar>
     </module>
   </comment>
   
