@@ -587,6 +587,48 @@
     X=              1.6748    Y=              0.9614    Z=              0.0000  Tot=              1.9311
   </comment>
 
+  <comment class="example.input" id="l601.popanal.terse2">
+ **********************************************************************
+
+            Population analysis using the SCF density.
+
+ **********************************************************************
+
+ Orbital symmetries:
+       Occupied  (A') (A') (A') (A') (A') (A') (A") (A') (A")
+       Virtual   (A') (A') (A") (A') (A') (A') (A") (A') (A') (A")
+                 (A') (A') (A") (A') (A') (A') (A') (A") (A') (A")
+                 (A') (A') (A") (A') (A") (A') (A') (A') (A')
+ The electronic state is 1-A'.
+ Alpha  occ. eigenvalues --  -19.13279 -10.22091  -1.01780  -0.68161  -0.50939
+ Alpha  occ. eigenvalues --   -0.43253  -0.43189  -0.32734  -0.25730
+ Alpha virt. eigenvalues --    0.07695   0.13584   0.17258   0.17925   0.21243
+ Alpha virt. eigenvalues --    0.54344   0.55739   0.58155   0.79570   0.85269
+ Alpha virt. eigenvalues --    0.87604   0.92290   0.96569   0.97249   1.02270
+ Alpha virt. eigenvalues --    1.12418   1.48109   1.48894   1.60222   1.74270
+ Alpha virt. eigenvalues --    2.04419   2.10040   2.21531   2.37571   2.39233
+ Alpha virt. eigenvalues --    2.47853   2.80510   3.71675   4.21930
+          Condensed to atoms (all electrons):
+ Mulliken atomic charges:
+              1
+     1  C   -0.199366
+     2  O   -0.612131
+     3  H    0.163468
+     4  H    0.126979
+     5  H    0.126979
+     6  H    0.394070
+ Sum of Mulliken atomic charges =   0.00000
+ Mulliken charges with hydrogens summed into heavy atoms:
+              1
+     1  C    0.218061
+     2  O   -0.218061
+ Sum of Mulliken charges with hydrogens summed into heavy atoms =   0.00000
+ Electronic spatial extent (au):  &lt;R**2>=             82.3997
+ Charge=              0.0000 electrons
+ Dipole moment (field-independent basis, Debye):
+    X=              1.4531    Y=              0.8584    Z=              0.0000  Tot=              1.6877
+  </comment>
+
   <comment class="example.input" id="l601.popanal.g98">
  **********************************************************************
 
@@ -1117,6 +1159,58 @@
                 </property>
                 <property dictRef="cc:dipoleMomentVector">
                     <array dataType="xsd:double" size="3" units="nonSi:debye">1.6748 0.9614 0.0</array>
+                </property>
+            </module>
+        </module>
+    </comment>
+
+    <comment class="example.output" id="l601.popanal.terse2">
+        <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l601.popanal">
+            <property dictRef="cc:orbitalSymmetry">
+                <arrayList shape="irregular">
+                    <array dataType="xsd:string" size="9" dictRef="cc:occOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A') (A') (A') (A") (A') (A")</array>
+                    <array dataType="xsd:string" size="29" dictRef="cc:virtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A") (A') (A') (A') (A") (A') (A') (A") (A') (A') (A") (A') (A') (A') (A') (A") (A') (A") (A') (A') (A") (A') (A") (A') (A') (A') (A')</array>
+                </arrayList>
+            </property>
+            <property dictRef="cc:orbitalEigenvalues">
+                <arrayList shape="irregular">
+                    <array dataType="xsd:double" size="9" dictRef="cc:occOrbitalEigenvalues" units="nonSi:hartree">-19.13279 -10.22091 -1.0178 -0.68161 -0.50939 -0.43253 -0.43189 -0.32734 -0.2573</array>
+                    <array dataType="xsd:double" size="29" dictRef="cc:virtOrbitalEigenvalues" units="nonSi:hartree">0.07695 0.13584 0.17258 0.17925 0.21243 0.54344 0.55739 0.58155 0.7957 0.85269 0.87604 0.9229 0.96569 0.97249 1.0227 1.12418 1.48109 1.48894 1.60222 1.7427 2.04419 2.1004 2.21531 2.37571 2.39233 2.47853 2.8051 3.71675 4.2193</array>
+                </arrayList>
+            </property>
+            <property dictRef="cc:electronicState">
+                <scalar dataType="xsd:string" cmlx:templateRef="l601.state">1-A'.</scalar>
+            </property>
+            <property dictRef="cc:netAtomicCharge">
+                <table tableType="columnBased" rows="6" columns="3">
+                    <arrayList>
+                        <array dataType="xsd:integer" dictRef="cc:serial" size="6">1 2 3 4 5 6</array>
+                        <array dataType="xsd:string" dictRef="cc:elementType" size="6">C O H H H H</array>
+                        <array dataType="xsd:double" size="6" units="nonSi:elementaryCharge" dictRef="cc:mulliken">-0.199366 -0.612131 0.163468 0.126979 0.126979 0.39407</array>
+                    </arrayList>
+                </table>
+            </property>
+            <property dictRef="cc:netChargeSummedToHeavyAtom">
+                <table tableType="columnBased" rows="2" columns="3">
+                    <arrayList>
+                        <array dataType="xsd:integer" dictRef="cc:serial" size="2">1 2</array>
+                        <array dataType="xsd:string" dictRef="cc:elementType" size="2">C O</array>
+                        <array dataType="xsd:double" size="2" units="nonSi:elementaryCharge" dictRef="cc:mulliken">0.218061 -0.218061</array>
+                    </arrayList>
+                </table>
+            </property>
+            <property dictRef="cc:electronicExtent">
+                <scalar dataType="xsd:double" units="nonSi:bohr2">82.3997</scalar>
+            </property>
+            <property dictRef="cc:charge">
+                <scalar dataType="xsd:double" units="nonSi:elementaryCharge">0.0</scalar>
+            </property>
+            <module cmlx:lineCount="2" cmlx:templateRef="multipole" dictRef="cc:multipole">
+                <property dictRef="cc:dipoleMoment">
+                    <scalar dataType="xsd:double" units="nonSi:debye">1.6877</scalar>
+                </property>
+                <property dictRef="cc:dipoleMomentVector">
+                    <array dataType="xsd:double" size="3" units="nonSi:debye">1.4531 0.8584 0.0</array>
                 </property>
             </module>
         </module>
