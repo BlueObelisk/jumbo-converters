@@ -1,6 +1,7 @@
 <template id="l716.thermochemistry" name="Thermochemistry" repeat="*"
     pattern="\s*\-+\s*$\s*\-\s*Thermochemistry\s*\-\s*$\s*\-+\s*"
     pattern2="\s*Temperature\s*\d+\.\d+\s+Kelvin\.\s+Pressure\s+\d+\.\d+\s+Atm\.\s*$\s*Zero-point\s+correction.*"
+    pattern3="\s*Temperature\s*\d+\.\d+\s+Kelvin\.\s+Pressure\s+\d+\.\d+\s+Atm\.\s*$\s*.+\s*$\s*Zero-point\s+correction.*"
     endPattern="\s*Zero-point\s+correction.*" endOffset="1"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     >
@@ -37,6 +38,12 @@
   <comment class="example.input" id="l716.thermochemistry.terse">
  Temperature   298.150 Kelvin.  Pressure   1.00000 Atm.
  Zero-point correction=                           0.051471 (Hartree/Particle)
+  </comment>
+
+  <comment class="example.input" id="l716.thermochemistry.terse2">
+ Temperature   298.150 Kelvin.  Pressure   1.00000 Atm.
+    1 imaginary frequencies ignored.
+ Zero-point correction=                           0.050632 (Hartree/Particle)
   </comment>
 
   <templateList>
@@ -101,6 +108,15 @@
       <scalar dataType="xsd:double" dictRef="cc:press" units="nonSi:atm">1.0</scalar>
       <scalar dataType="xsd:double" units="nonSi:hartree" dictRef="cc:Energy_ZPVE">0.051471</scalar>
     </module>
+  </comment>
+
+  <comment class="example.output" id="l716.thermochemistry.terse2">
+<module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l716.thermochemistry">
+<scalar dataType="xsd:double" dictRef="cc:temp" units="si:k">298.15</scalar>
+<scalar dataType="xsd:double" dictRef="cc:press" units="nonSi:atm">1.0</scalar>    1 imaginary frequencies ignored.
+<scalar dataType="xsd:double" dictRef="cc:Energy_ZPVE" units="nonSi:hartree">0.050632</scalar>
+</module>
+
   </comment>
 </template>
  
