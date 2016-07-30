@@ -24,10 +24,27 @@
   N-N= 1.339525332293D+01 E-N=-1.198300348205D+02  KE= 4.007106437468D+01
   </comment>
 
-  <comment class="example.inputx" id="l601.multipole.terse">
+  <comment class="example.input" id="l601.multipole.g98">
+ Dipole moment (Debye):
+    X=     1.4379    Y=     0.8952    Z=     0.0000  Tot=     1.6938
+ Quadrupole moment (Debye-Ang):
+   XX=   -11.5527   YY=   -13.0303   ZZ=   -13.5833
+   XY=    -2.1194   XZ=     0.0000   YZ=     0.0000
+ Octapole moment (Debye-Ang**2):
+  XXX=     1.1441  YYY=    -3.9993  ZZZ=     0.0000  XYY=     2.1751
+  XXY=    -2.2712  XXZ=     0.0000  XZZ=     0.5596  YZZ=    -0.5916
+  YYZ=     0.0000  XYZ=     0.0000
+ Hexadecapole moment (Debye-Ang**3):
+ XXXX=   -18.5958 YYYY=   -60.8644 ZZZZ=   -19.1053 XXXY=    -0.9938
+ XXXZ=     0.0000 YYYX=    -1.1821 YYYZ=     0.0000 ZZZX=     0.0000
+ ZZZY=     0.0000 XXYY=   -12.0317 XXZZ=    -6.6465 YYZZ=   -13.6803
+ XXYZ=     0.0000 YYXZ=     0.0000 ZZXY=     0.7360
+ N-N= 4.021837880496D+01 E-N=-3.515468627962D+02  KE= 1.147014880006D+02
+  </comment>
+
+  <comment class="example.input" id="l601.multipole.terse">
     Dipole moment (field-independent basis, Debye):
     X=              1.6748    Y=              0.9614    Z=              0.0000  Tot=              1.9311
- Calling FoFJK, ICntrl=      2127 FMM=F ISym2X=1 I1Cent= 0 IOpClX= 0 NMat=1 NMatS=1 NMatT=0.
   </comment>
   
   <record id="dipoletype">\s*Dipole moment \({X,g:dipoletype}\):\s*</record>
@@ -86,15 +103,26 @@
   <transform process="pullup" xpath=".//cml:scalar" repeat="2" />
   <transform process="pullup" xpath=".//cml:array[@dictRef='cc:dipoleMomentVector']" repeat="2" />
 
-  <transform process="pullupSingleton" xpath=".//cml:list[@cmlx:templateRef='quadrupole' or @cmlx:templateRef='tracequadrupole' or @cmlx:templateRef='octapole' or @cmlx:templateRef='hexadecapole']" />
+  <!-- <transform process="pullupSingleton" xpath=".//cml:list[@cmlx:templateRef='quadrupole' or @cmlx:templateRef='tracequadrupole' or @cmlx:templateRef='octapole' or @cmlx:templateRef='hexadecapole']" /> -->
 
-  <transform process="createTable" xpath=".//cml:list[@cmlx:templateRef='quadrupole' or @cmlx:templateRef='tracequadrupole' or @cmlx:templateRef='octapole' or @cmlx:templateRef='hexadecapole']" />
+  <transform process="addAttribute" xpath=".//cml:list[@cmlx:templateRef='quadrupole']/cml:list"      name="cmlx:templateRef" value="quadrupole" />
+  <transform process="addAttribute" xpath=".//cml:list[@cmlx:templateRef='tracequadrupole']/cml:list" name="cmlx:templateRef" value="tracequadrupole" />
+  <transform process="addAttribute" xpath=".//cml:list[@cmlx:templateRef='octapole']/cml:list"        name="cmlx:templateRef" value="octapole" />
+  <transform process="addAttribute" xpath=".//cml:list[@cmlx:templateRef='hexadecapole']/cml:list"    name="cmlx:templateRef" value="hexadecapole" />
 
-  <transform process="addDictRef" xpath=".//cml:table[1]" value="cc:quadrupoleMoment" />
-  <transform process="addDictRef" xpath=".//cml:table[2]" value="cc:tracelessQuadrupoleMoment" />
-  <transform process="addDictRef" xpath=".//cml:table[3]" value="cc:octapoleMoment" />
-  <transform process="addDictRef" xpath=".//cml:table[4]" value="cc:hexadecapoleMoment" />
+  <transform process="createTable" xpath=".//cml:list[@cmlx:templateRef='quadrupole']/cml:list[@cmlx:templateRef='quadrupole']" />
+  <transform process="createTable" xpath=".//cml:list[@cmlx:templateRef='tracequadrupole']/cml:list[@cmlx:templateRef='tracequadrupole']" />
+  <transform process="createTable" xpath=".//cml:list[@cmlx:templateRef='octapole']/cml:list[@cmlx:templateRef='octapole']" />
+  <transform process="createTable" xpath=".//cml:list[@cmlx:templateRef='hexadecapole']/cml:list[@cmlx:templateRef='hexadecapole']" />
 
+
+  <transform process="addDictRef" xpath=".//cml:list[@cmlx:templateRef='quadrupole']/cml:table"      value="cc:quadrupoleMoment" />
+  <transform process="addDictRef" xpath=".//cml:list[@cmlx:templateRef='tracequadrupole']/cml:table" value="cc:tracelessQuadrupoleMoment" />
+  <transform process="addDictRef" xpath=".//cml:list[@cmlx:templateRef='octapole']/cml:table"        value="cc:octapoleMoment" />
+  <transform process="addDictRef" xpath=".//cml:list[@cmlx:templateRef='hexadecapole']/cml:table"    value="cc:hexadecapoleMoment" />
+
+  <transform process="pullup" xpath=".//cml:table[@dictRef='cc:quadrupoleMoment' or @dictRef='cc:tracelessQuadrupoleMoment' or @dictRef='cc:octapoleMoment' or @dictRef='cc:hexadecapoleMoment']" />
+  
   <transform process="addAttribute" xpath=".//cml:table" name="rows" value="$number(./cml:arrayList/cml:array/@size)" />
   <transform process="addAttribute" xpath=".//cml:table" name="columns" value="2" />
 
@@ -163,8 +191,58 @@
     </module>
   </comment>
 
+  <comment class="example.output" id="l601.multipole.g98">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="multipole">
+      <property dictRef="cc:dipoleMoment">
+        <scalar dataType="xsd:double" units="nonSi:debye">1.6938</scalar>
+      </property>
+      <property dictRef="cc:dipoleMomentVector">
+        <array dataType="xsd:double" size="3" units="nonSi:debye">1.4379 0.8952 0.0</array>
+      </property>
+      <property dictRef="cc:quadrupoleMoment">
+        <table tableType="columnBased" rows="3" columns="2">
+          <arrayList>
+            <array dataType="xsd:string" size="3" dictRef="cc:coordinateLabel">XX YY ZZ</array>
+            <array dataType="xsd:double" size="3" dictRef="cc:quadrupoleMoment" units="nonSi:debye.angstrom">-11.5527 -13.0303 -13.5833</array>
+          </arrayList>
+        </table>
+      </property>
+      <property dictRef="cc:octapoleMoment">
+        <table tableType="columnBased" rows="10" columns="2">
+          <arrayList>
+            <array dataType="xsd:string" size="10" dictRef="cc:coordinateLabel">XXX YYY ZZZ XYY XXY XXZ XZZ YZZ YYZ XYZ</array>
+            <array dataType="xsd:double" size="10" dictRef="cc:octapoleMoment" units="nonSi:debye.angstrom2">1.1441 -3.9993 0.0 2.1751 -2.2712 0.0 0.5596 -0.5916 0.0 0.0</array>
+          </arrayList>
+        </table>
+      </property>
+      <property dictRef="cc:hexadecapoleMoment">
+        <table tableType="columnBased" rows="15" columns="2">
+          <arrayList>
+            <array dataType="xsd:string" size="15" dictRef="cc:coordinateLabel">XXXX YYYY ZZZZ XXXY XXXZ YYYX YYYZ ZZZX ZZZY XXYY XXZZ YYZZ XXYZ YYXZ ZZXY</array>
+            <array dataType="xsd:double" size="15" dictRef="cc:hexadecapoleMoment" units="nonSi:debye.angstrom3">-18.5958 -60.8644 -19.1053 -0.9938 0.0 -1.1821 0.0 0.0 0.0 -12.0317 -6.6465 -13.6803 0.0 0.0 0.736</array>
+          </arrayList>
+        </table>
+      </property>
+      <property dictRef="cc:Energy_NucRep">
+        <scalar units="nonSi:hartree" dataType="xsd:double">40.21837880496</scalar>
+      </property>
+      <property dictRef="cc:potentialEnergy">
+        <scalar units="nonSi:hartree" dataType="xsd:double">-351.5468627962</scalar>
+      </property>
+      <property dictRef="cc:kineticEnergy">
+        <scalar units="nonSi:hartree" dataType="xsd:double">114.7014880006</scalar>
+      </property>
+    </module>
+  </comment>
+
   <comment class="example.output" id="l601.multipole.terse">
     <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="multipole">
+      <property dictRef="cc:dipoleMoment">
+        <scalar dataType="xsd:double" units="nonSi:debye">1.9311</scalar>
+      </property>
+      <property dictRef="cc:dipoleMomentVector">
+        <array dataType="xsd:double" size="3" units="nonSi:debye">1.6748 0.9614 0.0</array>
+      </property>
     </module>
   </comment>
 </template>
