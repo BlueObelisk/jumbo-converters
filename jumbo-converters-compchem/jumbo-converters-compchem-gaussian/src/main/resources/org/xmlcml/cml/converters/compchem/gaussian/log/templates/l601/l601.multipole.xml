@@ -1,7 +1,7 @@
 <template id="multipole" name="multipole" repeat="*"
     pattern="\s*Dipole moment.*$\s*X\s*=\s*.+" 
     endPattern="(\s*N\-N=.*)" endOffset="1"
-    endPattern2="\s*X\s*=\s*[-]*\d+\.*\d+\s+Y\s*=\s*[-]*\d+\.*\d+\s+Z\s*=\s*[-]*\d+\.*\d+\s+Tot\s*=\s*[-]*\d+\.*\d+\s*$\s*" endOffset2="1">
+    endPattern2="\s*X\s*=\s*[-]*\d+\.*\d+\s+Y\s*=\s*[-]*\d+\.*\d+\s+Z\s*=\s*[-]*\d+\.*\d+\s+Tot\s*=\s*[-]*\d+\.*\d+\s*$\s*^((?!N\-N).)*.*$" endOffset2="1">
     
   <comment class="example.input" id="l601.multipole">
  Dipole moment (field-independent basis, Debye):
@@ -46,6 +46,12 @@
     Dipole moment (field-independent basis, Debye):
     X=              1.6748    Y=              0.9614    Z=              0.0000  Tot=              1.9311
   </comment>
+
+  <comment class="example.input" id="l601.multipole.pm3">
+ Dipole moment (field-independent basis, Debye):
+    X=              1.3349    Y=              0.8682    Z=              0.0000  Tot=              1.5924
+ N-N= 3.841215700695D+01 E-N=-5.724862453763D+01  KE=-9.648531951594D+00
+  </comment>
   
   <record id="dipoletype">\s*Dipole moment \({X,g:dipoletype}\):\s*</record>
   <record id="dipole">\s*X=\s*{F,x:d}Y={F,x:d}\s*Z=\s*{F,x:d}\s*Tot=\s*{F,cc:dipoleMoment}\s*</record>
@@ -53,7 +59,9 @@
   <templateList>
     <template id="multipole.moments"
               pattern="\s*Quadrupole moment.*"
-              endPattern="(\s*N\-N=.*)" endOffset="1">
+              pattern2="\s*N\-N=.*"
+              endPattern="\s*N\-N=.*" endOffset="1"
+              endPattern2="~"         endOffset2="1">
       <record id="quadrupoletype">\s*Quadrupole moment \({X,g:quadpoletype}\):\s*</record>
       <record id="quadrupole">\s*{A,x:coordQuad}\s*={F,x:q}\s*{A,x:coordQuad}\s*={F,x:q}\s*{A,x:coordQuad}\s*={F,x:q}\s*</record>
       <record id="xy">\s*{A,x:coordQuad}\s*={F,x:qb}\s*{A,x:coordQuad}\s*={F,x:qb}\s*{A,x:coordQuad}\s*={F,x:qb}\s*</record>
@@ -242,6 +250,26 @@
       </property>
       <property dictRef="cc:dipoleMomentVector">
         <array dataType="xsd:double" size="3" units="nonSi:debye">1.6748 0.9614 0.0</array>
+      </property>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="l601.multipole.pm3">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="multipole">
+      <property dictRef="cc:dipoleMoment">
+        <scalar dataType="xsd:double" units="nonSi:debye">1.5924</scalar>
+      </property>
+      <property dictRef="cc:dipoleMomentVector">
+        <array dataType="xsd:double" size="3" units="nonSi:debye">1.3349 0.8682 0.0</array>
+      </property>
+      <property dictRef="cc:Energy_NucRep">
+        <scalar units="nonSi:hartree" dataType="xsd:double">38.41215700695</scalar>
+      </property>
+      <property dictRef="cc:potentialEnergy">
+        <scalar units="nonSi:hartree" dataType="xsd:double">-57.24862453763</scalar>
+      </property>
+      <property dictRef="cc:kineticEnergy">
+        <scalar units="nonSi:hartree" dataType="xsd:double">-9.648531951594</scalar>
       </property>
     </module>
   </comment>
