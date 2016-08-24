@@ -1,5 +1,7 @@
 <template id="mulliken" name="mulliken" repeat="*"
-    newline="$" pattern="\s*(Mulliken|Total) (atomic )?charges:\s*" 
+    newline="$"
+    pattern="\s*(Mulliken|Total) (atomic )?charges:\s*" 
+    pattern2="\s*Mulliken charges and spin densities:\s*"
     endPattern="\s*Charge=.*" endOffset="1"
     xmlns:xi="http://www.w3.org/2001/XInclude">
     
@@ -142,15 +144,43 @@ Mulliken charges:
  Charge=     0.0000 electrons
   </comment>
 
+  <comment class="example.input" id="l601.mulliken.rohf">
+  Mulliken charges and spin densities:
+               1          2
+     1  C   -0.129093   0.000000
+     2  O   -0.748190   0.000000
+     3  H    0.396623   0.000000
+     4  H    0.139839   0.000000
+     5  H    0.170410   0.000000
+     6  H    0.170410   0.000000
+ Sum of Mulliken charges =   0.00000   0.00000
+ Mulliken charges and spin densities with hydrogens summed into heavy atoms:
+               1          2
+     1  C    0.351567   0.000000
+     2  O   -0.351567   0.000000
+ Electronic spatial extent (au):  &lt;R**2>=             88.9103
+ Charge=              0.0000 electrons
+  </comment>
+
   <templateList>
     <template id="l601.mullik" repeat="*" 
+      pattern="\s*Mulliken charges and spin densities.*"  offset="0"
+      endPattern="\s*[A-Za-z]+.*"                           endOffset="0"
+      >
+      <record id="title">{X,g:title}</record>
+      <record id="serial">{1_2I,cc:serial}</record>
+      <record id="row" repeat="*" makeArray="true">\s*{I,cc:serial}\s*{A,cc:elementType}\s*{F,x:charge}\s*{F,x:charge2}\s*</record>
+    </template>
+
+    <template id="l601.mullik" repeat="*" 
       pattern="\s*(Mulliken|APT|Total|Atomic)\s*([Aa]tomic )?charges.*" offset="0"
-      endPattern="\s*[A-Za-z]+.*"                             endOffset="0"
+      endPattern="\s*[A-Za-z]+.*"                                       endOffset="0"
       >
       <record id="title">{X,g:title}</record>
       <record id="serial">{I,cc:serial}</record>
-      <record id="row" repeat="*" makeArray="true">{I,cc:serial}{A,cc:elementType}{F,x:charge}</record>
+      <record id="row" repeat="*" makeArray="true">\s*{I,cc:serial}\s*{A,cc:elementType}\s*{F,x:charge}\s*</record>
     </template>
+
     <template id="l601.sum" pattern="\s*Sum of.*" repeat="*"
       endPattern=".*" endOffset="0">
       <record id="sum">\s*Sum of\s*{A,x:type}\s*charges\s*={F,x:charge.sum}</record>
@@ -183,8 +213,12 @@ Mulliken charges:
   <transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:electronicExtent']" value="nonSi:bohr2" />
   <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='l601.mullik'][1]//cml:array[@dictRef='x:charge']" value="cc:mulliken" />
   <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='l601.mullik'][2]//cml:array[@dictRef='x:charge']" value="cc:mulliken" />
+
   <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='l601.mullik'][3]//cml:array[@dictRef='x:charge']" value="cc:atomicPolarTensorDerivedCharge" />
   <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='l601.mullik'][4]//cml:array[@dictRef='x:charge']" value="cc:atomicPolarTensorDerivedCharge" />
+
+  <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='l601.mullik'][1]//cml:array[@dictRef='x:charge2']" value="cc:atomicSpinDensities" />
+  <transform process="addDictRef" xpath=".//cml:module[@cmlx:templateRef='l601.mullik'][2]//cml:array[@dictRef='x:charge2']" value="cc:atomicSpinDensities" />
 
   <transform process="move" xpath=".//cml:module[@cmlx:templateRef='l601.mullik'][3]//cml:array[@dictRef='cc:atomicPolarTensorDerivedCharge']" 
              to=".//cml:module[@cmlx:templateRef='l601.mullik'][1]/cml:list[@cmlx:templateRef='row']" />
@@ -199,10 +233,12 @@ Mulliken charges:
 
   <transform process="addAttribute" xpath=".//cml:table" name="rows" value="$number(./cml:arrayList/cml:array/@size)" />
   <transform process="addAttribute" xpath=".//cml:table[@dictRef='cc:netAtomicCharge' or @dictRef='cc:netChargeSummedToHeavyAtom']" name="columns" value="3" />
-  <transform process="addAttribute" xpath=".//cml:table[cml:arrayList/cml:array[@dictRef='cc:atomicPolarTensorDerivedCharge']]" name="columns" value="4" />
+  <transform process="addAttribute" name="columns" value="4"
+             xpath=".//cml:table[cml:arrayList/cml:array[@dictRef='cc:atomicPolarTensorDerivedCharge' or @dictRef='cc:atomicSpinDensities']]" />
 
   <!-- delete redundant scalars and modules -->
   <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.mullik']/cml:scalar[@dictRef='g:title' or @dictRef='cc:serial' or @dictRef='x:type' or @dictRef='x:charge.sum']" />
+  <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.mullik']/cml:list[@cmlx:templateRef='serial']/cml:array[@dictRef='cc:serial']" />
   <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.mullik'][3]" />
   <transform process="delete" xpath=".//cml:module[@cmlx:templateRef='l601.mullik'][3]" />
   
@@ -360,6 +396,33 @@ Mulliken charges:
         </table>
       </module>
       <scalar dataType="xsd:double" dictRef="cc:electronicExtent" units="nonSi:bohr2">81.9482</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:charge" units="nonSi:elementaryCharge">0.0</scalar>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="l601.mulliken.rohf">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="mulliken">
+      <module cmlx:lineCount="8" cmlx:templateRef="l601.mullik">
+        <table tableType="columnBased" dictRef="cc:netAtomicCharge" rows="6" columns="4">
+          <arrayList>
+            <array dataType="xsd:integer" dictRef="cc:serial" size="6">1 2 3 4 5 6</array>
+            <array dataType="xsd:string" dictRef="cc:elementType" size="6">C O H H H H</array>
+            <array dataType="xsd:double" size="6" units="nonSi:elementaryCharge" dictRef="cc:mulliken">-0.129093 -0.74819 0.396623 0.139839 0.17041 0.17041</array>
+            <array dataType="xsd:double" size="6" dictRef="cc:atomicSpinDensities">0.0 0.0 0.0 0.0 0.0 0.0</array>
+          </arrayList>
+        </table>
+      </module>
+      <module cmlx:lineCount="4" cmlx:templateRef="l601.mullik">
+        <table tableType="columnBased" dictRef="cc:netChargeSummedToHeavyAtom" rows="2" columns="4">
+          <arrayList>
+            <array dataType="xsd:integer" dictRef="cc:serial" size="2">1 2</array>
+            <array dataType="xsd:string" dictRef="cc:elementType" size="2">C O</array>
+            <array dataType="xsd:double" size="2" units="nonSi:elementaryCharge" dictRef="cc:mulliken">0.351567 -0.351567</array>
+            <array dataType="xsd:double" size="2" dictRef="cc:atomicSpinDensities">0.0 0.0</array>
+          </arrayList>
+        </table>
+      </module>
+      <scalar dataType="xsd:double" dictRef="cc:electronicExtent" units="nonSi:bohr2">88.9103</scalar>
       <scalar dataType="xsd:double" dictRef="cc:charge" units="nonSi:elementaryCharge">0.0</scalar>
     </module>
   </comment>

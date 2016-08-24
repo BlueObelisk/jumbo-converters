@@ -1,0 +1,48 @@
+<template id="spindensity" name="spindensity" repeat="*"
+      	  pattern="\s*Atomic-Atomic Spin Densities\.\s*"
+      	  endPattern="\s*Mulliken charges and spin densities:\s*" endOffset="0">
+
+    <comment class="example.input" id="l601.spindensity">
+    Atomic-Atomic Spin Densities.
+               1          2          3          4          5          6
+     1  C    0.000000   0.000000   0.000000   0.000000   0.000000   0.000000
+     2  O    0.000000   0.000000   0.000000   0.000000   0.000000   0.000000
+     3  H    0.000000   0.000000   0.000000   0.000000   0.000000   0.000000
+     4  H    0.000000   0.000000   0.000000   0.000000   0.000000   0.000000
+     5  H    0.000000   0.000000   0.000000   0.000000   0.000000   0.000000
+     6  H    0.000000   0.000000   0.000000   0.000000   0.000000   0.000000
+    </comment>
+
+    <record />
+    <record id="cols">\s*{1_6I,cc:serial}\s*</record>
+    <record id="rows" makeArray="true" repeat="*">\s*{I,cc:serial}\s+{A,x:junk}\s+{1_6F,x:density}\s*</record> 
+
+    <transform process="createMatrix" dictRef="cc:atomicSpinDensityMatrix" xpath="." from="./cml:list[@cmlx:templateRef='rows']/cml:array[@dictRef='x:density']" />
+    <transform process="addAttribute" name="rows" value="$string(//cml:list[@cmlx:templateRef='rows']/cml:array[@dictRef='cc:serial']/@size)" 
+    	       xpath="./cml:list[@cmlx:templateRef='rows']/cml:matrix" />
+    <transform process="addAttribute" name="columns" value="$string(//cml:list[@cmlx:templateRef='cols']/cml:array[@dictRef='cc:serial']/@size)" 
+    	       xpath="./cml:list[@cmlx:templateRef='rows']/cml:matrix" />
+    <transform process="addAttribute" name="matrixType" value="squareSymmetric" xpath="./cml:list[@cmlx:templateRef='rows']/cml:matrix" />
+
+    <transform process="pullup" xpath="./cml:list[@cmlx:templateRef='rows']/cml:matrix[@dictRef='cc:atomicSpinDensityMatrix']" />
+
+    <!-- delete redundant data -->
+    <transform process="delete" xpath="./cml:list[@cmlx:templateRef='rows' or @cmlx:templateRef='cols']" />
+
+    <transform process="createWrapperProperty" xpath=".//cml:matrix[@dictRef='cc:atomicSpinDensityMatrix']" />
+
+    <!-- CLEAN UP -->
+    <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+    <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+
+    <comment class="example.output" id="l601.spindensity">
+    	<module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="spindensity">
+    		<property dictRef="cc:atomicSpinDensityMatrix">
+					<matrix dataType="xsd:double" rows="6" columns="6" matrixType="squareSymmetric">0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0</matrix>
+				</property>
+    	</module>
+    </comment>
+
+    <comment class="example.output" id="l601.spindensity.uhf">
+    </comment>
+</template>
