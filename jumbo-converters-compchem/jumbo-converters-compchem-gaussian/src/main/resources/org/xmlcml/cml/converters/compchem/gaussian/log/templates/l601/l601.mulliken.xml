@@ -2,6 +2,7 @@
     newline="$"
     pattern="\s*(Mulliken|Total) (atomic )?charges:\s*" 
     pattern2="\s*Mulliken charges and spin densities:\s*"
+    pattern3="\s*Electronic spatial extent.*"
     endPattern="\s*Charge=.*" endOffset="1"
     xmlns:xi="http://www.w3.org/2001/XInclude">
     
@@ -187,7 +188,7 @@ Mulliken charges:
     </template>
     <template id="l601.spatial" pattern="\s*Electronic spatial extent.*" repeat="*"
       endPattern=".+" endOffset="0">
-      <record id="l601.elect">\s*Electronic spatial extent.*={F,cc:electronicExtent}\s*</record>
+      <record id="l601.elect">\s*Electronic spatial extent.*=\s*{F,cc:electronicExtent}\s*</record>
     </template>
     <template id="l601.charge" pattern="\s*Charge\s*=.*" repeat="*"
       endPattern="~" endOffset="0">

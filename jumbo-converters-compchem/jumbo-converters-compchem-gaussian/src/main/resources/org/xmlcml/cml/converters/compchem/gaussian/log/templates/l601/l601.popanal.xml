@@ -805,6 +805,46 @@
  N-N= 3.869202462104D+01 E-N=-3.483456731181D+02  KE= 1.147278548191D+02
   </comment>
 
+  <comment class="example.input" id="l601.popanal.rohf2">
+ **********************************************************************
+
+            Population analysis using the SCF density.
+
+ **********************************************************************
+
+ Orbital symmetries:
+       Occupied  (A') (A') (A') (A') (A') (A") (A') (A') (A")
+       Virtual   (A') (A') (A') (A") (A') (A") (A') (A') (A') (A')
+                 (A") (A') (A') (A") (A') (A') (A')
+ The electronic state is 1-A'.
+ Alpha  occ. eigenvalues --  -20.54806 -11.27392  -1.35217  -0.93915  -0.68319
+ Alpha  occ. eigenvalues --   -0.62037  -0.59148  -0.48804  -0.44262
+ Alpha virt. eigenvalues --    0.21811   0.27137   0.31502   0.32387   0.38241
+ Alpha virt. eigenvalues --    0.76943   0.77118   0.80127   1.15314   1.18197
+ Alpha virt. eigenvalues --    1.18223   1.20516   1.26748   1.27724   1.33767
+ Alpha virt. eigenvalues --    1.50157   2.01187
+ Electronic spatial extent (au):  &lt;R**2>=             84.7090
+ Charge=              0.0000 electrons
+ Dipole moment (field-independent basis, Debye):
+    X=              1.9116    Y=              1.4036    Z=              0.0000  Tot=              2.3716
+ Quadrupole moment (field-independent basis, Debye-Ang):
+   XX=            -11.9244   YY=            -12.8913   ZZ=            -13.5527
+   XY=             -2.5689   XZ=              0.0000   YZ=              0.0000
+ Traceless Quadrupole moment (field-independent basis, Debye-Ang):
+   XX=              0.8651   YY=             -0.1018   ZZ=             -0.7632
+   XY=             -2.5689   XZ=              0.0000   YZ=              0.0000
+ Octapole moment (field-independent basis, Debye-Ang**2):
+  XXX=              2.3171  YYY=             -3.4264  ZZZ=              0.0000  XYY=              3.0412
+  XXY=             -2.1193  XXZ=              0.0000  XZZ=             -0.1651  YZZ=             -0.2875
+  YYZ=              0.0000  XYZ=              0.0000
+ Hexadecapole moment (field-independent basis, Debye-Ang**3):
+ XXXX=            -18.9264 YYYY=            -60.5104 ZZZZ=            -18.2608 XXXY=             -0.0319
+ XXXZ=              0.0000 YYYX=             -2.1945 YYYZ=              0.0000 ZZZX=              0.0000
+ ZZZY=              0.0000 XXYY=            -12.0019 XXZZ=             -6.2690 YYZZ=            -13.6325
+ XXYZ=              0.0000 YYXZ=              0.0000 ZZXY=             -0.3205
+ N-N= 4.023108670383D+01 E-N=-3.516181554225D+02  KE= 1.150614103638D+02
+  </comment>
+
   <comment class="example.input" id="l601.popanal.o2">
  **********************************************************************
 
@@ -1651,6 +1691,81 @@
             <property dictRef="cc:atomicOverlapPopulation">
                 <matrix rows="6" columns="6" dataType="xsd:double" matrixType="squareSymmetric" units="nonSi:elementaryCharge" cmlx:templateRef="l601.condensed" dictRef="cc:mulliken">4.863162 0.155585 -0.032613 0.37871 0.382125 0.382125 0.155585 8.454156 0.24417 -0.032456 -0.036633 -0.036633 -0.032613 0.24417 0.394665 -0.008577 0.002866 0.002866 0.37871 -0.032456 -0.008577 0.592227 -0.034871 -0.034871 0.382125 -0.036633 0.002866 -0.034871 0.556083 -0.03998 0.382125 -0.036633 0.002866 -0.034871 -0.03998 0.556083</matrix>
             </property>
+        </module>
+    </comment>
+
+    <comment class="example.output" id="l601.popanal.rohf2">
+        <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l601.popanal">
+            <property dictRef="cc:orbitalSymmetry">
+                <arrayList shape="irregular">
+                    <array dataType="xsd:string" size="9" dictRef="cc:occOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A') (A') (A") (A') (A') (A")</array>
+                    <array dataType="xsd:string" size="17" dictRef="cc:virtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A") (A') (A") (A') (A') (A') (A') (A") (A') (A') (A") (A') (A') (A')</array>
+                </arrayList>
+            </property>
+            <property dictRef="cc:orbitalEigenvalues">
+                <arrayList shape="irregular">
+                    <array dataType="xsd:double" size="9" dictRef="cc:occOrbitalEigenvalues" units="nonSi:hartree">-20.54806 -11.27392 -1.35217 -0.93915 -0.68319 -0.62037 -0.59148 -0.48804 -0.44262</array>
+                    <array dataType="xsd:double" size="17" dictRef="cc:virtOrbitalEigenvalues" units="nonSi:hartree">0.21811 0.27137 0.31502 0.32387 0.38241 0.76943 0.77118 0.80127 1.15314 1.18197 1.18223 1.20516 1.26748 1.27724 1.33767 1.50157 2.01187</array>
+                </arrayList>
+            </property>
+            <property dictRef="cc:electronicState">
+                <scalar dataType="xsd:string" cmlx:templateRef="l601.state">1-A'.</scalar>
+            </property>
+            <property dictRef="cc:electronicExtent">
+                <scalar dataType="xsd:double" units="nonSi:bohr2">84.709</scalar>
+            </property>
+            <property dictRef="cc:charge">
+                <scalar dataType="xsd:double" units="nonSi:elementaryCharge">0.0</scalar>
+            </property>
+            <module cmlx:lineCount="18" cmlx:templateRef="multipole" dictRef="cc:multipole">
+                <property dictRef="cc:dipoleMoment">
+                    <scalar dataType="xsd:double" units="nonSi:debye">2.3716</scalar>
+                </property>
+                <property dictRef="cc:dipoleMomentVector">
+                    <array dataType="xsd:double" size="3" units="nonSi:debye">1.9116 1.4036 0.0</array>
+                </property>
+                <property dictRef="cc:quadrupoleMoment">
+                    <table tableType="columnBased" rows="6" columns="2">
+                        <arrayList>
+                            <array dataType="xsd:string" size="6" dictRef="cc:coordinateLabel">XX YY ZZ XY XZ YZ</array>
+                            <array dataType="xsd:double" size="6" dictRef="cc:quadrupoleMoment" units="nonSi:debye.angstrom">-11.9244 -12.8913 -13.5527 -2.5689 0.0 0.0</array>
+                        </arrayList>
+                    </table>
+                </property>
+                <property dictRef="cc:tracelessQuadrupoleMoment">
+                    <table tableType="columnBased" rows="6" columns="2">
+                        <arrayList>
+                            <array dataType="xsd:string" size="6" dictRef="cc:coordinateLabel">XX YY ZZ XY XZ YZ</array>
+                            <array dataType="xsd:double" size="6" dictRef="cc:tracelessQuadrupoleMoment" units="nonSi:debye.angstrom">0.8651 -0.1018 -0.7632 -2.5689 0.0 0.0</array>
+                        </arrayList>
+                    </table>
+                </property>
+                <property dictRef="cc:octapoleMoment">
+                    <table tableType="columnBased" rows="10" columns="2">
+                        <arrayList>
+                            <array dataType="xsd:string" size="10" dictRef="cc:coordinateLabel">XXX YYY ZZZ XYY XXY XXZ XZZ YZZ YYZ XYZ</array>
+                            <array dataType="xsd:double" size="10" dictRef="cc:octapoleMoment" units="nonSi:debye.angstrom2">2.3171 -3.4264 0.0 3.0412 -2.1193 0.0 -0.1651 -0.2875 0.0 0.0</array>
+                        </arrayList>
+                    </table>
+                </property>
+                <property dictRef="cc:hexadecapoleMoment">
+                    <table tableType="columnBased" rows="15" columns="2">
+                        <arrayList>
+                            <array dataType="xsd:string" size="15" dictRef="cc:coordinateLabel">XXXX YYYY ZZZZ XXXY XXXZ YYYX YYYZ ZZZX ZZZY XXYY XXZZ YYZZ XXYZ YYXZ ZZXY</array>
+                            <array dataType="xsd:double" size="15" dictRef="cc:hexadecapoleMoment" units="nonSi:debye.angstrom3">-18.9264 -60.5104 -18.2608 -0.0319 0.0 -2.1945 0.0 0.0 0.0 -12.0019 -6.269 -13.6325 0.0 0.0 -0.3205</array>
+                        </arrayList>
+                    </table>
+                </property>
+                <property dictRef="cc:Energy_NucRep">
+                    <scalar units="nonSi:hartree" dataType="xsd:double">40.23108670383</scalar>
+                </property>
+                <property dictRef="cc:potentialEnergy">
+                    <scalar units="nonSi:hartree" dataType="xsd:double">-351.6181554225</scalar>
+                </property>
+                <property dictRef="cc:kineticEnergy">
+                    <scalar units="nonSi:hartree" dataType="xsd:double">115.0614103638</scalar>
+                </property>
+            </module>
         </module>
     </comment>
 
