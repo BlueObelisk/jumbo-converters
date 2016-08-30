@@ -93,6 +93,7 @@ public class TemplateTest {
 	@Ignore @Test	public void testl601Polariz()                {runTemplateTest("l601/", "l601.polariz");} // problem with numeric comp
 			@Test	public void testl601State()                  {runTemplateTest("l601/", "l601.state");}
 			@Test	public void testl601SpinDensity()            {runTemplateTest("l601/", "l601.spindensity");}
+			@Test	public void testl601AlphaBetaSymm()          {runTemplateTest("l601/", "l601.alphabetasymm");}
 
 			@Test	public void testl701()                       {runTemplateTest("l701");}
 			@Test	public void testl702()                       {runTemplateTest("l702");}
