@@ -51,6 +51,7 @@ public class TemplateTest {
 			@Test	public void testl101Zmat()                   {runTemplateTest("l101/", "l101.zmat");}
 			@Test	public void testl101ZmatCommas()             {runTemplateTest("l101/", "l101.zmatcommas");}
 			@Test	public void testl101ZmatVariables()          {runTemplateTest("l101/", "l101.zmatvariables");}
+			@Test	public void testl101DerivativesMethod()      {runTemplateTest("l101/", "l101.derivativesmethod");}
 	@Ignore @Test	public void testl101() 		                 {runTemplateTest("l101/", "l101");} //seems redundant
 
 			@Test	public void testlink1a() 		             {runTemplateTest("link1a");}

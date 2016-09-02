@@ -1,0 +1,48 @@
+<template id="l101.derivativesmethod"
+	 	  repeat="*"
+	 	  pattern="\s*Numerical evaluation of.+"
+	 	  endPattern=".*" endOffset="0">
+
+	<comment class="example.input" id="l101.derivativesmethod">
+		Numerical evaluation of force-constants.
+	</comment>
+
+	<record id="derivmethod">\s*{X,x:derivmethod}\s*</record>
+
+	<!-- first derivatives method -->
+	<transform process="addDictRef" value="cc:firstDerivativesMethod"
+		       xpath=".//cml:list[@cmlx:templateRef='derivmethod']/cml:scalar[@dictRef='x:derivmethod' and 
+		       contains(text(),'Numerical evaluation of third gradients')]" />
+
+	<!-- second derivatives method -->
+	<transform process="addDictRef" value="cc:secondDerivativesMethod"
+		       xpath=".//cml:list[@cmlx:templateRef='derivmethod']/cml:scalar[@dictRef='x:derivmethod' and 
+		       contains(text(),'Numerical evaluation of force-constants')]" />
+
+	<!-- third derivatives method -->
+	<transform process="addDictRef" value="cc:secondDerivativesMethod"
+		       xpath=".//cml:list[@cmlx:templateRef='derivmethod']/cml:scalar[@dictRef='x:derivmethod' and 
+		       contains(text(),'Numerical evaluation of third derivatives')]" />
+
+	<!-- set method -->
+	<transform process="setValue" value="numerical" 
+			   xpath=".//cml:list[@cmlx:templateRef='derivmethod']/cml:scalar[contains(text(),'Numerical evaluation of third gradients') or
+			   																  contains(text(),'Numerical evaluation of force-constants') or
+			   																  contains(text(),'Numerical evaluation of third derivatives')]" />
+
+	<transform process="pullup" xpath=".//cml:list[@cmlx:templateRef='derivmethod']/cml:scalar" />
+
+	<transform process="createWrapperParameter" xpath=".//cml:scalar[contains(@dictRef,'DerivativesMethod')]" />
+
+	<!-- clean up -->
+	<transform process="delete" xpath=".//cml:list[count(*)=0]" />
+
+	<comment class="example.output" id="l101.derivativesmethod">
+		<module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l101.derivativesmethod">
+			<parameter dictRef="cc:secondDerivativesMethod">
+				<scalar dataType="xsd:string">numerical</scalar>
+			</parameter>
+		</module>
+	</comment>
+
+</template> 
