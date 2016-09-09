@@ -80,8 +80,8 @@
   <transform process="move" xpath="./cml:arrayList" to="./cml:property[@dictRef='cc:orbitalSymmetry']" />
 
   <!-- delete beta properties that are duplicates of alpha properties -->
-  <transform process="delete" xpath=".//cml:array[@dictRef='cc:betaOccOrbitalSymmetry' and ./text()=../cml:array[@dictRef='cc:alphaOccOrbitalSymmetry']/text()]" />
-  <transform process="delete" xpath=".//cml:array[@dictRef='cc:betaVirtOrbitalSymmetry' and ./text()=../cml:array[@dictRef='cc:alphaVirtOrbitalSymmetry']/text()]" />
+  <!-- <transform process="delete" xpath=".//cml:array[@dictRef='cc:betaOccOrbitalSymmetry' and ./text()=../cml:array[@dictRef='cc:alphaOccOrbitalSymmetry']/text()]" />
+  <transform process="delete" xpath=".//cml:array[@dictRef='cc:betaVirtOrbitalSymmetry' and ./text()=../cml:array[@dictRef='cc:alphaVirtOrbitalSymmetry']/text()]" /> -->
 
   <!-- CLEAN UP -->
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
@@ -108,6 +108,8 @@
         <arrayList shape="irregular">
           <array dataType="xsd:string" size="9" dictRef="cc:alphaOccOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A') (A') (A") (A') (A') (A")</array>
           <array dataType="xsd:string" size="17" dictRef="cc:alphaVirtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A") (A') (A') (A") (A') (A') (A") (A') (A') (A') (A") (A') (A') (A')</array>
+          <array dataType="xsd:string" size="9" dictRef="cc:betaOccOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A') (A') (A") (A') (A') (A")</array>
+          <array dataType="xsd:string" size="17" dictRef="cc:betaVirtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A") (A') (A') (A") (A') (A') (A") (A') (A') (A') (A") (A') (A') (A')</array>
         </arrayList>
       </property>
     </module>

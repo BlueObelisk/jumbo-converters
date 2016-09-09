@@ -61,17 +61,17 @@
   <transform process="joinArrays" xpath=".//cml:array[@dictRef='cc:betaVirtOrbitalEigenvalues']"/>
 
   <transform process="addUnits" value="nonSi:hartree"
-             xpath=".//cml:array[@dictRef='cc:alphaOccOrbitalEigenvalues' or @dictRef='cc:alphaVirtOrbitalEigenvalues']" />
+             xpath=".//cml:array[@dictRef='cc:alphaOccOrbitalEigenvalues' or @dictRef='cc:alphaVirtOrbitalEigenvalues' or @dictRef='cc:betaOccOrbitalEigenvalues' or @dictRef='cc:betaVirtOrbitalEigenvalues']" />
   
   <transform process="delete" xpath=".//cml:scalar[@dictRef='g:name']"/>
   <transform process="delete" xpath=".//@cmlx:temp"/>
-  <transform process="pullup" xpath=".//cml:array" repeat="3"/>
+  <transform process="pullup" xpath=".//cml:array" repeat="2"/>
 
   <!-- delete beta properties that are duplicates of alpha properties -->
-  <transform process="delete" xpath=".//cml:array[@dictRef='cc:betaOccOrbitalEigenvalues'  and 
+  <!-- <transform process="delete" xpath=".//cml:array[@dictRef='cc:betaOccOrbitalEigenvalues'  and 
                                      ./text()=../cml:array[@dictRef='cc:alphaOccOrbitalEigenvalues']/text()]" />
   <transform process="delete" xpath=".//cml:array[@dictRef='cc:betaVirtOrbitalEigenvalues' and 
-                                     ./text()=../cml:array[@dictRef='cc:alphaVirtOrbitalEigenvalues']/text()]" />
+                                     ./text()=../cml:array[@dictRef='cc:alphaVirtOrbitalEigenvalues']/text()]" /> -->
   
   <!--  delete empty lists -->
  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
@@ -88,8 +88,8 @@
     <module cmlx:templateRef="l601.alphabetaeigen" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <array dataType="xsd:double" size="34" dictRef="cc:alphaOccOrbitalEigenvalues" units="nonSi:hartree">-101.48091 -14.37146 -10.25937 -10.20799 -10.2023 -10.20228 -10.19743 -10.19743 -9.39329 -7.16108 -7.14822 -7.14811 -0.97438 -0.8743 -0.78003 -0.76592 -0.73339 -0.64816 -0.64089 -0.56529 -0.55984 -0.51547 -0.4666 -0.46182 -0.45222 -0.43053 -0.39353 -0.37103 -0.36613 -0.29022 -0.28837 -0.25928 -0.25694 -0.22275</array>
       <array dataType="xsd:double" size="12" dictRef="cc:alphaVirtOrbitalEigenvalues" units="nonSi:hartree">-0.03561 -0.02951 -0.02007 0.00681 0.0071 0.03442 0.03691 0.04968 0.05946 0.0646 35.61899 215.72824</array>
-      <array dataType="xsd:double" size="33" dictRef="cc:betaOccOrbitalEigenvalues">-101.47689 -14.36908 -10.25753 -10.20541 -10.20118 -10.20115 -10.19751 -10.1975 -9.38942 -7.14844 -7.14581 -7.14571 -0.96967 -0.86975 -0.7785 -0.75793 -0.70704 -0.6454 -0.63788 -0.5638 -0.55806 -0.51339 -0.46458 -0.4597 -0.45189 -0.41899 -0.39167 -0.3694 -0.34544 -0.28576 -0.25188 -0.24866 -0.24699</array>
-      <array dataType="xsd:double" size="13" dictRef="cc:betaVirtOrbitalEigenvalues">-0.15115 -0.02773 -0.02075 -0.01342 0.00692 0.00756 0.03482 0.03714 0.0509 0.06074 26.1406 35.62144 215.73194</array>
+      <array dataType="xsd:double" size="33" dictRef="cc:betaOccOrbitalEigenvalues" units="nonSi:hartree">-101.47689 -14.36908 -10.25753 -10.20541 -10.20118 -10.20115 -10.19751 -10.1975 -9.38942 -7.14844 -7.14581 -7.14571 -0.96967 -0.86975 -0.7785 -0.75793 -0.70704 -0.6454 -0.63788 -0.5638 -0.55806 -0.51339 -0.46458 -0.4597 -0.45189 -0.41899 -0.39167 -0.3694 -0.34544 -0.28576 -0.25188 -0.24866 -0.24699</array>
+      <array dataType="xsd:double" size="13" dictRef="cc:betaVirtOrbitalEigenvalues" units="nonSi:hartree">-0.15115 -0.02773 -0.02075 -0.01342 0.00692 0.00756 0.03482 0.03714 0.0509 0.06074 26.1406 35.62144 215.73194</array>
     </module>
   </comment>
 
@@ -97,6 +97,8 @@
     <module cmlx:templateRef="l601.alphabetaeigen" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
       <array dataType="xsd:double" size="9" dictRef="cc:alphaOccOrbitalEigenvalues" units="nonSi:hartree">-20.56257 -11.28192 -1.31303 -0.93006 -0.6507 -0.61045 -0.57491 -0.48725 -0.44725</array>
       <array dataType="xsd:double" size="17" dictRef="cc:alphaVirtOrbitalEigenvalues" units="nonSi:hartree">0.19563 0.26183 0.30866 0.3181 0.35686 0.76933 0.77151 0.77685 1.07819 1.17123 1.17144 1.18158 1.24971 1.27837 1.32806 1.50082 1.99979</array>
+      <array dataType="xsd:double" size="9" dictRef="cc:betaOccOrbitalEigenvalues" units="nonSi:hartree">-20.56257 -11.28192 -1.31303 -0.93006 -0.6507 -0.61045 -0.57491 -0.48725 -0.44725</array>
+      <array dataType="xsd:double" size="17" dictRef="cc:betaVirtOrbitalEigenvalues" units="nonSi:hartree">0.19563 0.26183 0.30866 0.3181 0.35686 0.76933 0.77151 0.77685 1.07819 1.17123 1.17144 1.18158 1.24971 1.27837 1.32806 1.50082 1.99979</array>
     </module>
   </comment>
 </template>
