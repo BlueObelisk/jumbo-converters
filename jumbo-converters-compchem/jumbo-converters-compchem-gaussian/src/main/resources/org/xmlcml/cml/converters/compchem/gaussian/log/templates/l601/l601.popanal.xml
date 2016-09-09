@@ -962,8 +962,8 @@
 
   <transform process="move" xpath=".//cml:module[contains(@cmlx:templateRef,'l4601')]/cml:list/cml:array" 
              to=".//cml:property[@dictRef='cc:orbitalSymmetry']/cml:arrayList" />
-  <transform process="move" xpath=".//cml:array[@dictRef='cc:occOrbitalEigenvalues' or @dictRef='cc:virtOrbitalEigenvalues']" 
-             to=".//cml:property[@dictRef='cc:orbitalEigenvalues']/cml:arrayList" />
+  <transform process="move" to=".//cml:property[@dictRef='cc:orbitalEigenvalues']/cml:arrayList"
+             xpath=".//cml:array[@dictRef='cc:alphaOccOrbitalEigenvalues' or @dictRef='cc:alphaVirtOrbitalEigenvalues' or @dictRef='cc:betaOccOrbitalEigenvalues' or @dictRef='cc:betaVirtOrbitalEigenvalues']" />
 
   <transform process="addAttribute" name="shape" value="irregular"
              xpath=".//cml:property[@dictRef='cc:orbitalSymmetry' or @dictRef='cc:orbitalEigenvalues']/cml:arrayList" />
@@ -1006,14 +1006,14 @@
 		<module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l601.popanal">
 			<property dictRef="cc:orbitalSymmetry">
 				<arrayList shape="irregular">
-					<array dataType="xsd:string" size="9" dictRef="cc:occOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
-					<array dataType="xsd:string" size="29" dictRef="cc:virtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
+					<array dataType="xsd:string" size="9" dictRef="cc:alphaOccOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
+					<array dataType="xsd:string" size="29" dictRef="cc:alphaVirtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
 				</arrayList>
 			</property>
 			<property dictRef="cc:orbitalEigenvalues">
 				<arrayList shape="irregular">
-					<array dataType="xsd:double" size="9" dictRef="cc:occOrbitalEigenvalues" units="nonSi:hartree">-19.13558 -10.2193 -1.01861 -0.68303 -0.50832 -0.43839 -0.42416 -0.32709 -0.26334</array>
-					<array dataType="xsd:double" size="29" dictRef="cc:virtOrbitalEigenvalues" units="nonSi:hartree">0.08046 0.13626 0.17255 0.17959 0.21408 0.54161 0.5648 0.57415 0.79617 0.85898 0.87944 0.91798 0.96296 0.97574 1.02496 1.11848 1.46642 1.50037 1.59532 1.74098 2.0635 2.1237 2.15489 2.36907 2.41916 2.48291 2.80459 3.71571 4.22019</array>
+					<array dataType="xsd:double" size="9" dictRef="cc:alphaOccOrbitalEigenvalues" units="nonSi:hartree">-19.13558 -10.2193 -1.01861 -0.68303 -0.50832 -0.43839 -0.42416 -0.32709 -0.26334</array>
+					<array dataType="xsd:double" size="29" dictRef="cc:alphaVirtOrbitalEigenvalues" units="nonSi:hartree">0.08046 0.13626 0.17255 0.17959 0.21408 0.54161 0.5648 0.57415 0.79617 0.85898 0.87944 0.91798 0.96296 0.97574 1.02496 1.11848 1.46642 1.50037 1.59532 1.74098 2.0635 2.1237 2.15489 2.36907 2.41916 2.48291 2.80459 3.71571 4.22019</array>
 				</arrayList>
 			</property>
 			<property dictRef="cc:electronicState">
@@ -1102,14 +1102,14 @@
 		<module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l601.popanal">
 			<property dictRef="cc:orbitalSymmetry">
 				<arrayList shape="irregular">
-					<array dataType="xsd:string" size="47" dictRef="cc:occOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
-					<array dataType="xsd:string" size="90" dictRef="cc:virtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
+					<array dataType="xsd:string" size="47" dictRef="cc:alphaOccOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
+					<array dataType="xsd:string" size="90" dictRef="cc:alphaVirtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A) (A)</array>
 				</arrayList>
 			</property>
 			<property dictRef="cc:orbitalEigenvalues">
 				<arrayList shape="irregular">
-					<array dataType="xsd:double" size="47" dictRef="cc:occOrbitalEigenvalues" units="nonSi:hartree">-20.52168 -20.4663 -20.46585 -11.3504 -11.34946 -11.22473 -11.22393 -11.22312 -11.22288 -11.20313 -11.20278 -11.19492 -11.19453 -1.50186 -1.435 -1.38485 -1.18289 -1.11698 -1.0503 -1.04827 -0.94032 -0.88084 -0.8511 -0.83643 -0.79764 -0.73423 -0.69779 -0.6937 -0.68645 -0.65461 -0.65387 -0.63349 -0.61812 -0.6179 -0.6077 -0.57953 -0.57132 -0.55915 -0.5348 -0.5123 -0.50145 -0.48347 -0.46607 -0.45949 -0.43659 -0.36229 -0.32444</array>
-					<array dataType="xsd:double" size="90" dictRef="cc:virtOrbitalEigenvalues" units="nonSi:hartree">0.07339 0.09473 0.18748 0.22031 0.23633 0.26848 0.27712 0.28222 0.31404 0.32337 0.32823 0.32986 0.36296 0.36592 0.3687 0.38871 0.41148 0.41332 0.42258 0.45866 0.47903 0.48362 0.56226 0.57578 0.64963 0.66597 0.68659 0.70559 0.84615 0.861 0.87238 0.92484 0.93682 0.94051 0.96626 0.96727 0.99866 1.0062 1.02604 1.0319 1.0523 1.09013 1.0903 1.10977 1.13454 1.15774 1.16331 1.17335 1.20259 1.23267 1.27396 1.27416 1.27708 1.29188 1.30509 1.31565 1.34021 1.35603 1.36657 1.38068 1.39617 1.4143 1.4546 1.49114 1.52618 1.59559 1.62071 1.69688 1.73433 1.77582 1.83154 1.87398 1.91085 1.9143 1.94422 1.94519 1.99512 2.03822 2.04686 2.09438 2.1414 2.16336 2.42483 2.46497 2.52192 2.61856 3.24406 3.57056 3.76549 3.94609</array>
+					<array dataType="xsd:double" size="47" dictRef="cc:alphaOccOrbitalEigenvalues" units="nonSi:hartree">-20.52168 -20.4663 -20.46585 -11.3504 -11.34946 -11.22473 -11.22393 -11.22312 -11.22288 -11.20313 -11.20278 -11.19492 -11.19453 -1.50186 -1.435 -1.38485 -1.18289 -1.11698 -1.0503 -1.04827 -0.94032 -0.88084 -0.8511 -0.83643 -0.79764 -0.73423 -0.69779 -0.6937 -0.68645 -0.65461 -0.65387 -0.63349 -0.61812 -0.6179 -0.6077 -0.57953 -0.57132 -0.55915 -0.5348 -0.5123 -0.50145 -0.48347 -0.46607 -0.45949 -0.43659 -0.36229 -0.32444</array>
+					<array dataType="xsd:double" size="90" dictRef="cc:alphaVirtOrbitalEigenvalues" units="nonSi:hartree">0.07339 0.09473 0.18748 0.22031 0.23633 0.26848 0.27712 0.28222 0.31404 0.32337 0.32823 0.32986 0.36296 0.36592 0.3687 0.38871 0.41148 0.41332 0.42258 0.45866 0.47903 0.48362 0.56226 0.57578 0.64963 0.66597 0.68659 0.70559 0.84615 0.861 0.87238 0.92484 0.93682 0.94051 0.96626 0.96727 0.99866 1.0062 1.02604 1.0319 1.0523 1.09013 1.0903 1.10977 1.13454 1.15774 1.16331 1.17335 1.20259 1.23267 1.27396 1.27416 1.27708 1.29188 1.30509 1.31565 1.34021 1.35603 1.36657 1.38068 1.39617 1.4143 1.4546 1.49114 1.52618 1.59559 1.62071 1.69688 1.73433 1.77582 1.83154 1.87398 1.91085 1.9143 1.94422 1.94519 1.99512 2.03822 2.04686 2.09438 2.1414 2.16336 2.42483 2.46497 2.52192 2.61856 3.24406 3.57056 3.76549 3.94609</array>
 				</arrayList>
 			</property>
 			<property dictRef="cc:electronicState">
@@ -1198,14 +1198,14 @@
         <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l601.popanal">
 <property dictRef="cc:orbitalSymmetry">
 <arrayList shape="irregular">
-<array dataType="xsd:string" size="5" dictRef="cc:occOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A1) (A1) (B2) (A1) (B1)</array>
-<array dataType="xsd:string" size="14" dictRef="cc:virtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A1) (B2) (B2) (A1) (B1) (A1) (B2) (A1) (A1) (A2) (B1) (A1) (B2) (A1)</array>
+<array dataType="xsd:string" size="5" dictRef="cc:alphaOccOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A1) (A1) (B2) (A1) (B1)</array>
+<array dataType="xsd:string" size="14" dictRef="cc:alphaVirtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A1) (B2) (B2) (A1) (B1) (A1) (B2) (A1) (A1) (A2) (B1) (A1) (B2) (A1)</array>
 </arrayList>
 </property>
 <property dictRef="cc:orbitalEigenvalues">
 <arrayList shape="irregular">
-<array dataType="xsd:double" size="5" dictRef="cc:occOrbitalEigenvalues" units="nonSi:hartree">-19.13817 -0.99791 -0.51711 -0.37226 -0.2912</array>
-<array dataType="xsd:double" size="14" dictRef="cc:virtOrbitalEigenvalues" units="nonSi:hartree">0.0626 0.14812 0.7724 0.86101 0.89078 0.89511 1.06577 1.19351 1.72904 1.74638 1.77978 2.2806 2.57712 3.55188</array>
+<array dataType="xsd:double" size="5" dictRef="cc:alphaOccOrbitalEigenvalues" units="nonSi:hartree">-19.13817 -0.99791 -0.51711 -0.37226 -0.2912</array>
+<array dataType="xsd:double" size="14" dictRef="cc:alphaVirtOrbitalEigenvalues" units="nonSi:hartree">0.0626 0.14812 0.7724 0.86101 0.89078 0.89511 1.06577 1.19351 1.72904 1.74638 1.77978 2.2806 2.57712 3.55188</array>
 </arrayList>
 </property>
 <property dictRef="cc:electronicState">
@@ -1342,14 +1342,14 @@
         <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l601.popanal">
             <property dictRef="cc:orbitalSymmetry">
                 <arrayList shape="irregular">
-                    <array dataType="xsd:string" size="9" dictRef="cc:occOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A') (A') (A") (A') (A') (A")</array>
-                    <array dataType="xsd:string" size="39" dictRef="cc:virtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A") (A') (A') (A") (A') (A') (A') (A') (A") (A') (A") (A') (A') (A") (A') (A') (A") (A') (A') (A') (A') (A") (A') (A") (A') (A') (A") (A') (A") (A') (A') (A") (A') (A') (A') (A')</array>
+                    <array dataType="xsd:string" size="9" dictRef="cc:alphaOccOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A') (A') (A") (A') (A') (A")</array>
+                    <array dataType="xsd:string" size="39" dictRef="cc:alphaVirtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A") (A') (A') (A") (A') (A') (A') (A') (A") (A') (A") (A') (A') (A") (A') (A') (A") (A') (A') (A') (A') (A") (A') (A") (A') (A') (A") (A') (A") (A') (A') (A") (A') (A') (A') (A')</array>
                 </arrayList>
             </property>
             <property dictRef="cc:orbitalEigenvalues">
                 <arrayList shape="irregular">
-                    <array dataType="xsd:double" size="9" dictRef="cc:occOrbitalEigenvalues" units="nonSi:hartree">-19.10696 -10.209 -1.01502 -0.68311 -0.50904 -0.43687 -0.42591 -0.33389 -0.26862</array>
-                    <array dataType="xsd:double" size="39" dictRef="cc:virtOrbitalEigenvalues" units="nonSi:hartree">0.03142 0.0696 0.11337 0.12036 0.18363 0.31069 0.31532 0.40749 0.45141 0.51957 0.56968 0.57057 0.7428 0.83319 0.83395 0.9535 1.29366 1.30269 1.39378 1.50072 1.5141 1.67917 2.04544 2.25393 2.33779 2.34535 2.78247 2.79867 2.9297 2.99331 3.12087 3.15669 3.34115 3.82691 4.81401 4.96154 5.31514 23.3833 49.81124</array>
+                    <array dataType="xsd:double" size="9" dictRef="cc:alphaOccOrbitalEigenvalues" units="nonSi:hartree">-19.10696 -10.209 -1.01502 -0.68311 -0.50904 -0.43687 -0.42591 -0.33389 -0.26862</array>
+                    <array dataType="xsd:double" size="39" dictRef="cc:alphaVirtOrbitalEigenvalues" units="nonSi:hartree">0.03142 0.0696 0.11337 0.12036 0.18363 0.31069 0.31532 0.40749 0.45141 0.51957 0.56968 0.57057 0.7428 0.83319 0.83395 0.9535 1.29366 1.30269 1.39378 1.50072 1.5141 1.67917 2.04544 2.25393 2.33779 2.34535 2.78247 2.79867 2.9297 2.99331 3.12087 3.15669 3.34115 3.82691 4.81401 4.96154 5.31514 23.3833 49.81124</array>
                 </arrayList>
             </property>
             <property dictRef="cc:electronicState">
@@ -1394,14 +1394,14 @@
         <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l601.popanal">
             <property dictRef="cc:orbitalSymmetry">
                 <arrayList shape="irregular">
-                    <array dataType="xsd:string" size="9" dictRef="cc:occOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A') (A') (A') (A") (A') (A")</array>
-                    <array dataType="xsd:string" size="29" dictRef="cc:virtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A") (A') (A') (A') (A") (A') (A') (A") (A') (A') (A") (A') (A') (A') (A') (A") (A') (A") (A') (A') (A") (A') (A") (A') (A') (A') (A')</array>
+                    <array dataType="xsd:string" size="9" dictRef="cc:alphaOccOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A') (A') (A') (A") (A') (A")</array>
+                    <array dataType="xsd:string" size="29" dictRef="cc:alphaVirtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A") (A') (A') (A') (A") (A') (A') (A") (A') (A') (A") (A') (A') (A') (A') (A") (A') (A") (A') (A') (A") (A') (A") (A') (A') (A') (A')</array>
                 </arrayList>
             </property>
             <property dictRef="cc:orbitalEigenvalues">
                 <arrayList shape="irregular">
-                    <array dataType="xsd:double" size="9" dictRef="cc:occOrbitalEigenvalues" units="nonSi:hartree">-19.13279 -10.22091 -1.0178 -0.68161 -0.50939 -0.43253 -0.43189 -0.32734 -0.2573</array>
-                    <array dataType="xsd:double" size="29" dictRef="cc:virtOrbitalEigenvalues" units="nonSi:hartree">0.07695 0.13584 0.17258 0.17925 0.21243 0.54344 0.55739 0.58155 0.7957 0.85269 0.87604 0.9229 0.96569 0.97249 1.0227 1.12418 1.48109 1.48894 1.60222 1.7427 2.04419 2.1004 2.21531 2.37571 2.39233 2.47853 2.8051 3.71675 4.2193</array>
+                    <array dataType="xsd:double" size="9" dictRef="cc:alphaOccOrbitalEigenvalues" units="nonSi:hartree">-19.13279 -10.22091 -1.0178 -0.68161 -0.50939 -0.43253 -0.43189 -0.32734 -0.2573</array>
+                    <array dataType="xsd:double" size="29" dictRef="cc:alphaVirtOrbitalEigenvalues" units="nonSi:hartree">0.07695 0.13584 0.17258 0.17925 0.21243 0.54344 0.55739 0.58155 0.7957 0.85269 0.87604 0.9229 0.96569 0.97249 1.0227 1.12418 1.48109 1.48894 1.60222 1.7427 2.04419 2.1004 2.21531 2.37571 2.39233 2.47853 2.8051 3.71675 4.2193</array>
                 </arrayList>
             </property>
             <property dictRef="cc:electronicState">
@@ -1446,14 +1446,14 @@
         <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l601.popanal">
             <property dictRef="cc:orbitalSymmetry">
                 <arrayList shape="irregular">
-                    <array dataType="xsd:string" size="9" dictRef="cc:occOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A') (A') (A") (A') (A') (A")</array>
-                    <array dataType="xsd:string" size="29" dictRef="cc:virtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A") (A') (A') (A') (A") (A') (A") (A') (A') (A") (A') (A') (A') (A') (A") (A') (A") (A') (A') (A") (A') (A') (A") (A') (A') (A')</array>
+                    <array dataType="xsd:string" size="9" dictRef="cc:alphaOccOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A') (A') (A") (A') (A') (A")</array>
+                    <array dataType="xsd:string" size="29" dictRef="cc:alphaVirtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A") (A') (A') (A') (A") (A') (A") (A') (A') (A") (A') (A') (A') (A') (A") (A') (A") (A') (A') (A") (A') (A') (A") (A') (A') (A')</array>
                 </arrayList>
             </property>
             <property dictRef="cc:orbitalEigenvalues">
                 <arrayList shape="irregular">
-                    <array dataType="xsd:double" size="9" dictRef="cc:occOrbitalEigenvalues" units="nonSi:hartree">-19.14246 -10.19749 -1.01238 -0.70535 -0.51426 -0.43674 -0.43246 -0.32961 -0.26509</array>
-                    <array dataType="xsd:double" size="29" dictRef="cc:virtOrbitalEigenvalues" units="nonSi:hartree">0.07388 0.13853 0.19754 0.20176 0.21481 0.53945 0.54925 0.55017 0.79349 0.90099 0.91026 0.9612 0.97759 1.04162 1.05395 1.14494 1.46236 1.50308 1.61184 1.74677 2.01342 2.07106 2.14042 2.42844 2.51014 2.51765 2.78993 3.69958 4.25688</array>
+                    <array dataType="xsd:double" size="9" dictRef="cc:alphaOccOrbitalEigenvalues" units="nonSi:hartree">-19.14246 -10.19749 -1.01238 -0.70535 -0.51426 -0.43674 -0.43246 -0.32961 -0.26509</array>
+                    <array dataType="xsd:double" size="29" dictRef="cc:alphaVirtOrbitalEigenvalues" units="nonSi:hartree">0.07388 0.13853 0.19754 0.20176 0.21481 0.53945 0.54925 0.55017 0.79349 0.90099 0.91026 0.9612 0.97759 1.04162 1.05395 1.14494 1.46236 1.50308 1.61184 1.74677 2.01342 2.07106 2.14042 2.42844 2.51014 2.51765 2.78993 3.69958 4.25688</array>
                 </arrayList>
             </property>
             <property dictRef="cc:electronicState">
@@ -1534,14 +1534,14 @@
         <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l601.popanal">
             <property dictRef="cc:orbitalSymmetry">
                 <arrayList shape="irregular">
-                    <array dataType="xsd:string" size="7" dictRef="cc:occOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A') (A") (A') (A")</array>
-                    <array dataType="xsd:string" size="5" dictRef="cc:virtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A") (A')</array>
+                    <array dataType="xsd:string" size="7" dictRef="cc:alphaOccOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A') (A") (A') (A")</array>
+                    <array dataType="xsd:string" size="5" dictRef="cc:alphaVirtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A") (A')</array>
                 </arrayList>
             </property>
             <property dictRef="cc:orbitalEigenvalues">
                 <arrayList shape="irregular">
-                    <array dataType="xsd:double" size="7" dictRef="cc:occOrbitalEigenvalues" units="nonSi:hartree">-1.32323 -0.97907 -0.62773 -0.55193 -0.55106 -0.46693 -0.41496</array>
-                    <array dataType="xsd:double" size="5" dictRef="cc:virtOrbitalEigenvalues" units="nonSi:hartree">0.105 0.1343 0.15765 0.15946 0.18297</array>
+                    <array dataType="xsd:double" size="7" dictRef="cc:alphaOccOrbitalEigenvalues" units="nonSi:hartree">-1.32323 -0.97907 -0.62773 -0.55193 -0.55106 -0.46693 -0.41496</array>
+                    <array dataType="xsd:double" size="5" dictRef="cc:alphaVirtOrbitalEigenvalues" units="nonSi:hartree">0.105 0.1343 0.15765 0.15946 0.18297</array>
                 </arrayList>
             </property>
             <property dictRef="cc:electronicState">
@@ -1595,14 +1595,14 @@
         <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l601.popanal">
             <property dictRef="cc:orbitalSymmetry">
                 <arrayList shape="irregular">
-                    <array dataType="xsd:string" size="9" dictRef="cc:occOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A') (A') (A") (A') (A') (A")</array>
-                    <array dataType="xsd:string" size="17" dictRef="cc:virtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A") (A') (A') (A") (A') (A') (A") (A') (A') (A') (A") (A') (A') (A')</array>
+                    <array dataType="xsd:string" size="9" dictRef="cc:alphaOccOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A') (A') (A") (A') (A') (A")</array>
+                    <array dataType="xsd:string" size="17" dictRef="cc:alphaVirtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A") (A') (A') (A") (A') (A') (A") (A') (A') (A') (A") (A') (A') (A')</array>
                 </arrayList>
             </property>
             <property dictRef="cc:orbitalEigenvalues">
                 <arrayList shape="irregular">
-                    <array dataType="xsd:double" size="9" dictRef="cc:occOrbitalEigenvalues" units="nonSi:hartree">-20.56257 -11.28192 -1.31303 -0.93006 -0.6507 -0.61045 -0.57491 -0.48725 -0.44725</array>
-                    <array dataType="xsd:double" size="17" dictRef="cc:virtOrbitalEigenvalues" units="nonSi:hartree">0.19563 0.26183 0.30866 0.3181 0.35686 0.76933 0.77151 0.77685 1.07819 1.17123 1.17144 1.18158 1.24971 1.27837 1.32806 1.50082 1.99979</array>
+                    <array dataType="xsd:double" size="9" dictRef="cc:alphaOccOrbitalEigenvalues" units="nonSi:hartree">-20.56257 -11.28192 -1.31303 -0.93006 -0.6507 -0.61045 -0.57491 -0.48725 -0.44725</array>
+                    <array dataType="xsd:double" size="17" dictRef="cc:alphaVirtOrbitalEigenvalues" units="nonSi:hartree">0.19563 0.26183 0.30866 0.3181 0.35686 0.76933 0.77151 0.77685 1.07819 1.17123 1.17144 1.18158 1.24971 1.27837 1.32806 1.50082 1.99979</array>
                 </arrayList>
             </property>
             <property dictRef="cc:electronicState">
@@ -1698,14 +1698,14 @@
         <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l601.popanal">
             <property dictRef="cc:orbitalSymmetry">
                 <arrayList shape="irregular">
-                    <array dataType="xsd:string" size="9" dictRef="cc:occOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A') (A') (A") (A') (A') (A")</array>
-                    <array dataType="xsd:string" size="17" dictRef="cc:virtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A") (A') (A") (A') (A') (A') (A') (A") (A') (A') (A") (A') (A') (A')</array>
+                    <array dataType="xsd:string" size="9" dictRef="cc:alphaOccOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A') (A') (A") (A') (A') (A")</array>
+                    <array dataType="xsd:string" size="17" dictRef="cc:alphaVirtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A") (A') (A") (A') (A') (A') (A') (A") (A') (A') (A") (A') (A') (A')</array>
                 </arrayList>
             </property>
             <property dictRef="cc:orbitalEigenvalues">
                 <arrayList shape="irregular">
-                    <array dataType="xsd:double" size="9" dictRef="cc:occOrbitalEigenvalues" units="nonSi:hartree">-20.54806 -11.27392 -1.35217 -0.93915 -0.68319 -0.62037 -0.59148 -0.48804 -0.44262</array>
-                    <array dataType="xsd:double" size="17" dictRef="cc:virtOrbitalEigenvalues" units="nonSi:hartree">0.21811 0.27137 0.31502 0.32387 0.38241 0.76943 0.77118 0.80127 1.15314 1.18197 1.18223 1.20516 1.26748 1.27724 1.33767 1.50157 2.01187</array>
+                    <array dataType="xsd:double" size="9" dictRef="cc:alphaOccOrbitalEigenvalues" units="nonSi:hartree">-20.54806 -11.27392 -1.35217 -0.93915 -0.68319 -0.62037 -0.59148 -0.48804 -0.44262</array>
+                    <array dataType="xsd:double" size="17" dictRef="cc:alphaVirtOrbitalEigenvalues" units="nonSi:hartree">0.21811 0.27137 0.31502 0.32387 0.38241 0.76943 0.77118 0.80127 1.15314 1.18197 1.18223 1.20516 1.26748 1.27724 1.33767 1.50157 2.01187</array>
                 </arrayList>
             </property>
             <property dictRef="cc:electronicState">
@@ -1773,15 +1773,17 @@
         <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l601.popanal">
             <property dictRef="cc:orbitalEigenvalues">
                 <arrayList shape="irregular">
-                    <array dataType="xsd:double" size="9" dictRef="cc:occOrbitalEigenvalues" units="nonSi:hartree">-20.76126 -20.76063 -1.71596 -1.20667 -0.84065 -0.84065 -0.76171 -0.55845 -0.55845</array>
-                    <array dataType="xsd:double" size="21" dictRef="cc:virtOrbitalEigenvalues" units="nonSi:hartree">0.41698 1.02391 1.02391 1.05737 1.06146 1.13275 1.13275 1.1367 1.62295 2.56643 2.56643 2.86862 2.86862 3.13875 3.13875 3.20989 3.81124 3.81124 4.40501 5.83649 6.38794</array>
+                    <array dataType="xsd:double" size="9" dictRef="cc:alphaOccOrbitalEigenvalues" units="nonSi:hartree">-20.76126 -20.76063 -1.71596 -1.20667 -0.84065 -0.84065 -0.76171 -0.55845 -0.55845</array>
+                    <array dataType="xsd:double" size="21" dictRef="cc:alphaVirtOrbitalEigenvalues" units="nonSi:hartree">0.41698 1.02391 1.02391 1.05737 1.06146 1.13275 1.13275 1.1367 1.62295 2.56643 2.56643 2.86862 2.86862 3.13875 3.13875 3.20989 3.81124 3.81124 4.40501 5.83649 6.38794</array>
+                    <array dataType="xsd:double" size="7" dictRef="cc:betaOccOrbitalEigenvalues">-20.70773 -20.70659 -1.58358 -0.99831 -0.70125 -0.57287 -0.57287</array>
+                    <array dataType="xsd:double" size="23" dictRef="cc:betaVirtOrbitalEigenvalues">0.10561 0.10561 0.49505 1.09135 1.09377 1.13992 1.14543 1.14543 1.2577 1.2577 1.66421 2.643 2.643 2.99589 2.99589 3.28282 3.29359 3.29359 3.89226 3.89226 4.45358 5.89539 6.44672</array>
                 </arrayList>
             </property>
             <module cmlx:lineCount="11" cmlx:templateRef="l601.alphabetasymm">
                 <property dictRef="cc:orbitalSymmetry">
                     <arrayList shape="irregular">
-                        <array dataType="xsd:string" size="9" dictRef="cc:occOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(SGG) (SGU) (SGG) (SGU) (PIU) (PIU) (SGG) (PIG) (PIG)</array>
-                        <array dataType="xsd:string" size="21" dictRef="cc:virtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(SGU) (PIU) (PIU) (SGG) (SGU) (PIG) (PIG) (SGG) (SGU) (PIU) (PIU) (DLTG) (DLTG) (DLTU) (DLTU) (SGG) (PIG) (PIG) (SGU) (SGG) (SGU)</array>
+                        <array dataType="xsd:string" size="9" dictRef="cc:alphaOccOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(SGG) (SGU) (SGG) (SGU) (PIU) (PIU) (SGG) (PIG) (PIG)</array>
+                        <array dataType="xsd:string" size="21" dictRef="cc:alphaVirtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(SGU) (PIU) (PIU) (SGG) (SGU) (PIG) (PIG) (SGG) (SGU) (PIU) (PIU) (DLTG) (DLTG) (DLTU) (DLTU) (SGG) (PIG) (PIG) (SGU) (SGG) (SGU)</array>
                         <array dataType="xsd:string" size="7" dictRef="cc:betaOccOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(SGG) (SGU) (SGG) (SGU) (SGG) (PIU) (PIU)</array>
                         <array dataType="xsd:string" size="23" dictRef="cc:betaVirtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(PIG) (PIG) (SGU) (SGU) (SGG) (SGG) (PIU) (PIU) (PIG) (PIG) (SGU) (PIU) (PIU) (DLTG) (DLTG) (SGG) (DLTU) (DLTU) (PIG) (PIG) (SGU) (SGG) (SGU)</array>
                     </arrayList>
@@ -1790,8 +1792,6 @@
             <property dictRef="cc:electronicState">
                 <scalar dataType="xsd:string" cmlx:templateRef="l601.state">3-SGG.</scalar>
             </property>
-            <array dataType="xsd:double" size="7" dictRef="g:betaocc">-20.70773 -20.70659 -1.58358 -0.99831 -0.70125 -0.57287 -0.57287</array>
-            <array dataType="xsd:double" size="23" dictRef="g:betavirt">0.10561 0.10561 0.49505 1.09135 1.09377 1.13992 1.14543 1.14543 1.2577 1.2577 1.66421 2.643 2.643 2.99589 2.99589 3.28282 3.29359 3.29359 3.89226 3.89226 4.45358 5.89539 6.44672</array>
             <module cmlx:lineCount="4" cmlx:templateRef="spindensity">
                 <property dictRef="cc:atomicSpinDensityMatrix">
                     <matrix dataType="xsd:double" rows="2" columns="2" matrixType="squareSymmetric">1.424816 -0.424816 -0.424816 1.424816</matrix>
