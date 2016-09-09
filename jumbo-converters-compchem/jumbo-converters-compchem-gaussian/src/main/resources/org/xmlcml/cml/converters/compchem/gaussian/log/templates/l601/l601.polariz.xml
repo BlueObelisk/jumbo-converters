@@ -16,7 +16,13 @@
     from="./cml:scalar" dictRef="g:l601.pol.exact"/>
   <transform process="createArray" xpath=".//cml:list[cml:scalar[@dictRef='g:l601.pol.approx']]" 
     from="./cml:scalar" dictRef="g:l601.pol.approx"/>
-  <transform process="pullup" xpath=".//cml:array" repeat="2"/>
+
+  <transform process="pullup" xpath="./cml:list/cml:list/cml:array[@dictRef='g:l601.pol.exact' or @dictRef='g:l601.pol.approx']" />
+  <transform process="pullup" xpath="./cml:list/cml:array[@dictRef='g:l601.pol.exact' or @dictRef='g:l601.pol.approx']" />
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
     
   <comment class="example.output" id="l601.pol">
     <module cmlx:templateRef="l601.polariz" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">

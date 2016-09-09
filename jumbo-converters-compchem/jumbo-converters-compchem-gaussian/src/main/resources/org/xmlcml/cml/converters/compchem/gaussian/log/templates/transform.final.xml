@@ -55,7 +55,7 @@
     to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='finalization']"/>
 
   <transform process="pullup" xpath="//cml:module[@cmlx:templateRef='l716']/cml:module[starts-with(@cmlx:templateRef,'l716.')]"/>
-  <transform process="pullup" xpath="//cml:module[@cmlx:templateRef='l601.polariz']/cml:array"/>
+  <!-- <transform process="pullup" xpath="//cml:module[@cmlx:templateRef='l601.polariz']/cml:array"/> -->
   <transform process="delete" xpath="//cml:module[count(*)=0]"/>
 
   <transform process="moveRelative" to="./ancestor::cml:module[@dictRef='cc:finalization']/cml:propertyList"
@@ -195,6 +195,9 @@
              to="./ancestor::cml:module[@id='finalization']/cml:propertyList" />
 
   <transform process="createWrapperProperty" xpath=".//cml:module[@id='finalization']/cml:propertyList/cml:scalar[@dictRef='cc:pointGroup']" />
+
+  <transform process="moveRelative" xpath=".//cml:module[@id='job']/cml:module[@cmlx:templateRef='l716' or @cmlx:templateRef='l601.polariz']"
+             to="../cml:module[@id='finalization']/cml:module[@id='otherComponents']" />
 
   <!-- CLEAN UP -->
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />

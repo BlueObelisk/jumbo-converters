@@ -20,7 +20,7 @@
   <transform process="createWrapperProperty"
              xpath=".//cml:array[@dictRef='g:l716.lowfreq' or @dictRef='cc:diagvib' ]"/>
   <transform process="pullup"
-             xpath=".//cml:property[@dictRef='g:l716.lowfreq' or @dictRef='cc:diagvib' ]" repeat="2"/>
+             xpath=".//cml:property[@dictRef='g:l716.lowfreq' or @dictRef='cc:diagvib' ]" />
              
    
 <!--  tidy thermochemistry -->
@@ -38,7 +38,7 @@
   <transform process="moveRelative" xpath="//cml:property[@dictRef='cc:thermochemistry.energies']/cml:module/cml:scalar" to="../../cml:list"/>
    
 <!--  tidy displacements -->
-  <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='l716.freq.chunkx']" repeat="2" />
+  <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='l716.freq.chunkx']" />
   <transform process="addChild" elementName="cml:property" xpath=".//cml:module[@id='finalization']/cml:propertyList" dictRef='cc:vibrations' />
   <transform process="moveRelative" xpath=".//cml:module[@id='finalization']//cml:module[@cmlx:templateRef='l716.freq.chunkx']" to="./ancestor::cml:propertyList/cml:property[@dictRef='cc:vibrations']" />
   <transform process="split" xpath=".//cml:property[@dictRef='cc:vibrations']/cml:module/cml:array[@dictRef='cc:displacement']"
