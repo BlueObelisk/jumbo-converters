@@ -949,21 +949,23 @@
              position="1" />
 
   <transform process="addChild" 
-             xpath=".//cml:property[@dictRef='cc:orbitalSymmetry']"
+             xpath="./cml:property[@dictRef='cc:orbitalSymmetry']"
              elementName="cml:arrayList"
              position="0" />
 
 
-  <transform process="addChild" 
-             xpath=".//cml:property[@dictRef='cc:orbitalEigenvalues']"
+  <transform process="addChild"
+             xpath="./cml:property[@dictRef='cc:orbitalEigenvalues']"
              elementName="cml:arrayList"
              position="0" />
-
 
   <transform process="move" xpath=".//cml:module[contains(@cmlx:templateRef,'l4601')]/cml:list/cml:array" 
              to=".//cml:property[@dictRef='cc:orbitalSymmetry']/cml:arrayList" />
   <transform process="move" to=".//cml:property[@dictRef='cc:orbitalEigenvalues']/cml:arrayList"
-             xpath=".//cml:array[@dictRef='cc:alphaOccOrbitalEigenvalues' or @dictRef='cc:alphaVirtOrbitalEigenvalues' or @dictRef='cc:betaOccOrbitalEigenvalues' or @dictRef='cc:betaVirtOrbitalEigenvalues']" />
+             xpath="./cml:module[@cmlx:templateRef='l601.alphabetaeigen']/cml:array[@dictRef='cc:alphaOccOrbitalEigenvalues'  or 
+                                                                                    @dictRef='cc:alphaVirtOrbitalEigenvalues' or 
+                                                                                    @dictRef='cc:betaOccOrbitalEigenvalues'   or 
+                                                                                    @dictRef='cc:betaVirtOrbitalEigenvalues']" />
 
   <transform process="addAttribute" name="shape" value="irregular"
              xpath=".//cml:property[@dictRef='cc:orbitalSymmetry' or @dictRef='cc:orbitalEigenvalues']/cml:arrayList" />
@@ -979,7 +981,7 @@
   <transform process="pullup" xpath=".//cml:module[@cmlx:templateRef='mulliken']/cml:scalar[@dictRef='cc:electronicExtent' or @dictRef='cc:charge']" />
 
   <transform process="createWrapperProperty" 
-  					 xpath=".//cml:scalar[@dictRef='cc:electronicState' or @dictRef='cc:electronicExtent' or @dictRef='cc:charge' or @dictRef='cc:potentialEnergy' or @dictRef='cc:kineticEnergy' or @dictRef='cc:Energy_NucRep']" />
+  			 xpath=".//cml:scalar[@dictRef='cc:electronicState' or @dictRef='cc:electronicExtent' or @dictRef='cc:charge' or @dictRef='cc:potentialEnergy' or @dictRef='cc:kineticEnergy' or @dictRef='cc:Energy_NucRep']" />
   <transform process="createWrapperProperty" xpath=".//cml:table[@dictRef='cc:netAtomicCharge' or @dictRef='cc:netChargeSummedToHeavyAtom']" />
   <transform process="addChild"
              xpath="."
@@ -994,12 +996,12 @@
   <!-- <transform process="createWrapper" xpath=".//cml:module/text()" elementName="UNPARSED"/> -->
   
   <!--  delete empty lists -->
- <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
- <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
- <transform process="delete" xpath=".//cml:arrayList[count(*)=0]"/>
- <transform process="delete" xpath=".//cml:property[count(*)=0]"/>
- <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
- <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:arrayList[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:property[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
 
 
 	<comment class="example.output" id="l601.popanal">
@@ -1775,8 +1777,8 @@
                 <arrayList shape="irregular">
                     <array dataType="xsd:double" size="9" dictRef="cc:alphaOccOrbitalEigenvalues" units="nonSi:hartree">-20.76126 -20.76063 -1.71596 -1.20667 -0.84065 -0.84065 -0.76171 -0.55845 -0.55845</array>
                     <array dataType="xsd:double" size="21" dictRef="cc:alphaVirtOrbitalEigenvalues" units="nonSi:hartree">0.41698 1.02391 1.02391 1.05737 1.06146 1.13275 1.13275 1.1367 1.62295 2.56643 2.56643 2.86862 2.86862 3.13875 3.13875 3.20989 3.81124 3.81124 4.40501 5.83649 6.38794</array>
-                    <array dataType="xsd:double" size="7" dictRef="cc:betaOccOrbitalEigenvalues">-20.70773 -20.70659 -1.58358 -0.99831 -0.70125 -0.57287 -0.57287</array>
-                    <array dataType="xsd:double" size="23" dictRef="cc:betaVirtOrbitalEigenvalues">0.10561 0.10561 0.49505 1.09135 1.09377 1.13992 1.14543 1.14543 1.2577 1.2577 1.66421 2.643 2.643 2.99589 2.99589 3.28282 3.29359 3.29359 3.89226 3.89226 4.45358 5.89539 6.44672</array>
+                    <array dataType="xsd:double" size="7" dictRef="cc:betaOccOrbitalEigenvalues" units="nonSi:hartree">-20.70773 -20.70659 -1.58358 -0.99831 -0.70125 -0.57287 -0.57287</array>
+                    <array dataType="xsd:double" size="23" dictRef="cc:betaVirtOrbitalEigenvalues" units="nonSi:hartree">0.10561 0.10561 0.49505 1.09135 1.09377 1.13992 1.14543 1.14543 1.2577 1.2577 1.66421 2.643 2.643 2.99589 2.99589 3.28282 3.29359 3.29359 3.89226 3.89226 4.45358 5.89539 6.44672</array>
                 </arrayList>
             </property>
             <module cmlx:lineCount="11" cmlx:templateRef="l601.alphabetasymm">
