@@ -91,7 +91,7 @@ public class TemplateTest {
 			@Test	public void testl601Popfull()	             {runTemplateTest("l601/", "l601.popfull");}
 			@Test   public void testl601Density()				 {runTemplateTest("l601/", "l601.density");}
 			@Test	public void testl601NoNMR()                  {runTemplateTest("l601/", "l601.nonmr");}
-	@Ignore @Test	public void testl601Polariz()                {runTemplateTest("l601/", "l601.polariz");} // problem with numeric comp
+			@Test	public void testl601Polariz()                {runTemplateTest("l601/", "l601.polariz");} // problem with numeric comp
 			@Test	public void testl601State()                  {runTemplateTest("l601/", "l601.state");}
 			@Test	public void testl601SpinDensity()            {runTemplateTest("l601/", "l601.spindensity");}
 			@Test	public void testl601AlphaBetaSymm()          {runTemplateTest("l601/", "l601.alphabetasymm");}
@@ -147,7 +147,7 @@ public class TemplateTest {
 
 	@Ignore @Test	public void testl103DEBUG()                  {runTemplateTest("l103");}
 	@Ignore @Test	public void testl502CycleDEBUG()             {runTemplateTest("l502/","l502.cycle");}
-			@Test	public void testl601PopanalDEBUG()           {runTemplateTest("l601/", "l601.popanal");}
+	@Ignore @Test	public void testl601PopanalDEBUG()           {runTemplateTest("l601/", "l601.popanal");}
 	@Ignore @Test	public void testl716ForceMatrixDEBUG()       {runTemplateTest("l716/", "l716.forcematrix");}
 	@Ignore @Test	public void testl716DEBUG()                  {runTemplateTest("l716");}
 
