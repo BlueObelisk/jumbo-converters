@@ -1,8 +1,8 @@
 <template id="mulliken.charges"
-  repeat="*"
-  name="mulliken.charges"
-  pattern="\s*Ground-State Mulliken Net Atomic Charges.+" offset="0"
-  endPattern="\s*Sum of atomic charges =.+"            endOffset="1" >
+          repeat="*"
+          name="mulliken.charges"
+          pattern="\s*Ground-State Mulliken Net Atomic Charges.+" offset="0"
+          endPattern="\s*Sum of atomic charges =.+"            endOffset="1" >
 
   <comment class="example.input" id="mulliken.charges.h3op">
           Ground-State Mulliken Net Atomic Charges
@@ -40,23 +40,37 @@
   <transform process="move" 
              xpath=".//cml:list[@cmlx:templateRef='mulliken.charges2']/cml:scalar"
              to=".//cml:list[@cmlx:templateRef='mulliken.charges']" />
-  <transform process="addDictRef" xpath=".//cml:list[@cmlx:templateRef='mulliken.charges']" value="cc:mullikenCharges" />
-  <transform process="createWrapperProperty" xpath=".//cml:list[@dictRef='cc:mullikenCharges']" />
-  <transform process="pullup" xpath=".//cml:property/cml:list/cml:array" />
-  <transform process="pullup" xpath=".//cml:property/cml:list/cml:scalar" />
-  <transform process="addUnits" xpath=".//*[@dictRef='cc:mulliken' or @dictRef='cc:charge']" value="nonSi:elementaryCharge" />
 
+  <transform process="pullup" xpath="./cml:list/cml:scalar[@dictRef='cc:charge']" />
+  <transform process="createTable" xpath="./cml:list[@cmlx:templateRef='mulliken.charges']" />
+  
+  <transform process="addDictRef" xpath="./cml:table" value="cc:netAtomicCharge" />
+  <transform process="addAttribute" xpath="./cml:table" name="rows" 
+             value="$string(//cml:table[@dictRef='cc:netAtomicCharge']//cml:array[@dictRef='cc:serial']/@size)" />
+  <transform process="addAttribute" xpath="./cml:table" name="columns" value="3" />
+  
+  <transform process="addUnits" xpath=".//*[@dictRef='cc:mulliken' or @dictRef='cc:charge']" value="nonSi:elementaryCharge" />
+  
+  <transform process="createWrapperProperty" xpath="./cml:table[@dictRef='cc:netAtomicCharge']" />
+  <transform process="createWrapperProperty" xpath="./cml:scalar[@dictRef='cc:charge']" />
+  
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
 
 
   <comment class="example.output" id="mulliken.charges.h3op">
     <module cmlx:templateRef="mulliken.charges" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <property dictRef="cc:mullikenCharges">
-        <array  dataType="xsd:integer" dictRef="cc:serial"      size="4">1 2 3 4</array>
-        <array  dataType="xsd:string"  dictRef="cc:elementType" size="4">O H H H</array>
-        <array  dataType="xsd:double"  dictRef="cc:mulliken"    size="4" units="nonSi:elementaryCharge">-0.221449 0.40715 0.40715 0.40715</array>
-        <scalar dataType="xsd:double"  dictRef="cc:charge"               units="nonSi:elementaryCharge">1.0</scalar>
+      <property dictRef="cc:charge">
+        <scalar dataType="xsd:double" units="nonSi:elementaryCharge">1.0</scalar>
+      </property>
+      <property dictRef="cc:netAtomicCharge">
+        <table tableType="columnBased" rows="4" columns="3">
+          <arrayList>
+            <array dataType="xsd:integer" dictRef="cc:serial" size="4">1 2 3 4</array>
+            <array dataType="xsd:string" dictRef="cc:elementType" size="4">O H H H</array>
+            <array dataType="xsd:double" dictRef="cc:mulliken" size="4" units="nonSi:elementaryCharge">-0.221449 0.40715 0.40715 0.40715</array>
+          </arrayList>
+        </table>
       </property>
     </module>
   </comment>
@@ -64,11 +78,17 @@
 
   <comment class="example.output" id="mulliken.charges.ch3oh">
     <module cmlx:templateRef="mulliken.charges" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <property dictRef="cc:mullikenCharges">
-        <array  dataType="xsd:integer" dictRef="cc:serial"      size="6">1 2 3 4 5 6</array>
-        <array  dataType="xsd:string"  dictRef="cc:elementType" size="6">C O H H H H</array>
-        <array  dataType="xsd:double"  dictRef="cc:mulliken"    size="6" units="nonSi:elementaryCharge">-0.205027 -0.605033 0.129122 0.129122 0.161319 0.390497</array>
-        <scalar dataType="xsd:double"  dictRef="cc:charge"               units="nonSi:elementaryCharge">0.0</scalar>
+      <property dictRef="cc:charge">
+        <scalar dataType="xsd:double" units="nonSi:elementaryCharge">0.0</scalar>
+      </property>
+      <property dictRef="cc:netAtomicCharge">
+        <table tableType="columnBased" rows="6" columns="3">
+          <arrayList>
+            <array dataType="xsd:integer" dictRef="cc:serial" size="6">1 2 3 4 5 6</array>
+            <array dataType="xsd:string" dictRef="cc:elementType" size="6">C O H H H H</array>
+            <array dataType="xsd:double" dictRef="cc:mulliken" size="6" units="nonSi:elementaryCharge">-0.205027 -0.605033 0.129122 0.129122 0.161319 0.390497</array>
+          </arrayList>
+        </table>
       </property>
     </module>
   </comment>
