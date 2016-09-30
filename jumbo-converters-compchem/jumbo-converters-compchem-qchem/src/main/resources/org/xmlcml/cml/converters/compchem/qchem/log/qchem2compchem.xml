@@ -172,6 +172,12 @@
   <!-- WRAP ALL REMAINING UNPARSED TEXT AS UNPARSED -->
   <transform process="createWrapper" xpath=".//cml:module/text()" elementName="UNPARSED" />
 
+  <!-- add attributes formalCharge and spinMultiplicity to all molecules -->
+  <transform process="addAttribute" xpath=".//cml:molecule" name="formalCharge" 
+             value="$string(//cml:module[@id='initialization']/cml:parameterList/cml:parameter[@dictRef='cc:charge']/cml:scalar)" />
+  <transform process="addAttribute" xpath=".//cml:molecule" name="spinMultiplicity" 
+             value="$string(//cml:module[@id='initialization']/cml:parameterList/cml:parameter[@dictRef='cc:spinMultiplicity']/cml:scalar)" />
+
   <!-- CLEAN UP -->
   <transform process="delete" xpath=".//cml:module[count(*)=0]" />
   <transform process="delete" xpath=".//cml:propertyList[count(*)=0]" />
