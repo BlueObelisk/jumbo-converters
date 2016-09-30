@@ -271,10 +271,30 @@ $end
   <transform process="setValue" value="gradient"
              xpath=".//cml:scalar[@dictRef='q:jobType' and @id='copy.0' and contains(text(),'Force')]" />
   <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='q:jobType' and @id='copy.0']" value="cc:task" />
+
+  <!-- capture cc:charge and cc:spinMultiplicity -->
+  <transform process="copy" to=".."
+             xpath="./cml:list/cml:scalar[@dictRef='q:inputFile' and contains(text(),'$molecule')]/following-sibling::cml:scalar[@dictRef='q:inputFile'][1]" />
+
+  <transform process="reparse" xpath="./cml:list/cml:scalar[@dictRef='q:inputFile' and @id='copy.0']" regex="\s*{I,cc:charge}\s+{I,cc:spinMultiplicity}\s*" />
+
+  <transform process="moveRelative" xpath="./cml:list//cml:scalar[@dictRef='cc:charge' or @dictRef='cc:spinMultiplicity']"
+             to="./ancestor::cml:module[@cmlx:templateRef='init.userInput']" />
+
+  <transform process="addUnits" xpath="./cml:scalar[@dictRef='cc:charge']" value="nonSi:elementaryCharge" />
   
   <!-- wrap scalars as parameters -->
   <transform process="createWrapperParameter" xpath=".//cml:list[@dictRef='q:userInput']" />
-  <transform process="createWrapperParameter" xpath=".//cml:scalar[@dictRef='q:jobType' or @dictRef='q:exchange' or @dictRef='q:correlation' or @dictRef='cc:title' or @dictRef='cc:method' or @dictRef='cc:task' or @dictRef='cc:dftFunctionalLabel']" />
+  <transform process="createWrapperParameter" 
+             xpath=".//cml:scalar[@dictRef='q:jobType' or 
+                                  @dictRef='q:exchange' or 
+                                  @dictRef='q:correlation' or 
+                                  @dictRef='cc:title' or 
+                                  @dictRef='cc:method' or 
+                                  @dictRef='cc:task' or 
+                                  @dictRef='cc:dftFunctionalLabel' or 
+                                  @dictRef='cc:charge' or 
+                                  @dictRef='cc:spinMultiplicity']" />
 
   <!-- CLEAN UP -->
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
@@ -369,6 +389,12 @@ $end
       <parameter dictRef="cc:task">
         <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">geometry_optimization</scalar>
       </parameter>
+      <parameter dictRef="cc:charge">
+        <scalar dataType="xsd:integer" units="nonSi:elementaryCharge">0</scalar>
+      </parameter>
+      <parameter dictRef="cc:spinMultiplicity">
+        <scalar dataType="xsd:integer">1</scalar>
+      </parameter>
     </module>
   </comment>
   <comment class="example.output" id="init.userInput.b3lyp">
@@ -408,10 +434,16 @@ $end
         <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">DFT</scalar>
       </parameter>
       <parameter dictRef="cc:dftFunctionalLabel">
-		<scalar cmlx:templateRef="reparse" dataType="xsd:string" id="copy.0.copy">Becke3LYP</scalar>
-	  </parameter>
+		    <scalar cmlx:templateRef="reparse" dataType="xsd:string" id="copy.0.copy">Becke3LYP</scalar>
+	    </parameter>
       <parameter dictRef="cc:task">
         <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">geometry_optimization</scalar>
+      </parameter>
+      <parameter dictRef="cc:charge">
+        <scalar dataType="xsd:integer" units="nonSi:elementaryCharge">0</scalar>
+      </parameter>
+      <parameter dictRef="cc:spinMultiplicity">
+        <scalar dataType="xsd:integer">1</scalar>
       </parameter>
     </module>
   </comment>
@@ -459,6 +491,12 @@ $end
       </parameter>
       <parameter dictRef="cc:task">
         <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">geometry_optimization</scalar>
+      </parameter>
+      <parameter dictRef="cc:charge">
+        <scalar dataType="xsd:integer" units="nonSi:elementaryCharge">0</scalar>
+      </parameter>
+      <parameter dictRef="cc:spinMultiplicity">
+        <scalar dataType="xsd:integer">1</scalar>
       </parameter>
     </module>
   </comment>
