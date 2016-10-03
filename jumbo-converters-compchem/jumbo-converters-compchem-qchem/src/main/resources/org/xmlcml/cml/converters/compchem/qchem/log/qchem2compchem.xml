@@ -113,7 +113,7 @@
              xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:initialization']/cml:parameterList/cml:scalar[@dictRef='cc:charge']"/>
 
   <!-- CALCULATION MODULE -->
-  <!-- first move force constant matrix to finalization module -->
+  <!-- first move certain modules to finalization -->
   <transform process="moveRelative" 
   					 xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:calculation']/cml:module[@cmlx:templateRef='freq.forceConstantMatrix']" 
   					 to="./ancestor::cml:module[@id='job']/cml:module[@dictRef='cc:finalization']" />
@@ -152,7 +152,14 @@
 
   <!-- move all properties of certain modules to the propertylist -->
   <transform process="moveRelative"
-             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[contains(@cmlx:templateRef,'orbital') or contains(@cmlx:templateRef,'mulliken') or contains(@cmlx:templateRef,'multipole')]/cml:property"
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[contains(@cmlx:templateRef,'orbital') or contains(@cmlx:templateRef,'mulliken')]/cml:property"
+             to="./ancestor::cml:module[@id='finalization']/cml:propertyList" />
+
+  <transform process="addDictRef" value="cc:multipole"
+             xpath=".//cml:module[@id='finalization']/cml:module[@cmlx:templateRef='multipole.moments']" />
+
+  <transform process="moveRelative"
+             xpath=".//cml:module[@id='finalization']/cml:module[@dictRef='cc:multipole']/cml:property[@dictRef='cc:dipoleMoment']"
              to="./ancestor::cml:module[@id='finalization']/cml:propertyList" />
              
   <transform process="copy" 
@@ -182,10 +189,12 @@
              value="$string(//cml:module[@id='initialization']/cml:parameterList/cml:parameter[@dictRef='cc:spinMultiplicity']/cml:scalar)" />
 
   <!-- CLEAN UP -->
-  <transform process="delete" xpath=".//cml:module[count(*)=0]" />
   <transform process="delete" xpath=".//cml:propertyList[count(*)=0]" />
   <transform process="delete" xpath=".//UNPARSED/cml:array[count(text())=0]" />
   <transform process="delete" xpath=".//UNPARSED[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:module[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:module[count(*)=0]" />
+
 
 </transformList>    
  
