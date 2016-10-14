@@ -164,111 +164,147 @@
     </template>
   </templateList>
 
-  <!-- PULL UP ALL LISTS FROM MODULES -->
   <transform process="move" xpath=".//cml:module/cml:module/cml:module/cml:list" to="." />
-
-  <!-- GROUP ALL RELATED ARRAYS -->
-  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='alphaocc']/cml:array" to="(.//cml:list[@cmlx:templateRef='alphaocc'])[1]" />
-  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='alphavirt']/cml:array" to="(.//cml:list[@cmlx:templateRef='alphavirt'])[1]" />
-  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='betaocc']/cml:array" to="(.//cml:list[@cmlx:templateRef='betaocc'])[1]" />
-  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='betavirt']/cml:array" to="(.//cml:list[@cmlx:templateRef='betavirt'])[1]" />
+  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='alphaocc']/cml:array" 
+             to="(.//cml:list[@cmlx:templateRef='alphaocc'])[1]" />
+  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='alphavirt']/cml:array" 
+             to="(.//cml:list[@cmlx:templateRef='alphavirt'])[1]" />
+  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='betaocc']/cml:array" 
+             to="(.//cml:list[@cmlx:templateRef='betaocc'])[1]" />
+  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='betavirt']/cml:array" 
+             to="(.//cml:list[@cmlx:templateRef='betavirt'])[1]" />
   
-  <!-- GROUP ALL RELATED SCALARS -->
-  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='alphaocc.symmetries']/cml:scalar" to="(.//cml:list[@cmlx:templateRef='alphaocc.symmetries'])[1]" />
-  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='alphavirt.symmetries']/cml:scalar" to="(.//cml:list[@cmlx:templateRef='alphavirt.symmetries'])[1]" />
-  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='betaocc.symmetries']/cml:scalar" to="(.//cml:list[@cmlx:templateRef='betaocc.symmetries'])[1]" />
-  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='betavirt.symmetries']/cml:scalar" to="(.//cml:list[@cmlx:templateRef='betavirt.symmetries'])[1]" />
+  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='alphaocc.symmetries']/cml:scalar" 
+             to="(.//cml:list[@cmlx:templateRef='alphaocc.symmetries'])[1]" />
+  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='alphavirt.symmetries']/cml:scalar" 
+             to="(.//cml:list[@cmlx:templateRef='alphavirt.symmetries'])[1]" />
+  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='betaocc.symmetries']/cml:scalar"
+             to="(.//cml:list[@cmlx:templateRef='betaocc.symmetries'])[1]" />
+  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='betavirt.symmetries']/cml:scalar"
+             to="(.//cml:list[@cmlx:templateRef='betavirt.symmetries'])[1]" />
 
-  <!-- SPLIT SCALARS -->
-  <transform process="split" xpath=".//cml:list[contains(@cmlx:templateRef,'symmetries')]/cml:scalar" splitter="(^| +)\d+ " />
+  <transform process="split" xpath="./cml:list[contains(@cmlx:templateRef,'symmetries')]/cml:scalar" splitter="(^| +)\d+ " />
 
-  <!-- DELETE EMPTY FIRST SCALAR OF EACH LIST -->
-  <transform process="delete" xpath=".//cml:list[contains(@cmlx:templateRef,'symmetries')]/cml:list[@dictRef='q:occupiedOrbitalSymmetries' or @dictRef='q:virtualOrbitalSymmetries']/cml:scalar[1]" />
+  <transform process="delete"
+             xpath="./cml:list[contains(@cmlx:templateRef,'symmetries')]/cml:list[@dictRef='q:occupiedOrbitalSymmetries' or @dictRef='q:virtualOrbitalSymmetries']/cml:scalar[1]" />
+  
+  <transform process="createArray" xpath="." delimiter="|" 
+             from=".//cml:list[@cmlx:templateRef='alphaocc.symmetries']/cml:list[@dictRef='q:occupiedOrbitalSymmetries']/cml:scalar" />
+  <transform process="createArray" xpath="." delimiter="|" 
+             from=".//cml:list[@cmlx:templateRef='alphavirt.symmetries']/cml:list[@dictRef='q:virtualOrbitalSymmetries']/cml:scalar" />
+  <transform process="createArray" xpath="." delimiter="|" 
+             from=".//cml:list[@cmlx:templateRef='betaocc.symmetries']/cml:list[@dictRef='q:occupiedOrbitalSymmetries']/cml:scalar" />
+  <transform process="createArray" xpath="." delimiter="|" 
+             from=".//cml:list[@cmlx:templateRef='betavirt.symmetries']/cml:list[@dictRef='q:virtualOrbitalSymmetries']/cml:scalar" />
 
-  <!-- MERGE RELATED SCALARS INTO ARRAYS -->
-  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='alphaocc.symmetries']/cml:list[@dictRef='q:occupiedOrbitalSymmetries']/cml:scalar" delimiter="|" />
-  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='alphavirt.symmetries']/cml:list[@dictRef='q:virtualOrbitalSymmetries']/cml:scalar" delimiter="|" />
-  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='betaocc.symmetries']/cml:list[@dictRef='q:occupiedOrbitalSymmetries']/cml:scalar" delimiter="|" />
-  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='betavirt.symmetries']/cml:list[@dictRef='q:virtualOrbitalSymmetries']/cml:scalar" delimiter="|" />
-
-  <!-- JOIN ARRAYS -->
   <transform process="joinArrays" xpath=".//cml:array[@dictRef='q:alphaocc']" />
   <transform process="joinArrays" xpath=".//cml:array[@dictRef='q:alphavirt']" />
   <transform process="joinArrays" xpath=".//cml:array[@dictRef='q:betaocc']" />
   <transform process="joinArrays" xpath=".//cml:array[@dictRef='q:betavirt']" />
 
-
-  <!-- CREATE PROPERTY FOR ORBITAL ENERGIES -->
   <transform process="addChild"
              elementName="cml:property"
              xpath="."
              position="0"
-             dictRef="q:orbitalEnergies" />
+             dictRef="cc:orbitalSymmetry" />
 
-  <!-- MOVE ARRAYS TO PROPERTY -->
-  <transform process="move" xpath=".//cml:array[@dictRef='q:alphaocc' or @dictRef='q:alphavirt' or @dictRef='q:betaocc' or @dictRef='q:betavirt']" to=".//cml:property[@dictRef='q:orbitalEnergies']" />
+  <transform process="addChild"
+             elementName="cml:arrayList"
+             xpath="./cml:property[@dictRef='cc:orbitalSymmetry']"
+             position="0" />
 
-  <!-- ADD UNITS TO ARRAYS -->
-  <transform process="addUnits" xpath=".//cml:property[@dictRef='q:orbitalEnergies']/cml:array" value="nonSi:hartree" />
+  <transform process="addDictRef" xpath="./cml:list[@cmlx:templateRef='alphaocc.symmetries']//cml:array"  value="cc:alphaOccOrbitalSymmetry" />
+  <transform process="addDictRef" xpath="./cml:list[@cmlx:templateRef='alphavirt.symmetries']//cml:array" value="cc:alphaVirtOrbitalSymmetry" />
+  <transform process="addDictRef" xpath="./cml:list[@cmlx:templateRef='betaocc.symmetries']//cml:array"   value="cc:betaOccOrbitalSymmetry" />
+  <transform process="addDictRef" xpath="./cml:list[@cmlx:templateRef='betavirt.symmetries']//cml:array"  value="cc:betaVirtOrbitalSymmetry" />
 
-  <!-- WRAP LISTS IN PROPERTIES -->
-  <transform process="createWrapperProperty" xpath=".//cml:list[@dictRef='q:occupiedOrbitalSymmetries' or @dictRef='q:virtualOrbitalSymmetries']" />
+  <transform process="move" xpath="./cml:list[contains(@cmlx:templateRef,'symmetries')]//cml:array" 
+             to="./cml:property[@dictRef='cc:orbitalSymmetry']/cml:arrayList" />
+  
+  <transform process="addChild"
+             elementName="cml:property"
+             xpath="."
+             position="0"
+             dictRef="cc:orbitalEigenvalues" />
 
-  <!-- PULL UP ARRAYS AND DELETE LISTS -->
-  <transform process="pullupSingleton" xpath=".//cml:property/cml:list" />
+  <transform process="addChild"
+             elementName="cml:arrayList"
+             xpath="./cml:property[@dictRef='cc:orbitalEigenvalues']"
+             position="0" />
 
-  <!-- MOVE PROPERTIES TO ROOT NODE -->
-  <transform process="move" xpath=".//cml:property[@dictRef='q:occupiedOrbitalSymmetries' or @dictRef='q:virtualOrbitalSymmetries']" to="." />
+  <transform process="addDictRef" xpath="./cml:list[@cmlx:templateRef='alphaocc']//cml:array"  value="cc:alphaOccOrbitalEigenvalues" />
+  <transform process="addDictRef" xpath="./cml:list[@cmlx:templateRef='alphavirt']//cml:array" value="cc:alphaVirtOrbitalEigenvalues" />
+  <transform process="addDictRef" xpath="./cml:list[@cmlx:templateRef='betaocc']//cml:array"   value="cc:betaOccOrbitalEigenvalues" />
+  <transform process="addDictRef" xpath="./cml:list[@cmlx:templateRef='betavirt']//cml:array"  value="cc:betaVirtOrbitalEigenvalues" />
 
-  <!-- MOVE ARRAYS TO UNIQUE PROPERTIES -->
-  <transform process="move" xpath=".//cml:property[@dictRef='q:occupiedOrbitalSymmetries']/cml:array" to=".//cml:property[@dictRef='q:occupiedOrbitalSymmetries'][1]" />
-  <transform process="move" xpath=".//cml:property[@dictRef='q:virtualOrbitalSymmetries']/cml:array" to=".//cml:property[@dictRef='q:virtualOrbitalSymmetries'][1]" />
+  <transform process="move" to="./cml:property[@dictRef='cc:orbitalEigenvalues']/cml:arrayList"
+             xpath=".//cml:array[@dictRef='cc:alphaOccOrbitalEigenvalues'  or 
+                                 @dictRef='cc:alphaVirtOrbitalEigenvalues' or 
+                                 @dictRef='cc:betaOccOrbitalEigenvalues'   or 
+                                 @dictRef='cc:betaVirtOrbitalEigenvalues']" />
+
+  <transform process="addUnits" value="nonSi:hartree"
+             xpath=".//cml:array[@dictRef='cc:alphaOccOrbitalEigenvalues'  or 
+                                 @dictRef='cc:alphaVirtOrbitalEigenvalues' or 
+                                 @dictRef='cc:betaOccOrbitalEigenvalues'   or 
+                                 @dictRef='cc:betaVirtOrbitalEigenvalues']" />
+
+  <transform process="addAttribute" name="convention" value="qchemOrbitalSymmetryLabels"
+             xpath=".//cml:array[@dictRef='cc:alphaOccOrbitalEigenvalues'  or 
+                                 @dictRef='cc:alphaVirtOrbitalEigenvalues' or 
+                                 @dictRef='cc:betaOccOrbitalEigenvalues'   or 
+                                 @dictRef='cc:betaVirtOrbitalEigenvalues']" />
+
+  <transform process="addAttribute" xpath="./cml:property[@dictRef='cc:orbitalEigenvalues' or @dictRef='cc:orbitalSymmetry']/cml:arrayList"
+             name="shape" value="irregular" />
 
   <!-- CLEAN UP -->
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
   <transform process="delete" xpath=".//cml:list[count(*)=0]" />
-
   <transform process="delete" xpath=".//cml:module[count(*)=0]" />
   <transform process="delete" xpath=".//cml:module[count(*)=0]" />
   <transform process="delete" xpath=".//cml:module[count(*)=0]" />
-
   <transform process="delete" xpath=".//cml:property[count(*)=0]" />
 
 
   <comment class="example.output" id="orbital.energies.symmetries">
     <module cmlx:templateRef="orbital.energies.symmetries" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <property dictRef="q:orbitalEnergies">
-        <array dataType="xsd:double" dictRef="q:alphaocc"  size="5"  units="nonSi:hartree">-11.205 -0.945 -0.546 -0.546 -0.546</array>
-        <array dataType="xsd:double" dictRef="q:alphavirt" size="18" units="nonSi:hartree">0.257 0.328 0.328 0.328 0.728 0.728 0.728 1.184 1.184 1.184 1.252 1.315 1.941 1.941 2.592 2.592 2.592 4.612</array>
-        <array dataType="xsd:double" dictRef="q:betaocc"   size="5"  units="nonSi:hartree">-11.205 -0.945 -0.546 -0.546 -0.546</array>
-        <array dataType="xsd:double" dictRef="q:betavirt"  size="18" units="nonSi:hartree">0.257 0.328 0.328 0.328 0.728 0.728 0.728 1.184 1.184 1.184 1.252 1.315 1.941 1.941 2.592 2.592 2.592 4.612</array>
+      <property dictRef="cc:orbitalEigenvalues">
+        <arrayList shape="irregular">
+          <array dataType="xsd:double" size="5" dictRef="cc:alphaOccOrbitalEigenvalues" units="nonSi:hartree" convention="qchemOrbitalSymmetryLabels">-11.205 -0.945 -0.546 -0.546 -0.546</array>
+          <array dataType="xsd:double" size="18" dictRef="cc:alphaVirtOrbitalEigenvalues" units="nonSi:hartree" convention="qchemOrbitalSymmetryLabels">0.257 0.328 0.328 0.328 0.728 0.728 0.728 1.184 1.184 1.184 1.252 1.315 1.941 1.941 2.592 2.592 2.592 4.612</array>
+          <array dataType="xsd:double" size="5" dictRef="cc:betaOccOrbitalEigenvalues" units="nonSi:hartree" convention="qchemOrbitalSymmetryLabels">-11.205 -0.945 -0.546 -0.546 -0.546</array>
+          <array dataType="xsd:double" size="18" dictRef="cc:betaVirtOrbitalEigenvalues" units="nonSi:hartree" convention="qchemOrbitalSymmetryLabels">0.257 0.328 0.328 0.328 0.728 0.728 0.728 1.184 1.184 1.184 1.252 1.315 1.941 1.941 2.592 2.592 2.592 4.612</array>
+        </arrayList>
       </property>
-      <property dictRef="q:occupiedOrbitalSymmetries">
-        <array delimiter="|" dataType="xsd:string" size="5">|A1|A1|T2|T2|T2|</array>
-        <array delimiter="|" dataType="xsd:string" size="5">|A1|A1|T2|T2|T2|</array>
-      </property>
-      <property dictRef="q:virtualOrbitalSymmetries">
-        <array delimiter="|" dataType="xsd:string" size="18">|A1|T2|T2|T2|T2|T2|T2|T2|T2|T2|A1|A1|E|E|T2|T2|T2|A1|</array>
-        <array delimiter="|" dataType="xsd:string" size="18">|A1|T2|T2|T2|T2|T2|T2|T2|T2|T2|A1|A1|E|E|T2|T2|T2|A1|</array>
+      <property dictRef="cc:orbitalSymmetry">
+        <arrayList shape="irregular">
+          <array delimiter="|" dataType="xsd:string" size="5" dictRef="cc:alphaOccOrbitalSymmetry">|A1|A1|T2|T2|T2|</array>
+          <array delimiter="|" dataType="xsd:string" size="18" dictRef="cc:alphaVirtOrbitalSymmetry">|A1|T2|T2|T2|T2|T2|T2|T2|T2|T2|A1|A1|E|E|T2|T2|T2|A1|</array>
+          <array delimiter="|" dataType="xsd:string" size="5" dictRef="cc:betaOccOrbitalSymmetry">|A1|A1|T2|T2|T2|</array>
+          <array delimiter="|" dataType="xsd:string" size="18" dictRef="cc:betaVirtOrbitalSymmetry">|A1|T2|T2|T2|T2|T2|T2|T2|T2|T2|A1|A1|E|E|T2|T2|T2|A1|</array>
+        </arrayList>
       </property>
     </module>
   </comment>
 
   <comment class="example.output" id="orbital.energies.symmetries2">
     <module cmlx:templateRef="orbital.energies.symmetries" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <property dictRef="q:orbitalEnergies">
-        <array dataType="xsd:double" dictRef="q:alphaocc"  size="5"  units="nonSi:hartree">-21.012 -1.807 -1.12 -1.12 -0.973</array>
-        <array dataType="xsd:double" dictRef="q:alphavirt" size="31" units="nonSi:hartree">-0.149 -0.054 -0.054 0.205 0.205 0.315 0.606 0.722 0.722 0.993 0.993 0.996 1.466 1.54 1.597 1.597 1.85 1.85 2.112 2.426 2.426 2.619 3.263 3.263 3.338 3.786 3.786 5.185 5.672 5.672 51.102</array>
-        <array dataType="xsd:double" dictRef="q:betaocc"   size="5"  units="nonSi:hartree">-21.012 -1.807 -1.12 -1.12 -0.973</array>
-        <array dataType="xsd:double" dictRef="q:betavirt"  size="31" units="nonSi:hartree">-0.149 -0.054 -0.054 0.205 0.205 0.315 0.606 0.722 0.722 0.993 0.993 0.996 1.466 1.54 1.597 1.597 1.85 1.85 2.112 2.426 2.426 2.619 3.263 3.263 3.338 3.786 3.786 5.185 5.672 5.672 51.102</array>
+      <property dictRef="cc:orbitalEigenvalues">
+        <arrayList shape="irregular">
+          <array dataType="xsd:double" size="5" dictRef="cc:alphaOccOrbitalEigenvalues" units="nonSi:hartree" convention="qchemOrbitalSymmetryLabels">-21.012 -1.807 -1.12 -1.12 -0.973</array>
+          <array dataType="xsd:double" size="31" dictRef="cc:alphaVirtOrbitalEigenvalues" units="nonSi:hartree" convention="qchemOrbitalSymmetryLabels">-0.149 -0.054 -0.054 0.205 0.205 0.315 0.606 0.722 0.722 0.993 0.993 0.996 1.466 1.54 1.597 1.597 1.85 1.85 2.112 2.426 2.426 2.619 3.263 3.263 3.338 3.786 3.786 5.185 5.672 5.672 51.102</array>
+          <array dataType="xsd:double" size="5" dictRef="cc:betaOccOrbitalEigenvalues" units="nonSi:hartree" convention="qchemOrbitalSymmetryLabels">-21.012 -1.807 -1.12 -1.12 -0.973</array>
+          <array dataType="xsd:double" size="31" dictRef="cc:betaVirtOrbitalEigenvalues" units="nonSi:hartree" convention="qchemOrbitalSymmetryLabels">-0.149 -0.054 -0.054 0.205 0.205 0.315 0.606 0.722 0.722 0.993 0.993 0.996 1.466 1.54 1.597 1.597 1.85 1.85 2.112 2.426 2.426 2.619 3.263 3.263 3.338 3.786 3.786 5.185 5.672 5.672 51.102</array>
+        </arrayList>
       </property>
-      <property dictRef="q:occupiedOrbitalSymmetries">
-        <array delimiter="|" dataType="xsd:string" size="5">|A1|A1|E|E|A1|</array>
-        <array delimiter="|" dataType="xsd:string" size="5">|A1|A1|E|E|A1|</array>
-      </property>
-      <property dictRef="q:virtualOrbitalSymmetries">
-        <array delimiter="|" dataType="xsd:string" size="31">|A1|E|E|E|E|A1|A1|E|E|E|E|A1|A2|A1|E|E|E|E|A1|E|E|A1|E|E|A1|E|E|A1|E|E|A1|</array>
-        <array delimiter="|" dataType="xsd:string" size="31">|A1|E|E|E|E|A1|A1|E|E|E|E|A1|A2|A1|E|E|E|E|A1|E|E|A1|E|E|A1|E|E|A1|E|E|A1|</array>
+      <property dictRef="cc:orbitalSymmetry">
+        <arrayList shape="irregular">
+          <array delimiter="|" dataType="xsd:string" size="5" dictRef="cc:alphaOccOrbitalSymmetry">|A1|A1|E|E|A1|</array>
+          <array delimiter="|" dataType="xsd:string" size="31" dictRef="cc:alphaVirtOrbitalSymmetry">|A1|E|E|E|E|A1|A1|E|E|E|E|A1|A2|A1|E|E|E|E|A1|E|E|A1|E|E|A1|E|E|A1|E|E|A1|</array>
+          <array delimiter="|" dataType="xsd:string" size="5" dictRef="cc:betaOccOrbitalSymmetry">|A1|A1|E|E|A1|</array>
+          <array delimiter="|" dataType="xsd:string" size="31" dictRef="cc:betaVirtOrbitalSymmetry">|A1|E|E|E|E|A1|A1|E|E|E|E|A1|A2|A1|E|E|E|E|A1|E|E|A1|E|E|A1|E|E|A1|E|E|A1|</array>
+        </arrayList>
       </property>
     </module>
   </comment>
