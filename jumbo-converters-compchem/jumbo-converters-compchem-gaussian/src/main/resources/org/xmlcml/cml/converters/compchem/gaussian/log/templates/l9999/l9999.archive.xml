@@ -1,5 +1,7 @@
 <template id="l9999.archive" name="Gaussian archive" repeat="*"
-    pattern="\s*1\\1\\.*" endPattern=".*@\s*" endOffset="1"
+    pattern="\s*1\\1\\.*"
+    pattern2="\s*1\|1\|.*" 
+    endPattern=".*@\s*" endOffset="1"
     xmlns:xi="http://www.w3.org/2001/XInclude">
     
   <comment class="example.input" id="l9999.archive">
@@ -134,11 +136,65 @@
  ]\\@
   </comment>
 
+  <comment class="example.input" id="l9999.archive.windows">
+ 1|1|UNPC-UNK|FOpt|RB3LYP|6-31G(d)|C2H4O2|PCUSER|29-Jan-2005|1||#B3LYP/
+ 6-31G* OPT=Z-MATRIX FREQ INTEGRAL(GRID=ULTRAFINE)||acetic acid CH3COOH
+  casno=64197 method=68 basis=1||0,1|C|C,1,rcc|O,2,rco,1,aco|H,1,rh1,2,
+ ah1,3,0.,0|H,1,rh2,2,ah2,3,dh2,0|H,1,rh2,2,ah2,3,-dh2,0|O,2,ro,1,ao,3,
+ 180.,0|H,7,roh,2,aoh,1,180.,0||rcc=1.50818679|rco=1.21030551|rh1=1.090
+ 12415|rh2=1.09497984|ro=1.35843679|roh=0.97595845|aco=126.1656065|ah1=
+ 109.47615686|ah2=109.99518917|ao=111.35847013|aoh=105.80116158|dh2=120
+ .98017255||Version=x86-Win32-G03RevB.05|State=1-A'|HF=-229.0817864|RMS
+ D=6.070e-009|RMSF=1.649e-004|Dipole=-0.5357094,0.,-0.3149367|PG=CS [SG
+ (C2H2O2),X(H2)]||@
+  </comment>
 
-  <!--  make a list of the records -->
-  <record repeat="*" id="ginc">\s{X,g:ginc1}</record>
+
+  <templateList>
+    <template id="l9999.toplevel.linux"
+              pattern="\s*1\\1\\.*" 
+              endPattern=".*@\s*" endOffset="1">
+      <!--  make a list of the records -->
+      <record repeat="*" id="ginc">\s{X,g:ginc1}</record>
+
+
+      <transform process="createString" xpath="./cml:list/cml:scalar"/>
+      <transform process="split" xpath="./cml:list/cml:scalar" splitter="\\\\" dictRef="g:archive" />
+      <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[1]" value="g:archive1" />
+      <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[2]" value="cc:keywords" />
+      <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[3]" value="cc:title" />
+      <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[4]" value="cc:molecule"/>
+      <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[contains(text(),'Version')]" value="g:archive.namevalue"/>
+      
+      <transform process="delete" xpath="./cml:list/cml:list/cml:scalar[contains(.,'@')]"/>
+
+      <transform process="split" xpath="./cml:list/cml:list/cml:scalar" splitter="\\"/>
+      <transform process="split" xpath="./cml:list/cml:list/cml:scalar[@dictRef='cc:keywords']" dictRef="g:keyword"/>
+    </template>
+    <template id="l9999.toplevel.windows"
+              pattern="\s*1\|1\|.*" 
+              endPattern=".*@\s*" endOffset="1">
+      <!--  make a list of the records -->
+      <record repeat="*" id="ginc">\s{X,g:ginc1}</record>
+
+      <transform process="createString" xpath="./cml:list/cml:scalar"/>
+      <transform process="split" xpath="./cml:list/cml:scalar" splitter="\|\|" dictRef="g:archive" />
+      <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[1]" value="g:archive1" />
+      <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[2]" value="cc:keywords" />
+      <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[3]" value="cc:title" />
+      <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[4]" value="cc:molecule"/>
+      <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[contains(text(),'Version')]" value="g:archive.namevalue"/>
+      
+      <transform process="delete" xpath="./cml:list/cml:list/cml:scalar[contains(.,'@')]"/>
+
+      <transform process="split" xpath="./cml:list/cml:list/cml:scalar" splitter="\|"/>
+      <transform process="split" xpath="./cml:list/cml:list/cml:scalar[@dictRef='cc:keywords']" dictRef="g:keyword"/>
+    </template>
+  </templateList>
+
+  <transform process="pullup" xpath="./cml:module[@cmlx:templateRef='l9999.toplevel.linux' or @cmlx:templateRef='l9999.toplevel.windows']/cml:*" />
   
-  <xi:include href="l9999.archive.toplevel.xml"/>
+  <!-- <xi:include href="l9999.archive.toplevel.xml"/> -->
 <!-- first line --> 
   <xi:include href="l9999.archive.line1.xml"/>
  
@@ -710,6 +766,81 @@
         <link from="ah2" to="112.72457639" />
         <link from="aoh" to="107.65474501" />
         <link from="dh" to="118.44859594" />
+      </map>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="l9999.archive.windows">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l9999.archive">
+      <scalar dataType="xsd:string" dictRef="cc:hostName">UNPC-UNK</scalar>
+      <scalar dataType="xsd:string" dictRef="g:operation">FOpt</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:method">DFT</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:basisSetLabel">6-31G(d)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:jobname">PCUSER</scalar>
+      <scalar dataType="xsd:date" dictRef="cc:runDate">2005-01-29T00:00:00Z</scalar>
+      <scalar dataType="xsd:string" dictRef="g:zmat">1</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:wavefunctionType">closed shell</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:dftFunctionalLabel">B3LYP</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:task">geometry_optimization</scalar>
+      <scalar dataType="xsd:string" dictRef="g:keyword">#B3LYP/6-31G*</scalar>
+      <scalar dataType="xsd:string" dictRef="g:keyword">OPT=Z-MATRIX</scalar>
+      <scalar dataType="xsd:string" dictRef="g:keyword">FREQ</scalar>
+      <scalar dataType="xsd:string" dictRef="g:keyword">INTEGRAL(GRID=ULTRAFINE)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:title">acetic acid CH3COOHcasno=64197 method=68 basis=1</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:programVersion">x86-Win32-G03RevB.05</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:electronicstate">1-A'</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:Energy_total" units="nonsi:hartree">-229.0817864</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:rmsd" units="nonsi:unknown">6.07E-9</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:rmsf" units="nonsi:unknown">1.649E-4</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:pointGroup">CS [SG(C2H2O2),X(H2)]</scalar>
+      <molecule id="mol9999" spinMultiplicity="1" formalCharge="0">
+        <zMatrix>
+          <length atomRefs2="a1 a2">1.50818679</length>
+          <length atomRefs2="a2 a3">1.21030551</length>
+          <angle atomRefs3="a1 a2 a3">126.1656065</angle>
+          <length atomRefs2="a1 a4">1.09012415</length>
+          <angle atomRefs3="a2 a1 a4">109.47615686</angle>
+          <torsion atomRefs4="a3 a2 a1 a4">0.0</torsion>
+          <length atomRefs2="a1 a5">1.09497984</length>
+          <angle atomRefs3="a2 a1 a5">109.99518917</angle>
+          <torsion atomRefs4="a3 a2 a1 a5">120.98017255</torsion>
+          <length atomRefs2="a1 a6">1.09497984</length>
+          <angle atomRefs3="a2 a1 a6">109.99518917</angle>
+          <torsion atomRefs4="a3 a2 a1 a6">-120.98017255</torsion>
+          <length atomRefs2="a2 a7">1.35843679</length>
+          <angle atomRefs3="a1 a2 a7">111.35847013</angle>
+          <torsion atomRefs4="a3 a1 a2 a7">180.0</torsion>
+          <length atomRefs2="a7 a8">0.97595845</length>
+          <angle atomRefs3="a2 a7 a8">105.80116158</angle>
+          <torsion atomRefs4="a1 a2 a7 a8">180.0</torsion>
+        </zMatrix>
+        <atomArray>
+          <atom elementType="C" id="a1" x3="0.0" y3="0.0" z3="0.0" />
+          <atom elementType="C" id="a2" x3="1.50818679" y3="0.0" z3="0.0" />
+          <atom elementType="O" id="a3" x3="2.2224136806113686" y3="0.9770974241415112" z3="0.0" />
+          <atom elementType="H" id="a4" x3="-0.36346326195253803" y3="1.0277475952898374" z3="0.0" />
+          <atom elementType="H" id="a5" x3="-0.37441876535444335" y3="-0.5296565223523229" z3="-0.882187852153113" />
+          <atom elementType="H" id="a6" x3="-0.37441876535444335" y3="-0.5296565223523229" z3="0.882187852153113" />
+          <atom elementType="O" id="a7" x3="2.0029319529487295" y3="-1.2651394137265424" z3="1.5493489334953692E-16" />
+          <atom elementType="H" id="a8" x3="2.9743032355882275" y3="-1.1706263067534934" z3="2.835631855569184E-17" />
+        </atomArray>
+        <property dictRef="cc:dipoleMomentVector">
+          <array dataType="xsd:double" size="3" units="nonSi:elementaryCharge.bohr">-0.5357094 0.0 -0.3149367</array>
+        </property>
+      </molecule>
+      <map id="variableMap">
+        <link from="rcc" to="1.50818679" />
+        <link from="rco" to="1.21030551" />
+        <link from="rh1" to="1.09012415" />
+        <link from="rh2" to="1.09497984" />
+        <link from="ro" to="1.35843679" />
+        <link from="roh" to="0.97595845" />
+        <link from="aco" to="126.1656065" />
+        <link from="ah1" to="109.47615686" />
+        <link from="ah2" to="109.99518917" />
+        <link from="ao" to="111.35847013" />
+        <link from="aoh" to="105.80116158" />
+        <link from="dh2" to="120.98017255" />
       </map>
     </module>
   </comment>
