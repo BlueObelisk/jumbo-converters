@@ -6,8 +6,9 @@ A set of libraries ("converters") which provide conversion to and from CML.
 *Note:*
 As of 2020-01-01 the the official home of the JUMBOConverters is:
 <https://github.com/BlueObelisk/jumbo-converters>.  
-The JUMBOConverters' old home at: https://bitbucket.org/wwmm/jumbo-converters
+The JUMBOConverters old home at: https://bitbucket.org/wwmm/jumbo-converters
 is subject to be removed once Bitbucket removes all Mercurial reposittories mid-2020.
+
 ---
 
 In general conversion TO CML is lossless as CML can - in principle - hold most concepts found in chemical files. In
