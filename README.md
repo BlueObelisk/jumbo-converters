@@ -6,8 +6,8 @@ A set of libraries ("converters") which provide conversion to and from CML.
 *Note:*
 As of 2020-01-01 the the official home of the JUMBOConverters is:
 <https://github.com/BlueObelisk/jumbo-converters>.  
-The JUMBOConverters old home at: https://bitbucket.org/wwmm/jumbo-converters
-is subject to be removed once Bitbucket removes all Mercurial reposittories mid-2020.
+The old home of JUMBOConverters at: <https://bitbucket.org/wwmm/jumbo-converters>,
+is subject to be removed once Bitbucket removes all Mercurial repositories mid-2020.
 
 ---
 
