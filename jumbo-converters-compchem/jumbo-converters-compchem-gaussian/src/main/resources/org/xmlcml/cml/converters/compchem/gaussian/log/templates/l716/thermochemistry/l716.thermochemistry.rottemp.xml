@@ -1,13 +1,27 @@
-<template id="l716.thermochemistry.rottemp" repeat="*" pattern="\s*Rotational temperatures \(Kelvin\).*"
+<template id="l716.thermochemistry.rottemp" repeat="*" pattern="\s*R[Oo][Tt][Aa][Tt][Ii][Oo][Nn][Aa][Ll] [Tt][Ee][Mm][Pp][Ee][Rr][Aa][Tt][Uu][Rr][Ee][Ss]* \(K[Ee][Ll][Vv][Ii][Nn]\).*"
   endPattern=".*">
   <comment class="example.input" id="l716.thermochemistry.rottemp">
  Rotational temperatures (Kelvin)      7.55064     7.55064     7.55064
   </comment>
-  <record id="rottemp" >\s*Rotational temperatures \(Kelvin\)\s*{3F,cc:rottemp}\s*</record>
+
+  <comment class="example.input" id="l716.thermochemistry.rottemp2">
+    Rotational temperature (Kelvin)      0.11120
+  </comment>
+
+  <record id="rottemp" >\s*R[Oo][Tt][Aa][Tt][Ii][Oo][Nn][Aa][Ll] [Tt][Ee][Mm][Pp][Ee][Rr][Aa][Tt][Uu][Rr][Ee][Ss]* \(K[Ee][Ll][Vv][Ii][Nn]\)\s*{1_3F,cc:rottemp}\s*</record>
+
   <transform process="pullupSingleton" xpath="./cml:list"/>
+  <transform process="addUnits" xpath=".//cml:array[@dictRef='cc:rottemp']" value="si:k"/>
+
   <comment class="example.output" id="l716.thermochemistry.rottemp">
     <module cmlx:templateRef="l716.thermochemistry.rottemp" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <array dataType="xsd:double" size="3" dictRef="cc:rottemp" cmlx:templateRef="rottemp">7.55064 7.55064 7.55064</array>
+      <array dataType="xsd:double" size="3" dictRef="cc:rottemp" units="si:k" cmlx:templateRef="rottemp">7.55064 7.55064 7.55064</array>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="l716.thermochemistry.rottemp2">
+    <module cmlx:templateRef="l716.thermochemistry.rottemp" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <array dataType="xsd:double" size="1" dictRef="cc:rottemp" cmlx:templateRef="rottemp" units="si:k">0.1112</array>
     </module>
   </comment>
 </template>

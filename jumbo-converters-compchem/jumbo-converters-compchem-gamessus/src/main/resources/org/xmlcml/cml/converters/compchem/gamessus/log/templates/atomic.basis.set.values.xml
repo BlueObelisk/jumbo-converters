@@ -1,0 +1,146 @@
+<template id="atomic.basis.set.values" repeat="*"
+              pattern="\s*TOTAL NUMBER OF BASIS SET SHELLS.+$"   offset="0"
+              endPattern="\s*THE NUCLEAR REPULSION ENERGY IS.+$" endOffset="1">
+
+      <comment class="example.input" id="atomic.basis.set.values1">
+         TOTAL NUMBER OF BASIS SET SHELLS             =   11
+         NUMBER OF CARTESIAN GAUSSIAN BASIS FUNCTIONS =   17
+         NUMBER OF ELECTRONS                          =   10
+         CHARGE OF MOLECULE                           =    0
+         SPIN MULTIPLICITY                            =    1
+         NUMBER OF OCCUPIED ORBITALS (ALPHA)          =    5
+         NUMBER OF OCCUPIED ORBITALS (BETA )          =    5
+         TOTAL NUMBER OF ATOMS                        =    5
+         THE NUCLEAR REPULSION ENERGY IS       13.4352856837
+      </comment>
+
+      <comment class="example.input" id="atomic.basis.set.values2">
+         TOTAL NUMBER OF BASIS SET SHELLS             =   50
+         NUMBER OF CARTESIAN GAUSSIAN BASIS FUNCTIONS =  155
+         NOTE: THIS RUN WILL RESTRICT THE MO VARIATION SPACE TO SPHERICAL HARMONICS.
+         THE NUMBER OF ORBITALS KEPT IN THE VARIATIONAL SPACE WILL BE PRINTED LATER.
+         NUMBER OF ELECTRONS                          =   10
+         CHARGE OF MOLECULE                           =    0
+         SPIN MULTIPLICITY                            =    1
+         NUMBER OF OCCUPIED ORBITALS (ALPHA)          =    5
+         NUMBER OF OCCUPIED ORBITALS (BETA )          =    5
+         TOTAL NUMBER OF ATOMS                        =    5
+         THE NUCLEAR REPULSION ENERGY IS       13.3912020570
+      </comment>
+
+      <record id="Summary">\s*TOTAL NUMBER OF BASIS SET SHELLS\s+=\s+{I,m:TotalNumberOfBasisSetShells}\s*</record>
+      <record id="Summary">\s*NUMBER OF CARTESIAN GAUSSIAN BASIS FUNCTIONS\s+=\s+{I,m:NumberOfCartesianGaussianBasisFunctions}\s*</record>
+
+      <templateList>
+        <template id="atomic.basis.set.unparsed"         repeat="*"
+                  pattern="\s*NOTE:.+$"                  offset="0"
+                  endPattern="\s*NUMBER OF ELECTRONS.+$" endOffset="0">
+          <record id="atomic.basis.set.unparsed" repeat="*">\s*{X,x:UNPARSED}\s*</record>
+        </template>
+        <template id="atomic.basis.set.values"                       repeat="*"
+                  pattern="\s*NUMBER OF ELECTRONS.+$"                offset="0"
+                  endPattern="\s*THE NUCLEAR REPULSION ENERGY IS.+$" endOffset="1">
+          <record id="Summary">\s*NUMBER OF ELECTRONS\s+=\s+{I,m:NumberOfElectrons}\s*</record>
+          <record id="Summary">\s*CHARGE OF MOLECULE\s+=\s+{I,m:ChargeOfMolecule}\s*</record>
+          <record id="Summary">\s*SPIN MULTIPLICITY\s+=\s+{I,m:SpinMultiplicity}\s*</record>
+          <record id="Summary">\s*NUMBER OF OCCUPIED ORBITALS \(ALPHA\)\s+=\s+{I,m:NumberOfOccupiedOrbitalsAlpha}\s*</record>
+          <record id="Summary">\s*NUMBER OF OCCUPIED ORBITALS \(BETA \)\s+=\s+{I,m:NumberOfOccupiedOrbitalsBeta}\s*</record>
+          <record id="Summary">\s*TOTAL NUMBER OF ATOMS\s+=\s+{I,m:TotalNumberOfAtoms}\s*</record>
+          <record id="basisSummary">\s*THE NUCLEAR REPULSION ENERGY IS\s+{F,cc:Energy_NucRep}\s*</record>
+        </template>
+      </templateList>
+
+      <transform process="addChild"
+                 xpath="."
+                 elementName="cml:list" position="0" dictRef="x:UNPARSED" />
+
+      <transform process="move" xpath=".//cml:list[@cmlx:templateRef='atomic.basis.set.unparsed']/cml:scalar" 
+                 to=".//cml:list[@dictRef='x:UNPARSED']" />
+
+      <transform process="pullup" 
+                 xpath=".//cml:list[@cmlx:templateRef='basisSummary']" />
+
+      <transform process="createWrapperParameter"
+                 xpath=".//cml:list[@dictRef='x:UNPARSED']" />
+
+      <transform process="addChild" 
+                 xpath="." 
+                 elementName="cml:list" position="2" dictRef="m:basisSetSummary" />
+
+      <transform process="move"
+                 xpath=".//cml:list[@cmlx:templateRef='Summary']/cml:scalar"
+                 to=".//cml:list[@dictRef='m:basisSetSummary']" />
+
+      <transform process="createWrapperParameter"
+                 xpath=".//cml:list[@dictRef='m:basisSetSummary']" />
+
+      <transform process="addUnits"
+                 xpath=".//cml:scalar[@dictRef='cc:Energy_NucRep']"
+                 value="nonSi:hartree" />
+
+      <transform process="createWrapperParameter"
+                 xpath=".//cml:list[@cmlx:templateRef='basisSummary']/cml:scalar[@dictRef='cc:Energy_NucRep']" />
+
+      <transform process="pullup"
+                 xpath=".//cml:list[@cmlx:templateRef='basisSummary']/cml:parameter" />
+
+      <transform process="addDictRef"
+                 xpath=".//cml:scalar[@dictRef='m:NumberOfOccupiedOrbitalsAlpha']"
+                 value="m:NumberOfOccupiedOrbitals(alpha)" />
+
+      <transform process="addDictRef"
+                 xpath=".//cml:scalar[@dictRef='m:NumberOfOccupiedOrbitalsBeta']"
+                 value="m:NumberOfOccupiedOrbitals(beta)" />
+
+      <!-- CLEAN UP -->
+      <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+      <transform process="delete" xpath=".//cml:parameter[count(*)=0]"/>
+      <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
+
+
+      <comment class="example.output" id="atomic.basis.set.values1">
+        <module cmlx:templateRef="atomic.basis.set.values" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+          <parameter dictRef="m:basisSetSummary">
+            <list>
+              <scalar dataType="xsd:integer" dictRef="m:TotalNumberOfBasisSetShells">11</scalar>
+              <scalar dataType="xsd:integer" dictRef="m:NumberOfCartesianGaussianBasisFunctions">17</scalar>
+              <scalar dataType="xsd:integer" dictRef="m:NumberOfElectrons">10</scalar>
+              <scalar dataType="xsd:integer" dictRef="m:ChargeOfMolecule">0</scalar>
+              <scalar dataType="xsd:integer" dictRef="m:SpinMultiplicity">1</scalar>
+              <scalar dataType="xsd:integer" dictRef="m:NumberOfOccupiedOrbitals(alpha)">5</scalar>
+              <scalar dataType="xsd:integer" dictRef="m:NumberOfOccupiedOrbitals(beta)">5</scalar>
+              <scalar dataType="xsd:integer" dictRef="m:TotalNumberOfAtoms">5</scalar>
+            </list>
+          </parameter>
+          <parameter dictRef="cc:Energy_NucRep">
+            <scalar dataType="xsd:double" units="nonSi:hartree">13.4352856837</scalar>
+          </parameter>
+        </module>
+      </comment>
+
+      <comment class="example.output" id="atomic.basis.set.values2">
+        <module cmlx:templateRef="atomic.basis.set.values" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+          <parameter dictRef='x:UNPARSED'>
+            <list>
+              <scalar dataType="xsd:string" dictRef="x:UNPARSED">NOTE: THIS RUN WILL RESTRICT THE MO VARIATION SPACE TO SPHERICAL HARMONICS.</scalar>
+              <scalar dataType="xsd:string" dictRef="x:UNPARSED">THE NUMBER OF ORBITALS KEPT IN THE VARIATIONAL SPACE WILL BE PRINTED LATER.</scalar>
+            </list>
+          </parameter>
+          <parameter dictRef="m:basisSetSummary">
+            <list>
+              <scalar dataType="xsd:integer" dictRef="m:TotalNumberOfBasisSetShells">50</scalar>
+              <scalar dataType="xsd:integer" dictRef="m:NumberOfCartesianGaussianBasisFunctions">155</scalar>
+              <scalar dataType="xsd:integer" dictRef="m:NumberOfElectrons">10</scalar>
+              <scalar dataType="xsd:integer" dictRef="m:ChargeOfMolecule">0</scalar>
+              <scalar dataType="xsd:integer" dictRef="m:SpinMultiplicity">1</scalar>
+              <scalar dataType="xsd:integer" dictRef="m:NumberOfOccupiedOrbitals(alpha)">5</scalar>
+              <scalar dataType="xsd:integer" dictRef="m:NumberOfOccupiedOrbitals(beta)">5</scalar>
+              <scalar dataType="xsd:integer" dictRef="m:TotalNumberOfAtoms">5</scalar>
+            </list>
+          </parameter>
+          <parameter dictRef="cc:Energy_NucRep">
+            <scalar dataType="xsd:double" units="nonSi:hartree">13.391202057</scalar>
+          </parameter>
+        </module>
+      </comment>
+    </template>

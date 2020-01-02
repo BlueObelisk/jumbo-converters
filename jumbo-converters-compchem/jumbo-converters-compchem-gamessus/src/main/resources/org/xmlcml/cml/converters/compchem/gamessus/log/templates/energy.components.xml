@@ -1,0 +1,139 @@
+<template id="energy.components"
+  repeat="*"
+  name="ENERGY COMPONENTS"
+  pattern="\s*-+\s*$\s*ENERGY COMPONENTS\s*$\s*-+\s*$"   offset="0"
+  endPattern="\s*VIRIAL RATIO \(V/T\) =.+"            endOffset="1" >
+
+  <comment class="example.input" id="energy.components">
+          -----------------
+          ENERGY COMPONENTS
+          -----------------
+
+         WAVEFUNCTION NORMALIZATION =       1.0000000000
+
+                ONE ELECTRON ENERGY =     -79.7377346216
+                TWO ELECTRON ENERGY =      25.8705774569
+           NUCLEAR REPULSION ENERGY =      13.3925231918
+                                      ------------------
+                       TOTAL ENERGY =     -40.4746339728
+
+ ELECTRON-ELECTRON POTENTIAL ENERGY =      25.8705774569
+  NUCLEUS-ELECTRON POTENTIAL ENERGY =    -119.9727613821
+   NUCLEUS-NUCLEUS POTENTIAL ENERGY =      13.3925231918
+                                      ------------------
+             TOTAL POTENTIAL ENERGY =     -80.7096607333
+               TOTAL KINETIC ENERGY =      40.2350267605
+                 VIRIAL RATIO (V/T) =       2.0059551896
+  </comment>
+
+  <record repeat="4" />
+  <record id="e">\s*WAVEFUNCTION NORMALIZATION\s*=\s*{F,m:WavefunctionNormalization}\s*</record>
+  <record repeat="1" />
+  <record id="e">\s*ONE ELECTRON ENERGY\s*=\s*{F,cc:Energy_1e}\s*</record>
+  <record id="e">\s*TWO ELECTRON ENERGY\s*=\s*{F,cc:Energy_2e}\s*</record>
+  <record id="e">\s*NUCLEAR REPULSION ENERGY\s*=\s*{F,cc:Energy_NucRep}\s*</record>
+  <record repeat="1" />
+  <record id="e">\s*TOTAL ENERGY\s*=\s*{F,cc:Energy_total}\s*</record>
+  <record repeat="1" />
+  <record id="e">\s*ELECTRON-ELECTRON POTENTIAL ENERGY\s*=\s*{F,m:ElectronElectronPotentialEnergy}\s*</record>
+  <record id="e">\s*NUCLEUS-ELECTRON POTENTIAL ENERGY\s*=\s*{F,m:NucleusElectronPotentialEnergy}\s*</record>
+  <record id="e">\s*NUCLEUS-NUCLEUS POTENTIAL ENERGY\s*=\s*{F,m:NucleusNucleusPotentialEnergy}\s*</record>
+  <record repeat="1" />
+  <record id="e">\s*TOTAL POTENTIAL ENERGY\s*=\s*{F,m:TotalNucleusPotentialEnergy}\s*</record>
+  <record id="e">\s*TOTAL KINETIC ENERGY\s*=\s*{F,m:TotalKineticPotentialEnergy}\s*</record>
+  <record id="e">\s*VIRIAL RATIO \(V/T\)\s*=\s*{F,m:VirialRatio_VT}\s*</record>
+
+  <transform process="move"
+                 to="."
+                 xpath=".//*[contains(@dictRef,'m:WavefunctionNormalization') or contains(@dictRef,'cc:Energy_1e') or contains(@dictRef,'cc:Energy_2e') or contains(@dictRef,'cc:Energy_NucRep') or contains(@dictRef,'cc:Energy_total') or contains(@dictRef,'m:ElectronElectronPotentialEnergy') or contains(@dictRef,'m:NucleusElectronPotentialEnergy') or contains(@dictRef,'m:NucleusNucleusPotentialEnergy') or contains(@dictRef,'m:TotalNucleusPotentialEnergy') or contains(@dictRef,'m:TotalKineticPotentialEnergy') or contains(@dictRef,'m:VirialRatio_VT')]" />
+
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='cc:Energy_1e']"/>
+
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='cc:Energy_2e']"/>
+
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='cc:Energy_NucRep']"/>
+
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='cc:Energy_total']"/>
+
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='m:WavefunctionNormalization']"/>
+
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='m:ElectronElectronPotentialEnergy']"/>
+  
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='m:NucleusElectronPotentialEnergy']"/>
+
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='m:NucleusNucleusPotentialEnergy']"/>
+
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='m:TotalNucleusPotentialEnergy']"/>
+
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='m:TotalKineticPotentialEnergy']"/>
+
+  <transform process="createWrapperProperty"
+                   xpath=".//*[@dictRef='m:VirialRatio_VT']"/>
+  
+  <!-- <transform process="addChild"
+                 xpath="."
+                 elementName="cml:propertyList"
+                 position="0" /> -->
+
+  <!-- <transform process="move"
+                 to="./cml:propertyList"
+                 xpath="./cml:property" /> -->
+
+ <transform process="addUnits" value="nonSi:hartree"
+  xpath=".//cml:property[ @dictRef='cc:Energy_1e' or @dictRef='cc:Energy_2e' or 
+            @dictRef='cc:Energy_NucRep' or @dictRef='cc:Energy_total']/cml:scalar"  />
+
+<transform process="delete" xpath=".//cml:list[count(*)=0]" />
+<transform process="delete" xpath=".//cml:list[@cmlx:templateRef='e']" />
+<transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']" />
+
+
+  <comment class="example.output" id="energy.components">
+    <module cmlx:templateRef="energy.components" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="m:WavefunctionNormalization">
+        <scalar dataType="xsd:double">1.0</scalar>
+      </property>
+      <property dictRef="cc:Energy_1e">
+        <scalar dataType="xsd:double" units="nonSi:hartree">-79.7377346216</scalar>
+      </property>
+      <property dictRef="cc:Energy_2e">
+        <scalar dataType="xsd:double" units="nonSi:hartree">25.8705774569</scalar>
+      </property>
+      <property dictRef="cc:Energy_NucRep">
+        <scalar dataType="xsd:double" units="nonSi:hartree">13.3925231918</scalar>
+      </property>
+      <property dictRef="cc:Energy_total">
+        <scalar dataType="xsd:double" units="nonSi:hartree">-40.4746339728</scalar>
+      </property>
+      <property dictRef="m:ElectronElectronPotentialEnergy">
+        <scalar dataType="xsd:double">25.8705774569</scalar>
+      </property>
+      <property dictRef="m:NucleusElectronPotentialEnergy">
+        <scalar dataType="xsd:double">-119.9727613821</scalar>
+      </property>
+      <property dictRef="m:NucleusNucleusPotentialEnergy">
+        <scalar dataType="xsd:double">13.3925231918</scalar>
+      </property>
+      <property dictRef="m:TotalNucleusPotentialEnergy">
+        <scalar dataType="xsd:double">-80.7096607333</scalar>
+      </property>
+      <property dictRef="m:TotalKineticPotentialEnergy">
+        <scalar dataType="xsd:double">40.2350267605</scalar>
+      </property>
+      <property dictRef="m:VirialRatio_VT">
+        <scalar dataType="xsd:double">2.0059551896</scalar>
+      </property>
+    </module>
+  </comment>
+
+</template>

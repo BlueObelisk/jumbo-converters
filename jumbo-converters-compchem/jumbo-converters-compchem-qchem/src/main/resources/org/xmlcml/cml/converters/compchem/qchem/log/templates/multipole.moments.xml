@@ -1,0 +1,136 @@
+<template id="multipole.moments"
+  repeat="*"
+  name="multipole.moments"
+  pattern="\s*-+\s*$\s*Cartesian Multipole Moments\s*$\s*-+\s*$"      offset="0"
+  endPattern="\s*-+\s*$"                                              endOffset="1" >
+
+  <comment class="example.input" id="multipole.moments">
+ -----------------------------------------------------------------
+                    Cartesian Multipole Moments
+ -----------------------------------------------------------------
+    Charge (ESU x 10^10)
+                 0.0000
+    Dipole Moment (Debye)
+         X       0.7211      Y      -1.5317      Z       0.0000
+       Tot       1.6930
+    Quadrupole Moments (Debye-Ang)
+        XX     -12.5289     XY       2.2369     YY     -12.0463
+        XZ       0.0000     YZ       0.0000     ZZ     -13.5832
+    Octapole Moments (Debye-Ang^2)
+       XXX      -4.5760    XXY      -2.1106    XYY      -1.8165
+       YYY      -0.2562    XXZ       0.0000    XYZ       0.0000
+       YYZ       0.0000    XZZ      -0.5875    YZZ      -0.4240
+       ZZZ       0.0000
+    Hexadecapole Moments (Debye-Ang^3)
+      XXXX     -59.5385   XXXY       4.0359   XXYY     -12.1286
+      XYYY       3.0253   YYYY     -19.5171   XXXZ       0.0000
+      XXYZ       0.0000   XYYZ       0.0000   YYYZ       0.0000
+      XXZZ     -13.7458   XYZZ       0.0991   YYZZ      -6.5664
+      XZZZ       0.0000   YZZZ       0.0000   ZZZZ     -19.1041
+ -----------------------------------------------------------------
+  </comment>
+
+
+  <record id="unparsed" repeat="6" />
+  <record id="dipole">\s*.+\s+{F,cc:dipoleMomentVector}\s+.+\s+{F,cc:dipoleMomentVector}\s+.+\s+{F,cc:dipoleMomentVector}\s*</record>
+  <record id="total">\s*.+\s+{F,cc:dipoleMoment}\s*</record>
+  <record id="unparsed" />
+  <record id="quadrupole" repeat="*">\s*{A,cc:coordinateLabel}\s+{F,cc:quadrupoleMoment}\s+{A,cc:coordinateLabel}\s+{F,cc:quadrupoleMoment}\s+{A,cc:coordinateLabel}\s+{F,cc:quadrupoleMoment}\s*</record>
+  <record id="unparsed" />
+  <record id="octapole" repeat="*">\s*{A,cc:coordinateLabel}\s+{F,cc:octapoleMoment}\s+{A,cc:coordinateLabel}\s+{F,cc:octapoleMoment}\s+{A,cc:coordinateLabel}\s+{F,cc:octapoleMoment}\s*</record>
+  <record id="octapole">\s*{A,cc:coordinateLabel}\s+{F,cc:octapoleMoment}\s*</record>
+  <record id="unparsed" />
+  <record id="hexadecapole" repeat="*">\s*{A,cc:coordinateLabel}\s+{F,cc:hexadecapoleMoment}\s+{A,cc:coordinateLabel}\s+{F,cc:hexadecapoleMoment}\s+{A,cc:coordinateLabel}\s+{F,cc:hexadecapoleMoment}\s*</record>
+  <record id="unparsed" />
+
+  <!-- convert scalars to arrays -->
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='dipole']/cml:list/cml:scalar[@dictRef='cc:dipoleMomentVector']" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='quadrupole']/cml:list/cml:scalar[@dictRef='cc:coordinateLabel']" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='quadrupole']/cml:list/cml:scalar[@dictRef='cc:quadrupoleMoment']" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='octapole']/cml:list/cml:scalar[@dictRef='cc:coordinateLabel']" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='octapole']/cml:list/cml:scalar[@dictRef='cc:octapoleMoment']" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='hexadecapole']/cml:list/cml:scalar[@dictRef='cc:coordinateLabel']" />
+  <transform process="createArray" xpath="." from=".//cml:list[@cmlx:templateRef='hexadecapole']/cml:list/cml:scalar[@dictRef='cc:hexadecapoleMoment']" />
+
+  <!-- create tables from lists -->
+  <transform process="createTable" xpath="./cml:list[@cmlx:templateRef='quadrupole']/cml:list" />
+  <transform process="createTable" xpath="./cml:list[@cmlx:templateRef='octapole']/cml:list" />
+  <transform process="createTable" xpath="./cml:list[@cmlx:templateRef='hexadecapole']/cml:list" />
+
+  <!-- set table rows and cols -->
+  <transform process="addAttribute" xpath="./cml:list[@cmlx:templateRef='quadrupole']/cml:table"   name="rows" 
+             value="$string(//cml:list[@cmlx:templateRef='quadrupole']//cml:array[@dictRef='cc:coordinateLabel']/@size)" />
+  <transform process="addAttribute" xpath="./cml:list[@cmlx:templateRef='octapole']/cml:table"     name="rows" 
+             value="$string(//cml:list[@cmlx:templateRef='octapole']//cml:array[@dictRef='cc:coordinateLabel']/@size)" />
+  <transform process="addAttribute" xpath="./cml:list[@cmlx:templateRef='hexadecapole']/cml:table" name="rows" 
+             value="$string(//cml:list[@cmlx:templateRef='hexadecapole']//cml:array[@dictRef='cc:coordinateLabel']/@size)" />
+
+  <transform process="addAttribute" name="columns" value="2"
+             xpath="./cml:list[@cmlx:templateRef='quadrupole' or @cmlx:templateRef='octapole' or @cmlx:templateRef='hexadecapole']/cml:table" />
+
+  <!-- wrap tables as properties -->
+  <transform process="addDictRef" xpath="./cml:list[@cmlx:templateRef='quadrupole']/cml:table"   value="cc:quadrupoleMoment" />
+  <transform process="addDictRef" xpath="./cml:list[@cmlx:templateRef='octapole']/cml:table"     value="cc:octapoleMoment" />
+  <transform process="addDictRef" xpath="./cml:list[@cmlx:templateRef='hexadecapole']/cml:table" value="cc:hexadecapoleMoment" />
+
+  <transform process="createWrapperProperty" xpath="./cml:list[@cmlx:templateRef='total']//cml:scalar[@dictRef='cc:dipoleMoment']" />
+  <transform process="createWrapperProperty" xpath="./cml:list[@cmlx:templateRef='dipole']//cml:array[@dictRef='cc:dipoleMomentVector']" />
+  <transform process="createWrapperProperty" xpath="./cml:list[@cmlx:templateRef='quadrupole']/cml:table[@dictRef='cc:quadrupoleMoment']" />
+  <transform process="createWrapperProperty" xpath="./cml:list[@cmlx:templateRef='octapole']/cml:table[@dictRef='cc:octapoleMoment']" />
+  <transform process="createWrapperProperty" xpath="./cml:list[@cmlx:templateRef='hexadecapole']/cml:table[@dictRef='cc:hexadecapoleMoment']" />
+
+  <!-- add units -->
+  <transform process="addUnits" xpath=".//cml:property[@dictRef='cc:dipoleMoment']/cml:scalar"       value="nonSi:debye" />
+  <transform process="addUnits" xpath=".//cml:property[@dictRef='cc:dipoleMomentVector']/cml:array"  value="nonSi:debye" />
+  <transform process="addUnits" value="nonSi:debye.angstrom"
+             xpath=".//cml:array[@dictRef='cc:quadrupoleMoment' or @dictRef='cc:tracelessQuadrupoleMoment']" />
+  <transform process="addUnits" xpath=".//cml:array[@dictRef='cc:octapoleMoment']"     value="nonSi:debye.angstrom2" />
+  <transform process="addUnits" xpath=".//cml:array[@dictRef='cc:hexadecapoleMoment']" value="nonSi:debye.angstrom3" />
+
+  <!-- pull up properties -->
+  <transform process="pullup" xpath="./cml:list/cml:list/cml:property" />
+  <transform process="pullup" xpath="./cml:list/cml:property" />
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:table[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:property[count(*)=0]" />
+
+
+  <comment class="example.output" id="multipole.moments">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="multipole.moments">
+      <property dictRef="cc:dipoleMomentVector">
+        <array dataType="xsd:double" size="3" units="nonSi:debye">0.7211 -1.5317 0.0</array>
+      </property>
+      <property dictRef="cc:dipoleMoment">
+        <scalar dataType="xsd:double" units="nonSi:debye">1.693</scalar>
+      </property>
+      <property dictRef="cc:quadrupoleMoment">
+        <table tableType="columnBased" rows="6" columns="2">
+          <arrayList>
+            <array dataType="xsd:string" size="6" dictRef="cc:coordinateLabel">XX XY YY XZ YZ ZZ</array>
+            <array dataType="xsd:double" size="6" dictRef="cc:quadrupoleMoment" units="nonSi:debye.angstrom">-12.5289 2.2369 -12.0463 0.0 0.0 -13.5832</array>
+          </arrayList>
+        </table>
+      </property>
+      <property dictRef="cc:octapoleMoment">
+        <table tableType="columnBased" rows="10" columns="2">
+          <arrayList>
+            <array dataType="xsd:string" size="10" dictRef="cc:coordinateLabel">XXX XXY XYY YYY XXZ XYZ YYZ XZZ YZZ ZZZ</array>
+            <array dataType="xsd:double" size="10" dictRef="cc:octapoleMoment" units="nonSi:debye.angstrom2">-4.576 -2.1106 -1.8165 -0.2562 0.0 0.0 0.0 -0.5875 -0.424 0.0</array>
+          </arrayList>
+        </table>
+      </property>
+      <property dictRef="cc:hexadecapoleMoment">
+        <table tableType="columnBased" rows="15" columns="2">
+          <arrayList>
+            <array dataType="xsd:string" size="15" dictRef="cc:coordinateLabel">XXXX XXXY XXYY XYYY YYYY XXXZ XXYZ XYYZ YYYZ XXZZ XYZZ YYZZ XZZZ YZZZ ZZZZ</array>
+            <array dataType="xsd:double" size="15" dictRef="cc:hexadecapoleMoment" units="nonSi:debye.angstrom3">-59.5385 4.0359 -12.1286 3.0253 -19.5171 0.0 0.0 0.0 0.0 -13.7458 0.0991 -6.5664 0.0 0.0 -19.1041</array>
+          </arrayList>
+        </table>
+      </property>
+    </module>
+  </comment>
+
+</template>

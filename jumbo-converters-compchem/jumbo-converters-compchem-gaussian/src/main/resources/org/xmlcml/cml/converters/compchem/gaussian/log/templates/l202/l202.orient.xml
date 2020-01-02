@@ -16,12 +16,23 @@
  ---------------------------------------------------------------------
   </comment>
  
-  <record repeat="5"/> 
+  <record id="orientation">\s*{A,x:orientation}\s+orientation:\s*</record>
+  <record repeat="4"/> 
   <record repeat="*" makeArray="true" id="atom">{I,cc:serial}{I,cc:elementType}{I,g:atomicType}{F,cc:x3}{F,cc:y3}{F,cc:z3}</record>
   <record/>
   
   <transform process="createMolecule" xpath="./cml:list[@cmlx:templateRef='atom']/cml:array" id="mol.l202.orient"/>
   <transform process="pullupSingleton" xpath="./cml:list"/>
+
+  <transform process="addAttribute" name="orientation" 
+    xpath=".//cml:molecule[@cmlx:templateRef='atom' and starts-with(../cml:scalar[@dictRef='x:orientation'], 'Input')]" 
+    value="input" />
+  <transform process="addAttribute" name="orientation" 
+    xpath=".//cml:molecule[@cmlx:templateRef='atom' and starts-with(../cml:scalar[@dictRef='x:orientation'], 'Standard')]" 
+    value="standard" />
+
+  <!-- remove orientation scalar -->
+  <transform process="delete" xpath=".//cml:scalar[@dictRef='x:orientation']" />
   
   <!--  delete empty lists -->
  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
@@ -29,7 +40,7 @@
   
   <comment class="example.output" id="l202.orient">
     <module cmlx:templateRef="l202.orient" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <molecule id="mol.l202.orient" cmlx:templateRef="atom">
+      <molecule id="mol.l202.orient" cmlx:templateRef="atom" orientation="input">
         <atomArray>
           <atom id="a1" elementType="C" x3="0.0" y3="0.0" z3="0.0">
             <scalar dataType="xsd:integer" dictRef="cc:serial">1</scalar>
@@ -67,7 +78,7 @@
           <bond atomRefs2="a1 a5" id="a1_a5" order="S"/>
         </bondArray>
         <property dictRef="cml:molmass">
-          <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">16.04246</scalar>
+          <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/nonSi/">16.04246</scalar>
         </property>
       </molecule>
     </module>

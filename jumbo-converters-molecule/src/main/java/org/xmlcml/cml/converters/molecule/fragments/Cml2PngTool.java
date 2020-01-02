@@ -15,7 +15,8 @@ import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 
-import org.openscience.cdk.geometry.GeometryTools;
+//import org.openscience.cdk.geometry.GeometryTools; //Legacy: use org.openscience.cdk.geometry.GeometryUtil instead. 
+//import org.openscience.cdk.geometry.GeometryUtil;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.renderer.AtomContainerRenderer;
 import org.openscience.cdk.renderer.font.AWTFontManager;

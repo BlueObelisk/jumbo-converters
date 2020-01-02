@@ -1,0 +1,117 @@
+<template id="distance.matrix"
+  repeat="*"
+  name="distance.matrix"
+  pattern="\s*Distance Matrix \(Angstroms\)\s*"      offset="0"
+  endPattern="\s+$"                                  endOffset="0" >
+
+  <comment class="example.input" id="distance.matrix">
+                       Distance Matrix (Angstroms)
+             C (  1)   C (  2)   C (  3)   C (  4)   C (  5)   C (  6)
+   C (  2)  1.385468
+   C (  3)  2.404513  1.385392
+   C (  4)  2.774401  2.396744  1.385392
+   C (  5)  2.410679  2.774401  2.404513  1.385468
+   C (  6)  1.383064  2.386410  2.758836  2.386410  1.383064
+   Cl(  7)  2.706469  3.992778  4.503835  3.992778  2.706469  1.744999
+   H (  8)  1.073515  2.144183  3.381430  3.847872  3.379406  2.133788
+   H (  9)  2.130342  1.075108  2.138422  3.372941  3.849501  3.359706
+   H ( 10)  3.377865  2.137556  1.074905  2.137556  3.377865  3.833741
+   H ( 11)  3.849501  3.372941  2.138422  1.075108  2.130342  3.359706
+   H ( 12)  3.379406  3.847872  3.381430  2.144183  1.073515  2.133788
+             Cl(  7)   H (  8)   H (  9)   H ( 10)   H ( 11)
+   H (  8)  2.838997
+   H (  9)  4.836733  2.464047
+   H ( 10)  5.578740  4.270361  2.465264
+   H ( 11)  4.836733  4.922956  4.264484  2.465264
+   H ( 12)  2.838997  4.259361  4.922956  4.270361  2.464047
+  </comment>
+
+  <comment class="example.input" id="distance.matrix2">
+                       Distance Matrix (Angstroms)
+             O (  1)   H (  2)   H (  3)
+   H (  2)  0.960426
+   H (  3)  0.960426  1.613093
+   H (  4)  0.960426  1.613093  1.613093
+  </comment>
+
+  <record id="unparsed" />
+  <templateList>
+    <template id="distance.matrix"
+              repeat="*"
+              name="distance.matrix"
+              pattern="(\s+\w[\w\s].\s*\d+.\s+){1,6}"      offset="0"
+              endPattern="(\s+\w[\w\s].\s*\d+.\s+){1,6}"   endOffset="0"
+              endPattern2="~"                            endOffset2="0">
+      <record id="unparsed" />
+      <record id="distance.matrix" repeat="*">\s*\w[\w\s].\s*{I,g:row}.\s+{1_6F,q:distmat}</record>
+    </template>
+  </templateList>
+
+  <transform process="pullup" xpath=".//cml:module/cml:list" />
+  <transform process="pullup" xpath=".//cml:list/cml:list" />
+  <transform process="addAttribute" 
+             xpath=".//cml:list/cml:array"
+             name="cmlx:row"
+             value="$string(../cml:scalar[@dictRef='g:row'])" />
+  <transform process="pullup" xpath=".//cml:list/cml:scalar" />
+  <transform process="pullup" xpath=".//cml:list/cml:array" />
+
+  <transform process="joinArrays" xpath=".//cml:array[@cmlx:row]" key="$string(@cmlx:row)" />
+
+  <transform process="addUnits" xpath=".//cml:array" value="nonSi:angstrom" />
+
+  <transform process="addChild"
+             elementName="cml:list"
+             xpath="."
+             position="0"
+             dictRef="cc:distance.matrix" />
+
+  <transform process="move" xpath=".//cml:array" to=".//cml:list[@dictRef='cc:distance.matrix']" />
+
+  <transform process="createWrapperProperty" xpath=".//cml:list[@dictRef='cc:distance.matrix']" />
+
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:module[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:scalar[@dictRef='g:row']" />
+
+  <!-- 
+    ToDo: (later) cross-check with other codes!
+    * maybe create row="1" with value 0.0 and append 0.0 to other rows
+    * maybe merge into a single array (Gaussian's l202.distmat.xml)
+   -->
+  <comment class="example.output" id="distance.matrix">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="distance.matrix">
+      <property dictRef="cc:distance.matrix">
+        <list>
+          <array dataType="xsd:double" size="1" dictRef="q:distmat" cmlx:row="2" units="nonSi:angstrom">1.385468</array>
+          <array dataType="xsd:double" size="2" dictRef="q:distmat" cmlx:row="3" units="nonSi:angstrom">2.404513 1.385392</array>
+          <array dataType="xsd:double" size="3" dictRef="q:distmat" cmlx:row="4" units="nonSi:angstrom">2.774401 2.396744 1.385392</array>
+          <array dataType="xsd:double" size="4" dictRef="q:distmat" cmlx:row="5" units="nonSi:angstrom">2.410679 2.774401 2.404513 1.385468</array>
+          <array dataType="xsd:double" size="5" dictRef="q:distmat" cmlx:row="6" units="nonSi:angstrom">1.383064 2.38641 2.758836 2.38641 1.383064</array>
+          <array dataType="xsd:double" size="6" dictRef="q:distmat" cmlx:row="7" units="nonSi:angstrom">2.706469 3.992778 4.503835 3.992778 2.706469 1.744999</array>
+          <array dataType="xsd:double" size="7" dictRef="q:distmat" units="nonSi:angstrom">1.073515 2.144183 3.38143 3.847872 3.379406 2.133788 2.838997</array>
+          <array dataType="xsd:double" size="8" dictRef="q:distmat" units="nonSi:angstrom">2.130342 1.075108 2.138422 3.372941 3.849501 3.359706 4.836733 2.464047</array>
+          <array dataType="xsd:double" size="9" dictRef="q:distmat" units="nonSi:angstrom">3.377865 2.137556 1.074905 2.137556 3.377865 3.833741 5.57874 4.270361 2.465264</array>
+          <array dataType="xsd:double" size="10" dictRef="q:distmat" units="nonSi:angstrom">3.849501 3.372941 2.138422 1.075108 2.130342 3.359706 4.836733 4.922956 4.264484 2.465264</array>
+          <array dataType="xsd:double" size="11" dictRef="q:distmat" units="nonSi:angstrom">3.379406 3.847872 3.38143 2.144183 1.073515 2.133788 2.838997 4.259361 4.922956 4.270361 2.464047</array>
+        </list>
+      </property>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="distance.matrix2">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="distance.matrix">
+      <property dictRef="cc:distance.matrix">
+        <list>
+          <array dataType="xsd:double" size="1" dictRef="q:distmat" cmlx:row="2" units="nonSi:angstrom">0.960426</array>
+          <array dataType="xsd:double" size="2" dictRef="q:distmat" cmlx:row="3" units="nonSi:angstrom">0.960426 1.613093</array>
+          <array dataType="xsd:double" size="3" dictRef="q:distmat" cmlx:row="4" units="nonSi:angstrom">0.960426 1.613093 1.613093</array>
+        </list>
+      </property>
+    </module>
+  </comment>
+
+</template>

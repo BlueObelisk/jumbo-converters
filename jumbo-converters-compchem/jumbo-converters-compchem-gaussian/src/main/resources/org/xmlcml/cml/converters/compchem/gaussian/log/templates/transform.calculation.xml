@@ -14,9 +14,16 @@
       starts-with(@cmlx:templateRef,'l103') or
       starts-with(@cmlx:templateRef,'l202') or
       starts-with(@cmlx:templateRef,'l301') or
-      starts-with(@cmlx:templateRef,'l302')
+      starts-with(@cmlx:templateRef,'l302') or
+      starts-with(@cmlx:templateRef,'l401')
       ] | 
-      .//cml:scalar[@dictRef='cc:nucrepener']" 
-      to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='calculation']/cml:module[@id='otherComponents']"/> 
+      .//cml:scalar[@dictRef='cc:Energy_NucRep']" 
+      to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='calculation']/cml:module[@id='otherComponents']"/>
+
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l601.anisospin' or @cmlx:templateRef='l601.fermi']"
+             to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='calculation']/cml:module[@id='otherComponents']" />
+
+  <transform process="addAttribute" xpath=".//cml:module[@id='calculation']//cml:molecule" name="spinMultiplicity" value="$string(../../../../cml:module[@id='initialization']//cml:parameter[@dictRef='cc:spinMultiplicity'])" />
+  <transform process="addAttribute" xpath=".//cml:module[@id='calculation']/*/*/cml:molecule" name="formalCharge" value="$string(../../../../cml:module[@id='initialization']//cml:parameter[@dictRef='cc:charge'])" />
   
 </transformList> 

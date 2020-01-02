@@ -2,18 +2,18 @@
 
   <!-- structuring for the compchem convention -->
   <transform process="createWrapperParameter" 
-      xpath=".//cml:scalar[@dictRef='cc:hostname' or 
+      xpath=".//cml:scalar[@dictRef='cc:hostName' or 
                            @dictRef='cc:jobname' or
                            @dictRef='cc:method' or
-                           @dictRef='cc:basis'
+                           @dictRef='cc:basisSetLabel'
                            ]"/>
   <transform process="createWrapperMetadata" 
-      xpath=".//cml:scalar[@dictRef='cc:version' or
-                           @dictRef='cc:date' or
+      xpath=".//cml:scalar[@dictRef='cc:programVersion' or
+                           @dictRef='cc:runDate' or
                            @dictRef='cc:title']"/>
   <transform process="createWrapperProperty" 
       xpath=".//*[@dictRef='cc:electronicstate' or
-                           @dictRef='cc:hfenergy' or
+                           @dictRef='cc:Energy_total' or
                            @dictRef='cc:dipole' or
                            @dictRef='cc:dipolederiv' or
                            @dictRef='cc:polarizability' or

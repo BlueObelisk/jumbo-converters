@@ -1,0 +1,384 @@
+<template id="atomic.basis.set"
+  repeat="*"
+  name="atomic.basis.set"
+  pattern="\s*ATOMIC BASIS SET\s*$\s*-+\s*"            offset="0"
+  endPattern="\s*THE NUCLEAR REPULSION ENERGY IS.+" endOffset="1" 
+  xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <comment class="example.input" id="atomic.basis.set">
+     ATOMIC BASIS SET
+     ----------------
+ THE CONTRACTED PRIMITIVE FUNCTIONS HAVE BEEN UNNORMALIZED
+ THE CONTRACTED BASIS FUNCTIONS ARE NOW NORMALIZED TO UNITY
+
+  SHELL TYPE  PRIMITIVE        EXPONENT          CONTRACTION COEFFICIENT(S)
+
+ C         
+
+      1   S       1          3047.5248800    0.001834737132
+      1   S       2           457.3695180    0.014037322813
+      1   S       3           103.9486850    0.068842622264
+      1   S       4            29.2101553    0.232184443216
+      1   S       5             9.2866630    0.467941348435
+      1   S       6             3.1639270    0.362311985337
+
+      2   L       7             7.8682723   -0.119332419775    0.068999066591
+      2   L       8             1.8812885   -0.160854151696    0.316423960957
+      2   L       9             0.5442493    1.143456437840    0.744308290898
+
+      3   L      10             0.1687145    1.000000000000    1.000000000000
+
+ H         
+
+      4   S      11            18.7311370    0.033494604338
+      4   S      12             2.8253944    0.234726953484
+      4   S      13             0.6401217    0.813757326146
+
+      5   S      14             0.1612778    1.000000000000
+
+ H         
+
+      6   S      15            18.7311370    0.033494604338
+      6   S      16             2.8253944    0.234726953484
+      6   S      17             0.6401217    0.813757326146
+
+      7   S      18             0.1612778    1.000000000000
+
+ H         
+
+      8   S      19            18.7311370    0.033494604338
+      8   S      20             2.8253944    0.234726953484
+      8   S      21             0.6401217    0.813757326146
+
+      9   S      22             0.1612778    1.000000000000
+
+ H     
+
+     10   S      23            18.7311370    0.033494604338
+     10   S      24             2.8253944    0.234726953484
+     10   S      25             0.6401217    0.813757326146
+
+     11   S      26             0.1612778    1.000000000000
+
+ TOTAL NUMBER OF BASIS SET SHELLS             =   11
+ NUMBER OF CARTESIAN GAUSSIAN BASIS FUNCTIONS =   17
+ NUMBER OF ELECTRONS                          =   10
+ CHARGE OF MOLECULE                           =    0
+ SPIN MULTIPLICITY                            =    1
+ NUMBER OF OCCUPIED ORBITALS (ALPHA)          =    5
+ NUMBER OF OCCUPIED ORBITALS (BETA )          =    5
+ TOTAL NUMBER OF ATOMS                        =    5
+ THE NUCLEAR REPULSION ENERGY IS       13.4352856837
+  </comment>
+
+  <!-- RECORD -->
+  <record id="unparsed" repeat="2" />
+  <record id="atomic.basis.set.unparsed" repeat="2">\s*{X,x:UNPARSED}\s*</record>
+  <record id="unparsed" repeat="3" />
+
+
+  <templateList>
+    <template id="atomic.basis.set" repeat="*" 
+      pattern="\s*\w+\s*"                                  offset="0"
+      endPattern="\s*\w+\s*"                               endOffset="0"
+      endPattern2="\s*TOTAL NUMBER OF BASIS SET SHELLS.+$" endOffset2="0">
+      <record id="basisSet">\s*{A,cc:elementType}\s*</record>
+      <templateList>
+        <template id="Set1" repeat="*"
+                  pattern="\s*\d+\s+.\s+\d+\s+-*\d+\.\d+\s+-*\d+\.\d+\s*" offset="0"
+                  endPattern="\s*"                                        endOffset="0"
+                  endPattern2="~"                                         endOffset2="0">
+            <record id="basisSetContractions" makeArray="true" repeat="*">\s*\d+\s+{A,cc:basisSetShell}\s+{I,m:PRIMITIVE}\s+{F,cc:basisSetExponent}\s+{F,cc:basisSetCoefficient}\s*</record>
+        </template>
+        <template id="Set2" repeat="*"
+                  pattern="\s*\d+\s+.\s+\d+\s+-*\d+\.\d+\s+-*\d+\.\d+\s+-*\d+\.\d+\s*" offset="0"
+                  endPattern="\s*"                                                     endOffset="0"
+                  endPattern2="~"                                                      endOffset2="0">
+            <record id="basisSetContractions" makeArray="true" repeat="*">\s*\d+\s+{A,cc:basisSetShell}\s+{I,m:PRIMITIVE}\s+{F,cc:basisSetExponent}\s+{F,cc:basisSetCoefficient1}\s+{F,cc:basisSetCoefficient2}\s*</record>
+        </template>
+      </templateList>
+    </template>
+    <xi:include href="atomic.basis.set.values.xml" />
+  </templateList>
+
+
+  <!-- ORGANIZE -->
+  <transform process="addChild"     xpath=".//cml:list[@cmlx:templateRef='basisSet']" 
+             elementName="cml:list" id="basisSetContractions" position="0" dictRef="cc:basisSetContractions" />
+
+  <transform process="moveRelative" xpath=".//cml:list[@cmlx:templateRef='basisSet']/cml:scalar"
+                                    to="../cml:list[@dictRef='cc:basisSetContractions']" />
+
+  <transform process="pullup"       xpath=".//cml:list[@dictRef='cc:basisSetContractions']"/>
+
+  <transform process="addChild"     xpath=".//cml:list[@cmlx:templateRef='basisSetContractions']" 
+             elementName="cml:list" id="basisSetContraction" position="0" dictRef="cc:basisSetContraction" />
+
+  <transform process="moveRelative" xpath=".//cml:list[@cmlx:templateRef='basisSetContractions']/cml:scalar"
+                                    to="../cml:list[@dictRef='cc:basisSetContraction']" />
+  <transform process="moveRelative" xpath=".//cml:list[@cmlx:templateRef='basisSetContractions']/cml:array"
+                                    to="../cml:list[@dictRef='cc:basisSetContraction']" />
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='atomic.basis.set']/cml:module/cml:list"
+                                    to="../../cml:list[@dictRef='cc:basisSetContractions']" />
+
+  <!-- turn <array dictRef="cc:basisSetShell"> into <scalar dictRef="cc:basisSetShell"> -->
+  <transform process="split"        xpath=".//cml:list[@id='basisSetContraction']/cml:array[@dictRef='cc:basisSetShell']"/>
+  <transform process="pullup"       xpath=".//cml:list[@id='basisSetContraction']/cml:list/cml:scalar[@dictRef='cc:basisSetShell'][1]"/>
+  <transform process="delete"       xpath=".//cml:list[@id='basisSetContraction']/cml:list/cml:scalar[@dictRef='cc:basisSetShell']"/>
+
+
+  <transform process="pullup"       xpath=".//cml:list[@dictRef='cc:basisSetContractions']/cml:list[@cmlx:templateRef='basisSetContractions']/cml:list" />
+  <transform process="pullup"       xpath=".//cml:list[@dictRef='cc:basisSetContractions']" />
+
+  <!-- group  "cc:basisSetContractions" in a <parameter><list /></parameter> -->
+  <transform process="addChild"     elementName="cml:list" id="basisSet" position="2" dictRef="cc:basisSet"  xpath="."/>
+  <transform process="moveRelative" xpath="./cml:list[@dictRef='cc:basisSetContractions']"  to="../cml:list[@id='basisSet']" />  
+  <transform process="createWrapperParameter" xpath="./cml:list[@id='basisSet']" />
+
+  <transform process="pullup"       xpath=".//cml:module[@cmlx:templateRef='atomic.basis.set.values']/cml:parameter" />
+
+  <!-- UNPARSED -->
+  <transform process="addDictRef"   xpath=".//cml:list[@cmlx:templateRef='atomic.basis.set.unparsed']"      value="x:UNPARSED" />
+  <transform process="createWrapperParameter" xpath=".//cml:list[@dictRef='x:UNPARSED']" />
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
+  <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
+
+ 
+
+  <comment class="example.output" id="atomic.basis.set">
+    <module cmlx:templateRef="atomic.basis.set" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef='x:UNPARSED'>
+        <list cmlx:templateRef="atomic.basis.set.unparsed">
+          <scalar dataType="xsd:string" dictRef="x:UNPARSED">THE CONTRACTED PRIMITIVE FUNCTIONS HAVE BEEN UNNORMALIZED</scalar>
+          <scalar dataType="xsd:string" dictRef="x:UNPARSED">THE CONTRACTED BASIS FUNCTIONS ARE NOW NORMALIZED TO UNITY</scalar>
+        </list>
+      </parameter>
+      <parameter dictRef="cc:basisSet">
+        <list id="basisSet">
+          <list dictRef="cc:basisSetContractions" id="basisSetContractions">
+            <scalar dataType="xsd:string" dictRef="cc:elementType">C</scalar>
+            <list dictRef="cc:basisSetContraction" id="basisSetContraction">
+              <scalar dataType="xsd:string" dictRef="cc:basisSetShell">S</scalar>
+              <array size="6" dataType="xsd:integer" dictRef="m:PRIMITIVE">1 2 3 4 5 6</array>
+              <array size="6" dataType="xsd:double" dictRef="cc:basisSetExponent">3047.52488 457.369518 103.948685 29.2101553 9.286663 3.163927</array>
+              <array size="6" dataType="xsd:double" dictRef="cc:basisSetCoefficient">0.001834737132 0.014037322813 0.068842622264 0.232184443216 0.467941348435 0.362311985337</array>
+            </list>
+            <list dictRef="cc:basisSetContraction" id="basisSetContraction">
+              <scalar dataType="xsd:string" dictRef="cc:basisSetShell">L</scalar>
+              <array size="3" dataType="xsd:integer" dictRef="m:PRIMITIVE">7 8 9</array>
+              <array size="3" dataType="xsd:double" dictRef="cc:basisSetExponent">7.8682723 1.8812885 0.5442493</array>
+              <array size="3" dataType="xsd:double" dictRef="cc:basisSetCoefficient1">-0.119332419775 -0.160854151696 1.14345643784</array>
+              <array size="3" dataType="xsd:double" dictRef="cc:basisSetCoefficient2">0.068999066591 0.316423960957 0.744308290898</array>
+            </list>
+            <list dictRef="cc:basisSetContraction" id="basisSetContraction">
+              <scalar dataType="xsd:string" dictRef="cc:basisSetShell">L</scalar>
+              <array size="1" dataType="xsd:integer" dictRef="m:PRIMITIVE">10</array>
+              <array size="1" dataType="xsd:double" dictRef="cc:basisSetExponent">0.1687145</array>
+              <array size="1" dataType="xsd:double" dictRef="cc:basisSetCoefficient1">1.0</array>
+              <array size="1" dataType="xsd:double" dictRef="cc:basisSetCoefficient2">1.0</array>
+            </list>
+          </list>
+
+          <list dictRef="cc:basisSetContractions" id="basisSetContractions">
+            <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
+            <list dictRef="cc:basisSetContraction" id="basisSetContraction">
+              <scalar dataType="xsd:string" dictRef="cc:basisSetShell">S</scalar>
+              <array size="3" dataType="xsd:integer" dictRef="m:PRIMITIVE">11 12 13</array>
+              <array size="3" dataType="xsd:double" dictRef="cc:basisSetExponent">18.731137 2.8253944 0.6401217</array>
+              <array size="3" dataType="xsd:double" dictRef="cc:basisSetCoefficient">0.033494604338 0.234726953484 0.813757326146</array>
+            </list>
+            <list dictRef="cc:basisSetContraction" id="basisSetContraction">
+              <scalar dataType="xsd:string" dictRef="cc:basisSetShell">S</scalar>
+              <array size="1" dataType="xsd:integer" dictRef="m:PRIMITIVE">14</array>
+              <array size="1" dataType="xsd:double" dictRef="cc:basisSetExponent">0.1612778</array>
+              <array size="1" dataType="xsd:double" dictRef="cc:basisSetCoefficient">1.0</array>
+            </list>
+          </list>
+
+          <list dictRef="cc:basisSetContractions" id="basisSetContractions">
+            <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
+            <list dictRef="cc:basisSetContraction" id="basisSetContraction">
+              <scalar dataType="xsd:string" dictRef="cc:basisSetShell">S</scalar>
+              <array size="3" dataType="xsd:integer" dictRef="m:PRIMITIVE">15 16 17</array>
+              <array size="3" dataType="xsd:double" dictRef="cc:basisSetExponent">18.731137 2.8253944 0.6401217</array>
+              <array size="3" dataType="xsd:double" dictRef="cc:basisSetCoefficient">0.033494604338 0.234726953484 0.813757326146</array>
+            </list>
+            <list dictRef="cc:basisSetContraction" id="basisSetContraction">
+              <scalar dataType="xsd:string" dictRef="cc:basisSetShell">S</scalar>
+              <array size="1" dataType="xsd:integer" dictRef="m:PRIMITIVE">18</array>
+              <array size="1" dataType="xsd:double" dictRef="cc:basisSetExponent">0.1612778</array>
+              <array size="1" dataType="xsd:double" dictRef="cc:basisSetCoefficient">1.0</array>
+            </list>
+          </list>
+
+          <list dictRef="cc:basisSetContractions" id="basisSetContractions">
+            <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
+            <list dictRef="cc:basisSetContraction" id="basisSetContraction">
+              <scalar dataType="xsd:string" dictRef="cc:basisSetShell">S</scalar>
+              <array size="3" dataType="xsd:integer" dictRef="m:PRIMITIVE">19 20 21</array>
+              <array size="3" dataType="xsd:double" dictRef="cc:basisSetExponent">18.731137 2.8253944 0.6401217</array>
+              <array size="3" dataType="xsd:double" dictRef="cc:basisSetCoefficient">0.033494604338 0.234726953484 0.813757326146</array>
+            </list>
+            <list dictRef="cc:basisSetContraction" id="basisSetContraction">
+              <scalar dataType="xsd:string" dictRef="cc:basisSetShell">S</scalar>
+              <array size="1" dataType="xsd:integer" dictRef="m:PRIMITIVE">22</array>
+              <array size="1" dataType="xsd:double" dictRef="cc:basisSetExponent">0.1612778</array>
+              <array size="1" dataType="xsd:double" dictRef="cc:basisSetCoefficient">1.0</array>
+            </list>
+          </list>
+
+          <list dictRef="cc:basisSetContractions" id="basisSetContractions">
+            <scalar dataType="xsd:string" dictRef="cc:elementType">H</scalar>
+            <list dictRef="cc:basisSetContraction" id="basisSetContraction">
+              <scalar dataType="xsd:string" dictRef="cc:basisSetShell">S</scalar>
+              <array size="3" dataType="xsd:integer" dictRef="m:PRIMITIVE">23 24 25</array>
+              <array size="3" dataType="xsd:double" dictRef="cc:basisSetExponent">18.731137 2.8253944 0.6401217</array>
+              <array size="3" dataType="xsd:double" dictRef="cc:basisSetCoefficient">0.033494604338 0.234726953484 0.813757326146</array>
+            </list>
+            <list dictRef="cc:basisSetContraction" id="basisSetContraction">
+              <scalar dataType="xsd:string" dictRef="cc:basisSetShell">S</scalar>
+              <array size="1" dataType="xsd:integer" dictRef="m:PRIMITIVE">26</array>
+              <array size="1" dataType="xsd:double" dictRef="cc:basisSetExponent">0.1612778</array>
+              <array size="1" dataType="xsd:double" dictRef="cc:basisSetCoefficient">1.0</array>
+            </list>
+          </list>
+
+        </list>
+      </parameter>
+
+      <parameter dictRef="m:basisSetSummary">
+        <list>
+          <scalar dataType="xsd:integer" dictRef="m:TotalNumberOfBasisSetShells">11</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:NumberOfCartesianGaussianBasisFunctions">17</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:NumberOfElectrons">10</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:ChargeOfMolecule">0</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:SpinMultiplicity">1</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:NumberOfOccupiedOrbitals(alpha)">5</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:NumberOfOccupiedOrbitals(beta)">5</scalar>
+          <scalar dataType="xsd:integer" dictRef="m:TotalNumberOfAtoms">5</scalar>
+        </list>
+      </parameter>
+
+      <parameter dictRef="cc:Energy_NucRep">
+        <scalar dataType="xsd:double" units="nonSi:hartree">13.4352856837</scalar>
+      </parameter>
+
+    </module>
+  </comment>
+
+<comment>
+     ATOMIC BASIS SET
+     ----------------
+ THE CONTRACTED PRIMITIVE FUNCTIONS HAVE BEEN UNNORMALIZED
+ THE CONTRACTED BASIS FUNCTIONS ARE NOW NORMALIZED TO UNITY
+
+ SHELL TYPE PRIMITIVE    EXPONENT          CONTRACTION COEFFICIENTS
+
+ C         
+
+   1   S    1        4563.2400000      0.778201756666
+   1   S    2         682.0240000      1.448694805354
+   1   S    3         154.9730000      2.383089332216
+   1   S    4          44.4553000      3.200089012264
+   1   S    5          13.0290000      3.013004437644
+   1   S    6           1.8277300      0.247598632588
+
+   2   L    7          20.9642000      0.800628519340      2.573592215248
+   2   L    8           4.8033100      2.127419891437      2.408248222810
+   2   L    9           1.4593300     -0.002867910631      1.865281333534
+
+   3   L   10           0.4834560      0.413216645796      0.574627334294
+
+   4   L   11           0.1455850      0.167976127675      0.128184607047
+
+   5   L   12           0.0438000      0.068236332242      0.028561612717
+
+   6   D   13           2.5040000      8.203884248733
+
+   7   D   14           0.6260000      0.725127773044
+
+   8   D   15           0.1565000      0.064092845693
+
+   9   F   16           0.8000000      0.891059942452
+
+ H         
+
+  10   S   17          33.8650000      0.255069319973
+  10   S   18           5.0947900      0.460108662166
+  10   S   19           1.1587900      0.678321446492
+
+  11   S   20           0.3258400      0.307371353862
+
+  12   S   21           0.1027410      0.129335555758
+
+  13   S   22           0.0360000      0.058902939417
+
+  14   P   23           1.5000000      2.366214774340
+
+  15   P   24           0.3750000      0.418291628170
+
+ H         
+
+  16   S   25          33.8650000      0.255069319973
+  16   S   26           5.0947900      0.460108662166
+  16   S   27           1.1587900      0.678321446492
+
+  17   S   28           0.3258400      0.307371353862
+
+  18   S   29           0.1027410      0.129335555758
+
+  19   S   30           0.0360000      0.058902939417
+
+  20   P   31           1.5000000      2.366214774340
+
+  21   P   32           0.3750000      0.418291628170
+
+ H         
+
+  22   S   33          33.8650000      0.255069319973
+  22   S   34           5.0947900      0.460108662166
+  22   S   35           1.1587900      0.678321446492
+
+  23   S   36           0.3258400      0.307371353862
+
+  24   S   37           0.1027410      0.129335555758
+
+  25   S   38           0.0360000      0.058902939417
+
+  26   P   39           1.5000000      2.366214774340
+
+  27   P   40           0.3750000      0.418291628170
+
+ H         
+
+  28   S   41          33.8650000      0.255069319973
+  28   S   42           5.0947900      0.460108662166
+  28   S   43           1.1587900      0.678321446492
+
+  29   S   44           0.3258400      0.307371353862
+
+  30   S   45           0.1027410      0.129335555758
+
+  31   S   46           0.0360000      0.058902939417
+
+  32   P   47           1.5000000      2.366214774340
+
+  33   P   48           0.3750000      0.418291628170
+
+ TOTAL NUMBER OF BASIS SET SHELLS             =   33
+ NUMBER OF CARTESIAN GAUSSIAN BASIS FUNCTIONS =   85
+ NOTE: THIS RUN WILL RESTRICT THE MO VARIATION SPACE TO SPHERICAL HARMONICS.
+ THE NUMBER OF ORBITALS KEPT IN THE VARIATIONAL SPACE WILL BE PRINTED LATER.
+ NUMBER OF ELECTRONS                          =   10
+ CHARGE OF MOLECULE                           =    0
+ SPIN MULTIPLICITY                            =    1
+ NUMBER OF OCCUPIED ORBITALS (ALPHA)          =    5
+ NUMBER OF OCCUPIED ORBITALS (BETA )          =    5
+ TOTAL NUMBER OF ATOMS                        =    5
+ THE NUCLEAR REPULSION ENERGY IS       13.3912020570
+  </comment>
+</template>

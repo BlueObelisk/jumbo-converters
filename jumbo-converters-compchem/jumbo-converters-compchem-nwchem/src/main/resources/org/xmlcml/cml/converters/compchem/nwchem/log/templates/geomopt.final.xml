@@ -189,7 +189,7 @@ MA usage statistics:
   />
   <!--  Nuclear Repulsion and Dipole -->
   <transform process="move"
-  xpath="./cml:module[@cmlx:templateRef='geometry']/cml:module[@cmlx:templateRef='nuclearRepulsionEnergy']/cml:scalar[@dictRef='compchem:nuclearRepulsionEnergy']"  
+  xpath="./cml:module[@cmlx:templateRef='geometry']/cml:module[@cmlx:templateRef='nuclearRepulsionEnergy']/cml:scalar[@dictRef='compchem:Energy_NucRep']"  
   to="./cml:propertyList"
   />
   <transform process="move"
@@ -338,11 +338,11 @@ MA usage statistics:
 <bond atomRefs2="a1 a3" id="a1_a3" order="S" />
 </bondArray>
 <property dictRef="cml:molmass">
-<scalar xmlns:unit="http://www.xml-cml.org/unit/si/" dataType="xsd:double" units="unit:dalton">18.01528</scalar>
+<scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/nonSi/">18.01528</scalar>
 </property>
 </molecule>
 <propertyList>
-<property dictRef="compchem:totalEnergy">
+<property dictRef="compchem:Energy_total">
 <scalar dataType="xsd:double" units="nonsi:hartree">-74.96590119</scalar>
 </property>
 <property dictRef="compchem:wallTime">
@@ -357,8 +357,8 @@ MA usage statistics:
 <property dictRef="compchem:groupOrder">
 <scalar dataType="xsd:integer" cmlx:templateRef="groupOrder">4</scalar>
 </property>
-<property dictRef="compchem:nuclearRepulsionEnergy">
-<scalar dataType="xsd:double" cmlx:templateRef="nuclearRepulsionEnergy">8.9063351314</scalar>
+<property dictRef="compchem:Energy_NucRep">
+<scalar dataType="xsd:double" cmlx:templateRef="Energy_NucRep">8.9063351314</scalar>
 </property>
 <property dictRef="compchem:nuclearDipoleMoment">
 <array dataType="xsd:double" size="3">0.0 0.0 0.4363472951</array>

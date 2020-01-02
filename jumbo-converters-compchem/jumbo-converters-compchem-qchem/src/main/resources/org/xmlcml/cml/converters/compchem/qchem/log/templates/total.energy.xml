@@ -1,0 +1,30 @@
+<template id="total.energy"
+		  repeat="*"
+		  name="total.energy"
+		  pattern="\s*Energy is.+"   offset="0"
+		  endPattern="\s+$"			 endOffset="0">
+
+	<comment class="example.input" id="total.energy">
+		   Energy is    -76.325045460
+	</comment>
+
+	<record id="Energy_total">\s*Energy is\s+{F,cc:Energy_total}\s*</record>
+
+	<transform process="pullup" xpath=".//cml:list/cml:scalar" />
+
+	<transform process="addUnits" xpath="cml:scalar[@dictRef='cc:Energy_total']" value="nonSi:hartree" />
+
+	<transform process="createWrapperProperty" xpath=".//cml:scalar[@dictRef='cc:Energy_total']" />
+
+	<!-- CLEAN UP -->
+	<transform process="delete" xpath=".//cml:list[count(*)=0]" />
+
+	<comment class="example.output" id="total.energy">
+		<module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="total.energy">
+			<property dictRef="cc:Energy_total">
+				<scalar dataType="xsd:double" units="nonSi:hartree">-76.32504546</scalar>
+			</property>
+		</module>
+	</comment>
+
+</template>

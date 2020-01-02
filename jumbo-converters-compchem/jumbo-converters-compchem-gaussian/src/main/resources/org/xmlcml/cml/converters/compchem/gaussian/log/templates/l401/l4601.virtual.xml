@@ -1,7 +1,12 @@
-<template id="l4601.virtual" pattern="\s*Virtual\s*\(.*" repeat="*"
-  endPattern="\s*.*\(.*$\s\S.*" endOffset="1">
+<template id="l4601.virtual" 
+		  repeat="*"
+		  pattern="\s*Virtual\s*\(.*"
+  		  endPattern="\s*The electronic.*"     endOffset="0"
+  		  endPattern2="\s*Beta\s+Orbitals:\s*" endOffset2="0"
+  		  endPattern3="~" endOffset3="1">
   
-  <record id="virt">\s*Virtual\s*{1_20A,g:virtorbs}</record>
-  <record id="virt" repeat="*">\s*{1_20A,g:virtorbs}</record>
-  
+  <record id="virt" repeat="*" makeArray="true">\s*\w*\s*{1_20A,g:virtorbs}</record>
+
+  <transform process="addDictRef" xpath=".//cml:array[@dictRef='g:virtorbs']" value="cc:alphaVirtOrbitalSymmetry" />
+
 </template>

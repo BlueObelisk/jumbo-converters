@@ -1,0 +1,47 @@
+<template id="molecular.point.group"
+		  repeat="*"
+		  name="molecular.point.group"
+		  pattern="\s*Molecular Point Group.+"   offset="0"
+		  endPattern="\s*There are.+"			 endOffset="0">
+
+	<comment class="example.input" id="molecular.point.group">
+ Molecular Point Group                 C3v   NOp =  6
+ Largest Abelian Subgroup              Cs    NOp =  2
+ Nuclear Repulsion Energy =    13.8390061377 hartrees
+	</comment>
+
+	<record id="mol.point.group">\s*Molecular Point Group\s+{X,cc:pointGroup}\s+NOp\s+=\s+{I,q:molecularPointGroupNOp}\s*</record>
+	<record id="abelian.Subgroup">\s*Largest Abelian Subgroup\s+{X,q:abelianSubgroup}\s+NOp\s+=\s+{I,q:abelianSubgroupNOp}\s*</record>
+	<record id="nuclear.repulsion.energy">\s*Nuclear Repulsion Energy\s+=\s+{F,cc:Energy_NucRep}.+</record>
+
+	<transform process="move" xpath=".//cml:list/cml:list/cml:scalar" to="." />
+	<transform process="move" xpath=".//cml:list/cml:scalar" to="." />
+
+	<transform process="addUnits" xpath=".//cml:scalar[@dictRef='cc:Energy_NucRep']" value="nonSi:hartree" />
+
+	<transform process="createWrapperProperty" xpath=".//cml:scalar[contains(@dictRef,'cc:') or contains(@dictRef,'q:')]" />
+
+	<!-- CLEAN UP -->
+	<transform process="delete" xpath=".//cml:list[count(*)=0]" />
+	<transform process="delete" xpath=".//cml:list[count(*)=0]" />
+
+	<comment class="example.output" id="molecular.point.group">
+		<module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="molecular.point.group">
+		<property dictRef="cc:pointGroup">
+			<scalar dataType="xsd:string">C3v</scalar>
+		</property>
+		<property dictRef="q:molecularPointGroupNOp">
+			<scalar dataType="xsd:integer">6</scalar>
+		</property>
+		<property dictRef="q:abelianSubgroup">
+			<scalar dataType="xsd:string">Cs</scalar>
+		</property>
+		<property dictRef="q:abelianSubgroupNOp">
+			<scalar dataType="xsd:integer">2</scalar>
+		</property>
+		<property dictRef="cc:Energy_NucRep">
+			<scalar dataType="xsd:double" units="nonSi:hartree">13.8390061377</scalar>
+		</property>
+		</module>
+	</comment>
+</template>

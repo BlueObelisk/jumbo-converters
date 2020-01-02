@@ -214,6 +214,7 @@ public class TransformElement implements MarkupApplier {
 	// molecule operations (move elsewhere later)
 
 	private static final String UNIT_SI_URI = "http://www.xml-cml.org/unit/si/";
+	private static final String UNIT_NONSI_URI = "http://www.xml-cml.org/unit/nonSi/";
 //	private static final String COMPCHEM_URI = "http://www.xml-cml.org/unit/dictionary/compchem";
 //	private static final String COMPCHEM = "compchem";
 	private static final String COMPCHEM_CC = "cc";
@@ -647,7 +648,8 @@ public class TransformElement implements MarkupApplier {
 			List<Node> fromNodeList = TransformElement.queryUsingNamespaces(element, from, fromPos);
 			for (Node fromNode : fromNodeList) {
 				Element fromElement = (Element) fromNode;
-				String valuex = (String) evaluateValue(fromElement, value);
+				Object valueObj = evaluateValue(fromElement, value);
+				String valuex = (valueObj == null) ? null : valueObj.toString() ;
 				if (valuex != null) {
 					if (uri != null) {
 						fromElement.addAttribute(new Attribute(name, uri, valuex));
@@ -1071,22 +1073,30 @@ public class TransformElement implements MarkupApplier {
 				CMLScalar scalar = (CMLScalar) node;
 				String val = scalar.getValue();
 				try {
-					Object dateTimeDuration = null;
+					Object dateTimeDuration;
 					if (DHMS.equals(format)) {
+						// Duration
 						dateTimeDuration = createDMHS(val);
-					} else if (format != null) {
-						dateTimeDuration = JodaDate.parseDate(val, format);
+						scalar.setValue(dateTimeDuration.toString());
 					} else {
-						dateTimeDuration = JodaDate.parseDate(val);
+						// Date
+						if (format != null) {
+							if (format.equals("EEE MMM d HH:mm:ss yyyy") ||
+								format.equals("EEE MMM dd HH:mm:ss yyyy") )
+								val = val.replaceAll(" +", " "); // JodaDate chokes on extranous spaces
+							dateTimeDuration = JodaDate.parseDate(val, format);
+						} else {
+							dateTimeDuration = JodaDate.parseDate(val);
+						}
+						scalar.setValue(dateTimeDuration.toString());
+						if (dictRef != null) {
+							scalar.setDictRef(dictRef);
+						}
+						// create new scalar and replace
+						CMLScalar date = new CMLScalar((DateTime) dateTimeDuration);
+						date.setDictRef(scalar.getDictRef());
+						scalar.getParent().replaceChild(scalar, date);
 					}
-					scalar.setValue(dateTimeDuration.toString());
-					if (dictRef != null) {
-						scalar.setDictRef(dictRef);
-					}
-					// create new scalar and replace
-					CMLScalar date = new CMLScalar((DateTime)dateTimeDuration);
-					date.setDictRef(scalar.getDictRef());
-					scalar.getParent().replaceChild(scalar, date);
 				} catch (Exception e) {
 					LOG.warn("Cannot parse/set date/duration: "+val+ " (format='"+format+"'); "+e);
 				}
@@ -1948,13 +1958,15 @@ public class TransformElement implements MarkupApplier {
 
 	private void reparse() {
 		if (template == null) {
-			System.err.println("*** Must have a template for reparse ***");
-			return;
+			// Get Template that is the parent of the current transform node.
+			this.setTemplate(
+				new Template( (Element)transformElement.getParent() )
+			);
 		}
 		assertRequired(XPATH, xpath);
 		String regexS = getRegex();
 		Element recordReaderElement = new Element("record");
-		recordReaderElement.addAttribute(new Attribute("id", "foo"));
+		recordReaderElement.addAttribute(new Attribute("id", "reparse"));
 		recordReaderElement.appendChild(regexS);
 		RecordReader recordReader = new RecordReader(recordReaderElement, template);
 		List<Node> nodeList = getXpathQueryResults();
@@ -2068,7 +2080,24 @@ public class TransformElement implements MarkupApplier {
 		String value = valuex;
 		if (map != null && valuex != null) {
 			CMLLink link = map.getLink(valuex, Direction.FROM);
-			value = (link != null) ? link.getTo() : valuex;
+			if (link != null)
+				{ value = link.getTo(); }
+			// if symbol starts with `-` see if we can find the symbol without `-` in the map
+			else if (valuex.startsWith("-")) {
+				link = map.getLink(valuex.substring(1), Direction.FROM);
+				if (link != null ){
+					try  // try if value is integer
+						{ value = String.valueOf(Integer.parseInt(link.getTo()) * -1 ); }
+					catch (NumberFormatException e1) {
+						try  // try if value is double
+							{ value = String.valueOf(Double.parseDouble(link.getTo()) * -1.0); }
+						catch (Exception e2)
+							{ value = valuex; }
+					}
+				} else
+					{value = valuex;}
+			} else
+				{value = valuex;}
 		}
 		return value;
 	}
@@ -2729,7 +2758,7 @@ public class TransformElement implements MarkupApplier {
 		double mwt = moleculeTool.getCalculatedMolecularMass(HydrogenControl.USE_HYDROGEN_COUNT);
 //		double mwt = moleculeTool.getCalculatedMolecularMass();
 		CMLScalar scmwt = new CMLScalar(mwt);
-		scmwt.setUnits("unit", "dalton", UNIT_SI_URI);
+		scmwt.setUnits("unit", "dalton", UNIT_NONSI_URI);
 		CMLProperty mmprop = new CMLProperty(); 
 		mmprop.setDictRef("cml:molmass");
 		mmprop.appendChild(scmwt);

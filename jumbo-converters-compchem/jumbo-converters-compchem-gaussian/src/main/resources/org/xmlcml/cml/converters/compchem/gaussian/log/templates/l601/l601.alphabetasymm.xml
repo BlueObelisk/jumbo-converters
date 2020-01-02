@@ -1,0 +1,117 @@
+<template id="l601.alphabetasymm"
+		  repeat="*"
+		  pattern="\s*Alpha\s+Orbitals:\s*"
+		  endPattern="\s*The electronic state is.+" endOffset="0"
+		  xmlns:xi="http://www.w3.org/2001/XInclude">
+
+	<comment class="example.input" id="l601.alphabetasymm.o2">
+ Alpha Orbitals:
+       Occupied  (SGG) (SGU) (SGG) (SGU) (PIU) (PIU) (SGG) (PIG)
+                 (PIG)
+       Virtual   (SGU) (PIU) (PIU) (SGG) (SGU) (PIG) (PIG) (SGG)
+                 (SGU) (PIU) (PIU) (DLTG) (DLTG) (DLTU) (DLTU)
+                 (SGG) (PIG) (PIG) (SGU) (SGG) (SGU)
+ Beta  Orbitals:
+       Occupied  (SGG) (SGU) (SGG) (SGU) (SGG) (PIU) (PIU)
+       Virtual   (PIG) (PIG) (SGU) (SGU) (SGG) (SGG) (PIU) (PIU)
+                 (PIG) (PIG) (SGU) (PIU) (PIU) (DLTG) (DLTG) (SGG)
+                 (DLTU) (DLTU) (PIG) (PIG) (SGU) (SGG) (SGU)
+	</comment>
+
+	<comment class="example.input" id="l601.alphabetasymm.g09.uhf">
+ Alpha Orbitals:
+       Occupied  (A') (A') (A') (A') (A') (A") (A') (A') (A")
+       Virtual   (A') (A') (A') (A") (A') (A') (A") (A') (A') (A")
+                 (A') (A') (A') (A") (A') (A') (A')
+ Beta  Orbitals:
+       Occupied  (A') (A') (A') (A') (A') (A") (A') (A') (A")
+       Virtual   (A') (A') (A') (A") (A') (A') (A") (A') (A') (A")
+                 (A') (A') (A') (A") (A') (A') (A')
+	</comment>
+
+	<templateList>
+		<template id="alpha.symm"
+				  pattern="\s*Alpha\s+Orbitals:\s*"
+				  endPattern="\s*Beta\s+Orbitals:\s*" endOffset="0">
+			<record />
+
+			<templateList>
+				<xi:include href="../l401/l4601.occupied.xml" />
+				<xi:include href="../l401/l4601.virtual.xml" />
+			</templateList>
+		</template>
+
+		<template id="beta.symm"
+				  pattern="\s*Beta\s+Orbitals:\s*"
+				  endPattern="~" endOffset="1">
+			<record />
+
+			<templateList>
+				<xi:include href="../l401/l4601.occupied.xml" />
+				<xi:include href="../l401/l4601.virtual.xml" />
+			</templateList>
+		</template>
+	</templateList>
+
+	<transform process="addDictRef" value="cc:betaOccOrbitalSymmetry"
+		         xpath=".//cml:module[@cmlx:templateRef='beta.symm']//cml:array[@dictRef='cc:alphaOccOrbitalSymmetry']" />
+
+	<transform process="addDictRef" value="cc:betaVirtOrbitalSymmetry"
+		         xpath=".//cml:module[@cmlx:templateRef='beta.symm']//cml:array[@dictRef='cc:alphaVirtOrbitalSymmetry']" />
+
+  <transform process="addChild" 
+  		       xpath="."
+  		       elementName="cml:arrayList"
+  		       position="0" />
+
+  <transform process="addAttribute" xpath="./cml:arrayList" name="shape" value="irregular" />
+  <transform process="addAttribute" name="convention" value="gaussianOrbitalSymmetryLabels"
+ 			       xpath="./cml:module[@cmlx:templateRef='alpha.symm' or @cmlx:templateRef='beta.symm']//cml:array" />
+
+  <transform process="move" xpath="./cml:module[@cmlx:templateRef='alpha.symm' or @cmlx:templateRef='beta.symm']//cml:array" 
+  	         to="./cml:arrayList" />
+
+  <transform process="addChild" 
+       		   xpath="."
+       		   elementName="cml:property"
+       		   dictRef="cc:orbitalSymmetry"
+       		   position="0" />
+
+  <transform process="move" xpath="./cml:arrayList" to="./cml:property[@dictRef='cc:orbitalSymmetry']" />
+
+  <!-- delete beta properties that are duplicates of alpha properties -->
+  <!-- <transform process="delete" xpath=".//cml:array[@dictRef='cc:betaOccOrbitalSymmetry' and ./text()=../cml:array[@dictRef='cc:alphaOccOrbitalSymmetry']/text()]" />
+  <transform process="delete" xpath=".//cml:array[@dictRef='cc:betaVirtOrbitalSymmetry' and ./text()=../cml:array[@dictRef='cc:alphaVirtOrbitalSymmetry']/text()]" /> -->
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:module[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:module[count(*)=0]" />
+
+	<comment class="example.output" id="l601.alphabetasymm.o2">
+		<module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l601.alphabetasymm">
+			<property dictRef="cc:orbitalSymmetry">
+				<arrayList shape="irregular">
+					<array dataType="xsd:string" size="9" dictRef="cc:alphaOccOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(SGG) (SGU) (SGG) (SGU) (PIU) (PIU) (SGG) (PIG) (PIG)</array>
+					<array dataType="xsd:string" size="21" dictRef="cc:alphaVirtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(SGU) (PIU) (PIU) (SGG) (SGU) (PIG) (PIG) (SGG) (SGU) (PIU) (PIU) (DLTG) (DLTG) (DLTU) (DLTU) (SGG) (PIG) (PIG) (SGU) (SGG) (SGU)</array>
+					<array dataType="xsd:string" size="7" dictRef="cc:betaOccOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(SGG) (SGU) (SGG) (SGU) (SGG) (PIU) (PIU)</array>
+					<array dataType="xsd:string" size="23" dictRef="cc:betaVirtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(PIG) (PIG) (SGU) (SGU) (SGG) (SGG) (PIU) (PIU) (PIG) (PIG) (SGU) (PIU) (PIU) (DLTG) (DLTG) (SGG) (DLTU) (DLTU) (PIG) (PIG) (SGU) (SGG) (SGU)</array>
+				</arrayList>
+			</property>
+		</module>
+	</comment>
+
+  <comment class="example.output" id="l601.alphabetasymm.g09.uhf">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l601.alphabetasymm">
+      <property dictRef="cc:orbitalSymmetry">
+        <arrayList shape="irregular">
+          <array dataType="xsd:string" size="9" dictRef="cc:alphaOccOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A') (A') (A") (A') (A') (A")</array>
+          <array dataType="xsd:string" size="17" dictRef="cc:alphaVirtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A") (A') (A') (A") (A') (A') (A") (A') (A') (A') (A") (A') (A') (A')</array>
+          <array dataType="xsd:string" size="9" dictRef="cc:betaOccOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A') (A') (A") (A') (A') (A")</array>
+          <array dataType="xsd:string" size="17" dictRef="cc:betaVirtOrbitalSymmetry" convention="gaussianOrbitalSymmetryLabels">(A') (A') (A') (A") (A') (A') (A") (A') (A') (A") (A') (A') (A') (A") (A') (A') (A')</array>
+        </arrayList>
+      </property>
+    </module>
+  </comment>
+</template>

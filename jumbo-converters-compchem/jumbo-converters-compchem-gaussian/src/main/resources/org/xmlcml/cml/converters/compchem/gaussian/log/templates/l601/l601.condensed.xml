@@ -1,8 +1,9 @@
 <template id="l601.condensed" name="condensed" repeat="*"
-    pattern="\s*Condensed to atoms \(all electrons\):\s*$\s*\d+.*" 
-    endPattern="\s+\d+\s+.*$\s*Mulliken.*" endOffset="1"
-    xmlns:xi="http://www.w3.org/2001/XInclude"
-    >
+    pattern="\s*Condensed to atoms \(all electrons\):\s*" 
+    endPattern="\s*(Mulliken|Total) (atomic )?charges:\s*" endOffset="0"
+    endPattern2="\s*Atomic-Atomic Spin Densities\.\s*"     endOffset2="0"
+    xmlns:xi="http://www.w3.org/2001/XInclude">
+    
   <comment class="example.input" id="l601.condensed">
           Condensed to atoms (all electrons):
               1          2          3          4          5          6
@@ -31,7 +32,6 @@
     10  Al   0.086239  -1.998837  -1.047630  14.338383   1.085225  -0.113240
     11  Al   0.001826  -0.951234  -2.006583   1.085225  15.968706   1.085225
     12  Al  -0.044783   0.003015   0.088051  -0.113240   1.085225  14.338383
- Mulliken atomic charges:
   </comment>
 
   <record/>
@@ -57,6 +57,11 @@
   <!-- // this fails and throws exception
   <transform process="createMatrix" xpath="." from=".//cml:array" dictRef="g:condensed"/>
   -->
+
+  <transform process="createMatrix" xpath="." dictRef='cc:mulliken1' from=".//cml:array[@dictRef='x:floatArr']" />
+
+  <transform process="addAttribute" xpath=".//cml:matrix[@dictRef='cc:mulliken1']" name="matrixType" value="squareSymmetric" />
+  <transform process="addUnits" xpath=".//cml:matrix[@dictRef='cc:mulliken1']" value="nonSi:elementaryCharge" />
   
   <!--  delete empty lists -->
  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
@@ -64,18 +69,7 @@
 
   <comment class="example.output" id="l601.condensed">
     <module cmlx:templateRef="l601.condensed" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <array dataType="xsd:double" size="12" dictRef="x:floatArr">14.341573 1.08843 -0.115514 0.086239 0.001826 -0.044783 0.009797 0.191563 0.506288 0.088051 -2.006583 -1.04763</array>
-      <array dataType="xsd:double" size="12" dictRef="x:floatArr">1.08843 15.950581 1.08843 -1.998837 -0.951234 0.003015 0.191563 0.182316 0.191563 0.003015 -0.951234 -1.998837</array>
-      <array dataType="xsd:double" size="12" dictRef="x:floatArr">-0.115514 1.08843 14.341573 -1.04763 -2.006583 0.088051 0.506288 0.191563 0.009797 -0.044783 0.001826 0.086239</array>
-      <array dataType="xsd:double" size="12" dictRef="x:floatArr">0.086239 -1.998837 -1.04763 14.338383 1.085225 -0.11324 0.088051 0.003015 -0.044783 0.009829 0.191823 0.506439</array>
-      <array dataType="xsd:double" size="12" dictRef="x:floatArr">0.001826 -0.951234 -2.006583 1.085225 15.968706 1.085225 -2.006583 -0.951234 0.001826 0.191823 0.182861 0.191823</array>
-      <array dataType="xsd:double" size="12" dictRef="x:floatArr">-0.044783 0.003015 0.088051 -0.11324 1.085225 14.338383 -1.04763 -1.998837 0.086239 0.506439 0.191823 0.009829</array>
-      <array dataType="xsd:double" size="12" dictRef="x:floatArr">0.009797 0.191563 0.506288 0.088051 -2.006583 -1.04763 14.341573 1.08843 -0.115514 0.086239 0.001826 -0.044783</array>
-      <array dataType="xsd:double" size="12" dictRef="x:floatArr">0.191563 0.182316 0.191563 0.003015 -0.951234 -1.998837 1.08843 15.950581 1.08843 -1.998837 -0.951234 0.003015</array>
-      <array dataType="xsd:double" size="12" dictRef="x:floatArr">0.506288 0.191563 0.009797 -0.044783 0.001826 0.086239 -0.115514 1.08843 14.341573 -1.04763 -2.006583 0.088051</array>
-      <array dataType="xsd:double" size="12" dictRef="x:floatArr">0.088051 0.003015 -0.044783 0.009829 0.191823 0.506439 0.086239 -1.998837 -1.04763 14.338383 1.085225 -0.11324</array>
-      <array dataType="xsd:double" size="12" dictRef="x:floatArr">-2.006583 -0.951234 0.001826 0.191823 0.182861 0.191823 0.001826 -0.951234 -2.006583 1.085225 15.968706 1.085225</array>
-      <array dataType="xsd:double" size="12" dictRef="x:floatArr">-1.04763 -1.998837 0.086239 0.506439 0.191823 0.009829 -0.044783 0.003015 0.088051 -0.11324 1.085225 14.338383</array>
+      <matrix rows="12" columns="12" dataType="xsd:double" dictRef="cc:mulliken1" matrixType="squareSymmetric" units="nonSi:elementaryCharge">14.341573 1.08843 -0.115514 0.086239 0.001826 -0.044783 0.009797 0.191563 0.506288 0.088051 -2.006583 -1.04763 1.08843 15.950581 1.08843 -1.998837 -0.951234 0.003015 0.191563 0.182316 0.191563 0.003015 -0.951234 -1.998837 -0.115514 1.08843 14.341573 -1.04763 -2.006583 0.088051 0.506288 0.191563 0.009797 -0.044783 0.001826 0.086239 0.086239 -1.998837 -1.04763 14.338383 1.085225 -0.11324 0.088051 0.003015 -0.044783 0.009829 0.191823 0.506439 0.001826 -0.951234 -2.006583 1.085225 15.968706 1.085225 -2.006583 -0.951234 0.001826 0.191823 0.182861 0.191823 -0.044783 0.003015 0.088051 -0.11324 1.085225 14.338383 -1.04763 -1.998837 0.086239 0.506439 0.191823 0.009829 0.009797 0.191563 0.506288 0.088051 -2.006583 -1.04763 14.341573 1.08843 -0.115514 0.086239 0.001826 -0.044783 0.191563 0.182316 0.191563 0.003015 -0.951234 -1.998837 1.08843 15.950581 1.08843 -1.998837 -0.951234 0.003015 0.506288 0.191563 0.009797 -0.044783 0.001826 0.086239 -0.115514 1.08843 14.341573 -1.04763 -2.006583 0.088051 0.088051 0.003015 -0.044783 0.009829 0.191823 0.506439 0.086239 -1.998837 -1.04763 14.338383 1.085225 -0.11324 -2.006583 -0.951234 0.001826 0.191823 0.182861 0.191823 0.001826 -0.951234 -2.006583 1.085225 15.968706 1.085225 -1.04763 -1.998837 0.086239 0.506439 0.191823 0.009829 -0.044783 0.003015 0.088051 -0.11324 1.085225 14.338383</matrix>
     </module>
   </comment>
 </template>

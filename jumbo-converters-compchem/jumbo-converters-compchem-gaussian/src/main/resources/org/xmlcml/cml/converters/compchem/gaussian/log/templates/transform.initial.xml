@@ -20,21 +20,29 @@
      .//cml:module[@cmlx:templateRef='l202.stoich'][1] |
      .//cml:module[@cmlx:templateRef='l202.rotconst'][1] |
      .//cml:module[@cmlx:templateRef='l301.basis'][1] |
-     .//cml:module[@cmlx:templateRef='l302.basis'][1] |
-     .//cml:module[@cmlx:templateRef='l601.popanal'][1]
+     .//cml:module[@cmlx:templateRef='l302.basis'][1] 
      " 
-    to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']"/> 
+    to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']" /> 
   
   <transform process="addDictRef" xpath=".//cml:module[@id='initialization']/cml:module" value="cc:userDefinedModule" />
   
   <!-- move initialization parameters -->
 
   <transform process="moveRelative" 
-    xpath=".//cml:module[@cmlx:templateRef='job']/cml:scalar[@dictRef='cc:method'][last()]" 
+    xpath=".//cml:module[@cmlx:templateRef='job']//cml:scalar[@dictRef='cc:method'][last()]" 
     to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"/> 
   <transform process="moveRelative" 
-    xpath=".//cml:module[@cmlx:templateRef='job']/cml:scalar[@dictRef='cc:basis'][last()]" 
+    xpath=".//cml:scalar[@dictRef='cc:wavefunctionType'][last()]" 
     to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"/> 
+  <transform process="moveRelative" 
+    xpath=".//cml:module[@cmlx:templateRef='job']//cml:scalar[@dictRef='cc:basisSetLabel'][last()]" 
+    to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"/> 
+  <transform process="moveRelative" 
+    xpath=".//cml:module[@cmlx:templateRef='job']//cml:scalar[@dictRef='cc:task'][last()]" 
+    to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"/>
+  <transform process="moveRelative" 
+    xpath=".//cml:module[@cmlx:templateRef='job']//cml:scalar[@dictRef='cc:dftFunctionalLabel'][last()]" 
+    to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"/>
 
   <transform process="moveRelative" 
     xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:pointgroup'][last()]" 
@@ -44,10 +52,20 @@
   <transform process="moveRelative" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:formula'][last()]" 
       to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"/> 
   <transform process="moveRelative" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:degfreedom'][last()]" 
-       to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"/> 
+       to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"/>
+  <transform process="moveRelative" xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:title'][last()]" 
+       to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"/>
+
+  <transform process="moveRelative"   to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"
+      xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l101.zmatcommas' or @cmlx:templateRef='l101.zmat' or @cmlx:templateRef='l101.zmatvariables']/cml:parameter[@dictRef='cc:charge']" />
+  <transform process="moveRelative"   to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"
+      xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l101.zmatcommas' or @cmlx:templateRef='l101.zmat' or @cmlx:templateRef='l101.zmatvariables']/cml:parameter[@dictRef='cc:spinMultiplicity']" />
+
+  <transform process="moveRelative"   to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"
+      xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l101.derivativesmethod']/cml:parameter" />
 
   <transform process="moveRelative"   to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"
-      xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l301.basis']/cml:scalar[@dictRef='cc:basis']" />
+      xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l301.basis']/cml:scalar[@dictRef='cc:basisSetLabel']" />
   <transform process="moveRelative"   to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"
       xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l301.basis']/cml:scalar[@dictRef='cc:diffuse']" />
   <transform process="moveRelative"   to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList" position="1"
@@ -66,8 +84,9 @@
   <transform process="moveRelative"   to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"
       xpath=".//cml:module[@id='initialization']//cml:module[@cmlx:templateRef='l302.basis']/cml:scalar[@dictRef='cc:method']" />
 
+
   <transform process="moveRelative"   to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"
-      xpath=".//cml:module[@id='initialization']//cml:scalar[@dictRef='cc:rotconst'][laat()]" />
+      xpath=".//cml:module[@id='initialization']//cml:array[@dictRef='cc:rotconst'][last()]" />
       
   <transform process="moveRelative" xpath="//cml:scalar[@dictRef='g:operation' or @dictRef='g:keyword']" 
          to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:parameterList"/>
@@ -88,6 +107,12 @@
          to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:module[@id='otherComponents']"/>
   <transform process="moveRelative" xpath="//cml:module[@id='initialization']/cml:module[not(@id='otherComponents')]" 
          to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='initialization']/cml:module[@id='otherComponents']"/>
+
+  <transform process="addAttribute" xpath=".//cml:module[@id='initialization']/cml:molecule" name="spinMultiplicity" value="$string(..//cml:parameter[@dictRef='cc:spinMultiplicity'])" />
+  <transform process="addAttribute" xpath=".//cml:module[@id='initialization']/cml:molecule" name="formalCharge" value="$string(..//cml:parameter[@dictRef='cc:charge'])" />
+
+   <transform process="addAttribute" xpath=".//cml:module[@id='initialization']/*/cml:molecule" name="spinMultiplicity" value="$string(../..//cml:parameter[@dictRef='cc:spinMultiplicity'])" />
+  <transform process="addAttribute" xpath=".//cml:module[@id='initialization']/*/cml:molecule" name="formalCharge" value="$string(../..//cml:parameter[@dictRef='cc:charge'])" />
          
 <!--  rename some modules -->
     
@@ -97,5 +122,8 @@
   <transform process="addDictRef" 
     xpath="//cml:module[@dictRef='cc:userDefinedModule' and cml:scalar[@dictRef='g:primbasis']]"
     value="g:primbasis"/>
+
+
+  <transform process="pullup" xpath=".//cml:module[@dictRef='cc:initialization']/*/cml:module[@cmlx:templateRef='l101.zmatcommas']/cml:molecule" repeat="2" />
     
 </transformList> 

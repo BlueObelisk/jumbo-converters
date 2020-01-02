@@ -13,9 +13,9 @@
 
 </comment>
   <record repeat="3"/>  
-  <record id="totalEnergy" >\s*Total energy\s*=\s*{F,compchem:totalEnergy}\s*</record>
-  <record id="e1Energy" >\s*1-e energy\s*=\s*{F,compchem:e1Energy}\s*</record>
-  <record id="e2Energy" >\s*2-e energy\s*=\s*{F,compchem:e2Energy}\s*</record>
+  <record id="Energy_total" >\s*Total energy\s*=\s*{F,compchem:Energy_total}\s*</record>
+  <record id="Energy_1e" >\s*1-e energy\s*=\s*{F,compchem:Energy_1e}\s*</record>
+  <record id="Energy_2e" >\s*2-e energy\s*=\s*{F,compchem:Energy_2e}\s*</record>
   <record id="homo">\s*HOMO\s*=\s*{F,n:homo}</record>
   <record id="homo">\s*LUMO\s*=\s*{F,n:lumo}</record>
   <transform process="delete" xpath=".//cml:list[@cmlx:templateRef='missingID']"/>
@@ -23,16 +23,16 @@
 
   <!-- Add Units -->
   <transform process="addUnits"
-  xpath=".//cml:scalar[@dictRef='compchem:totalEnergy' or @dictRef='compchem:e1Energy' or @dictRef='compchem:e2Energy']"
+  xpath=".//cml:scalar[@dictRef='compchem:Energy_total' or @dictRef='compchem:Energy_1e' or @dictRef='compchem:Energy_2e']"
   value="nonsi:hartree"
   />
 
   
   <comment class="example.output" id="nonvarinitener">
 <module cmlx:templateRef="nonvarinitener" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-  <scalar dataType="xsd:double" dictRef="compchem:totalEnergy" cmlx:templateRef="totalEnergy" units="nonsi:hartree">-1827.679833</scalar>
-  <scalar dataType="xsd:double" dictRef="compchem:e1Energy" cmlx:templateRef="e1Energy" units="nonsi:hartree">-4099.408592</scalar>
-  <scalar dataType="xsd:double" dictRef="compchem:e2Energy" cmlx:templateRef="e2Energy" units="nonsi:hartree">1473.233141</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:Energy_total" cmlx:templateRef="Energy_total" units="nonsi:hartree">-1827.679833</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:Energy_1e" cmlx:templateRef="Energy_1e" units="nonsi:hartree">-4099.408592</scalar>
+  <scalar dataType="xsd:double" dictRef="compchem:Energy_2e" cmlx:templateRef="Energy_2e" units="nonsi:hartree">1473.233141</scalar>
   <scalar dataType="xsd:double" dictRef="n:homo" cmlx:templateRef="homo">-0.328823</scalar>
   <scalar dataType="xsd:double" dictRef="n:lumo" cmlx:templateRef="homo">-0.090738</scalar>
 </module>

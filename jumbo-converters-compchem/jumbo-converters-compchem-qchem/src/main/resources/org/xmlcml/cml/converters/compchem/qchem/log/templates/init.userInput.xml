@@ -1,0 +1,504 @@
+<template id="init.userInput"
+  repeat="*"
+  name="init.userInput"
+  pattern="\s*-+\s*$\s*User input:\s*$-+\s*"      offset="0"
+  endPattern="\s*-+\s*"                           endOffset="1" >
+
+  <comment class="example.input" id="init.userInput.hf">
+--------------------------------------------------------------
+User input:
+--------------------------------------------------------------
+$rem
+   JOBTYPE     Opt
+   EXCHANGE    HF
+   CORRELATION None
+   BASIS       6-31G(d)
+$end
+
+$comment
+Methane HF 6-31G(d)
+$end
+
+$molecule
+  0 1
+  C1
+  H2 C1 r
+  H3 C1 r H2 a 
+  H4 C1 r H2 a  H3 d4
+  H5 C1 r H2 a  H3 d5
+
+   r  =         1.070
+   a  =       109.471
+   d4 =       240.000
+   d5 =       120.000
+$end
+
+--------------------------------------------------------------
+  </comment>
+  <comment class="example.input" id="init.userInput.b3lyp">
+--------------------------------------------------------------
+User input:
+--------------------------------------------------------------
+$rem
+   JOBTYPE     Opt
+   EXCHANGE    Becke3LYP
+   BASIS       6-31G(d)
+$end
+
+$comment
+Methane B3LYP 6-31G(d)
+$end
+
+$molecule
+ 0 1
+ C  0.000000  0.000000 -0.000001
+ H  0.000000  0.000000 -1.083700
+ H  1.021721  0.000000  0.361232
+ H -0.510860 -0.884836  0.361232
+ H -0.510860  0.884836  0.361232
+$end
+--------------------------------------------------------------
+  </comment>
+  <comment class="example.input" id="init.userInput.mp2">
+--------------------------------------------------------------
+User input:
+--------------------------------------------------------------
+$rem
+   JOBTYPE     Opt
+   EXCHANGE    HF
+   CORRELATION MP2
+   BASIS       6-31G(d)
+$end
+
+$comment
+Methanol MP2 6-31G(d)
+$end
+
+$molecule
+0 1
+  C   0.0000000   0.0000000   0.0000000
+  O   1.3983000   0.0000000   0.0000000
+  H  -0.3860176   0.0000000  -1.0424227
+  H  -0.3860176   0.8760285   0.5649947
+  H  -0.3591708  -0.9216623   0.5022980
+  H   1.6713155   0.8376781  -0.4565273
+$end
+
+--------------------------------------------------------------
+  </comment>
+
+
+  <templateList>
+    <template id="userInput"
+              name="userInput"
+              pattern="\s*-+\s*$\s*User input:\s*$-+\s*"    offset="0"
+              endPattern="\s*-+\s*"                         endOffset="0">
+      <record id="unparsed" repeat="3" />
+      <!-- record everything as scalars -->
+      <record id="init.userInput" repeat="*">{X,q:inputFile}</record>
+    </template>
+  </templateList>
+
+  <record id="unparsed" />
+
+  <!-- create a list at the root node -->
+  <transform process="addChild"
+             xpath="."
+             elementName="cml:list"
+             position="0"
+             dictRef="q:userInput" />
+
+  <!-- move all scalars to newly created list -->
+  <transform process="move" xpath=".//cml:list[@cmlx:templateRef='init.userInput']/cml:scalar" to=".//cml:list[@dictRef='q:userInput']" />
+
+  <!-- if they exist, copy 'JOBTYPE','EXCHANGE' and 'CORRELATION' scalars to the root node for reparsing -->
+  <transform process="copy" xpath=".//cml:list/cml:scalar[@dictRef='q:inputFile' and contains(text(),'JOBTYPE')]" to="../.." />
+  <transform process="copy" xpath=".//cml:list/cml:scalar[@dictRef='q:inputFile' and contains(text(),'EXCHANGE')]" to="../.." />
+  <transform process="copy" xpath=".//cml:list/cml:scalar[@dictRef='q:inputFile' and contains(text(),'CORRELATION')]" to="../.." />
+  <transform process="copy" xpath=".//cml:list/cml:scalar[@dictRef='q:inputFile' and contains(text(),'comment')]/following-sibling" to="../.." />
+  <transform process="copy" xpath=".//cml:list/cml:scalar[@dictRef='q:inputFile' and contains(text(),'comment')]/following-sibling::cml:scalar[1]" to="../.." />
+
+  <!-- reparse the copies of the scalars -->
+  <transform process="reparse" xpath=".//cml:scalar[@id='copy.0' and contains(text(),'JOBTYPE')]" regex="\s*JOBTYPE\s*=?\s*{A,q:jobType}\s*" />
+  <transform process="reparse" xpath=".//cml:scalar[@id='copy.0' and contains(text(),'EXCHANGE')]" regex="\s*EXCHANGE\s*=?\s*{A,q:exchange}\s*" />
+  <transform process="reparse" xpath=".//cml:scalar[@id='copy.0' and contains(text(),'CORRELATION')]" regex="\s*CORRELATION\s*=?\s*{A,q:correlation}\s*" />
+  <transform process="reparse" xpath=".//cml:scalar[@id='copy.0']" regex="\s*{X,cc:title}\s*" />
+
+  <!-- pull up scalars from list and then from module -->
+  <transform process="pullupSingleton" xpath=".//cml:list[@cmlx:templateRef='reparse']" />
+  <transform process="pullupSingleton" xpath=".//cml:module" />
+
+  <!-- determine cc:method -->
+  <transform process="copy" xpath=".//cml:scalar[@dictRef='q:exchange']" to=".." />
+  <transform process="copy" xpath=".//cml:scalar[@dictRef='q:correlation']" to=".." />
+  <transform process="setValue" xpath=".//cml:scalar[@dictRef='q:correlation' and @id='copy.0']" value=" $string(.)" />
+  <transform process="createString"
+             xpath=".//cml:scalar[@id='copy.0' and not(contains(text(),'None'))]" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='q:exchange' and @id='copy.0']" value="cc:method" />
+  <transform process="setValue" xpath=".//cml:scalar[@dictRef='cc:method' and contains(text(),' ')]" 
+  			 value="$string(../cml:scalar[@dictRef='q:correlation'])" />
+
+  <!-- determine cc:dftFunctionalLabel if cc:method contains a DFT functional label-->
+  <transform process="copy" to=".." 
+  			 xpath=".//cml:scalar[@dictRef='cc:method' and (
+             contains(text(),'HFS')      or 
+             contains(text(),'XAlpha')    or 
+             contains(text(),'HFB')       or 
+             contains(text(),'VSXC')      or 
+             contains(text(),'HCTH')      or 
+             contains(text(),'HCTH93')    or 
+             contains(text(),'HCTH147')   or 
+             contains(text(),'HCTH407')   or 
+             contains(text(),'tHCTH')     or 
+             contains(text(),'M06L')      or 
+             contains(text(),'B97D')      or 
+             contains(text(),'B97D3')     or 
+             contains(text(),'SOGGA11')   or 
+             contains(text(),'M11L')      or 
+             contains(text(),'N12')       or 
+             contains(text(),'MN12L')     or 
+             contains(text(),'B3LYP')     or 
+             contains(text(),'Becke3LYP') or
+             contains(text(),'B3P86')     or 
+             contains(text(),'B3PW91')    or 
+             contains(text(),'B1B95')     or 
+             contains(text(),'mPW1PW91')  or 
+             contains(text(),'mPW1LYP')   or 
+             contains(text(),'mPW1PBE')   or 
+             contains(text(),'mPW3PBE')   or 
+             contains(text(),'B98')       or 
+             contains(text(),'B971')      or 
+             contains(text(),'B972')      or 
+             contains(text(),'PBE1PBE')   or 
+             contains(text(),'B1LYP')     or 
+             contains(text(),'O3LYP')     or 
+             contains(text(),'BHandH')    or 
+             contains(text(),'BHandHLYP') or 
+             contains(text(),'BMK')       or 
+             contains(text(),'M06')       or 
+             contains(text(),'M06HF')     or 
+             contains(text(),'M062X')     or 
+             contains(text(),'tHCTHhyb')  or 
+             contains(text(),'APFD')      or 
+             contains(text(),'APF')       or 
+             contains(text(),'SOGGA11X')  or 
+             contains(text(),'PBEh1PBE')  or 
+             contains(text(),'TPSSh')     or 
+             contains(text(),'X3LYP')     or 
+             contains(text(),'HSEH1PBE')  or 
+             contains(text(),'OHSE2PBE')  or 
+             contains(text(),'OHSE1PBE')  or 
+             contains(text(),'wB97XD')    or 
+             contains(text(),'wB97')      or 
+             contains(text(),'wB97X')     or 
+             contains(text(),'LC-wPBE')   or
+             contains(text(),'CAM-B3LYP') or 
+             contains(text(),'HISSbPBE')  or 
+             contains(text(),'M11')       or 
+             contains(text(),'N12SX')     or 
+             contains(text(),'MN12SX'))]" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0.copy']" value="cc:dftFunctionalLabel" />
+
+  <!-- set cc:method to DFT if it contains a DFT functional label -->
+  <transform process="setValue" value="DFT" 
+  			 xpath=".//cml:scalar[@dictRef='cc:method' and (
+             contains(text(),'HFS')      or 
+             contains(text(),'XAlpha')    or 
+             contains(text(),'HFB')       or 
+             contains(text(),'VSXC')      or 
+             contains(text(),'HCTH')      or 
+             contains(text(),'HCTH93')    or 
+             contains(text(),'HCTH147')   or 
+             contains(text(),'HCTH407')   or 
+             contains(text(),'tHCTH')     or 
+             contains(text(),'M06L')      or 
+             contains(text(),'B97D')      or 
+             contains(text(),'B97D3')     or 
+             contains(text(),'SOGGA11')   or 
+             contains(text(),'M11L')      or 
+             contains(text(),'N12')       or 
+             contains(text(),'MN12L')     or 
+             contains(text(),'B3LYP')     or 
+             contains(text(),'Becke3LYP') or
+             contains(text(),'B3P86')     or 
+             contains(text(),'B3PW91')    or 
+             contains(text(),'B1B95')     or 
+             contains(text(),'mPW1PW91')  or 
+             contains(text(),'mPW1LYP')   or 
+             contains(text(),'mPW1PBE')   or 
+             contains(text(),'mPW3PBE')   or 
+             contains(text(),'B98')       or 
+             contains(text(),'B971')      or 
+             contains(text(),'B972')      or 
+             contains(text(),'PBE1PBE')   or 
+             contains(text(),'B1LYP')     or 
+             contains(text(),'O3LYP')     or 
+             contains(text(),'BHandH')    or 
+             contains(text(),'BHandHLYP') or 
+             contains(text(),'BMK')       or 
+             contains(text(),'M06')       or 
+             contains(text(),'M06HF')     or 
+             contains(text(),'M062X')     or 
+             contains(text(),'tHCTHhyb')  or 
+             contains(text(),'APFD')      or 
+             contains(text(),'APF')       or 
+             contains(text(),'SOGGA11X')  or 
+             contains(text(),'PBEh1PBE')  or 
+             contains(text(),'TPSSh')     or 
+             contains(text(),'X3LYP')     or 
+             contains(text(),'HSEH1PBE')  or 
+             contains(text(),'OHSE2PBE')  or 
+             contains(text(),'OHSE1PBE')  or 
+             contains(text(),'wB97XD')    or 
+             contains(text(),'wB97')      or 
+             contains(text(),'wB97X')     or 
+             contains(text(),'LC-wPBE')   or
+             contains(text(),'CAM-B3LYP') or 
+             contains(text(),'HISSbPBE')  or 
+             contains(text(),'M11')       or 
+             contains(text(),'N12SX')     or 
+             contains(text(),'MN12SX'))]" />
+  <transform process="delete" xpath=".//cml:scalar[@dictRef='q:correlation' and @id='copy.0']" />
+
+  <!-- determine cc:task from JOBTYPE -->
+  <transform process="copy" xpath=".//cml:scalar[@dictRef='q:jobType']" to=".." />
+  <transform process="setValue" value="geometry_optimization"
+             xpath=".//cml:scalar[@dictRef='q:jobType' and @id='copy.0' and (contains(text(),'FOpt') or contains(text(),'Opt'))]" />
+  <transform process="setValue" value="frequency"
+             xpath=".//cml:scalar[@dictRef='q:jobType' and @id='copy.0' and contains(text(),'Freq')]" />
+  <transform process="setValue" value="energy"
+             xpath=".//cml:scalar[@dictRef='q:jobType' and @id='copy.0' and contains(text(),'SP')]" />
+  <transform process="setValue" value="gradient"
+             xpath=".//cml:scalar[@dictRef='q:jobType' and @id='copy.0' and contains(text(),'Force')]" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='q:jobType' and @id='copy.0']" value="cc:task" />
+
+  <!-- capture cc:charge and cc:spinMultiplicity -->
+  <transform process="copy" to=".."
+             xpath="./cml:list/cml:scalar[@dictRef='q:inputFile' and contains(text(),'$molecule')]/following-sibling::cml:scalar[@dictRef='q:inputFile'][1]" />
+
+  <transform process="reparse" xpath="./cml:list/cml:scalar[@dictRef='q:inputFile' and @id='copy.0']" regex="\s*{I,cc:charge}\s+{I,cc:spinMultiplicity}\s*" />
+
+  <transform process="moveRelative" xpath="./cml:list//cml:scalar[@dictRef='cc:charge' or @dictRef='cc:spinMultiplicity']"
+             to="./ancestor::cml:module[@cmlx:templateRef='init.userInput']" />
+
+  <transform process="addUnits" xpath="./cml:scalar[@dictRef='cc:charge']" value="nonSi:elementaryCharge" />
+  
+  <!-- wrap scalars as parameters -->
+  <transform process="createWrapperParameter" xpath=".//cml:list[@dictRef='q:userInput']" />
+  <transform process="createWrapperParameter" 
+             xpath=".//cml:scalar[@dictRef='q:jobType' or 
+                                  @dictRef='q:exchange' or 
+                                  @dictRef='q:correlation' or 
+                                  @dictRef='cc:title' or 
+                                  @dictRef='cc:method' or 
+                                  @dictRef='cc:task' or 
+                                  @dictRef='cc:dftFunctionalLabel' or 
+                                  @dictRef='cc:charge' or 
+                                  @dictRef='cc:spinMultiplicity']" />
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:module[count(*)=0]" />
+
+
+  <!-- <transform process="addSibling" elementName="cml:scalar" position="1" id="method"
+    xpath=".//cml:list[
+      cml:scalar[@dictRef='q:userInput' and contains(text(), 'EXCHANGE')    and contains(text(), 'HF')   ] and  
+      ( not(cml:scalar[@dictRef='q:userInput' and contains(text(), 'CORRELATION')]) 
+         or cml:scalar[@dictRef='q:userInput' and contains(text(), 'CORRELATION') and contains(text(), 'None')] )
+    ]"
+    value="HF"        dictRef="cc:method"
+    />
+
+  <transform process="addSibling" elementName="cml:scalar" position="1" id="method"
+    xpath=".//cml:list[
+      cml:scalar[@dictRef='q:userInput' and contains(text(), 'EXCHANGE')    and contains(text(), 'B3LYP') ] and
+      ( not(cml:scalar[@dictRef='q:userInput' and contains(text(), 'CORRELATION')]) 
+         or cml:scalar[@dictRef='q:userInput' and contains(text(), 'CORRELATION') and contains(text(), 'None')] )
+    ]"
+    value="DFT"       dictRef="cc:method"
+    />
+
+  <transform process="addSibling" elementName="cml:scalar" position="1" id="dftFunctionalLabel"
+    xpath=".//cml:list[
+      cml:scalar[@dictRef='q:userInput' and contains(text(), 'EXCHANGE')    and 
+      ( contains(text(), 'B3LYP') or contains(text(), 'Becke3LYP') )
+      ] and
+      (      cml:scalar[@dictRef='q:userInput' and contains(text(), 'CORRELATION') and contains(text(), 'None') ] or 
+        not( cml:scalar[@dictRef='q:userInput' and contains(text(), 'CORRELATION')]))
+    ]"
+    value="B3LYP"     dictRef="cc:dftFunctionalLabel"
+    />
+
+  <transform process="addSibling" elementName="cml:scalar" position="1" id="method"
+    xpath=".//cml:list[
+      cml:scalar[@dictRef='q:userInput' and contains(text(), 'EXCHANGE')    and contains(text(), 'HF')   ] and  
+      cml:scalar[@dictRef='q:userInput' and contains(text(), 'CORRELATION') and contains(text(), 'MP2')  ]
+    ]"
+    value="MP2"        dictRef="cc:method"
+    /> -->
+
+
+  <comment class="example.output" id="init.userInput.hf">
+    <module cmlx:templateRef="init.userInput" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="q:userInput">
+        <list>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">$rem</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">JOBTYPE     Opt</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">EXCHANGE    HF</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">CORRELATION None</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">BASIS       6-31G(d)</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">$end</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile" />
+          <scalar dataType="xsd:string" dictRef="q:inputFile">$comment</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">Methane HF 6-31G(d)</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">$end</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile" />
+          <scalar dataType="xsd:string" dictRef="q:inputFile">$molecule</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">0 1</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">C1</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">H2 C1 r</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">H3 C1 r H2 a</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">H4 C1 r H2 a  H3 d4</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">H5 C1 r H2 a  H3 d5</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile" />
+          <scalar dataType="xsd:string" dictRef="q:inputFile">r  =         1.070</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">a  =       109.471</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">d4 =       240.000</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">d5 =       120.000</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">$end</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile" />
+        </list>
+      </parameter>
+      <parameter dictRef="q:jobType">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">Opt</scalar>
+      </parameter>
+      <parameter dictRef="q:exchange">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">HF</scalar>
+      </parameter>
+      <parameter dictRef="q:correlation">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">None</scalar>
+      </parameter>
+      <parameter dictRef="cc:title">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">Methane HF 6-31G(d)</scalar>
+      </parameter>
+      <parameter dictRef="cc:method">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">HF</scalar>
+      </parameter>
+      <parameter dictRef="cc:task">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">geometry_optimization</scalar>
+      </parameter>
+      <parameter dictRef="cc:charge">
+        <scalar dataType="xsd:integer" units="nonSi:elementaryCharge">0</scalar>
+      </parameter>
+      <parameter dictRef="cc:spinMultiplicity">
+        <scalar dataType="xsd:integer">1</scalar>
+      </parameter>
+    </module>
+  </comment>
+  <comment class="example.output" id="init.userInput.b3lyp">
+    <module cmlx:templateRef="init.userInput" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="q:userInput">
+        <list>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">$rem</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">JOBTYPE     Opt</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">EXCHANGE    Becke3LYP</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">BASIS       6-31G(d)</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">$end</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile" />
+          <scalar dataType="xsd:string" dictRef="q:inputFile">$comment</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">Methane B3LYP 6-31G(d)</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">$end</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile" />
+          <scalar dataType="xsd:string" dictRef="q:inputFile">$molecule</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">0 1</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">C  0.000000  0.000000 -0.000001</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">H  0.000000  0.000000 -1.083700</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">H  1.021721  0.000000  0.361232</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">H -0.510860 -0.884836  0.361232</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">H -0.510860  0.884836  0.361232</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">$end</scalar>
+        </list>
+      </parameter>
+      <parameter dictRef="q:jobType">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">Opt</scalar>
+      </parameter>
+      <parameter dictRef="q:exchange">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">Becke3LYP</scalar>
+      </parameter>
+      <parameter dictRef="cc:title">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">Methane B3LYP 6-31G(d)</scalar>
+      </parameter>
+      <parameter dictRef="cc:method">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">DFT</scalar>
+      </parameter>
+      <parameter dictRef="cc:dftFunctionalLabel">
+		    <scalar cmlx:templateRef="reparse" dataType="xsd:string" id="copy.0.copy">Becke3LYP</scalar>
+	    </parameter>
+      <parameter dictRef="cc:task">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">geometry_optimization</scalar>
+      </parameter>
+      <parameter dictRef="cc:charge">
+        <scalar dataType="xsd:integer" units="nonSi:elementaryCharge">0</scalar>
+      </parameter>
+      <parameter dictRef="cc:spinMultiplicity">
+        <scalar dataType="xsd:integer">1</scalar>
+      </parameter>
+    </module>
+  </comment>
+  <comment class="example.output" id="init.userInput.mp2">
+    <module cmlx:templateRef="init.userInput" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <parameter dictRef="q:userInput">
+        <list>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">$rem</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">JOBTYPE     Opt</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">EXCHANGE    HF</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">CORRELATION MP2</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">BASIS       6-31G(d)</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">$end</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile" />
+          <scalar dataType="xsd:string" dictRef="q:inputFile">$comment</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">Methanol MP2 6-31G(d)</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">$end</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile" />
+          <scalar dataType="xsd:string" dictRef="q:inputFile">$molecule</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">0 1</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">C   0.0000000   0.0000000   0.0000000</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">O   1.3983000   0.0000000   0.0000000</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">H  -0.3860176   0.0000000  -1.0424227</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">H  -0.3860176   0.8760285   0.5649947</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">H  -0.3591708  -0.9216623   0.5022980</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">H   1.6713155   0.8376781  -0.4565273</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile">$end</scalar>
+          <scalar dataType="xsd:string" dictRef="q:inputFile" />
+        </list>
+      </parameter>
+      <parameter dictRef="q:jobType">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">Opt</scalar>
+      </parameter>
+      <parameter dictRef="q:exchange">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">HF</scalar>
+      </parameter>
+      <parameter dictRef="q:correlation">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">MP2</scalar>
+      </parameter>
+      <parameter dictRef="cc:title">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse">Methanol MP2 6-31G(d)</scalar>
+      </parameter>
+      <parameter dictRef="cc:method">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">MP2</scalar>
+      </parameter>
+      <parameter dictRef="cc:task">
+        <scalar dataType="xsd:string" cmlx:templateRef="reparse" id="copy.0">geometry_optimization</scalar>
+      </parameter>
+      <parameter dictRef="cc:charge">
+        <scalar dataType="xsd:integer" units="nonSi:elementaryCharge">0</scalar>
+      </parameter>
+      <parameter dictRef="cc:spinMultiplicity">
+        <scalar dataType="xsd:integer">1</scalar>
+      </parameter>
+    </module>
+  </comment>
+
+</template>

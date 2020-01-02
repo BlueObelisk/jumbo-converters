@@ -1,0 +1,234 @@
+<template id="gradients"
+  repeat="*"
+  name="gradients"
+  pattern="\s*Calculating analytic gradient of the SCF energy\s*"   offset="0"
+  endPattern="\s*Gradient time:.+"                                  endOffset="1" >
+
+  <comment class="example.input" id="gradients.CH4">
+ Calculating analytic gradient of the SCF energy
+ Gradient of SCF Energy
+            1           2           3           4           5
+    1   0.0000000   0.0000000  -0.0098386   0.0049193   0.0049193
+    2   0.0000000   0.0000000   0.0000000   0.0085205  -0.0085205
+    3   0.0000000   0.0104359  -0.0034790  -0.0034790  -0.0034790
+ Max gradient component =       1.044E-02
+ RMS gradient           =       5.389E-03
+ Gradient time:  CPU 0.15 s  wall 0.21 s
+  </comment>
+  <comment class="example.input" id="gradients.CH3OH">
+   Calculating analytic gradient of the SCF energy
+   Gradient of XC Energy
+              1           2           3           4           5           6
+      1   0.0210706  -0.1097500   0.0460822   0.0460822   0.0804710  -0.0839561
+      2  -0.0163315   0.2059736  -0.0817756  -0.0817752   0.1650837  -0.1911749
+      3   0.0000002  -0.0000002  -0.1441326   0.1441327  -0.0000002   0.0000001
+   Gradient of SCF Energy
+              1           2           3           4           5           6
+      1  -0.0143184   0.0227996  -0.0046109  -0.0046109   0.0060268  -0.0052862
+      2   0.0018792   0.0146627  -0.0019107  -0.0019106   0.0079599  -0.0206804
+      3   0.0000000  -0.0000000  -0.0077987   0.0077987  -0.0000000   0.0000000
+   Max gradient component =       2.280E-02
+   RMS gradient           =       9.632E-03
+   Gradient time:  CPU 0.67 s  wall 1.25 s
+  </comment>
+  <comment class="example.input" id="gradients.C6H5Cl">
+   Calculating analytic gradient of the SCF energy
+   Gradient of SCF Energy
+              1           2           3           4           5           6
+      1   0.0027427  -0.0056068  -0.0000000   0.0056068  -0.0027427   0.0000000
+      2   0.0000000   0.0000000  -0.0000000  -0.0000000   0.0000000   0.0000000
+      3   0.0019001  -0.0016705   0.0007585  -0.0016705   0.0019001   0.0237547
+              7           8           9          10          11          12
+      1  -0.0000000  -0.0091398  -0.0076314  -0.0000000   0.0076314   0.0091398
+      2  -0.0000000   0.0000000  -0.0000000  -0.0000000  -0.0000000   0.0000000
+      3  -0.0109881   0.0030929  -0.0054735  -0.0092229  -0.0054735   0.0030929
+   Max gradient component =       2.375E-02
+   RMS gradient           =       5.831E-03
+   Gradient time:  CPU 3.50 s  wall 7.39 s
+  </comment>
+
+  <record id="gradients.unparsed" />
+
+  <templateList>
+    <!-- Sub-Templates for: 
+  * Gradient of XC Energy
+  * Gradient of SCF Energy
+
+  We will have a 3*n values for the gradients (X, Y & Z for n = number of atoms).
+  With a maximum 6 Atoms per line. (last line will have n%6 columns) -->
+    
+    <!-- TEMPLATE FOR XC ENERGY GRADIENT -->
+    <template id="gradients.xc"
+              name="gradients.xc"
+              repeat="1"
+              pattern="\s*Gradient of XC Energy\s*"      offset="0"
+              endPattern="\s*Gradient of SCF Energy\s*"  endOffset="0">
+      
+      <record id="gradients.unparsed" />
+      
+      <templateList>
+          <!-- SUB-TEMPLATE FOR RECORDING ENERGIES -->
+          <template id="gradients.xc"
+                    name="gradients.xc"
+                    repeat="*"
+                    pattern="(\s*\d+\s*){1,6}"                  offset="0"
+                    endPattern="(\s*\d+\s*){1,6}"               endOffset="0"
+                    endPattern2="\s*3(\s*.*\d+\.\d+\s*){1,6}"   endOffset2="1">
+
+            <!-- RECORD -->
+            <record id="atomID">\s*{1_6I,q:atomId}\s*</record>
+            <record id="DE.DX">\s*.\s+{1_6F,q:DE.DX-1}\s*</record>
+            <record id="DE.DY">\s*.\s+{1_6F,q:DE.DY-1}\s*</record>
+            <record id="DE.DZ">\s*.\s+{1_6F,q:DE.DZ-1}\s*</record>
+
+          </template>
+      </templateList>
+    </template>
+
+    <!-- TEMPLATE FOR SCF ENERGY GRADIENT -->
+    <template id="gradients.scf"
+              name="gradients.scf"
+              repeat="1"
+              pattern="\s*Gradient of SCF Energy\s*"     offset="0"
+              endPattern="\s*Gradient time.+"            endOffset="1">
+
+      <record id="gradients.unparsed" />
+
+      <templateList>
+          <!-- SUB-TEMPLATE FOR RECORDING ENERGIES -->
+          <template id="gradients.scf"
+                    name="gradients.scf"
+                    repeat="*"
+                    pattern="(\s*\d+\s*){1,6}"           offset="0"
+                    endPattern="(\s*\d+\s*){1,6}"        endOffset="0"
+                    endPattern2="\s*Max gradient.+"      endOffset2="0">
+
+              <!-- RECORD -->
+              <record id="atomID">\s*{1_6I,q:atomId}\s*</record>
+              <record id="DE.DX">\s*.\s+{1_6F,q:DE.DX-1}\s*</record>
+              <record id="DE.DY">\s*.\s+{1_6F,q:DE.DY-1}\s*</record>
+              <record id="DE.DZ">\s*.\s+{1_6F,q:DE.DZ-1}\s*</record>
+
+          </template>
+      </templateList>
+      
+      <!-- RECORD BOTH GRADIENTS AS STRINGS AND CONVERT THEM TO DOUBLE LATER -->
+      <record id="max.gradient">\s*Max gradient component\s+=\s+{X,q:max.gradient}\s*</record>
+      <record id="rms.gradient">\s*RMS gradient\s+=\s+{X,q:rms.gradient}\s*</record>
+      <record id="gradients.unparsed" />
+    
+    </template>
+  </templateList>
+
+  <!-- CREATE LISTS FOR EACH OF THE GRADIENTS -->
+  <transform process="addChild"
+             elementName="cml:list"
+             xpath="."
+             position="0"
+             dictRef="q:gradients.XCEnergy" />
+
+  <transform process="addChild"
+             elementName="cml:list"
+             xpath="."
+             position="1"
+             dictRef="cc:gradients" />
+
+  <!-- ORGANIZE DATA -->
+
+  <!-- MOVE ARRAYS TO THEIR RESPECTIVE NEWLY CREATED LISTS -->
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='gradients.xc']/cml:list/cml:array" to=".//cml:list[@dictRef='q:gradients.XCEnergy']" />
+  <transform process="move" xpath=".//cml:module[@cmlx:templateRef='gradients.scf']/cml:list/cml:array" to=".//cml:list[@dictRef='cc:gradients']" />
+
+  <!-- MOVE SCALARS TO ROOT NODE -->
+  <transform process="move" xpath=".//cml:module/cml:list/cml:scalar" to="." />
+
+  <!-- WRAP ALL LISTS AND SCALARS IN THE ROOT NODE AS PROPERTIES -->
+  <transform process="createWrapperProperty" xpath=".//cml:list[@dictRef='cc:gradients' or @dictRef='q:gradients.XCEnergy']" />
+  <transform process="createWrapperProperty" xpath=".//cml:scalar" />
+
+  <!-- ADD UNITS TO MAX AND RMS GRADIENT -->
+  <transform process="addUnits" xpath=".//cml:property[@dictRef='q:max.gradient' or @dictRef='q:rms.gradient']/cml:scalar" value="nonSi:hartree.bohr-1" />
+
+  <!-- CONVERT MAX AND RMS GRADIENT DATATYPES TO DOUBLE -->
+  <transform process="createDouble" xpath=".//cml:property[@dictRef='q:max.gradient' or @dictRef='q:rms.gradient']/cml:scalar" />
+
+  <!-- JOIN ARRAYS WITH SAME dictRef -->
+  <transform process="joinArrays" xpath=".//cml:property[@dictRef='cc:gradients']/cml:list/cml:array" key="$string(@dictRef)" />
+  <transform process="joinArrays" xpath=".//cml:property[@dictRef='cc:gradients']/cml:list/cml:array" key="$string(@dictRef)" />
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:list[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:module[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:module[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:property[count(*)=0]" />
+
+
+  <comment class="example.output" id="gradients.CH4">
+    <module cmlx:templateRef="gradients" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="cc:gradients">
+        <list>
+          <array dataType="xsd:integer" dictRef="q:atomId" size="5">1 2 3 4 5</array>
+          <array dataType="xsd:double" dictRef="q:DE.DX-1" size="5">0.0 0.0 -0.0098386 0.0049193 0.0049193</array>
+          <array dataType="xsd:double" dictRef="q:DE.DY-1" size="5">0.0 0.0 0.0 0.0085205 -0.0085205</array>
+          <array dataType="xsd:double" dictRef="q:DE.DZ-1" size="5">0.0 0.0104359 -0.003479 -0.003479 -0.003479</array>
+        </list>
+      </property>
+      <property dictRef="q:max.gradient">
+        <scalar dataType="xsd:double" units="nonSi:hartree.bohr-1">0.01044</scalar>
+      </property>
+      <property dictRef="q:rms.gradient">
+        <scalar dataType="xsd:double" units="nonSi:hartree.bohr-1">0.005389</scalar>
+      </property>
+    </module>
+  </comment>
+
+
+  <comment class="example.output" id="gradients.CH3OH">
+    <module cmlx:templateRef="gradients" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+      <property dictRef="q:gradients.XCEnergy">
+        <list>
+          <array dataType="xsd:integer" dictRef="q:atomId" size="6">1 2 3 4 5 6</array>
+          <array dataType="xsd:double" size="6" dictRef="q:DE.DX-1">0.0210706 -0.10975 0.0460822 0.0460822 0.080471 -0.0839561</array>
+          <array dataType="xsd:double" size="6" dictRef="q:DE.DY-1">-0.0163315 0.2059736 -0.0817756 -0.0817752 0.1650837 -0.1911749</array>
+          <array dataType="xsd:double" size="6" dictRef="q:DE.DZ-1">2.0E-7 -2.0E-7 -0.1441326 0.1441327 -2.0E-7 1.0E-7</array>
+        </list>
+      </property>
+      <property dictRef="cc:gradients">
+        <list>
+          <array dataType="xsd:integer" dictRef="q:atomId" size="6">1 2 3 4 5 6</array>
+          <array dataType="xsd:double" size="6" dictRef="q:DE.DX-1">-0.0143184 0.0227996 -0.0046109 -0.0046109 0.0060268 -0.0052862</array>
+          <array dataType="xsd:double" size="6" dictRef="q:DE.DY-1">0.0018792 0.0146627 -0.0019107 -0.0019106 0.0079599 -0.0206804</array>
+          <array dataType="xsd:double" size="6" dictRef="q:DE.DZ-1">0.0 -0.0 -0.0077987 0.0077987 -0.0 0.0</array>
+        </list>
+      </property>
+      <property dictRef="q:max.gradient">
+        <scalar dataType="xsd:double" units="nonSi:hartree.bohr-1">0.0228</scalar>
+      </property>
+      <property dictRef="q:rms.gradient">
+        <scalar dataType="xsd:double" units="nonSi:hartree.bohr-1">0.009632</scalar>
+      </property>
+    </module>
+  </comment>
+
+
+  <comment class="example.output" id="gradients.C6H5Cl">
+    <module cmlx:templateRef="gradients" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
+        <property dictRef="cc:gradients">
+        <list>
+          <array dataType="xsd:integer" size="12" dictRef="q:atomId">1 2 3 4 5 6 7 8 9 10 11 12</array>
+          <array dataType="xsd:double" size="12" dictRef="q:DE.DX-1">0.0027427 -0.0056068 -0.0 0.0056068 -0.0027427 0.0 -0.0 -0.0091398 -0.0076314 -0.0 0.0076314 0.0091398</array>
+          <array dataType="xsd:double" size="12" dictRef="q:DE.DY-1">0.0 0.0 -0.0 -0.0 0.0 0.0 -0.0 0.0 -0.0 -0.0 -0.0 0.0</array>
+          <array dataType="xsd:double" size="12" dictRef="q:DE.DZ-1">0.0019001 -0.0016705 7.585E-4 -0.0016705 0.0019001 0.0237547 -0.0109881 0.0030929 -0.0054735 -0.0092229 -0.0054735 0.0030929</array>
+        </list>
+      </property>
+      <property dictRef="q:max.gradient">
+        <scalar dataType="xsd:double" units="nonSi:hartree.bohr-1">0.02375</scalar>
+      </property>
+      <property dictRef="q:rms.gradient">
+        <scalar dataType="xsd:double" units="nonSi:hartree.bohr-1">0.005831</scalar>
+      </property>
+    </module>
+  </comment>
+
+</template>

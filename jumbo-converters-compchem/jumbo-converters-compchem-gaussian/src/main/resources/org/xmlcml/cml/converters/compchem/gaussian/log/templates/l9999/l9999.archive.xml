@@ -1,7 +1,8 @@
 <template id="l9999.archive" name="Gaussian archive" repeat="*"
-    pattern="\s*1\\1\\.*" endPattern=".*@\s*" endOffset="1"
-    xmlns:xi="http://www.w3.org/2001/XInclude"
-    >
+    pattern="\s*1\\1\\.*"
+    pattern2="\s*1\|1\|.*" 
+    endPattern=".*@\s*" endOffset="1"
+    xmlns:xi="http://www.w3.org/2001/XInclude">
     
   <comment class="example.input" id="l9999.archive">
  1\1\GINC-DEEPTHOUGHT\Freq\RB3LYP\6-31G(d)\C1H4\WWW-DATA\20-Nov-2006\0\
@@ -66,59 +67,358 @@
  .598e-09\RMSF=6.166e-04\Dipole=0.,0.,-0.0014405\Quadrupole=0.3811032,0
  .3811032,-0.7622064,0.,0.,0.\PG=C03V [C3(C1),3SGV(H1)]\\@
   </comment>
+
+  <comment class="example.input" id="l9999.archive.3">
+ 1\1\GINC-CL039\FOpt\RB3LYP\6-31G(d)\C1H4O1\OSTUEKER\01-Feb-2016\1\\#N 
+ B3LYP/6-31G(d) OPT=Z-Matrix\\CH3-OH B3LYP/6-31G(d)\\0,1\C\O,1,OC1\H,1,
+ CH2,2,A1\H,1,CH3,3,A2,2,T1,0\H,1,CH4,4,A3,3,T2,0\H,2,OH1,1,A4,4,T3,0\\
+ OC1=1.41814514\CH2=1.10141494\CH3=1.10144001\CH4=1.09351343\OH1=0.9687
+ 1553\A1=112.72343371\A2=108.3578584\A3=108.05004555\A4=107.70822612\T1
+ =-125.46196522\T2=116.83857153\T3=61.73502188\\Version=AM64L-G09RevD.0
+ 1\State=1-A\HF=-115.7144049\RMSD=6.278e-09\RMSF=1.264e-04\Dipole=0.271
+ 6719,-0.4961831,-0.3514142\Quadrupole=-0.2941556,0.5210199,-0.2268642,
+ -0.6353641,0.7562674,-1.3841767\PG=C01 [X(C1H4O1)]\\@
+  </comment>
+
+  <comment class="example.input" id="l9999.archive.4">
+ 1\1\GINC-QUANTUM\Freq\RB3LYP\6-31G(d)\C1H4O1\RDJ3\07-Apr-1999\1\\#N GE
+ OM=ALLCHECK GUESS=TCHECK RB3LYP/6-31G(D) FREQ\\methanol CH3OH casno=67
+ 561\\0,1\C\O,1,rco\H,1,rh1,2,ah1\H,1,rh2,2,ah2,3,dh,0\H,1,rh2,2,ah2,3,
+ -dh,0\H,2,roh,1,aoh,3,180.,0\\rco=1.41847336\rh1=1.09361976\rh2=1.1014
+ 7076\roh=0.96868828\ah1=106.69076505\ah2=112.72457639\aoh=107.65474501
+ \dh=118.44859594\\Version=IBM-RS6000-G98RevA.6\State=1-A'\HF=-115.7144
+ 072\RMSD=1.408e-09\RMSF=7.916e-05\Dipole=-0.565706,0.,-0.3521908\Dipol
+ eDeriv=0.2938738,0.,-0.0230506,0.,0.4282052,0.,-0.0001637,0.,0.84526,-
+ 0.2245583,0.,0.0441241,0.,-0.5595038,0.,-0.0017546,0.,-0.9155653,-0.13
+ 63157,0.,0.0702392,0.,0.0643765,0.,0.0428804,0.,0.0052138,-0.0087263,-
+ 0.0968186,-0.064606,-0.0910043,-0.1503827,-0.0978693,-0.0227174,-0.072
+ 7822,-0.0960426,-0.0087263,0.0968186,-0.064606,0.0910043,-0.1503827,0.
+ 0978693,-0.0227174,0.0727822,-0.0960426,0.0844531,0.,0.0378991,0.,0.36
+ 76874,0.,0.0044724,0.0000002,0.257177\Polar=16.1743189,0.0000004,14.00
+ 57022,-1.0838251,0.0000003,16.9434332\PG=CS [SG(C1H2O1),X(H2)]\NImag=0
+ \\0.61243817,0.,0.56200221,-0.01126074,0.,0.48520316,-0.09589866,0.,0.
+ 02488210,0.54374531,0.,-0.06300243,0.,0.,0.04636701,-0.02510973,0.,-0.
+ 24542387,-0.12442288,0.,0.41149170,-0.30504784,0.,0.06780913,0.0039940
+ 3,0.,0.00477342,0.32342923,0.,-0.05367524,0.,0.,0.00177295,0.,0.,0.048
+ 90891,0.05545895,0.,-0.06379901,0.04002567,0.,-0.02268207,-0.07579575,
+ 0.,0.08462678,-0.10495509,-0.08946955,-0.03586909,0.00540604,0.0020696
+ 5,-0.00222984,-0.01259161,-0.02764517,-0.01037771,0.10342069,-0.090527
+ 15,-0.22216157,-0.06551992,0.00314702,0.00920029,-0.00561902,0.0005167
+ 9,0.00117202,0.00124479,0.10008647,0.23423639,-0.03336730,-0.06418558,
+ -0.07737804,-0.01581824,-0.02872320,-0.03298654,0.00229001,0.00709918,
+ 0.00501955,0.04331449,0.07828905,0.09648231,-0.10495509,0.08946955,-0.
+ 03586909,0.00540604,-0.00206966,-0.00222984,-0.01259161,0.02764517,-0.
+ 01037771,0.00790635,-0.01343459,0.00514388,0.10342069,0.09052715,-0.22
+ 216158,0.06551991,-0.00314702,0.00920029,0.00561902,-0.00051679,0.0011
+ 7202,-0.00124479,0.01343459,-0.02273834,0.00763061,-0.10008647,0.23423
+ 639,-0.03336730,0.06418558,-0.07737804,-0.01581825,0.02872320,-0.03298
+ 654,0.00229001,-0.00709918,0.00501955,0.00514388,-0.00763061,0.0072318
+ 9,0.04331449,-0.07828905,0.09648231,-0.00158151,0.,-0.00969230,-0.4626
+ 5276,0.,0.14921888,0.00280780,0.,0.00106653,0.00081362,0.00021146,-0.0
+ 0156283,0.00081362,-0.00021146,-0.00156283,0.45979923,0.,-0.00100139,0
+ .,0.,-0.00353810,0.,0.,0.00064933,0.,0.00152400,0.00029121,-0.00011005
+ ,-0.00152400,0.00029121,0.00011005,0.,0.00330774,0.04764615,0.,-0.0212
+ 2422,0.09115159,0.,-0.07741267,-0.00136684,0.,-0.00818480,0.00001828,-
+ 0.00076429,0.00163083,0.00001828,0.00076430,0.00163083,-0.13746745,0.,
+ 0.10356003\\-0.00008664,0.,0.00024139,0.00004411,0.,-0.00005782,0.0001
+ 1530,0.,-0.00003406,-0.00003833,-0.00008393,-0.00007141,-0.00003833,0.
+ 00008393,-0.00007141,0.00000388,0.,-0.00000669\\\@
+  </comment>
+
+  <comment class="example.input" id="l9999.archive.5">
+ 1\1\GINC-QUANTUM\FOpt\RB3LYP\6-31G(d)\C1H4O1\RDJ3\07-Apr-1999\1\\#B3LY
+ P/6-31G* OPT=Z-MATRIX FREQ\\methanol CH3OH casno=67561\\0,1\C\O,1,rco\
+ H,1,rh1,2,ah1\H,1,rh2,2,ah2,3,dh,0\H,1,rh2,2,ah2,3,-dh,0\H,2,roh,1,aoh
+ ,3,180.,0\\rco=1.41847336\rh1=1.09361976\rh2=1.10147076\roh=0.96868828
+ \ah1=106.69076505\ah2=112.72457639\aoh=107.65474501\dh=118.44859594\\V
+ ersion=IBM-RS6000-G98RevA.6\State=1-A'\HF=-115.7144072\RMSD=5.682e-09\
+ RMSF=7.916e-05\Dipole=-0.5657059,0.,-0.3521908\PG=CS [SG(C1H2O1),X(H2)
+ ]\\@
+  </comment>
+
+  <comment class="example.input" id="l9999.archive.windows">
+ 1|1|UNPC-UNK|FOpt|RB3LYP|6-31G(d)|C2H4O2|PCUSER|29-Jan-2005|1||#B3LYP/
+ 6-31G* OPT=Z-MATRIX FREQ INTEGRAL(GRID=ULTRAFINE)||acetic acid CH3COOH
+  casno=64197 method=68 basis=1||0,1|C|C,1,rcc|O,2,rco,1,aco|H,1,rh1,2,
+ ah1,3,0.,0|H,1,rh2,2,ah2,3,dh2,0|H,1,rh2,2,ah2,3,-dh2,0|O,2,ro,1,ao,3,
+ 180.,0|H,7,roh,2,aoh,1,180.,0||rcc=1.50818679|rco=1.21030551|rh1=1.090
+ 12415|rh2=1.09497984|ro=1.35843679|roh=0.97595845|aco=126.1656065|ah1=
+ 109.47615686|ah2=109.99518917|ao=111.35847013|aoh=105.80116158|dh2=120
+ .98017255||Version=x86-Win32-G03RevB.05|State=1-A'|HF=-229.0817864|RMS
+ D=6.070e-009|RMSF=1.649e-004|Dipole=-0.5357094,0.,-0.3149367|PG=CS [SG
+ (C2H2O2),X(H2)]||@
+  </comment>
+
+
+  <templateList>
+    <template id="l9999.toplevel.linux"
+              pattern="\s*1\\1\\.*" 
+              endPattern=".*@\s*" endOffset="1">
+      <!--  make a list of the records -->
+      <record repeat="*" id="ginc">\s{X,g:ginc1}</record>
+
+
+      <transform process="createString" xpath="./cml:list/cml:scalar"/>
+      <transform process="split" xpath="./cml:list/cml:scalar" splitter="\\\\" dictRef="g:archive" />
+      <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[1]" value="g:archive1" />
+      <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[2]" value="cc:keywords" />
+      <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[3]" value="cc:title" />
+      <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[4]" value="cc:molecule"/>
+      <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[contains(text(),'Version')]" value="g:archive.namevalue"/>
+      
+      <transform process="delete" xpath="./cml:list/cml:list/cml:scalar[contains(.,'@')]"/>
+
+      <transform process="split" xpath="./cml:list/cml:list/cml:scalar" splitter="\\"/>
+      <transform process="split" xpath="./cml:list/cml:list/cml:scalar[@dictRef='cc:keywords']" dictRef="g:keyword"/>
+    </template>
+    <template id="l9999.toplevel.windows"
+              pattern="\s*1\|1\|.*" 
+              endPattern=".*@\s*" endOffset="1">
+      <!--  make a list of the records -->
+      <record repeat="*" id="ginc">\s{X,g:ginc1}</record>
+
+      <transform process="createString" xpath="./cml:list/cml:scalar"/>
+      <transform process="split" xpath="./cml:list/cml:scalar" splitter="\|\|" dictRef="g:archive" />
+      <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[1]" value="g:archive1" />
+      <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[2]" value="cc:keywords" />
+      <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[3]" value="cc:title" />
+      <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[4]" value="cc:molecule"/>
+      <transform process="addDictRef" xpath="./cml:list/cml:list/cml:scalar[contains(text(),'Version')]" value="g:archive.namevalue"/>
+      
+      <transform process="delete" xpath="./cml:list/cml:list/cml:scalar[contains(.,'@')]"/>
+
+      <transform process="split" xpath="./cml:list/cml:list/cml:scalar" splitter="\|"/>
+      <transform process="split" xpath="./cml:list/cml:list/cml:scalar[@dictRef='cc:keywords']" dictRef="g:keyword"/>
+    </template>
+  </templateList>
+
+  <transform process="pullup" xpath="./cml:module[@cmlx:templateRef='l9999.toplevel.linux' or @cmlx:templateRef='l9999.toplevel.windows']/cml:*" />
   
-  <!--  make a list of the records -->
-  <record repeat="*" id="ginc">\s{X,g:ginc1}</record>
-  
-  <xi:include href="l9999.archive.toplevel.xml"/>
+  <!-- <xi:include href="l9999.archive.toplevel.xml"/> -->
 <!-- first line --> 
   <xi:include href="l9999.archive.line1.xml"/>
  
 <!--  additional lines -->  
-  <transform process="createArray" xpath=".//cml:scalar[@dictRef='g:archive']" splitter="," from="." 
-      dictRef="g:forces" dataType="xsd:double"/>
+  <transform process="createArray" xpath=".//cml:scalar[@dictRef='g:archive']" splitter="," from="." dictRef="g:forces" dataType="xsd:double"/>
   
   <xi:include href="l9999.molecule.xml"/>  
-  <xi:include href="l9999.namevalue.xml"/>  
   
+  <xi:include href="l9999.namevalue.xml"/>  
+
   <transform process="createArray" xpath=".//cml:scalar[@dictRef='x:Dipole']" 
     splitter="," from="." dictRef="cc:dipole" dataType="xsd:double"/>
   <transform process="createArray" xpath=".//cml:scalar[@dictRef='x:DipoleDeriv']" 
     splitter="," from="." dictRef="cc:dipolederiv" dataType="xsd:double"/>
   <transform process="createArray" xpath=".//cml:scalar[@dictRef='x:Polar']" 
     delimiter="|" splitter="," from="." dictRef="cc:polarizability" dataType="xsd:double"/>
+
+  <!-- determine cc:wavefunctionType from cc:method -->
+  <transform process="copy" to=".." xpath=".//cml:scalar[@dictRef='cc:method']" />
+  <transform process="setValue"   value="restricted open shell"
+             xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0' and starts-with(./text(),'RO')]"  />
+  <transform process="setValue"   value="closed shell"
+             xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0' and starts-with(./text(),'R')]" />
+  <transform process="setValue"   value="open shell"
+             xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0' and starts-with(./text(),'U')]" />
+  <transform process="addDictRef" value="cc:wavefunctionType"
+             xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0']" />
+
+  <!-- determine cc:dftFunctionalLabel from cc:method -->
+  <transform process="copy"     to=".." 
+             xpath=".//cml:scalar[@dictRef='cc:method' and ( 
+             contains(text(),'HFS')      or 
+             contains(text(),'XAlpha')    or 
+             contains(text(),'HFB')       or 
+             contains(text(),'VSXC')      or 
+             contains(text(),'HCTH')      or 
+             contains(text(),'HCTH93')    or 
+             contains(text(),'HCTH147')   or 
+             contains(text(),'HCTH407')   or 
+             contains(text(),'tHCTH')     or 
+             contains(text(),'M06L')      or 
+             contains(text(),'B97D')      or 
+             contains(text(),'B97D3')     or 
+             contains(text(),'SOGGA11')   or 
+             contains(text(),'M11L')      or 
+             contains(text(),'N12')       or 
+             contains(text(),'MN12L')     or 
+             contains(text(),'B3LYP')     or 
+             contains(text(),'B3P86')     or 
+             contains(text(),'B3PW91')    or 
+             contains(text(),'B1B95')     or 
+             contains(text(),'mPW1PW91')  or 
+             contains(text(),'mPW1LYP')   or 
+             contains(text(),'mPW1PBE')   or 
+             contains(text(),'mPW3PBE')   or 
+             contains(text(),'B98')       or 
+             contains(text(),'B971')      or 
+             contains(text(),'B972')      or 
+             contains(text(),'PBE1PBE')   or 
+             contains(text(),'B1LYP')     or 
+             contains(text(),'O3LYP')     or 
+             contains(text(),'BHandH')    or 
+             contains(text(),'BHandHLYP') or 
+             contains(text(),'BMK')       or 
+             contains(text(),'M06')       or 
+             contains(text(),'M06HF')     or 
+             contains(text(),'M062X')     or 
+             contains(text(),'tHCTHhyb')  or 
+             contains(text(),'APFD')      or 
+             contains(text(),'APF')       or 
+             contains(text(),'SOGGA11X')  or 
+             contains(text(),'PBEh1PBE')  or 
+             contains(text(),'TPSSh')     or 
+             contains(text(),'X3LYP')     or 
+             contains(text(),'HSEH1PBE')  or 
+             contains(text(),'OHSE2PBE')  or 
+             contains(text(),'OHSE1PBE')  or 
+             contains(text(),'wB97XD')    or 
+             contains(text(),'wB97')      or 
+             contains(text(),'wB97X')     or 
+             contains(text(),'LC-wPBE')   or 
+             contains(text(),'CAM-B3LYP') or 
+             contains(text(),'HISSbPBE')  or 
+             contains(text(),'M11')       or 
+             contains(text(),'N12SX')     or 
+             contains(text(),'MN12SX'))]" />
+
+  <transform process="setValue" value="$substring(.,1)" 
+             xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0' and (starts-with(./text(),'R') or starts-with(./text(),'U'))]" />
+  <transform process="setValue" value="$substring(.,2)" 
+             xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0' and starts-with(./text(),'RO')]" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='cc:method' and @id='copy.0']" value="cc:dftFunctionalLabel" />
+
+  <!-- set cc:method to DFT if it contains a dft functional label -->
+  <transform process="setValue"    value="DFT" 
+             xpath=".//cml:scalar[@dictRef='cc:method' and ( 
+             contains(text(),'HFS')      or 
+             contains(text(),'XAlpha')    or 
+             contains(text(),'HFB')       or 
+             contains(text(),'VSXC')      or 
+             contains(text(),'HCTH')      or 
+             contains(text(),'HCTH93')    or 
+             contains(text(),'HCTH147')   or 
+             contains(text(),'HCTH407')   or 
+             contains(text(),'tHCTH')     or 
+             contains(text(),'M06L')      or 
+             contains(text(),'B97D')      or 
+             contains(text(),'B97D3')     or 
+             contains(text(),'SOGGA11')   or 
+             contains(text(),'M11L')      or 
+             contains(text(),'N12')       or 
+             contains(text(),'MN12L')     or 
+             contains(text(),'B3LYP')     or 
+             contains(text(),'B3P86')     or 
+             contains(text(),'B3PW91')    or 
+             contains(text(),'B1B95')     or 
+             contains(text(),'mPW1PW91')  or 
+             contains(text(),'mPW1LYP')   or 
+             contains(text(),'mPW1PBE')   or 
+             contains(text(),'mPW3PBE')   or 
+             contains(text(),'B98')       or 
+             contains(text(),'B971')      or 
+             contains(text(),'B972')      or 
+             contains(text(),'PBE1PBE')   or 
+             contains(text(),'B1LYP')     or 
+             contains(text(),'O3LYP')     or 
+             contains(text(),'BHandH')    or 
+             contains(text(),'BHandHLYP') or 
+             contains(text(),'BMK')       or 
+             contains(text(),'M06')       or 
+             contains(text(),'M06HF')     or 
+             contains(text(),'M062X')     or 
+             contains(text(),'tHCTHhyb')  or 
+             contains(text(),'APFD')      or 
+             contains(text(),'APF')       or 
+             contains(text(),'SOGGA11X')  or 
+             contains(text(),'PBEh1PBE')  or 
+             contains(text(),'TPSSh')     or 
+             contains(text(),'X3LYP')     or 
+             contains(text(),'HSEH1PBE')  or 
+             contains(text(),'OHSE2PBE')  or 
+             contains(text(),'OHSE1PBE')  or 
+             contains(text(),'wB97XD')    or 
+             contains(text(),'wB97')      or 
+             contains(text(),'wB97X')     or 
+             contains(text(),'LC-wPBE')   or 
+             contains(text(),'CAM-B3LYP') or 
+             contains(text(),'HISSbPBE')  or 
+             contains(text(),'M11')       or 
+             contains(text(),'N12SX')     or 
+             contains(text(),'MN12SX'))]" />
+
+
+  <!-- determine cc:task from g:operation -->
+  <transform process="copy" xpath=".//cml:scalar[@dictRef='g:operation']" to=".." />
+  <transform process="setValue" value="geometry_optimization"
+             xpath=".//cml:scalar[@dictRef='g:operation' and @id='copy.0' and (contains(text(),'FOpt') or contains(text(),'Opt'))]" />
+  <transform process="setValue" value="frequency"
+             xpath=".//cml:scalar[@dictRef='g:operation' and @id='copy.0' and contains(text(),'Freq')]" />
+  <transform process="setValue" value="energy"
+             xpath=".//cml:scalar[@dictRef='g:operation' and @id='copy.0' and contains(text(),'SP')]" />
+  <transform process="setValue" value="gradient"
+             xpath=".//cml:scalar[@dictRef='g:operation' and @id='copy.0' and contains(text(),'Force')]" />
+  <transform process="addDictRef" xpath=".//cml:scalar[@dictRef='g:operation' and @id='copy.0']" value="cc:task" />
+
      
   <!-- tidy -->
   <transform process="delete" xpath=".//*[not(self::cml:property)]/cml:scalar[not(@dictRef)]"/>
   <transform process="delete" xpath=".//cml:scalar[@dictRef='cc:atomicNumber']"/>
+
+  <transform process="pullup" xpath=".//cml:list[@dictRef='g:keyword']/cml:scalar" />
+  <transform process="pullup" xpath=".//cml:list[@dictRef='g:archive1']/cml:scalar" />
+  <transform process="pullup" xpath=".//cml:list[@dictRef='g:archive1']/cml:formula" />
+  <transform process="pullup" xpath=".//cml:list[@dictRef='g:archive.namevalue']/cml:scalar" />  
+  <transform process="pullup" xpath=".//cml:list[@dictRef='g:archive.namevalue']/cml:array" />
+  <transform process="pullupSingleton" xpath=".//cml:list[@cmlx:templateRef='ginc']" />
+  <transform process="pullup" xpath=".//cml:list[@dictRef='g:archive']/cml:scalar" />
+  <transform process="pullup" xpath=".//cml:list[@dictRef='g:archive']/cml:array" />
+  <transform process="pullup" xpath=".//cml:list[@dictRef='g:archive']/cml:formula" />
   
-  <transform process="pullup" xpath=".//cml:scalar[@dictRef] | .//cml:array[@dictRef] | .//cml:formula" repeat="4"/>
+  <!-- 
+  <transform process="pullup" xpath=".//cml:scalar[@dictRef] | .//cml:array[@dictRef and @dictRef!='g:forces'] | .//cml:formula" repeat="4" />
+
+  <transform process="pullup" xpath=".//cml:array[@dictRef='g:forces']" /> -->
  
   <transform process="addDictRef" xpath="./cml:molecule/cml:formula" value="cc:formula.calc"/>
   <transform process="addDictRef" xpath="./cml:formula" value="cc:formula.user"/>
   <transform process="move" xpath=".//cml:formula[@dictRef='cc:formula.user']" to=".//cml:molecule"/>
   
   <transform process="addDictRef" xpath=".//cml:*[@dictRef='g:forces' and preceding-sibling::cml:*[@dictRef='g:forces']]"
-    value="cc:forces"/>
-  <transform process="addDictRef" xpath=".//cml:*[@dictRef='g:forces']" value="cc:forceConstants"/>
+             value="cc:gradients"/>
+  <transform process="addDictRef" xpath=".//cml:*[@dictRef='g:forces']" value="cc:forceConstantMatrix"/>
+
+  <transform process="addAttribute" xpath=".//cml:array[@dictRef='cc:forceConstantMatrix']" name="type" value="lowerTriangle" />
+
+  <transform process="addDictRef" xpath=".//cml:array[@size='3']" value="cc:dipoleMomentVector" />
 
   <xi:include href="l9999.archive.addUnits.xml"/>  
   
   <xi:include href="l9999.archive.delete.xml"/>  
   
+  <transform process="move" xpath=".//cml:array[@dictRef='cc:dipoleMomentVector']" to="./cml:molecule[@id='mol9999']" />
+  <transform process="createWrapperProperty" xpath=".//cml:molecule[@id='mol9999']/cml:array[@dictRef='cc:dipoleMomentVector']" />
+
   <!--  delete empty lists -->
+ <transform process="delete" xpath=".//cml:map[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:molecule[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:module[count(*)=0]"/>
+ <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
  <transform process="delete" xpath=".//cml:list[count(*)=0]"/>
   
   <comment class="example.output" id="l9999.archive">
     <module cmlx:templateRef="l9999.archive" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <scalar dataType="xsd:string" dictRef="cc:hostname">GINC-DEEPTHOUGHT</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:hostName">GINC-DEEPTHOUGHT</scalar>
       <scalar dataType="xsd:string" dictRef="g:operation">Freq</scalar>
-      <scalar dataType="xsd:string" dictRef="cc:method">RB3LYP</scalar>
-      <scalar dataType="xsd:string" dictRef="cc:basis">6-31G(d)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:method">DFT</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:basisSetLabel">6-31G(d)</scalar>
       <scalar dataType="xsd:string" dictRef="cc:jobname">WWW-DATA</scalar>
-      <scalar dataType="xsd:date" dictRef="cc:date">2006-11-20T00:00:00Z</scalar>
+      <scalar dataType="xsd:date" dictRef="cc:runDate">2006-11-20T00:00:00Z</scalar>
       <scalar dataType="xsd:string" dictRef="g:zmat">0</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:wavefunctionType">closed shell</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:dftFunctionalLabel">B3LYP</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:task">frequency</scalar>
       <scalar dataType="xsd:string" dictRef="g:keyword">#N</scalar>
       <scalar dataType="xsd:string" dictRef="g:keyword">GEOM=ALLCHECK</scalar>
       <scalar dataType="xsd:string" dictRef="g:keyword">GUESS=READ</scalar>
@@ -127,18 +427,17 @@
       <scalar dataType="xsd:string" dictRef="g:keyword">RB3LYP/6-31G(D)</scalar>
       <scalar dataType="xsd:string" dictRef="g:keyword">FREQ</scalar>
       <scalar dataType="xsd:string" dictRef="cc:title">CH4</scalar>
-      <scalar dataType="xsd:string" dictRef="cc:version">x86-Linux-G03RevB.04</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:programVersion">x86-Linux-G03RevB.04</scalar>
       <scalar dataType="xsd:string" dictRef="cc:electronicstate">1-A1</scalar>
-      <scalar dataType="xsd:double" dictRef="cc:hfenergy" units="nonsi:hartree">-40.5183892</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:Energy_total" units="nonsi:hartree">-40.5183892</scalar>
       <scalar dataType="xsd:double" dictRef="cc:rmsd" units="nonsi:unknown">8.723E-11</scalar>
       <scalar dataType="xsd:double" dictRef="cc:rmsf" units="nonsi:unknown">8.224E-8</scalar>
-      <array dataType="xsd:double" size="3" dictRef="cc:dipole" units="nonsi:debye">0.0 0.0 0.0</array>
+      <scalar dataType="xsd:string" dictRef="cc:pointGroup">TD [O(C1),4C3(H1)]</scalar>
       <array dataType="xsd:double" size="45" dictRef="cc:dipolederiv" units="nonsi:unknown">7.872E-4 0.0 0.0 0.0 7.871E-4 0.0 0.0 0.0 7.871E-4 0.0733391 0.0 0.0 0.0 0.0733391 0.0 0.0 0.0 -0.1472685 -0.1227565 0.0 0.0693303 0.0 0.0733391 0.0 0.0693303 0.0 0.0488271 0.0243152 -0.0849119 -0.0346651 -0.0849119 -0.0737327 -0.0600418 -0.0346651 -0.0600418 0.0488271 0.0243151 0.0849119 -0.0346652 0.0849119 -0.0737326 0.0600418 -0.0346652 0.0600418 0.0488271</array>
       <array dataType="xsd:double" size="6" dictRef="cc:polarizability" units="nonsi:unknown">12.3528403 0.0 12.3528403 0.0 0.0 12.3528403</array>
-      <scalar dataType="xsd:string" dictRef="cc:pointgroup">TD [O(C1),4C3(H1)]</scalar>
-      <array dataType="xsd:double" size="120" dictRef="cc:forceConstants">0.55936081 0.0 0.55936081 0.0 0.0 0.55936081 -0.0482856 0.0 -3.0E-8 0.04683066 0.0 -0.0482856 -5.0E-8 0.0 0.04683066 -3.0E-8 -5.0E-8 -0.32294941 3.0E-8 5.0E-8 0.34888521 -0.29243119 -3.0E-8 0.08631853 0.00266595 0.0 -6.7139E-4 0.31532358 -3.0E-8 -0.0482856 0.0 0.0 -0.00169598 0.0 3.0E-8 0.04683066 0.08631853 0.0 -0.07880382 0.03266432 0.0 -0.00864527 -0.09492661 -1.0E-8 0.08039229 -0.10932197 -0.10571814 -0.04315922 -6.055E-4 0.00188877 3.357E-4 -0.01277916 -0.02604072 -0.01202812 0.11395386 -0.10571814 -0.23139487 -0.07475399 0.00188877 0.00157546 5.8144E-4 0.00117778 0.00157546 0.00158693 0.11626084 0.24820043 -0.04315922 -0.07475399 -0.07880377 -0.01633216 -0.02828814 -0.00864526 0.00463974 0.01121013 0.00352839 0.04746326 0.0822088 0.08039224 -0.10932205 0.10571817 -0.04315928 -6.055E-4 -0.00188877 3.357E-4 -0.01277917 0.02604071 -0.01202812 0.00875278 -0.01360924 0.00738839 0.11395394 0.10571817 -0.23139475 0.07475403 -0.00188877 0.00157547 -5.8144E-4 -0.00117778 0.00157546 -0.00158694 0.01360926 -0.01995648 0.0096232 -0.11626087 0.24820029 -0.04315928 0.07475403 -0.07880382 -0.01633217 0.02828813 -0.00864527 0.00463974 -0.01121013 0.0035284 0.00738838 -0.00962319 0.00352839 0.04746332 -0.08220885 0.0803923</array>
-      <array dataType="xsd:double" size="15" dictRef="cc:forces">0.0 0.0 0.0 0.0 0.0 1.6E-7 1.5E-7 0.0 -5.0E-8 -8.0E-8 -1.3E-7 -5.0E-8 -8.0E-8 1.3E-7 -5.0E-8</array>
-      <molecule id="mol9999">
+      <array dataType="xsd:double" size="120" dictRef="cc:forceConstantMatrix" type="lowerTriangle">0.55936081 0.0 0.55936081 0.0 0.0 0.55936081 -0.0482856 0.0 -3.0E-8 0.04683066 0.0 -0.0482856 -5.0E-8 0.0 0.04683066 -3.0E-8 -5.0E-8 -0.32294941 3.0E-8 5.0E-8 0.34888521 -0.29243119 -3.0E-8 0.08631853 0.00266595 0.0 -6.7139E-4 0.31532358 -3.0E-8 -0.0482856 0.0 0.0 -0.00169598 0.0 3.0E-8 0.04683066 0.08631853 0.0 -0.07880382 0.03266432 0.0 -0.00864527 -0.09492661 -1.0E-8 0.08039229 -0.10932197 -0.10571814 -0.04315922 -6.055E-4 0.00188877 3.357E-4 -0.01277916 -0.02604072 -0.01202812 0.11395386 -0.10571814 -0.23139487 -0.07475399 0.00188877 0.00157546 5.8144E-4 0.00117778 0.00157546 0.00158693 0.11626084 0.24820043 -0.04315922 -0.07475399 -0.07880377 -0.01633216 -0.02828814 -0.00864526 0.00463974 0.01121013 0.00352839 0.04746326 0.0822088 0.08039224 -0.10932205 0.10571817 -0.04315928 -6.055E-4 -0.00188877 3.357E-4 -0.01277917 0.02604071 -0.01202812 0.00875278 -0.01360924 0.00738839 0.11395394 0.10571817 -0.23139475 0.07475403 -0.00188877 0.00157547 -5.8144E-4 -0.00117778 0.00157546 -0.00158694 0.01360926 -0.01995648 0.0096232 -0.11626087 0.24820029 -0.04315928 0.07475403 -0.07880382 -0.01633217 0.02828813 -0.00864527 0.00463974 -0.01121013 0.0035284 0.00738838 -0.00962319 0.00352839 0.04746332 -0.08220885 0.0803923</array>
+      <array dataType="xsd:double" size="15" dictRef="cc:gradients">0.0 0.0 0.0 0.0 0.0 1.6E-7 1.5E-7 0.0 -5.0E-8 -8.0E-8 -1.3E-7 -5.0E-8 -8.0E-8 1.3E-7 -5.0E-8</array>
+      <molecule id="mol9999" spinMultiplicity="1" formalCharge="0">
         <atomArray>
           <atom id="a1" elementType="C" x3="0.0" y3="0.0" z3="0.0"/>
           <atom id="a2" elementType="H" x3="9.95E-8" y3="1.925E-7" z3="1.09326594"/>
@@ -153,7 +452,10 @@
           <bond atomRefs2="a1 a5" id="a1_a5" order="S"/>
         </bondArray>
         <property dictRef="cml:molmass">
-          <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">16.04246</scalar>
+          <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/nonSi/">16.04246</scalar>
+        </property>
+        <property dictRef="cc:dipoleMomentVector">
+          <array dataType="xsd:double" size="3" units="nonSi:elementaryCharge.bohr">0.0 0.0 0.0</array>
         </property>
       </molecule>
     </module>
@@ -161,26 +463,26 @@
   
   <comment class="example.output" id="l9999.archive.1">
     <module cmlx:templateRef="l9999.archive" xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx">
-      <scalar dataType="xsd:string" dictRef="cc:hostname">GINC-NODE14</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:hostName">GINC-NODE14</scalar>
       <scalar dataType="xsd:string" dictRef="g:operation">FOpt</scalar>
       <scalar dataType="xsd:string" dictRef="cc:method">RmPWB95</scalar>
-      <scalar dataType="xsd:string" dictRef="cc:basis">6-31+G(d,p)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:basisSetLabel">6-31+G(d,p)</scalar>
       <scalar dataType="xsd:string" dictRef="cc:jobname">CHS60A</scalar>
-      <scalar dataType="xsd:date" dictRef="cc:date">2006-12-20T00:00:00Z</scalar>
+      <scalar dataType="xsd:date" dictRef="cc:runDate">2006-12-20T00:00:00Z</scalar>
       <scalar dataType="xsd:string" dictRef="g:zmat">0</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:wavefunctionType">closed shell</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:task">geometry_optimization</scalar>
       <scalar dataType="xsd:string" dictRef="g:keyword">#PMPWB95/6-31+G(D,P)</scalar>
       <scalar dataType="xsd:string" dictRef="g:keyword">OPT</scalar>
       <scalar dataType="xsd:string" dictRef="g:keyword">IOP(3/76=0560004400)</scalar>
       <scalar dataType="xsd:string" dictRef="cc:title">C6H6</scalar>
-      <scalar dataType="xsd:string" dictRef="cc:version">x86-Linux-G03RevB.04</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:programVersion">x86-Linux-G03RevB.04</scalar>
       <scalar dataType="xsd:string" dictRef="cc:electronicstate">1-A</scalar>
-      <scalar dataType="xsd:double" dictRef="cc:hfenergy" units="nonsi:hartree">-232.1379445</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:Energy_total" units="nonsi:hartree">-232.1379445</scalar>
       <scalar dataType="xsd:double" dictRef="cc:rmsd" units="nonsi:unknown">3.238E-9</scalar>
       <scalar dataType="xsd:double" dictRef="cc:rmsf" units="nonsi:unknown">6.157E-5</scalar>
-      <array dataType="xsd:double" size="3" dictRef="cc:dipole" units="nonsi:debye">-3.0E-7 -7.1E-6 3.0E-7</array>
-      <scalar dataType="xsd:string" dictRef="cc:pointgroup">C01 [X(C6H6)]</scalar>
-      <scalar dataType="xsd:string" dictRef="g:archive">@</scalar>
-      <molecule id="mol9999">
+      <scalar dataType="xsd:string" dictRef="cc:pointGroup">C01 [X(C6H6)]</scalar>
+      <molecule id="mol9999" spinMultiplicity="1" formalCharge="0">
         <atomArray>
           <atom id="a1" elementType="C" x3="-1.199436146" y3="1.08374E-4" z3="-0.692895244"/>
           <atom id="a2" elementType="C" x3="-1.1997870291" y3="4.94988E-5" z3="0.6923899408"/>
@@ -210,7 +512,10 @@
           <bond atomRefs2="a6 a7" id="a6_a7" order="S"/>
         </bondArray>
         <property dictRef="cml:molmass">
-          <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/si/">78.11184</scalar>
+          <scalar dataType="xsd:double" units="unit:dalton" xmlns:unit="http://www.xml-cml.org/unit/nonSi/">78.11184</scalar>
+        </property>
+        <property dictRef="cc:dipoleMomentVector">
+          <array dataType="xsd:double" size="3" units="nonSi:elementaryCharge.bohr">-3.0E-7 -7.1E-6 3.0E-7</array>
         </property>
       </molecule>
     </module>
@@ -230,12 +535,12 @@
       <scalar dataType="xsd:string">Dipole=0.,0.,-0.0014405</scalar>
       <scalar dataType="xsd:string">Quadrupole=0.3811032,0.3811032,-0.7622064,0.,0.,0.</scalar>
       <scalar dataType="xsd:string">PG=C03V [C3(C1),3SGV(H1)]</scalar>
-      <scalar dataType="xsd:string" dictRef="cc:hostname">GINC-ALTIX</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:hostName">GINC-ALTIX</scalar>
       <scalar dataType="xsd:string" dictRef="g:operation">Force</scalar>
       <scalar dataType="xsd:string" dictRef="cc:method">ROHF</scalar>
-      <scalar dataType="xsd:string" dictRef="cc:basis">4-31G</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:basisSetLabel">4-31G</scalar>
       <scalar dataType="xsd:string" dictRef="cc:jobname">FRISCH</scalar>
-      <scalar dataType="xsd:date" dictRef="cc:date">2010-06-12T00:00:00Z</scalar>
+      <scalar dataType="xsd:date" dictRef="cc:runDate">2010-06-12T00:00:00Z</scalar>
       <scalar dataType="xsd:string" dictRef="g:keyword">#p</scalar>
       <scalar dataType="xsd:string" dictRef="g:keyword">rohf/4-31g</scalar>
       <scalar dataType="xsd:string" dictRef="g:keyword">pop=(reg,npa)</scalar>
@@ -243,7 +548,7 @@
       <scalar dataType="xsd:string" dictRef="g:keyword">force</scalar>
       <scalar dataType="xsd:string" dictRef="g:keyword">scf=conventional</scalar>
       <scalar dataType="xsd:string" dictRef="cc:title">Gaussian Test Job 002(Part 1): METHYL RADICAL,C3V,2-A-1,UHF/4-31G STRUCTURE using L502</scalar>
-      <molecule id="zfinal">
+      <molecule id="zfinal" spinMultiplicity="1" formalCharge="0">
         <zMatrix>
           <length atomRefs2="a2 a1">1.0</length>
           <length atomRefs2="a2 a1">1.07046</length>
@@ -264,7 +569,279 @@
         </atomArray>
         <formula concise="C 1 H 3" dictRef="cc:formula.user"/>
       </molecule>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:wavefunctionType">restricted open shell</scalar>
       <module id="moleculeRoot"/>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="l9999.archive.3">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l9999.archive">
+      <scalar dataType="xsd:string" dictRef="cc:hostName">GINC-CL039</scalar>
+      <scalar dataType="xsd:string" dictRef="g:operation">FOpt</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:method">DFT</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:basisSetLabel">6-31G(d)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:jobname">OSTUEKER</scalar>
+      <scalar dataType="xsd:date" dictRef="cc:runDate">2016-02-01T00:00:00Z</scalar>
+      <scalar dataType="xsd:string" dictRef="g:zmat">1</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:wavefunctionType">closed shell</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:dftFunctionalLabel">B3LYP</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:task">geometry_optimization</scalar>
+      <scalar dataType="xsd:string" dictRef="g:keyword">#NB3LYP/6-31G(d)</scalar>
+      <scalar dataType="xsd:string" dictRef="g:keyword">OPT=Z-Matrix</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:title">CH3-OH B3LYP/6-31G(d)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:programVersion">AM64L-G09RevD.01</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:electronicstate">1-A</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:Energy_total" units="nonsi:hartree">-115.7144049</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:rmsd" units="nonsi:unknown">6.278E-9</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:rmsf" units="nonsi:unknown">1.264E-4</scalar>
+      <scalar dataType="xsd:string" dictRef="x:Quadrupole">-0.2941556,0.5210199,-0.2268642,-0.6353641,0.7562674,-1.3841767</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:pointGroup">C01 [X(C1H4O1)]</scalar>
+      <molecule id="mol9999" spinMultiplicity="1" formalCharge="0">
+        <zMatrix>
+          <length atomRefs2="a1 a2">1.41814514</length>
+          <length atomRefs2="a1 a3">1.10141494</length>
+          <angle atomRefs3="a2 a1 a3">112.72343371</angle>
+          <length atomRefs2="a1 a4">1.10144001</length>
+          <angle atomRefs3="a3 a1 a4">108.3578584</angle>
+          <torsion atomRefs4="a2 a3 a1 a4">-125.46196522</torsion>
+          <length atomRefs2="a1 a5">1.09351343</length>
+          <angle atomRefs3="a4 a1 a5">108.05004555</angle>
+          <torsion atomRefs4="a3 a4 a1 a5">116.83857153</torsion>
+          <length atomRefs2="a2 a6">0.96871553</length>
+          <angle atomRefs3="a1 a2 a6">107.70822612</angle>
+          <torsion atomRefs4="a4 a1 a2 a6">61.73502188</torsion>
+        </zMatrix>
+        <atomArray>
+          <atom elementType="C" id="a1" x3="1.41814514" y3="0.0" z3="0.0" />
+          <atom elementType="O" id="a2" x3="0.0" y3="0.0" z3="0.0" />
+          <atom elementType="H" id="a3" x3="1.8436033639809346" y3="1.0159233089668689" z3="0.0" />
+          <atom elementType="H" id="a4" x3="1.8435609893414606" y3="-0.5542516431262755" z3="0.851467302278665" />
+          <atom elementType="H" id="a5" x3="1.733037548320647" y3="-0.4991838583651846" z3="-0.9205595408880598" />
+          <atom elementType="H" id="a6" x3="-0.29465404209159046" y3="0.44278230639949057" z3="0.8096496789858043" />
+        </atomArray>
+        <property dictRef="cc:dipoleMomentVector">
+          <array dataType="xsd:double" size="3" units="nonSi:elementaryCharge.bohr">0.2716719 -0.4961831 -0.3514142</array>
+        </property>
+      </molecule>
+      <map id="variableMap">
+        <link from="OC1" to="1.41814514" />
+        <link from="CH2" to="1.10141494" />
+        <link from="CH3" to="1.10144001" />
+        <link from="CH4" to="1.09351343" />
+        <link from="OH1" to="0.96871553" />
+        <link from="A1" to="112.72343371" />
+        <link from="A2" to="108.3578584" />
+        <link from="A3" to="108.05004555" />
+        <link from="A4" to="107.70822612" />
+        <link from="T1" to="-125.46196522" />
+        <link from="T2" to="116.83857153" />
+        <link from="T3" to="61.73502188" />
+      </map>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="l9999.archive.4">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l9999.archive">
+      <scalar dataType="xsd:string" dictRef="cc:hostName">GINC-QUANTUM</scalar>
+      <scalar dataType="xsd:string" dictRef="g:operation">Freq</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:method">DFT</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:basisSetLabel">6-31G(d)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:jobname">RDJ3</scalar>
+      <scalar dataType="xsd:date" dictRef="cc:runDate">1999-04-07T00:00:00Z</scalar>
+      <scalar dataType="xsd:string" dictRef="g:zmat">1</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:wavefunctionType">closed shell</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:dftFunctionalLabel">B3LYP</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:task">frequency</scalar>
+      <scalar dataType="xsd:string" dictRef="g:keyword">#N</scalar>
+      <scalar dataType="xsd:string" dictRef="g:keyword">GEOM=ALLCHECK</scalar>
+      <scalar dataType="xsd:string" dictRef="g:keyword">GUESS=TCHECK</scalar>
+      <scalar dataType="xsd:string" dictRef="g:keyword">RB3LYP/6-31G(D)</scalar>
+      <scalar dataType="xsd:string" dictRef="g:keyword">FREQ</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:title">methanol CH3OH casno=67561</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:programVersion">IBM-RS6000-G98RevA.6</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:electronicstate">1-A'</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:Energy_total" units="nonsi:hartree">-115.7144072</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:rmsd" units="nonsi:unknown">1.408E-9</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:rmsf" units="nonsi:unknown">7.916E-5</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:pointGroup">CS [SG(C1H2O1),X(H2)]</scalar>
+      <array dataType="xsd:double" size="54" dictRef="cc:dipolederiv" units="nonsi:unknown">0.2938738 0.0 -0.0230506 0.0 0.4282052 0.0 -1.637E-4 0.0 0.84526 -0.2245583 0.0 0.0441241 0.0 -0.5595038 0.0 -0.0017546 0.0 -0.9155653 -0.1363157 0.0 0.0702392 0.0 0.0643765 0.0 0.0428804 0.0 0.0052138 -0.0087263 -0.0968186 -0.064606 -0.0910043 -0.1503827 -0.0978693 -0.0227174 -0.0727822 -0.0960426 -0.0087263 0.0968186 -0.064606 0.0910043 -0.1503827 0.0978693 -0.0227174 0.0727822 -0.0960426 0.0844531 0.0 0.0378991 0.0 0.3676874 0.0 0.0044724 2.0E-7 0.257177</array>
+      <array dataType="xsd:double" size="6" dictRef="cc:polarizability" units="nonsi:unknown">16.1743189 4.0E-7 14.0057022 -1.0838251 3.0E-7 16.9434332</array>
+      <array dataType="xsd:double" size="171" dictRef="cc:forceConstantMatrix" type="lowerTriangle">0.61243817 0.0 0.56200221 -0.01126074 0.0 0.48520316 -0.09589866 0.0 0.0248821 0.54374531 0.0 -0.06300243 0.0 0.0 0.04636701 -0.02510973 0.0 -0.24542387 -0.12442288 0.0 0.4114917 -0.30504784 0.0 0.06780913 0.00399403 0.0 0.00477342 0.32342923 0.0 -0.05367524 0.0 0.0 0.00177295 0.0 0.0 0.04890891 0.05545895 0.0 -0.06379901 0.04002567 0.0 -0.02268207 -0.07579575 0.0 0.08462678 -0.10495509 -0.08946955 -0.03586909 0.00540604 0.00206965 -0.00222984 -0.01259161 -0.02764517 -0.01037771 0.10342069 -0.09052715 -0.22216157 -0.06551992 0.00314702 0.00920029 -0.00561902 5.1679E-4 0.00117202 0.00124479 0.10008647 0.23423639 -0.0333673 -0.06418558 -0.07737804 -0.01581824 -0.0287232 -0.03298654 0.00229001 0.00709918 0.00501955 0.04331449 0.07828905 0.09648231 -0.10495509 0.08946955 -0.03586909 0.00540604 -0.00206966 -0.00222984 -0.01259161 0.02764517 -0.01037771 0.00790635 -0.01343459 0.00514388 0.10342069 0.09052715 -0.22216158 0.06551991 -0.00314702 0.00920029 0.00561902 -5.1679E-4 0.00117202 -0.00124479 0.01343459 -0.02273834 0.00763061 -0.10008647 0.23423639 -0.0333673 0.06418558 -0.07737804 -0.01581825 0.0287232 -0.03298654 0.00229001 -0.00709918 0.00501955 0.00514388 -0.00763061 0.00723189 0.04331449 -0.07828905 0.09648231 -0.00158151 0.0 -0.0096923 -0.46265276 0.0 0.14921888 0.0028078 0.0 0.00106653 8.1362E-4 2.1146E-4 -0.00156283 8.1362E-4 -2.1146E-4 -0.00156283 0.45979923 0.0 -0.00100139 0.0 0.0 -0.0035381 0.0 0.0 6.4933E-4 0.0 0.001524 2.9121E-4 -1.1005E-4 -0.001524 2.9121E-4 1.1005E-4 0.0 0.00330774 0.04764615 0.0 -0.02122422 0.09115159 0.0 -0.07741267 -0.00136684 0.0 -0.0081848 1.828E-5 -7.6429E-4 0.00163083 1.828E-5 7.643E-4 0.00163083 -0.13746745 0.0 0.10356003</array>
+      <array dataType="xsd:double" size="18" dictRef="cc:gradients">-8.664E-5 0.0 2.4139E-4 4.411E-5 0.0 -5.782E-5 1.153E-4 0.0 -3.406E-5 -3.833E-5 -8.393E-5 -7.141E-5 -3.833E-5 8.393E-5 -7.141E-5 3.88E-6 0.0 -6.69E-6</array>
+      <molecule id="mol9999" spinMultiplicity="1" formalCharge="0">
+        <zMatrix>
+          <length atomRefs2="a1 a2">1.41847336</length>
+          <length atomRefs2="a1 a3">1.09361976</length>
+          <angle atomRefs3="a2 a1 a3">106.69076505</angle>
+          <length atomRefs2="a1 a4">1.10147076</length>
+          <angle atomRefs3="a2 a1 a4">112.72457639</angle>
+          <torsion atomRefs4="a3 a2 a1 a4">118.44859594</torsion>
+          <length atomRefs2="a1 a5">1.10147076</length>
+          <angle atomRefs3="a2 a1 a5">112.72457639</angle>
+          <torsion atomRefs4="a3 a2 a1 a5">-118.44859594</torsion>
+          <length atomRefs2="a2 a6">0.96868828</length>
+          <angle atomRefs3="a1 a2 a6">107.65474501</angle>
+          <torsion atomRefs4="a3 a1 a2 a6">180.0</torsion>
+        </zMatrix>
+        <atomArray>
+          <atom elementType="C" id="a1" x3="1.41847336" y3="0.0" z3="0.0" />
+          <atom elementType="O" id="a2" x3="0.0" y3="0.0" z3="0.0" />
+          <atom elementType="H" id="a3" x3="1.7325676633533145" y3="1.0475442463511762" z3="0.0" />
+          <atom elementType="H" id="a4" x3="1.8439734083535528" y3="-0.48397599312351397" z3="0.8932831477567513" />
+          <atom elementType="H" id="a5" x3="1.8439734083535528" y3="-0.48397599312351397" z3="-0.8932831477567513" />
+          <atom elementType="H" id="a6" x3="-0.2937842735066108" y3="-0.9230643446962683" z3="-1.1304277951393342E-16" />
+        </atomArray>
+        <property dictRef="cc:dipoleMomentVector">
+          <array dataType="xsd:double" size="3" units="nonSi:elementaryCharge.bohr">-0.565706 0.0 -0.3521908</array>
+        </property>
+      </molecule>
+      <map id="variableMap">
+        <link from="rco" to="1.41847336" />
+        <link from="rh1" to="1.09361976" />
+        <link from="rh2" to="1.10147076" />
+        <link from="roh" to="0.96868828" />
+        <link from="ah1" to="106.69076505" />
+        <link from="ah2" to="112.72457639" />
+        <link from="aoh" to="107.65474501" />
+        <link from="dh" to="118.44859594" />
+      </map>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="l9999.archive.5">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l9999.archive">
+      <scalar dataType="xsd:string" dictRef="cc:hostName">GINC-QUANTUM</scalar>
+      <scalar dataType="xsd:string" dictRef="g:operation">FOpt</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:method">DFT</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:basisSetLabel">6-31G(d)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:jobname">RDJ3</scalar>
+      <scalar dataType="xsd:date" dictRef="cc:runDate">1999-04-07T00:00:00Z</scalar>
+      <scalar dataType="xsd:string" dictRef="g:zmat">1</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:wavefunctionType">closed shell</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:dftFunctionalLabel">B3LYP</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:task">geometry_optimization</scalar>
+      <scalar dataType="xsd:string" dictRef="g:keyword">#B3LYP/6-31G*</scalar>
+      <scalar dataType="xsd:string" dictRef="g:keyword">OPT=Z-MATRIX</scalar>
+      <scalar dataType="xsd:string" dictRef="g:keyword">FREQ</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:title">methanol CH3OH casno=67561</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:programVersion">IBM-RS6000-G98RevA.6</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:electronicstate">1-A'</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:Energy_total" units="nonsi:hartree">-115.7144072</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:rmsd" units="nonsi:unknown">5.682E-9</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:rmsf" units="nonsi:unknown">7.916E-5</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:pointGroup">CS [SG(C1H2O1),X(H2)]</scalar>
+      <molecule id="mol9999" spinMultiplicity="1" formalCharge="0">
+        <zMatrix>
+          <length atomRefs2="a1 a2">1.41847336</length>
+          <length atomRefs2="a1 a3">1.09361976</length>
+          <angle atomRefs3="a2 a1 a3">106.69076505</angle>
+          <length atomRefs2="a1 a4">1.10147076</length>
+          <angle atomRefs3="a2 a1 a4">112.72457639</angle>
+          <torsion atomRefs4="a3 a2 a1 a4">118.44859594</torsion>
+          <length atomRefs2="a1 a5">1.10147076</length>
+          <angle atomRefs3="a2 a1 a5">112.72457639</angle>
+          <torsion atomRefs4="a3 a2 a1 a5">-118.44859594</torsion>
+          <length atomRefs2="a2 a6">0.96868828</length>
+          <angle atomRefs3="a1 a2 a6">107.65474501</angle>
+          <torsion atomRefs4="a3 a1 a2 a6">180.0</torsion>
+        </zMatrix>
+        <atomArray>
+          <atom elementType="C" id="a1" x3="1.41847336" y3="0.0" z3="0.0" />
+          <atom elementType="O" id="a2" x3="0.0" y3="0.0" z3="0.0" />
+          <atom elementType="H" id="a3" x3="1.7325676633533145" y3="1.0475442463511762" z3="0.0" />
+          <atom elementType="H" id="a4" x3="1.8439734083535528" y3="-0.48397599312351397" z3="0.8932831477567513" />
+          <atom elementType="H" id="a5" x3="1.8439734083535528" y3="-0.48397599312351397" z3="-0.8932831477567513" />
+          <atom elementType="H" id="a6" x3="-0.2937842735066108" y3="-0.9230643446962683" z3="-1.1304277951393342E-16" />
+        </atomArray>
+        <property dictRef="cc:dipoleMomentVector">
+          <array dataType="xsd:double" size="3" units="nonSi:elementaryCharge.bohr">-0.5657059 0.0 -0.3521908</array>
+        </property>
+      </molecule>
+      <map id="variableMap">
+        <link from="rco" to="1.41847336" />
+        <link from="rh1" to="1.09361976" />
+        <link from="rh2" to="1.10147076" />
+        <link from="roh" to="0.96868828" />
+        <link from="ah1" to="106.69076505" />
+        <link from="ah2" to="112.72457639" />
+        <link from="aoh" to="107.65474501" />
+        <link from="dh" to="118.44859594" />
+      </map>
+    </module>
+  </comment>
+
+  <comment class="example.output" id="l9999.archive.windows">
+    <module xmlns="http://www.xml-cml.org/schema" xmlns:cmlx="http://www.xml-cml.org/schema/cmlx" cmlx:templateRef="l9999.archive">
+      <scalar dataType="xsd:string" dictRef="cc:hostName">UNPC-UNK</scalar>
+      <scalar dataType="xsd:string" dictRef="g:operation">FOpt</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:method">DFT</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:basisSetLabel">6-31G(d)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:jobname">PCUSER</scalar>
+      <scalar dataType="xsd:date" dictRef="cc:runDate">2005-01-29T00:00:00Z</scalar>
+      <scalar dataType="xsd:string" dictRef="g:zmat">1</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:wavefunctionType">closed shell</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:dftFunctionalLabel">B3LYP</scalar>
+      <scalar dataType="xsd:string" id="copy.0" dictRef="cc:task">geometry_optimization</scalar>
+      <scalar dataType="xsd:string" dictRef="g:keyword">#B3LYP/6-31G*</scalar>
+      <scalar dataType="xsd:string" dictRef="g:keyword">OPT=Z-MATRIX</scalar>
+      <scalar dataType="xsd:string" dictRef="g:keyword">FREQ</scalar>
+      <scalar dataType="xsd:string" dictRef="g:keyword">INTEGRAL(GRID=ULTRAFINE)</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:title">acetic acid CH3COOHcasno=64197 method=68 basis=1</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:programVersion">x86-Win32-G03RevB.05</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:electronicstate">1-A'</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:Energy_total" units="nonsi:hartree">-229.0817864</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:rmsd" units="nonsi:unknown">6.07E-9</scalar>
+      <scalar dataType="xsd:double" dictRef="cc:rmsf" units="nonsi:unknown">1.649E-4</scalar>
+      <scalar dataType="xsd:string" dictRef="cc:pointGroup">CS [SG(C2H2O2),X(H2)]</scalar>
+      <molecule id="mol9999" spinMultiplicity="1" formalCharge="0">
+        <zMatrix>
+          <length atomRefs2="a1 a2">1.50818679</length>
+          <length atomRefs2="a2 a3">1.21030551</length>
+          <angle atomRefs3="a1 a2 a3">126.1656065</angle>
+          <length atomRefs2="a1 a4">1.09012415</length>
+          <angle atomRefs3="a2 a1 a4">109.47615686</angle>
+          <torsion atomRefs4="a3 a2 a1 a4">0.0</torsion>
+          <length atomRefs2="a1 a5">1.09497984</length>
+          <angle atomRefs3="a2 a1 a5">109.99518917</angle>
+          <torsion atomRefs4="a3 a2 a1 a5">120.98017255</torsion>
+          <length atomRefs2="a1 a6">1.09497984</length>
+          <angle atomRefs3="a2 a1 a6">109.99518917</angle>
+          <torsion atomRefs4="a3 a2 a1 a6">-120.98017255</torsion>
+          <length atomRefs2="a2 a7">1.35843679</length>
+          <angle atomRefs3="a1 a2 a7">111.35847013</angle>
+          <torsion atomRefs4="a3 a1 a2 a7">180.0</torsion>
+          <length atomRefs2="a7 a8">0.97595845</length>
+          <angle atomRefs3="a2 a7 a8">105.80116158</angle>
+          <torsion atomRefs4="a1 a2 a7 a8">180.0</torsion>
+        </zMatrix>
+        <atomArray>
+          <atom elementType="C" id="a1" x3="0.0" y3="0.0" z3="0.0" />
+          <atom elementType="C" id="a2" x3="1.50818679" y3="0.0" z3="0.0" />
+          <atom elementType="O" id="a3" x3="2.2224136806113686" y3="0.9770974241415112" z3="0.0" />
+          <atom elementType="H" id="a4" x3="-0.36346326195253803" y3="1.0277475952898374" z3="0.0" />
+          <atom elementType="H" id="a5" x3="-0.37441876535444335" y3="-0.5296565223523229" z3="-0.882187852153113" />
+          <atom elementType="H" id="a6" x3="-0.37441876535444335" y3="-0.5296565223523229" z3="0.882187852153113" />
+          <atom elementType="O" id="a7" x3="2.0029319529487295" y3="-1.2651394137265424" z3="1.5493489334953692E-16" />
+          <atom elementType="H" id="a8" x3="2.9743032355882275" y3="-1.1706263067534934" z3="2.835631855569184E-17" />
+        </atomArray>
+        <property dictRef="cc:dipoleMomentVector">
+          <array dataType="xsd:double" size="3" units="nonSi:elementaryCharge.bohr">-0.5357094 0.0 -0.3149367</array>
+        </property>
+      </molecule>
+      <map id="variableMap">
+        <link from="rcc" to="1.50818679" />
+        <link from="rco" to="1.21030551" />
+        <link from="rh1" to="1.09012415" />
+        <link from="rh2" to="1.09497984" />
+        <link from="ro" to="1.35843679" />
+        <link from="roh" to="0.97595845" />
+        <link from="aco" to="126.1656065" />
+        <link from="ah1" to="109.47615686" />
+        <link from="ah2" to="109.99518917" />
+        <link from="ao" to="111.35847013" />
+        <link from="aoh" to="105.80116158" />
+        <link from="dh2" to="120.98017255" />
+      </map>
     </module>
   </comment>
   

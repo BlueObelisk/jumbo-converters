@@ -17,11 +17,11 @@
 
   <record repeat="2"/>
   <record id="iter" 
-  repeat="*">\s*{I,compchem:iterationIndex}\s+{F,compchem:totalEnergy}\s+{E,n:gnorm}\s+{E,n:gmax}\s+{F,compchem:wallTime}</record>
+  repeat="*">\s*{I,compchem:iterationIndex}\s+{F,compchem:Energy_total}\s+{E,n:gnorm}\s+{E,n:gmax}\s+{F,compchem:wallTime}</record>
   
     <!-- Add Units -->
   <transform process="addUnits"
-  xpath=".//cml:scalar[@dictRef='compchem:totalEnergy']"
+  xpath=".//cml:scalar[@dictRef='compchem:Energy_total']"
   value="nonsi:hartree"
   />
   <transform process="addUnits"
@@ -117,7 +117,7 @@
 <scalar dataType="xsd:double" dictRef="n:gmax">0.161</scalar>
 <module id="finalization" dictRef="compchem:finalization">
 <propertyList>
-<property dictRef="compchem:totalEnergy">
+<property dictRef="compchem:Energy_total">
 <scalar dataType="xsd:double" units="nonsi:hartree">-94.6569803631</scalar>
 </property>
 <property dictRef="compchem:wallTime">
@@ -144,7 +144,7 @@
 <scalar dataType="xsd:double" dictRef="n:gmax">0.096</scalar>
 <module id="finalization" dictRef="compchem:finalization">
 <propertyList>
-<property dictRef="compchem:totalEnergy">
+<property dictRef="compchem:Energy_total">
 <scalar dataType="xsd:double" units="nonsi:hartree">-94.6769427089</scalar>
 </property>
 <property dictRef="compchem:wallTime">
@@ -171,7 +171,7 @@
 <scalar dataType="xsd:double" dictRef="n:gmax">0.00402</scalar>
 <module id="finalization" dictRef="compchem:finalization">
 <propertyList>
-<property dictRef="compchem:totalEnergy">
+<property dictRef="compchem:Energy_total">
 <scalar dataType="xsd:double" units="nonsi:hartree">-94.6794323074</scalar>
 </property>
 <property dictRef="compchem:wallTime">
@@ -198,7 +198,7 @@
 <scalar dataType="xsd:double" dictRef="n:gmax">1.69E-5</scalar>
 <module id="finalization" dictRef="compchem:finalization">
 <propertyList>
-<property dictRef="compchem:totalEnergy">
+<property dictRef="compchem:Energy_total">
 <scalar dataType="xsd:double" units="nonsi:hartree">-94.6794449267</scalar>
 </property>
 <property dictRef="compchem:wallTime">

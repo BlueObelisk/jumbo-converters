@@ -12,19 +12,19 @@
   <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='jobcpu']/cml:scalar[@dictRef='cc:program']" 
     to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/>
   <transform process="moveRelative" 
-    xpath=".//cml:module[@cmlx:templateRef='job']/cml:scalar[@dictRef='cc:hostname'][last()]" 
+    xpath=".//cml:module[@cmlx:templateRef='job']//cml:scalar[@dictRef='cc:hostName'][last()]" 
     to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
   <transform process="moveRelative" 
-      xpath=".//cml:module[@cmlx:templateRef='job']/cml:scalar[@dictRef='cc:jobname'][last()]" 
+      xpath=".//cml:module[@cmlx:templateRef='job']//cml:scalar[@dictRef='cc:jobname'][last()]" 
       to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
   <transform process="moveRelative" 
-      xpath=".//cml:module[@cmlx:templateRef='job']/cml:scalar[@dictRef='cc:date'][last()]" 
+      xpath=".//cml:module[@cmlx:templateRef='job']//cml:scalar[@dictRef='cc:runDate'][last()]" 
       to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
+  <!-- <transform process="moveRelative" 
+      xpath=".//cml:module[@cmlx:templateRef='job']//cml:scalar[@dictRef='cc:title'][last()]" 
+      to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/>  -->
   <transform process="moveRelative" 
-      xpath=".//cml:module[@cmlx:templateRef='job']/cml:scalar[@dictRef='cc:title'][last()]" 
-      to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
-  <transform process="moveRelative" 
-      xpath=".//cml:module[@cmlx:templateRef='job']/cml:scalar[@dictRef='cc:version'][last()]" 
+      xpath=".//cml:module[@cmlx:templateRef='job']//cml:scalar[@dictRef='cc:programVersion'][last()]" 
       to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
       
 
@@ -35,7 +35,7 @@
   <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l1.end']/cml:scalar[@dictRef='cc:program.date'][last()]" 
       to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
 
-  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l1.end']/cml:scalar[@dictRef='cc:version'][last()]" 
+  <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l1.end']/cml:scalar[@dictRef='cc:programVersion'][last()]" 
       to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 
   <transform process="moveRelative" xpath=".//cml:module[@cmlx:templateRef='l101']/cml:scalar[@dictRef='cc:title'][last()]" 
       to="./ancestor::*[@dictRef='cc:job']/cml:module[@id='environment']/cml:parameterList"/> 

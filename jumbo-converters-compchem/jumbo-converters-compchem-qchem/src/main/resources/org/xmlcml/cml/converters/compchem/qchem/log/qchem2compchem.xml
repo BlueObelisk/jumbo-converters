@@ -1,0 +1,212 @@
+<transformList xmlns:xi="http://www.w3.org/2001/XInclude">
+
+	<!-- MAIN -->
+	<!-- add joblist module -->
+	<transform process="addChild"
+	           xpath="."
+	           elementName="cml:module"
+	           id="jobList1"
+	           position="0"
+	           dictRef="cc:jobList" />
+
+  <!-- add id to all modules -->
+  <transform process="addAttribute"
+             xpath=".//cml:module[@cmlx:templateRef='job']"
+             name="id"
+             value="job" />
+  <transform process="addAttribute"
+             xpath=".//cml:module[@cmlx:templateRef='environment']"
+             name="id"
+             value="environment" />
+  <transform process="addAttribute"
+             xpath=".//cml:module[@cmlx:templateRef='initialization']"
+             name="id"
+             value="initialization" />
+  <transform process="addAttribute"
+             xpath=".//cml:module[@cmlx:templateRef='calculation']"
+             name="id"
+             value="calculation" />
+  <transform process="addAttribute"
+             xpath=".//cml:module[@cmlx:templateRef='finalization']"
+             name="id"
+             value="finalization" />
+
+	<!-- add dictRef to all modules -->
+  <transform process="addDictRef"
+             xpath=".//cml:module[@cmlx:templateRef='job']" 
+             value="cc:job" />
+  <transform process="addDictRef"
+             xpath=".//cml:module[@cmlx:templateRef='environment']" 
+             value="cc:environment" />
+  <transform process="addDictRef"
+             xpath=".//cml:module[@cmlx:templateRef='initialization']" 
+             value="cc:initialization" />
+  <transform process="addDictRef" 
+             xpath=".//cml:module[@cmlx:templateRef='calculation']" 
+             value="cc:calculation" />
+  <transform process="addDictRef" 
+             xpath=".//cml:module[@cmlx:templateRef='finalization']" 
+             value="cc:finalization" />
+  
+  <!-- move all job modules to jobList module -->
+  <transform process="move" 
+             xpath=".//cml:module[@dictRef='cc:job']"
+             to=".//cml:module[@dictRef='cc:jobList']" />
+
+  <!-- ENVIRONMENT MODULE -->
+  <!-- create parameterlist for storing all parameters-->
+  <transform process="addChild"
+  					 xpath=".//cml:module[@dictRef='cc:environment']"
+  					 elementName="cml:parameterList"
+  					 position="0" />
+
+  <!-- move all parameters to the parameterlist -->
+  <transform process="moveRelative"
+  					 xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:environment']/cml:module/cml:parameter" 
+  					 to="./ancestor::cml:module[@id='environment']/cml:parameterList" />
+
+  <!-- create propertylist for storing all properties -->
+  <transform process="addChild"
+  					 xpath=".//cml:module[@dictRef='cc:environment']"
+  					 elementName="cml:propertyList"
+  					 position="1" />
+
+  <!-- move all properties to the propertylist -->
+  <transform process="moveRelative"
+  					 xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:environment']/cml:module/cml:property"
+  					 to="./ancestor::cml:module[@id='environment']/cml:propertyList" />
+
+  <!-- INITIALIZATION MODULE -->
+  <!-- move init.basis module from calculation to initialization module -->
+  <transform process="moveRelative"
+  					 xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:calculation']/cml:module[@cmlx:templateRef='init.basis'][1]"
+  					 to="./ancestor::cml:module[@id='job']/cml:module[@dictRef='cc:initialization']" />
+
+  <!-- create parameterlist for storing all parameters-->
+  <transform process="addChild"
+  					 xpath=".//cml:module[@dictRef='cc:initialization']"
+  					 elementName="cml:parameterList"
+  					 position="0" />
+
+  <!-- move all parameters to the parameterlist -->
+  <transform process="moveRelative"
+  					 xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:initialization']/cml:module/cml:parameter" 
+  					 to="./ancestor::cml:module[@id='initialization']/cml:parameterList" />
+
+  <!-- copy first standard nuclear orientation module from calculation to initialization module -->
+  <transform process="copy" 
+  					 xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:calculation']/cml:module[@cmlx:templateRef='standard.nuclear.orientation'][1]"
+  					 to="./ancestor::cml:module[@id='job']/cml:module[@dictRef='cc:initialization']" />
+
+  <transform process="copy" 
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:initialization']//cml:parameter[@dictRef='cc:title']"
+             to="./ancestor::cml:module[@dictRef='cc:jobList']/cml:module[@id='job']/cml:module[@dictRef='cc:initialization']/cml:parameterList[not (cml:parameter[@dictRef='cc:title'])]" />
+
+  <!-- pull up the molecule and delete standard nuclear orientation module -->
+  <transform process="pullupSingleton" xpath=".//cml:module[@dictRef='cc:initialization']/cml:module[@cmlx:templateRef='standard.nuclear.orientation']" />
+
+  <!-- add convention attribute to molecule -->
+  <transform process="addAttribute" xpath=".//cml:module[@dictRef='cc:initialization']/cml:molecule" name="convention" value="convention:molecular" />
+
+  <!-- copy cc:charge scalar to initialization module paramterlist -->
+  <transform process="copy" to="./ancestor::cml:module[@id='job']/cml:module[@dictRef='cc:initialization']/cml:parameterList"
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:calculation']/cml:module[@cmlx:templateRef='mulliken.charges'][1]/cml:property[@dictRef='cc:mullikenCharges']/cml:scalar[@dictRef='cc:charge']" />
+
+  <!-- wrap scalar cc:charge -as parameter -->
+  <transform process="createWrapperParameter"
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:initialization']/cml:parameterList/cml:scalar[@dictRef='cc:charge']"/>
+
+  <!-- CALCULATION MODULE -->
+  <!-- first move certain modules to finalization -->
+  <transform process="moveRelative" 
+  					 xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:calculation']/cml:module[@cmlx:templateRef='freq.forceConstantMatrix']" 
+  					 to="./ancestor::cml:module[@id='job']/cml:module[@dictRef='cc:finalization']" />
+
+  <!-- create propertylist for storing all properties -->
+  <transform process="addChild"
+  					 xpath=".//cml:module[@dictRef='cc:calculation']"
+  					 elementName="cml:propertyList"
+  					 position="0" />
+
+  <!-- move all properties to the propertylist -->
+  <transform process="moveRelative"
+  					 xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:calculation']/cml:module/cml:property"
+  					 to="./ancestor::cml:module[@id='calculation']/cml:propertyList" />
+
+  <!-- add convention attribute to molecule -->
+  <transform process="addAttribute" xpath=".//cml:module[@dictRef='cc:calculation']//cml:molecule" name="convention" value="convention:molecular" />
+
+  <!-- FINALIZATION MODULE -->
+  <!-- copy last standard nuclear orientation module from calculation to finalization module -->
+  <transform process="copy" 
+  					 xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:calculation']/cml:module[@cmlx:templateRef='standard.nuclear.orientation'][last()]"
+  					 to="./ancestor::cml:module[@id='job']/cml:module[@dictRef='cc:finalization']" />
+
+  <transform process="copy" 
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:environment']//cml:parameter[@dictRef='cc:program']"
+             to="./ancestor::cml:module[@dictRef='cc:jobList']/cml:module[@id='job']/cml:module[@dictRef='cc:environment']/cml:parameterList[not (cml:parameter[@dictRef='cc:program'])]" />
+
+  <transform process="copy" 
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:environment']//cml:parameter[@dictRef='cc:programVersion']"
+             to="./ancestor::cml:module[@dictRef='cc:jobList']/cml:module[@id='job']/cml:module[@dictRef='cc:environment']/cml:parameterList[not (cml:parameter[@dictRef='cc:programVersion'])]" />
+
+  <!-- pull up the molecule and delete standard nuclear orientation module -->
+  <transform process="pullupSingleton" xpath=".//cml:module[@dictRef='cc:finalization']/cml:module[@cmlx:templateRef='standard.nuclear.orientation']" />
+
+  <!-- add convention attribute to molecule -->
+  <transform process="addAttribute" xpath=".//cml:module[@dictRef='cc:finalization']/cml:molecule" name="convention" value="convention:molecular" />
+
+  <!-- create propertylist for storing all properties -->
+  <transform process="addChild"
+             xpath=".//cml:module[@dictRef='cc:finalization']"
+             elementName="cml:propertyList"
+             position="0" />
+
+  <!-- move all properties of certain modules to the propertylist -->
+  <transform process="moveRelative"
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[contains(@cmlx:templateRef,'orbital') or contains(@cmlx:templateRef,'mulliken')]/cml:property"
+             to="./ancestor::cml:module[@id='finalization']/cml:propertyList" />
+
+  <transform process="addDictRef" value="cc:multipole"
+             xpath=".//cml:module[@id='finalization']/cml:module[@cmlx:templateRef='multipole.moments']" />
+
+  <transform process="moveRelative"
+             xpath=".//cml:module[@id='finalization']/cml:module[@dictRef='cc:multipole']/cml:property[@dictRef='cc:dipoleMoment']"
+             to="./ancestor::cml:module[@id='finalization']/cml:propertyList" />
+             
+  <transform process="copy" 
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:calculation']/cml:propertyList/cml:property[@dictRef='cc:Energy_NucRep'][last()]"
+             to="./ancestor::cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:propertyList" />
+  
+  <transform process="copy" 
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:calculation']/cml:propertyList/cml:property[@dictRef='cc:Energy_total'][last()]"
+             to="./ancestor::cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:propertyList" />
+
+  <transform process="copy" 
+             xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:calculation']/cml:propertyList/cml:property[@dictRef='cc:pointGroup'][last()]"
+             to="./ancestor::cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:propertyList" />
+
+  <!-- move thermochemistry module to vibrational analysis module -->
+  <transform process="moveRelative"
+  					 xpath=".//cml:module[@dictRef='cc:job']/cml:module[@dictRef='cc:finalization']/cml:module[@cmlx:templateRef='thermochemistry']"
+  					 to="./ancestor::cml:module[@cmlx:templateRef='vibrational.analysis']" />
+
+  <!-- WRAP ALL REMAINING UNPARSED TEXT AS UNPARSED -->
+  <transform process="createWrapper" xpath=".//cml:module/text()" elementName="UNPARSED" />
+
+  <!-- add attributes formalCharge and spinMultiplicity to all molecules -->
+  <transform process="addAttribute" xpath=".//cml:molecule" name="formalCharge" 
+             value="$string(//cml:module[@id='initialization']/cml:parameterList/cml:parameter[@dictRef='cc:charge']/cml:scalar)" />
+  <transform process="addAttribute" xpath=".//cml:molecule" name="spinMultiplicity" 
+             value="$string(//cml:module[@id='initialization']/cml:parameterList/cml:parameter[@dictRef='cc:spinMultiplicity']/cml:scalar)" />
+
+  <!-- CLEAN UP -->
+  <transform process="delete" xpath=".//cml:propertyList[count(*)=0]" />
+  <transform process="delete" xpath=".//UNPARSED/cml:array[count(text())=0]" />
+  <transform process="delete" xpath=".//UNPARSED[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:module[count(*)=0]" />
+  <transform process="delete" xpath=".//cml:module[count(*)=0]" />
+
+
+</transformList>    
+ 
