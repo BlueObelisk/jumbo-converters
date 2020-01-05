@@ -11,7 +11,7 @@ import nu.xom.Nodes;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.lensfield.api.LensfieldParameter;
+//import org.lensfield.api.LensfieldParameter;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
@@ -38,10 +38,10 @@ public class CMLTransformMolecule extends AbstractConverter implements HasLensfi
 		LOG.setLevel(Level.INFO);
 	}
 	
-	@LensfieldParameter(name="command", optional=false)
+//	@LensfieldParameter(name="command", optional=false)
 	private String command = "";
 	
-	@LensfieldParameter(name="xpath", optional=true)
+//	@LensfieldParameter(name="xpath", optional=true)
 	private String xpath = ".//cml:molecule";
 
 	private CMLElement cmlElement;

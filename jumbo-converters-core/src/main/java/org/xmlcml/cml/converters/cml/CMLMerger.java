@@ -10,8 +10,8 @@ import nu.xom.ParsingException;
 import nu.xom.Serializer;
 import nu.xom.ValidityException;
 
-import org.lensfield.api.LensfieldInput;
-import org.lensfield.api.LensfieldOutput;
+//import org.lensfield.api.LensfieldInput;
+//import org.lensfield.api.LensfieldOutput;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.element.CMLCml;
 
@@ -22,13 +22,13 @@ import org.xmlcml.cml.element.CMLCml;
  */
 public class CMLMerger {
 
-	@LensfieldInput(name="stream1")
+//	@LensfieldInput(name="stream1")
 	private InputStream stream1;
 	
-	@LensfieldInput(name="stream2")
+//	@LensfieldInput(name="stream2")
 	private InputStream stream2;
 	
-	@LensfieldOutput
+//	@LensfieldOutput
 	private OutputStream output;
 	
 	public void run() throws ValidityException, ParsingException, IOException {

@@ -12,7 +12,7 @@ import nu.xom.ParsingException;
 import nu.xom.ValidityException;
 
 import org.apache.log4j.Logger;
-import org.lensfield.api.LensfieldParameter;
+//import org.lensfield.api.LensfieldParameter;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
@@ -26,7 +26,7 @@ import org.xmlcml.cml.converters.text.Template;
 public class TransformConverter extends AbstractTransformConverter {
 	private static Logger LOG = Logger.getLogger(TransformConverter.class);
 
-	@LensfieldParameter(name="transformer", optional=false)
+//	@LensfieldParameter(name="transformer", optional=false)
 	private String transformer = null;
 
 	public TransformConverter() {

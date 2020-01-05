@@ -7,7 +7,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lensfield.api.LensfieldParameter;
+//import org.lensfield.api.LensfieldParameter;
 import org.xmlcml.cml.converters.CMLCommon;
 import org.xmlcml.cml.converters.compchem.input.BasisSet;
 import org.xmlcml.cml.converters.compchem.input.CML2CompchemInputConverter;
@@ -32,10 +32,10 @@ public class CML2NWChemInputConverter extends CML2CompchemInputConverter  {
 	private CalculationComponents calculationComponents;
 	private List<Parameter> parameterList;
 
-	@LensfieldParameter(name="basis", optional=true)
+//	@LensfieldParameter(name="basis", optional=true)
 	private String basis = BasisSet.DEFAULT;
 
-	@LensfieldParameter(name="method", optional=true)
+//	@LensfieldParameter(name="method", optional=true)
 	private String method = Method.DEFAULT;
 
 	public CML2NWChemInputConverter() {
